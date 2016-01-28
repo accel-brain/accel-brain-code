@@ -201,10 +201,15 @@ class TextMining(metaclass=ABCMeta):
         '''
         seq_list = ["。", "\n"]
         seq = seq_list[counter]
-        sentence_list = [sentence + seq for sentence in data.split(seq) if sentence is not ""]
-        if counter == 0:
-            for i in range(counter):
-                sentence_list = [data for data in self.listup_sentence(sentence, i) for sentence in sentence_list]
+        sentence_list = []
+        [sentence_list.append(sentence + seq) for sentence in data.split(seq) if sentence != ""]
+        if counter + 1 < len(seq_list):
+            sentence_list_r = []
+            for sentence in sentence_list:
+                sentence_list_r.extend(self.listup_sentence(sentence, counter+1))
+
+            sentence_list = sentence_list_r
+
         return sentence_list
 
 

@@ -10,6 +10,8 @@ class MazeBoltzmannQLearning(BoltzmannQLearning):
     ボルツマン分布に基づくソフトマックス戦略によるQ学習で、
     迷路探索を実行する。
     
+    デモ用途。MazeGreedyQLearningと一部重複している。
+    
     迷路のマップのプリント処理については、下記のページを参考にさせていただいた。
     http://d.hatena.ne.jp/Kshi_Kshi/20111227/1324993576
 

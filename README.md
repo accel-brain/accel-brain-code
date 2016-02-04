@@ -1,18 +1,23 @@
 # python3-reinforcement-learning
 ====
 
-## Description
+## 概要
 
 Q学習(Q-Learning)やバンディットアルゴリズムなど、強化学習のデモ用のコード。
 
-## Demo
+## デモ
 
 - [Q学習(Q-Learning)やバンディットアルゴリズムなどの強化学習のデモ用のコードを公開して保守していくことにした。](http://media.accel-brain.com/reinforcement-learning-q-learning-bandit-problem/)
 
+## 背景知識
+
+- [バンディットアルゴリズムとしてのsoftmax Algorithm](http://media.accel-brain.com/softmax-algorithm/)
+
+
 ## Licence
 
-[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+MIT
 
-## Author
+## 制作者
 
 [chimera0](https://github.com/chimera0/)

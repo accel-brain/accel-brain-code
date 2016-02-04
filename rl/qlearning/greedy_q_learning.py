@@ -56,7 +56,6 @@ class GreedyQLearning(QLearning):
         '''
         if self.debug_mode is True:
             max_q = self.extract_q_dict(state_key, action_key)
-            self.debug_message_list.append("\nGreedy Mode: On\n")
             self.debug_message_list.append(
                 "Greedy ..."
             )

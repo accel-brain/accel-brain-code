@@ -70,6 +70,11 @@ class MazeGreedyQLearning(GreedyQLearning):
         '''
         Q学習
         具象メソッド。
+        
+        Args:
+                state_key:      状態
+                limit:          更新回数の上限値
+
         '''
         if state_key is None:
             state_key = self.__decide_start_point(self.__map_data_list)

@@ -14,6 +14,10 @@ Q学習(Q-Learning)やバンディットアルゴリズムなど、強化学習�
 - [バンディットアルゴリズムとしてのsoftmax Algorithm](http://media.accel-brain.com/softmax-algorithm/)
 
 
+## Requires
+
+- Python3.4.4
+
 ## Licence
 
 MIT

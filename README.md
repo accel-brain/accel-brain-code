@@ -12,6 +12,7 @@ Q学習(Q-Learning)やバンディットアルゴリズムなど、強化学習�
 ## 背景知識
 
 - [バンディットアルゴリズムとしてのsoftmax Algorithm](http://media.accel-brain.com/softmax-algorithm/)
+- [Thompson Samplingをバンディット問題の解決策として選択した場合の実験結果](http://media.accel-brain.com/thompson-sampling/)
 
 
 ## Requires

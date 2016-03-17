@@ -7,6 +7,7 @@ from pyquery import PyQuery as pq
 import urllib.request
 import nltk
 import numpy
+from interface.readable_web_pdf import ReadableWebPDF
 
 
 class AbstractableDoc(metaclass=ABCMeta):
@@ -457,6 +458,21 @@ class Scraping(object):
     __dom_object_list = ["body"]
     __remove_object_list = ["script", "style"]
 
+    # Web上のPDFファイルを読み込むインターフェイスを実現したオブジェクト
+    __readable_web_pdf = None
+
+    def get_readable_web_pdf(self):
+        if isinstance(self.__readable_web_pdf, ReadableWebPDF) is False and self.__readable_web_pdf is not None:
+            raise TypeError("The type of __readable_web_pdf must be ReadableWebPDF.")
+        return self.__readable_web_pdf
+
+    def set_readable_web_pdf(self, value):
+        if isinstance(value, ReadableWebPDF) is False and value is not None:
+            raise TypeError("The type of __readable_web_pdf must be ReadableWebPDF.")
+        self.__readable_web_pdf = value
+
+    readable_web_pdf = property(get_readable_web_pdf, set_readable_web_pdf)
+
     def scrape(self, url):
         '''
         Webスクレイピングを実行する。
@@ -476,7 +492,10 @@ class Scraping(object):
         '''
         if isinstance(url, str) is False:
             raise TypeError("url must be str.")
-        try:
+
+        if self.readable_web_pdf is not None and self.readable_web_pdf.is_pdf_url(url) is True:
+            web_data = self.readable_web_pdf.url_to_text(url)
+        else:
             web_data = ""
             req = urllib.request.Request(url=url)
             with urllib.request.urlopen(req) as f:
@@ -486,31 +505,18 @@ class Scraping(object):
 
                 for dom_object in self.__dom_object_list:
                     web_data += dom(dom_object).text()
-            sleep(1)
-            return web_data
-        except:
-            return ""
 
+        sleep(1)
+        return web_data
 
 if __name__ == '__main__':
     import sys
-    document = Scraping().scrape(sys.argv[1])
+    from web_pdf_reading import WebPDFReading
+    web_scrape = Scraping()
+    web_scrape.readable_web_pdf = WebPDFReading()
+    document = web_scrape.scrape(sys.argv[1])
 
-    print("---------------------------------------")
-    print("標準偏差との兼ね合いから文書を要約します。")
-    print("---------------------------------------")
-    auto_abstractor = AutoAbstractor()
-    abstractable_doc = AbstractableStd()
-    result_list = auto_abstractor.summarize(document, abstractable_doc)
-    for sentence in result_list["summarize_result"]:
-        print(sentence)
-    print("---------------------------------------")
-    print("")
-    print("---------------------------------------")
-    print("Top N Rankから文書を要約します。")
-    print("---------------------------------------")
     auto_abstractor = AutoAbstractor()
     abstractable_doc = AbstractableTopNRank()
     result_list = auto_abstractor.summarize(document, abstractable_doc)
-    for sentence in result_list["summarize_result"]:
-        print(sentence)
+    [print(sentence) for sentence in result_list["summarize_result"]]

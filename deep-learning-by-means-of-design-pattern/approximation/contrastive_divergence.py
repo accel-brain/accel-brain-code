@@ -105,9 +105,13 @@ class ContrastiveDivergence(ApproximateInterface):
     def recall(self, graph, observed_data_matrix):
         '''
         記憶から自由連想する
+        
+        Args:
+            graph:                  自由連想前のグラフ
+            observed_data_matrix:   観測データ点
 
         Returns:
-            自由連想後の完全二部グラフ
+            自由連想後のグラフ
         '''
         self.__graph = graph
         # 観測データ点を可視ニューロンに入力する

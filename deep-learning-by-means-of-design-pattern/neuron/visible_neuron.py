@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 import random
 import bisect
-import sys
-
 from deeplearning.neuron_object import Neuron
 from deeplearning.neuron.interface.visible_layer_interface import VisibleLayerInterface
 

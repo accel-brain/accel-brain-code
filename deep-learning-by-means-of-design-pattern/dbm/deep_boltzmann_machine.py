@@ -1,7 +1,5 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
-import sys
-
 from deeplearning.dbm.dbm_director import DBMDirector
 
 

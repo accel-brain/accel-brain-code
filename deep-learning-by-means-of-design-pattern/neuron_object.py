@@ -1,8 +1,6 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
 from abc import ABCMeta, abstractmethod
-import sys
-
 from deeplearning.activation.interface.activating_function_interface import ActivatingFunctionInterface
 
 

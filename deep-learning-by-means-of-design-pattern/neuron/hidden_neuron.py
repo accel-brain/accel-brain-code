@@ -1,8 +1,6 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
 import random
-import sys
-
 from deeplearning.neuron_object import Neuron
 from deeplearning.neuron.interface.hidden_layer_interface import HiddenLayerInterface
 

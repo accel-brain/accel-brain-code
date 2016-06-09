@@ -1,7 +1,5 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
-import sys
-
 from deeplearning.synapse.complete_bipartite_graph import CompleteBipartiteGraph
 from deeplearning.approximation.interface.approximate_interface import ApproximateInterface
 

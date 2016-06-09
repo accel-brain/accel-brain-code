@@ -1,7 +1,5 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
-import sys
-
 from deeplearning.dbm.interface.dbm_builder import DBMBuilder
 from deeplearning.neuron.visible_neuron import VisibleNeuron
 from deeplearning.neuron.hidden_neuron import HiddenNeuron

@@ -1,7 +1,5 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
-import sys
-
 from deeplearning.dbm.interface.dbm_builder import DBMBuilder
 from deeplearning.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
 from deeplearning.activation.interface.activating_function_interface import ActivatingFunctionInterface

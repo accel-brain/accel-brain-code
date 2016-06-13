@@ -14,15 +14,19 @@ from pprint import pprint
 
 if __name__ == "__main__":
 
+    # irisのデータセットを参照する
     data_arr = load_iris()
     feature_arr = data_arr["data"]
     target_arr = data_arr["target"]
 
     target_arr = target_arr.reshape((len(target_arr), 1))
     data_arr = np.hstack((target_arr, feature_arr))
-    data_matrix = list(data_arr[:99])
-    random.shuffle(data_matrix)
 
+    # 目的変数を0-1に限定する
+    data_matrix = list(data_arr[:99])
+
+    # シャッフルし、訓練用データとテスト用データに分割する
+    random.shuffle(data_matrix)
     traning_data_matrix = data_matrix[:69]
     test_data_matrix = data_matrix[70:99]
 
@@ -202,3 +206,6 @@ if __name__ == "__main__":
     ]
 
     print(evaluate_data[data_columns])
+    '''
+    test    
+    '''

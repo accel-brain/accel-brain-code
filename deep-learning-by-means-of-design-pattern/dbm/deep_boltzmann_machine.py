@@ -11,6 +11,8 @@ class DeepBoltzmannMachine(object):
 
     # 制限ボルツマンマシン
     __rbm_list = []
+    # 評価時に参照する（ハイパー）パラメタの記録用辞書
+    __hyper_param_dict = {}
 
     def __init__(
         self,
@@ -46,6 +48,15 @@ class DeepBoltzmannMachine(object):
         )
         self.__rbm_list = dbm_director.rbm_list
 
+        self.__hyper_param_dict = {
+            "visible_neuron_count": visible_neuron_count,
+            "feature_neuron_count": feature_neuron_count,
+            "hidden_neuron_count": hidden_neuron_count,
+            "learning_rate": learning_rate,
+            "activating_function": str(type(activating_function)),
+            "approximate_interface": str(type(approximate_interface))
+        }
+
     def learn(self, observed_data_matrix, traning_count=1000):
         '''
         深層ボルツマンマシンを初期化する
@@ -62,6 +73,8 @@ class DeepBoltzmannMachine(object):
             rbm.approximate_learning(observed_data_matrix, traning_count)
             feature_point_list = self.get_feature_point_list(i)
             observed_data_matrix = [feature_point_list]
+
+        self.__hyper_param_dict["traning_count"] = traning_count
 
     def get_feature_point_list(self, layer_number=0):
         '''
@@ -122,9 +135,10 @@ class DeepBoltzmannMachine(object):
         rbm = self.__rbm_list[0]
         return [rbm.graph.visible_neuron_list[i].activity for i in range(len(rbm.graph.visible_neuron_list))]
 
-    def evaluate(self, test_data_matrix):
+    def evaluate_bool(self, test_data_matrix):
         '''
         教師データの訓練後の予測を実行して、モデル性能をF値などの指標で算出する
+        目的変数が二値(0/1)の場合の簡易版
 
         Args:
             test_data_matrix:   テストデータ
@@ -132,13 +146,14 @@ class DeepBoltzmannMachine(object):
         Returns:
             次の辞書を返す
             {
-                "tp":           True Positive,
-                "fp":           False Positive,
-                "tn":           True Negative,
-                "fn":           False Negative,
-                "precision":    適合率,
-                "recall":       再現率,
-                "f":            F値
+                "tp":                 True Positive,
+                "fp":                 False Positive,
+                "tn":                 True Negative,
+                "fn":                 False Negative,
+                "precision":          適合率,
+                "recall":             再現率,
+                "f":                  F値,
+                "<<（ハイパー）パラメタ名>>": <<値>>
             }
         '''
         tp = 0
@@ -182,4 +197,5 @@ class DeepBoltzmannMachine(object):
             "recall": recall,
             "f": f
         }
+        [result_dict.setdefault(key, val) for key, val in self.__hyper_param_dict.items()]
         return result_dict

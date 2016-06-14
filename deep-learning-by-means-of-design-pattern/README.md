@@ -24,7 +24,7 @@
 
 ### アーキテクチャ設計とアルゴリズム設計の「実践」
 
-- 設計内容は筆者のWebサイトで記述する。
+- 設計内容は[筆者のWebサイト](http://media.accel-brain.com/bridge-between-algorithms-design-of-deep-learning-and-software-architecture-design/)で記述する。
 
 ### アーキテクチャ設計のノウハウをアルゴリズム設計で活かす「実験」
 

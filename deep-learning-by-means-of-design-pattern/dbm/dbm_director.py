@@ -45,7 +45,7 @@ class DBMDirector(object):
     def __init__(self, dbm_builder):
         '''
         「建築者」を初期化する
-        
+
         Args:
             dbm_builder     Builder Patternの「具体的な建築者」
         '''
@@ -56,9 +56,7 @@ class DBMDirector(object):
 
     def dbm_construct(
         self,
-        visible_neuron_count,
-        feature_neuron_count,
-        hidden_neuron_count,
+        neuron_assign_list,
         activating_function,
         approximate_interface
     ):
@@ -66,9 +64,7 @@ class DBMDirector(object):
         深層ボルツマンマシンを構築する
 
         Args:
-            visible_neuron_count:   可視層ニューロン数
-            feature_neuron_count:   特徴点の疑似可視層ニューロン数
-            hidden_neuron_count:    隠れ層ニューロン数
+            neuron_assign_list:     各層のニューロンの個数
             activating_function:    活性化関数
             approximate_interface:  近似
         '''
@@ -78,8 +74,17 @@ class DBMDirector(object):
         if isinstance(approximate_interface, ApproximateInterface) is False:
             raise TypeError()
 
+        visible_neuron_count = neuron_assign_list[0]
+        hidden_neuron_count = neuron_assign_list[-1]
+
         self.__dbm_builder.visible_neuron_part(activating_function, visible_neuron_count)
-        self.__dbm_builder.feature_neuron_part(activating_function, feature_neuron_count)
+
+        for i in range(1, len(neuron_assign_list) - 1):
+            feature_neuron_count = neuron_assign_list[i]
+            self.__dbm_builder.feature_neuron_part(activating_function, feature_neuron_count)
+
         self.__dbm_builder.hidden_neuron_part(activating_function, hidden_neuron_count)
+
         self.__dbm_builder.graph_part(approximate_interface)
+
         self.rbm_list = self.__dbm_builder.get_result()

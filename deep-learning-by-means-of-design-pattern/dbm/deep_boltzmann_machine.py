@@ -14,6 +14,7 @@ class DeepBoltzmannMachine(object):
     # 評価時に参照する（ハイパー）パラメタの記録用辞書
     __hyper_param_dict = {}
 
+    @dispatch(DBMBuilder, int, int, int, ActivatingFunctionInterface, ApproximateInterface, float)
     def __init__(
         self,
         dbm_builder,
@@ -40,18 +41,53 @@ class DeepBoltzmannMachine(object):
             dbm_builder=dbm_builder
         )
         dbm_director.dbm_construct(
-            visible_neuron_count=visible_neuron_count,
-            feature_neuron_count=feature_neuron_count,
-            hidden_neuron_count=hidden_neuron_count,
+            neuron_assign_list=[visible_neuron_count, feature_neuron_count, hidden_neuron_count],
             activating_function=activating_function,
             approximate_interface=approximate_interface
         )
+
         self.__rbm_list = dbm_director.rbm_list
 
         self.__hyper_param_dict = {
             "visible_neuron_count": visible_neuron_count,
             "feature_neuron_count": feature_neuron_count,
             "hidden_neuron_count": hidden_neuron_count,
+            "learning_rate": learning_rate,
+            "activating_function": str(type(activating_function)),
+            "approximate_interface": str(type(approximate_interface))
+        }
+
+    @dispatch(DBMBuilder, list, ActivatingFunctionInterface, ApproximateInterface, float)
+    def __init__(
+        self,
+        dbm_builder,
+        neuron_assign_list,
+        activating_function,
+        approximate_interface,
+        learning_rate
+    ):
+        '''
+        深層ボルツマンマシンを初期化する
+
+        Args:
+            neuron_assign_list:     各層のニューロンの個数 0番目が可視層で、1以上の値が隠れ層に対応する
+            activating_function:    活性化関数
+            approximate_interface:  近似
+            learning_rate:          学習率
+        '''
+        dbm_builder.learning_rate = learning_rate
+        dbm_director = DBMDirector(
+            dbm_builder=dbm_builder
+        )
+        dbm_director.dbm_construct(
+            neuron_assign_list=neuron_assign_list,
+            activating_function=activating_function,
+            approximate_interface=approximate_interface
+        )
+        self.__rbm_list = dbm_director.rbm_list
+
+        self.__hyper_param_dict = {
+            "neuron_assign_list": neuron_assign_list,
             "learning_rate": learning_rate,
             "activating_function": str(type(activating_function)),
             "approximate_interface": str(type(approximate_interface))

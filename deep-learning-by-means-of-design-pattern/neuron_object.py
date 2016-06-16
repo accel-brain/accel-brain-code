@@ -7,7 +7,6 @@ from deeplearning.activation.interface.activating_function_interface import Acti
 class Neuron(metaclass=ABCMeta):
     '''
     ニューラルネットワークのニューロンに関する抽象クラス
-
     GoFのデザイン・パタンにおける「Template Method Pattern」の構成
     '''
 

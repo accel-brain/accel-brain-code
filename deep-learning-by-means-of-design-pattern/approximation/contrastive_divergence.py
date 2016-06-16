@@ -60,16 +60,26 @@ class ContrastiveDivergence(ApproximateInterface):
             raise ValueError("len(observed_data_list) != len(self.__graph.links_weights)")
 
         # 観測データ点を可視ニューロンに入力する
-        [self.__graph.visible_neuron_list[i].observe_data_point(observed_data_list[i]) for i in range(len(observed_data_list))]
+        for i in range(len(observed_data_list)):
+            self.__graph.visible_neuron_list[i].observe_data_point(observed_data_list[i])
+
         # 隠れ層のニューロンの発火状態を更新する
-        for i in range(len(self.__graph.visible_neuron_list)):
-            [self.__graph.hidden_neuron_list[j].hidden_update_state(self.__graph.weights_dict[i, j], self.__graph.visible_neuron_list[i].activity) for j in range(len(self.__graph.hidden_neuron_list))]
+        for j in range(len(self.__graph.hidden_neuron_list)):
+            link_value = 0.0
+            for i in range(len(self.__graph.visible_neuron_list)):
+                link_value += self.__graph.weights_dict[i, j] * self.__graph.visible_neuron_list[i].activity
+            self.__graph.hidden_neuron_list[j].hidden_update_state(link_value)
+
         # ヘブ規則によりリンクの重みを更新する
         self.__graph.update(self.__learning_rate)
+
         # 可視層のバイアスを更新する
-        [self.__graph.visible_neuron_list[i].update_bias(self.__learning_rate) for i in range(len(self.__graph.visible_neuron_list))]
+        for i in range(len(self.__graph.visible_neuron_list)):
+            self.__graph.visible_neuron_list[i].update_bias(self.__learning_rate)
+
         # 隠れ層のバイアスを更新する
-        [self.__graph.hidden_neuron_list[i].update_bias(self.__learning_rate) for i in range(len(self.__graph.hidden_neuron_list))]
+        for i in range(len(self.__graph.hidden_neuron_list)):
+            self.__graph.hidden_neuron_list[i].update_bias(self.__learning_rate)
 
     def sleep(self):
         '''
@@ -77,49 +87,73 @@ class ContrastiveDivergence(ApproximateInterface):
         自由連想
         '''
         # 可視層のニューロンの発火状態を更新する
-        for j in range(len(self.__graph.hidden_neuron_list)):
-            [self.__graph.visible_neuron_list[i].visible_update_state(self.__graph.weights_dict[(i, j)], self.__graph.hidden_neuron_list[j].activity) for i in range(len(self.__graph.visible_neuron_list))]
-        # 隠れ層のニューロンの発火状態を更新する
         for i in range(len(self.__graph.visible_neuron_list)):
-            [self.__graph.hidden_neuron_list[j].hidden_update_state(self.__graph.weights_dict[(i, j)], self.__graph.visible_neuron_list[i].activity) for j in range(len(self.__graph.hidden_neuron_list))]
+            link_value = 0.0
+            for j in range(len(self.__graph.hidden_neuron_list)):
+                link_value += self.__graph.weights_dict[(i, j)] * self.__graph.hidden_neuron_list[j].activity
+            self.__graph.visible_neuron_list[i].visible_update_state(link_value)
+
+        # 隠れ層のニューロンの発火状態を更新する
+        for j in range(len(self.__graph.hidden_neuron_list)):
+            link_value = 0.0
+            for i in range(len(self.__graph.visible_neuron_list)):
+                link_value += self.__graph.weights_dict[(i, j)] * self.__graph.visible_neuron_list[i].activity
+            self.__graph.hidden_neuron_list[j].hidden_update_state(link_value)
+
         # ヘブ規則によりリンクの重みを逆更新する
         self.__graph.update((-1) * self.__learning_rate)
         # 可視層のバイアスを更新する
-        [self.__graph.visible_neuron_list[i].update_bias((-1) * self.__learning_rate) for i in range(len(self.__graph.visible_neuron_list))]
+        for i in range(len(self.__graph.visible_neuron_list)):
+            self.__graph.visible_neuron_list[i].update_bias((-1) * self.__learning_rate)
         # 隠れ層のバイアスを更新する
-        [self.__graph.hidden_neuron_list[i].update_bias((-1) * self.__learning_rate) for i in range(len(self.__graph.hidden_neuron_list))]
+        for i in range(len(self.__graph.hidden_neuron_list)):
+            self.__graph.hidden_neuron_list[i].update_bias((-1) * self.__learning_rate)
 
     def learn(self):
         '''
         バイアスと重みを学習する
         '''
         # 可視層のバイアスの学習
-        [self.__graph.visible_neuron_list[i].learn_bias() for i in range(len(self.__graph.visible_neuron_list))]
+        for i in range(len(self.__graph.visible_neuron_list)):
+            self.__graph.visible_neuron_list[i].learn_bias()
+
         # 隠れ層のバイアスの学習
-        [self.__graph.hidden_neuron_list[i].learn_bias() for i in range(len(self.__graph.hidden_neuron_list))]
+        for i in range(len(self.__graph.hidden_neuron_list)):
+            self.__graph.hidden_neuron_list[i].learn_bias()
+
         # リンクの重みの学習
         self.__graph.learn_weights()
 
     def recall(self, graph, observed_data_matrix):
         '''
         記憶から自由連想する
-        
+
         Args:
             graph:                  自由連想前のグラフ
             observed_data_matrix:   観測データ点
 
         Returns:
             自由連想後のグラフ
+
         '''
         self.__graph = graph
         # 観測データ点を可視ニューロンに入力する
         for observed_data_list in observed_data_matrix:
-            [self.__graph.visible_neuron_list[i].observe_data_point(observed_data_list[i]) for i in range(len(observed_data_list))]
+            for i in range(len(observed_data_list)):
+                self.__graph.visible_neuron_list[i].observe_data_point(observed_data_list[i])
+
             # 可視層のニューロンの発火状態を更新する
-            for j in range(len(self.__graph.hidden_neuron_list)):
-                [self.__graph.visible_neuron_list[i].visible_update_state(self.__graph.weights_dict[(i, j)], self.__graph.hidden_neuron_list[j].activity) for i in range(len(self.__graph.visible_neuron_list))]
-            # 隠れ層のニューロンの発火状態を更新する
             for i in range(len(self.__graph.visible_neuron_list)):
-                [self.__graph.hidden_neuron_list[j].hidden_update_state(self.__graph.weights_dict[(i, j)], self.__graph.visible_neuron_list[i].activity) for j in range(len(self.__graph.hidden_neuron_list))]
+                link_value = 0.0
+                for j in range(len(self.__graph.hidden_neuron_list)):
+                    link_value += self.__graph.weights_dict[(i, j)] * self.__graph.hidden_neuron_list[j].activity
+                self.__graph.visible_neuron_list[i].visible_update_state(link_value)
+
+            # 隠れ層のニューロンの発火状態を更新する
+            for j in range(len(self.__graph.hidden_neuron_list)):
+                link_value = 0.0
+                for i in range(len(self.__graph.visible_neuron_list)):
+                    link_value += self.__graph.weights_dict[(i, j)] * self.__graph.visible_neuron_list[i].activity
+                self.__graph.hidden_neuron_list[j].hidden_update_state(link_value)
 
         return self.__graph

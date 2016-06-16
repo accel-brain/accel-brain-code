@@ -44,19 +44,18 @@ class VisibleNeuron(Neuron, VisibleLayerInterface):
         '''
         self.activity = x
 
-    def visible_update_state(self, weight, link_value):
+    def visible_update_state(self, link_value):
         '''
         インターフェイス実現
         可視層の学習
 
         Args:
-            weight:          重み
             link_value:      リンク先による入力値
 
         '''
         # 活性化の判定
         ''' selfのactivityではなく、結合しているニューロンからの入力を入れる '''
-        output = self.activate(link_value, weight)
+        output = self.activate(link_value)
         if self.bernoulli_flag is False:
             self.activity = output
         else:

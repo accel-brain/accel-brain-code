@@ -7,7 +7,6 @@ from deeplearning.activation.interface.activating_function_interface import Acti
 class Neuron(metaclass=ABCMeta):
     '''
     ニューラルネットワークのニューロンに関する抽象クラス
-
     GoFのデザイン・パタンにおける「Template Method Pattern」の構成
     '''
 
@@ -73,19 +72,18 @@ class Neuron(metaclass=ABCMeta):
     activating_function = property(get_activating_function, set_activating_function)
     activity = property(get_activity, set_activity)
 
-    def activate(self, input, weight):
+    def activate(self, link_value):
         '''
         活性化させる
 
         Args:
-            input    入力値（観測データ）
-            weight   重み
+            link_value    入力値
 
         Returns:
             true => 活性化 false => 非活性化
         '''
         output = self.activating_function.activate(
-            (input * weight) + self.bias
+            link_value + self.bias
         )
         return output
 

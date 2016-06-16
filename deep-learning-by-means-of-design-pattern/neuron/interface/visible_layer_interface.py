@@ -22,12 +22,11 @@ class VisibleLayerInterface(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    def visible_update_state(self, weight, link_value):
+    def visible_update_state(self, link_value):
         '''
         可視層の学習
 
         Args:
-            weight:          重み
             link_value:      リンク先による入力値
 
         '''

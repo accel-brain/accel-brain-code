@@ -13,17 +13,16 @@ class HiddenNeuron(Neuron, HiddenLayerInterface):
     def __init__(self):
         self.bias = round(random.random(), 3)
 
-    def hidden_update_state(self, weight, link_value):
+    def hidden_update_state(self, link_value):
         '''
         隠れ層の学習
 
         Args:
-            weight:          重み
             link_value:      リンク先による入力値
 
         '''
         # 活性度の判定
-        output = self.activate(link_value, weight)
+        output = self.activate(link_value)
         self.activity = output
 
     def update_bias(self, learning_rate):

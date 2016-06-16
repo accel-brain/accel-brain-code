@@ -58,30 +58,28 @@ class FeaturePointNeuron(Neuron, VisibleLayerInterface, HiddenLayerInterface):
         self.__visible_layer_interface.observe_data_point(x)
         self.activity = x
 
-    def visible_update_state(self, weight, link_value):
+    def visible_update_state(self, link_value):
         '''
         インターフェイス実現
         可視層ニューロンとしての学習
 
         Args:
-            weight:          重み
             link_value:      リンク先による入力値
 
         '''
-        self.__visible_layer_interface.visible_update_state(weight, link_value)
+        self.__visible_layer_interface.visible_update_state(link_value)
         self.activity = self.__visible_layer_interface.activity
 
-    def hidden_update_state(self, weight, link_value):
+    def hidden_update_state(self, link_value):
         '''
         インターフェイス実現
         隠れ層ニューロンとしての学習
 
         Args:
-            weight:          重み
             link_value:      リンク先による入力値
 
         '''
-        self.visible_update_state(weight, link_value)
+        self.visible_update_state(link_value)
 
     def update_bias(self, learning_rate):
         '''

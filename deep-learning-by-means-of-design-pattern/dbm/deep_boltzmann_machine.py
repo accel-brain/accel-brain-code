@@ -203,7 +203,6 @@ class DeepBoltzmannMachine(object):
         tn = 0
         fn = 0
         example = 0.5
-        value_list = []
         for test_data_list in test_data_matrix:
             row_bool_list = [example]
             row_bool_list.extend(test_data_list[1:])
@@ -217,8 +216,6 @@ class DeepBoltzmannMachine(object):
                 fp += 1
             else:
                 fn += 1
-
-            value_list.append(value)
 
         try:
             precision = tp / (tp + fp)

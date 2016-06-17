@@ -1,6 +1,12 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
+from multipledispatch import dispatch
+import sys
+sys.path.append('/var/opt/python3/ai/')
+from deeplearning.dbm.interface.dbm_builder import DBMBuilder
 from deeplearning.dbm.dbm_director import DBMDirector
+from deeplearning.activation.interface.activating_function_interface import ActivatingFunctionInterface
+from deeplearning.approximation.interface.approximate_interface import ApproximateInterface
 
 
 class DeepBoltzmannMachine(object):
@@ -197,6 +203,7 @@ class DeepBoltzmannMachine(object):
         tn = 0
         fn = 0
         example = 0.5
+        value_list = []
         for test_data_list in test_data_matrix:
             row_bool_list = [example]
             row_bool_list.extend(test_data_list[1:])
@@ -210,6 +217,8 @@ class DeepBoltzmannMachine(object):
                 fp += 1
             else:
                 fn += 1
+
+            value_list.append(value)
 
         try:
             precision = tp / (tp + fp)
@@ -234,4 +243,5 @@ class DeepBoltzmannMachine(object):
             "f": f
         }
         [result_dict.setdefault(key, val) for key, val in self.__hyper_param_dict.items()]
+
         return result_dict

@@ -16,15 +16,14 @@ class NeuralNetwork(object):
     # 評価時に参照する（ハイパー）パラメタの記録用辞書
     __hyper_param_dict = {}
 
-    @dispatch(NNBuilder, int, int, int, list, float)
+    @dispatch(NNBuilder, int, int, int, list)
     def __init__(
         self,
         nn_builder,
         input_neuron_count,
         hidden_neuron_count,
         output_neuron_count,
-        activating_function_list,
-        learning_rate
+        activating_function_list
     ):
         '''
         ニューラルネットワークを初期化する
@@ -34,9 +33,7 @@ class NeuralNetwork(object):
             hidden_neuron_count:   　    隠れ層のニューロン数
             output_neuron_count:        出力層ニューロン数
             activating_function_list:   活性化関数のリスト 入力層、隠れ層、出力層の順
-            learning_rate:              学習率
         '''
-        nn_builder.learning_rate = learning_rate
         nn_director = NNDirector(
             nn_builder=nn_builder
         )
@@ -48,20 +45,16 @@ class NeuralNetwork(object):
         self.__nn_list = nn_director.nn_list
 
         self.__hyper_param_dict = {
-            "input_neuron_count": input_neuron_count,
-            "hidden_neuron_count": hidden_neuron_count,
-            "output_neuron_count": output_neuron_count,
-            "learning_rate": learning_rate,
+            "neuron_assign_list": [input_neuron_count, hidden_neuron_count, output_neuron_count],
             "activating_function_list": [type(a) for a in activating_function_list]
         }
 
-    @dispatch(NNBuilder, list, list, float)
+    @dispatch(NNBuilder, list, list)
     def __init__(
         self,
         nn_builder,
         neuron_assign_list,
-        activating_function_list,
-        learning_rate
+        activating_function_list
     ):
         '''
         ニューラルネットワークを初期化する
@@ -72,9 +65,7 @@ class NeuralNetwork(object):
                                         それ以外の値が隠れ層に対応する
             activating_function_list:   活性化関数のリスト
                                         引数：neuron_assign_listの構成に合わせる
-            learning_rate:              学習率
         '''
-        nn_builder.learning_rate = learning_rate
         nn_director = NNDirector(
             nn_builder=nn_builder
         )
@@ -87,7 +78,6 @@ class NeuralNetwork(object):
 
         self.__hyper_param_dict = {
             "neuron_assign_list": neuron_assign_list,
-            "learning_rate": learning_rate,
             "activating_function_list": [type(a) for a in activating_function_list]
         }
 
@@ -116,7 +106,15 @@ class NeuralNetwork(object):
         for i in range(traning_count):
             for j in range(len(traning_data_matrix)):
                 self.forward_propagate(traning_data_matrix[j])
-                self.back_propagate(class_data_matrix[j])
+                self.back_propagate(
+                    test_data_list=class_data_matrix[j],
+                    learning_rate=learning_rate,
+                    momentum_factor=momentum_factor
+                )
+
+        self.__hyper_param_dict["traning_count"] = traning_count
+        self.__hyper_param_dict["momentum_factor"] = momentum_factor
+        self.__hyper_param_dict["learning_rate"] = learning_rate
 
     def forward_propagate(self, input_data_list):
         '''
@@ -160,7 +158,7 @@ class NeuralNetwork(object):
                 link_value += activity * weight
             nn_to_output_layer.deeper_neuron_list[j].output_update_state(link_value)
 
-    def back_propagate(self, test_data_list, learning_rate=0.5, momentum_factor=0.1):
+    def back_propagate(self, test_data_list, learning_rate=0.05, momentum_factor=0.1):
         '''
         バックプロパゲーションを実行する
 
@@ -169,19 +167,13 @@ class NeuralNetwork(object):
             learning_rate:      学習率
             momentum_factor:    運動量係数
         '''
-        propagated_list = test_data_list
-
-        for i in range(1, len(self.__nn_list)):
-            propagated_list = self.__nn_list[-1 * i].back_propagate(
-                propagated_list=propagated_list,
-                learning_rate=learning_rate,
-                momentum_factor=momentum_factor
-            )
-
-        self.__nn_list[0].back_propagate(
-            propagated_list=propagated_list,
+        back_nn_list = [back_nn for back_nn in reversed(self.__nn_list)]
+        back_nn_list[0].back_propagate(
+            propagated_list=test_data_list,
             learning_rate=learning_rate,
-            momentum_factor=momentum_factor
+            momentum_factor=momentum_factor,
+            back_nn_list=back_nn_list,
+            back_nn_index=0
         )
 
     def predict(self, test_data_list):
@@ -201,3 +193,69 @@ class NeuralNetwork(object):
             output_data_list.append(output_neuron.release())
 
         return output_data_list
+
+    def evaluate_bool(self, test_data_matrix, class_data_matrix):
+        '''
+        教師データの訓練後の予測を実行して、モデル性能をF値などの指標で算出する
+        目的変数が二値(0/1)の場合の簡易版
+
+        Args:
+            test_data_matrix:   テストデータ
+
+        Returns:
+            次の辞書を返す
+            {
+                "tp":                 True Positive,
+                "fp":                 False Positive,
+                "tn":                 True Negative,
+                "fn":                 False Negative,
+                "precision":          適合率,
+                "recall":             再現率,
+                "f":                  F値,
+                "<<（ハイパー）パラメタ名>>": <<値>>
+            }
+        '''
+        tp = 0
+        fp = 0
+        tn = 0
+        fn = 0
+        for i in range(len(test_data_matrix)):
+            test_data_list = test_data_matrix[i]
+            class_data_list = class_data_matrix[i]
+
+            binary_result = self.predict(test_data_list)[0]
+
+            if class_data_list[0] == binary_result and binary_result == 0:
+                tp += 1
+            elif class_data_list[0] == binary_result and binary_result == 1:
+                tn += 1
+            elif class_data_list[0] != binary_result and binary_result == 0:
+                fp += 1
+            else:
+                fn += 1
+
+        try:
+            precision = tp / (tp + fp)
+        except ZeroDivisionError:
+            precision = 0.0
+        try:
+            recall = tp / (tp + fn)
+        except ZeroDivisionError:
+            recall = 0.0
+        try:
+            f = 2 * ((precision * recall) / (precision + recall))
+        except ZeroDivisionError:
+            f = 0.0
+
+        result_dict = {
+            "tp": tp,
+            "fp": fp,
+            "tn": tn,
+            "fn": fn,
+            "precision": precision,
+            "recall": recall,
+            "f": f
+        }
+        [result_dict.setdefault(key, val) for key, val in self.__hyper_param_dict.items()]
+
+        return result_dict

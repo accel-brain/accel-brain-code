@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     nn = NeuralNetwork(
         NNMultiLayerBuilder(),
-        [len(traning_data_matrix[0]), 1, 1, 1],
+        [len(traning_data_matrix[0]), 9, 3, 1],
         [SigmoidFunction(), SigmoidFunction(), SigmoidFunction(), SigmoidFunction()]
     )
 
@@ -42,7 +42,27 @@ if __name__ == "__main__":
         traning_data_matrix,
         class_data_matrix,
         traning_count=1,
-        learning_rate=0.05
+        learning_rate=0.01,
+        momentum_factor=0.01
+    )
+    evaluate_result_dict = nn.evaluate_bool(
+        test_data_matrix,
+        test_class_data_matrix
+    )
+    evaluate_data_list.append(evaluate_result_dict)
+
+    nn = NeuralNetwork(
+        NNMultiLayerBuilder(),
+        [len(traning_data_matrix[0]), 4, 3, 1],
+        [SigmoidFunction(), SigmoidFunction(), SigmoidFunction(), SigmoidFunction()]
+    )
+
+    nn.learn(
+        traning_data_matrix,
+        class_data_matrix,
+        traning_count=1,
+        learning_rate=0.00000001,
+        momentum_factor=0.000000001
     )
     evaluate_result_dict = nn.evaluate_bool(
         test_data_matrix,
@@ -56,6 +76,7 @@ if __name__ == "__main__":
     data_columns = [
         "neuron_assign_list",
         "learning_rate",
+        "momentum_factor",
         "traning_count",
         "tp", "tn", "fp", "fn",
         "precision",
@@ -64,3 +85,13 @@ if __name__ == "__main__":
     ]
 
     print(evaluate_data[data_columns])
+
+    '''
+  neuron_assign_list  learning_rate  momentum_factor  traning_count  tp   tn  \
+1      [10, 4, 3, 1]   1.000000e-08     1.000000e-09              1  91   50
+0      [10, 9, 3, 1]   1.000000e-02     1.000000e-02              1   9  143
+
+   fp   fn  precision    recall         f
+1  97   62   0.484043  0.594771  0.533724
+0   4  144   0.692308  0.058824  0.108434
+    '''

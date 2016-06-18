@@ -1,6 +1,6 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
-from abc import ABCMeta, abstractmethod, abstractproperty
+from abc import ABCMeta, abstractmethod
 
 
 class NNBuilder(metaclass=ABCMeta):
@@ -11,11 +11,6 @@ class NNBuilder(metaclass=ABCMeta):
 
     抽象メソッドのみの抽象クラスを便宜上インターフェイスとして扱う
     '''
-
-    @abstractproperty
-    def learning_rate(self):
-        ''' 学習率 '''
-        raise NotImplementedError()
 
     @abstractmethod
     def input_neuron_part(self, activating_function, neuron_count):

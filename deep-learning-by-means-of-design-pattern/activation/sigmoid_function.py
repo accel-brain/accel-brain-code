@@ -11,9 +11,6 @@ class SigmoidFunction(ActivatingFunctionInterface):
     #TODO(chimera0):オーバーフロー対策をnumpyなどの既存関数で実施する
     '''
 
-    # オーバーフロー対策
-    __limit = -709
-
     def activate(self, x):
         '''
         活性化関数の返り値を返す
@@ -24,9 +21,15 @@ class SigmoidFunction(ActivatingFunctionInterface):
         Returns:
             活性化関数の返り値
         '''
-        if x >= self.__limit:
-            y = 1.0 / (1.0 + math.exp((-1) * x))
-        else:
-            y = 0.0
-        
-        return y
+        return math.tanh(x)
+
+    def derivative(self, y):
+        '''
+        導関数
+
+        Args:
+            y:  パラメタ
+        Returns:
+            導関数の値
+        '''
+        return 1.0 - y**2

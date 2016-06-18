@@ -54,7 +54,6 @@ class VisibleNeuron(Neuron, VisibleLayerInterface):
 
         '''
         # 活性化の判定
-        ''' selfのactivityではなく、結合しているニューロンからの入力を入れる '''
         output = self.activate(link_value)
         if self.bernoulli_flag is False:
             self.activity = output

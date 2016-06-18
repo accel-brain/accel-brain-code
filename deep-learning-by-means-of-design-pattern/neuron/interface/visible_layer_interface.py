@@ -7,8 +7,6 @@ class VisibleLayerInterface(metaclass=ABCMeta):
     '''
     可視層の学習を実行させるためのインターフェイス
     抽象メソッドのみの抽象クラスを便宜上インターフェイスとして扱う
-
-    抽象メソッドのみの抽象クラスを便宜上インターフェイスとして扱う
     '''
 
     @abstractmethod

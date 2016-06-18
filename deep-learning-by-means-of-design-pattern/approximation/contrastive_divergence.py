@@ -16,7 +16,7 @@ class ContrastiveDivergence(ApproximateInterface):
     # ニューロンのグラフ
     __graph = None
     # 学習率
-    __learning_rate = 0.5
+    __learning_rate = 0.05
 
     def approximate_learn(self, graph, learning_rate, observed_data_matrix, traning_count=1000):
         '''

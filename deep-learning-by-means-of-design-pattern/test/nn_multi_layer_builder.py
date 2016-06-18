@@ -1,5 +1,4 @@
 if __name__ == "__main__":
-    from deeplearning.nn.builders.nn_3_layer_builder import NN3LayerBuilder
     from deeplearning.nn.builders.nn_multi_layer_builder import NNMultiLayerBuilder
     from deeplearning.activation.sigmoid_function import SigmoidFunction
     import numpy as np
@@ -34,46 +33,6 @@ if __name__ == "__main__":
     evaluate_data_list = []
 
     nn = NeuralNetwork(
-        NN3LayerBuilder(),
-        len(traning_data_matrix[0]),
-        9,
-        1,
-        [SigmoidFunction(), SigmoidFunction(), SigmoidFunction()]
-    )
-
-    nn.learn(
-        traning_data_matrix,
-        class_data_matrix,
-        traning_count=1,
-        learning_rate=0.05
-    )
-    evaluate_result_dict = nn.evaluate_bool(
-        test_data_matrix,
-        test_class_data_matrix
-    )
-    evaluate_data_list.append(evaluate_result_dict)
-
-    nn = NeuralNetwork(
-        NN3LayerBuilder(),
-        len(traning_data_matrix[0]),
-        4,
-        1,
-        [SigmoidFunction(), SigmoidFunction(), SigmoidFunction()]
-    )
-
-    nn.learn(
-        traning_data_matrix,
-        class_data_matrix,
-        traning_count=1,
-        learning_rate=0.05
-    )
-    evaluate_result_dict = nn.evaluate_bool(
-        test_data_matrix,
-        test_class_data_matrix
-    )
-    evaluate_data_list.append(evaluate_result_dict)
-
-    nn = NeuralNetwork(
         NNMultiLayerBuilder(),
         [len(traning_data_matrix[0]), 1, 1, 1],
         [SigmoidFunction(), SigmoidFunction(), SigmoidFunction(), SigmoidFunction()]
@@ -82,7 +41,7 @@ if __name__ == "__main__":
     nn.learn(
         traning_data_matrix,
         class_data_matrix,
-        traning_count=100,
+        traning_count=1,
         learning_rate=0.05
     )
     evaluate_result_dict = nn.evaluate_bool(

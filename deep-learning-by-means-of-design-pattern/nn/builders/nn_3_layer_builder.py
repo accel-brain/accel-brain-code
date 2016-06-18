@@ -20,22 +20,6 @@ class NN3LayerBuilder(NNBuilder):
     __output_neuron_list = []
     # グラフ
     __graph_list = []
-    # 学習率、具象プロパティ
-    __learning_rate = 0.05
-
-    def get_learning_rate(self):
-        ''' getter '''
-        if isinstance(self.__learning_rate, float) is False:
-            raise TypeError()
-        return self.__learning_rate
-
-    def set_learning_rate(self, value):
-        ''' setter '''
-        if isinstance(value, float) is False:
-            raise TypeError()
-        self.__learning_rate = value
-
-    learning_rate = property(get_learning_rate, set_learning_rate)
 
     def __init__(self):
         '''
@@ -43,7 +27,7 @@ class NN3LayerBuilder(NNBuilder):
         '''
         self.__input_neuron_list = []
         self.__hidden_neuron_list = []
-        self.__output_point_neuron = []
+        self.__output_neuron_list = []
         self.__graph_list = []
 
     def input_neuron_part(self, activating_function, neuron_count):

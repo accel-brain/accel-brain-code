@@ -100,8 +100,8 @@ class NNMultiLayerBuilder(NNBuilder):
 
         neural_network_graph = NeuralNetworkGraph(output_layer_flag=True)
         neural_network_graph.create_node(
-            self.__hidden_neuron_list,
-            self.__output_neuron_list[-1]
+            self.__hidden_neuron_list[-1],
+            self.__output_neuron_list
         )
         self.__graph_list.append(neural_network_graph)
 

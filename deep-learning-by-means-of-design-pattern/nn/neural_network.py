@@ -145,6 +145,7 @@ class NeuralNetwork(object):
             for j in range(len(nn_hidden_layer.deeper_neuron_list)):
                 link_value = 0.0
                 for i in range(len(nn_hidden_layer.shallower_neuron_list)):
+                    nn_hidden_layer.diff_weights_dict.setdefault((i, j), 0.0)
                     activity = nn_hidden_layer.shallower_neuron_list[i].activity
                     weight = nn_hidden_layer.diff_weights_dict[(i, j)]
                     link_value += activity * weight

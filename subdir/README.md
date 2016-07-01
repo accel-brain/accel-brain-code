@@ -46,7 +46,7 @@ The source code is currently hosted on GitHub.
 
 Binary installers for the latest released version are available at the Python package index.
 
-- [PyBrainWave: Python Package Index](https://pypi.python.org/pypi/PyBrainWave/)
+- [PyBrainWave: Python Package Index](https://pypi.python.org/pypi/AccelBrainBeat/)
 
 ## Dependencies
 

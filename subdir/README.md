@@ -3,17 +3,26 @@ This python script enables you to handle your mind state by a kind of "Brain-Wav
 
 ## Use-case: Create "Binaural Beat"
 
-For example, if `400` Hz was played in left ear and `430` Hz in the right, then the binaural beat would have a frequency of 30 Hz. The parameter of `play_time` is per seconds.
+For example, if `400` Hz was played in left ear and `430` Hz in the right, then the binaural beat would have a frequency of 30 Hz.
 
 ```python
 from PyBrainWave.brainbeat.binaural_beat import BinauralBeat
 from PyBrainWave.waveform.sine_wave import SineWave
 
- wave_form = SineWave()
  brain_beat = BinauralBeat()
- brain_beat.wave_form = wave_form
- brain_beat.play_beat(frequencys=(400, 430), play_time=10, volume=0.5)
+ brain_beat.wave_form = SineWave()
+ brain_beat.play_beat(
+    frequencys=(400, 430),
+    play_time=10,
+    volume=0.5
+)
 ```
+
+### Main-settings
+
+- The wave form of binaural beat is the `SineWave`.
+- The parameter of `play_time` is per seconds.
+
 
 ## Installation
 

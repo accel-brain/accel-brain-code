@@ -3,7 +3,7 @@
 import pyaudio
 import numpy
 from abc import ABCMeta, abstractmethod
-from PyBrainWave.waveform.interface.wave_form_interface import WaveFormInterface
+from AccelBrainBeat.waveform.interface.wave_form_interface import WaveFormInterface
 
 
 class BrainBeat(metaclass=ABCMeta):

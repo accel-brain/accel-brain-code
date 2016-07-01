@@ -1,7 +1,7 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
 import struct
-from PyBrainWave.brain_beat import BrainBeat
+from AccelBrainBeat.brain_beat import BrainBeat
 
 
 class BinauralBeat(BrainBeat):

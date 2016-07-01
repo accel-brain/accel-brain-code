@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 import numpy
 import math
-import sys
-sys.path.append('/var/opt/python3/bb/')
 from waveform.interface.wave_form_interface import WaveFormInterface
 
 

@@ -3,7 +3,7 @@ This python script enables you to handle your mind state by a kind of "Brain-Wav
 
 ## Licence
 
-- [GPL2](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-WebAudioAPI/blob/master/LICENSE)
+- [GPL2](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/LICENSE)
 
 ## Description
 

@@ -1,6 +1,48 @@
 # Binaural-Beat-and-Monaural-Beat-with-python
 This python script enables you to handle your mind state by a kind of "Brain-Wave Controller" which is generally known as Biaural beat or Monoaural beat in a simplified method.
 
+## Use-case
+
+```python
+from PyBrainWave.brainbeat.binaural_beat import BinauralBeat
+from PyBrainWave.waveform.sine_wave import SineWave
+
+ wave_form = SineWave()
+ brain_beat = BinauralBeat()
+ brain_beat.wave_form = wave_form
+ # left frequency is 300 Hz and right frequency is 310 Hz.
+ brain_beat.play_beat(frequencys=(300, 310), play_time=10, volume=0.5)
+```
+
+## Installation
+
+Install using pip:
+
+```sh
+pip install PyBrainWave
+```
+or
+```sh
+pip3 install PyBrainWave
+```
+
+### Source code
+
+The source code is currently hosted on GitHub.
+
+- [Binaural-Beat-and-Monaural-Beat-with-python](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python)
+
+### Python package index(PyPI)
+
+Binary installers for the latest released version are available at the Python package index.
+
+- [PyBrainWave: Python Package Index](https://pypi.python.org/pypi/PyBrainWave/)
+
+## Dependencies
+
+- [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/): v0.2.9 or higher
+- [NumPy](http://www.numpy.org/): v1.7.0 or higher
+
 ## Licence
 
 - [GPL2](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/LICENSE)
@@ -22,10 +64,6 @@ This python script enables you to handle your mind state by a kind of "Brain-Wav
 
  Please choose either binaural beets or monaural beats. If you set up 5 Hz, your brain waves and the frequency can be tuned and then you are able to be the meditative state or focusing the mind. Or what you choose to be relaxed state is the alpha waves(8-12 Hz).
 
-
-### Dependency
-
-- [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/)
 
 ### References
 

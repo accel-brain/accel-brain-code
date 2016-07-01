@@ -29,11 +29,11 @@ from AccelBrainBeat.waveform.sine_wave import SineWave
 Install using pip:
 
 ```sh
-pip install PyBrainWave
+pip install AccelBrainBeat
 ```
 or
 ```sh
-pip3 install PyBrainWave
+pip3 install AccelBrainBeat
 ```
 
 ### Source code

@@ -1,7 +1,7 @@
 # Binaural-Beat-and-Monaural-Beat-with-python
 This python script enables you to handle your mind state by a kind of "Brain-Wave Controller" which is generally known as Biaural beat or Monoaural beat in a simplified method.
 
-## Use-case: Create "Binaural Beat"
+## Use-case: Create and play "Binaural Beat"
 
 For example, if `400` Hz was played in left ear and `430` Hz in the right, then the binaural beat would have a frequency of 30 Hz.
 

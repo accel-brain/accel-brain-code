@@ -3,8 +3,6 @@
 import pyaudio
 import numpy
 from abc import ABCMeta, abstractmethod
-import sys
-sys.path.append('/var/opt/python3/bb/')
 from waveform.interface.wave_form_interface import WaveFormInterface
 
 

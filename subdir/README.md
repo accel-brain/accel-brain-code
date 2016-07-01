@@ -1,18 +1,68 @@
 # Binaural-Beat-and-Monaural-Beat-with-python
 This python script enables you to handle your mind state by a kind of "Brain-Wave Controller" which is generally known as Biaural beat or Monoaural beat in a simplified method.
 
+## Use-case: Create and play "Binaural Beat"
+
+For example, if `400` Hz was played in left ear and `430` Hz in the right, then the binaural beat would have a frequency of 30 Hz.
+
+```python
+from PyBrainWave.brainbeat.binaural_beat import BinauralBeat
+from PyBrainWave.waveform.sine_wave import SineWave
+
+ brain_beat = BinauralBeat()
+ brain_beat.wave_form = SineWave()
+ brain_beat.play_beat(
+    frequencys=(400, 430),
+    play_time=10,
+    volume=0.5
+)
+```
+
+### Main-settings
+
+- The wave form of binaural beat is the `SineWave`.
+- The parameter of `play_time` is per seconds.
+
+
+## Installation
+
+Install using pip:
+
+```sh
+pip install PyBrainWave
+```
+or
+```sh
+pip3 install PyBrainWave
+```
+
+### Source code
+
+The source code is currently hosted on GitHub.
+
+- [Binaural-Beat-and-Monaural-Beat-with-python](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python)
+
+### Python package index(PyPI)
+
+Binary installers for the latest released version are available at the Python package index.
+
+- [PyBrainWave: Python Package Index](https://pypi.python.org/pypi/PyBrainWave/)
+
+## Dependencies
+
+- [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/): v0.2.9 or higher
+- [NumPy](http://www.numpy.org/): v1.7.0 or higher
+
 ## Licence
 
 - [GPL2](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/LICENSE)
 
 ## Description
 
- This plugin put your concentration on writing and motivation to post a blog on the path to peak performance. The function of this tool is inducing you to be extreme immersive mind state.
+ The function of this library is inducing you to be extreme immersive mind state on the path to peak performance. You can handle your mind state by using this library which is able to control your brain waves by the binaural beat and the monaural beat.
 
 
 ### Concept of Binaural beat and Monaural beat
-
- You can handle your mind state by using this library which is able to control your brain waves by the binaural beat and the monaural beat.
 
  According to a popular theory, brain waves such as Delta, Theta, Alpha, Beta, and Gamma rhythms tend to be correlated with mind states. The delta waves(1-3 Hz) are regarded as the slowest brain waves that are typically produced during the deep stages of sleep. The theta waves(4-7 Hz) are offen induced by the meditative state or focusing the mind. The alpha waves(8-12 Hz) are associate with relaxed state. The beta waves(13-29 Hz) normal waking consciousness. The Gamma waves(30-100 Hz) are the fastest of the brain waves and associated with peak concentration and the brain's optimal frequency for cognitive functioning.
 
@@ -22,10 +72,6 @@ This python script enables you to handle your mind state by a kind of "Brain-Wav
 
  Please choose either binaural beets or monaural beats. If you set up 5 Hz, your brain waves and the frequency can be tuned and then you are able to be the meditative state or focusing the mind. Or what you choose to be relaxed state is the alpha waves(8-12 Hz).
 
-
-### Dependency
-
-- [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/)
 
 ### References
 

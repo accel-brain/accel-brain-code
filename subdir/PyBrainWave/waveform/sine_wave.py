@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import numpy
 import math
-from waveform.interface.wave_form_interface import WaveFormInterface
+from PyBrainWave.waveform.interface.wave_form_interface import WaveFormInterface
 
 
 class SineWave(WaveFormInterface):

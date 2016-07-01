@@ -61,7 +61,7 @@ Binary installers for the latest released version are available at the Python pa
 
  Binaural beat and Monaural beat can be implemented by not only python but also JavaScript. I developed JavaScript library: [Binaural-Beat-and-Monaural-Beat-with-WebAudioAPI](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-WebAudioAPI).
 
- This library enables you to handle your mind state by a kind of "Brain-Wave Controller" which is generally known as Biaural beat or Monoaural beat in a simplified method.
+ As the kind of "Brain-Wave Controller", this JavaScript library is functionally equivalent to my python library.
 
 
 ## Description

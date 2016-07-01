@@ -48,7 +48,7 @@ Binary installers for the latest released version are available at the Python pa
 
 - [AccelBrainBeat: Python Package Index](https://pypi.python.org/pypi/AccelBrainBeat/)
 
-## Dependencies
+### Dependencies
 
 - [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/): v0.2.9 or higher
 - [NumPy](http://www.numpy.org/): v1.7.0 or higher
@@ -56,6 +56,15 @@ Binary installers for the latest released version are available at the Python pa
 ## Licence
 
 - [GPL2](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/LICENSE)
+
+## Related products
+
+### Binaural-Beat-and-Monaural-Beat-with-WebAudioAPI
+
+This JavaScript library enables you to handle your mind state by a kind of "Brain-Wave Controller" which is generally known as Biaural beat or Monoaural beat in a simplified method.
+
+- [Binaural-Beat-and-Monaural-Beat-with-WebAudioAPI](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-WebAudioAPI)
+
 
 ## Description
 

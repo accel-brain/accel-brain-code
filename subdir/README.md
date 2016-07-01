@@ -6,8 +6,8 @@ This python script enables you to handle your mind state by a kind of "Brain-Wav
 For example, if `400` Hz was played in left ear and `430` Hz in the right, then the binaural beat would have a frequency of 30 Hz.
 
 ```python
-from PyBrainWave.brainbeat.binaural_beat import BinauralBeat
-from PyBrainWave.waveform.sine_wave import SineWave
+from AccelBrainBeat.brainbeat.binaural_beat import BinauralBeat
+from AccelBrainBeat.waveform.sine_wave import SineWave
 
  brain_beat = BinauralBeat()
  brain_beat.wave_form = SineWave()
@@ -46,7 +46,7 @@ The source code is currently hosted on GitHub.
 
 Binary installers for the latest released version are available at the Python package index.
 
-- [PyBrainWave: Python Package Index](https://pypi.python.org/pypi/AccelBrainBeat/)
+- [AccelBrainBeat: Python Package Index](https://pypi.python.org/pypi/AccelBrainBeat/)
 
 ## Dependencies
 

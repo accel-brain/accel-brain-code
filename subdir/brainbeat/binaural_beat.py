@@ -1,8 +1,6 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
 import struct
-import sys
-sys.path.append('/var/opt/python3/bb/')
 from brain_beat import BrainBeat
 
 

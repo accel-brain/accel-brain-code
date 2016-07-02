@@ -1,7 +1,6 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
 from AccelBrainBeat.brainbeat.binaural_beat import BinauralBeat
-from AccelBrainBeat.waveform.sine_wave import SineWave
 
 
 def main():

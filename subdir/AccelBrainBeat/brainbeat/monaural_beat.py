@@ -15,7 +15,7 @@ class MonauralBeat(BrainBeat):
     def write_stream(self, stream, left_chunk, right_chunk, volume):
         '''
         具象メソッド
-        バイノーラルビートを生成する
+        モノラルビートを生成する
 
         Args:
             stream:         PyAudioのストリーム

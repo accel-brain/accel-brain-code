@@ -33,6 +33,13 @@ class BrainBeat(metaclass=ABCMeta):
     # 波形部分のアルゴリズムの責任を担うインターフェイスのプロパティ
     wave_form = property(get_wave_form, set_wave_form)
 
+    def __init__(self):
+        '''
+        初期化
+        '''
+        # デフォルトは正弦波
+        self.wave_form = SineWave()
+
     def play_beat(
         self,
         frequencys,

@@ -9,7 +9,10 @@ class SineWave(WaveFormInterface):
     '''
     インターフェイスの実現
     バイノーラルビートやモノラルビートで処理する対象となる
-    正弦波の波形を計算するインターフェイス
+    正弦波の波形を計算する
+
+    参考：
+    http://milkandtang.com/blog/2013/02/16/making-noise-in-python/
     '''
 
     def create(self, frequency, play_time, sample_rate):

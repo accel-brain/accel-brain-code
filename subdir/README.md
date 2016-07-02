@@ -1,20 +1,35 @@
 # Binaural-Beat-and-Monaural-Beat-with-python
 This python script enables you to handle your mind state by a kind of "Brain-Wave Controller" which is generally known as Biaural beat or Monaural beat in a simplified method.
 
-## Use-case: Create and play "Binaural Beat"
+## Use-case
+
+### Create and play "Binaural Beat"
 
 For example, if `400` Hz was played in left ear and `430` Hz in the right, then the binaural beat would have a frequency of 30 Hz.
 
 ```python
 from AccelBrainBeat.brainbeat.binaural_beat import BinauralBeat
-from AccelBrainBeat.waveform.sine_wave import SineWave
 
- brain_beat = BinauralBeat()
- brain_beat.wave_form = SineWave()
+ brain_beat = BinauralBeat() # for binaural beat.
  brain_beat.play_beat(
     frequencys=(400, 430),
     play_time=10,
-    volume=0.5
+    volume=0.01
+)
+```
+
+### Create and play "Monaural Beat"
+
+The interface of monaural beat is same as the binaural beat.
+
+```python
+from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
+
+ brain_beat = MonauralBeat() # for monaural beat.
+ brain_beat.play_beat(
+    frequencys=(400, 430),
+    play_time=10,
+    volume=0.01
 )
 ```
 

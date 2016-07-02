@@ -36,3 +36,32 @@ class BinauralBeat(BrainBeat):
                 right_chunk[i] * volume
             )
             stream.write(data)
+
+    def read_stream(self, stream, left_chunk, right_chunk, volume):
+        '''
+        具象メソッド
+        wavファイルに保存するバイノーラルビートを読み込む
+
+        Args:
+            stream:         PyAudioのストリーム
+            left_chunk:     左音源に対応するチャンク
+            right_chunk:    右音源に対応するチャンク
+            volume:         音量
+
+        Returns:
+            フレームのlist
+        '''
+        if len(left_chunk) != len(right_chunk):
+            raise ValueError()
+
+        frame_list = []
+        for i in range(len(left_chunk)):
+            data = struct.pack(
+                "2f",
+                left_chunk[i] * volume,
+                right_chunk[i] * volume
+            )
+            frame = stream.read(data)
+            frame_list.append(frame)
+
+        return frame_list

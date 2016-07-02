@@ -35,9 +35,9 @@ from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
 ### Main-settings
 
-- The wave form of binaural beat is the `SineWave`.
+- The type of `frequencys` is tuple. This is pair of both frequencys.
 - The parameter of `play_time` is per seconds.
-
+- The parameter of `volume` is the sound volume. It depends on your environment.
 
 ## Installation
 

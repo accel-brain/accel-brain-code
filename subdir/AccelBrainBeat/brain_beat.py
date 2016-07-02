@@ -99,28 +99,13 @@ class BrainBeat(metaclass=ABCMeta):
         Returns:
             void
         '''
-        # 依存するライブラリの基底オブジェクト
-        audio = pyaudio.PyAudio()
-        # ストリーム
-        stream = audio.open(
-            format=pyaudio.paFloat32,
-            channels=2,
-            rate=sample_rate,
-            output=1,
-            frames_per_buffer=1024
-        )
         left_frequency, right_frequency = frequencys
         left_chunk = self.__create_chunk(left_frequency, play_time, sample_rate)
         right_chunk = self.__create_chunk(right_frequency, play_time, sample_rate)
-        frame_list = self.read_stream(stream, left_chunk, right_chunk, volume)
-        stream.stop_stream()
-        stream.close()
-        audio.terminate()
+        frame_list = self.read_stream(left_chunk, right_chunk, volume)
 
         wf = wave.open(output_file_name, 'wb')
-        wf.setnchannels(2)
-        wf.setsampwidth(audio.get_sample_size(pyaudio.paInt16))
-        wf.setframerate(sample_rate)
+        wf.setparams((2, 2, sample_rate, 0, 'NONE', 'not compressed'))
         wf.writeframes(b''.join(frame_list))
         wf.close()
 
@@ -142,16 +127,16 @@ class BrainBeat(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    def read_stream(self, stream, left_chunk, right_chunk, volume):
+    def read_stream(self, left_chunk, right_chunk, volume, bit16=32767.0):
         '''
         抽象メソッド
         wavファイルに保存するビートを読み込む
 
         Args:
-            stream:         PyAudioのストリーム
             left_chunk:     左音源に対応するチャンク
             right_chunk:    右音源に対応するチャンク
             volume:         音量
+            bit16:          整数化の条件
 
         Returns:
             フレームのlist

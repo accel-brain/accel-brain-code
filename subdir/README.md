@@ -31,7 +31,7 @@ Binary installers for the latest released version are available at the Python pa
 - [NumPy](http://www.numpy.org/): v1.7.0 or higher
 
 
-## Use-case on your console
+## Use-case on console
 
 You can study or work while listening to the Binaural or Monaural beat. Before starting your job, run a batch program on console.
 
@@ -58,7 +58,7 @@ optional arguments:
                         Sound volume.
 ```
 
-### Create and play "Monaural Beat" on your console
+### Create and play "Monaural Beat" on console
 
 Run the batch program: [play_monaural_beat.py](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/bat/play_monaural_beat.py).
 

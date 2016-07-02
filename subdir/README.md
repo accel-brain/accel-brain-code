@@ -79,7 +79,7 @@ optional arguments:
                         Sound volume.
 ```
 
-## Use-case: for coding
+## Use-case for coding
 
 ### Create and play "Binaural Beat"
 

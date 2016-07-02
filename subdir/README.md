@@ -12,9 +12,9 @@ from AccelBrainBeat.brainbeat.binaural_beat import BinauralBeat
 
  brain_beat = BinauralBeat() # for binaural beat.
  brain_beat.play_beat(
-    frequencys=(400, 430),
-    play_time=10,
-    volume=0.01
+    frequencys=(400, 430), # The type is tuple. This is pair of both frequencys.
+    play_time=10, # This is per seconds.
+    volume=0.01 # This is the sound volume. It depends on your environment.
 )
 ```
 
@@ -27,17 +27,11 @@ from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
  brain_beat = MonauralBeat() # for monaural beat.
  brain_beat.play_beat(
-    frequencys=(400, 430),
-    play_time=10,
-    volume=0.01
+    frequencys=(400, 430), # The type is tuple. This is pair of both frequencys.
+    play_time=10, # This is per seconds.
+    volume=0.01 # This is the sound volume. It depends on your environment.
 )
 ```
-
-### Main-settings
-
-- The type of `frequencys` is tuple. This is pair of both frequencys.
-- The parameter of `play_time` is per seconds.
-- The parameter of `volume` is the sound volume. It depends on your environment.
 
 ## Installation
 

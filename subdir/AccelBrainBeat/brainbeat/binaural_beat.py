@@ -37,16 +37,16 @@ class BinauralBeat(BrainBeat):
             )
             stream.write(data)
 
-    def read_stream(self, stream, left_chunk, right_chunk, volume):
+    def read_stream(self, left_chunk, right_chunk, volume, bit16=32767.0):
         '''
         具象メソッド
         wavファイルに保存するバイノーラルビートを読み込む
 
         Args:
-            stream:         PyAudioのストリーム
             left_chunk:     左音源に対応するチャンク
             right_chunk:    右音源に対応するチャンク
             volume:         音量
+            bit16:          整数化の条件
 
         Returns:
             フレームのlist
@@ -56,12 +56,14 @@ class BinauralBeat(BrainBeat):
 
         frame_list = []
         for i in range(len(left_chunk)):
+            left_int_chunk = int(left_chunk[i] * bit16 * volume)
+            right_int_chunk = int(right_chunk[i] * bit16 * volume)
+
             data = struct.pack(
-                "2f",
-                left_chunk[i] * volume,
-                right_chunk[i] * volume
+                "2h",
+                left_int_chunk,
+                right_int_chunk
             )
-            frame = stream.read(data)
-            frame_list.append(frame)
+            frame_list.append(data)
 
         return frame_list

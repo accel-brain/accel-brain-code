@@ -20,7 +20,7 @@ from AccelBrainBeat.brainbeat.binaural_beat import BinauralBeat
 
 ### Create and play "Monaural Beat"
 
-The interface of Monaural beat is same as the binaural beat.
+The interface of monaural beat is same as the binaural beat.
 
 ```python
 from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat

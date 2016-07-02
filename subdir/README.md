@@ -10,7 +10,7 @@ For example, if `400` Hz was played in left ear and `430` Hz in the right, then 
 ```python
 from AccelBrainBeat.brainbeat.binaural_beat import BinauralBeat
 
- brain_beat = BinauralBeat()
+ brain_beat = BinauralBeat() # for binaural beat.
  brain_beat.play_beat(
     frequencys=(400, 430),
     play_time=10,
@@ -25,7 +25,7 @@ The interface of monaural beat is same as the binaural beat.
 ```python
 from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
- brain_beat = MonauralBeat()
+ brain_beat = MonauralBeat() # for monaural beat.
  brain_beat.play_beat(
     frequencys=(400, 430),
     play_time=10,

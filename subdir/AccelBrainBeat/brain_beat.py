@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 import pyaudio
 import numpy
+import wave
 from abc import ABCMeta, abstractmethod
 from AccelBrainBeat.waveform.interface.wave_form_interface import WaveFormInterface
+from AccelBrainBeat.waveform.sine_wave import SineWave
 
 
 class BrainBeat(metaclass=ABCMeta):
@@ -73,8 +75,39 @@ class BrainBeat(metaclass=ABCMeta):
         left_chunk = self.__create_chunk(left_frequency, play_time, sample_rate)
         right_chunk = self.__create_chunk(right_frequency, play_time, sample_rate)
         self.write_stream(stream, left_chunk, right_chunk, volume)
+        stream.stop_stream()
         stream.close()
         audio.terminate()
+
+    def save_beat(
+        self,
+        output_file_name,
+        frequencys,
+        play_time,
+        sample_rate=44100,
+        volume=0.01
+    ):
+        '''
+        引数で指定した条件でビートを鳴らす
+
+        Args:
+            frequencys:     (左の周波数(Hz), 右の周波数(Hz))のtuple
+            play_time:      再生時間（秒）
+            sample_rate:    サンプルレート
+            volume:         音量
+
+        Returns:
+            void
+        '''
+        left_frequency, right_frequency = frequencys
+        left_chunk = self.__create_chunk(left_frequency, play_time, sample_rate)
+        right_chunk = self.__create_chunk(right_frequency, play_time, sample_rate)
+        frame_list = self.read_stream(left_chunk, right_chunk, volume)
+
+        wf = wave.open(output_file_name, 'wb')
+        wf.setparams((2, 2, sample_rate, 0, 'NONE', 'not compressed'))
+        wf.writeframes(b''.join(frame_list))
+        wf.close()
 
     @abstractmethod
     def write_stream(self, stream, left_chunk, right_chunk, volume):
@@ -90,6 +123,23 @@ class BrainBeat(metaclass=ABCMeta):
 
         Returns:
             void
+        '''
+        raise NotImplementedError()
+
+    @abstractmethod
+    def read_stream(self, left_chunk, right_chunk, volume, bit16=32767.0):
+        '''
+        抽象メソッド
+        wavファイルに保存するビートを読み込む
+
+        Args:
+            left_chunk:     左音源に対応するチャンク
+            right_chunk:    右音源に対応するチャンク
+            volume:         音量
+            bit16:          整数化の条件
+
+        Returns:
+            フレームのlist
         '''
         raise NotImplementedError()
 

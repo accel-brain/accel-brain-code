@@ -1,4 +1,7 @@
 # Binaural-Beat-and-Monaural-Beat-with-python
+
+This is a python library for creating the binaural beat or monaural beat. You can play these beats and generate wav files. The frequencys can be optionally selected.
+
 This python script enables you to handle your mind state by a kind of "Brain-Wave Controller" which is generally known as Biaural beat or Monaural beat in a simplified method.
 
 ## Use-case
@@ -27,6 +30,38 @@ from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
  brain_beat = MonauralBeat() # for monaural beat.
  brain_beat.play_beat(
+    frequencys=(400, 430), # The type is tuple. This is pair of both frequencys.
+    play_time=10, # This is per seconds.
+    volume=0.01 # This is the sound volume. It depends on your environment.
+)
+```
+
+### Create wav file of "Binaural Beat"
+
+Change method.
+
+```python
+from AccelBrainBeat.brainbeat.binaural_beat import BinauralBeat
+
+ brain_beat = BinauralBeat() # for binaural beat.
+ brain_beat.save_beat(
+    output_file_name="save_binaural_beat.wav", # wav file name.
+    frequencys=(400, 430), # The type is tuple. This is pair of both frequencys.
+    play_time=10, # This is per seconds.
+    volume=0.01 # This is the sound volume. It depends on your environment.
+)
+```
+
+### Create wav file of "Monaural Beat"
+
+The interface of monaural beat is also same as the binaural beat.
+
+```python
+from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
+
+ brain_beat = MonauralBeat() # for monaural beat.
+ brain_beat.save_beat(
+    output_file_name="save_monaural_beat.wav", # wav file name.
     frequencys=(400, 430), # The type is tuple. This is pair of both frequencys.
     play_time=10, # This is per seconds.
     volume=0.01 # This is the sound volume. It depends on your environment.

@@ -1,8 +1,8 @@
 # Binaural-Beat-and-Monaural-Beat-with-python
 
-This is a python library for creating the binaural beat or monaural beat. You can play these beats and generate wav files. The frequencys can be optionally selected.
+This is a Python library for creating the binaural beat or monaural beat. You can play these beats and generate wav files. The frequencys can be optionally selected.
 
-This python script enables you to handle your mind state by a kind of "Brain-Wave Controller" which is generally known as Biaural beat or Monaural beat in a simplified method.
+This Python script enables you to handle your mind state by a kind of "Brain-Wave Controller" which is generally known as Biaural beat or Monaural beat in a simplified method.
 
 
 ## Installation
@@ -33,7 +33,9 @@ Binary installers for the latest released version are available at the Python pa
 
 ## Use-case on your console
 
-### Create and play "Binaural Beat" on your console
+You can study or work while listening to the Binaural or Monaural beat. Before starting your job, run a batch program on console.
+
+### Create and play "Binaural Beat" on console
 
 Run the batch program: [play_binaural_beat.py](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/bat/play_binaural_beat.py).
 
@@ -80,6 +82,8 @@ optional arguments:
 ```
 
 ## Use-case for coding
+
+You can use this library as a module by executing an import statement in your Python source file.
 
 ### Create and play "Binaural Beat"
 
@@ -149,9 +153,9 @@ from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
 ## Related products
 
- Binaural beat and Monaural beat can be implemented by not only python but also JavaScript. I developed JavaScript library: [Binaural-Beat-and-Monaural-Beat-with-WebAudioAPI](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-WebAudioAPI).
+ Binaural beat and Monaural beat can be implemented by not only Python but also JavaScript. I developed JavaScript library: [Binaural-Beat-and-Monaural-Beat-with-WebAudioAPI](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-WebAudioAPI).
 
- As the kind of "Brain-Wave Controller", this JavaScript library is functionally equivalent to my python library.
+ As the kind of "Brain-Wave Controller", this JavaScript library is functionally equivalent to Python`s library.
 
 
 ## Description

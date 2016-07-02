@@ -12,10 +12,6 @@ Install using pip:
 ```sh
 pip install AccelBrainBeat
 ```
-or
-```sh
-pip3 install AccelBrainBeat
-```
 
 ### Source code
 

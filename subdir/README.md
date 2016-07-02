@@ -4,7 +4,86 @@ This is a python library for creating the binaural beat or monaural beat. You ca
 
 This python script enables you to handle your mind state by a kind of "Brain-Wave Controller" which is generally known as Biaural beat or Monaural beat in a simplified method.
 
-## Use-case
+
+## Installation
+
+Install using pip:
+
+```sh
+pip install AccelBrainBeat
+```
+or
+```sh
+pip3 install AccelBrainBeat
+```
+
+### Source code
+
+The source code is currently hosted on GitHub.
+
+- [Binaural-Beat-and-Monaural-Beat-with-python](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python)
+
+### Python package index(PyPI)
+
+Binary installers for the latest released version are available at the Python package index.
+
+- [AccelBrainBeat: Python Package Index](https://pypi.python.org/pypi/AccelBrainBeat/)
+
+### Dependencies
+
+- [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/): v0.2.9 or higher
+- [NumPy](http://www.numpy.org/): v1.7.0 or higher
+
+
+## Use-case on your console
+
+### Create and play "Binaural Beat" on your console
+
+Run the batch program: [play_binaural_beat.py](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/bat/play_binaural_beat.py).
+
+```console
+python play_binaural_beat.py -l 400 -r 430 -t 60 -v 0.01
+```
+
+```console
+usage: play_binaural_beat.py [-h] [-l LEFT] [-r RIGHT] [-t TIME] [-v VOLUME]
+
+Create and play the Binaural Beat.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l LEFT, --left LEFT  Left frequencys (Hz).
+  -r RIGHT, --right RIGHT
+                        Right frequencys (Hz).
+  -t TIME, --time TIME  Play time. This is per seconds.
+  -v VOLUME, --volume VOLUME
+                        Sound volume.
+```
+
+### Create and play "Monaural Beat" on your console
+
+Run the batch program: [play_monaural_beat.py](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/bat/play_monaural_beat.py).
+
+```console
+python play_monaural_beat_beat.py -l 400 -r 430 -t 60 -v 0.01
+```
+
+```console
+usage: play_monaural_beat.py [-h] [-l LEFT] [-r RIGHT] [-t TIME] [-v VOLUME]
+
+Create and play the Monaural Beat.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l LEFT, --left LEFT  Left frequencys (Hz).
+  -r RIGHT, --right RIGHT
+                        Right frequencys (Hz).
+  -t TIME, --time TIME  Play time. This is per seconds.
+  -v VOLUME, --volume VOLUME
+                        Sound volume.
+```
+
+## Use-case: for coding
 
 ### Create and play "Binaural Beat"
 
@@ -67,35 +146,6 @@ from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
     volume=0.01 # This is the sound volume. It depends on your environment.
 )
 ```
-
-## Installation
-
-Install using pip:
-
-```sh
-pip install AccelBrainBeat
-```
-or
-```sh
-pip3 install AccelBrainBeat
-```
-
-### Source code
-
-The source code is currently hosted on GitHub.
-
-- [Binaural-Beat-and-Monaural-Beat-with-python](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python)
-
-### Python package index(PyPI)
-
-Binary installers for the latest released version are available at the Python package index.
-
-- [AccelBrainBeat: Python Package Index](https://pypi.python.org/pypi/AccelBrainBeat/)
-
-### Dependencies
-
-- [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/): v0.2.9 or higher
-- [NumPy](http://www.numpy.org/): v1.7.0 or higher
 
 ## Licence
 

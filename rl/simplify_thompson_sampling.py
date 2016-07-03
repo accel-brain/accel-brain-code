@@ -1,6 +1,11 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
 
+'''
+より実用性を重視して、
+O'Reilyのバンディットアルゴリズムの仕様を模倣することを放棄したバージョン
+'''
+
 
 class BetaDist(object):
     '''

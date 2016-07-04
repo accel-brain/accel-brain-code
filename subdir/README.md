@@ -195,3 +195,7 @@ from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
 - [chimera0](https://github.com/chimera0)
 
+### Author's website
+
+- [Welcome to Singularity (Japanese)](http://media.accel-brain.com/)
+- [Accel Brain; Beat](http://beat.accel-brain.com/)

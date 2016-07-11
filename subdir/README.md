@@ -178,7 +178,7 @@ from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
 - Brandy, Queen., et al., (2003) “Binaural Beat Induced Theta EEG Activity and Hypnotic Susceptibility : Contradictory Results and Technical Considerations,” American Journal of Clinical Hypnosis, pp295-309.
 - Green, Barry., Gallwey, W. Timothy., (1986) The Inner Game of Music, Doubleday.
-- Kennerly, Richard Cauley., (1994) An empirical investigation into the effect of beta frequency binaural beats audio signals on four measures of human memory, Department of Psychology, West Georgia College, Carrolton, Georgia.
+- Kennerly, Richard Cauley., (1994) An empirical investigation into the effect of beta frequency binaural beat audio signals on four measures of human memory, Department of Psychology, West Georgia College, Carrolton, Georgia.
 - Kim, Jeansok J., Lee, Hongjoo J., Han, Jung-Soo., Packard, Mark G. (2001) “Amygdala Is Critical for Stress-Induced Modulation of Hippocampal Long-Term Potentiation and Learning,” The Journal of Neuroscience, Vol. 21, pp5222-5228.
 - LeDoux, Joseph. (1998) The emotional brain : the mysterious underpinnings of emotional life, London : Weidenfeld & Nicolson.
 - McEwen, Bruce S., Sapolsky, Robert M. (1995) “Stress and cognitive function,” Current Opinion in Neurobiology, Vol. 5, pp205-216.

@@ -1,8 +1,8 @@
-# Binaural-Beat-and-Monaural-Beat-with-python
+# Binaural Beats and Monaural Beats with Python
 
-This is a Python library for creating the binaural beat or monaural beat. You can play these beats and generate wav files. The frequencys can be optionally selected.
+This is a Python library for creating the binaural beats or monaural beats. You can play these beats and generate wav files. The frequencys can be optionally selected.
 
-This Python script enables you to handle your mind state by a kind of "Brain-Wave Controller" which is generally known as Biaural beat or Monaural beat in a simplified method.
+This Python script enables you to handle your mind state by a kind of "Brain-Wave Controller" which is generally known as Biaural beat or Monauarl beats in a simplified method.
 
 
 ## Installation
@@ -33,7 +33,7 @@ Binary installers for the latest released version are available at the Python pa
 
 ## Use-case on console
 
-You can study or work while listening to the Binaural or Monaural beat. Before starting your job, run a batch program on console.
+You can study or work while listening to the Binaural or Monauarl beats. Before starting your job, run a batch program on console.
 
 ### Create and play "Binaural Beat" on console
 
@@ -87,12 +87,12 @@ You can use this library as a module by executing an import statement in your Py
 
 ### Create and play "Binaural Beat"
 
-For example, if `400` Hz was played in left ear and `430` Hz in the right, then the binaural beat would have a frequency of 30 Hz.
+For example, if `400` Hz was played in left ear and `430` Hz in the right, then the binaural beats would have a frequency of 30 Hz.
 
 ```python
 from AccelBrainBeat.brainbeat.binaural_beat import BinauralBeat
 
- brain_beat = BinauralBeat() # for binaural beat.
+ brain_beat = BinauralBeat() # for binaural beats.
  brain_beat.play_beat(
     frequencys=(400, 430), # The type is tuple. This is pair of both frequencys.
     play_time=10, # This is per seconds.
@@ -102,12 +102,12 @@ from AccelBrainBeat.brainbeat.binaural_beat import BinauralBeat
 
 ### Create and play "Monaural Beat"
 
-The interface of monaural beat is same as the binaural beat.
+The interface of monaural beats is same as the binaural beats.
 
 ```python
 from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
- brain_beat = MonauralBeat() # for monaural beat.
+ brain_beat = MonauralBeat() # for monaural beats.
  brain_beat.play_beat(
     frequencys=(400, 430), # The type is tuple. This is pair of both frequencys.
     play_time=10, # This is per seconds.
@@ -122,7 +122,7 @@ Change method.
 ```python
 from AccelBrainBeat.brainbeat.binaural_beat import BinauralBeat
 
- brain_beat = BinauralBeat() # for binaural beat.
+ brain_beat = BinauralBeat() # for binaural beats.
  brain_beat.save_beat(
     output_file_name="save_binaural_beat.wav", # wav file name.
     frequencys=(400, 430), # The type is tuple. This is pair of both frequencys.
@@ -133,12 +133,12 @@ from AccelBrainBeat.brainbeat.binaural_beat import BinauralBeat
 
 ### Create wav file of "Monaural Beat"
 
-The interface of monaural beat is also same as the binaural beat.
+The interface of monaural beats is also same as the binaural beats.
 
 ```python
 from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
- brain_beat = MonauralBeat() # for monaural beat.
+ brain_beat = MonauralBeat() # for monaural beats.
  brain_beat.save_beat(
     output_file_name="save_monaural_beat.wav", # wav file name.
     frequencys=(400, 430), # The type is tuple. This is pair of both frequencys.
@@ -153,21 +153,21 @@ from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
 ## Related products
 
- Binaural beat and Monaural beat can be implemented by not only Python but also JavaScript. I developed JavaScript library: [Binaural-Beat-and-Monaural-Beat-with-WebAudioAPI](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-WebAudioAPI).
+ Binaural beats and Monauarl beats can be implemented by not only Python but also JavaScript. I developed JavaScript library: [Binaural-Beat-and-Monaural-Beat-with-WebAudioAPI](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-WebAudioAPI).
 
  As the kind of "Brain-Wave Controller", this JavaScript library is functionally equivalent to Python`s library.
 
 
 ## Description
 
- The function of this library is inducing you to be extreme immersive mind state on the path to peak performance. You can handle your mind state by using this library which is able to control your brain waves by the binaural beat and the monaural beat.
+ The function of this library is inducing you to be extreme immersive mind state on the path to peak performance. You can handle your mind state by using this library which is able to control your brain waves by the binaural beats and the monaural beats.
 
 
-### Concept of Binaural beat and Monaural beat
+### Concept of Binaural beats and Monauarl beats
 
  According to a popular theory, brain waves such as Delta, Theta, Alpha, Beta, and Gamma rhythms tend to be correlated with mind states. The delta waves(1-3 Hz) are regarded as the slowest brain waves that are typically produced during the deep stages of sleep. The theta waves(4-7 Hz) are offen induced by the meditative state or focusing the mind. The alpha waves(8-12 Hz) are associate with relaxed state. The beta waves(13-29 Hz) normal waking consciousness. The Gamma waves(30-100 Hz) are the fastest of the brain waves and associated with peak concentration and the brain's optimal frequency for cognitive functioning.
 
- By a theory of the binaural beat, signals of two different frequencies from headphone or earphone are presented separately, one to each ear, your brain detects the phase variation between the frequencies and tries to reconcile that difference. The effect on the brain waves depends on the difference in frequencies of each tone. For example, if 400 Hz was played in one ear and 430 in the other, then the binaural beat would have a frequency of 30 Hz.
+ By a theory of the binaural beats, signals of two different frequencies from headphone or earphone are presented separately, one to each ear, your brain detects the phase variation between the frequencies and tries to reconcile that difference. The effect on the brain waves depends on the difference in frequencies of each tone. For example, if 400 Hz was played in one ear and 430 in the other, then the binaural beats would have a frequency of 30 Hz.
 
  The monaural beats are similar to the binaural beats. But they vary in distinct ways. The binaural beats seem to be "created" or perceived by cortical areas combining the two different frequencies. On the other hand, the monaural beats are due to direct stimulation of the basilar membrane. This makes it possible to hear the beats.
 
@@ -178,7 +178,7 @@ from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
 - Brandy, Queen., et al., (2003) “Binaural Beat Induced Theta EEG Activity and Hypnotic Susceptibility : Contradictory Results and Technical Considerations,” American Journal of Clinical Hypnosis, pp295-309.
 - Green, Barry., Gallwey, W. Timothy., (1986) The Inner Game of Music, Doubleday.
-- Kennerly, Richard Cauley., (1994) An empirical investigation into the effect of beta frequency binaural beat audio signals on four measures of human memory, Department of Psychology, West Georgia College, Carrolton, Georgia.
+- Kennerly, Richard Cauley., (1994) An empirical investigation into the effect of beta frequency binaural beats audio signals on four measures of human memory, Department of Psychology, West Georgia College, Carrolton, Georgia.
 - Kim, Jeansok J., Lee, Hongjoo J., Han, Jung-Soo., Packard, Mark G. (2001) “Amygdala Is Critical for Stress-Induced Modulation of Hippocampal Long-Term Potentiation and Learning,” The Journal of Neuroscience, Vol. 21, pp5222-5228.
 - LeDoux, Joseph. (1998) The emotional brain : the mysterious underpinnings of emotional life, London : Weidenfeld & Nicolson.
 - McEwen, Bruce S., Sapolsky, Robert M. (1995) “Stress and cognitive function,” Current Opinion in Neurobiology, Vol. 5, pp205-216.

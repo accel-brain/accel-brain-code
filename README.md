@@ -12,7 +12,7 @@
 
 ## 背景知識
 
-- [バンディットアルゴリズムとしてのsoftmax Algorithm](http://media.accel-brain.com/softmax-algorithm/)
+- [強化学習問題の枠組み](http://media.accel-brain.com/user-experience-metrics-for-virtual-reality-with-bayesian-reinforcement-learning/#i-18)
 - [Thompson Samplingをバンディット問題の解決策として選択した場合の実験結果](http://media.accel-brain.com/thompson-sampling/)
 
 

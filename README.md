@@ -3,7 +3,8 @@
 
 ## 概要
 
-Q学習(Q-Learning)やバンディットアルゴリズムなど、強化学習のデモ用のコード。
+- Q学習(Q-Learning)やバンディットアルゴリズムなど、強化学習のデモ用のソースコードを配置している。
+- [デザイン・パタンを利用した深層学習の実験](https://github.com/chimera0/deep-learning-by-means-of-design-pattern)との関連から、深層強化学習もソースコードも配置している。
 
 ## デモ
 

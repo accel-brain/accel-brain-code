@@ -8,6 +8,7 @@ from deeplearning.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
 class MazeDeepBoltzmannQLearning(object):
     '''
     深層強化学習による迷路探索
+
     深層ボルツマンマシンを自己符号化器のように利用することで
     状態の特徴を周辺の状態との関連から事前学習した上で
     Q学習を実行する
@@ -32,18 +33,27 @@ class MazeDeepBoltzmannQLearning(object):
     # 深層ボルツマンマシンのオブジェクト
     __dbm = None
 
+    # 訓練回数
+    __traning_count = 2
+
     # 各地点の報酬
     __point_reward = {
         "S": 1,    # スタート地点
         "G": 100,  # ゴール地点
         "#": 0,  # 壁
-        "NULL": 1  # scope_limit分進んだ場合にマップ外になる場合
+        "NULL": 0  # scope_limit分進んだ場合にマップ外になる場合
     }
 
     # 探索範囲
     __scope_limit = 1
 
-    def __init__(self, point_reward=None, scope_limit=1):
+    def __init__(
+        self,
+        point_reward=None,
+        scope_limit=1,
+        traning_count=2,
+        learning_rate=0.1
+    ):
         '''
         初期化する
 
@@ -52,6 +62,8 @@ class MazeDeepBoltzmannQLearning(object):
             scope_limit:          深層ボルツマンマシンによる探索範囲
                                   （例） 距離的な概念であるため
                                        1なら上下左右斜め1個分隣のマスが範囲になる
+            traning_count:        深層ボルツマンマシンの訓練回数
+            learning_rate:        深層ボルツマンマシンの学習率
 
         '''
         if point_reward is not None:
@@ -61,11 +73,12 @@ class MazeDeepBoltzmannQLearning(object):
         neuron_count = self.__decide_neuron_count(scope_limit)
         self.__dbm = DeepBoltzmannMachine(
             DBMMultiLayerBuilder(),
-            [neuron_count, 1, neuron_count],
+            [neuron_count, 3, 1],
             SigmoidFunction(),
             ContrastiveDivergence(),
-            0.05
+            learning_rate
         )
+        self.__traning_count = traning_count
 
     def initialize(self, square_map_data):
         '''
@@ -80,6 +93,7 @@ class MazeDeepBoltzmannQLearning(object):
         map_data_matrix = []
         [map_data_matrix.append(line.split(",")) for line in square_map_data.split("\n") if line.strip() != ""]
 
+        all_count = len(map_data_matrix) * len(map_data_matrix[0])
         map_vector_matrix = []
         vector_matrix = []
         for i in range(len(map_data_matrix)):
@@ -95,25 +109,26 @@ class MazeDeepBoltzmannQLearning(object):
                                 vector_list.append(self.__point_reward["NULL"])
                             else:
                                 if map_data_matrix[k][l] in self.__point_reward:
-                                    reward = self.__point_reward[map_data_matrix[k][l]] / 100
+                                    reward = self.__point_reward[map_data_matrix[k][l]] / all_count
                                 else:
-                                    reward = float(map_data_matrix[k][l]) / 100
+                                    reward = float(map_data_matrix[k][l]) / all_count
                                 vector_list.append(reward)
 
                 map_vector_list.append(vector_list)
                 vector_matrix.append(vector_list)
             map_vector_matrix.append(map_vector_list)
 
-        self.__dbm.learn(vector_matrix, traning_count=1)
+        self.__dbm.learn(vector_matrix, traning_count=self.__traning_count)
 
         map_feature_matrix = []
         for i in range(len(map_vector_matrix)):
             map_feature_list = []
             for j in range(len(map_vector_matrix[i])):
-                self.__dbm.clustering([map_vector_matrix[i][j]])
+                # ヘブ則的連想
+                self.__dbm.learn([map_vector_matrix[i][j]], traning_count=1)
                 if map_data_matrix[i][j] not in self.__point_reward:
                     map_feature_list.append(
-                        self.__dbm.get_feature_point_list()[0]
+                        self.__dbm.get_feature_point_list(1)[0]
                     )
                 else:
                     map_feature_list.append(
@@ -155,13 +170,13 @@ if __name__ == "__main__":
 
     # "S": Start地点, "#": 壁, "数値": 報酬
     RAW_Field = """
-#,#,#,#,#,#,#,#,#,#,#,#,#,#
+#,#,#,#,#,#,#,#,#,#,#,#
 #,S,10,10,0,1,0,1,10,5,1,#
 #,0,0,1,10,1,0,0,5,1,10,#
 #,10,0,1,0,30,10,3,1,3,20,#
 #,10,20,30,0,1,10,2,0,0,1,#
 #,1,0,10,100,G,1,1,1,0,3,#
-#,#,#,#,#,#,#,#,#,#,#,#,#,#
+#,#,#,#,#,#,#,#,#,#,#,#
 """
 
     if len(sys.argv) > 1 and sys.argv[1] == "debug":

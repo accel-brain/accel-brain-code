@@ -115,10 +115,10 @@ class BoltzmannQLearning(QLearning):
         if self.debug_mode is True:
             max_q = self.extract_q_dict(state_key, action_key)
             self.debug_message_list.append(
-                "\nBoltzmann Selection ..."
+                "\n\tBoltzmann Selection ..."
             )
             self.debug_message_list.append(
-                "Max Q: " + str(max_q) + "\tNext Action: " + str(action_key)
+                "\tMax Q: " + str(max_q) + "\tNext Action: " + str(action_key)
             )
 
     def __del__(self):

@@ -3,17 +3,13 @@
 import copy
 import sys
 from rl.qlearning.boltzmann_q_learning import BoltzmannQLearning
+from rl.qlearning.interface.maze_q_learning_interface import MazeQLearningInterface
 
 
-class MazeBoltzmannQLearning(BoltzmannQLearning):
+class MazeBoltzmannQLearning(BoltzmannQLearning, MazeQLearningInterface):
     '''
     ボルツマン分布に基づくソフトマックス戦略によるQ学習で、
     迷路探索を実行する。
-    
-    デモ用途。MazeGreedyQLearningと一部重複している。
-    
-    迷路のマップのプリント処理については、下記のページを参考にさせていただいた。
-    http://d.hatena.ne.jp/Kshi_Kshi/20111227/1324993576
 
     '''
 
@@ -28,16 +24,16 @@ class MazeBoltzmannQLearning(BoltzmannQLearning):
         '''
         self.__map_data_list = []
         [self.__map_data_list.append(line.split(",")) for line in square_map_data.split("\n") if line.strip() != ""]
-        self.__start_point = self.__decide_start_point(self.__map_data_list)
+        self.__start_point = self.decide_start_point(self.__map_data_list)
         # マップ状況をデバッグメッセージに登録
-        self.__debug_map_data_list()
+        self.debug_map_data_list()
 
         for y, line in enumerate(self.__map_data_list):
             for x, v in enumerate(line):
                 if v == "#":
                     continue
                 point = (x, y)
-                reward_tuple = self.__extract_reward_value(point)
+                reward_tuple = self.extract_reward_value(point)
                 self.save_r_dict(point, reward_tuple[0])
 
     def learn(self, state_key=None, limit=1000):
@@ -51,7 +47,7 @@ class MazeBoltzmannQLearning(BoltzmannQLearning):
 
         '''
         if state_key is None:
-            state_key = self.__decide_start_point(self.__map_data_list)
+            state_key = self.decide_start_point(self.__map_data_list)
 
         self.t = 1
         while self.t <= limit:
@@ -60,7 +56,7 @@ class MazeBoltzmannQLearning(BoltzmannQLearning):
                 state_key=state_key,
                 next_action_list=next_action_list
             )
-            reward_value, end_flag = self.__extract_reward_value(state_key)
+            reward_value, end_flag = self.extract_reward_value(state_key)
 
             next_next_action_list = self.extract_possible_actions(action_key)
 
@@ -69,7 +65,7 @@ class MazeBoltzmannQLearning(BoltzmannQLearning):
             next_max_q = self.extract_q_dict(action_key, next_action_key)
 
             # マップ状況をデバッグメッセージに登録
-            self.__debug_map_data_list(state_key, action_key, self.t, end_flag)
+            self.debug_map_data_list(state_key, action_key, self.t, end_flag)
 
             # ゴールに到達すればこれ以上繰り返しは不要。
             if end_flag is True:
@@ -112,7 +108,7 @@ class MazeBoltzmannQLearning(BoltzmannQLearning):
         possible_actoins_list = [(_x, _y) for _x, _y in around_map if self.__map_data_list[_y][_x] != "#" and self.__map_data_list[_y][_x] != "S"]
         return possible_actoins_list
 
-    def __decide_start_point(self, map_data_list):
+    def decide_start_point(self, map_data_list):
         '''
         マップデータ内のStart地点:Sの座標を返す。
 
@@ -133,7 +129,7 @@ class MazeBoltzmannQLearning(BoltzmannQLearning):
 
         raise ValueError("Fieldにスタート地点：Sがありません。")
 
-    def __extract_reward_value(self, point):
+    def extract_reward_value(self, point):
         '''
         指定した座標のfieldの値を返す. エピソード終了判定もする。
 
@@ -159,13 +155,15 @@ class MazeBoltzmannQLearning(BoltzmannQLearning):
             v = float(self.__map_data_list[y][x])
             return v, False
 
-    def __debug_map_data_list(self, state_key=None, action_key=None, i=0, end_flag=False):
+    def debug_map_data_list(self, state_key=None, action_key=None, i=0, end_flag=False):
         '''
         マップ情報や現在位置の情報をデバッグメッセージに追加する。
 
         Args:
             state_key:      現在位置(x, y)のtuple
             action_key:     次回行動時の位置(x, y)のtuple
+            i:              移動回数
+            end_flag:       終了フラグ
 
         '''
         map_data_list = copy.deepcopy(self.__map_data_list)
@@ -205,18 +203,26 @@ class MazeBoltzmannQLearning(BoltzmannQLearning):
         if self.debug_mode is True:
             self.debug_message_list.append("\nUpdate Count:" + str(self.t))
 
+        for i, state_key in enumerate(self.q_dict.keys()):
+            for action_key in self.q_dict[state_key].keys():
+                self.debug_message_list.append(
+                    "\t\tQ(s, a): Q(%s, %s): %s" % (str(state_key), str(action_key), str(self.extract_q_dict(state_key, action_key)))
+                )
+                if i != len(self.q_dict.keys()) - 1:
+                    self.debug_message_list.append('\t----- next state -----')
+
         super().__del__()
 
 if __name__ == "__main__":
     # "S": Start地点, "#": 壁, "数値": 報酬
     RAW_Field = """
-#,#,#,#,#,#,#
-#,S,1,1,-10,1,#
-#,10,-10,1,1,1,#
-#,10,-10,1,-10,1,#
-#,20,20,30,-10,1,#
-#,1,-10,10,100,G,#
-#,#,#,#,#,#,#
+#,#,#,#,#,#,#,#,#,#,#,#,#,#
+#,S,10,10,0,1,0,1,10,5,1,#
+#,0,0,1,10,1,0,0,5,1,10,#
+#,10,0,1,0,30,10,3,1,3,20,#
+#,10,20,30,0,1,10,2,0,0,1,#
+#,1,0,10,100,G,1,1,1,0,3,#
+#,#,#,#,#,#,#,#,#,#,#,#,#,#
 """
 
     if len(sys.argv) > 1 and sys.argv[1] == "debug":

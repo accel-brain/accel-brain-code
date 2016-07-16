@@ -16,6 +16,7 @@ class QLearning(metaclass=ABCMeta):
         gamma_value:        割引率：ガンマ値。比例して行動時に獲得し得る報酬の可能性からの影響度が高まる。
         q_dict:             状態：sにおける行動：aのQ値。
         r_dict:             状態：sにおける報酬。
+        t:                  時点
         debug_mode:         True:デバッグモード,  False:非デバッグモード
         debug_message_list: デバッグメッセージのリスト
 
@@ -156,35 +157,44 @@ class QLearning(metaclass=ABCMeta):
 
     r_dict = property(get_r_dict, set_r_dict)
 
-    def extract_r_dict(self, state_key):
+    def extract_r_dict(self, state_key, action_key=None):
         '''
         プロパティ：r_dictからキーを指定して取得する
 
         Args:
-            state_key:     行動
+            state_key:     状態
+            action_key:    行動
 
         Returns:
             報酬
 
         '''
         try:
-            return self.r_dict[state_key]
+            if action_key is None:
+                return self.r_dict[state_key]
+            else:
+                return self.r_dict[(state_key, action_key)]
         except KeyError:
-            self.save_r_dict(state_key, 0.0)
-            return self.extract_r_dict(state_key)
+            self.save_r_dict(state_key, 0.0, action_key)
+            return self.extract_r_dict(state_key, action_key)
 
-    def save_r_dict(self, state_key, r_value):
+    def save_r_dict(self, state_key, r_value, action_key=None):
         '''
         プロパティ：r_dictにキーを指定して保存する
 
         Args:
-            state_key:     行動
+            state_key:     状態
             r_value:       報酬
+            action_key:    行動
 
         '''
         if isinstance(r_value, float) is False:
             raise TypeError("The type of r_value must be float.")
-        self.r_dict[state_key] = r_value
+
+        if action_key is not None:
+            self.r_dict[(state_key, action_key)] = r_value
+        else:
+            self.r_dict[state_key] = r_value
 
     # 状態と行動の時間
     __t = 0

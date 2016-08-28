@@ -4,7 +4,7 @@
 from deeplearning.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
 from deeplearning.dbm.builders.dbm_3_layer_builder import DBM3LayerBuilder
 from deeplearning.approximation.contrastive_divergence import ContrastiveDivergence
-from deeplearning.activation.sigmoid_function import SigmoidFunction
+from deeplearning.activation.logistic_function import LogisticFunction
 from sklearn.datasets import load_iris
 import numpy as np
 import random
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         len(data_matrix[0]),
         10,
         5,
-        SigmoidFunction(),
+        LogisticFunction(),
         ContrastiveDivergence(),
         0.05
     )
@@ -70,7 +70,7 @@ if __name__ == "__main__":
         len(data_matrix[0]),
         3,
         2,
-        SigmoidFunction(),
+        LogisticFunction(),
         ContrastiveDivergence(),
         0.05
     )
@@ -83,7 +83,7 @@ if __name__ == "__main__":
         len(data_matrix[0]),
         10,
         5,
-        SigmoidFunction(),
+        LogisticFunction(),
         ContrastiveDivergence(),
         0.5
     )
@@ -96,7 +96,7 @@ if __name__ == "__main__":
         len(data_matrix[0]),
         3,
         2,
-        SigmoidFunction(),
+        LogisticFunction(),
         ContrastiveDivergence(),
         0.5
     )
@@ -109,7 +109,7 @@ if __name__ == "__main__":
         len(data_matrix[0]),
         10,
         5,
-        SigmoidFunction(),
+        LogisticFunction(),
         ContrastiveDivergence(),
         0.05
     )
@@ -123,7 +123,7 @@ if __name__ == "__main__":
         len(data_matrix[0]),
         3,
         2,
-        SigmoidFunction(),
+        LogisticFunction(),
         ContrastiveDivergence(),
         0.05
     )
@@ -136,7 +136,7 @@ if __name__ == "__main__":
         len(data_matrix[0]),
         10,
         5,
-        SigmoidFunction(),
+        LogisticFunction(),
         ContrastiveDivergence(),
         0.5
     )
@@ -149,7 +149,7 @@ if __name__ == "__main__":
         len(data_matrix[0]),
         3,
         2,
-        SigmoidFunction(),
+        LogisticFunction(),
         ContrastiveDivergence(),
         0.5
     )

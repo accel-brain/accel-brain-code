@@ -20,3 +20,14 @@ class LogisticFunction(ActivatingFunctionInterface):
             活性化関数の返り値
         '''
         return 1.0 / (1.0 + np.exp(-x))
+
+    def derivative(self, y):
+        '''
+        導関数
+
+        Args:
+            y:  パラメタ
+        Returns:
+            導関数の値
+        '''
+        return self.activate(y) * (1 - self.activate(y))

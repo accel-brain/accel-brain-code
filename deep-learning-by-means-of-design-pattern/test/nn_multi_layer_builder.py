@@ -1,6 +1,6 @@
 if __name__ == "__main__":
     from deeplearning.nn.builders.nn_multi_layer_builder import NNMultiLayerBuilder
-    from deeplearning.activation.sigmoid_function import SigmoidFunction
+    from deeplearning.activation.logistic_function import LogisticFunction
     import numpy as np
     import random
     import pandas as pd

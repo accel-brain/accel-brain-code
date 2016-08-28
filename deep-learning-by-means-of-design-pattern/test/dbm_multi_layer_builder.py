@@ -3,7 +3,7 @@
 from deeplearning.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
 from deeplearning.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
 from deeplearning.approximation.contrastive_divergence import ContrastiveDivergence
-from deeplearning.activation.sigmoid_function import SigmoidFunction
+from deeplearning.activation.logistic_function import LogisticFunction
 import numpy as np
 import random
 import pandas as pd
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     dbm = DeepBoltzmannMachine(
         DBMMultiLayerBuilder(),
         [len(traning_data_matrix[0]), 8, 6, 4, 2],
-        SigmoidFunction(),
+        LogisticFunction(),
         ContrastiveDivergence(),
         0.05
     )
@@ -76,7 +76,7 @@ if __name__ == "__main__":
     dbm = DeepBoltzmannMachine(
         DBMMultiLayerBuilder(),
         [len(traning_data_matrix[0]), 8, 6, 4],
-        SigmoidFunction(),
+        LogisticFunction(),
         ContrastiveDivergence(),
         0.05
     )
@@ -88,7 +88,7 @@ if __name__ == "__main__":
     dbm = DeepBoltzmannMachine(
         DBMMultiLayerBuilder(),
         [len(traning_data_matrix[0]), 8, 6],
-        SigmoidFunction(),
+        LogisticFunction(),
         ContrastiveDivergence(),
         0.05
     )
@@ -99,7 +99,7 @@ if __name__ == "__main__":
     dbm = DeepBoltzmannMachine(
         DBMMultiLayerBuilder(),
         [len(traning_data_matrix[0]), 8, 1],
-        SigmoidFunction(),
+        LogisticFunction(),
         ContrastiveDivergence(),
         0.05
     )

@@ -23,3 +23,15 @@ class ActivatingFunctionInterface(metaclass=ABCMeta):
             活性化関数の返り値
         '''
         raise NotImplementedError()
+
+    @abstractmethod
+    def derivative(self, y):
+        '''
+        導関数
+
+        Args:
+            y:  パラメタ
+        Returns:
+            導関数の値
+        '''
+        raise NotImplementedError()

@@ -1,8 +1,6 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
 from multipledispatch import dispatch
-import sys
-sys.path.append('/var/opt/python3/ai/')
 from deeplearning.dbm.interface.dbm_builder import DBMBuilder
 from deeplearning.dbm.dbm_director import DBMDirector
 from deeplearning.activation.interface.activating_function_interface import ActivatingFunctionInterface

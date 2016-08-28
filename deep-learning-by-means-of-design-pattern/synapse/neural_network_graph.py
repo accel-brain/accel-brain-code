@@ -1,7 +1,7 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
 from deeplearning.synapse_list import Synapse
-from deeplearning.activation.sigmoid_function import SigmoidFunction
+from deeplearning.activation.logistic_function import LogisticFunction
 
 
 class NeuralNetworkGraph(Synapse):
@@ -13,7 +13,7 @@ class NeuralNetworkGraph(Synapse):
     # 出力層のフラグ
     __output_layer_flag = False
     # シグモイド関数
-    __sigmoid_function = None
+    __logistic_function = None
     # 運動量係数の辞書
     __momentum_factor_dict = {}
 
@@ -25,7 +25,7 @@ class NeuralNetworkGraph(Synapse):
             raise TypeError()
         self.__output_layer_flag = output_layer_flag
 
-        self.__sigmoid_function = SigmoidFunction()
+        self.__logistic_function = LogisticFunction()
 
     def back_propagate(
         self,
@@ -70,7 +70,7 @@ class NeuralNetworkGraph(Synapse):
                 # 外部から出力層に入力された場合、
                 # 言うなれば伝播すべき誤差データが無いために、ここで生成する
                 diff_list.append(
-                    self.__sigmoid_function.derivative(activity) * error
+                    self.__logistic_function.derivative(activity) * error
                 )
         else:
             diff_list = propagated_list
@@ -91,7 +91,7 @@ class NeuralNetworkGraph(Synapse):
                 error += diff_list[j] * self.weights_dict[(i, j)]
 
             back_propagated_list.append(
-                self.__sigmoid_function.derivative(activity) * error
+                self.__logistic_function.derivative(activity) * error
             )
 
         # 重みの更新

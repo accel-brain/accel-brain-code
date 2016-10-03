@@ -4,7 +4,7 @@
 
 class Normalization(object):
     '''
-    お手製規格化定数メソッド
+    規格化定数メソッド
     '''
 
     def z_theta(self, target_list):
@@ -28,7 +28,10 @@ class Normalization(object):
                 range_max=1
             )
             target_list = [self.listup(target) for target in target_list]
-            result_list = [target / sum(target_list) for target in target_list]
+            try:
+                result_list = [target / sum(target_list) for target in target_list]
+            except ZeroDivisionError:
+                result_list = target_list
 
         return result_list
 

@@ -67,7 +67,7 @@ class ContrastiveDivergence(ApproximateInterface):
         for j in range(len(self.__graph.hidden_neuron_list)):
             link_value = 0.0
             for i in range(len(self.__graph.visible_neuron_list)):
-                link_value += self.__graph.weights_dict[i, j] * self.__graph.visible_neuron_list[i].activity
+                link_value += self.__graph.weights_dict[(i, j)] * self.__graph.visible_neuron_list[i].activity
             self.__graph.hidden_neuron_list[j].hidden_update_state(link_value)
 
         # ヘブ規則によりリンクの重みを更新する

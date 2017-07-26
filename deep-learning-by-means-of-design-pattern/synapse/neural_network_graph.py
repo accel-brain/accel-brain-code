@@ -1,5 +1,6 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
+import numpy as np
 from deeplearning.synapse_list import Synapse
 from deeplearning.activation.logistic_function import LogisticFunction
 
@@ -12,10 +13,10 @@ class NeuralNetworkGraph(Synapse):
 
     # 出力層のフラグ
     __output_layer_flag = False
-    # シグモイド関数
+    # ロジスティック関数
     __logistic_function = None
     # 運動量係数の辞書
-    __momentum_factor_dict = {}
+    __momentum_factor_arr = None
 
     def __init__(self, output_layer_flag=False):
         '''
@@ -24,7 +25,6 @@ class NeuralNetworkGraph(Synapse):
         if isinstance(output_layer_flag, bool) is False:
             raise TypeError()
         self.__output_layer_flag = output_layer_flag
-
         self.__logistic_function = LogisticFunction()
 
     def back_propagate(
@@ -49,7 +49,6 @@ class NeuralNetworkGraph(Synapse):
         Returns:
             伝播内容と活性度のtupleのリスト
         '''
-
         if self.__output_layer_flag is True:
             '''
             出力層から「中間層における最上位層」までの組み合わせ
@@ -57,45 +56,36 @@ class NeuralNetworkGraph(Synapse):
             それを下層となる中間層に伝播する
             '''
             if len(self.deeper_neuron_list) != len(propagated_list):
-                print(len(self.deeper_neuron_list))
-                print(len(propagated_list))
-                print(propagated_list)
                 raise IndexError()
 
-            diff_list = []
-            for j in range(len(self.deeper_neuron_list)):
-                # 教師データリストの諸要素と出力層の各ニューロンの多重度は1:1
-                error = propagated_list[j] - self.deeper_neuron_list[j].activity
-                activity = self.deeper_neuron_list[j].activity
-                # 外部から出力層に入力された場合、
-                # 言うなれば伝播すべき誤差データが無いために、ここで生成する
-                diff_list.append(
-                    self.__logistic_function.derivative(activity) * error
-                )
+            diff_list = [self.deeper_neuron_list[j].activity - propagated_list[j] for j in range(len(self.deeper_neuron_list))]
         else:
             diff_list = propagated_list
 
-        back_propagated_list = []
-        for i in range(len(self.shallower_neuron_list)):
-            activity = self.shallower_neuron_list[i].activity
-            error = 0.0
-            for j in range(len(self.deeper_neuron_list)):
-                self.diff_weights_dict.setdefault((i, j), 0.0)
-                self.__momentum_factor_dict.setdefault((i, j), 0.0)
+        diff_list = list(np.nan_to_num(np.array(diff_list)))
 
-                diff = diff_list[j] * activity
-                momentum = momentum_factor * self.__momentum_factor_dict[(i, j)]
-                self.diff_weights_dict[(i, j)] += (learning_rate * diff) + momentum
-                self.__momentum_factor_dict[(i, j)] = diff
+        diff_arr = np.array([[diff_list[k]] * len(self.shallower_neuron_list) for k in range(len(diff_list))]).T
+        if self.__momentum_factor_arr is not None:
+            momentum_arr = self.__momentum_factor_arr * momentum_factor
+        else:
+            momentum_arr = np.ones(diff_arr.shape) * momentum_factor
 
-                error += diff_list[j] * self.weights_dict[(i, j)]
+        self.diff_weights_arr = (learning_rate * diff_arr) + momentum_arr
+        self.__momentum_factor_arr = diff_arr
+        self.weights_arr = np.nan_to_num(self.weights_arr)
+        error_arr = diff_arr * self.weights_arr
+        error_list = error_arr.sum(axis=1)
+        back_propagated_list = [self.__logistic_function.derivative(self.shallower_neuron_list[i].activity) * error_list[i] for i in range(len(self.shallower_neuron_list))]
 
-            back_propagated_list.append(
-                self.__logistic_function.derivative(activity) * error
-            )
+        # 規格化
+        back_propagated_arr = np.array(back_propagated_list)
+        back_propagated_arr = self.__softmax(back_propagated_arr)
+        back_propagated_arr = np.nan_to_num(back_propagated_arr)
+        back_propagated_list = list(back_propagated_arr)
 
         # 重みの更新
         self.learn_weights()
+
         # バイアスの更新
         [neuron.update_bias(learning_rate) for neuron in self.shallower_neuron_list]
         [neuron.update_bias(learning_rate) for neuron in self.deeper_neuron_list]
@@ -109,3 +99,11 @@ class NeuralNetworkGraph(Synapse):
                     back_nn_list=back_nn_list,
                     back_nn_index=back_nn_index + 1
                 )
+
+    def __softmax(self, x):
+        '''
+        Softmax戦略
+        '''
+        x = (x - x.mean()) / x.std()
+        e_x = np.exp(x - np.max(x))
+        return e_x / e_x.sum()

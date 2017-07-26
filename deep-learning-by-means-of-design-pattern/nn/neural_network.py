@@ -11,7 +11,7 @@ class NeuralNetwork(object):
     '''
 
     # ニューラルネットワークのグラフ
-    __nn_list = []
+    nn_list = []
 
     # 評価時に参照する（ハイパー）パラメタの記録用辞書
     __hyper_param_dict = {}
@@ -42,7 +42,7 @@ class NeuralNetwork(object):
             activating_function_list=activating_function_list
         )
 
-        self.__nn_list = nn_director.nn_list
+        self.nn_list = nn_director.nn_list
 
         self.__hyper_param_dict = {
             "neuron_assign_list": [input_neuron_count, hidden_neuron_count, output_neuron_count],
@@ -74,7 +74,7 @@ class NeuralNetwork(object):
             activating_function_list=activating_function_list
         )
 
-        self.__nn_list = nn_director.nn_list
+        self.nn_list = nn_director.nn_list
 
         self.__hyper_param_dict = {
             "neuron_assign_list": neuron_assign_list,
@@ -87,7 +87,8 @@ class NeuralNetwork(object):
         class_data_matrix,
         learning_rate=0.5,
         momentum_factor=0.1,
-        traning_count=1000
+        traning_count=1000,
+        learning_rate_list=None
     ):
         '''
         フォワードプロパゲーションとバックプロパゲーションを交互に実行し続ける
@@ -98,6 +99,7 @@ class NeuralNetwork(object):
             learning_rate:          学習率
             momentum_factor:        運動量係数
             traning_count:          訓練回数
+            learning_rate_list:     各データセットの学習率
 
         '''
         if len(traning_data_matrix) != len(class_data_matrix):
@@ -106,6 +108,9 @@ class NeuralNetwork(object):
         for i in range(traning_count):
             for j in range(len(traning_data_matrix)):
                 self.forward_propagate(traning_data_matrix[j])
+                if learning_rate_list is not None:
+                    learning_rate = learning_rate_list[j]
+
                 self.back_propagate(
                     test_data_list=class_data_matrix[j],
                     learning_rate=learning_rate,
@@ -119,56 +124,53 @@ class NeuralNetwork(object):
     def forward_propagate(self, input_data_list):
         '''
         フォワードプロパゲーションを実行する
+        バイアスと重みの規格化も実行する
 
         Args:
             input_data_list:  訓練データ
 
         '''
-        nn_from_input_to_hidden_layer = self.__nn_list[0]
-        nn_hidden_layer_list = []
-        for i in range(1, len(self.__nn_list) - 1):
-            nn_hidden_layer_list.append(self.__nn_list[i])
-        nn_to_output_layer = self.__nn_list[-1]
+        nn_from_input_to_hidden_layer = self.nn_list[0]
+        nn_hidden_layer_list = self.nn_list[1:len(self.nn_list) - 1]
+        nn_to_output_layer = self.nn_list[-1]
+        [nn_from_input_to_hidden_layer.shallower_neuron_list[i].observe_data_point(input_data_list[i]) for i in range(len(input_data_list))]
 
-        for i in range(len(input_data_list)):
-            nn_from_input_to_hidden_layer.shallower_neuron_list[i].observe_data_point(input_data_list[i])
+        # 最も浅い層：入力層
+        shallower_activity_arr = [[nn_from_input_to_hidden_layer.shallower_neuron_list[i].activity] * len(nn_from_input_to_hidden_layer.deeper_neuron_list) for i in range(len(nn_from_input_to_hidden_layer.shallower_neuron_list))]
+        link_value_arr = shallower_activity_arr * nn_from_input_to_hidden_layer.weights_arr
+        link_value_list = link_value_arr.sum(axis=0)
+        [nn_from_input_to_hidden_layer.deeper_neuron_list[j].hidden_update_state(link_value_list[j]) for j in range(len(link_value_list))]
+        nn_from_input_to_hidden_layer.normalize_visible_bias()
+        nn_from_input_to_hidden_layer.normalize_hidden_bias()
 
-        for j in range(len(nn_from_input_to_hidden_layer.deeper_neuron_list)):
-            link_value = 0.0
-            for i in range(len(nn_from_input_to_hidden_layer.shallower_neuron_list)):
-                activity = nn_from_input_to_hidden_layer.shallower_neuron_list[i].activity
-                weight = nn_from_input_to_hidden_layer.weights_dict[(i, j)]
-                link_value += activity * weight
-            nn_from_input_to_hidden_layer.deeper_neuron_list[j].hidden_update_state(link_value)
-
+        # 相対的に中間的な層：層数に応じてループ
         for nn_hidden_layer in nn_hidden_layer_list:
-            for j in range(len(nn_hidden_layer.deeper_neuron_list)):
-                link_value = 0.0
-                for i in range(len(nn_hidden_layer.shallower_neuron_list)):
-                    nn_hidden_layer.diff_weights_dict.setdefault((i, j), 0.0)
-                    activity = nn_hidden_layer.shallower_neuron_list[i].activity
-                    weight = nn_hidden_layer.diff_weights_dict[(i, j)]
-                    link_value += activity * weight
-                nn_hidden_layer.deeper_neuron_list[j].hidden_update_state(link_value)
+            shallower_activity_arr = [[nn_hidden_layer.shallower_neuron_list[i].activity] * len(nn_hidden_layer.deeper_neuron_list) for i in range(len(nn_hidden_layer.shallower_neuron_list))]
+            link_value_arr = shallower_activity_arr * nn_hidden_layer.weights_arr
+            link_value_list = link_value_arr.sum(axis=0)
+            [nn_hidden_layer.deeper_neuron_list[j].hidden_update_state(link_value_list[j]) for j in range(len(link_value_list))]
+            nn_hidden_layer.normalize_visible_bias()
+            nn_hidden_layer.normalize_hidden_bias()
 
-        for j in range(len(nn_to_output_layer.deeper_neuron_list)):
-            link_value = 0.0
-            for i in range(len(nn_to_output_layer.shallower_neuron_list)):
-                activity = nn_to_output_layer.shallower_neuron_list[i].activity
-                weight = nn_to_output_layer.weights_dict[(i, j)]
-                link_value += activity * weight
-            nn_to_output_layer.deeper_neuron_list[j].output_update_state(link_value)
+        # 出力層
+        shallower_activity_arr = [[nn_to_output_layer.shallower_neuron_list[i].activity] * len(nn_to_output_layer.deeper_neuron_list) for i in range(len(nn_to_output_layer.shallower_neuron_list))]
+        link_value_arr = shallower_activity_arr * nn_to_output_layer.weights_arr
+        link_value_list = link_value_arr.sum(axis=0)
+        [nn_to_output_layer.deeper_neuron_list[j].output_update_state(link_value_list[j]) for j in range(len(link_value_list))]
+        nn_to_output_layer.normalize_visible_bias()
+        nn_to_output_layer.normalize_hidden_bias()
 
     def back_propagate(self, test_data_list, learning_rate=0.05, momentum_factor=0.1):
         '''
         バックプロパゲーションを実行する
+        再帰処理のため、バイアスと重みの規格化はback_propagateメソッド内部で実行する
 
         Args:
             test_data_list:     検証用データ
             learning_rate:      学習率
             momentum_factor:    運動量係数
         '''
-        back_nn_list = [back_nn for back_nn in reversed(self.__nn_list)]
+        back_nn_list = [back_nn for back_nn in reversed(self.nn_list)]
         back_nn_list[0].back_propagate(
             propagated_list=test_data_list,
             learning_rate=learning_rate,
@@ -190,7 +192,7 @@ class NeuralNetwork(object):
 
         output_data_list = []
         self.forward_propagate(test_data_list)
-        for output_neuron in self.__nn_list[-1].deeper_neuron_list:
+        for output_neuron in self.nn_list[-1].deeper_neuron_list:
             output_data_list.append(output_neuron.release())
 
         return output_data_list

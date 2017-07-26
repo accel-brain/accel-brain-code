@@ -1,22 +1,24 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
+import numpy as np
 import random
-from accelstat.normalization import Normalization
+import sys
 
 
 class Synapse(object):
     '''
     抽象クラス：Neuronの下位クラスの関連を保持するシナプス
+    Numpy版
     '''
 
     # 比較的浅い層のニューロンオブジェクトリスト
     __shallower_neuron_list = []
     # 比較的深い層のニューロンオブジェクトリスト
     __deeper_neuron_list = []
-    # 各リンクの重みリスト
-    __weights_dict = {}
+    # 各リンクの重み
+    __weights_arr = None
     # 各リンクの重みの差分リスト
-    __diff_weights_dict = {}
+    __diff_weights_arr = None
 
     def get_shallower_neuron_list(self):
         ''' getter '''
@@ -34,86 +36,80 @@ class Synapse(object):
         ''' setter '''
         self.__deeper_neuron_list = value
 
-    def get_weights_dict(self):
+    def get_weights_arr(self):
         ''' getter '''
-        return self.__weights_dict
+        return self.__weights_arr
 
-    def set_weights_dict(self, value):
+    def set_weights_arr(self, value):
         ''' setter '''
-        self.__weights_dict = value
+        self.__weights_arr = value
 
-    def get_diff_weights_dict(self):
+    def get_diff_weights_arr(self):
         ''' getter '''
-        return self.__diff_weights_dict
+        return self.__diff_weights_arr
 
-    def set_diff_weights_dict(self, value):
+    def set_diff_weights_arr(self, value):
         ''' setter '''
-        self.__diff_weights_dict = value
+        self.__diff_weights_arr = value
 
     shallower_neuron_list = property(get_shallower_neuron_list, set_shallower_neuron_list)
     deeper_neuron_list = property(get_deeper_neuron_list, set_deeper_neuron_list)
-    weights_dict = property(get_weights_dict, set_weights_dict)
-    diff_weights_dict = property(get_diff_weights_dict, set_diff_weights_dict)
+    weights_arr = property(get_weights_arr, set_weights_arr)
+    diff_weights_arr = property(get_diff_weights_arr, set_diff_weights_arr)
 
-    # 規格化オブジェクト
-    __normalization = None
-
-    def create_node(self, shallower_neuron_list, deeper_neuron_list, weights_dict=None):
+    def create_node(self, shallower_neuron_list, deeper_neuron_list, weights_arr=None):
         '''
         グラフにノードのリンクをセットする
 
         Args:
-            shallower_neuron_list:    可視層のニューロンオブジェクトリスト
-            deeper_neuron_list:     隠れ層のニューロンオブジェクトリスト
-            weights_dict:           各リンクの重みリスト
+            shallower_neuron_list:      可視層のニューロンオブジェクトリスト
+            deeper_neuron_list:         隠れ層のニューロンオブジェクトリスト
+            weights_arr:                各リンクの重みリスト
         '''
         self.__shallower_neuron_list = shallower_neuron_list
         self.__deeper_neuron_list = deeper_neuron_list
-        if weights_dict is not None:
-            self.__weights_dict = weights_dict
+        if weights_arr is not None:
+            self.__weights_arr = weights_arr
         else:
-            for i in range(len(shallower_neuron_list)):
-                for j in range(len(deeper_neuron_list)):
-                    self.__weights_dict[(i, j)] = round(random.random(), 3)
+            self.__weights_arr = np.random.rand(len(shallower_neuron_list), len(deeper_neuron_list))
 
     def learn_weights(self):
         '''
         リンクの重みを更新する
         '''
-        for i, j in self.diff_weights_dict:
-            self.weights_dict[(i, j)] += self.diff_weights_dict[(i, j)]
-            self.diff_weights_dict[(i, j)] = 0.0
+        self.weights_arr = self.weights_arr + self.diff_weights_arr
+        self.diff_weights_arr = np.zeros(self.weights_arr.shape, dtype=float)
 
-    def normalize_bias_and_weights(self):
+    def normalize_visible_bias(self):
         '''
-        規格化する
+        可視層を規格化する
         '''
-        if self.__normalization is None:
-            self.__normalization = Normalization()
-
         visible_activity_list = [self.shallower_neuron_list[i].activity for i in range(len(self.shallower_neuron_list))]
-        hidden_activity_list = [self.deeper_neuron_list[i].activity for i in range(len(self.deeper_neuron_list))]
-
-        visible_activity_list = self.__normalization.z_theta(visible_activity_list)
-        hidden_activity_list = self.__normalization.z_theta(hidden_activity_list)
+        if len(visible_activity_list) > 1:
+            visible_activity_arr = np.array(visible_activity_list)
+            visible_activity_arr = self.__softmax(visible_activity_arr)
+            visible_activity_list = list(visible_activity_arr)
 
         for i in range(len(visible_activity_list)):
             self.shallower_neuron_list[i].activity = visible_activity_list[i]
 
+    def normalize_hidden_bias(self):
+        '''
+        隠れ層を規格化する
+        '''
+        hidden_activity_list = [self.deeper_neuron_list[i].activity for i in range(len(self.deeper_neuron_list))]
+        if len(hidden_activity_list) > 1:
+            hidden_activity_arr = np.array(hidden_activity_list)
+            hidden_activity_arr = self.__softmax(hidden_activity_arr)
+            hidden_activity_list = list(hidden_activity_arr)
+
         for i in range(len(hidden_activity_list)):
             self.deeper_neuron_list[i].activity = hidden_activity_list[i]
 
-        weights_list = []
-        for i in range(len(self.shallower_neuron_list)):
-            for j in range(len(self.deeper_neuron_list)):
-                weights_list.append(self.weights_dict[(i, j)])
-
-        for i in range(len(self.shallower_neuron_list)):
-            for j in range(len(self.deeper_neuron_list)):
-                self.weights_dict[(i, j)] = self.__normalization.once(
-                    x=self.weights_dict[(i, j)],
-                    x_min=min(weights_list),
-                    x_max=max(weights_list),
-                    range_min=0.0,
-                    range_max=1.0
-            )
+    def __softmax(self, x):
+        '''
+        Softmax戦略
+        '''
+        x = (x - x.mean()) / x.std()
+        e_x = np.exp(x - np.max(x))
+        return e_x / e_x.sum()

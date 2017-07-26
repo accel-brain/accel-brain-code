@@ -1,27 +1,29 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
+import numpy as np
 from deeplearning.approximation.interface.approximate_interface import ApproximateInterface
 
 
 class ContrastiveDivergence(ApproximateInterface):
     '''
     Contrastive Divergence法
+    Numpy版
 
     概念的にはpositive phaseとnegative phaseの区別を
     wakeとsleepの区別に対応付けて各メソッドを命名している。
 
-    @TODO(chimera0):numpyのベクトル計算関連の関数を再利用することで計算を高速化させる
     '''
 
     # ニューロンのグラフ
     __graph = None
     # 学習率
-    __learning_rate = 0.05
+    __learning_rate = 0.5
 
     def approximate_learn(self, graph, learning_rate, observed_data_matrix, traning_count=1000):
         '''
         インターフェイスの実現
         近似による学習
+        目覚めと眠りのフェーズを逐次実行して学習する
 
         Args:
             graph:                ニューロンのグラフ
@@ -29,46 +31,38 @@ class ContrastiveDivergence(ApproximateInterface):
             observed_data_matrix: 観測データ点
             traning_count:        訓練回数
 
+        Returns:
+            グラフ
         '''
         self.__graph = graph
         self.__learning_rate = learning_rate
-        [self.__wake_sleep_learn(observed_data_matrix) for i in range(traning_count)]
+        [self.__wake_and_sleep(observed_data_list) for observed_data_list in observed_data_matrix]
         return self.__graph
 
-    def __wake_sleep_learn(self, observed_data_matrix):
+    def __wake_and_sleep(self, observed_data_list):
+        '''
+        目覚めと夢見のリズム
+
+        Args:
+            observed_data_list:      観測データ点
+        '''
+        self.__wake(observed_data_list)
+        self.__sleep()
+        self.__learn()
+
+    def __wake(self, observed_data_list):
         '''
         目覚めと眠りのフェーズを逐次実行して学習する
 
         Args:
-            observed_data_matrix:   観測データ点リスト
+            observed_data_list:      観測データ点
         '''
-        for observed_data_list in observed_data_matrix:
-            self.wake(observed_data_list)
-            self.sleep()
-            self.learn()
-
-    def wake(self, observed_data_list):
-        '''
-        目覚めた状態で外部環境を観測する
-
-        Args:
-            observed_data_matrix:   観測データ点
-        '''
-        if len(observed_data_list) != len(self.__graph.visible_neuron_list):
-            print(len(observed_data_list))
-            print(len(self.__graph.visible_neuron_list))
-            raise ValueError("len(observed_data_list) != len(self.__graph.links_weights)")
-
         # 観測データ点を可視ニューロンに入力する
         for i in range(len(observed_data_list)):
             self.__graph.visible_neuron_list[i].observe_data_point(observed_data_list[i])
 
         # 隠れ層のニューロンの発火状態を更新する
-        for j in range(len(self.__graph.hidden_neuron_list)):
-            link_value = 0.0
-            for i in range(len(self.__graph.visible_neuron_list)):
-                link_value += self.__graph.weights_dict[(i, j)] * self.__graph.visible_neuron_list[i].activity
-            self.__graph.hidden_neuron_list[j].hidden_update_state(link_value)
+        self.__update_hidden_spike()
 
         # ヘブ規則によりリンクの重みを更新する
         self.__graph.update(self.__learning_rate)
@@ -78,38 +72,54 @@ class ContrastiveDivergence(ApproximateInterface):
             self.__graph.visible_neuron_list[i].update_bias(self.__learning_rate)
 
         # 隠れ層のバイアスを更新する
-        for i in range(len(self.__graph.hidden_neuron_list)):
-            self.__graph.hidden_neuron_list[i].update_bias(self.__learning_rate)
+        for j in range(len(self.__graph.hidden_neuron_list)):
+            self.__graph.hidden_neuron_list[j].update_bias(self.__learning_rate)
 
-    def sleep(self):
+    def __sleep(self):
         '''
         夢を見る
         自由連想
         '''
         # 可視層のニューロンの発火状態を更新する
-        for i in range(len(self.__graph.visible_neuron_list)):
-            link_value = 0.0
-            for j in range(len(self.__graph.hidden_neuron_list)):
-                link_value += self.__graph.weights_dict[(i, j)] * self.__graph.hidden_neuron_list[j].activity
-            self.__graph.visible_neuron_list[i].visible_update_state(link_value)
+        self.__update_visible_spike()
 
         # 隠れ層のニューロンの発火状態を更新する
-        for j in range(len(self.__graph.hidden_neuron_list)):
-            link_value = 0.0
-            for i in range(len(self.__graph.visible_neuron_list)):
-                link_value += self.__graph.weights_dict[(i, j)] * self.__graph.visible_neuron_list[i].activity
-            self.__graph.hidden_neuron_list[j].hidden_update_state(link_value)
+        self.__update_hidden_spike()
 
         # ヘブ規則によりリンクの重みを逆更新する
         self.__graph.update((-1) * self.__learning_rate)
+
         # 可視層のバイアスを更新する
         for i in range(len(self.__graph.visible_neuron_list)):
             self.__graph.visible_neuron_list[i].update_bias((-1) * self.__learning_rate)
-        # 隠れ層のバイアスを更新する
-        for i in range(len(self.__graph.hidden_neuron_list)):
-            self.__graph.hidden_neuron_list[i].update_bias((-1) * self.__learning_rate)
 
-    def learn(self):
+        # 隠れ層のバイアスを更新する
+        for j in range(len(self.__graph.hidden_neuron_list)):
+            self.__graph.hidden_neuron_list[j].update_bias((-1) * self.__learning_rate)
+
+    def __update_visible_spike(self):
+        '''
+        可視層のニューロンの発火状態を更新する
+        '''
+        hidden_activity_arr = np.array([[self.__graph.hidden_neuron_list[j].activity] * self.__graph.weights_arr.T.shape[1] for j in range(len(self.__graph.hidden_neuron_list))])
+        link_value_arr = self.__graph.weights_arr.T * hidden_activity_arr
+        visible_activity_arr = link_value_arr.sum(axis=0)
+        for i in range(visible_activity_arr.shape[0]):
+            self.__graph.visible_neuron_list[i].visible_update_state(visible_activity_arr[i])
+            self.__graph.normalize_visible_bias()
+
+    def __update_hidden_spike(self):
+        '''
+        隠れ層のニューロンの発火状態を更新する
+        '''
+        visible_activity_arr = np.array([[self.__graph.visible_neuron_list[i].activity] * self.__graph.weights_arr.shape[1] for i in range(len(self.__graph.visible_neuron_list))])
+        link_value_arr = self.__graph.weights_arr * visible_activity_arr
+        hidden_activity_arr = link_value_arr.sum(axis=0)
+        for j in range(hidden_activity_arr.shape[0]):
+            self.__graph.hidden_neuron_list[j].hidden_update_state(hidden_activity_arr[j])
+            self.__graph.normalize_hidden_bias()
+
+    def __learn(self):
         '''
         バイアスと重みを学習する
         '''
@@ -118,8 +128,8 @@ class ContrastiveDivergence(ApproximateInterface):
             self.__graph.visible_neuron_list[i].learn_bias()
 
         # 隠れ層のバイアスの学習
-        for i in range(len(self.__graph.hidden_neuron_list)):
-            self.__graph.hidden_neuron_list[i].learn_bias()
+        for j in range(len(self.__graph.hidden_neuron_list)):
+            self.__graph.hidden_neuron_list[j].learn_bias()
 
         # リンクの重みの学習
         self.__graph.learn_weights()
@@ -137,23 +147,5 @@ class ContrastiveDivergence(ApproximateInterface):
 
         '''
         self.__graph = graph
-        # 観測データ点を可視ニューロンに入力する
-        for observed_data_list in observed_data_matrix:
-            for i in range(len(observed_data_list)):
-                self.__graph.visible_neuron_list[i].observe_data_point(observed_data_list[i])
-
-            # 可視層のニューロンの発火状態を更新する
-            for i in range(len(self.__graph.visible_neuron_list)):
-                link_value = 0.0
-                for j in range(len(self.__graph.hidden_neuron_list)):
-                    link_value += self.__graph.weights_dict[(i, j)] * self.__graph.hidden_neuron_list[j].activity
-                self.__graph.visible_neuron_list[i].visible_update_state(link_value)
-
-            # 隠れ層のニューロンの発火状態を更新する
-            for j in range(len(self.__graph.hidden_neuron_list)):
-                link_value = 0.0
-                for i in range(len(self.__graph.visible_neuron_list)):
-                    link_value += self.__graph.weights_dict[(i, j)] * self.__graph.visible_neuron_list[i].activity
-                self.__graph.hidden_neuron_list[j].hidden_update_state(link_value)
-
+        [self.__wake_and_sleep(observed_data_list) for observed_data_list in observed_data_matrix]
         return self.__graph

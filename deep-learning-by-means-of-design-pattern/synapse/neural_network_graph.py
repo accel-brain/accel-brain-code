@@ -78,10 +78,11 @@ class NeuralNetworkGraph(Synapse):
         back_propagated_list = [self.__logistic_function.derivative(self.shallower_neuron_list[i].activity) * error_list[i] for i in range(len(self.shallower_neuron_list))]
 
         # 規格化
-        back_propagated_arr = np.array(back_propagated_list)
-        back_propagated_arr = self.__softmax(back_propagated_arr)
-        back_propagated_arr = np.nan_to_num(back_propagated_arr)
-        back_propagated_list = list(back_propagated_arr)
+        if len(back_propagated_arr) > 1 and sum(back_propagated_arr) != 0:
+            back_propagated_arr = np.array(back_propagated_list)
+            back_propagated_arr = back_propagated_arr / back_propagated_arr.sum()
+            back_propagated_arr = np.nan_to_num(back_propagated_arr)
+            back_propagated_list = list(back_propagated_arr)
 
         # 重みの更新
         self.learn_weights()
@@ -99,11 +100,3 @@ class NeuralNetworkGraph(Synapse):
                     back_nn_list=back_nn_list,
                     back_nn_index=back_nn_index + 1
                 )
-
-    def __softmax(self, x):
-        '''
-        Softmax戦略
-        '''
-        x = (x - x.mean()) / x.std()
-        e_x = np.exp(x - np.max(x))
-        return e_x / e_x.sum()

@@ -78,7 +78,7 @@ class NeuralNetworkGraph(Synapse):
         back_propagated_list = [self.__logistic_function.derivative(self.shallower_neuron_list[i].activity) * error_list[i] for i in range(len(self.shallower_neuron_list))]
 
         # 規格化
-        if len(back_propagated_arr) > 1 and sum(back_propagated_arr) != 0:
+        if len(back_propagated_list) > 1 and sum(back_propagated_list) != 0:
             back_propagated_arr = np.array(back_propagated_list)
             back_propagated_arr = back_propagated_arr / back_propagated_arr.sum()
             back_propagated_arr = np.nan_to_num(back_propagated_arr)

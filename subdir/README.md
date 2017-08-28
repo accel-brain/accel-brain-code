@@ -197,5 +197,6 @@ from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
 ### Author's website
 
-- [Welcome to Singularity (Japanese)](http://media.accel-brain.com/)
-- [Accel Brain; Beat](http://beat.accel-brain.com/)
+- [Accel Brain (Japanese)](https://accel-brain.com)
+- [Welcome to Singularity (Japanese)](https://media.accel-brain.com/)
+- [Accel Brain; Beat](https://beat.accel-brain.com/)

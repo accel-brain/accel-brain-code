@@ -153,9 +153,9 @@ from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
 ## Related products
 
- Binaural beats and Monauarl beats can be implemented by not only Python but also JavaScript. I developed JavaScript library: [Binaural-Beat-and-Monaural-Beat-with-WebAudioAPI](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-WebAudioAPI).
+ Binaural beats and Monauarl beats can be implemented by not only Python but also Unity3D. I developed Unity3D package: [Immersive Brain's Level Upper by Binaural Beat and Monaural Beat.](https://www.assetstore.unity3d.com/en/#!/content/66518).
 
- As the kind of "Brain-Wave Controller", this JavaScript library is functionally equivalent to Python`s library.
+ As the kind of "Brain-Wave Controller", this Unity3D package is functionally equivalent to Python`s library.
 
 
 ## Description

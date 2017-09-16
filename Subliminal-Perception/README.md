@@ -62,6 +62,7 @@
 ### Related Case Studies
 
 - [ヴァーチャル・リアリティにおける動物的「身体」の蒐集を媒介としたサイボーグ的な物神崇拝](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/)
+    - [ケーススタディ：閾下知覚のメディア](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/2/#i-5)
 
 ## Version
 - 1.0.1

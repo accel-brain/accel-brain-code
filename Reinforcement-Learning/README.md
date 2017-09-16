@@ -32,8 +32,6 @@
 
 - GNU General Public License v2.0
 
-# python3-reinforcement-learning
-
 ## Requires
 
 - Python3.4.4

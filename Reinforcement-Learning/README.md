@@ -6,7 +6,7 @@
 ### More detail demos
 
 - [Twitterの人工知能エージェント：キメラ・ネットワーク(@_chimera0)の仕様](https://media.accel-brain.com/_chimera0_twitter_bot/)
-    - 20001 bots are running as 20001 web-crawlers and 20001 web-scrapers.
+    - 20001 bots are running as 20001 web-crawlers and 20001 web-scrapers.
 
 ### Related Case Studies
 

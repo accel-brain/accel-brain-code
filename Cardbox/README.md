@@ -1,5 +1,7 @@
 # Cardbox
 
+- JavaScript demo to use cardbox system.
+
 ## Description
 - This is a demo code for my case study in the context of my website.
 

@@ -63,3 +63,9 @@ python3 demo_summarization_web_page.py https://ja.wikipedia.org/wiki/%E8%87%AA%E
 ## Requires
 
 - Python3.4.4
+
+# References
+
+- Luhn, Hans Peter. "The automatic creation of literature abstracts." IBM Journal of research and development 2.2 (1958): 159-165.
+- Matthew A. Russell　著、佐藤 敏紀、瀬戸口 光宏、原川 浩一　監訳、長尾 高弘　訳『入門 ソーシャルデータ 第2版――ソーシャルウェブのデータマイニング』 2014年06月 発行
+

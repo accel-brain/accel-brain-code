@@ -13,7 +13,7 @@ def Main(url):
     abstractable_doc = TopNRankAbstractor()
     result_list = auto_abstractor.summarize(document, abstractable_doc)
     limit = 3
-    i = 0
+    i = 1
     for sentence in result_list["summarize_result"]:
         print(sentence)
         if i >= limit:

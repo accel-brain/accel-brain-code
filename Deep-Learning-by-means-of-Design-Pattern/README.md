@@ -1,5 +1,7 @@
 # Deep Learning by means of Design Pattern
 
+- Python demo to verify effectiveness of object-oriented analysis, object-oriented design, and GoF's design pattern in designing and modeling neural network, deep learning, and reinforcement-Learning.
+
 ## Description
 - This is a demo code for my case study in the context of my website.
 

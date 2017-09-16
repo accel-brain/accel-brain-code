@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# accel-brain-code
-=======
 # python3-reinforcement-learning
 
 ## 概要
@@ -24,4 +21,3 @@ MIT
 ## 制作者
 
 [chimera0](https://github.com/chimera0/)
->>>>>>> python3-reinforcement-learning

@@ -16,7 +16,7 @@
 
 ## [Deep-Learning-by-means-of-Design-Pattern](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern)
 
-- Python demo to verify effectiveness of object-oriented analysis, object-oriented design, and GoF's design pattern.
+- Python demo to verify effectiveness of object-oriented analysis, object-oriented design, and GoF's design pattern in designing and modeling neural network, deep learning, and reinforcement-Learning.
 
 ## [Reinforcement-Learning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning)
 

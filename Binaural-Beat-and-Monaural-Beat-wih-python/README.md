@@ -173,6 +173,20 @@ from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
  Please choose either binaural beets or monaural beats. If you set up 5 Hz, your brain waves and the frequency can be tuned and then you are able to be the meditative state or focusing the mind. Or what you choose to be relaxed state is the alpha waves(8-12 Hz).
 
+### Related Case Studies
+
+- [仏教の社会構造とマインドフルネス瞑想の意味論](https://accel-brain.com/social-structure-of-buddhism-and-semantics-of-mindfulness-meditation/) (Japanese)
+    - [ケーススタディ：バイノーラルビート](https://accel-brain.com/social-structure-of-buddhism-and-semantics-of-mindfulness-meditation/3/#i-6) (Japanese)
+
+## Author
+
+- [chimera0](https://github.com/chimera0)
+
+### Author's websites
+
+- [Accel Brain](https://accel-brain.com) (Japanese)
+- [Welcome to Singularity](https://media.accel-brain.com/)  (Japanese)
+- [Accel Brain; Beat](https://beat.accel-brain.com/)
 
 ### References
 
@@ -190,13 +204,3 @@ from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 - Vollenweider., Franz X., Geyer., Mark A. (2001) “A systems model of altered consciousness: Integrating natural and drug-induced psychoses,” Brain Research Bulletin, Vol. 56, No. 5, pp495-507.
 - Wahbeh, Helane., Calabrese, Carlo., Zwickey, Heather., (2007) “Binaural Beat Technology in Humans : A Pilot Study to Assess Psychologic and Physiologic Effects,” The Journal of Alternative and Complementary Medicine, Vol. 13, No. 1, pp25-32.
 - Westman, Jack C., Walters, James R. (1981) “Noise and Stress : A Comprehensive Approach,” Environmental Health Perspectives, Vol. 41, pp291-309.
-
-## Author
-
-- [chimera0](https://github.com/chimera0)
-
-### Author's website
-
-- [Accel Brain (Japanese)](https://accel-brain.com)
-- [Welcome to Singularity (Japanese)](https://media.accel-brain.com/)
-- [Accel Brain; Beat](https://beat.accel-brain.com/)

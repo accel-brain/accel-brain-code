@@ -5,7 +5,7 @@ from pdfminer.pdfinterp import PDFPageInterpreter
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 import urllib.request
-from interface.readable_web_pdf import ReadableWebPDF
+from readable_web_pdf import ReadableWebPDF
 
 
 class WebPDFReading(ReadableWebPDF):

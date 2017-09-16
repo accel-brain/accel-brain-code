@@ -1,5 +1,7 @@
 # Reinforcement Learning
 
+- Reinforcement-Learning algorithm demo.
+
 ## Description
 - This is a demo code for my case study in the context of my website.
 

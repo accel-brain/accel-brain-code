@@ -1,5 +1,7 @@
 # Automatic Summarization
 
+- Demonstration on Automatic Summarization, abstraction, or filtering.
+
 ## Description
 - This is a demo code for my case study in the context of my website.
 

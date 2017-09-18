@@ -1,10 +1,10 @@
 # Automatic Summarization
 
-Demonstration on Automatic Summarization, abstraction, or filtering.
+These python scripts create a summary with the major points of the original document or web-scraped text.
 
 ## Description
 
-This is a demo code for my case study in the context of my website.
+This is a demonstration on automatic summarization, abstraction, or filtering for my case study in the context of my website.
 
 ## Usecase: A Web-Page Summarization
 

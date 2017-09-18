@@ -1,9 +1,10 @@
 # Reinforcement Learning
 
-- Reinforcement-Learning algorithm demo.
+These Python Scripts create a *template method pattern* for implementing a Q-learning.
 
 ## Description
-- This is a demo code for my case study in the context of my website.
+
+Considering many variable parts and functional extensions in the Q-learning paradigm, I implemented these Python Scripts for  demonstrations of *commonality/variability analysis* in order to design the models.
 
 ### More detail demos
 

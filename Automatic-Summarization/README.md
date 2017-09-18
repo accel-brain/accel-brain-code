@@ -36,7 +36,7 @@ The result is as follows.
 
 ## Usecase: N-gram
 
-In automatic summarization, the minimum unit of token is not necessarily `a word`. `N-gram` is also applicable to the tokenization.
+The minimum unit of token is not necessarily `a word` in automatic summarization. `N-gram` is also applicable to the tokenization.
 
 Run the batch program: [demo_with_n_gram_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_with_n_gram_web_page.py)
 

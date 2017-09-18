@@ -5,7 +5,7 @@
 ## Description
 - This is a demo code for my case study in the context of my website.
 
-## Demo
+## Usecase: A Web-Page Summarization
 
 - Run the batch program: [demo_summarization_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_summarization_web_page.py)
 
@@ -14,7 +14,7 @@ python3 demo_summarization_web_page.py {URL}
 ```
 - {URL}: web site URL.
 
-### Sample
+### Demo
 
 - Let's summarize this page: [自動要約 - Wikipedia](https://ja.wikipedia.org/wiki/%E8%87%AA%E5%8B%95%E8%A6%81%E7%B4%84).
 
@@ -33,6 +33,33 @@ python3 demo_summarization_web_page.py https://ja.wikipedia.org/wiki/%E8%87%AA%E
 例えば、1つの新聞記事を要約する作業は単一文書要約である。
 ```
 
+## Usecase: N-gram
+
+- In automatic summarization, the minimum unit of token is not necessarily `a word`. 
+- `N-gram` is also applicable to the tokenization.
+- Run the batch program: [demo_with_n_gram_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_with_n_gram_web_page.py)
+
+```
+python3 demo_with_n_gram_web_page.py {URL}
+```
+- {URL}: web site URL.
+
+### Demo
+- Let's summarize this page:[情報検索 - Wikipedia](https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E6%A4%9C%E7%B4%A2).
+
+```
+python3 demo_with_n_gram_web_pagepy https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E6%A4%9C%E7%B4%A2
+```
+
+- The result is as follows.
+
+```
+情報検索アルゴリズムの詳細については 情報検索アルゴリズム を参照のこと。
+
+ パターンマッチング 検索質問として入力された表現をそのまま含む文書を検索するアルゴリズム。
+
+ ベクトル空間モデル キーワード等を各 次元 として設定した高次元 ベクトル空間 を想定し、検索の対象とするデータやユーザによる検索質問に何らかの加工を行い ベクトル を生成する
+```
 
 ### More detail demos
 

@@ -1,9 +1,12 @@
 # Deep Learning by means of Design Pattern
 
-- Python demo to verify effectiveness of object-oriented analysis, object-oriented design, and GoF's design pattern in designing and modeling neural network, deep learning, and reinforcement-Learning.
+These Python Scripts create a restricted boltzmann machine, deep boltzmann machine, and multi-layer neural networks.
 
 ## Description
-- This is a demo code for my case study in the context of my website.
+
+These Python Scripts can be considered a kind of *experiment result* to verify effectiveness of object-oriented analysis, object-oriented design, and GoF's design pattern in designing and modeling neural network, deep learning, and [reinforcement-Learning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning).
+
+For instance, [test/dbm_multi_layer_builder.py](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/test/dbm_multi_layer_builder.py) is implemented for running the **deep boltzmann machine** to solve the classification problem. This script is premised on a kind of *builder pattern* for separating the construction of complex **restricted boltzmann machines** from its **graph** representation so that the same construction process can create different representations. Because of common design pattern and polymorphism, the **multi-layer neural networks** in [test/nn_multi_layer_builder.py](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/test/nn_multi_layer_builder.py) is *functionally equivalent* to **deep boltzmann machine**.
 
 ### More detail demos
 

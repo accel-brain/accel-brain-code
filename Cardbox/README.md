@@ -6,6 +6,8 @@ This is the simple card box system that make you able to find and save your idea
 
 You can write down as many ideas as possible onto cards. Like the KJ Method or the mindmap tools, this simple JavaScript tool helps us to discover potential relations among the cards that you created. And the tagging function allow you to generate metadata of cards as to make their meaning and relationships understandable.
 
+[demo.html](https://github.com/chimera0/accel-brain-code/blob/master/Cardbox/demo.html) is very simple HTML template. It is just a suggestion. For more details, refer to the following.
+
 ### More detail demos
 
 - [Cardbox](https://accel-brain.com/cardbox/)

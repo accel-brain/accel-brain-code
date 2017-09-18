@@ -1,13 +1,14 @@
 # Automatic Summarization
 
-- Demonstration on Automatic Summarization, abstraction, or filtering.
+Demonstration on Automatic Summarization, abstraction, or filtering.
 
 ## Description
-- This is a demo code for my case study in the context of my website.
+
+This is a demo code for my case study in the context of my website.
 
 ## Usecase: A Web-Page Summarization
 
-- Run the batch program: [demo_summarization_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_summarization_web_page.py)
+Run the batch program: [demo_summarization_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_summarization_web_page.py)
 
 ```
 python3 demo_summarization_web_page.py {URL}
@@ -16,13 +17,13 @@ python3 demo_summarization_web_page.py {URL}
 
 ### Demo
 
-- Let's summarize this page: [自動要約 - Wikipedia](https://ja.wikipedia.org/wiki/%E8%87%AA%E5%8B%95%E8%A6%81%E7%B4%84).
+Let's summarize this page: [自動要約 - Wikipedia](https://ja.wikipedia.org/wiki/%E8%87%AA%E5%8B%95%E8%A6%81%E7%B4%84).
 
 ```
 python3 demo_summarization_web_page.py https://ja.wikipedia.org/wiki/%E8%87%AA%E5%8B%95%E8%A6%81%E7%B4%84
 ```
 
-- The result is as follows.
+The result is as follows.
 ```
  自動要約 （じどうようやく）は、 コンピュータプログラム を用いて、文書からその要約を作成する処理である。
 
@@ -35,9 +36,9 @@ python3 demo_summarization_web_page.py https://ja.wikipedia.org/wiki/%E8%87%AA%E
 
 ## Usecase: N-gram
 
-- In automatic summarization, the minimum unit of token is not necessarily `a word`. 
-- `N-gram` is also applicable to the tokenization.
-- Run the batch program: [demo_with_n_gram_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_with_n_gram_web_page.py)
+In automatic summarization, the minimum unit of token is not necessarily `a word`. `N-gram` is also applicable to the tokenization.
+
+Run the batch program: [demo_with_n_gram_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_with_n_gram_web_page.py)
 
 ```
 python3 demo_with_n_gram_web_page.py {URL}
@@ -45,13 +46,14 @@ python3 demo_with_n_gram_web_page.py {URL}
 - {URL}: web site URL.
 
 ### Demo
-- Let's summarize this page:[情報検索 - Wikipedia](https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E6%A4%9C%E7%B4%A2).
+
+Let's summarize this page:[情報検索 - Wikipedia](https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E6%A4%9C%E7%B4%A2).
 
 ```
 python3 demo_with_n_gram_web_pagepy https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E6%A4%9C%E7%B4%A2
 ```
 
-- The result is as follows.
+The result is as follows.
 
 ```
 情報検索アルゴリズムの詳細については 情報検索アルゴリズム を参照のこと。

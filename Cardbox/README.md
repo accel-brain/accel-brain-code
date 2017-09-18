@@ -1,14 +1,16 @@
 # Cardbox
 
-- JavaScript demo to use cardbox system.
+This is the simple card box system that make you able to find and save your ideas.
 
 ## Description
-- This is a demo code for my case study in the context of my website.
+
+You can write down as many ideas as possible onto cards. Like the KJ Method or the mindmap tools, this simple JavaScript tool helps us to discover potential relations among the cards that you created. And the tagging function allow you to generate metadata of cards as to make their meaning and relationships understandable.
 
 ### More detail demos
 
 - [Cardbox](https://accel-brain.com/cardbox/)
-    - This card box can save card and tag data to server.
+
+This card box can save card and tag data to server. If you create tag, the autocomplete function provides the tag of name as suggestions while you type into the field. The tagging and autocompletion enables you to quickly find and discover potential relations among the cards that you created.
 
 ### Related Case Studies
 

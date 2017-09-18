@@ -1,9 +1,10 @@
 # Subliminal perception
 
-- JavaScript tool for experimentation of subliminal perception.
+These JavaScript are tool for experimentation of subliminal perception.
 
 ## Description
-- This is a demo code for my case study in the context of my website.
+
+This is a demo code for my case study in the context of my website.
 
 ### Code sample
 

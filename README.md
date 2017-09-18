@@ -6,6 +6,8 @@ This repository is my private case study in the context of my website: [Accel Br
 
 The basic theme in my website is multiple perspectives methodology, very abstract theory, extreme aesthetics, recognition of melancholic history, and generalized design philosophy of algorithms and architectures. All code was implemented for the purpose of proof-of-concept, demonstration experiment, or verification test.
 
+# Case studies
+
 ## [Automatic-Summarization](https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization)
 
 - These python scripts create a summary with the major points of the original document or web-scraped text.

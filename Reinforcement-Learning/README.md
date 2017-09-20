@@ -8,7 +8,7 @@ Considering many variable parts and functional extensions in the Q-learning para
 
 ### More detail demos
 
-- [Twitterの人工知能エージェント：キメラ・ネットワーク(@_chimera0)の仕様](https://media.accel-brain.com/_chimera0_twitter_bot/)
+- [Webクローラ型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-web-crawling-ai/)
     - 20001 bots are running as 20001 web-crawlers and 20001 web-scrapers.
 
 ### Related Case Studies

@@ -65,7 +65,7 @@ The result is as follows.
 
 ### More detail demos
 
-- [Twitterの人工知能エージェント：キメラ・ネットワーク(@_chimera0)の仕様](https://media.accel-brain.com/_chimera0_twitter_bot/) (Japanese)
+- [Webクローラ型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-web-crawling-ai/) (Japanese)
     - 20001 bots are running as 20001 web-crawlers and 20001 web-scrapers.
 - [「代理演算」一覧 | Welcome to Singularity](https://media.accel-brain.com/category/agency-operation/) (Japanese)
     - 20001 bots are running as 20001 blogers and 20001 "content curation writers".

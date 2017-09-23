@@ -1,6 +1,6 @@
 # Binaural Beats and Monaural Beats with Python
 
-This is a Python library for creating the binaural beats or monaural beats. You can play these beats and generate wav files. The frequencys can be optionally selected.
+`AccelBrainBeat` a Python library for creating the binaural beats or monaural beats. You can play these beats and generate wav files. The frequencys can be optionally selected.
 
 ## Description
 

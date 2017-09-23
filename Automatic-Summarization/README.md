@@ -7,6 +7,38 @@ These python scripts create a summary with the major points of the original docu
 
 This is a demonstration on automatic summarization, abstraction, or filtering for my case study in the context of my website. For the automatic summarization, document abstraction, and text filtering, this library create a summary with the major points of the original document or web-scraped text.
 
+## Installation
+
+Install using pip:
+
+```sh
+pip install pysummarization
+```
+
+### Source code
+
+The source code is currently hosted on GitHub.
+
+- [accel-brain-code/Automatic-Summarization](https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization)
+
+### Python package index(PyPI)
+
+Binary installers for the latest released version are available at the Python package index.
+
+- [pysummarization : Python Package Index](https://pypi.python.org/pypi/pysummarization/)
+
+## Requires
+
+- Python3.6.1
+
+### Dependencies
+
+- numpy: v1.12.1 or higher.
+- nltk: v3.2.3 or higher.
+- mecab-python3: v0.7 or higher.
+- pdfminer2
+- pyquery:v1.2.17 or higher.
+
 ## Usecase: A English Web-Page Summarization
 
 Run the batch program: [demo_summarization_english_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_summarization_english_web_page.py)
@@ -105,7 +137,7 @@ The result is as follows.
     - [ケーススタディ：人工知能エージェント「キメラ・ネットワーク」](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/5/#i-8) (Japanese)
 
 ## Version
-- 1.0.1
+- 1.0.4
 
 ## Author
 
@@ -118,20 +150,6 @@ The result is as follows.
 ## License
 
 - GNU General Public License v2.0
-
-## Requires
-
-- Python3.6.1
-
-### Dependencies
-
-- numpy: v1.12.1 or higher.
-- nltk: v3.2.3 or higher.
-- mecab-python3: v0.7 or higher.
-- pdfminer2: 
-    * for demo scripts only.
-- pyquery:v1.2.17 or higher.
-    * for demo scripts only.
 
 # References
 

@@ -1,11 +1,10 @@
 # Automatic Summarization
 
-pysummarization is Python library for the automatic summarization, document abstraction, and text filtering.
-These python scripts create a summary with the major points of the original document or web-scraped text.
+`pysummarization` is Python3 library for the automatic summarization, document abstraction, and text filtering.
 
 ## Description
 
-This is a demonstration on automatic summarization, abstraction, or filtering for my case study in the context of my website. For the automatic summarization, document abstraction, and text filtering, this library create a summary with the major points of the original document or web-scraped text.
+The function of this library is automatic summarization using a kind of natural language processing. This library enable you to create a summary with the major points of the original document or web-scraped text that filtered by text clustering.
 
 ## Installation
 
@@ -26,10 +25,6 @@ The source code is currently hosted on GitHub.
 Binary installers for the latest released version are available at the Python package index.
 
 - [pysummarization : Python Package Index](https://pypi.python.org/pypi/pysummarization/)
-
-## Requires
-
-- Python3.6.1
 
 ### Dependencies
 
@@ -135,9 +130,6 @@ The result is as follows.
 - [Webクローラ型人工知能によるパラドックス探索暴露機能の社会進化論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/) (Japanese)
     - [ケーススタディ：文書自動要約技術](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/4/#i-12)
     - [ケーススタディ：人工知能エージェント「キメラ・ネットワーク」](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/5/#i-8) (Japanese)
-
-## Version
-- 1.0.4
 
 ## Author
 

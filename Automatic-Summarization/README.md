@@ -1,4 +1,4 @@
-# Automatic Summarization
+# Automatic Summarization Library: pysummarization
 
 `pysummarization` is Python3 library for the automatic summarization, document abstraction, and text filtering.
 

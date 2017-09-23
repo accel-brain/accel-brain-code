@@ -9,14 +9,14 @@ class Ngram(object):
 
     def generate_ngram_data_set(self, token_list, n=2):
         '''
-        N-gramの訓練データと教師データのペアを生成する
+        Generate the N-gram's pair.
 
         Args:
-            token_list:     トークンのリスト
+            token_list:     The list of tokens.
             n               N
 
         Returns:
-            (訓練データのN-gram, 教師データのN-gram)のTupleのzip
+            zip of Tuple(Training N-gram data, Target N-gram data)
         '''
         n_gram_tuple_zip = self.generate_tuple_zip(token_list, n)
         n_gram_tuple_list = [n_gram_tuple for n_gram_tuple in n_gram_tuple_zip]
@@ -25,13 +25,13 @@ class Ngram(object):
 
     def generate_skip_gram_data_set(self, token_list):
         '''
-        Skip-gramの訓練データと教師データのペアを生成する
+        Generate the Skip-gram's pair.
 
         Args:
-            token_list:     トークンのリスト
+            token_list:     The list of tokens.
 
         Returns:
-            (訓練データのトークン, 教師データのトークン)のTupleのzip
+            zip of Tuple(Training N-gram data, Target N-gram data)
         '''
         n_gram_tuple_zip = self.generate_tuple_zip(token_list, 3)
         skip_gram_list = []
@@ -42,13 +42,13 @@ class Ngram(object):
 
     def generate_tuple_zip(self, token_list, n=2):
         '''
-        N-gramを生成する
+        Generate the N-gram.
 
         Args:
-            token_list:     トークンのリスト
+            token_list:     The list of tokens.
             n               N
 
         Returns:
-            N-gramのTupleのzip
+            zip of Tuple(N-gram)
         '''
         return zip(*[token_list[i:] for i in range(n)])

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from n_gram import Ngram
-from nlpbase.autoabstractor.n_gram_auto_abstractor import NgramAutoAbstractor
+from nlpbase.auto_abstractor import AutoAbstractor
 from tokenizabledoc.mecab_tokenizer import MeCabTokenizer
 from web_scraping import WebScraping
 from abstractabledoc.std_abstractor import StdAbstractor
@@ -9,28 +8,25 @@ from abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
 
 def Main(url):
     '''
-    Entry Point.
+    Entry point.
     
     Args:
         url:    target url.
     '''
-    # The object of Web-Scraping.
+    # Object of web scraping.
     web_scrape = WebScraping()
-    # Execute Web-Scraping.
+    # Web-scraping.
     document = web_scrape.scrape(url)
-    # The object of automatic summarization with N-gram.
-    auto_abstractor = NgramAutoAbstractor()
-    # n-gram object
-    auto_abstractor.n_gram = Ngram()
-    # n of n-gram
-    auto_abstractor.n = 3
+
+    # Object of automatic summarization.
+    auto_abstractor = AutoAbstractor()
     # Set tokenizer. This is japanese tokenizer with MeCab.
     auto_abstractor.tokenizable_doc = MeCabTokenizer()
     # Object of abstracting and filtering document.
     abstractable_doc = TopNRankAbstractor()
-    # Execute summarization.
+    # Summarize document.
     result_list = auto_abstractor.summarize(document, abstractable_doc)
-
+    
     # Output 3 summarized sentences.
     limit = 3
     i = 1

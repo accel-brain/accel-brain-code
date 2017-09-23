@@ -5,21 +5,19 @@ from abc import ABCMeta, abstractmethod
 
 class ReadableWebPDF(metaclass=ABCMeta):
     '''
-    Web上のPDFを読み込んで文字列で返すインターフェイス
+    Read strings in PDF documents
     '''
 
     @abstractmethod
     def url_to_text(self, url):
         '''
-        Web上のPDFをローカルにダウンロードして、
-        そのPDFを読み込んで
-        文字列のテキストに変換して返す
+        Transform PDF documents to strings.
 
         Args:
-            url:   Web上のURL
+            url:   URL
 
         Returns:
-            PDFの文書内容の文字列
+            string.
 
         '''
         raise NotImplementedError("This method must be implemented.")
@@ -27,8 +25,7 @@ class ReadableWebPDF(metaclass=ABCMeta):
     @abstractmethod
     def is_pdf_url(self, url):
         '''
-        引数として入力したURL先のリソースが
-        PDFか否かを判断する
+        Check PDF format.
 
         Args:
             url:    URL

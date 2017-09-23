@@ -1,78 +1,86 @@
 # -*- coding: utf-8 -*-
 from abc import ABCMeta, abstractmethod
-import MeCab
+from tokenizable_doc import TokenizableDoc
 
 
-class NlpBase(metaclass=ABCMeta):
+class NlpBase(object):
     '''
-    自然言語処理系の抽象基底クラス。
-    別の用途で制作したクラスを再利用している。
-
-    今回のデモ用に暫定的にコーディングした。
-    nltkとMeCabをつなぎこめるようなクラス構成にしても良いかもしれない。
+    The base class for NLP.
     '''
+    
+    # object of tokenizer.
+    __tokenizable_doc = None
 
-    # トークンのリスト
+    def get_tokenizable_doc(self):
+        ''' getter '''
+        if isinstance(self.__tokenizable_doc, TokenizableDoc):
+            return self.__tokenizable_doc
+        else:
+            raise TypeError()
+    
+    def set_tokenizable_doc(self, value):
+        ''' setter '''
+        if isinstance(value, TokenizableDoc):
+            self.__tokenizable_doc = value
+        else:
+            raise TypeError()
+
+    tokenizable_doc = property(get_tokenizable_doc, set_tokenizable_doc)
+
+    # Delimiter for self.listup_sentence.
+    __delimiter_list=["。", "\n"]
+    
+    def get_delimiter_list(self):
+        ''' getter '''
+        return self.__delimiter_list
+
+    def set_delimiter_list(self, value):
+        ''' setter '''
+        self.__delimiter_list = value
+
+    delimiter_list = property(get_delimiter_list, set_delimiter_list)
+
+    # List of tokens.
     __token = []
 
-    def set_token(self, value):
-        '''
-        setter
-        トークンのリスト。
-
-        Args:
-            value: トークンのリスト
-
-        '''
-        self.__token = value
-
     def get_token(self):
-        '''
-        getter
-
-        Returns:
-            トークンのリストを返す。
-
-        '''
+        ''' getter '''
         return self.__token
 
-    # トークンのリストのプロパティ
+    def set_token(self, value):
+        ''' setter '''
+        self.__token = value
+
     token = property(get_token, set_token)
 
     def tokenize(self, data):
         '''
-        形態素解析して、トークンをプロパティ：tokenにセットする。
+        Tokenize sentence and set the list of tokens to self.token.
 
         Args:
-            形態素解析対象となる文字列。
+            data:    string.
 
         '''
-        mt = MeCab.Tagger("-Owakati")
-        wordlist = mt.parse(data)
-        self.token = wordlist.rstrip(" \n").split(" ")
+        self.token = self.tokenizable_doc.tokenize(data)
 
     def listup_sentence(self, data, counter=0):
         '''
-        日本語を文ごとに区切る。
-        暫定的に、ここでは「。」と「\n」で区切る。
+        Divide string into sentence list.
 
         Args:
-            data:       区切る対象となる文字列。
-            counter:    再帰回数。
+            data:               string.
+            counter:            recursive counter.
 
         Returns:
-            文ごとに区切った結果として、一文ずつ格納したリスト。
+            List of sentences.
 
         '''
-        seq_list = ["。", "\n"]
-        seq = seq_list[counter]
+        delimiter = self.delimiter_list[counter]
         sentence_list = []
-        [sentence_list.append(sentence + seq) for sentence in data.split(seq) if sentence != ""]
-        if counter + 1 < len(seq_list):
+        [sentence_list.append(sentence + delimiter) for sentence in data.split(delimiter) if sentence != ""]
+        if counter + 1 < len(self.delimiter_list):
             sentence_list_r = []
-            for sentence in sentence_list:
-                sentence_list_r.extend(self.listup_sentence(sentence, counter+1))
-
+            [sentence_list_r.extend(self.listup_sentence(sentence, counter+1)) for sentence in sentence_list]
             sentence_list = sentence_list_r
 
         return sentence_list

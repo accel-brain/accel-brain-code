@@ -7,24 +7,27 @@ from pyquery import PyQuery as pq
 
 class WebScraping(object):
     '''
-    指定したURL先のWebページを対象に、
-    スクレイピングを実行する。
+    Object of Web-scraping.
 
-    今回のデモ用に暫定的にコーディングした。
+    This is only a demo.
     '''
 
+    # List of scraped dom objects.
     __dom_object_list = ["body"]
+    # List of not scraped dom objects.
     __remove_object_list = ["script", "style"]
 
-    # Web上のPDFファイルを読み込むインターフェイスを実現したオブジェクト
+    # Object of ReadableWebPdf.
     __readable_web_pdf = None
 
     def get_readable_web_pdf(self):
+        ''' getter '''
         if isinstance(self.__readable_web_pdf, ReadableWebPDF) is False and self.__readable_web_pdf is not None:
             raise TypeError("The type of __readable_web_pdf must be ReadableWebPDF.")
         return self.__readable_web_pdf
 
     def set_readable_web_pdf(self, value):
+        ''' setter '''
         if isinstance(value, ReadableWebPDF) is False and value is not None:
             raise TypeError("The type of __readable_web_pdf must be ReadableWebPDF.")
         self.__readable_web_pdf = value
@@ -33,23 +36,19 @@ class WebScraping(object):
 
     def scrape(self, url):
         '''
-        Webスクレイピングを実行する。
+        Execute Web-Scraping.
+        The target dom objects are in self.__dom_object_list.
 
         Args:
-            url:    スクレイピング対象となるWebページのURL。
+            url:    Web site url.
 
         Returns:
-            Webスクレイピング結果として取得できた文字列。
-            プライベートフィールド：__dom_object_listで指定したHTMLタグ内部が
-            基本的に取得される。
+            The result. this is a string.
 
-        Raises:
-            TypeError:  URLが文字列ではない場合に発生する。
-                        正規表現等でURLの形式をチェックするように改修するのも一興。
-
+        @TODO(chimera0): check URLs format.
         '''
         if isinstance(url, str) is False:
-            raise TypeError("url must be str.")
+            raise TypeError("The type of url must be str.")
 
         if self.readable_web_pdf is not None and self.readable_web_pdf.is_pdf_url(url) is True:
             web_data = self.readable_web_pdf.url_to_text(url)

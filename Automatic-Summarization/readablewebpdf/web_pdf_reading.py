@@ -10,20 +10,18 @@ from readable_web_pdf import ReadableWebPDF
 
 class WebPDFReading(ReadableWebPDF):
     '''
-    Web上のPDFをURLを参照して読み取る
+    Read the PDF.
     '''
 
     def url_to_text(self, url):
         '''
-        Web上のPDFをローカルにダウンロードして、
-        そのPDFを読み込んで
-        文字列のテキストに変換して返す
+        Download PDF file and transform its document to string.
 
         Args:
-            url:   Web上のURL
+            url:   PDF url.
 
         Returns:
-            PDFの文書内容の文字列
+            string.
 
         '''
         path, headers = urllib.request.urlretrieve(url)
@@ -31,21 +29,15 @@ class WebPDFReading(ReadableWebPDF):
 
     def path_to_text(self, path):
         '''
-        ローカルに配置したPDFを読み込んで
-        文字列のテキストに変換して返す
-
-        とはいえ単純に公式ドキュメントのコードサンプルをラッピングしただけ
-
-        #TODO(chimera0):もう少し真面目に
+        Transform local PDF file to string.
 
         Args:
-            path:   ローカルの絶対パス
+            path:   path to PDF file.
 
         Returns:
-            PDFの文書内容の文字列
+            string.
 
         '''
-        #TODO(chimera0):もう少し真面目に
         rsrcmgr = PDFResourceManager()
         retstr = StringIO()
         codec = 'utf-8'
@@ -80,12 +72,9 @@ class WebPDFReading(ReadableWebPDF):
 
     def is_pdf_url(self, url):
         '''
-        引数として入力したURL先のリソースが
-        PDFか否かを判断する
-
-        とはいえ単純に拡張子を観るだけ
-
-        #TODO(chimera0):もう少し真面目に
+        Check PDF file format.
+        
+        @TODO(chimera0): validation.
 
         Args:
             url:    URL
@@ -93,13 +82,13 @@ class WebPDFReading(ReadableWebPDF):
         Returns:
             True: PDF, False: not PDF
         '''
-        #TODO(chimera0):もう少し真面目に
         if url[-4:] == ".pdf":
             return True
         else:
             return False
 
 if __name__ == "__main__":
-    url = "hogehoge.pdf"
+    import sys
+    url = sys.argv[1]
     text = WebPDFReading().url_to_text(url)
     print(text[:300])

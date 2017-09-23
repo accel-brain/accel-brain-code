@@ -5,20 +5,22 @@ from n_gram import Ngram
 
 class NgramAutoAbstractor(AutoAbstractor):
     '''
-    文書の自動要約アルゴリズム。
-    トークナイズの最小単位をn-gramにする
+    The object for automatic summarization.
+    The minimum unit of token is N-gram.
     '''
     
-    # N-gramのオブジェクト
+    # The object of N-gram.
     __n_gram = None
     
     def get_n_gram(self):
+        ''' gettter '''
         if isinstance(self.__n_gram, Ngram):
             return self.__n_gram
         else:
             raise TypeError("The type of n_gram must be Ngram.")
 
     def set_n_gram(self, value):
+        ''' setter '''
         if isinstance(value, Ngram):
             self.__n_gram = value
         else:
@@ -26,16 +28,18 @@ class NgramAutoAbstractor(AutoAbstractor):
 
     n_gram = property(get_n_gram, set_n_gram)
 
-    # N-gramのn
+    # N of N-gram.
     __n = 2
     
     def get_n(self):
+        ''' getter '''
         if isinstance(self.__n, int):
             return self.__n
         else:
             raise TypeError("The type of n must be int.")
 
     def set_n(self, value):
+        ''' setter '''
         if isinstance(value, int):
             self.__n = value
         else:
@@ -45,11 +49,10 @@ class NgramAutoAbstractor(AutoAbstractor):
 
     def tokenize(self, data):
         '''
-        オーバーライド
-        形態素解析して、トークンのn-gramをプロパティ：tokenにセットする。
+        Tokenize sentence.
 
         Args:
-            形態素解析対象となる[n-gram, n-gram, ...]。
+            [n-gram, n-gram, n-gram, ...]
 
         '''
         super().tokenize(data)

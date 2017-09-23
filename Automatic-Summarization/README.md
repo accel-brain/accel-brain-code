@@ -6,12 +6,38 @@ These python scripts create a summary with the major points of the original docu
 
 This is a demonstration on automatic summarization, abstraction, or filtering for my case study in the context of my website.
 
-## Usecase: A Web-Page Summarization
+## Usecase: A English Web-Page Summarization
 
-Run the batch program: [demo_summarization_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_summarization_web_page.py)
+Run the batch program: [demo_summarization_english_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_summarization_english_web_page.py)
 
 ```
-python3 demo_summarization_web_page.py {URL}
+python demo_summarization_english_web_page.py {URL}
+
+- {URL}: web site URL.
+
+### Demo
+
+Let's summarize this page: [Natural_language_generation - Wikipedia](https://en.wikipedia.org/wiki/Natural_language_generation).
+
+```
+python demo_summarization_english_web_page.py https://en.wikipedia.org/wiki/Natural_language_generation
+```
+
+The result is as follows.
+```
+Natural language generation From Wikipedia, the free encyclopedia Jump to: navigation , search Natural language generation ( NLG ) is the natural language processing task of generating natural language from a machine representation system such as a knowledge base or a logical form .
+
+ Psycholinguists prefer the term language production when such formal representations are interpreted as models for mental representations.
+
+ It could be said an NLG system is like a translator that converts data into a natural language representation.
+```
+
+## Usecase: A Japanese Web-Page Summarization
+
+Run the batch program: [demo_summarization_japanese_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_summarization_japanese_web_page.py)
+
+```
+python3 demo_summarization_japanese_web_page.py {URL}
 ```
 - {URL}: web site URL.
 
@@ -20,7 +46,7 @@ python3 demo_summarization_web_page.py {URL}
 Let's summarize this page: [自動要約 - Wikipedia](https://ja.wikipedia.org/wiki/%E8%87%AA%E5%8B%95%E8%A6%81%E7%B4%84).
 
 ```
-python3 demo_summarization_web_page.py https://ja.wikipedia.org/wiki/%E8%87%AA%E5%8B%95%E8%A6%81%E7%B4%84
+python3 demo_summarization_japanese_web_page.py https://ja.wikipedia.org/wiki/%E8%87%AA%E5%8B%95%E8%A6%81%E7%B4%84
 ```
 
 The result is as follows.
@@ -38,10 +64,10 @@ The result is as follows.
 
 The minimum unit of token is not necessarily `a word` in automatic summarization. `N-gram` is also applicable to the tokenization.
 
-Run the batch program: [demo_with_n_gram_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_with_n_gram_web_page.py)
+Run the batch program: [demo_with_n_gram_japanese_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_with_n_gram_japanese_web_page.py)
 
 ```
-python3 demo_with_n_gram_web_page.py {URL}
+python3 demo_with_n_gram_japanese_web_page.py {URL}
 ```
 - {URL}: web site URL.
 
@@ -50,7 +76,7 @@ python3 demo_with_n_gram_web_page.py {URL}
 Let's summarize this page:[情報検索 - Wikipedia](https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E6%A4%9C%E7%B4%A2).
 
 ```
-python3 demo_with_n_gram_web_pagepy https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E6%A4%9C%E7%B4%A2
+python3 demo_with_n_gram_japanese_web_page.py https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E6%A4%9C%E7%B4%A2
 ```
 
 The result is as follows.

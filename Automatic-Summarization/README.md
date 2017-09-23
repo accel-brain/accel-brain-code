@@ -34,6 +34,85 @@ Binary installers for the latest released version are available at the Python pa
 - pdfminer2
 - pyquery:v1.2.17 or higher.
 
+## Usecase: Summarize an English string argument.
+
+Import Python modules.
+
+```python
+from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
+from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
+from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
+```
+
+Prepare an English string argument.
+
+```python
+document = "Natural language generation (NLG) is the natural language processing task of generating natural language from a machine representation system such as a knowledge base or a logical form. Psycholinguists prefer the term language production when such formal representations are interpreted as models for mental representations."
+```
+
+And instantiate objects and call the method.
+
+```python
+# Object of automatic summarization.
+auto_abstractor = AutoAbstractor()
+# Set tokenizer.
+auto_abstractor.tokenizable_doc = SimpleTokenizer()
+# Set delimiter for making a list of sentence.
+auto_abstractor.delimiter_list = [".", "\n"]
+# Object of abstracting and filtering document.
+abstractable_doc = TopNRankAbstractor()
+# Summarize document.
+result_dict = auto_abstractor.summarize(document, abstractable_doc)
+
+# Output result.
+for sentence in result_dict["summarize_result"]:
+    print(sentence)
+```
+
+The `result_dict` is a dict. this format is as follows.
+
+```python
+ dict{
+     "summarize_result": "The list of summarized sentences.", 
+     "scoring_data":     "The list of scores(Rank of importance)."
+ }
+```
+
+## Usecase: Summarize an Japanese string argument.
+
+Import Python modules.
+
+```python
+from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
+from pysummarization.tokenizabledoc.mecab_tokenizer import MeCabTokenizer
+from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
+```
+
+Prepare an English string argument.
+
+```python
+document = "自然言語処理（しぜんげんごしょり、英語: natural language processing、略称：NLP）は、人間が日常的に使っている自然言語をコンピュータに処理させる一連の技術であり、人工知能と言語学の一分野である。「計算言語学」（computational linguistics）との類似もあるが、自然言語処理は工学的な視点からの言語処理をさすのに対して、計算言語学は言語学的視点を重視する手法をさす事が多い[1]。データベース内の情報を自然言語に変換したり、自然言語の文章をより形式的な（コンピュータが理解しやすい）表現に変換するといった処理が含まれる。応用例としては予測変換、IMEなどの文字変換が挙げられる。"
+```
+
+And instantiate objects and call the method.
+
+```python
+# Object of automatic summarization.
+auto_abstractor = AutoAbstractor()
+# Set tokenizer for Japanese.
+auto_abstractor.tokenizable_doc = MeCabTokenizer()
+# Set delimiter for making a list of sentence.
+auto_abstractor.delimiter_list = ["。", "\n"]
+# Object of abstracting and filtering document.
+abstractable_doc = TopNRankAbstractor()
+# Summarize document.
+result_dict = auto_abstractor.summarize(document, abstractable_doc)
+
+# Output result.
+for sentence in result_dict["summarize_result"]:
+    print(sentence)
+```
+
 ## Usecase: A English Web-Page Summarization
 
 Run the batch program: [demo_summarization_english_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_summarization_english_web_page.py)

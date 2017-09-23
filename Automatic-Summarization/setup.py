@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pysummarization',
-    version='1.0.1',
+    version='1.0.3',
     description='pysummarization is Python library for the automatic summarization, document abstraction, and text filtering.',
     long_description='The function of this library is automatic summarization using a kind of natural language processing. This library enable you to create a summary with the major points of the original document or web-scraped text that filtered by text clustering.',
     url='https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization',

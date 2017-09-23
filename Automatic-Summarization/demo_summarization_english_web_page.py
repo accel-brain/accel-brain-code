@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from nlpbase.auto_abstractor import AutoAbstractor
-from tokenizabledoc.simple_tokenizer import SimpleTokenizer
-from web_scraping import WebScraping
-from abstractabledoc.std_abstractor import StdAbstractor
-from abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
+from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
+from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
+from pysummarization.web_scraping import WebScraping
+from pysummarization.abstractabledoc.std_abstractor import StdAbstractor
+from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
 
 
 def Main(url):

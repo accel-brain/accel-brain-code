@@ -1,10 +1,11 @@
 # Automatic Summarization
 
+pysummarization is Python library for the automatic summarization, document abstraction, and text filtering.
 These python scripts create a summary with the major points of the original document or web-scraped text.
 
 ## Description
 
-This is a demonstration on automatic summarization, abstraction, or filtering for my case study in the context of my website.
+This is a demonstration on automatic summarization, abstraction, or filtering for my case study in the context of my website. For the automatic summarization, document abstraction, and text filtering, this library create a summary with the major points of the original document or web-scraped text.
 
 ## Usecase: A English Web-Page Summarization
 
@@ -103,7 +104,7 @@ The result is as follows.
     - [ケーススタディ：人工知能エージェント「キメラ・ネットワーク」](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/5/#i-8) (Japanese)
 
 ## Version
-- 1.0
+- 1.0.1
 
 ## Author
 
@@ -119,7 +120,17 @@ The result is as follows.
 
 ## Requires
 
-- Python3.4.4
+- Python3.6.1
+
+### Dependencies
+
+- numpy: v1.12.1 or higher.
+- nltk: v3.2.3 or higher.
+- mecab-python3: v0.7 or higher.
+- pdfminer2: 
+    * for demo scripts only.
+- pyquery:v1.2.17 or higher.
+    * for demo scripts only.
 
 # References
 

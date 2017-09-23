@@ -29,12 +29,12 @@ def Main(url):
     # Object of abstracting and filtering document.
     abstractable_doc = TopNRankAbstractor()
     # Execute summarization.
-    result_list = auto_abstractor.summarize(document, abstractable_doc)
+    result_dict = auto_abstractor.summarize(document, abstractable_doc)
 
     # Output 3 summarized sentences.
     limit = 3
     i = 1
-    for sentence in result_list["summarize_result"]:
+    for sentence in result_dict["summarize_result"]:
         print(sentence)
         if i >= limit:
             break

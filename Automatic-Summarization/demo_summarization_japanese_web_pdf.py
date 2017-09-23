@@ -27,9 +27,9 @@ def Main(url):
     # Object of abstracting and filtering document.
     abstractable_doc = TopNRankAbstractor()
     # Execute summarization.
-    result_list = auto_abstractor.summarize(document, abstractable_doc)
+    result_dict = auto_abstractor.summarize(document, abstractable_doc)
     # Output summarized sentence.
-    [print(sentence) for sentence in result_list["summarize_result"]]
+    [print(sentence) for sentence in result_dict["summarize_result"]]
 
 if __name__ == "__main__":
     import sys

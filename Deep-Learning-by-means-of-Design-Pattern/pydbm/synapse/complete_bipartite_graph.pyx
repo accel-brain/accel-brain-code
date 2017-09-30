@@ -1,4 +1,3 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
 import numpy as np
 from pydbm.synapse_list import Synapse

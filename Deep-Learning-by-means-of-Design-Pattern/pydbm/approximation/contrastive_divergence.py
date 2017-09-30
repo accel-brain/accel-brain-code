@@ -58,22 +58,15 @@ class ContrastiveDivergence(ApproximateInterface):
             observed_data_list:      観測データ点
         '''
         # 観測データ点を可視ニューロンに入力する
-        for i in range(len(observed_data_list)):
-            self.__graph.visible_neuron_list[i].observe_data_point(observed_data_list[i])
-
+        [self.__graph.visible_neuron_list[i].observe_data_point(observed_data_list[i]) for i in range(len(observed_data_list))]
         # 隠れ層のニューロンの発火状態を更新する
         self.__update_hidden_spike()
-
         # ヘブ規則によりリンクの重みを更新する
         self.__graph.update(self.__learning_rate)
-
         # 可視層のバイアスを更新する
-        for i in range(len(self.__graph.visible_neuron_list)):
-            self.__graph.visible_neuron_list[i].update_bias(self.__learning_rate)
-
+        [self.__graph.visible_neuron_list[i].update_bias(self.__learning_rate) for i in range(len(self.__graph.visible_neuron_list))]
         # 隠れ層のバイアスを更新する
-        for j in range(len(self.__graph.hidden_neuron_list)):
-            self.__graph.hidden_neuron_list[j].update_bias(self.__learning_rate)
+        [self.__graph.hidden_neuron_list[j].update_bias(self.__learning_rate) for j in range(len(self.__graph.hidden_neuron_list))]
 
     def __sleep(self):
         '''
@@ -82,20 +75,14 @@ class ContrastiveDivergence(ApproximateInterface):
         '''
         # 可視層のニューロンの発火状態を更新する
         self.__update_visible_spike()
-
         # 隠れ層のニューロンの発火状態を更新する
         self.__update_hidden_spike()
-
         # ヘブ規則によりリンクの重みを逆更新する
         self.__graph.update((-1) * self.__learning_rate)
-
         # 可視層のバイアスを更新する
-        for i in range(len(self.__graph.visible_neuron_list)):
-            self.__graph.visible_neuron_list[i].update_bias((-1) * self.__learning_rate)
-
+        [self.__graph.visible_neuron_list[i].update_bias((-1) * self.__learning_rate) for i in range(len(self.__graph.visible_neuron_list))]
         # 隠れ層のバイアスを更新する
-        for j in range(len(self.__graph.hidden_neuron_list)):
-            self.__graph.hidden_neuron_list[j].update_bias((-1) * self.__learning_rate)
+        [self.__graph.hidden_neuron_list[j].update_bias((-1) * self.__learning_rate) for j in range(len(self.__graph.hidden_neuron_list))]
 
     def __update_visible_spike(self):
         '''
@@ -124,13 +111,9 @@ class ContrastiveDivergence(ApproximateInterface):
         バイアスと重みを学習する
         '''
         # 可視層のバイアスの学習
-        for i in range(len(self.__graph.visible_neuron_list)):
-            self.__graph.visible_neuron_list[i].learn_bias()
-
+        [self.__graph.visible_neuron_list[i].learn_bias() for i in range(len(self.__graph.visible_neuron_list))]
         # 隠れ層のバイアスの学習
-        for j in range(len(self.__graph.hidden_neuron_list)):
-            self.__graph.hidden_neuron_list[j].learn_bias()
-
+        [self.__graph.hidden_neuron_list[j].learn_bias() for j in range(len(self.__graph.hidden_neuron_list))]
         # リンクの重みの学習
         self.__graph.learn_weights()
 

@@ -1,9 +1,9 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
-from deeplearning.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
-from deeplearning.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
-from deeplearning.approximation.contrastive_divergence import ContrastiveDivergence
-from deeplearning.activation.logistic_function import LogisticFunction
+from pydbm.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
+from pydbm.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
+from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
+from pydbm.activation.logistic_function import LogisticFunction
 import numpy as np
 import random
 import pandas as pd

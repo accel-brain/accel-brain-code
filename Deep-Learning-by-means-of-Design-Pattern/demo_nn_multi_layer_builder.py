@@ -1,6 +1,6 @@
 if __name__ == "__main__":
-    from deeplearning.nn.builders.nn_3_layer_builder import NN3LayerBuilder
-    from deeplearning.activation.logistic_function import LogisticFunction
+    from pydbm.nn.builders.nn_multi_layer_builder import NNMultiLayerBuilder
+    from pydbm.activation.logistic_function import LogisticFunction
     import numpy as np
     import random
     import pandas as pd
@@ -33,18 +33,17 @@ if __name__ == "__main__":
     evaluate_data_list = []
 
     nn = NeuralNetwork(
-        NN3LayerBuilder(),
-        len(traning_data_matrix[0]),
-        9,
-        1,
-        [SigmoidFunction(), SigmoidFunction(), SigmoidFunction()]
+        NNMultiLayerBuilder(),
+        [len(traning_data_matrix[0]), 9, 3, 1],
+        [SigmoidFunction(), SigmoidFunction(), SigmoidFunction(), SigmoidFunction()]
     )
 
     nn.learn(
         traning_data_matrix,
         class_data_matrix,
         traning_count=1,
-        learning_rate=0.05
+        learning_rate=0.01,
+        momentum_factor=0.01
     )
     evaluate_result_dict = nn.evaluate_bool(
         test_data_matrix,
@@ -53,18 +52,17 @@ if __name__ == "__main__":
     evaluate_data_list.append(evaluate_result_dict)
 
     nn = NeuralNetwork(
-        NN3LayerBuilder(),
-        len(traning_data_matrix[0]),
-        4,
-        1,
-        [SigmoidFunction(), SigmoidFunction(), SigmoidFunction()]
+        NNMultiLayerBuilder(),
+        [len(traning_data_matrix[0]), 4, 3, 1],
+        [SigmoidFunction(), SigmoidFunction(), SigmoidFunction(), SigmoidFunction()]
     )
 
     nn.learn(
         traning_data_matrix,
         class_data_matrix,
         traning_count=1,
-        learning_rate=0.05
+        learning_rate=0.00000001,
+        momentum_factor=0.000000001
     )
     evaluate_result_dict = nn.evaluate_bool(
         test_data_matrix,
@@ -78,6 +76,7 @@ if __name__ == "__main__":
     data_columns = [
         "neuron_assign_list",
         "learning_rate",
+        "momentum_factor",
         "traning_count",
         "tp", "tn", "fp", "fn",
         "precision",
@@ -88,11 +87,11 @@ if __name__ == "__main__":
     print(evaluate_data[data_columns])
 
     '''
-  neuron_assign_list  learning_rate  traning_count   tp   tn  fp  fn  \
-1         [10, 4, 1]           0.05              1  138  139   9  14
-0         [10, 9, 1]           0.05              1  127  142   6  25
+  neuron_assign_list  learning_rate  momentum_factor  traning_count  tp   tn  \
+1      [10, 4, 3, 1]   1.000000e-08     1.000000e-09              1  91   50
+0      [10, 9, 3, 1]   1.000000e-02     1.000000e-02              1   9  143
 
-   precision    recall         f
-1   0.938776  0.907895  0.923077
-0   0.954887  0.835526  0.891228
-   '''
+   fp   fn  precision    recall         f
+1  97   62   0.484043  0.594771  0.533724
+0   4  144   0.692308  0.058824  0.108434
+    '''

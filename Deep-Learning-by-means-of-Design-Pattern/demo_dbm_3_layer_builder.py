@@ -1,10 +1,10 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
 
-from deeplearning.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
-from deeplearning.dbm.builders.dbm_3_layer_builder import DBM3LayerBuilder
-from deeplearning.approximation.contrastive_divergence import ContrastiveDivergence
-from deeplearning.activation.logistic_function import LogisticFunction
+from pydbm.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
+from pydbm.dbm.builders.dbm_3_layer_builder import DBM3LayerBuilder
+from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
+from pydbm.activation.logistic_function import LogisticFunction
 from sklearn.datasets import load_iris
 import numpy as np
 import random

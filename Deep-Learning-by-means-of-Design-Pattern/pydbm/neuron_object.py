@@ -1,7 +1,7 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
 from abc import ABCMeta, abstractmethod
-from deeplearning.activation.interface.activating_function_interface import ActivatingFunctionInterface
+from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
 
 
 class Neuron(metaclass=ABCMeta):

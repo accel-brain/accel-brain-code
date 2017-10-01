@@ -1,4 +1,3 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
 from pydbm.dbm.interface.dbm_builder import DBMBuilder
 from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
@@ -8,14 +7,14 @@ from pydbm.approximation.interface.approximate_interface import ApproximateInter
 
 class DBMDirector(object):
     '''
-    GoFのデザイン・パタンの「Builder Pattern」の「監督者」
-    制限ボルツマンマシンを組み立てることで、
-    深層ボルツマンマシンのオブジェクトを生成する
+    The `Director` in Builder Pattern.
+    
+    Compose restricted boltzmann machines for building a object of deep boltzmann machine.
     '''
 
-    # GoFのデザイン・パタンの「Bulder Pattern」の「建築者」
+    # `Builder` in Builder Pattern.
     __dbm_builder = None
-    # 制限ボルツマンマシンのリスト
+    # The list of restricted boltzmann machines.
     __rbm_list = []
 
     def get_rbm_list(self):
@@ -44,10 +43,10 @@ class DBMDirector(object):
 
     def __init__(self, dbm_builder):
         '''
-        「建築者」を初期化する
+        Initialize `Builder` in Builder Pattern.
 
         Args:
-            dbm_builder     Builder Patternの「具体的な建築者」
+            dbm_builder     `Concreat Builder` in Builder Pattern
         '''
         if isinstance(dbm_builder, DBMBuilder) is False:
             raise TypeError()
@@ -61,12 +60,12 @@ class DBMDirector(object):
         approximate_interface
     ):
         '''
-        深層ボルツマンマシンを構築する
+        Build deep boltzmann machine.
 
         Args:
-            neuron_assign_list:     各層のニューロンの個数
-            activating_function:    活性化関数
-            approximate_interface:  近似
+            neuron_assign_list:     The unit of neurons in each layers.
+            activating_function:    Activation function,
+            approximate_interface:  The object of function approximation.
         '''
         if isinstance(activating_function, ActivatingFunctionInterface) is False:
             raise TypeError()
@@ -84,7 +83,5 @@ class DBMDirector(object):
             self.__dbm_builder.feature_neuron_part(activating_function, feature_neuron_count)
 
         self.__dbm_builder.hidden_neuron_part(activating_function, hidden_neuron_count)
-
         self.__dbm_builder.graph_part(approximate_interface)
-
         self.rbm_list = self.__dbm_builder.get_result()

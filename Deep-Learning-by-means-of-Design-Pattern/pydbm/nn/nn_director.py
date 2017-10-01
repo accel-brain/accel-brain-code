@@ -1,4 +1,3 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
 from pydbm.nn.interface.nn_builder import NNBuilder
 from pydbm.synapse.neural_network_graph import NeuralNetworkGraph

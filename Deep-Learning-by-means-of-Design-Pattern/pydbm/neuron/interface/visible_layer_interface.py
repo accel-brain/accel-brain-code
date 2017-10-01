@@ -1,31 +1,30 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
+import pyximport; pyximport.install()
 from abc import ABCMeta, abstractmethod
 
 
 class VisibleLayerInterface(metaclass=ABCMeta):
     '''
-    可視層の学習を実行させるためのインターフェイス
-    抽象メソッドのみの抽象クラスを便宜上インターフェイスとして扱う
+    The interface for learning in visible layer.
     '''
 
     @abstractmethod
-    def observe_data_point(self, x):
+    def observe_data_point(self, double x):
         '''
-        観測データ点の入力
+        Input obseved data points.
 
         Args:
-            x:  観測データ点
+            x:  observed data points.
         '''
         raise NotImplementedError()
 
     @abstractmethod
-    def visible_update_state(self, link_value):
+    def visible_update_state(self, double link_value):
         '''
-        可視層の学習
+        Update the activity.
 
         Args:
-            link_value:      リンク先による入力値
+            link_value:      Input value.
 
         '''
         raise NotImplementedError()

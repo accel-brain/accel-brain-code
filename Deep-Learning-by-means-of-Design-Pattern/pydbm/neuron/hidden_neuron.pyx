@@ -1,4 +1,3 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
 import pyximport;pyximport.install()
 import random
@@ -8,29 +7,29 @@ from pydbm.neuron.interface.hidden_layer_interface import HiddenLayerInterface
 
 class HiddenNeuron(Neuron, HiddenLayerInterface):
     '''
-    隠れ層のニューロン
+    The neurons in hidden layer.
     '''
 
     def __init__(self):
+        ''' Initialize. '''
         self.bias = round(random.random(), 3)
 
     def hidden_update_state(self, double link_value):
         '''
-        隠れ層の学習
+        Update activity.
 
         Args:
-            link_value:      リンク先による入力値
+            link_value:      Input value.
 
         '''
-        # 活性度の判定
         output = self.activate(link_value)
         self.activity = output
 
     def update_bias(self, double learning_rate):
         '''
-        バイアスの調整
+        Update biases.
 
         Args:
-            learning_rate:  学習率
+            learning_rate:  Learning rate.
         '''
         self.diff_bias += learning_rate * self.activity

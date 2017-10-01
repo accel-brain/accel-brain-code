@@ -7,14 +7,14 @@ from pydbm.activation.interface.activating_function_interface import ActivatingF
 
 class NNDirector(object):
     '''
-    GoFのデザイン・パタンの「Builder Pattern」の「監督者」
-    パーセプトロンのシナプスを組み立てることで、
-    ニューラルネットワークのオブジェクトを生成する
+    `Director` in Builder Pattern.
+    
+    Compose synapses for building neural networks.
     '''
 
-    # GoFのデザイン・パタンの「Bulder Pattern」の「建築者」
+    # `Builder` in BUilder Pattern.
     __nn_builder = None
-    # ニューラルネットワークのリスト
+    # The list of nerual networks.
     __nn_list = []
 
     def get_nn_list(self):
@@ -43,10 +43,10 @@ class NNDirector(object):
 
     def __init__(self, nn_builder):
         '''
-        「建築者」を初期化する
+        Initialize `Builder`.
 
         Args:
-            nn_builder     Builder Patternの「具体的な建築者」
+            nn_builder     `Concrete Builder` in Builder Pattern.
         '''
         if isinstance(nn_builder, NNBuilder) is False:
             raise TypeError()
@@ -59,11 +59,11 @@ class NNDirector(object):
         activating_function_list
     ):
         '''
-        ニューラルネットワークを構築する
+        Build neural networks.
 
         Args:
-            neuron_assign_list:          各層のニューロンの個数のリスト
-            activating_function_list:    活性化関数のリスト
+            neuron_assign_list:          The list of the number of neurons in each layers.
+            activating_function_list:    The list of activation functions.
         '''
         if len(activating_function_list) != len(neuron_assign_list):
             raise ValueError()

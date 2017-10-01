@@ -1,4 +1,3 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
 import pyximport
 import numpy as np
@@ -8,28 +7,28 @@ from pydbm.activation.interface.activating_function_interface import ActivatingF
 
 class LogisticFunction(ActivatingFunctionInterface):
     '''
-    ロジスティック関数
+    Logistic Function.
     '''
 
-    def activate(self, x):
+    def activate(self, double x):
         '''
-        活性化関数の返り値を返す
+        Return of result from this activation function.
 
         Args:
-            x   パラメタ
+            x   Parameter.
 
         Returns:
-            活性化関数の返り値
+            The result.
         '''
         return 1.0 / (1.0 + np.exp(-x))
 
-    def derivative(self, y):
+    def derivative(self, double y):
         '''
-        導関数
+        Derivative.
 
         Args:
-            y:  パラメタ
+            y:  Parameter.
         Returns:
-            導関数の値
+            The result.
         '''
         return self.activate(y) * (1 - self.activate(y))

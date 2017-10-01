@@ -1,5 +1,5 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
+import pyximport; pyximport.install()
 from multipledispatch import dispatch
 from pydbm.nn.nn_director import NNDirector
 from pydbm.nn.interface.nn_builder import NNBuilder
@@ -7,32 +7,30 @@ from pydbm.nn.interface.nn_builder import NNBuilder
 
 class NeuralNetwork(object):
     '''
-    ニューラルネットワークのオブジェクト
+    The object of neural networks.
     '''
 
-    # ニューラルネットワークのグラフ
+    # The list of graphs of neural networks.
     nn_list = []
-
-    # 評価時に参照する（ハイパー）パラメタの記録用辞書
-    __hyper_param_dict = {}
 
     @dispatch(NNBuilder, int, int, int, list)
     def __init__(
         self,
         nn_builder,
-        input_neuron_count,
-        hidden_neuron_count,
-        output_neuron_count,
+        int input_neuron_count,
+        int hidden_neuron_count,
+        int output_neuron_count,
         activating_function_list
     ):
         '''
-        ニューラルネットワークを初期化する
+        Initialize.
 
         Args:
-            input_neuron_count:         入力層ニューロン数
-            hidden_neuron_count:   　    隠れ層のニューロン数
-            output_neuron_count:        出力層ニューロン数
-            activating_function_list:   活性化関数のリスト 入力層、隠れ層、出力層の順
+            nn_builder:                 `Concrete Builder` in Builder Pattern.
+            input_neuron_count:         The number of neurons in input layer.
+            hidden_neuron_count:   　   The number of neurons in hidden layer.
+            output_neuron_count:        The number of neurons in output layer.
+            activating_function_list:   The list of activation function.
         '''
         nn_director = NNDirector(
             nn_builder=nn_builder
@@ -57,14 +55,14 @@ class NeuralNetwork(object):
         activating_function_list
     ):
         '''
-        ニューラルネットワークを初期化する
+        Initialize.
 
         Args:
-            neuron_assign_list:         各層のニューロンの個数
-                                        0番目が入力層で、最後が出力層で、
-                                        それ以外の値が隠れ層に対応する
-            activating_function_list:   活性化関数のリスト
-                                        引数：neuron_assign_listの構成に合わせる
+            neuron_assign_list:         The list of the number of neurons in each layers.
+                                        0: input layer.
+                                        -1: output layer.
+                                        others: hidden layer.
+            activating_function_list:   The list of activation function.
         '''
         nn_director = NNDirector(
             nn_builder=nn_builder
@@ -85,21 +83,21 @@ class NeuralNetwork(object):
         self,
         traning_data_matrix,
         class_data_matrix,
-        learning_rate=0.5,
-        momentum_factor=0.1,
-        traning_count=1000,
+        double learning_rate=0.5,
+        double momentum_factor=0.1,
+        int traning_count=1000,
         learning_rate_list=None
     ):
         '''
-        フォワードプロパゲーションとバックプロパゲーションを交互に実行し続ける
+        Excute foward propagation and back propagation recursively.
 
         Args:
-            traning_data_matrix:    訓練データ
-            class_data_matrix:      教師データ
-            learning_rate:          学習率
-            momentum_factor:        運動量係数
-            traning_count:          訓練回数
-            learning_rate_list:     各データセットの学習率
+            traning_data_matrix:    Training data.
+            class_data_matrix:      Class data.
+            learning_rate:          Learning rate.
+            momentum_factor:        Momentum factor.
+            traning_count:          Training counts.
+            learning_rate_list:     The list of learning rates.
 
         '''
         if len(traning_data_matrix) != len(class_data_matrix):
@@ -123,27 +121,28 @@ class NeuralNetwork(object):
 
     def forward_propagate(self, input_data_list):
         '''
-        フォワードプロパゲーションを実行する
-        バイアスと重みの規格化も実行する
+        Foward propagation.
 
         Args:
-            input_data_list:  訓練データ
+            input_data_list:  The list of input data.
 
         '''
         nn_from_input_to_hidden_layer = self.nn_list[0]
         nn_hidden_layer_list = self.nn_list[1:len(self.nn_list) - 1]
         nn_to_output_layer = self.nn_list[-1]
+        cdef int i
         [nn_from_input_to_hidden_layer.shallower_neuron_list[i].observe_data_point(input_data_list[i]) for i in range(len(input_data_list))]
 
-        # 最も浅い層：入力層
+        # In input layer.
         shallower_activity_arr = [[nn_from_input_to_hidden_layer.shallower_neuron_list[i].activity] * len(nn_from_input_to_hidden_layer.deeper_neuron_list) for i in range(len(nn_from_input_to_hidden_layer.shallower_neuron_list))]
         link_value_arr = shallower_activity_arr * nn_from_input_to_hidden_layer.weights_arr
         link_value_list = link_value_arr.sum(axis=0)
+        cdef int j
         [nn_from_input_to_hidden_layer.deeper_neuron_list[j].hidden_update_state(link_value_list[j]) for j in range(len(link_value_list))]
         nn_from_input_to_hidden_layer.normalize_visible_bias()
         nn_from_input_to_hidden_layer.normalize_hidden_bias()
 
-        # 相対的に中間的な層：層数に応じてループ
+        # In hidden layers.
         for nn_hidden_layer in nn_hidden_layer_list:
             shallower_activity_arr = [[nn_hidden_layer.shallower_neuron_list[i].activity] * len(nn_hidden_layer.deeper_neuron_list) for i in range(len(nn_hidden_layer.shallower_neuron_list))]
             link_value_arr = shallower_activity_arr * nn_hidden_layer.weights_arr
@@ -152,7 +151,7 @@ class NeuralNetwork(object):
             nn_hidden_layer.normalize_visible_bias()
             nn_hidden_layer.normalize_hidden_bias()
 
-        # 出力層
+        # In output layer
         shallower_activity_arr = [[nn_to_output_layer.shallower_neuron_list[i].activity] * len(nn_to_output_layer.deeper_neuron_list) for i in range(len(nn_to_output_layer.shallower_neuron_list))]
         link_value_arr = shallower_activity_arr * nn_to_output_layer.weights_arr
         link_value_list = link_value_arr.sum(axis=0)
@@ -160,15 +159,14 @@ class NeuralNetwork(object):
         nn_to_output_layer.normalize_visible_bias()
         nn_to_output_layer.normalize_hidden_bias()
 
-    def back_propagate(self, test_data_list, learning_rate=0.05, momentum_factor=0.1):
+    def back_propagate(self, test_data_list, double learning_rate=0.05, double momentum_factor=0.1):
         '''
-        バックプロパゲーションを実行する
-        再帰処理のため、バイアスと重みの規格化はback_propagateメソッド内部で実行する
+        Back propagation.
 
         Args:
-            test_data_list:     検証用データ
-            learning_rate:      学習率
-            momentum_factor:    運動量係数
+            test_data_list:     The list of test data.
+            learning_rate:      Learning rate.
+            momentum_factor:    Momentum factor.
         '''
         back_nn_list = [back_nn for back_nn in reversed(self.nn_list)]
         back_nn_list[0].back_propagate(
@@ -181,13 +179,13 @@ class NeuralNetwork(object):
 
     def predict(self, test_data_list):
         '''
-        予測する
+        Predict.
 
         Args:
-            test_data_matrix:   検証用データ
+            test_data_matrix:   test data.
 
         Returns:
-            予測結果となる出力値
+            Predicted result.
         '''
 
         output_data_list = []
@@ -196,69 +194,3 @@ class NeuralNetwork(object):
             output_data_list.append(output_neuron.release())
 
         return output_data_list
-
-    def evaluate_bool(self, test_data_matrix, class_data_matrix):
-        '''
-        教師データの訓練後の予測を実行して、モデル性能をF値などの指標で算出する
-        目的変数が二値(0/1)の場合の簡易版
-
-        Args:
-            test_data_matrix:   テストデータ
-
-        Returns:
-            次の辞書を返す
-            {
-                "tp":                 True Positive,
-                "fp":                 False Positive,
-                "tn":                 True Negative,
-                "fn":                 False Negative,
-                "precision":          適合率,
-                "recall":             再現率,
-                "f":                  F値,
-                "<<（ハイパー）パラメタ名>>": <<値>>
-            }
-        '''
-        tp = 0
-        fp = 0
-        tn = 0
-        fn = 0
-        for i in range(len(test_data_matrix)):
-            test_data_list = test_data_matrix[i]
-            class_data_list = class_data_matrix[i]
-
-            binary_result = self.predict(test_data_list)[0]
-
-            if class_data_list[0] == binary_result and binary_result == 0:
-                tp += 1
-            elif class_data_list[0] == binary_result and binary_result == 1:
-                tn += 1
-            elif class_data_list[0] != binary_result and binary_result == 0:
-                fp += 1
-            else:
-                fn += 1
-
-        try:
-            precision = tp / (tp + fp)
-        except ZeroDivisionError:
-            precision = 0.0
-        try:
-            recall = tp / (tp + fn)
-        except ZeroDivisionError:
-            recall = 0.0
-        try:
-            f = 2 * ((precision * recall) / (precision + recall))
-        except ZeroDivisionError:
-            f = 0.0
-
-        result_dict = {
-            "tp": tp,
-            "fp": fp,
-            "tn": tn,
-            "fn": fn,
-            "precision": precision,
-            "recall": recall,
-            "f": f
-        }
-        [result_dict.setdefault(key, val) for key, val in self.__hyper_param_dict.items()]
-
-        return result_dict

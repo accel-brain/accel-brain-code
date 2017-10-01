@@ -86,24 +86,28 @@ class Synapse(object):
         '''
         可視層を規格化する
         '''
+        cdef int i
         visible_activity_list = [self.shallower_neuron_list[i].activity for i in range(len(self.shallower_neuron_list))]
         if len(visible_activity_list) > 1 and sum(visible_activity_list) != 0:
             visible_activity_arr = np.array(visible_activity_list)
             visible_activity_arr = visible_activity_arr / visible_activity_arr.sum()
             visible_activity_list = list(visible_activity_arr)
 
-        for i in range(len(visible_activity_list)):
-            self.shallower_neuron_list[i].activity = visible_activity_list[i]
+        cdef int k
+        for k in range(len(visible_activity_list)):
+            self.shallower_neuron_list[k].activity = visible_activity_list[k]
 
     def normalize_hidden_bias(self):
         '''
         隠れ層を規格化する
         '''
+        cdef int i
         hidden_activity_list = [self.deeper_neuron_list[i].activity for i in range(len(self.deeper_neuron_list))]
         if len(hidden_activity_list) > 1 and sum(hidden_activity_list) != 0:
             hidden_activity_arr = np.array(hidden_activity_list)
             hidden_activity_arr = hidden_activity_arr / hidden_activity_arr.sum()
             hidden_activity_list = list(hidden_activity_arr)
 
-        for i in range(len(hidden_activity_list)):
-            self.deeper_neuron_list[i].activity = hidden_activity_list[i]
+        cdef int k
+        for k in range(len(hidden_activity_list)):
+            self.deeper_neuron_list[k].activity = hidden_activity_list[k]

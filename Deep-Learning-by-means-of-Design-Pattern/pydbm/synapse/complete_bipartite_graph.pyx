@@ -38,13 +38,15 @@ class CompleteBipartiteGraph(Synapse):
 
     hidden_neuron_list = property(get_hidden_neuron_list, set_hidden_neuron_list)
     
-    def update(self, learning_rate):
+    def update(self, double learning_rate):
         '''
         各リンクの重みを更新する
 
         Args:
             learning_rate:  学習率
         '''
+        cdef int i
         visible_activity_arr = np.array([[self.visible_neuron_list[i].activity] * len(self.hidden_neuron_list) for i in range(len(self.visible_neuron_list))])
+        cdef int j
         hidden_activity_arr = np.array([[self.hidden_neuron_list[j].activity] * len(self.visible_neuron_list) for j in range(len(self.hidden_neuron_list))])
         self.diff_weights_arr = visible_activity_arr * hidden_activity_arr.T * learning_rate

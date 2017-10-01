@@ -25,7 +25,7 @@ class RestrictedBoltzmannMachine(object):
 
     graph = property(get_graph, set_read_only)
 
-    def __init__(self, graph, learning_rate=0.5, approximate_interface=None):
+    def __init__(self, graph, double learning_rate=0.5, approximate_interface=None):
         '''
         初期化
 
@@ -46,7 +46,7 @@ class RestrictedBoltzmannMachine(object):
         self.__learning_rate = learning_rate
         self.__approximate_interface = approximate_interface
 
-    def approximate_learning(self, observed_data_matrix, traning_count):
+    def approximate_learning(self, observed_data_matrix, int traning_count):
         '''
         近似による学習を実行する
 

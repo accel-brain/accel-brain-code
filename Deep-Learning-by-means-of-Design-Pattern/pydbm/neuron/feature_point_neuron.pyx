@@ -1,5 +1,6 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
+import pyximport;pyximport.install()
 import random
 from pydbm.neuron_object import Neuron
 from pydbm.neuron.interface.visible_layer_interface import VisibleLayerInterface
@@ -47,7 +48,7 @@ class FeaturePointNeuron(Neuron, VisibleLayerInterface, HiddenLayerInterface):
         visible_layer_interface.bias = self.bias
         self.__visible_layer_interface = visible_layer_interface
 
-    def observe_data_point(self, x):
+    def observe_data_point(self, double x):
         '''
         インターフェイス実現
         観測データ点の入力
@@ -58,7 +59,7 @@ class FeaturePointNeuron(Neuron, VisibleLayerInterface, HiddenLayerInterface):
         self.__visible_layer_interface.observe_data_point(x)
         self.activity = x
 
-    def visible_update_state(self, link_value):
+    def visible_update_state(self, double link_value):
         '''
         インターフェイス実現
         可視層ニューロンとしての学習
@@ -70,7 +71,7 @@ class FeaturePointNeuron(Neuron, VisibleLayerInterface, HiddenLayerInterface):
         self.__visible_layer_interface.visible_update_state(link_value)
         self.activity = self.__visible_layer_interface.activity
 
-    def hidden_update_state(self, link_value):
+    def hidden_update_state(self, double link_value):
         '''
         インターフェイス実現
         隠れ層ニューロンとしての学習
@@ -81,7 +82,7 @@ class FeaturePointNeuron(Neuron, VisibleLayerInterface, HiddenLayerInterface):
         '''
         self.visible_update_state(link_value)
 
-    def update_bias(self, learning_rate):
+    def update_bias(self, double learning_rate):
         '''
         具象メソッド
         バイアスの調整

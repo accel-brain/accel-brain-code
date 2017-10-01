@@ -26,7 +26,7 @@ class Neuron(metaclass=ABCMeta):
             raise TypeError()
         return self.__bias
 
-    def set_bias(self, value):
+    def set_bias(self, double value):
         ''' setter of bias '''
         if isinstance(value, float) is False:
             raise TypeError()
@@ -38,7 +38,7 @@ class Neuron(metaclass=ABCMeta):
             raise TypeError()
         return self.__diff_bias
 
-    def set_diff_bias(self, value):
+    def set_diff_bias(self, double value):
         ''' setter of diff_bias '''
         if isinstance(value, float) is False:
             raise TypeError()
@@ -62,7 +62,7 @@ class Neuron(metaclass=ABCMeta):
             raise TypeError()
         return self.__activity
 
-    def set_activity(self, value):
+    def set_activity(self, double value):
         ''' setter of activity '''
         if isinstance(value, float) is False and isinstance(value, int) is False:
             raise TypeError()
@@ -89,7 +89,7 @@ class Neuron(metaclass=ABCMeta):
         return output
 
     @abstractmethod
-    def update_bias(self, learning_rate):
+    def update_bias(self, double learning_rate):
         '''
         バイアス差分を更新する
 

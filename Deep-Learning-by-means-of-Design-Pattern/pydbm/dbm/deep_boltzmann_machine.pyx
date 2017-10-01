@@ -97,7 +97,7 @@ class DeepBoltzmannMachine(object):
             "approximate_interface": str(type(approximate_interface))
         }
 
-    def learn(self, observed_data_matrix, traning_count=1000):
+    def learn(self, observed_data_matrix, int traning_count=1000):
         '''
         深層ボルツマンマシンを初期化する
 
@@ -108,6 +108,7 @@ class DeepBoltzmannMachine(object):
         if isinstance(observed_data_matrix, list) is False:
             raise TypeError()
 
+        cdef int i
         for i in range(len(self.__rbm_list)):
             rbm = self.__rbm_list[i]
             rbm.approximate_learning(observed_data_matrix, traning_count)
@@ -116,7 +117,7 @@ class DeepBoltzmannMachine(object):
 
         self.__hyper_param_dict["traning_count"] = traning_count
 
-    def get_feature_point_list(self, layer_number=0):
+    def get_feature_point_list(self, int layer_number=0):
         '''
         特徴点を抽出する
 
@@ -127,6 +128,7 @@ class DeepBoltzmannMachine(object):
             特徴点リスト
         '''
         rbm = self.__rbm_list[layer_number]
+        cdef int j
         feature_point_list = [rbm.graph.hidden_neuron_list[j].activity for j in range(len(rbm.graph.hidden_neuron_list))]
         return feature_point_list
 

@@ -1,5 +1,6 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
+import pyximport;pyximport.install()
 import random
 import bisect
 from pydbm.neuron_object import Neuron
@@ -34,7 +35,7 @@ class VisibleNeuron(Neuron, VisibleLayerInterface):
         '''
         self.bias = round(random.random(), 3)
 
-    def observe_data_point(self, x):
+    def observe_data_point(self, double x):
         '''
         インターフェイス実現
         観測データ点の入力
@@ -44,7 +45,7 @@ class VisibleNeuron(Neuron, VisibleLayerInterface):
         '''
         self.activity = x
 
-    def visible_update_state(self, link_value):
+    def visible_update_state(self, double link_value):
         '''
         インターフェイス実現
         可視層の学習
@@ -64,7 +65,7 @@ class VisibleNeuron(Neuron, VisibleLayerInterface):
             else:
                 self.activity = 0.0
 
-    def update_bias(self, learning_rate):
+    def update_bias(self, double learning_rate):
         '''
         具象メソッド
         バイアスの調整
@@ -74,7 +75,7 @@ class VisibleNeuron(Neuron, VisibleLayerInterface):
         '''
         self.diff_bias += learning_rate * self.activity
 
-    def __decide_activation(self, probabirity):
+    def __decide_activation(self, double probabirity):
         '''
         二値の活性化判定
 

@@ -1,5 +1,6 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
+import pyximport;pyximport.install()
 import random
 import bisect
 from pydbm.neuron_object import Neuron
@@ -34,7 +35,7 @@ class OutputNeuron(Neuron, OutputLayerInterface):
         '''
         self.bias = round(random.random(), 3)
 
-    def output_update_state(self, link_value):
+    def output_update_state(self, double link_value):
         '''
         インターフェイス実現
         出力層の学習
@@ -55,7 +56,7 @@ class OutputNeuron(Neuron, OutputLayerInterface):
             else:
                 self.activity = 0.0
 
-    def update_bias(self, learning_rate):
+    def update_bias(self, double learning_rate):
         '''
         具象メソッド
         バイアスの調整
@@ -65,7 +66,7 @@ class OutputNeuron(Neuron, OutputLayerInterface):
         '''
         self.diff_bias += learning_rate * self.activity
 
-    def __decide_activation(self, probabirity):
+    def __decide_activation(self, double probabirity):
         '''
         二値の活性化判定
 

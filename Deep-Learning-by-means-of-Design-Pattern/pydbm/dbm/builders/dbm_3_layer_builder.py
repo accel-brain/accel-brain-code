@@ -1,5 +1,6 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
+import pyximport; pyximport.install()
 from pydbm.dbm.interface.dbm_builder import DBMBuilder
 from pydbm.neuron.visible_neuron import VisibleNeuron
 from pydbm.neuron.hidden_neuron import HiddenNeuron

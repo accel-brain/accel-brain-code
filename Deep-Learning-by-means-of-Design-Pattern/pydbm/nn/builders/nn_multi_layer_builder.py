@@ -1,5 +1,6 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
+import pyximport; pyximport.install()
 from pydbm.nn.interface.nn_builder import NNBuilder
 from pydbm.neuron.visible_neuron import VisibleNeuron
 from pydbm.neuron.hidden_neuron import HiddenNeuron

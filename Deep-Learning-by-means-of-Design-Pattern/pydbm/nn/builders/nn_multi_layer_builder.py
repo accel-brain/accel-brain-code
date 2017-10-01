@@ -107,7 +107,7 @@ class NNMultiLayerBuilder(NNBuilder):
 
     def get_result(self):
         '''
-        Return builded graphs of synapse.
+        Return the list of builed graph of synapse.
 
         Returns:
             The graphs of synapse.

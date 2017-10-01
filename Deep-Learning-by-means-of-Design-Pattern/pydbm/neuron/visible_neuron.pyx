@@ -1,4 +1,3 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
 import pyximport;pyximport.install()
 import random
@@ -9,10 +8,10 @@ from pydbm.neuron.interface.visible_layer_interface import VisibleLayerInterface
 
 class VisibleNeuron(Neuron, VisibleLayerInterface):
     '''
-    可視層のニューロン
+    The neurons in visible layer.
     '''
 
-    # 活性度を二値にするか否かのフラグ
+    # If True, `Self` set the activity as binaly.
     __bernoulli_flag = False
 
     def get_bernoulli_flag(self):
@@ -31,30 +30,27 @@ class VisibleNeuron(Neuron, VisibleLayerInterface):
 
     def __init__(self):
         '''
-        バイアスを初期化する
+        Initialzie.
         '''
         self.bias = round(random.random(), 3)
 
     def observe_data_point(self, double x):
         '''
-        インターフェイス実現
-        観測データ点の入力
+        Input observed data points.
 
         Args:
-            x:      観測データ点
+            x:      Observed data points.
         '''
         self.activity = x
 
     def visible_update_state(self, double link_value):
         '''
-        インターフェイス実現
-        可視層の学習
+        Update activity.
 
         Args:
-            link_value:      リンク先による入力値
+            link_value:      Input value.
 
         '''
-        # 活性化の判定
         output = self.activate(link_value)
         if self.bernoulli_flag is False:
             self.activity = output
@@ -67,23 +63,22 @@ class VisibleNeuron(Neuron, VisibleLayerInterface):
 
     def update_bias(self, double learning_rate):
         '''
-        具象メソッド
-        バイアスの調整
+        Update biases.
 
         Args:
-            learning_rate:  学習率
+            learning_rate:  Learning rate.
         '''
         self.diff_bias += learning_rate * self.activity
 
     def __decide_activation(self, double probabirity):
         '''
-        二値の活性化判定
+        Decide the binary activity.
 
         Args:
-            probabirity:    活性度
+            probabirity:    Activity.
 
         Returns:
-            true => 活性化 false => 非活性化
+            If True, it is activated.
         '''
         probabirity_list, result_list = [probabirity, 1.0], [True, False]
         return result_list[bisect.bisect(probabirity_list, random.random())]

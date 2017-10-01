@@ -1,25 +1,25 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
+import pyximport; pyximport.install()
 from abc import ABCMeta, abstractmethod
 
 
 class ApproximateInterface(metaclass=ABCMeta):
     '''
-    近似学習用インターフェイス
-
-    抽象メソッドのみの抽象クラスを便宜上インターフェイスとして扱う
+    The interface for function approximations.
     '''
 
     @abstractmethod
-    def approximate_learn(self, graph, learning_rate, observed_data_matrix, traning_count=1000):
+    def approximate_learn(self, graph, double learning_rate, observed_data_matrix, int traning_count=1000):
         '''
-        近似による学習
+        learning with function approximation.
 
         Args:
-            graph:                ニューロンのグラフ
-            learning_rate:        学習率
-            observed_data_matrix: 観測データ点
-            traning_count:        訓練回数
-
+            graph:                Graph of neurons.
+            learning_rate:        Learning rate.
+            observed_data_matrix: observed data points.
+            traning_count:        Training counts.
+        Returns:
+            Graph of neurons.
         '''
         raise NotImplementedError()

@@ -1,4 +1,3 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
 import pyximport
 import numpy as np
@@ -8,33 +7,28 @@ from pydbm.approximation.interface.approximate_interface import ApproximateInter
 
 class ContrastiveDivergence(ApproximateInterface):
     '''
-    Contrastive Divergence法
-    Numpy版
-
-    概念的にはpositive phaseとnegative phaseの区別を
-    wakeとsleepの区別に対応付けて各メソッドを命名している。
-
+    Contrastive Divergence
+    
+    Conceptually, the positive phase is to the negative phase what waking is to sleeping.
     '''
 
-    # ニューロンのグラフ
+    # Graph of neurons.
     __graph = None
-    # 学習率
+    # Learning rate.
     __learning_rate = 0.5
 
     def approximate_learn(self, graph, double learning_rate, observed_data_matrix, int traning_count=1000):
         '''
-        インターフェイスの実現
-        近似による学習
-        目覚めと眠りのフェーズを逐次実行して学習する
+        learning with function approximation.
 
         Args:
-            graph:                ニューロンのグラフ
-            learning_rate:        学習率
-            observed_data_matrix: 観測データ点
-            traning_count:        訓練回数
+            graph:                Graph of neurons.
+            learning_rate:        Learning rate.
+            observed_data_matrix: observed data points.
+            traning_count:        Training counts.
 
         Returns:
-            グラフ
+            Graph of neurons.
         '''
         self.__graph = graph
         self.__learning_rate = learning_rate
@@ -43,10 +37,10 @@ class ContrastiveDivergence(ApproximateInterface):
 
     def __wake_and_sleep(self, observed_data_list):
         '''
-        目覚めと夢見のリズム
+        Waking and sleeping.
 
         Args:
-            observed_data_list:      観測データ点
+            observed_data_list:      observed data points.
         '''
         self.__wake(observed_data_list)
         self.__sleep()
@@ -54,46 +48,37 @@ class ContrastiveDivergence(ApproximateInterface):
 
     def __wake(self, observed_data_list):
         '''
-        目覚めと眠りのフェーズを逐次実行して学習する
+        Waking.
 
         Args:
-            observed_data_list:      観測データ点
+            observed_data_list:      observed data points.
         '''
-        # 観測データ点を可視ニューロンに入力する
         cdef int k
         [self.__graph.visible_neuron_list[k].observe_data_point(observed_data_list[k]) for k in range(len(observed_data_list))]
-        # 隠れ層のニューロンの発火状態を更新する
         self.__update_hidden_spike()
-        # ヘブ規則によりリンクの重みを更新する
+        # so called `Hebb rule`.
         self.__graph.update(self.__learning_rate)
-        # 可視層のバイアスを更新する
         cdef int i
         [self.__graph.visible_neuron_list[i].update_bias(self.__learning_rate) for i in range(len(self.__graph.visible_neuron_list))]
-        # 隠れ層のバイアスを更新する
         cdef int j
         [self.__graph.hidden_neuron_list[j].update_bias(self.__learning_rate) for j in range(len(self.__graph.hidden_neuron_list))]
 
     def __sleep(self):
         '''
-        夢を見る
-        自由連想
+        Sleeping.
         '''
-        # 可視層のニューロンの発火状態を更新する
         self.__update_visible_spike()
-        # 隠れ層のニューロンの発火状態を更新する
         self.__update_hidden_spike()
-        # ヘブ規則によりリンクの重みを逆更新する
+        # so called `Hebb rule`.
         self.__graph.update((-1) * self.__learning_rate)
-        # 可視層のバイアスを更新する
         cdef int i
         [self.__graph.visible_neuron_list[i].update_bias((-1) * self.__learning_rate) for i in range(len(self.__graph.visible_neuron_list))]
-        # 隠れ層のバイアスを更新する
         cdef int j
         [self.__graph.hidden_neuron_list[j].update_bias((-1) * self.__learning_rate) for j in range(len(self.__graph.hidden_neuron_list))]
 
     def __update_visible_spike(self):
         '''
-        可視層のニューロンの発火状態を更新する
+        Update activity of neurons in visible layer.
         '''
         hidden_activity_arr = np.array([[self.__graph.hidden_neuron_list[j].activity] * self.__graph.weights_arr.T.shape[1] for j in range(len(self.__graph.hidden_neuron_list))])
         link_value_arr = self.__graph.weights_arr.T * hidden_activity_arr
@@ -105,7 +90,7 @@ class ContrastiveDivergence(ApproximateInterface):
 
     def __update_hidden_spike(self):
         '''
-        隠れ層のニューロンの発火状態を更新する
+        Update activity of neurons in hidden layer.
         '''
         visible_activity_arr = np.array([[self.__graph.visible_neuron_list[i].activity] * self.__graph.weights_arr.shape[1] for i in range(len(self.__graph.visible_neuron_list))])
         link_value_arr = self.__graph.weights_arr * visible_activity_arr
@@ -117,27 +102,24 @@ class ContrastiveDivergence(ApproximateInterface):
 
     def __learn(self):
         '''
-        バイアスと重みを学習する
+        Learning the biases and weights.
         '''
-        # 可視層のバイアスの学習
         cdef int i
         [self.__graph.visible_neuron_list[i].learn_bias() for i in range(len(self.__graph.visible_neuron_list))]
-        # 隠れ層のバイアスの学習
         cdef int j
         [self.__graph.hidden_neuron_list[j].learn_bias() for j in range(len(self.__graph.hidden_neuron_list))]
-        # リンクの重みの学習
         self.__graph.learn_weights()
 
     def recall(self, graph, observed_data_matrix):
         '''
-        記憶から自由連想する
+        Free association.
 
         Args:
-            graph:                  自由連想前のグラフ
-            observed_data_matrix:   観測データ点
+            graph:                  Graph of neurons.
+            observed_data_matrix:   observed data points.
 
         Returns:
-            自由連想後のグラフ
+            Graph of neurons.
 
         '''
         self.__graph = graph

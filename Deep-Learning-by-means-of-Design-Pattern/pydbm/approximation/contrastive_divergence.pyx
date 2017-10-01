@@ -7,7 +7,7 @@ from pydbm.approximation.interface.approximate_interface import ApproximateInter
 
 class ContrastiveDivergence(ApproximateInterface):
     '''
-    Contrastive Divergence
+    Contrastive Divergence.
     
     Conceptually, the positive phase is to the negative phase what waking is to sleeping.
     '''

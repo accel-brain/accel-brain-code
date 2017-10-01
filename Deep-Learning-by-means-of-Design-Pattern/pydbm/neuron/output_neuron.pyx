@@ -11,7 +11,7 @@ class OutputNeuron(Neuron, OutputLayerInterface):
     The neurons in output layer.
     '''
 
-    # If True, the activity set as binary.
+    # If True, `Self` set the activity as binaly.
     __bernoulli_flag = False
 
     def get_bernoulli_flag(self):

@@ -1,4 +1,3 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
 import pyximport; pyximport.install()
 from pydbm.nn.interface.nn_builder import NNBuilder
@@ -10,67 +9,66 @@ from pydbm.synapse.neural_network_graph import NeuralNetworkGraph
 
 class NN3LayerBuilder(NNBuilder):
     '''
-    GoFのデザイン・パタンの「Builder Pattern」の「具体的建築者」
-    3層のニューラルネットワークのオブジェクトを生成する
+    `Concrete Builder` in Builder Pattern.
+    
+    Build three lahyers nerual networks.
     '''
-    # 可視層ニューロンのリスト
+    # The list of neurons in input layer.
     __input_neuron_list = []
-    # 隠れ層ニューロンのリスト
+    # The list of neurons in hidden layer.
     __hidden_neuron_list = []
-    # 出力層ニューロンのリスト
+    # The list of neurons in output layer.
     __output_neuron_list = []
-    # グラフ
+    # The list of graphs of synapse.
     __graph_list = []
 
     def __init__(self):
         '''
-        初期化する
+        Initialize.
         '''
         self.__input_neuron_list = []
         self.__hidden_neuron_list = []
         self.__output_neuron_list = []
         self.__graph_list = []
 
-    def input_neuron_part(self, activating_function, neuron_count):
+    def input_neuron_part(self, activating_function, int neuron_count):
         '''
-        インターフェイスの実現
-        可視層ニューロンを構築する
+        Build neurons in input layer.
 
         Args:
-            activating_function:    活性化関数
-            neuron_count:           ニューロン数
+            activating_function:    Activation function.
+            neuron_count:           The number of neurons.
         '''
+        cdef int i
         for i in range(neuron_count):
             visible_neuron = VisibleNeuron()
             visible_neuron.activating_function = activating_function
             visible_neuron.bernoulli_flag = True
             self.__input_neuron_list.append(visible_neuron)
 
-    def hidden_neuron_part(self, activating_function, neuron_count):
+    def hidden_neuron_part(self, activating_function, int neuron_count):
         '''
-        インターフェイスの実現
-        中間層ニューロンを構築する
+        Build neurons in hidden layer.
 
         Args:
-            activating_function:    活性化関数
-            neuron_count:           ニューロン数
+            activating_function:    Activation function.
+            neuron_count:           The number of neurons.
         '''
-
+        cdef int i
         for i in range(neuron_count):
             hidden_neuron = HiddenNeuron()
             hidden_neuron.activating_function = activating_function
             self.__hidden_neuron_list.append(hidden_neuron)
 
-    def output_neuron_part(self, activating_function, neuron_count):
+    def output_neuron_part(self, activating_function, int neuron_count):
         '''
-        インターフェイスの実現
-        出力層ニューロンを構築する
+        Build neurons in output layer.
 
         Args:
-            activating_function:    活性化関数
-            neuron_count:           ニューロン数
+            activating_function:    Activation function.
+            neuron_count:           The number of neurons.
         '''
-
+        cdef int i
         for i in range(neuron_count):
             output_neuron = OutputNeuron()
             output_neuron.activating_function = activating_function
@@ -79,9 +77,7 @@ class NN3LayerBuilder(NNBuilder):
 
     def graph_part(self):
         '''
-        インターフェイスの実現
-        ニューラルネットワークのグラフを構築する
-
+        Build graph of synapse.
         '''
         neural_network_graph = NeuralNetworkGraph(output_layer_flag=False)
         neural_network_graph.create_node(
@@ -99,11 +95,9 @@ class NN3LayerBuilder(NNBuilder):
 
     def get_result(self):
         '''
-        インターフェイスの実現
-        構築したニューラルネットワークのリストを返す
+        Return the list of builed graph of synapse.
 
         Returns:
-            ニューラルネットワークのオブジェクトのリスト
-
+            The list of graph of synapse.
         '''
         return self.__graph_list

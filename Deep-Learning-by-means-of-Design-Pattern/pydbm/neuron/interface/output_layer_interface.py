@@ -1,21 +1,20 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
+import pyximport; pyximport.install()
 from abc import ABCMeta, abstractmethod
 
 
 class OutputLayerInterface(metaclass=ABCMeta):
     '''
-    出力層の学習を実行させるためのインターフェイス
-    抽象メソッドのみの抽象クラスを便宜上インターフェイスとして扱う
+    The interface for learning in output layer.
     '''
 
     @abstractmethod
-    def output_update_state(self, link_value):
+    def output_update_state(self, double link_value):
         '''
-        出力層の学習
+        Update activity.
 
         Args:
-            link_value:      リンク先による入力値
+            link_value:      Input value.
 
         '''
         raise NotImplementedError()
@@ -23,9 +22,9 @@ class OutputLayerInterface(metaclass=ABCMeta):
     @abstractmethod
     def release(self):
         '''
-        活性度を放出する
+        Release the activity.
 
         Returns:
-            活性度
+            The activity.
         '''
         raise NotImplementedError()

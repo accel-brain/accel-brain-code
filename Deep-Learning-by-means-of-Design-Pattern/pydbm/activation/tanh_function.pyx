@@ -1,33 +1,33 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
+import pyximport; pyximport.install()
 import math
 from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
 
 
 class TanhFunction(ActivatingFunctionInterface):
     '''
-    tanh関数
+    Tanh function.
     '''
 
-    def activate(self, x):
+    def activate(self, double x):
         '''
-        活性化関数の返り値を返す
+        Return the result from this activation function.
 
         Args:
-            x   パラメタ
+            x   Parameter.
 
         Returns:
-            活性化関数の返り値
+            The result.
         '''
         return math.tanh(x)
 
-    def derivative(self, y):
+    def derivative(self, double y):
         '''
-        導関数
+        Derivative.
 
         Args:
-            y:  パラメタ
+            y:  Paramter.
         Returns:
-            導関数の値
+            The result.
         '''
         return 1.0 - y**2

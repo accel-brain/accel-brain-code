@@ -6,18 +6,16 @@ from pydbm.activation.interface.activating_function_interface import ActivatingF
 
 class Neuron(metaclass=ABCMeta):
     '''
-    ニューラルネットワークのニューロンに関する抽象クラス
-
-    GoFのデザイン・パタンにおける「Template Method Pattern」の構成
+    Template Method Pattern of neuron.
     '''
 
-    # バイアス
+    # Bias.
     __bias = 0.0
-    # バイアス差分
+    # The difference of bias.
     __diff_bias = 0.0
-    # 活性化関数
+    # Activation function.
     __activating_function = None
-    # 活性度
+    # The activity.
     __activity = 0.0
 
     def get_bias(self):
@@ -75,13 +73,13 @@ class Neuron(metaclass=ABCMeta):
 
     def activate(self, link_value):
         '''
-        活性化させる
+        Activate.
 
         Args:
-            link_value    入力値
+            link_value    input value to activation function.
 
         Returns:
-            true => 活性化 false => 非活性化
+            true: activation. false: not activation.
         '''
         output = self.activating_function.activate(
             link_value + self.bias
@@ -91,16 +89,16 @@ class Neuron(metaclass=ABCMeta):
     @abstractmethod
     def update_bias(self, double learning_rate):
         '''
-        バイアス差分を更新する
+        Update bias with the difference.
 
         Args:
-            learning_rate:  学習率
+            learning_rate:  Learning rate.
         '''
         raise NotImplementedError()
 
     def learn_bias(self):
         '''
-        バイアスの学習を実行する
+        Learn with bias.
         '''
         self.bias += self.diff_bias
         self.diff_bias = 0.0

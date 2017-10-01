@@ -1,66 +1,64 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
+import pyximport; pyximport.install()
 from abc import ABCMeta, abstractmethod
 
 
 class NNBuilder(metaclass=ABCMeta):
     '''
-    GoFのデザイン・パタンの「Builder Pattern」の「建築者」のインターフェイス
-    パーセプトロンのシナプス部分を組み立てることで、
-    ニューラルネットワークのオブジェクトを生成する
-
-    抽象メソッドのみの抽象クラスを便宜上インターフェイスとして扱う
+    `Builder` in Builder Pattern.
+    
+    Compose graphs of synapse for building the object of neural networks.
     '''
 
     @abstractmethod
-    def input_neuron_part(self, activating_function, neuron_count):
+    def input_neuron_part(self, activating_function, int neuron_count):
         '''
-        入力層ニューロンを生成する
+        Build neurons in input layer.
 
         Args:
-            activation_function:    活性化関数
-            neuron_count:           生成するニューロンの個数
+            activation_function:    Activation function.
+            neuron_count:           The number of neurons.
         '''
         raise NotImplementedError()
 
     @abstractmethod
-    def hidden_neuron_part(self, activating_function, neuron_count):
+    def hidden_neuron_part(self, activating_function, int neuron_count):
         '''
-        中間層（隠れ層）のニューロンを生成する
+        Build neurons in hidden layer.
 
         Args:
-            activation_function:    活性化関数
-            neuron_count:           生成するニューロンの個数
+            activation_function:    Activation function
+            neuron_count:           The number of neurons.
         '''
         raise NotImplementedError()
 
     @abstractmethod
-    def output_neuron_part(self, activating_function, neuron_count):
+    def output_neuron_part(self, activating_function, int neuron_count):
         '''
-        出力層ニューロンを生成する
+        Build neurons in output layer.
 
         Args:
-            activation_function:    活性化関数
-            neuron_count:           生成するニューロンの個数
+            activation_function:    Activation function.
+            neuron_count:           The number of neurons.
         '''
         raise NotImplementedError
 
     @abstractmethod
     def graph_part(self, approximate_interface):
         '''
-        シナプスのグラフを生成する
+        Build graphs of synapse.
 
         Args:
-            approximate_interface:    近似用のオブジェクト
+            approximate_interface:    The object of function approximation.
         '''
         raise NotImplementedError()
 
     @abstractmethod
     def get_result():
         '''
-        「Builder Pattern」によって生成された一連のオブジェクトを返す
+        Return the list of builded graphs of synapse.
 
         Returns:
-            シナプスのリスト
+            The list of graphs of synapse.
         '''
         raise NotImplementedError()

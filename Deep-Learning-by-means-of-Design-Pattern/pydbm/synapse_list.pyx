@@ -1,25 +1,22 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
 import pyximport
 import numpy as np
 pyximport.install(setup_args={'include_dirs':[np.get_include()]}, inplace=True)
 import random
-import sys
 
 
 class Synapse(object):
     '''
-    抽象クラス：Neuronの下位クラスの関連を保持するシナプス
-    Numpy版
+    Synapse.
     '''
 
-    # 比較的浅い層のニューロンオブジェクトリスト
+    # The list of nuron's object in shallowr layer.
     __shallower_neuron_list = []
-    # 比較的深い層のニューロンオブジェクトリスト
+    # The list of neuron's object in deeper layer.
     __deeper_neuron_list = []
-    # 各リンクの重み
+    # `nd.array` of the weights.
     __weights_arr = None
-    # 各リンクの重みの差分リスト
+    # `nd.array` of the difference of weights.
     __diff_weights_arr = None
 
     def get_shallower_neuron_list(self):
@@ -61,12 +58,12 @@ class Synapse(object):
 
     def create_node(self, shallower_neuron_list, deeper_neuron_list, weights_arr=None):
         '''
-        グラフにノードのリンクをセットする
+        Set links of nodes to the graphs.
 
         Args:
-            shallower_neuron_list:      可視層のニューロンオブジェクトリスト
-            deeper_neuron_list:         隠れ層のニューロンオブジェクトリスト
-            weights_arr:                各リンクの重みリスト
+            shallower_neuron_list:      The list of neuron's object in shallowr layer.
+            deeper_neuron_list:         The list of neuron's object in deeper layer.
+            weights_arr:                `nd.array` of the weights.
         '''
         self.__shallower_neuron_list = shallower_neuron_list
         self.__deeper_neuron_list = deeper_neuron_list
@@ -77,14 +74,14 @@ class Synapse(object):
 
     def learn_weights(self):
         '''
-        リンクの重みを更新する
+        Update the weights of links.
         '''
         self.weights_arr = self.weights_arr + self.diff_weights_arr
         self.diff_weights_arr = np.zeros(self.weights_arr.shape, dtype=float)
 
     def normalize_visible_bias(self):
         '''
-        可視層を規格化する
+        Normalize the neuron's activity in visible layers.
         '''
         cdef int i
         visible_activity_list = [self.shallower_neuron_list[i].activity for i in range(len(self.shallower_neuron_list))]
@@ -99,7 +96,7 @@ class Synapse(object):
 
     def normalize_hidden_bias(self):
         '''
-        隠れ層を規格化する
+        normalize the neuron's activity in hidden layers.
         '''
         cdef int i
         hidden_activity_list = [self.deeper_neuron_list[i].activity for i in range(len(self.deeper_neuron_list))]

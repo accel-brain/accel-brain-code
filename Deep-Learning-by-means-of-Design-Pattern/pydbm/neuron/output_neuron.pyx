@@ -1,4 +1,3 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
 import pyximport;pyximport.install()
 import random
@@ -9,10 +8,10 @@ from pydbm.neuron.interface.output_layer_interface import OutputLayerInterface
 
 class OutputNeuron(Neuron, OutputLayerInterface):
     '''
-    出力層のニューロン
+    The neurons in output layer.
     '''
 
-    # 活性度を二値にするか否かのフラグ
+    # If True, the activity set as binary.
     __bernoulli_flag = False
 
     def get_bernoulli_flag(self):
@@ -31,21 +30,18 @@ class OutputNeuron(Neuron, OutputLayerInterface):
 
     def __init__(self):
         '''
-        バイアスを初期化する
+        Initialize.
         '''
         self.bias = round(random.random(), 3)
 
     def output_update_state(self, double link_value):
         '''
-        インターフェイス実現
-        出力層の学習
+        Update activity.
 
         Args:
-            link_value:      リンク先による入力値
+            link_value:      Input value.
 
         '''
-        # 活性化の判定
-        ''' selfのactivityではなく、結合しているニューロンからの入力を入れる '''
         output = self.activate(link_value)
         if self.bernoulli_flag is False:
             self.activity = output
@@ -58,32 +54,31 @@ class OutputNeuron(Neuron, OutputLayerInterface):
 
     def update_bias(self, double learning_rate):
         '''
-        具象メソッド
-        バイアスの調整
+        Update biases.
 
         Args:
-            learning_rate:  学習率
+            learning_rate:  Learning rate.
         '''
         self.diff_bias += learning_rate * self.activity
 
     def __decide_activation(self, double probabirity):
         '''
-        二値の活性化判定
+        Decide the binaly activity.
 
         Args:
-            probabirity:    活性度
+            probabirity:    Activity.
 
         Returns:
-            true => 活性化 false => 非活性化
+            If True, it is activated.
         '''
         probabirity_list, result_list = [probabirity, 1.0], [True, False]
         return result_list[bisect.bisect(probabirity_list, random.random())]
 
     def release(self):
         '''
-        活性度を放出する
+        Release the activity.
 
         Returns:
-            活性度
+            Activity.
         '''
         return self.activity

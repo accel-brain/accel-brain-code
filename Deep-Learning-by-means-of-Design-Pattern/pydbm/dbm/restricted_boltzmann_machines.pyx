@@ -1,18 +1,18 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
+import pyximport; pyximport.install()
 from pydbm.synapse.complete_bipartite_graph import CompleteBipartiteGraph
 from pydbm.approximation.interface.approximate_interface import ApproximateInterface
 
 
 class RestrictedBoltzmannMachine(object):
     '''
-    制限ボルツマンマシン
+    Restricted Boltzmann Machine.
     '''
-    # 完全二部グラフ
+    # Complete bipartite graph.
     __graph = None
-    # 学習率（係数）
+    # Learning rate.
     __learning_rate = 0.5
-    # 学習の近似用オブジェクト
+    # The object of function approximation.
     __approximate_interface = None
 
     def get_graph(self):
@@ -27,12 +27,12 @@ class RestrictedBoltzmannMachine(object):
 
     def __init__(self, graph, double learning_rate=0.5, approximate_interface=None):
         '''
-        初期化
+        Initialize.
 
         Args:
-            graph:                  完全二部グラフ
-            learning_rate:          学習率
-            approximate_interface:  近似用オブジェクト
+            graph:                  Complete bipartite graph.
+            learning_rate:          Learning rate.
+            approximate_interface:  The object of function approximation.
 
         '''
         if isinstance(graph, CompleteBipartiteGraph) is False:
@@ -48,11 +48,11 @@ class RestrictedBoltzmannMachine(object):
 
     def approximate_learning(self, observed_data_matrix, int traning_count):
         '''
-        近似による学習を実行する
+        Learning with function approximation.
 
         Args:
-            observed_data_matrix:   観測データ点リスト
-            traning_count:          訓練回数
+            observed_data_matrix:   The list of observed data points.
+            traning_count:          Training counts.
         '''
 
         self.__graph = self.__approximate_interface.approximate_learn(
@@ -64,11 +64,10 @@ class RestrictedBoltzmannMachine(object):
 
     def associate_memory(self, observed_data_matrix):
         '''
-        記憶から自由連想する
-        ヘブ則的発想
+        Free association with so called `Hebb ruls`.
 
         Args:
-            observed_data_matrix:   観測データ点リスト
+            observed_data_matrix:   The list of observed data points.
         '''
         self.__graph = self.__approximate_interface.recall(
             self.__graph,

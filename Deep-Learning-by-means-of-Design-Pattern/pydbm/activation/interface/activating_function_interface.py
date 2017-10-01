@@ -1,37 +1,35 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
+import pyximport; pyximport.install()
 from abc import ABCMeta, abstractmethod
 
 
 class ActivatingFunctionInterface(metaclass=ABCMeta):
     '''
-    活性化関数をニューロンオブジェクトに委譲するための
-    インターフェイス
-
-    抽象メソッドのみの抽象クラスを便宜上インターフェイスとして扱う
+    Interface of activation functions.
     '''
 
     @abstractmethod
-    def activate(self, x):
+    def activate(self, double x):
         '''
-        活性化関数の返り値を返す
+        Return of result from this activation function.
 
         Args:
-            x:   パラメタ
+            x   Parameter.
 
         Returns:
-            活性化関数の返り値
+            The result.
         '''
         raise NotImplementedError()
 
     @abstractmethod
-    def derivative(self, y):
+    def derivative(self, double y):
         '''
-        導関数
+        Derivative.
 
         Args:
-            y:  パラメタ
+            y:  Parameter.
+
         Returns:
-            導関数の値
+            The result.
         '''
         raise NotImplementedError()

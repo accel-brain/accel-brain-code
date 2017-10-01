@@ -1,4 +1,3 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
 import pyximport; pyximport.install()
 from pydbm.dbm.interface.dbm_builder import DBMBuilder
@@ -12,21 +11,21 @@ from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
 
 class DBMMultiLayerBuilder(DBMBuilder):
     '''
-    GoFのデザイン・パタンの「Builder Pattern」の「具体的建築者」
-    任意の層数の制限ボルツマンマシンを組み立てることで、
-    深層ボルツマンマシンのオブジェクトを生成する
+    `Concrete Builder` in Builder Pattern.
+
+    Compose three restricted boltzmann machines for building a deep boltzmann machine.
     '''
-    # 可視層ニューロンのリスト
+    # The list of neurons in visible layer.
     __visual_neuron_list = []
-    # 特徴点の疑似可視層ニューロン
+    # The list of neurons for feature points in `virtual` visible layer. 
     __feature_point_neuron = []
-    # 隠れ層ニューロンのリスト
+    # the list of neurons in hidden layer.
     __hidden_neuron_list = []
-    # グラフ
+    # Complete bipartite graph
     __graph_list = []
-    # 制限ボルツマンマシンのリスト
+    # The list of restricted boltzmann machines.
     __rbm_list = []
-    # 学習率、具象プロパティ
+    # Learning rate.
     __learning_rate = 0.5
 
     def get_learning_rate(self):
@@ -45,7 +44,7 @@ class DBMMultiLayerBuilder(DBMBuilder):
 
     def __init__(self):
         '''
-        初期化する
+        Initialize.
         '''
         self.__visual_neuron_list = []
         self.__feature_point_neuron = []
@@ -53,49 +52,51 @@ class DBMMultiLayerBuilder(DBMBuilder):
         self.__graph_list = []
         self.__rbm_list = []
 
-    def visible_neuron_part(self, activating_function, neuron_count):
+    def visible_neuron_part(self, activating_function, int neuron_count):
         '''
-        インターフェイスの実現
-        可視層ニューロンを構築する
+        Build neurons in visible layer.
 
         Args:
-            activating_function:    活性化関数
-            neuron_count:           ニューロン数
+            activating_function:    Activation function.
+            neuron_count:           The number of neurons.
         '''
+        cdef int i
         for i in range(neuron_count):
             visible_neuron = VisibleNeuron()
             visible_neuron.activating_function = activating_function
             visible_neuron.bernoulli_flag = True
             self.__visual_neuron_list.append(visible_neuron)
 
-    def feature_neuron_part(self, activating_function, neuron_count):
+    def feature_neuron_part(self, activating_function, int neuron_count):
         '''
-        特徴点となる
-        インターフェイスの実現
-        n層のニューロンを構築する
-        n-1層との連携では隠れ層として、n+1層との連携では疑似的な可視層として振る舞う
+        Build neurons for feature points in `virtual` visible layer.
+
+        Build neurons in `n` layers.
+
+        For associating with `n-1` layers, the object activate as neurons in hidden layer.
+        On the other hand, for associating with `n+1` layers, the object activate as neurons in `virtual` visible layer.
 
         Args:
-            activating_function:    活性化関数
-            neuron_count:           ニューロン数
+            activating_function:    Activation function.
+            neuron_count:           The number of neurons.
         '''
         add_neuron_list = []
+        cdef int i
         for i in range(neuron_count):
             feature_point_neuron = FeaturePointNeuron(VisibleNeuron())
             feature_point_neuron.activating_function = activating_function
             add_neuron_list.append(feature_point_neuron)
         self.__feature_point_neuron.append(add_neuron_list)
 
-    def hidden_neuron_part(self, activating_function, neuron_count):
+    def hidden_neuron_part(self, activating_function, int neuron_count):
         '''
-        インターフェイスの実現
-        隠れ層ニューロンを構築する
+        Build neurons in hidden layer.
 
         Args:
-            activating_function:    活性化関数
-            neuron_count:           ニューロン数
+            activating_function:    Activation function
+            neuron_count:           The number of neurons.
         '''
-
+        cdef int i
         for i in range(neuron_count):
             hidden_neuron = HiddenNeuron()
             hidden_neuron.activating_function = activating_function
@@ -103,11 +104,10 @@ class DBMMultiLayerBuilder(DBMBuilder):
 
     def graph_part(self, approximate_interface):
         '''
-        インターフェイスの実現
-        完全二部グラフを構築する
+        Build complete bipartite graph.
 
         Args:
-            approximate_interface:       近似用のオブジェクト
+            approximate_interface:       The object of function approximation.
         '''
         complete_bipartite_graph = CompleteBipartiteGraph()
         complete_bipartite_graph.create_node(
@@ -116,6 +116,7 @@ class DBMMultiLayerBuilder(DBMBuilder):
         )
         self.__graph_list.append(complete_bipartite_graph)
 
+        cdef int i
         for i in range(1, len(self.__feature_point_neuron)):
             complete_bipartite_graph = CompleteBipartiteGraph()
             complete_bipartite_graph.create_node(
@@ -133,11 +134,10 @@ class DBMMultiLayerBuilder(DBMBuilder):
 
     def get_result(self):
         '''
-        インターフェイスの実現
-        構築した制限ボルツマンマシンを返す
+        Return builded restricted boltzmann machines.
 
         Returns:
-            制限ボルツマンマシンのオブジェクトのリスト
+            The list of restricted boltzmann machines.
 
         '''
         for graph in self.__graph_list:

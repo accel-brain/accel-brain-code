@@ -2,6 +2,7 @@
 import pyximport
 import numpy as np
 pyximport.install(setup_args={'include_dirs':[np.get_include()]}, inplace=True)
+cimport numpy
 from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
 
 

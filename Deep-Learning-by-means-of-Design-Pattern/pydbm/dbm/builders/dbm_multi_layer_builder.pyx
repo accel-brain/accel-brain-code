@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-import pyximport; pyximport.install()
+import pyximport
+import numpy as np
+pyximport.install(setup_args={'include_dirs':[np.get_include()]}, inplace=True)
+cimport numpy
 from pydbm.dbm.interface.dbm_builder import DBMBuilder
 from pydbm.neuron.visible_neuron import VisibleNeuron
 from pydbm.neuron.hidden_neuron import HiddenNeuron
@@ -111,8 +114,8 @@ class DBMMultiLayerBuilder(DBMBuilder):
         '''
         complete_bipartite_graph = CompleteBipartiteGraph()
         complete_bipartite_graph.create_node(
-            self.__visual_neuron_list,
-            self.__feature_point_neuron[0]
+            np.array(self.__visual_neuron_list),
+            np.array(self.__feature_point_neuron[0])
         )
         self.__graph_list.append(complete_bipartite_graph)
 
@@ -120,15 +123,15 @@ class DBMMultiLayerBuilder(DBMBuilder):
         for i in range(1, len(self.__feature_point_neuron)):
             complete_bipartite_graph = CompleteBipartiteGraph()
             complete_bipartite_graph.create_node(
-                self.__feature_point_neuron[i - 1],
-                self.__feature_point_neuron[i]
+                np.array(self.__feature_point_neuron[i - 1]),
+                np.array(self.__feature_point_neuron[i])
             )
             self.__graph_list.append(complete_bipartite_graph)
 
         complete_bipartite_graph = CompleteBipartiteGraph()
         complete_bipartite_graph.create_node(
-            self.__feature_point_neuron[-1],
-            self.__hidden_neuron_list
+            np.array(self.__feature_point_neuron[-1]),
+            np.array(self.__hidden_neuron_list)
         )
         self.__graph_list.append(complete_bipartite_graph)
 

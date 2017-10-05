@@ -131,31 +131,31 @@ class NeuralNetwork(object):
         nn_hidden_layer_list = self.nn_list[1:len(self.nn_list) - 1]
         nn_to_output_layer = self.nn_list[-1]
         cdef int i
-        [nn_from_input_to_hidden_layer.shallower_neuron_list[i].observe_data_point(input_data_list[i]) for i in range(len(input_data_list))]
+        [nn_from_input_to_hidden_layer.shallower_neuron_arr[i].observe_data_point(input_data_list[i]) for i in range(len(input_data_list))]
 
         # In input layer.
-        shallower_activity_arr = [[nn_from_input_to_hidden_layer.shallower_neuron_list[i].activity] * len(nn_from_input_to_hidden_layer.deeper_neuron_list) for i in range(len(nn_from_input_to_hidden_layer.shallower_neuron_list))]
+        shallower_activity_arr = [[nn_from_input_to_hidden_layer.shallower_neuron_arr[i].activity] * len(nn_from_input_to_hidden_layer.deeper_neuron_arr) for i in range(len(nn_from_input_to_hidden_layer.shallower_neuron_arr))]
         link_value_arr = shallower_activity_arr * nn_from_input_to_hidden_layer.weights_arr
         link_value_list = link_value_arr.sum(axis=0)
         cdef int j
-        [nn_from_input_to_hidden_layer.deeper_neuron_list[j].hidden_update_state(link_value_list[j]) for j in range(len(link_value_list))]
+        [nn_from_input_to_hidden_layer.deeper_neuron_arr[j].hidden_update_state(link_value_list[j]) for j in range(len(link_value_list))]
         nn_from_input_to_hidden_layer.normalize_visible_bias()
         nn_from_input_to_hidden_layer.normalize_hidden_bias()
 
         # In hidden layers.
         for nn_hidden_layer in nn_hidden_layer_list:
-            shallower_activity_arr = [[nn_hidden_layer.shallower_neuron_list[i].activity] * len(nn_hidden_layer.deeper_neuron_list) for i in range(len(nn_hidden_layer.shallower_neuron_list))]
+            shallower_activity_arr = [[nn_hidden_layer.shallower_neuron_arr[i].activity] * len(nn_hidden_layer.deeper_neuron_arr) for i in range(len(nn_hidden_layer.shallower_neuron_arr))]
             link_value_arr = shallower_activity_arr * nn_hidden_layer.weights_arr
             link_value_list = link_value_arr.sum(axis=0)
-            [nn_hidden_layer.deeper_neuron_list[j].hidden_update_state(link_value_list[j]) for j in range(len(link_value_list))]
+            [nn_hidden_layer.deeper_neuron_arr[j].hidden_update_state(link_value_list[j]) for j in range(len(link_value_list))]
             nn_hidden_layer.normalize_visible_bias()
             nn_hidden_layer.normalize_hidden_bias()
 
         # In output layer
-        shallower_activity_arr = [[nn_to_output_layer.shallower_neuron_list[i].activity] * len(nn_to_output_layer.deeper_neuron_list) for i in range(len(nn_to_output_layer.shallower_neuron_list))]
+        shallower_activity_arr = [[nn_to_output_layer.shallower_neuron_arr[i].activity] * len(nn_to_output_layer.deeper_neuron_arr) for i in range(len(nn_to_output_layer.shallower_neuron_arr))]
         link_value_arr = shallower_activity_arr * nn_to_output_layer.weights_arr
         link_value_list = link_value_arr.sum(axis=0)
-        [nn_to_output_layer.deeper_neuron_list[j].output_update_state(link_value_list[j]) for j in range(len(link_value_list))]
+        [nn_to_output_layer.deeper_neuron_arr[j].output_update_state(link_value_list[j]) for j in range(len(link_value_list))]
         nn_to_output_layer.normalize_visible_bias()
         nn_to_output_layer.normalize_hidden_bias()
 
@@ -190,7 +190,7 @@ class NeuralNetwork(object):
 
         output_data_list = []
         self.forward_propagate(test_data_list)
-        for output_neuron in self.nn_list[-1].deeper_neuron_list:
+        for output_neuron in self.nn_list[-1].deeper_neuron_arr:
             output_data_list.append(output_neuron.release())
 
         return output_data_list

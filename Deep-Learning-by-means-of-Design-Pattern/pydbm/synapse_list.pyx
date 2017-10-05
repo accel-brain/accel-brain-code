@@ -2,6 +2,7 @@
 import pyximport
 import numpy as np
 pyximport.install(setup_args={'include_dirs':[np.get_include()]}, inplace=True)
+cimport numpy
 import random
 
 
@@ -11,29 +12,29 @@ class Synapse(object):
     '''
 
     # The list of nuron's object in shallowr layer.
-    __shallower_neuron_list = []
+    __shallower_neuron_arr = np.array([])
     # The list of neuron's object in deeper layer.
-    __deeper_neuron_list = []
+    __deeper_neuron_arr = np.array([])
     # `nd.array` of the weights.
-    __weights_arr = None
+    __weights_arr = np.array([])
     # `nd.array` of the difference of weights.
-    __diff_weights_arr = None
+    __diff_weights_arr = np.array([])
 
-    def get_shallower_neuron_list(self):
+    def get_shallower_neuron_arr(self):
         ''' getter '''
-        return self.__shallower_neuron_list
+        return self.__shallower_neuron_arr
 
-    def set_shallower_neuron_list(self, value):
+    def set_shallower_neuron_arr(self, numpy.ndarray value):
         ''' setter '''
-        self.__shallower_neuron_list = value
+        self.__shallower_neuron_arr = value
 
-    def get_deeper_neuron_list(self):
+    def get_deeper_neuron_arr(self):
         ''' getter '''
-        return self.__deeper_neuron_list
+        return self.__deeper_neuron_arr
 
-    def set_deeper_neuron_list(self, value):
+    def set_deeper_neuron_arr(self, numpy.ndarray value):
         ''' setter '''
-        self.__deeper_neuron_list = value
+        self.__deeper_neuron_arr = value
 
     def get_weights_arr(self):
         ''' getter '''
@@ -51,26 +52,33 @@ class Synapse(object):
         ''' setter '''
         self.__diff_weights_arr = value
 
-    shallower_neuron_list = property(get_shallower_neuron_list, set_shallower_neuron_list)
-    deeper_neuron_list = property(get_deeper_neuron_list, set_deeper_neuron_list)
+    shallower_neuron_arr = property(get_shallower_neuron_arr, set_shallower_neuron_arr)
+    deeper_neuron_arr = property(get_deeper_neuron_arr, set_deeper_neuron_arr)
     weights_arr = property(get_weights_arr, set_weights_arr)
     diff_weights_arr = property(get_diff_weights_arr, set_diff_weights_arr)
 
-    def create_node(self, shallower_neuron_list, deeper_neuron_list, weights_arr=None):
+    def create_node(
+        self,
+        numpy.ndarray shallower_neuron_arr,
+        numpy.ndarray deeper_neuron_arr,
+        numpy.ndarray weights_arr=np.array([])
+    ):
         '''
         Set links of nodes to the graphs.
 
         Args:
-            shallower_neuron_list:      The list of neuron's object in shallowr layer.
-            deeper_neuron_list:         The list of neuron's object in deeper layer.
+            shallower_neuron_arr:      The list of neuron's object in shallowr layer.
+            deeper_neuron_arr:         The list of neuron's object in deeper layer.
             weights_arr:                `nd.array` of the weights.
         '''
-        self.__shallower_neuron_list = shallower_neuron_list
-        self.__deeper_neuron_list = deeper_neuron_list
-        if weights_arr is not None:
+        self.__shallower_neuron_arr = shallower_neuron_arr
+        self.__deeper_neuron_arr = deeper_neuron_arr
+
+        cdef numpy.ndarray init_weights_arr = np.random.rand(len(shallower_neuron_arr), len(deeper_neuron_arr))
+        if weights_arr.shape[0]:
             self.__weights_arr = weights_arr
         else:
-            self.__weights_arr = np.random.rand(len(shallower_neuron_list), len(deeper_neuron_list))
+            self.__weights_arr = init_weights_arr
 
     def learn_weights(self):
         '''
@@ -84,27 +92,27 @@ class Synapse(object):
         Normalize the neuron's activity in visible layers.
         '''
         cdef int i
-        visible_activity_list = [self.shallower_neuron_list[i].activity for i in range(len(self.shallower_neuron_list))]
+        cdef numpy.ndarray visible_activity_arr
+        visible_activity_list = [self.shallower_neuron_arr[i].activity for i in range(len(self.shallower_neuron_arr))]
         if len(visible_activity_list) > 1 and sum(visible_activity_list) != 0:
             visible_activity_arr = np.array(visible_activity_list)
             visible_activity_arr = visible_activity_arr / visible_activity_arr.sum()
-            visible_activity_list = list(visible_activity_arr)
 
         cdef int k
-        for k in range(len(visible_activity_list)):
-            self.shallower_neuron_list[k].activity = visible_activity_list[k]
+        for k in range(visible_activity_arr.shape[0]):
+            self.shallower_neuron_arr[k].activity = visible_activity_arr[k]
 
     def normalize_hidden_bias(self):
         '''
         normalize the neuron's activity in hidden layers.
         '''
         cdef int i
-        hidden_activity_list = [self.deeper_neuron_list[i].activity for i in range(len(self.deeper_neuron_list))]
+        cdef numpy.ndarray hidden_activity_arr
+        hidden_activity_list = [self.deeper_neuron_arr[i].activity for i in range(self.deeper_neuron_arr.shape[0])]
         if len(hidden_activity_list) > 1 and sum(hidden_activity_list) != 0:
             hidden_activity_arr = np.array(hidden_activity_list)
             hidden_activity_arr = hidden_activity_arr / hidden_activity_arr.sum()
-            hidden_activity_list = list(hidden_activity_arr)
 
         cdef int k
-        for k in range(len(hidden_activity_list)):
-            self.deeper_neuron_list[k].activity = hidden_activity_list[k]
+        for k in range(hidden_activity_arr.shape[0]):
+            self.deeper_neuron_arr[k].activity = hidden_activity_arr[k]

@@ -42,7 +42,7 @@ class OutputNeuron(Neuron, OutputLayerInterface):
             link_value:      Input value.
 
         '''
-        output = self.activate(link_value)
+        cdef double output = self.activate(link_value)
         if self.bernoulli_flag is False:
             self.activity = output
         else:

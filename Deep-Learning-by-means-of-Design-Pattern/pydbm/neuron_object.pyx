@@ -1,5 +1,8 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
+import pyximport
+import numpy as np
+pyximport.install(setup_args={'include_dirs':[np.get_include()]}, inplace=True)
+cimport numpy
 from abc import ABCMeta, abstractmethod
 from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
 
@@ -81,7 +84,7 @@ class Neuron(metaclass=ABCMeta):
         Returns:
             true: activation. false: not activation.
         '''
-        output = self.activating_function.activate(
+        cdef double output = self.activating_function.activate(
             link_value + self.bias
         )
         return output

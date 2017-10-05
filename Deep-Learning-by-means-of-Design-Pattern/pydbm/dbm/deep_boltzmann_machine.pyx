@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+import pyximport
+import numpy as np
+pyximport.install(setup_args={'include_dirs':[np.get_include()]}, inplace=True)
+cimport numpy
 from multipledispatch import dispatch
 from pydbm.dbm.interface.dbm_builder import DBMBuilder
 from pydbm.dbm.dbm_director import DBMDirector
@@ -99,25 +103,25 @@ class DeepBoltzmannMachine(object):
             "approximate_interface": str(type(approximate_interface))
         }
 
-    def learn(self, observed_data_matrix, int traning_count=1000):
+    def learn(
+        self,
+        numpy.ndarray observed_data_arr,
+        int traning_count=1000
+    ):
         '''
         Learning.
 
         Args:
-            observed_data_matrix:   The list of observed data points.
+            observed_data_arr:      The `np.ndarray` of observed data points.
             traning_count:          Training counts.
         '''
-        if isinstance(observed_data_matrix, list) is False:
+        if isinstance(observed_data_arr, np.ndarray) is False:
             raise TypeError()
 
         cdef int i
         for i in range(len(self.__rbm_list)):
             rbm = self.__rbm_list[i]
-            rbm.approximate_learning(observed_data_matrix, traning_count)
-            feature_point_list = self.get_feature_point_list(i)
-            observed_data_matrix = [feature_point_list]
-
-        self.__hyper_param_dict["traning_count"] = traning_count
+            rbm.approximate_learning(observed_data_arr, traning_count)
 
     def get_feature_point_list(self, int layer_number=0):
         '''
@@ -132,8 +136,9 @@ class DeepBoltzmannMachine(object):
         '''
         rbm = self.__rbm_list[layer_number]
         cdef int j
-        feature_point_list = [rbm.graph.hidden_neuron_list[j].activity for j in range(len(rbm.graph.hidden_neuron_list))]
-        return feature_point_list
+        feature_point_list = [rbm.graph.hidden_neuron_arr[j].activity for j in range(len(rbm.graph.hidden_neuron_arr))]
+        feature_point_arr = np.array(feature_point_list)
+        return feature_point_arr
 
     def get_visible_activity(self):
         '''
@@ -144,4 +149,5 @@ class DeepBoltzmannMachine(object):
         '''
         rbm = self.__rbm_list[0]
         cdef int i
-        return [rbm.graph.visible_neuron_list[i].activity for i in range(len(rbm.graph.visible_neuron_list))]
+        visible_activity_list = [rbm.graph.visible_neuron_arr[i].activity for i in range(len(rbm.graph.visible_neuron_arr))]
+        return np.array(visible_activity_list)

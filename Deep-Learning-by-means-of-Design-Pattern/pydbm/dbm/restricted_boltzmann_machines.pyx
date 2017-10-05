@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-import pyximport; pyximport.install()
+import pyximport
+import numpy as np
+pyximport.install(setup_args={'include_dirs':[np.get_include()]}, inplace=True)
+cimport numpy
 from pydbm.synapse.complete_bipartite_graph import CompleteBipartiteGraph
 from pydbm.approximation.interface.approximate_interface import ApproximateInterface
 
@@ -46,30 +49,30 @@ class RestrictedBoltzmannMachine(object):
         self.__learning_rate = learning_rate
         self.__approximate_interface = approximate_interface
 
-    def approximate_learning(self, observed_data_matrix, int traning_count):
+    def approximate_learning(self, numpy.ndarray observed_data_arr, int traning_count):
         '''
         Learning with function approximation.
 
         Args:
-            observed_data_matrix:   The list of observed data points.
+            observed_data_arr:      The array of observed data points.
             traning_count:          Training counts.
         '''
 
         self.__graph = self.__approximate_interface.approximate_learn(
             self.__graph,
             self.__learning_rate,
-            observed_data_matrix,
+            observed_data_arr,
             traning_count=traning_count
         )
 
-    def associate_memory(self, observed_data_matrix):
+    def associate_memory(self, numpy.ndarray observed_data_arr):
         '''
         Free association with so called `Hebb ruls`.
 
         Args:
-            observed_data_matrix:   The list of observed data points.
+            observed_data_arr:   The `np.ndarray` of observed data points.
         '''
         self.__graph = self.__approximate_interface.recall(
             self.__graph,
-            observed_data_matrix
+            observed_data_arr
         )

@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+import pyximport
+import numpy as np
+pyximport.install(setup_args={'include_dirs':[np.get_include()]}, inplace=True)
+cimport numpy
 import pyximport; pyximport.install()
 from pydbm.dbm.interface.dbm_builder import DBMBuilder
 from pydbm.neuron.visible_neuron import VisibleNeuron
@@ -111,12 +115,12 @@ class DBM3LayerBuilder(DBMBuilder):
         self.__graph_list.append(CompleteBipartiteGraph())
 
         self.__graph_list[0].create_node(
-            self.__visual_neuron_list,
-            self.__feature_point_neuron
+            np.array(self.__visual_neuron_list),
+            np.array(self.__feature_point_neuron)
         )
         self.__graph_list[1].create_node(
-            self.__feature_point_neuron,
-            self.__hidden_neuron_list
+            np.array(self.__feature_point_neuron),
+            np.array(self.__hidden_neuron_list)
         )
 
     def get_result(self):

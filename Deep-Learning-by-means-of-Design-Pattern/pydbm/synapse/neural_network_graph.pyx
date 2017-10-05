@@ -2,6 +2,7 @@
 import pyximport
 import numpy as np
 pyximport.install(setup_args={'include_dirs':[np.get_include()]}, inplace=True)
+cimport numpy
 from pydbm.synapse_list import Synapse
 from pydbm.activation.logistic_function import LogisticFunction
 
@@ -49,18 +50,20 @@ class NeuralNetworkGraph(Synapse):
         Returns:
             Tuple(`The back propageted data points`, `The activity`)
         '''
+        cdef int j
         if self.__output_layer_flag is True:
-            if len(self.deeper_neuron_list) != len(propagated_list):
+            if len(self.deeper_neuron_arr) != len(propagated_list):
                 raise IndexError()
-            cdef int j
-            diff_list = [self.deeper_neuron_list[j].activity - propagated_list[j] for j in range(len(self.deeper_neuron_list))]
+            diff_list = [self.deeper_neuron_arr[j].activity - propagated_list[j] for j in range(len(self.deeper_neuron_arr))]
         else:
             diff_list = propagated_list
 
         diff_list = list(np.nan_to_num(np.array(diff_list)))
 
         cdef int k
-        diff_arr = np.array([[diff_list[k]] * len(self.shallower_neuron_list) for k in range(len(diff_list))]).T
+        cdef numpy.ndarray diff_arr
+        cdef numpy.ndarray momentum_arr
+        diff_arr = np.array([[diff_list[k]] * len(self.shallower_neuron_arr) for k in range(len(diff_list))]).T
         if self.__momentum_factor_arr is not None:
             momentum_arr = self.__momentum_factor_arr * momentum_factor
         else:
@@ -69,12 +72,13 @@ class NeuralNetworkGraph(Synapse):
         self.diff_weights_arr = (learning_rate * diff_arr) + momentum_arr
         self.__momentum_factor_arr = diff_arr
         self.weights_arr = np.nan_to_num(self.weights_arr)
-        error_arr = diff_arr * self.weights_arr
+        cdef numpy.ndarray error_arr = diff_arr * self.weights_arr
         error_list = error_arr.sum(axis=1)
         cdef int i
-        back_propagated_list = [self.__logistic_function.derivative(self.shallower_neuron_list[i].activity) * error_list[i] for i in range(len(self.shallower_neuron_list))]
+        back_propagated_list = [self.__logistic_function.derivative(self.shallower_neuron_arr[i].activity) * error_list[i] for i in range(len(self.shallower_neuron_arr))]
 
         # Normalize.
+        cdef numpy.ndarray back_propagated_arr
         if len(back_propagated_list) > 1 and sum(back_propagated_list) != 0:
             back_propagated_arr = np.array(back_propagated_list)
             back_propagated_arr = back_propagated_arr / back_propagated_arr.sum()
@@ -86,8 +90,8 @@ class NeuralNetworkGraph(Synapse):
 
         cdef int _i
         cdef int _j
-        [self.shallower_neuron_list[_i].update_bias(learning_rate) for _i in range(len(self.shallower_neuron_list))]
-        [self.deeper_neuron_list[-j].update_bias(learning_rate) for _j in range(len(self.deeper_neuron_list))]
+        [self.shallower_neuron_arr[_i].update_bias(learning_rate) for _i in range(len(self.shallower_neuron_arr))]
+        [self.deeper_neuron_arr[-j].update_bias(learning_rate) for _j in range(len(self.deeper_neuron_arr))]
 
         # Recursive.
         if back_nn_list is not None:

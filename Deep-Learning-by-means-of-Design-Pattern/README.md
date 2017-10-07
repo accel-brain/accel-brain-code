@@ -11,7 +11,7 @@ For instance, [test/dbm_multi_layer_builder.py](https://github.com/chimera0/acce
 ### More detail demos
 
 - [Webクローラ型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-web-crawling-ai/)
-    - 20001 bots are running as 20001 web-crawlers and 20001 web-scrapers.
+    - Implemented by the `C++` version of this library, these 20001 bots are running as 20001 web-crawlers and 20001 web-scrapers and can execute the dimensions reduction(or pre-training.)
 - [ハッカー倫理に準拠した人工知能のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/)
     - [ケーススタディ：深層強化学習のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/5/#i-2)
 

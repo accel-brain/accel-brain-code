@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import pyximport; pyximport.install()
 from multipledispatch import dispatch
 from pydbm.nn.nn_director import NNDirector
 from pydbm.nn.interface.nn_builder import NNBuilder
@@ -17,9 +16,9 @@ class NeuralNetwork(object):
     def __init__(
         self,
         nn_builder,
-        int input_neuron_count,
-        int hidden_neuron_count,
-        int output_neuron_count,
+        input_neuron_count,
+        hidden_neuron_count,
+        output_neuron_count,
         activating_function_list
     ):
         '''
@@ -41,11 +40,6 @@ class NeuralNetwork(object):
         )
 
         self.nn_list = nn_director.nn_list
-
-        self.__hyper_param_dict = {
-            "neuron_assign_list": [input_neuron_count, hidden_neuron_count, output_neuron_count],
-            "activating_function_list": [type(a) for a in activating_function_list]
-        }
 
     @dispatch(NNBuilder, list, list)
     def __init__(
@@ -74,18 +68,13 @@ class NeuralNetwork(object):
 
         self.nn_list = nn_director.nn_list
 
-        self.__hyper_param_dict = {
-            "neuron_assign_list": neuron_assign_list,
-            "activating_function_list": [type(a) for a in activating_function_list]
-        }
-
     def learn(
         self,
         traning_data_matrix,
         class_data_matrix,
-        double learning_rate=0.5,
-        double momentum_factor=0.1,
-        int traning_count=1000,
+        learning_rate=0.5,
+        momentum_factor=0.1,
+        traning_count=1000,
         learning_rate_list=None
     ):
         '''
@@ -102,7 +91,6 @@ class NeuralNetwork(object):
         '''
         if len(traning_data_matrix) != len(class_data_matrix):
             raise ValueError()
-
         for i in range(traning_count):
             for j in range(len(traning_data_matrix)):
                 self.forward_propagate(traning_data_matrix[j])
@@ -115,10 +103,6 @@ class NeuralNetwork(object):
                     momentum_factor=momentum_factor
                 )
 
-        self.__hyper_param_dict["traning_count"] = traning_count
-        self.__hyper_param_dict["momentum_factor"] = momentum_factor
-        self.__hyper_param_dict["learning_rate"] = learning_rate
-
     def forward_propagate(self, input_data_list):
         '''
         Foward propagation.
@@ -130,14 +114,12 @@ class NeuralNetwork(object):
         nn_from_input_to_hidden_layer = self.nn_list[0]
         nn_hidden_layer_list = self.nn_list[1:len(self.nn_list) - 1]
         nn_to_output_layer = self.nn_list[-1]
-        cdef int i
         [nn_from_input_to_hidden_layer.shallower_neuron_list[i].observe_data_point(input_data_list[i]) for i in range(len(input_data_list))]
 
         # In input layer.
         shallower_activity_arr = [[nn_from_input_to_hidden_layer.shallower_neuron_list[i].activity] * len(nn_from_input_to_hidden_layer.deeper_neuron_list) for i in range(len(nn_from_input_to_hidden_layer.shallower_neuron_list))]
         link_value_arr = shallower_activity_arr * nn_from_input_to_hidden_layer.weights_arr
         link_value_list = link_value_arr.sum(axis=0)
-        cdef int j
         [nn_from_input_to_hidden_layer.deeper_neuron_list[j].hidden_update_state(link_value_list[j]) for j in range(len(link_value_list))]
         nn_from_input_to_hidden_layer.normalize_visible_bias()
         nn_from_input_to_hidden_layer.normalize_hidden_bias()
@@ -157,9 +139,14 @@ class NeuralNetwork(object):
         link_value_list = link_value_arr.sum(axis=0)
         [nn_to_output_layer.deeper_neuron_list[j].output_update_state(link_value_list[j]) for j in range(len(link_value_list))]
         nn_to_output_layer.normalize_visible_bias()
-        nn_to_output_layer.normalize_hidden_bias()
+        #nn_to_output_layer.normalize_hidden_bias()
 
-    def back_propagate(self, test_data_list, double learning_rate=0.05, double momentum_factor=0.1):
+    def back_propagate(
+        self,
+        test_data_list,
+        learning_rate=0.05,
+        momentum_factor=0.1
+    ):
         '''
         Back propagation.
 

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import pyximport; pyximport.install()
 from abc import ABCMeta, abstractmethod
 
 
@@ -11,7 +10,7 @@ class NNBuilder(metaclass=ABCMeta):
     '''
 
     @abstractmethod
-    def input_neuron_part(self, activating_function, int neuron_count):
+    def input_neuron_part(self, activating_function, neuron_count):
         '''
         Build neurons in input layer.
 
@@ -22,7 +21,7 @@ class NNBuilder(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    def hidden_neuron_part(self, activating_function, int neuron_count):
+    def hidden_neuron_part(self, activating_function, neuron_count):
         '''
         Build neurons in hidden layer.
 
@@ -33,7 +32,7 @@ class NNBuilder(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    def output_neuron_part(self, activating_function, int neuron_count):
+    def output_neuron_part(self, activating_function, neuron_count):
         '''
         Build neurons in output layer.
 

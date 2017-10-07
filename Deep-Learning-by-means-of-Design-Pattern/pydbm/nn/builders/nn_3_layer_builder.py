@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import pyximport; pyximport.install()
 from pydbm.nn.interface.nn_builder import NNBuilder
 from pydbm.neuron.visible_neuron import VisibleNeuron
 from pydbm.neuron.hidden_neuron import HiddenNeuron
@@ -31,7 +30,7 @@ class NN3LayerBuilder(NNBuilder):
         self.__output_neuron_list = []
         self.__graph_list = []
 
-    def input_neuron_part(self, activating_function, int neuron_count):
+    def input_neuron_part(self, activating_function, neuron_count):
         '''
         Build neurons in input layer.
 
@@ -39,14 +38,13 @@ class NN3LayerBuilder(NNBuilder):
             activating_function:    Activation function.
             neuron_count:           The number of neurons.
         '''
-        cdef int i
         for i in range(neuron_count):
             visible_neuron = VisibleNeuron()
             visible_neuron.activating_function = activating_function
             visible_neuron.bernoulli_flag = True
             self.__input_neuron_list.append(visible_neuron)
 
-    def hidden_neuron_part(self, activating_function, int neuron_count):
+    def hidden_neuron_part(self, activating_function, neuron_count):
         '''
         Build neurons in hidden layer.
 
@@ -54,13 +52,12 @@ class NN3LayerBuilder(NNBuilder):
             activating_function:    Activation function.
             neuron_count:           The number of neurons.
         '''
-        cdef int i
         for i in range(neuron_count):
             hidden_neuron = HiddenNeuron()
             hidden_neuron.activating_function = activating_function
             self.__hidden_neuron_list.append(hidden_neuron)
 
-    def output_neuron_part(self, activating_function, int neuron_count):
+    def output_neuron_part(self, activating_function, neuron_count):
         '''
         Build neurons in output layer.
 
@@ -68,7 +65,6 @@ class NN3LayerBuilder(NNBuilder):
             activating_function:    Activation function.
             neuron_count:           The number of neurons.
         '''
-        cdef int i
         for i in range(neuron_count):
             output_neuron = OutputNeuron()
             output_neuron.activating_function = activating_function

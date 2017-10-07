@@ -25,7 +25,7 @@ Considering many variable parts and functional extensions in the Q-learning para
 
 ## Author
 
-- chimera0
+- chimera0(RUM)
 
 ## Author URI
 

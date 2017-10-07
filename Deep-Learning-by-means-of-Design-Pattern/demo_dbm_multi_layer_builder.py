@@ -17,7 +17,6 @@ if __name__ == "__main__":
     '''
     '''
 
-    # 教師データを生成する
     data_tuple = make_classification(
         n_samples=20000,
         n_features=1000,
@@ -26,9 +25,7 @@ if __name__ == "__main__":
         class_sep=1.0,
         scale=0.1
     )
-    # 説明変数と目的変数に区別する
     data_tuple_x, data_tuple_y = data_tuple
-    # 訓練用のデータと検証用のデータに区別する
     traning_x, test_x, traning_y, test_y = train_test_split(
         data_tuple_x,
         data_tuple_y,
@@ -36,9 +33,6 @@ if __name__ == "__main__":
         random_state=888
     )
 
-    print(traning_x.shape)
-
-    # 深層ボルツマンマシンを構築する(第二引数の各層のニューロンの個数はデモのためアトランダムに規定）
     dbm = DeepBoltzmannMachine(
         DBMMultiLayerBuilder(),
         [traning_x.shape[1], 10, traning_x.shape[1]],

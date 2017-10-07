@@ -72,7 +72,7 @@ This is a demo code for my case study in the context of my website.
 
 ## Author
 
-- chimera0
+- chimera0(RUM)
 
 ## Author URI
 

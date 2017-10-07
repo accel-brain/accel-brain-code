@@ -22,13 +22,13 @@ The source code is currently hosted on GitHub.
 
 ### Python package index(PyPI)
 
-Binary installers for the latest released version are available at the Python package index.
+Installers for the latest released version are available at the Python package index.
 
 - [pysummarization : Python Package Index](https://pypi.python.org/pypi/pysummarization/)
 
 ### Dependencies
 
-- numpy: v1.12.1 or higher.
+- numpy: v1.13.3 or higher.
 - nltk: v3.2.3 or higher.
 - mecab-python3: v0.7 or higher.
 - pdfminer2
@@ -212,7 +212,7 @@ The result is as follows.
 
 ## Author
 
-- chimera0
+- chimera0(RUM)
 
 ## Author URI
 

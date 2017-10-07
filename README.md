@@ -16,7 +16,7 @@ The function of this library is automatic summarization using a kind of natural 
 
 ## [Binaural-Beat-and-Monaural-Beat-wih-python](https://github.com/chimera0/accel-brain-code/tree/master/Binaural-Beat-and-Monaural-Beat-wih-python)
 
-`AccelBrainBeat` a Python library for creating the binaural beats or monaural beats. You can play these beats and generate wav files. The frequencys can be optionally selected.
+`AccelBrainBeat` is a Python library for creating the binaural beats or monaural beats. You can play these beats and generate wav files. The frequencys can be optionally selected.
 
 This Python script enables you to handle your mind state by a kind of "Brain-Wave Controller" which is generally known as Biaural beat or Monauarl beats in a simplified method.
 

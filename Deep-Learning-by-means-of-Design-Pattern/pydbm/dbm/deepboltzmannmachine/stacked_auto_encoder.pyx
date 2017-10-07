@@ -41,6 +41,7 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
         cdef int row = observed_data_arr.shape[0]
         cdef int t
         cdef np.ndarray data_arr
+        feature_points_list = [None] * row
         for t in range(traning_count):
             for i in range(row):
                 data_arr = np.array([observed_data_arr[i]])
@@ -50,10 +51,6 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
                 )
                 if t == traning_count - 1:
                     feature_points_arr = self.get_feature_point_list()
-                    if self.__feature_points_arr is None:
-                        self.__feature_points_arr = feature_points_arr
-                    else:
-                        self.__feature_points_arr = np.r_[
-                            self.__feature_points_arr,
-                            feature_points_arr
-                        ]
+                    feature_points_list[i] = feature_points_arr
+
+        self.__feature_points_arr = np.array(feature_points_list)

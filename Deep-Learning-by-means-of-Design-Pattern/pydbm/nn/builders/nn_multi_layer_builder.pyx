@@ -16,7 +16,7 @@ class NNMultiLayerBuilder(NNBuilder):
     # The list of neurons in input layer.
     __input_neuron_list = []
     # The list of neurons in hidden layer.
-    __hidden_neuron_arr = []
+    __hidden_neuron_list = []
     # The list of neurons in output layer.
     __output_neuron_list = []
     # The list of graphs of synapse.
@@ -27,7 +27,7 @@ class NNMultiLayerBuilder(NNBuilder):
         Initialize.
         '''
         self.__input_neuron_list = []
-        self.__hidden_neuron_arr = []
+        self.__hidden_neuron_list = []
         self.__output_neuron_list = []
         self.__graph_list = []
 
@@ -60,7 +60,7 @@ class NNMultiLayerBuilder(NNBuilder):
             hidden_neuron = HiddenNeuron()
             hidden_neuron.activating_function = activating_function
             add_neuron_list.append(hidden_neuron)
-        self.__hidden_neuron_arr.append(add_neuron_list)
+        self.__hidden_neuron_list.append(add_neuron_list)
 
     def output_neuron_part(self, activating_function, int neuron_count):
         '''
@@ -85,22 +85,22 @@ class NNMultiLayerBuilder(NNBuilder):
         neural_network_graph = NeuralNetworkGraph(output_layer_flag=False)
         neural_network_graph.create_node(
             self.__input_neuron_list,
-            self.__hidden_neuron_arr[0]
+            self.__hidden_neuron_list[0]
         )
         self.__graph_list.append(neural_network_graph)
 
         cdef int i
-        for i in range(1, len(self.__hidden_neuron_arr)):
+        for i in range(1, len(self.__hidden_neuron_list)):
             neural_network_graph = NeuralNetworkGraph(output_layer_flag=False)
             neural_network_graph.create_node(
-                self.__hidden_neuron_arr[i - 1],
-                self.__hidden_neuron_arr[i]
+                self.__hidden_neuron_list[i - 1],
+                self.__hidden_neuron_list[i]
             )
             self.__graph_list.append(neural_network_graph)
 
         neural_network_graph = NeuralNetworkGraph(output_layer_flag=True)
         neural_network_graph.create_node(
-            self.__hidden_neuron_arr[-1],
+            self.__hidden_neuron_list[-1],
             self.__output_neuron_list
         )
         self.__graph_list.append(neural_network_graph)

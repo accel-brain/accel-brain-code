@@ -9,7 +9,7 @@ class ActivatingFunctionInterface(metaclass=ABCMeta):
     '''
 
     @abstractmethod
-    def activate(self, double x):
+    def activate(self, x):
         '''
         Return of result from this activation function.
 
@@ -22,7 +22,7 @@ class ActivatingFunctionInterface(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    def derivative(self, double y):
+    def derivative(self, y):
         '''
         Derivative.
 

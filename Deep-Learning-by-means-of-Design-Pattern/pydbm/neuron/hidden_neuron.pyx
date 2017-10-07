@@ -22,7 +22,7 @@ class HiddenNeuron(Neuron, HiddenLayerInterface):
             link_value:      Input value.
 
         '''
-        cdef double output = self.activate(link_value)
+        output = self.activate(link_value)
         self.activity = output
 
     def update_bias(self, double learning_rate):

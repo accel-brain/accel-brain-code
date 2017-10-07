@@ -136,7 +136,7 @@ class DeepBoltzmannMachine(object):
         '''
         rbm = self.__rbm_list[layer_number]
         cdef int j
-        feature_point_list = [rbm.graph.hidden_neuron_arr[j].activity for j in range(len(rbm.graph.hidden_neuron_arr))]
+        feature_point_list = [rbm.graph.hidden_neuron_list[j].activity for j in range(len(rbm.graph.hidden_neuron_list))]
         feature_point_arr = np.array(feature_point_list)
         return feature_point_arr
 
@@ -149,5 +149,5 @@ class DeepBoltzmannMachine(object):
         '''
         rbm = self.__rbm_list[0]
         cdef int i
-        visible_activity_list = [rbm.graph.visible_neuron_arr[i].activity for i in range(len(rbm.graph.visible_neuron_arr))]
+        visible_activity_list = [rbm.graph.visible_neuron_list[i].activity for i in range(len(rbm.graph.visible_neuron_list))]
         return np.array(visible_activity_list)

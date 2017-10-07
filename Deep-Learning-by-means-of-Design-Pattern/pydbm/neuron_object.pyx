@@ -84,7 +84,7 @@ class Neuron(metaclass=ABCMeta):
         Returns:
             true: activation. false: not activation.
         '''
-        cdef double output = self.activating_function.activate(
+        output = self.activating_function.activate(
             link_value + self.bias
         )
         return output

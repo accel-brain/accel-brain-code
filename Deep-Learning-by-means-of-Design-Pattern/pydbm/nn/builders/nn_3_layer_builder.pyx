@@ -16,7 +16,7 @@ class NN3LayerBuilder(NNBuilder):
     # The list of neurons in input layer.
     __input_neuron_list = []
     # The list of neurons in hidden layer.
-    __hidden_neuron_arr = []
+    __hidden_neuron_list = []
     # The list of neurons in output layer.
     __output_neuron_list = []
     # The list of graphs of synapse.
@@ -27,7 +27,7 @@ class NN3LayerBuilder(NNBuilder):
         Initialize.
         '''
         self.__input_neuron_list = []
-        self.__hidden_neuron_arr = []
+        self.__hidden_neuron_list = []
         self.__output_neuron_list = []
         self.__graph_list = []
 
@@ -58,7 +58,7 @@ class NN3LayerBuilder(NNBuilder):
         for i in range(neuron_count):
             hidden_neuron = HiddenNeuron()
             hidden_neuron.activating_function = activating_function
-            self.__hidden_neuron_arr.append(hidden_neuron)
+            self.__hidden_neuron_list.append(hidden_neuron)
 
     def output_neuron_part(self, activating_function, int neuron_count):
         '''
@@ -82,13 +82,13 @@ class NN3LayerBuilder(NNBuilder):
         neural_network_graph = NeuralNetworkGraph(output_layer_flag=False)
         neural_network_graph.create_node(
             self.__input_neuron_list,
-            self.__hidden_neuron_arr
+            self.__hidden_neuron_list
         )
         self.__graph_list.append(neural_network_graph)
 
         neural_network_graph = NeuralNetworkGraph(output_layer_flag=True)
         neural_network_graph.create_node(
-            self.__hidden_neuron_arr,
+            self.__hidden_neuron_list,
             self.__output_neuron_list
         )
         self.__graph_list.append(neural_network_graph)

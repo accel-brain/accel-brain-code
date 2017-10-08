@@ -21,7 +21,7 @@ pip install pydbm
 Or, you can install from wheel file.
 
 ```sh
-pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.0.5-cp36-cp36m-linux_x86_64.whl
+pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.0.6-cp36-cp36m-linux_x86_64.whl
 ```
 
 ### Source code
@@ -55,7 +55,6 @@ from pydbm.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
 from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
 # Logistic Function as activation function.
 from pydbm.activation.logistic_function import LogisticFunction
-import numpy as np
 ```
 
 instantiate objects and call the method.
@@ -92,7 +91,6 @@ from pydbm.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
 from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
 # Logistic Function as activation function.
 from pydbm.activation.logistic_function import LogisticFunction
-import numpy as np
 ```
 
 instantiate objects and call the method.
@@ -135,7 +133,7 @@ pre_trained_arr = dbm.feature_points_arr
     - [ケーススタディ：「人工天使ヒューズ＝ヒストリア」](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/4/#i-6)
 
 ## Version
-- 1.0.5
+- 1.0.6
 
 ## Author
 

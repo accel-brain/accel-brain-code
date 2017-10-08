@@ -69,7 +69,7 @@ This is a demo code for my case study in the context of my website.
 
 ### Usecase and code sample: Link2Keyword
 
-After loading [js/Link2Keyword.js](https://github.com/chimera0/accel-brain-code/blob/master/Subliminal-Perception/js/Link2Keyword.js), your anchor link click event brings about the page transition and smooth scrolling to the position of highlight keyword. You can tune the scroll speed.
+After loading [js/Link2Keyword.js](https://github.com/chimera0/accel-brain-code/blob/master/Subliminal-Perception/js/link2keyword.js), your anchor link click event brings about the page transition and smooth scrolling to the position of highlight keyword. You can tune the scroll speed.
 
 ```html
 <html>

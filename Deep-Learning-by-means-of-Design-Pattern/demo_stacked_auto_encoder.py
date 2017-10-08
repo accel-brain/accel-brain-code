@@ -1,12 +1,10 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
-import pyximport; pyximport.install()
 from pydbm.dbm.deepboltzmannmachine.stacked_auto_encoder import StackedAutoEncoder
 from pydbm.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
 from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
 from pydbm.activation.logistic_function import LogisticFunction
 import numpy as np
-pyximport.install(setup_args={'include_dirs':[np.get_include()]}, inplace=True)
 import random
 import pandas as pd
 from pprint import pprint

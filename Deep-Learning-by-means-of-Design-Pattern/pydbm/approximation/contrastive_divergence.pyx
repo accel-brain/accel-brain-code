@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-import pyximport
+
 import numpy as np
-pyximport.install(setup_args={'include_dirs':[np.get_include()]}, inplace=True)
+
 cimport numpy as np
 cimport cython
 from pydbm.approximation.interface.approximate_interface import ApproximateInterface

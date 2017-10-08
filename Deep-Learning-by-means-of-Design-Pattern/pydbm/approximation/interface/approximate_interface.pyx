@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-import pyximport
+
 import numpy as np
-pyximport.install(setup_args={'include_dirs':[np.get_include()]}, inplace=True)
-cimport numpy
+
+cimport numpy as np
 from abc import ABCMeta, abstractmethod
 
 
@@ -16,7 +16,7 @@ class ApproximateInterface(metaclass=ABCMeta):
         self,
         graph,
         double learning_rate,
-        numpy.ndarray observed_data_arr,
+        np.ndarray observed_data_arr,
         int traning_count=1000
     ):
         '''

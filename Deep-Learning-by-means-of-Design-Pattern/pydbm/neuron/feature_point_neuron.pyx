@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import pyximport;pyximport.install()
+
 import random
 from pydbm.neuron_object import Neuron
 from pydbm.neuron.interface.visible_layer_interface import VisibleLayerInterface

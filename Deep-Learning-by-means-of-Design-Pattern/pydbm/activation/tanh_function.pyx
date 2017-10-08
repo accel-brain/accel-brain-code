@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import pyximport; pyximport.install()
+
 import math
 from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
 

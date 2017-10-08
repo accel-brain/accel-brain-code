@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import pyximport; pyximport.install()
+
 from abc import ABCMeta, abstractmethod
 
 

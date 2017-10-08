@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-import pyximport
+
 import numpy as np
-pyximport.install(setup_args={'include_dirs':[np.get_include()]}, inplace=True)
-cimport numpy
-import pyximport; pyximport.install()
+
+cimport numpy as np
+
 from pydbm.dbm.interface.dbm_builder import DBMBuilder
 from pydbm.neuron.visible_neuron import VisibleNeuron
 from pydbm.neuron.hidden_neuron import HiddenNeuron

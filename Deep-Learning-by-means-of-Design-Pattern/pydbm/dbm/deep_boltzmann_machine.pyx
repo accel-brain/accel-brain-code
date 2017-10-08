@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-import pyximport
+
 import numpy as np
-pyximport.install(setup_args={'include_dirs':[np.get_include()]}, inplace=True)
-cimport numpy
+
+cimport numpy as np
 from multipledispatch import dispatch
 from pydbm.dbm.interface.dbm_builder import DBMBuilder
 from pydbm.dbm.dbm_director import DBMDirector
@@ -105,7 +105,7 @@ class DeepBoltzmannMachine(object):
 
     def learn(
         self,
-        numpy.ndarray observed_data_arr,
+        np.ndarray observed_data_arr,
         int traning_count=1000
     ):
         '''

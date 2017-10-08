@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import pyximport;pyximport.install()
+
 import random
 import bisect
 from pydbm.neuron_object import Neuron

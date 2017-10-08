@@ -135,7 +135,7 @@ pre_trained_arr = dbm.feature_points_arr
     - [ケーススタディ：「人工天使ヒューズ＝ヒストリア」](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/4/#i-6)
 
 ## Version
-- 1.0.1
+- 1.0.5
 
 ## Author
 

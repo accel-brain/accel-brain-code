@@ -18,6 +18,12 @@ Install using pip:
 pip install pydbm
 ```
 
+Or, you can install from wheel file.
+
+```sh
+pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.0.5-cp36-cp36m-linux_x86_64.whl
+```
+
 ### Source code
 
 The source code is currently hosted on GitHub.
@@ -41,7 +47,6 @@ Installers for the latest released version are available at the Python package i
 Import Python and Cython modules.
 
 ```python
-import pyximport; pyximport.install()
 # The `Client` in Builder Pattern
 from pydbm.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
 # The `Concrete Builder` in Builder Pattern.
@@ -51,7 +56,6 @@ from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
 # Logistic Function as activation function.
 from pydbm.activation.logistic_function import LogisticFunction
 import numpy as np
-pyximport.install(setup_args={'include_dirs':[np.get_include()]}, inplace=True)
 ```
 
 instantiate objects and call the method.
@@ -80,7 +84,6 @@ print(dbm.get_feature_point_list(0))
 Import Python and Cython modules.
 
 ```python
-import pyximport; pyximport.install()
 # `StackedAutoEncoder` is-a `DeepBoltzmannMachine`.
 from pydbm.dbm.deepboltzmannmachine.stacked_auto_encoder import StackedAutoEncoder
 # The `Concrete Builder` in Builder Pattern.
@@ -90,7 +93,6 @@ from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
 # Logistic Function as activation function.
 from pydbm.activation.logistic_function import LogisticFunction
 import numpy as np
-pyximport.install(setup_args={'include_dirs':[np.get_include()]}, inplace=True)
 ```
 
 instantiate objects and call the method.
@@ -133,7 +135,7 @@ pre_trained_arr = dbm.feature_points_arr
     - [ケーススタディ：「人工天使ヒューズ＝ヒストリア」](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/4/#i-6)
 
 ## Version
-- 1.0.1
+- 1.0.5
 
 ## Author
 

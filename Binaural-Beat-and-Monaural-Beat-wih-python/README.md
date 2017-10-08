@@ -181,7 +181,7 @@ from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
 ## Author
 
-- [chimera0](https://github.com/chimera0)
+- chimera0(RUM)
 
 ### Author's websites
 

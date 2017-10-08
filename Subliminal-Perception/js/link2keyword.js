@@ -4,7 +4,7 @@ Description: Your anchor link click event brings about the page transition and s
 Version: 1.0.1
 Author: chimera0
 Author URI: http://media.accel-brain.com/
-License: BSD2
+License: GNU General Public License v2.0
 */
 
 /*  Copyright 2016 chimera0 (email : kimera0kimaira@gmail.com)

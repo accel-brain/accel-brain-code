@@ -6,7 +6,9 @@ These JavaScript are tool for experimentation of subliminal perception.
 
 This is a demo code for my case study in the context of my website.
 
-### Code sample
+### Usecase and code sample: Mere Exposure Effect
+
+[js/mereexposure.js](https://github.com/chimera0/accel-brain-code/blob/master/Subliminal-Perception/js/mereexposure.js) is JavaScript library that enable to design the mere exposure effect. For instance, you can set words to be presented, color code of the word, and background color code during presentation. Stimulus presentation interval(milli seconds) can be also tuned.
 
 ```html
 <script src='js/jquery-1.12.4.js'></script>
@@ -56,11 +58,62 @@ This is a demo code for my case study in the context of my website.
     });
 </script>
 ```
+#### Dependencies
 
-### More detail demos
+- JQuery: v1.12.4 or higher.
+
+#### More detail demos
 
 - [Accel Brain; Beat](https://beat.accel-brain.com/)
     - The Subthreshold stimulation (so-called mere exposure effect) is to activate when you click any anchor link.
+
+### Usecase and code sample: Link2Keyword
+
+After loading [js/Link2Keyword.js](https://github.com/chimera0/accel-brain-code/blob/master/Subliminal-Perception/js/Link2Keyword.js), your anchor link click event brings about the page transition and smooth scrolling to the position of highlight keyword. You can tune the scroll speed.
+
+```html
+<html>
+    <head>
+        <script type="text/javascript" src="jquery-1.12.2.min.js"></script>
+        <script type="text/javascript" src="jquery.highlight-5.js"></script>
+        <script type="text/javascript" src="link2keyword.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                Link2Keyword.init({
+                    "contentArea": "accel_brain_area", 
+                    "scrollSpeed": 800
+                });
+                Link2Keyword.highlight();
+                Link2Keyword.scrolling();
+            });
+        </script>
+        <style>
+            .highlight {
+                background-color: yellow;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="accel_brain_area">
+            <ul>
+                <li>
+                    <a href="http://media.accel-brain.com/transhumanism-and-communication-with-ai/" target="_blank">my blog(Japanese)</a>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>
+```
+
+#### Dependencies
+
+- JQuery: v1.12.4 or higher.
+- [jquery.highlight](http://johannburkard.de/blog/programming/javascript/highlight-javascript-text-higlighting-jquery-plugin.html): v5.
+
+### More detail demos
+
+- [Twitter](https://media.accel-brain.com/agency-operation-chimera0-2017-10-08-autotweety-net-connect-php/#link2keyword=Twitter) (Japanese)
+    - Click here.
 
 ### Related Case Studies
 

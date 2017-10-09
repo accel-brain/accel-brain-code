@@ -6,7 +6,7 @@ The purpose of this repository is to make prototypes as case study in the contex
 
 The basic theme in my website is multiple perspectives methodology, very abstract theory, extreme aesthetics, recognition of melancholic history, and generalized design philosophy of algorithms and architectures. All code was implemented for the purpose of proof-of-concept, demonstration experiment, or verification test.
 
-# Case studies
+# Prototypes
 
 ## [Automatic-Summarization](https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization)
 

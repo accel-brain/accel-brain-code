@@ -1,6 +1,6 @@
-# accel brain code
+# accel brain code: From Proof of Concept to Prototype.
 
-This repository is my private case study in the context of my website: [Accel Brain](https://accel-brain.com) (Japanese).
+The purpose of this repository is to make prototypes as case study in the context of proof of concept(PoC) that I have written in my website: [Accel Brain](https://accel-brain.com) (Japanese).
 
 ## Description
 

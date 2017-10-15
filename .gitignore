@@ -59,6 +59,8 @@ _static/
 doc/
 *.rst
 conf.py
+sphinx_lap.sh
+make.bat
 
 # PyBuilder
 target/

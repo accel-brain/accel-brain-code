@@ -22,7 +22,7 @@ pip install AccelBrainBeat
 
 The source code is currently hosted on GitHub.
 
-- [Binaural-Beat-and-Monaural-Beat-with-python](https://github.com/chimera0/accel-brain-code/tree/master/Binaural-Beat-and-Monaural-Beat-wih-python)
+- [Binaural-Beat-and-Monaural-Beat-with-python](https://github.com/chimera0/accel-brain-code/tree/master/Binaural-Beat-and-Monaural-Beat-with-python)
 
 ### Python package index(PyPI)
 

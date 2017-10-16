@@ -1,4 +1,4 @@
-# accel brain code: From Proof of Concept to Prototype.
+# Accel Brain Code: From Proof of Concept to Prototype.
 
 The purpose of this repository is to make prototypes as case study in the context of proof of concept(PoC) that I have written in my website: [Accel Brain](https://accel-brain.com) (Japanese).
 

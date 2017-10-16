@@ -44,12 +44,11 @@ Run the batch program: [play_binaural_beat.py](https://github.com/chimera0/Binau
 python play_binaural_beat.py -l 400 -r 430 -t 60 -v 0.01
 ```
 
-<blockquote>
+```
 usage: play_binaural_beat.py [-h] [-l LEFT] [-r RIGHT] [-t TIME] [-v VOLUME]
 
 Create and play the Binaural Beat.
 
-```
 optional arguments:
   -h, --help            show this help message and exit
   -l LEFT, --left LEFT  Left frequencys (Hz).

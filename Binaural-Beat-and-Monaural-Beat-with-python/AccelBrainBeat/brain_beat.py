@@ -1,6 +1,9 @@
 #!/user/bin/env python
 # -*- coding: utf-8 -*-
-import pyaudio
+try:
+    import pyaudio
+except:
+    pass
 import numpy
 import wave
 from abc import ABCMeta, abstractmethod

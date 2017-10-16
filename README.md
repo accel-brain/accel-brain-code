@@ -16,7 +16,7 @@ The function of this library is automatic summarization using a kind of natural 
 
 ### Documentation
 
-Full documentation is available on https://code.accel-brain.com/Automatic-Summarization/ . This document contains information on functionally reusability, functional scalability and functional extensibility.
+Full documentation is available on [https://code.accel-brain.com/Automatic-Summarization/](https://code.accel-brain.com/Automatic-Summarization/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
 
 ## [Binaural-Beat-and-Monaural-Beat-wih-python](https://github.com/chimera0/accel-brain-code/tree/master/Binaural-Beat-and-Monaural-Beat-wih-python)
 
@@ -26,7 +26,7 @@ This Python script enables you to handle your mind state by a kind of "Brain-Wav
 
 ### Documentation
 
-Full documentation is available on https://code.accel-brain.com/Binaural-Beat-and-Monaural-Beat-with-python/ . This document contains information on functionally reusability, functional scalability and functional extensibility.
+Full documentation is available on [https://code.accel-brain.com/Binaural-Beat-and-Monaural-Beat-with-python/](https://code.accel-brain.com/Binaural-Beat-and-Monaural-Beat-with-python/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
 
 ## [Cardbox](https://github.com/chimera0/accel-brain-code/tree/master/Cardbox)
 
@@ -42,7 +42,7 @@ In relation to my [Automatic Summarization Library](https://github.com/chimera0/
 
 ### Documentation
 
-Full documentation is available on https://code.accel-brain.com/Deep-Learning-by-means-of-Design-Pattern/ . This document contains information on functionally reusability, functional scalability and functional extensibility.
+Full documentation is available on [https://code.accel-brain.com/Deep-Learning-by-means-of-Design-Pattern/](https://code.accel-brain.com/Deep-Learning-by-means-of-Design-Pattern/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
 
 ## [Reinforcement-Learning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning)
 

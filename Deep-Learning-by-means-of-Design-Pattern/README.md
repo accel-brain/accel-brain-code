@@ -14,7 +14,7 @@ For instance, [demo_dbm_multi_layer_builder.py](https://github.com/chimera0/acce
 
 ## Documentation
 
-Full documentation is available on https://code.accel-brain.com/Deep-Learning-by-means-of-Design-Pattern/ and contains information on functionally reusability, functional scalability and functional extensibility.
+Full documentation is available on https://code.accel-brain.com/Deep-Learning-by-means-of-Design-Pattern/ . This document contains information on functionally reusability, functional scalability and functional extensibility.
 
 ## Installation
 

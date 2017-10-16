@@ -6,6 +6,10 @@
 
 The function of this library is automatic summarization using a kind of natural language processing. This library enable you to create a summary with the major points of the original document or web-scraped text that filtered by text clustering.
 
+## Documentation
+
+Full documentation is available on https://code.accel-brain.com/Automatic-Summarization/ . This document contains information on functionally reusability, functional scalability and functional extensibility.
+
 ## Installation
 
 Install using pip:

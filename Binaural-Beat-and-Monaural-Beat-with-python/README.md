@@ -8,7 +8,7 @@ This Python script enables you to handle your mind state by a kind of "Brain-Wav
 
 ## Documentation
 
-Full documentation is available on https://code.accel-brain.com/Binaural-Beat-and-Monaural-Beat-with-python/ . This document contains information on functionally reusability, functional scalability and functional extensibility.
+Full documentation is available on [https://code.accel-brain.com/Binaural-Beat-and-Monaural-Beat-with-python/](https://code.accel-brain.com/Binaural-Beat-and-Monaural-Beat-with-python/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
 
 ## Installation
 

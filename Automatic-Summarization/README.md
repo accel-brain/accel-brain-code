@@ -8,7 +8,7 @@ The function of this library is automatic summarization using a kind of natural 
 
 ## Documentation
 
-Full documentation is available on https://code.accel-brain.com/Automatic-Summarization/ . This document contains information on functionally reusability, functional scalability and functional extensibility.
+Full documentation is available on [https://code.accel-brain.com/Automatic-Summarization/](https://code.accel-brain.com/Automatic-Summarization/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
 
 ## Installation
 

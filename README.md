@@ -14,11 +14,19 @@ The basic theme in my website is multiple perspectives methodology, very abstrac
 
 The function of this library is automatic summarization using a kind of natural language processing. This library enable you to create a summary with the major points of the original document or web-scraped text that filtered by text clustering.
 
+### Documentation
+
+Full documentation is available on https://code.accel-brain.com/Automatic-Summarization/ . This document contains information on functionally reusability, functional scalability and functional extensibility.
+
 ## [Binaural-Beat-and-Monaural-Beat-wih-python](https://github.com/chimera0/accel-brain-code/tree/master/Binaural-Beat-and-Monaural-Beat-wih-python)
 
 `AccelBrainBeat` is a Python library for creating the binaural beats or monaural beats. You can play these beats and generate wav files. The frequencys can be optionally selected.
 
 This Python script enables you to handle your mind state by a kind of "Brain-Wave Controller" which is generally known as Biaural beat or Monauarl beats in a simplified method.
+
+### Documentation
+
+Full documentation is available on https://code.accel-brain.com/Binaural-Beat-and-Monaural-Beat-with-python/ . This document contains information on functionally reusability, functional scalability and functional extensibility.
 
 ## [Cardbox](https://github.com/chimera0/accel-brain-code/tree/master/Cardbox)
 
@@ -31,6 +39,10 @@ You can write down as many ideas as possible onto cards. Like the KJ Method or t
 `pydbm` is Python3 library for building restricted boltzmann machine, deep boltzmann machine, and multi-layer neural networks.
 
 In relation to my [Automatic Summarization Library](https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization), it is important for me that the models are functionally equivalent to stacked auto-encoder. The main function I observe is the same as dimensions reduction(or pre-training). But the functional reusability of the models can be not limited to this. These Python Scripts can be considered a kind of experiment result to verify effectiveness of object-oriented analysis, object-oriented design, and GoF's design pattern in designing and modeling neural network, deep learning, and [reinforcement-Learning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning).
+
+### Documentation
+
+Full documentation is available on https://code.accel-brain.com/Deep-Learning-by-means-of-Design-Pattern/ . This document contains information on functionally reusability, functional scalability and functional extensibility.
 
 ## [Reinforcement-Learning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning)
 

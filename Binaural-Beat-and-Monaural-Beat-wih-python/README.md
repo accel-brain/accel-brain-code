@@ -10,7 +10,7 @@ This Python script enables you to handle your mind state by a kind of "Brain-Wav
 
 Install using pip:
 
-```sh
+```bash
 pip install AccelBrainBeat
 ```
 
@@ -40,15 +40,16 @@ You can study or work while listening to the Binaural or Monauarl beats. Before 
 
 Run the batch program: [play_binaural_beat.py](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/bat/play_binaural_beat.py).
 
-```console
+```bash
 python play_binaural_beat.py -l 400 -r 430 -t 60 -v 0.01
 ```
 
-```console
+<blockquote>
 usage: play_binaural_beat.py [-h] [-l LEFT] [-r RIGHT] [-t TIME] [-v VOLUME]
 
 Create and play the Binaural Beat.
 
+```
 optional arguments:
   -h, --help            show this help message and exit
   -l LEFT, --left LEFT  Left frequencys (Hz).
@@ -63,11 +64,11 @@ optional arguments:
 
 Run the batch program: [play_monaural_beat.py](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/bat/play_monaural_beat.py).
 
-```console
+```bash
 python play_monaural_beat_beat.py -l 400 -r 430 -t 60 -v 0.01
 ```
 
-```console
+```
 usage: play_monaural_beat.py [-h] [-l LEFT] [-r RIGHT] [-t TIME] [-v VOLUME]
 
 Create and play the Monaural Beat.
@@ -120,6 +121,7 @@ The interface of monaural beats is same as the binaural beats. `MonoauralBeat` i
 from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
 brain_beat = MonauralBeat()
+
 brain_beat.play_beat(
     frequencys=(400, 430),
     play_time=10,
@@ -136,10 +138,10 @@ from AccelBrainBeat.brainbeat.binaural_beat import BinauralBeat
 
 brain_beat = BinauralBeat() # for binaural beats.
 brain_beat.save_beat(
-  output_file_name="save_binaural_beat.wav",
-  frequencys=(400, 430),
-  play_time=10,
-  volume=0.01
+    output_file_name="save_binaural_beat.wav",
+    frequencys=(400, 430),
+    play_time=10,
+    volume=0.01
 )
 ```
 

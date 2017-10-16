@@ -12,6 +12,10 @@ In relation to my [Automatic Summarization Library](https://github.com/chimera0/
 
 For instance, [demo_dbm_multi_layer_builder.py](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo_dbm_multi_layer_builder.py) is implemented for running the **deep boltzmann machine** to extract so-called feature points. This script is premised on a kind of *builder pattern* for separating the construction of complex **restricted boltzmann machines** from its **graph** representation so that the same construction process can create different representations. Because of common design pattern and polymorphism, the **stacked auto-encoder** in [demo_stacked_auto_encoder.py](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo_stacked_auto_encoder.py) and the **multi-layer neural networks** in [demo_nn_multi_layer_builder.py](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo_nn_multi_layer_builder.py) are *functionally equivalent* to **deep boltzmann machine**.
 
+## Documentation
+
+Full documentation is available on https://code.accel-brain.com/Deep-Learning-by-means-of-Design-Pattern/ and contains information on functionally reusability, functional scalability and functional extensibility.
+
 ## Installation
 
 Install using pip:

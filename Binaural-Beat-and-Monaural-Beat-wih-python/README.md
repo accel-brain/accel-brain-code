@@ -6,6 +6,10 @@
 
 This Python script enables you to handle your mind state by a kind of "Brain-Wave Controller" which is generally known as Biaural beat or Monauarl beats in a simplified method.
 
+## Documentation
+
+Full documentation is available on https://code.accel-brain.com/Binaural-Beat-and-Monaural-Beat-with-python/ . This document contains information on functionally reusability, functional scalability and functional extensibility.
+
 ## Installation
 
 Install using pip:

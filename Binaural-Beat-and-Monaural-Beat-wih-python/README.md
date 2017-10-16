@@ -90,47 +90,60 @@ You can use this library as a module by executing an import statement in your Py
 
 For example, if `400` Hz was played in left ear and `430` Hz in the right, then the binaural beats would have a frequency of 30 Hz.
 
+Import Python and Cython modules.
+
 ```python
 from AccelBrainBeat.brainbeat.binaural_beat import BinauralBeat
+```
 
- brain_beat = BinauralBeat() # for binaural beats.
- brain_beat.play_beat(
-    frequencys=(400, 430), # The type is tuple. This is pair of both frequencys.
-    play_time=10, # This is per seconds.
-    volume=0.01 # This is the sound volume. It depends on your environment.
+Instantiate objects and call the method.
+
+```python
+brain_beat = BinauralBeat()
+
+brain_beat.play_beat(
+    frequencys=(400, 430),
+    play_time=10,
+    volume=0.01
 )
 ```
 
+- The type of `frequencys` is tuple. This is a pair of both frequencys.
+- `play_time` is playing times(per seconds).
+- `volume` is the sound volume. It depends on your environment.
+
 ### Create and play "Monaural Beat"
 
-The interface of monaural beats is same as the binaural beats.
+The interface of monaural beats is same as the binaural beats. `MonoauralBeat` is functionally equivalent to `BinauralBeat`.
 
 ```python
 from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
- brain_beat = MonauralBeat() # for monaural beats.
- brain_beat.play_beat(
-    frequencys=(400, 430), # The type is tuple. This is pair of both frequencys.
-    play_time=10, # This is per seconds.
-    volume=0.01 # This is the sound volume. It depends on your environment.
+brain_beat = MonauralBeat()
+brain_beat.play_beat(
+    frequencys=(400, 430),
+    play_time=10,
+    volume=0.01
 )
 ```
 
 ### Create wav file of "Binaural Beat"
 
-Change method.
+Call the method.
 
 ```python
 from AccelBrainBeat.brainbeat.binaural_beat import BinauralBeat
 
- brain_beat = BinauralBeat() # for binaural beats.
- brain_beat.save_beat(
-    output_file_name="save_binaural_beat.wav", # wav file name.
-    frequencys=(400, 430), # The type is tuple. This is pair of both frequencys.
-    play_time=10, # This is per seconds.
-    volume=0.01 # This is the sound volume. It depends on your environment.
+brain_beat = BinauralBeat() # for binaural beats.
+brain_beat.save_beat(
+  output_file_name="save_binaural_beat.wav",
+  frequencys=(400, 430),
+  play_time=10,
+  volume=0.01
 )
 ```
+
+- `output_file_name` is wav file name or path.
 
 ### Create wav file of "Monaural Beat"
 
@@ -139,12 +152,12 @@ The interface of monaural beats is also same as the binaural beats.
 ```python
 from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 
- brain_beat = MonauralBeat() # for monaural beats.
- brain_beat.save_beat(
-    output_file_name="save_monaural_beat.wav", # wav file name.
-    frequencys=(400, 430), # The type is tuple. This is pair of both frequencys.
-    play_time=10, # This is per seconds.
-    volume=0.01 # This is the sound volume. It depends on your environment.
+brain_beat = MonauralBeat() # for monaural beats.
+brain_beat.save_beat(
+    output_file_name="save_monaural_beat.wav",
+    frequencys=(400, 430),
+    play_time=10,
+    volume=0.01
 )
 ```
 

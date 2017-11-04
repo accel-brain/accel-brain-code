@@ -4,10 +4,10 @@ from setuptools import setup, find_packages
 
 setup(
     name='AccelBrainBeat',
-    version='1.0.2',
+    version='1.0.3',
     description='AccelBrainBeat is a Python library for creating the binaural beats or monaural beats. You can play these beats and generate wav files. The frequencys can be optionally selected.',
     long_description='This Python script enables you to handle your mind state by a kind of "Brain-Wave Controller" which is generally known as Biaural beats or Monaural beats in a simplified method. The function of this library is inducing you to be extreme immersive mind state on the path to peak performance. You can handle your mind state by using this library which is able to control your brain waves by the binaural beats and the monaural beats.',
-    url='https://github.com/chimera0/accel-brain-code/tree/master/Binaural-Beat-and-Monaural-Beat-wih-python',
+    url='https://github.com/chimera0/accel-brain-code/tree/master/Binaural-Beat-and-Monaural-Beat-with-python',
     author='chimera0',
     author_email='ai-brain-lab@accel-brain.com',
     license='GPL2',

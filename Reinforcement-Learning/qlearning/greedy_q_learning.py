@@ -6,68 +6,62 @@ from rl.q_learning import QLearning
 
 class GreedyQLearning(QLearning):
     '''
-    ε-greedyなQ学習を実行する。
+    ε-greedy Q-Learning.
 
     Attributes:
-        epsilon_greedy_rate:    ε-グリーディの確率の抽象プロパティ
+        epsilon_greedy_rate:    ε-greedy rate.
 
     '''
+    
+    # ε-greedy rate.
+    __epsilon_greedy_rate = 0.75
+    
+    def get_epsilon_greedy_rate(self):
+        ''' getter '''
+        if isinstance(self.__epsilon_greedy_rate, float) is True:
+            return self.__epsilon_greedy_rate
+        else:
+            raise TypeError("The type of __epsilon_greedy_rate must be float.)
 
-    @abstractproperty
-    def epsilon_greedy_rate(self):
-        '''
-        抽象プロパティ
-        ε-グリーディの確率
-        '''
-        raise NotImplementedError("This property must be implemented.")
+    def set_epsilon_greedy_rate(self, value):
+        ''' setter '''
+        if isinstance(value, float) is True:
+            self.__epsilon_greedy_rate = value
+        else:
+            raise TypeError("The type of __epsilon_greedy_rate must be float.)
 
-    # ε-グリーディで貪欲に探索した回数
-    __epsilon_greedy_count = 0
+    epsilon_greedy_rate = property(get_epsilon_greedy_rate, set_epsilon_greedy_rate)
 
     def select_action(self, state_key, next_action_list):
         '''
-        状態に紐付けて行動を選択する。
-        具象クラス
-        ε-greedyに、Q値が最大になる場合の探索を行なう。
+        Select action by Q(state, action).
+        
+        Concreat method.
+
+        ε-greedy.
 
         Args:
-            state_key:      状態
+            state_key:              The key of state.
+            next_action_list:       The possible action in `self.t+1`.
+                                    If the length of this list is 0, all action should be possible.
 
         Retruns:
-            (行動, 最大報酬値)のtuple
+            The key of action.
 
         '''
+        true_rate_list = [True] * int(self.epsilon_greedy_rate * 100)
+        false_rate_list = [False] * int((1 - self.epsilon_greedy_rate) * 100)
 
-        action_key = self.predict_next_action(state_key, next_action_list)
-        self.__epsilon_greedy_count += 1
+        univerce_list = []
+        [univerce_list.append(true_rate) for true_rate in true_rate_list]
+        [univerce_list.append(false_rate) for false_rate in false_rate_list]
 
-        # デバッグメッセージを追加
-        self.__debug_select_action(state_key, action_key)
+        epsilon_greedy_flag = random.choice(univerce_list)
 
+        if epsilon_greedy_flag is True:
+            # Not greedy mode.
+            action_key = random.choice(next_action_list)
+        else:
+            # Greedy mode.
+            action_key = self.predict_next_action(state_key, next_action_list)
         return action_key
-
-    def __debug_select_action(self, state_key, action_key):
-        '''
-        デバッグメッセージを追加する
-
-        Args:
-            state_key:      状態
-            action_key:     行動
-        '''
-        if self.debug_mode is True:
-            max_q = self.extract_q_dict(state_key, action_key)
-            self.debug_message_list.append(
-                "Greedy ..."
-            )
-            self.debug_message_list.append(
-                "Max Q: " + str(max_q) + "\tNext Action: " + str(action_key)
-            )
-
-    def __del__(self):
-        '''
-        デストラクタ
-        '''
-        if self.debug_mode is True:
-            self.debug_message_list.append("Greedy searching: " + str(self.__epsilon_greedy_count) + "\n\n")
-
-        super().__del__()

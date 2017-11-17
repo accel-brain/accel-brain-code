@@ -1,4 +1,3 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
 import random
 from abc import ABCMeta, abstractmethod
@@ -7,28 +6,24 @@ from operator import itemgetter
 
 class QLearning(metaclass=ABCMeta):
     '''
-    Q学習の抽象基底クラス
-    構造は無難にTemplate Method Patternを選択。
-    getter/setterでアルゴリズムのチューニングを行なう。
+    Abstract base class and `Template Method Pattern` of Q-Learning.
 
     Attributes:
-        alpha_value:        学習率：アルファ値。比例して学習時の変異性が高まる。
-        gamma_value:        割引率：ガンマ値。比例して行動時に獲得し得る報酬の可能性からの影響度が高まる。
-        q_dict:             状態：sにおける行動：aのQ値。
-        r_dict:             状態：sにおける報酬。
-        t:                  時点
-        debug_mode:         True:デバッグモード,  False:非デバッグモード
-        debug_message_list: デバッグメッセージのリスト
+        alpha_value:        Learning rate.
+        gamma_value:        Gammma value.
+        q_dict:             Q(state, action) 
+        r_dict:             R(state)
+        t:                  time.
 
     '''
 
-    # 学習率：アルファ値。比例して学習時の変異性が高まる。
+    # Learning rate.
     __alpha_value = 0.1
 
     def get_alpha_value(self):
         '''
         getter
-        学習率
+        Learning rate.
         '''
         if isinstance(self.__alpha_value, float) is False:
             raise TypeError("The type of __alpha_value must be float.")
@@ -37,7 +32,7 @@ class QLearning(metaclass=ABCMeta):
     def set_alpha_value(self, value):
         '''
         setter
-        学習率
+        Learning rate.
         '''
         if isinstance(value, float) is False:
             raise TypeError("The type of __alpha_value must be float.")
@@ -45,13 +40,13 @@ class QLearning(metaclass=ABCMeta):
 
     alpha_value = property(get_alpha_value, set_alpha_value)
 
-    # 割引率:ガンマ値。比例して、次回行動時に獲得し得る報酬からの影響度が高まる。
+    # Gamma value.
     __gamma_value = 0.5
 
     def get_gamma_value(self):
         '''
         getter
-        割引率
+        Gamma value.
         '''
         if isinstance(self.__gamma_value, float) is False:
             raise TypeError("The type of __gamma_value must be float.")
@@ -60,7 +55,7 @@ class QLearning(metaclass=ABCMeta):
     def set_gamma_value(self, value):
         '''
         setter
-        割引率
+        Gamma value.
         '''
         if isinstance(value, float) is False:
             raise TypeError("The type of __gamma_value must be float.")
@@ -68,13 +63,13 @@ class QLearning(metaclass=ABCMeta):
 
     gamma_value = property(get_gamma_value, set_gamma_value)
 
-    # Q値
+    # Q(state, action)
     __q_dict = {}
 
     def get_q_dict(self):
         '''
         getter
-        Q値
+        Q(state, action)
         '''
         if isinstance(self.__q_dict, dict) is False:
             raise TypeError("The type of __q_dict must be dict.")
@@ -83,7 +78,7 @@ class QLearning(metaclass=ABCMeta):
     def set_q_dict(self, value):
         '''
         setter
-        Q値
+        Q(state, action)
         '''
         if isinstance(value, dict) is False:
             raise TypeError("The type of __q_dict must be dict.")
@@ -93,15 +88,14 @@ class QLearning(metaclass=ABCMeta):
 
     def extract_q_dict(self, state_key, action_key):
         '''
-        プロパティ：q_dictからキーを指定して取得する
-        キーが存在しない場合はデフォルト値を返す
+        Extract Q-Value from `self.q_dict`.
 
         Args:
-            state_key:      状態
-            action_key:     行動
+            state_key:      The key of state.
+            action_key:     The key of action.
 
         Returns:
-            Q値
+            Q-Value.
 
         '''
         q = 0.0
@@ -114,16 +108,15 @@ class QLearning(metaclass=ABCMeta):
 
     def save_q_dict(self, state_key, action_key, q_value):
         '''
-        プロパティ：q_dictにキーを指定して保存する
-        キーが存在しない場合はデフォルト値を返す
+        Insert or update Q-Value in `self.q_dict`.
 
         Args:
-            state_key:      状態
-            action_key:     行動
-            q_value:        Q値
+            state_key:      State.
+            action_key:     Action.
+            q_value:        Q-Value.
 
         Exceptions:
-            TypeError:      q_valueがfloat型ではない場合に発生する例外
+            TypeError:      If the type of `q_value` is not float.
 
         '''
         if isinstance(q_value, float) is False:
@@ -134,13 +127,13 @@ class QLearning(metaclass=ABCMeta):
         else:
             self.q_dict[state_key][action_key] = q_value
 
-    # 状態ごとの報酬
+    # R(state)
     __r_dict = {}
 
     def get_r_dict(self):
         '''
         getter
-        状態ごとの報酬
+        R(state)
         '''
         if isinstance(self.__r_dict, dict) is False:
             raise TypeError("The type of __r_dict must be dict.")
@@ -149,7 +142,7 @@ class QLearning(metaclass=ABCMeta):
     def set_r_dict(self, value):
         '''
         setter
-        状態ごとの報酬
+        R(state)
         '''
         if isinstance(value, dict) is False:
             raise TypeError("The type of __r_dict must be dict.")
@@ -159,14 +152,14 @@ class QLearning(metaclass=ABCMeta):
 
     def extract_r_dict(self, state_key, action_key=None):
         '''
-        プロパティ：r_dictからキーを指定して取得する
+        Extract R-Value from `self.r_dict`.
 
         Args:
-            state_key:     状態
-            action_key:    行動
+            state_key:     The key of state.
+            action_key:    The key of action.
 
         Returns:
-            報酬
+            R-Value(Reward).
 
         '''
         try:
@@ -180,13 +173,15 @@ class QLearning(metaclass=ABCMeta):
 
     def save_r_dict(self, state_key, r_value, action_key=None):
         '''
-        プロパティ：r_dictにキーを指定して保存する
+        Insert or update R-Value in `self.r_dict`.
 
         Args:
-            state_key:     状態
-            r_value:       報酬
-            action_key:    行動
+            state_key:     The key of state.
+            r_value:       R-Value(Reward).
+            action_key:    The key of action if it is nesesary for the parametar of value function.
 
+        Exceptions:
+            TypeError:      If the type of `r_value` is not float.
         '''
         if isinstance(r_value, float) is False:
             raise TypeError("The type of r_value must be float.")
@@ -196,13 +191,13 @@ class QLearning(metaclass=ABCMeta):
         else:
             self.r_dict[state_key] = r_value
 
-    # 状態と行動の時間
+    # Time.
     __t = 0
 
     def get_t(self):
         '''
         getter
-        状態と行動の時間
+        Time.
         '''
         if isinstance(self.__t, int) is False:
             raise TypeError("The type of __t must be int.")
@@ -211,7 +206,7 @@ class QLearning(metaclass=ABCMeta):
     def set_t(self, value):
         '''
         setter
-        状態と行動の時間
+        Time.
         '''
         if isinstance(value, int) is False:
             raise TypeError("The type of __t must be int.")
@@ -219,47 +214,16 @@ class QLearning(metaclass=ABCMeta):
 
     t = property(get_t, set_t)
 
-    # デバッグモード
-    __debug_mode = False
-
-    def get_debug_mode(self):
-        if isinstance(self.__debug_mode, bool) is False:
-            raise TypeError("The type of __debug_mode must be bool.")
-        return self.__debug_mode
-
-    def set_debug_mode(self, value):
-        if isinstance(value, bool) is False:
-            raise TypeError("The type of __debug_mode must be bool.")
-        self.__debug_mode = value
-
-    debug_mode = property(get_debug_mode, set_debug_mode)
-
-    # デバッグメッセージ
-    __debug_message_list = []
-
-    def get_debug_message_list(self):
-        if isinstance(self.__debug_message_list, list) is False:
-            raise TypeError("The type of __debug_message_list must be list.")
-        return self.__debug_message_list
-
-    def set_debug_message_list(self, value):
-        if self.debug_mode is True:
-            if isinstance(value, list) is False:
-                raise TypeError("The type of __debug_message_list must be list.")
-            self.__debug_message_list = value
-
-    debug_message_list = property(get_debug_message_list, set_debug_message_list)
-
     @abstractmethod
     def learn(self, state_key, limit):
         '''
-        Q学習を実行する。
-        迷路探索やバンディットアルゴリズムへの応用など、
-        具象的なユースケースが複数想定されるため、抽象メソッドに留めておく。
+        Learning.
+        
+        Abstract method for concreate usecases.
 
         Args:
-            state_key:      状態
-            limit:          学習回数
+            state_key:      State.
+            limit:          The number of learning.
 
         '''
         raise NotImplementedError("This method must be implemented.")
@@ -267,16 +231,17 @@ class QLearning(metaclass=ABCMeta):
     @abstractmethod
     def select_action(self, state_key, next_action_list):
         '''
-        状態に紐付けて行動を選択する。
-        迷路探索やバンディットアルゴリズムへの応用など、
-        具象的なユースケースが複数想定されるため、抽象メソッドに留めておく。
+        Select action by Q(state, action).
+
+        Abstract method for concreate usecases.
 
         Args:
-            state_key:              状態
-            next_action_list:       t+1の次回行動時に可能な行動。空なら全ての行動が可能と見做す。
+            state_key:              The key of state.
+            next_action_list:       The possible action in `self.t+1`.
+                                    If the length of this list is zero, all action should be possible.
 
         Retruns:
-            (行動, Qの最大値)のtuple
+            The key of action.
 
         '''
         raise NotImplementedError("This method must be implemented.")
@@ -284,103 +249,51 @@ class QLearning(metaclass=ABCMeta):
     @abstractmethod
     def extract_possible_actions(self, state_key):
         '''
-        次回のs+1の状態で選択可能な行動のリストを得る。
+        Extract the list of the possible action in `self.t+1`.
 
-        抽象メソッド。
-        状態を前提とした行動選択は迷路探索などの具象的な環境で異なるため、
-        下位クラスに実現を委ねる。
+        Abstract method for concreate usecases.
 
         Args:
-            state_key       s+1の状態
+            state_key       The key of state in `self.t+1`.
 
         Returns:
-            選択可能な行動リスト
+            The possible action in `self.t+1`.
 
         '''
         raise NotImplementedError("This method must be implemented.")
 
     def update_q(self, state_key, action_key, reward_value, next_max_q):
         '''
-        Q値を更新する
+        Update Q-Value.
 
         Args:
-            state_key:              状態
-            action_key:             行動
-            reward_value:           状態：state_keyにおける報酬
-            next_max_q:             次回行動時の最大Q値
+            state_key:              The key of state.
+            action_key:             The key of action.
+            reward_value:           R-Value(Reward).
+            next_max_q:             Maximum Q-Value.
 
         '''
-        # 現在のQ値
+        # Now Q-Value.
         q = self.extract_q_dict(state_key, action_key)
-        # Q値を更新する
+        # Update Q-Value.
         new_q = q + self.alpha_value * (reward_value + (self.gamma_value * next_max_q) - q)
-        # デバッグメッセージを追加する
-        self.__debug_update_q(state_key, action_key, reward_value, next_max_q, new_q)
-        # 更新後のQ値を登録する
+        # Save updated Q-Value.
         self.save_q_dict(state_key, action_key, new_q)
 
     def predict_next_action(self, state_key, next_action_list):
         '''
-        Q値が最大になる次回の行動を予測する。
+        Predict next action by Q-Learning.
 
         Args:
-            state_key:          状態(S_t+1)
-            next_action_list:   t+1の状態で採り得る行動リスト
+            state_key:          The key of state in `self.t+1`.
+            next_action_list:   The possible action in `self.t+1`.
 
         Returns:
-            行動
+            The key of action.
 
         '''
         next_action_q_list = [(action_key, self.extract_q_dict(state_key, action_key)) for action_key in next_action_list]
-        # 最大値が複数個ある場合、若いキーが一律に選択されてしまうため
         random.shuffle(next_action_q_list)
         max_q_action = max(next_action_q_list, key=itemgetter(1))[0]
 
         return max_q_action
-
-    def __debug_update_q(self, state_key, action_key, reward_value, next_max_q, new_q):
-        '''
-        Q値を更新した際のデバッグメッセージを追加する
-
-        Args:
-            state_key:              状態
-            action_key:             行動
-            reward_value:           状態：state_keyにおける報酬
-            next_max_q:             次回行動時の最大Q値
-            new_q:                  更新後のQ値
-
-        '''
-        q = self.extract_q_dict(state_key, action_key)
-
-        self.debug_message_list.append(
-            "\tQ(S_t, A_t) = " + str(q)
-        )
-        self.debug_message_list.append(
-            "\tα-value = " + str(self.alpha_value)
-        )
-        self.debug_message_list.append(
-            "\tγ-value = " + str(self.gamma_value)
-        )
-        self.debug_message_list.append(
-            "\tpossible max Q = " + str(next_max_q)
-        )
-        self.debug_message_list.append(
-            "\tReward value = " + str(reward_value)
-        )
-        self.debug_message_list.append(
-            "\tQ(S_t+1, A_t+1) = Q(S_t, A_t) + α-value * (Reward value + γ-value * possible max Q - Q(S_t, A_t))"
-        )
-        self.debug_message_list.append(
-            "\tQ(S_t+1, A_t+1) = " + str(q) + " + " + str(self.alpha_value) + " * (" + str(reward_value) + " + (" + str(self.gamma_value) + " * " + str(next_max_q) + ") - " + str(q) + ")"
-        )
-        self.debug_message_list.append(
-            "\tQ(S_t+1, A_t+1) = " + str(new_q)
-        )
-
-    def __del__(self):
-        '''
-        デストラクタ
-        デバッグモードの場合、デバッグメッセージをプリントする。
-        '''
-        if self.debug_mode is True:
-            print("\n".join(self.debug_message_list))

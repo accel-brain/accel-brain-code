@@ -22,8 +22,8 @@ if __name__ == "__main__":
         ContrastiveDivergence(),
         0.05
     )
-    dbm.learn(map_arr, traning_count=1)
-    feature_map_arr = pd.DataFrame(dbm.feature_points_arr)
+    dbm.learn(map_arr.astype(float), traning_count=1)
+    feature_map_arr = dbm.feature_points_arr
 
     map_arr = map_arr.astype(object)
     map_arr[:, 0] = wall_label

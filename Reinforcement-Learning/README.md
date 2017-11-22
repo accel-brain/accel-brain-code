@@ -121,7 +121,18 @@ python demo_maze_deep_boltzmann_q_learning.py
 
 #### Map setting.
 - map size: `20` * `20`.
-- Reward value: Uniform distribution.
+- Start Point: (1, 1)
+- End Point: (18, 18)
+
+#### Reward value
+
+```python
+import numpy as np
+
+map_d = 20
+map_arr = np.random.rand(map_d, map_d)
+map_arr += np.diag(list(range(map_d)))
+```
 
 #### Hyperparameters
 
@@ -150,9 +161,20 @@ Tests show that the number of searches on the *Q-Learning* with pre-training is 
 
 ### Case 2: for less greedy searches
 
-#### Map setting.
+#### Map setting
 - map size: `20` * `20`.
-- Reward value: Uniform distribution.
+- Start Point: (1, 1)
+- End Point: (18, 18)
+
+#### Reward value
+
+```python
+import numpy as np
+
+map_d = 20
+map_arr = np.random.rand(map_d, map_d)
+map_arr += np.diag(list(range(map_d)))
+```
 
 #### Hyperparameters
 

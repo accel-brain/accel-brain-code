@@ -1,6 +1,6 @@
 # Reinforcement Learning
 
-These Python Scripts create a *template method pattern* for implementing a Q-learning.
+`pyqlearning` create a *template method pattern* for implementing a Q-learning.
 
 ## Description
 

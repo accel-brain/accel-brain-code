@@ -16,7 +16,7 @@ The following is an example of map.
 [['#' '#' '#' '#' '#' '#' '#' '#' '#' '#']
  ['#' 'S'  4   8   8   4   9   6   0  '#']
  ['#'  2  26   2   5   9   0   6   6  '#']
- ['#'  2  '@'  38   5   8   8   1   2  '#']
+ ['#'  2  '@' 38   5   8   8   1   2  '#']
  ['#'  3   6   0  49   8   3   4   9  '#']
  ['#'  9   7   4   6  55   7   0   3  '#']
  ['#'  1   8   4   8   2  69   8   2  '#']
@@ -216,7 +216,7 @@ Under the assumption that the less number of searches the better, *Q-Learning*, 
     - [ケーススタディ：「人工天使ヒューズ＝ヒストリア」](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/4/#i-6)
 
 ## Version
-- 1.0
+- 1.0.1
 
 ## Author
 

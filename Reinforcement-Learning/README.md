@@ -1,6 +1,6 @@
 # Reinforcement Learning
 
-`pyqlearning` create a *template method pattern* for implementing a Q-learning.
+`pyqlearning` is Python library to implement Reinforcement Learning, especially for Q-Learning.
 
 ## Description
 

@@ -6,7 +6,31 @@ These Python Scripts create a *template method pattern* for implementing a Q-lea
 
 Considering many variable parts and functional extensions in the Q-learning paradigm, I implemented these Python Scripts for  demonstrations of *commonality/variability analysis* in order to design the models.
 
-### Demonstration: Q-Learning
+## Installation
+
+Install using pip:
+
+```sh
+pip install pyqlearning
+```
+
+### Source code
+
+The source code is currently hosted on GitHub.
+
+- [accel-brain-code/Reinforcement-Learning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning)
+
+### Python package index(PyPI)
+
+Installers for the latest released version are available at the Python package index.
+
+- [pyqlearning : Python Package Index](https://pypi.python.org/pypi/pyqlearning/)
+
+### Dependencies
+
+- numpy: v1.13.3 or higher.
+
+## Demonstration: Q-Learning
 
 [demo_maze_greedy_q_learning.py](demo_maze_greedy_q_learning.py) is a simple maze solving algorithm. This algorithm allow the *agent* to search the goal in maze by *reward value* in each point in map. 
 
@@ -38,7 +62,7 @@ To see how *agent* can search and rearch the goal, run the batch program: [demo_
 python demo_maze_greedy_q_learning.py
 ```
 
-### Demonstration: Q-Learning, loosely coupled with Deep Boltzmann Machine.
+## Demonstration: Q-Learning, loosely coupled with Deep Boltzmann Machine.
 
 [demo_maze_deep_boltzmann_q_learning.py](demo_maze_deep_boltzmann_q_learning.py) is a demonstration of how the *Q-Learning* can be to *deepen*. A so-called *Deep Q-Network* (DQN) is meant only as an example. In this demonstration, let me cite the *Q-Learning* , loosely coupled with **Deep Boltzmann Machine** (DBM). As API Documentation of [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library has pointed out, DBM is functionally equivalent to stacked auto-encoder. The main function I observe is the same as dimensions reduction(or pre-training). Then the function this DBM is dimensionality reduction of *reward value* matrix.
 
@@ -46,7 +70,7 @@ Q-Learning, loosely coupled with Deep Boltzmann Machine (DBM), is a more effecti
 
 To realize the power of DBM, I performed a simple experiment.
 
-#### Feature engineering
+### Feature engineering
 
 For instance, the following is a tuple of so-called *observed data points* in DBM learning.
 
@@ -216,6 +240,7 @@ Under the assumption that the less number of searches the better, *Q-Learning*, 
     - [ケーススタディ：「人工天使ヒューズ＝ヒストリア」](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/4/#i-6)
 
 ## Version
+
 - 1.0.1
 
 ## Author
@@ -229,7 +254,3 @@ Under the assumption that the less number of searches the better, *Q-Learning*, 
 ## License
 
 - GNU General Public License v2.0
-
-## Requires
-
-- Python3.4.4

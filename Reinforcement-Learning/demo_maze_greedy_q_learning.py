@@ -6,7 +6,7 @@ from devsample.maze_greedy_q_learning import MazeGreedyQLearning
 if __name__ == "__main__":
     # "S": Start point, "G": End point(goal), "#": wall, "#": Agent.
     start_point_label, end_point_label, wall_label, agent_label = ("S", "G", "#", "@")
-    map_d = 20
+    map_d = 10
     map_arr = 10 * np.random.rand(map_d, map_d)
     map_arr = map_arr.astype(int)
     map_arr += np.diag(list(range(map_d))) * 10

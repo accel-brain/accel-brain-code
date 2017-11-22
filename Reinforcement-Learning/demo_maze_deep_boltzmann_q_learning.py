@@ -10,7 +10,7 @@ from pydbm.activation.logistic_function import LogisticFunction
 if __name__ == "__main__":
     # "S": Start point, "G": End point(goal), "#": wall, "#": Agent.
     start_point_label, end_point_label, wall_label, agent_label = ("S", "G", "#", "@")
-    map_d = 100
+    map_d = 10
     map_arr = np.random.rand(map_d, map_d)
     map_arr += np.diag(list(range(map_d)))
 

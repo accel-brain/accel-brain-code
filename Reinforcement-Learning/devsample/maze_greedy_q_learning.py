@@ -29,6 +29,9 @@ class MazeGreedyQLearning(GreedyQLearning):
     # Label of agent.
     __agent_label = "@"
 
+    # Map logs.
+    __map_arr_list = []
+
     def initialize(self, map_arr, start_point_label="S", end_point_label="G", wall_label="#", agent_label="@"):
         '''
         Initialize map of maze and setup reward value.
@@ -41,6 +44,8 @@ class MazeGreedyQLearning(GreedyQLearning):
             agent_label:          Label of agent.
 
         '''
+        np.set_printoptions(threshold=np.inf)
+
         self.__agent_label = agent_label
         self.__map_arr = map_arr
         self.__start_point_label = start_point_label
@@ -115,10 +120,14 @@ class MazeGreedyQLearning(GreedyQLearning):
         goal_point_tuple = np.where(map_arr == self.__end_point_label)
         goal_x, goal_y = goal_point_tuple
         map_arr[y][x] = "@"
-        np.set_printoptions(threshold=np.inf)
-        print(map_arr)
-        print("Time: " + str(self.t))
+        self.__map_arr_list.append(map_arr)
         if goal_x == x and goal_y == y:
+            for i in range(10):
+                key = len(self.__map_arr_list) - (10 - i)
+                print("Number of searches: " + str(key))
+                print(self.__map_arr_list[key])
+            print("Total number of searches: " + str(self.t))
+            print(self.__map_arr_list[-1])
             print("Goal !!")
 
     def check_the_end_flag(self, state_key):

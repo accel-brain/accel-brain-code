@@ -7,17 +7,17 @@ from rl.q_learning import QLearning
 
 class BoltzmannQLearning(QLearning):
     '''
-    Boltzmann選択によるQ学習を実行する。
+    Q-Learning with Boltzmann distribution.
 
     '''
 
-    # 時間レート
+    # Time rate.
     __time_rate = 0.001
 
     def get_time_rate(self):
         '''
         getter
-        時間レート
+        Time rate.
         '''
         if isinstance(self.__time_rate, float) is False:
             raise TypeError("The type of __time_rate must be float.")
@@ -30,7 +30,7 @@ class BoltzmannQLearning(QLearning):
     def set_time_rate(self, value):
         '''
         setter
-        時間レート
+        Time rate.
         '''
         if isinstance(value, float) is False:
             raise TypeError("The type of __time_rate must be float.")
@@ -52,7 +52,7 @@ class BoltzmannQLearning(QLearning):
             state_key:      状態
 
         Retruns:
-            (行動, 最大報酬値)のtuple
+            The key of action.
 
         '''
         next_action_b_list = self.__calculate_boltzmann_factor(state_key, next_action_list)
@@ -70,17 +70,14 @@ class BoltzmannQLearning(QLearning):
                 break
 
         max_b_action_key = next_action_b_list[i][0]
-
-        # デバッグメッセージを追加
-        self.__debug_select_action(state_key, max_b_action_key)
         return max_b_action_key
 
     def __calculate_sigmoid(self):
         '''
-        ボルツマンの温度関数
+        Function of temperature.
 
         Returns:
-            時間：self.tとself.time_rateと共に0に収束する値
+            Sigmoid.
 
         '''
         sigmoid = 1 / math.log(self.t * self.time_rate + 1.1)
@@ -88,44 +85,18 @@ class BoltzmannQLearning(QLearning):
 
     def __calculate_boltzmann_factor(self, state_key, next_action_list):
         '''
-        ボルツマン因子を計算する
+        Calculate boltzmann factor.
 
         Args:
-            state_key:            状態
-            next_action_list:     選択可能な行動リスト
+            state_key:              The key of state.
+            next_action_list:       The possible action in `self.t+1`.
+                                    If the length of this list is 0, all action should be possible.
 
         Returns:
-            当該状態で選択可能な行動のボルツマン因子のリスト
-            リストの要素は(行動, ボルツマン確率)のtuple
+            [(`The key of action`, `boltzmann probability`)]
         '''
         sigmoid = self.__calculate_sigmoid()
         parent_list = [(action_key, math.exp(self.extract_q_dict(state_key, action_key) / sigmoid)) for action_key in next_action_list]
         parent_b_list = [parent[1] for parent in parent_list]
         next_action_b_list = [(action_key, child_b / sum(parent_b_list)) for action_key, child_b in parent_list]
         return next_action_b_list
-
-    def __debug_select_action(self, state_key, action_key):
-        '''
-        デバッグメッセージを追加する
-
-        Args:
-            state_key:      状態
-            action_key:     行動
-        '''
-        if self.debug_mode is True:
-            max_q = self.extract_q_dict(state_key, action_key)
-            self.debug_message_list.append(
-                "\n\tBoltzmann Selection ..."
-            )
-            self.debug_message_list.append(
-                "\tMax Q: " + str(max_q) + "\tNext Action: " + str(action_key)
-            )
-
-    def __del__(self):
-        '''
-        デストラクタ
-        '''
-        if self.debug_mode is True:
-            self.debug_message_list.append("Boltmann searching: " + str(self.t) + "\n\n")
-
-        super().__del__()

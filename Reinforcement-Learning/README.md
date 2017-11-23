@@ -6,6 +6,10 @@
 
 Considering many variable parts and functional extensions in the Q-learning paradigm, I implemented these Python Scripts for  demonstrations of *commonality/variability analysis* in order to design the models.
 
+## Documentation
+
+Full documentation is available on [https://code.accel-brain.com/Reinforcement-Learning/](https://code.accel-brain.com/Reinforcement-Learning/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
+
 ## Installation
 
 Install using pip:
@@ -232,7 +236,7 @@ Under the assumption that the less number of searches the better, *Q-Learning*, 
 - [Webクローラ型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-web-crawling-ai/)
     - 20001 bots are running as 20001 web-crawlers and 20001 web-scrapers.
 
-### Related Case Studies
+### Related PoC
 
 - [Webクローラ型人工知能によるパラドックス探索暴露機能の社会進化論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/) (Japanese)
     - [プロトタイプの開発：人工知能エージェント「キメラ・ネットワーク」](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/5/#i-8)
@@ -245,7 +249,7 @@ Under the assumption that the less number of searches the better, *Q-Learning*, 
 
 ## Version
 
-- 1.0.1
+- 1.0.2
 
 ## Author
 

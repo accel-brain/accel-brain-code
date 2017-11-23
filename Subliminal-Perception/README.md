@@ -115,9 +115,9 @@ After loading [js/Link2Keyword.js](https://github.com/chimera0/accel-brain-code/
 - [Twitter](https://media.accel-brain.com/agency-operation-chimera0-2017-10-08-autotweety-net-connect-php/#link2keyword=Twitter) (Japanese)
     - Click here.
 
-### Related Case Studies
+### Related PoC
 
-- [ヴァーチャルリアリティにおける動物的「身体」の物神崇拝的なユースケース](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/)
+- [ヴァーチャルリアリティにおける動物的「身体」の物神崇拝的なユースケース](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/) (Japanese)
     - [プロトタイプの開発：閾下知覚のメディア](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/2/#i-5)
 
 ## Version

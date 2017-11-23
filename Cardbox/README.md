@@ -14,7 +14,7 @@ You can write down as many ideas as possible onto cards. Like the KJ Method or t
 
 This card box can save card and tag data to server. If you create tag, the autocomplete function provides the tag of name as suggestions while you type into the field. The tagging and autocompletion enables you to quickly find and discover potential relations among the cards that you created.
 
-### Related Case Studies
+### Related PoC
 
 - [「時間」感覚の等価機能主義的な社会システム理論](https://accel-brain.com/aquivalenzfunktionalismus-und-sozialsystemtheorie-von-sinn-fur-zeit/) (Japanese)
     - [プロトタイプの開発：カードボックスの機能的等価物としてのカードボックス](https://accel-brain.com/aquivalenzfunktionalismus-und-sozialsystemtheorie-von-sinn-fur-zeit/4/#i-6)

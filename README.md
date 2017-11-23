@@ -46,9 +46,13 @@ Full documentation is available on [https://code.accel-brain.com/Deep-Learning-b
 
 ## [Reinforcement-Learning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning)
 
-These Python Scripts create a template method pattern for implementing a Q-learning.
+`pyqlearning` is Python library to implement Reinforcement Learning, especially for Q-Learning.
 
 Considering many variable parts and functional extensions in the Q-learning paradigm, I implemented these Python Scripts for demonstrations of commonality/variability analysis in order to design the models.
+
+### Documentation
+
+Full documentation is available on [https://code.accel-brain.com/Reinforcement-Learning/](https://code.accel-brain.com/Reinforcement-Learning/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
 
 ## [Subliminal perception](https://github.com/chimera0/accel-brain-code/tree/master/Subliminal-Perception)
 

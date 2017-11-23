@@ -192,7 +192,7 @@ brain_beat.save_beat(
 
  Please choose either binaural beets or monaural beats. If you set up 5 Hz, your brain waves and the frequency can be tuned and then you are able to be the meditative state or focusing the mind. Or what you choose to be relaxed state is the alpha waves(8-12 Hz).
 
-### Related Case Studies
+### Related PoC
 
 - [仏教の社会構造とマインドフルネス瞑想の意味論](https://accel-brain.com/social-structure-of-buddhism-and-semantics-of-mindfulness-meditation/) (Japanese)
     - [プロトタイプの開発：バイノーラルビート](https://accel-brain.com/social-structure-of-buddhism-and-semantics-of-mindfulness-meditation/3/#i-6)

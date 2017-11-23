@@ -118,7 +118,7 @@ After loading [js/Link2Keyword.js](https://github.com/chimera0/accel-brain-code/
 ### Related Case Studies
 
 - [ヴァーチャルリアリティにおける動物的「身体」の物神崇拝的なユースケース](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/)
-    - [ケーススタディ：閾下知覚のメディア](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/2/#i-5)
+    - [プロトタイプの開発：閾下知覚のメディア](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/2/#i-5)
 
 ## Version
 - 1.0.1

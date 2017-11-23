@@ -195,7 +195,7 @@ brain_beat.save_beat(
 ### Related Case Studies
 
 - [仏教の社会構造とマインドフルネス瞑想の意味論](https://accel-brain.com/social-structure-of-buddhism-and-semantics-of-mindfulness-meditation/) (Japanese)
-    - [ケーススタディ：バイノーラルビート](https://accel-brain.com/social-structure-of-buddhism-and-semantics-of-mindfulness-meditation/3/#i-6)
+    - [プロトタイプの開発：バイノーラルビート](https://accel-brain.com/social-structure-of-buddhism-and-semantics-of-mindfulness-meditation/3/#i-6)
 
 ## Author
 

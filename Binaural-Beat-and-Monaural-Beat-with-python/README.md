@@ -10,6 +10,15 @@ This Python script enables you to handle your mind state by a kind of "Brain-Wav
 
 Full documentation is available on [https://code.accel-brain.com/Binaural-Beat-and-Monaural-Beat-with-python/](https://code.accel-brain.com/Binaural-Beat-and-Monaural-Beat-with-python/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
 
+## Demonstration IN Movie
+
+- [Drive to design the brain's level upper](https://www.youtube.com/channel/UCvQNSr2fVjI8bIMhJ_bfQmg) (Youtube)
+
+## Demonstration IN VR
+
+- [Immersive Brain's Level Upper by Binaural Beat and Monaural Beat.](https://www.assetstore.unity3d.com/en/#!/content/66518) (Unity3D Asset Store)
+
+
 ## Installation
 
 Install using pip:
@@ -34,7 +43,6 @@ Binary installers for the latest released version are available at the Python pa
 
 - [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/): v0.2.9 or higher
 - [NumPy](http://www.numpy.org/): v1.7.0 or higher
-
 
 ## Use-case on console
 

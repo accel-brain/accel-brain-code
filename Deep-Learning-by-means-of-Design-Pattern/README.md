@@ -1,4 +1,4 @@
-# Deep Learning by means of Design Pattern
+# Deep Learning Library: pydbm
 
 `pydbm` is Python3 library for building restricted boltzmann machine, deep boltzmann machine, and multi-layer neural networks.
 

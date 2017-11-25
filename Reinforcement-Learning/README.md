@@ -1,4 +1,4 @@
-# Reinforcement Learning
+# Reinforcement Learning Library: pyqlearning
 
 `pyqlearning` is Python library to implement Reinforcement Learning, especially for Q-Learning.
 

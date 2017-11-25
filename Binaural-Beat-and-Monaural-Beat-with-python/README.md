@@ -212,7 +212,6 @@ brain_beat.save_beat(
 ### Author's websites
 
 - [Accel Brain](https://accel-brain.com) (Japanese)
-- [Accel Brain; Beat](https://beat.accel-brain.com/)
 
 ### References
 

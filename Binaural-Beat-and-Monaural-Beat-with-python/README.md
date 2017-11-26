@@ -14,11 +14,6 @@ Full documentation is available on [https://code.accel-brain.com/Binaural-Beat-a
 
 - [Drive to design the brain's level upper](https://www.youtube.com/channel/UCvQNSr2fVjI8bIMhJ_bfQmg) (Youtube)
 
-## Demonstration IN VR
-
-- [Immersive Brain's Level Upper by Binaural Beat and Monaural Beat.](https://www.assetstore.unity3d.com/en/#!/content/66518) (Unity3D Asset Store)
-
-
 ## Installation
 
 Install using pip:

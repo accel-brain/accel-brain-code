@@ -180,14 +180,45 @@ map_arr += np.diag(list(range(map_d)))
 
 Tests show that the number of searches on the *Q-Learning* with pre-training is smaller than not with pre-training.
 
-| Number of searches | not pre-training | pre-training |
-|:-----------|:-----------|:-----------|
-| Max       | 8155        | 4373         |
-| mean     | 3753.80      | 1826.0       |
-| median       | 3142.0        | 1192.0         |
-| min         | 1791          | 229           |
-| var       | 3262099.36       | 2342445.78       |
-| std    | 1806.13     | 1530.56      |
+<table>
+<thead>
+<tr>
+<th align="left">Number of searches</th>
+<th align="left">not pre-training</th>
+<th align="left">pre-training</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Max</td>
+<td align="left">8155</td>
+<td align="left">4373</td>
+</tr>
+<tr>
+<td align="left">mean</td>
+<td align="left">3753.80</td>
+<td align="left">1826.0</td>
+</tr>
+<tr>
+<td align="left">median</td>
+<td align="left">3142.0</td>
+<td align="left">1192.0</td>
+</tr>
+<tr>
+<td align="left">min</td>
+<td align="left">1791</td>
+<td align="left">229</td>
+</tr>
+<tr>
+<td align="left">var</td>
+<td align="left">3262099.36</td>
+<td align="left">2342445.78</td>
+</tr>
+<tr>
+<td align="left">std</td>
+<td align="left">1806.13</td>
+<td align="left">1530.56</td>
+</tr></tbody></table>
 
 ### Case 2: for less greedy searches
 
@@ -220,14 +251,45 @@ map_arr += np.diag(list(range(map_d)))
 
 #### Metrics (Number of searches)
 
-| Number of searches | not pre-training | pre-training |
-|:-----------|:-----------|:-----------|
-| Max       | 10000        | 10000         |
-| mean     | 7136.0      | 3296.89       |
-| median       | 9305.0        | 1765.0         |
-| min         | 2401          | 195           |
-| var       | 9734021.11       | 10270136.10       |
-| std    | 3119.94     | 3204.71      |
+<table>
+<thead>
+<tr>
+<th align="left">Number of searches</th>
+<th align="left">not pre-training</th>
+<th align="left">pre-training</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Max</td>
+<td align="left">10000</td>
+<td align="left">10000</td>
+</tr>
+<tr>
+<td align="left">mean</td>
+<td align="left">7136.0</td>
+<td align="left">3296.89</td>
+</tr>
+<tr>
+<td align="left">median</td>
+<td align="left">9305.0</td>
+<td align="left">1765.0</td>
+</tr>
+<tr>
+<td align="left">min</td>
+<td align="left">2401</td>
+<td align="left">195</td>
+</tr>
+<tr>
+<td align="left">var</td>
+<td align="left">9734021.11</td>
+<td align="left">10270136.10</td>
+</tr>
+<tr>
+<td align="left">std</td>
+<td align="left">3119.94</td>
+<td align="left">3204.71</td>
+</tr></tbody></table>
 
 Under the assumption that the less number of searches the better, *Q-Learning*, loosely coupled with *Deep Boltzmann Machine*, is a more effective way to solve maze in not greedy mode as well as greedy mode.
 

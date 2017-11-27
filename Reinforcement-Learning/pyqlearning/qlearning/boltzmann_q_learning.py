@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import random
 import math
-from rl.q_learning import QLearning
+from pyqlearning.q_learning import QLearning
 
 
 class BoltzmannQLearning(QLearning):
@@ -44,12 +44,14 @@ class BoltzmannQLearning(QLearning):
 
     def select_action(self, state_key, next_action_list):
         '''
-        状態に紐付けて行動を選択する。
-        具象クラス
-        ボルツマン分布で確率論的に行動を探索する。
+        Select action by Q(state, action).
+        
+        Concreat method for boltzmann distribution.
 
         Args:
-            state_key:      状態
+            state_key:              The key of state.
+            next_action_list:       The possible action in `self.t+1`.
+                                    If the length of this list is 0, all action should be possible.
 
         Retruns:
             The key of action.

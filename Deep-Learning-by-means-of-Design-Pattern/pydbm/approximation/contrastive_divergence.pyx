@@ -96,7 +96,7 @@ class ContrastiveDivergence(ApproximateInterface):
         cdef np.ndarray[DOUBLE_t, ndim=1] visible_activity_arr = observed_data_arr
         cdef int row_w = self.__graph.weights_arr.shape[0]
         cdef int col_w = self.__graph.weights_arr.shape[1]
-        cdef np.ndarray link_value_arr = self.__graph.weights_arr * (np.ones((row_w, col_w)) * visible_activity_arr)
+        cdef np.ndarray link_value_arr = self.__graph.weights_arr * (np.ones((row_w, col_w)) * visible_activity_arr) + self.__visible_bias
         cdef np.ndarray hidden_activity_arr = link_value_arr.sum(axis=0)
         self.__graph.diff_weights_arr = visible_activity_arr * hidden_activity_arr.T * self.__learning_rate
         visible_diff_bias = self.__learning_rate * visible_activity_arr
@@ -104,7 +104,7 @@ class ContrastiveDivergence(ApproximateInterface):
 
         # Sleeping.
         hidden_activity_arr = hidden_activity_arr.reshape(-1, 1)
-        cdef np.ndarray _link_value_arr = self.__graph.weights_arr.T * (np.ones((col_w, row_w)) * hidden_activity_arr)
+        cdef np.ndarray _link_value_arr = self.__graph.weights_arr.T * (np.ones((col_w, row_w)) * hidden_activity_arr) + self.__hidden_bias
         cdef np.ndarray _visible_activity_arr = _link_value_arr.sum(axis=0)
 
         _visible_activity_arr = self.__graph.visible_neuron_list[0].activating_function.activate(
@@ -112,7 +112,7 @@ class ContrastiveDivergence(ApproximateInterface):
         )
         _visible_activity_arr = _visible_activity_arr / _visible_activity_arr.sum()
 
-        cdef np.ndarray __link_value_arr = self.__graph.weights_arr.T * _visible_activity_arr
+        cdef np.ndarray __link_value_arr = (self.__graph.weights_arr.T * _visible_activity_arr) + self.__visible_bias
         cdef np.ndarray _hidden_activity_arr = __link_value_arr.sum(axis=0)
         try:
             _hidden_activity_arr = self.__graph.hidden_neuron_list[0].activating_function.activate(

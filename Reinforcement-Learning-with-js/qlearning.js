@@ -18,35 +18,35 @@ var QLearning = (function()
      * @private
      *
      */
-    strategy_ = null;
+    var strategy_ = null;
 
     /** 
      * @private
      *
      * Learning rate.
      */
-    alpha_value_ = 0.1;
+    var alpha_value_ = 0.1;
 
     /** 
      * @private
      *
      * Gamma value.
      */
-    gamma_value_ = 0.5;
+    var gamma_value_ = 0.5;
 
     /** 
      * @private
      *
      * Q(state, action).
      */
-    q_dict_ = {};
+    var q_dict_ = {};
 
     /** 
      * @private
      *
      * Time.
      */
-    t_ = 0;
+    var t_ = 0;
 
     /**
      * Set Up hyperparams.
@@ -222,7 +222,7 @@ var QLearning = (function()
          */
         select_action: function (state_key, next_action_list)
         {
-            return this.strategy_.select_action(state_key, next_action_list);
+            return this.strategy_.select_action(this, state_key, next_action_list);
         },
 
         /**
@@ -234,7 +234,7 @@ var QLearning = (function()
          */
         extract_possible_actions: function (state_key)
         {
-            return this.strategy_.extract_possible_actions(state_key);
+            return this.strategy_.extract_possible_actions(this, state_key);
         },
 
         /**
@@ -247,7 +247,7 @@ var QLearning = (function()
          */
         observe_reward_value: function (state_key, action_key)
         {
-            return this.strategy_.observe_reward_value(state_key, action_key);
+            return this.strategy_.observe_reward_value(this, state_key, action_key);
         },
 
         /**
@@ -310,7 +310,7 @@ var QLearning = (function()
             }
             else
             {
-                return this.strategy_.update_state(state_key, action_key);
+                return this.strategy_.update_state(this, state_key, action_key);
             }
         },
         
@@ -333,7 +333,7 @@ var QLearning = (function()
             }
             else
             {
-                return this.check_the_end_flag(state_key)
+                return this.check_the_end_flag(this, state_key)
             }
         },
         
@@ -347,7 +347,7 @@ var QLearning = (function()
         {
             if (this.strategy_.visualize_learning_result != undefined)
             {
-                this.strategy_.visualize_learning_result(state_key);
+                this.strategy_.visualize_learning_result(this, state_key);
             }
         }
     };

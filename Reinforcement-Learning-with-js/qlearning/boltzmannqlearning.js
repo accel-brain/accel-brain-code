@@ -100,7 +100,7 @@ var BoltzmannQLearning = (function()
         for (var i = 0;i<next_action_list.length;i++)
         {
             var action_key = next_action_list[i];
-            parent = Math.exp(__self__.extract_q_dict(state_key, action_key)) / sigmoid;
+            parent = Math.exp(__self.extract_q_dict(state_key, action_key)) / sigmoid;
             parent_list.push(parent);
             action_key_list.push(action_key);
             parent_sum += parent;

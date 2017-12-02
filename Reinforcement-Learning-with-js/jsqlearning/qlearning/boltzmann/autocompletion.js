@@ -115,7 +115,15 @@ var Autocompletion = (function()
                 {
                     if (state_key_list[i].indexOf(state_key) != -1)
                     {
-                        action_list.push(this.state_action_list_dict[state_key_list[i]]);
+                        if (this.state_action_list_dict[state_key_list[i]] != undefined)
+                        {
+                            action_list.push(this.state_action_list_dict[state_key_list[i]]);
+                        }
+                    }
+                    if (action_list.length == 0)
+                    {
+                        var _state_key = state_key_list[Math.floor(Math.random() * state_key_list.length)];
+                        return this.state_action_list_dict[_state_key];
                     }
                 }
                 return action_list;
@@ -141,17 +149,23 @@ var Autocompletion = (function()
     {
         if (state_action_list_dict_ != undefined && state_key in state_action_list_dict_)
         {
-            state_action_list_dict_[state_key].push(action_key);
-            state_action_list_dict_[state_key] = state_action_list_dict_[state_key].filter(function (x, i, self)
+            if (action_key != undefined)
             {
-                return self.indexOf(x) === i;
-            });
+                state_action_list_dict_[state_key].push(action_key);
+                state_action_list_dict_[state_key] = state_action_list_dict_[state_key].filter(function (x, i, self)
+                {
+                    return self.indexOf(x) === i;
+                });
+            }
         }
         else
         {
             if (state_action_list_dict_ == undefined) state_action_list_dict_ = {};
             state_action_list_dict_[state_key] = [];
-            state_action_list_dict_[state_key].push(action_key);
+            if (action_key != undefined)
+            {
+                state_action_list_dict_[state_key].push(action_key);
+            }
         }
         q_value = __self__.extract_q_dict(state_key, action_key);
         __self__.save_q_dict(state_key, action_key, q_value);

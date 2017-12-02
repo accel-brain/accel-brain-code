@@ -27,6 +27,12 @@ var Controller = (function() {
      */
     q_learning_ = null;
 
+    /*
+     * @private
+     *
+     */
+    input_memroy_ = "";
+
     /**
      * Set Up hyperparams.
      *
@@ -109,9 +115,10 @@ var Controller = (function() {
             );
             console.log("q_value:")
             console.log(q_value)
+            input_memroy_ = input_memroy_ + input_document;
             this.autocompletion_.pre_training(
                 this.q_learning_,
-                input_document
+                input_memroy_
             );
             return action_key;
         }

@@ -23,7 +23,7 @@
         // Gamma value of Q-Learning.
         var gamma_value = 0.5;
         // The number of learning in Q-Learning.
-        var limit = 10000;
+        var limit = 1000;
 
         // Build.
         var __controller__ = new Controller(
@@ -37,7 +37,7 @@
             }
         );
         var recommended = __controller__.recommend(
-            "ウェブブラウザ"
+            "このウェブブラウザ"
         );
         console.log("recommended:")
         console.log(recommended)

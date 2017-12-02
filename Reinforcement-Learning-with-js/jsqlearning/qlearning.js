@@ -69,7 +69,7 @@ var QLearning = (function()
             }
             if ("gamma_value" in params)
             {
-                this.gamma_value = params.gammma_value;
+                this.gamma_value = params.gamma_value;
             }
             if ("q_dict" in params)
             {
@@ -96,18 +96,19 @@ var QLearning = (function()
          */
         extract_q_dict: function (state_key, action_key)
         {
-            if (self.q_dict == undefined)
+            if (this.q_dict == undefined)
             {
                 this.save_q_dict(state_key, action_key, 0.0);
                 return 0.0;
             }
             else
             {
-                if (state_key in self.q_dict)
+                var state_key_list = Object.keys(this.q_dict);
+                if (state_key in this.q_dict)
                 {
-                    if (action_key in self.q_dict[state_key])
+                    if (action_key in this.q_dict[state_key])
                     {
-                        return self.q_dict[state_key][action_key];
+                        return this.q_dict[state_key][action_key];
                     }
                     else
                     {
@@ -137,13 +138,12 @@ var QLearning = (function()
             if (state_key == false) return;
             if (action_key == false) return;
             if (q_value == false) return;
-            if (this.q_dict == undefined) self.q_dict = {};
+            if (this.q_dict == undefined) this.q_dict = {};
             if (this.q_dict[state_key] == undefined)
             {
                 this.q_dict[state_key] = {};
             }
             this.q_dict[state_key][action_key] = q_value;
-            console.log([state_key, action_key, q_value]);
         },
 
         /**
@@ -157,14 +157,14 @@ var QLearning = (function()
          */
         extract_r_dict : function (state_key, action_key)
         {
-            if (self.r_dict == undefined)
+            if (this.r_dict == undefined)
             {
                 this.save_r_dict(state_key, 0.0, action_key);
                 return 0.0;
             }
             else
             {
-                if (state_key in self.r_dict)
+                if (state_key in this.r_dict)
                 {
                     if (action_key == undefined)
                     {
@@ -205,7 +205,7 @@ var QLearning = (function()
             if (state_key == false) return;
             if (reward_value == false) return;
 
-            if (this.r_dict == undefined) self.r_dict = {};
+            if (this.r_dict == undefined) this.r_dict = {};
             if (this.r_dict[state_key] == undefined)
             {
                 if (action_key != undefined)
@@ -251,7 +251,6 @@ var QLearning = (function()
                     next_action_list
                 )
                 reward_value = this.observe_reward_value(state_key, action_key)
-
                 // Vis.
                 this.visualize_learning_result(state_key)
                 // Check.
@@ -263,7 +262,9 @@ var QLearning = (function()
                 // Max-Q-Value in next action time.
                 next_next_action_list = this.extract_possible_actions(action_key)
                 next_action_key = this.predict_next_action(action_key, next_next_action_list)
+
                 next_max_q = this.extract_q_dict(action_key, next_action_key)
+                q = this.extract_q_dict(state_key, action_key);
 
                 // Update Q-Value.
                 this.update_q(
@@ -271,10 +272,10 @@ var QLearning = (function()
                     action_key,
                     reward_value,
                     next_max_q
-                )
+                );
 
                 // Episode.
-                self.t = _t;
+                this.t = _t;
 
                 // Update State.
                 state_key = this.update_state(
@@ -334,9 +335,9 @@ var QLearning = (function()
         update_q: function (state_key, action_key, reward_value, next_max_q)
         {
             // Now Q-Value.
-            q = this.extract_q_dict(state_key, action_key);
+            var q = this.extract_q_dict(state_key, action_key);
             // Update Q-Value.
-            new_q = q + this.alpha_value * (reward_value + (this.gamma_value * next_max_q) - q);
+            var new_q = q + this.alpha_value * (reward_value + (this.gamma_value * next_max_q) - q);
             // Save updated Q-Value.
             this.save_q_dict(state_key, action_key, new_q);
         },
@@ -354,9 +355,9 @@ var QLearning = (function()
             next_action_q_list = [];
             max_q = 0.0;
             max_q_action = null;
-            for (action_key in next_action_list)
+            for (var i=0; i<next_action_list.length;i++)
             {
-                q = this.extract_q_dict(state_key, action_key);
+                q = this.extract_q_dict(state_key, next_action_list[i]);
                 if (max_q < q)
                 {
                     max_q = q;

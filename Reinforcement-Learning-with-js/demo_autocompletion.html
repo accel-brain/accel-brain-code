@@ -10,9 +10,10 @@
     <script type="text/javascript" src="dependencies/tiny_segmenter-0.2.js"></script>
     <script type="text/javascript" src="devsample/nlpbase.js"></script>
     <script type="text/javascript" src="devsample/ngram.js"></script>
-    <script type="text/javascript" src="devsample/contoller.js"></script>
+    <script type="text/javascript" src="devsample/controller.js"></script>
 
     <script>
+        var __document__ = "自動補完は、ソースコードエディタ、コマンドラインインタプリタ、ワードプロセッサ、電子メールソフトウェア、ウェブブラウザなどで広く採用されている機能である。入力補完やオートコンプリートとも称され、文字列入力中に次に連なる字句を推測して優位な候補を提示する機能である。ウェブブラウザでは主に、アドレスバーの表示履歴とウェブページ内のテキストボックスや検索エンジンで用いられ入力省力化により利便性向上に寄与するが、ログイン時などのパスワードなども保存され機密保持上難点な場合がある。"
         // The number of n-gram.
         var n = 2;
         // Time rate in boltzmann distribution.
@@ -25,15 +26,21 @@
         var limit = 10000;
 
         // Build.
-        var contoller = new Contoller(
+        var __controller__ = new Controller(
             {
                 "n": n,
                 "time_rate": time_rate,
                 "alpha_value": alpha_value,
                 "gamma_value": gamma_value,
-                "limit": limit
+                "limit": limit,
+                "document": __document__
             }
         );
+        var recommended = __controller__.recommend(
+            "ウェブブラウザ"
+        );
+        console.log("recommended:")
+        console.log(recommended)
     </script>
 </head>
 <body>

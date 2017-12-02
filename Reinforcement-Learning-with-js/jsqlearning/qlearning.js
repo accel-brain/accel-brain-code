@@ -42,6 +42,13 @@ var QLearning = (function()
     /** 
      * @private
      *
+     * R(state).
+     */
+    var r_dict_ = {};
+
+    /** 
+     * @private
+     *
      * Time.
      */
     var t_ = 0;
@@ -53,20 +60,20 @@ var QLearning = (function()
      * @params {object}
      */
     var constructor = function(strategy, params) {
-        strategy_ = strategy;
+        this.strategy_ = strategy;
         if (params != undefined)
         {
             if ("alpha_value" in params)
             {
-                alpha_value_ = params.alpha_value;
+                this.alpha_value = params.alpha_value;
             }
             if ("gamma_value" in params)
             {
-                gamma_value_ = params.gammma_value;
+                this.gamma_value = params.gammma_value;
             }
             if ("q_dict" in params)
             {
-                q_dict_ = params.q_dict;
+                this.q_dict = params.q_dict;
             }
         }
     }
@@ -76,6 +83,7 @@ var QLearning = (function()
         alpha_value: alpha_value_,
         gamma_value: gamma_value_,
         q_dict: q_dict_,
+        r_dict: r_dict_,
 
         /**
          *
@@ -88,9 +96,31 @@ var QLearning = (function()
          */
         extract_q_dict: function (state_key, action_key)
         {
-            q = q_dict_[state_key][action_key];
-            if (q != undefined) return q;
-            return 0.0
+            if (self.q_dict == undefined)
+            {
+                this.save_q_dict(state_key, action_key, 0.0);
+                return 0.0;
+            }
+            else
+            {
+                if (state_key in self.q_dict)
+                {
+                    if (action_key in self.q_dict[state_key])
+                    {
+                        return self.q_dict[state_key][action_key];
+                    }
+                    else
+                    {
+                        this.save_q_dict(state_key, action_key, 0.0);
+                        return 0.0;
+                    }
+                }
+                else
+                {
+                    this.save_q_dict(state_key, action_key, 0.0);
+                    return 0.0;
+                }
+            }
         },
 
         /**
@@ -103,11 +133,17 @@ var QLearning = (function()
          */
         save_q_dict: function(state_key, action_key, q_value)
         {
-            if (q_dict_[state_key] == undefined)
+            if (q_value.isNaN == true || (q_value !== q_value) === true) return;
+            if (state_key == false) return;
+            if (action_key == false) return;
+            if (q_value == false) return;
+            if (this.q_dict == undefined) self.q_dict = {};
+            if (this.q_dict[state_key] == undefined)
             {
-                q_dict[state_key] = {};
+                this.q_dict[state_key] = {};
             }
-            q_dict_[state_key][action_key] = q_value;
+            this.q_dict[state_key][action_key] = q_value;
+            console.log([state_key, action_key, q_value]);
         },
 
         /**
@@ -121,16 +157,38 @@ var QLearning = (function()
          */
         extract_r_dict : function (state_key, action_key)
         {
-            if (action_key == undefined)
+            if (self.r_dict == undefined)
             {
-                reward_value = r_dict_[state_key];
+                this.save_r_dict(state_key, 0.0, action_key);
+                return 0.0;
             }
             else
             {
-                reward_value = r_dict_[state_key][action_key];
+                if (state_key in self.r_dict)
+                {
+                    if (action_key == undefined)
+                    {
+                        reward_value = this.r_dict[state_key];
+                    }
+                    else
+                    {
+                        if (action_key in this.r_dict[state_key])
+                        {
+                            reward_value = this.r_dict[state_key][action_key];
+                        }
+                        else
+                        {
+                            this.save_r_dict(state_key, 0.0, action_key);
+                            return 0.0;
+                        }
+                    }
+                }
+                else
+                {
+                    this.save_r_dict(state_key, 0.0, action_key);
+                    return 0.0;
+                }
             }
-            if (reward_value != undefined) return reward_value;
-            return 0.0;
         },
 
         /**
@@ -143,13 +201,29 @@ var QLearning = (function()
          */
         save_r_dict: function (state_key, reward_value, action_key)
         {
-            if (action_key == undefined)
+            if (reward_value.isNaN == true || (reward_value !== reward_value) === true) return;
+            if (state_key == false) return;
+            if (reward_value == false) return;
+
+            if (this.r_dict == undefined) self.r_dict = {};
+            if (this.r_dict[state_key] == undefined)
             {
-                r_dict_[state_key] = reward_value;
+                if (action_key != undefined)
+                {
+                    this.r_dict[state_key] = {};
+                }
+                else
+                {
+                    this.r_dict[state_key] = 0.0;
+                }
+            }
+            if (action_key != undefined)
+            {
+                this.r_dict[state_key][action_key] = reward_value;
             }
             else
             {
-                r_dict_[state_key][action_key] = reward_value;
+                this.r_dict[state_key] = reward_value;
             }
         },
 
@@ -168,8 +242,8 @@ var QLearning = (function()
         learn: function (state_key, limit)
         {
             if (limit == undefined) limit = 10000;
-            t_ = 1;
-            while (t_ <= limit)
+            this.t = 1;
+            for (var _t = 1;_t<=limit;_t++)
             {
                 next_action_list = this.extract_possible_actions(state_key);
                 action_key = this.select_action(
@@ -181,9 +255,9 @@ var QLearning = (function()
                 // Vis.
                 this.visualize_learning_result(state_key)
                 // Check.
-                if (self.check_the_end_flag(state_key) == true)
+                if (this.check_the_end_flag(state_key) == true)
                 {
-                    break
+                    break;
                 }
 
                 // Max-Q-Value in next action time.
@@ -199,8 +273,8 @@ var QLearning = (function()
                     next_max_q
                 )
 
-                // Epsode.
-                self.t += 1
+                // Episode.
+                self.t = _t;
 
                 // Update State.
                 state_key = this.update_state(

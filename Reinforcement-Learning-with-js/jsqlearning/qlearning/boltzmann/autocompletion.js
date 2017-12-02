@@ -73,9 +73,10 @@ var Autocompletion = (function()
                 token_list,
                 this.n_
             )
-            for (token_tuple in token_tuple_zip)
+            for (var i=0;i<token_tuple_zip.length;i++)
             {
-                this.setup_r_q_(__self__, token_tuple[0], token_tuple[1]);
+                var token_tuple = token_tuple_zip[i];
+                setup_r_q_(__self__, token_tuple[0], token_tuple[1]);
             }
         },
         lap_extract_ngram : function(__self__, __document__)
@@ -97,67 +98,68 @@ var Autocompletion = (function()
             }
             else
             {
-                return token_list;
+                return token_list[token_list.length-1];
             }
-        }
-    }
+        },
+        extract_possible_actions: function(__self__, state_key)
+        {
+            if (this.state_action_list_dict != undefined && state_key in this.state_action_list_dict)
+            {
+                return this.state_action_list_dict[state_key];
+            }
+            else
+            {
+                action_list = [];
+                var state_key_list = Object.keys(this.state_action_list_dict);
+                for (var i = 0; i<state_key_list.length;i++)
+                {
+                    if (state_key_list[i].indexOf(state_key) != -1)
+                    {
+                        action_list.push(this.state_action_list_dict[state_key_list[i]]);
+                    }
+                }
+                return action_list;
+            }
+        },
+        observe_reward_value: function(__self__, state_key, action_key)
+        {
+            reward_value = 0.0
+            if (state_key in this.state_action_list_dict)
+            {
+                if (this.state_action_list_dict[state_key].indexOf(action_key) != -1)
+                {
+                    reward_value = 1.0
+                }
+            }
 
+            return reward_value;
+        },
+        state_action_list_dict: state_action_list_dict_
+
+    }
     setup_r_q_ = function(__self__, state_key, action_key)
     {
-        if (state_key in this.state_action_list_dict_)
+        if (state_action_list_dict_ != undefined && state_key in state_action_list_dict_)
         {
-            this.state_action_list_dict_[state_key].push(action_key);
-            this.state_action_list_dict_[state_key] = this.state_action_list_dict_[state_key].filter(function (x, i, self)
+            state_action_list_dict_[state_key].push(action_key);
+            state_action_list_dict_[state_key] = state_action_list_dict_[state_key].filter(function (x, i, self)
             {
                 return self.indexOf(x) === i;
             });
         }
         else
         {
-            this.state_action_list_dict_[state_key] = [];
-            this.state_action_list_dict_[state_key].push(action_key);
+            if (state_action_list_dict_ == undefined) state_action_list_dict_ = {};
+            state_action_list_dict_[state_key] = [];
+            state_action_list_dict_[state_key].push(action_key);
         }
         q_value = __self__.extract_q_dict(state_key, action_key);
         __self__.save_q_dict(state_key, action_key, q_value);
-        r_value = __self__.extract_r_dict(state_key, action_key);
-        r_value += 1.0;
+        var r_value = __self__.extract_r_dict(state_key, action_key);
+        r_value = r_value + 1.0;
         __self__.save_r_dict(state_key, r_value, action_key);
     }
 
-    extract_possible_actions_ = function(__self__, state_key)
-    {
-        if (state_key in this.state_action_list_dict_)
-        {
-            return this.state_action_list_dict_[state_key];
-        }
-        else
-        {
-            action_list = [];
-            var state_key_list = Object.keys(this.state_action_list_dict_);
-            for (var i = 0; i<state_key_list.length;i++)
-            {
-                if (state_key_list[i].indexOf(state_key) != -1)
-                {
-                    action_list.push(this.state_action_list_dict_[state_key_list[i]]);
-                }
-            }
-            return action_list;
-        }
-    }
-
-    observe_reward_value_ = function(__self__, state_key, action_key)
-    {
-        reward_value = 0.0
-        if (state_key in this.state_action_list_dict_)
-        {
-            if (self.state_action_list_dict_[state_key].indexOf(action_key) != -1)
-            {
-                reward_value = 1.0
-            }
-        }
-
-        return reward_value;
-    }
     return constructor;
 
 }) ();

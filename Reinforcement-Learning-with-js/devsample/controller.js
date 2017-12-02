@@ -35,14 +35,13 @@ var Controller = (function() {
      * @constructor
      */
     var constructor = function(params) {
-        var nlp_base = NlpBase();
-        var n_gram = Ngram();
+        var nlp_base = new NlpBase();
+        var n_gram = new Ngram();
         var autocompletion = new Autocompletion(
             nlp_base,
             n_gram,
             params.n
         );
-
         var boltzmann = new Boltzmann(
             autocompletion,
             {
@@ -57,13 +56,14 @@ var Controller = (function() {
                 "gamma_value": params.gamma_value
             }
         );
+        console.log("pre training is started.")
         autocompletion.pre_training(q_learning, params.document);
 
         limit_ = params.limit;
 
-        autocompletion_ = autocompletion;
-        boltzmann_ = boltzmann;
-        q_learning_ = q_learning;
+        this.autocompletion_ = autocompletion;
+        this.boltzmann_ = boltzmann;
+        this.q_learning_ = q_learning;
     }
 
     /** @constructor */
@@ -83,22 +83,32 @@ var Controller = (function() {
                 this.q_learning_,
                 input_document
             );
+            console.log("state:")
+            console.log(state_key)
             this.q_learning_.learn(state_key, this.limit_);
-            next_action_list = this.q_learning_.extract_possible_actions(
+            var next_action_list = this.q_learning_.extract_possible_actions(
                 state_key
             );
-            action_key = this.q_learning_.select_action(
+            console.log("next action list:")
+            console.log(next_action_list)
+            var action_key = this.q_learning_.select_action(
                 state_key,
                 next_action_list
             );
-            reward_value = this.q_learning_.observe_reward_value(
+            console.log("action:")
+            console.log(action_key)
+            var reward_value = this.q_learning_.observe_reward_value(
                 state_key,
                 action_key
             );
-            q_value = q_learning.extract_q_dict(
+            console.log("reward_value:")
+            console.log(reward_value)
+            var q_value = this.q_learning_.extract_q_dict(
                 state_key,
                 action_key
             );
+            console.log("q_value:")
+            console.log(q_value)
             this.autocompletion_.pre_training(
                 this.q_learning_,
                 input_document

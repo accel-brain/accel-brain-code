@@ -21,7 +21,7 @@ var NlpBase = (function()
      * @private
      *
      */
-    var token_list_ = [];
+    var token_ = [];
 
     /**
      * Set Up hyperparams.
@@ -43,9 +43,9 @@ var NlpBase = (function()
          */
         tokenize: function(__document__)
         {
-            this.token_list_ = tinySegmenter_.segment(__document__);
+            this.token = tinySegmenter_.segment(__document__);
         },
-        token_list: token_list_
+        token: token_
     }
     return constructor;
 

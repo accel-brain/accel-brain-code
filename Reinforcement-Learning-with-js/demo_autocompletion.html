@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jsqlearning demo</title>
+    <script type="text/javascript" src="jsqlearning/qlearning.js"></script>
+    <script type="text/javascript" src="jsqlearning/qlearning/boltzmann.js"></script>
+    <script type="text/javascript" src="jsqlearning/qlearning/boltzmann/autocompletion.js"></script>
+    <script type="text/javascript" src="dependencies/tiny_segmenter-0.2.js"></script>
+    <script type="text/javascript" src="devsample/nlpbase.js"></script>
+    <script type="text/javascript" src="devsample/ngram.js"></script>
+    <script type="text/javascript" src="devsample/contoller.js"></script>
+
+    <script>
+        // The number of n-gram.
+        var n = 2;
+        // Time rate in boltzmann distribution.
+        var time_rate = 0.001;
+        // Alpha value of Q-Learning.
+        var alpha_value = 0.1;
+        // Gamma value of Q-Learning.
+        var gamma_value = 0.5;
+        // The number of learning in Q-Learning.
+        var limit = 10000;
+
+        // Build.
+        var contoller = new Contoller(
+            {
+                "n": n,
+                "time_rate": time_rate,
+                "alpha_value": alpha_value,
+                "gamma_value": gamma_value,
+                "limit": limit
+            }
+        );
+    </script>
+</head>
+<body>
+    
+</body>

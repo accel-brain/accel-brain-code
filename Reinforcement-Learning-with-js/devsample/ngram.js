@@ -48,4 +48,6 @@ var Ngram = (function()
             return token_tuple_zip;
         }
     }
+    return constructor;
+
 }) ();

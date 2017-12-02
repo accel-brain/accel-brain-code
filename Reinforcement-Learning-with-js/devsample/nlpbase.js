@@ -47,4 +47,6 @@ var NlpBase = (function()
         },
         token_list: token_list_
     }
+    return constructor;
+
 }) ();

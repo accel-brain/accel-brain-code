@@ -3,6 +3,26 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .card-input {
+            color: #000;
+            border: 0;
+            padding: 10px;
+            font-size: 1.3em;
+            border: solid 1px #ccc;
+            margin: 0 0 20px;
+            width: 80%;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            -moz-box-shadow: inset 0 0 4px rgba(0,0,0,0.2);
+            -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+            box-shadow: inner 0 0 4px rgba(0, 0, 0, 0.2);
+        }
+        .card-input:focus {
+          border:solid 1px #EEA34A;
+        }
+    </style>
     <title>jsqlearning demo</title>
     <script type="text/javascript" src="jsqlearning/qlearning.js"></script>
     <script type="text/javascript" src="jsqlearning/qlearning/boltzmann.js"></script>
@@ -33,7 +53,7 @@
                 }
             });
 
-            $("#data").click(function(e) {
+            $("#data").blur(function(e) {
                 var __document__ = $("#data").val();
                 // The number of n-gram.
                 var n = 2;
@@ -63,9 +83,17 @@
     </script>
 </head>
 <body>
-    <p>Learned data.</p>
-    <textarea id="data" style="width: 400px; height: 100px;"></textarea>
-    <button id="learn">Learn</button>
-    <p>Test field.</p>
-    <textarea id="doc" style="width: 400px; height: 300px;"></textarea>
+    <h1>Autocompletion system.</h1>
+    <div>This application predicts the rest of a word you are typing. Your input data is also subject to learn. This algorithm learns new words after you have written them a few times. Steadily, this tool can suggest alternatives based on the learned habits of you.</div>
+
+    <h2>Learned data.</h2>
+    <ul>
+        <li>Enter a text dataset in follow textarea.</li>
+    </ul>
+    <textarea id="data" style="height: 250px;" class="card-input"></textarea>
+    <h2>Test field.</h2>
+    <ul>
+        <li>Enter a test data in follow textarea and type `tab` key.</li>
+    </ul>
+    <textarea id="doc" style="height: 100px;" class="card-input"></textarea>
 </body>

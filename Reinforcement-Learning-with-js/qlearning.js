@@ -1,6 +1,6 @@
 /*
 Repository name: accel-brain-code
-Description: base class and `Template Method Pattern` of Q-Learning.
+Description: Base class and `Template Method Pattern` of Q-Learning.
 Version: 1.0.1
 Author: chimera0(RUM)
 Author URI: http://accel-brain.com/

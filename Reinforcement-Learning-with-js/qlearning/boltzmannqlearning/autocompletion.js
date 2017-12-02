@@ -20,13 +20,6 @@ var AutocompletionBoltzmannQLearning = (function()
      * @private
      *
      */
-    var strategy_ = null;
-
-    /**
-     *
-     * @private
-     *
-     */
     var nlp_base_ = null;
 
     /**
@@ -59,11 +52,10 @@ var AutocompletionBoltzmannQLearning = (function()
      * @params {object}
      * @params {int}
      */
-    var constructor = function(strategy, nlp_base, n_gram, n) {
-        strategy_ = strategy;
-        nlp_base_ = nlp_base;
-        n_gram_ = n_gram;
-        if (n != undefined) n_ = n;
+    var constructor = function(nlp_base, n_gram, n) {
+        this.nlp_base_ = nlp_base;
+        this.n_gram_ = n_gram;
+        if (n != undefined) this.n_ = n;
     }
 
     /** @constructor */
@@ -73,9 +65,9 @@ var AutocompletionBoltzmannQLearning = (function()
          *
          * @params{string}
          */
-        pre_training: function (document)
+        pre_training: function (__document__)
         {
-            this.nlp_base_.tokenize(document);
+            this.nlp_base_.tokenize(__document__);
             token_list = this.nlp_base_.token;
             token_tuple_zip = this.n_gram_.generate_ngram_data_set(
                 token_list,
@@ -110,9 +102,9 @@ var AutocompletionBoltzmannQLearning = (function()
         __self__.save_r_dict(state_key, r_value, action_key);
     }
 
-    lap_extract_ngram_ = function(__self__, document)
+    lap_extract_ngram_ = function(__self__, __document__)
     {
-        this.nlp_base_.tokenize(document);
+        this.nlp_base_.tokenize(__document__);
         token_list = self.nlp_base_.token;
         if (token_list.length > __self__.n)
         {

@@ -11,38 +11,61 @@
     <script type="text/javascript" src="devsample/nlpbase.js"></script>
     <script type="text/javascript" src="devsample/ngram.js"></script>
     <script type="text/javascript" src="devsample/controller.js"></script>
+    <script type="text/javascript" src="dependencies/jquery-1.12.4.js"></script>
 
     <script>
-        var __document__ = "自動補完は、ソースコードエディタ、コマンドラインインタプリタ、ワードプロセッサ、電子メールソフトウェア、ウェブブラウザなどで広く採用されている機能である。入力補完やオートコンプリートとも称され、文字列入力中に次に連なる字句を推測して優位な候補を提示する機能である。ウェブブラウザでは主に、アドレスバーの表示履歴とウェブページ内のテキストボックスや検索エンジンで用いられ入力省力化により利便性向上に寄与するが、ログイン時などのパスワードなども保存され機密保持上難点な場合がある。"
-        // The number of n-gram.
-        var n = 2;
-        // Time rate in boltzmann distribution.
-        var time_rate = 0.001;
-        // Alpha value of Q-Learning.
-        var alpha_value = 0.1;
-        // Gamma value of Q-Learning.
-        var gamma_value = 0.5;
-        // The number of learning in Q-Learning.
-        var limit = 1000;
+        $(document).ready(function() {
+            var __controller__ = null;
 
-        // Build.
-        var __controller__ = new Controller(
+            function recommend()
             {
-                "n": n,
-                "time_rate": time_rate,
-                "alpha_value": alpha_value,
-                "gamma_value": gamma_value,
-                "limit": limit,
-                "document": __document__
+                var __document__ = $("#doc").val();
+                var recommended = __controller__.recommend(__document__);
+                __document__ = __document__ + recommended;
+                $("#doc").val(__document__);
             }
-        );
-        var recommended = __controller__.recommend(
-            "このウェブブラウザ"
-        );
-        console.log("recommended:")
-        console.log(recommended)
+
+            $(window).keydown(function(e){
+                if(e.keyCode === 9)
+                {
+                    recommend();
+                    return false;
+                }
+            });
+
+            $("#data").click(function(e) {
+                var __document__ = $("#data").val();
+                // The number of n-gram.
+                var n = 2;
+                // Time rate in boltzmann distribution.
+                var time_rate = 0.001;
+                // Alpha value of Q-Learning.
+                var alpha_value = 0.1;
+                // Gamma value of Q-Learning.
+                var gamma_value = 0.5;
+                // The number of learning in Q-Learning.
+                var limit = 1000;
+
+                // Build.
+                __controller__ = new Controller(
+                    {
+                        "n": n,
+                        "time_rate": time_rate,
+                        "alpha_value": alpha_value,
+                        "gamma_value": gamma_value,
+                        "limit": limit,
+                        "document": __document__
+                    }
+                );
+            });
+
+        });
     </script>
 </head>
 <body>
-    
+    <p>Learned data.</p>
+    <textarea id="data" style="width: 400px; height: 100px;"></textarea>
+    <button id="learn">Learn</button>
+    <p>Test field.</p>
+    <textarea id="doc" style="width: 400px; height: 300px;"></textarea>
 </body>

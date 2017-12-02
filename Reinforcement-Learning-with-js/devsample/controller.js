@@ -33,6 +33,15 @@ var Controller = (function() {
      */
     input_memroy_ = "";
 
+    /*
+     * @pricate
+     *
+     */
+    local_storage_dict_ = {
+        "r_dict": "autocompletion__r_dict",
+        "q_dict": "autocompletion__q_dict"
+    }
+
     /**
      * Set Up hyperparams.
      *
@@ -62,14 +71,24 @@ var Controller = (function() {
                 "gamma_value": params.gamma_value
             }
         );
-        console.log("pre training is started.")
-        autocompletion.pre_training(q_learning, params.document);
-
+        if (this.check_memory() == false)
+        {
+            if (params.document != null)
+            {
+                autocompletion.pre_training(q_learning, params.document);
+            }
+        }
+        else
+        {
+            this.recall();
+        }
         limit_ = params.limit;
 
         this.autocompletion_ = autocompletion;
         this.boltzmann_ = boltzmann;
         this.q_learning_ = q_learning;
+
+        this.memorize();
     }
 
     /** @constructor */
@@ -121,8 +140,54 @@ var Controller = (function() {
                 input_memroy_
             );
             return action_key;
+        },
+        check_memory: function()
+        {
+            try
+            {
+                var storage_keys_list = Object.keys(local_storage_dict_);
+                var flag = true;
+                for (var i = 0;i<storage_keys_list.length;i++)
+                {
+                    if (localStorage.getItem(local_storage_dict_[storage_keys_list[i]]) == null)
+                    {
+                        flag = false;
+                    }
+                }
+                return flag;
+            }
+            catch (e)
+            {
+                console.log(e);
+                return false;
+            }
+        },
+        memorize: function ()
+        {
+            try
+            {
+                localStorage.setItem(local_storage_dict_["r_dict"], this.q_learning_.r_dict);
+                localStorage.setItem(local_storage_dict_["q_dict"], this.q_learning_.q_dict);
+            }
+            catch(e)
+            {
+                console.log(e);
+            }
+        },
+        recall: function ()
+        {
+            try
+            {
+                this.q_learning_.r_dict = localStorage.getItem(local_storage_dict_["r_dict"]);
+                this.q_learning_.q_dict = localStorage.getItem(local_storage_dict_["q_dict"]);
+            }
+            catch(e)
+            {
+                console.log(e);
+            }
         }
     }
+
     return constructor;
 
 }) ();

@@ -1,6 +1,6 @@
 # Reinforcement Learning with JavaScript
 
-These JavaScript modules are library to implement `Reinforcement Learning`, especially for `Q-Learning`.
+These JavaScript modules are library to implement Reinforcement Learning, especially for Q-Learning.
 
 ## Description
 

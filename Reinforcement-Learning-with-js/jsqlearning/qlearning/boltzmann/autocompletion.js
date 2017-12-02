@@ -65,7 +65,7 @@ var Autocompletion = (function()
          *
          * @params{string}
          */
-        pre_training: function (__document__)
+        pre_training: function (__self__, __document__)
         {
             this.nlp_base_.tokenize(__document__);
             token_list = this.nlp_base_.token;
@@ -75,7 +75,29 @@ var Autocompletion = (function()
             )
             for (token_tuple in token_tuple_zip)
             {
-                this.setup_r_q_(token_tuple[0], token_tuple[1]);
+                this.setup_r_q_(__self__, token_tuple[0], token_tuple[1]);
+            }
+        },
+        lap_extract_ngram : function(__self__, __document__)
+        {
+            this.nlp_base_.tokenize(__document__);
+            token_list = this.nlp_base_.token;
+            if (token_list.length > __self__.n)
+            {
+                token_tuple_zip = this.n_gram_.generate_ngram_data_set(
+                    token_list,
+                    __self__.n
+                );
+                token_tuple_list = [];
+                for (var i = 0;i<token_tuple_zip.length;i++)
+                {
+                    token_tuple_list.push(token_tuple_zip[1]);
+                }
+                return token_tuple_list[token_tuple_list.length + 1];
+            }
+            else
+            {
+                return token_list;
             }
         }
     }
@@ -100,29 +122,6 @@ var Autocompletion = (function()
         r_value = __self__.extract_r_dict(state_key, action_key);
         r_value += 1.0;
         __self__.save_r_dict(state_key, r_value, action_key);
-    }
-
-    lap_extract_ngram_ = function(__self__, __document__)
-    {
-        this.nlp_base_.tokenize(__document__);
-        token_list = self.nlp_base_.token;
-        if (token_list.length > __self__.n)
-        {
-            token_tuple_zip = this.n_gram_.generate_ngram_data_set(
-                token_list,
-                __self__.n
-            );
-            token_tuple_list = [];
-            for (var i = 0;i<token_tuple_zip.length;i++)
-            {
-                token_tuple_list.push(token_tuple_zip[1]);
-            }
-            return token_tuple_list[token_tuple_list.length + 1];
-        }
-        else
-        {
-            return token_list;
-        }
     }
 
     extract_possible_actions_ = function(__self__, state_key)
@@ -159,7 +158,6 @@ var Autocompletion = (function()
 
         return reward_value;
     }
+    return constructor;
 
 }) ();
-
-

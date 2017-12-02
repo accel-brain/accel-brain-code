@@ -112,6 +112,6 @@ var Boltzmann = (function()
         }
         return next_action_b_list
     }
-
+    return constructor;
 
 }) ();

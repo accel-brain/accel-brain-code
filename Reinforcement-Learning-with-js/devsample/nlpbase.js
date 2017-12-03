@@ -24,11 +24,24 @@ var NlpBase = (function()
     var token_ = [];
 
     /**
+     * @private
+     *
+     */
+    var jpOnlyFlag_ = false;
+
+    /**
      * Set Up hyperparams.
      *
      * @constructor
      */
-    var constructor = function() {
+    var constructor = function(params) {
+        if ("jpOnlyFlag" in params)
+        {
+            if (params.jpOnlyFlag == true || params.jpOnlyFlag == false)
+            {
+                jpOnlyFlag_ = params.jpOnlyFlag;
+            }
+        }
         tinySegmenter_ = new TinySegmenter();
     }
 
@@ -44,7 +57,7 @@ var NlpBase = (function()
         tokenize: function(__document__)
         {
             __document__ = __document__.replace(/\r?\n/g, "");
-            if ((__document__.match(/^[^\x01-\x7E\xA1-\xDF]+$/) != null) == true)
+            if ((__document__.match(/^[^\x01-\x7E\xA1-\xDF]+$/) != null) == true || jpOnlyFlag_ == true)
             {
                 var token_list = tinySegmenter_.segment(__document__);
             }

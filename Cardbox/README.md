@@ -6,6 +6,14 @@ This is the simple card box system that make you able to find and save your idea
 
 You can write down as many ideas as possible onto cards. Like the KJ Method or the mindmap tools, this simple JavaScript tool helps us to discover potential relations among the cards that you created. And the tagging function allow you to generate metadata of cards as to make their meaning and relationships understandable.
 
+## Dependencies
+
+- jquery: v1.12.4 or higher.
+- jquery-ui: v1.12.1 or higher.
+- jquery.mousehold: v1.0 or higher.
+
+## Demonstration
+
 [demo.html](https://github.com/chimera0/accel-brain-code/blob/master/Cardbox/demo.html) is very simple HTML template. It is just a suggestion. For more details, refer to the following.
 
 ### More detail demos
@@ -13,6 +21,8 @@ You can write down as many ideas as possible onto cards. Like the KJ Method or t
 - [Cardbox](https://accel-brain.com/cardbox/)
 
 This card box can save card and tag data to server. If you create tag, the autocomplete function provides the tag of name as suggestions while you type into the field. The tagging and autocompletion enables you to quickly find and discover potential relations among the cards that you created.
+
+This prototype has been loosely coupled with an autocompletion function. Then this application predicts the rest of a word you are typing. The autocompletion algorithm is implemented by [accel-brain-code/Reinforcement-Learning-with-js](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning-with-js).
 
 ### Related PoC
 

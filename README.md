@@ -56,7 +56,7 @@ Full documentation is available on [https://code.accel-brain.com/Reinforcement-L
 
 ## [Reinforcement-Learning-with-js](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning-with-js)
 
-These JavaScript modules are library to implement Reinforcement Learning, especially for Q-Learning. These modules functionally equivalent to [pyqlearning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning).
+These JavaScript modules are library to implement Reinforcement Learning, especially for Q-Learning. These modules are functionally equivalent to [pyqlearning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning).
 
 ## [Subliminal perception](https://github.com/chimera0/accel-brain-code/tree/master/Subliminal-Perception)
 

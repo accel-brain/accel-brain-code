@@ -43,7 +43,25 @@ var NlpBase = (function()
          */
         tokenize: function(__document__)
         {
-            this.token = tinySegmenter_.segment(__document__);
+            __document__ = __document__.replace(/\r?\n/g, "");
+            if ((__document__.match(/^[^\x01-\x7E\xA1-\xDF]+$/) != null) == true)
+            {
+                var token_list = tinySegmenter_.segment(__document__);
+            }
+            else
+            {
+                var token_list = __document__.split(" ");
+                var token = [];
+                for (var i = 0;i<token_list.length;i++)
+                {
+                    if (token_list[i] != " " && token_list[i] != undefined)
+                    {
+                        token.push(" " + token_list[i])
+                    }
+                }
+                token_list = token;
+            }
+            this.token = token_list;
         },
         token: token_
     }

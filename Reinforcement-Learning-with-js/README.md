@@ -17,6 +17,7 @@ The source code is currently hosted on GitHub.
 ## Demonstration: Autocompletion
 
 - [Autocompletion system.](https://accel-brain.com/cardbox/demo_autocompletion.html)
+- [accel-brain-code/Cardbox](https://github.com/chimera0/accel-brain-code/tree/master/Cardbox)
 
 ### Code sample
 

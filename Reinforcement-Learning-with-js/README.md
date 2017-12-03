@@ -148,13 +148,10 @@ autocompletion_.pre_training(
 );
 ```
 
-## More detail demos
-
-- @TODO(chimera0)
-
 ## Related PoC
 
-- @TODO(chimera0)
+- [「人工の理想」を背景とした「万物照応」のデータモデリング](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise) (Japanese)
+    - [プロトタイプの開発：オートコンプリート機能](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/2/#i-5)
 
 ## Version
 

@@ -19,12 +19,6 @@ var Controller = (function() {
      * @private
      *
      */
-    boltzmann_ = null;
-
-    /*
-     * @private
-     *
-     */
     q_learning_ = null;
 
     /*
@@ -57,15 +51,31 @@ var Controller = (function() {
             n_gram,
             params.n
         );
-        var boltzmann = new Boltzmann(
-            autocompletion,
-            {
-                "time_rate": params.time_rate
-            }
-        );
 
+        if ("q_learning_strategy" in params)
+        {
+            var q_learning_strategy = params.q_learning_strategy;
+        }
+        else
+        {
+            if ("time_rate" in params)
+            {
+                var boltzmann_params = {
+                    "time_rate": params.time_rate
+                }
+            }
+            else
+            {
+                var boltzmann_params = {};
+            }
+            var boltzmann = new Boltzmann(
+                autocompletion,
+                boltzmann_params
+            );
+            var q_learning_strategy = boltzmann;
+        }
         var q_learning = new QLearning(
-            boltzmann,
+            q_learning_strategy,
             {
                 "alpha_value": params.alpha_value,
                 "gamma_value": params.gamma_value
@@ -85,7 +95,6 @@ var Controller = (function() {
         limit_ = params.limit;
 
         this.autocompletion_ = autocompletion;
-        this.boltzmann_ = boltzmann;
         this.q_learning_ = q_learning;
 
         this.memorize();

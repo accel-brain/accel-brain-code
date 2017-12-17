@@ -68,7 +68,7 @@ var autocompletion = new Autocompletion(
 );
 ```
 
-And, setup hyperparameters in `Q-Learning` and initialize.
+Setup hyperparameters in `Boltzmann-Distribution-Q-Learning`.
 
 ```js
 // Time rate in boltzmann distribution.
@@ -83,7 +83,7 @@ var strategy = new Boltzmann(
 );
 ```
 
-If you want to use not `Boltzmann-Distribution-Q-Learning` but `Epsilon-Greedy-Q-Learning`, setup the epsilon-greedy-rate.
+If you want to use `Epsilon-Greedy-Q-Learning`, setup the epsilon-greedy-rate instead.
 
 ```js
 // The epsilon greedy rate.
@@ -98,7 +98,7 @@ var strategy = new Greedy(
 );
 ```
 
-Initialize common parameters.
+And, setup common hyperparameters in `Q-Learning` and initialize.
 
 ```
 // Alpha value in Q-Learning algorithm.

@@ -57,6 +57,8 @@ var Greedy = (function()
          */
         select_action: function (__self__, state_key, next_action_list)
         {
+            if (next_action_list.length == 1) return next_action_list[0];
+
             var greedy_prob = Math.random();
             if (greedy_prob > 1.0 - this.epsilon_greedy_rate)
             {
@@ -65,11 +67,35 @@ var Greedy = (function()
             else
             {
                 var min = 0;
-                var max = next_action_list.length;
+                var max = next_action_list.length - 1;
                 var key = Math.floor(Math.random() * (max + 1 - min) ) + min;
                 var action_key = next_action_list[key];
             }
             return action_key;
+        },
+        /**
+         * Extract the list of the possible action in `self.t+1`.
+         *
+         * @params{string}
+         *
+         * @return{array}
+         */
+        extract_possible_actions: function (__self__, state_key)
+        {
+            return this.strategy_.extract_possible_actions(__self__, state_key);
+        },
+
+        /**
+         * Extract the list of the possible action in `self.t+1`.
+         *
+         * @params{string}
+         * @params{string}
+         *
+         * @return{array}
+         */
+        observe_reward_value: function (__self__, state_key, action_key)
+        {
+            return this.strategy_.observe_reward_value(__self__, state_key, action_key);
         }
     };
     return constructor;

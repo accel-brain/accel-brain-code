@@ -35,7 +35,7 @@ var NlpBase = (function()
      * @constructor
      */
     var constructor = function(params) {
-        if ("jpOnlyFlag" in params)
+        if (params != undefined && "jpOnlyFlag" in params)
         {
             if (params.jpOnlyFlag == true || params.jpOnlyFlag == false)
             {

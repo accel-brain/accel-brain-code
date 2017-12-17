@@ -96,19 +96,27 @@ var QLearning = (function()
          */
         extract_q_dict: function (state_key, action_key)
         {
-            if (this.q_dict == undefined)
+            try
             {
-                this.save_q_dict(state_key, action_key, 0.0);
-                return 0.0;
-            }
-            else
-            {
-                var state_key_list = Object.keys(this.q_dict);
-                if (state_key in this.q_dict)
+                if (this.q_dict == undefined)
                 {
-                    if (action_key in this.q_dict[state_key])
+                    this.save_q_dict(state_key, action_key, 0.0);
+                    return 0.0;
+                }
+                else
+                {
+                    var state_key_list = Object.keys(this.q_dict);
+                    if (state_key in this.q_dict && this.q_dict[state_key] != undefined)
                     {
-                        return this.q_dict[state_key][action_key];
+                        if (action_key in this.q_dict[state_key])
+                        {
+                            return this.q_dict[state_key][action_key];
+                        }
+                        else
+                        {
+                            this.save_q_dict(state_key, action_key, 0.0);
+                            return 0.0;
+                        }
                     }
                     else
                     {
@@ -116,11 +124,11 @@ var QLearning = (function()
                         return 0.0;
                     }
                 }
-                else
-                {
-                    this.save_q_dict(state_key, action_key, 0.0);
-                    return 0.0;
-                }
+            }
+            catch (e)
+            {
+                console.log(e);
+                return 0.0;
             }
         },
 
@@ -157,37 +165,45 @@ var QLearning = (function()
          */
         extract_r_dict : function (state_key, action_key)
         {
-            if (this.r_dict == undefined)
+            try
             {
-                this.save_r_dict(state_key, 0.0, action_key);
-                return 0.0;
-            }
-            else
-            {
-                if (state_key in this.r_dict)
-                {
-                    if (action_key == undefined)
-                    {
-                        reward_value = this.r_dict[state_key];
-                    }
-                    else
-                    {
-                        if (action_key in this.r_dict[state_key])
-                        {
-                            reward_value = this.r_dict[state_key][action_key];
-                        }
-                        else
-                        {
-                            this.save_r_dict(state_key, 0.0, action_key);
-                            return 0.0;
-                        }
-                    }
-                }
-                else
+                if (this.r_dict == undefined)
                 {
                     this.save_r_dict(state_key, 0.0, action_key);
                     return 0.0;
                 }
+                else
+                {
+                    if (state_key in this.r_dict && this.r_dict[state_key] != undefined)
+                    {
+                        if (action_key == undefined)
+                        {
+                            reward_value = this.r_dict[state_key];
+                        }
+                        else
+                        {
+                            if (action_key in this.r_dict[state_key])
+                            {
+                                reward_value = this.r_dict[state_key][action_key];
+                            }
+                            else
+                            {
+                                this.save_r_dict(state_key, 0.0, action_key);
+                                return 0.0;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this.save_r_dict(state_key, 0.0, action_key);
+                        return 0.0;
+                    }
+                }
+            }
+            catch(e)
+            {
+                console.log(e);
+                return 0.0;
             }
         },
 

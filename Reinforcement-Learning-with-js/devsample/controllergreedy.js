@@ -8,7 +8,7 @@ License: GNU General Public License v2.0
 Copyright 2017 chimera0 (email : ai-brain-lab@accel-brain.com)
 */
 
-var Controller = (function() {
+var ControllerGreedy = (function() {
     /*
      * @private
      *
@@ -19,7 +19,7 @@ var Controller = (function() {
      * @private
      *
      */
-    boltzmann_ = null;
+    greedy_ = null;
 
     /*
      * @private
@@ -38,8 +38,8 @@ var Controller = (function() {
      *
      */
     local_storage_dict_ = {
-        "r_dict": "autocompletion__r_dict",
-        "q_dict": "autocompletion__q_dict"
+        "r_dict": "autocompletion_greedy__r_dict",
+        "q_dict": "autocompletion_greedy__q_dict"
     }
 
     /**
@@ -57,15 +57,15 @@ var Controller = (function() {
             n_gram,
             params.n
         );
-        var boltzmann = new Boltzmann(
+        var greedy = new Greedy(
             autocompletion,
             {
-                "time_rate": params.time_rate
+                "epsilon_greedy_rate": params.epsilon_greedy_rate
             }
         );
 
         var q_learning = new QLearning(
-            boltzmann,
+            greedy,
             {
                 "alpha_value": params.alpha_value,
                 "gamma_value": params.gamma_value
@@ -85,7 +85,7 @@ var Controller = (function() {
         limit_ = params.limit;
 
         this.autocompletion_ = autocompletion;
-        this.boltzmann_ = boltzmann;
+        this.greedy_ = greedy;
         this.q_learning_ = q_learning;
 
         this.memorize();

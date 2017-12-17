@@ -30,7 +30,7 @@
     <script type="text/javascript" src="dependencies/tiny_segmenter-0.2.js"></script>
     <script type="text/javascript" src="devsample/nlpbase.js"></script>
     <script type="text/javascript" src="devsample/ngram.js"></script>
-    <script type="text/javascript" src="devsample/controller.js"></script>
+    <script type="text/javascript" src="devsample/controllergreedy.js"></script>
     <script type="text/javascript" src="dependencies/jquery-1.12.4.js"></script>
 
     <script>
@@ -68,21 +68,15 @@
                 // Greedy rate.
                 var epsilon_greedy_rate = 0.75;
 
-                var greedy = Greedy(
-                    {
-                        "epsilon_greedy_rate": epsilon_greedy_rate
-                    }
-                );
-
                 // Build.
                 __controller__ = new Controller(
                     {
                         "n": n,
+                        "epsilon_greedy_rate": epsilon_greedy_rate,
                         "alpha_value": alpha_value,
                         "gamma_value": gamma_value,
                         "limit": limit,
-                        "document": __document__,
-                        "q_learning_strategy": greedy
+                        "document": __document__
                     }
                 );
             });

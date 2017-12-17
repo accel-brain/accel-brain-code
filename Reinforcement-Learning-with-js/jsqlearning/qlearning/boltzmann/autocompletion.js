@@ -10,7 +10,7 @@ Copyright 2017 chimera0 (email : ai-brain-lab@accel-brain.com)
 
 
 /**
- * Q-Learning with Boltzmann distribution.
+ * Autocompletion by Q-Learning with boltzimann distribution.
  *
  */
 var Autocompletion = (function()

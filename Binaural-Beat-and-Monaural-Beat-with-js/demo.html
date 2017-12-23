@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/beat/accelbrainbeat.css" type="text/css">
+    <script type="text/javascript" src="js/accelbrainbeat.js"></script>
+    <script type="text/javascript">
+        var userAgent = window.navigator.userAgent.toLowerCase();
+        if (userAgent.indexOf('chrome') != -1)
+        {
+            document.getElementById("accel_brain_demo").innerHTML = "<h2>DEMO</h2>";
+            document.getElementById("accel_brain_beat_depends").innerHTML = "<p>This demo depends on Web Audio API. Web browser (such as Google Chrome, FireFox or Safari) is required.</p>";
+            window.onload = function() {
+                fieldset = ComposeForm.createFieldset ();
+                document.getElementById("accel_brain_beat_area").appendChild(fieldset);
+                ComposeBeatObj = new ComposeBeat (0);
+                AdapterDrawing.setup();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="accel_brain_beat_area"></div>
+    <div id="accel_brain_beat_depends">
+        <p>This demo depends on Web Audio API. Web browser (such as Google Chrome, FireFox or Safari) is required.</p>
+    </div>
+</body>
+</html>

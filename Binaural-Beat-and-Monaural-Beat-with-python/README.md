@@ -180,10 +180,9 @@ brain_beat.save_beat(
  As the kind of "Brain-Wave Controller", this Unity3D package is functionally equivalent to Python`s library.
 
 
-## Description
+## More detail
 
  The function of this library is inducing you to be extreme immersive mind state on the path to peak performance. You can handle your mind state by using this library which is able to control your brain waves by the binaural beats and the monaural beats.
-
 
 ### Concept of Binaural beats and Monauarl beats
 

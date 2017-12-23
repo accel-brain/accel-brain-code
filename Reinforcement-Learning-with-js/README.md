@@ -42,6 +42,14 @@ And `Q-Learning` modules are to be included.
 <script type="text/javascript" src="jsqlearning/qlearning/boltzmann/autocompletion.js"></script>
 ```
 
+If you want to use not `Boltzmann-Distribution-Q-Learning` but `Epsilon-Greedy-Q-Learning`, include follow files instead.
+
+```html
+<script type="text/javascript" src="jsqlearning/qlearning.js"></script>
+<script type="text/javascript" src="jsqlearning/qlearning/greedy.js"></script>
+<script type="text/javascript" src="jsqlearning/qlearning/greedy/autocompletion.js"></script>
+```
+
 Initialize NLP modules.
 
 ```js
@@ -60,12 +68,39 @@ var autocompletion = new Autocompletion(
 );
 ```
 
-And, setup hyperparameters in Q-Learning and initialize.
+Setup hyperparameters in `Boltzmann-Distribution-Q-Learning`.
 
 ```js
 // Time rate in boltzmann distribution.
 taime_rate = 0.001;
 
+// The algorithm of boltzmann distribution.
+var strategy = new Boltzmann(
+    autocompletion,
+    {
+        "time_rate": time_rate
+    }
+);
+```
+
+If you want to use `Epsilon-Greedy-Q-Learning`, setup the epsilon-greedy-rate instead.
+
+```js
+// The epsilon greedy rate.
+epsilon_greedy_rate = 0.75;
+
+// The algorithm of epsilon-greedy.
+var strategy = new Greedy(
+    autocompletion,
+    {
+        "epsilon_greedy_rate": epsilon_greedy_rate
+    }
+);
+```
+
+And, setup common hyperparameters in `Q-Learning` and initialize.
+
+```
 // Alpha value in Q-Learning algorithm.
 alpha_value = 0.5;
 // Gamma value in Q-Learning algorithm.
@@ -73,17 +108,9 @@ gamma_value = 0.5;
 // The number of learning.
 limit = 10000;
 
-// The algorithm of boltzmann distribution.
-var boltzmann = new Boltzmann(
-    autocompletion,
-    {
-        "time_rate": time_rate
-    }
-);
-
 // Base class of Q-Learning.
 var q_learning = new QLearning(
-    boltzmann,
+    strategy,
     {
         "alpha_value": alpha_value,
         "gamma_value": gamma_value

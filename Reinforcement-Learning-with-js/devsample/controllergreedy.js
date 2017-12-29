@@ -88,7 +88,23 @@ var ControllerGreedy = (function() {
         this.greedy_ = greedy;
         this.q_learning_ = q_learning;
 
-        this.memorize();
+        $(window).on("beforeunload", function() {
+            try
+            {
+                localStorage.setItem(
+                    local_storage_dict_["r_dict"],
+                    JSON.stringify(this.q_learning_.r_dict)
+                );
+                localStorage.setItem(
+                    local_storage_dict_["q_dict"],
+                    JSON.stringify(this.q_learning_.q_dict)
+                );
+            }
+            catch(e)
+            {
+                console.log(e);
+            }
+        }.bind(this));
     }
 
     /** @constructor */
@@ -108,32 +124,22 @@ var ControllerGreedy = (function() {
                 this.q_learning_,
                 input_document
             );
-            console.log("state:")
-            console.log(state_key)
             this.q_learning_.learn(state_key, this.limit_);
             var next_action_list = this.q_learning_.extract_possible_actions(
                 state_key
             );
-            console.log("next action list:")
-            console.log(next_action_list)
             var action_key = this.q_learning_.select_action(
                 state_key,
                 next_action_list
             );
-            console.log("action:")
-            console.log(action_key)
             var reward_value = this.q_learning_.observe_reward_value(
                 state_key,
                 action_key
             );
-            console.log("reward_value:")
-            console.log(reward_value)
             var q_value = this.q_learning_.extract_q_dict(
                 state_key,
                 action_key
             );
-            console.log("q_value:")
-            console.log(q_value)
             input_memroy_ = input_memroy_ + input_document;
             this.autocompletion_.pre_training(
                 this.q_learning_,

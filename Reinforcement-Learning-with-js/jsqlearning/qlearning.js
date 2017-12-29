@@ -145,7 +145,7 @@ var QLearning = (function()
             if (q_value.isNaN == true || (q_value !== q_value) === true) return;
             if (state_key == false) return;
             if (action_key == false) return;
-            if (q_value == false) return;
+            if (q_value === false) return;
             if (this.q_dict == undefined) this.q_dict = {};
             if (this.q_dict[state_key] == undefined)
             {
@@ -219,7 +219,7 @@ var QLearning = (function()
         {
             if (reward_value.isNaN == true || (reward_value !== reward_value) === true) return;
             if (state_key == false) return;
-            if (reward_value == false) return;
+            if (reward_value === false) return;
 
             if (this.r_dict == undefined) this.r_dict = {};
             if (this.r_dict[state_key] == undefined)

@@ -78,7 +78,7 @@ var Link2Keyword = (function () {
     highlight_ = function () {
         hash = location.hash;
         if (hash.indexOf("#link2keyword=") != -1) {
-            keyword = hash.split("#link2keyword=")[1];
+            keyword = hash.split("#link2keyword=")[1].split("&")[0];
             keyword = decodeURIComponent(keyword);
             try 
             {

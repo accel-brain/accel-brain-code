@@ -117,7 +117,7 @@ for sentence in result_dict["summarize_result"]:
     print(sentence)
 ```
 
-## Usecase: A English Web-Page Summarization
+## Usecase: English Web-Page Summarization
 
 Run the batch program: [demo_summarization_english_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_summarization_english_web_page.py)
 
@@ -144,7 +144,7 @@ Natural language generation From Wikipedia, the free encyclopedia Jump to: navig
  It could be said an NLG system is like a translator that converts data into a natural language representation.
 ```
 
-## Usecase: A Japanese Web-Page Summarization
+## Usecase: Japanese Web-Page Summarization
 
 Run the batch program: [demo_summarization_japanese_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_summarization_japanese_web_page.py)
 

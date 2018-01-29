@@ -1,7 +1,7 @@
 import nltk
 from pysummarization.nlp_base import NlpBase
 from pysummarization.abstractable_doc import AbstractableDoc
-
+from pysummarization.similarity_filter import SimilarityFilter
 
 class AutoAbstractor(NlpBase):
     '''
@@ -59,13 +59,14 @@ class AutoAbstractor(NlpBase):
 
     top_sentences = property(get_top_sentences, set_top_sentences)
 
-    def summarize(self, document, Abstractor):
+    def summarize(self, document, Abstractor, similarity_filter=None):
         '''
         Execute summarization.
 
         Args:
-            document:       The target document.
-            Abstractor:     The object of AbstractableDoc.
+            document:           The target document.
+            Abstractor:         The object of AbstractableDoc.
+            similarity_filter   The object of SimilarityFilter.
 
         Returns:
             dict{
@@ -79,9 +80,18 @@ class AutoAbstractor(NlpBase):
         if isinstance(Abstractor, AbstractableDoc) is False:
             raise TypeError("The type of Abstractor must be AbstractableDoc.")
 
+        if isinstance(similarity_filter, SimilarityFilter) is False and similarity_filter is not None:
+            raise TypeError("The type of similarity_filter must be SimilarityFilter.")
+
+        normalized_sentences = self.listup_sentence(document)
+
+        # for filtering similar sentences.
+        if similarity_filter is not None:
+            normalized_sentences = similarity_filter.similar_filter_r(normalized_sentences)
+
         self.tokenize(document)
         words = self.token
-        normalized_sentences = self.listup_sentence(document)
+
         fdist = nltk.FreqDist(words)
         top_n_words = [w[0] for w in fdist.items()][:self.target_n]
         scored_list = self.__closely_associated_score(normalized_sentences, top_n_words)

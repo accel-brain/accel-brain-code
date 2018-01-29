@@ -1,6 +1,6 @@
 /*
 Library Name: Binaural Beat and Monaural Beat with Web Audio API
-Description: This application enables you to handle your mind state by a kind of "Brain-Wave Controller". You can post blog while controlling your brain waves.
+Description: This application enables you to handle your mind state by a kind of "Brain-Wave Controller".
 Version: 1.0.1
 Author: chimera0
 Author URI: https://accel-brain.com/

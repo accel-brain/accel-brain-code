@@ -22,6 +22,8 @@ class TiIdfCosine(SimilarityFilter):
         Returns:
             Similarity.
         '''
+        if len(token_list_x) == 0 or len(token_list_y) == 0:
+            return 0.0
 
         document_list = token_list_x.copy()
         [document_list.append(v) for v in token_list_y]
@@ -41,6 +43,10 @@ class TiIdfCosine(SimilarityFilter):
         norm_x = np.linalg.norm(vector_list_x)
         norm_y = np.linalg.norm(vector_list_y)
         try:
-            return dot_prod / (norm_x * norm_y)
+            result = dot_prod / (norm_x * norm_y)
+            if np.isnan(result) is True:
+                return 0.0
+            else:
+                return result
         except ZeroDivisionError:
             return 0.0

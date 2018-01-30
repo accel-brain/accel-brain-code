@@ -82,7 +82,7 @@ The `result_dict` is a dict. this format is as follows.
  }
 ```
 
-## Usecase: Summarize an Japanese string argument.
+## Usecase: Summarize Japanese string argument.
 
 Import Python modules.
 
@@ -172,7 +172,7 @@ The result is as follows.
 例えば、1つの新聞記事を要約する作業は単一文書要約である。
 ```
 
-## Usecase: N-gram
+## Usecase: Japanese Web-Page Summarization with N-gram
 
 The minimum unit of token is not necessarily `a word` in automatic summarization. `N-gram` is also applicable to the tokenization.
 
@@ -201,14 +201,71 @@ The result is as follows.
  ベクトル空間モデル キーワード等を各 次元 として設定した高次元 ベクトル空間 を想定し、検索の対象とするデータやユーザによる検索質問に何らかの加工を行い ベクトル を生成する
 ```
 
-### More detail demos
+## Usecase: Japanese Web-Page Summarization with Similarity Filter
+
+If the sentences you want to summarize consist of repetition of same or similar sense in different words, the summary results may also be redundant. Then before summarization, you should filter the mutually similar, tautological, pleonastic, or redundant sentences to extract features having an information quantity. The function of `SimilarityFilter` is to cut-off the sentences having the state of resembling or being alike by calculating similarity measure: `Dice`, `Jaccard`, `Simpson`, or `TfIdf-Cosine`.
+
+Import Python modules.
+
+```python
+from pysummarization.nlp_base import NlpBase
+from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
+from pysummarization.tokenizabledoc.mecab_tokenizer import MeCabTokenizer
+from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
+from pysummarization.similarityfilter.tfidf_cosine import TiIdfCosine
+```
+
+Instantiate object of the NLP.
+
+```python
+# The object of the NLP.
+nlp_base = NlpBase()
+# Set tokenizer. This is japanese tokenizer with MeCab.
+nlp_base.tokenizable_doc = MeCabTokenizer()
+```
+
+Instantiate object of `SimilarityFilter` and set the cut-off threshold.
+
+```python
+# The object of `Similarity Filter`. 
+# The similarity observed by this object is so-called cosine similarity of Tf-Idf vectors.
+similarity_filter = TiIdfCosine()
+
+# Set the object of NLP.
+similarity_filter.nlp_base = nlp_base
+
+# If the similarity exceeds this value, the sentence will be cut off.
+similarity_filter.similarity_limit = 0.25
+```
+
+Prepare sentences you want to summarize.
+
+```python
+# Summarized sentences (sited from http://ja.uncyclopedia.info/wiki/%E5%86%97%E8%AA%9E%E6%B3%95).
+document = "冗語法（じょうごほう、レデュンダンシー、redundancy、jōgohō）とは、何度も何度も繰り返し重ねて重複して前述されたのと同じ意味の同様である同意義の文章を、必要あるいは説明か理解を要求された以上か、伝え伝達したいと意図された、あるいは表し表現したい意味以上に、繰り返し重ねて重複して繰り返すことによる、不必要であるか、または余分な余計である文章の、必要以上の使用であり、何度も何度も繰り返し重ねて重複して前述されたのと同じ意味の同様の文章を、必要あるいは説明か理解を要求された以上か、伝え伝達したいと意図された、あるいは表し表現したい意味以上に、繰り返し重ねて重複して繰り返すことによる、不必要であるか、または余分な文章の、必要以上の使用である。これが冗語法（じょうごほう、レデュンダンシー、redundancy、jōgohō）である。基本的に、冗語法（じょうごほう、レデュンダンシー、redundancy、jōgohō）が多くの場合において概して一般的に繰り返される通常の場合は、普通、同じ同様の発想や思考や概念や物事を表し表現する別々の異なった文章や単語や言葉が何回も何度も余分に繰り返され、その結果として発言者の考えが何回も何度も言い直され、事実上、実際に同じ同様の発言が何回も何度にもわたり、幾重にも言い換えられ、かつ、同じことが何回も何度も繰り返し重複して過剰に回数を重ね前述されたのと同じ意味の同様の文章が何度も何度も不必要に繰り返される。通常の場合、多くの場合において概して一般的にこのように冗語法（じょうごほう、レデュンダンシー、redundancy、jōgohō）が繰り返される。"
+```
+
+Instantiate object of `AutoAbstractor` and call the method.
+
+```python
+# The object of automatic sumamrization.
+auto_abstractor = AutoAbstractor()
+# Set tokenizer. This is japanese tokenizer with MeCab.
+auto_abstractor.tokenizable_doc = MeCabTokenizer()
+# Object of abstracting and filtering document.
+abstractable_doc = TopNRankAbstractor()
+# Execute summarization.
+result_dict = auto_abstractor.summarize(document, abstractable_doc, similarity_filter)
+```
+
+## More detail demos
 
 - [Webクローラ型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-web-crawling-ai/) (Japanese)
     - 20001 bots are running as 20001 web-crawlers and 20001 web-scrapers.
 - [「代理演算」一覧 | Welcome to Singularity](https://media.accel-brain.com/category/agency-operation/) (Japanese)
     - 20001 bots are running as 20001 blogers and 20001 "content curation writers".
 
-### Related PoC
+## Related PoC
 
 - [Webクローラ型人工知能によるパラドックス探索暴露機能の社会進化論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/) (Japanese)
     - [プロトタイプの開発：文書自動要約技術](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/4/#i-12)

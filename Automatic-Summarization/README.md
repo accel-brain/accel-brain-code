@@ -203,9 +203,59 @@ The result is as follows.
 
 ## Usecase: Japanese Web-Page Summarization with Similarity Filter
 
-If the sentences you want to summarize consist of repetition of same or similar sense in different words, the summary results may also be redundant. Then before summarization, you should filter the mutually similar, tautological, pleonastic, or redundant sentences to extract features having an information quantity. The function of `SimilarityFilter` is to cut-off the sentences having the state of resembling or being alike by calculating similarity measure: `Dice`, `Jaccard`, `Simpson`, or `TfIdf-Cosine`.
+If the sentences you want to summarize consist of repetition of same or similar sense in different words, the summary results may also be redundant. Then before summarization, you should filter the mutually similar, tautological, pleonastic, or redundant sentences to extract features having an information quantity. The function of `SimilarityFilter` is to cut-off the sentences having the state of resembling or being alike by calculating the similarity measure.
 
-Import Python modules.
+### Methods for calculating the similarity measure
+
+There are some methods for calculating the similarity measure. In this library, Dice coefficient, Jaccard coefficient, and Simpson coefficient between two sentences is calculated as follows.
+
+Import Python modules for calculating the similarity measure and instantiate the object.
+
+```python
+from pysummarization.similarityfilter.dice import Dice
+similarity_filter = Dice()
+```
+
+or
+
+```python
+from pysummarization.similarityfilter.jaccard import Jaccard
+similarity_filter = Jaccard()
+```
+
+or
+
+```python
+from pysummarization.similarityfilter.simpson import Simpson
+similarity_filter = Simpson()
+```
+
+If you want to calculate similarity between two sentences, call `calculate` method as follow.
+
+```python
+# Instantiate
+similarity_filter = Jaccard()
+# Tokenized sentences
+token_list_x = ["Dice", "coefficient", "is", "a", "similarity", "measure", "."]
+token_list_y = ["Jaccard", "coefficient", "is", "a", "similarity", "measure", "."]
+# 0.75
+similarity_num = similarity_filter.calculate(token_list_x, token_list_y)
+```
+
+### Tf-Idf and Cosine similarity
+
+If you want to calculate similarity with Tf-Idf cosine similarity, instantiate `TiIdfCosine`.
+
+```python
+from pysummarization.similarityfilter.tfidf_cosine import TiIdfCosine
+similarity_filter = TiIdfCosine()
+```
+
+### Filtering similar sentences and summarization
+
+The function of these methods is to cut-off mutually similar sentences. In text summarization, basic usage of this function is as follow. After all, `SimilarityFilter` is delegated as well as GoF's Strategy Pattern.
+
+Import Python modules for NLP and text summarization.
 
 ```python
 from pysummarization.nlp_base import NlpBase
@@ -254,7 +304,7 @@ auto_abstractor = AutoAbstractor()
 auto_abstractor.tokenizable_doc = MeCabTokenizer()
 # Object of abstracting and filtering document.
 abstractable_doc = TopNRankAbstractor()
-# Execute summarization.
+# Delegate the objects and execute summarization.
 result_dict = auto_abstractor.summarize(document, abstractable_doc, similarity_filter)
 ```
 
@@ -287,4 +337,3 @@ result_dict = auto_abstractor.summarize(document, abstractable_doc, similarity_f
 
 - Luhn, Hans Peter. "The automatic creation of literature abstracts." IBM Journal of research and development 2.2 (1958): 159-165.
 - Matthew A. Russell　著、佐藤 敏紀、瀬戸口 光宏、原川 浩一　監訳、長尾 高弘　訳『入門 ソーシャルデータ 第2版――ソーシャルウェブのデータマイニング』 2014年06月 発行
-

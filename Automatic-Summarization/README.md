@@ -149,7 +149,7 @@ Natural language generation From Wikipedia, the free encyclopedia Jump to: navig
 Run the batch program: [demo_summarization_japanese_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_summarization_japanese_web_page.py)
 
 ```
-python3 demo_summarization_japanese_web_page.py {URL}
+python demo_summarization_japanese_web_page.py {URL}
 ```
 - {URL}: web site URL.
 
@@ -158,7 +158,7 @@ python3 demo_summarization_japanese_web_page.py {URL}
 Let's summarize this page: [自動要約 - Wikipedia](https://ja.wikipedia.org/wiki/%E8%87%AA%E5%8B%95%E8%A6%81%E7%B4%84).
 
 ```
-python3 demo_summarization_japanese_web_page.py https://ja.wikipedia.org/wiki/%E8%87%AA%E5%8B%95%E8%A6%81%E7%B4%84
+python demo_summarization_japanese_web_page.py https://ja.wikipedia.org/wiki/%E8%87%AA%E5%8B%95%E8%A6%81%E7%B4%84
 ```
 
 The result is as follows.
@@ -179,7 +179,7 @@ The minimum unit of token is not necessarily `a word` in automatic summarization
 Run the batch program: [demo_with_n_gram_japanese_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_with_n_gram_japanese_web_page.py)
 
 ```
-python3 demo_with_n_gram_japanese_web_page.py {URL}
+python demo_with_n_gram_japanese_web_page.py {URL}
 ```
 - {URL}: web site URL.
 
@@ -188,7 +188,7 @@ python3 demo_with_n_gram_japanese_web_page.py {URL}
 Let's summarize this page:[情報検索 - Wikipedia](https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E6%A4%9C%E7%B4%A2).
 
 ```
-python3 demo_with_n_gram_japanese_web_page.py https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E6%A4%9C%E7%B4%A2
+python demo_with_n_gram_japanese_web_page.py https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E6%A4%9C%E7%B4%A2
 ```
 
 The result is as follows.
@@ -306,6 +306,35 @@ auto_abstractor.tokenizable_doc = MeCabTokenizer()
 abstractable_doc = TopNRankAbstractor()
 # Delegate the objects and execute summarization.
 result_dict = auto_abstractor.summarize(document, abstractable_doc, similarity_filter)
+```
+
+### Demo
+
+Let's summarize this page:[循環論法 - Wikipedia](https://ja.wikipedia.org/wiki/%E5%BE%AA%E7%92%B0%E8%AB%96%E6%B3%95).
+
+Run the batch program: [demo_similarity_filtering_japanese_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_similarity_filtering_japanese_web_page.py)
+
+```
+python demo_similarity_filtering_japanese_web_page.py {URL} {SimilarityFilter} {SimilarityLimit}
+```
+- {URL}: web site URL.
+- {SimilarityFilter}: The object of `SimilarityFilter`: `Dice`, `Jaccard`, `Simpson`, or `TfIdfCosine`.
+- {SimilarityLimit}: The cut-off threshold.
+
+For instance, command line argument is as follows:
+
+```
+python demo_similarity_filtering_japanese_web_page.py https://ja.wikipedia.org/wiki/%E5%BE%AA%E7%92%B0%E8%AB%96%E6%B3%95 Jaccard 0.3
+```
+
+The result is as follows.
+
+```
+循環論法 出典: フリー百科事典『ウィキペディア（Wikipedia）』 移動先: 案内 、 検索 循環論法 （じゅんかんろんぽう、circular reasoning, circular logic, vicious circle [1] ）とは、 ある命題の 証明 において、その命題を仮定した議論を用いること [1] 。
+
+証明すべき結論を前提として用いる論法 [2] 。
+
+ ある用語の 定義 を与える表現の中にその用語自体が本質的に登場していること [1]
 ```
 
 ## More detail demos

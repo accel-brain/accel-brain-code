@@ -244,11 +244,11 @@ similarity_num = similarity_filter.calculate(token_list_x, token_list_y)
 
 ### Tf-Idf and Cosine similarity
 
-If you want to calculate similarity with Tf-Idf cosine similarity, instantiate `TiIdfCosine`.
+If you want to calculate similarity with Tf-Idf cosine similarity, instantiate `TfIdfCosine`.
 
 ```python
-from pysummarization.similarityfilter.tfidf_cosine import TiIdfCosine
-similarity_filter = TiIdfCosine()
+from pysummarization.similarityfilter.tfidf_cosine import TfIdfCosine
+similarity_filter = TfIdfCosine()
 ```
 
 ### Filtering similar sentences and summarization
@@ -262,7 +262,7 @@ from pysummarization.nlp_base import NlpBase
 from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
 from pysummarization.tokenizabledoc.mecab_tokenizer import MeCabTokenizer
 from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
-from pysummarization.similarityfilter.tfidf_cosine import TiIdfCosine
+from pysummarization.similarityfilter.tfidf_cosine import TfIdfCosine
 ```
 
 Instantiate object of the NLP.
@@ -279,7 +279,7 @@ Instantiate object of `SimilarityFilter` and set the cut-off threshold.
 ```python
 # The object of `Similarity Filter`. 
 # The similarity observed by this object is so-called cosine similarity of Tf-Idf vectors.
-similarity_filter = TiIdfCosine()
+similarity_filter = TfIdfCosine()
 
 # Set the object of NLP.
 similarity_filter.nlp_base = nlp_base

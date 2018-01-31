@@ -6,7 +6,7 @@ from pysummarization.web_scraping import WebScraping
 from pysummarization.abstractabledoc.std_abstractor import StdAbstractor
 from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
 from pysummarization.readablewebpdf.web_pdf_reading import WebPDFReading
-from pysummarization.similarityfilter.tfidf_cosine import TiIdfCosine
+from pysummarization.similarityfilter.tfidf_cosine import TfIdfCosine
 from pysummarization.similarityfilter.dice import Dice
 from pysummarization.similarityfilter.jaccard import Jaccard
 from pysummarization.similarityfilter.simpson import Simpson
@@ -22,7 +22,7 @@ def Main(url, similarity_mode="TfIdfCosine", similarity_limit=0.75):
     if similarity_mode == "TfIdfCosine":
         # The object of `Similarity Filter`. 
         # The similarity observed by this object is so-called cosine similarity of Tf-Idf vectors.
-        similarity_filter = TiIdfCosine()
+        similarity_filter = TfIdfCosine()
 
     elif similarity_mode == "Dice":
         # The object of `Similarity Filter`.

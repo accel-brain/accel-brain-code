@@ -4,7 +4,7 @@ from pysummarization.similarity_filter import SimilarityFilter
 from pysummarization.vectorlizabletoken.tfidf_vectorizer import TfidfVectorizer
 
 
-class TiIdfCosine(SimilarityFilter):
+class TfIdfCosine(SimilarityFilter):
     '''
     Concrete class for filtering mutually similar sentences.
     '''

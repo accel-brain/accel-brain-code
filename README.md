@@ -58,6 +58,10 @@ This Python script enables you to handle your mind state by a kind of "Brain-Wav
 
 Full documentation is available on [https://code.accel-brain.com/Binaural-Beat-and-Monaural-Beat-with-python/](https://code.accel-brain.com/Binaural-Beat-and-Monaural-Beat-with-python/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
 
+## [Binaural-Beat-and-Monaural-Beat-with-js](https://github.com/chimera0/accel-brain-code/tree/master/Binaural-Beat-and-Monaural-Beat-with-js)
+
+These modules are functionally equivalent to Python Scripts in `AccelBrainBeat`.
+
 ## [Subliminal perception](https://github.com/chimera0/accel-brain-code/tree/master/Subliminal-Perception)
 
 These JavaScript are tool for experimentation of subliminal perception.

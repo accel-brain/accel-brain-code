@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import math
-from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
+import mxnet as mx
+from pydbmmx.activation.interface.activating_function_interface import ActivatingFunctionInterface
 
 
 class TanhFunction(ActivatingFunctionInterface):
@@ -8,7 +8,7 @@ class TanhFunction(ActivatingFunctionInterface):
     Tanh function.
     '''
 
-    def activate(self, double x):
+    def activate(self, x):
         '''
         Return the result from this activation function.
 
@@ -18,9 +18,9 @@ class TanhFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
-        return math.tanh(x)
+        return mx.ndarray.tanh(x)
 
-    def derivative(self, double y):
+    def derivative(self, y):
         '''
         Derivative.
 

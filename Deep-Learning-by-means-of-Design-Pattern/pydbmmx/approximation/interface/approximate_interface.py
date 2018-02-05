@@ -11,7 +11,7 @@ class ApproximateInterface(metaclass=ABCMeta):
     def approximate_learn(
         self,
         graph,
-        double learning_rate,
+        learning_rate,
         observed_data_arr,
         traning_count=1000
     ):

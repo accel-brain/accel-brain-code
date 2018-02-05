@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import random
-from pydbm.neuron_object import Neuron
-from pydbm.neuron.interface.hidden_layer_interface import HiddenLayerInterface
+from pydbmmx.neuron_object import Neuron
+from pydbmmx.neuron.interface.hidden_layer_interface import HiddenLayerInterface
 
 
 class HiddenNeuron(Neuron, HiddenLayerInterface):
@@ -13,7 +13,7 @@ class HiddenNeuron(Neuron, HiddenLayerInterface):
         ''' Initialize. '''
         self.bias = round(random.random(), 3)
 
-    def hidden_update_state(self, double link_value):
+    def hidden_update_state(self, link_value):
         '''
         Update activity.
 
@@ -24,7 +24,7 @@ class HiddenNeuron(Neuron, HiddenLayerInterface):
         output = self.activate(link_value)
         self.activity = output
 
-    def update_bias(self, double learning_rate):
+    def update_bias(self, learning_rate):
         '''
         Update biases.
 

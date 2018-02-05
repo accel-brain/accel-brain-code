@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from multipledispatch import dispatch
-from pydbm.nn.nn_director import NNDirector
-from pydbm.nn.interface.nn_builder import NNBuilder
+from pydbmmx.nn.nn_director import NNDirector
+from pydbmmx.nn.interface.nn_builder import NNBuilder
 
 
 class NeuralNetwork(object):

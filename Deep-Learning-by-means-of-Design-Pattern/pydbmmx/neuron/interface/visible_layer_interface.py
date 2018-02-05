@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from abc import ABCMeta, abstractmethod
 
 
@@ -9,7 +8,7 @@ class VisibleLayerInterface(metaclass=ABCMeta):
     '''
 
     @abstractmethod
-    def observe_data_point(self, double x):
+    def observe_data_point(self, x):
         '''
         Input obseved data points.
 
@@ -19,7 +18,7 @@ class VisibleLayerInterface(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    def visible_update_state(self, double link_value):
+    def visible_update_state(self, link_value):
         '''
         Update the activity.
 

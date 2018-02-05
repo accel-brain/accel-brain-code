@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from pydbm.nn.interface.nn_builder import NNBuilder
-from pydbm.neuron.visible_neuron import VisibleNeuron
-from pydbm.neuron.hidden_neuron import HiddenNeuron
-from pydbm.neuron.output_neuron import OutputNeuron
-from pydbm.synapse.neural_network_graph import NeuralNetworkGraph
+from pydbmmx.nn.interface.nn_builder import NNBuilder
+from pydbmmx.neuron.visible_neuron import VisibleNeuron
+from pydbmmx.neuron.hidden_neuron import HiddenNeuron
+from pydbmmx.neuron.output_neuron import OutputNeuron
+from pydbmmx.synapse.neural_network_graph import NeuralNetworkGraph
 
 
 class NN3LayerBuilder(NNBuilder):

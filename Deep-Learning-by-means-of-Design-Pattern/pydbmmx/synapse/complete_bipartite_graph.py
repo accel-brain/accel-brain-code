@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from pydbm.synapse_list import Synapse
+from pydbmmx.synapse_list import Synapse
 
 
 class CompleteBipartiteGraph(Synapse):
@@ -18,6 +18,16 @@ class CompleteBipartiteGraph(Synapse):
 
     visible_activity_arr = property(get_visible_activity_arr, set_visible_activity_arr)
 
+    def get_visible_bias_arr(self):
+        ''' getter '''
+        return self.shallower_bias_arr
+
+    def set_visible_bias_arr(self, value):
+        ''' setter '''
+        self.shallower_bias_arr = value
+
+    visible_bias_arr = property(get_visible_bias_arr, set_visible_bias_arr)
+
     def get_hidden_activity_arr(self):
         ''' getter '''
         return self.deeper_activity_arr
@@ -27,6 +37,16 @@ class CompleteBipartiteGraph(Synapse):
         self.deeper_activity_arr = value
 
     hidden_activity_arr = property(get_hidden_activity_arr, set_hidden_activity_arr)
+
+    def get_hidden_bias_arr(self):
+        ''' getter '''
+        return self.deeper_bias_arr
+
+    def set_hidden_bias_arr(self, value):
+        ''' setter '''
+        self.deeper_bias_arr = value
+
+    hidden_bias_arr = property(get_hidden_bias_arr, set_hidden_bias_arr)
 
     def update(self, learning_rate):
         '''

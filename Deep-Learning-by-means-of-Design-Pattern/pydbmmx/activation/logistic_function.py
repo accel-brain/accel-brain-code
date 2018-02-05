@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import numpy as np
-from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
+import mxnet as mx
+from pydbmmx.activation.interface.activating_function_interface import ActivatingFunctionInterface
 
 
 class LogisticFunction(ActivatingFunctionInterface):
@@ -18,7 +18,7 @@ class LogisticFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
-        return 1.0 / (1.0 + np.exp(-x))
+        return 1.0 / (1.0 + mx.ndarray.exp(-x))
 
     def derivative(self, y):
         '''

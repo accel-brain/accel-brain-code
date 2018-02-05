@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-
 import random
 import bisect
-from pydbm.neuron_object import Neuron
-from pydbm.neuron.interface.output_layer_interface import OutputLayerInterface
+from pydbmmx.neuron_object import Neuron
+from pydbmmx.neuron.interface.output_layer_interface import OutputLayerInterface
 
 
 class OutputNeuron(Neuron, OutputLayerInterface):
@@ -34,7 +33,7 @@ class OutputNeuron(Neuron, OutputLayerInterface):
         '''
         self.bias = round(random.random(), 3)
 
-    def output_update_state(self, double link_value):
+    def output_update_state(self, link_value):
         '''
         Update activity.
 
@@ -42,7 +41,7 @@ class OutputNeuron(Neuron, OutputLayerInterface):
             link_value:      Input value.
 
         '''
-        cdef double output = self.activate(link_value)
+        output = self.activate(link_value)
         if self.bernoulli_flag is False:
             self.activity = output
         else:
@@ -52,7 +51,7 @@ class OutputNeuron(Neuron, OutputLayerInterface):
             else:
                 self.activity = 0.0
 
-    def update_bias(self, double learning_rate):
+    def update_bias(self, learning_rate):
         '''
         Update biases.
 
@@ -61,7 +60,7 @@ class OutputNeuron(Neuron, OutputLayerInterface):
         '''
         self.diff_bias += learning_rate * self.activity
 
-    def __decide_activation(self, double probabirity):
+    def __decide_activation(self, probabirity):
         '''
         Decide the binaly activity.
 

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import random
-from pydbm.neuron_object import Neuron
-from pydbm.neuron.interface.visible_layer_interface import VisibleLayerInterface
-from pydbm.neuron.interface.hidden_layer_interface import HiddenLayerInterface
-from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
+from pydbmmx.neuron_object import Neuron
+from pydbmmx.neuron.interface.visible_layer_interface import VisibleLayerInterface
+from pydbmmx.neuron.interface.hidden_layer_interface import HiddenLayerInterface
+from pydbmmx.activation.interface.activating_function_interface import ActivatingFunctionInterface
 
 
 class FeaturePointNeuron(Neuron, VisibleLayerInterface, HiddenLayerInterface):
@@ -44,7 +44,7 @@ class FeaturePointNeuron(Neuron, VisibleLayerInterface, HiddenLayerInterface):
         visible_layer_interface.bias = self.bias
         self.__visible_layer_interface = visible_layer_interface
 
-    def observe_data_point(self, double x):
+    def observe_data_point(self, x):
         '''
         Input observed data points.
         
@@ -54,7 +54,7 @@ class FeaturePointNeuron(Neuron, VisibleLayerInterface, HiddenLayerInterface):
         self.__visible_layer_interface.observe_data_point(x)
         self.activity = x
 
-    def visible_update_state(self, double link_value):
+    def visible_update_state(self, link_value):
         '''
         Update activity as neurons in visible layer.
 
@@ -65,7 +65,7 @@ class FeaturePointNeuron(Neuron, VisibleLayerInterface, HiddenLayerInterface):
         self.__visible_layer_interface.visible_update_state(link_value)
         self.activity = self.__visible_layer_interface.activity
 
-    def hidden_update_state(self, double link_value):
+    def hidden_update_state(self, link_value):
         '''
         Update activity as neurons in hidden layer.
 
@@ -75,7 +75,7 @@ class FeaturePointNeuron(Neuron, VisibleLayerInterface, HiddenLayerInterface):
         '''
         self.visible_update_state(link_value)
 
-    def update_bias(self, double learning_rate):
+    def update_bias(self, learning_rate):
         '''
         Update biases.
 

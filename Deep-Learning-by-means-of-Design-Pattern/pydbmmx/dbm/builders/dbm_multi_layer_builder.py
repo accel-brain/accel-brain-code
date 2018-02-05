@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from pydbm.dbm.interface.dbm_builder import DBMBuilder
-from pydbm.neuron.visible_neuron import VisibleNeuron
-from pydbm.neuron.hidden_neuron import HiddenNeuron
-from pydbm.neuron.feature_point_neuron import FeaturePointNeuron
-from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
-from pydbm.synapse.complete_bipartite_graph import CompleteBipartiteGraph
-from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
+from pydbmmx.dbm.interface.dbm_builder import DBMBuilder
+from pydbmmx.neuron.visible_neuron import VisibleNeuron
+from pydbmmx.neuron.hidden_neuron import HiddenNeuron
+from pydbmmx.neuron.feature_point_neuron import FeaturePointNeuron
+from pydbmmx.approximation.contrastive_divergence import ContrastiveDivergence
+from pydbmmx.synapse.complete_bipartite_graph import CompleteBipartiteGraph
+from pydbmmx.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
 
 
 class DBMMultiLayerBuilder(DBMBuilder):
@@ -18,7 +18,7 @@ class DBMMultiLayerBuilder(DBMBuilder):
 
     '''
     # The list of neurons in visible layer.
-    __visual_neuron_list = []
+    __visible_neuron_list = []
     # The list of neurons for feature points in `virtual` visible layer. 
     __feature_point_neuron = []
     # the list of neurons in hidden layer.
@@ -48,7 +48,7 @@ class DBMMultiLayerBuilder(DBMBuilder):
         '''
         Initialize.
         '''
-        self.__visual_neuron_list = []
+        self.__visible_neuron_list = []
         self.__feature_point_neuron = []
         self.__hidden_neuron_list = []
         self.__graph_list = []
@@ -64,9 +64,10 @@ class DBMMultiLayerBuilder(DBMBuilder):
         '''
         for i in range(neuron_count):
             visible_neuron = VisibleNeuron()
+            visible_neuron.node_index = i
             visible_neuron.activating_function = activating_function
             visible_neuron.bernoulli_flag = True
-            self.__visual_neuron_list.append(visible_neuron)
+            self.__visible_neuron_list.append(visible_neuron)
 
     def feature_neuron_part(self, activating_function, neuron_count):
         '''
@@ -83,7 +84,10 @@ class DBMMultiLayerBuilder(DBMBuilder):
         '''
         add_neuron_list = []
         for i in range(neuron_count):
-            feature_point_neuron = FeaturePointNeuron(VisibleNeuron())
+            visible_neuron = VisibleNeuron()
+            visible_neuron.node_index = i
+            feature_point_neuron = FeaturePointNeuron(visible_neuron)
+            feature_point_neuron.node_index = i
             feature_point_neuron.activating_function = activating_function
             add_neuron_list.append(feature_point_neuron)
         self.__feature_point_neuron.append(add_neuron_list)
@@ -98,6 +102,7 @@ class DBMMultiLayerBuilder(DBMBuilder):
         '''
         for i in range(neuron_count):
             hidden_neuron = HiddenNeuron()
+            hidden_neuron.node_index = i
             hidden_neuron.activating_function = activating_function
             self.__hidden_neuron_list.append(hidden_neuron)
 
@@ -110,7 +115,7 @@ class DBMMultiLayerBuilder(DBMBuilder):
         '''
         complete_bipartite_graph = CompleteBipartiteGraph()
         complete_bipartite_graph.create_node(
-            self.__visual_neuron_list,
+            self.__visible_neuron_list,
             self.__feature_point_neuron[0]
         )
         self.__graph_list.append(complete_bipartite_graph)

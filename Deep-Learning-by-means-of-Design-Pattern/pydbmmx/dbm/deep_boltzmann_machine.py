@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import mxnet as mx
 from multipledispatch import dispatch
-from pydbm.dbm.interface.dbm_builder import DBMBuilder
-from pydbm.dbm.dbm_director import DBMDirector
-from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
-from pydbm.approximation.interface.approximate_interface import ApproximateInterface
+from pydbmmx.dbm.interface.dbm_builder import DBMBuilder
+from pydbmmx.dbm.dbm_director import DBMDirector
+from pydbmmx.activation.interface.activating_function_interface import ActivatingFunctionInterface
+from pydbmmx.approximation.interface.approximate_interface import ApproximateInterface
 
 
 class DeepBoltzmannMachine(object):

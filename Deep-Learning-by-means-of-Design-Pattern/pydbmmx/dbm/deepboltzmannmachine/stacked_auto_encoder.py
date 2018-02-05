@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import mxnet as mx
-from pydbm.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
+from pydbmmx.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
 
 
 class StackedAutoEncoder(DeepBoltzmannMachine):

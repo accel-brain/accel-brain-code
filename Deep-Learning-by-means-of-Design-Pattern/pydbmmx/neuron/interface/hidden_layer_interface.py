@@ -8,7 +8,7 @@ class HiddenLayerInterface(metaclass=ABCMeta):
     '''
 
     @abstractmethod
-    def hidden_update_state(self, double link_value):
+    def hidden_update_state(self, link_value):
         '''
         Update activity.
 

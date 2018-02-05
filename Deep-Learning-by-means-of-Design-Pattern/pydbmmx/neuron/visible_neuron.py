@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import random
 import bisect
-from pydbm.neuron_object import Neuron
-from pydbm.neuron.interface.visible_layer_interface import VisibleLayerInterface
+from pydbmmx.neuron_object import Neuron
+from pydbmmx.neuron.interface.visible_layer_interface import VisibleLayerInterface
 
 
 class VisibleNeuron(Neuron, VisibleLayerInterface):
@@ -33,7 +33,7 @@ class VisibleNeuron(Neuron, VisibleLayerInterface):
         '''
         self.bias = round(random.random(), 3)
 
-    def observe_data_point(self, double x):
+    def observe_data_point(self, x):
         '''
         Input observed data points.
 
@@ -42,7 +42,7 @@ class VisibleNeuron(Neuron, VisibleLayerInterface):
         '''
         self.activity = x
 
-    def visible_update_state(self, double link_value):
+    def visible_update_state(self, link_value):
         '''
         Update activity.
 
@@ -50,7 +50,7 @@ class VisibleNeuron(Neuron, VisibleLayerInterface):
             link_value:      Input value.
 
         '''
-        cdef double output = self.activate(link_value)
+        output = self.activate(link_value)
         if self.bernoulli_flag is False:
             self.activity = output
         else:
@@ -69,7 +69,7 @@ class VisibleNeuron(Neuron, VisibleLayerInterface):
         '''
         self.diff_bias += learning_rate * self.activity
 
-    def __decide_activation(self, double probabirity):
+    def __decide_activation(self, probabirity):
         '''
         Decide the binary activity.
 

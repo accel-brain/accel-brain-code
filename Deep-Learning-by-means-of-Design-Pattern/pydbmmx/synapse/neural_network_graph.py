@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 import pyximport; pyximport.install()
-from pydbm.synapse_list import Synapse
-from pydbm.activation.logistic_function import LogisticFunction
+from pydbmmx.synapse_list import Synapse
+from pydbmmx.activation.logistic_function import LogisticFunction
 
 
 class NeuralNetworkGraph(Synapse):

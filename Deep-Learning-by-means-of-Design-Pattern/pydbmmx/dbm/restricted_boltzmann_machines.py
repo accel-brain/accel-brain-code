@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from pydbm.synapse.complete_bipartite_graph import CompleteBipartiteGraph
-from pydbm.approximation.interface.approximate_interface import ApproximateInterface
+from pydbmmx.synapse.complete_bipartite_graph import CompleteBipartiteGraph
+from pydbmmx.approximation.interface.approximate_interface import ApproximateInterface
 
 
 class RestrictedBoltzmannMachine(object):

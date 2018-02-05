@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from abc import ABCMeta, abstractmethod
 
 
@@ -9,7 +8,7 @@ class OutputLayerInterface(metaclass=ABCMeta):
     '''
 
     @abstractmethod
-    def output_update_state(self, double link_value):
+    def output_update_state(self, link_value):
         '''
         Update activity.
 

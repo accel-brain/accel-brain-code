@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from pydbm.nn.interface.nn_builder import NNBuilder
-from pydbm.synapse.neural_network_graph import NeuralNetworkGraph
-from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
+from pydbmmx.nn.interface.nn_builder import NNBuilder
+from pydbmmx.synapse.neural_network_graph import NeuralNetworkGraph
+from pydbmmx.activation.interface.activating_function_interface import ActivatingFunctionInterface
 
 
 class NNDirector(object):

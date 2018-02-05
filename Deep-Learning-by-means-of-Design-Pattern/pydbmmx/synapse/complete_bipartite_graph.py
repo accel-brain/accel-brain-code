@@ -8,6 +8,26 @@ class CompleteBipartiteGraph(Synapse):
     
     The shallower layer is to the deeper layer what the visible layer is to the hidden layer.
     '''
+    def get_visible_neuron_list(self):
+        ''' getter '''
+        return self.shallower_neuron_list
+
+    def set_visible_neuron_list(self, value):
+        ''' setter '''
+        self.shallower_neuron_list = value
+
+    visible_neuron_list = property(get_visible_neuron_list, set_visible_neuron_list)
+
+    def get_hidden_neuron_list(self):
+        ''' getter '''
+        return self.deeper_neuron_list
+
+    def set_hidden_neuron_list(self, value):
+        ''' setter '''
+        self.deeper_neuron_list = value
+
+    hidden_neuron_list = property(get_hidden_neuron_list, set_hidden_neuron_list)
+
     def get_visible_activity_arr(self):
         ''' getter '''
         return self.shallower_activity_arr

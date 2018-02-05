@@ -40,8 +40,6 @@ class FeaturePointNeuron(Neuron, VisibleLayerInterface, HiddenLayerInterface):
         Args:
             visible_layer_interface:    The object of neurons.
         '''
-        self.bias = round(random.random(), 3)
-        visible_layer_interface.bias = self.bias
         self.__visible_layer_interface = visible_layer_interface
 
     def observe_data_point(self, x):

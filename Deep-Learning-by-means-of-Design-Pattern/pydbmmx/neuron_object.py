@@ -67,7 +67,7 @@ class Neuron(metaclass=ABCMeta):
 
     def set_bias(self, value):
         ''' setter of bias '''
-        if isinstance(self.bias_arr[self.node_index], float) is False:
+        if isinstance(value, float) is False:
             raise TypeError()
         self.bias_arr[self.node_index] = value
 
@@ -144,7 +144,7 @@ class Neuron(metaclass=ABCMeta):
         return output
 
     @abstractmethod
-    def update_bias(self, double learning_rate):
+    def update_bias(self, learning_rate):
         '''
         Update bias with the difference.
 

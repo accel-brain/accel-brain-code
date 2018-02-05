@@ -9,10 +9,6 @@ class HiddenNeuron(Neuron, HiddenLayerInterface):
     The neurons in hidden layer.
     '''
 
-    def __init__(self):
-        ''' Initialize. '''
-        self.bias = round(random.random(), 3)
-
     def hidden_update_state(self, link_value):
         '''
         Update activity.

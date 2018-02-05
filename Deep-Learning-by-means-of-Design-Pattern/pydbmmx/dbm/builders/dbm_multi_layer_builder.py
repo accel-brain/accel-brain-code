@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import mxnet as mx
 from pydbmmx.dbm.interface.dbm_builder import DBMBuilder
 from pydbmmx.neuron.visible_neuron import VisibleNeuron
 from pydbmmx.neuron.hidden_neuron import HiddenNeuron
@@ -62,9 +63,14 @@ class DBMMultiLayerBuilder(DBMBuilder):
             activating_function:    Activation function.
             neuron_count:           The number of neurons.
         '''
+        default_arr = mx.nd.array([None] * neuron_count)
+        bias_arr = mx.ndarray.random_uniform(low=0, high=1, shape=(neuron_count, ))
         for i in range(neuron_count):
             visible_neuron = VisibleNeuron()
             visible_neuron.node_index = i
+            visible_neuron.activity_arr = default_arr.copy()
+            visible_neuron.bias_arr = bias_arr
+            visible_neuron.diff_bias_arr = default_arr.copy()
             visible_neuron.activating_function = activating_function
             visible_neuron.bernoulli_flag = True
             self.__visible_neuron_list.append(visible_neuron)
@@ -83,11 +89,19 @@ class DBMMultiLayerBuilder(DBMBuilder):
             neuron_count:           The number of neurons.
         '''
         add_neuron_list = []
+        default_arr = mx.nd.array([None] * neuron_count)
+        bias_arr = mx.ndarray.random_uniform(low=0, high=1, shape=(neuron_count, ))
         for i in range(neuron_count):
             visible_neuron = VisibleNeuron()
             visible_neuron.node_index = i
+            visible_neuron.activity_arr = default_arr.copy()
+            visible_neuron.bias_arr = bias_arr
+            visible_neuron.diff_bias_arr = default_arr.copy()
             feature_point_neuron = FeaturePointNeuron(visible_neuron)
             feature_point_neuron.node_index = i
+            feature_point_neuron.activity_arr = default_arr.copy()
+            feature_point_neuron.bias_arr = bias_arr
+            feature_point_neuron.diff_bias_arr = default_arr.copy()
             feature_point_neuron.activating_function = activating_function
             add_neuron_list.append(feature_point_neuron)
         self.__feature_point_neuron.append(add_neuron_list)
@@ -100,9 +114,14 @@ class DBMMultiLayerBuilder(DBMBuilder):
             activating_function:    Activation function
             neuron_count:           The number of neurons.
         '''
+        default_arr = mx.nd.array([None] * neuron_count)
+        bias_arr = mx.ndarray.random_uniform(low=0, high=1, shape=(neuron_count, ))
         for i in range(neuron_count):
             hidden_neuron = HiddenNeuron()
             hidden_neuron.node_index = i
+            hidden_neuron.activity_arr = default_arr.copy()
+            hidden_neuron.bias_arr = bias_arr
+            hidden_neuron.diff_bias_arr = default_arr.copy()
             hidden_neuron.activating_function = activating_function
             self.__hidden_neuron_list.append(hidden_neuron)
 

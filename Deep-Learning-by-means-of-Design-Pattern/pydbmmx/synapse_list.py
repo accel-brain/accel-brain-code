@@ -121,18 +121,14 @@ class Synapse(object):
             [None] * len(self.__deeper_neuron_list)
         )
 
-        shallower_bias_list = []
         for i in range(self.__shallower_activity_arr.shape[0]):
             self.__shallower_neuron_list[i].activity_arr = self.__shallower_activity_arr
-            shallower_bias_list.append(self.__shallower_neuron_list[i].bias)
 
-        deeper_bias_list = []
         for i in range(self.__deeper_activity_arr.shape[0]):
             self.__deeper_neuron_list[i].activity_arr = self.__deeper_activity_arr
-            deeper_bias_list.append(self.__deeper_neuron_list[i].bias)
 
-        self.shallower_bias_arr = mx.nd.array(shallower_bias_list)
-        self.deeper_bias_arr = mx.nd.array(deeper_bias_list)
+        self.shallower_bias_arr = self.__shallower_neuron_list[0].bias_arr
+        self.deeper_bias_arr = self.__deeper_neuron_list[0].bias_arr
 
         init_weights_arr = mx.ndarray.random.uniform(
             shape=(

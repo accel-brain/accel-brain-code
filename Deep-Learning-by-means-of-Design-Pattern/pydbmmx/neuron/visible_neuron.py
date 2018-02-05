@@ -27,12 +27,6 @@ class VisibleNeuron(Neuron, VisibleLayerInterface):
 
     bernoulli_flag = property(get_bernoulli_flag, set_bernoulli_flag)
 
-    def __init__(self):
-        '''
-        Initialzie.
-        '''
-        self.bias = round(random.random(), 3)
-
     def observe_data_point(self, x):
         '''
         Input observed data points.
@@ -60,7 +54,7 @@ class VisibleNeuron(Neuron, VisibleLayerInterface):
             else:
                 self.activity = 0.0
 
-    def update_bias(self, double learning_rate):
+    def update_bias(self, learning_rate):
         '''
         Update biases.
 

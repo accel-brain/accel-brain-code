@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import mxnet as mx
+import numpy as np
 from pydbmmx.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
 
 
@@ -23,7 +24,7 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
     def learn(
         self,
         observed_data_arr,
-        int traning_count=1000
+        traning_count=1000
     ):
         '''
         Learning and auto-saving featrue points with `np.ndarray`.
@@ -40,7 +41,7 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
         feature_points_arr = None
         for t in range(traning_count):
             for i in range(row):
-                data_arr = observed_data_arr[i, :]
+                data_arr = mx.nd.array(np.array([observed_data_arr[i].asnumpy()]))
                 super().learn(
                     observed_data_arr=data_arr,
                     traning_count=1

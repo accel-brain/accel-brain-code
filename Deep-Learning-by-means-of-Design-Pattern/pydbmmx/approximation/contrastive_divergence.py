@@ -15,7 +15,7 @@ class ContrastiveDivergence(ApproximateInterface):
     # Learning rate.
     __learning_rate = 0.5
 
-    detail_setting_flag = True
+    detail_setting_flag = False
 
     def approximate_learn(
         self,
@@ -40,11 +40,11 @@ class ContrastiveDivergence(ApproximateInterface):
         self.__learning_rate = learning_rate
 
         if self.detail_setting_flag is True:
-            for i in range(row_i):
-                self.__detail_setting(observed_data_arr[i, :])
+            for i in range(observed_data_arr.shape[0]):
+                self.__detail_setting(observed_data_arr[i])
         else:
-            for i in range(row_i):
-                self.__wake_sleep_learn(observed_data_arr[i, :])
+            for i in range(observed_data_arr.shape[0]):
+                self.__wake_sleep_learn(observed_data_arr[i])
 
         return self.__graph
 
@@ -73,18 +73,24 @@ class ContrastiveDivergence(ApproximateInterface):
         '''
         # Waking.
         visible_activity_arr = observed_data_arr
+
         row_w = self.__graph.weights_arr.shape[0]
         col_w = self.__graph.weights_arr.shape[1]
-        link_value_arr = self.__graph.weights_arr * (mx.nd.ones((row_w, col_w)) * visible_activity_arr) + self.__graph.visible_bias_arr
+
+        link_value_arr = (self.__graph.weights_arr * mx.ndarray.reshape(visible_activity_arr, shape=(-1, 1))) + mx.ndarray.reshape(self.__graph.visible_bias_arr, shape=(-1, 1))
         hidden_activity_arr = mx.ndarray.nansum(link_value_arr, axis=0)
-        self.__graph.diff_weights_arr = visible_activity_arr * hidden_activity_arr.T * self.__learning_rate
+        self.__graph.diff_weights_arr = mx.ndarray.reshape(visible_activity_arr, shape=(-1, 1)) * mx.ndarray.reshape(hidden_activity_arr, shape=(-1, 1)).T * self.__learning_rate
         visible_diff_bias = self.__learning_rate * visible_activity_arr
         hidden_diff_bias = self.__learning_rate * hidden_activity_arr
 
         # Sleeping.
-        hidden_activity_arr = hidden_activity_arr.reshape(-1, 1)
-        _link_value_arr = self.__graph.weights_arr.T * (mx.nd.ones((col_w, row_w)) * hidden_activity_arr) + self.__graph.hidden_bias_arr
-        _visible_activity_arr = mx.nd.nansum(_link_value_arr.sum, axis=0)
+        _link_value_arr = (self.__graph.weights_arr.T * mx.ndarray.reshape(hidden_activity_arr, shape=(-1, 1))) + mx.ndarray.reshape(self.__graph.hidden_bias_arr, shape=(-1, 1))
+        _visible_activity_arr = mx.nd.nansum(_link_value_arr, axis=0)
+
+        print("-" * 100)
+        print("_visible_activity_arr")
+        print(_visible_activity_arr.shape)
+        print("-" * 100)
 
         _visible_activity_arr = self.__graph.visible_neuron_list[0].activating_function.activate(
             _visible_activity_arr + visible_diff_bias
@@ -93,7 +99,7 @@ class ContrastiveDivergence(ApproximateInterface):
         if visible_activity_sum != 0:
             _visible_activity_arr = _visible_activity_arr / visible_activity_sum
 
-        __link_value_arr = (self.__graph.weights_arr.T * _visible_activity_arr) + self.__graph.visible_bias_arr
+        __link_value_arr = (self.__graph.weights_arr * mx.ndarray.reshape(_visible_activity_arr, shape=(-1, 1))) + mx.ndarray.reshape(self.__graph.visible_bias_arr, shape=(-1, 1))
         _hidden_activity_arr = mx.nd.nansum(__link_value_arr, axis=0)
         try:
             _hidden_activity_arr = self.__graph.hidden_neuron_list[0].activating_function.activate(
@@ -108,7 +114,7 @@ class ContrastiveDivergence(ApproximateInterface):
         if hidden_activity_sum != 0:
             _hidden_activity_arr = _hidden_activity_arr / hidden_activity_sum
 
-        self.__graph.diff_weights_arr += _visible_activity_arr * _hidden_activity_arr.T * self.__learning_rate * (-1)
+        self.__graph.diff_weights_arr += mx.ndarray.reshape(_visible_activity_arr, shape=(-1, 1)) * mx.ndarray.reshape(_hidden_activity_arr, shape=(-1, 1)).T * self.__learning_rate * (-1)
 
         visible_diff_bias += self.__learning_rate * _visible_activity_arr * (-1)
         hidden_diff_bias += self.__learning_rate * _hidden_activity_arr * (-1)

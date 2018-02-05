@@ -27,12 +27,6 @@ class OutputNeuron(Neuron, OutputLayerInterface):
 
     bernoulli_flag = property(get_bernoulli_flag, set_bernoulli_flag)
 
-    def __init__(self):
-        '''
-        Initialize.
-        '''
-        self.bias = round(random.random(), 3)
-
     def output_update_state(self, link_value):
         '''
         Update activity.

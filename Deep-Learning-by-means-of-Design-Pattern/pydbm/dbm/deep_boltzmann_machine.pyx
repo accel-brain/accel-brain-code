@@ -122,6 +122,7 @@ class DeepBoltzmannMachine(object):
         for i in range(len(self.__rbm_list)):
             rbm = self.__rbm_list[i]
             rbm.approximate_learning(observed_data_arr, traning_count)
+            observed_data_arr = np.array([self.get_feature_point_list(i)])
 
     def get_feature_point_list(self, int layer_number=0):
         '''

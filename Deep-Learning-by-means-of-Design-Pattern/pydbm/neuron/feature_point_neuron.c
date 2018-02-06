@@ -1024,7 +1024,6 @@ static const char __pyx_k_set_activating_function[] = "set_activating_function";
 static const char __pyx_k_visible_layer_interface[] = "visible_layer_interface";
 static const char __pyx_k_FeaturePointNeuron___init[] = "FeaturePointNeuron.__init__";
 static const char __pyx_k_ActivatingFunctionInterface[] = "ActivatingFunctionInterface";
-static const char __pyx_k_FeaturePointNeuron__activating[] = "_FeaturePointNeuron__activating_function";
 static const char __pyx_k_FeaturePointNeuron_update_bias[] = "FeaturePointNeuron.update_bias";
 static const char __pyx_k_FeaturePointNeuron__visible_lay[] = "_FeaturePointNeuron__visible_layer_interface";
 static const char __pyx_k_FeaturePointNeuron_observe_data[] = "FeaturePointNeuron.observe_data_point";
@@ -1041,7 +1040,6 @@ static const char __pyx_k_pydbm_neuron_feature_point_neuro_2[] = "pydbm/neuron/f
 static PyObject *__pyx_n_s_ActivatingFunctionInterface;
 static PyObject *__pyx_n_s_FeaturePointNeuron;
 static PyObject *__pyx_n_s_FeaturePointNeuron___init;
-static PyObject *__pyx_n_s_FeaturePointNeuron__activating;
 static PyObject *__pyx_n_s_FeaturePointNeuron__visible_lay;
 static PyObject *__pyx_n_s_FeaturePointNeuron_get_activatin;
 static PyObject *__pyx_n_s_FeaturePointNeuron_hidden_update;
@@ -1117,7 +1115,7 @@ static PyObject *__pyx_codeobj__14;
  * 
  *     def get_activating_function(self):             # <<<<<<<<<<<<<<
  *         ''' getter of activating_function '''
- *         if isinstance(self.__activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.__visible_layer_interface.activating_function, ActivatingFunctionInterface) is False:
  */
 
 /* Python wrapper */
@@ -1147,57 +1145,60 @@ static PyObject *__pyx_pf_5pydbm_6neuron_20feature_point_neuron_18FeaturePointNe
   /* "pydbm/neuron/feature_point_neuron.pyx":23
  *     def get_activating_function(self):
  *         ''' getter of activating_function '''
- *         if isinstance(self.__activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
+ *         if isinstance(self.__visible_layer_interface.activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError()
  *         return self.__visible_layer_interface.activating_function
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_FeaturePointNeuron__activating); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_FeaturePointNeuron__visible_lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activating_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = PyObject_IsInstance(__pyx_t_2, __pyx_t_1); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_4 = ((__pyx_t_3 == 0) != 0);
   if (__pyx_t_4) {
 
     /* "pydbm/neuron/feature_point_neuron.pyx":24
  *         ''' getter of activating_function '''
- *         if isinstance(self.__activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.__visible_layer_interface.activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError()             # <<<<<<<<<<<<<<
  *         return self.__visible_layer_interface.activating_function
  * 
  */
-    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 24, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_Raise(__pyx_t_2, 0, 0, 0);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __PYX_ERR(0, 24, __pyx_L1_error)
 
     /* "pydbm/neuron/feature_point_neuron.pyx":23
  *     def get_activating_function(self):
  *         ''' getter of activating_function '''
- *         if isinstance(self.__activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
+ *         if isinstance(self.__visible_layer_interface.activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError()
  *         return self.__visible_layer_interface.activating_function
  */
   }
 
   /* "pydbm/neuron/feature_point_neuron.pyx":25
- *         if isinstance(self.__activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.__visible_layer_interface.activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError()
  *         return self.__visible_layer_interface.activating_function             # <<<<<<<<<<<<<<
  * 
  *     def set_activating_function(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_FeaturePointNeuron__visible_lay); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 25, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_activating_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_FeaturePointNeuron__visible_lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activating_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
   goto __pyx_L0;
 
   /* "pydbm/neuron/feature_point_neuron.pyx":21
@@ -1205,7 +1206,7 @@ static PyObject *__pyx_pf_5pydbm_6neuron_20feature_point_neuron_18FeaturePointNe
  * 
  *     def get_activating_function(self):             # <<<<<<<<<<<<<<
  *         ''' getter of activating_function '''
- *         if isinstance(self.__activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.__visible_layer_interface.activating_function, ActivatingFunctionInterface) is False:
  */
 
   /* function exit code */
@@ -2241,7 +2242,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ActivatingFunctionInterface, __pyx_k_ActivatingFunctionInterface, sizeof(__pyx_k_ActivatingFunctionInterface), 0, 0, 1, 1},
   {&__pyx_n_s_FeaturePointNeuron, __pyx_k_FeaturePointNeuron, sizeof(__pyx_k_FeaturePointNeuron), 0, 0, 1, 1},
   {&__pyx_n_s_FeaturePointNeuron___init, __pyx_k_FeaturePointNeuron___init, sizeof(__pyx_k_FeaturePointNeuron___init), 0, 0, 1, 1},
-  {&__pyx_n_s_FeaturePointNeuron__activating, __pyx_k_FeaturePointNeuron__activating, sizeof(__pyx_k_FeaturePointNeuron__activating), 0, 0, 1, 1},
   {&__pyx_n_s_FeaturePointNeuron__visible_lay, __pyx_k_FeaturePointNeuron__visible_lay, sizeof(__pyx_k_FeaturePointNeuron__visible_lay), 0, 0, 1, 1},
   {&__pyx_n_s_FeaturePointNeuron_get_activatin, __pyx_k_FeaturePointNeuron_get_activatin, sizeof(__pyx_k_FeaturePointNeuron_get_activatin), 0, 0, 1, 1},
   {&__pyx_n_s_FeaturePointNeuron_hidden_update, __pyx_k_FeaturePointNeuron_hidden_update, sizeof(__pyx_k_FeaturePointNeuron_hidden_update), 0, 0, 1, 1},
@@ -2309,7 +2309,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *     def get_activating_function(self):             # <<<<<<<<<<<<<<
  *         ''' getter of activating_function '''
- *         if isinstance(self.__activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.__visible_layer_interface.activating_function, ActivatingFunctionInterface) is False:
  */
   __pyx_tuple_ = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
@@ -2639,7 +2639,7 @@ PyMODINIT_FUNC PyInit_feature_point_neuron(void)
  * 
  *     def get_activating_function(self):             # <<<<<<<<<<<<<<
  *         ''' getter of activating_function '''
- *         if isinstance(self.__activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.__visible_layer_interface.activating_function, ActivatingFunctionInterface) is False:
  */
   __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_6neuron_20feature_point_neuron_18FeaturePointNeuron_1get_activating_function, 0, __pyx_n_s_FeaturePointNeuron_get_activatin, NULL, __pyx_n_s_pydbm_neuron_feature_point_neuro, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);

@@ -24,7 +24,7 @@ class ContrastiveDivergence(ApproximateInterface):
     __hidden_bias = None
     __hidden_activity_arr = None
 
-    detail_setting_flag = True
+    detail_setting_flag = False
 
     def approximate_learn(
         self,
@@ -48,14 +48,18 @@ class ContrastiveDivergence(ApproximateInterface):
         self.__graph = graph
         self.__learning_rate = learning_rate
         cdef int i
+        cdef int _
         cdef int row_i = observed_data_arr.shape[0]
 
         if self.detail_setting_flag is True:
-            for i in range(row_i):
-                self.__detail_setting(observed_data_arr[i])
+            for _ in range(traning_count):
+                for i in range(row_i):
+                    self.__detail_setting(observed_data_arr[i])
         else:
-            for i in range(row_i):
-                self.__wake_sleep_learn(observed_data_arr[i])
+            for _ in range(traning_count):
+                for i in range(row_i):
+                    self.__wake_sleep_learn(observed_data_arr[i])
+
             row_k = len(self.__graph.visible_neuron_list)
             for k in range(row_k):
                 self.__graph.visible_neuron_list[k].observe_data_point(
@@ -96,23 +100,45 @@ class ContrastiveDivergence(ApproximateInterface):
         cdef np.ndarray[DOUBLE_t, ndim=1] visible_activity_arr = observed_data_arr
         cdef int row_w = self.__graph.weights_arr.shape[0]
         cdef int col_w = self.__graph.weights_arr.shape[1]
-        cdef np.ndarray link_value_arr = self.__graph.weights_arr * (np.ones((row_w, col_w)) * visible_activity_arr) + self.__visible_bias
+
+        cdef np.ndarray link_value_arr
+        if self.__visible_bias is not None:
+            link_value_arr = (self.__graph.weights_arr * visible_activity_arr.reshape(-1, 1)) + self.__visible_bias.reshape(-1, 1)
+        else:
+            link_value_arr = (self.__graph.weights_arr * visible_activity_arr.reshape(-1, 1))
+
+        link_value_arr = np.nan_to_num(link_value_arr)
+
         cdef np.ndarray hidden_activity_arr = link_value_arr.sum(axis=0)
-        self.__graph.diff_weights_arr = visible_activity_arr * hidden_activity_arr.T * self.__learning_rate
+        self.__graph.diff_weights_arr = visible_activity_arr.reshape(-1, 1) * hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate
+        self.__graph.diff_weights_arr = np.nan_to_num(self.__graph.diff_weights_arr)
+
         visible_diff_bias = self.__learning_rate * visible_activity_arr
         hidden_diff_bias = self.__learning_rate * hidden_activity_arr
 
         # Sleeping.
-        hidden_activity_arr = hidden_activity_arr.reshape(-1, 1)
-        cdef np.ndarray _link_value_arr = self.__graph.weights_arr.T * (np.ones((col_w, row_w)) * hidden_activity_arr) + self.__hidden_bias
-        cdef np.ndarray _visible_activity_arr = _link_value_arr.sum(axis=0)
+        cdef np.ndarray _link_value_arr
+        if self.__hidden_bias is not None:
+            _link_value_arr = (self.__graph.weights_arr.T * hidden_activity_arr.reshape(-1, 1)) + self.__hidden_bias.reshape(-1, 1)
+        else:
+            _link_value_arr = (self.__graph.weights_arr.T * hidden_activity_arr.reshape(-1, 1))
 
+        _link_value_arr = np.nan_to_num(_link_value_arr)
+
+        cdef np.ndarray _visible_activity_arr = _link_value_arr.sum(axis=0)
         _visible_activity_arr = self.__graph.visible_neuron_list[0].activating_function.activate(
             _visible_activity_arr + visible_diff_bias
         )
-        _visible_activity_arr = _visible_activity_arr / _visible_activity_arr.sum()
+        _visible_activity_arr = np.nan_to_num(_visible_activity_arr)
 
-        cdef np.ndarray __link_value_arr = (self.__graph.weights_arr.T * _visible_activity_arr) + self.__visible_bias
+        cdef np.ndarray __link_value_arr
+        if self.__visible_bias is not None:
+            __link_value_arr = (self.__graph.weights_arr * _visible_activity_arr.reshape(-1, 1)) + self.__visible_bias.reshape(-1, 1)
+        else:
+            __link_value_arr = (self.__graph.weights_arr * _visible_activity_arr.reshape(-1, 1))
+
+        __link_value_arr = np.nan_to_num(__link_value_arr)
+
         cdef np.ndarray _hidden_activity_arr = __link_value_arr.sum(axis=0)
         try:
             _hidden_activity_arr = self.__graph.hidden_neuron_list[0].activating_function.activate(
@@ -123,9 +149,11 @@ class ContrastiveDivergence(ApproximateInterface):
                 _hidden_activity_arr + hidden_diff_bias
             )
 
-        _hidden_activity_arr = _hidden_activity_arr / _hidden_activity_arr.sum()
+        _hidden_activity_arr = np.nan_to_num(_hidden_activity_arr)
+
         self.__hidden_activity_arr = _hidden_activity_arr
-        self.__graph.diff_weights_arr += _visible_activity_arr * _hidden_activity_arr.T * self.__learning_rate * (-1)
+        self.__graph.diff_weights_arr += _visible_activity_arr.reshape(-1, 1) * _hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate * (-1)
+        self.__graph.diff_weights_arr = np.nan_to_num(self.__graph.diff_weights_arr)
 
         visible_diff_bias += self.__learning_rate * _visible_activity_arr * (-1)
         hidden_diff_bias += self.__learning_rate * _hidden_activity_arr * (-1)
@@ -139,6 +167,7 @@ class ContrastiveDivergence(ApproximateInterface):
             self.__hidden_bias = hidden_diff_bias
         else:
             self.__hidden_bias += hidden_diff_bias
+
         self.__graph.learn_weights()
 
     def __wake(self, np.ndarray[DOUBLE_t, ndim=1] observed_data_arr):

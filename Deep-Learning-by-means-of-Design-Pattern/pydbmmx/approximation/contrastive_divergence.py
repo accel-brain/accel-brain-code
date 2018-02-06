@@ -15,7 +15,21 @@ class ContrastiveDivergence(ApproximateInterface):
     # Learning rate.
     __learning_rate = 0.5
 
-    detail_setting_flag = False
+    __detail_setting_flag = False
+
+    def get_detail_setting_flag(self):
+        ''' getter '''
+        if isinstance(self.__detail_setting_flag, bool) is False:
+            raise TypeError()
+        return self.__detail_setting_flag
+
+    def set_detail_setting_flag(self, value):
+        ''' setter '''
+        if isinstance(value, bool) is False:
+            raise TypeError()
+        self.__detail_setting_flag = value
+
+    detail_setting_flag = property(get_detail_setting_flag, set_detail_setting_flag)
 
     def approximate_learn(
         self,
@@ -39,26 +53,13 @@ class ContrastiveDivergence(ApproximateInterface):
         self.__graph = graph
         self.__learning_rate = learning_rate
 
-        if self.detail_setting_flag is True:
-            self.__detail_setting(observed_data_arr)
-        else:
-            self.__wake_sleep_learn(observed_data_arr)
+        for ______ in range(traning_count):
+            if self.detail_setting_flag is False:
+                self.__wake_sleep_learn(observed_data_arr)
+            else:
+                self.__detail_wake_sleep_learn(observed_data_arr)
 
         return self.__graph
-
-    def __detail_setting(self, observed_data_arr):
-        '''
-        Waking and sleeping.
-
-        Args:
-            observed_data_arr:      observed data points.
-        '''
-        raise NotImplementedError()
-        '''
-        self.__wake(observed_data_arr)
-        self.__sleep()
-        self.__learn()
-        '''
 
     def __wake_sleep_learn(self, observed_data_arr):
         '''
@@ -77,23 +78,59 @@ class ContrastiveDivergence(ApproximateInterface):
 
         link_value_arr = (self.__graph.weights_arr * mx.ndarray.reshape(visible_activity_arr, shape=(-1, 1))) + mx.ndarray.reshape(self.__graph.visible_bias_arr, shape=(-1, 1))
         hidden_activity_arr = mx.ndarray.nansum(link_value_arr, axis=0)
+
+        hidden_activity_sum = hidden_activity_arr.sum()
+        if hidden_activity_sum != 0:
+            hidden_activity_arr = hidden_activity_arr / hidden_activity_sum
+        else:
+            raise ValueError("In waking, the sum of activity in hidden layer is zero.")
+
+        try:
+            hidden_activity_arr = self.__graph.hidden_neuron_list[0].activating_function.activate(
+                hidden_activity_arr
+            )
+        except AttributeError:
+            hidden_activity_arr = self.__graph.visible_neuron_list[0].activating_function.activate(
+                hidden_activity_arr
+            )
+
         self.__graph.diff_weights_arr = mx.ndarray.reshape(visible_activity_arr, shape=(-1, 1)) * mx.ndarray.reshape(hidden_activity_arr, shape=(-1, 1)).T * self.__learning_rate
+
         visible_diff_bias = self.__learning_rate * visible_activity_arr
+        visible_diff_bias_sum = visible_diff_bias.sum()
+        if visible_diff_bias_sum != 0:
+            visible_diff_bias = visible_diff_bias / visible_diff_bias_sum
+        else:
+            raise ValueError("In waking, the sum of bias in visible layer is zero.")
+
         hidden_diff_bias = self.__learning_rate * hidden_activity_arr
+        hidden_diff_bias_sum = hidden_diff_bias.sum()
+        if hidden_diff_bias_sum != 0:
+            hidden_diff_bias = hidden_diff_bias / hidden_diff_bias_sum
+        else:
+            raise ValueError("In waking, the sum of bias in hidden layer is zero.")
 
         # Sleeping.
         link_value_arr = (self.__graph.weights_arr.T * mx.ndarray.reshape(hidden_activity_arr, shape=(-1, 1))) + mx.ndarray.reshape(self.__graph.hidden_bias_arr, shape=(-1, 1))
         visible_activity_arr = mx.nd.nansum(link_value_arr, axis=0)
+        visible_activity_sum = visible_activity_arr.sum()
+        if visible_activity_sum != 0:
+            visible_activity_arr = visible_activity_arr / visible_activity_sum
+        else:
+            raise ValueError("In sleeping, the sum of activity in visible layer is zero.")
 
         visible_activity_arr = self.__graph.visible_neuron_list[0].activating_function.activate(
             visible_activity_arr + visible_diff_bias
         )
-        visible_activity_sum = mx.ndarray.sum(visible_activity_arr)
-        if visible_activity_sum != 0:
-            visible_activity_arr = visible_activity_arr / visible_activity_sum
 
         link_value_arr = (self.__graph.weights_arr * mx.ndarray.reshape(visible_activity_arr, shape=(-1, 1))) + mx.ndarray.reshape(self.__graph.visible_bias_arr, shape=(-1, 1))
         hidden_activity_arr = mx.nd.nansum(link_value_arr, axis=0)
+        hidden_activity_sum = hidden_activity_arr.sum()
+        if hidden_activity_sum != 0:
+            hidden_activity_arr = hidden_activity_arr / hidden_activity_sum
+        else:
+            raise ValueError("In sleeping, the sum of activity in hidden layer is zero.")
+
         try:
             hidden_activity_arr = self.__graph.hidden_neuron_list[0].activating_function.activate(
                 hidden_activity_arr + hidden_diff_bias
@@ -103,24 +140,23 @@ class ContrastiveDivergence(ApproximateInterface):
                 hidden_activity_arr + hidden_diff_bias
             )
 
-        hidden_activity_sum = mx.ndarray.sum(hidden_activity_arr)
-        if hidden_activity_sum != 0:
-            hidden_activity_arr = hidden_activity_arr / hidden_activity_sum
-
         self.__graph.diff_weights_arr += mx.ndarray.reshape(visible_activity_arr, shape=(-1, 1)) * mx.ndarray.reshape(hidden_activity_arr, shape=(-1, 1)).T * self.__learning_rate * (-1)
 
         visible_diff_bias += self.__learning_rate * visible_activity_arr * (-1)
-        hidden_diff_bias += self.__learning_rate * hidden_activity_arr * (-1)
-
-        # Learning.
         visible_diff_bias_sum = mx.ndarray.nansum(visible_diff_bias)
         if visible_diff_bias_sum != 0:
             visible_diff_bias = visible_diff_bias / visible_diff_bias_sum
+        else:
+            raise ValueError("In sleeping, the sum of bias in visible layer is zero.")
 
+        hidden_diff_bias += self.__learning_rate * hidden_activity_arr * (-1)
         hidden_diff_bias_sum = mx.ndarray.nansum(hidden_diff_bias)
         if hidden_diff_bias_sum != 0:
             hidden_diff_bias = hidden_diff_bias / hidden_diff_bias_sum
+        else:
+            raise ValueError("In sleeping, the sum of bias in hidden layer is zero.")
 
+        # Learning.
         if self.__graph.visible_bias_arr is None:
             self.__graph.visible_bias_arr = visible_diff_bias
         else:
@@ -137,87 +173,115 @@ class ContrastiveDivergence(ApproximateInterface):
         self.__graph.visible_activity_arr = visible_activity_arr
         self.__graph.hidden_activity_arr = hidden_activity_arr
 
-    def __wake(self, observed_data_arr):
+    def __detail_wake_sleep_learn(self, observed_data_arr):
         '''
-        Waking.
+        Waking, sleeping, and learning.
+
+        Standing on the premise that the settings of
+        the activation function and weights operation are NOT common.
 
         Args:
             observed_data_list:      observed data points.
         '''
-        raise NotImplementedError()
+        # Waking.
+        visible_activity_arr = observed_data_arr
 
-        '''
-        row_k = self.__graph.visible_activity_arr.shape[0]
-        [self.__graph.visible_neuron_list[k].observe_data_point(observed_data_arr[k]) for k in range(row_k)]
-        self.__update_hidden_spike()
-        # so called `Hebb rule`.
-        self.__graph.update(self.__learning_rate)
-        row_i = self.__graph.visible_activity_arr.shape[0]
-        [self.__graph.visible_neuron_list[i].update_bias(self.__learning_rate) for i in range(row_i)]
-        row_j = self.__graph.hidden_activity_arr.shape[0]
-        [self.__graph.hidden_neuron_list[j].update_bias(self.__learning_rate) for j in range(row_j)]
-        '''
+        link_value_arr = (self.__graph.weights_arr * mx.ndarray.reshape(visible_activity_arr, shape=(-1, 1))) + mx.ndarray.reshape(self.__graph.visible_bias_arr, shape=(-1, 1))
+        hidden_activity_arr = mx.ndarray.nansum(link_value_arr, axis=0)
 
-    def __sleep(self):
-        '''
-        Sleeping.
-        '''
-        raise NotImplementedError()
+        hidden_activity_sum = hidden_activity_arr.sum()
+        if hidden_activity_sum != 0:
+            hidden_activity_arr = hidden_activity_arr / hidden_activity_sum
+        else:
+            raise ValueError("In waking, the sum of activity in hidden layer is zero.")
 
-        '''
-        self.__update_visible_spike()
-        self.__update_hidden_spike()
-        # so called `Hebb rule`.
-        self.__graph.update((-1) * self.__learning_rate)
-        row_i = self.__graph.visible_activity_arr.shape[0]
-        [self.__graph.visible_neuron_list[i].update_bias((-1) * self.__learning_rate) for i in range(row_i)]
-        row_j = self.__graph.hidden_activity_arr.shape[0]
-        [self.__graph.hidden_neuron_list[j].update_bias((-1) * self.__learning_rate) for j in range(row_j)]
-        '''
+        for i in range(len(self.__graph.hidden_neuron_list)):
+            hidden_activity_arr[i] = self.__graph.hidden_neuron_list[i].activating_function.activate(
+                hidden_activity_arr[i]
+            )
 
-    def __update_visible_spike(self):
-        '''
-        Update activity of neurons in visible layer.
-        '''
-        raise NotImplementedError()
+        self.__graph.diff_weights_arr = mx.ndarray.reshape(visible_activity_arr, shape=(-1, 1)) * mx.ndarray.reshape(hidden_activity_arr, shape=(-1, 1)).T * self.__learning_rate
 
-        '''
-        hidden_activity_arr = self.__graph.hidden_activity_arr
-        link_value_arr = self.__graph.weights_arr.T * hidden_activity_arr
-        visible_activity_arr = mx.ndarray.sum(link_value_arr, axis=0)
-        for i in range(visible_activity_arr.shape[0]):
-            self.__graph.visible_neuron_list[i].visible_update_state(visible_activity_arr[i])
-        '''
+        visible_diff_bias = self.__learning_rate * visible_activity_arr
+        visible_diff_bias_sum = visible_diff_bias.sum()
+        if visible_diff_bias_sum != 0:
+            visible_diff_bias = visible_diff_bias / visible_diff_bias_sum
+        else:
+            raise ValueError("In waking, the sum of bias in visible layer is zero.")
 
-    def __update_hidden_spike(self):
-        '''
-        Update activity of neurons in hidden layer.
-        '''
-        raise NotImplementedError()
+        hidden_diff_bias = self.__learning_rate * hidden_activity_arr
+        hidden_diff_bias_sum = hidden_diff_bias.sum()
+        if hidden_diff_bias_sum != 0:
+            hidden_diff_bias = hidden_diff_bias / hidden_diff_bias_sum
+        else:
+            raise ValueError("In waking, the sum of bias in hidden layer is zero.")
 
-        '''
-        visible_activity_arr = self.__graph.visible_activity_arr
-        link_value_arr = self.__graph.weights_arr * visible_activity_arr
-        hidden_activity_arr = mx.ndarray.sum(link_value_arr, axis=0)
-        for j in range(hidden_activity_arr.shape[0]):
-            self.__graph.hidden_neuron_list[j].hidden_update_state(hidden_activity_arr[j])
-        '''
+        # Sleeping.
+        link_value_arr = (self.__graph.weights_arr.T * mx.ndarray.reshape(hidden_activity_arr, shape=(-1, 1))) + mx.ndarray.reshape(self.__graph.hidden_bias_arr, shape=(-1, 1))
+        visible_activity_arr = mx.nd.nansum(link_value_arr, axis=0)
+        visible_activity_sum = visible_activity_arr.sum()
+        if visible_activity_sum != 0:
+            visible_activity_arr = visible_activity_arr / visible_activity_sum
+        else:
+            raise ValueError("In sleeping, the sum of activity in visible layer is zero.")
 
-    def __learn(self):
-        '''
-        Learning the biases and weights.
-        '''
-        raise NotImplementedError()
+        for i in range(len(self.__graph.visible_neuron_list)):
+            visible_activity_arr[i] = self.__graph.visible_neuron_list[i].activating_function.activate(
+                visible_activity_arr[i] + visible_diff_bias[i]
+            )
 
-        '''
-        row_i = self.__graph.visible_activity_arr.shape[0]
-        for i in range(row_i):
-            self.__graph.visible_neuron_list[i].learn_bias()
-        row_j = self.__graph.hidden_activity_arr.shape[0]
-        for j in range(row_j):
-            self.__graph.hidden_neuron_list[j].learn_bias()
+        link_value_arr = (self.__graph.weights_arr * mx.ndarray.reshape(visible_activity_arr, shape=(-1, 1))) + mx.ndarray.reshape(self.__graph.visible_bias_arr, shape=(-1, 1))
+        hidden_activity_arr = mx.nd.nansum(link_value_arr, axis=0)
+        hidden_activity_sum = hidden_activity_arr.sum()
+        if hidden_activity_sum != 0:
+            hidden_activity_arr = hidden_activity_arr / hidden_activity_sum
+        else:
+            raise ValueError("In sleeping, the sum of activity in hidden layer is zero.")
+
+        for i in range(len(self.__graph.hidden_neuron_list)):
+            hidden_activity_arr[i] = self.__graph.hidden_neuron_list[i].activating_function.activate(
+                hidden_activity_arr[i] + hidden_diff_bias[i]
+            )
+
+        self.__graph.diff_weights_arr += mx.ndarray.reshape(visible_activity_arr, shape=(-1, 1)) * mx.ndarray.reshape(hidden_activity_arr, shape=(-1, 1)).T * self.__learning_rate * (-1)
+
+        visible_diff_bias += self.__learning_rate * visible_activity_arr * (-1)
+        visible_diff_bias_sum = mx.ndarray.nansum(visible_diff_bias)
+        if visible_diff_bias_sum != 0:
+            visible_diff_bias = visible_diff_bias / visible_diff_bias_sum
+        else:
+            raise ValueError("In sleeping, the sum of bias in visible layer is zero.")
+
+        hidden_diff_bias += self.__learning_rate * hidden_activity_arr * (-1)
+        hidden_diff_bias_sum = mx.ndarray.nansum(hidden_diff_bias)
+        if hidden_diff_bias_sum != 0:
+            hidden_diff_bias = hidden_diff_bias / hidden_diff_bias_sum
+        else:
+            raise ValueError("In sleeping, the sum of bias in hidden layer is zero.")
+
+        # Learning.
+        if self.__graph.visible_bias_arr is None:
+            self.__graph.visible_bias_arr = visible_diff_bias
+        else:
+            self.__graph.visible_bias_arr += visible_diff_bias
+
+        if self.__graph.hidden_bias_arr is None:
+            self.__graph.hidden_bias_arr = hidden_diff_bias
+        else:
+            self.__graph.hidden_bias_arr += hidden_diff_bias
+
         self.__graph.learn_weights()
-        '''
+
+        # Memorizing.
+        self.__graph.visible_activity_arr = visible_activity_arr
+        self.__graph.hidden_activity_arr = hidden_activity_arr
+
+        for i in range(len(self.__graph.visible_neuron_list)):
+            self.__graph.visible_neuron_list[i].activity = visible_activity_arr[i]
+            self.__graph.visible_neuron_list[i].bias = visible_bias_arr[i]
+        for i in range(len(self.__graph.hidden_neuron_list)):
+            self.__graph.hidden_neuron_list[i].activity = hidden_activity_arr[i]
+            self.__graph.hidden_neuron_list[i].bias = hidden_bias_arr[i]
 
     def recall(self, graph, observed_data_arr):
         '''

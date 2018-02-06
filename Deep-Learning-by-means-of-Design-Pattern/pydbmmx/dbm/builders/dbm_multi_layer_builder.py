@@ -96,12 +96,14 @@ class DBMMultiLayerBuilder(DBMBuilder):
             visible_neuron.bias_arr = bias_arr
             visible_neuron.diff_bias_arr = default_arr.copy()
             visible_neuron.activating_function = activating_function
+            visible_neuron.bernoulli_flag = True
 
             feature_point_neuron = FeaturePointNeuron(visible_neuron)
             feature_point_neuron.node_index = i
             feature_point_neuron.activity_arr = default_arr.copy()
             feature_point_neuron.bias_arr = bias_arr
             feature_point_neuron.diff_bias_arr = default_arr.copy()
+            feature_point_neuron.bernoulli_flag = True
             add_neuron_list.append(feature_point_neuron)
         self.__feature_point_neuron.append(add_neuron_list)
 
@@ -122,6 +124,7 @@ class DBMMultiLayerBuilder(DBMBuilder):
             hidden_neuron.bias_arr = bias_arr
             hidden_neuron.diff_bias_arr = default_arr.copy()
             hidden_neuron.activating_function = activating_function
+            hidden_neuron.bernoulli_flag = True
             self.__hidden_neuron_list.append(hidden_neuron)
 
     def graph_part(self, approximate_interface):

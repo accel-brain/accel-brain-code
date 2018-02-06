@@ -54,15 +54,6 @@ class DeepBoltzmannMachine(object):
 
         self.__rbm_list = dbm_director.rbm_list
 
-        self.__hyper_param_dict = {
-            "visible_neuron_count": visible_neuron_count,
-            "feature_neuron_count": feature_neuron_count,
-            "hidden_neuron_count": hidden_neuron_count,
-            "learning_rate": learning_rate,
-            "activating_function": str(type(activating_function)),
-            "approximate_interface": str(type(approximate_interface))
-        }
-
     @dispatch(DBMBuilder, list, ActivatingFunctionInterface, ApproximateInterface, float)
     def __init__(
         self,
@@ -92,13 +83,6 @@ class DeepBoltzmannMachine(object):
             approximate_interface=approximate_interface
         )
         self.__rbm_list = dbm_director.rbm_list
-
-        self.__hyper_param_dict = {
-            "neuron_assign_list": neuron_assign_list,
-            "learning_rate": learning_rate,
-            "activating_function": str(type(activating_function)),
-            "approximate_interface": str(type(approximate_interface))
-        }
 
     def learn(
         self,

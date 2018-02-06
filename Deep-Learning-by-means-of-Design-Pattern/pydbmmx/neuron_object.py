@@ -38,6 +38,8 @@ class Neuron(metaclass=ABCMeta):
     def get_activity(self):
         ''' getter of activity'''
         if isinstance(self.activity_arr[self.node_index], float) is False:
+            print(self.node_index)
+            print(self.activity_arr)
             raise TypeError()
         return self.activity_arr[self.node_index]
 

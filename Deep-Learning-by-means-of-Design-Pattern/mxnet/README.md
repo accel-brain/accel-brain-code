@@ -1,6 +1,8 @@
-# Deep Learning Library: pydbm
+# Deep Learning Library: pydbm_mxnet
 
-`pydbm` is Python3 library for building restricted boltzmann machine, deep boltzmann machine, and multi-layer neural networks.
+`pydbm_mxnet` is Python library based on `MXNet` for building restricted boltzmann machine, deep boltzmann machine, and multi-layer neural networks. 
+
+This library is derived from [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) (Cython version).
 
 ## Description
 
@@ -21,31 +23,25 @@ Full documentation is available on [https://code.accel-brain.com/Deep-Learning-b
 Install using pip:
 
 ```sh
-pip install pydbm
-```
-
-Or, you can install from wheel file.
-
-```sh
-pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.0.7-cp36-cp36m-linux_x86_64.whl
+pip install pydbm_mxnet
 ```
 
 ### Source code
 
 The source code is currently hosted on GitHub.
 
-- [accel-brain-code/Deep-Learning-by-means-of-Design-Pattern](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern)
+- [accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/mxnet/](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern/mxnet/)
 
 ### Python package index(PyPI)
 
 Installers for the latest released version are available at the Python package index.
 
-- [pydbm : Python Package Index](https://pypi.python.org/pypi/pydbm)
+- [pydbm_mxnet : Python Package Index](https://pypi.python.org/pypi/pydbm_mxnet)
 
 ### Dependencies
 
 - numpy: v1.13.3 or higher.
-- cython: v0.27.1 or higher.
+- mxnet: latest.
 - multipledispatch: v0.4.9
 
 ## Usecase: Building the deep boltzmann machine for feature extracting.
@@ -54,13 +50,13 @@ Import Python and Cython modules.
 
 ```python
 # The `Client` in Builder Pattern
-from pydbm.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
+from pydbm_mxnet.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
 # The `Concrete Builder` in Builder Pattern.
-from pydbm.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
+from pydbm_mxnet.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
 # Contrastive Divergence for function approximation.
-from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
+from pydbm_mxnet.approximation.contrastive_divergence import ContrastiveDivergence
 # Logistic Function as activation function.
-from pydbm.activation.logistic_function import LogisticFunction
+from pydbm_mxnet.activation.logistic_function import LogisticFunction
 ```
 
 instantiate objects and call the method.
@@ -90,13 +86,13 @@ Import Python and Cython modules.
 
 ```python
 # `StackedAutoEncoder` is-a `DeepBoltzmannMachine`.
-from pydbm.dbm.deepboltzmannmachine.stacked_auto_encoder import StackedAutoEncoder
+from pydbm_mxnet.dbm.deepboltzmannmachine.stacked_auto_encoder import StackedAutoEncoder
 # The `Concrete Builder` in Builder Pattern.
-from pydbm.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
+from pydbm_mxnet.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
 # Contrastive Divergence for function approximation.
-from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
+from pydbm_mxnet.approximation.contrastive_divergence import ContrastiveDivergence
 # Logistic Function as activation function.
-from pydbm.activation.logistic_function import LogisticFunction
+from pydbm_mxnet.activation.logistic_function import LogisticFunction
 ```
 
 instantiate objects and call the method.
@@ -120,26 +116,12 @@ And the result of dimention reduction can be extracted by this property.
 pre_trained_arr = dbm.feature_points_arr
 ```
 
-### More detail demos
-
-- [Webクローラ型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-web-crawling-ai/) (Japanese)
-    - Implemented by the `C++` version of this library, these 20001 bots are able to execute the dimensions reduction(or pre-training) for natural language processing to run as 20001 web-crawlers and 20001 web-scrapers.
-- [ハッカー倫理に準拠した人工知能のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/) (Japanese)
-    - [プロトタイプの開発：深層強化学習のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/5/#i-2)
-
 ### Related PoC
 
 - [Webクローラ型人工知能によるパラドックス探索暴露機能の社会進化論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/) (Japanese)
-    - [プロトタイプの開発：人工知能エージェント「キメラ・ネットワーク」](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/5/#i-8)
 - [深層強化学習のベイズ主義的な情報探索に駆動された自然言語処理の意味論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/) (Japanese)
-    - [プロトタイプの開発：深層学習と強化学習による「排除された第三項」の推論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/4/#i-5)
 - [ハッカー倫理に準拠した人工知能のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/) (Japanese)
     - [プロトタイプの開発：深層強化学習のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/5/#i-2)
-- [ヴァーチャルリアリティにおける動物的「身体」の物神崇拝的なユースケース](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/) (Japanese)
-    - [プロトタイプの開発：「人工天使ヒューズ＝ヒストリア」](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/4/#i-6)
-
-## Version
-- 1.0.7
 
 ## Author
 

@@ -49,4 +49,4 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
                     feature_points_arr = self.get_feature_point()
                     feature_points_list[i] = feature_points_arr.asnumpy().tolist()
 
-        self.__feature_points_arr = mx.ndarray(feature_points_list)
+        self.__feature_points_arr = mx.nd.array(feature_points_list)

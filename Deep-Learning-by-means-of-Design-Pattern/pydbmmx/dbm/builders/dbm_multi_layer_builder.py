@@ -15,8 +15,6 @@ class DBMMultiLayerBuilder(DBMBuilder):
 
     Compose three restricted boltzmann machines for building a deep boltzmann machine.
 
-    @TODO(chimera0): Input param of node_index and activation_list.
-
     '''
     # The list of neurons in visible layer.
     __visible_neuron_list = []
@@ -97,12 +95,13 @@ class DBMMultiLayerBuilder(DBMBuilder):
             visible_neuron.activity_arr = default_arr.copy()
             visible_neuron.bias_arr = bias_arr
             visible_neuron.diff_bias_arr = default_arr.copy()
+            visible_neuron.activating_function = activating_function
+
             feature_point_neuron = FeaturePointNeuron(visible_neuron)
             feature_point_neuron.node_index = i
             feature_point_neuron.activity_arr = default_arr.copy()
             feature_point_neuron.bias_arr = bias_arr
             feature_point_neuron.diff_bias_arr = default_arr.copy()
-            feature_point_neuron.activating_function = activating_function
             add_neuron_list.append(feature_point_neuron)
         self.__feature_point_neuron.append(add_neuron_list)
 

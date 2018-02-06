@@ -38,21 +38,15 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
 
         row = observed_data_arr.shape[0]
         feature_points_list = [None] * row
-        feature_points_arr = None
         for t in range(traning_count):
             for i in range(row):
-                data_arr = mx.nd.array(np.array([observed_data_arr[i].asnumpy()]))
+                data_arr = observed_data_arr[i]
                 super().learn(
                     observed_data_arr=data_arr,
                     traning_count=1
                 )
                 if t == traning_count - 1:
-                    if feature_points_arr is None:
-                        feature_points_arr = self.get_feature_point()
-                    else:
-                        feature_points_arr = mx.ndarray.stach(
-                            feature_points_arr,
-                            self.get_feature_point()
-                        )
+                    feature_points_arr = self.get_feature_point()
+                    feature_points_list[i] = feature_points_arr.asnumpy().tolist()
 
-        self.__feature_points_arr = feature_points_arr
+        self.__feature_points_arr = mx.ndarray(feature_points_list)

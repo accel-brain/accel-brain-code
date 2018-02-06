@@ -149,21 +149,3 @@ class Synapse(object):
         row = self.weights_arr.shape[0]
         col = self.weights_arr.shape[1]
         self.diff_weights_arr = mx.nd.zeros((row, col), dtype=float)
-
-    def normalize_visible_bias(self):
-        '''
-        Normalize the neuron's activity in visible layers.
-        '''
-        visible_activity_arr = self.__shallower_activity_arr
-        if visible_activity_arr.shape[0] > 1 and mx.nd.sum(visible_activity_arr) != 0:
-            visible_activity_arr = visible_activity_arr / mx.nd.sum(visible_activity_arr)
-        self.__shallower_activity_arr = visible_activity_arr
-
-    def normalize_hidden_bias(self):
-        '''
-        normalize the neuron's activity in hidden layers.
-        '''
-        hidden_activity_arr = self.__deeper_activity_arr
-        if hidden_activity_arr.shape[0] > 1 and mx.nd.sum(hidden_activity_arr) != 0:
-            hidden_activity_arr = hidden_activity_arr / mx.nd.sum(hidden_activity_arr)
-        self.__deeper_activity_arr = hidden_activity_arr

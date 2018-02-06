@@ -19,7 +19,7 @@ class FeaturePointNeuron(Neuron, VisibleLayerInterface, HiddenLayerInterface):
 
     def get_activating_function(self):
         ''' getter of activating_function '''
-        if isinstance(self.__activating_function, ActivatingFunctionInterface) is False:
+        if isinstance(self.__visible_layer_interface.activating_function, ActivatingFunctionInterface) is False:
             raise TypeError()
         return self.__visible_layer_interface.activating_function
 

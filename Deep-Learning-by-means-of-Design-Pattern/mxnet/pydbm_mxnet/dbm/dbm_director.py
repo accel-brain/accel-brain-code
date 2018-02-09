@@ -56,32 +56,35 @@ class DBMDirector(object):
     def dbm_construct(
         self,
         neuron_assign_list,
-        activating_function,
+        activating_function_list,
         approximate_interface
     ):
         '''
         Build deep boltzmann machine.
 
         Args:
-            neuron_assign_list:     The unit of neurons in each layers.
-            activating_function:    Activation function,
-            approximate_interface:  The object of function approximation.
+            neuron_assign_list:          The unit of neurons in each layers.
+            activating_function_list:    Activation function,
+            approximate_interface:       The object of function approximation.
         '''
-        if isinstance(activating_function, ActivatingFunctionInterface) is False:
-            raise TypeError()
-
+        for i in range(len(activating_function_list)):
+            if isinstance(activating_function_list[i], ActivatingFunctionInterface) is False:
+                raise TypeError()
+            
         if isinstance(approximate_interface, ApproximateInterface) is False:
             raise TypeError()
 
         visible_neuron_count = neuron_assign_list[0]
+        visible_activating_function = activating_function_list[0]
+        self.__dbm_builder.visible_neuron_part(visible_activating_function, visible_neuron_count)
+
+        feature_neuron_count_list = neuron_assign_list[1:len(neuron_assign_list) - 1]
+        feature_activating_function_list = activating_function_list[1:len(neuron_assign_list) - 1]
+        self.__dbm_builder.feature_neuron_part(feature_activating_function_list, feature_neuron_count_list)
+
         hidden_neuron_count = neuron_assign_list[-1]
+        hidden_activating_function = activating_function_list[-1]
+        self.__dbm_builder.hidden_neuron_part(hidden_activating_function, hidden_neuron_count)
 
-        self.__dbm_builder.visible_neuron_part(activating_function, visible_neuron_count)
-
-        for i in range(1, len(neuron_assign_list) - 1):
-            feature_neuron_count = neuron_assign_list[i]
-            self.__dbm_builder.feature_neuron_part(activating_function, feature_neuron_count)
-
-        self.__dbm_builder.hidden_neuron_part(activating_function, hidden_neuron_count)
         self.__dbm_builder.graph_part(approximate_interface)
         self.rbm_list = self.__dbm_builder.get_result()

@@ -19,16 +19,3 @@ class ActivatingFunctionInterface(metaclass=ABCMeta):
             The result.
         '''
         raise NotImplementedError()
-
-    @abstractmethod
-    def derivative(self, y):
-        '''
-        Derivative.
-
-        Args:
-            y:  Parameter.
-
-        Returns:
-            The result.
-        '''
-        raise NotImplementedError()

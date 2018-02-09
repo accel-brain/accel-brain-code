@@ -12,6 +12,7 @@ class ApproximateInterface(metaclass=ABCMeta):
         self,
         graph,
         learning_rate,
+        dropout_rate,
         observed_data_arr,
         traning_count=1000
     ):
@@ -21,6 +22,7 @@ class ApproximateInterface(metaclass=ABCMeta):
         Args:
             graph:                Graph of neurons.
             learning_rate:        Learning rate.
+            dropout_rate:         Dropout rate.
             observed_data_arr:    observed data points.
             traning_count:        Training counts.
 

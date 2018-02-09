@@ -5,7 +5,7 @@ from pydbm_mxnet.activation.interface.activating_function_interface import Activ
 
 class ReLuFunction(ActivatingFunctionInterface):
     '''
-    Logistic Function.
+    ReLu Function.
     '''
 
     def activate(self, x):
@@ -21,4 +21,9 @@ class ReLuFunction(ActivatingFunctionInterface):
         return mx.ndarray.maximum(0, x)
 
     def derivative(self, y):
-        pass
+        if y < 0:
+            return 0.0
+        elif y > 0:
+            return 1.0
+        else:
+            raise ValueError("The derivative does not exist.")

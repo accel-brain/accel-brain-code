@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import mxnet as mx
-from multipledispatch import dispatch
 from pydbm_mxnet.dbm.interface.dbm_builder import DBMBuilder
 from pydbm_mxnet.dbm.dbm_director import DBMDirector
 from pydbm_mxnet.activation.interface.activating_function_interface import ActivatingFunctionInterface
@@ -19,67 +18,34 @@ class DeepBoltzmannMachine(object):
     # The dict of Hyper parameters.
     __hyper_param_dict = {}
 
-    @dispatch(DBMBuilder, int, int, int, ActivatingFunctionInterface, ApproximateInterface, float)
-    def __init__(
-        self,
-        dbm_builder,
-        visible_neuron_count,
-        feature_neuron_count,
-        hidden_neuron_count,
-        activating_function,
-        approximate_interface,
-        learning_rate
-    ):
-        '''
-        Initialize deep boltzmann machine.
-
-        Args:
-            dbm_builder:            `Concrete Builder` in Builder Pattern.
-            visible_neuron_count:   The number of neurons in visible layer.
-            feature_neuron_count:   The number of feature neurons in visible layer.
-            hidden_neuron_count:    The number of neurons in hidden layer.
-            activating_function:    Activation function.
-            approximate_interface:  The object of function approximation.
-            learning_rate:          Learning rate.
-        '''
-        dbm_builder.learning_rate = learning_rate
-        dbm_director = DBMDirector(
-            dbm_builder=dbm_builder
-        )
-        dbm_director.dbm_construct(
-            neuron_assign_list=[visible_neuron_count, feature_neuron_count, hidden_neuron_count],
-            activating_function=activating_function,
-            approximate_interface=approximate_interface
-        )
-
-        self.__rbm_list = dbm_director.rbm_list
-
-    @dispatch(DBMBuilder, list, ActivatingFunctionInterface, ApproximateInterface, float)
     def __init__(
         self,
         dbm_builder,
         neuron_assign_list,
-        activating_function,
+        activating_function_list,
         approximate_interface,
-        learning_rate
+        learning_rate,
+        dropout_rate=0.5
     ):
         '''
         Initialize deep boltzmann machine.
 
         Args:
-            dbm_builder:            `Concrete Builder` in Builder Pattern.
-            neuron_assign_list:     The number of neurons in each layers.
-            activating_function:    Activation function.
-            approximate_interface:  The object of function approximation.
-            learning_rate:          Learning rate.
+            dbm_builder:                `Concrete Builder` in Builder Pattern.
+            neuron_assign_list:         The number of neurons in each layers.
+            activating_function_list:   Activation function.
+            approximate_interface:      The object of function approximation.
+            learning_rate:              Learning rate.
+            dropout_rate:               Dropout rate.
         '''
         dbm_builder.learning_rate = learning_rate
+        dbm_builder.dropout_rate = dropout_rate
         dbm_director = DBMDirector(
             dbm_builder=dbm_builder
         )
         dbm_director.dbm_construct(
             neuron_assign_list=neuron_assign_list,
-            activating_function=activating_function,
+            activating_function_list=activating_function_list,
             approximate_interface=approximate_interface
         )
         self.__rbm_list = dbm_director.rbm_list

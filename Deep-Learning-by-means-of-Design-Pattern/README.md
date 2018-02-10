@@ -29,7 +29,7 @@ pip install pydbm
 Or, you can install from wheel file.
 
 ```sh
-pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.0.8-cp36-cp36m-linux_x86_64.whl
+pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.0.9-cp36-cp36m-linux_x86_64.whl
 ```
 
 ### Source code
@@ -48,7 +48,6 @@ Installers for the latest released version are available at the Python package i
 
 - numpy: v1.13.3 or higher.
 - cython: v0.27.1 or higher.
-- multipledispatch: v0.4.9
 
 ## Usecase: Building the deep boltzmann machine for feature extracting.
 
@@ -63,18 +62,24 @@ from pydbm.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
 from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
 # Logistic Function as activation function.
 from pydbm.activation.logistic_function import LogisticFunction
+# Tanh Function as activation function.
+from pydbm.activation.tanh_function import TanhFunction
+# ReLu Function as activation function.
+from pydbm.activation.relu_function import ReLuFunction
+
 ```
 
-instantiate objects and call the method.
+Instantiate objects and call the method.
 
 ```python
 dbm = DeepBoltzmannMachine(
     DBMMultiLayerBuilder(),
     # Dimention in visible layer, hidden layer, and second hidden layer.
     [traning_x.shape[1], 10, traning_x.shape[1]],
-    LogisticFunction(), # Setting object for activation function.
+    [ReLuFunction(), LogisticFunction(), TanhFunction()], # Setting objects for activation function.
     ContrastiveDivergence(), # Setting the object for function approximation.
-    0.05 # Setting learning rate.
+    0.05, # Setting learning rate.
+    0.5 # Setting dropout rate.
 )
 # Execute learning.
 dbm.learn(traning_arr, traning_count=1000)
@@ -101,25 +106,89 @@ from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
 from pydbm.activation.logistic_function import LogisticFunction
 ```
 
-instantiate objects and call the method.
+Instantiate objects and call the method.
 
 ```python
 dbm = StackedAutoEncoder(
     DBMMultiLayerBuilder(),
-    # Dimention in visible layer, hidden layer, and second hidden layer.
-    [traning_x.shape[1], 10, traning_x.shape[1]],
-    LogisticFunction(), # Setting object for activation function.
-    ContrastiveDivergence(), # Setting the object for function approximation.
-    0.05 # Setting learning rate.
+    [target_arr.shape[1], 10, target_arr.shape[1]],
+    [LogisticFunction(), LogisticFunction(), LogisticFunction()],
+    ContrastiveDivergence(),
+    0.05,
+    0.5
 )
+
 # Execute learning.
-dbm.learn(traning_arr, traning_count=1000)
+dbm.learn(target_arr, traning_count=1)
 ```
 
 And the result of dimention reduction can be extracted by this property.
 
 ```python
 pre_trained_arr = dbm.feature_points_arr
+```
+
+### Performance
+
+Run a program: [demo_stacked_auto_encoder.py](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo_stacked_auto_encoder.py)
+
+```sh
+time python demo_stacked_auto_encoder.py
+```
+
+The result is follow.
+ 
+```sh
+real    1m44.371s
+user    1m41.852s
+sys     0m2.480s
+```
+
+#### Observation Data Points
+
+The observated data is the result of `np.random.uniform(size=(10000, 10000))`.
+
+#### Number of units
+
+- Visible layer: `10000`
+- hidden layer(feature point): `10`
+- hidden layer: `10000`
+
+#### Activation functions
+
+- visible:                Logistic Function
+- hidden(feature point):  Logistic Function
+- hidden:                 Logistic Function
+
+#### Approximation
+
+- Contrastive Divergence
+
+#### Learning rate
+
+- `0.05`
+
+#### Dropout rate
+
+- `0.5`
+
+#### Results
+
+```sh
+real    1m44.371s
+user    1m41.852s
+sys     0m2.480s
+```
+
+##### Feature points
+
+```
+0.190599  0.183594  0.482996  0.911710  0.939766  0.202852  0.042163
+0.470003  0.104970  0.602966  0.927917  0.134440  0.600353  0.264248
+0.419805  0.158642  0.328253  0.163071  0.017190  0.982587  0.779166
+0.656428  0.947666  0.409032  0.959559  0.397501  0.353150  0.614216
+0.167008  0.424654  0.204616  0.573720  0.147871  0.722278  0.068951
+.....
 ```
 
 ### More detail demos

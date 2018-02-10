@@ -42,7 +42,6 @@ Installers for the latest released version are available at the Python package i
 
 - numpy: v1.13.3 or higher.
 - mxnet: latest.
-- multipledispatch: v0.4.9
 
 ## Usecase: Building the deep boltzmann machine for feature extracting.
 
@@ -66,9 +65,10 @@ dbm = DeepBoltzmannMachine(
     DBMMultiLayerBuilder(),
     # Dimention in visible layer, hidden layer, and second hidden layer.
     [traning_x.shape[1], 10, traning_x.shape[1]],
-    LogisticFunction(), # Setting object for activation function.
+    [LogisticFunction(), LogisticFunction(), LogisticFunction()], # Setting object for activation function.
     ContrastiveDivergence(), # Setting the object for function approximation.
-    0.05 # Setting learning rate.
+    0.05, # Setting learning rate.
+    0.5 # Setting dropout rate.
 )
 # Execute learning.
 dbm.learn(traning_arr, traning_count=1000)
@@ -91,8 +91,10 @@ from pydbm_mxnet.dbm.deepboltzmannmachine.stacked_auto_encoder import StackedAut
 from pydbm_mxnet.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
 # Contrastive Divergence for function approximation.
 from pydbm_mxnet.approximation.contrastive_divergence import ContrastiveDivergence
-# Logistic Function as activation function.
+# Logistic function as activation function.
 from pydbm_mxnet.activation.logistic_function import LogisticFunction
+# ReLu function as activation function.
+from pydbm_mxnet.activation.relu_function import ReLuFunction
 ```
 
 instantiate objects and call the method.
@@ -100,14 +102,15 @@ instantiate objects and call the method.
 ```python
 dbm = StackedAutoEncoder(
     DBMMultiLayerBuilder(),
-    # Dimention in visible layer, hidden layer, and second hidden layer.
-    [traning_x.shape[1], 10, traning_x.shape[1]],
-    LogisticFunction(), # Setting object for activation function.
-    ContrastiveDivergence(), # Setting the object for function approximation.
-    0.05 # Setting learning rate.
+    [target_arr.shape[1], 10, target_arr.shape[1]],
+    [ReLuFunction(), LogisticFunction(), ReLuFunction()],
+    ContrastiveDivergence(),
+    0.0005,
+    0.25
 )
+
 # Execute learning.
-dbm.learn(traning_arr, traning_count=1000)
+dbm.learn(traning_arr, traning_count=1)
 ```
 
 And the result of dimention reduction can be extracted by this property.

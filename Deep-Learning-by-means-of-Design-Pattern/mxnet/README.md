@@ -12,7 +12,7 @@ The function of this library is building and modeling restricted boltzmann machi
 
 In relation to my [Automatic Summarization Library](https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization), it is important for me that the models are functionally equivalent to stacked auto-encoder. The main function I observe is the same as dimensions reduction(or pre-training). But the functional reusability of the models can be not limited to this. These Python Scripts can be considered a kind of *experiment result* to verify effectiveness of object-oriented analysis, object-oriented design, and GoF's design pattern in designing and modeling neural network, deep learning, and [reinforcement-Learning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning).
 
-For instance, [demo_dbm_multi_layer_builder.py](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo_dbm_multi_layer_builder.py) is implemented for running the **deep boltzmann machine** to extract so-called feature points. This script is premised on a kind of *builder pattern* for separating the construction of complex **restricted boltzmann machines** from its **graph** representation so that the same construction process can create different representations. Because of common design pattern and polymorphism, the **stacked auto-encoder** in [demo_stacked_auto_encoder.py](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo_stacked_auto_encoder.py) and the **multi-layer neural networks** in [demo_nn_multi_layer_builder.py](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo_nn_multi_layer_builder.py) are *functionally equivalent* to **deep boltzmann machine**.
+For instance, [dbm_multi_layer_builder.py](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/mxnet/pydbm_mxnet/dbm/builders/dbm_multi_layer_builder.py) is implemented for running the **deep boltzmann machine** to extract so-called feature points. This script is premised on a kind of *builder pattern* for separating the construction of complex **restricted boltzmann machines** from its **graph** representation so that the same construction process can create different representations. Because of common design pattern and polymorphism, the **stacked auto-encoder** in [demo_stacked_auto_encoder.py](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/mxnet/demo_stacked_auto_encoder.py) is *functionally equivalent* to **deep boltzmann machine**.
 
 ## Documentation
 
@@ -45,7 +45,7 @@ Installers for the latest released version are available at the Python package i
 
 ## Usecase: Building the deep boltzmann machine for feature extracting.
 
-Import Python and Cython modules.
+Import Python and modules.
 
 ```python
 # The `Client` in Builder Pattern
@@ -56,16 +56,20 @@ from pydbm_mxnet.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilde
 from pydbm_mxnet.approximation.contrastive_divergence import ContrastiveDivergence
 # Logistic Function as activation function.
 from pydbm_mxnet.activation.logistic_function import LogisticFunction
+# ReLu function as activation function.
+from pydbm_mxnet.activation.relu_function import ReLuFunction
+# Tanh function as activation function.
+from pydbm_mxnet.activation.tanh_function import TanhFunction
 ```
 
-instantiate objects and call the method.
+Instantiate objects and call the method.
 
 ```python
 dbm = DeepBoltzmannMachine(
     DBMMultiLayerBuilder(),
     # Dimention in visible layer, hidden layer, and second hidden layer.
     [traning_x.shape[1], 10, traning_x.shape[1]],
-    [LogisticFunction(), LogisticFunction(), LogisticFunction()], # Setting object for activation function.
+    [ReLuFunction(), LogisticFunction(), TanhFunction()], # Setting objects for activation function.
     ContrastiveDivergence(), # Setting the object for function approximation.
     0.05, # Setting learning rate.
     0.5 # Setting dropout rate.
@@ -82,7 +86,7 @@ print(dbm.get_feature_point_list(0))
 
 ## Usecase: Extracting all feature points for dimensions reduction(or pre-training)
 
-Import Python and Cython modules.
+Import Python modules.
 
 ```python
 # `StackedAutoEncoder` is-a `DeepBoltzmannMachine`.
@@ -93,17 +97,15 @@ from pydbm_mxnet.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilde
 from pydbm_mxnet.approximation.contrastive_divergence import ContrastiveDivergence
 # Logistic function as activation function.
 from pydbm_mxnet.activation.logistic_function import LogisticFunction
-# ReLu function as activation function.
-from pydbm_mxnet.activation.relu_function import ReLuFunction
 ```
 
-instantiate objects and call the method.
+Instantiate objects and call the method.
 
 ```python
 dbm = StackedAutoEncoder(
     DBMMultiLayerBuilder(),
     [target_arr.shape[1], 10, target_arr.shape[1]],
-    [ReLuFunction(), LogisticFunction(), ReLuFunction()],
+    [LogisticFunction(), LogisticFunction(), LogisticFunction()],
     ContrastiveDivergence(),
     0.0005,
     0.25

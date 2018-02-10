@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-
 import numpy as np
-
 cimport numpy as np
 from abc import ABCMeta, abstractmethod
 
@@ -16,6 +14,7 @@ class ApproximateInterface(metaclass=ABCMeta):
         self,
         graph,
         double learning_rate,
+        double dropout_rate,
         np.ndarray observed_data_arr,
         int traning_count=1000
     ):
@@ -25,6 +24,7 @@ class ApproximateInterface(metaclass=ABCMeta):
         Args:
             graph:                Graph of neurons.
             learning_rate:        Learning rate.
+            dropout_rate:         Dropout rate.
             observed_data_arr:    observed data points.
             traning_count:        Training counts.
 

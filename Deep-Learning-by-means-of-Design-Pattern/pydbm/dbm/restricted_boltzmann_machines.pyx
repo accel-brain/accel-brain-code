@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-
 import numpy as np
-
 cimport numpy as np
 from pydbm.synapse.complete_bipartite_graph import CompleteBipartiteGraph
 from pydbm.approximation.interface.approximate_interface import ApproximateInterface
@@ -28,13 +26,20 @@ class RestrictedBoltzmannMachine(object):
 
     graph = property(get_graph, set_read_only)
 
-    def __init__(self, graph, double learning_rate=0.5, approximate_interface=None):
+    def __init__(
+        self,
+        graph,
+        double learning_rate=0.005,
+        double dropout_rate=0.5,
+        approximate_interface=None
+    ):
         '''
         Initialize.
 
         Args:
             graph:                  Complete bipartite graph.
             learning_rate:          Learning rate.
+            dropout_rate:           Dropout rate.
             approximate_interface:  The object of function approximation.
 
         '''
@@ -47,6 +52,7 @@ class RestrictedBoltzmannMachine(object):
 
         self.__graph = graph
         self.__learning_rate = learning_rate
+        self.__dropout_rate = dropout_rate
         self.__approximate_interface = approximate_interface
 
     def approximate_learning(self, np.ndarray observed_data_arr, int traning_count):
@@ -61,6 +67,7 @@ class RestrictedBoltzmannMachine(object):
         self.__graph = self.__approximate_interface.approximate_learn(
             self.__graph,
             self.__learning_rate,
+            self.__dropout_rate,
             observed_data_arr,
             traning_count=traning_count
         )

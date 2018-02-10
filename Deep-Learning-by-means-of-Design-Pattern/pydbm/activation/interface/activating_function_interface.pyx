@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from abc import ABCMeta, abstractmethod
 
 
@@ -15,19 +14,6 @@ class ActivatingFunctionInterface(metaclass=ABCMeta):
 
         Args:
             x   Parameter.
-
-        Returns:
-            The result.
-        '''
-        raise NotImplementedError()
-
-    @abstractmethod
-    def derivative(self, y):
-        '''
-        Derivative.
-
-        Args:
-            y:  Parameter.
 
         Returns:
             The result.

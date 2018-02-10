@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-
 import numpy as np
-
 cimport numpy as np
 from pydbm.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
 
@@ -44,13 +42,13 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
         feature_points_list = [None] * row
         for t in range(traning_count):
             for i in range(row):
-                data_arr = np.array([observed_data_arr[i]])
+                data_arr = observed_data_arr[i]
                 super().learn(
                     observed_data_arr=data_arr,
                     traning_count=1
                 )
                 if t == traning_count - 1:
-                    feature_points_arr = self.get_feature_point_list()
+                    feature_points_arr = self.get_feature_point()
                     feature_points_list[i] = feature_points_arr
 
         self.__feature_points_arr = np.array(feature_points_list)

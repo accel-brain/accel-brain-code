@@ -144,33 +144,40 @@ user    1m41.852s
 sys     0m2.480s
 ```
 
-#### Observation Data Points
+#### Detail
+
+This experiment was performed under the following conditions.
+
+##### Machine type
+
+- vCPU: `2`
+- memory: `8GB`
+- CPU Platform: Intel Ivy Bridge
+
+##### Observation Data Points
 
 The observated data is the result of `np.random.uniform(size=(10000, 10000))`.
 
-#### Number of units
+##### Number of units
 
 - Visible layer: `10000`
 - hidden layer(feature point): `10`
 - hidden layer: `10000`
 
-#### Activation functions
+##### Activation functions
 
 - visible:                Logistic Function
 - hidden(feature point):  Logistic Function
 - hidden:                 Logistic Function
 
-#### Approximation
+##### Approximation
 
 - Contrastive Divergence
 
-#### Learning rate
+##### Hyper parameters
 
-- `0.05`
-
-#### Dropout rate
-
-- `0.5`
+- Learning rate: `0.05`
+- Dropout rate: `0.5`
 
 #### Results
 

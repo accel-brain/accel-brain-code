@@ -146,15 +146,3 @@ class CompleteBipartiteGraph(Synapse):
             deeper_activating_function,
             weights_arr
         )
-
-    def update(self, double learning_rate):
-        '''
-        Update weights.
-
-        Args:
-            learning_rate:  Learning rate.
-        '''
-        if self.diff_weights_arr is None:
-            self.diff_weights_arr = self.visible_activity_arr * self.hidden_activity_arr.T * learning_rate
-        else:
-            self.diff_weights_arr += self.visible_activity_arr * self.hidden_activity_arr.T * learning_rate

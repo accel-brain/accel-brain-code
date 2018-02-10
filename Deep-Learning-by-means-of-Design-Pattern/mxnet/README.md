@@ -67,7 +67,8 @@ dbm = DeepBoltzmannMachine(
     [traning_x.shape[1], 10, traning_x.shape[1]],
     [LogisticFunction(), LogisticFunction(), LogisticFunction()], # Setting object for activation function.
     ContrastiveDivergence(), # Setting the object for function approximation.
-    0.05 # Setting learning rate.
+    0.05, # Setting learning rate.
+    0.5 # Setting dropout rate.
 )
 # Execute learning.
 dbm.learn(traning_arr, traning_count=1000)

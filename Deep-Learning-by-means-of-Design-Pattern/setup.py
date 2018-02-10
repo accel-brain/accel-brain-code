@@ -33,7 +33,7 @@ setup(
         'Programming Language :: Python :: 3',
     ],
     keywords='restricted boltzmann machine autoencoder auto-encoder',
-    install_requires=['numpy', 'cython', 'multipledispatch'],
+    install_requires=['numpy', 'cython'],
     include_dirs=[ '.', np.get_include()],
     cmdclass={'build_ext': build_ext},
     ext_modules=cythonize(pyx_list, include_path=[np.get_include()])

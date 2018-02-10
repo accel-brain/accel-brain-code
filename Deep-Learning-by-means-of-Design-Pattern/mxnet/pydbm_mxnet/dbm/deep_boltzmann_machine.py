@@ -65,10 +65,12 @@ class DeepBoltzmannMachine(object):
         if isinstance(observed_data_arr, mx.ndarray.ndarray.NDArray) is False:
             raise TypeError()
 
-        for i in range(len(self.__rbm_list)):
-            rbm = self.__rbm_list[i]
-            rbm.approximate_learning(observed_data_arr, traning_count)
-            observed_data_arr = self.get_feature_point(i)
+        for i in range(observed_data_arr.shape[0]):
+            data_arr = observed_data_arr[i]
+            for j in range(len(self.__rbm_list)):
+                rbm = self.__rbm_list[j]
+                rbm.approximate_learning(data_arr, traning_count)
+                data_arr = self.get_feature_point(j)
 
     def get_feature_point(self, layer_number=0):
         '''

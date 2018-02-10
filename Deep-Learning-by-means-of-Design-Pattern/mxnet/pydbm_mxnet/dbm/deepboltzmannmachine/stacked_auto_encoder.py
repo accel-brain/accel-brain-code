@@ -36,11 +36,10 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
         if isinstance(observed_data_arr, mx.ndarray.ndarray.NDArray) is False:
             raise TypeError()
 
-        row = observed_data_arr.shape[0]
-        feature_points_list = [None] * row
+        feature_points_list = [None] * observed_data_arr.shape[0]
         for t in range(traning_count):
-            for i in range(row):
-                data_arr = observed_data_arr[i]
+            for i in range(observed_data_arr.shape[0]):
+                data_arr = mx.nd.array([observed_data_arr[i].asnumpy().tolist()])
                 super().learn(
                     observed_data_arr=data_arr,
                     traning_count=1

@@ -19,20 +19,6 @@ class ContrastiveDivergence(ApproximateInterface):
     # Particle normalized flag
     __particle_normalize_flag = False
 
-    def get_dropout_rate(self):
-        ''' getter '''
-        if isinstance(self.__dropout_rate, float) is False:
-            raise TypeError()
-        return self.__dropout_rate
-    
-    def set_dropout_rate(self, value):
-        ''' setter '''
-        if isinstance(value, float) is False:
-            raise TypeError()
-        self.__dropout_rate = value
-
-    dropout_rate = property(get_dropout_rate, set_dropout_rate)
-
     def approximate_learn(
         self,
         graph,
@@ -91,28 +77,13 @@ class ContrastiveDivergence(ApproximateInterface):
         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
             self.__graph.hidden_activity_arr
         )
-        if self.dropout_rate > 0:
+        if self.__dropout_rate > 0:
             self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
 
         self.__graph.diff_weights_arr = mx.ndarray.reshape(self.__graph.visible_activity_arr, shape=(-1, 1)) * mx.ndarray.reshape(self.__graph.hidden_activity_arr, shape=(-1, 1)).T * self.__learning_rate
 
         visible_diff_bias = self.__learning_rate * self.__graph.visible_activity_arr
-
-        if self.__particle_normalize_flag is True:
-            visible_diff_bias_sum = visible_diff_bias.sum()
-            if visible_diff_bias_sum != 0:
-                visible_diff_bias = visible_diff_bias / visible_diff_bias_sum
-            else:
-                raise ValueError("In waking, the sum of bias in visible layer is zero.")
-
         hidden_diff_bias = self.__learning_rate * self.__graph.hidden_activity_arr
-
-        if self.__particle_normalize_flag is True:
-            hidden_diff_bias_sum = hidden_diff_bias.sum()
-            if hidden_diff_bias_sum != 0:
-                hidden_diff_bias = hidden_diff_bias / hidden_diff_bias_sum
-            else:
-                raise ValueError("In waking, the sum of bias in hidden layer is zero.")
 
         # Sleeping.
         link_value_arr = (self.__graph.weights_arr.T * mx.ndarray.reshape(self.__graph.hidden_activity_arr, shape=(-1, 1))) + mx.ndarray.reshape(self.__graph.hidden_bias_arr, shape=(-1, 1))
@@ -126,10 +97,10 @@ class ContrastiveDivergence(ApproximateInterface):
                 raise ValueError("In sleeping, the sum of activity in visible layer is zero.")
 
         self.__graph.visible_activity_arr = self.__graph.visible_activating_function.activate(
-            self.__graph.visible_activity_arr + visible_diff_bias
+            self.__graph.visible_activity_arr
         )
 
-        if self.dropout_rate > 0:
+        if self.__dropout_rate > 0:
             self.__graph.visible_activity_arr = self.__dropout(self.__graph.visible_activity_arr)
 
         link_value_arr = (self.__graph.weights_arr * mx.ndarray.reshape(self.__graph.visible_activity_arr, shape=(-1, 1))) + mx.ndarray.reshape(self.__graph.visible_bias_arr, shape=(-1, 1))
@@ -143,10 +114,10 @@ class ContrastiveDivergence(ApproximateInterface):
                 raise ValueError("In sleeping, the sum of activity in hidden layer is zero.")
 
         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
-            self.__graph.hidden_activity_arr + self.__graph.hidden_bias_arr
+            self.__graph.hidden_activity_arr
         )
 
-        if self.dropout_rate > 0:
+        if self.__dropout_rate > 0:
             self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
 
         self.__graph.diff_weights_arr += mx.ndarray.reshape(self.__graph.visible_activity_arr, shape=(-1, 1)) * mx.ndarray.reshape(self.__graph.hidden_activity_arr, shape=(-1, 1)).T * self.__learning_rate * (-1)

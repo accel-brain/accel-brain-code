@@ -24,7 +24,13 @@ class RestrictedBoltzmannMachine(object):
 
     graph = property(get_graph, set_read_only)
 
-    def __init__(self, graph, learning_rate=0.5, approximate_interface=None):
+    def __init__(
+        self,
+        graph,
+        learning_rate=0.005,
+        dropout_rate=0.5,
+        approximate_interface=None
+    ):
         '''
         Initialize.
 
@@ -43,6 +49,7 @@ class RestrictedBoltzmannMachine(object):
 
         self.__graph = graph
         self.__learning_rate = learning_rate
+        self.__dropout_rate = dropout_rate
         self.__approximate_interface = approximate_interface
 
     def approximate_learning(self, observed_data_arr, traning_count):
@@ -57,6 +64,7 @@ class RestrictedBoltzmannMachine(object):
         self.__graph = self.__approximate_interface.approximate_learn(
             self.__graph,
             self.__learning_rate,
+            self.__dropout_rate,
             observed_data_arr,
             traning_count=traning_count
         )

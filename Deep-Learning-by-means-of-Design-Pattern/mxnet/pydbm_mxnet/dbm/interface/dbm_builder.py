@@ -4,67 +4,68 @@ from abc import ABCMeta, abstractmethod, abstractproperty
 
 class DBMBuilder(metaclass=ABCMeta):
     '''
-    GoFのデザイン・パタンの「Builder Pattern」の「建築者」のインターフェイス
-    制限ボルツマンマシンを組み立てることで、
-    深層ボルツマンマシンのオブジェクトを生成する
-
-    抽象メソッドのみの抽象クラスを便宜上インターフェイスとして扱う
+    The `Builder` interface in Builder Pattern, which generates the object of DBM.
     '''
 
     @abstractproperty
     def learning_rate(self):
-        ''' 学習率 '''
+        ''' Learning rate '''
         raise NotImplementedError()
 
     @abstractmethod
     def visible_neuron_part(self, activating_function, neuron_count):
         '''
-        可視層ニューロンを生成する
+        Build neurons in visible layer.
 
         Args:
-            activation_function:    活性化関数
-            neuron_count:           生成するニューロンの個数
+            activating_function:    Activation function.
+            neuron_count:           The number of neurons.
         '''
         raise NotImplementedError()
 
     @abstractmethod
     def feature_neuron_part(self, activating_function, neuron_count):
         '''
-        疑似的な可視層ニューロンとして振る舞う隠れ層ニューロンを生成する
+        Build neurons for feature points in `virtual` visible layer.
+
+        Build neurons in `n` layers.
+
+        For associating with `n-1` layers, the object activate as neurons in hidden layer.
+        On the other hand, for associating with `n+1` layers, the object activate as neurons in `virtual` visible layer.
 
         Args:
-            activation_function:    活性化関数
-            neuron_count:           生成するニューロンの個数
+            activating_function:    Activation function.
+            neuron_count:           The number of neurons.
         '''
         raise NotImplementedError()
 
     @abstractmethod
     def hidden_neuron_part(self, activating_function, neuron_count):
         '''
-        隠れ層ニューロンを生成する
+        Build neurons in hidden layer.
 
         Args:
-            activation_function:    活性化関数
-            neuron_count:           生成するニューロンの個数
+            activating_function:    Activation function
+            neuron_count:           The number of neurons.
         '''
         raise NotImplementedError
 
     @abstractmethod
     def graph_part(self, approximate_interface):
         '''
-        完全二部グラフを生成する
+        Build complete bipartite graph.
 
         Args:
-            approximate_interface:    近似用のオブジェクト
+            approximate_interface:       The object of function approximation.
         '''
         raise NotImplementedError()
 
     @abstractmethod
     def get_result():
         '''
-        「Builder Pattern」によって生成された一連のオブジェクトを返す
+        Return builded restricted boltzmann machines.
 
         Returns:
-            制限ボルツマンマシンのリスト
+            The list of restricted boltzmann machines.
         '''
         raise NotImplementedError()

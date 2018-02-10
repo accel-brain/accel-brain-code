@@ -4,7 +4,7 @@ cimport numpy as np
 cimport cython
 import random
 ctypedef np.float64_t DOUBLE_t
-from pydbm.activating.interface.activating_function_interface import ActivatingFunctionInterface
+from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
 
 
 class Synapse(object):
@@ -101,7 +101,7 @@ class Synapse(object):
         self.shallower_activating_function = shallower_activating_function
         self.deeper_activating_function = deeper_activating_function
 
-        cdef np.ndarray init_weights_arr = np.random.uniform(shape=(shallower_neuron_count, deeper_neuron_count))
+        cdef np.ndarray init_weights_arr = np.random.uniform(size=(shallower_neuron_count, deeper_neuron_count))
         if weights_arr.shape[0]:
             self.weights_arr = weights_arr
         else:

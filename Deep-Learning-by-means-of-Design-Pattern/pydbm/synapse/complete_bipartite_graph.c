@@ -1492,11 +1492,11 @@ static const char __pyx_k_low[] = "low";
 static const char __pyx_k_high[] = "high";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_self[] = "self";
+static const char __pyx_k_size[] = "size";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_array[] = "array";
 static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_range[] = "range";
-static const char __pyx_k_shape[] = "shape";
 static const char __pyx_k_super[] = "super";
 static const char __pyx_k_value[] = "value";
 static const char __pyx_k_import[] = "__import__";
@@ -1552,7 +1552,6 @@ static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multia
 static const char __pyx_k_set_visible_activating_function[] = "set_visible_activating_function";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_CompleteBipartiteGraph__hidden_2[] = "_CompleteBipartiteGraph__hidden_bias_arr";
-static const char __pyx_k_CompleteBipartiteGraph__hidden_3[] = "_CompleteBipartiteGraph__hidden_activating_function";
 static const char __pyx_k_CompleteBipartiteGraph_create_no[] = "CompleteBipartiteGraph.create_node";
 static const char __pyx_k_CompleteBipartiteGraph_get_hidde[] = "CompleteBipartiteGraph.get_hidden_activity_arr";
 static const char __pyx_k_CompleteBipartiteGraph_get_visib[] = "CompleteBipartiteGraph.get_visible_activity_arr";
@@ -1567,10 +1566,9 @@ static const char __pyx_k_The_type_of___visible_activity_a[] = "The type of __vi
 static const char __pyx_k_The_type_of___visible_bias_arr_m[] = "The type of __visible_bias_arr must be `np.ndarray`.";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
-static const char __pyx_k_pydbm_activating_interface_activ[] = "pydbm.activating.interface.activating_function_interface";
+static const char __pyx_k_pydbm_activation_interface_activ[] = "pydbm.activation.interface.activating_function_interface";
 static const char __pyx_k_pydbm_synapse_complete_bipartite[] = "pydbm.synapse.complete_bipartite_graph";
 static const char __pyx_k_CompleteBipartiteGraph__visible_2[] = "_CompleteBipartiteGraph__visible_bias_arr";
-static const char __pyx_k_CompleteBipartiteGraph__visible_3[] = "_CompleteBipartiteGraph__visible_activating_function";
 static const char __pyx_k_CompleteBipartiteGraph_get_hidde_2[] = "CompleteBipartiteGraph.get_hidden_bias_arr";
 static const char __pyx_k_CompleteBipartiteGraph_get_hidde_3[] = "CompleteBipartiteGraph.get_hidden_activating_function";
 static const char __pyx_k_CompleteBipartiteGraph_get_visib_2[] = "CompleteBipartiteGraph.get_visible_bias_arr";
@@ -1585,10 +1583,8 @@ static PyObject *__pyx_n_s_ActivatingFunctionInterface;
 static PyObject *__pyx_n_s_CompleteBipartiteGraph;
 static PyObject *__pyx_n_s_CompleteBipartiteGraph__hidden;
 static PyObject *__pyx_n_s_CompleteBipartiteGraph__hidden_2;
-static PyObject *__pyx_n_s_CompleteBipartiteGraph__hidden_3;
 static PyObject *__pyx_n_s_CompleteBipartiteGraph__visible;
 static PyObject *__pyx_n_s_CompleteBipartiteGraph__visible_2;
-static PyObject *__pyx_n_s_CompleteBipartiteGraph__visible_3;
 static PyObject *__pyx_n_s_CompleteBipartiteGraph_create_no;
 static PyObject *__pyx_n_s_CompleteBipartiteGraph_get_hidde;
 static PyObject *__pyx_n_s_CompleteBipartiteGraph_get_hidde_2;
@@ -1650,7 +1646,7 @@ static PyObject *__pyx_kp_s_numpy_core_multiarray_failed_to;
 static PyObject *__pyx_kp_s_numpy_core_umath_failed_to_impor;
 static PyObject *__pyx_n_s_prepare;
 static PyObject *__pyx_n_s_property;
-static PyObject *__pyx_n_s_pydbm_activating_interface_activ;
+static PyObject *__pyx_n_s_pydbm_activation_interface_activ;
 static PyObject *__pyx_n_s_pydbm_synapse_complete_bipartite;
 static PyObject *__pyx_kp_s_pydbm_synapse_complete_bipartite_2;
 static PyObject *__pyx_n_s_pydbm_synapse_list;
@@ -1666,7 +1662,7 @@ static PyObject *__pyx_n_s_set_visible_activity_arr;
 static PyObject *__pyx_n_s_set_visible_bias_arr;
 static PyObject *__pyx_n_s_shallower_activating_function;
 static PyObject *__pyx_n_s_shallower_neuron_count;
-static PyObject *__pyx_n_s_shape;
+static PyObject *__pyx_n_s_size;
 static PyObject *__pyx_n_s_super;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_uniform;
@@ -2714,12 +2710,12 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   return __pyx_r;
 }
 
-/* "pydbm/synapse/complete_bipartite_graph.pyx":92
- *     __visible_activating_function = None
+/* "pydbm/synapse/complete_bipartite_graph.pyx":90
  * 
+ *     # Activation function in visible layer.
  *     def get_visible_activating_function(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         if isinstance(self.__visible_activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.shallower_activating_function, ActivatingFunctionInterface) is False:
  */
 
 /* Python wrapper */
@@ -2746,65 +2742,65 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("get_visible_activating_function", 0);
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":94
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":92
  *     def get_visible_activating_function(self):
  *         ''' getter '''
- *         if isinstance(self.__visible_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
+ *         if isinstance(self.shallower_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError("The type of __visible_activating_function must be `ActivatingFunctionInterface`.")
- *         return self.__visible_activating_function
+ *         return self.shallower_activating_function
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_CompleteBipartiteGraph__visible_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_shallower_activating_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_4 = ((__pyx_t_3 == 0) != 0);
   if (__pyx_t_4) {
 
-    /* "pydbm/synapse/complete_bipartite_graph.pyx":95
+    /* "pydbm/synapse/complete_bipartite_graph.pyx":93
  *         ''' getter '''
- *         if isinstance(self.__visible_activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.shallower_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __visible_activating_function must be `ActivatingFunctionInterface`.")             # <<<<<<<<<<<<<<
- *         return self.__visible_activating_function
+ *         return self.shallower_activating_function
  * 
  */
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 95, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 93, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 95, __pyx_L1_error)
+    __PYX_ERR(0, 93, __pyx_L1_error)
 
-    /* "pydbm/synapse/complete_bipartite_graph.pyx":94
+    /* "pydbm/synapse/complete_bipartite_graph.pyx":92
  *     def get_visible_activating_function(self):
  *         ''' getter '''
- *         if isinstance(self.__visible_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
+ *         if isinstance(self.shallower_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError("The type of __visible_activating_function must be `ActivatingFunctionInterface`.")
- *         return self.__visible_activating_function
+ *         return self.shallower_activating_function
  */
   }
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":96
- *         if isinstance(self.__visible_activating_function, ActivatingFunctionInterface) is False:
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":94
+ *         if isinstance(self.shallower_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __visible_activating_function must be `ActivatingFunctionInterface`.")
- *         return self.__visible_activating_function             # <<<<<<<<<<<<<<
+ *         return self.shallower_activating_function             # <<<<<<<<<<<<<<
  * 
  *     def set_visible_activating_function(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_CompleteBipartiteGraph__visible_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_shallower_activating_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":92
- *     __visible_activating_function = None
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":90
  * 
+ *     # Activation function in visible layer.
  *     def get_visible_activating_function(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         if isinstance(self.__visible_activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.shallower_activating_function, ActivatingFunctionInterface) is False:
  */
 
   /* function exit code */
@@ -2819,8 +2815,8 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   return __pyx_r;
 }
 
-/* "pydbm/synapse/complete_bipartite_graph.pyx":98
- *         return self.__visible_activating_function
+/* "pydbm/synapse/complete_bipartite_graph.pyx":96
+ *         return self.shallower_activating_function
  * 
  *     def set_visible_activating_function(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
@@ -2860,11 +2856,11 @@ static PyObject *__pyx_pw_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_visible_activating_function", 1, 2, 2, 1); __PYX_ERR(0, 98, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_visible_activating_function", 1, 2, 2, 1); __PYX_ERR(0, 96, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_visible_activating_function") < 0)) __PYX_ERR(0, 98, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_visible_activating_function") < 0)) __PYX_ERR(0, 96, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2877,7 +2873,7 @@ static PyObject *__pyx_pw_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_visible_activating_function", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 98, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_visible_activating_function", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 96, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.synapse.complete_bipartite_graph.CompleteBipartiteGraph.set_visible_activating_function", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2898,53 +2894,53 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("set_visible_activating_function", 0);
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":100
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":98
  *     def set_visible_activating_function(self, value):
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError("The type of __visible_activating_function must be `ActivatingFunctionInterface`.")
- *         self.__visible_activating_function = value
+ *         self.shallower_activating_function = value
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == -1)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == -1)) __PYX_ERR(0, 98, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
   if (__pyx_t_3) {
 
-    /* "pydbm/synapse/complete_bipartite_graph.pyx":101
+    /* "pydbm/synapse/complete_bipartite_graph.pyx":99
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __visible_activating_function must be `ActivatingFunctionInterface`.")             # <<<<<<<<<<<<<<
- *         self.__visible_activating_function = value
+ *         self.shallower_activating_function = value
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 101, __pyx_L1_error)
+    __PYX_ERR(0, 99, __pyx_L1_error)
 
-    /* "pydbm/synapse/complete_bipartite_graph.pyx":100
+    /* "pydbm/synapse/complete_bipartite_graph.pyx":98
  *     def set_visible_activating_function(self, value):
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError("The type of __visible_activating_function must be `ActivatingFunctionInterface`.")
- *         self.__visible_activating_function = value
+ *         self.shallower_activating_function = value
  */
   }
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":102
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":100
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __visible_activating_function must be `ActivatingFunctionInterface`.")
- *         self.__visible_activating_function = value             # <<<<<<<<<<<<<<
+ *         self.shallower_activating_function = value             # <<<<<<<<<<<<<<
  * 
  *     visible_activating_function = property(get_visible_activating_function, set_visible_activating_function)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_CompleteBipartiteGraph__visible_3, __pyx_v_value) < 0) __PYX_ERR(0, 102, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_shallower_activating_function, __pyx_v_value) < 0) __PYX_ERR(0, 100, __pyx_L1_error)
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":98
- *         return self.__visible_activating_function
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":96
+ *         return self.shallower_activating_function
  * 
  *     def set_visible_activating_function(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
@@ -2964,12 +2960,12 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   return __pyx_r;
 }
 
-/* "pydbm/synapse/complete_bipartite_graph.pyx":109
- *     __hidden_activating_function = None
+/* "pydbm/synapse/complete_bipartite_graph.pyx":105
  * 
+ *     # Activation function in hidden layer.
  *     def get_hidden_activating_function(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         if isinstance(self.__hidden_activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.deeper_activating_function, ActivatingFunctionInterface) is False:
  */
 
 /* Python wrapper */
@@ -2996,65 +2992,65 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("get_hidden_activating_function", 0);
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":111
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":107
  *     def get_hidden_activating_function(self):
  *         ''' getter '''
- *         if isinstance(self.__hidden_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
+ *         if isinstance(self.deeper_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError("The type of __hidden_activating_function must be `ActivatingFunctionInterface`.")
- *         return self.__hidden_activating_function
+ *         return self.deeper_activating_function
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_CompleteBipartiteGraph__hidden_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_deeper_activating_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_4 = ((__pyx_t_3 == 0) != 0);
   if (__pyx_t_4) {
 
-    /* "pydbm/synapse/complete_bipartite_graph.pyx":112
+    /* "pydbm/synapse/complete_bipartite_graph.pyx":108
  *         ''' getter '''
- *         if isinstance(self.__hidden_activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.deeper_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __hidden_activating_function must be `ActivatingFunctionInterface`.")             # <<<<<<<<<<<<<<
- *         return self.__hidden_activating_function
+ *         return self.deeper_activating_function
  * 
  */
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 108, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 112, __pyx_L1_error)
+    __PYX_ERR(0, 108, __pyx_L1_error)
 
-    /* "pydbm/synapse/complete_bipartite_graph.pyx":111
+    /* "pydbm/synapse/complete_bipartite_graph.pyx":107
  *     def get_hidden_activating_function(self):
  *         ''' getter '''
- *         if isinstance(self.__hidden_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
+ *         if isinstance(self.deeper_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError("The type of __hidden_activating_function must be `ActivatingFunctionInterface`.")
- *         return self.__hidden_activating_function
+ *         return self.deeper_activating_function
  */
   }
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":113
- *         if isinstance(self.__hidden_activating_function, ActivatingFunctionInterface) is False:
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":109
+ *         if isinstance(self.deeper_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __hidden_activating_function must be `ActivatingFunctionInterface`.")
- *         return self.__hidden_activating_function             # <<<<<<<<<<<<<<
+ *         return self.deeper_activating_function             # <<<<<<<<<<<<<<
  * 
  *     def set_hidden_activating_function(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_CompleteBipartiteGraph__hidden_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_deeper_activating_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":109
- *     __hidden_activating_function = None
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":105
  * 
+ *     # Activation function in hidden layer.
  *     def get_hidden_activating_function(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         if isinstance(self.__hidden_activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.deeper_activating_function, ActivatingFunctionInterface) is False:
  */
 
   /* function exit code */
@@ -3069,8 +3065,8 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   return __pyx_r;
 }
 
-/* "pydbm/synapse/complete_bipartite_graph.pyx":115
- *         return self.__hidden_activating_function
+/* "pydbm/synapse/complete_bipartite_graph.pyx":111
+ *         return self.deeper_activating_function
  * 
  *     def set_hidden_activating_function(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
@@ -3110,11 +3106,11 @@ static PyObject *__pyx_pw_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_hidden_activating_function", 1, 2, 2, 1); __PYX_ERR(0, 115, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_hidden_activating_function", 1, 2, 2, 1); __PYX_ERR(0, 111, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_hidden_activating_function") < 0)) __PYX_ERR(0, 115, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_hidden_activating_function") < 0)) __PYX_ERR(0, 111, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3127,7 +3123,7 @@ static PyObject *__pyx_pw_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_hidden_activating_function", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 115, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_hidden_activating_function", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 111, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.synapse.complete_bipartite_graph.CompleteBipartiteGraph.set_hidden_activating_function", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3148,53 +3144,53 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("set_hidden_activating_function", 0);
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":117
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":113
  *     def set_hidden_activating_function(self, value):
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError("The type of __hidden_activating_function must be `ActivatingFunctionInterface`.")
- *         self.__hidden_activating_function = value
+ *         self.deeper_activating_function = value
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == -1)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == -1)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
   if (__pyx_t_3) {
 
-    /* "pydbm/synapse/complete_bipartite_graph.pyx":118
+    /* "pydbm/synapse/complete_bipartite_graph.pyx":114
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __hidden_activating_function must be `ActivatingFunctionInterface`.")             # <<<<<<<<<<<<<<
- *         self.__hidden_activating_function = value
+ *         self.deeper_activating_function = value
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 118, __pyx_L1_error)
+    __PYX_ERR(0, 114, __pyx_L1_error)
 
-    /* "pydbm/synapse/complete_bipartite_graph.pyx":117
+    /* "pydbm/synapse/complete_bipartite_graph.pyx":113
  *     def set_hidden_activating_function(self, value):
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError("The type of __hidden_activating_function must be `ActivatingFunctionInterface`.")
- *         self.__hidden_activating_function = value
+ *         self.deeper_activating_function = value
  */
   }
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":119
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":115
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __hidden_activating_function must be `ActivatingFunctionInterface`.")
- *         self.__hidden_activating_function = value             # <<<<<<<<<<<<<<
+ *         self.deeper_activating_function = value             # <<<<<<<<<<<<<<
  * 
  *     hidden_activating_function = property(get_hidden_activating_function, set_hidden_activating_function)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_CompleteBipartiteGraph__hidden_3, __pyx_v_value) < 0) __PYX_ERR(0, 119, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_deeper_activating_function, __pyx_v_value) < 0) __PYX_ERR(0, 115, __pyx_L1_error)
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":115
- *         return self.__hidden_activating_function
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":111
+ *         return self.deeper_activating_function
  * 
  *     def set_hidden_activating_function(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
@@ -3214,7 +3210,7 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   return __pyx_r;
 }
 
-/* "pydbm/synapse/complete_bipartite_graph.pyx":123
+/* "pydbm/synapse/complete_bipartite_graph.pyx":119
  *     hidden_activating_function = property(get_hidden_activating_function, set_hidden_activating_function)
  * 
  *     def create_node(             # <<<<<<<<<<<<<<
@@ -3229,12 +3225,12 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph___defaults_
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__defaults__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_weights_arr));
   __Pyx_GIVEREF(((PyObject *)__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_weights_arr));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_weights_arr));
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
@@ -3305,25 +3301,25 @@ static PyObject *__pyx_pw_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_shallower_neuron_count)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 1); __PYX_ERR(0, 123, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 1); __PYX_ERR(0, 119, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_deeper_neuron_count)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 2); __PYX_ERR(0, 123, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 2); __PYX_ERR(0, 119, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_shallower_activating_function)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 3); __PYX_ERR(0, 123, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 3); __PYX_ERR(0, 119, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_deeper_activating_function)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 4); __PYX_ERR(0, 123, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 4); __PYX_ERR(0, 119, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
@@ -3333,7 +3329,7 @@ static PyObject *__pyx_pw_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "create_node") < 0)) __PYX_ERR(0, 123, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "create_node") < 0)) __PYX_ERR(0, 119, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3349,21 +3345,21 @@ static PyObject *__pyx_pw_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
       }
     }
     __pyx_v_self = values[0];
-    __pyx_v_shallower_neuron_count = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_shallower_neuron_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 125, __pyx_L3_error)
-    __pyx_v_deeper_neuron_count = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_deeper_neuron_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 126, __pyx_L3_error)
+    __pyx_v_shallower_neuron_count = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_shallower_neuron_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 121, __pyx_L3_error)
+    __pyx_v_deeper_neuron_count = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_deeper_neuron_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 122, __pyx_L3_error)
     __pyx_v_shallower_activating_function = values[3];
     __pyx_v_deeper_activating_function = values[4];
     __pyx_v_weights_arr = ((PyArrayObject *)values[5]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 123, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 119, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.synapse.complete_bipartite_graph.CompleteBipartiteGraph.create_node", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_weights_arr), __pyx_ptype_5numpy_ndarray, 1, "weights_arr", 0))) __PYX_ERR(0, 129, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_weights_arr), __pyx_ptype_5numpy_ndarray, 1, "weights_arr", 0))) __PYX_ERR(0, 125, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteBipartiteGraph_24create_node(__pyx_self, __pyx_v_self, __pyx_v_shallower_neuron_count, __pyx_v_deeper_neuron_count, __pyx_v_shallower_activating_function, __pyx_v_deeper_activating_function, __pyx_v_weights_arr);
 
   /* function exit code */
@@ -3387,87 +3383,87 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   PyObject *__pyx_t_7 = NULL;
   __Pyx_RefNannySetupContext("create_node", 0);
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":143
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":139
  *             weights_arr:                        The weights of links.
  *         '''
- *         self.visible_bias_arr = np.random.uniform(low=0, high=1, shape=(shallower_neuron_count, ))             # <<<<<<<<<<<<<<
- *         self.hidden_bias_arr = np.random.uniform(low=0, high=1, shape=(deeper_neuron_count, ))
+ *         self.visible_bias_arr = np.random.uniform(low=0, high=1, size=(shallower_neuron_count, ))             # <<<<<<<<<<<<<<
+ *         self.hidden_bias_arr = np.random.uniform(low=0, high=1, size=(deeper_neuron_count, ))
  * 
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_uniform); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_uniform); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_low, __pyx_int_0) < 0) __PYX_ERR(0, 143, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_high, __pyx_int_1) < 0) __PYX_ERR(0, 143, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_shallower_neuron_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_low, __pyx_int_0) < 0) __PYX_ERR(0, 139, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_high, __pyx_int_1) < 0) __PYX_ERR(0, 139, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_shallower_neuron_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3);
   __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_shape, __pyx_t_4) < 0) __PYX_ERR(0, 143, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_size, __pyx_t_4) < 0) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_visible_bias_arr, __pyx_t_4) < 0) __PYX_ERR(0, 143, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_visible_bias_arr, __pyx_t_4) < 0) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":144
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":140
  *         '''
- *         self.visible_bias_arr = np.random.uniform(low=0, high=1, shape=(shallower_neuron_count, ))
- *         self.hidden_bias_arr = np.random.uniform(low=0, high=1, shape=(deeper_neuron_count, ))             # <<<<<<<<<<<<<<
+ *         self.visible_bias_arr = np.random.uniform(low=0, high=1, size=(shallower_neuron_count, ))
+ *         self.hidden_bias_arr = np.random.uniform(low=0, high=1, size=(deeper_neuron_count, ))             # <<<<<<<<<<<<<<
  * 
  *         super().create_node(
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_uniform); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_uniform); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_low, __pyx_int_0) < 0) __PYX_ERR(0, 144, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_high, __pyx_int_1) < 0) __PYX_ERR(0, 144, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_low, __pyx_int_0) < 0) __PYX_ERR(0, 140, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_high, __pyx_int_1) < 0) __PYX_ERR(0, 140, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_shape, __pyx_t_3) < 0) __PYX_ERR(0, 144, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_size, __pyx_t_3) < 0) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_hidden_bias_arr, __pyx_t_3) < 0) __PYX_ERR(0, 144, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_hidden_bias_arr, __pyx_t_3) < 0) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":146
- *         self.hidden_bias_arr = np.random.uniform(low=0, high=1, shape=(deeper_neuron_count, ))
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":142
+ *         self.hidden_bias_arr = np.random.uniform(low=0, high=1, size=(deeper_neuron_count, ))
  * 
  *         super().create_node(             # <<<<<<<<<<<<<<
  *             shallower_neuron_count,
  *             deeper_neuron_count,
  */
   __pyx_t_2 = __Pyx_CyFunction_GetClassObj(__pyx_self);
-  if (!__pyx_t_2) { PyErr_SetString(PyExc_SystemError, "super(): empty __class__ cell"); __PYX_ERR(0, 146, __pyx_L1_error) }
+  if (!__pyx_t_2) { PyErr_SetString(PyExc_SystemError, "super(): empty __class__ cell"); __PYX_ERR(0, 142, __pyx_L1_error) }
   __Pyx_INCREF(__pyx_t_2);
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
@@ -3475,34 +3471,34 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   __Pyx_GIVEREF(__pyx_v_self);
   PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_v_self);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_super, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_super, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_create_node); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_create_node); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":147
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":143
  * 
  *         super().create_node(
  *             shallower_neuron_count,             # <<<<<<<<<<<<<<
  *             deeper_neuron_count,
  *             shallower_activating_function,
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_shallower_neuron_count); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_shallower_neuron_count); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":148
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":144
  *         super().create_node(
  *             shallower_neuron_count,
  *             deeper_neuron_count,             # <<<<<<<<<<<<<<
  *             shallower_activating_function,
  *             deeper_activating_function,
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":152
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":148
  *             deeper_activating_function,
  *             weights_arr
  *         )             # <<<<<<<<<<<<<<
@@ -3524,7 +3520,7 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_4)) {
     PyObject *__pyx_temp[6] = {__pyx_t_5, __pyx_t_2, __pyx_t_1, __pyx_v_shallower_activating_function, __pyx_v_deeper_activating_function, ((PyObject *)__pyx_v_weights_arr)};
-    __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 5+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 5+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -3534,7 +3530,7 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
     PyObject *__pyx_temp[6] = {__pyx_t_5, __pyx_t_2, __pyx_t_1, __pyx_v_shallower_activating_function, __pyx_v_deeper_activating_function, ((PyObject *)__pyx_v_weights_arr)};
-    __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 5+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 5+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -3542,7 +3538,7 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   } else
   #endif
   {
-    __pyx_t_7 = PyTuple_New(5+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 146, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(5+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 142, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -3562,14 +3558,14 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
     PyTuple_SET_ITEM(__pyx_t_7, 4+__pyx_t_6, ((PyObject *)__pyx_v_weights_arr));
     __pyx_t_2 = 0;
     __pyx_t_1 = 0;
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":123
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":119
  *     hidden_activating_function = property(get_hidden_activating_function, set_hidden_activating_function)
  * 
  *     def create_node(             # <<<<<<<<<<<<<<
@@ -3595,7 +3591,7 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   return __pyx_r;
 }
 
-/* "pydbm/synapse/complete_bipartite_graph.pyx":154
+/* "pydbm/synapse/complete_bipartite_graph.pyx":150
  *         )
  * 
  *     def update(self, double learning_rate):             # <<<<<<<<<<<<<<
@@ -3636,11 +3632,11 @@ static PyObject *__pyx_pw_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_learning_rate)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("update", 1, 2, 2, 1); __PYX_ERR(0, 154, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("update", 1, 2, 2, 1); __PYX_ERR(0, 150, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "update") < 0)) __PYX_ERR(0, 154, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "update") < 0)) __PYX_ERR(0, 150, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3649,11 +3645,11 @@ static PyObject *__pyx_pw_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_self = values[0];
-    __pyx_v_learning_rate = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_learning_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 154, __pyx_L3_error)
+    __pyx_v_learning_rate = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_learning_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 150, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("update", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 154, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("update", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 150, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.synapse.complete_bipartite_graph.CompleteBipartiteGraph.update", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3677,48 +3673,48 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("update", 0);
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":161
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":157
  *             learning_rate:  Learning rate.
  *         '''
  *         if self.diff_weights_arr is None:             # <<<<<<<<<<<<<<
  *             self.diff_weights_arr = self.visible_activity_arr * self.hidden_activity_arr.T * learning_rate
  *         else:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_diff_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_diff_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 157, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = (__pyx_t_1 == Py_None);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "pydbm/synapse/complete_bipartite_graph.pyx":162
+    /* "pydbm/synapse/complete_bipartite_graph.pyx":158
  *         '''
  *         if self.diff_weights_arr is None:
  *             self.diff_weights_arr = self.visible_activity_arr * self.hidden_activity_arr.T * learning_rate             # <<<<<<<<<<<<<<
  *         else:
  *             self.diff_weights_arr += self.visible_activity_arr * self.hidden_activity_arr.T * learning_rate
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_T); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_T); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyNumber_Multiply(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_4 = PyNumber_Multiply(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_5 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_1 = PyNumber_Multiply(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Multiply(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_diff_weights_arr, __pyx_t_1) < 0) __PYX_ERR(0, 162, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_diff_weights_arr, __pyx_t_1) < 0) __PYX_ERR(0, 158, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pydbm/synapse/complete_bipartite_graph.pyx":161
+    /* "pydbm/synapse/complete_bipartite_graph.pyx":157
  *             learning_rate:  Learning rate.
  *         '''
  *         if self.diff_weights_arr is None:             # <<<<<<<<<<<<<<
@@ -3728,41 +3724,41 @@ static PyObject *__pyx_pf_5pydbm_7synapse_24complete_bipartite_graph_22CompleteB
     goto __pyx_L3;
   }
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":164
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":160
  *             self.diff_weights_arr = self.visible_activity_arr * self.hidden_activity_arr.T * learning_rate
  *         else:
  *             self.diff_weights_arr += self.visible_activity_arr * self.hidden_activity_arr.T * learning_rate             # <<<<<<<<<<<<<<
  */
   /*else*/ {
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_diff_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 164, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_diff_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 164, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 164, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_T); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 164, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_T); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyNumber_Multiply(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 164, __pyx_L1_error)
+    __pyx_t_4 = PyNumber_Multiply(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 164, __pyx_L1_error)
+    __pyx_t_6 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = PyNumber_Multiply(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 164, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Multiply(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 164, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_diff_weights_arr, __pyx_t_6) < 0) __PYX_ERR(0, 164, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_diff_weights_arr, __pyx_t_6) < 0) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
   __pyx_L3:;
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":154
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":150
  *         )
  * 
  *     def update(self, double learning_rate):             # <<<<<<<<<<<<<<
@@ -6327,10 +6323,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_CompleteBipartiteGraph, __pyx_k_CompleteBipartiteGraph, sizeof(__pyx_k_CompleteBipartiteGraph), 0, 0, 1, 1},
   {&__pyx_n_s_CompleteBipartiteGraph__hidden, __pyx_k_CompleteBipartiteGraph__hidden, sizeof(__pyx_k_CompleteBipartiteGraph__hidden), 0, 0, 1, 1},
   {&__pyx_n_s_CompleteBipartiteGraph__hidden_2, __pyx_k_CompleteBipartiteGraph__hidden_2, sizeof(__pyx_k_CompleteBipartiteGraph__hidden_2), 0, 0, 1, 1},
-  {&__pyx_n_s_CompleteBipartiteGraph__hidden_3, __pyx_k_CompleteBipartiteGraph__hidden_3, sizeof(__pyx_k_CompleteBipartiteGraph__hidden_3), 0, 0, 1, 1},
   {&__pyx_n_s_CompleteBipartiteGraph__visible, __pyx_k_CompleteBipartiteGraph__visible, sizeof(__pyx_k_CompleteBipartiteGraph__visible), 0, 0, 1, 1},
   {&__pyx_n_s_CompleteBipartiteGraph__visible_2, __pyx_k_CompleteBipartiteGraph__visible_2, sizeof(__pyx_k_CompleteBipartiteGraph__visible_2), 0, 0, 1, 1},
-  {&__pyx_n_s_CompleteBipartiteGraph__visible_3, __pyx_k_CompleteBipartiteGraph__visible_3, sizeof(__pyx_k_CompleteBipartiteGraph__visible_3), 0, 0, 1, 1},
   {&__pyx_n_s_CompleteBipartiteGraph_create_no, __pyx_k_CompleteBipartiteGraph_create_no, sizeof(__pyx_k_CompleteBipartiteGraph_create_no), 0, 0, 1, 1},
   {&__pyx_n_s_CompleteBipartiteGraph_get_hidde, __pyx_k_CompleteBipartiteGraph_get_hidde, sizeof(__pyx_k_CompleteBipartiteGraph_get_hidde), 0, 0, 1, 1},
   {&__pyx_n_s_CompleteBipartiteGraph_get_hidde_2, __pyx_k_CompleteBipartiteGraph_get_hidde_2, sizeof(__pyx_k_CompleteBipartiteGraph_get_hidde_2), 0, 0, 1, 1},
@@ -6392,7 +6386,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 0, 1, 0},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
   {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
-  {&__pyx_n_s_pydbm_activating_interface_activ, __pyx_k_pydbm_activating_interface_activ, sizeof(__pyx_k_pydbm_activating_interface_activ), 0, 0, 1, 1},
+  {&__pyx_n_s_pydbm_activation_interface_activ, __pyx_k_pydbm_activation_interface_activ, sizeof(__pyx_k_pydbm_activation_interface_activ), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_synapse_complete_bipartite, __pyx_k_pydbm_synapse_complete_bipartite, sizeof(__pyx_k_pydbm_synapse_complete_bipartite), 0, 0, 1, 1},
   {&__pyx_kp_s_pydbm_synapse_complete_bipartite_2, __pyx_k_pydbm_synapse_complete_bipartite_2, sizeof(__pyx_k_pydbm_synapse_complete_bipartite_2), 0, 0, 1, 0},
   {&__pyx_n_s_pydbm_synapse_list, __pyx_k_pydbm_synapse_list, sizeof(__pyx_k_pydbm_synapse_list), 0, 0, 1, 1},
@@ -6408,7 +6402,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_set_visible_bias_arr, __pyx_k_set_visible_bias_arr, sizeof(__pyx_k_set_visible_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_shallower_activating_function, __pyx_k_shallower_activating_function, sizeof(__pyx_k_shallower_activating_function), 0, 0, 1, 1},
   {&__pyx_n_s_shallower_neuron_count, __pyx_k_shallower_neuron_count, sizeof(__pyx_k_shallower_neuron_count), 0, 0, 1, 1},
-  {&__pyx_n_s_shape, __pyx_k_shape, sizeof(__pyx_k_shape), 0, 0, 1, 1},
+  {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
   {&__pyx_n_s_super, __pyx_k_super, sizeof(__pyx_k_super), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_uniform, __pyx_k_uniform, sizeof(__pyx_k_uniform), 0, 0, 1, 1},
@@ -6424,7 +6418,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 32, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 21, __pyx_L1_error)
-  __pyx_builtin_super = __Pyx_GetBuiltinName(__pyx_n_s_super); if (!__pyx_builtin_super) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_builtin_super = __Pyx_GetBuiltinName(__pyx_n_s_super); if (!__pyx_builtin_super) __PYX_ERR(0, 142, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 218, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(1, 231, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 799, __pyx_L1_error)
@@ -6526,47 +6520,47 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":95
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":93
  *         ''' getter '''
- *         if isinstance(self.__visible_activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.shallower_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __visible_activating_function must be `ActivatingFunctionInterface`.")             # <<<<<<<<<<<<<<
- *         return self.__visible_activating_function
+ *         return self.shallower_activating_function
  * 
  */
-  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___visible_activating); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 95, __pyx_L1_error)
+  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___visible_activating); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":101
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":99
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __visible_activating_function must be `ActivatingFunctionInterface`.")             # <<<<<<<<<<<<<<
- *         self.__visible_activating_function = value
+ *         self.shallower_activating_function = value
  * 
  */
-  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___visible_activating); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___visible_activating); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":112
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":108
  *         ''' getter '''
- *         if isinstance(self.__hidden_activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.deeper_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __hidden_activating_function must be `ActivatingFunctionInterface`.")             # <<<<<<<<<<<<<<
- *         return self.__hidden_activating_function
+ *         return self.deeper_activating_function
  * 
  */
-  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___hidden_activating); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___hidden_activating); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":118
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":114
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __hidden_activating_function must be `ActivatingFunctionInterface`.")             # <<<<<<<<<<<<<<
- *         self.__hidden_activating_function = value
+ *         self.deeper_activating_function = value
  * 
  */
-  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___hidden_activating); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___hidden_activating); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
 
@@ -6763,77 +6757,77 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__36);
   __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_complete_bipartite_2, __pyx_n_s_set_hidden_bias_arr, 80, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(0, 80, __pyx_L1_error)
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":92
- *     __visible_activating_function = None
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":90
  * 
+ *     # Activation function in visible layer.
  *     def get_visible_activating_function(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         if isinstance(self.__visible_activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.shallower_activating_function, ActivatingFunctionInterface) is False:
  */
-  __pyx_tuple__38 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__38)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_tuple__38 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__38)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__38);
   __Pyx_GIVEREF(__pyx_tuple__38);
-  __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__38, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_complete_bipartite_2, __pyx_n_s_get_visible_activating_function, 92, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__38, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_complete_bipartite_2, __pyx_n_s_get_visible_activating_function, 90, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) __PYX_ERR(0, 90, __pyx_L1_error)
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":98
- *         return self.__visible_activating_function
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":96
+ *         return self.shallower_activating_function
  * 
  *     def set_visible_activating_function(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  */
-  __pyx_tuple__40 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__40)) __PYX_ERR(0, 98, __pyx_L1_error)
+  __pyx_tuple__40 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__40)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__40);
   __Pyx_GIVEREF(__pyx_tuple__40);
-  __pyx_codeobj__41 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__40, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_complete_bipartite_2, __pyx_n_s_set_visible_activating_function, 98, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__41)) __PYX_ERR(0, 98, __pyx_L1_error)
+  __pyx_codeobj__41 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__40, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_complete_bipartite_2, __pyx_n_s_set_visible_activating_function, 96, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__41)) __PYX_ERR(0, 96, __pyx_L1_error)
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":109
- *     __hidden_activating_function = None
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":105
  * 
+ *     # Activation function in hidden layer.
  *     def get_hidden_activating_function(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         if isinstance(self.__hidden_activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.deeper_activating_function, ActivatingFunctionInterface) is False:
  */
-  __pyx_tuple__42 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_tuple__42 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 105, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__42);
   __Pyx_GIVEREF(__pyx_tuple__42);
-  __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__42, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_complete_bipartite_2, __pyx_n_s_get_hidden_activating_function, 109, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__42, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_complete_bipartite_2, __pyx_n_s_get_hidden_activating_function, 105, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) __PYX_ERR(0, 105, __pyx_L1_error)
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":115
- *         return self.__hidden_activating_function
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":111
+ *         return self.deeper_activating_function
  * 
  *     def set_hidden_activating_function(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  */
-  __pyx_tuple__44 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__44)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_tuple__44 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__44)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__44);
   __Pyx_GIVEREF(__pyx_tuple__44);
-  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__44, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_complete_bipartite_2, __pyx_n_s_set_hidden_activating_function, 115, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__44, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_complete_bipartite_2, __pyx_n_s_set_hidden_activating_function, 111, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 111, __pyx_L1_error)
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":123
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":119
  *     hidden_activating_function = property(get_hidden_activating_function, set_hidden_activating_function)
  * 
  *     def create_node(             # <<<<<<<<<<<<<<
  *         self,
  *         int shallower_neuron_count,
  */
-  __pyx_tuple__46 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_shallower_neuron_count, __pyx_n_s_deeper_neuron_count, __pyx_n_s_shallower_activating_function, __pyx_n_s_deeper_activating_function, __pyx_n_s_weights_arr); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_tuple__46 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_shallower_neuron_count, __pyx_n_s_deeper_neuron_count, __pyx_n_s_shallower_activating_function, __pyx_n_s_deeper_activating_function, __pyx_n_s_weights_arr); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__46);
   __Pyx_GIVEREF(__pyx_tuple__46);
-  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(6, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_complete_bipartite_2, __pyx_n_s_create_node, 123, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(6, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_complete_bipartite_2, __pyx_n_s_create_node, 119, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 119, __pyx_L1_error)
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":154
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":150
  *         )
  * 
  *     def update(self, double learning_rate):             # <<<<<<<<<<<<<<
  *         '''
  *         Update weights.
  */
-  __pyx_tuple__48 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_learning_rate); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_tuple__48 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_learning_rate); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(0, 150, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__48);
   __Pyx_GIVEREF(__pyx_tuple__48);
-  __pyx_codeobj__49 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__48, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_complete_bipartite_2, __pyx_n_s_update, 154, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__49)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_codeobj__49 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__48, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_complete_bipartite_2, __pyx_n_s_update, 150, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__49)) __PYX_ERR(0, 150, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -6979,7 +6973,7 @@ PyMODINIT_FUNC PyInit_complete_bipartite_graph(void)
  * cimport numpy as np
  * cimport cython
  * from pydbm.synapse_list import Synapse             # <<<<<<<<<<<<<<
- * from pydbm.activating.interface.activating_function_interface import ActivatingFunctionInterface
+ * from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
  * 
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5, __pyx_L1_error)
@@ -6999,7 +6993,7 @@ PyMODINIT_FUNC PyInit_complete_bipartite_graph(void)
   /* "pydbm/synapse/complete_bipartite_graph.pyx":6
  * cimport cython
  * from pydbm.synapse_list import Synapse
- * from pydbm.activating.interface.activating_function_interface import ActivatingFunctionInterface             # <<<<<<<<<<<<<<
+ * from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface             # <<<<<<<<<<<<<<
  * 
  * 
  */
@@ -7008,7 +7002,7 @@ PyMODINIT_FUNC PyInit_complete_bipartite_graph(void)
   __Pyx_INCREF(__pyx_n_s_ActivatingFunctionInterface);
   __Pyx_GIVEREF(__pyx_n_s_ActivatingFunctionInterface);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_ActivatingFunctionInterface);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pydbm_activating_interface_activ, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pydbm_activation_interface_activ, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
@@ -7529,38 +7523,29 @@ PyMODINIT_FUNC PyInit_complete_bipartite_graph(void)
   /* "pydbm/synapse/complete_bipartite_graph.pyx":90
  * 
  *     # Activation function in visible layer.
- *     __visible_activating_function = None             # <<<<<<<<<<<<<<
- * 
- *     def get_visible_activating_function(self):
- */
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_CompleteBipartiteGraph__visible_3, Py_None) < 0) __PYX_ERR(0, 90, __pyx_L1_error)
-
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":92
- *     __visible_activating_function = None
- * 
  *     def get_visible_activating_function(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         if isinstance(self.__visible_activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.shallower_activating_function, ActivatingFunctionInterface) is False:
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_24complete_bipartite_graph_22CompleteBipartiteGraph_17get_visible_activating_function, 0, __pyx_n_s_CompleteBipartiteGraph_get_visib_3, NULL, __pyx_n_s_pydbm_synapse_complete_bipartite, __pyx_d, ((PyObject *)__pyx_codeobj__39)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_24complete_bipartite_graph_22CompleteBipartiteGraph_17get_visible_activating_function, 0, __pyx_n_s_CompleteBipartiteGraph_get_visib_3, NULL, __pyx_n_s_pydbm_synapse_complete_bipartite, __pyx_d, ((PyObject *)__pyx_codeobj__39)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_visible_activating_function, __pyx_t_5) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_visible_activating_function, __pyx_t_5) < 0) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":98
- *         return self.__visible_activating_function
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":96
+ *         return self.shallower_activating_function
  * 
  *     def set_visible_activating_function(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_24complete_bipartite_graph_22CompleteBipartiteGraph_19set_visible_activating_function, 0, __pyx_n_s_CompleteBipartiteGraph_set_visib_3, NULL, __pyx_n_s_pydbm_synapse_complete_bipartite, __pyx_d, ((PyObject *)__pyx_codeobj__41)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 98, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_24complete_bipartite_graph_22CompleteBipartiteGraph_19set_visible_activating_function, 0, __pyx_n_s_CompleteBipartiteGraph_set_visib_3, NULL, __pyx_n_s_pydbm_synapse_complete_bipartite, __pyx_d, ((PyObject *)__pyx_codeobj__41)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_visible_activating_function, __pyx_t_5) < 0) __PYX_ERR(0, 98, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_visible_activating_function, __pyx_t_5) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":104
- *         self.__visible_activating_function = value
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":102
+ *         self.shallower_activating_function = value
  * 
  *     visible_activating_function = property(get_visible_activating_function, set_visible_activating_function)             # <<<<<<<<<<<<<<
  * 
@@ -7571,16 +7556,16 @@ PyMODINIT_FUNC PyInit_complete_bipartite_graph(void)
     PyErr_Clear();
     __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_visible_activating_function);
   }
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 104, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_9 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_visible_activating_function);
   if (unlikely(!__pyx_t_9)) {
     PyErr_Clear();
     __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_visible_activating_function);
   }
-  if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 104, __pyx_L1_error)
+  if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_GIVEREF(__pyx_t_5);
   PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5);
@@ -7588,47 +7573,38 @@ PyMODINIT_FUNC PyInit_complete_bipartite_graph(void)
   PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_9);
   __pyx_t_5 = 0;
   __pyx_t_9 = 0;
-  __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_7, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_7, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_visible_activating_function, __pyx_t_9) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_visible_activating_function, __pyx_t_9) < 0) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":107
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":105
  * 
  *     # Activation function in hidden layer.
- *     __hidden_activating_function = None             # <<<<<<<<<<<<<<
- * 
- *     def get_hidden_activating_function(self):
- */
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_CompleteBipartiteGraph__hidden_3, Py_None) < 0) __PYX_ERR(0, 107, __pyx_L1_error)
-
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":109
- *     __hidden_activating_function = None
- * 
  *     def get_hidden_activating_function(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         if isinstance(self.__hidden_activating_function, ActivatingFunctionInterface) is False:
+ *         if isinstance(self.deeper_activating_function, ActivatingFunctionInterface) is False:
  */
-  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_24complete_bipartite_graph_22CompleteBipartiteGraph_21get_hidden_activating_function, 0, __pyx_n_s_CompleteBipartiteGraph_get_hidde_3, NULL, __pyx_n_s_pydbm_synapse_complete_bipartite, __pyx_d, ((PyObject *)__pyx_codeobj__43)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_24complete_bipartite_graph_22CompleteBipartiteGraph_21get_hidden_activating_function, 0, __pyx_n_s_CompleteBipartiteGraph_get_hidde_3, NULL, __pyx_n_s_pydbm_synapse_complete_bipartite, __pyx_d, ((PyObject *)__pyx_codeobj__43)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 105, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_hidden_activating_function, __pyx_t_9) < 0) __PYX_ERR(0, 109, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_hidden_activating_function, __pyx_t_9) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":115
- *         return self.__hidden_activating_function
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":111
+ *         return self.deeper_activating_function
  * 
  *     def set_hidden_activating_function(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  */
-  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_24complete_bipartite_graph_22CompleteBipartiteGraph_23set_hidden_activating_function, 0, __pyx_n_s_CompleteBipartiteGraph_set_hidde_3, NULL, __pyx_n_s_pydbm_synapse_complete_bipartite, __pyx_d, ((PyObject *)__pyx_codeobj__45)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_24complete_bipartite_graph_22CompleteBipartiteGraph_23set_hidden_activating_function, 0, __pyx_n_s_CompleteBipartiteGraph_set_hidde_3, NULL, __pyx_n_s_pydbm_synapse_complete_bipartite, __pyx_d, ((PyObject *)__pyx_codeobj__45)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_hidden_activating_function, __pyx_t_9) < 0) __PYX_ERR(0, 115, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_hidden_activating_function, __pyx_t_9) < 0) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":121
- *         self.__hidden_activating_function = value
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":117
+ *         self.deeper_activating_function = value
  * 
  *     hidden_activating_function = property(get_hidden_activating_function, set_hidden_activating_function)             # <<<<<<<<<<<<<<
  * 
@@ -7639,16 +7615,16 @@ PyMODINIT_FUNC PyInit_complete_bipartite_graph(void)
     PyErr_Clear();
     __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_hidden_activating_function);
   }
-  if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 121, __pyx_L1_error)
+  if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __pyx_t_7 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_hidden_activating_function);
   if (unlikely(!__pyx_t_7)) {
     PyErr_Clear();
     __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_hidden_activating_function);
   }
-  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 121, __pyx_L1_error)
+  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_9);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_9);
@@ -7656,39 +7632,39 @@ PyMODINIT_FUNC PyInit_complete_bipartite_graph(void)
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_7);
   __pyx_t_9 = 0;
   __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_hidden_activating_function, __pyx_t_7) < 0) __PYX_ERR(0, 121, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_hidden_activating_function, __pyx_t_7) < 0) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":123
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":119
  *     hidden_activating_function = property(get_hidden_activating_function, set_hidden_activating_function)
  * 
  *     def create_node(             # <<<<<<<<<<<<<<
  *         self,
  *         int shallower_neuron_count,
  */
-  __pyx_t_7 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_24complete_bipartite_graph_22CompleteBipartiteGraph_25create_node, 0, __pyx_n_s_CompleteBipartiteGraph_create_no, NULL, __pyx_n_s_pydbm_synapse_complete_bipartite, __pyx_d, ((PyObject *)__pyx_codeobj__47)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_24complete_bipartite_graph_22CompleteBipartiteGraph_25create_node, 0, __pyx_n_s_CompleteBipartiteGraph_create_no, NULL, __pyx_n_s_pydbm_synapse_complete_bipartite, __pyx_d, ((PyObject *)__pyx_codeobj__47)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_INCREF(__pyx_t_7);
   PyList_Append(__pyx_t_4, __pyx_t_7);
   __Pyx_GIVEREF(__pyx_t_7);
-  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_7, sizeof(__pyx_defaults), 1)) __PYX_ERR(0, 123, __pyx_L1_error)
+  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_7, sizeof(__pyx_defaults), 1)) __PYX_ERR(0, 119, __pyx_L1_error)
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":129
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":125
  *         shallower_activating_function,
  *         deeper_activating_function,
  *         np.ndarray weights_arr=np.array([])             # <<<<<<<<<<<<<<
  *     ):
  *         '''
  */
-  __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 125, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_array); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_array); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 125, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  __pyx_t_9 = PyList_New(0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_t_9 = PyList_New(0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 125, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __pyx_t_8 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
@@ -7701,14 +7677,14 @@ PyMODINIT_FUNC PyInit_complete_bipartite_graph(void)
     }
   }
   if (!__pyx_t_8) {
-    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_9); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 129, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_9); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 125, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_GOTREF(__pyx_t_5);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[2] = {__pyx_t_8, __pyx_t_9};
-      __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 129, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 125, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -7717,43 +7693,43 @@ PyMODINIT_FUNC PyInit_complete_bipartite_graph(void)
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[2] = {__pyx_t_8, __pyx_t_9};
-      __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 129, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 125, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     } else
     #endif
     {
-      __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 129, __pyx_L1_error)
+      __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 125, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_8); __pyx_t_8 = NULL;
       __Pyx_GIVEREF(__pyx_t_9);
       PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_t_9);
       __pyx_t_9 = 0;
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_10, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 129, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_10, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 125, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 129, __pyx_L1_error)
+  if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 125, __pyx_L1_error)
   __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_t_7)->__pyx_arg_weights_arr = ((PyArrayObject *)__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_5);
   __pyx_t_5 = 0;
   __Pyx_CyFunction_SetDefaultsGetter(__pyx_t_7, __pyx_pf_5pydbm_7synapse_24complete_bipartite_graph___defaults__);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_create_node, __pyx_t_7) < 0) __PYX_ERR(0, 123, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_create_node, __pyx_t_7) < 0) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pydbm/synapse/complete_bipartite_graph.pyx":154
+  /* "pydbm/synapse/complete_bipartite_graph.pyx":150
  *         )
  * 
  *     def update(self, double learning_rate):             # <<<<<<<<<<<<<<
  *         '''
  *         Update weights.
  */
-  __pyx_t_7 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_24complete_bipartite_graph_22CompleteBipartiteGraph_27update, 0, __pyx_n_s_CompleteBipartiteGraph_update, NULL, __pyx_n_s_pydbm_synapse_complete_bipartite, __pyx_d, ((PyObject *)__pyx_codeobj__49)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_24complete_bipartite_graph_22CompleteBipartiteGraph_27update, 0, __pyx_n_s_CompleteBipartiteGraph_update, NULL, __pyx_n_s_pydbm_synapse_complete_bipartite, __pyx_d, ((PyObject *)__pyx_codeobj__49)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 150, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_update, __pyx_t_7) < 0) __PYX_ERR(0, 154, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_update, __pyx_t_7) < 0) __PYX_ERR(0, 150, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
   /* "pydbm/synapse/complete_bipartite_graph.pyx":9

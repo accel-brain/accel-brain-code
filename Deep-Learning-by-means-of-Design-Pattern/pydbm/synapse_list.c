@@ -907,7 +907,7 @@ typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
  * cimport cython
  * import random
  * ctypedef np.float64_t DOUBLE_t             # <<<<<<<<<<<<<<
- * from pydbm.activating.interface.activating_function_interface import ActivatingFunctionInterface
+ * from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
  * 
  */
 typedef __pyx_t_5numpy_float64_t __pyx_t_5pydbm_12synapse_list_DOUBLE_t;
@@ -1519,6 +1519,7 @@ static const char __pyx_k_doc[] = "__doc__";
 static const char __pyx_k_row[] = "row";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_self[] = "self";
+static const char __pyx_k_size[] = "size";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_array[] = "array";
 static const char __pyx_k_dtype[] = "dtype";
@@ -1587,7 +1588,7 @@ static const char __pyx_k_The_type_of___weights_arr_must_b[] = "The type of __we
 static const char __pyx_k_get_shallower_activating_functio[] = "get_shallower_activating_function";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
-static const char __pyx_k_pydbm_activating_interface_activ[] = "pydbm.activating.interface.activating_function_interface";
+static const char __pyx_k_pydbm_activation_interface_activ[] = "pydbm.activation.interface.activating_function_interface";
 static const char __pyx_k_set_shallower_activating_functio[] = "set_shallower_activating_function";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
 static PyObject *__pyx_n_s_ActivatingFunctionInterface;
@@ -1646,7 +1647,7 @@ static PyObject *__pyx_kp_s_numpy_core_umath_failed_to_impor;
 static PyObject *__pyx_n_s_object;
 static PyObject *__pyx_n_s_prepare;
 static PyObject *__pyx_n_s_property;
-static PyObject *__pyx_n_s_pydbm_activating_interface_activ;
+static PyObject *__pyx_n_s_pydbm_activation_interface_activ;
 static PyObject *__pyx_n_s_pydbm_synapse_list;
 static PyObject *__pyx_kp_s_pydbm_synapse_list_pyx;
 static PyObject *__pyx_n_s_qualname;
@@ -1661,6 +1662,7 @@ static PyObject *__pyx_n_s_set_weights_arr;
 static PyObject *__pyx_n_s_shallower_activating_function;
 static PyObject *__pyx_n_s_shallower_neuron_count;
 static PyObject *__pyx_n_s_shape;
+static PyObject *__pyx_n_s_size;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_uniform;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
@@ -2889,14 +2891,14 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_16create_node(CYTHON_UN
  *         self.shallower_activating_function = shallower_activating_function
  *         self.deeper_activating_function = deeper_activating_function             # <<<<<<<<<<<<<<
  * 
- *         cdef np.ndarray init_weights_arr = np.random.uniform(shape=(shallower_neuron_count, deeper_neuron_count))
+ *         cdef np.ndarray init_weights_arr = np.random.uniform(size=(shallower_neuron_count, deeper_neuron_count))
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_deeper_activating_function, __pyx_v_deeper_activating_function) < 0) __PYX_ERR(0, 102, __pyx_L1_error)
 
   /* "pydbm/synapse_list.pyx":104
  *         self.deeper_activating_function = deeper_activating_function
  * 
- *         cdef np.ndarray init_weights_arr = np.random.uniform(shape=(shallower_neuron_count, deeper_neuron_count))             # <<<<<<<<<<<<<<
+ *         cdef np.ndarray init_weights_arr = np.random.uniform(size=(shallower_neuron_count, deeper_neuron_count))             # <<<<<<<<<<<<<<
  *         if weights_arr.shape[0]:
  *             self.weights_arr = weights_arr
  */
@@ -2922,7 +2924,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_16create_node(CYTHON_UN
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_4);
   __pyx_t_3 = 0;
   __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_shape, __pyx_t_5) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_size, __pyx_t_5) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
@@ -2934,7 +2936,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_16create_node(CYTHON_UN
 
   /* "pydbm/synapse_list.pyx":105
  * 
- *         cdef np.ndarray init_weights_arr = np.random.uniform(shape=(shallower_neuron_count, deeper_neuron_count))
+ *         cdef np.ndarray init_weights_arr = np.random.uniform(size=(shallower_neuron_count, deeper_neuron_count))
  *         if weights_arr.shape[0]:             # <<<<<<<<<<<<<<
  *             self.weights_arr = weights_arr
  *         else:
@@ -2943,7 +2945,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_16create_node(CYTHON_UN
   if (__pyx_t_6) {
 
     /* "pydbm/synapse_list.pyx":106
- *         cdef np.ndarray init_weights_arr = np.random.uniform(shape=(shallower_neuron_count, deeper_neuron_count))
+ *         cdef np.ndarray init_weights_arr = np.random.uniform(size=(shallower_neuron_count, deeper_neuron_count))
  *         if weights_arr.shape[0]:
  *             self.weights_arr = weights_arr             # <<<<<<<<<<<<<<
  *         else:
@@ -2953,7 +2955,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_16create_node(CYTHON_UN
 
     /* "pydbm/synapse_list.pyx":105
  * 
- *         cdef np.ndarray init_weights_arr = np.random.uniform(shape=(shallower_neuron_count, deeper_neuron_count))
+ *         cdef np.ndarray init_weights_arr = np.random.uniform(size=(shallower_neuron_count, deeper_neuron_count))
  *         if weights_arr.shape[0]:             # <<<<<<<<<<<<<<
  *             self.weights_arr = weights_arr
  *         else:
@@ -5744,7 +5746,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_object, __pyx_k_object, sizeof(__pyx_k_object), 0, 0, 1, 1},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
   {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
-  {&__pyx_n_s_pydbm_activating_interface_activ, __pyx_k_pydbm_activating_interface_activ, sizeof(__pyx_k_pydbm_activating_interface_activ), 0, 0, 1, 1},
+  {&__pyx_n_s_pydbm_activation_interface_activ, __pyx_k_pydbm_activation_interface_activ, sizeof(__pyx_k_pydbm_activation_interface_activ), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_synapse_list, __pyx_k_pydbm_synapse_list, sizeof(__pyx_k_pydbm_synapse_list), 0, 0, 1, 1},
   {&__pyx_kp_s_pydbm_synapse_list_pyx, __pyx_k_pydbm_synapse_list_pyx, sizeof(__pyx_k_pydbm_synapse_list_pyx), 0, 0, 1, 0},
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
@@ -5759,6 +5761,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_shallower_activating_function, __pyx_k_shallower_activating_function, sizeof(__pyx_k_shallower_activating_function), 0, 0, 1, 1},
   {&__pyx_n_s_shallower_neuron_count, __pyx_k_shallower_neuron_count, sizeof(__pyx_k_shallower_neuron_count), 0, 0, 1, 1},
   {&__pyx_n_s_shape, __pyx_k_shape, sizeof(__pyx_k_shape), 0, 0, 1, 1},
+  {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_uniform, __pyx_k_uniform, sizeof(__pyx_k_uniform), 0, 0, 1, 1},
   {&__pyx_kp_u_unknown_dtype_code_in_numpy_pxd, __pyx_k_unknown_dtype_code_in_numpy_pxd, sizeof(__pyx_k_unknown_dtype_code_in_numpy_pxd), 0, 1, 0, 0},
@@ -6231,7 +6234,7 @@ PyMODINIT_FUNC PyInit_synapse_list(void)
  * cimport cython
  * import random             # <<<<<<<<<<<<<<
  * ctypedef np.float64_t DOUBLE_t
- * from pydbm.activating.interface.activating_function_interface import ActivatingFunctionInterface
+ * from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_random, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -6241,7 +6244,7 @@ PyMODINIT_FUNC PyInit_synapse_list(void)
   /* "pydbm/synapse_list.pyx":7
  * import random
  * ctypedef np.float64_t DOUBLE_t
- * from pydbm.activating.interface.activating_function_interface import ActivatingFunctionInterface             # <<<<<<<<<<<<<<
+ * from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface             # <<<<<<<<<<<<<<
  * 
  * 
  */
@@ -6250,7 +6253,7 @@ PyMODINIT_FUNC PyInit_synapse_list(void)
   __Pyx_INCREF(__pyx_n_s_ActivatingFunctionInterface);
   __Pyx_GIVEREF(__pyx_n_s_ActivatingFunctionInterface);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_ActivatingFunctionInterface);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_activating_interface_activ, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_activation_interface_activ, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)

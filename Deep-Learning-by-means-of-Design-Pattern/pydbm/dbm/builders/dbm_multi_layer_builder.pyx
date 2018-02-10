@@ -14,7 +14,7 @@ class DBMMultiLayerBuilder(DBMBuilder):
     Compose three restricted boltzmann machines for building a deep boltzmann machine.
     '''
     # The list of neurons in visible layer.
-    __visual_neuron_list = []
+    __visible_neuron_list = []
     # The list of neurons for feature points in `virtual` visible layer. 
     __feature_point_neuron = []
     # the list of neurons in hidden layer.
@@ -61,7 +61,7 @@ class DBMMultiLayerBuilder(DBMBuilder):
         '''
         Initialize.
         '''
-        self.__visual_neuron_list = []
+        self.__visible_neuron_list = []
         self.__feature_point_neuron = []
         self.__hidden_neuron_list = []
         self.__graph_list = []
@@ -114,7 +114,7 @@ class DBMMultiLayerBuilder(DBMBuilder):
         '''
         complete_bipartite_graph = CompleteBipartiteGraph()
         complete_bipartite_graph.create_node(
-            self.__visual_neuron_count,
+            self.__visible_neuron_count,
             self.__feature_point_count_list[0],
             self.__visible_activating_function,
             self.__feature_activating_function_list[0]

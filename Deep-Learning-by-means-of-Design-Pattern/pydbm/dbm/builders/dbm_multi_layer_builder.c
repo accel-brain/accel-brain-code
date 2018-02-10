@@ -1581,8 +1581,7 @@ static const char __pyx_k_DBMMultiLayerBuilder__graph_lis[] = "_DBMMultiLayerBui
 static const char __pyx_k_DBMMultiLayerBuilder__hidden_ac[] = "_DBMMultiLayerBuilder__hidden_activating_function";
 static const char __pyx_k_DBMMultiLayerBuilder__hidden_ne[] = "_DBMMultiLayerBuilder__hidden_neuron_list";
 static const char __pyx_k_DBMMultiLayerBuilder__visible_a[] = "_DBMMultiLayerBuilder__visible_activating_function";
-static const char __pyx_k_DBMMultiLayerBuilder__visible_n[] = "_DBMMultiLayerBuilder__visible_neuron_count";
-static const char __pyx_k_DBMMultiLayerBuilder__visual_ne[] = "_DBMMultiLayerBuilder__visual_neuron_list";
+static const char __pyx_k_DBMMultiLayerBuilder__visible_n[] = "_DBMMultiLayerBuilder__visible_neuron_list";
 static const char __pyx_k_DBMMultiLayerBuilder_get_result[] = "DBMMultiLayerBuilder.get_result";
 static const char __pyx_k_DBMMultiLayerBuilder_graph_part[] = "DBMMultiLayerBuilder.graph_part";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
@@ -1604,7 +1603,7 @@ static const char __pyx_k_pydbm_dbm_builders_dbm_multi_lay[] = "pydbm.dbm.builde
 static const char __pyx_k_pydbm_dbm_restricted_boltzmann_m[] = "pydbm.dbm.restricted_boltzmann_machines";
 static const char __pyx_k_pydbm_synapse_complete_bipartite[] = "pydbm.synapse.complete_bipartite_graph";
 static const char __pyx_k_DBMMultiLayerBuilder__feature_p_2[] = "_DBMMultiLayerBuilder__feature_point_count_list";
-static const char __pyx_k_DBMMultiLayerBuilder__visual_ne_2[] = "_DBMMultiLayerBuilder__visual_neuron_count";
+static const char __pyx_k_DBMMultiLayerBuilder__visible_n_2[] = "_DBMMultiLayerBuilder__visible_neuron_count";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
 static const char __pyx_k_pydbm_dbm_builders_dbm_multi_lay_2[] = "pydbm/dbm/builders/dbm_multi_layer_builder.pyx";
 static PyObject *__pyx_n_s_CompleteBipartiteGraph;
@@ -1624,8 +1623,7 @@ static PyObject *__pyx_n_s_DBMMultiLayerBuilder__learning;
 static PyObject *__pyx_n_s_DBMMultiLayerBuilder__rbm_list;
 static PyObject *__pyx_n_s_DBMMultiLayerBuilder__visible_a;
 static PyObject *__pyx_n_s_DBMMultiLayerBuilder__visible_n;
-static PyObject *__pyx_n_s_DBMMultiLayerBuilder__visual_ne;
-static PyObject *__pyx_n_s_DBMMultiLayerBuilder__visual_ne_2;
+static PyObject *__pyx_n_s_DBMMultiLayerBuilder__visible_n_2;
 static PyObject *__pyx_n_s_DBMMultiLayerBuilder_feature_neu;
 static PyObject *__pyx_n_s_DBMMultiLayerBuilder_get_dropout;
 static PyObject *__pyx_n_s_DBMMultiLayerBuilder_get_learnin;
@@ -2251,18 +2249,18 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_23dbm_multi_layer_builder_20DBMM
   /* "pydbm/dbm/builders/dbm_multi_layer_builder.pyx":64
  *         Initialize.
  *         '''
- *         self.__visual_neuron_list = []             # <<<<<<<<<<<<<<
+ *         self.__visible_neuron_list = []             # <<<<<<<<<<<<<<
  *         self.__feature_point_neuron = []
  *         self.__hidden_neuron_list = []
  */
   __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_DBMMultiLayerBuilder__visual_ne, __pyx_t_1) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_DBMMultiLayerBuilder__visible_n, __pyx_t_1) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/dbm/builders/dbm_multi_layer_builder.pyx":65
  *         '''
- *         self.__visual_neuron_list = []
+ *         self.__visible_neuron_list = []
  *         self.__feature_point_neuron = []             # <<<<<<<<<<<<<<
  *         self.__hidden_neuron_list = []
  *         self.__graph_list = []
@@ -2273,7 +2271,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_23dbm_multi_layer_builder_20DBMM
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/dbm/builders/dbm_multi_layer_builder.pyx":66
- *         self.__visual_neuron_list = []
+ *         self.__visible_neuron_list = []
  *         self.__feature_point_neuron = []
  *         self.__hidden_neuron_list = []             # <<<<<<<<<<<<<<
  *         self.__graph_list = []
@@ -2435,7 +2433,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_23dbm_multi_layer_builder_20DBMM
  */
   __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_neuron_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_DBMMultiLayerBuilder__visible_n, __pyx_t_1) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_DBMMultiLayerBuilder__visible_n_2, __pyx_t_1) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/dbm/builders/dbm_multi_layer_builder.pyx":70
@@ -2810,7 +2808,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_23dbm_multi_layer_builder_20DBMM
  *         '''
  *         complete_bipartite_graph = CompleteBipartiteGraph()             # <<<<<<<<<<<<<<
  *         complete_bipartite_graph.create_node(
- *             self.__visual_neuron_count,
+ *             self.__visible_neuron_count,
  */
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_CompleteBipartiteGraph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 115, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -2839,7 +2837,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_23dbm_multi_layer_builder_20DBMM
  *         '''
  *         complete_bipartite_graph = CompleteBipartiteGraph()
  *         complete_bipartite_graph.create_node(             # <<<<<<<<<<<<<<
- *             self.__visual_neuron_count,
+ *             self.__visible_neuron_count,
  *             self.__feature_point_count_list[0],
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_complete_bipartite_graph, __pyx_n_s_create_node); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
@@ -2848,16 +2846,16 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_23dbm_multi_layer_builder_20DBMM
   /* "pydbm/dbm/builders/dbm_multi_layer_builder.pyx":117
  *         complete_bipartite_graph = CompleteBipartiteGraph()
  *         complete_bipartite_graph.create_node(
- *             self.__visual_neuron_count,             # <<<<<<<<<<<<<<
+ *             self.__visible_neuron_count,             # <<<<<<<<<<<<<<
  *             self.__feature_point_count_list[0],
  *             self.__visible_activating_function,
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_DBMMultiLayerBuilder__visual_ne_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_DBMMultiLayerBuilder__visible_n_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
   /* "pydbm/dbm/builders/dbm_multi_layer_builder.pyx":118
  *         complete_bipartite_graph.create_node(
- *             self.__visual_neuron_count,
+ *             self.__visible_neuron_count,
  *             self.__feature_point_count_list[0],             # <<<<<<<<<<<<<<
  *             self.__visible_activating_function,
  *             self.__feature_activating_function_list[0]
@@ -2869,7 +2867,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_23dbm_multi_layer_builder_20DBMM
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "pydbm/dbm/builders/dbm_multi_layer_builder.pyx":119
- *             self.__visual_neuron_count,
+ *             self.__visible_neuron_count,
  *             self.__feature_point_count_list[0],
  *             self.__visible_activating_function,             # <<<<<<<<<<<<<<
  *             self.__feature_activating_function_list[0]
@@ -6158,8 +6156,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_DBMMultiLayerBuilder__rbm_list, __pyx_k_DBMMultiLayerBuilder__rbm_list, sizeof(__pyx_k_DBMMultiLayerBuilder__rbm_list), 0, 0, 1, 1},
   {&__pyx_n_s_DBMMultiLayerBuilder__visible_a, __pyx_k_DBMMultiLayerBuilder__visible_a, sizeof(__pyx_k_DBMMultiLayerBuilder__visible_a), 0, 0, 1, 1},
   {&__pyx_n_s_DBMMultiLayerBuilder__visible_n, __pyx_k_DBMMultiLayerBuilder__visible_n, sizeof(__pyx_k_DBMMultiLayerBuilder__visible_n), 0, 0, 1, 1},
-  {&__pyx_n_s_DBMMultiLayerBuilder__visual_ne, __pyx_k_DBMMultiLayerBuilder__visual_ne, sizeof(__pyx_k_DBMMultiLayerBuilder__visual_ne), 0, 0, 1, 1},
-  {&__pyx_n_s_DBMMultiLayerBuilder__visual_ne_2, __pyx_k_DBMMultiLayerBuilder__visual_ne_2, sizeof(__pyx_k_DBMMultiLayerBuilder__visual_ne_2), 0, 0, 1, 1},
+  {&__pyx_n_s_DBMMultiLayerBuilder__visible_n_2, __pyx_k_DBMMultiLayerBuilder__visible_n_2, sizeof(__pyx_k_DBMMultiLayerBuilder__visible_n_2), 0, 0, 1, 1},
   {&__pyx_n_s_DBMMultiLayerBuilder_feature_neu, __pyx_k_DBMMultiLayerBuilder_feature_neu, sizeof(__pyx_k_DBMMultiLayerBuilder_feature_neu), 0, 0, 1, 1},
   {&__pyx_n_s_DBMMultiLayerBuilder_get_dropout, __pyx_k_DBMMultiLayerBuilder_get_dropout, sizeof(__pyx_k_DBMMultiLayerBuilder_get_dropout), 0, 0, 1, 1},
   {&__pyx_n_s_DBMMultiLayerBuilder_get_learnin, __pyx_k_DBMMultiLayerBuilder_get_learnin, sizeof(__pyx_k_DBMMultiLayerBuilder_get_learnin), 0, 0, 1, 1},
@@ -6702,17 +6699,17 @@ PyMODINIT_FUNC PyInit_dbm_multi_layer_builder(void)
   /* "pydbm/dbm/builders/dbm_multi_layer_builder.pyx":17
  *     '''
  *     # The list of neurons in visible layer.
- *     __visual_neuron_list = []             # <<<<<<<<<<<<<<
+ *     __visible_neuron_list = []             # <<<<<<<<<<<<<<
  *     # The list of neurons for feature points in `virtual` visible layer.
  *     __feature_point_neuron = []
  */
   __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_DBMMultiLayerBuilder__visual_ne, __pyx_t_4) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_DBMMultiLayerBuilder__visible_n, __pyx_t_4) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "pydbm/dbm/builders/dbm_multi_layer_builder.pyx":19
- *     __visual_neuron_list = []
+ *     __visible_neuron_list = []
  *     # The list of neurons for feature points in `virtual` visible layer.
  *     __feature_point_neuron = []             # <<<<<<<<<<<<<<
  *     # the list of neurons in hidden layer.

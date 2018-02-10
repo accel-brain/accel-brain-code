@@ -5,6 +5,7 @@ from pydbm.dbm.interface.dbm_builder import DBMBuilder
 from pydbm.dbm.dbm_director import DBMDirector
 from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
 from pydbm.approximation.interface.approximate_interface import ApproximateInterface
+ctypedef np.float64_t DOUBLE_t
 
 
 class DeepBoltzmannMachine(object):
@@ -53,7 +54,7 @@ class DeepBoltzmannMachine(object):
 
     def learn(
         self,
-        np.ndarray observed_data_arr,
+        np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
         int traning_count=1000
     ):
         '''
@@ -63,14 +64,18 @@ class DeepBoltzmannMachine(object):
             observed_data_arr:      The `np.ndarray` of observed data points.
             traning_count:          Training counts.
         '''
-        if isinstance(observed_data_arr, np.ndarray) is False:
-            raise TypeError()
-
         cdef int i
-        for i in range(len(self.__rbm_list)):
-            rbm = self.__rbm_list[i]
-            rbm.approximate_learning(observed_data_arr, traning_count)
-            observed_data_arr = np.array([self.get_feature_point(i)])
+        cdef int row_i = observed_data_arr.shape[0]
+        cdef int j
+        cdef np.ndarray[DOUBLE_t, ndim=1] data_arr
+        cdef np.ndarray[DOUBLE_t, ndim=1] feature_point_arr
+        for i in range(row_i):
+            data_arr = observed_data_arr[i]
+            for j in range(len(self.__rbm_list)):
+                rbm = self.__rbm_list[j]
+                rbm.approximate_learning(data_arr, traning_count)
+                feature_point_arr = self.get_feature_point(j)
+                data_arr = feature_point_arr
 
     def get_feature_point(self, int layer_number=0):
         '''
@@ -83,7 +88,7 @@ class DeepBoltzmannMachine(object):
         Returns:
             The list of feature points.
         '''
-        feature_point_arr = self.__rbm_list[layer_number].graph.hidden_acitivity_arr
+        feature_point_arr = self.__rbm_list[layer_number].graph.hidden_activity_arr
         return feature_point_arr
 
     def get_visible_activity(self):

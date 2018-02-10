@@ -155,8 +155,7 @@ class ContrastiveDivergence(ApproximateInterface):
         Dropout.
         '''
         cdef int row = activity_arr.shape[0]
-        cdef int col = activity_arr.shape[1]
-        cdef np.ndarray[DOUBLE_t, ndim=1] dropout_rate_arr = np.random.uniform(0, 1, shape=(row, col))
+        cdef np.ndarray[DOUBLE_t, ndim=1] dropout_rate_arr = np.random.uniform(0, 1, size=(row, ))
         activity_arr = activity_arr * dropout_rate_arr.T
         return activity_arr
 

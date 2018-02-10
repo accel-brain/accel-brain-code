@@ -3,7 +3,7 @@ import numpy as np
 cimport numpy as np
 cimport cython
 from pydbm.synapse_list import Synapse
-from pydbm.activating.interface.activating_function_interface import ActivatingFunctionInterface
+from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
 
 
 class CompleteBipartiteGraph(Synapse):
@@ -87,36 +87,32 @@ class CompleteBipartiteGraph(Synapse):
     hidden_bias_arr = property(get_hidden_bias_arr, set_hidden_bias_arr)
 
     # Activation function in visible layer.
-    __visible_activating_function = None
-
     def get_visible_activating_function(self):
         ''' getter '''
-        if isinstance(self.__visible_activating_function, ActivatingFunctionInterface) is False:
+        if isinstance(self.shallower_activating_function, ActivatingFunctionInterface) is False:
             raise TypeError("The type of __visible_activating_function must be `ActivatingFunctionInterface`.")
-        return self.__visible_activating_function
+        return self.shallower_activating_function
 
     def set_visible_activating_function(self, value):
         ''' setter '''
         if isinstance(value, ActivatingFunctionInterface) is False:
             raise TypeError("The type of __visible_activating_function must be `ActivatingFunctionInterface`.")
-        self.__visible_activating_function = value
+        self.shallower_activating_function = value
 
     visible_activating_function = property(get_visible_activating_function, set_visible_activating_function)
 
     # Activation function in hidden layer.
-    __hidden_activating_function = None
-
     def get_hidden_activating_function(self):
         ''' getter '''
-        if isinstance(self.__hidden_activating_function, ActivatingFunctionInterface) is False:
+        if isinstance(self.deeper_activating_function, ActivatingFunctionInterface) is False:
             raise TypeError("The type of __hidden_activating_function must be `ActivatingFunctionInterface`.")
-        return self.__hidden_activating_function
+        return self.deeper_activating_function
 
     def set_hidden_activating_function(self, value):
         ''' setter '''
         if isinstance(value, ActivatingFunctionInterface) is False:
             raise TypeError("The type of __hidden_activating_function must be `ActivatingFunctionInterface`.")
-        self.__hidden_activating_function = value
+        self.deeper_activating_function = value
 
     hidden_activating_function = property(get_hidden_activating_function, set_hidden_activating_function)
 
@@ -140,8 +136,8 @@ class CompleteBipartiteGraph(Synapse):
             deeper_activating_function:         The activation function in deeper layer.
             weights_arr:                        The weights of links.
         '''
-        self.visible_bias_arr = np.random.uniform(low=0, high=1, shape=(shallower_neuron_count, ))
-        self.hidden_bias_arr = np.random.uniform(low=0, high=1, shape=(deeper_neuron_count, ))
+        self.visible_bias_arr = np.random.uniform(low=0, high=1, size=(shallower_neuron_count, ))
+        self.hidden_bias_arr = np.random.uniform(low=0, high=1, size=(deeper_neuron_count, ))
 
         super().create_node(
             shallower_neuron_count,

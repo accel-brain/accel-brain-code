@@ -65,7 +65,7 @@ dbm = DeepBoltzmannMachine(
     DBMMultiLayerBuilder(),
     # Dimention in visible layer, hidden layer, and second hidden layer.
     [traning_x.shape[1], 10, traning_x.shape[1]],
-    LogisticFunction(), # Setting object for activation function.
+    [LogisticFunction(), LogisticFunction(), LogisticFunction()], # Setting object for activation function.
     ContrastiveDivergence(), # Setting the object for function approximation.
     0.05 # Setting learning rate.
 )

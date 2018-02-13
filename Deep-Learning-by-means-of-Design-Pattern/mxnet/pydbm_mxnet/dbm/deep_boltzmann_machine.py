@@ -95,3 +95,53 @@ class DeepBoltzmannMachine(object):
         '''
         visible_activity_arr = self.__rbm_list[0].graph.visible_activity_arr
         return visible_activity_arr
+
+    def get_visible_activity_arr_list(self):
+        '''
+        Extract activity of neurons in each visible layers.
+
+        Returns:
+            Activity.
+        '''
+        visible_activity_arr_list = [self.__rbm_list[i].graph.visible_activity_arr for i in range(self.__rbm_list)]
+        return visible_activity_arr_list
+
+    def get_hidden_activity_arr_list(self):
+        '''
+        Extract activity of neurons in each hidden layers.
+
+        Returns:
+            Activity.
+        '''
+        hidden_activity_arr_list = [self.__rbm_list[i].graph.hidden_activity_arr for i in range(len(self.__rbm_list))]
+        return hidden_activity_arr_list
+
+    def get_visible_bias_arr_list(self):
+        '''
+        Extract bias in each visible layers.
+
+        Returns:
+            Bias.
+        '''
+        visible_bias_arr_list = [self.__rbm_list[i].graph.visible_bias_arr for i in range(len(self.__rbm_list))]
+        return visible_bias_arr_list
+
+    def get_hidden_bias_arr_list(self):
+        '''
+        Extract bias in each hidden layers.
+
+        Returns:
+            Bias.
+        '''
+        hidden_bias_arr_list = [self.__rbm_list[i].graph.hidden_bias_arr for i in range(len(self.__rbm_list))]
+        return hidden_bias_arr_list
+
+    def get_weight_arr_list(self):
+        '''
+        Extract weights of each links.
+
+        Returns:
+            The list of weights.
+        '''
+        weight_arr_list = [self.__rbm_list[i].graph.weights_arr for i in range(len(self.__rbm_list))]
+        return weight_arr_list

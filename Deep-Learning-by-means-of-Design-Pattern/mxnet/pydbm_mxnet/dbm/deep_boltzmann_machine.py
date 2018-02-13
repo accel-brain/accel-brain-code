@@ -103,7 +103,7 @@ class DeepBoltzmannMachine(object):
         Returns:
             Activity.
         '''
-        visible_activity_arr_list = [self.__rbm_list[i].graph.visible_activity_arr for i in range(self.__rbm_list)]
+        visible_activity_arr_list = [self.__rbm_list[i].graph.visible_activity_arr for i in range(len(self.__rbm_list))]
         return visible_activity_arr_list
 
     def get_hidden_activity_arr_list(self):

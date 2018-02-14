@@ -29,7 +29,7 @@ pip install pydbm
 Or, you can install from wheel file.
 
 ```sh
-pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.0.9-cp36-cp36m-linux_x86_64.whl
+pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.1.1-cp36-cp36m-linux_x86_64.whl
 ```
 
 ### Source code
@@ -139,9 +139,9 @@ time python demo_stacked_auto_encoder.py
 The result is follow.
  
 ```sh
-real    1m44.371s
-user    1m41.852s
-sys     0m2.480s
+real    1m32.729s
+user    1m31.936s
+sys     0m0.764s
 ```
 
 #### Detail

@@ -1224,6 +1224,23 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
 #define __Pyx_ErrFetch(type, value, tb)  PyErr_Fetch(type, value, tb)
 #endif
 
+/* ListCompAppend.proto */
+#if CYTHON_USE_PYLIST_INTERNALS && CYTHON_ASSUME_SAFE_MACROS
+static CYTHON_INLINE int __Pyx_ListComp_Append(PyObject* list, PyObject* x) {
+    PyListObject* L = (PyListObject*) list;
+    Py_ssize_t len = Py_SIZE(list);
+    if (likely(L->allocated > len)) {
+        Py_INCREF(x);
+        PyList_SET_ITEM(list, len, x);
+        Py_SIZE(list) = len+1;
+        return 0;
+    }
+    return PyList_Append(list, x);
+}
+#else
+#define __Pyx_ListComp_Append(L,x) PyList_Append(L,x)
+#endif
+
 /* RaiseException.proto */
 static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
 
@@ -1408,9 +1425,6 @@ static Py_ssize_t __Pyx_minusones[] = {-1, -1, -1, -1, -1, -1, -1, -1};
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 
-/* CIntToPy.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
-
 /* RealImag.proto */
 #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
@@ -1515,6 +1529,9 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_enum__NPY_TYPES(enum NPY_TYPES v
 /* CIntFromPy.proto */
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
+/* CIntToPy.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
+
 /* CIntFromPy.proto */
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
 
@@ -1607,6 +1624,7 @@ static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_DBMDirector[] = "DBMDirector";
 static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_dbm_builder[] = "dbm_builder";
+static const char __pyx_k_weights_arr[] = "weights_arr";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_dbm_director[] = "dbm_director";
 static const char __pyx_k_dropout_rate[] = "dropout_rate";
@@ -1614,32 +1632,45 @@ static const char __pyx_k_layer_number[] = "layer_number";
 static const char __pyx_k_dbm_construct[] = "dbm_construct";
 static const char __pyx_k_learning_rate[] = "learning_rate";
 static const char __pyx_k_traning_count[] = "traning_count";
+static const char __pyx_k_hidden_bias_arr[] = "hidden_bias_arr";
+static const char __pyx_k_weight_arr_list[] = "weight_arr_list";
+static const char __pyx_k_visible_bias_arr[] = "visible_bias_arr";
 static const char __pyx_k_feature_point_arr[] = "feature_point_arr";
 static const char __pyx_k_get_feature_point[] = "get_feature_point";
 static const char __pyx_k_observed_data_arr[] = "observed_data_arr";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_neuron_assign_list[] = "neuron_assign_list";
+static const char __pyx_k_get_weight_arr_list[] = "get_weight_arr_list";
 static const char __pyx_k_hidden_activity_arr[] = "hidden_activity_arr";
 static const char __pyx_k_ApproximateInterface[] = "ApproximateInterface";
 static const char __pyx_k_DeepBoltzmannMachine[] = "DeepBoltzmannMachine";
 static const char __pyx_k_approximate_learning[] = "approximate_learning";
-static const char __pyx_k_get_visible_activity[] = "get_visible_activity";
+static const char __pyx_k_hidden_bias_arr_list[] = "hidden_bias_arr_list";
 static const char __pyx_k_visible_activity_arr[] = "visible_activity_arr";
 static const char __pyx_k_approximate_interface[] = "approximate_interface";
+static const char __pyx_k_visible_bias_arr_list[] = "visible_bias_arr_list";
 static const char __pyx_k_pydbm_dbm_dbm_director[] = "pydbm.dbm.dbm_director";
 static const char __pyx_k_activating_function_list[] = "activating_function_list";
+static const char __pyx_k_get_hidden_bias_arr_list[] = "get_hidden_bias_arr_list";
+static const char __pyx_k_hidden_activity_arr_list[] = "hidden_activity_arr_list";
+static const char __pyx_k_get_visible_bias_arr_list[] = "get_visible_bias_arr_list";
+static const char __pyx_k_visible_activity_arr_list[] = "visible_activity_arr_list";
 static const char __pyx_k_DeepBoltzmannMachine_learn[] = "DeepBoltzmannMachine.learn";
 static const char __pyx_k_ActivatingFunctionInterface[] = "ActivatingFunctionInterface";
 static const char __pyx_k_DeepBoltzmannMachine___init[] = "DeepBoltzmannMachine.__init__";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
+static const char __pyx_k_get_hidden_activity_arr_list[] = "get_hidden_activity_arr_list";
+static const char __pyx_k_get_visible_activity_arr_list[] = "get_visible_activity_arr_list";
 static const char __pyx_k_DeepBoltzmannMachine__rbm_list[] = "_DeepBoltzmannMachine__rbm_list";
 static const char __pyx_k_DeepBoltzmannMachine__hyper_par[] = "_DeepBoltzmannMachine__hyper_param_dict";
+static const char __pyx_k_DeepBoltzmannMachine_get_hidden[] = "DeepBoltzmannMachine.get_hidden_activity_arr_list";
+static const char __pyx_k_DeepBoltzmannMachine_get_weight[] = "DeepBoltzmannMachine.get_weight_arr_list";
 static const char __pyx_k_The_Client_in_Builder_Pattern_B[] = "\n    The `Client` in Builder Pattern,\n    \n    Build deep boltzmann machine.\n    ";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_pydbm_dbm_interface_dbm_builder[] = "pydbm.dbm.interface.dbm_builder";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_DeepBoltzmannMachine_get_feature[] = "DeepBoltzmannMachine.get_feature_point";
-static const char __pyx_k_DeepBoltzmannMachine_get_visible[] = "DeepBoltzmannMachine.get_visible_activity";
+static const char __pyx_k_DeepBoltzmannMachine_get_visible[] = "DeepBoltzmannMachine.get_visible_activity_arr_list";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
@@ -1647,6 +1678,8 @@ static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath
 static const char __pyx_k_pydbm_activation_interface_activ[] = "pydbm.activation.interface.activating_function_interface";
 static const char __pyx_k_pydbm_approximation_interface_ap[] = "pydbm.approximation.interface.approximate_interface";
 static const char __pyx_k_pydbm_dbm_deep_boltzmann_machine[] = "pydbm.dbm.deep_boltzmann_machine";
+static const char __pyx_k_DeepBoltzmannMachine_get_hidden_2[] = "DeepBoltzmannMachine.get_hidden_bias_arr_list";
+static const char __pyx_k_DeepBoltzmannMachine_get_visible_2[] = "DeepBoltzmannMachine.get_visible_bias_arr_list";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
 static const char __pyx_k_pydbm_dbm_deep_boltzmann_machine_2[] = "pydbm/dbm/deep_boltzmann_machine.pyx";
 static PyObject *__pyx_n_s_ActivatingFunctionInterface;
@@ -1658,7 +1691,11 @@ static PyObject *__pyx_n_s_DeepBoltzmannMachine___init;
 static PyObject *__pyx_n_s_DeepBoltzmannMachine__hyper_par;
 static PyObject *__pyx_n_s_DeepBoltzmannMachine__rbm_list;
 static PyObject *__pyx_n_s_DeepBoltzmannMachine_get_feature;
+static PyObject *__pyx_n_s_DeepBoltzmannMachine_get_hidden;
+static PyObject *__pyx_n_s_DeepBoltzmannMachine_get_hidden_2;
 static PyObject *__pyx_n_s_DeepBoltzmannMachine_get_visible;
+static PyObject *__pyx_n_s_DeepBoltzmannMachine_get_visible_2;
+static PyObject *__pyx_n_s_DeepBoltzmannMachine_get_weight;
 static PyObject *__pyx_n_s_DeepBoltzmannMachine_learn;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
@@ -1679,9 +1716,16 @@ static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_dropout_rate;
 static PyObject *__pyx_n_s_feature_point_arr;
 static PyObject *__pyx_n_s_get_feature_point;
-static PyObject *__pyx_n_s_get_visible_activity;
+static PyObject *__pyx_n_s_get_hidden_activity_arr_list;
+static PyObject *__pyx_n_s_get_hidden_bias_arr_list;
+static PyObject *__pyx_n_s_get_visible_activity_arr_list;
+static PyObject *__pyx_n_s_get_visible_bias_arr_list;
+static PyObject *__pyx_n_s_get_weight_arr_list;
 static PyObject *__pyx_n_s_graph;
 static PyObject *__pyx_n_s_hidden_activity_arr;
+static PyObject *__pyx_n_s_hidden_activity_arr_list;
+static PyObject *__pyx_n_s_hidden_bias_arr;
+static PyObject *__pyx_n_s_hidden_bias_arr_list;
 static PyObject *__pyx_n_s_i;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_init;
@@ -1718,10 +1762,19 @@ static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_traning_count;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
 static PyObject *__pyx_n_s_visible_activity_arr;
+static PyObject *__pyx_n_s_visible_activity_arr_list;
+static PyObject *__pyx_n_s_visible_bias_arr;
+static PyObject *__pyx_n_s_visible_bias_arr_list;
+static PyObject *__pyx_n_s_weight_arr_list;
+static PyObject *__pyx_n_s_weights_arr;
 static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_dbm_builder, PyObject *__pyx_v_neuron_assign_list, PyObject *__pyx_v_activating_function_list, PyObject *__pyx_v_approximate_interface, double __pyx_v_learning_rate, double __pyx_v_dropout_rate); /* proto */
 static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_2learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr, int __pyx_v_traning_count); /* proto */
 static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_4get_feature_point(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, int __pyx_v_layer_number); /* proto */
-static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_6get_visible_activity(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_6get_visible_activity_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_8get_hidden_activity_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_10get_visible_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_12get_hidden_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_14get_weight_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tuple_;
@@ -1737,10 +1790,18 @@ static PyObject *__pyx_tuple__10;
 static PyObject *__pyx_tuple__12;
 static PyObject *__pyx_tuple__14;
 static PyObject *__pyx_tuple__16;
+static PyObject *__pyx_tuple__18;
+static PyObject *__pyx_tuple__20;
+static PyObject *__pyx_tuple__22;
+static PyObject *__pyx_tuple__24;
 static PyObject *__pyx_codeobj__11;
 static PyObject *__pyx_codeobj__13;
 static PyObject *__pyx_codeobj__15;
 static PyObject *__pyx_codeobj__17;
+static PyObject *__pyx_codeobj__19;
+static PyObject *__pyx_codeobj__21;
+static PyObject *__pyx_codeobj__23;
+static PyObject *__pyx_codeobj__25;
 
 /* "pydbm/dbm/deep_boltzmann_machine.pyx":23
  *     __hyper_param_dict = {}
@@ -2582,7 +2643,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMa
  *         feature_point_arr = self.__rbm_list[layer_number].graph.hidden_activity_arr
  *         return feature_point_arr             # <<<<<<<<<<<<<<
  * 
- *     def get_visible_activity(self):
+ *     def get_visible_activity_arr_list(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(__pyx_v_feature_point_arr);
@@ -2613,80 +2674,500 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMa
 /* "pydbm/dbm/deep_boltzmann_machine.pyx":94
  *         return feature_point_arr
  * 
- *     def get_visible_activity(self):             # <<<<<<<<<<<<<<
+ *     def get_visible_activity_arr_list(self):             # <<<<<<<<<<<<<<
  *         '''
- *         Extract activity of neurons in visible layer.
+ *         Extract activity of neurons in each visible layers.
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_7get_visible_activity(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_6get_visible_activity[] = "\n        Extract activity of neurons in visible layer.\n\n        Returns:\n            Activity.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_7get_visible_activity = {"get_visible_activity", (PyCFunction)__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_7get_visible_activity, METH_O, __pyx_doc_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_6get_visible_activity};
-static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_7get_visible_activity(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_7get_visible_activity_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_6get_visible_activity_arr_list[] = "\n        Extract activity of neurons in each visible layers.\n\n        Returns:\n            Activity.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_7get_visible_activity_arr_list = {"get_visible_activity_arr_list", (PyCFunction)__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_7get_visible_activity_arr_list, METH_O, __pyx_doc_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_6get_visible_activity_arr_list};
+static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_7get_visible_activity_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("get_visible_activity (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_6get_visible_activity(__pyx_self, ((PyObject *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("get_visible_activity_arr_list (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_6get_visible_activity_arr_list(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_6get_visible_activity(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
-  PyObject *__pyx_v_visible_activity_arr = NULL;
+static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_6get_visible_activity_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_v_visible_activity_arr_list = NULL;
+  Py_ssize_t __pyx_v_i;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
-  __Pyx_RefNannySetupContext("get_visible_activity", 0);
+  Py_ssize_t __pyx_t_3;
+  Py_ssize_t __pyx_t_4;
+  PyObject *__pyx_t_5 = NULL;
+  __Pyx_RefNannySetupContext("get_visible_activity_arr_list", 0);
 
   /* "pydbm/dbm/deep_boltzmann_machine.pyx":101
  *             Activity.
  *         '''
- *         visible_activity_arr = self.__rbm_list[0].graph.visible_activity_arr             # <<<<<<<<<<<<<<
- *         return visible_activity_arr
+ *         visible_activity_arr_list = [self.__rbm_list[i].graph.visible_activity_arr for i in range(len(self.__rbm_list))]             # <<<<<<<<<<<<<<
+ *         return visible_activity_arr_list
+ * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_DeepBoltzmannMachine__rbm_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_DeepBoltzmannMachine__rbm_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_visible_activity_arr = __pyx_t_2;
-  __pyx_t_2 = 0;
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v_i = __pyx_t_4;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_DeepBoltzmannMachine__rbm_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 101, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  }
+  __pyx_v_visible_activity_arr_list = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
 
   /* "pydbm/dbm/deep_boltzmann_machine.pyx":102
  *         '''
- *         visible_activity_arr = self.__rbm_list[0].graph.visible_activity_arr
- *         return visible_activity_arr             # <<<<<<<<<<<<<<
+ *         visible_activity_arr_list = [self.__rbm_list[i].graph.visible_activity_arr for i in range(len(self.__rbm_list))]
+ *         return visible_activity_arr_list             # <<<<<<<<<<<<<<
+ * 
+ *     def get_hidden_activity_arr_list(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(__pyx_v_visible_activity_arr);
-  __pyx_r = __pyx_v_visible_activity_arr;
+  __Pyx_INCREF(__pyx_v_visible_activity_arr_list);
+  __pyx_r = __pyx_v_visible_activity_arr_list;
   goto __pyx_L0;
 
   /* "pydbm/dbm/deep_boltzmann_machine.pyx":94
  *         return feature_point_arr
  * 
- *     def get_visible_activity(self):             # <<<<<<<<<<<<<<
+ *     def get_visible_activity_arr_list(self):             # <<<<<<<<<<<<<<
  *         '''
- *         Extract activity of neurons in visible layer.
+ *         Extract activity of neurons in each visible layers.
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("pydbm.dbm.deep_boltzmann_machine.DeepBoltzmannMachine.get_visible_activity", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("pydbm.dbm.deep_boltzmann_machine.DeepBoltzmannMachine.get_visible_activity_arr_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_visible_activity_arr);
+  __Pyx_XDECREF(__pyx_v_visible_activity_arr_list);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/dbm/deep_boltzmann_machine.pyx":104
+ *         return visible_activity_arr_list
+ * 
+ *     def get_hidden_activity_arr_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract activity of neurons in each hidden layers.
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_9get_hidden_activity_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_8get_hidden_activity_arr_list[] = "\n        Extract activity of neurons in each hidden layers.\n\n        Returns:\n            Activity.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_9get_hidden_activity_arr_list = {"get_hidden_activity_arr_list", (PyCFunction)__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_9get_hidden_activity_arr_list, METH_O, __pyx_doc_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_8get_hidden_activity_arr_list};
+static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_9get_hidden_activity_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_hidden_activity_arr_list (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_8get_hidden_activity_arr_list(__pyx_self, ((PyObject *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_8get_hidden_activity_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_v_hidden_activity_arr_list = NULL;
+  Py_ssize_t __pyx_v_i;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  Py_ssize_t __pyx_t_3;
+  Py_ssize_t __pyx_t_4;
+  PyObject *__pyx_t_5 = NULL;
+  __Pyx_RefNannySetupContext("get_hidden_activity_arr_list", 0);
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":111
+ *             Activity.
+ *         '''
+ *         hidden_activity_arr_list = [self.__rbm_list[i].graph.hidden_activity_arr for i in range(len(self.__rbm_list))]             # <<<<<<<<<<<<<<
+ *         return hidden_activity_arr_list
+ * 
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_DeepBoltzmannMachine__rbm_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v_i = __pyx_t_4;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_DeepBoltzmannMachine__rbm_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 111, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  }
+  __pyx_v_hidden_activity_arr_list = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":112
+ *         '''
+ *         hidden_activity_arr_list = [self.__rbm_list[i].graph.hidden_activity_arr for i in range(len(self.__rbm_list))]
+ *         return hidden_activity_arr_list             # <<<<<<<<<<<<<<
+ * 
+ *     def get_visible_bias_arr_list(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_hidden_activity_arr_list);
+  __pyx_r = __pyx_v_hidden_activity_arr_list;
+  goto __pyx_L0;
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":104
+ *         return visible_activity_arr_list
+ * 
+ *     def get_hidden_activity_arr_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract activity of neurons in each hidden layers.
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("pydbm.dbm.deep_boltzmann_machine.DeepBoltzmannMachine.get_hidden_activity_arr_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_hidden_activity_arr_list);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/dbm/deep_boltzmann_machine.pyx":114
+ *         return hidden_activity_arr_list
+ * 
+ *     def get_visible_bias_arr_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract bias in each visible layers.
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_11get_visible_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_10get_visible_bias_arr_list[] = "\n        Extract bias in each visible layers.\n\n        Returns:\n            Bias.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_11get_visible_bias_arr_list = {"get_visible_bias_arr_list", (PyCFunction)__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_11get_visible_bias_arr_list, METH_O, __pyx_doc_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_10get_visible_bias_arr_list};
+static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_11get_visible_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_visible_bias_arr_list (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_10get_visible_bias_arr_list(__pyx_self, ((PyObject *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_10get_visible_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_v_visible_bias_arr_list = NULL;
+  Py_ssize_t __pyx_v_i;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  Py_ssize_t __pyx_t_3;
+  Py_ssize_t __pyx_t_4;
+  PyObject *__pyx_t_5 = NULL;
+  __Pyx_RefNannySetupContext("get_visible_bias_arr_list", 0);
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":121
+ *             Bias.
+ *         '''
+ *         visible_bias_arr_list = [self.__rbm_list[i].graph.visible_bias_arr for i in range(len(self.__rbm_list))]             # <<<<<<<<<<<<<<
+ *         return visible_bias_arr_list
+ * 
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_DeepBoltzmannMachine__rbm_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v_i = __pyx_t_4;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_DeepBoltzmannMachine__rbm_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 121, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 121, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 121, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_visible_bias_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 121, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 121, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  }
+  __pyx_v_visible_bias_arr_list = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":122
+ *         '''
+ *         visible_bias_arr_list = [self.__rbm_list[i].graph.visible_bias_arr for i in range(len(self.__rbm_list))]
+ *         return visible_bias_arr_list             # <<<<<<<<<<<<<<
+ * 
+ *     def get_hidden_bias_arr_list(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_visible_bias_arr_list);
+  __pyx_r = __pyx_v_visible_bias_arr_list;
+  goto __pyx_L0;
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":114
+ *         return hidden_activity_arr_list
+ * 
+ *     def get_visible_bias_arr_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract bias in each visible layers.
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("pydbm.dbm.deep_boltzmann_machine.DeepBoltzmannMachine.get_visible_bias_arr_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_visible_bias_arr_list);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/dbm/deep_boltzmann_machine.pyx":124
+ *         return visible_bias_arr_list
+ * 
+ *     def get_hidden_bias_arr_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract bias in each hidden layers.
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_13get_hidden_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_12get_hidden_bias_arr_list[] = "\n        Extract bias in each hidden layers.\n\n        Returns:\n            Bias.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_13get_hidden_bias_arr_list = {"get_hidden_bias_arr_list", (PyCFunction)__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_13get_hidden_bias_arr_list, METH_O, __pyx_doc_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_12get_hidden_bias_arr_list};
+static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_13get_hidden_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_hidden_bias_arr_list (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_12get_hidden_bias_arr_list(__pyx_self, ((PyObject *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_12get_hidden_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_v_hidden_bias_arr_list = NULL;
+  Py_ssize_t __pyx_v_i;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  Py_ssize_t __pyx_t_3;
+  Py_ssize_t __pyx_t_4;
+  PyObject *__pyx_t_5 = NULL;
+  __Pyx_RefNannySetupContext("get_hidden_bias_arr_list", 0);
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":131
+ *             Bias.
+ *         '''
+ *         hidden_bias_arr_list = [self.__rbm_list[i].graph.hidden_bias_arr for i in range(len(self.__rbm_list))]             # <<<<<<<<<<<<<<
+ *         return hidden_bias_arr_list
+ * 
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_DeepBoltzmannMachine__rbm_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v_i = __pyx_t_4;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_DeepBoltzmannMachine__rbm_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 131, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 131, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 131, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_hidden_bias_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 131, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 131, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  }
+  __pyx_v_hidden_bias_arr_list = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":132
+ *         '''
+ *         hidden_bias_arr_list = [self.__rbm_list[i].graph.hidden_bias_arr for i in range(len(self.__rbm_list))]
+ *         return hidden_bias_arr_list             # <<<<<<<<<<<<<<
+ * 
+ *     def get_weight_arr_list(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_hidden_bias_arr_list);
+  __pyx_r = __pyx_v_hidden_bias_arr_list;
+  goto __pyx_L0;
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":124
+ *         return visible_bias_arr_list
+ * 
+ *     def get_hidden_bias_arr_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract bias in each hidden layers.
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("pydbm.dbm.deep_boltzmann_machine.DeepBoltzmannMachine.get_hidden_bias_arr_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_hidden_bias_arr_list);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/dbm/deep_boltzmann_machine.pyx":134
+ *         return hidden_bias_arr_list
+ * 
+ *     def get_weight_arr_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract weights of each links.
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_15get_weight_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_14get_weight_arr_list[] = "\n        Extract weights of each links.\n\n        Returns:\n            The list of weights.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_15get_weight_arr_list = {"get_weight_arr_list", (PyCFunction)__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_15get_weight_arr_list, METH_O, __pyx_doc_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_14get_weight_arr_list};
+static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_15get_weight_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_weight_arr_list (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_14get_weight_arr_list(__pyx_self, ((PyObject *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_14get_weight_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_v_weight_arr_list = NULL;
+  Py_ssize_t __pyx_v_i;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  Py_ssize_t __pyx_t_3;
+  Py_ssize_t __pyx_t_4;
+  PyObject *__pyx_t_5 = NULL;
+  __Pyx_RefNannySetupContext("get_weight_arr_list", 0);
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":141
+ *             The list of weights.
+ *         '''
+ *         weight_arr_list = [self.__rbm_list[i].graph.weights_arr for i in range(len(self.__rbm_list))]             # <<<<<<<<<<<<<<
+ *         return weight_arr_list
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_DeepBoltzmannMachine__rbm_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 141, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v_i = __pyx_t_4;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_DeepBoltzmannMachine__rbm_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 141, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 141, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 141, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  }
+  __pyx_v_weight_arr_list = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":142
+ *         '''
+ *         weight_arr_list = [self.__rbm_list[i].graph.weights_arr for i in range(len(self.__rbm_list))]
+ *         return weight_arr_list             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_weight_arr_list);
+  __pyx_r = __pyx_v_weight_arr_list;
+  goto __pyx_L0;
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":134
+ *         return hidden_bias_arr_list
+ * 
+ *     def get_weight_arr_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract weights of each links.
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("pydbm.dbm.deep_boltzmann_machine.DeepBoltzmannMachine.get_weight_arr_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_weight_arr_list);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -5238,7 +5719,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_DeepBoltzmannMachine__hyper_par, __pyx_k_DeepBoltzmannMachine__hyper_par, sizeof(__pyx_k_DeepBoltzmannMachine__hyper_par), 0, 0, 1, 1},
   {&__pyx_n_s_DeepBoltzmannMachine__rbm_list, __pyx_k_DeepBoltzmannMachine__rbm_list, sizeof(__pyx_k_DeepBoltzmannMachine__rbm_list), 0, 0, 1, 1},
   {&__pyx_n_s_DeepBoltzmannMachine_get_feature, __pyx_k_DeepBoltzmannMachine_get_feature, sizeof(__pyx_k_DeepBoltzmannMachine_get_feature), 0, 0, 1, 1},
+  {&__pyx_n_s_DeepBoltzmannMachine_get_hidden, __pyx_k_DeepBoltzmannMachine_get_hidden, sizeof(__pyx_k_DeepBoltzmannMachine_get_hidden), 0, 0, 1, 1},
+  {&__pyx_n_s_DeepBoltzmannMachine_get_hidden_2, __pyx_k_DeepBoltzmannMachine_get_hidden_2, sizeof(__pyx_k_DeepBoltzmannMachine_get_hidden_2), 0, 0, 1, 1},
   {&__pyx_n_s_DeepBoltzmannMachine_get_visible, __pyx_k_DeepBoltzmannMachine_get_visible, sizeof(__pyx_k_DeepBoltzmannMachine_get_visible), 0, 0, 1, 1},
+  {&__pyx_n_s_DeepBoltzmannMachine_get_visible_2, __pyx_k_DeepBoltzmannMachine_get_visible_2, sizeof(__pyx_k_DeepBoltzmannMachine_get_visible_2), 0, 0, 1, 1},
+  {&__pyx_n_s_DeepBoltzmannMachine_get_weight, __pyx_k_DeepBoltzmannMachine_get_weight, sizeof(__pyx_k_DeepBoltzmannMachine_get_weight), 0, 0, 1, 1},
   {&__pyx_n_s_DeepBoltzmannMachine_learn, __pyx_k_DeepBoltzmannMachine_learn, sizeof(__pyx_k_DeepBoltzmannMachine_learn), 0, 0, 1, 1},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
@@ -5259,9 +5744,16 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_dropout_rate, __pyx_k_dropout_rate, sizeof(__pyx_k_dropout_rate), 0, 0, 1, 1},
   {&__pyx_n_s_feature_point_arr, __pyx_k_feature_point_arr, sizeof(__pyx_k_feature_point_arr), 0, 0, 1, 1},
   {&__pyx_n_s_get_feature_point, __pyx_k_get_feature_point, sizeof(__pyx_k_get_feature_point), 0, 0, 1, 1},
-  {&__pyx_n_s_get_visible_activity, __pyx_k_get_visible_activity, sizeof(__pyx_k_get_visible_activity), 0, 0, 1, 1},
+  {&__pyx_n_s_get_hidden_activity_arr_list, __pyx_k_get_hidden_activity_arr_list, sizeof(__pyx_k_get_hidden_activity_arr_list), 0, 0, 1, 1},
+  {&__pyx_n_s_get_hidden_bias_arr_list, __pyx_k_get_hidden_bias_arr_list, sizeof(__pyx_k_get_hidden_bias_arr_list), 0, 0, 1, 1},
+  {&__pyx_n_s_get_visible_activity_arr_list, __pyx_k_get_visible_activity_arr_list, sizeof(__pyx_k_get_visible_activity_arr_list), 0, 0, 1, 1},
+  {&__pyx_n_s_get_visible_bias_arr_list, __pyx_k_get_visible_bias_arr_list, sizeof(__pyx_k_get_visible_bias_arr_list), 0, 0, 1, 1},
+  {&__pyx_n_s_get_weight_arr_list, __pyx_k_get_weight_arr_list, sizeof(__pyx_k_get_weight_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_graph, __pyx_k_graph, sizeof(__pyx_k_graph), 0, 0, 1, 1},
   {&__pyx_n_s_hidden_activity_arr, __pyx_k_hidden_activity_arr, sizeof(__pyx_k_hidden_activity_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_hidden_activity_arr_list, __pyx_k_hidden_activity_arr_list, sizeof(__pyx_k_hidden_activity_arr_list), 0, 0, 1, 1},
+  {&__pyx_n_s_hidden_bias_arr, __pyx_k_hidden_bias_arr, sizeof(__pyx_k_hidden_bias_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_hidden_bias_arr_list, __pyx_k_hidden_bias_arr_list, sizeof(__pyx_k_hidden_bias_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_init, __pyx_k_init, sizeof(__pyx_k_init), 0, 0, 1, 1},
@@ -5298,6 +5790,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_traning_count, __pyx_k_traning_count, sizeof(__pyx_k_traning_count), 0, 0, 1, 1},
   {&__pyx_kp_u_unknown_dtype_code_in_numpy_pxd, __pyx_k_unknown_dtype_code_in_numpy_pxd, sizeof(__pyx_k_unknown_dtype_code_in_numpy_pxd), 0, 1, 0, 0},
   {&__pyx_n_s_visible_activity_arr, __pyx_k_visible_activity_arr, sizeof(__pyx_k_visible_activity_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_visible_activity_arr_list, __pyx_k_visible_activity_arr_list, sizeof(__pyx_k_visible_activity_arr_list), 0, 0, 1, 1},
+  {&__pyx_n_s_visible_bias_arr, __pyx_k_visible_bias_arr, sizeof(__pyx_k_visible_bias_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_visible_bias_arr_list, __pyx_k_visible_bias_arr_list, sizeof(__pyx_k_visible_bias_arr_list), 0, 0, 1, 1},
+  {&__pyx_n_s_weight_arr_list, __pyx_k_weight_arr_list, sizeof(__pyx_k_weight_arr_list), 0, 0, 1, 1},
+  {&__pyx_n_s_weights_arr, __pyx_k_weights_arr, sizeof(__pyx_k_weights_arr), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
@@ -5451,14 +5948,62 @@ static int __Pyx_InitCachedConstants(void) {
   /* "pydbm/dbm/deep_boltzmann_machine.pyx":94
  *         return feature_point_arr
  * 
- *     def get_visible_activity(self):             # <<<<<<<<<<<<<<
+ *     def get_visible_activity_arr_list(self):             # <<<<<<<<<<<<<<
  *         '''
- *         Extract activity of neurons in visible layer.
+ *         Extract activity of neurons in each visible layers.
  */
-  __pyx_tuple__16 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_tuple__16 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_visible_activity_arr_list, __pyx_n_s_i); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__16);
   __Pyx_GIVEREF(__pyx_tuple__16);
-  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deep_boltzmann_machine_2, __pyx_n_s_get_visible_activity, 94, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deep_boltzmann_machine_2, __pyx_n_s_get_visible_activity_arr_list, 94, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 94, __pyx_L1_error)
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":104
+ *         return visible_activity_arr_list
+ * 
+ *     def get_hidden_activity_arr_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract activity of neurons in each hidden layers.
+ */
+  __pyx_tuple__18 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_hidden_activity_arr_list, __pyx_n_s_i); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__18);
+  __Pyx_GIVEREF(__pyx_tuple__18);
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deep_boltzmann_machine_2, __pyx_n_s_get_hidden_activity_arr_list, 104, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 104, __pyx_L1_error)
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":114
+ *         return hidden_activity_arr_list
+ * 
+ *     def get_visible_bias_arr_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract bias in each visible layers.
+ */
+  __pyx_tuple__20 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_visible_bias_arr_list, __pyx_n_s_i); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__20);
+  __Pyx_GIVEREF(__pyx_tuple__20);
+  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deep_boltzmann_machine_2, __pyx_n_s_get_visible_bias_arr_list, 114, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 114, __pyx_L1_error)
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":124
+ *         return visible_bias_arr_list
+ * 
+ *     def get_hidden_bias_arr_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract bias in each hidden layers.
+ */
+  __pyx_tuple__22 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_hidden_bias_arr_list, __pyx_n_s_i); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__22);
+  __Pyx_GIVEREF(__pyx_tuple__22);
+  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deep_boltzmann_machine_2, __pyx_n_s_get_hidden_bias_arr_list, 124, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 124, __pyx_L1_error)
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":134
+ *         return hidden_bias_arr_list
+ * 
+ *     def get_weight_arr_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract weights of each links.
+ */
+  __pyx_tuple__24 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_weight_arr_list, __pyx_n_s_i); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__24);
+  __Pyx_GIVEREF(__pyx_tuple__24);
+  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deep_boltzmann_machine_2, __pyx_n_s_get_weight_arr_list, 134, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5800,13 +6345,61 @@ PyMODINIT_FUNC PyInit_deep_boltzmann_machine(void)
   /* "pydbm/dbm/deep_boltzmann_machine.pyx":94
  *         return feature_point_arr
  * 
- *     def get_visible_activity(self):             # <<<<<<<<<<<<<<
+ *     def get_visible_activity_arr_list(self):             # <<<<<<<<<<<<<<
  *         '''
- *         Extract activity of neurons in visible layer.
+ *         Extract activity of neurons in each visible layers.
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_7get_visible_activity, 0, __pyx_n_s_DeepBoltzmannMachine_get_visible, NULL, __pyx_n_s_pydbm_dbm_deep_boltzmann_machine, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_7get_visible_activity_arr_list, 0, __pyx_n_s_DeepBoltzmannMachine_get_visible, NULL, __pyx_n_s_pydbm_dbm_deep_boltzmann_machine, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_visible_activity, __pyx_t_4) < 0) __PYX_ERR(0, 94, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_visible_activity_arr_list, __pyx_t_4) < 0) __PYX_ERR(0, 94, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":104
+ *         return visible_activity_arr_list
+ * 
+ *     def get_hidden_activity_arr_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract activity of neurons in each hidden layers.
+ */
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_9get_hidden_activity_arr_list, 0, __pyx_n_s_DeepBoltzmannMachine_get_hidden, NULL, __pyx_n_s_pydbm_dbm_deep_boltzmann_machine, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_hidden_activity_arr_list, __pyx_t_4) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":114
+ *         return hidden_activity_arr_list
+ * 
+ *     def get_visible_bias_arr_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract bias in each visible layers.
+ */
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_11get_visible_bias_arr_list, 0, __pyx_n_s_DeepBoltzmannMachine_get_visible_2, NULL, __pyx_n_s_pydbm_dbm_deep_boltzmann_machine, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_visible_bias_arr_list, __pyx_t_4) < 0) __PYX_ERR(0, 114, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":124
+ *         return visible_bias_arr_list
+ * 
+ *     def get_hidden_bias_arr_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract bias in each hidden layers.
+ */
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_13get_hidden_bias_arr_list, 0, __pyx_n_s_DeepBoltzmannMachine_get_hidden_2, NULL, __pyx_n_s_pydbm_dbm_deep_boltzmann_machine, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_hidden_bias_arr_list, __pyx_t_4) < 0) __PYX_ERR(0, 124, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/dbm/deep_boltzmann_machine.pyx":134
+ *         return hidden_bias_arr_list
+ * 
+ *     def get_weight_arr_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract weights of each links.
+ */
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_15get_weight_arr_list, 0, __pyx_n_s_DeepBoltzmannMachine_get_weight, NULL, __pyx_n_s_pydbm_dbm_deep_boltzmann_machine, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_weight_arr_list, __pyx_t_4) < 0) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "pydbm/dbm/deep_boltzmann_machine.pyx":11
@@ -8354,37 +8947,6 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
     }
 }
 
-/* CIntToPy */
-            static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
-    const long neg_one = (long) -1, const_zero = (long) 0;
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(long) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(long) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
-            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
-#endif
-        }
-    } else {
-        if (sizeof(long) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
-            return PyLong_FromLongLong((PY_LONG_LONG) value);
-#endif
-        }
-    }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(long),
-                                     little, !is_unsigned);
-    }
-}
-
 /* Declarations */
             #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
@@ -8913,6 +9475,37 @@ raise_neg_overflow:
     PyErr_SetString(PyExc_OverflowError,
         "can't convert negative value to int");
     return (int) -1;
+}
+
+/* CIntToPy */
+            static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
+    const long neg_one = (long) -1, const_zero = (long) 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(long) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(long) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+#endif
+        }
+    } else {
+        if (sizeof(long) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+#endif
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(long),
+                                     little, !is_unsigned);
+    }
 }
 
 /* CIntFromPy */

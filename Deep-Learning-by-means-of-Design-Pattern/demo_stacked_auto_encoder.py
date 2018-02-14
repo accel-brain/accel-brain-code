@@ -64,3 +64,6 @@ if __name__ == "__main__":
     print(feature_points_df.head())
     print("-" * 100)
     print(feature_points_df.tail())
+
+    print("-" * 100)
+    print(dbm.get_weight_arr_list())

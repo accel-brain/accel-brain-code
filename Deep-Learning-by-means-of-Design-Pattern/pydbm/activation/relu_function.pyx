@@ -21,7 +21,7 @@ class ReLuFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
-        return np.maxinum(0, x)
+        return np.maximum(0, x)
 
     def derivative(self, y):
         '''

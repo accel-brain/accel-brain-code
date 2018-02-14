@@ -21,20 +21,7 @@ class ReLuFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
+        x_sum = x.sum()
+        if x_sum != 0:
+            x = x / x_sum
         return np.maximum(0, x)
-
-    def derivative(self, y):
-        '''
-        Derivative.
-
-        Args:
-            y:  Parameter.
-        Returns:
-            The result.
-        '''
-        if y < 0:
-            return 0.0
-        elif y > 0:
-            return 1.0
-        else:
-            raise ValueError("The derivative does not exist.")

@@ -21,15 +21,7 @@ class LogisticFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
+        x_sum = x.sum()
+        if x_sum != 0:
+            x = x / x_sum
         return 1.0 / (1.0 + np.exp(-x))
-
-    def derivative(self, y):
-        '''
-        Derivative.
-
-        Args:
-            y:  Parameter.
-        Returns:
-            The result.
-        '''
-        return self.activate(y) * (1 - self.activate(y))

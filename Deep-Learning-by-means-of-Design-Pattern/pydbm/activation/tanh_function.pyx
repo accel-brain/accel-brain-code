@@ -19,15 +19,7 @@ class TanhFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
+        x_sum = x.sum()
+        if x_sum != 0:
+            x = x / x_sum
         return math.tanh(x)
-
-    def derivative(self, double y):
-        '''
-        Derivative.
-
-        Args:
-            y:  Paramter.
-        Returns:
-            The result.
-        '''
-        return 1.0 - y**2

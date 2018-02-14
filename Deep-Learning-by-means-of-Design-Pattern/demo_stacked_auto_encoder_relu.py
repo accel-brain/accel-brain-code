@@ -3,6 +3,7 @@ from pydbm.dbm.deepboltzmannmachine.stacked_auto_encoder import StackedAutoEncod
 from pydbm.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
 from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
 from pydbm.activation.logistic_function import LogisticFunction
+from pydbm.activation.relu_function import ReLuFunction
 import numpy as np
 import random
 import pandas as pd
@@ -26,7 +27,7 @@ if __name__ == "__main__":
         Activation: 
             visible:                Logistic Function
             hidden(feature point):  Logistic Function
-            hidden:                 Logistic Function
+            hidden:                 ReLu Function
 
         approximation: Contrastive Divergence
         learning rate: 0.05
@@ -34,9 +35,9 @@ if __name__ == "__main__":
 
     Result:
         TAT:
-            real    1m32.729s
-            user    1m31.936s
-            sys     0m0.764s
+            real    1m30.207s
+            user    1m28.576s
+            sys     0m1.592s
 
         Feature points:
             0.190599  0.183594  0.482996  0.911710  0.939766  0.202852  0.042163
@@ -48,11 +49,12 @@ if __name__ == "__main__":
     '''
 
     target_arr = np.random.uniform(size=(10000, 10000))
+    target_arr = (target_arr - target_arr.mean()) / target_arr.std()
 
     dbm = StackedAutoEncoder(
         DBMMultiLayerBuilder(),
         [target_arr.shape[1], 10, target_arr.shape[1]],
-        [LogisticFunction(), LogisticFunction(), LogisticFunction()],
+        [LogisticFunction(), LogisticFunction(), ReLuFunction()],
         ContrastiveDivergence(),
         0.05,
         0.5

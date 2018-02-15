@@ -179,14 +179,6 @@ The observated data is the result of `np.random.uniform(size=(10000, 10000))`.
 - Learning rate: `0.05`
 - Dropout rate: `0.5`
 
-#### Results
-
-```sh
-real    1m44.371s
-user    1m41.852s
-sys     0m2.480s
-```
-
 ##### Feature points
 
 ```

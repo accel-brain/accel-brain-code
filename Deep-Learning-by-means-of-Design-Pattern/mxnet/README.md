@@ -121,6 +121,14 @@ And the result of dimention reduction can be extracted by this property.
 pre_trained_arr = dbm.feature_points_arr
 ```
 
+If you want to get the pre-training weights, call `get_weight_arr_list` method.
+
+```python
+weight_arr_list = dbm.get_weight_arr_list()
+```
+
+`weight_arr_list` is the `list` of weights of each links in DBM. `weight_arr_list[0]` is 2-d `np.ndarray` of weights between visible layer and first hidden layer.
+
 ### Related PoC
 
 - [Webクローラ型人工知能によるパラドックス探索暴露機能の社会進化論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/) (Japanese)

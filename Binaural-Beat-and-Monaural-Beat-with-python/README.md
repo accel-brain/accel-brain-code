@@ -36,12 +36,80 @@ Binary installers for the latest released version are available at the Python pa
 
 ### Dependencies
 
-- [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/): v0.2.9 or higher
 - [NumPy](http://www.numpy.org/): v1.7.0 or higher
+
+#### To play the beats in console
+
+If you want to not only output wav files but also play the beats on console, [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/) must be installed.
+
+- [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/): v0.2.9 or higher
+
 
 ## Use-case on console
 
 You can study or work while listening to the Binaural or Monauarl beats. Before starting your job, run a batch program on console.
+
+### Create "Binaural Beat" and output wav file
+
+Run the batch program: [save_binaural_beat.py](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/bat/save_binaural_beat.py).
+
+```bash
+python bat/save_binaural_beat.py -o binaural_beat.wav -l 400 -r 430 -t 60 -v 0.01
+```
+
+The command line arguments is as follows.
+
+```bash
+python bat/save_binaural_beat.py -h
+```
+```
+usage: save_binaural_beat.py [-h] [-o OUTPUT_FILE_NAME] [-l LEFT] [-r RIGHT]
+                             [-t TIME] [-v VOLUME]
+
+Create the Binaural Beat and save wav file.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT_FILE_NAME, --output_file_name OUTPUT_FILE_NAME
+                        Output file name.
+  -l LEFT, --left LEFT  Left frequencys (Hz).
+  -r RIGHT, --right RIGHT
+                        Right frequencys (Hz).
+  -t TIME, --time TIME  Play time. This is per seconds.
+  -v VOLUME, --volume VOLUME
+                        Sound volume.
+```
+
+### Create "Monaural Beat" and output wav file
+
+Run the batch program: [save_monaural_beat.py](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/bat/save_monaural_beat.py).
+
+```bash
+python bat/save_monaural_beat.py -o monaural_beat.wav -l 400 -r 430 -t 60 -v 0.01
+```
+
+The command line arguments is as follows.
+
+```bash
+python bat/save_monaural_beat.py -h
+```
+```
+usage: save_monaural_beat.py [-h] [-o OUTPUT_FILE_NAME] [-l LEFT] [-r RIGHT]
+                             [-t TIME] [-v VOLUME]
+
+Create the Monaural Beat and save wav file.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT_FILE_NAME, --output_file_name OUTPUT_FILE_NAME
+                        Output file name.
+  -l LEFT, --left LEFT  Left frequencys (Hz).
+  -r RIGHT, --right RIGHT
+                        Right frequencys (Hz).
+  -t TIME, --time TIME  Play time. This is per seconds.
+  -v VOLUME, --volume VOLUME
+                        Sound volume.
+```
 
 ### Create and play "Binaural Beat" on console
 
@@ -49,6 +117,12 @@ Run the batch program: [play_binaural_beat.py](https://github.com/chimera0/Binau
 
 ```bash
 python play_binaural_beat.py -l 400 -r 430 -t 60 -v 0.01
+```
+
+The command line arguments is as follows.
+
+```bash
+python bat/play_binaural_beat.py -h
 ```
 
 ```
@@ -71,9 +145,14 @@ optional arguments:
 Run the batch program: [play_monaural_beat.py](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/bat/play_monaural_beat.py).
 
 ```bash
-python play_monaural_beat_beat.py -l 400 -r 430 -t 60 -v 0.01
+python bat/play_monaural_beat_beat.py -l 400 -r 430 -t 60 -v 0.01
 ```
 
+The command line arguments is as follows.
+
+```bash
+python bat/play_monaural_beat.py -h
+```
 ```
 usage: play_monaural_beat.py [-h] [-l LEFT] [-r RIGHT] [-t TIME] [-v VOLUME]
 
@@ -92,6 +171,40 @@ optional arguments:
 ## Use-case for coding
 
 You can use this library as a module by executing an import statement in your Python source file.
+
+### Create wav file of "Binaural Beat"
+
+Call the method.
+
+```python
+from AccelBrainBeat.brainbeat.binaural_beat import BinauralBeat
+
+brain_beat = BinauralBeat() # for binaural beats.
+brain_beat.save_beat(
+    output_file_name="save_binaural_beat.wav",
+    frequencys=(400, 430),
+    play_time=10,
+    volume=0.01
+)
+```
+
+- `output_file_name` is wav file name or path.
+
+### Create wav file of "Monaural Beat"
+
+The interface of monaural beats is also same as the binaural beats.
+
+```python
+from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
+
+brain_beat = MonauralBeat() # for monaural beats.
+brain_beat.save_beat(
+    output_file_name="save_monaural_beat.wav",
+    frequencys=(400, 430),
+    play_time=10,
+    volume=0.01
+)
+```
 
 ### Create and play "Binaural Beat"
 
@@ -129,40 +242,6 @@ from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
 brain_beat = MonauralBeat()
 
 brain_beat.play_beat(
-    frequencys=(400, 430),
-    play_time=10,
-    volume=0.01
-)
-```
-
-### Create wav file of "Binaural Beat"
-
-Call the method.
-
-```python
-from AccelBrainBeat.brainbeat.binaural_beat import BinauralBeat
-
-brain_beat = BinauralBeat() # for binaural beats.
-brain_beat.save_beat(
-    output_file_name="save_binaural_beat.wav",
-    frequencys=(400, 430),
-    play_time=10,
-    volume=0.01
-)
-```
-
-- `output_file_name` is wav file name or path.
-
-### Create wav file of "Monaural Beat"
-
-The interface of monaural beats is also same as the binaural beats.
-
-```python
-from AccelBrainBeat.brainbeat.monaural_beat import MonauralBeat
-
-brain_beat = MonauralBeat() # for monaural beats.
-brain_beat.save_beat(
-    output_file_name="save_monaural_beat.wav",
     frequencys=(400, 430),
     play_time=10,
     volume=0.01

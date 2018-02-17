@@ -14,7 +14,7 @@ def main(params):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description='Create and play the Binaural Beat.'
+        description='Create and play the Monaural Beat.'
     )
     parser.add_argument(
         '-l',

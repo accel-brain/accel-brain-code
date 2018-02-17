@@ -38,12 +38,9 @@ Binary installers for the latest released version are available at the Python pa
 
 - [NumPy](http://www.numpy.org/): v1.7.0 or higher
 
-#### To play the beats in console
+#### To play the beats on console
 
-If you want to not only output wav files but also play the beats on console, [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/) must be installed.
-
-- [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/): v0.2.9 or higher
-
+If you want to not only output wav files but also play the beats on console, [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/) (v0.2.9 or higher) must be installed.
 
 ## Use-case on console
 
@@ -51,7 +48,7 @@ You can study or work while listening to the Binaural or Monauarl beats. Before 
 
 ### Create "Binaural Beat" and output wav file
 
-Run the batch program: [save_binaural_beat.py](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/bat/save_binaural_beat.py).
+Run the batch program: [save_binaural_beat.py](https://github.com/chimera0/accel-brain-code/blob/master/Binaural-Beat-and-Monaural-Beat-with-python/bat/save_binaural_beat.py).
 
 ```bash
 python bat/save_binaural_beat.py -o binaural_beat.wav -l 400 -r 430 -t 60 -v 0.01
@@ -82,7 +79,7 @@ optional arguments:
 
 ### Create "Monaural Beat" and output wav file
 
-Run the batch program: [save_monaural_beat.py](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/bat/save_monaural_beat.py).
+Run the batch program: [save_monaural_beat.py](https://github.com/chimera0/accel-brain-code/blob/master/Binaural-Beat-and-Monaural-Beat-with-python/bat/save_monaural_beat.py).
 
 ```bash
 python bat/save_monaural_beat.py -o monaural_beat.wav -l 400 -r 430 -t 60 -v 0.01
@@ -113,7 +110,7 @@ optional arguments:
 
 ### Create and play "Binaural Beat" on console
 
-Run the batch program: [play_binaural_beat.py](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/bat/play_binaural_beat.py).
+Run the batch program: [play_binaural_beat.py](https://github.com/chimera0/accel-brain-code/blob/master/Binaural-Beat-and-Monaural-Beat-with-python/bat/play_binaural_beat.py).
 
 ```bash
 python play_binaural_beat.py -l 400 -r 430 -t 60 -v 0.01
@@ -142,7 +139,7 @@ optional arguments:
 
 ### Create and play "Monaural Beat" on console
 
-Run the batch program: [play_monaural_beat.py](https://github.com/chimera0/Binaural-Beat-and-Monaural-Beat-with-python/blob/master/bat/play_monaural_beat.py).
+Run the batch program: [play_monaural_beat.py](https://github.com/chimera0/accel-brain-code/blob/master/Binaural-Beat-and-Monaural-Beat-with-python/bat/play_monaural_beat.py).
 
 ```bash
 python bat/play_monaural_beat_beat.py -l 400 -r 430 -t 60 -v 0.01

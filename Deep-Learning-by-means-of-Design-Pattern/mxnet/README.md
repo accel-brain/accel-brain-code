@@ -147,3 +147,10 @@ weight_arr_list = dbm.get_weight_arr_list()
 ## License
 
 - GNU General Public License v2.0
+
+## References
+
+- Ackley, D. H., Hinton, G. E., &amp; Sejnowski, T. J. (1985). A learning algorithm for Boltzmann machines. Cognitive science, 9(1), 147-169.
+- Hinton, G. E. (2002). Training products of experts by minimizing contrastive divergence. Neural computation, 14(8), 1771-1800.
+- Le Roux, N., &amp; Bengio, Y. (2008). Representational power of restricted Boltzmann machines and deep belief networks. Neural computation, 20(6), 1631-1649.
+- Salakhutdinov, R., &amp; Hinton, G. E. (2009). Deep boltzmann machines. InInternational conference on artificial intelligence and statistics (pp. 448-455).

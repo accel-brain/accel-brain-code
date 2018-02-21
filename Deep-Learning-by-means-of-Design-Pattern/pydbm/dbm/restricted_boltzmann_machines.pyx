@@ -72,18 +72,6 @@ class RestrictedBoltzmannMachine(object):
             traning_count=traning_count
         )
 
-    def associate_memory(self, np.ndarray observed_data_arr):
-        '''
-        Free association with so called `Hebb ruls`.
-
-        Args:
-            observed_data_arr:   The `np.ndarray` of observed data points.
-        '''
-        self.__graph = self.__approximate_interface.recall(
-            self.__graph,
-            observed_data_arr
-        )
-
     def get_reconstruct_error_list(self):
         '''
         Extract reconstruction error.

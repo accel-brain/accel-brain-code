@@ -13,12 +13,24 @@ class ContrastiveDivergence(ApproximateInterface):
     Conceptually, the positive phase is to the negative phase what waking is to sleeping.
     '''
 
+    # Compute reconstruction error or not.
+    __reconstruct_error_flag = False
+
     # Graph of neurons.
     __graph = None
     # Learning rate.
     __learning_rate = 0.5
     # Dropout rate.
     __dropout_rate = 0.5
+
+    def __init__(self, reconstruct_error_flag=False):
+        '''
+        Initialze.
+
+        Args:
+            reconstruct_error_flag:    Compute reconsturction error or not.
+        '''
+        self.__reconstruct_error_flag = reconstruct_error_flag
 
     def approximate_learn(
         self,
@@ -92,8 +104,9 @@ class ContrastiveDivergence(ApproximateInterface):
         self.__graph.visible_activity_arr = self.__graph.visible_activating_function.activate(self.__graph.visible_activity_arr)
 
         cdef double reconstruct_error
-        reconstruct_error = np.sum((self.__graph.visible_activity_arr - observed_data_arr) ** 2)
-        print("reconstruct_error:" + str(reconstruct_error))
+        if self.__reconstruct_error_flag is True:
+            reconstruct_error = np.sum((self.__graph.visible_activity_arr - observed_data_arr) ** 2)
+            print("reconstruct_error:" + str(reconstruct_error))
 
         if self.__dropout_rate > 0:
             self.__graph.visible_activity_arr = self.__dropout(self.__graph.visible_activity_arr)

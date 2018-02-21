@@ -70,7 +70,7 @@ class DeepBoltzmannMachine(object):
         cdef np.ndarray[DOUBLE_t, ndim=1] data_arr
         cdef np.ndarray[DOUBLE_t, ndim=1] feature_point_arr
         for i in range(row_i):
-            data_arr = observed_data_arr[i]
+            data_arr = observed_data_arr[i].copy()
             for j in range(len(self.__rbm_list)):
                 rbm = self.__rbm_list[j]
                 rbm.approximate_learning(data_arr, traning_count)
@@ -140,3 +140,12 @@ class DeepBoltzmannMachine(object):
         '''
         weight_arr_list = [self.__rbm_list[i].graph.weights_arr for i in range(len(self.__rbm_list))]
         return weight_arr_list
+
+    def get_reconstruct_error_arr(self, int layer_number=0):
+        '''
+        Extract reconsturction error rate.
+
+        Returns:
+            The np.ndarray.
+        '''
+        return np.array(self.__rbm_list[layer_number].get_reconstruct_error_list())

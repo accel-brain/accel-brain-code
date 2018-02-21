@@ -994,9 +994,9 @@ static const char __pyx_k_feature_neuron_part[] = "feature_neuron_part";
 static const char __pyx_k_visible_neuron_part[] = "visible_neuron_part";
 static const char __pyx_k_DBMBuilder_get_result[] = "DBMBuilder.get_result";
 static const char __pyx_k_DBMBuilder_graph_part[] = "DBMBuilder.graph_part";
-static const char __pyx_k_approximate_interface[] = "approximate_interface";
 static const char __pyx_k_DBMBuilder_learning_rate[] = "DBMBuilder.learning_rate";
 static const char __pyx_k_activating_function_list[] = "activating_function_list";
+static const char __pyx_k_approximate_interface_list[] = "approximate_interface_list";
 static const char __pyx_k_DBMBuilder_hidden_neuron_part[] = "DBMBuilder.hidden_neuron_part";
 static const char __pyx_k_DBMBuilder_feature_neuron_part[] = "DBMBuilder.feature_neuron_part";
 static const char __pyx_k_DBMBuilder_visible_neuron_part[] = "DBMBuilder.visible_neuron_part";
@@ -1018,7 +1018,7 @@ static PyObject *__pyx_n_s_abstractmethod;
 static PyObject *__pyx_n_s_abstractproperty;
 static PyObject *__pyx_n_s_activating_function;
 static PyObject *__pyx_n_s_activating_function_list;
-static PyObject *__pyx_n_s_approximate_interface;
+static PyObject *__pyx_n_s_approximate_interface_list;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_feature_neuron_part;
@@ -1043,7 +1043,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_lear
 static PyObject *__pyx_pf_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_2visible_neuron_part(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_activating_function, CYTHON_UNUSED PyObject *__pyx_v_neuron_count); /* proto */
 static PyObject *__pyx_pf_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_4feature_neuron_part(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_activating_function_list, CYTHON_UNUSED PyObject *__pyx_v_neuron_count_list); /* proto */
 static PyObject *__pyx_pf_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_6hidden_neuron_part(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_activating_function, CYTHON_UNUSED PyObject *__pyx_v_neuron_count); /* proto */
-static PyObject *__pyx_pf_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_8graph_part(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_approximate_interface); /* proto */
+static PyObject *__pyx_pf_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_8graph_part(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_approximate_interface_list); /* proto */
 static PyObject *__pyx_pf_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_10get_result(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__3;
@@ -1472,23 +1472,23 @@ static PyObject *__pyx_pf_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_6hid
 /* "pydbm/dbm/interface/dbm_builder.pyx":54
  * 
  *     @abstractmethod
- *     def graph_part(self, approximate_interface):             # <<<<<<<<<<<<<<
+ *     def graph_part(self, approximate_interface_list):             # <<<<<<<<<<<<<<
  *         '''
  *         Build complete bipartite graph.
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_9graph_part(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_8graph_part[] = "\n        Build complete bipartite graph.\n\n        Args:\n            approximate_interface:    The object of function approximation.\n        ";
+static char __pyx_doc_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_8graph_part[] = "\n        Build complete bipartite graph.\n\n        Args:\n            approximate_interface_list:    The list of function approximation.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_9graph_part = {"graph_part", (PyCFunction)__pyx_pw_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_9graph_part, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_8graph_part};
 static PyObject *__pyx_pw_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_9graph_part(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
-  CYTHON_UNUSED PyObject *__pyx_v_approximate_interface = 0;
+  CYTHON_UNUSED PyObject *__pyx_v_approximate_interface_list = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("graph_part (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_approximate_interface,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_approximate_interface_list,0};
     PyObject* values[2] = {0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -1508,7 +1508,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_9gra
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
-        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_approximate_interface)) != 0)) kw_args--;
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_approximate_interface_list)) != 0)) kw_args--;
         else {
           __Pyx_RaiseArgtupleInvalid("graph_part", 1, 2, 2, 1); __PYX_ERR(0, 54, __pyx_L3_error)
         }
@@ -1523,7 +1523,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_9gra
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_self = values[0];
-    __pyx_v_approximate_interface = values[1];
+    __pyx_v_approximate_interface_list = values[1];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
@@ -1533,21 +1533,21 @@ static PyObject *__pyx_pw_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_9gra
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_8graph_part(__pyx_self, __pyx_v_self, __pyx_v_approximate_interface);
+  __pyx_r = __pyx_pf_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_8graph_part(__pyx_self, __pyx_v_self, __pyx_v_approximate_interface_list);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_8graph_part(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_approximate_interface) {
+static PyObject *__pyx_pf_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_8graph_part(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_approximate_interface_list) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("graph_part", 0);
 
   /* "pydbm/dbm/interface/dbm_builder.pyx":61
- *             approximate_interface:    The object of function approximation.
+ *             approximate_interface_list:    The list of function approximation.
  *         '''
  *         raise NotImplementedError()             # <<<<<<<<<<<<<<
  * 
@@ -1562,7 +1562,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_9interface_11dbm_builder_10DBMBuilder_8gra
   /* "pydbm/dbm/interface/dbm_builder.pyx":54
  * 
  *     @abstractmethod
- *     def graph_part(self, approximate_interface):             # <<<<<<<<<<<<<<
+ *     def graph_part(self, approximate_interface_list):             # <<<<<<<<<<<<<<
  *         '''
  *         Build complete bipartite graph.
  */
@@ -1673,7 +1673,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_abstractproperty, __pyx_k_abstractproperty, sizeof(__pyx_k_abstractproperty), 0, 0, 1, 1},
   {&__pyx_n_s_activating_function, __pyx_k_activating_function, sizeof(__pyx_k_activating_function), 0, 0, 1, 1},
   {&__pyx_n_s_activating_function_list, __pyx_k_activating_function_list, sizeof(__pyx_k_activating_function_list), 0, 0, 1, 1},
-  {&__pyx_n_s_approximate_interface, __pyx_k_approximate_interface, sizeof(__pyx_k_approximate_interface), 0, 0, 1, 1},
+  {&__pyx_n_s_approximate_interface_list, __pyx_k_approximate_interface_list, sizeof(__pyx_k_approximate_interface_list), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_feature_neuron_part, __pyx_k_feature_neuron_part, sizeof(__pyx_k_feature_neuron_part), 0, 0, 1, 1},
@@ -1758,11 +1758,11 @@ static int __Pyx_InitCachedConstants(void) {
   /* "pydbm/dbm/interface/dbm_builder.pyx":54
  * 
  *     @abstractmethod
- *     def graph_part(self, approximate_interface):             # <<<<<<<<<<<<<<
+ *     def graph_part(self, approximate_interface_list):             # <<<<<<<<<<<<<<
  *         '''
  *         Build complete bipartite graph.
  */
-  __pyx_tuple__9 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_approximate_interface); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 54, __pyx_L1_error)
+  __pyx_tuple__9 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_approximate_interface_list); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
   __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_interface_dbm_builder_2, __pyx_n_s_graph_part, 54, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 54, __pyx_L1_error)
@@ -2213,7 +2213,7 @@ PyMODINIT_FUNC PyInit_dbm_builder(void)
  *         raise NotImplementedError
  * 
  *     @abstractmethod             # <<<<<<<<<<<<<<
- *     def graph_part(self, approximate_interface):
+ *     def graph_part(self, approximate_interface_list):
  *         '''
  */
   __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_abstractmethod); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 53, __pyx_L1_error)
@@ -2222,7 +2222,7 @@ PyMODINIT_FUNC PyInit_dbm_builder(void)
   /* "pydbm/dbm/interface/dbm_builder.pyx":54
  * 
  *     @abstractmethod
- *     def graph_part(self, approximate_interface):             # <<<<<<<<<<<<<<
+ *     def graph_part(self, approximate_interface_list):             # <<<<<<<<<<<<<<
  *         '''
  *         Build complete bipartite graph.
  */

@@ -53,8 +53,8 @@ if __name__ == "__main__":
         DBMMultiLayerBuilder(),
         [target_arr.shape[1], 10, target_arr.shape[1]],
         [LogisticFunction(), LogisticFunction(), LogisticFunction()],
-        ContrastiveDivergence(),
-        0.05,
+        [ContrastiveDivergence(), ContrastiveDivergence()],
+        0.00000000000001,
         0.5
     )
     dbm.learn(target_arr, traning_count=1)
@@ -67,3 +67,7 @@ if __name__ == "__main__":
 
     print("-" * 100)
     print(dbm.get_weight_arr_list())
+
+    print("-" * 100)
+    print("The reconstruction error:")
+    print(dbm.get_reconstruct_error_arr())

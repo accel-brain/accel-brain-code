@@ -13,8 +13,18 @@ class ContrastiveDivergence(ApproximateInterface):
     Conceptually, the positive phase is to the negative phase what waking is to sleeping.
     '''
 
-    # Compute reconstruction error or not.
-    __reconstruct_error_flag = False
+    # The list of the reconstruction error rate (MSE)
+    __reconstruct_error_list = []
+
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This is read-only.")
+
+    def get_reconstrct_error_list(self):
+        ''' getter '''
+        return self.__reconstruct_error_list
+
+    reconstruct_error_list = property(get_reconstrct_error_list, set_readonly)
 
     # Graph of neurons.
     __graph = None
@@ -22,15 +32,6 @@ class ContrastiveDivergence(ApproximateInterface):
     __learning_rate = 0.5
     # Dropout rate.
     __dropout_rate = 0.5
-
-    def __init__(self, reconstruct_error_flag=False):
-        '''
-        Initialze.
-
-        Args:
-            reconstruct_error_flag:    Compute reconsturction error or not.
-        '''
-        self.__reconstruct_error_flag = reconstruct_error_flag
 
     def approximate_learn(
         self,
@@ -80,6 +81,7 @@ class ContrastiveDivergence(ApproximateInterface):
         '''
         # Waking.
         self.__graph.visible_activity_arr = observed_data_arr.copy()
+
         cdef int row_w = self.__graph.weights_arr.shape[0]
         cdef int col_w = self.__graph.weights_arr.shape[1]
 
@@ -103,10 +105,8 @@ class ContrastiveDivergence(ApproximateInterface):
         self.__graph.visible_activity_arr = link_value_arr.sum(axis=0)
         self.__graph.visible_activity_arr = self.__graph.visible_activating_function.activate(self.__graph.visible_activity_arr)
 
-        cdef double reconstruct_error
-        if self.__reconstruct_error_flag is True:
-            reconstruct_error = np.sum((self.__graph.visible_activity_arr - observed_data_arr) ** 2)
-            print("reconstruct_error:" + str(reconstruct_error))
+        # Validation.
+        self.compute_reconstruct_error(observed_data_arr, self.__graph.visible_activity_arr)
 
         if self.__dropout_rate > 0:
             self.__graph.visible_activity_arr = self.__dropout(self.__graph.visible_activity_arr)
@@ -136,3 +136,14 @@ class ContrastiveDivergence(ApproximateInterface):
         cdef np.ndarray[DOUBLE_t, ndim=1] dropout_rate_arr = np.random.uniform(0, 1, size=(row, ))
         activity_arr = activity_arr * dropout_rate_arr.T
         return activity_arr
+
+    def compute_reconstruct_error(
+        self,
+        np.ndarray[DOUBLE_t, ndim=1] observed_data_arr, 
+        np.ndarray[DOUBLE_t, ndim=1] reconstructed_arr
+    ):
+        '''
+        Compute reconstruction error rate.
+        '''
+        cdef double reconstruct_error = np.sum((reconstructed_arr - observed_data_arr) ** 2) / observed_data_arr.shape[0]
+        self.__reconstruct_error_list.append(reconstruct_error)

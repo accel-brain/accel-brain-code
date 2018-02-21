@@ -83,3 +83,12 @@ class RestrictedBoltzmannMachine(object):
             self.__graph,
             observed_data_arr
         )
+
+    def get_reconstruct_error_list(self):
+        '''
+        Extract reconstruction error.
+
+        Returns:
+            The list.
+        '''
+        return self.__approximate_interface.reconstruct_error_list

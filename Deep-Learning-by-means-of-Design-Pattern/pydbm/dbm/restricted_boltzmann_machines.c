@@ -1503,7 +1503,9 @@ static const char __pyx_k_ApproximateInterface[] = "ApproximateInterface";
 static const char __pyx_k_approximate_learning[] = "approximate_learning";
 static const char __pyx_k_approximate_interface[] = "approximate_interface";
 static const char __pyx_k_CompleteBipartiteGraph[] = "CompleteBipartiteGraph";
+static const char __pyx_k_reconstruct_error_list[] = "reconstruct_error_list";
 static const char __pyx_k_RestrictedBoltzmannMachine[] = "RestrictedBoltzmannMachine";
+static const char __pyx_k_get_reconstruct_error_list[] = "get_reconstruct_error_list";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_Restricted_Boltzmann_Machine[] = "\n    Restricted Boltzmann Machine.\n    ";
 static const char __pyx_k_RestrictedBoltzmannMachine__app[] = "_RestrictedBoltzmannMachine__approximate_interface";
@@ -1518,6 +1520,7 @@ static const char __pyx_k_RestrictedBoltzmannMachine___ini[] = "RestrictedBoltzm
 static const char __pyx_k_RestrictedBoltzmannMachine_appro[] = "RestrictedBoltzmannMachine.approximate_learning";
 static const char __pyx_k_RestrictedBoltzmannMachine_assoc[] = "RestrictedBoltzmannMachine.associate_memory";
 static const char __pyx_k_RestrictedBoltzmannMachine_get_g[] = "RestrictedBoltzmannMachine.get_graph";
+static const char __pyx_k_RestrictedBoltzmannMachine_get_r[] = "RestrictedBoltzmannMachine.get_reconstruct_error_list";
 static const char __pyx_k_RestrictedBoltzmannMachine_set_r[] = "RestrictedBoltzmannMachine.set_read_only";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
@@ -1542,6 +1545,7 @@ static PyObject *__pyx_n_s_RestrictedBoltzmannMachine__lea;
 static PyObject *__pyx_n_s_RestrictedBoltzmannMachine_appro;
 static PyObject *__pyx_n_s_RestrictedBoltzmannMachine_assoc;
 static PyObject *__pyx_n_s_RestrictedBoltzmannMachine_get_g;
+static PyObject *__pyx_n_s_RestrictedBoltzmannMachine_get_r;
 static PyObject *__pyx_n_s_RestrictedBoltzmannMachine_set_r;
 static PyObject *__pyx_kp_s_Restricted_Boltzmann_Machine;
 static PyObject *__pyx_n_s_RuntimeError;
@@ -1555,6 +1559,7 @@ static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_dropout_rate;
 static PyObject *__pyx_n_s_get_graph;
+static PyObject *__pyx_n_s_get_reconstruct_error_list;
 static PyObject *__pyx_n_s_graph;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_init;
@@ -1579,6 +1584,7 @@ static PyObject *__pyx_n_s_pydbm_synapse_complete_bipartite;
 static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_recall;
+static PyObject *__pyx_n_s_reconstruct_error_list;
 static PyObject *__pyx_n_s_self;
 static PyObject *__pyx_n_s_set_read_only;
 static PyObject *__pyx_n_s_test;
@@ -1590,6 +1596,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_29restricted_boltzmann_machines_26Restrict
 static PyObject *__pyx_pf_5pydbm_3dbm_29restricted_boltzmann_machines_26RestrictedBoltzmannMachine_4__init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_graph, double __pyx_v_learning_rate, double __pyx_v_dropout_rate, PyObject *__pyx_v_approximate_interface); /* proto */
 static PyObject *__pyx_pf_5pydbm_3dbm_29restricted_boltzmann_machines_26RestrictedBoltzmannMachine_6approximate_learning(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr, int __pyx_v_traning_count); /* proto */
 static PyObject *__pyx_pf_5pydbm_3dbm_29restricted_boltzmann_machines_26RestrictedBoltzmannMachine_8associate_memory(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr); /* proto */
+static PyObject *__pyx_pf_5pydbm_3dbm_29restricted_boltzmann_machines_26RestrictedBoltzmannMachine_10get_reconstruct_error_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_float_0_5;
@@ -1610,11 +1617,13 @@ static PyObject *__pyx_tuple__15;
 static PyObject *__pyx_tuple__17;
 static PyObject *__pyx_tuple__19;
 static PyObject *__pyx_tuple__21;
+static PyObject *__pyx_tuple__23;
 static PyObject *__pyx_codeobj__14;
 static PyObject *__pyx_codeobj__16;
 static PyObject *__pyx_codeobj__18;
 static PyObject *__pyx_codeobj__20;
 static PyObject *__pyx_codeobj__22;
+static PyObject *__pyx_codeobj__24;
 
 /* "pydbm/dbm/restricted_boltzmann_machines.pyx":19
  *     __approximate_interface = None
@@ -2421,6 +2430,8 @@ static PyObject *__pyx_pf_5pydbm_3dbm_29restricted_boltzmann_machines_26Restrict
  *             self.__graph,
  *             observed_data_arr
  *         )             # <<<<<<<<<<<<<<
+ * 
+ *     def get_reconstruct_error_list(self):
  */
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -2498,6 +2509,71 @@ static PyObject *__pyx_pf_5pydbm_3dbm_29restricted_boltzmann_machines_26Restrict
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_AddTraceback("pydbm.dbm.restricted_boltzmann_machines.RestrictedBoltzmannMachine.associate_memory", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/dbm/restricted_boltzmann_machines.pyx":87
+ *         )
+ * 
+ *     def get_reconstruct_error_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract reconstruction error.
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3dbm_29restricted_boltzmann_machines_26RestrictedBoltzmannMachine_11get_reconstruct_error_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3dbm_29restricted_boltzmann_machines_26RestrictedBoltzmannMachine_10get_reconstruct_error_list[] = "\n        Extract reconstruction error.\n\n        Returns:\n            The list.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3dbm_29restricted_boltzmann_machines_26RestrictedBoltzmannMachine_11get_reconstruct_error_list = {"get_reconstruct_error_list", (PyCFunction)__pyx_pw_5pydbm_3dbm_29restricted_boltzmann_machines_26RestrictedBoltzmannMachine_11get_reconstruct_error_list, METH_O, __pyx_doc_5pydbm_3dbm_29restricted_boltzmann_machines_26RestrictedBoltzmannMachine_10get_reconstruct_error_list};
+static PyObject *__pyx_pw_5pydbm_3dbm_29restricted_boltzmann_machines_26RestrictedBoltzmannMachine_11get_reconstruct_error_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_reconstruct_error_list (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_3dbm_29restricted_boltzmann_machines_26RestrictedBoltzmannMachine_10get_reconstruct_error_list(__pyx_self, ((PyObject *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3dbm_29restricted_boltzmann_machines_26RestrictedBoltzmannMachine_10get_reconstruct_error_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("get_reconstruct_error_list", 0);
+
+  /* "pydbm/dbm/restricted_boltzmann_machines.pyx":94
+ *             The list.
+ *         '''
+ *         return self.__approximate_interface.reconstruct_error_list             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RestrictedBoltzmannMachine__app); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_reconstruct_error_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "pydbm/dbm/restricted_boltzmann_machines.pyx":87
+ *         )
+ * 
+ *     def get_reconstruct_error_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract reconstruction error.
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pydbm.dbm.restricted_boltzmann_machines.RestrictedBoltzmannMachine.get_reconstruct_error_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5058,6 +5134,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_RestrictedBoltzmannMachine_appro, __pyx_k_RestrictedBoltzmannMachine_appro, sizeof(__pyx_k_RestrictedBoltzmannMachine_appro), 0, 0, 1, 1},
   {&__pyx_n_s_RestrictedBoltzmannMachine_assoc, __pyx_k_RestrictedBoltzmannMachine_assoc, sizeof(__pyx_k_RestrictedBoltzmannMachine_assoc), 0, 0, 1, 1},
   {&__pyx_n_s_RestrictedBoltzmannMachine_get_g, __pyx_k_RestrictedBoltzmannMachine_get_g, sizeof(__pyx_k_RestrictedBoltzmannMachine_get_g), 0, 0, 1, 1},
+  {&__pyx_n_s_RestrictedBoltzmannMachine_get_r, __pyx_k_RestrictedBoltzmannMachine_get_r, sizeof(__pyx_k_RestrictedBoltzmannMachine_get_r), 0, 0, 1, 1},
   {&__pyx_n_s_RestrictedBoltzmannMachine_set_r, __pyx_k_RestrictedBoltzmannMachine_set_r, sizeof(__pyx_k_RestrictedBoltzmannMachine_set_r), 0, 0, 1, 1},
   {&__pyx_kp_s_Restricted_Boltzmann_Machine, __pyx_k_Restricted_Boltzmann_Machine, sizeof(__pyx_k_Restricted_Boltzmann_Machine), 0, 0, 1, 0},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
@@ -5071,6 +5148,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_dropout_rate, __pyx_k_dropout_rate, sizeof(__pyx_k_dropout_rate), 0, 0, 1, 1},
   {&__pyx_n_s_get_graph, __pyx_k_get_graph, sizeof(__pyx_k_get_graph), 0, 0, 1, 1},
+  {&__pyx_n_s_get_reconstruct_error_list, __pyx_k_get_reconstruct_error_list, sizeof(__pyx_k_get_reconstruct_error_list), 0, 0, 1, 1},
   {&__pyx_n_s_graph, __pyx_k_graph, sizeof(__pyx_k_graph), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_init, __pyx_k_init, sizeof(__pyx_k_init), 0, 0, 1, 1},
@@ -5095,6 +5173,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_recall, __pyx_k_recall, sizeof(__pyx_k_recall), 0, 0, 1, 1},
+  {&__pyx_n_s_reconstruct_error_list, __pyx_k_reconstruct_error_list, sizeof(__pyx_k_reconstruct_error_list), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
   {&__pyx_n_s_set_read_only, __pyx_k_set_read_only, sizeof(__pyx_k_set_read_only), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
@@ -5309,6 +5388,18 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__21);
   __Pyx_GIVEREF(__pyx_tuple__21);
   __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_restricted_boltzmann_m_2, __pyx_n_s_associate_memory, 75, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 75, __pyx_L1_error)
+
+  /* "pydbm/dbm/restricted_boltzmann_machines.pyx":87
+ *         )
+ * 
+ *     def get_reconstruct_error_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract reconstruction error.
+ */
+  __pyx_tuple__23 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__23);
+  __Pyx_GIVEREF(__pyx_tuple__23);
+  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_restricted_boltzmann_m_2, __pyx_n_s_get_reconstruct_error_list, 87, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5657,6 +5748,18 @@ PyMODINIT_FUNC PyInit_restricted_boltzmann_machines(void)
   __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_29restricted_boltzmann_machines_26RestrictedBoltzmannMachine_9associate_memory, 0, __pyx_n_s_RestrictedBoltzmannMachine_assoc, NULL, __pyx_n_s_pydbm_dbm_restricted_boltzmann_m, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_associate_memory, __pyx_t_6) < 0) __PYX_ERR(0, 75, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+
+  /* "pydbm/dbm/restricted_boltzmann_machines.pyx":87
+ *         )
+ * 
+ *     def get_reconstruct_error_list(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract reconstruction error.
+ */
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_29restricted_boltzmann_machines_26RestrictedBoltzmannMachine_11get_reconstruct_error_list, 0, __pyx_n_s_RestrictedBoltzmannMachine_get_r, NULL, __pyx_n_s_pydbm_dbm_restricted_boltzmann_m, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_reconstruct_error_list, __pyx_t_6) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
   /* "pydbm/dbm/restricted_boltzmann_machines.pyx":8

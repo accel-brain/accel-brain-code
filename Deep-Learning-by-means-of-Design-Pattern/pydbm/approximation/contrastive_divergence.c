@@ -1105,6 +1105,40 @@ static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
     PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
     const char* function_name);
 
+/* PyObjectCall.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
+#else
+#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
+#endif
+
+/* PyThreadStateGet.proto */
+#if CYTHON_FAST_THREAD_STATE
+#define __Pyx_PyThreadState_declare  PyThreadState *__pyx_tstate;
+#define __Pyx_PyThreadState_assign  __pyx_tstate = PyThreadState_GET();
+#else
+#define __Pyx_PyThreadState_declare
+#define __Pyx_PyThreadState_assign
+#endif
+
+/* PyErrFetchRestore.proto */
+#if CYTHON_FAST_THREAD_STATE
+#define __Pyx_ErrRestoreWithState(type, value, tb)  __Pyx_ErrRestoreInState(PyThreadState_GET(), type, value, tb)
+#define __Pyx_ErrFetchWithState(type, value, tb)    __Pyx_ErrFetchInState(PyThreadState_GET(), type, value, tb)
+#define __Pyx_ErrRestore(type, value, tb)  __Pyx_ErrRestoreInState(__pyx_tstate, type, value, tb)
+#define __Pyx_ErrFetch(type, value, tb)    __Pyx_ErrFetchInState(__pyx_tstate, type, value, tb)
+static CYTHON_INLINE void __Pyx_ErrRestoreInState(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb);
+static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb);
+#else
+#define __Pyx_ErrRestoreWithState(type, value, tb)  PyErr_Restore(type, value, tb)
+#define __Pyx_ErrFetchWithState(type, value, tb)  PyErr_Fetch(type, value, tb)
+#define __Pyx_ErrRestore(type, value, tb)  PyErr_Restore(type, value, tb)
+#define __Pyx_ErrFetch(type, value, tb)  PyErr_Fetch(type, value, tb)
+#endif
+
+/* RaiseException.proto */
+static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
+
 /* ArgTypeTest.proto */
 static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, int none_allowed,
     const char *name, int exact);
@@ -1145,13 +1179,6 @@ static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, 
 #endif
 #endif
 
-/* PyObjectCall.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
-#else
-#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
-#endif
-
 /* PyObjectCallMethO.proto */
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
@@ -1168,6 +1195,13 @@ static const char* __Pyx_BufFmt_CheckString(__Pyx_BufFmt_Context* ctx, const cha
 static void __Pyx_BufFmt_Init(__Pyx_BufFmt_Context* ctx,
                               __Pyx_BufFmt_StackElem* stack,
                               __Pyx_TypeInfo* type);
+
+/* PyObjectCallNoArg.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
+#else
+#define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
+#endif
 
 /* GetItemInt.proto */
 #define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
@@ -1200,43 +1234,12 @@ static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
 /* BufferFallbackError.proto */
 static void __Pyx_RaiseBufferFallbackError(void);
 
-/* PyObjectCallNoArg.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
-#else
-#define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
-#endif
-
-/* PyThreadStateGet.proto */
-#if CYTHON_FAST_THREAD_STATE
-#define __Pyx_PyThreadState_declare  PyThreadState *__pyx_tstate;
-#define __Pyx_PyThreadState_assign  __pyx_tstate = PyThreadState_GET();
-#else
-#define __Pyx_PyThreadState_declare
-#define __Pyx_PyThreadState_assign
-#endif
-
-/* PyErrFetchRestore.proto */
-#if CYTHON_FAST_THREAD_STATE
-#define __Pyx_ErrRestoreWithState(type, value, tb)  __Pyx_ErrRestoreInState(PyThreadState_GET(), type, value, tb)
-#define __Pyx_ErrFetchWithState(type, value, tb)    __Pyx_ErrFetchInState(PyThreadState_GET(), type, value, tb)
-#define __Pyx_ErrRestore(type, value, tb)  __Pyx_ErrRestoreInState(__pyx_tstate, type, value, tb)
-#define __Pyx_ErrFetch(type, value, tb)    __Pyx_ErrFetchInState(__pyx_tstate, type, value, tb)
-static CYTHON_INLINE void __Pyx_ErrRestoreInState(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb);
-static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb);
-#else
-#define __Pyx_ErrRestoreWithState(type, value, tb)  PyErr_Restore(type, value, tb)
-#define __Pyx_ErrFetchWithState(type, value, tb)  PyErr_Fetch(type, value, tb)
-#define __Pyx_ErrRestore(type, value, tb)  PyErr_Restore(type, value, tb)
-#define __Pyx_ErrFetch(type, value, tb)  PyErr_Fetch(type, value, tb)
-#endif
-
-/* ListCompAppend.proto */
+/* ListAppend.proto */
 #if CYTHON_USE_PYLIST_INTERNALS && CYTHON_ASSUME_SAFE_MACROS
-static CYTHON_INLINE int __Pyx_ListComp_Append(PyObject* list, PyObject* x) {
+static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
     PyListObject* L = (PyListObject*) list;
     Py_ssize_t len = Py_SIZE(list);
-    if (likely(L->allocated > len)) {
+    if (likely(L->allocated > len) & likely(len > (L->allocated >> 1))) {
         Py_INCREF(x);
         PyList_SET_ITEM(list, len, x);
         Py_SIZE(list) = len+1;
@@ -1245,11 +1248,14 @@ static CYTHON_INLINE int __Pyx_ListComp_Append(PyObject* list, PyObject* x) {
     return PyList_Append(list, x);
 }
 #else
-#define __Pyx_ListComp_Append(L,x) PyList_Append(L,x)
+#define __Pyx_PyList_Append(L,x) PyList_Append(L,x)
 #endif
 
-/* RaiseException.proto */
-static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
+/* PyObjectCallMethod1.proto */
+static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg);
+
+/* append.proto */
+static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x);
 
 /* DictGetItem.proto */
 #if PY_MAJOR_VERSION >= 3 && !CYTHON_COMPILING_IN_PYPY
@@ -1604,19 +1610,21 @@ static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contras
 int __pyx_module_is_main_pydbm__approximation__contrastive_divergence = 0;
 
 /* Implementation of 'pydbm.approximation.contrastive_divergence' */
+static PyObject *__pyx_builtin_property;
+static PyObject *__pyx_builtin_TypeError;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_ImportError;
 static const char __pyx_k_T[] = "T";
 static const char __pyx_k_i[] = "i";
-static const char __pyx_k_k[] = "k";
 static const char __pyx_k_np[] = "np";
-static const char __pyx_k__21[] = "_";
+static const char __pyx_k__26[] = "_";
 static const char __pyx_k_doc[] = "__doc__";
 static const char __pyx_k_row[] = "row";
 static const char __pyx_k_sum[] = "sum";
 static const char __pyx_k_axis[] = "axis";
+static const char __pyx_k_copy[] = "copy";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_self[] = "self";
 static const char __pyx_k_size[] = "size";
@@ -1628,16 +1636,19 @@ static const char __pyx_k_range[] = "range";
 static const char __pyx_k_row_i[] = "row_i";
 static const char __pyx_k_row_w[] = "row_w";
 static const char __pyx_k_shape[] = "shape";
+static const char __pyx_k_value[] = "value";
+static const char __pyx_k_append[] = "append";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_module[] = "__module__";
 static const char __pyx_k_random[] = "random";
-static const char __pyx_k_recall[] = "recall";
 static const char __pyx_k_dropout[] = "__dropout";
 static const char __pyx_k_prepare[] = "__prepare__";
 static const char __pyx_k_reshape[] = "reshape";
 static const char __pyx_k_uniform[] = "uniform";
 static const char __pyx_k_activate[] = "activate";
+static const char __pyx_k_property[] = "property";
 static const char __pyx_k_qualname[] = "__qualname__";
+static const char __pyx_k_TypeError[] = "TypeError";
 static const char __pyx_k_metaclass[] = "__metaclass__";
 static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_nan_to_num[] = "nan_to_num";
@@ -1646,6 +1657,7 @@ static const char __pyx_k_weights_arr[] = "weights_arr";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_activity_arr[] = "activity_arr";
 static const char __pyx_k_dropout_rate[] = "dropout_rate";
+static const char __pyx_k_set_readonly[] = "set_readonly";
 static const char __pyx_k_learn_weights[] = "learn_weights";
 static const char __pyx_k_learning_rate[] = "learning_rate";
 static const char __pyx_k_traning_count[] = "traning_count";
@@ -1656,31 +1668,28 @@ static const char __pyx_k_dropout_rate_arr[] = "dropout_rate_arr";
 static const char __pyx_k_hidden_diff_bias[] = "hidden_diff_bias";
 static const char __pyx_k_visible_bias_arr[] = "visible_bias_arr";
 static const char __pyx_k_wake_sleep_learn[] = "__wake_sleep_learn";
+static const char __pyx_k_This_is_read_only[] = "This is read-only.";
 static const char __pyx_k_approximate_learn[] = "approximate_learn";
 static const char __pyx_k_observed_data_arr[] = "observed_data_arr";
+static const char __pyx_k_reconstruct_error[] = "reconstruct_error";
+static const char __pyx_k_reconstructed_arr[] = "reconstructed_arr";
 static const char __pyx_k_visible_diff_bias[] = "visible_diff_bias";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_hidden_activity_arr[] = "hidden_activity_arr";
-static const char __pyx_k_hidden_activity_sum[] = "hidden_activity_sum";
 static const char __pyx_k_ApproximateInterface[] = "ApproximateInterface";
-static const char __pyx_k_hidden_diff_bias_sum[] = "hidden_diff_bias_sum";
 static const char __pyx_k_visible_activity_arr[] = "visible_activity_arr";
-static const char __pyx_k_visible_activity_sum[] = "visible_activity_sum";
 static const char __pyx_k_ContrastiveDivergence[] = "ContrastiveDivergence";
-static const char __pyx_k_visible_diff_bias_sum[] = "visible_diff_bias_sum";
+static const char __pyx_k_reconstruct_error_list[] = "reconstruct_error_list";
+static const char __pyx_k_compute_reconstruct_error[] = "compute_reconstruct_error";
+static const char __pyx_k_get_reconstrct_error_list[] = "get_reconstrct_error_list";
 static const char __pyx_k_hidden_activating_function[] = "hidden_activating_function";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_visible_activating_function[] = "visible_activating_function";
 static const char __pyx_k_ContrastiveDivergence__graph[] = "_ContrastiveDivergence__graph";
-static const char __pyx_k_ContrastiveDivergence_recall[] = "ContrastiveDivergence.recall";
 static const char __pyx_k_ContrastiveDivergence__dropout[] = "_ContrastiveDivergence__dropout_rate";
-static const char __pyx_k_ContrastiveDivergence__visible[] = "_ContrastiveDivergence__visible_bias";
 static const char __pyx_k_ContrastiveDivergence___dropout[] = "ContrastiveDivergence.__dropout";
-static const char __pyx_k_ContrastiveDivergence__hidden_a[] = "_ContrastiveDivergence__hidden_activity_arr";
-static const char __pyx_k_ContrastiveDivergence__hidden_b[] = "_ContrastiveDivergence__hidden_bias";
 static const char __pyx_k_ContrastiveDivergence__learning[] = "_ContrastiveDivergence__learning_rate";
-static const char __pyx_k_ContrastiveDivergence__particle[] = "_ContrastiveDivergence__particle_normalize_flag";
-static const char __pyx_k_ContrastiveDivergence__wake_and[] = "_ContrastiveDivergence__wake_and_sleep";
+static const char __pyx_k_ContrastiveDivergence__reconstr[] = "_ContrastiveDivergence__reconstruct_error_list";
 static const char __pyx_k_ContrastiveDivergence__wake_sle[] = "_ContrastiveDivergence__wake_sleep_learn";
 static const char __pyx_k_Contrastive_Divergence_Conceptu[] = "\n    Contrastive Divergence.\n    \n    Conceptually, the positive phase is to the negative phase what waking is to sleeping.\n    ";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
@@ -1689,6 +1698,9 @@ static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype cod
 static const char __pyx_k_ContrastiveDivergence___wake_sle[] = "ContrastiveDivergence.__wake_sleep_learn";
 static const char __pyx_k_ContrastiveDivergence__dropout_2[] = "_ContrastiveDivergence__dropout";
 static const char __pyx_k_ContrastiveDivergence_approximat[] = "ContrastiveDivergence.approximate_learn";
+static const char __pyx_k_ContrastiveDivergence_compute_re[] = "ContrastiveDivergence.compute_reconstruct_error";
+static const char __pyx_k_ContrastiveDivergence_get_recons[] = "ContrastiveDivergence.get_reconstrct_error_list";
+static const char __pyx_k_ContrastiveDivergence_set_readon[] = "ContrastiveDivergence.set_readonly";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
@@ -1703,15 +1715,13 @@ static PyObject *__pyx_n_s_ContrastiveDivergence___wake_sle;
 static PyObject *__pyx_n_s_ContrastiveDivergence__dropout;
 static PyObject *__pyx_n_s_ContrastiveDivergence__dropout_2;
 static PyObject *__pyx_n_s_ContrastiveDivergence__graph;
-static PyObject *__pyx_n_s_ContrastiveDivergence__hidden_a;
-static PyObject *__pyx_n_s_ContrastiveDivergence__hidden_b;
 static PyObject *__pyx_n_s_ContrastiveDivergence__learning;
-static PyObject *__pyx_n_s_ContrastiveDivergence__particle;
-static PyObject *__pyx_n_s_ContrastiveDivergence__visible;
-static PyObject *__pyx_n_s_ContrastiveDivergence__wake_and;
+static PyObject *__pyx_n_s_ContrastiveDivergence__reconstr;
 static PyObject *__pyx_n_s_ContrastiveDivergence__wake_sle;
 static PyObject *__pyx_n_s_ContrastiveDivergence_approximat;
-static PyObject *__pyx_n_s_ContrastiveDivergence_recall;
+static PyObject *__pyx_n_s_ContrastiveDivergence_compute_re;
+static PyObject *__pyx_n_s_ContrastiveDivergence_get_recons;
+static PyObject *__pyx_n_s_ContrastiveDivergence_set_readon;
 static PyObject *__pyx_kp_s_Contrastive_Divergence_Conceptu;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
@@ -1719,29 +1729,32 @@ static PyObject *__pyx_n_s_ImportError;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_RuntimeError;
 static PyObject *__pyx_n_s_T;
+static PyObject *__pyx_kp_s_This_is_read_only;
+static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_n_s_ValueError;
-static PyObject *__pyx_n_s__21;
+static PyObject *__pyx_n_s__26;
 static PyObject *__pyx_n_s_activate;
 static PyObject *__pyx_n_s_activity_arr;
+static PyObject *__pyx_n_s_append;
 static PyObject *__pyx_n_s_approximate_learn;
 static PyObject *__pyx_n_s_axis;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_col_w;
+static PyObject *__pyx_n_s_compute_reconstruct_error;
+static PyObject *__pyx_n_s_copy;
 static PyObject *__pyx_n_s_diff_weights_arr;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_dropout;
 static PyObject *__pyx_n_s_dropout_rate;
 static PyObject *__pyx_n_s_dropout_rate_arr;
+static PyObject *__pyx_n_s_get_reconstrct_error_list;
 static PyObject *__pyx_n_s_graph;
 static PyObject *__pyx_n_s_hidden_activating_function;
 static PyObject *__pyx_n_s_hidden_activity_arr;
-static PyObject *__pyx_n_s_hidden_activity_sum;
 static PyObject *__pyx_n_s_hidden_bias_arr;
 static PyObject *__pyx_n_s_hidden_diff_bias;
-static PyObject *__pyx_n_s_hidden_diff_bias_sum;
 static PyObject *__pyx_n_s_i;
 static PyObject *__pyx_n_s_import;
-static PyObject *__pyx_n_s_k;
 static PyObject *__pyx_n_s_learn_weights;
 static PyObject *__pyx_n_s_learning_rate;
 static PyObject *__pyx_n_s_link_value_arr;
@@ -1757,18 +1770,22 @@ static PyObject *__pyx_kp_s_numpy_core_multiarray_failed_to;
 static PyObject *__pyx_kp_s_numpy_core_umath_failed_to_impor;
 static PyObject *__pyx_n_s_observed_data_arr;
 static PyObject *__pyx_n_s_prepare;
+static PyObject *__pyx_n_s_property;
 static PyObject *__pyx_n_s_pydbm_approximation_contrastive;
 static PyObject *__pyx_kp_s_pydbm_approximation_contrastive_2;
 static PyObject *__pyx_n_s_pydbm_approximation_interface_ap;
 static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_random;
 static PyObject *__pyx_n_s_range;
-static PyObject *__pyx_n_s_recall;
+static PyObject *__pyx_n_s_reconstruct_error;
+static PyObject *__pyx_n_s_reconstruct_error_list;
+static PyObject *__pyx_n_s_reconstructed_arr;
 static PyObject *__pyx_n_s_reshape;
 static PyObject *__pyx_n_s_row;
 static PyObject *__pyx_n_s_row_i;
 static PyObject *__pyx_n_s_row_w;
 static PyObject *__pyx_n_s_self;
+static PyObject *__pyx_n_s_set_readonly;
 static PyObject *__pyx_n_s_shape;
 static PyObject *__pyx_n_s_size;
 static PyObject *__pyx_n_s_sum;
@@ -1776,23 +1793,25 @@ static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_traning_count;
 static PyObject *__pyx_n_s_uniform;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
+static PyObject *__pyx_n_s_value;
 static PyObject *__pyx_n_s_visible_activating_function;
 static PyObject *__pyx_n_s_visible_activity_arr;
-static PyObject *__pyx_n_s_visible_activity_sum;
 static PyObject *__pyx_n_s_visible_bias_arr;
 static PyObject *__pyx_n_s_visible_diff_bias;
-static PyObject *__pyx_n_s_visible_diff_bias_sum;
 static PyObject *__pyx_n_s_wake_sleep_learn;
 static PyObject *__pyx_n_s_weights_arr;
-static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_approximate_learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_graph, double __pyx_v_learning_rate, double __pyx_v_dropout_rate, PyArrayObject *__pyx_v_observed_data_arr, int __pyx_v_traning_count); /* proto */
-static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_2__wake_sleep_learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr); /* proto */
-static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_4__dropout(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyArrayObject *__pyx_v_activity_arr); /* proto */
-static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_6recall(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_graph, PyArrayObject *__pyx_v_observed_data_arr); /* proto */
+static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_set_readonly(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_2get_reconstrct_error_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_4approximate_learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_graph, double __pyx_v_learning_rate, double __pyx_v_dropout_rate, PyArrayObject *__pyx_v_observed_data_arr, int __pyx_v_traning_count); /* proto */
+static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_6__wake_sleep_learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr); /* proto */
+static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_8__dropout(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyArrayObject *__pyx_v_activity_arr); /* proto */
+static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_10compute_reconstruct_error(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr, PyArrayObject *__pyx_v_reconstructed_arr); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_float_0_5;
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
+static PyObject *__pyx_int_2;
 static PyObject *__pyx_int_neg_1;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
@@ -1814,17 +1833,192 @@ static PyObject *__pyx_tuple__17;
 static PyObject *__pyx_tuple__18;
 static PyObject *__pyx_tuple__19;
 static PyObject *__pyx_tuple__20;
+static PyObject *__pyx_tuple__21;
 static PyObject *__pyx_tuple__22;
 static PyObject *__pyx_tuple__24;
-static PyObject *__pyx_tuple__26;
-static PyObject *__pyx_tuple__28;
+static PyObject *__pyx_tuple__27;
+static PyObject *__pyx_tuple__29;
+static PyObject *__pyx_tuple__31;
+static PyObject *__pyx_tuple__33;
 static PyObject *__pyx_codeobj__23;
 static PyObject *__pyx_codeobj__25;
-static PyObject *__pyx_codeobj__27;
-static PyObject *__pyx_codeobj__29;
+static PyObject *__pyx_codeobj__28;
+static PyObject *__pyx_codeobj__30;
+static PyObject *__pyx_codeobj__32;
+static PyObject *__pyx_codeobj__34;
 
-/* "pydbm/approximation/contrastive_divergence.pyx":29
- *     __hidden_activity_arr = None
+/* "pydbm/approximation/contrastive_divergence.pyx":19
+ *     __reconstruct_error_list = []
+ * 
+ *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         raise TypeError("This is read-only.")
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_1set_readonly(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_set_readonly[] = " setter ";
+static PyMethodDef __pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_1set_readonly = {"set_readonly", (PyCFunction)__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_1set_readonly, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_set_readonly};
+static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_1set_readonly(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  CYTHON_UNUSED PyObject *__pyx_v_self = 0;
+  CYTHON_UNUSED PyObject *__pyx_v_value = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_readonly (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_value,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("set_readonly", 1, 2, 2, 1); __PYX_ERR(0, 19, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_readonly") < 0)) __PYX_ERR(0, 19, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_self = values[0];
+    __pyx_v_value = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("set_readonly", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 19, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pydbm.approximation.contrastive_divergence.ContrastiveDivergence.set_readonly", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_set_readonly(__pyx_self, __pyx_v_self, __pyx_v_value);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_set_readonly(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_value) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("set_readonly", 0);
+
+  /* "pydbm/approximation/contrastive_divergence.pyx":21
+ *     def set_readonly(self, value):
+ *         ''' setter '''
+ *         raise TypeError("This is read-only.")             # <<<<<<<<<<<<<<
+ * 
+ *     def get_reconstrct_error_list(self):
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __PYX_ERR(0, 21, __pyx_L1_error)
+
+  /* "pydbm/approximation/contrastive_divergence.pyx":19
+ *     __reconstruct_error_list = []
+ * 
+ *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         raise TypeError("This is read-only.")
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pydbm.approximation.contrastive_divergence.ContrastiveDivergence.set_readonly", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/approximation/contrastive_divergence.pyx":23
+ *         raise TypeError("This is read-only.")
+ * 
+ *     def get_reconstrct_error_list(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__reconstruct_error_list
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_3get_reconstrct_error_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_2get_reconstrct_error_list[] = " getter ";
+static PyMethodDef __pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_3get_reconstrct_error_list = {"get_reconstrct_error_list", (PyCFunction)__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_3get_reconstrct_error_list, METH_O, __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_2get_reconstrct_error_list};
+static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_3get_reconstrct_error_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_reconstrct_error_list (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_2get_reconstrct_error_list(__pyx_self, ((PyObject *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_2get_reconstrct_error_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("get_reconstrct_error_list", 0);
+
+  /* "pydbm/approximation/contrastive_divergence.pyx":25
+ *     def get_reconstrct_error_list(self):
+ *         ''' getter '''
+ *         return self.__reconstruct_error_list             # <<<<<<<<<<<<<<
+ * 
+ *     reconstruct_error_list = property(get_reconstrct_error_list, set_readonly)
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__reconstr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pydbm/approximation/contrastive_divergence.pyx":23
+ *         raise TypeError("This is read-only.")
+ * 
+ *     def get_reconstrct_error_list(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__reconstruct_error_list
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pydbm.approximation.contrastive_divergence.ContrastiveDivergence.get_reconstrct_error_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/approximation/contrastive_divergence.pyx":36
+ *     __dropout_rate = 0.5
  * 
  *     def approximate_learn(             # <<<<<<<<<<<<<<
  *         self,
@@ -1832,10 +2026,10 @@ static PyObject *__pyx_codeobj__29;
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_1approximate_learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_approximate_learn[] = "\n        learning with function approximation.\n\n        Args:\n            graph:                Graph of neurons.\n            learning_rate:        Learning rate.\n            dropout_rate:         Dropout rate.\n            observed_data_arr:    observed data points.\n            traning_count:        Training counts.\n\n        Returns:\n            Graph of neurons.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_1approximate_learn = {"approximate_learn", (PyCFunction)__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_1approximate_learn, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_approximate_learn};
-static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_1approximate_learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_5approximate_learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_4approximate_learn[] = "\n        learning with function approximation.\n\n        Args:\n            graph:                Graph of neurons.\n            learning_rate:        Learning rate.\n            dropout_rate:         Dropout rate.\n            observed_data_arr:    observed data points.\n            traning_count:        Training counts.\n\n        Returns:\n            Graph of neurons.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_5approximate_learn = {"approximate_learn", (PyCFunction)__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_5approximate_learn, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_4approximate_learn};
+static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_5approximate_learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_graph = 0;
   double __pyx_v_learning_rate;
@@ -1876,25 +2070,25 @@ static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21Cont
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_graph)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 6, 1); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 6, 1); __PYX_ERR(0, 36, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_learning_rate)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 6, 2); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 6, 2); __PYX_ERR(0, 36, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_dropout_rate)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 6, 3); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 6, 3); __PYX_ERR(0, 36, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_observed_data_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 6, 4); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 6, 4); __PYX_ERR(0, 36, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
@@ -1904,7 +2098,7 @@ static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21Cont
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "approximate_learn") < 0)) __PYX_ERR(0, 29, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "approximate_learn") < 0)) __PYX_ERR(0, 36, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -1921,25 +2115,25 @@ static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21Cont
     }
     __pyx_v_self = values[0];
     __pyx_v_graph = values[1];
-    __pyx_v_learning_rate = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_learning_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 32, __pyx_L3_error)
-    __pyx_v_dropout_rate = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_dropout_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 33, __pyx_L3_error)
+    __pyx_v_learning_rate = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_learning_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L3_error)
+    __pyx_v_dropout_rate = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_dropout_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 40, __pyx_L3_error)
     __pyx_v_observed_data_arr = ((PyArrayObject *)values[4]);
     if (values[5]) {
-      __pyx_v_traning_count = __Pyx_PyInt_As_int(values[5]); if (unlikely((__pyx_v_traning_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 35, __pyx_L3_error)
+      __pyx_v_traning_count = __Pyx_PyInt_As_int(values[5]); if (unlikely((__pyx_v_traning_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 42, __pyx_L3_error)
     } else {
       __pyx_v_traning_count = ((int)((int)0x3E8));
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 29, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 36, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.approximation.contrastive_divergence.ContrastiveDivergence.approximate_learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_data_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_data_arr", 0))) __PYX_ERR(0, 34, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_approximate_learn(__pyx_self, __pyx_v_self, __pyx_v_graph, __pyx_v_learning_rate, __pyx_v_dropout_rate, __pyx_v_observed_data_arr, __pyx_v_traning_count);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_data_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_data_arr", 0))) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_4approximate_learn(__pyx_self, __pyx_v_self, __pyx_v_graph, __pyx_v_learning_rate, __pyx_v_dropout_rate, __pyx_v_observed_data_arr, __pyx_v_traning_count);
 
   /* function exit code */
   goto __pyx_L0;
@@ -1950,7 +2144,7 @@ static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21Cont
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_approximate_learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_graph, double __pyx_v_learning_rate, double __pyx_v_dropout_rate, PyArrayObject *__pyx_v_observed_data_arr, int __pyx_v_traning_count) {
+static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_4approximate_learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_graph, double __pyx_v_learning_rate, double __pyx_v_dropout_rate, PyArrayObject *__pyx_v_observed_data_arr, int __pyx_v_traning_count) {
   CYTHON_UNUSED int __pyx_v__;
   CYTHON_UNUSED int __pyx_v_row_i;
   PyObject *__pyx_r = NULL;
@@ -1963,40 +2157,40 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("approximate_learn", 0);
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":50
+  /* "pydbm/approximation/contrastive_divergence.pyx":57
  *             Graph of neurons.
  *         '''
  *         self.__graph = graph             # <<<<<<<<<<<<<<
  *         self.__learning_rate = learning_rate
  *         self.__dropout_rate = dropout_rate
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph, __pyx_v_graph) < 0) __PYX_ERR(0, 50, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph, __pyx_v_graph) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":51
+  /* "pydbm/approximation/contrastive_divergence.pyx":58
  *         '''
  *         self.__graph = graph
  *         self.__learning_rate = learning_rate             # <<<<<<<<<<<<<<
  *         self.__dropout_rate = dropout_rate
  * 
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__learning, __pyx_t_1) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__learning, __pyx_t_1) < 0) __PYX_ERR(0, 58, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":52
+  /* "pydbm/approximation/contrastive_divergence.pyx":59
  *         self.__graph = graph
  *         self.__learning_rate = learning_rate
  *         self.__dropout_rate = dropout_rate             # <<<<<<<<<<<<<<
  * 
  *         cdef int i
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_dropout_rate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_dropout_rate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__dropout, __pyx_t_1) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__dropout, __pyx_t_1) < 0) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":56
+  /* "pydbm/approximation/contrastive_divergence.pyx":63
  *         cdef int i
  *         cdef int _
  *         cdef int row_i = observed_data_arr.shape[0]             # <<<<<<<<<<<<<<
@@ -2005,7 +2199,7 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
  */
   __pyx_v_row_i = (__pyx_v_observed_data_arr->dimensions[0]);
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":58
+  /* "pydbm/approximation/contrastive_divergence.pyx":65
  *         cdef int row_i = observed_data_arr.shape[0]
  * 
  *         for _ in range(traning_count):             # <<<<<<<<<<<<<<
@@ -2016,14 +2210,14 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v__ = __pyx_t_3;
 
-    /* "pydbm/approximation/contrastive_divergence.pyx":59
+    /* "pydbm/approximation/contrastive_divergence.pyx":66
  * 
  *         for _ in range(traning_count):
  *             self.__wake_sleep_learn(observed_data_arr)             # <<<<<<<<<<<<<<
  * 
  *         return self.__graph
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__wake_sle); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 59, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__wake_sle); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 66, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -2036,13 +2230,13 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
       }
     }
     if (!__pyx_t_5) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, ((PyObject *)__pyx_v_observed_data_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, ((PyObject *)__pyx_v_observed_data_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[2] = {__pyx_t_5, ((PyObject *)__pyx_v_observed_data_arr)};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else
@@ -2050,19 +2244,19 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[2] = {__pyx_t_5, ((PyObject *)__pyx_v_observed_data_arr)};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else
       #endif
       {
-        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 59, __pyx_L1_error)
+        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 66, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __pyx_t_5 = NULL;
         __Pyx_INCREF(((PyObject *)__pyx_v_observed_data_arr));
         __Pyx_GIVEREF(((PyObject *)__pyx_v_observed_data_arr));
         PyTuple_SET_ITEM(__pyx_t_6, 0+1, ((PyObject *)__pyx_v_observed_data_arr));
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       }
@@ -2071,7 +2265,7 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":61
+  /* "pydbm/approximation/contrastive_divergence.pyx":68
  *             self.__wake_sleep_learn(observed_data_arr)
  * 
  *         return self.__graph             # <<<<<<<<<<<<<<
@@ -2079,14 +2273,14 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
  *     def __wake_sleep_learn(self, np.ndarray[DOUBLE_t, ndim=1] observed_data_arr):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":29
- *     __hidden_activity_arr = None
+  /* "pydbm/approximation/contrastive_divergence.pyx":36
+ *     __dropout_rate = 0.5
  * 
  *     def approximate_learn(             # <<<<<<<<<<<<<<
  *         self,
@@ -2107,7 +2301,7 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
   return __pyx_r;
 }
 
-/* "pydbm/approximation/contrastive_divergence.pyx":63
+/* "pydbm/approximation/contrastive_divergence.pyx":70
  *         return self.__graph
  * 
  *     def __wake_sleep_learn(self, np.ndarray[DOUBLE_t, ndim=1] observed_data_arr):             # <<<<<<<<<<<<<<
@@ -2116,10 +2310,10 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_3__wake_sleep_learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_2__wake_sleep_learn[] = "\n        Waking, sleeping, and learning.\n\n        Standing on the premise that the settings of\n        the activation function and weights operation are common.\n\n        The binary activity is unsupported.\n\n        Args:\n            observed_data_list:      observed data points.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_3__wake_sleep_learn = {"__wake_sleep_learn", (PyCFunction)__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_3__wake_sleep_learn, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_2__wake_sleep_learn};
-static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_3__wake_sleep_learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_7__wake_sleep_learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_6__wake_sleep_learn[] = "\n        Waking, sleeping, and learning.\n\n        Standing on the premise that the settings of\n        the activation function and weights operation are common.\n\n        The binary activity is unsupported.\n\n        Args:\n            observed_data_list:      observed data points.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_7__wake_sleep_learn = {"__wake_sleep_learn", (PyCFunction)__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_7__wake_sleep_learn, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_6__wake_sleep_learn};
+static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_7__wake_sleep_learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyArrayObject *__pyx_v_observed_data_arr = 0;
   PyObject *__pyx_r = 0;
@@ -2148,11 +2342,11 @@ static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21Cont
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_observed_data_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__wake_sleep_learn", 1, 2, 2, 1); __PYX_ERR(0, 63, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__wake_sleep_learn", 1, 2, 2, 1); __PYX_ERR(0, 70, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__wake_sleep_learn") < 0)) __PYX_ERR(0, 63, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__wake_sleep_learn") < 0)) __PYX_ERR(0, 70, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2165,14 +2359,14 @@ static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21Cont
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__wake_sleep_learn", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 63, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__wake_sleep_learn", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 70, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.approximation.contrastive_divergence.ContrastiveDivergence.__wake_sleep_learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_data_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_data_arr", 0))) __PYX_ERR(0, 63, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_2__wake_sleep_learn(__pyx_self, __pyx_v_self, __pyx_v_observed_data_arr);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_data_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_data_arr", 0))) __PYX_ERR(0, 70, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_6__wake_sleep_learn(__pyx_self, __pyx_v_self, __pyx_v_observed_data_arr);
 
   /* function exit code */
   goto __pyx_L0;
@@ -2183,16 +2377,12 @@ static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21Cont
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_2__wake_sleep_learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr) {
+static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_6__wake_sleep_learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr) {
   CYTHON_UNUSED int __pyx_v_row_w;
   CYTHON_UNUSED int __pyx_v_col_w;
   PyArrayObject *__pyx_v_link_value_arr = 0;
-  double __pyx_v_hidden_activity_sum;
   PyObject *__pyx_v_visible_diff_bias = NULL;
   PyObject *__pyx_v_hidden_diff_bias = NULL;
-  double __pyx_v_visible_activity_sum;
-  double __pyx_v_visible_diff_bias_sum;
-  double __pyx_v_hidden_diff_bias_sum;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_link_value_arr;
   __Pyx_Buffer __pyx_pybuffer_link_value_arr;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_observed_data_arr;
@@ -2201,17 +2391,15 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
-  int __pyx_t_3;
-  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  int __pyx_t_4;
   PyArrayObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
   PyObject *__pyx_t_8 = NULL;
   PyObject *__pyx_t_9 = NULL;
-  int __pyx_t_10;
+  PyObject *__pyx_t_10 = NULL;
   int __pyx_t_11;
-  double __pyx_t_12;
-  PyObject *__pyx_t_13 = NULL;
   __Pyx_RefNannySetupContext("__wake_sleep_learn", 0);
   __pyx_pybuffer_link_value_arr.pybuffer.buf = NULL;
   __pyx_pybuffer_link_value_arr.refcount = 0;
@@ -2223,184 +2411,205 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
   __pyx_pybuffernd_observed_data_arr.rcbuffer = &__pyx_pybuffer_observed_data_arr;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 63, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 70, __pyx_L1_error)
   }
   __pyx_pybuffernd_observed_data_arr.diminfo[0].strides = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_observed_data_arr.diminfo[0].shape = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.shape[0];
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":76
+  /* "pydbm/approximation/contrastive_divergence.pyx":83
  *         '''
  *         # Waking.
- *         self.__graph.visible_activity_arr = observed_data_arr             # <<<<<<<<<<<<<<
+ *         self.__graph.visible_activity_arr = observed_data_arr.copy()             # <<<<<<<<<<<<<<
+ * 
  *         cdef int row_w = self.__graph.weights_arr.shape[0]
- *         cdef int col_w = self.__graph.weights_arr.shape[1]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_observed_data_arr), __pyx_n_s_copy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  if (__pyx_t_3) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 83, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  } else {
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 83, __pyx_L1_error)
+  }
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_visible_activity_arr, ((PyObject *)__pyx_v_observed_data_arr)) < 0) __PYX_ERR(0, 76, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_visible_activity_arr, __pyx_t_1) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":77
- *         # Waking.
- *         self.__graph.visible_activity_arr = observed_data_arr
+  /* "pydbm/approximation/contrastive_divergence.pyx":85
+ *         self.__graph.visible_activity_arr = observed_data_arr.copy()
+ * 
  *         cdef int row_w = self.__graph.weights_arr.shape[0]             # <<<<<<<<<<<<<<
  *         cdef int col_w = self.__graph.weights_arr.shape[1]
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_shape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_v_row_w = __pyx_t_3;
+  __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 85, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_row_w = __pyx_t_4;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":78
- *         self.__graph.visible_activity_arr = observed_data_arr
+  /* "pydbm/approximation/contrastive_divergence.pyx":86
+ * 
  *         cdef int row_w = self.__graph.weights_arr.shape[0]
  *         cdef int col_w = self.__graph.weights_arr.shape[1]             # <<<<<<<<<<<<<<
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 78, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_shape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_col_w = __pyx_t_3;
+  __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 86, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_v_col_w = __pyx_t_4;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":80
+  /* "pydbm/approximation/contrastive_divergence.pyx":88
  *         cdef int col_w = self.__graph.weights_arr.shape[1]
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)             # <<<<<<<<<<<<<<
  *         link_value_arr = np.nan_to_num(link_value_arr)
  *         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_reshape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Multiply(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_visible_bias_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_reshape); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_reshape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_visible_bias_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_reshape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 80, __pyx_L1_error)
-  __pyx_t_5 = ((PyArrayObject *)__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_5 = ((PyArrayObject *)__pyx_t_3);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_link_value_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 80, __pyx_L1_error)
+      __PYX_ERR(0, 88, __pyx_L1_error)
     } else {__pyx_pybuffernd_link_value_arr.diminfo[0].strides = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_link_value_arr.diminfo[0].shape = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_link_value_arr.diminfo[1].strides = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_link_value_arr.diminfo[1].shape = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.shape[1];
     }
   }
   __pyx_t_5 = 0;
-  __pyx_v_link_value_arr = ((PyArrayObject *)__pyx_t_4);
-  __pyx_t_4 = 0;
+  __pyx_v_link_value_arr = ((PyArrayObject *)__pyx_t_3);
+  __pyx_t_3 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":81
+  /* "pydbm/approximation/contrastive_divergence.pyx":89
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
  *         link_value_arr = np.nan_to_num(link_value_arr)             # <<<<<<<<<<<<<<
  *         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
- * 
+ *         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_nan_to_num); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_2)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_2);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nan_to_num); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_1)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_1);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_1, function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
     }
   }
-  if (!__pyx_t_2) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_1, ((PyObject *)__pyx_v_link_value_arr)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 81, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
+  if (!__pyx_t_1) {
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_link_value_arr)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 89, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
   } else {
     #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_1)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_2, ((PyObject *)__pyx_v_link_value_arr)};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 81, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_GOTREF(__pyx_t_4);
+    if (PyFunction_Check(__pyx_t_2)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_1, ((PyObject *)__pyx_v_link_value_arr)};
+      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_GOTREF(__pyx_t_3);
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_2, ((PyObject *)__pyx_v_link_value_arr)};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 81, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_GOTREF(__pyx_t_4);
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_1, ((PyObject *)__pyx_v_link_value_arr)};
+      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_GOTREF(__pyx_t_3);
     } else
     #endif
     {
-      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 81, __pyx_L1_error)
+      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 89, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_2); __pyx_t_2 = NULL;
+      __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_1); __pyx_t_1 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_link_value_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_link_value_arr));
       PyTuple_SET_ITEM(__pyx_t_6, 0+1, ((PyObject *)__pyx_v_link_value_arr));
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 81, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
   }
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 81, __pyx_L1_error)
-  __pyx_t_5 = ((PyArrayObject *)__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_5 = ((PyArrayObject *)__pyx_t_3);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer);
-    __pyx_t_3 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
-    if (unlikely(__pyx_t_3 < 0)) {
+    __pyx_t_4 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
+    if (unlikely(__pyx_t_4 < 0)) {
       PyErr_Fetch(&__pyx_t_7, &__pyx_t_8, &__pyx_t_9);
       if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_link_value_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
         Py_XDECREF(__pyx_t_7); Py_XDECREF(__pyx_t_8); Py_XDECREF(__pyx_t_9);
@@ -2410,307 +2619,204 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
       }
     }
     __pyx_pybuffernd_link_value_arr.diminfo[0].strides = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_link_value_arr.diminfo[0].shape = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_link_value_arr.diminfo[1].strides = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_link_value_arr.diminfo[1].shape = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.shape[1];
-    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 81, __pyx_L1_error)
+    if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 89, __pyx_L1_error)
   }
   __pyx_t_5 = 0;
-  __Pyx_DECREF_SET(__pyx_v_link_value_arr, ((PyArrayObject *)__pyx_t_4));
-  __pyx_t_4 = 0;
+  __Pyx_DECREF_SET(__pyx_v_link_value_arr, ((PyArrayObject *)__pyx_t_3));
+  __pyx_t_3 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":82
+  /* "pydbm/approximation/contrastive_divergence.pyx":90
  *         cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
  *         link_value_arr = np.nan_to_num(link_value_arr)
  *         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)             # <<<<<<<<<<<<<<
- * 
- *         cdef double hidden_activity_sum
- */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_link_value_arr), __pyx_n_s_sum); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 82, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_hidden_activity_arr, __pyx_t_6) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "pydbm/approximation/contrastive_divergence.pyx":85
- * 
- *         cdef double hidden_activity_sum
- *         if self.__particle_normalize_flag is True:             # <<<<<<<<<<<<<<
- *             hidden_activity_sum = self.__graph.hidden_activity_arr.sum()
- *             if hidden_activity_sum != 0:
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__particle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_10 = (__pyx_t_1 == Py_True);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_11 = (__pyx_t_10 != 0);
-  if (__pyx_t_11) {
-
-    /* "pydbm/approximation/contrastive_divergence.pyx":86
- *         cdef double hidden_activity_sum
- *         if self.__particle_normalize_flag is True:
- *             hidden_activity_sum = self.__graph.hidden_activity_arr.sum()             # <<<<<<<<<<<<<<
- *             if hidden_activity_sum != 0:
- *                 self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_activity_sum
- */
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 86, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 86, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_sum); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 86, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
-      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_6);
-      if (likely(__pyx_t_4)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-        __Pyx_INCREF(__pyx_t_4);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_6, function);
-      }
-    }
-    if (__pyx_t_4) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    } else {
-      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
-    }
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_12 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_12 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 86, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_v_hidden_activity_sum = __pyx_t_12;
-
-    /* "pydbm/approximation/contrastive_divergence.pyx":87
- *         if self.__particle_normalize_flag is True:
- *             hidden_activity_sum = self.__graph.hidden_activity_arr.sum()
- *             if hidden_activity_sum != 0:             # <<<<<<<<<<<<<<
- *                 self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_activity_sum
- * 
- */
-    __pyx_t_11 = ((__pyx_v_hidden_activity_sum != 0.0) != 0);
-    if (__pyx_t_11) {
-
-      /* "pydbm/approximation/contrastive_divergence.pyx":88
- *             hidden_activity_sum = self.__graph.hidden_activity_arr.sum()
- *             if hidden_activity_sum != 0:
- *                 self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_activity_sum             # <<<<<<<<<<<<<<
- * 
  *         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
+ *             self.__graph.hidden_activity_arr
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 88, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyFloat_FromDouble(__pyx_v_hidden_activity_sum); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_4 = __Pyx_PyNumber_Divide(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 88, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_hidden_activity_arr, __pyx_t_4) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_link_value_arr), __pyx_n_s_sum); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 90, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 90, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 90, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 90, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 90, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_hidden_activity_arr, __pyx_t_6) < 0) __PYX_ERR(0, 90, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "pydbm/approximation/contrastive_divergence.pyx":87
- *         if self.__particle_normalize_flag is True:
- *             hidden_activity_sum = self.__graph.hidden_activity_arr.sum()
- *             if hidden_activity_sum != 0:             # <<<<<<<<<<<<<<
- *                 self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_activity_sum
- * 
- */
-    }
-
-    /* "pydbm/approximation/contrastive_divergence.pyx":85
- * 
- *         cdef double hidden_activity_sum
- *         if self.__particle_normalize_flag is True:             # <<<<<<<<<<<<<<
- *             hidden_activity_sum = self.__graph.hidden_activity_arr.sum()
- *             if hidden_activity_sum != 0:
- */
-  }
-
-  /* "pydbm/approximation/contrastive_divergence.pyx":90
- *                 self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_activity_sum
- * 
+  /* "pydbm/approximation/contrastive_divergence.pyx":91
+ *         link_value_arr = np.nan_to_num(link_value_arr)
+ *         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
  *         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(             # <<<<<<<<<<<<<<
  *             self.__graph.hidden_activity_arr
  *         )
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 90, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_hidden_activating_function); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 90, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_activate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 90, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_hidden_activating_function); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_activate); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":91
- * 
+  /* "pydbm/approximation/contrastive_divergence.pyx":92
+ *         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
  *         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
  *             self.__graph.hidden_activity_arr             # <<<<<<<<<<<<<<
  *         )
  *         if self.__dropout_rate > 0:
  */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 91, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_6)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_6);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_6);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+      __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
+      __Pyx_DECREF_SET(__pyx_t_6, function);
     }
   }
-  if (!__pyx_t_6) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
+  if (!__pyx_t_3) {
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_4)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_2};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (PyFunction_Check(__pyx_t_6)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_1};
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_2};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_1};
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else
     #endif
     {
-      __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 90, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_13);
-      __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_6); __pyx_t_6 = NULL;
-      __Pyx_GIVEREF(__pyx_t_2);
-      PyTuple_SET_ITEM(__pyx_t_13, 0+1, __pyx_t_2);
-      __pyx_t_2 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_13, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+      __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 91, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_3); __pyx_t_3 = NULL;
+      __Pyx_GIVEREF(__pyx_t_1);
+      PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_t_1);
+      __pyx_t_1 = 0;
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_10, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     }
   }
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":90
- *                 self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_activity_sum
- * 
+  /* "pydbm/approximation/contrastive_divergence.pyx":91
+ *         link_value_arr = np.nan_to_num(link_value_arr)
+ *         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
  *         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(             # <<<<<<<<<<<<<<
  *             self.__graph.hidden_activity_arr
  *         )
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 90, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_hidden_activity_arr, __pyx_t_1) < 0) __PYX_ERR(0, 90, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_6, __pyx_n_s_hidden_activity_arr, __pyx_t_2) < 0) __PYX_ERR(0, 91, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":93
+  /* "pydbm/approximation/contrastive_divergence.pyx":94
  *             self.__graph.hidden_activity_arr
  *         )
  *         if self.__dropout_rate > 0:             # <<<<<<<<<<<<<<
  *             self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
  * 
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__dropout); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 93, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_4, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 93, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 93, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__dropout); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_2 = PyObject_RichCompare(__pyx_t_6, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_11) {
 
-    /* "pydbm/approximation/contrastive_divergence.pyx":94
+    /* "pydbm/approximation/contrastive_divergence.pyx":95
  *         )
  *         if self.__dropout_rate > 0:
  *             self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)             # <<<<<<<<<<<<<<
  * 
  *         self.__graph.diff_weights_arr = self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__dropout_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 94, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 94, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_13);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __pyx_t_13 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
-      __pyx_t_13 = PyMethod_GET_SELF(__pyx_t_4);
-      if (likely(__pyx_t_13)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-        __Pyx_INCREF(__pyx_t_13);
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__dropout_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 95, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 95, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 95, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __pyx_t_10 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
+      __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_6);
+      if (likely(__pyx_t_10)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+        __Pyx_INCREF(__pyx_t_10);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_4, function);
+        __Pyx_DECREF_SET(__pyx_t_6, function);
       }
     }
-    if (!__pyx_t_13) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
+    if (!__pyx_t_10) {
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 95, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_GOTREF(__pyx_t_2);
     } else {
       #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_4)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_13, __pyx_t_2};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
-        __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      if (PyFunction_Check(__pyx_t_6)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_10, __pyx_t_1};
+        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 95, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_13, __pyx_t_2};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
-        __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_10, __pyx_t_1};
+        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 95, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       } else
       #endif
       {
-        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 94, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-        __Pyx_GIVEREF(__pyx_t_13); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_13); __pyx_t_13 = NULL;
-        __Pyx_GIVEREF(__pyx_t_2);
-        PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_2);
-        __pyx_t_2 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 95, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_10); __pyx_t_10 = NULL;
+        __Pyx_GIVEREF(__pyx_t_1);
+        PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_1);
+        __pyx_t_1 = 0;
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 95, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       }
     }
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 94, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_hidden_activity_arr, __pyx_t_1) < 0) __PYX_ERR(0, 94, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 95, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_6, __pyx_n_s_hidden_activity_arr, __pyx_t_2) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "pydbm/approximation/contrastive_divergence.pyx":93
+    /* "pydbm/approximation/contrastive_divergence.pyx":94
  *             self.__graph.hidden_activity_arr
  *         )
  *         if self.__dropout_rate > 0:             # <<<<<<<<<<<<<<
@@ -2719,148 +2825,148 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
  */
   }
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":96
+  /* "pydbm/approximation/contrastive_divergence.pyx":97
  *             self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
  * 
  *         self.__graph.diff_weights_arr = self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate             # <<<<<<<<<<<<<<
  * 
  *         visible_diff_bias = self.__learning_rate * self.__graph.visible_activity_arr
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 96, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 96, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_reshape); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 96, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 96, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 96, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_reshape); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 96, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_reshape); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_T); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 96, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyNumber_Multiply(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__learning); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 96, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = PyNumber_Multiply(__pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 96, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 96, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_diff_weights_arr, __pyx_t_1) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_reshape); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_T); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_2, __pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__learning); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_3, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_6, __pyx_n_s_diff_weights_arr, __pyx_t_2) < 0) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":98
+  /* "pydbm/approximation/contrastive_divergence.pyx":99
  *         self.__graph.diff_weights_arr = self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate
  * 
  *         visible_diff_bias = self.__learning_rate * self.__graph.visible_activity_arr             # <<<<<<<<<<<<<<
  *         hidden_diff_bias = self.__learning_rate * self.__graph.hidden_activity_arr
  * 
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__learning); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 98, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 98, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__learning); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Multiply(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_6, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_v_visible_diff_bias = __pyx_t_1;
-  __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_v_visible_diff_bias = __pyx_t_2;
+  __pyx_t_2 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":99
+  /* "pydbm/approximation/contrastive_divergence.pyx":100
  * 
  *         visible_diff_bias = self.__learning_rate * self.__graph.visible_activity_arr
  *         hidden_diff_bias = self.__learning_rate * self.__graph.hidden_activity_arr             # <<<<<<<<<<<<<<
  * 
  *         # Sleeping.
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__learning); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__learning); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 100, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 99, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_2, __pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyNumber_Multiply(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 99, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_v_hidden_diff_bias = __pyx_t_6;
-  __pyx_t_6 = 0;
+  __pyx_v_hidden_diff_bias = __pyx_t_3;
+  __pyx_t_3 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":102
+  /* "pydbm/approximation/contrastive_divergence.pyx":103
  * 
  *         # Sleeping.
  *         link_value_arr = (self.__graph.weights_arr.T) * self.__graph.hidden_activity_arr.reshape(-1, 1) + self.__graph.hidden_bias_arr.reshape(-1, 1)             # <<<<<<<<<<<<<<
  *         link_value_arr = np.nan_to_num(link_value_arr)
  *         self.__graph.visible_activity_arr = link_value_arr.sum(axis=0)
  */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 102, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_T); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_T); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 102, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_reshape); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 102, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 102, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_hidden_bias_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_reshape); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_reshape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Multiply(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Add(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_hidden_bias_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_reshape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = PyNumber_Add(__pyx_t_6, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 102, __pyx_L1_error)
-  __pyx_t_5 = ((PyArrayObject *)__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 103, __pyx_L1_error)
+  __pyx_t_5 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer);
-    __pyx_t_3 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
-    if (unlikely(__pyx_t_3 < 0)) {
+    __pyx_t_4 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
+    if (unlikely(__pyx_t_4 < 0)) {
       PyErr_Fetch(&__pyx_t_9, &__pyx_t_8, &__pyx_t_7);
       if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_link_value_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
         Py_XDECREF(__pyx_t_9); Py_XDECREF(__pyx_t_8); Py_XDECREF(__pyx_t_7);
@@ -2870,74 +2976,74 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
       }
     }
     __pyx_pybuffernd_link_value_arr.diminfo[0].strides = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_link_value_arr.diminfo[0].shape = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_link_value_arr.diminfo[1].strides = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_link_value_arr.diminfo[1].shape = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.shape[1];
-    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 102, __pyx_L1_error)
+    if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 103, __pyx_L1_error)
   }
   __pyx_t_5 = 0;
-  __Pyx_DECREF_SET(__pyx_v_link_value_arr, ((PyArrayObject *)__pyx_t_1));
-  __pyx_t_1 = 0;
+  __Pyx_DECREF_SET(__pyx_v_link_value_arr, ((PyArrayObject *)__pyx_t_2));
+  __pyx_t_2 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":103
+  /* "pydbm/approximation/contrastive_divergence.pyx":104
  *         # Sleeping.
  *         link_value_arr = (self.__graph.weights_arr.T) * self.__graph.hidden_activity_arr.reshape(-1, 1) + self.__graph.hidden_bias_arr.reshape(-1, 1)
  *         link_value_arr = np.nan_to_num(link_value_arr)             # <<<<<<<<<<<<<<
  *         self.__graph.visible_activity_arr = link_value_arr.sum(axis=0)
- * 
+ *         self.__graph.visible_activity_arr = self.__graph.visible_activating_function.activate(self.__graph.visible_activity_arr)
  */
-  __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_nan_to_num); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_nan_to_num); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 103, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_6)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_6);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+      __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
+      __Pyx_DECREF_SET(__pyx_t_6, function);
     }
   }
-  if (!__pyx_t_6) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, ((PyObject *)__pyx_v_link_value_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
+  if (!__pyx_t_3) {
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_6, ((PyObject *)__pyx_v_link_value_arr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_4)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_6, ((PyObject *)__pyx_v_link_value_arr)};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
+    if (PyFunction_Check(__pyx_t_6)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_3, ((PyObject *)__pyx_v_link_value_arr)};
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_GOTREF(__pyx_t_2);
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_6, ((PyObject *)__pyx_v_link_value_arr)};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_3, ((PyObject *)__pyx_v_link_value_arr)};
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_GOTREF(__pyx_t_2);
     } else
     #endif
     {
-      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 103, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_6); __pyx_t_6 = NULL;
+      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3); __pyx_t_3 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_link_value_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_link_value_arr));
-      PyTuple_SET_ITEM(__pyx_t_2, 0+1, ((PyObject *)__pyx_v_link_value_arr));
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      PyTuple_SET_ITEM(__pyx_t_1, 0+1, ((PyObject *)__pyx_v_link_value_arr));
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
   }
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 103, __pyx_L1_error)
-  __pyx_t_5 = ((PyArrayObject *)__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_5 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer);
-    __pyx_t_3 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
-    if (unlikely(__pyx_t_3 < 0)) {
+    __pyx_t_4 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
+    if (unlikely(__pyx_t_4 < 0)) {
       PyErr_Fetch(&__pyx_t_7, &__pyx_t_8, &__pyx_t_9);
       if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_link_value_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
         Py_XDECREF(__pyx_t_7); Py_XDECREF(__pyx_t_8); Py_XDECREF(__pyx_t_9);
@@ -2947,156 +3053,53 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
       }
     }
     __pyx_pybuffernd_link_value_arr.diminfo[0].strides = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_link_value_arr.diminfo[0].shape = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_link_value_arr.diminfo[1].strides = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_link_value_arr.diminfo[1].shape = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.shape[1];
-    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 103, __pyx_L1_error)
+    if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 104, __pyx_L1_error)
   }
   __pyx_t_5 = 0;
-  __Pyx_DECREF_SET(__pyx_v_link_value_arr, ((PyArrayObject *)__pyx_t_1));
-  __pyx_t_1 = 0;
+  __Pyx_DECREF_SET(__pyx_v_link_value_arr, ((PyArrayObject *)__pyx_t_2));
+  __pyx_t_2 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":104
+  /* "pydbm/approximation/contrastive_divergence.pyx":105
  *         link_value_arr = (self.__graph.weights_arr.T) * self.__graph.hidden_activity_arr.reshape(-1, 1) + self.__graph.hidden_bias_arr.reshape(-1, 1)
  *         link_value_arr = np.nan_to_num(link_value_arr)
  *         self.__graph.visible_activity_arr = link_value_arr.sum(axis=0)             # <<<<<<<<<<<<<<
- * 
- *         cdef double visible_activity_sum
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_link_value_arr), __pyx_n_s_sum); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 104, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 104, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_visible_activity_arr, __pyx_t_2) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-
-  /* "pydbm/approximation/contrastive_divergence.pyx":107
- * 
- *         cdef double visible_activity_sum
- *         if self.__particle_normalize_flag is True:             # <<<<<<<<<<<<<<
- *             visible_activity_sum = self.__graph.visible_activity_arr.sum()
- *             if visible_activity_sum != 0:
- */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__particle); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 107, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_11 = (__pyx_t_4 == Py_True);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_10 = (__pyx_t_11 != 0);
-  if (__pyx_t_10) {
-
-    /* "pydbm/approximation/contrastive_divergence.pyx":108
- *         cdef double visible_activity_sum
- *         if self.__particle_normalize_flag is True:
- *             visible_activity_sum = self.__graph.visible_activity_arr.sum()             # <<<<<<<<<<<<<<
- *             if visible_activity_sum != 0:
- *                 self.__graph.visible_activity_arr = self.__graph.visible_activity_arr / visible_activity_sum
- */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 108, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_sum); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 108, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_2);
-      if (likely(__pyx_t_1)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-        __Pyx_INCREF(__pyx_t_1);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_2, function);
-      }
-    }
-    if (__pyx_t_1) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 108, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    } else {
-      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 108, __pyx_L1_error)
-    }
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_12 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_12 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 108, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_v_visible_activity_sum = __pyx_t_12;
-
-    /* "pydbm/approximation/contrastive_divergence.pyx":109
- *         if self.__particle_normalize_flag is True:
- *             visible_activity_sum = self.__graph.visible_activity_arr.sum()
- *             if visible_activity_sum != 0:             # <<<<<<<<<<<<<<
- *                 self.__graph.visible_activity_arr = self.__graph.visible_activity_arr / visible_activity_sum
- * 
- */
-    __pyx_t_10 = ((__pyx_v_visible_activity_sum != 0.0) != 0);
-    if (__pyx_t_10) {
-
-      /* "pydbm/approximation/contrastive_divergence.pyx":110
- *             visible_activity_sum = self.__graph.visible_activity_arr.sum()
- *             if visible_activity_sum != 0:
- *                 self.__graph.visible_activity_arr = self.__graph.visible_activity_arr / visible_activity_sum             # <<<<<<<<<<<<<<
- * 
  *         self.__graph.visible_activity_arr = self.__graph.visible_activating_function.activate(self.__graph.visible_activity_arr)
- */
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 110, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 110, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = PyFloat_FromDouble(__pyx_v_visible_activity_sum); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 110, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 110, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_visible_activity_arr, __pyx_t_1) < 0) __PYX_ERR(0, 110, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-
-      /* "pydbm/approximation/contrastive_divergence.pyx":109
- *         if self.__particle_normalize_flag is True:
- *             visible_activity_sum = self.__graph.visible_activity_arr.sum()
- *             if visible_activity_sum != 0:             # <<<<<<<<<<<<<<
- *                 self.__graph.visible_activity_arr = self.__graph.visible_activity_arr / visible_activity_sum
  * 
  */
-    }
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_link_value_arr), __pyx_n_s_sum); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_6 = PyDict_New(); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_6, __pyx_n_s_visible_activity_arr, __pyx_t_1) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "pydbm/approximation/contrastive_divergence.pyx":107
- * 
- *         cdef double visible_activity_sum
- *         if self.__particle_normalize_flag is True:             # <<<<<<<<<<<<<<
- *             visible_activity_sum = self.__graph.visible_activity_arr.sum()
- *             if visible_activity_sum != 0:
- */
-  }
-
-  /* "pydbm/approximation/contrastive_divergence.pyx":112
- *                 self.__graph.visible_activity_arr = self.__graph.visible_activity_arr / visible_activity_sum
- * 
+  /* "pydbm/approximation/contrastive_divergence.pyx":106
+ *         link_value_arr = np.nan_to_num(link_value_arr)
+ *         self.__graph.visible_activity_arr = link_value_arr.sum(axis=0)
  *         self.__graph.visible_activity_arr = self.__graph.visible_activating_function.activate(self.__graph.visible_activity_arr)             # <<<<<<<<<<<<<<
  * 
- *         if self.__dropout_rate > 0:
+ *         # Validation.
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_visible_activating_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_visible_activating_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_activate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_activate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 112, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 106, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -3109,130 +3112,193 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 112, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 106, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_GOTREF(__pyx_t_6);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_1)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_6};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 112, __pyx_L1_error)
+      PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_3};
+      __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 106, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_6};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 112, __pyx_L1_error)
+      PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_3};
+      __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 106, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else
     #endif
     {
-      __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 112, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_13);
-      __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_2); __pyx_t_2 = NULL;
-      __Pyx_GIVEREF(__pyx_t_6);
-      PyTuple_SET_ITEM(__pyx_t_13, 0+1, __pyx_t_6);
-      __pyx_t_6 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_13, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 112, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+      __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 106, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_2); __pyx_t_2 = NULL;
+      __Pyx_GIVEREF(__pyx_t_3);
+      PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_t_3);
+      __pyx_t_3 = 0;
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_10, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 106, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_visible_activity_arr, __pyx_t_4) < 0) __PYX_ERR(0, 112, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_visible_activity_arr, __pyx_t_6) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":114
- *         self.__graph.visible_activity_arr = self.__graph.visible_activating_function.activate(self.__graph.visible_activity_arr)
+  /* "pydbm/approximation/contrastive_divergence.pyx":109
+ * 
+ *         # Validation.
+ *         self.compute_reconstruct_error(observed_data_arr, self.__graph.visible_activity_arr)             # <<<<<<<<<<<<<<
+ * 
+ *         if self.__dropout_rate > 0:
+ */
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_compute_reconstruct_error); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 109, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 109, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 109, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = NULL;
+  __pyx_t_4 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
+    __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_6);
+    if (likely(__pyx_t_10)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+      __Pyx_INCREF(__pyx_t_10);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_6, function);
+      __pyx_t_4 = 1;
+    }
+  }
+  #if CYTHON_FAST_PYCALL
+  if (PyFunction_Check(__pyx_t_6)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_10, ((PyObject *)__pyx_v_observed_data_arr), __pyx_t_3};
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_4, 2+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 109, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  } else
+  #endif
+  #if CYTHON_FAST_PYCCALL
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_10, ((PyObject *)__pyx_v_observed_data_arr), __pyx_t_3};
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_4, 2+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 109, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  } else
+  #endif
+  {
+    __pyx_t_2 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 109, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    if (__pyx_t_10) {
+      __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_10); __pyx_t_10 = NULL;
+    }
+    __Pyx_INCREF(((PyObject *)__pyx_v_observed_data_arr));
+    __Pyx_GIVEREF(((PyObject *)__pyx_v_observed_data_arr));
+    PyTuple_SET_ITEM(__pyx_t_2, 0+__pyx_t_4, ((PyObject *)__pyx_v_observed_data_arr));
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_4, __pyx_t_3);
+    __pyx_t_3 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 109, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pydbm/approximation/contrastive_divergence.pyx":111
+ *         self.compute_reconstruct_error(observed_data_arr, self.__graph.visible_activity_arr)
  * 
  *         if self.__dropout_rate > 0:             # <<<<<<<<<<<<<<
  *             self.__graph.visible_activity_arr = self.__dropout(self.__graph.visible_activity_arr)
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__dropout); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__dropout); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyObject_RichCompare(__pyx_t_1, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_6 = PyObject_RichCompare(__pyx_t_1, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 114, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__pyx_t_10) {
+  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (__pyx_t_11) {
 
-    /* "pydbm/approximation/contrastive_divergence.pyx":115
+    /* "pydbm/approximation/contrastive_divergence.pyx":112
  * 
  *         if self.__dropout_rate > 0:
  *             self.__graph.visible_activity_arr = self.__dropout(self.__graph.visible_activity_arr)             # <<<<<<<<<<<<<<
  * 
  *         link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__dropout_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__dropout_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 115, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_13);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 115, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __pyx_t_13 = NULL;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
-      __pyx_t_13 = PyMethod_GET_SELF(__pyx_t_1);
-      if (likely(__pyx_t_13)) {
+      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_1);
+      if (likely(__pyx_t_2)) {
         PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-        __Pyx_INCREF(__pyx_t_13);
+        __Pyx_INCREF(__pyx_t_2);
         __Pyx_INCREF(function);
         __Pyx_DECREF_SET(__pyx_t_1, function);
       }
     }
-    if (!__pyx_t_13) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 115, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_GOTREF(__pyx_t_4);
+    if (!__pyx_t_2) {
+      __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 112, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_GOTREF(__pyx_t_6);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_13, __pyx_t_6};
-        __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 115, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
-        __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_3};
+        __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 112, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_13, __pyx_t_6};
-        __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 115, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
-        __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_3};
+        __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 112, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       } else
       #endif
       {
-        __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 115, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_GIVEREF(__pyx_t_13); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_13); __pyx_t_13 = NULL;
-        __Pyx_GIVEREF(__pyx_t_6);
-        PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_6);
-        __pyx_t_6 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 115, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 112, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_10);
+        __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_2); __pyx_t_2 = NULL;
+        __Pyx_GIVEREF(__pyx_t_3);
+        PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_t_3);
+        __pyx_t_3 = 0;
+        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_10, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 112, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_visible_activity_arr, __pyx_t_4) < 0) __PYX_ERR(0, 115, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_visible_activity_arr, __pyx_t_6) < 0) __PYX_ERR(0, 112, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pydbm/approximation/contrastive_divergence.pyx":114
- *         self.__graph.visible_activity_arr = self.__graph.visible_activating_function.activate(self.__graph.visible_activity_arr)
+    /* "pydbm/approximation/contrastive_divergence.pyx":111
+ *         self.compute_reconstruct_error(observed_data_arr, self.__graph.visible_activity_arr)
  * 
  *         if self.__dropout_rate > 0:             # <<<<<<<<<<<<<<
  *             self.__graph.visible_activity_arr = self.__dropout(self.__graph.visible_activity_arr)
@@ -3240,55 +3306,55 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
  */
   }
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":117
+  /* "pydbm/approximation/contrastive_divergence.pyx":114
  *             self.__graph.visible_activity_arr = self.__dropout(self.__graph.visible_activity_arr)
  * 
  *         link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)             # <<<<<<<<<<<<<<
  *         link_value_arr = np.nan_to_num(link_value_arr)
  *         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 117, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 117, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_reshape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_reshape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 117, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Multiply(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Multiply(__pyx_t_6, __pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 117, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_visible_bias_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 117, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_reshape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 117, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 117, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyNumber_Add(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 117, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_visible_bias_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_reshape); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = PyNumber_Add(__pyx_t_1, __pyx_t_6); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 117, __pyx_L1_error)
-  __pyx_t_5 = ((PyArrayObject *)__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (!(likely(((__pyx_t_10) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_10, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_5 = ((PyArrayObject *)__pyx_t_10);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer);
-    __pyx_t_3 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
-    if (unlikely(__pyx_t_3 < 0)) {
+    __pyx_t_4 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
+    if (unlikely(__pyx_t_4 < 0)) {
       PyErr_Fetch(&__pyx_t_9, &__pyx_t_8, &__pyx_t_7);
       if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_link_value_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
         Py_XDECREF(__pyx_t_9); Py_XDECREF(__pyx_t_8); Py_XDECREF(__pyx_t_7);
@@ -3298,74 +3364,74 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
       }
     }
     __pyx_pybuffernd_link_value_arr.diminfo[0].strides = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_link_value_arr.diminfo[0].shape = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_link_value_arr.diminfo[1].strides = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_link_value_arr.diminfo[1].shape = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.shape[1];
-    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 117, __pyx_L1_error)
+    if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 114, __pyx_L1_error)
   }
   __pyx_t_5 = 0;
-  __Pyx_DECREF_SET(__pyx_v_link_value_arr, ((PyArrayObject *)__pyx_t_2));
-  __pyx_t_2 = 0;
+  __Pyx_DECREF_SET(__pyx_v_link_value_arr, ((PyArrayObject *)__pyx_t_10));
+  __pyx_t_10 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":118
+  /* "pydbm/approximation/contrastive_divergence.pyx":115
  * 
  *         link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
  *         link_value_arr = np.nan_to_num(link_value_arr)             # <<<<<<<<<<<<<<
  *         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
- * 
+ *         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(self.__graph.hidden_activity_arr)
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 118, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_nan_to_num); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_nan_to_num); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = NULL;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_4)) {
+    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_6)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_6);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_1, function);
     }
   }
-  if (!__pyx_t_4) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, ((PyObject *)__pyx_v_link_value_arr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 118, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
+  if (!__pyx_t_6) {
+    __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_1, ((PyObject *)__pyx_v_link_value_arr)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 115, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_1)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_4, ((PyObject *)__pyx_v_link_value_arr)};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 118, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_GOTREF(__pyx_t_2);
+      PyObject *__pyx_temp[2] = {__pyx_t_6, ((PyObject *)__pyx_v_link_value_arr)};
+      __pyx_t_10 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 115, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_10);
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_4, ((PyObject *)__pyx_v_link_value_arr)};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 118, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_GOTREF(__pyx_t_2);
+      PyObject *__pyx_temp[2] = {__pyx_t_6, ((PyObject *)__pyx_v_link_value_arr)};
+      __pyx_t_10 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 115, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_10);
     } else
     #endif
     {
-      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 118, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
+      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 115, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_6); __pyx_t_6 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_link_value_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_link_value_arr));
-      PyTuple_SET_ITEM(__pyx_t_6, 0+1, ((PyObject *)__pyx_v_link_value_arr));
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 118, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      PyTuple_SET_ITEM(__pyx_t_3, 0+1, ((PyObject *)__pyx_v_link_value_arr));
+      __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 115, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 118, __pyx_L1_error)
-  __pyx_t_5 = ((PyArrayObject *)__pyx_t_2);
+  if (!(likely(((__pyx_t_10) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_10, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_t_5 = ((PyArrayObject *)__pyx_t_10);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer);
-    __pyx_t_3 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
-    if (unlikely(__pyx_t_3 < 0)) {
+    __pyx_t_4 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
+    if (unlikely(__pyx_t_4 < 0)) {
       PyErr_Fetch(&__pyx_t_7, &__pyx_t_8, &__pyx_t_9);
       if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_link_value_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
         Py_XDECREF(__pyx_t_7); Py_XDECREF(__pyx_t_8); Py_XDECREF(__pyx_t_9);
@@ -3375,685 +3441,376 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
       }
     }
     __pyx_pybuffernd_link_value_arr.diminfo[0].strides = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_link_value_arr.diminfo[0].shape = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_link_value_arr.diminfo[1].strides = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_link_value_arr.diminfo[1].shape = __pyx_pybuffernd_link_value_arr.rcbuffer->pybuffer.shape[1];
-    if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 118, __pyx_L1_error)
+    if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 115, __pyx_L1_error)
   }
   __pyx_t_5 = 0;
-  __Pyx_DECREF_SET(__pyx_v_link_value_arr, ((PyArrayObject *)__pyx_t_2));
-  __pyx_t_2 = 0;
+  __Pyx_DECREF_SET(__pyx_v_link_value_arr, ((PyArrayObject *)__pyx_t_10));
+  __pyx_t_10 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":119
+  /* "pydbm/approximation/contrastive_divergence.pyx":116
  *         link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
  *         link_value_arr = np.nan_to_num(link_value_arr)
  *         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)             # <<<<<<<<<<<<<<
- * 
- *         if self.__particle_normalize_flag is True:
- */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_link_value_arr), __pyx_n_s_sum); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 119, __pyx_L1_error)
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 119, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_hidden_activity_arr, __pyx_t_6) < 0) __PYX_ERR(0, 119, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "pydbm/approximation/contrastive_divergence.pyx":121
- *         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
- * 
- *         if self.__particle_normalize_flag is True:             # <<<<<<<<<<<<<<
- *             hidden_activity_sum = self.__graph.hidden_activity_arr.sum()
- *             if hidden_activity_sum != 0:
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__particle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_10 = (__pyx_t_1 == Py_True);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_11 = (__pyx_t_10 != 0);
-  if (__pyx_t_11) {
-
-    /* "pydbm/approximation/contrastive_divergence.pyx":122
- * 
- *         if self.__particle_normalize_flag is True:
- *             hidden_activity_sum = self.__graph.hidden_activity_arr.sum()             # <<<<<<<<<<<<<<
- *             if hidden_activity_sum != 0:
- *                 self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_activity_sum
- */
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 122, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 122, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_sum); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 122, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
-      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_6);
-      if (likely(__pyx_t_2)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-        __Pyx_INCREF(__pyx_t_2);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_6, function);
-      }
-    }
-    if (__pyx_t_2) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    } else {
-      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
-    }
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_12 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_12 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 122, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_v_hidden_activity_sum = __pyx_t_12;
-
-    /* "pydbm/approximation/contrastive_divergence.pyx":123
- *         if self.__particle_normalize_flag is True:
- *             hidden_activity_sum = self.__graph.hidden_activity_arr.sum()
- *             if hidden_activity_sum != 0:             # <<<<<<<<<<<<<<
- *                 self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_activity_sum
- * 
- */
-    __pyx_t_11 = ((__pyx_v_hidden_activity_sum != 0.0) != 0);
-    if (__pyx_t_11) {
-
-      /* "pydbm/approximation/contrastive_divergence.pyx":124
- *             hidden_activity_sum = self.__graph.hidden_activity_arr.sum()
- *             if hidden_activity_sum != 0:
- *                 self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_activity_sum             # <<<<<<<<<<<<<<
- * 
  *         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(self.__graph.hidden_activity_arr)
- */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 124, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 124, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyFloat_FromDouble(__pyx_v_hidden_activity_sum); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 124, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyNumber_Divide(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 124, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 124, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_hidden_activity_arr, __pyx_t_2) < 0) __PYX_ERR(0, 124, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-      /* "pydbm/approximation/contrastive_divergence.pyx":123
- *         if self.__particle_normalize_flag is True:
- *             hidden_activity_sum = self.__graph.hidden_activity_arr.sum()
- *             if hidden_activity_sum != 0:             # <<<<<<<<<<<<<<
- *                 self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_activity_sum
- * 
- */
-    }
-
-    /* "pydbm/approximation/contrastive_divergence.pyx":121
- *         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
- * 
- *         if self.__particle_normalize_flag is True:             # <<<<<<<<<<<<<<
- *             hidden_activity_sum = self.__graph.hidden_activity_arr.sum()
- *             if hidden_activity_sum != 0:
- */
-  }
-
-  /* "pydbm/approximation/contrastive_divergence.pyx":126
- *                 self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_activity_sum
- * 
- *         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(self.__graph.hidden_activity_arr)             # <<<<<<<<<<<<<<
- * 
  *         if self.__dropout_rate > 0:
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 126, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_hidden_activating_function); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 126, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_link_value_arr), __pyx_n_s_sum); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_hidden_activity_arr, __pyx_t_3) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pydbm/approximation/contrastive_divergence.pyx":117
+ *         link_value_arr = np.nan_to_num(link_value_arr)
+ *         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
+ *         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(self.__graph.hidden_activity_arr)             # <<<<<<<<<<<<<<
+ *         if self.__dropout_rate > 0:
+ *             self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
+ */
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_hidden_activating_function); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_activate); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_activate); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 126, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 126, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_6)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_10)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_10);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
     }
   }
-  if (!__pyx_t_6) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (!__pyx_t_10) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_2)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_4};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (PyFunction_Check(__pyx_t_3)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_10, __pyx_t_6};
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_4};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_10, __pyx_t_6};
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else
     #endif
     {
-      __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 126, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_13);
-      __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_6); __pyx_t_6 = NULL;
-      __Pyx_GIVEREF(__pyx_t_4);
-      PyTuple_SET_ITEM(__pyx_t_13, 0+1, __pyx_t_4);
-      __pyx_t_4 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_13, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 117, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_10); __pyx_t_10 = NULL;
+      __Pyx_GIVEREF(__pyx_t_6);
+      PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_6);
+      __pyx_t_6 = 0;
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
   }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 126, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_hidden_activity_arr, __pyx_t_1) < 0) __PYX_ERR(0, 126, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_3, __pyx_n_s_hidden_activity_arr, __pyx_t_1) < 0) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":128
+  /* "pydbm/approximation/contrastive_divergence.pyx":118
+ *         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
  *         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(self.__graph.hidden_activity_arr)
- * 
  *         if self.__dropout_rate > 0:             # <<<<<<<<<<<<<<
  *             self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__dropout); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 128, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 128, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__dropout); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = PyObject_RichCompare(__pyx_t_3, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_11) {
 
-    /* "pydbm/approximation/contrastive_divergence.pyx":129
- * 
+    /* "pydbm/approximation/contrastive_divergence.pyx":119
+ *         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(self.__graph.hidden_activity_arr)
  *         if self.__dropout_rate > 0:
  *             self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)             # <<<<<<<<<<<<<<
  * 
  *         self.__graph.diff_weights_arr += self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate * (-1)
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__dropout_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 129, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__dropout_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 129, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_13);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-    __pyx_t_13 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-      __pyx_t_13 = PyMethod_GET_SELF(__pyx_t_2);
-      if (likely(__pyx_t_13)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-        __Pyx_INCREF(__pyx_t_13);
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
+      if (likely(__pyx_t_2)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+        __Pyx_INCREF(__pyx_t_2);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_2, function);
+        __Pyx_DECREF_SET(__pyx_t_3, function);
       }
     }
-    if (!__pyx_t_13) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    if (!__pyx_t_2) {
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else {
       #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_2)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_13, __pyx_t_4};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+      if (PyFunction_Check(__pyx_t_3)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_6};
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_13, __pyx_t_4};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_6};
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       } else
       #endif
       {
-        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 129, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-        __Pyx_GIVEREF(__pyx_t_13); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_13); __pyx_t_13 = NULL;
-        __Pyx_GIVEREF(__pyx_t_4);
-        PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_4);
-        __pyx_t_4 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
+        __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 119, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_10);
+        __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_2); __pyx_t_2 = NULL;
+        __Pyx_GIVEREF(__pyx_t_6);
+        PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_t_6);
+        __pyx_t_6 = 0;
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_10, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       }
     }
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 129, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_hidden_activity_arr, __pyx_t_1) < 0) __PYX_ERR(0, 129, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_3, __pyx_n_s_hidden_activity_arr, __pyx_t_1) < 0) __PYX_ERR(0, 119, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "pydbm/approximation/contrastive_divergence.pyx":128
+    /* "pydbm/approximation/contrastive_divergence.pyx":118
+ *         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
  *         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(self.__graph.hidden_activity_arr)
- * 
  *         if self.__dropout_rate > 0:             # <<<<<<<<<<<<<<
  *             self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
  * 
  */
   }
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":131
+  /* "pydbm/approximation/contrastive_divergence.pyx":121
  *             self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
  * 
  *         self.__graph.diff_weights_arr += self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate * (-1)             # <<<<<<<<<<<<<<
  * 
  *         visible_diff_bias += self.__learning_rate * self.__graph.visible_activity_arr * (-1)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_diff_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_diff_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 121, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_reshape); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_reshape); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 121, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_13);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_reshape); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-  __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_13);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_T); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-  __pyx_t_13 = PyNumber_Multiply(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_13);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__learning); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_13, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyNumber_Multiply(__pyx_t_4, __pyx_int_neg_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_diff_weights_arr, __pyx_t_4) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_reshape); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_T); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_6, __pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__learning); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_6 = PyNumber_Multiply(__pyx_t_2, __pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = PyNumber_Multiply(__pyx_t_6, __pyx_int_neg_1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_3, __pyx_n_s_diff_weights_arr, __pyx_t_6) < 0) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":133
+  /* "pydbm/approximation/contrastive_divergence.pyx":123
  *         self.__graph.diff_weights_arr += self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate * (-1)
  * 
  *         visible_diff_bias += self.__learning_rate * self.__graph.visible_activity_arr * (-1)             # <<<<<<<<<<<<<<
  *         hidden_diff_bias += self.__learning_rate * self.__graph.hidden_activity_arr * (-1)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__learning); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 133, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__learning); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 133, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyNumber_Multiply(__pyx_t_4, __pyx_int_neg_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Multiply(__pyx_t_3, __pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_v_visible_diff_bias, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 133, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = PyNumber_Multiply(__pyx_t_6, __pyx_int_neg_1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __Pyx_DECREF_SET(__pyx_v_visible_diff_bias, __pyx_t_4);
-  __pyx_t_4 = 0;
+  __pyx_t_6 = PyNumber_InPlaceAdd(__pyx_v_visible_diff_bias, __pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __Pyx_DECREF_SET(__pyx_v_visible_diff_bias, __pyx_t_6);
+  __pyx_t_6 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":134
+  /* "pydbm/approximation/contrastive_divergence.pyx":124
  * 
  *         visible_diff_bias += self.__learning_rate * self.__graph.visible_activity_arr * (-1)
  *         hidden_diff_bias += self.__learning_rate * self.__graph.hidden_activity_arr * (-1)             # <<<<<<<<<<<<<<
  * 
- *         cdef double visible_diff_bias_sum
- */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__learning); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 134, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 134, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyNumber_Multiply(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 134, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyNumber_Multiply(__pyx_t_6, __pyx_int_neg_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyNumber_InPlaceAdd(__pyx_v_hidden_diff_bias, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 134, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF_SET(__pyx_v_hidden_diff_bias, __pyx_t_6);
-  __pyx_t_6 = 0;
-
-  /* "pydbm/approximation/contrastive_divergence.pyx":137
- * 
- *         cdef double visible_diff_bias_sum
- *         if self.__particle_normalize_flag is True:             # <<<<<<<<<<<<<<
- *             visible_diff_bias_sum = self.__graph.visible_activity_arr.sum()
- *             if visible_diff_bias_sum != 0:
- */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__particle); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 137, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_11 = (__pyx_t_6 == Py_True);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_10 = (__pyx_t_11 != 0);
-  if (__pyx_t_10) {
-
-    /* "pydbm/approximation/contrastive_divergence.pyx":138
- *         cdef double visible_diff_bias_sum
- *         if self.__particle_normalize_flag is True:
- *             visible_diff_bias_sum = self.__graph.visible_activity_arr.sum()             # <<<<<<<<<<<<<<
- *             if visible_diff_bias_sum != 0:
- *                 self.__graph.visible_activity_arr = self.__graph.visible_activity_arr / visible_diff_bias_sum
- */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 138, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_sum); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
-      if (likely(__pyx_t_4)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-        __Pyx_INCREF(__pyx_t_4);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_2, function);
-      }
-    }
-    if (__pyx_t_4) {
-      __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 138, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    } else {
-      __pyx_t_6 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 138, __pyx_L1_error)
-    }
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_12 = __pyx_PyFloat_AsDouble(__pyx_t_6); if (unlikely((__pyx_t_12 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 138, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_v_visible_diff_bias_sum = __pyx_t_12;
-
-    /* "pydbm/approximation/contrastive_divergence.pyx":139
- *         if self.__particle_normalize_flag is True:
- *             visible_diff_bias_sum = self.__graph.visible_activity_arr.sum()
- *             if visible_diff_bias_sum != 0:             # <<<<<<<<<<<<<<
- *                 self.__graph.visible_activity_arr = self.__graph.visible_activity_arr / visible_diff_bias_sum
- * 
- */
-    __pyx_t_10 = ((__pyx_v_visible_diff_bias_sum != 0.0) != 0);
-    if (__pyx_t_10) {
-
-      /* "pydbm/approximation/contrastive_divergence.pyx":140
- *             visible_diff_bias_sum = self.__graph.visible_activity_arr.sum()
- *             if visible_diff_bias_sum != 0:
- *                 self.__graph.visible_activity_arr = self.__graph.visible_activity_arr / visible_diff_bias_sum             # <<<<<<<<<<<<<<
- * 
- *         cdef double hidden_diff_bias_sum
- */
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 140, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = PyFloat_FromDouble(__pyx_v_visible_diff_bias_sum); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 140, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_4 = __Pyx_PyNumber_Divide(__pyx_t_2, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 140, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 140, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      if (__Pyx_PyObject_SetAttrStr(__pyx_t_6, __pyx_n_s_visible_activity_arr, __pyx_t_4) < 0) __PYX_ERR(0, 140, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-
-      /* "pydbm/approximation/contrastive_divergence.pyx":139
- *         if self.__particle_normalize_flag is True:
- *             visible_diff_bias_sum = self.__graph.visible_activity_arr.sum()
- *             if visible_diff_bias_sum != 0:             # <<<<<<<<<<<<<<
- *                 self.__graph.visible_activity_arr = self.__graph.visible_activity_arr / visible_diff_bias_sum
- * 
- */
-    }
-
-    /* "pydbm/approximation/contrastive_divergence.pyx":137
- * 
- *         cdef double visible_diff_bias_sum
- *         if self.__particle_normalize_flag is True:             # <<<<<<<<<<<<<<
- *             visible_diff_bias_sum = self.__graph.visible_activity_arr.sum()
- *             if visible_diff_bias_sum != 0:
- */
-  }
-
-  /* "pydbm/approximation/contrastive_divergence.pyx":143
- * 
- *         cdef double hidden_diff_bias_sum
- *         if self.__particle_normalize_flag is True:             # <<<<<<<<<<<<<<
- *             hidden_diff_bias_sum = self.__graph.hidden_activity_arr.sum()
- *             if hidden_diff_bias_sum != 0:
- */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__particle); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 143, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_10 = (__pyx_t_6 == Py_True);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_11 = (__pyx_t_10 != 0);
-  if (__pyx_t_11) {
-
-    /* "pydbm/approximation/contrastive_divergence.pyx":144
- *         cdef double hidden_diff_bias_sum
- *         if self.__particle_normalize_flag is True:
- *             hidden_diff_bias_sum = self.__graph.hidden_activity_arr.sum()             # <<<<<<<<<<<<<<
- *             if hidden_diff_bias_sum != 0:
- *                 self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_diff_bias_sum
- */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 144, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 144, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_sum); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 144, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
-      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_4);
-      if (likely(__pyx_t_2)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-        __Pyx_INCREF(__pyx_t_2);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_4, function);
-      }
-    }
-    if (__pyx_t_2) {
-      __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 144, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    } else {
-      __pyx_t_6 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 144, __pyx_L1_error)
-    }
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_12 = __pyx_PyFloat_AsDouble(__pyx_t_6); if (unlikely((__pyx_t_12 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 144, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_v_hidden_diff_bias_sum = __pyx_t_12;
-
-    /* "pydbm/approximation/contrastive_divergence.pyx":145
- *         if self.__particle_normalize_flag is True:
- *             hidden_diff_bias_sum = self.__graph.hidden_activity_arr.sum()
- *             if hidden_diff_bias_sum != 0:             # <<<<<<<<<<<<<<
- *                 self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_diff_bias_sum
- * 
- */
-    __pyx_t_11 = ((__pyx_v_hidden_diff_bias_sum != 0.0) != 0);
-    if (__pyx_t_11) {
-
-      /* "pydbm/approximation/contrastive_divergence.pyx":146
- *             hidden_diff_bias_sum = self.__graph.hidden_activity_arr.sum()
- *             if hidden_diff_bias_sum != 0:
- *                 self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_diff_bias_sum             # <<<<<<<<<<<<<<
- * 
  *         # Learning.
  */
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 146, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 146, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = PyFloat_FromDouble(__pyx_v_hidden_diff_bias_sum); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 146, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_2 = __Pyx_PyNumber_Divide(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 146, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      if (__Pyx_PyObject_SetAttrStr(__pyx_t_6, __pyx_n_s_hidden_activity_arr, __pyx_t_2) < 0) __PYX_ERR(0, 146, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__learning); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = PyNumber_Multiply(__pyx_t_6, __pyx_t_3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_10, __pyx_int_neg_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = PyNumber_InPlaceAdd(__pyx_v_hidden_diff_bias, __pyx_t_3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF_SET(__pyx_v_hidden_diff_bias, __pyx_t_10);
+  __pyx_t_10 = 0;
 
-      /* "pydbm/approximation/contrastive_divergence.pyx":145
- *         if self.__particle_normalize_flag is True:
- *             hidden_diff_bias_sum = self.__graph.hidden_activity_arr.sum()
- *             if hidden_diff_bias_sum != 0:             # <<<<<<<<<<<<<<
- *                 self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_diff_bias_sum
- * 
- */
-    }
-
-    /* "pydbm/approximation/contrastive_divergence.pyx":143
- * 
- *         cdef double hidden_diff_bias_sum
- *         if self.__particle_normalize_flag is True:             # <<<<<<<<<<<<<<
- *             hidden_diff_bias_sum = self.__graph.hidden_activity_arr.sum()
- *             if hidden_diff_bias_sum != 0:
- */
-  }
-
-  /* "pydbm/approximation/contrastive_divergence.pyx":149
+  /* "pydbm/approximation/contrastive_divergence.pyx":127
  * 
  *         # Learning.
  *         self.__graph.visible_bias_arr += visible_diff_bias             # <<<<<<<<<<<<<<
  *         self.__graph.hidden_bias_arr += hidden_diff_bias
  *         self.__graph.learn_weights()
  */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_visible_bias_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_6 = PyNumber_InPlaceAdd(__pyx_t_3, __pyx_v_visible_diff_bias); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_visible_bias_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 149, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_v_visible_diff_bias); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 149, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_6, __pyx_n_s_visible_bias_arr, __pyx_t_4) < 0) __PYX_ERR(0, 149, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_10, __pyx_n_s_visible_bias_arr, __pyx_t_6) < 0) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":150
+  /* "pydbm/approximation/contrastive_divergence.pyx":128
  *         # Learning.
  *         self.__graph.visible_bias_arr += visible_diff_bias
  *         self.__graph.hidden_bias_arr += hidden_diff_bias             # <<<<<<<<<<<<<<
  *         self.__graph.learn_weights()
  * 
  */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 150, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 128, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_hidden_bias_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_hidden_bias_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 150, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_4, __pyx_v_hidden_diff_bias); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_6, __pyx_n_s_hidden_bias_arr, __pyx_t_2) < 0) __PYX_ERR(0, 150, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_3 = PyNumber_InPlaceAdd(__pyx_t_6, __pyx_v_hidden_diff_bias); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 128, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_10, __pyx_n_s_hidden_bias_arr, __pyx_t_3) < 0) __PYX_ERR(0, 128, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":151
+  /* "pydbm/approximation/contrastive_divergence.pyx":129
  *         self.__graph.visible_bias_arr += visible_diff_bias
  *         self.__graph.hidden_bias_arr += hidden_diff_bias
  *         self.__graph.learn_weights()             # <<<<<<<<<<<<<<
  * 
  *     def __dropout(self, np.ndarray[DOUBLE_t, ndim=1] activity_arr):
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 151, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_learn_weights); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 151, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_2)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_learn_weights); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_6);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+      __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
+      __Pyx_DECREF_SET(__pyx_t_6, function);
     }
   }
-  if (__pyx_t_2) {
-    __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 151, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__pyx_t_3) {
+    __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 129, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_6 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 151, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_CallNoArg(__pyx_t_6); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 129, __pyx_L1_error)
   }
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":63
+  /* "pydbm/approximation/contrastive_divergence.pyx":70
  *         return self.__graph
  * 
  *     def __wake_sleep_learn(self, np.ndarray[DOUBLE_t, ndim=1] observed_data_arr):             # <<<<<<<<<<<<<<
@@ -4067,9 +3824,9 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_XDECREF(__pyx_t_13);
+  __Pyx_XDECREF(__pyx_t_10);
   { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
     __Pyx_PyThreadState_declare
     __Pyx_PyThreadState_assign
@@ -4092,7 +3849,7 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
   return __pyx_r;
 }
 
-/* "pydbm/approximation/contrastive_divergence.pyx":153
+/* "pydbm/approximation/contrastive_divergence.pyx":131
  *         self.__graph.learn_weights()
  * 
  *     def __dropout(self, np.ndarray[DOUBLE_t, ndim=1] activity_arr):             # <<<<<<<<<<<<<<
@@ -4101,10 +3858,10 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_5__dropout(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_4__dropout[] = "\n        Dropout.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_5__dropout = {"__dropout", (PyCFunction)__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_5__dropout, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_4__dropout};
-static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_5__dropout(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_9__dropout(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_8__dropout[] = "\n        Dropout.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_9__dropout = {"__dropout", (PyCFunction)__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_9__dropout, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_8__dropout};
+static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_9__dropout(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
   PyArrayObject *__pyx_v_activity_arr = 0;
   PyObject *__pyx_r = 0;
@@ -4133,11 +3890,11 @@ static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21Cont
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_activity_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__dropout", 1, 2, 2, 1); __PYX_ERR(0, 153, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__dropout", 1, 2, 2, 1); __PYX_ERR(0, 131, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__dropout") < 0)) __PYX_ERR(0, 153, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__dropout") < 0)) __PYX_ERR(0, 131, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -4150,14 +3907,14 @@ static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21Cont
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__dropout", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 153, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__dropout", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 131, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.approximation.contrastive_divergence.ContrastiveDivergence.__dropout", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_activity_arr), __pyx_ptype_5numpy_ndarray, 1, "activity_arr", 0))) __PYX_ERR(0, 153, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_4__dropout(__pyx_self, __pyx_v_self, __pyx_v_activity_arr);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_activity_arr), __pyx_ptype_5numpy_ndarray, 1, "activity_arr", 0))) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_8__dropout(__pyx_self, __pyx_v_self, __pyx_v_activity_arr);
 
   /* function exit code */
   goto __pyx_L0;
@@ -4168,7 +3925,7 @@ static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21Cont
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_4__dropout(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyArrayObject *__pyx_v_activity_arr) {
+static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_8__dropout(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyArrayObject *__pyx_v_activity_arr) {
   int __pyx_v_row;
   PyArrayObject *__pyx_v_dropout_rate_arr = 0;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_activity_arr;
@@ -4199,11 +3956,11 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
   __pyx_pybuffernd_activity_arr.rcbuffer = &__pyx_pybuffer_activity_arr;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_activity_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_activity_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 153, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_activity_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_activity_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 131, __pyx_L1_error)
   }
   __pyx_pybuffernd_activity_arr.diminfo[0].strides = __pyx_pybuffernd_activity_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_activity_arr.diminfo[0].shape = __pyx_pybuffernd_activity_arr.rcbuffer->pybuffer.shape[0];
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":157
+  /* "pydbm/approximation/contrastive_divergence.pyx":135
  *         Dropout.
  *         '''
  *         cdef int row = activity_arr.shape[0]             # <<<<<<<<<<<<<<
@@ -4212,43 +3969,43 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
  */
   __pyx_v_row = (__pyx_v_activity_arr->dimensions[0]);
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":158
+  /* "pydbm/approximation/contrastive_divergence.pyx":136
  *         '''
  *         cdef int row = activity_arr.shape[0]
  *         cdef np.ndarray[DOUBLE_t, ndim=1] dropout_rate_arr = np.random.uniform(0, 1, size=(row, ))             # <<<<<<<<<<<<<<
  *         activity_arr = activity_arr * dropout_rate_arr.T
  *         return activity_arr
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 158, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 158, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_uniform); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 158, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_uniform); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 158, __pyx_L1_error)
+  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_row); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 158, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_row); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 158, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3);
   __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_size, __pyx_t_4) < 0) __PYX_ERR(0, 158, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_size, __pyx_t_4) < 0) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__11, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 158, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__12, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 158, __pyx_L1_error)
+  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 136, __pyx_L1_error)
   __pyx_t_5 = ((PyArrayObject *)__pyx_t_4);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_dropout_rate_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_dropout_rate_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_dropout_rate_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 158, __pyx_L1_error)
+      __PYX_ERR(0, 136, __pyx_L1_error)
     } else {__pyx_pybuffernd_dropout_rate_arr.diminfo[0].strides = __pyx_pybuffernd_dropout_rate_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_dropout_rate_arr.diminfo[0].shape = __pyx_pybuffernd_dropout_rate_arr.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -4256,19 +4013,19 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
   __pyx_v_dropout_rate_arr = ((PyArrayObject *)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":159
+  /* "pydbm/approximation/contrastive_divergence.pyx":137
  *         cdef int row = activity_arr.shape[0]
  *         cdef np.ndarray[DOUBLE_t, ndim=1] dropout_rate_arr = np.random.uniform(0, 1, size=(row, ))
  *         activity_arr = activity_arr * dropout_rate_arr.T             # <<<<<<<<<<<<<<
  *         return activity_arr
  * 
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_dropout_rate_arr), __pyx_n_s_T); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_dropout_rate_arr), __pyx_n_s_T); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = PyNumber_Multiply(((PyObject *)__pyx_v_activity_arr), __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(((PyObject *)__pyx_v_activity_arr), __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 159, __pyx_L1_error)
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 137, __pyx_L1_error)
   __pyx_t_6 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -4284,25 +4041,25 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
       }
     }
     __pyx_pybuffernd_activity_arr.diminfo[0].strides = __pyx_pybuffernd_activity_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_activity_arr.diminfo[0].shape = __pyx_pybuffernd_activity_arr.rcbuffer->pybuffer.shape[0];
-    if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 159, __pyx_L1_error)
+    if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 137, __pyx_L1_error)
   }
   __pyx_t_6 = 0;
   __Pyx_DECREF_SET(__pyx_v_activity_arr, ((PyArrayObject *)__pyx_t_2));
   __pyx_t_2 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":160
+  /* "pydbm/approximation/contrastive_divergence.pyx":138
  *         cdef np.ndarray[DOUBLE_t, ndim=1] dropout_rate_arr = np.random.uniform(0, 1, size=(row, ))
  *         activity_arr = activity_arr * dropout_rate_arr.T
  *         return activity_arr             # <<<<<<<<<<<<<<
  * 
- *     def recall(self, graph, np.ndarray observed_data_arr):
+ *     def compute_reconstruct_error(
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(((PyObject *)__pyx_v_activity_arr));
   __pyx_r = ((PyObject *)__pyx_v_activity_arr);
   goto __pyx_L0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":153
+  /* "pydbm/approximation/contrastive_divergence.pyx":131
  *         self.__graph.learn_weights()
  * 
  *     def __dropout(self, np.ndarray[DOUBLE_t, ndim=1] activity_arr):             # <<<<<<<<<<<<<<
@@ -4337,27 +4094,27 @@ static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21Cont
   return __pyx_r;
 }
 
-/* "pydbm/approximation/contrastive_divergence.pyx":162
+/* "pydbm/approximation/contrastive_divergence.pyx":140
  *         return activity_arr
  * 
- *     def recall(self, graph, np.ndarray observed_data_arr):             # <<<<<<<<<<<<<<
- *         '''
- *         Free association.
+ *     def compute_reconstruct_error(             # <<<<<<<<<<<<<<
+ *         self,
+ *         np.ndarray[DOUBLE_t, ndim=1] observed_data_arr,
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_7recall(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_6recall[] = "\n        Free association.\n\n        Args:\n            graph:                  Graph of neurons.\n            observed_data_arr:      observed data points.\n\n        Returns:\n            Graph of neurons.\n\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_7recall = {"recall", (PyCFunction)__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_7recall, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_6recall};
-static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_7recall(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_11compute_reconstruct_error(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_10compute_reconstruct_error[] = "\n        Compute reconstruction error rate.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_11compute_reconstruct_error = {"compute_reconstruct_error", (PyCFunction)__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_11compute_reconstruct_error, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_10compute_reconstruct_error};
+static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_11compute_reconstruct_error(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
-  PyObject *__pyx_v_graph = 0;
   PyArrayObject *__pyx_v_observed_data_arr = 0;
+  PyArrayObject *__pyx_v_reconstructed_arr = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("recall (wrapper)", 0);
+  __Pyx_RefNannySetupContext("compute_reconstruct_error (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_graph,&__pyx_n_s_observed_data_arr,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_observed_data_arr,&__pyx_n_s_reconstructed_arr,0};
     PyObject* values[3] = {0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -4379,19 +4136,19 @@ static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21Cont
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
-        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_graph)) != 0)) kw_args--;
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_observed_data_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("recall", 1, 3, 3, 1); __PYX_ERR(0, 162, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("compute_reconstruct_error", 1, 3, 3, 1); __PYX_ERR(0, 140, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
-        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_observed_data_arr)) != 0)) kw_args--;
+        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_reconstructed_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("recall", 1, 3, 3, 2); __PYX_ERR(0, 162, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("compute_reconstruct_error", 1, 3, 3, 2); __PYX_ERR(0, 140, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "recall") < 0)) __PYX_ERR(0, 162, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "compute_reconstruct_error") < 0)) __PYX_ERR(0, 140, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -4401,19 +4158,20 @@ static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21Cont
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
     __pyx_v_self = values[0];
-    __pyx_v_graph = values[1];
-    __pyx_v_observed_data_arr = ((PyArrayObject *)values[2]);
+    __pyx_v_observed_data_arr = ((PyArrayObject *)values[1]);
+    __pyx_v_reconstructed_arr = ((PyArrayObject *)values[2]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("recall", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 162, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("compute_reconstruct_error", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 140, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.approximation.contrastive_divergence.ContrastiveDivergence.recall", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.approximation.contrastive_divergence.ContrastiveDivergence.compute_reconstruct_error", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_data_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_data_arr", 0))) __PYX_ERR(0, 162, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_6recall(__pyx_self, __pyx_v_self, __pyx_v_graph, __pyx_v_observed_data_arr);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_data_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_data_arr", 0))) __PYX_ERR(0, 142, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_reconstructed_arr), __pyx_ptype_5numpy_ndarray, 1, "reconstructed_arr", 0))) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_10compute_reconstruct_error(__pyx_self, __pyx_v_self, __pyx_v_observed_data_arr, __pyx_v_reconstructed_arr);
 
   /* function exit code */
   goto __pyx_L0;
@@ -4424,126 +4182,157 @@ static PyObject *__pyx_pw_5pydbm_13approximation_22contrastive_divergence_21Cont
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_6recall(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_graph, PyArrayObject *__pyx_v_observed_data_arr) {
-  int __pyx_v_k;
+static PyObject *__pyx_pf_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_10compute_reconstruct_error(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr, PyArrayObject *__pyx_v_reconstructed_arr) {
+  double __pyx_v_reconstruct_error;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_observed_data_arr;
+  __Pyx_Buffer __pyx_pybuffer_observed_data_arr;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_reconstructed_arr;
+  __Pyx_Buffer __pyx_pybuffer_reconstructed_arr;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  npy_intp __pyx_t_2;
-  int __pyx_t_3;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
-  PyObject *__pyx_t_6 = NULL;
-  PyObject *__pyx_t_7 = NULL;
-  PyObject *__pyx_t_8 = NULL;
-  __Pyx_RefNannySetupContext("recall", 0);
-
-  /* "pydbm/approximation/contrastive_divergence.pyx":174
- * 
- *         '''
- *         self.__graph = graph             # <<<<<<<<<<<<<<
- *         cdef int k
- *         [self.__wake_and_sleep(observed_data_arr[k]) for k in range(observed_data_arr.shape[0])]
- */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph, __pyx_v_graph) < 0) __PYX_ERR(0, 174, __pyx_L1_error)
-
-  /* "pydbm/approximation/contrastive_divergence.pyx":176
- *         self.__graph = graph
- *         cdef int k
- *         [self.__wake_and_sleep(observed_data_arr[k]) for k in range(observed_data_arr.shape[0])]             # <<<<<<<<<<<<<<
- *         return self.__graph
- */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = (__pyx_v_observed_data_arr->dimensions[0]);
-  for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
-    __pyx_v_k = __pyx_t_3;
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__wake_and); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 176, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_GetItemInt(((PyObject *)__pyx_v_observed_data_arr), __pyx_v_k, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 176, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
-      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_5);
-      if (likely(__pyx_t_7)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-        __Pyx_INCREF(__pyx_t_7);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_5, function);
-      }
-    }
-    if (!__pyx_t_7) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 176, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_GOTREF(__pyx_t_4);
-    } else {
-      #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_5)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_6};
-        __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 176, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      } else
-      #endif
-      #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_6};
-        __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 176, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      } else
-      #endif
-      {
-        __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 176, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_8);
-        __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7); __pyx_t_7 = NULL;
-        __Pyx_GIVEREF(__pyx_t_6);
-        PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_6);
-        __pyx_t_6 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 176, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
-        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      }
-    }
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 176, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  double __pyx_t_6;
+  int __pyx_t_7;
+  __Pyx_RefNannySetupContext("compute_reconstruct_error", 0);
+  __pyx_pybuffer_observed_data_arr.pybuffer.buf = NULL;
+  __pyx_pybuffer_observed_data_arr.refcount = 0;
+  __pyx_pybuffernd_observed_data_arr.data = NULL;
+  __pyx_pybuffernd_observed_data_arr.rcbuffer = &__pyx_pybuffer_observed_data_arr;
+  __pyx_pybuffer_reconstructed_arr.pybuffer.buf = NULL;
+  __pyx_pybuffer_reconstructed_arr.refcount = 0;
+  __pyx_pybuffernd_reconstructed_arr.data = NULL;
+  __pyx_pybuffernd_reconstructed_arr.rcbuffer = &__pyx_pybuffer_reconstructed_arr;
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 140, __pyx_L1_error)
   }
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_pybuffernd_observed_data_arr.diminfo[0].strides = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_observed_data_arr.diminfo[0].shape = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.shape[0];
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_reconstructed_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_reconstructed_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_22contrastive_divergence_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 140, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_reconstructed_arr.diminfo[0].strides = __pyx_pybuffernd_reconstructed_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_reconstructed_arr.diminfo[0].shape = __pyx_pybuffernd_reconstructed_arr.rcbuffer->pybuffer.shape[0];
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":177
- *         cdef int k
- *         [self.__wake_and_sleep(observed_data_arr[k]) for k in range(observed_data_arr.shape[0])]
- *         return self.__graph             # <<<<<<<<<<<<<<
+  /* "pydbm/approximation/contrastive_divergence.pyx":148
+ *         Compute reconstruction error rate.
+ *         '''
+ *         cdef double reconstruct_error = np.sum((reconstructed_arr - observed_data_arr) ** 2) / observed_data_arr.shape[0]             # <<<<<<<<<<<<<<
+ *         self.__reconstruct_error_list.append(reconstruct_error)
  */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 177, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_sum); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = PyNumber_Subtract(((PyObject *)__pyx_v_reconstructed_arr), ((PyObject *)__pyx_v_observed_data_arr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = PyNumber_Power(__pyx_t_2, __pyx_int_2, Py_None); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+    }
+  }
+  if (!__pyx_t_2) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+  } else {
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(__pyx_t_3)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_4};
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    } else
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_4};
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    } else
+    #endif
+    {
+      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 148, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __pyx_t_2 = NULL;
+      __Pyx_GIVEREF(__pyx_t_4);
+      PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_4);
+      __pyx_t_4 = 0;
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    }
+  }
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_observed_data_arr->dimensions[0])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_5 = __Pyx_PyNumber_Divide(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_6 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_6 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 148, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_v_reconstruct_error = __pyx_t_6;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":162
+  /* "pydbm/approximation/contrastive_divergence.pyx":149
+ *         '''
+ *         cdef double reconstruct_error = np.sum((reconstructed_arr - observed_data_arr) ** 2) / observed_data_arr.shape[0]
+ *         self.__reconstruct_error_list.append(reconstruct_error)             # <<<<<<<<<<<<<<
+ */
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContrastiveDivergence__reconstr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_reconstruct_error); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_7 = __Pyx_PyObject_Append(__pyx_t_5, __pyx_t_3); if (unlikely(__pyx_t_7 == -1)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "pydbm/approximation/contrastive_divergence.pyx":140
  *         return activity_arr
  * 
- *     def recall(self, graph, np.ndarray observed_data_arr):             # <<<<<<<<<<<<<<
- *         '''
- *         Free association.
+ *     def compute_reconstruct_error(             # <<<<<<<<<<<<<<
+ *         self,
+ *         np.ndarray[DOUBLE_t, ndim=1] observed_data_arr,
  */
 
   /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("pydbm.approximation.contrastive_divergence.ContrastiveDivergence.recall", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
+    __Pyx_PyThreadState_declare
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_reconstructed_arr.rcbuffer->pybuffer);
+  __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
+  __Pyx_AddTraceback("pydbm.approximation.contrastive_divergence.ContrastiveDivergence.compute_reconstruct_error", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
+  goto __pyx_L2;
   __pyx_L0:;
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_reconstructed_arr.rcbuffer->pybuffer);
+  __pyx_L2:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -4718,7 +4507,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 218, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 218, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -4774,7 +4563,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  * 
  *             info.buf = PyArray_DATA(self)
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 222, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 222, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -5083,7 +4872,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 259, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__15, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 259, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -5898,7 +5687,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__15, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 799, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__16, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 799, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -5966,7 +5755,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  *             # One could encode it in the format string and have Cython
  *             # complain instead, BUT: < and > in format strings also imply
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__16, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 803, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__17, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 803, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -6075,7 +5864,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  */
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__17, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 823, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__18, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 823, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_Raise(__pyx_t_4, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -6756,7 +6545,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
  * 
  * cdef inline int import_umath() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__18, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 989, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__19, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 989, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -6887,7 +6676,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
  * 
  * cdef inline int import_ufunc() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__19, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 995, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__20, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 995, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -7015,7 +6804,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__20, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1001, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__21, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1001, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -7093,15 +6882,13 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ContrastiveDivergence__dropout, __pyx_k_ContrastiveDivergence__dropout, sizeof(__pyx_k_ContrastiveDivergence__dropout), 0, 0, 1, 1},
   {&__pyx_n_s_ContrastiveDivergence__dropout_2, __pyx_k_ContrastiveDivergence__dropout_2, sizeof(__pyx_k_ContrastiveDivergence__dropout_2), 0, 0, 1, 1},
   {&__pyx_n_s_ContrastiveDivergence__graph, __pyx_k_ContrastiveDivergence__graph, sizeof(__pyx_k_ContrastiveDivergence__graph), 0, 0, 1, 1},
-  {&__pyx_n_s_ContrastiveDivergence__hidden_a, __pyx_k_ContrastiveDivergence__hidden_a, sizeof(__pyx_k_ContrastiveDivergence__hidden_a), 0, 0, 1, 1},
-  {&__pyx_n_s_ContrastiveDivergence__hidden_b, __pyx_k_ContrastiveDivergence__hidden_b, sizeof(__pyx_k_ContrastiveDivergence__hidden_b), 0, 0, 1, 1},
   {&__pyx_n_s_ContrastiveDivergence__learning, __pyx_k_ContrastiveDivergence__learning, sizeof(__pyx_k_ContrastiveDivergence__learning), 0, 0, 1, 1},
-  {&__pyx_n_s_ContrastiveDivergence__particle, __pyx_k_ContrastiveDivergence__particle, sizeof(__pyx_k_ContrastiveDivergence__particle), 0, 0, 1, 1},
-  {&__pyx_n_s_ContrastiveDivergence__visible, __pyx_k_ContrastiveDivergence__visible, sizeof(__pyx_k_ContrastiveDivergence__visible), 0, 0, 1, 1},
-  {&__pyx_n_s_ContrastiveDivergence__wake_and, __pyx_k_ContrastiveDivergence__wake_and, sizeof(__pyx_k_ContrastiveDivergence__wake_and), 0, 0, 1, 1},
+  {&__pyx_n_s_ContrastiveDivergence__reconstr, __pyx_k_ContrastiveDivergence__reconstr, sizeof(__pyx_k_ContrastiveDivergence__reconstr), 0, 0, 1, 1},
   {&__pyx_n_s_ContrastiveDivergence__wake_sle, __pyx_k_ContrastiveDivergence__wake_sle, sizeof(__pyx_k_ContrastiveDivergence__wake_sle), 0, 0, 1, 1},
   {&__pyx_n_s_ContrastiveDivergence_approximat, __pyx_k_ContrastiveDivergence_approximat, sizeof(__pyx_k_ContrastiveDivergence_approximat), 0, 0, 1, 1},
-  {&__pyx_n_s_ContrastiveDivergence_recall, __pyx_k_ContrastiveDivergence_recall, sizeof(__pyx_k_ContrastiveDivergence_recall), 0, 0, 1, 1},
+  {&__pyx_n_s_ContrastiveDivergence_compute_re, __pyx_k_ContrastiveDivergence_compute_re, sizeof(__pyx_k_ContrastiveDivergence_compute_re), 0, 0, 1, 1},
+  {&__pyx_n_s_ContrastiveDivergence_get_recons, __pyx_k_ContrastiveDivergence_get_recons, sizeof(__pyx_k_ContrastiveDivergence_get_recons), 0, 0, 1, 1},
+  {&__pyx_n_s_ContrastiveDivergence_set_readon, __pyx_k_ContrastiveDivergence_set_readon, sizeof(__pyx_k_ContrastiveDivergence_set_readon), 0, 0, 1, 1},
   {&__pyx_kp_s_Contrastive_Divergence_Conceptu, __pyx_k_Contrastive_Divergence_Conceptu, sizeof(__pyx_k_Contrastive_Divergence_Conceptu), 0, 0, 1, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
@@ -7109,29 +6896,32 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
   {&__pyx_n_s_T, __pyx_k_T, sizeof(__pyx_k_T), 0, 0, 1, 1},
+  {&__pyx_kp_s_This_is_read_only, __pyx_k_This_is_read_only, sizeof(__pyx_k_This_is_read_only), 0, 0, 1, 0},
+  {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
-  {&__pyx_n_s__21, __pyx_k__21, sizeof(__pyx_k__21), 0, 0, 1, 1},
+  {&__pyx_n_s__26, __pyx_k__26, sizeof(__pyx_k__26), 0, 0, 1, 1},
   {&__pyx_n_s_activate, __pyx_k_activate, sizeof(__pyx_k_activate), 0, 0, 1, 1},
   {&__pyx_n_s_activity_arr, __pyx_k_activity_arr, sizeof(__pyx_k_activity_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
   {&__pyx_n_s_approximate_learn, __pyx_k_approximate_learn, sizeof(__pyx_k_approximate_learn), 0, 0, 1, 1},
   {&__pyx_n_s_axis, __pyx_k_axis, sizeof(__pyx_k_axis), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_col_w, __pyx_k_col_w, sizeof(__pyx_k_col_w), 0, 0, 1, 1},
+  {&__pyx_n_s_compute_reconstruct_error, __pyx_k_compute_reconstruct_error, sizeof(__pyx_k_compute_reconstruct_error), 0, 0, 1, 1},
+  {&__pyx_n_s_copy, __pyx_k_copy, sizeof(__pyx_k_copy), 0, 0, 1, 1},
   {&__pyx_n_s_diff_weights_arr, __pyx_k_diff_weights_arr, sizeof(__pyx_k_diff_weights_arr), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_dropout, __pyx_k_dropout, sizeof(__pyx_k_dropout), 0, 0, 1, 1},
   {&__pyx_n_s_dropout_rate, __pyx_k_dropout_rate, sizeof(__pyx_k_dropout_rate), 0, 0, 1, 1},
   {&__pyx_n_s_dropout_rate_arr, __pyx_k_dropout_rate_arr, sizeof(__pyx_k_dropout_rate_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_get_reconstrct_error_list, __pyx_k_get_reconstrct_error_list, sizeof(__pyx_k_get_reconstrct_error_list), 0, 0, 1, 1},
   {&__pyx_n_s_graph, __pyx_k_graph, sizeof(__pyx_k_graph), 0, 0, 1, 1},
   {&__pyx_n_s_hidden_activating_function, __pyx_k_hidden_activating_function, sizeof(__pyx_k_hidden_activating_function), 0, 0, 1, 1},
   {&__pyx_n_s_hidden_activity_arr, __pyx_k_hidden_activity_arr, sizeof(__pyx_k_hidden_activity_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_hidden_activity_sum, __pyx_k_hidden_activity_sum, sizeof(__pyx_k_hidden_activity_sum), 0, 0, 1, 1},
   {&__pyx_n_s_hidden_bias_arr, __pyx_k_hidden_bias_arr, sizeof(__pyx_k_hidden_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_hidden_diff_bias, __pyx_k_hidden_diff_bias, sizeof(__pyx_k_hidden_diff_bias), 0, 0, 1, 1},
-  {&__pyx_n_s_hidden_diff_bias_sum, __pyx_k_hidden_diff_bias_sum, sizeof(__pyx_k_hidden_diff_bias_sum), 0, 0, 1, 1},
   {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
-  {&__pyx_n_s_k, __pyx_k_k, sizeof(__pyx_k_k), 0, 0, 1, 1},
   {&__pyx_n_s_learn_weights, __pyx_k_learn_weights, sizeof(__pyx_k_learn_weights), 0, 0, 1, 1},
   {&__pyx_n_s_learning_rate, __pyx_k_learning_rate, sizeof(__pyx_k_learning_rate), 0, 0, 1, 1},
   {&__pyx_n_s_link_value_arr, __pyx_k_link_value_arr, sizeof(__pyx_k_link_value_arr), 0, 0, 1, 1},
@@ -7147,18 +6937,22 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 0, 1, 0},
   {&__pyx_n_s_observed_data_arr, __pyx_k_observed_data_arr, sizeof(__pyx_k_observed_data_arr), 0, 0, 1, 1},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
+  {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_approximation_contrastive, __pyx_k_pydbm_approximation_contrastive, sizeof(__pyx_k_pydbm_approximation_contrastive), 0, 0, 1, 1},
   {&__pyx_kp_s_pydbm_approximation_contrastive_2, __pyx_k_pydbm_approximation_contrastive_2, sizeof(__pyx_k_pydbm_approximation_contrastive_2), 0, 0, 1, 0},
   {&__pyx_n_s_pydbm_approximation_interface_ap, __pyx_k_pydbm_approximation_interface_ap, sizeof(__pyx_k_pydbm_approximation_interface_ap), 0, 0, 1, 1},
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
   {&__pyx_n_s_random, __pyx_k_random, sizeof(__pyx_k_random), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
-  {&__pyx_n_s_recall, __pyx_k_recall, sizeof(__pyx_k_recall), 0, 0, 1, 1},
+  {&__pyx_n_s_reconstruct_error, __pyx_k_reconstruct_error, sizeof(__pyx_k_reconstruct_error), 0, 0, 1, 1},
+  {&__pyx_n_s_reconstruct_error_list, __pyx_k_reconstruct_error_list, sizeof(__pyx_k_reconstruct_error_list), 0, 0, 1, 1},
+  {&__pyx_n_s_reconstructed_arr, __pyx_k_reconstructed_arr, sizeof(__pyx_k_reconstructed_arr), 0, 0, 1, 1},
   {&__pyx_n_s_reshape, __pyx_k_reshape, sizeof(__pyx_k_reshape), 0, 0, 1, 1},
   {&__pyx_n_s_row, __pyx_k_row, sizeof(__pyx_k_row), 0, 0, 1, 1},
   {&__pyx_n_s_row_i, __pyx_k_row_i, sizeof(__pyx_k_row_i), 0, 0, 1, 1},
   {&__pyx_n_s_row_w, __pyx_k_row_w, sizeof(__pyx_k_row_w), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
+  {&__pyx_n_s_set_readonly, __pyx_k_set_readonly, sizeof(__pyx_k_set_readonly), 0, 0, 1, 1},
   {&__pyx_n_s_shape, __pyx_k_shape, sizeof(__pyx_k_shape), 0, 0, 1, 1},
   {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
   {&__pyx_n_s_sum, __pyx_k_sum, sizeof(__pyx_k_sum), 0, 0, 1, 1},
@@ -7166,18 +6960,19 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_traning_count, __pyx_k_traning_count, sizeof(__pyx_k_traning_count), 0, 0, 1, 1},
   {&__pyx_n_s_uniform, __pyx_k_uniform, sizeof(__pyx_k_uniform), 0, 0, 1, 1},
   {&__pyx_kp_u_unknown_dtype_code_in_numpy_pxd, __pyx_k_unknown_dtype_code_in_numpy_pxd, sizeof(__pyx_k_unknown_dtype_code_in_numpy_pxd), 0, 1, 0, 0},
+  {&__pyx_n_s_value, __pyx_k_value, sizeof(__pyx_k_value), 0, 0, 1, 1},
   {&__pyx_n_s_visible_activating_function, __pyx_k_visible_activating_function, sizeof(__pyx_k_visible_activating_function), 0, 0, 1, 1},
   {&__pyx_n_s_visible_activity_arr, __pyx_k_visible_activity_arr, sizeof(__pyx_k_visible_activity_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_visible_activity_sum, __pyx_k_visible_activity_sum, sizeof(__pyx_k_visible_activity_sum), 0, 0, 1, 1},
   {&__pyx_n_s_visible_bias_arr, __pyx_k_visible_bias_arr, sizeof(__pyx_k_visible_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_visible_diff_bias, __pyx_k_visible_diff_bias, sizeof(__pyx_k_visible_diff_bias), 0, 0, 1, 1},
-  {&__pyx_n_s_visible_diff_bias_sum, __pyx_k_visible_diff_bias_sum, sizeof(__pyx_k_visible_diff_bias_sum), 0, 0, 1, 1},
   {&__pyx_n_s_wake_sleep_learn, __pyx_k_wake_sleep_learn, sizeof(__pyx_k_wake_sleep_learn), 0, 0, 1, 1},
   {&__pyx_n_s_weights_arr, __pyx_k_weights_arr, sizeof(__pyx_k_weights_arr), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 65, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 218, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 799, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 989, __pyx_L1_error)
@@ -7190,86 +6985,97 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":80
+  /* "pydbm/approximation/contrastive_divergence.pyx":21
+ *     def set_readonly(self, value):
+ *         ''' setter '''
+ *         raise TypeError("This is read-only.")             # <<<<<<<<<<<<<<
+ * 
+ *     def get_reconstrct_error_list(self):
+ */
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_This_is_read_only); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple_);
+  __Pyx_GIVEREF(__pyx_tuple_);
+
+  /* "pydbm/approximation/contrastive_divergence.pyx":88
  *         cdef int col_w = self.__graph.weights_arr.shape[1]
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)             # <<<<<<<<<<<<<<
  *         link_value_arr = np.nan_to_num(link_value_arr)
  *         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
  */
-  __pyx_tuple_ = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 80, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple_);
-  __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_tuple__2 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_tuple__2 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
+  __pyx_tuple__3 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__3);
+  __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":96
+  /* "pydbm/approximation/contrastive_divergence.pyx":97
  *             self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
  * 
  *         self.__graph.diff_weights_arr = self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate             # <<<<<<<<<<<<<<
  * 
  *         visible_diff_bias = self.__learning_rate * self.__graph.visible_activity_arr
  */
-  __pyx_tuple__3 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 96, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__3);
-  __Pyx_GIVEREF(__pyx_tuple__3);
-  __pyx_tuple__4 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_tuple__4 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
+  __pyx_tuple__5 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__5);
+  __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":102
+  /* "pydbm/approximation/contrastive_divergence.pyx":103
  * 
  *         # Sleeping.
  *         link_value_arr = (self.__graph.weights_arr.T) * self.__graph.hidden_activity_arr.reshape(-1, 1) + self.__graph.hidden_bias_arr.reshape(-1, 1)             # <<<<<<<<<<<<<<
  *         link_value_arr = np.nan_to_num(link_value_arr)
  *         self.__graph.visible_activity_arr = link_value_arr.sum(axis=0)
  */
-  __pyx_tuple__5 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 102, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__5);
-  __Pyx_GIVEREF(__pyx_tuple__5);
-  __pyx_tuple__6 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
+  __pyx_tuple__7 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__7);
+  __Pyx_GIVEREF(__pyx_tuple__7);
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":117
+  /* "pydbm/approximation/contrastive_divergence.pyx":114
  *             self.__graph.visible_activity_arr = self.__dropout(self.__graph.visible_activity_arr)
  * 
  *         link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)             # <<<<<<<<<<<<<<
  *         link_value_arr = np.nan_to_num(link_value_arr)
  *         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
  */
-  __pyx_tuple__7 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 117, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__7);
-  __Pyx_GIVEREF(__pyx_tuple__7);
-  __pyx_tuple__8 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __pyx_tuple__8 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
+  __pyx_tuple__9 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__9);
+  __Pyx_GIVEREF(__pyx_tuple__9);
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":131
+  /* "pydbm/approximation/contrastive_divergence.pyx":121
  *             self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
  * 
  *         self.__graph.diff_weights_arr += self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate * (-1)             # <<<<<<<<<<<<<<
  * 
  *         visible_diff_bias += self.__learning_rate * self.__graph.visible_activity_arr * (-1)
  */
-  __pyx_tuple__9 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__9);
-  __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_tuple__10 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 121, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
+  __pyx_tuple__11 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__11);
+  __Pyx_GIVEREF(__pyx_tuple__11);
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":158
+  /* "pydbm/approximation/contrastive_divergence.pyx":136
  *         '''
  *         cdef int row = activity_arr.shape[0]
  *         cdef np.ndarray[DOUBLE_t, ndim=1] dropout_rate_arr = np.random.uniform(0, 1, size=(row, ))             # <<<<<<<<<<<<<<
  *         activity_arr = activity_arr * dropout_rate_arr.T
  *         return activity_arr
  */
-  __pyx_tuple__11 = PyTuple_Pack(2, __pyx_int_0, __pyx_int_1); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 158, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__11);
-  __Pyx_GIVEREF(__pyx_tuple__11);
+  __pyx_tuple__12 = PyTuple_Pack(2, __pyx_int_0, __pyx_int_1); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__12);
+  __Pyx_GIVEREF(__pyx_tuple__12);
 
   /* "../../../../../../usr/local/src/pyenv/versions/anaconda3-4.4.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":218
  *             if ((flags & pybuf.PyBUF_C_CONTIGUOUS == pybuf.PyBUF_C_CONTIGUOUS)
@@ -7278,9 +7084,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  */
-  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_C_contiguous); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(1, 218, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__12);
-  __Pyx_GIVEREF(__pyx_tuple__12);
+  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_C_contiguous); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(1, 218, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__13);
+  __Pyx_GIVEREF(__pyx_tuple__13);
 
   /* "../../../../../../usr/local/src/pyenv/versions/anaconda3-4.4.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":222
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
@@ -7289,9 +7095,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             info.buf = PyArray_DATA(self)
  */
-  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_Fortran_contiguou); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(1, 222, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__13);
-  __Pyx_GIVEREF(__pyx_tuple__13);
+  __pyx_tuple__14 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_Fortran_contiguou); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(1, 222, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__14);
+  __Pyx_GIVEREF(__pyx_tuple__14);
 
   /* "../../../../../../usr/local/src/pyenv/versions/anaconda3-4.4.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":259
  *                 if ((descr.byteorder == c'>' and little_endian) or
@@ -7300,9 +7106,9 @@ static int __Pyx_InitCachedConstants(void) {
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"
  */
-  __pyx_tuple__14 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(1, 259, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__14);
-  __Pyx_GIVEREF(__pyx_tuple__14);
+  __pyx_tuple__15 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(1, 259, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__15);
+  __Pyx_GIVEREF(__pyx_tuple__15);
 
   /* "../../../../../../usr/local/src/pyenv/versions/anaconda3-4.4.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":799
  * 
@@ -7311,9 +7117,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  */
-  __pyx_tuple__15 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(1, 799, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__15);
-  __Pyx_GIVEREF(__pyx_tuple__15);
+  __pyx_tuple__16 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(1, 799, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__16);
+  __Pyx_GIVEREF(__pyx_tuple__16);
 
   /* "../../../../../../usr/local/src/pyenv/versions/anaconda3-4.4.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":803
  *         if ((child.byteorder == c'>' and little_endian) or
@@ -7322,9 +7128,9 @@ static int __Pyx_InitCachedConstants(void) {
  *             # One could encode it in the format string and have Cython
  *             # complain instead, BUT: < and > in format strings also imply
  */
-  __pyx_tuple__16 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(1, 803, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__16);
-  __Pyx_GIVEREF(__pyx_tuple__16);
+  __pyx_tuple__17 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(1, 803, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__17);
+  __Pyx_GIVEREF(__pyx_tuple__17);
 
   /* "../../../../../../usr/local/src/pyenv/versions/anaconda3-4.4.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":823
  *             t = child.type_num
@@ -7333,9 +7139,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  */
-  __pyx_tuple__17 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor_2); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(1, 823, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__17);
-  __Pyx_GIVEREF(__pyx_tuple__17);
+  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor_2); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(1, 823, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__18);
+  __Pyx_GIVEREF(__pyx_tuple__18);
 
   /* "../../../../../../usr/local/src/pyenv/versions/anaconda3-4.4.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":989
  *         _import_array()
@@ -7344,9 +7150,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * cdef inline int import_umath() except -1:
  */
-  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(1, 989, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__18);
-  __Pyx_GIVEREF(__pyx_tuple__18);
+  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(1, 989, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__19);
+  __Pyx_GIVEREF(__pyx_tuple__19);
 
   /* "../../../../../../usr/local/src/pyenv/versions/anaconda3-4.4.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":995
  *         _import_umath()
@@ -7355,66 +7161,90 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * cdef inline int import_ufunc() except -1:
  */
-  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(1, 995, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__19);
-  __Pyx_GIVEREF(__pyx_tuple__19);
+  __pyx_tuple__20 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(1, 995, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__20);
+  __Pyx_GIVEREF(__pyx_tuple__20);
 
   /* "../../../../../../usr/local/src/pyenv/versions/anaconda3-4.4.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":1001
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__20 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(1, 1001, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__20);
-  __Pyx_GIVEREF(__pyx_tuple__20);
+  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(1, 1001, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__21);
+  __Pyx_GIVEREF(__pyx_tuple__21);
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":29
- *     __hidden_activity_arr = None
+  /* "pydbm/approximation/contrastive_divergence.pyx":19
+ *     __reconstruct_error_list = []
+ * 
+ *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         raise TypeError("This is read-only.")
+ */
+  __pyx_tuple__22 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 19, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__22);
+  __Pyx_GIVEREF(__pyx_tuple__22);
+  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_approximation_contrastive_2, __pyx_n_s_set_readonly, 19, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 19, __pyx_L1_error)
+
+  /* "pydbm/approximation/contrastive_divergence.pyx":23
+ *         raise TypeError("This is read-only.")
+ * 
+ *     def get_reconstrct_error_list(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__reconstruct_error_list
+ */
+  __pyx_tuple__24 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__24);
+  __Pyx_GIVEREF(__pyx_tuple__24);
+  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_approximation_contrastive_2, __pyx_n_s_get_reconstrct_error_list, 23, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 23, __pyx_L1_error)
+
+  /* "pydbm/approximation/contrastive_divergence.pyx":36
+ *     __dropout_rate = 0.5
  * 
  *     def approximate_learn(             # <<<<<<<<<<<<<<
  *         self,
  *         graph,
  */
-  __pyx_tuple__22 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_graph, __pyx_n_s_learning_rate, __pyx_n_s_dropout_rate, __pyx_n_s_observed_data_arr, __pyx_n_s_traning_count, __pyx_n_s_i, __pyx_n_s__21, __pyx_n_s_row_i); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 29, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__22);
-  __Pyx_GIVEREF(__pyx_tuple__22);
-  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(6, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_approximation_contrastive_2, __pyx_n_s_approximate_learn, 29, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_tuple__27 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_graph, __pyx_n_s_learning_rate, __pyx_n_s_dropout_rate, __pyx_n_s_observed_data_arr, __pyx_n_s_traning_count, __pyx_n_s_i, __pyx_n_s__26, __pyx_n_s_row_i); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__27);
+  __Pyx_GIVEREF(__pyx_tuple__27);
+  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(6, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_approximation_contrastive_2, __pyx_n_s_approximate_learn, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 36, __pyx_L1_error)
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":63
+  /* "pydbm/approximation/contrastive_divergence.pyx":70
  *         return self.__graph
  * 
  *     def __wake_sleep_learn(self, np.ndarray[DOUBLE_t, ndim=1] observed_data_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Waking, sleeping, and learning.
  */
-  __pyx_tuple__24 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_observed_data_arr, __pyx_n_s_row_w, __pyx_n_s_col_w, __pyx_n_s_link_value_arr, __pyx_n_s_hidden_activity_sum, __pyx_n_s_visible_diff_bias, __pyx_n_s_hidden_diff_bias, __pyx_n_s_visible_activity_sum, __pyx_n_s_visible_diff_bias_sum, __pyx_n_s_hidden_diff_bias_sum); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 63, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__24);
-  __Pyx_GIVEREF(__pyx_tuple__24);
-  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(2, 0, 11, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_approximation_contrastive_2, __pyx_n_s_wake_sleep_learn, 63, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_tuple__29 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_observed_data_arr, __pyx_n_s_row_w, __pyx_n_s_col_w, __pyx_n_s_link_value_arr, __pyx_n_s_visible_diff_bias, __pyx_n_s_hidden_diff_bias); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 70, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__29);
+  __Pyx_GIVEREF(__pyx_tuple__29);
+  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(2, 0, 7, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_approximation_contrastive_2, __pyx_n_s_wake_sleep_learn, 70, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 70, __pyx_L1_error)
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":153
+  /* "pydbm/approximation/contrastive_divergence.pyx":131
  *         self.__graph.learn_weights()
  * 
  *     def __dropout(self, np.ndarray[DOUBLE_t, ndim=1] activity_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Dropout.
  */
-  __pyx_tuple__26 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_activity_arr, __pyx_n_s_row, __pyx_n_s_dropout_rate_arr); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 153, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__26);
-  __Pyx_GIVEREF(__pyx_tuple__26);
-  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_approximation_contrastive_2, __pyx_n_s_dropout, 153, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 153, __pyx_L1_error)
+  __pyx_tuple__31 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_activity_arr, __pyx_n_s_row, __pyx_n_s_dropout_rate_arr); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__31);
+  __Pyx_GIVEREF(__pyx_tuple__31);
+  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_approximation_contrastive_2, __pyx_n_s_dropout, 131, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 131, __pyx_L1_error)
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":162
+  /* "pydbm/approximation/contrastive_divergence.pyx":140
  *         return activity_arr
  * 
- *     def recall(self, graph, np.ndarray observed_data_arr):             # <<<<<<<<<<<<<<
- *         '''
- *         Free association.
+ *     def compute_reconstruct_error(             # <<<<<<<<<<<<<<
+ *         self,
+ *         np.ndarray[DOUBLE_t, ndim=1] observed_data_arr,
  */
-  __pyx_tuple__28 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_graph, __pyx_n_s_observed_data_arr, __pyx_n_s_k); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 162, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__28);
-  __Pyx_GIVEREF(__pyx_tuple__28);
-  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_approximation_contrastive_2, __pyx_n_s_recall, 162, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_tuple__33 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_observed_data_arr, __pyx_n_s_reconstructed_arr, __pyx_n_s_reconstruct_error); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__33);
+  __Pyx_GIVEREF(__pyx_tuple__33);
+  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_approximation_contrastive_2, __pyx_n_s_compute_reconstruct_error, 140, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -7427,6 +7257,7 @@ static int __Pyx_InitGlobals(void) {
   __pyx_float_0_5 = PyFloat_FromDouble(0.5); if (unlikely(!__pyx_float_0_5)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_2 = PyInt_FromLong(2); if (unlikely(!__pyx_int_2)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_neg_1 = PyInt_FromLong(-1); if (unlikely(!__pyx_int_neg_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -7446,6 +7277,7 @@ PyMODINIT_FUNC PyInit_contrastive_divergence(void)
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannyDeclarations
   #if CYTHON_REFNANNY
   __Pyx_RefNanny = __Pyx_RefNannyImportAPI("refnanny");
@@ -7595,131 +7427,166 @@ PyMODINIT_FUNC PyInit_contrastive_divergence(void)
 
   /* "pydbm/approximation/contrastive_divergence.pyx":17
  * 
+ *     # The list of the reconstruction error rate (MSE)
+ *     __reconstruct_error_list = []             # <<<<<<<<<<<<<<
+ * 
+ *     def set_readonly(self, value):
+ */
+  __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ContrastiveDivergence__reconstr, __pyx_t_4) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/approximation/contrastive_divergence.pyx":19
+ *     __reconstruct_error_list = []
+ * 
+ *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         raise TypeError("This is read-only.")
+ */
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_1set_readonly, 0, __pyx_n_s_ContrastiveDivergence_set_readon, NULL, __pyx_n_s_pydbm_approximation_contrastive, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 19, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_readonly, __pyx_t_4) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/approximation/contrastive_divergence.pyx":23
+ *         raise TypeError("This is read-only.")
+ * 
+ *     def get_reconstrct_error_list(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__reconstruct_error_list
+ */
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_3get_reconstrct_error_list, 0, __pyx_n_s_ContrastiveDivergence_get_recons, NULL, __pyx_n_s_pydbm_approximation_contrastive, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_reconstrct_error_list, __pyx_t_4) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/approximation/contrastive_divergence.pyx":27
+ *         return self.__reconstruct_error_list
+ * 
+ *     reconstruct_error_list = property(get_reconstrct_error_list, set_readonly)             # <<<<<<<<<<<<<<
+ * 
+ *     # Graph of neurons.
+ */
+  __pyx_t_4 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_reconstrct_error_list);
+  if (unlikely(!__pyx_t_4)) {
+    PyErr_Clear();
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_reconstrct_error_list);
+  }
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_readonly);
+  if (unlikely(!__pyx_t_5)) {
+    PyErr_Clear();
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_readonly);
+  }
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_5);
+  __pyx_t_4 = 0;
+  __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_reconstruct_error_list, __pyx_t_5) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pydbm/approximation/contrastive_divergence.pyx":30
+ * 
  *     # Graph of neurons.
  *     __graph = None             # <<<<<<<<<<<<<<
  *     # Learning rate.
  *     __learning_rate = 0.5
  */
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ContrastiveDivergence__graph, Py_None) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ContrastiveDivergence__graph, Py_None) < 0) __PYX_ERR(0, 30, __pyx_L1_error)
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":19
+  /* "pydbm/approximation/contrastive_divergence.pyx":32
  *     __graph = None
  *     # Learning rate.
  *     __learning_rate = 0.5             # <<<<<<<<<<<<<<
  *     # Dropout rate.
  *     __dropout_rate = 0.5
  */
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ContrastiveDivergence__learning, __pyx_float_0_5) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ContrastiveDivergence__learning, __pyx_float_0_5) < 0) __PYX_ERR(0, 32, __pyx_L1_error)
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":21
+  /* "pydbm/approximation/contrastive_divergence.pyx":34
  *     __learning_rate = 0.5
  *     # Dropout rate.
  *     __dropout_rate = 0.5             # <<<<<<<<<<<<<<
- *     # Particle normalized flag.
- *     __particle_normalize_flag = False
- */
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ContrastiveDivergence__dropout, __pyx_float_0_5) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
-
-  /* "pydbm/approximation/contrastive_divergence.pyx":23
- *     __dropout_rate = 0.5
- *     # Particle normalized flag.
- *     __particle_normalize_flag = False             # <<<<<<<<<<<<<<
- * 
- *     __visible_bias = None
- */
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ContrastiveDivergence__particle, Py_False) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
-
-  /* "pydbm/approximation/contrastive_divergence.pyx":25
- *     __particle_normalize_flag = False
- * 
- *     __visible_bias = None             # <<<<<<<<<<<<<<
- *     __hidden_bias = None
- *     __hidden_activity_arr = None
- */
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ContrastiveDivergence__visible, Py_None) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
-
-  /* "pydbm/approximation/contrastive_divergence.pyx":26
- * 
- *     __visible_bias = None
- *     __hidden_bias = None             # <<<<<<<<<<<<<<
- *     __hidden_activity_arr = None
- * 
- */
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ContrastiveDivergence__hidden_b, Py_None) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
-
-  /* "pydbm/approximation/contrastive_divergence.pyx":27
- *     __visible_bias = None
- *     __hidden_bias = None
- *     __hidden_activity_arr = None             # <<<<<<<<<<<<<<
  * 
  *     def approximate_learn(
  */
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ContrastiveDivergence__hidden_a, Py_None) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ContrastiveDivergence__dropout, __pyx_float_0_5) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":35
+  /* "pydbm/approximation/contrastive_divergence.pyx":42
  *         double dropout_rate,
  *         np.ndarray observed_data_arr,
  *         int traning_count=1000             # <<<<<<<<<<<<<<
  *     ):
  *         '''
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(((int)0x3E8)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 35, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = __Pyx_PyInt_From_int(((int)0x3E8)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":29
- *     __hidden_activity_arr = None
+  /* "pydbm/approximation/contrastive_divergence.pyx":36
+ *     __dropout_rate = 0.5
  * 
  *     def approximate_learn(             # <<<<<<<<<<<<<<
  *         self,
  *         graph,
  */
-  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5);
+  __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_5approximate_learn, 0, __pyx_n_s_ContrastiveDivergence_approximat, NULL, __pyx_n_s_pydbm_approximation_contrastive, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_GIVEREF(__pyx_t_4);
-  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4);
-  __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_1approximate_learn, 0, __pyx_n_s_ContrastiveDivergence_approximat, NULL, __pyx_n_s_pydbm_approximation_contrastive, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 29, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_t_5);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_5, __pyx_t_6);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_approximate_learn, __pyx_t_5) < 0) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_approximate_learn, __pyx_t_4) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":63
+  /* "pydbm/approximation/contrastive_divergence.pyx":70
  *         return self.__graph
  * 
  *     def __wake_sleep_learn(self, np.ndarray[DOUBLE_t, ndim=1] observed_data_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Waking, sleeping, and learning.
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_3__wake_sleep_learn, 0, __pyx_n_s_ContrastiveDivergence___wake_sle, NULL, __pyx_n_s_pydbm_approximation_contrastive, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 63, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ContrastiveDivergence__wake_sle, __pyx_t_4) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_7__wake_sleep_learn, 0, __pyx_n_s_ContrastiveDivergence___wake_sle, NULL, __pyx_n_s_pydbm_approximation_contrastive, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 70, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ContrastiveDivergence__wake_sle, __pyx_t_5) < 0) __PYX_ERR(0, 70, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":153
+  /* "pydbm/approximation/contrastive_divergence.pyx":131
  *         self.__graph.learn_weights()
  * 
  *     def __dropout(self, np.ndarray[DOUBLE_t, ndim=1] activity_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Dropout.
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_5__dropout, 0, __pyx_n_s_ContrastiveDivergence___dropout, NULL, __pyx_n_s_pydbm_approximation_contrastive, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 153, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ContrastiveDivergence__dropout_2, __pyx_t_4) < 0) __PYX_ERR(0, 153, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_9__dropout, 0, __pyx_n_s_ContrastiveDivergence___dropout, NULL, __pyx_n_s_pydbm_approximation_contrastive, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ContrastiveDivergence__dropout_2, __pyx_t_5) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/approximation/contrastive_divergence.pyx":162
+  /* "pydbm/approximation/contrastive_divergence.pyx":140
  *         return activity_arr
  * 
- *     def recall(self, graph, np.ndarray observed_data_arr):             # <<<<<<<<<<<<<<
- *         '''
- *         Free association.
+ *     def compute_reconstruct_error(             # <<<<<<<<<<<<<<
+ *         self,
+ *         np.ndarray[DOUBLE_t, ndim=1] observed_data_arr,
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_7recall, 0, __pyx_n_s_ContrastiveDivergence_recall, NULL, __pyx_n_s_pydbm_approximation_contrastive, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 162, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_recall, __pyx_t_4) < 0) __PYX_ERR(0, 162, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_13approximation_22contrastive_divergence_21ContrastiveDivergence_11compute_reconstruct_error, 0, __pyx_n_s_ContrastiveDivergence_compute_re, NULL, __pyx_n_s_pydbm_approximation_contrastive, __pyx_d, ((PyObject *)__pyx_codeobj__34)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_compute_reconstruct_error, __pyx_t_5) < 0) __PYX_ERR(0, 140, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
   /* "pydbm/approximation/contrastive_divergence.pyx":9
  * 
@@ -7728,10 +7595,10 @@ PyMODINIT_FUNC PyInit_contrastive_divergence(void)
  *     '''
  *     Contrastive Divergence.
  */
-  __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_ContrastiveDivergence, __pyx_t_1, __pyx_t_3, NULL, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ContrastiveDivergence, __pyx_t_4) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_5 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_ContrastiveDivergence, __pyx_t_1, __pyx_t_3, NULL, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ContrastiveDivergence, __pyx_t_5) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -7763,6 +7630,7 @@ PyMODINIT_FUNC PyInit_contrastive_divergence(void)
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
   if (__pyx_m) {
     if (__pyx_d) {
       __Pyx_AddTraceback("init pydbm.approximation.contrastive_divergence", 0, __pyx_lineno, __pyx_filename);
@@ -7954,8 +7822,215 @@ bad:
     return -1;
 }
 
+/* PyObjectCall */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
+    PyObject *result;
+    ternaryfunc call = func->ob_type->tp_call;
+    if (unlikely(!call))
+        return PyObject_Call(func, arg, kw);
+    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
+        return NULL;
+    result = (*call)(func, arg, kw);
+    Py_LeaveRecursiveCall();
+    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
+        PyErr_SetString(
+            PyExc_SystemError,
+            "NULL result without error in PyObject_Call");
+    }
+    return result;
+}
+#endif
+
+/* PyErrFetchRestore */
+#if CYTHON_FAST_THREAD_STATE
+static CYTHON_INLINE void __Pyx_ErrRestoreInState(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb) {
+    PyObject *tmp_type, *tmp_value, *tmp_tb;
+    tmp_type = tstate->curexc_type;
+    tmp_value = tstate->curexc_value;
+    tmp_tb = tstate->curexc_traceback;
+    tstate->curexc_type = type;
+    tstate->curexc_value = value;
+    tstate->curexc_traceback = tb;
+    Py_XDECREF(tmp_type);
+    Py_XDECREF(tmp_value);
+    Py_XDECREF(tmp_tb);
+}
+static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
+    *type = tstate->curexc_type;
+    *value = tstate->curexc_value;
+    *tb = tstate->curexc_traceback;
+    tstate->curexc_type = 0;
+    tstate->curexc_value = 0;
+    tstate->curexc_traceback = 0;
+}
+#endif
+
+/* RaiseException */
+#if PY_MAJOR_VERSION < 3
+static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb,
+                        CYTHON_UNUSED PyObject *cause) {
+    __Pyx_PyThreadState_declare
+    Py_XINCREF(type);
+    if (!value || value == Py_None)
+        value = NULL;
+    else
+        Py_INCREF(value);
+    if (!tb || tb == Py_None)
+        tb = NULL;
+    else {
+        Py_INCREF(tb);
+        if (!PyTraceBack_Check(tb)) {
+            PyErr_SetString(PyExc_TypeError,
+                "raise: arg 3 must be a traceback or None");
+            goto raise_error;
+        }
+    }
+    if (PyType_Check(type)) {
+#if CYTHON_COMPILING_IN_PYPY
+        if (!value) {
+            Py_INCREF(Py_None);
+            value = Py_None;
+        }
+#endif
+        PyErr_NormalizeException(&type, &value, &tb);
+    } else {
+        if (value) {
+            PyErr_SetString(PyExc_TypeError,
+                "instance exception may not have a separate value");
+            goto raise_error;
+        }
+        value = type;
+        type = (PyObject*) Py_TYPE(type);
+        Py_INCREF(type);
+        if (!PyType_IsSubtype((PyTypeObject *)type, (PyTypeObject *)PyExc_BaseException)) {
+            PyErr_SetString(PyExc_TypeError,
+                "raise: exception class must be a subclass of BaseException");
+            goto raise_error;
+        }
+    }
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrRestore(type, value, tb);
+    return;
+raise_error:
+    Py_XDECREF(value);
+    Py_XDECREF(type);
+    Py_XDECREF(tb);
+    return;
+}
+#else
+static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause) {
+    PyObject* owned_instance = NULL;
+    if (tb == Py_None) {
+        tb = 0;
+    } else if (tb && !PyTraceBack_Check(tb)) {
+        PyErr_SetString(PyExc_TypeError,
+            "raise: arg 3 must be a traceback or None");
+        goto bad;
+    }
+    if (value == Py_None)
+        value = 0;
+    if (PyExceptionInstance_Check(type)) {
+        if (value) {
+            PyErr_SetString(PyExc_TypeError,
+                "instance exception may not have a separate value");
+            goto bad;
+        }
+        value = type;
+        type = (PyObject*) Py_TYPE(value);
+    } else if (PyExceptionClass_Check(type)) {
+        PyObject *instance_class = NULL;
+        if (value && PyExceptionInstance_Check(value)) {
+            instance_class = (PyObject*) Py_TYPE(value);
+            if (instance_class != type) {
+                int is_subclass = PyObject_IsSubclass(instance_class, type);
+                if (!is_subclass) {
+                    instance_class = NULL;
+                } else if (unlikely(is_subclass == -1)) {
+                    goto bad;
+                } else {
+                    type = instance_class;
+                }
+            }
+        }
+        if (!instance_class) {
+            PyObject *args;
+            if (!value)
+                args = PyTuple_New(0);
+            else if (PyTuple_Check(value)) {
+                Py_INCREF(value);
+                args = value;
+            } else
+                args = PyTuple_Pack(1, value);
+            if (!args)
+                goto bad;
+            owned_instance = PyObject_Call(type, args, NULL);
+            Py_DECREF(args);
+            if (!owned_instance)
+                goto bad;
+            value = owned_instance;
+            if (!PyExceptionInstance_Check(value)) {
+                PyErr_Format(PyExc_TypeError,
+                             "calling %R should have returned an instance of "
+                             "BaseException, not %R",
+                             type, Py_TYPE(value));
+                goto bad;
+            }
+        }
+    } else {
+        PyErr_SetString(PyExc_TypeError,
+            "raise: exception class must be a subclass of BaseException");
+        goto bad;
+    }
+#if PY_VERSION_HEX >= 0x03030000
+    if (cause) {
+#else
+    if (cause && cause != Py_None) {
+#endif
+        PyObject *fixed_cause;
+        if (cause == Py_None) {
+            fixed_cause = NULL;
+        } else if (PyExceptionClass_Check(cause)) {
+            fixed_cause = PyObject_CallObject(cause, NULL);
+            if (fixed_cause == NULL)
+                goto bad;
+        } else if (PyExceptionInstance_Check(cause)) {
+            fixed_cause = cause;
+            Py_INCREF(fixed_cause);
+        } else {
+            PyErr_SetString(PyExc_TypeError,
+                            "exception causes must derive from "
+                            "BaseException");
+            goto bad;
+        }
+        PyException_SetCause(value, fixed_cause);
+    }
+    PyErr_SetObject(type, value);
+    if (tb) {
+#if CYTHON_COMPILING_IN_PYPY
+        PyObject *tmp_type, *tmp_value, *tmp_tb;
+        PyErr_Fetch(&tmp_type, &tmp_value, &tmp_tb);
+        Py_INCREF(tb);
+        PyErr_Restore(tmp_type, tmp_value, tb);
+        Py_XDECREF(tmp_tb);
+#else
+        PyThreadState *tstate = PyThreadState_GET();
+        PyObject* tmp_tb = tstate->curexc_traceback;
+        if (tb != tmp_tb) {
+            Py_INCREF(tb);
+            tstate->curexc_traceback = tb;
+            Py_XDECREF(tmp_tb);
+        }
+#endif
+    }
+bad:
+    Py_XDECREF(owned_instance);
+    return;
+}
+#endif
+
 /* ArgTypeTest */
-static void __Pyx_RaiseArgumentTypeInvalid(const char* name, PyObject *obj, PyTypeObject *type) {
+  static void __Pyx_RaiseArgumentTypeInvalid(const char* name, PyObject *obj, PyTypeObject *type) {
     PyErr_Format(PyExc_TypeError,
         "Argument '%.200s' has incorrect type (expected %.200s, got %.200s)",
         name, type->tp_name, Py_TYPE(obj)->tp_name);
@@ -7982,7 +8057,7 @@ static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, in
 }
 
 /* PyCFunctionFastCall */
-#if CYTHON_FAST_PYCCALL
+  #if CYTHON_FAST_PYCCALL
 static CYTHON_INLINE PyObject * __Pyx_PyCFunction_FastCall(PyObject *func_obj, PyObject **args, Py_ssize_t nargs) {
     PyCFunctionObject *func = (PyCFunctionObject*)func_obj;
     PyCFunction meth = PyCFunction_GET_FUNCTION(func);
@@ -8005,7 +8080,7 @@ static CYTHON_INLINE PyObject * __Pyx_PyCFunction_FastCall(PyObject *func_obj, P
 #endif
 
 /* PyFunctionFastCall */
-#if CYTHON_FAST_PYCALL
+  #if CYTHON_FAST_PYCALL
 #include "frameobject.h"
 static PyObject* __Pyx_PyFunction_FastCallNoKw(PyCodeObject *co, PyObject **args, Py_ssize_t na,
                                                PyObject *globals) {
@@ -8124,28 +8199,8 @@ done:
 #endif
 #endif
 
-/* PyObjectCall */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
-    PyObject *result;
-    ternaryfunc call = func->ob_type->tp_call;
-    if (unlikely(!call))
-        return PyObject_Call(func, arg, kw);
-    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
-        return NULL;
-    result = (*call)(func, arg, kw);
-    Py_LeaveRecursiveCall();
-    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
-        PyErr_SetString(
-            PyExc_SystemError,
-            "NULL result without error in PyObject_Call");
-    }
-    return result;
-}
-#endif
-
 /* PyObjectCallMethO */
-#if CYTHON_COMPILING_IN_CPYTHON
+  #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
     PyObject *self, *result;
     PyCFunction cfunc;
@@ -8165,7 +8220,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject
 #endif
 
 /* PyObjectCallOneArg */
-#if CYTHON_COMPILING_IN_CPYTHON
+  #if CYTHON_COMPILING_IN_CPYTHON
 static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
     PyObject *result;
     PyObject *args = PyTuple_New(1);
@@ -8205,7 +8260,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObjec
 #endif
 
 /* BufferFormatCheck */
-static CYTHON_INLINE int __Pyx_IsLittleEndian(void) {
+  static CYTHON_INLINE int __Pyx_IsLittleEndian(void) {
   unsigned int n = 1;
   return *(unsigned char*)(&n) != 0;
 }
@@ -8754,8 +8809,29 @@ static CYTHON_INLINE void __Pyx_SafeReleaseBuffer(Py_buffer* info) {
   __Pyx_ReleaseBuffer(info);
 }
 
+/* PyObjectCallNoArg */
+    #if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
+#if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(func)) {
+        return __Pyx_PyFunction_FastCall(func, NULL, 0);
+    }
+#endif
+#ifdef __Pyx_CyFunction_USED
+    if (likely(PyCFunction_Check(func) || PyObject_TypeCheck(func, __pyx_CyFunctionType))) {
+#else
+    if (likely(PyCFunction_Check(func))) {
+#endif
+        if (likely(PyCFunction_GET_FLAGS(func) & METH_NOARGS)) {
+            return __Pyx_PyObject_CallMethO(func, NULL);
+        }
+    }
+    return __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL);
+}
+#endif
+
 /* GetItemInt */
-  static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
+      static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
     PyObject *r;
     if (!j) return NULL;
     r = PyObject_GetItem(o, j);
@@ -8842,7 +8918,7 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, 
 }
 
 /* ExtTypeTest */
-  static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
+      static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
     if (unlikely(!type)) {
         PyErr_SetString(PyExc_SystemError, "Missing type object");
         return 0;
@@ -8855,7 +8931,7 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, 
 }
 
 /* GetModuleGlobalName */
-  static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name) {
+      static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name) {
     PyObject *result;
 #if !CYTHON_AVOID_BORROWED_REFS
     result = PyDict_GetItem(__pyx_d, name);
@@ -8873,218 +8949,69 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, 
 }
 
 /* BufferFallbackError */
-    static void __Pyx_RaiseBufferFallbackError(void) {
+        static void __Pyx_RaiseBufferFallbackError(void) {
   PyErr_SetString(PyExc_ValueError,
      "Buffer acquisition failed on assignment; and then reacquiring the old buffer failed too!");
 }
 
-/* PyObjectCallNoArg */
-    #if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
-#if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(func)) {
-        return __Pyx_PyFunction_FastCall(func, NULL, 0);
-    }
-#endif
-#ifdef __Pyx_CyFunction_USED
-    if (likely(PyCFunction_Check(func) || PyObject_TypeCheck(func, __pyx_CyFunctionType))) {
-#else
-    if (likely(PyCFunction_Check(func))) {
-#endif
-        if (likely(PyCFunction_GET_FLAGS(func) & METH_NOARGS)) {
-            return __Pyx_PyObject_CallMethO(func, NULL);
-        }
-    }
-    return __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL);
-}
-#endif
-
-/* PyErrFetchRestore */
-      #if CYTHON_FAST_THREAD_STATE
-static CYTHON_INLINE void __Pyx_ErrRestoreInState(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb) {
-    PyObject *tmp_type, *tmp_value, *tmp_tb;
-    tmp_type = tstate->curexc_type;
-    tmp_value = tstate->curexc_value;
-    tmp_tb = tstate->curexc_traceback;
-    tstate->curexc_type = type;
-    tstate->curexc_value = value;
-    tstate->curexc_traceback = tb;
-    Py_XDECREF(tmp_type);
-    Py_XDECREF(tmp_value);
-    Py_XDECREF(tmp_tb);
-}
-static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
-    *type = tstate->curexc_type;
-    *value = tstate->curexc_value;
-    *tb = tstate->curexc_traceback;
-    tstate->curexc_type = 0;
-    tstate->curexc_value = 0;
-    tstate->curexc_traceback = 0;
-}
-#endif
-
-/* RaiseException */
-      #if PY_MAJOR_VERSION < 3
-static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb,
-                        CYTHON_UNUSED PyObject *cause) {
-    __Pyx_PyThreadState_declare
-    Py_XINCREF(type);
-    if (!value || value == Py_None)
-        value = NULL;
-    else
-        Py_INCREF(value);
-    if (!tb || tb == Py_None)
-        tb = NULL;
-    else {
-        Py_INCREF(tb);
-        if (!PyTraceBack_Check(tb)) {
-            PyErr_SetString(PyExc_TypeError,
-                "raise: arg 3 must be a traceback or None");
-            goto raise_error;
-        }
-    }
-    if (PyType_Check(type)) {
-#if CYTHON_COMPILING_IN_PYPY
-        if (!value) {
-            Py_INCREF(Py_None);
-            value = Py_None;
-        }
-#endif
-        PyErr_NormalizeException(&type, &value, &tb);
-    } else {
-        if (value) {
-            PyErr_SetString(PyExc_TypeError,
-                "instance exception may not have a separate value");
-            goto raise_error;
-        }
-        value = type;
-        type = (PyObject*) Py_TYPE(type);
-        Py_INCREF(type);
-        if (!PyType_IsSubtype((PyTypeObject *)type, (PyTypeObject *)PyExc_BaseException)) {
-            PyErr_SetString(PyExc_TypeError,
-                "raise: exception class must be a subclass of BaseException");
-            goto raise_error;
-        }
-    }
-    __Pyx_PyThreadState_assign
-    __Pyx_ErrRestore(type, value, tb);
-    return;
-raise_error:
-    Py_XDECREF(value);
-    Py_XDECREF(type);
-    Py_XDECREF(tb);
-    return;
-}
-#else
-static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause) {
-    PyObject* owned_instance = NULL;
-    if (tb == Py_None) {
-        tb = 0;
-    } else if (tb && !PyTraceBack_Check(tb)) {
-        PyErr_SetString(PyExc_TypeError,
-            "raise: arg 3 must be a traceback or None");
-        goto bad;
-    }
-    if (value == Py_None)
-        value = 0;
-    if (PyExceptionInstance_Check(type)) {
-        if (value) {
-            PyErr_SetString(PyExc_TypeError,
-                "instance exception may not have a separate value");
-            goto bad;
-        }
-        value = type;
-        type = (PyObject*) Py_TYPE(value);
-    } else if (PyExceptionClass_Check(type)) {
-        PyObject *instance_class = NULL;
-        if (value && PyExceptionInstance_Check(value)) {
-            instance_class = (PyObject*) Py_TYPE(value);
-            if (instance_class != type) {
-                int is_subclass = PyObject_IsSubclass(instance_class, type);
-                if (!is_subclass) {
-                    instance_class = NULL;
-                } else if (unlikely(is_subclass == -1)) {
-                    goto bad;
-                } else {
-                    type = instance_class;
-                }
-            }
-        }
-        if (!instance_class) {
+/* PyObjectCallMethod1 */
+        static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg) {
+    PyObject *method, *result = NULL;
+    method = __Pyx_PyObject_GetAttrStr(obj, method_name);
+    if (unlikely(!method)) goto done;
+#if CYTHON_UNPACK_METHODS
+    if (likely(PyMethod_Check(method))) {
+        PyObject *self = PyMethod_GET_SELF(method);
+        if (likely(self)) {
             PyObject *args;
-            if (!value)
-                args = PyTuple_New(0);
-            else if (PyTuple_Check(value)) {
-                Py_INCREF(value);
-                args = value;
-            } else
-                args = PyTuple_Pack(1, value);
-            if (!args)
-                goto bad;
-            owned_instance = PyObject_Call(type, args, NULL);
-            Py_DECREF(args);
-            if (!owned_instance)
-                goto bad;
-            value = owned_instance;
-            if (!PyExceptionInstance_Check(value)) {
-                PyErr_Format(PyExc_TypeError,
-                             "calling %R should have returned an instance of "
-                             "BaseException, not %R",
-                             type, Py_TYPE(value));
-                goto bad;
+            PyObject *function = PyMethod_GET_FUNCTION(method);
+            #if CYTHON_FAST_PYCALL
+            if (PyFunction_Check(function)) {
+                PyObject *args[2] = {self, arg};
+                result = __Pyx_PyFunction_FastCall(function, args, 2);
+                goto done;
             }
+            #endif
+            #if CYTHON_FAST_PYCCALL
+            if (__Pyx_PyFastCFunction_Check(function)) {
+                PyObject *args[2] = {self, arg};
+                result = __Pyx_PyCFunction_FastCall(function, args, 2);
+                goto done;
+            }
+            #endif
+            args = PyTuple_New(2);
+            if (unlikely(!args)) goto done;
+            Py_INCREF(self);
+            PyTuple_SET_ITEM(args, 0, self);
+            Py_INCREF(arg);
+            PyTuple_SET_ITEM(args, 1, arg);
+            Py_INCREF(function);
+            Py_DECREF(method); method = NULL;
+            result = __Pyx_PyObject_Call(function, args, NULL);
+            Py_DECREF(args);
+            Py_DECREF(function);
+            return result;
         }
-    } else {
-        PyErr_SetString(PyExc_TypeError,
-            "raise: exception class must be a subclass of BaseException");
-        goto bad;
     }
-#if PY_VERSION_HEX >= 0x03030000
-    if (cause) {
-#else
-    if (cause && cause != Py_None) {
 #endif
-        PyObject *fixed_cause;
-        if (cause == Py_None) {
-            fixed_cause = NULL;
-        } else if (PyExceptionClass_Check(cause)) {
-            fixed_cause = PyObject_CallObject(cause, NULL);
-            if (fixed_cause == NULL)
-                goto bad;
-        } else if (PyExceptionInstance_Check(cause)) {
-            fixed_cause = cause;
-            Py_INCREF(fixed_cause);
-        } else {
-            PyErr_SetString(PyExc_TypeError,
-                            "exception causes must derive from "
-                            "BaseException");
-            goto bad;
-        }
-        PyException_SetCause(value, fixed_cause);
-    }
-    PyErr_SetObject(type, value);
-    if (tb) {
-#if CYTHON_COMPILING_IN_PYPY
-        PyObject *tmp_type, *tmp_value, *tmp_tb;
-        PyErr_Fetch(&tmp_type, &tmp_value, &tmp_tb);
-        Py_INCREF(tb);
-        PyErr_Restore(tmp_type, tmp_value, tb);
-        Py_XDECREF(tmp_tb);
-#else
-        PyThreadState *tstate = PyThreadState_GET();
-        PyObject* tmp_tb = tstate->curexc_traceback;
-        if (tb != tmp_tb) {
-            Py_INCREF(tb);
-            tstate->curexc_traceback = tb;
-            Py_XDECREF(tmp_tb);
-        }
-#endif
-    }
-bad:
-    Py_XDECREF(owned_instance);
-    return;
+    result = __Pyx_PyObject_CallOneArg(method, arg);
+done:
+    Py_XDECREF(method);
+    return result;
 }
-#endif
+
+/* append */
+        static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x) {
+    if (likely(PyList_CheckExact(L))) {
+        if (unlikely(__Pyx_PyList_Append(L, x) < 0)) return -1;
+    } else {
+        PyObject* retval = __Pyx_PyObject_CallMethod1(L, __pyx_n_s_append, x);
+        if (unlikely(!retval))
+            return -1;
+        Py_DECREF(retval);
+    }
+    return 0;
+}
 
 /* RaiseTooManyValuesToUnpack */
         static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected) {

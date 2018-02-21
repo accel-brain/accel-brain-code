@@ -47,7 +47,7 @@ if __name__ == "__main__":
             .....
 
         Reconstruct error:
-
+            [ 0.08297197  0.07091231  0.0823424  ...,  0.0721624   0.08404181  0.06981017]
     '''
 
     target_arr = np.random.uniform(size=(10000, 10000))

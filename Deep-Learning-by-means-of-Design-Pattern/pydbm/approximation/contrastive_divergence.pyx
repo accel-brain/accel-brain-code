@@ -19,12 +19,6 @@ class ContrastiveDivergence(ApproximateInterface):
     __learning_rate = 0.5
     # Dropout rate.
     __dropout_rate = 0.5
-    # Particle normalized flag.
-    __particle_normalize_flag = False
-
-    __visible_bias = None
-    __hidden_bias = None
-    __hidden_activity_arr = None
 
     def approximate_learn(
         self,
@@ -73,20 +67,13 @@ class ContrastiveDivergence(ApproximateInterface):
             observed_data_list:      observed data points.
         '''
         # Waking.
-        self.__graph.visible_activity_arr = observed_data_arr
+        self.__graph.visible_activity_arr = observed_data_arr.copy()
         cdef int row_w = self.__graph.weights_arr.shape[0]
         cdef int col_w = self.__graph.weights_arr.shape[1]
 
         cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
         link_value_arr = np.nan_to_num(link_value_arr)
         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
-
-        cdef double hidden_activity_sum
-        if self.__particle_normalize_flag is True:
-            hidden_activity_sum = self.__graph.hidden_activity_arr.sum()
-            if hidden_activity_sum != 0:
-                self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_activity_sum
-
         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
             self.__graph.hidden_activity_arr
         )
@@ -102,14 +89,11 @@ class ContrastiveDivergence(ApproximateInterface):
         link_value_arr = (self.__graph.weights_arr.T) * self.__graph.hidden_activity_arr.reshape(-1, 1) + self.__graph.hidden_bias_arr.reshape(-1, 1)
         link_value_arr = np.nan_to_num(link_value_arr)
         self.__graph.visible_activity_arr = link_value_arr.sum(axis=0)
-
-        cdef double visible_activity_sum
-        if self.__particle_normalize_flag is True:
-            visible_activity_sum = self.__graph.visible_activity_arr.sum()
-            if visible_activity_sum != 0:
-                self.__graph.visible_activity_arr = self.__graph.visible_activity_arr / visible_activity_sum
-
         self.__graph.visible_activity_arr = self.__graph.visible_activating_function.activate(self.__graph.visible_activity_arr)
+
+        cdef double reconstruct_error
+        reconstruct_error = np.sum((self.__graph.visible_activity_arr - observed_data_arr) ** 2)
+        print("reconstruct_error:" + str(reconstruct_error))
 
         if self.__dropout_rate > 0:
             self.__graph.visible_activity_arr = self.__dropout(self.__graph.visible_activity_arr)
@@ -117,14 +101,7 @@ class ContrastiveDivergence(ApproximateInterface):
         link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
         link_value_arr = np.nan_to_num(link_value_arr)
         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
-
-        if self.__particle_normalize_flag is True:
-            hidden_activity_sum = self.__graph.hidden_activity_arr.sum()
-            if hidden_activity_sum != 0:
-                self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_activity_sum
-
         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(self.__graph.hidden_activity_arr)
-
         if self.__dropout_rate > 0:
             self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
 
@@ -132,18 +109,6 @@ class ContrastiveDivergence(ApproximateInterface):
 
         visible_diff_bias += self.__learning_rate * self.__graph.visible_activity_arr * (-1)
         hidden_diff_bias += self.__learning_rate * self.__graph.hidden_activity_arr * (-1)
-
-        cdef double visible_diff_bias_sum
-        if self.__particle_normalize_flag is True:
-            visible_diff_bias_sum = self.__graph.visible_activity_arr.sum()
-            if visible_diff_bias_sum != 0:
-                self.__graph.visible_activity_arr = self.__graph.visible_activity_arr / visible_diff_bias_sum
-
-        cdef double hidden_diff_bias_sum
-        if self.__particle_normalize_flag is True:
-            hidden_diff_bias_sum = self.__graph.hidden_activity_arr.sum()
-            if hidden_diff_bias_sum != 0:
-                self.__graph.hidden_activity_arr = self.__graph.hidden_activity_arr / hidden_diff_bias_sum
 
         # Learning.
         self.__graph.visible_bias_arr += visible_diff_bias
@@ -158,20 +123,3 @@ class ContrastiveDivergence(ApproximateInterface):
         cdef np.ndarray[DOUBLE_t, ndim=1] dropout_rate_arr = np.random.uniform(0, 1, size=(row, ))
         activity_arr = activity_arr * dropout_rate_arr.T
         return activity_arr
-
-    def recall(self, graph, np.ndarray observed_data_arr):
-        '''
-        Free association.
-
-        Args:
-            graph:                  Graph of neurons.
-            observed_data_arr:      observed data points.
-
-        Returns:
-            Graph of neurons.
-
-        '''
-        self.__graph = graph
-        cdef int k
-        [self.__wake_and_sleep(observed_data_arr[k]) for k in range(observed_data_arr.shape[0])]
-        return self.__graph

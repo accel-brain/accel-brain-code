@@ -45,6 +45,9 @@ if __name__ == "__main__":
             0.656428  0.947666  0.409032  0.959559  0.397501  0.353150  0.614216
             0.167008  0.424654  0.204616  0.573720  0.147871  0.722278  0.068951
             .....
+
+        Reconstruct error:
+
     '''
 
     target_arr = np.random.uniform(size=(10000, 10000))
@@ -54,10 +57,11 @@ if __name__ == "__main__":
         [target_arr.shape[1], 10, target_arr.shape[1]],
         [LogisticFunction(), LogisticFunction(), LogisticFunction()],
         [ContrastiveDivergence(), ContrastiveDivergence()],
-        0.00000000000001,
+        0.05,
         0.5
     )
     dbm.learn(target_arr, traning_count=1)
+
     import pandas as pd
     feature_points_df = pd.DataFrame(dbm.feature_points_arr)
     print(feature_points_df.shape)

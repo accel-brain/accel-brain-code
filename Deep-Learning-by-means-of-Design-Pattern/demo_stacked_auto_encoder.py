@@ -34,9 +34,9 @@ if __name__ == "__main__":
 
     Result:
         TAT:
-            real    1m32.729s
-            user    1m31.936s
-            sys     0m0.764s
+            real    1m35.472s
+            user    1m32.300s
+            sys     0m3.136s
 
         Feature points:
             0.190599  0.183594  0.482996  0.911710  0.939766  0.202852  0.042163

@@ -8,12 +8,6 @@ This is Cython version. [pydbm_mxnet](https://github.com/chimera0/accel-brain-co
 
 The function of this library is building and modeling restricted boltzmann machine, deep boltzmann machine, and multi-layer neural networks. The models are functionally equivalent to stacked auto-encoder. The main function is the same as dimensions reduction(or pre-training).
 
-### Design thought
-
-In relation to my [Automatic Summarization Library](https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization), it is important for me that the models are functionally equivalent to stacked auto-encoder. The main function I observe is the same as dimensions reduction(or pre-training). But the functional reusability of the models can be not limited to this. These Python Scripts can be considered a kind of *experiment result* to verify effectiveness of object-oriented analysis, object-oriented design, and GoF's design pattern in designing and modeling neural network, deep learning, and [reinforcement-Learning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning).
-
-For instance, [dbm_multi_layer_builder.pyx](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/pydbm/dbm/builders/dbm_multi_layer_builder.pyx) is implemented for running the **deep boltzmann machine** to extract so-called feature points. This script is premised on a kind of *builder pattern* for separating the construction of complex **restricted boltzmann machines** from its **graph** representation so that the same construction process can create different representations. Because of common design pattern and polymorphism, the **stacked auto-encoder** in [demo_stacked_auto_encoder.py](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo_stacked_auto_encoder.py) is *functionally equivalent* to **deep boltzmann machine**.
-
 ## Documentation
 
 Full documentation is available on [https://code.accel-brain.com/Deep-Learning-by-means-of-Design-Pattern/](https://code.accel-brain.com/Deep-Learning-by-means-of-Design-Pattern/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
@@ -221,6 +215,12 @@ The observated data is the result of `np.random.uniform(size=(10000, 10000))`.
 ```
  [ 0.08297197  0.07091231  0.0823424  ...,  0.0721624   0.08404181  0.06981017]
 ```
+
+### Design thought
+
+In relation to my [Automatic Summarization Library](https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization), it is important for me that the models are functionally equivalent to stacked auto-encoder. The main function I observe is the same as dimensions reduction(or pre-training). But the functional reusability of the models can be not limited to this. These Python Scripts can be considered a kind of *experiment result* to verify effectiveness of object-oriented analysis, object-oriented design, and GoF's design pattern in designing and modeling neural network, deep learning, and [reinforcement-Learning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning).
+
+For instance, [dbm_multi_layer_builder.pyx](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/pydbm/dbm/builders/dbm_multi_layer_builder.pyx) is implemented for running the **deep boltzmann machine** to extract so-called feature points. This script is premised on a kind of *builder pattern* for separating the construction of complex **restricted boltzmann machines** from its **graph** representation so that the same construction process can create different representations. Because of common design pattern and polymorphism, the **stacked auto-encoder** in [demo_stacked_auto_encoder.py](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo_stacked_auto_encoder.py) is *functionally equivalent* to **deep boltzmann machine**.
 
 ### More detail demos
 

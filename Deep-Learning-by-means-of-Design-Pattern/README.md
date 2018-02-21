@@ -77,9 +77,9 @@ dbm = DeepBoltzmannMachine(
     # Dimention in visible layer, hidden layer, and second hidden layer.
     [traning_x.shape[1], 10, traning_x.shape[1]],
     [ReLuFunction(), LogisticFunction(), TanhFunction()], # Setting objects for activation function.
-    ContrastiveDivergence(), # Setting the object for function approximation.
+    [ContrastiveDivergence(), ContrastiveDivergence()],   # Setting the object for function approximation.
     0.05, # Setting learning rate.
-    0.5 # Setting dropout rate.
+    0.5   # Setting dropout rate.
 )
 # Execute learning.
 dbm.learn(traning_arr, traning_count=1000)
@@ -109,7 +109,9 @@ from pydbm.activation.logistic_function import LogisticFunction
 Instantiate objects and call the method.
 
 ```python
+# Setting objects for activation function.
 activation_list = [LogisticFunction(), LogisticFunction(), LogisticFunction()]
+# Setting the object for function approximation.
 approximaion_list = [ContrastiveDivergence(), ContrastiveDivergence()]
 
 dbm = StackedAutoEncoder(
@@ -117,8 +119,8 @@ dbm = StackedAutoEncoder(
     [target_arr.shape[1], 10, target_arr.shape[1]],
     activation_list,
     approximaion_list,
-    0.05,
-    0.5
+    0.05, # Setting learning rate.
+    0.5   # Setting dropout rate.
 )
 
 # Execute learning.
@@ -150,7 +152,7 @@ Call `get_reconstruct_error_arr` method as follow.
 reconstruct_error_arr = dbm.get_reconstruct_error_arr(layer_number=0)
 ```
 
-`layer_number` is the index of `approximaion_list`. And `reconstruct_error_arr` is the `np.ndarray` of reconstruction error rates.
+`layer_number` corresponds to the index of `approximaion_list`. And `reconstruct_error_arr` is the `np.ndarray` of reconstruction error rates.
 
 ### Performance
 

@@ -51,12 +51,12 @@ class DBMBuilder(metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
-    def graph_part(self, approximate_interface):
+    def graph_part(self, approximate_interface_list):
         '''
         Build complete bipartite graph.
 
         Args:
-            approximate_interface:    The object of function approximation.
+            approximate_interface_list:    The list of function approximation.
         '''
         raise NotImplementedError()
 

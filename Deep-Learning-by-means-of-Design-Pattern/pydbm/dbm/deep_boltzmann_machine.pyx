@@ -25,7 +25,7 @@ class DeepBoltzmannMachine(object):
         dbm_builder,
         neuron_assign_list,
         activating_function_list,
-        approximate_interface,
+        approximate_interface_list,
         double learning_rate,
         double dropout_rate=0.5
     ):
@@ -36,7 +36,7 @@ class DeepBoltzmannMachine(object):
             dbm_builder:            `    Concrete Builder` in Builder Pattern.
             neuron_assign_list:          The number of neurons in each layers.
             activating_function_list:    Activation function.
-            approximate_interface:       The object of function approximation.
+            approximate_interface_list:  The object of function approximation.
             learning_rate:               Learning rate.
             dropout_rate:                Dropout rate.
         '''
@@ -48,7 +48,7 @@ class DeepBoltzmannMachine(object):
         dbm_director.dbm_construct(
             neuron_assign_list=neuron_assign_list,
             activating_function_list=activating_function_list,
-            approximate_interface=approximate_interface
+            approximate_interface_list=approximate_interface_list
         )
         self.__rbm_list = dbm_director.rbm_list
 

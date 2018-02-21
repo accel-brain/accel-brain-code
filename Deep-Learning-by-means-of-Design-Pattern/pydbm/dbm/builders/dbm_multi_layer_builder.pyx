@@ -105,13 +105,15 @@ class DBMMultiLayerBuilder(DBMBuilder):
         self.__hidden_activating_function = activating_function
         self.__hidden_neuron_list = neuron_count
 
-    def graph_part(self, approximate_interface):
+    def graph_part(self, approximate_interface_list):
         '''
         Build complete bipartite graph.
 
         Args:
-            approximate_interface:       The object of function approximation.
+            approximate_interface_list:       The list of function approximation.
         '''
+        self.__approximate_interface_list = approximate_interface_list
+
         complete_bipartite_graph = CompleteBipartiteGraph()
         complete_bipartite_graph.create_node(
             self.__visible_neuron_count,
@@ -149,12 +151,13 @@ class DBMMultiLayerBuilder(DBMBuilder):
             The list of restricted boltzmann machines.
 
         '''
-        for graph in self.__graph_list:
+        for i in range(len(self.__graph_list)):
+            graph = self.__graph_list[i]
             rbm = RestrictedBoltzmannMachine(
                 graph,
                 self.__learning_rate,
                 self.__dropout_rate,
-                ContrastiveDivergence()
+                self.__approximate_interface_list[i]
             )
             self.__rbm_list.append(rbm)
 

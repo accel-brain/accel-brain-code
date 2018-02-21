@@ -57,7 +57,7 @@ class DBMDirector(object):
         self,
         neuron_assign_list,
         activating_function_list,
-        approximate_interface
+        approximate_interface_list
     ):
         '''
         Build deep boltzmann machine.
@@ -65,14 +65,15 @@ class DBMDirector(object):
         Args:
             neuron_assign_list:          The unit of neurons in each layers.
             activating_function_list:    The list of activation function,
-            approximate_interface:       The object of function approximation.
+            approximate_interface_list:  The list of function approximation.
         '''
         for i in range(len(activating_function_list)):
             if isinstance(activating_function_list[i], ActivatingFunctionInterface) is False:
                 raise TypeError()
 
-        if isinstance(approximate_interface, ApproximateInterface) is False:
-            raise TypeError()
+        for i in range(len(approximate_interface_list)):
+            if isinstance(approximate_interface_list[i], ApproximateInterface) is False:
+                raise TypeError()
 
         visible_neuron_count = neuron_assign_list[0]
         visible_activating_function = activating_function_list[0]
@@ -86,5 +87,5 @@ class DBMDirector(object):
         hidden_acitivating_function = activating_function_list[-1]
         self.__dbm_builder.hidden_neuron_part(hidden_acitivating_function, hidden_neuron_count)
 
-        self.__dbm_builder.graph_part(approximate_interface)
+        self.__dbm_builder.graph_part(approximate_interface_list)
         self.rbm_list = self.__dbm_builder.get_result()

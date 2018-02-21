@@ -29,7 +29,7 @@ pip install pydbm
 Or, you can install from wheel file.
 
 ```sh
-pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.1.1-cp36-cp36m-linux_x86_64.whl
+pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.1.2-cp36-cp36m-linux_x86_64.whl
 ```
 
 ### Source code
@@ -109,11 +109,14 @@ from pydbm.activation.logistic_function import LogisticFunction
 Instantiate objects and call the method.
 
 ```python
+activation_list = [LogisticFunction(), LogisticFunction(), LogisticFunction()]
+approximaion_list = [ContrastiveDivergence(), ContrastiveDivergence()]
+
 dbm = StackedAutoEncoder(
     DBMMultiLayerBuilder(),
     [target_arr.shape[1], 10, target_arr.shape[1]],
-    [LogisticFunction(), LogisticFunction(), LogisticFunction()],
-    ContrastiveDivergence(),
+    activation_list,
+    approximaion_list,
     0.05,
     0.5
 )
@@ -128,13 +131,26 @@ And the result of dimention reduction can be extracted by this property.
 pre_trained_arr = dbm.feature_points_arr
 ```
 
+### Extract pre-training weights
+
 If you want to get the pre-training weights, call `get_weight_arr_list` method.
 
 ```python
 weight_arr_list = dbm.get_weight_arr_list()
 ```
-
 `weight_arr_list` is the `list` of weights of each links in DBM. `weight_arr_list[0]` is 2-d `np.ndarray` of weights between visible layer and first hidden layer.
+
+### Extract reconstruction error rate.
+
+You can check the reconstruction error rate. During the approximation of the Contrastive Divergence, the mean squared error(MSE) between the observed data points and the activities in visible layer is computed as the reconstruction error rate.
+
+Call `get_reconstruct_error_arr` method as follow.
+
+```python
+reconstruct_error_arr = dbm.get_reconstruct_error_arr(layer_number=0)
+```
+
+`layer_number` is the index of `approximaion_list`. And `reconstruct_error_arr` is the `np.ndarray` of reconstruction error rates.
 
 ### Performance
 
@@ -147,9 +163,9 @@ time python demo_stacked_auto_encoder.py
 The result is follow.
  
 ```sh
-real    1m32.729s
-user    1m31.936s
-sys     0m0.764s
+real    1m35.472s
+user    1m32.300s
+sys     0m3.136s
 ```
 
 #### Detail
@@ -196,6 +212,12 @@ The observated data is the result of `np.random.uniform(size=(10000, 10000))`.
 0.656428  0.947666  0.409032  0.959559  0.397501  0.353150  0.614216
 0.167008  0.424654  0.204616  0.573720  0.147871  0.722278  0.068951
 .....
+```
+
+##### Reconstruct error
+
+```
+ [ 0.08297197  0.07091231  0.0823424  ...,  0.0721624   0.08404181  0.06981017]
 ```
 
 ### More detail demos

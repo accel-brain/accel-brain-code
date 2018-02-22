@@ -58,7 +58,9 @@ if __name__ == "__main__":
         [LogisticFunction(), LogisticFunction(), LogisticFunction()],
         [ContrastiveDivergence(), ContrastiveDivergence()],
         0.05,
-        0.5
+        0.5,
+        inferencing_flag=True,
+        inferencing_plan="each"
     )
     dbm.learn(target_arr, traning_count=1)
 

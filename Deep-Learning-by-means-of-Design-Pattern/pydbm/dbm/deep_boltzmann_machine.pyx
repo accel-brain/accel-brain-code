@@ -20,6 +20,11 @@ class DeepBoltzmannMachine(object):
     # The dict of Hyper parameters.
     __hyper_param_dict = {}
 
+    # Execute inferencing or not.
+    __inferencing_flag = False
+    # Inferencing plan. (`each` or `at_once`)
+    __inferencing_plan = "each"
+
     def __init__(
         self,
         dbm_builder,
@@ -27,7 +32,9 @@ class DeepBoltzmannMachine(object):
         activating_function_list,
         approximate_interface_list,
         double learning_rate,
-        double dropout_rate=0.5
+        double dropout_rate=0.5,
+        inferencing_flag=True,
+        inferencing_plan="each"
     ):
         '''
         Initialize deep boltzmann machine.
@@ -39,6 +46,9 @@ class DeepBoltzmannMachine(object):
             approximate_interface_list:  The object of function approximation.
             learning_rate:               Learning rate.
             dropout_rate:                Dropout rate.
+            inferencing_flag:            Execute inferencing or not. 
+            inferencing_plan:            `each`:  Learn -> Inferece -> Learn -> ...
+                                         `at_once`: All learn -> All inference   
         '''
         dbm_builder.learning_rate = learning_rate
         dbm_builder.dropout_rate = dropout_rate
@@ -51,6 +61,16 @@ class DeepBoltzmannMachine(object):
             approximate_interface_list=approximate_interface_list
         )
         self.__rbm_list = dbm_director.rbm_list
+
+        if isinstance(inferencing_flag, bool):
+            self.__inferencing_flag = inferencing_flag
+        else:
+            raise TypeError()
+
+        if isinstance(inferencing_plan, str):
+            self.__inferencing_plan = inferencing_plan
+        else:
+            raise TypeError()
 
     def learn(
         self,
@@ -69,13 +89,41 @@ class DeepBoltzmannMachine(object):
         cdef int j
         cdef np.ndarray[DOUBLE_t, ndim=1] data_arr
         cdef np.ndarray[DOUBLE_t, ndim=1] feature_point_arr
-        for i in range(row_i):
-            data_arr = observed_data_arr[i].copy()
-            for j in range(len(self.__rbm_list)):
-                rbm = self.__rbm_list[j]
-                rbm.approximate_learning(data_arr, traning_count)
-                feature_point_arr = self.get_feature_point(j)
-                data_arr = feature_point_arr
+
+        if self.__inferencing_flag is False:
+            for i in range(row_i):
+                data_arr = observed_data_arr[i].copy()
+                for j in range(len(self.__rbm_list)):
+                    self.__rbm_list[j].approximate_learning(data_arr, traning_count)
+                    feature_point_arr = self.get_feature_point(j)
+                    data_arr = feature_point_arr
+
+        else:
+            if self.__inferencing_plan == "each":
+                for i in range(row_i):
+                    data_arr = observed_data_arr[i].copy()
+                    for j in range(len(self.__rbm_list)):
+                        self.__rbm_list[j].approximate_learning(data_arr, traning_count)
+                        feature_point_arr = self.get_feature_point(j)
+                        data_arr = feature_point_arr
+
+                    for j in range(len(self.__rbm_list)):
+                        _j = len(self.__rbm_list) - j - 1
+                        data_arr = self.get_visible_activity_arr_list()[_j]
+                        self.__rbm_list[j].approximate_inferencing(data_arr, traning_count)
+
+            elif self.__inferencing_plan == "at_once":
+                for i in range(row_i):
+                    data_arr = observed_data_arr[i].copy()
+                    for j in range(len(self.__rbm_list)):
+                        self.__rbm_list[j].approximate_learning(data_arr, traning_count)
+                        feature_point_arr = self.get_feature_point(j)
+                        data_arr = feature_point_arr
+
+                for j in range(len(self.__rbm_list)):
+                    _j = len(self.__rbm_list) - j - 1
+                    data_arr = self.get_visible_activity_arr_list()[_j]
+                    self.__rbm_list[j].approximate_inferencing(data_arr, traning_count)
 
     def get_feature_point(self, int layer_number=0):
         '''

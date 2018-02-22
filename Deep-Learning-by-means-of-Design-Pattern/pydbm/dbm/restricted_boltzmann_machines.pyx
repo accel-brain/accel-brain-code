@@ -63,8 +63,23 @@ class RestrictedBoltzmannMachine(object):
             observed_data_arr:      The array of observed data points.
             traning_count:          Training counts.
         '''
-
         self.__graph = self.__approximate_interface.approximate_learn(
+            self.__graph,
+            self.__learning_rate,
+            self.__dropout_rate,
+            observed_data_arr,
+            traning_count=traning_count
+        )
+
+    def approximate_inferencing(self, np.ndarray observed_data_arr, int traning_count):
+        '''
+        Learning with function approximation.
+
+        Args:
+            observed_data_arr:      The array of observed data points.
+            traning_count:          Training counts.
+        '''
+        self.__graph = self.__approximate_interface.approximate_inference(
             self.__graph,
             self.__learning_rate,
             self.__dropout_rate,

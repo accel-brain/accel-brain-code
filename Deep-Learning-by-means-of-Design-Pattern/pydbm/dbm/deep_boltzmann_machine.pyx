@@ -110,7 +110,7 @@ class DeepBoltzmannMachine(object):
                     for j in range(len(self.__rbm_list)):
                         _j = len(self.__rbm_list) - j - 1
                         data_arr = self.get_visible_activity_arr_list()[_j]
-                        self.__rbm_list[j].approximate_inferencing(data_arr, traning_count)
+                        self.__rbm_list[_j - 1].approximate_inferencing(data_arr, traning_count)
 
             elif self.__inferencing_plan == "at_once":
                 for i in range(row_i):
@@ -123,7 +123,7 @@ class DeepBoltzmannMachine(object):
                 for j in range(len(self.__rbm_list)):
                     _j = len(self.__rbm_list) - j - 1
                     data_arr = self.get_visible_activity_arr_list()[_j]
-                    self.__rbm_list[j].approximate_inferencing(data_arr, traning_count)
+                    self.__rbm_list[_j - 1].approximate_inferencing(data_arr, traning_count)
 
     def get_feature_point(self, int layer_number=0):
         '''

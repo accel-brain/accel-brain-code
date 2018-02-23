@@ -23,7 +23,7 @@ pip install pydbm
 Or, you can install from wheel file.
 
 ```sh
-pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.1.3-cp36-cp36m-linux_x86_64.whl
+pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.1.4-cp36-cp36m-linux_x86_64.whl
 ```
 
 ### Source code

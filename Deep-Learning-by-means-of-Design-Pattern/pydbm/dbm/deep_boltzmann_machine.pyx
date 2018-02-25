@@ -134,10 +134,24 @@ class DeepBoltzmannMachine(object):
                             For instance, 0 is visible layer, 1 is hidden or middle layer, and 2 is hidden layer in three layers.
 
         Returns:
-            The list of feature points.
+            The np.ndarray of feature points.
         '''
         feature_point_arr = self.__rbm_list[layer_number].graph.hidden_activity_arr
         return feature_point_arr
+
+    def get_visible_point(self, int layer_number=0):
+        '''
+        Extract the visible data points which is reconsturcted.
+
+        Args:
+            layer_number:    The index of layers.
+                             For instance, 0 is visible layer, 1 is hidden or middle layer, and 2 is hidden layer in three layers.
+
+        Returns:
+            The np.ndarray of visible data points.
+        '''
+        visible_points_arr = self.__rbm_list[layer_number].graph.visible_activity_arr
+        return visible_points_arr
 
     def get_visible_activity_arr_list(self):
         '''

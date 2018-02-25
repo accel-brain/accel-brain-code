@@ -9,6 +9,10 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
     '''
     Stacked Auto-Encoder.
     '''
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This property is read-only.")
+
     # auto-saved featrue points.
     __feature_points_arr = None
 
@@ -16,11 +20,16 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
         ''' getter '''
         return self.__feature_points_arr
 
-    def set_readonly(self, value):
-        ''' setter '''
-        raise TypeError("This property is read-only.")
-
     feature_points_arr = property(get_feature_points_arr, set_readonly)
+
+    # auto-saved shallower visible data points which is reconstructed.
+    __visible_points_arr = None
+
+    def get_visible_points_arr(self):
+        ''' getter '''
+        return self.__visible_points_arr
+
+    visible_points_arr = property(get_visible_points_arr, set_readonly)
 
     def learn(
         self,
@@ -38,6 +47,8 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
         cdef int t
         cdef np.ndarray[DOUBLE_t, ndim=1] data_arr
         cdef np.ndarray[DOUBLE_t, ndim=1] feature_point_arr
+
+        visible_points_list = [None] * row
         feature_points_list = [None] * row
         for t in range(traning_count):
             for i in range(row):
@@ -47,7 +58,10 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
                     traning_count=1
                 )
                 if t == traning_count - 1:
+                    visible_points_arr = self.get_visible_point()
+                    visible_points_list[i] = visible_points_arr
                     feature_point_arr = self.get_feature_point()
                     feature_points_list[i] = feature_point_arr
 
+        self.__visible_points_arr = np.array(visible_points_list)
         self.__feature_points_arr = np.array(feature_points_list)

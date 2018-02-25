@@ -3,6 +3,7 @@ from pydbm.dbm.deepboltzmannmachine.stacked_auto_encoder import StackedAutoEncod
 from pydbm.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
 from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
 from pydbm.activation.logistic_function import LogisticFunction
+from pydbm.activation.softmax_function import SoftmaxFunction
 import numpy as np
 import random
 import pandas as pd
@@ -55,7 +56,7 @@ if __name__ == "__main__":
     dbm = StackedAutoEncoder(
         DBMMultiLayerBuilder(),
         [target_arr.shape[1], 10, target_arr.shape[1]],
-        [LogisticFunction(), LogisticFunction(), LogisticFunction()],
+        [SoftmaxFunction(), SoftmaxFunction(), SoftmaxFunction()],
         [ContrastiveDivergence(), ContrastiveDivergence()],
         0.05,
         0.5,

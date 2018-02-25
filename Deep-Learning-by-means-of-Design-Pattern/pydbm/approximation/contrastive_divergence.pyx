@@ -168,15 +168,10 @@ class ContrastiveDivergence(ApproximateInterface):
         self.__graph.visible_activity_arr = link_value_arr.sum(axis=0)
         self.__graph.visible_activity_arr = self.__graph.visible_activating_function.activate(self.__graph.visible_activity_arr)
 
-        if self.__dropout_rate > 0:
-            self.__graph.visible_activity_arr = self.__dropout(self.__graph.visible_activity_arr)
-
         link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
         link_value_arr = np.nan_to_num(link_value_arr)
         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(self.__graph.hidden_activity_arr)
-        if self.__dropout_rate > 0:
-            self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
 
         self.__graph.diff_weights_arr += self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate * (-1)
 
@@ -190,8 +185,6 @@ class ContrastiveDivergence(ApproximateInterface):
         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
             self.__graph.hidden_activity_arr
         )
-        if self.__dropout_rate > 0:
-            self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
 
         self.__graph.diff_weights_arr = self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate
 

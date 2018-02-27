@@ -23,7 +23,8 @@ class ApproximateInterface(metaclass=ABCMeta):
         double learning_rate,
         double dropout_rate,
         np.ndarray observed_data_arr,
-        int traning_count=1000
+        int traning_count=1000,
+        int batch_size=0
     ):
         '''
         learning with function approximation.
@@ -34,6 +35,36 @@ class ApproximateInterface(metaclass=ABCMeta):
             dropout_rate:         Dropout rate.
             observed_data_arr:    observed data points.
             traning_count:        Training counts.
+            batch_size:           Batch size (0: not mini-batch)
+
+        Returns:
+            Graph of neurons.
+        '''
+        raise NotImplementedError()
+
+    @abstractmethod
+    def approximate_inference(
+        self,
+        graph,
+        double learning_rate,
+        double dropout_rate,
+        np.ndarray observed_data_arr,
+        int traning_count=1000,
+        int r_batch_size=200
+    ):
+        '''
+        Inference with function approximation.
+
+        Args:
+            graph:                Graph of neurons.
+            learning_rate:        Learning rate.
+            dropout_rate:         Dropout rate.
+            observed_data_arr:    observed data points.
+            traning_count:        Training counts.
+            r_batch_size:         Batch size.
+                                  If this value is `0`, the inferencing is a recursive learning.
+                                  If this value is more than `0`, the inferencing is a mini-batch recursive learning.
+                                  If this value is '-1', the inferencing is not a recursive learning.
 
         Returns:
             Graph of neurons.

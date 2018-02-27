@@ -63,7 +63,12 @@ if __name__ == "__main__":
         inferencing_flag=True,
         inferencing_plan="each"
     )
-    dbm.learn(target_arr, traning_count=1)
+    dbm.learn(
+        target_arr, 
+        traning_count=1, 
+        batch_size=200, 
+        r_batch_size=-1
+    )
 
     import pandas as pd
     feature_points_df = pd.DataFrame(dbm.feature_points_arr)

@@ -75,14 +75,22 @@ class DeepBoltzmannMachine(object):
     def learn(
         self,
         np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
-        int traning_count=1000
+        int traning_count=1000,
+        int batch_size=200,
+        int r_batch_size=-1
     ):
         '''
         Learning.
 
         Args:
-            observed_data_arr:      The `np.ndarray` of observed data points.
-            traning_count:          Training counts.
+            observed_data_arr:    The `np.ndarray` of observed data points.
+            traning_count:        Training counts.
+            batch_size:           Batch size.
+            r_batch_size:         Batch size.
+                                  If this value is `0`, the inferencing is a recursive learning.
+                                  If this value is more than `0`, the inferencing is a mini-batch recursive learning.
+                                  If this value is '-1', the inferencing is not a recursive learning.
+
         '''
         cdef int i
         cdef int row_i = observed_data_arr.shape[0]
@@ -94,36 +102,55 @@ class DeepBoltzmannMachine(object):
             for i in range(row_i):
                 data_arr = observed_data_arr[i].copy()
                 for j in range(len(self.__rbm_list)):
-                    self.__rbm_list[j].approximate_learning(data_arr, traning_count)
+                    self.__rbm_list[j].approximate_learning(
+                        data_arr,
+                        traning_count,
+                        batch_size
+                    )
                     feature_point_arr = self.get_feature_point(j)
                     data_arr = feature_point_arr
-
         else:
             if self.__inferencing_plan == "each":
                 for i in range(row_i):
                     data_arr = observed_data_arr[i].copy()
                     for j in range(len(self.__rbm_list)):
-                        self.__rbm_list[j].approximate_learning(data_arr, traning_count)
+                        self.__rbm_list[j].approximate_learning(
+                            data_arr,
+                            traning_count,
+                            batch_size
+                        )
                         feature_point_arr = self.get_feature_point(j)
                         data_arr = feature_point_arr
 
                     for j in range(len(self.__rbm_list)):
                         _j = len(self.__rbm_list) - j - 1
                         data_arr = self.get_visible_activity_arr_list()[_j]
-                        self.__rbm_list[_j - 1].approximate_inferencing(data_arr, traning_count)
+                        self.__rbm_list[_j - 1].approximate_inferencing(
+                            data_arr,
+                            traning_count,
+                            r_batch_size
+                        )
 
             elif self.__inferencing_plan == "at_once":
                 for i in range(row_i):
                     data_arr = observed_data_arr[i].copy()
                     for j in range(len(self.__rbm_list)):
-                        self.__rbm_list[j].approximate_learning(data_arr, traning_count)
+                        self.__rbm_list[j].approximate_learning(
+                            data_arr,
+                            traning_count,
+                            batch_size
+                        )
                         feature_point_arr = self.get_feature_point(j)
                         data_arr = feature_point_arr
 
                 for j in range(len(self.__rbm_list)):
                     _j = len(self.__rbm_list) - j - 1
                     data_arr = self.get_visible_activity_arr_list()[_j]
-                    self.__rbm_list[_j - 1].approximate_inferencing(data_arr, traning_count)
+                    self.__rbm_list[_j - 1].approximate_inferencing(
+                        data_arr,
+                        traning_count,
+                        r_batch_size
+                    )
 
     def get_feature_point(self, int layer_number=0):
         '''

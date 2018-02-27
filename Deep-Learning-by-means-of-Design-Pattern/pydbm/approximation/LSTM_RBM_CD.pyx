@@ -8,7 +8,7 @@ ctypedef np.float64_t DOUBLE_t
 
 class LSTMRBMCD(ApproximateInterface):
     '''
-    Contrastive Divergence for LSTM-RBM.
+    Contrastive Divergence.
     
     Conceptually, the positive phase is to the negative phase what waking is to sleeping.
     '''
@@ -32,7 +32,14 @@ class LSTMRBMCD(ApproximateInterface):
     __learning_rate = 0.5
     # Dropout rate.
     __dropout_rate = 0.5
-
+    # Batch size in learning.
+    __batch_size = 0
+    # Batch step in learning.
+    __batch_step = 0
+    # Batch size in inference(recursive learning or not).
+    __r_batch_size = 0
+    # Batch step in inference(recursive learning or not).
+    __r_batch_step = 0
     # hidden activities in `t-1`.
     __pre_hidden_activity_arr = None
     # weight matrix in `t-1`.
@@ -44,7 +51,8 @@ class LSTMRBMCD(ApproximateInterface):
         double learning_rate,
         double dropout_rate,
         np.ndarray observed_data_arr,
-        int traning_count=1000
+        int traning_count=1000,
+        int batch_size=200
     ):
         '''
         learning with function approximation.
@@ -55,6 +63,7 @@ class LSTMRBMCD(ApproximateInterface):
             dropout_rate:         Dropout rate.
             observed_data_arr:    observed data points.
             traning_count:        Training counts.
+            batch_size:           Batch size (0: not mini-batch)
 
         Returns:
             Graph of neurons.
@@ -62,9 +71,11 @@ class LSTMRBMCD(ApproximateInterface):
         self.__graph = graph
         self.__learning_rate = learning_rate
         self.__dropout_rate = dropout_rate
+        self.__batch_size = batch_size
 
         cdef int _
         for _ in range(traning_count):
+            self.__batch_step += 1
             self.__wake_sleep_learn(observed_data_arr)
 
         return self.__graph
@@ -75,7 +86,8 @@ class LSTMRBMCD(ApproximateInterface):
         double learning_rate,
         double dropout_rate,
         np.ndarray observed_data_arr,
-        int traning_count=1000
+        int traning_count=1000,
+        int r_batch_size=200
     ):
         '''
         Inference with function approximation.
@@ -86,6 +98,10 @@ class LSTMRBMCD(ApproximateInterface):
             dropout_rate:         Dropout rate.
             observed_data_arr:    observed data points.
             traning_count:        Training counts.
+            r_batch_size:         Batch size.
+                                  If this value is `0`, the inferencing is a recursive learning.
+                                  If this value is more than `0`, the inferencing is a mini-batch recursive learning.
+                                  If this value is '-1', the inferencing is not a recursive learning.
 
         Returns:
             Graph of neurons.
@@ -93,9 +109,11 @@ class LSTMRBMCD(ApproximateInterface):
         self.__graph = graph
         self.__learning_rate = learning_rate
         self.__dropout_rate = dropout_rate
+        self.__r_batch_size = r_batch_size
 
         cdef int _
         for _ in range(traning_count):
+            self.__r_batch_step += 1
             self.__sleep_wake_learn(observed_data_arr)
 
         return self.__graph
@@ -124,10 +142,10 @@ class LSTMRBMCD(ApproximateInterface):
         if self.__dropout_rate > 0:
             self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
 
-        self.__graph.diff_weights_arr = self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate
+        self.__graph.diff_weights_arr += self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate
 
-        visible_diff_bias = self.__learning_rate * self.__graph.visible_activity_arr
-        hidden_diff_bias = self.__learning_rate * self.__graph.hidden_activity_arr
+        self.__graph.visible_diff_bias_arr += self.__learning_rate * self.__graph.visible_activity_arr
+        self.__graph.hidden_diff_bias_arr += self.__learning_rate * self.__graph.hidden_activity_arr
 
         # Sleeping.
         if self.__pre_hidden_activity_arr is not None and self.__pre_weight_arr is not None:
@@ -142,8 +160,6 @@ class LSTMRBMCD(ApproximateInterface):
             link_value_arr = (self.__graph.weights_arr.T) * self.__graph.hidden_activity_arr.reshape(-1, 1) + self.__graph.hidden_bias_arr.reshape(-1, 1)
             link_value_arr = np.nan_to_num(link_value_arr)
             self.__graph.visible_activity_arr = link_value_arr.sum(axis=0)
-
-        self.__graph.visible_activity_arr = self.__graph.visible_activating_function.activate(self.__graph.visible_activity_arr)
 
         # Validation.
         self.compute_reconstruct_error(observed_data_arr, self.__graph.visible_activity_arr)
@@ -160,13 +176,16 @@ class LSTMRBMCD(ApproximateInterface):
 
         self.__graph.diff_weights_arr += self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate * (-1)
 
-        visible_diff_bias += self.__learning_rate * self.__graph.visible_activity_arr * (-1)
-        hidden_diff_bias += self.__learning_rate * self.__graph.hidden_activity_arr * (-1)
+        self.__graph.visible_diff_bias_arr += self.__learning_rate * self.__graph.visible_activity_arr * (-1)
+        self.__graph.hidden_diff_bias_arr += self.__learning_rate * self.__graph.hidden_activity_arr * (-1)
 
         # Learning.
-        self.__graph.visible_bias_arr += visible_diff_bias
-        self.__graph.hidden_bias_arr += hidden_diff_bias
-        self.__graph.learn_weights()
+        if self.__batch_size == 0 or self.__batch_step % self.__batch_size == 0:
+            self.__graph.visible_bias_arr += self.__graph.visible_diff_bias_arr
+            self.__graph.hidden_bias_arr += self.__graph.hidden_diff_bias_arr
+            self.__graph.visible_diff_bias_arr = np.zeros(self.__graph.visible_bias_arr.shape)
+            self.__graph.hidden_diff_bias_arr = np.zeros(self.__graph.hidden_bias_arr.shape)
+            self.__graph.learn_weights()
 
         # Memorize.
         self.__pre_hidden_activity_arr = self.__graph.hidden_activity_arr.copy()
@@ -192,10 +211,10 @@ class LSTMRBMCD(ApproximateInterface):
         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(self.__graph.hidden_activity_arr)
 
-        self.__graph.diff_weights_arr += self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate * (-1)
-
-        visible_diff_bias = self.__learning_rate * self.__graph.visible_activity_arr * (-1)
-        hidden_diff_bias = self.__learning_rate * self.__graph.hidden_activity_arr * (-1)
+        if self.__r_batch_size != -1:
+            self.__graph.diff_weights_arr += self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate * (-1)
+            self.__graph.visible_diff_bias_arr += self.__learning_rate * self.__graph.visible_activity_arr * (-1)
+            self.__graph.hidden_diff_bias_arr += self.__learning_rate * self.__graph.hidden_activity_arr * (-1)
 
         # Waking.
         link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
@@ -205,15 +224,19 @@ class LSTMRBMCD(ApproximateInterface):
             self.__graph.hidden_activity_arr
         )
 
-        self.__graph.diff_weights_arr = self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate
-
-        visible_diff_bias += self.__learning_rate * self.__graph.visible_activity_arr
-        hidden_diff_bias += self.__learning_rate * self.__graph.hidden_activity_arr
+        if self.__r_batch_size != -1:
+            self.__graph.diff_weights_arr += self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate
+            self.__graph.visible_diff_bias_arr += self.__learning_rate * self.__graph.visible_activity_arr
+            self.__graph.hidden_diff_bias_arr += self.__learning_rate * self.__graph.hidden_activity_arr
 
         # Learning.
-        self.__graph.visible_bias_arr += visible_diff_bias
-        self.__graph.hidden_bias_arr += hidden_diff_bias
-        self.__graph.learn_weights()
+        if self.__r_batch_size != -1:
+            if self.__r_batch_size == 0 or self.__r_batch_step % self.__r_batch_size == 0:
+                self.__graph.visible_bias_arr += self.__graph.visible_diff_bias_arr
+                self.__graph.hidden_bias_arr += self.__graph.hidden_diff_bias_arr
+                self.__graph.visible_diff_bias_arr = np.zeros(self.__graph.visible_bias_arr.shape)
+                self.__graph.hidden_diff_bias_arr = np.zeros(self.__graph.hidden_bias_arr.shape)
+                self.__graph.learn_weights()
 
     def __dropout(self, np.ndarray[DOUBLE_t, ndim=1] activity_arr):
         '''

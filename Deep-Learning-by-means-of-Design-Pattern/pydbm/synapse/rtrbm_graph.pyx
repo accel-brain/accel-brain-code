@@ -302,16 +302,3 @@ class RTRBMGraph(Synapse):
             deeper_activating_function,
             weights_arr
         )
-
-    '''
-    def learn_weights(self):
-        '''
-        #Update the weights of links.
-
-        #Override.
-        '''
-        super().learn_weights()
-        self.pre_hidden_activity_arr = self.__activating_function_interface.activate(
-            (self.weights_arr * self.visible_activity_arr.reshape(-1, 1)) + (self.hidden_bias_weights_arr.T * self.pre_hidden_activity_arr.reshape(-1, 1).T) + self.hidden_activity_arr.reshape(-1, 1).T
-        )
-    '''

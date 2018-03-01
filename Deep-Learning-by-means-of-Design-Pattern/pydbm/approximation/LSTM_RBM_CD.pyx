@@ -161,7 +161,7 @@ class LSTMRBMCD(ApproximateInterface):
         t_visible_bias_arr = self.__graph.visible_bias_arr.reshape(-1, 1) + self.__graph.visible_bias_weights_arr * self.__graph.pre_hidden_activity_arr.reshape(-1, 1).T
 
         link_value_arr = self.__graph.visible_activity_arr.reshape(-1, 1).T * t_visible_bias_arr + self.__graph.visible_activity_arr.reshape(-1, 1).T * self.__graph.weights_arr.T * self.__graph.hidden_activity_arr.reshape(-1, 1)
-        link_value_arr += self.__graph.hidden_activity_arr.T * t_hidden_bias_arr + self.__graph.hidden_bias_weights_arr * self.__graph.pre_hidden_activity_arr.reshape(-1, 1))
+        link_value_arr += (self.__graph.hidden_activity_arr.T * t_hidden_bias_arr) + (self.__graph.hidden_bias_weights_arr * self.__graph.pre_hidden_activity_arr.reshape(-1, 1))
         link_value_arr = np.nan_to_num(link_value_arr)
         link_value_arr = np.exp(link_value_arr)
         link_value_arr = link_value_arr / self.__graph.pre_hidden_activity_arr.sum()        

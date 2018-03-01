@@ -106,6 +106,7 @@ class Synapse(object):
             self.weights_arr = weights_arr
         else:
             self.weights_arr = init_weights_arr
+        self.diff_weights_arr = np.zeros(self.weights_arr.shape, dtype=float)
 
     def learn_weights(self):
         '''

@@ -86,6 +86,44 @@ class CompleteBipartiteGraph(Synapse):
 
     hidden_bias_arr = property(get_hidden_bias_arr, set_hidden_bias_arr)
 
+    # Diff of Bias of neuron in visible layer.
+    __visible_diff_bias_arr = np.array([])
+
+    def get_visible_diff_bias_arr(self):
+        ''' getter '''
+        if isinstance(self.__visible_diff_bias_arr, np.ndarray) is False:
+            raise TypeError("The type of __visible_diff_bias_arr must be `np.ndarray`.")
+
+        return self.__visible_diff_bias_arr
+
+    def set_visible_diff_bias_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __visible_diff_bias_arr must be `np.ndarray`.")
+
+        self.__visible_diff_bias_arr = value
+
+    visible_diff_bias_arr = property(get_visible_diff_bias_arr, set_visible_diff_bias_arr)
+
+    # Diff of Bias of neuron in hidden layer.
+    __hidden_diff_bias_arr = np.array([])
+
+    def get_hidden_diff_bias_arr(self):
+        ''' getter '''
+        if isinstance(self.__hidden_diff_bias_arr, np.ndarray) is False:
+            raise TypeError("The type of __hidden_diff_bias_arr must be `np.ndarray`.")
+
+        return self.__hidden_diff_bias_arr
+
+    def set_hidden_diff_bias_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __hidden_diff_bias_arr must be `np.ndarray`.")
+
+        self.__hidden_diff_bias_arr = value
+
+    hidden_diff_bias_arr = property(get_hidden_diff_bias_arr, set_hidden_diff_bias_arr)
+
     # Activation function in visible layer.
     def get_visible_activating_function(self):
         ''' getter '''
@@ -138,6 +176,8 @@ class CompleteBipartiteGraph(Synapse):
         '''
         self.visible_bias_arr = np.random.uniform(low=0, high=1, size=(shallower_neuron_count, ))
         self.hidden_bias_arr = np.random.uniform(low=0, high=1, size=(deeper_neuron_count, ))
+        self.visible_diff_bias_arr = np.zeros(self.visible_bias_arr.shape)
+        self.hidden_diff_bias_arr = np.zeros(self.hidden_bias_arr.shape)
 
         super().create_node(
             shallower_neuron_count,

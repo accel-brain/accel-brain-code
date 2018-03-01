@@ -1575,9 +1575,11 @@ static const char __pyx_k_prepare[] = "__prepare__";
 static const char __pyx_k_qualname[] = "__qualname__";
 static const char __pyx_k_metaclass[] = "__metaclass__";
 static const char __pyx_k_ValueError[] = "ValueError";
+static const char __pyx_k_batch_size[] = "batch_size";
 static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_dropout_rate[] = "dropout_rate";
+static const char __pyx_k_r_batch_size[] = "r_batch_size";
 static const char __pyx_k_learning_rate[] = "learning_rate";
 static const char __pyx_k_traning_count[] = "traning_count";
 static const char __pyx_k_abstractmethod[] = "abstractmethod";
@@ -1588,6 +1590,7 @@ static const char __pyx_k_reconstructed_arr[] = "reconstructed_arr";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_NotImplementedError[] = "NotImplementedError";
 static const char __pyx_k_ApproximateInterface[] = "ApproximateInterface";
+static const char __pyx_k_approximate_inference[] = "approximate_inference";
 static const char __pyx_k_reconstruct_error_list[] = "reconstruct_error_list";
 static const char __pyx_k_compute_reconstruct_error[] = "compute_reconstruct_error";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
@@ -1602,11 +1605,13 @@ static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte 
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
 static const char __pyx_k_pydbm_approximation_interface_ap[] = "pydbm.approximation.interface.approximate_interface";
+static const char __pyx_k_ApproximateInterface_approximate_2[] = "ApproximateInterface.approximate_inference";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
 static const char __pyx_k_pydbm_approximation_interface_ap_2[] = "pydbm/approximation/interface/approximate_interface.pyx";
 static PyObject *__pyx_n_s_ABCMeta;
 static PyObject *__pyx_n_s_ApproximateInterface;
 static PyObject *__pyx_n_s_ApproximateInterface_approximate;
+static PyObject *__pyx_n_s_ApproximateInterface_approximate_2;
 static PyObject *__pyx_n_s_ApproximateInterface_compute_rec;
 static PyObject *__pyx_n_s_ApproximateInterface_reconstruct;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
@@ -1620,7 +1625,9 @@ static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_abc;
 static PyObject *__pyx_n_s_abstractmethod;
 static PyObject *__pyx_n_s_abstractproperty;
+static PyObject *__pyx_n_s_approximate_inference;
 static PyObject *__pyx_n_s_approximate_learn;
+static PyObject *__pyx_n_s_batch_size;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_compute_reconstruct_error;
 static PyObject *__pyx_n_s_doc;
@@ -1642,6 +1649,7 @@ static PyObject *__pyx_n_s_prepare;
 static PyObject *__pyx_n_s_pydbm_approximation_interface_ap;
 static PyObject *__pyx_kp_s_pydbm_approximation_interface_ap_2;
 static PyObject *__pyx_n_s_qualname;
+static PyObject *__pyx_n_s_r_batch_size;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_reconstruct_error_list;
 static PyObject *__pyx_n_s_reconstructed_arr;
@@ -1650,8 +1658,9 @@ static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_traning_count;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
 static PyObject *__pyx_pf_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_reconstruct_error_list(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_2approximate_learn(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_graph, CYTHON_UNUSED double __pyx_v_learning_rate, CYTHON_UNUSED double __pyx_v_dropout_rate, CYTHON_UNUSED PyArrayObject *__pyx_v_observed_data_arr, CYTHON_UNUSED int __pyx_v_traning_count); /* proto */
-static PyObject *__pyx_pf_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_4compute_reconstruct_error(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_observed_data_arr, CYTHON_UNUSED PyArrayObject *__pyx_v_reconstructed_arr); /* proto */
+static PyObject *__pyx_pf_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_2approximate_learn(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_graph, CYTHON_UNUSED double __pyx_v_learning_rate, CYTHON_UNUSED double __pyx_v_dropout_rate, CYTHON_UNUSED PyArrayObject *__pyx_v_observed_data_arr, CYTHON_UNUSED int __pyx_v_traning_count, CYTHON_UNUSED int __pyx_v_batch_size); /* proto */
+static PyObject *__pyx_pf_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_4approximate_inference(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_graph, CYTHON_UNUSED double __pyx_v_learning_rate, CYTHON_UNUSED double __pyx_v_dropout_rate, CYTHON_UNUSED PyArrayObject *__pyx_v_observed_data_arr, CYTHON_UNUSED int __pyx_v_traning_count, CYTHON_UNUSED int __pyx_v_r_batch_size); /* proto */
+static PyObject *__pyx_pf_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_6compute_reconstruct_error(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_observed_data_arr, CYTHON_UNUSED PyArrayObject *__pyx_v_reconstructed_arr); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tuple_;
@@ -1666,9 +1675,11 @@ static PyObject *__pyx_tuple__9;
 static PyObject *__pyx_tuple__10;
 static PyObject *__pyx_tuple__12;
 static PyObject *__pyx_tuple__14;
+static PyObject *__pyx_tuple__16;
 static PyObject *__pyx_codeobj__11;
 static PyObject *__pyx_codeobj__13;
 static PyObject *__pyx_codeobj__15;
+static PyObject *__pyx_codeobj__17;
 
 /* "pydbm/approximation/interface/approximate_interface.pyx":15
  * 
@@ -1740,7 +1751,7 @@ static PyObject *__pyx_pf_5pydbm_13approximation_9interface_21approximate_interf
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_3approximate_learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_2approximate_learn[] = "\n        learning with function approximation.\n\n        Args:\n            graph:                Graph of neurons.\n            learning_rate:        Learning rate.\n            dropout_rate:         Dropout rate.\n            observed_data_arr:    observed data points.\n            traning_count:        Training counts.\n\n        Returns:\n            Graph of neurons.\n        ";
+static char __pyx_doc_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_2approximate_learn[] = "\n        learning with function approximation.\n\n        Args:\n            graph:                Graph of neurons.\n            learning_rate:        Learning rate.\n            dropout_rate:         Dropout rate.\n            observed_data_arr:    observed data points.\n            traning_count:        Training counts.\n            batch_size:           Batch size (0: not mini-batch)\n\n        Returns:\n            Graph of neurons.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_3approximate_learn = {"approximate_learn", (PyCFunction)__pyx_pw_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_3approximate_learn, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_2approximate_learn};
 static PyObject *__pyx_pw_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_3approximate_learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
@@ -1749,16 +1760,19 @@ static PyObject *__pyx_pw_5pydbm_13approximation_9interface_21approximate_interf
   CYTHON_UNUSED double __pyx_v_dropout_rate;
   CYTHON_UNUSED PyArrayObject *__pyx_v_observed_data_arr = 0;
   CYTHON_UNUSED int __pyx_v_traning_count;
+  CYTHON_UNUSED int __pyx_v_batch_size;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("approximate_learn (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_graph,&__pyx_n_s_learning_rate,&__pyx_n_s_dropout_rate,&__pyx_n_s_observed_data_arr,&__pyx_n_s_traning_count,0};
-    PyObject* values[6] = {0,0,0,0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_graph,&__pyx_n_s_learning_rate,&__pyx_n_s_dropout_rate,&__pyx_n_s_observed_data_arr,&__pyx_n_s_traning_count,&__pyx_n_s_batch_size,0};
+    PyObject* values[7] = {0,0,0,0,0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
+        CYTHON_FALLTHROUGH;
         case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
         CYTHON_FALLTHROUGH;
         case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
@@ -1783,25 +1797,25 @@ static PyObject *__pyx_pw_5pydbm_13approximation_9interface_21approximate_interf
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_graph)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 6, 1); __PYX_ERR(0, 20, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 7, 1); __PYX_ERR(0, 20, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_learning_rate)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 6, 2); __PYX_ERR(0, 20, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 7, 2); __PYX_ERR(0, 20, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_dropout_rate)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 6, 3); __PYX_ERR(0, 20, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 7, 3); __PYX_ERR(0, 20, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_observed_data_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 6, 4); __PYX_ERR(0, 20, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 7, 4); __PYX_ERR(0, 20, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
@@ -1809,12 +1823,20 @@ static PyObject *__pyx_pw_5pydbm_13approximation_9interface_21approximate_interf
           PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_traning_count);
           if (value) { values[5] = value; kw_args--; }
         }
+        CYTHON_FALLTHROUGH;
+        case  6:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_batch_size);
+          if (value) { values[6] = value; kw_args--; }
+        }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "approximate_learn") < 0)) __PYX_ERR(0, 20, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
+        CYTHON_FALLTHROUGH;
         case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
         CYTHON_FALLTHROUGH;
         case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
@@ -1836,17 +1858,22 @@ static PyObject *__pyx_pw_5pydbm_13approximation_9interface_21approximate_interf
     } else {
       __pyx_v_traning_count = ((int)((int)0x3E8));
     }
+    if (values[6]) {
+      __pyx_v_batch_size = __Pyx_PyInt_As_int(values[6]); if (unlikely((__pyx_v_batch_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 27, __pyx_L3_error)
+    } else {
+      __pyx_v_batch_size = ((int)((int)0));
+    }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 20, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("approximate_learn", 0, 5, 7, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 20, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.approximation.interface.approximate_interface.ApproximateInterface.approximate_learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_data_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_data_arr", 0))) __PYX_ERR(0, 25, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_2approximate_learn(__pyx_self, __pyx_v_self, __pyx_v_graph, __pyx_v_learning_rate, __pyx_v_dropout_rate, __pyx_v_observed_data_arr, __pyx_v_traning_count);
+  __pyx_r = __pyx_pf_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_2approximate_learn(__pyx_self, __pyx_v_self, __pyx_v_graph, __pyx_v_learning_rate, __pyx_v_dropout_rate, __pyx_v_observed_data_arr, __pyx_v_traning_count, __pyx_v_batch_size);
 
   /* function exit code */
   goto __pyx_L0;
@@ -1857,24 +1884,24 @@ static PyObject *__pyx_pw_5pydbm_13approximation_9interface_21approximate_interf
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_2approximate_learn(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_graph, CYTHON_UNUSED double __pyx_v_learning_rate, CYTHON_UNUSED double __pyx_v_dropout_rate, CYTHON_UNUSED PyArrayObject *__pyx_v_observed_data_arr, CYTHON_UNUSED int __pyx_v_traning_count) {
+static PyObject *__pyx_pf_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_2approximate_learn(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_graph, CYTHON_UNUSED double __pyx_v_learning_rate, CYTHON_UNUSED double __pyx_v_dropout_rate, CYTHON_UNUSED PyArrayObject *__pyx_v_observed_data_arr, CYTHON_UNUSED int __pyx_v_traning_count, CYTHON_UNUSED int __pyx_v_batch_size) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("approximate_learn", 0);
 
-  /* "pydbm/approximation/interface/approximate_interface.pyx":41
+  /* "pydbm/approximation/interface/approximate_interface.pyx":43
  *             Graph of neurons.
  *         '''
  *         raise NotImplementedError()             # <<<<<<<<<<<<<<
  * 
  *     @abstractmethod
  */
-  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __PYX_ERR(0, 41, __pyx_L1_error)
+  __PYX_ERR(0, 43, __pyx_L1_error)
 
   /* "pydbm/approximation/interface/approximate_interface.pyx":20
  * 
@@ -1894,7 +1921,187 @@ static PyObject *__pyx_pf_5pydbm_13approximation_9interface_21approximate_interf
   return __pyx_r;
 }
 
-/* "pydbm/approximation/interface/approximate_interface.pyx":44
+/* "pydbm/approximation/interface/approximate_interface.pyx":46
+ * 
+ *     @abstractmethod
+ *     def approximate_inference(             # <<<<<<<<<<<<<<
+ *         self,
+ *         graph,
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_5approximate_inference(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_4approximate_inference[] = "\n        Inference with function approximation.\n\n        Args:\n            graph:                Graph of neurons.\n            learning_rate:        Learning rate.\n            dropout_rate:         Dropout rate.\n            observed_data_arr:    observed data points.\n            traning_count:        Training counts.\n            r_batch_size:         Batch size.\n                                  If this value is `0`, the inferencing is a recursive learning.\n                                  If this value is more than `0`, the inferencing is a mini-batch recursive learning.\n                                  If this value is '-1', the inferencing is not a recursive learning.\n\n        Returns:\n            Graph of neurons.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_5approximate_inference = {"approximate_inference", (PyCFunction)__pyx_pw_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_5approximate_inference, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_4approximate_inference};
+static PyObject *__pyx_pw_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_5approximate_inference(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  CYTHON_UNUSED PyObject *__pyx_v_self = 0;
+  CYTHON_UNUSED PyObject *__pyx_v_graph = 0;
+  CYTHON_UNUSED double __pyx_v_learning_rate;
+  CYTHON_UNUSED double __pyx_v_dropout_rate;
+  CYTHON_UNUSED PyArrayObject *__pyx_v_observed_data_arr = 0;
+  CYTHON_UNUSED int __pyx_v_traning_count;
+  CYTHON_UNUSED int __pyx_v_r_batch_size;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("approximate_inference (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_graph,&__pyx_n_s_learning_rate,&__pyx_n_s_dropout_rate,&__pyx_n_s_observed_data_arr,&__pyx_n_s_traning_count,&__pyx_n_s_r_batch_size,0};
+    PyObject* values[7] = {0,0,0,0,0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
+        CYTHON_FALLTHROUGH;
+        case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
+        CYTHON_FALLTHROUGH;
+        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+        CYTHON_FALLTHROUGH;
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_graph)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("approximate_inference", 0, 5, 7, 1); __PYX_ERR(0, 46, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_learning_rate)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("approximate_inference", 0, 5, 7, 2); __PYX_ERR(0, 46, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  3:
+        if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_dropout_rate)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("approximate_inference", 0, 5, 7, 3); __PYX_ERR(0, 46, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  4:
+        if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_observed_data_arr)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("approximate_inference", 0, 5, 7, 4); __PYX_ERR(0, 46, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  5:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_traning_count);
+          if (value) { values[5] = value; kw_args--; }
+        }
+        CYTHON_FALLTHROUGH;
+        case  6:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_r_batch_size);
+          if (value) { values[6] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "approximate_inference") < 0)) __PYX_ERR(0, 46, __pyx_L3_error)
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
+        CYTHON_FALLTHROUGH;
+        case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
+        CYTHON_FALLTHROUGH;
+        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+        values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_self = values[0];
+    __pyx_v_graph = values[1];
+    __pyx_v_learning_rate = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_learning_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 49, __pyx_L3_error)
+    __pyx_v_dropout_rate = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_dropout_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 50, __pyx_L3_error)
+    __pyx_v_observed_data_arr = ((PyArrayObject *)values[4]);
+    if (values[5]) {
+      __pyx_v_traning_count = __Pyx_PyInt_As_int(values[5]); if (unlikely((__pyx_v_traning_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 52, __pyx_L3_error)
+    } else {
+      __pyx_v_traning_count = ((int)((int)0x3E8));
+    }
+    if (values[6]) {
+      __pyx_v_r_batch_size = __Pyx_PyInt_As_int(values[6]); if (unlikely((__pyx_v_r_batch_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 53, __pyx_L3_error)
+    } else {
+      __pyx_v_r_batch_size = ((int)((int)0xC8));
+    }
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("approximate_inference", 0, 5, 7, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 46, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pydbm.approximation.interface.approximate_interface.ApproximateInterface.approximate_inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_data_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_data_arr", 0))) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_4approximate_inference(__pyx_self, __pyx_v_self, __pyx_v_graph, __pyx_v_learning_rate, __pyx_v_dropout_rate, __pyx_v_observed_data_arr, __pyx_v_traning_count, __pyx_v_r_batch_size);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_4approximate_inference(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_graph, CYTHON_UNUSED double __pyx_v_learning_rate, CYTHON_UNUSED double __pyx_v_dropout_rate, CYTHON_UNUSED PyArrayObject *__pyx_v_observed_data_arr, CYTHON_UNUSED int __pyx_v_traning_count, CYTHON_UNUSED int __pyx_v_r_batch_size) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("approximate_inference", 0);
+
+  /* "pydbm/approximation/interface/approximate_interface.pyx":72
+ *             Graph of neurons.
+ *         '''
+ *         raise NotImplementedError()             # <<<<<<<<<<<<<<
+ * 
+ *     @abstractmethod
+ */
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __PYX_ERR(0, 72, __pyx_L1_error)
+
+  /* "pydbm/approximation/interface/approximate_interface.pyx":46
+ * 
+ *     @abstractmethod
+ *     def approximate_inference(             # <<<<<<<<<<<<<<
+ *         self,
+ *         graph,
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pydbm.approximation.interface.approximate_interface.ApproximateInterface.approximate_inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/approximation/interface/approximate_interface.pyx":75
  * 
  *     @abstractmethod
  *     def compute_reconstruct_error(             # <<<<<<<<<<<<<<
@@ -1903,10 +2110,10 @@ static PyObject *__pyx_pf_5pydbm_13approximation_9interface_21approximate_interf
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_5compute_reconstruct_error(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_4compute_reconstruct_error[] = "\n        Compute reconstruction error rate.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_5compute_reconstruct_error = {"compute_reconstruct_error", (PyCFunction)__pyx_pw_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_5compute_reconstruct_error, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_4compute_reconstruct_error};
-static PyObject *__pyx_pw_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_5compute_reconstruct_error(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_7compute_reconstruct_error(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_6compute_reconstruct_error[] = "\n        Compute reconstruction error rate.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_7compute_reconstruct_error = {"compute_reconstruct_error", (PyCFunction)__pyx_pw_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_7compute_reconstruct_error, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_6compute_reconstruct_error};
+static PyObject *__pyx_pw_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_7compute_reconstruct_error(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
   CYTHON_UNUSED PyArrayObject *__pyx_v_observed_data_arr = 0;
   CYTHON_UNUSED PyArrayObject *__pyx_v_reconstructed_arr = 0;
@@ -1938,17 +2145,17 @@ static PyObject *__pyx_pw_5pydbm_13approximation_9interface_21approximate_interf
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_observed_data_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("compute_reconstruct_error", 1, 3, 3, 1); __PYX_ERR(0, 44, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("compute_reconstruct_error", 1, 3, 3, 1); __PYX_ERR(0, 75, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_reconstructed_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("compute_reconstruct_error", 1, 3, 3, 2); __PYX_ERR(0, 44, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("compute_reconstruct_error", 1, 3, 3, 2); __PYX_ERR(0, 75, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "compute_reconstruct_error") < 0)) __PYX_ERR(0, 44, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "compute_reconstruct_error") < 0)) __PYX_ERR(0, 75, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -1963,15 +2170,15 @@ static PyObject *__pyx_pw_5pydbm_13approximation_9interface_21approximate_interf
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("compute_reconstruct_error", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 44, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("compute_reconstruct_error", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 75, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.approximation.interface.approximate_interface.ApproximateInterface.compute_reconstruct_error", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_data_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_data_arr", 0))) __PYX_ERR(0, 46, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_reconstructed_arr), __pyx_ptype_5numpy_ndarray, 1, "reconstructed_arr", 0))) __PYX_ERR(0, 47, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_4compute_reconstruct_error(__pyx_self, __pyx_v_self, __pyx_v_observed_data_arr, __pyx_v_reconstructed_arr);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_data_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_data_arr", 0))) __PYX_ERR(0, 77, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_reconstructed_arr), __pyx_ptype_5numpy_ndarray, 1, "reconstructed_arr", 0))) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_6compute_reconstruct_error(__pyx_self, __pyx_v_self, __pyx_v_observed_data_arr, __pyx_v_reconstructed_arr);
 
   /* function exit code */
   goto __pyx_L0;
@@ -1982,7 +2189,7 @@ static PyObject *__pyx_pw_5pydbm_13approximation_9interface_21approximate_interf
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_4compute_reconstruct_error(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_observed_data_arr, CYTHON_UNUSED PyArrayObject *__pyx_v_reconstructed_arr) {
+static PyObject *__pyx_pf_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_6compute_reconstruct_error(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_observed_data_arr, CYTHON_UNUSED PyArrayObject *__pyx_v_reconstructed_arr) {
   __Pyx_LocalBuf_ND __pyx_pybuffernd_observed_data_arr;
   __Pyx_Buffer __pyx_pybuffer_observed_data_arr;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_reconstructed_arr;
@@ -2001,27 +2208,27 @@ static PyObject *__pyx_pf_5pydbm_13approximation_9interface_21approximate_interf
   __pyx_pybuffernd_reconstructed_arr.rcbuffer = &__pyx_pybuffer_reconstructed_arr;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_9interface_21approximate_interface_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 44, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_9interface_21approximate_interface_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 75, __pyx_L1_error)
   }
   __pyx_pybuffernd_observed_data_arr.diminfo[0].strides = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_observed_data_arr.diminfo[0].shape = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_reconstructed_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_reconstructed_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_9interface_21approximate_interface_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 44, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_reconstructed_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_reconstructed_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_13approximation_9interface_21approximate_interface_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 75, __pyx_L1_error)
   }
   __pyx_pybuffernd_reconstructed_arr.diminfo[0].strides = __pyx_pybuffernd_reconstructed_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_reconstructed_arr.diminfo[0].shape = __pyx_pybuffernd_reconstructed_arr.rcbuffer->pybuffer.shape[0];
 
-  /* "pydbm/approximation/interface/approximate_interface.pyx":52
+  /* "pydbm/approximation/interface/approximate_interface.pyx":83
  *         Compute reconstruction error rate.
  *         '''
  *         raise NotImplementedError()             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __PYX_ERR(0, 52, __pyx_L1_error)
+  __PYX_ERR(0, 83, __pyx_L1_error)
 
-  /* "pydbm/approximation/interface/approximate_interface.pyx":44
+  /* "pydbm/approximation/interface/approximate_interface.pyx":75
  * 
  *     @abstractmethod
  *     def compute_reconstruct_error(             # <<<<<<<<<<<<<<
@@ -4590,6 +4797,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ABCMeta, __pyx_k_ABCMeta, sizeof(__pyx_k_ABCMeta), 0, 0, 1, 1},
   {&__pyx_n_s_ApproximateInterface, __pyx_k_ApproximateInterface, sizeof(__pyx_k_ApproximateInterface), 0, 0, 1, 1},
   {&__pyx_n_s_ApproximateInterface_approximate, __pyx_k_ApproximateInterface_approximate, sizeof(__pyx_k_ApproximateInterface_approximate), 0, 0, 1, 1},
+  {&__pyx_n_s_ApproximateInterface_approximate_2, __pyx_k_ApproximateInterface_approximate_2, sizeof(__pyx_k_ApproximateInterface_approximate_2), 0, 0, 1, 1},
   {&__pyx_n_s_ApproximateInterface_compute_rec, __pyx_k_ApproximateInterface_compute_rec, sizeof(__pyx_k_ApproximateInterface_compute_rec), 0, 0, 1, 1},
   {&__pyx_n_s_ApproximateInterface_reconstruct, __pyx_k_ApproximateInterface_reconstruct, sizeof(__pyx_k_ApproximateInterface_reconstruct), 0, 0, 1, 1},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
@@ -4603,7 +4811,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_abc, __pyx_k_abc, sizeof(__pyx_k_abc), 0, 0, 1, 1},
   {&__pyx_n_s_abstractmethod, __pyx_k_abstractmethod, sizeof(__pyx_k_abstractmethod), 0, 0, 1, 1},
   {&__pyx_n_s_abstractproperty, __pyx_k_abstractproperty, sizeof(__pyx_k_abstractproperty), 0, 0, 1, 1},
+  {&__pyx_n_s_approximate_inference, __pyx_k_approximate_inference, sizeof(__pyx_k_approximate_inference), 0, 0, 1, 1},
   {&__pyx_n_s_approximate_learn, __pyx_k_approximate_learn, sizeof(__pyx_k_approximate_learn), 0, 0, 1, 1},
+  {&__pyx_n_s_batch_size, __pyx_k_batch_size, sizeof(__pyx_k_batch_size), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_compute_reconstruct_error, __pyx_k_compute_reconstruct_error, sizeof(__pyx_k_compute_reconstruct_error), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
@@ -4625,6 +4835,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_pydbm_approximation_interface_ap, __pyx_k_pydbm_approximation_interface_ap, sizeof(__pyx_k_pydbm_approximation_interface_ap), 0, 0, 1, 1},
   {&__pyx_kp_s_pydbm_approximation_interface_ap_2, __pyx_k_pydbm_approximation_interface_ap_2, sizeof(__pyx_k_pydbm_approximation_interface_ap_2), 0, 0, 1, 0},
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
+  {&__pyx_n_s_r_batch_size, __pyx_k_r_batch_size, sizeof(__pyx_k_r_batch_size), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_reconstruct_error_list, __pyx_k_reconstruct_error_list, sizeof(__pyx_k_reconstruct_error_list), 0, 0, 1, 1},
   {&__pyx_n_s_reconstructed_arr, __pyx_k_reconstructed_arr, sizeof(__pyx_k_reconstructed_arr), 0, 0, 1, 1},
@@ -4765,22 +4976,34 @@ static int __Pyx_InitCachedConstants(void) {
  *         self,
  *         graph,
  */
-  __pyx_tuple__12 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_graph, __pyx_n_s_learning_rate, __pyx_n_s_dropout_rate, __pyx_n_s_observed_data_arr, __pyx_n_s_traning_count); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_tuple__12 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_graph, __pyx_n_s_learning_rate, __pyx_n_s_dropout_rate, __pyx_n_s_observed_data_arr, __pyx_n_s_traning_count, __pyx_n_s_batch_size); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
-  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(6, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_approximation_interface_ap_2, __pyx_n_s_approximate_learn, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(7, 0, 7, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_approximation_interface_ap_2, __pyx_n_s_approximate_learn, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 20, __pyx_L1_error)
 
-  /* "pydbm/approximation/interface/approximate_interface.pyx":44
+  /* "pydbm/approximation/interface/approximate_interface.pyx":46
+ * 
+ *     @abstractmethod
+ *     def approximate_inference(             # <<<<<<<<<<<<<<
+ *         self,
+ *         graph,
+ */
+  __pyx_tuple__14 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_graph, __pyx_n_s_learning_rate, __pyx_n_s_dropout_rate, __pyx_n_s_observed_data_arr, __pyx_n_s_traning_count, __pyx_n_s_r_batch_size); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__14);
+  __Pyx_GIVEREF(__pyx_tuple__14);
+  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(7, 0, 7, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_approximation_interface_ap_2, __pyx_n_s_approximate_inference, 46, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 46, __pyx_L1_error)
+
+  /* "pydbm/approximation/interface/approximate_interface.pyx":75
  * 
  *     @abstractmethod
  *     def compute_reconstruct_error(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray[DOUBLE_t, ndim=1] observed_data_arr,
  */
-  __pyx_tuple__14 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_observed_data_arr, __pyx_n_s_reconstructed_arr); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 44, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__14);
-  __Pyx_GIVEREF(__pyx_tuple__14);
-  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_approximation_interface_ap_2, __pyx_n_s_compute_reconstruct_error, 44, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 44, __pyx_L1_error)
+  __pyx_tuple__16 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_observed_data_arr, __pyx_n_s_reconstructed_arr); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 75, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__16);
+  __Pyx_GIVEREF(__pyx_tuple__16);
+  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_approximation_interface_ap_2, __pyx_n_s_compute_reconstruct_error, 75, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5048,12 +5271,22 @@ PyMODINIT_FUNC PyInit_approximate_interface(void)
   /* "pydbm/approximation/interface/approximate_interface.pyx":26
  *         double dropout_rate,
  *         np.ndarray observed_data_arr,
- *         int traning_count=1000             # <<<<<<<<<<<<<<
+ *         int traning_count=1000,             # <<<<<<<<<<<<<<
+ *         int batch_size=0
  *     ):
- *         '''
  */
   __pyx_t_8 = __Pyx_PyInt_From_int(((int)0x3E8)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
+
+  /* "pydbm/approximation/interface/approximate_interface.pyx":27
+ *         np.ndarray observed_data_arr,
+ *         int traning_count=1000,
+ *         int batch_size=0             # <<<<<<<<<<<<<<
+ *     ):
+ *         '''
+ */
+  __pyx_t_6 = __Pyx_PyInt_From_int(((int)0)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
 
   /* "pydbm/approximation/interface/approximate_interface.pyx":20
  * 
@@ -5062,15 +5295,184 @@ PyMODINIT_FUNC PyInit_approximate_interface(void)
  *         self,
  *         graph,
  */
-  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 20, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
   __Pyx_GIVEREF(__pyx_t_8);
-  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_8);
+  PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_8);
+  __Pyx_GIVEREF(__pyx_t_6);
+  PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_6);
   __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_3approximate_learn, 0, __pyx_n_s_ApproximateInterface_approximate, NULL, __pyx_n_s_pydbm_approximation_interface_ap, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_6 = 0;
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_3approximate_learn, 0, __pyx_n_s_ApproximateInterface_approximate, NULL, __pyx_n_s_pydbm_approximation_interface_ap, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_6, __pyx_t_7);
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_7 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_5);
+    if (likely(__pyx_t_7)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_7);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_5, function);
+    }
+  }
+  if (!__pyx_t_7) {
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 19, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_GOTREF(__pyx_t_4);
+  } else {
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(__pyx_t_5)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_6};
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 19, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    } else
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_6};
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 19, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    } else
+    #endif
+    {
+      __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 19, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7); __pyx_t_7 = NULL;
+      __Pyx_GIVEREF(__pyx_t_6);
+      PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_6);
+      __pyx_t_6 = 0;
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 19, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    }
+  }
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_approximate_learn, __pyx_t_4) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/approximation/interface/approximate_interface.pyx":45
+ *         raise NotImplementedError()
+ * 
+ *     @abstractmethod             # <<<<<<<<<<<<<<
+ *     def approximate_inference(
+ *         self,
+ */
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_abstractmethod); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+
+  /* "pydbm/approximation/interface/approximate_interface.pyx":52
+ *         double dropout_rate,
+ *         np.ndarray observed_data_arr,
+ *         int traning_count=1000,             # <<<<<<<<<<<<<<
+ *         int r_batch_size=200
+ *     ):
+ */
+  __pyx_t_8 = __Pyx_PyInt_From_int(((int)0x3E8)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_8, __pyx_t_6);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+
+  /* "pydbm/approximation/interface/approximate_interface.pyx":53
+ *         np.ndarray observed_data_arr,
+ *         int traning_count=1000,
+ *         int r_batch_size=200             # <<<<<<<<<<<<<<
+ *     ):
+ *         '''
+ */
+  __pyx_t_6 = __Pyx_PyInt_From_int(((int)0xC8)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+
+  /* "pydbm/approximation/interface/approximate_interface.pyx":46
+ * 
+ *     @abstractmethod
+ *     def approximate_inference(             # <<<<<<<<<<<<<<
+ *         self,
+ *         graph,
+ */
+  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_GIVEREF(__pyx_t_8);
+  PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_8);
+  __Pyx_GIVEREF(__pyx_t_6);
+  PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_6);
+  __pyx_t_8 = 0;
+  __pyx_t_6 = 0;
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_5approximate_inference, 0, __pyx_n_s_ApproximateInterface_approximate_2, NULL, __pyx_n_s_pydbm_approximation_interface_ap, __pyx_d, ((PyObject *)__pyx_codeobj__15)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_6, __pyx_t_7);
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_7 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_5);
+    if (likely(__pyx_t_7)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_7);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_5, function);
+    }
+  }
+  if (!__pyx_t_7) {
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 45, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_GOTREF(__pyx_t_4);
+  } else {
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(__pyx_t_5)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_6};
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 45, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    } else
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_6};
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 45, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    } else
+    #endif
+    {
+      __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 45, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7); __pyx_t_7 = NULL;
+      __Pyx_GIVEREF(__pyx_t_6);
+      PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_6);
+      __pyx_t_6 = 0;
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 45, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    }
+  }
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_approximate_inference, __pyx_t_4) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/approximation/interface/approximate_interface.pyx":74
+ *         raise NotImplementedError()
+ * 
+ *     @abstractmethod             # <<<<<<<<<<<<<<
+ *     def compute_reconstruct_error(
+ *         self,
+ */
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_abstractmethod); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+
+  /* "pydbm/approximation/interface/approximate_interface.pyx":75
+ * 
+ *     @abstractmethod
+ *     def compute_reconstruct_error(             # <<<<<<<<<<<<<<
+ *         self,
+ *         np.ndarray[DOUBLE_t, ndim=1] observed_data_arr,
+ */
+  __pyx_t_8 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_7compute_reconstruct_error, 0, __pyx_n_s_ApproximateInterface_compute_rec, NULL, __pyx_n_s_pydbm_approximation_interface_ap, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 75, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
   __pyx_t_6 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
     __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_5);
@@ -5082,14 +5484,14 @@ PyMODINIT_FUNC PyInit_approximate_interface(void)
     }
   }
   if (!__pyx_t_6) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 19, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 74, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_GOTREF(__pyx_t_4);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_8};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 19, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 74, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -5098,94 +5500,26 @@ PyMODINIT_FUNC PyInit_approximate_interface(void)
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_8};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 19, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 74, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     } else
     #endif
     {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 19, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 74, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
       __Pyx_GIVEREF(__pyx_t_8);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_8);
       __pyx_t_8 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 19, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 74, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_approximate_learn, __pyx_t_4) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-
-  /* "pydbm/approximation/interface/approximate_interface.pyx":43
- *         raise NotImplementedError()
- * 
- *     @abstractmethod             # <<<<<<<<<<<<<<
- *     def compute_reconstruct_error(
- *         self,
- */
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_abstractmethod); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 43, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-
-  /* "pydbm/approximation/interface/approximate_interface.pyx":44
- * 
- *     @abstractmethod
- *     def compute_reconstruct_error(             # <<<<<<<<<<<<<<
- *         self,
- *         np.ndarray[DOUBLE_t, ndim=1] observed_data_arr,
- */
-  __pyx_t_7 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_13approximation_9interface_21approximate_interface_20ApproximateInterface_5compute_reconstruct_error, 0, __pyx_n_s_ApproximateInterface_compute_rec, NULL, __pyx_n_s_pydbm_approximation_interface_ap, __pyx_d, ((PyObject *)__pyx_codeobj__15)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 44, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
-    __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_5);
-    if (likely(__pyx_t_8)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-      __Pyx_INCREF(__pyx_t_8);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_5, function);
-    }
-  }
-  if (!__pyx_t_8) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 43, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_GOTREF(__pyx_t_4);
-  } else {
-    #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_5)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_8, __pyx_t_7};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 43, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    } else
-    #endif
-    #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_8, __pyx_t_7};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 43, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    } else
-    #endif
-    {
-      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 43, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_8); __pyx_t_8 = NULL;
-      __Pyx_GIVEREF(__pyx_t_7);
-      PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_7);
-      __pyx_t_7 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 43, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    }
-  }
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_compute_reconstruct_error, __pyx_t_4) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_compute_reconstruct_error, __pyx_t_4) < 0) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "pydbm/approximation/interface/approximate_interface.pyx":9

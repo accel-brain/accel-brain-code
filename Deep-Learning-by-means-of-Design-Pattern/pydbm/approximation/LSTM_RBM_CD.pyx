@@ -40,10 +40,14 @@ class LSTMRBMCD(ApproximateInterface):
     __r_batch_size = 0
     # Batch step in inference(recursive learning or not).
     __r_batch_step = 0
-    # hidden activities in `t-1`.
-    __pre_hidden_activity_arr = None
     # weight matrix in `t-1`.
     __pre_weight_arr = None
+
+    def __init__(self):
+        '''
+        Initialize.
+        '''
+        raise NotImplementedError()
 
     def approximate_learn(
         self,
@@ -148,18 +152,25 @@ class LSTMRBMCD(ApproximateInterface):
         self.__graph.hidden_diff_bias_arr += self.__learning_rate * self.__graph.hidden_activity_arr
 
         # Sleeping.
-        if self.__pre_hidden_activity_arr is not None and self.__pre_weight_arr is not None:
-            pre_link_value_arr = (self.__graph.weights_arr.T * self.__pre_hidden_activity_arr.reshape(-1, 1)) + (self.__pre_weight_arr.T * self.__pre_hidden_activity_arr.reshape(-1, 1)) + self.__graph.hidden_bias_arr.reshape(-1, 1)
-            pre_link_value_arr = self.__graph.hidden_activity_arr * pre_link_value_arr.T
-            link_value_arr = (self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.visible_bias_arr.reshape(-1, 1)) + (self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.weights_arr * self.__graph.hidden_activity_arr.reshape(-1, 1).T)
-            link_value_arr += pre_link_value_arr
-            link_value_arr = np.exp(link_value_arr)
-            link_value_arr = np.nan_to_num(link_value_arr)
-            self.__graph.visible_activity_arr = link_value_arr.sum(axis=1)
-        else:
-            link_value_arr = (self.__graph.weights_arr.T) * self.__graph.hidden_activity_arr.reshape(-1, 1) + self.__graph.hidden_bias_arr.reshape(-1, 1)
-            link_value_arr = np.nan_to_num(link_value_arr)
-            self.__graph.visible_activity_arr = link_value_arr.sum(axis=0)
+        self.__graph.pre_hidden_activity_arr = self.__graph.rnn_activating_function_interface.activate(
+            (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + (self.__graph.hidden_bias_weights_arr.T * self.__graph.pre_hidden_activity_arr.reshape(-1, 1).T) + self.__graph.hidden_activity_arr.reshape(-1, 1).T
+        )
+        self.__graph.pre_hidden_activity_arr = np.nan_to_num(self.__graph.pre_hidden_activity_arr)
+
+        t_hidden_bias_arr = self.__graph.hidden_bias_arr.reshape(-1, 1) + self.__graph.hidden_bias_weights_arr.T * self.__graph.pre_hidden_activity_arr.reshape(-1, 1)
+        t_visible_bias_arr = self.__graph.visible_bias_arr.reshape(-1, 1) + self.__graph.visible_bias_weights_arr * self.__graph.pre_hidden_activity_arr.reshape(-1, 1).T
+
+        link_value_arr = self.__graph.visible_activity_arr.reshape(-1, 1).T * t_visible_bias_arr + self.__graph.visible_activity_arr.reshape(-1, 1).T * self.__graph.weights_arr.T * self.__graph.hidden_activity_arr.reshape(-1, 1)
+        link_value_arr += self.__graph.hidden_activity_arr.T * t_hidden_bias_arr + self.__graph.hidden_bias_weights_arr * self.__graph.pre_hidden_activity_arr.reshape(-1, 1))
+        link_value_arr = np.nan_to_num(link_value_arr)
+        link_value_arr = np.exp(link_value_arr)
+        link_value_arr = link_value_arr / self.__graph.pre_hidden_activity_arr.sum()        
+        self.__graph.visible_activity_arr = link_value_arr.sum(axis=1)
+        '''
+        link_value_arr = (self.__graph.weights_arr.T) * self.__graph.hidden_activity_arr.reshape(-1, 1) + self.__graph.hidden_bias_arr.reshape(-1, 1)
+        link_value_arr = np.nan_to_num(link_value_arr)
+        self.__graph.visible_activity_arr = link_value_arr.sum(axis=0)
+        '''
 
         # Validation.
         self.compute_reconstruct_error(observed_data_arr, self.__graph.visible_activity_arr)
@@ -188,7 +199,7 @@ class LSTMRBMCD(ApproximateInterface):
             self.__graph.learn_weights()
 
         # Memorize.
-        self.__pre_hidden_activity_arr = self.__graph.hidden_activity_arr.copy()
+        self.__graph.pre_hidden_activity_arr = self.__graph.hidden_activity_arr.copy()
         self.__pre_weight_arr = self.__graph.weights_arr.copy()
 
     def __sleep_wake_learn(self, np.ndarray[DOUBLE_t, ndim=1] observed_data_arr):

@@ -35,6 +35,16 @@ class RTRBMBuilder(metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
+    def rnn_neuron_part(self, rnn_activating_function):
+        '''
+        Build neurons for RNN.
+
+        Args:
+            rnn_activating_function:    Activation function
+        '''
+        raise NotImplementedError
+
+    @abstractmethod
     def graph_part(self, approximate_interface):
         '''
         Build RTRBM graph.

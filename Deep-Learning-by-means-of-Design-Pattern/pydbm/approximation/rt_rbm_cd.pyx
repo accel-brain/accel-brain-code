@@ -139,7 +139,7 @@ class RTRBMCD(ApproximateInterface):
         link_value_arr = np.nan_to_num(link_value_arr)
         self.__graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=0)
 
-        link_value_arr = (self.__graph.rnn_visible_weights_arr.T * self.__graph.hat_hidden_bias_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
+        link_value_arr = (self.__graph.rnn_visible_weights_arr.T * self.__graph.hat_hidden_bias_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1).T
         link_value_arr = np.nan_to_num(link_value_arr)
         self.__graph.rnn_visible_bias_arr = link_value_arr.sum(axis=0)
 
@@ -149,7 +149,7 @@ class RTRBMCD(ApproximateInterface):
 
         link_value_arr = (self.__graph.rnn_visible_weights_arr * self.__graph.pre_hidden_activity_arr.reshape(-1, 1).T) + self.__graph.visible_bias_arr.reshape(-1, 1)
         link_value_arr = np.nan_to_num(link_value_arr)
-        self.__graph.visible_activity_arr = link_value_arr.sum(axis=0)
+        self.__graph.visible_activity_arr = link_value_arr.sum(axis=1)
 
     def __memory_hidden_activity(self):
         '''
@@ -157,12 +157,18 @@ class RTRBMCD(ApproximateInterface):
         '''
         self.__graph.pre_hidden_activity_arr = self.__graph.hidden_activity_arr
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.hidden_bias_arr.reshape(-1, 1)
+        cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.hidden_bias_arr.reshape(-1, 1).T
         link_value_arr = np.nan_to_num(link_value_arr)
         self.__graph.hat_hidden_bias_arr = link_value_arr.sum(axis=0)
-        self.__graph.hat_hidden_bias_arr = self.__graph.rnn_activating_function(
+        self.__graph.hat_hidden_bias_arr = self.__graph.rnn_activating_function.activate(
             self.__graph.hat_hidden_bias_arr
         )
+
+    def __back_propagation(self):
+        '''
+        Details of the backpropagation through time algorithm.
+        '''
+        pass
 
     def __wake_sleep_learn(self, np.ndarray[DOUBLE_t, ndim=1] observed_data_arr):
         '''

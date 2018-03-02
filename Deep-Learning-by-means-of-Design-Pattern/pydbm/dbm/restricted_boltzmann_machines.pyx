@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 cimport numpy as np
-from pydbm.synapse.complete_bipartite_graph import CompleteBipartiteGraph
+from pydbm.synapse_list import Synapse
 from pydbm.approximation.interface.approximate_interface import ApproximateInterface
 
 
@@ -37,14 +37,14 @@ class RestrictedBoltzmannMachine(object):
         Initialize.
 
         Args:
-            graph:                  Complete bipartite graph.
+            graph:                  Synapse.
             learning_rate:          Learning rate.
             dropout_rate:           Dropout rate.
             approximate_interface:  The object of function approximation.
 
         '''
-        if isinstance(graph, CompleteBipartiteGraph) is False:
-            raise TypeError("CompleteBipartiteGraph")
+        if isinstance(graph, Synapse) is False:
+            raise TypeError("Synapse")
 
         if isinstance(approximate_interface, ApproximateInterface) is False:
             if approximate_interface is not None:

@@ -13,9 +13,9 @@ class RTRBMSimpleBuilder(RTRBMBuilder):
     Compose restricted boltzmann machines for building a RTRBM.
     '''
     # The list of neurons in visible layer.
-    __visible_neuron_list = []
+    __visible_neuron_count = 10
     # the list of neurons in hidden layer.
-    __hidden_neuron_list = []
+    __hidden_neuron_count = 10
     # Complete bipartite graph
     __graph_list = []
     # The list of restricted boltzmann machines.
@@ -54,15 +54,6 @@ class RTRBMSimpleBuilder(RTRBMBuilder):
 
     dropout_rate = property(get_dropout_rate, set_dropout_rate)
 
-    def __init__(self):
-        '''
-        Initialize.
-        '''
-        self.__visible_neuron_list = []
-        self.__hidden_neuron_list = []
-        self.__graph_list = []
-        self.__rbm_list = []
-
     def visible_neuron_part(self, activating_function, int neuron_count):
         '''
         Build neurons in visible layer.
@@ -83,7 +74,16 @@ class RTRBMSimpleBuilder(RTRBMBuilder):
             neuron_count:           The number of neurons.
         '''
         self.__hidden_activating_function = activating_function
-        self.__hidden_neuron_list = neuron_count
+        self.__hidden_neuron_count = neuron_count
+
+    def rnn_neuron_part(self, rnn_activating_function):
+        '''
+        Build neurons for RNN.
+
+        Args:
+            rnn_activating_function:    Activation function
+        '''
+        self.__rnn_activating_function = rnn_activating_function
 
     def graph_part(self, approximate_interface):
         '''
@@ -94,6 +94,7 @@ class RTRBMSimpleBuilder(RTRBMBuilder):
         '''
         self.__approximate_interface = approximate_interface
         self.__rt_graph = RecurrentTemporalGraph()
+        self.__rt_graph.rnn_activating_function = self.__rnn_activating_function
         self.__rt_graph.create_node(
             self.__visible_neuron_count,
             self.__hidden_neuron_count,

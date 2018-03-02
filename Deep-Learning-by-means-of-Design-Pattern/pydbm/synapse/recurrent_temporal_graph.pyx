@@ -315,6 +315,13 @@ class RecurrentTemporalGraph(Synapse):
         self.visible_diff_bias_arr = np.zeros(self.visible_bias_arr.shape)
         self.hidden_diff_bias_arr = np.zeros(self.hidden_bias_arr.shape)
 
+        self.rnn_visible_weights_arr = np.zeros(
+            (shallower_neuron_count, deeper_neuron_count)
+        )
+        self.rnn_hidden_weights_arr = np.zeros(
+            (deeper_neuron_count, shallower_neuron_count)
+        )
+
         super().create_node(
             shallower_neuron_count,
             deeper_neuron_count,

@@ -6,7 +6,7 @@ from pydbm.synapse.recurrent_temporal_graph import RecurrentTemporalGraph
 from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
 
 
-class RTRBMBuilder(RTRBMBuilder):
+class RTRBMSimpleBuilder(RTRBMBuilder):
     '''
     `Concrete Builder` in Builder Pattern.
 

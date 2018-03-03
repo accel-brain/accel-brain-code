@@ -1,6 +1,6 @@
 # Deep Learning Library: pydbm
 
-`pydbm` is Python3 library for building restricted boltzmann machine, deep boltzmann machine, and multi-layer neural networks.
+`pydbm` is Python3 library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), and Recurrent Temporal Restricted Boltzmann Machine(RTRBM).
 
 This is Cython version. [pydbm_mxnet](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern/mxnet) (MXNet version) is derived from this library.
 
@@ -23,7 +23,7 @@ pip install pydbm
 Or, you can install from wheel file.
 
 ```sh
-pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.1.6-cp36-cp36m-linux_x86_64.whl
+pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.1.7-cp36-cp36m-linux_x86_64.whl
 ```
 
 ### Source code
@@ -76,8 +76,15 @@ dbm = DeepBoltzmannMachine(
     0.5   # Setting dropout rate.
 )
 # Execute learning.
-dbm.learn(traning_arr, traning_count=1000)
+dbm.learn(
+    traning_arr
+    1, # If approximation is the Contrastive Divergence, this parameter is `k` in CD method.
+    batch_size=200,  # Batch size in mini-batch training.
+    r_batch_size=-1  # if `r_batch_size` > 0, the function of `dbm.learn` is a kind of reccursive learning.
+)
 ```
+
+If you do not want to execute the mini-batch training, the value of `batch_size` must be `-1`. And `r_batch_size` is also parameter to control the mini-batch training but is refered only in inference and reconstruction. If this value is more than `0`,  the inferencing is a kind of reccursive learning with the mini-batch training.
 
 And the feature points can be extracted by this method.
 
@@ -118,8 +125,15 @@ dbm = StackedAutoEncoder(
 )
 
 # Execute learning.
-dbm.learn(target_arr, traning_count=1)
+dbm.learn(
+    target_arr,
+    1, # If approximation is the Contrastive Divergence, this parameter is `k` in CD method.
+    batch_size=200,  # Batch size in mini-batch training.
+    r_batch_size=-1  # if `r_batch_size` > 0, the function of `dbm.learn` is a kind of reccursive learning.
+)
 ```
+
+### Extract the result of dimention reduction
 
 And the result of dimention reduction can be extracted by this property.
 

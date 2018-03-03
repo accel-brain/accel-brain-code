@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import numpy as np
+cimport numpy as np
 from abc import ABCMeta, abstractmethod
 
 
@@ -8,7 +10,7 @@ class ActivatingFunctionInterface(metaclass=ABCMeta):
     '''
 
     @abstractmethod
-    def activate(self, x):
+    def activate(self, np.ndarray x):
         '''
         Return of result from this activation function.
 

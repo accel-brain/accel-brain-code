@@ -9,6 +9,7 @@ import random
 import pandas as pd
 from pprint import pprint
 
+np.seterr(all='raise')
 
 if __name__ == "__main__":
     '''
@@ -62,10 +63,13 @@ if __name__ == "__main__":
         arr+6,
         arr+7
     ]
-    arr = np.r_[arr, arr, arr]
+    arr = np.array(arr.tolist() * 100)
     arr = arr / 333
 
+    print(arr.shape)
+
     rtrbm_builder = RTRBMSimpleBuilder()
+    rtrbm_builder.learning_rate = 0.00001
     rtrbm_builder.visible_neuron_part(LogisticFunction(), arr.shape[1])
     rtrbm_builder.hidden_neuron_part(LogisticFunction(), 3)
     rtrbm_builder.rnn_neuron_part(LogisticFunction())

@@ -143,23 +143,23 @@ class RecurrentTemporalGraph(Synapse):
     hidden_diff_bias_arr = property(get_hidden_diff_bias_arr, set_hidden_diff_bias_arr)
 
     # Bias of neuron in hidden layer.
-    __hat_hidden_bias_arr = np.array([])
+    __hat_hidden_activity_arr = np.array([])
 
-    def get_hat_hidden_bias_arr(self):
+    def get_hat_hidden_activity_arr(self):
         ''' getter '''
-        if isinstance(self.__hat_hidden_bias_arr, np.ndarray) is False:
-            raise TypeError("The type of __hat_hidden_bias_arr must be `np.ndarray`.")
+        if isinstance(self.__hat_hidden_activity_arr, np.ndarray) is False:
+            raise TypeError("The type of __hat_hidden_activity_arr must be `np.ndarray`.")
 
-        return self.__hat_hidden_bias_arr
+        return self.__hat_hidden_activity_arr
 
-    def set_hat_hidden_bias_arr(self, value):
+    def set_hat_hidden_activity_arr(self, value):
         ''' setter '''
         if isinstance(value, np.ndarray) is False:
-            raise TypeError("The type of __hat_hidden_bias_arr must be `np.ndarray`.")
+            raise TypeError("The type of __hat_hidden_activity_arr must be `np.ndarray`.")
 
-        self.__hat_hidden_bias_arr = value
+        self.__hat_hidden_activity_arr = value
 
-    hat_hidden_bias_arr = property(get_hat_hidden_bias_arr, set_hat_hidden_bias_arr)
+    hat_hidden_activity_arr = property(get_hat_hidden_activity_arr, set_hat_hidden_activity_arr)
 
     # Activation function in visible layer.
     def get_visible_activating_function(self):

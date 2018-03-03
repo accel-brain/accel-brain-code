@@ -10,7 +10,7 @@ class SoftmaxFunction(ActivatingFunctionInterface):
     Softmax function.
     '''
 
-    def activate(self, np.ndarray[DOUBLE_t, ndim=1] x):
+    def activate(self, np.ndarray x):
         '''
         Return the result from this activation function.
 

@@ -12,7 +12,7 @@ class ReLuFunction(ActivatingFunctionInterface):
     ReLu Function.
     '''
 
-    def activate(self, np.ndarray[DOUBLE_t, ndim=1] x):
+    def activate(self, np.ndarray x):
         '''
         Return of result from this activation function.
 

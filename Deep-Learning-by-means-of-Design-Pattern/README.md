@@ -23,7 +23,7 @@ pip install pydbm
 Or, you can install from wheel file.
 
 ```sh
-pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.1.7-cp36-cp36m-linux_x86_64.whl
+pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.1.8-cp36-cp36m-linux_x86_64.whl
 ```
 
 ### Source code
@@ -90,6 +90,68 @@ And the feature points can be extracted by this method.
 
 ```python
 print(dbm.get_feature_point_list(0))
+```
+
+## Usecase: Building the Recurrent Temporal Restricted Boltzmann Machine for recursive learning.
+
+Import Python and Cython modules.
+
+```python
+# `Builder` in `Builder Patter`.
+from pydbm.dbm.builders.rt_rbm_simple_builder import RTRBMSimpleBuilder
+# The object of Restricted Boltzmann Machine.
+from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
+# RNN and Contrastive Divergence for function approximation.
+from pydbm.approximation.rt_rbm_cd import RTRBMCD
+# Logistic Function as activation function.
+from pydbm.activation.logistic_function import LogisticFunction
+# Softmax Function as activation function.
+from pydbm.activation.softmax_function import SoftmaxFunction
+```
+
+Instantiate objects and execute learning.
+
+```python
+# `Builder` in `Builder Pattern` for RTRBM.
+rtrbm_builder = RTRBMSimpleBuilder()
+# Learning rate.
+rtrbm_builder.learning_rate = 0.00001
+# Set units in visible layer.
+rtrbm_builder.visible_neuron_part(LogisticFunction(), arr.shape[1])
+# Set units in hidden layer.
+rtrbm_builder.hidden_neuron_part(LogisticFunction(), 3)
+# Set units in RNN layer.
+rtrbm_builder.rnn_neuron_part(LogisticFunction())
+# Set graph and approximation function.
+rtrbm_builder.graph_part(RTRBMCD())
+# Building.
+rbm = rtrbm_builder.get_result()
+
+# Learning.
+for i in range(arr.shape[0]):
+    rbm.approximate_learning(
+        arr[i],
+        traning_count=1, 
+        batch_size=200
+    )
+```
+
+The `rbm` has a `np.ndarray` of `graph.visible_activity_arr`. The `graph.visible_activity_arr` is the inferenced feature points. This value can be observed as data point.
+
+```python
+test_arr = arr[0]
+result_list = [None] * arr.shape[0]
+for i in range(arr.shape[0]):
+    # Execute recursive learning.
+    rbm.approximate_inferencing(
+        test_arr,
+        traning_count=1, 
+        r_batch_size=-1
+    )
+    # The feature points can be observed data points.
+    result_list[i] = test_arr = rbm.graph.visible_activity_arr
+
+print(np.array(result_list))
 ```
 
 ## Usecase: Extracting all feature points for dimensions reduction(or pre-training)

@@ -16,7 +16,7 @@ for dirpath, dirs, files in os.walk('.'):
 
 setup(
     name='pydbm',
-    version='1.1.6',
+    version='1.1.7',
     description='pydbm is Python library for building restricted boltzmann machine, deep boltzmann machine, and multi-layer neural networks.',
     long_description='The models are functionally equivalent to stacked auto-encoder. The main function I observe is the same as dimensions reduction(or pre-training).',
     url='https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern',
@@ -32,7 +32,7 @@ setup(
         'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
         'Programming Language :: Python :: 3',
     ],
-    keywords='restricted boltzmann machine autoencoder auto-encoder',
+    keywords='restricted boltzmann machine autoencoder auto-encoder rnn rbm rtrbm',
     install_requires=['numpy', 'cython'],
     include_dirs=[ '.', np.get_include()],
     cmdclass={'build_ext': build_ext},

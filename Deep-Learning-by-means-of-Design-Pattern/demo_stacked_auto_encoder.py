@@ -66,7 +66,7 @@ if __name__ == "__main__":
     dbm.learn(
         target_arr, 
         traning_count=1, 
-        batch_size=200, 
+        batch_size=100, 
         r_batch_size=-1
     )
 
@@ -83,3 +83,4 @@ if __name__ == "__main__":
     print("-" * 100)
     print("The reconstruction error:")
     print(dbm.get_reconstruct_error_arr())
+    print(dbm.get_reconstruct_error_arr().mean())

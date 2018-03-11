@@ -54,4 +54,4 @@ if __name__ == "__main__":
             r_batch_size=-1
         )
         result_list[i] = test_arr = rbm.graph.visible_activity_arr
-    print(np.array(result_list))
+    print(rbm.graph.visible_activity_arr)

@@ -77,7 +77,8 @@ class DeepBoltzmannMachine(object):
         np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
         int traning_count=1000,
         int batch_size=200,
-        int r_batch_size=-1
+        int r_batch_size=-1,
+        sgd_flag=False
     ):
         '''
         Learning.
@@ -90,17 +91,23 @@ class DeepBoltzmannMachine(object):
                                   If this value is `0`, the inferencing is a recursive learning.
                                   If this value is more than `0`, the inferencing is a mini-batch recursive learning.
                                   If this value is '-1', the inferencing is not a recursive learning.
-
+            sgd_flag:             Learning with the stochastic gradient descent(SGD) or not.
         '''
         cdef int i
         cdef int row_i = observed_data_arr.shape[0]
         cdef int j
         cdef np.ndarray[DOUBLE_t, ndim=1] data_arr
         cdef np.ndarray[DOUBLE_t, ndim=1] feature_point_arr
+        cdef int sgd_key
 
         if self.__inferencing_flag is False:
             for i in range(row_i):
-                data_arr = observed_data_arr[i].copy()
+                if sgd_flag is True:
+                    sgd_key = np.random.randint(row_i)
+                    data_arr = observed_data_arr[sgd_key]
+                else:
+                    data_arr = observed_data_arr[i].copy()
+
                 for j in range(len(self.__rbm_list)):
                     self.__rbm_list[j].approximate_learning(
                         data_arr,
@@ -112,7 +119,12 @@ class DeepBoltzmannMachine(object):
         else:
             if self.__inferencing_plan == "each":
                 for i in range(row_i):
-                    data_arr = observed_data_arr[i].copy()
+                    if sgd_flag is True:
+                        sgd_key = np.random.randint(row_i)
+                        data_arr = observed_data_arr[sgd_key]
+                    else:
+                        data_arr = observed_data_arr[i].copy()
+
                     for j in range(len(self.__rbm_list)):
                         self.__rbm_list[j].approximate_learning(
                             data_arr,
@@ -133,7 +145,12 @@ class DeepBoltzmannMachine(object):
 
             elif self.__inferencing_plan == "at_once":
                 for i in range(row_i):
-                    data_arr = observed_data_arr[i].copy()
+                    if sgd_flag is True:
+                        sgd_key = np.random.randint(row_i)
+                        data_arr = observed_data_arr[sgd_key]
+                    else:
+                        data_arr = observed_data_arr[i].copy()
+
                     for j in range(len(self.__rbm_list)):
                         self.__rbm_list[j].approximate_learning(
                             data_arr,

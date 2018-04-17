@@ -269,6 +269,10 @@ class QLearning(metaclass=ABCMeta):
                 state_key=state_key,
                 action_key=action_key
             )
+            
+            # Normalize.
+            self.normalize_q_value()
+            self.normalize_r_value()
 
     @abstractmethod
     def select_action(self, state_key, next_action_list):
@@ -378,6 +382,30 @@ class QLearning(metaclass=ABCMeta):
         '''
         return action_key
 
+    def normalize_q_value(self):
+        '''
+        Normalize q-value.
+        This method should be overrided for concreate usecases.
+        
+        This method is called in each learning steps.
+        
+        For example:
+            self.q_df.q_value = self.q_df.q_value / self.q_df.q_value.sum()
+        '''
+        pass
+
+    def normalize_r_value(self):
+        '''
+        Normalize r-value.
+        This method should be overrided for concreate usecases.
+
+        This method is called in each learning steps.
+
+        For example:
+            self.r_df.r_value = self.r_df.r_value / self.r_df.r_value.sum()
+        '''
+        pass
+
     def check_the_end_flag(self, state_key):
         '''
         Check the end flag.
@@ -401,8 +429,9 @@ class QLearning(metaclass=ABCMeta):
         Visualize learning result.
         This method should be overrided for concreate usecases.
 
+        This method is called in last learning steps.
+
         Args:
             state_key:    The key of state in `self.t`.
-        
         '''
         pass

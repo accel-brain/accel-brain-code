@@ -5,7 +5,7 @@ from devsample.maze_greedy_q_learning import MazeGreedyQLearning
 
 
 if __name__ == "__main__":
-    # "S": Start point, "G": End point(goal), "#": wall, "#": Agent.
+    # "S": Start point, "G": End point(goal), "#": wall, "@": Agent.
     start_point_label, end_point_label, wall_label, agent_label = ("S", "G", "#", "@")
     map_d = 10
     map_arr = 10 * np.random.rand(map_d, map_d)
@@ -47,3 +47,7 @@ if __name__ == "__main__":
         agent_label=agent_label
     )
     maze_q_learning.learn(state_key=(1, 1), limit=limit)
+    
+    q_df = maze_q_learning.q_df
+    q_df = q_df.sort_values(by=["q_value"], ascending=False)
+    print(q_df.head())

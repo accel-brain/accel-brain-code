@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import random
 import numpy as np
 import copy
 from pyqlearning.qlearning.greedy_q_learning import GreedyQLearning
@@ -149,3 +150,81 @@ class MazeGreedyQLearning(GreedyQLearning):
             return True
         else:
             return False
+
+    def normalize_q_value(self):
+        '''
+        Normalize q-value.
+        
+        Override.
+        
+        This method is called in each learning steps.
+        
+        For example:
+            self.q_df.q_value = self.q_df.q_value / self.q_df.q_value.sum()
+        '''
+        if self.q_df is not None and self.q_df.shape[0]:
+            # min-max normalization
+            self.q_df.q_value = (self.q_df.q_value - self.q_df.q_value.min()) / (self.q_df.q_value.max() - self.q_df.q_value.min())
+
+    def normalize_r_value(self):
+        '''
+        Normalize r-value.
+
+        Override.
+
+        This method is called in each learning steps.
+
+        For example:
+            self.r_df = self.r_df.r_value / self.r_df.r_value.sum()
+        '''
+        if self.r_df is not None and self.r_df.shape[0]:
+            # z-score normalization.
+            self.r_df.r_value = (self.r_df.r_value - self.r_df.r_value.mean()) / self.r_df.r_value.std()
+
+    def inference(self, limit=1000):
+        '''
+        Inference route.
+        
+        Args:
+            limit:    the number of inferencing.
+        
+        Returns:
+            [(x_1, y_1), (x_2, y_2), ...]
+        '''
+        route_list = []
+        memory_list = []
+        state_key = self.__start_point_tuple
+        x, y = state_key
+        end_x, end_y = self.__end_point_tuple
+        for i in range(limit):
+            q_df = self.q_df[self.q_df.state_key == state_key]
+            if len(memory_list):
+                q_df = q_df[~q_df.action_key.isin(memory_list)]
+            if q_df.shape[0] > 1:
+                q_df = q_df.sort_values(by=["q_value"], ascending=False)
+                action_key = q_df.iloc[0, :]["action_key"]
+                q_value = q_df.iloc[0, :]["q_value"]
+            elif q_df.shape[0] == 1:
+                action_key = q_df.action_key.values[0]
+                q_value = q_df.q_value.values[0]
+            else:
+                action_key_list = self.extract_possible_actions(state_key)
+                action_key_list = [v for v in action_key_list if v not in memory_list]
+                q_value = 0.0
+                if len(action_key_list):
+                    action_key = random.choice(action_key_list)
+                    _q_df = q_df[q_df.action_key == action_key]
+                    if _q_df.shape[0]:
+                        q_value = _q_df.q_value.values[0]
+
+            state_key = self.update_state(
+                state_key=state_key,
+                action_key=action_key
+            )
+            x, y = state_key
+            route_list.append((x, y, q_value))
+            memory_list.append(state_key)
+            if self.check_the_end_flag(state_key) is True:
+                break
+
+        return route_list

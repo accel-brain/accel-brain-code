@@ -1,6 +1,6 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
 import random
+import numpy as np
 from pyqlearning.q_learning import QLearning
 
 
@@ -49,19 +49,10 @@ class GreedyQLearning(QLearning):
             The key of action.
 
         '''
-        true_rate_list = [True] * int(self.epsilon_greedy_rate * 100)
-        false_rate_list = [False] * int((1 - self.epsilon_greedy_rate) * 100)
-
-        univerce_list = []
-        [univerce_list.append(true_rate) for true_rate in true_rate_list]
-        [univerce_list.append(false_rate) for false_rate in false_rate_list]
-
-        epsilon_greedy_flag = random.choice(univerce_list)
-
-        if epsilon_greedy_flag is True:
-            # Not greedy mode.
+        epsilon_greedy_flag = bool(np.random.binomial(n=1, p=self.epsilon_greedy_rate))
+        
+        if epsilon_greedy_flag is False:
             action_key = random.choice(next_action_list)
         else:
-            # Greedy mode.
             action_key = self.predict_next_action(state_key, next_action_list)
         return action_key

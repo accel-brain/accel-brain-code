@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 import copy
-from pyqlearning.qlearning.greedy_q_learning import GreedyQLearning
+from pyqlearning.qlearning.boltzmann_q_learning import BoltzmannQLearning
 
 
-class MazeGreedyQLearning(GreedyQLearning):
+class MazeBoltzmannQLearning(BoltzmannQLearning):
     '''
     ε-greedy Q-Learning
 

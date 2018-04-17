@@ -1,4 +1,3 @@
-#!/user/bin/env python
 # -*- coding: utf-8 -*-
 import numpy as np
 import copy
@@ -38,11 +37,11 @@ class AutocompletionBoltzmannQLearning(BoltzmannQLearning):
         self.__state_action_list_dict.setdefault(state_key, [])
         self.__state_action_list_dict[state_key].append(action_key)
         self.__state_action_list_dict[state_key] = list(set(self.__state_action_list_dict[state_key]))
-        q_value = self.extract_q_dict(state_key, action_key)
-        self.save_q_dict(state_key, action_key, q_value)
-        r_value = self.extract_r_dict(state_key, action_key)
+        q_value = self.extract_q_df(state_key, action_key)
+        self.save_q_df(state_key, action_key, q_value)
+        r_value = self.extract_r_df(state_key, action_key)
         r_value += 1.0
-        self.save_r_dict(state_key, r_value, action_key)
+        self.save_r_df(state_key, r_value, action_key)
 
     def lap_extract_ngram(self, document):
         self.__nlp_base.tokenize(document)

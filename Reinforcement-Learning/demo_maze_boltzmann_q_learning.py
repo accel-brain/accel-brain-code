@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import numpy as np
-from devsample.maze_greedy_q_learning import MazeGreedyQLearning
+from devsample.maze_boltzmann_q_learning import MazeBoltzmannQLearning
 
 
 if __name__ == "__main__":
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 4:
         greedy_rate = float(sys.argv[4])
 
-    maze_q_learning = MazeGreedyQLearning()
+    maze_q_learning = MazeBoltzmannQLearning()
     maze_q_learning.epsilon_greedy_rate = greedy_rate
     maze_q_learning.alpha_value = alpha_value
     maze_q_learning.gamma_value = gamma_value

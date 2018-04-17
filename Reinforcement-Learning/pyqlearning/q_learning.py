@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-import random
 from abc import ABCMeta, abstractmethod
-from operator import itemgetter
+import pandas as pd
+import numpy as np
+import random
 
 
 class QLearning(metaclass=ABCMeta):
@@ -64,29 +65,27 @@ class QLearning(metaclass=ABCMeta):
     gamma_value = property(get_gamma_value, set_gamma_value)
 
     # Q(state, action)
-    __q_dict = {}
+    __q_df = None
 
-    def get_q_dict(self):
+    def get_q_df(self):
         '''
         getter
-        Q(state, action)
         '''
-        if isinstance(self.__q_dict, dict) is False:
-            raise TypeError("The type of __q_dict must be dict.")
-        return self.__q_dict
+        if isinstance(self.__q_df, pd.DataFrame) is False and self.__q_df is not None:
+            raise TypeError("The type of `__q_df` must be `pd.DataFrame`.")
+        return self.__q_df
 
-    def set_q_dict(self, value):
+    def set_q_df(self, value):
         '''
         setter
-        Q(state, action)
         '''
-        if isinstance(value, dict) is False:
-            raise TypeError("The type of __q_dict must be dict.")
-        self.__q_dict = value
+        if isinstance(value, pd.DataFrame) is False and value is not None:
+            raise TypeError("The type of `__q_df` must be `pd.DataFrame`.")
+        self.__q_df = value
 
-    q_dict = property(get_q_dict, set_q_dict)
+    q_df = property(get_q_df, set_q_df)
 
-    def extract_q_dict(self, state_key, action_key):
+    def extract_q_df(self, state_key, action_key):
         '''
         Extract Q-Value from `self.q_dict`.
 
@@ -99,14 +98,20 @@ class QLearning(metaclass=ABCMeta):
 
         '''
         q = 0.0
-        try:
-            q = self.q_dict[state_key][action_key]
-        except KeyError:
-            self.save_q_dict(state_key, action_key, q)
+        if self.q_df is None:
+            self.save_q_df(state_key, action_key, q)
+            return q
 
+        q_df = self.q_df[self.q_df.state_key == state_key]
+        q_df = q_df[q_df.action_key == action_key]
+
+        if q_df.shape[0]:
+            q = float(q_df["q_value"])
+        else:
+            self.save_q_df(state_key, action_key, q)
         return q
 
-    def save_q_dict(self, state_key, action_key, q_value):
+    def save_q_df(self, state_key, action_key, q_value):
         '''
         Insert or update Q-Value in `self.q_dict`.
 
@@ -122,56 +127,31 @@ class QLearning(metaclass=ABCMeta):
         if isinstance(q_value, float) is False:
             raise TypeError("The type of q_value must be float.")
 
-        if state_key not in self.q_dict:
-            self.q_dict[state_key] = {action_key: q_value}
+        new_q_df = pd.DataFrame([(state_key, action_key, q_value)], columns=["state_key", "action_key", "q_value"])
+        if self.q_df is not None:
+            self.q_df = pd.concat([new_q_df, self.q_df])
+            self.q_df = self.q_df.drop_duplicates(["state_key", "action_key"])
         else:
-            self.q_dict[state_key][action_key] = q_value
-
+            self.q_df = new_q_df
+        
     # R(state)
-    __r_dict = {}
+    __r_df = None
 
-    def get_r_dict(self):
-        '''
-        getter
-        R(state)
-        '''
-        if isinstance(self.__r_dict, dict) is False:
-            raise TypeError("The type of __r_dict must be dict.")
-        return self.__r_dict
+    def get_r_df(self):
+        ''' getter '''
+        if isinstance(self.__r_df, pd.DataFrame) is False and self.__r_df is not None:
+            raise TypeError("The type of `__r_df` must be `pd.DataFrame`.")
+        return self.__r_df
 
-    def set_r_dict(self, value):
-        '''
-        setter
-        R(state)
-        '''
-        if isinstance(value, dict) is False:
-            raise TypeError("The type of __r_dict must be dict.")
-        self.__r_dict = value
+    def set_r_df(self, value):
+        ''' setter '''
+        if isinstance(value, pd.DataFrame) is False and self.__r_df is not None:
+            raise TypeError("The type of `__r_df` must be `pd.DataFrame`.")
+        self.__r_df = value
 
-    r_dict = property(get_r_dict, set_r_dict)
+    r_df = property(get_r_df, set_r_df)
 
-    def extract_r_dict(self, state_key, action_key=None):
-        '''
-        Extract R-Value from `self.r_dict`.
-
-        Args:
-            state_key:     The key of state.
-            action_key:    The key of action.
-
-        Returns:
-            R-Value(Reward).
-
-        '''
-        try:
-            if action_key is None:
-                return self.r_dict[state_key]
-            else:
-                return self.r_dict[(state_key, action_key)]
-        except KeyError:
-            self.save_r_dict(state_key, 0.0, action_key)
-            return self.extract_r_dict(state_key, action_key)
-
-    def save_r_dict(self, state_key, r_value, action_key=None):
+    def extract_r_df(self, state_key, r_value, action_key=None):
         '''
         Insert or update R-Value in `self.r_dict`.
 
@@ -186,10 +166,45 @@ class QLearning(metaclass=ABCMeta):
         if isinstance(r_value, float) is False:
             raise TypeError("The type of r_value must be float.")
 
+        r = 0.0
+        if self.r_df is None:
+            self.save_r_df(state_key, r, action_key)
+            return r
+
+        r_df = self.r_df[self.r_df.state_key == state_key]
         if action_key is not None:
-            self.r_dict[(state_key, action_key)] = r_value
+            r_df = r_df[r_df.action_key == action_key]
+        if r_df.shape[0]:
+            r = float(r_df["r_value"])
         else:
-            self.r_dict[state_key] = r_value
+            self.save_r_df(state_key, r, action_key)
+        return r
+
+    def save_r_df(self, state_key, r_value, action_key=None):
+        '''
+        Insert or update R-Value in `self.r_dict`.
+
+        Args:
+            state_key:     The key of state.
+            r_value:       R-Value(Reward).
+            action_key:    The key of action if it is nesesary for the parametar of value function.
+
+        Exceptions:
+            TypeError:      If the type of `r_value` is not float.
+        '''
+        if action_key is not None:
+            add_r_df = pd.DataFrame([(state_key, action_key, r_value)], columns=["state_key", "action_key", "r_value"])
+        else:
+            add_r_df = pd.DataFrame([(state_key, r_value)], columns=["state_key", "r_value"])
+
+        if self.r_df is not None:
+            self.r_df = pd.concat([add_r_df, self.r_df])
+            if action_key is not None:
+                self.r_df = self.r_df.drop_duplicates(["state_key", "action_key"])
+            else:
+                self.r_df = self.r_df.drop_duplicates(["state_key"])
+        else:
+            self.r_df = add_r_df
 
     # Time.
     __t = 0
@@ -236,7 +251,7 @@ class QLearning(metaclass=ABCMeta):
             # Max-Q-Value in next action time.
             next_next_action_list = self.extract_possible_actions(action_key)
             next_action_key = self.predict_next_action(action_key, next_next_action_list)
-            next_max_q = self.extract_q_dict(action_key, next_action_key)
+            next_max_q = self.extract_q_df(action_key, next_action_key)
 
             # Update Q-Value.
             self.update_q(
@@ -315,11 +330,11 @@ class QLearning(metaclass=ABCMeta):
 
         '''
         # Now Q-Value.
-        q = self.extract_q_dict(state_key, action_key)
+        q = self.extract_q_df(state_key, action_key)
         # Update Q-Value.
         new_q = q + self.alpha_value * (reward_value + (self.gamma_value * next_max_q) - q)
         # Save updated Q-Value.
-        self.save_q_dict(state_key, action_key, new_q)
+        self.save_q_df(state_key, action_key, new_q)
 
     def predict_next_action(self, state_key, next_action_list):
         '''
@@ -333,11 +348,20 @@ class QLearning(metaclass=ABCMeta):
             The key of action.
 
         '''
-        next_action_q_list = [(action_key, self.extract_q_dict(state_key, action_key)) for action_key in next_action_list]
-        random.shuffle(next_action_q_list)
-        max_q_action = max(next_action_q_list, key=itemgetter(1))[0]
-
-        return max_q_action
+        if self.q_df is not None:
+            next_action_q_df = self.q_df[self.q_df.state_key == state_key]
+            next_action_q_df = next_action_q_df[next_action_q_df.action_key.isin(next_action_list)]
+            if next_action_q_df.shape[0] == 0:
+                return random.choice(next_action_list)
+            else:
+                if next_action_q_df.shape[0] == 1:
+                    max_q_action = next_action_q_df["action_key"].values[0]
+                else:
+                    next_action_q_df = next_action_q_df.sort_values(by=["q_value"], ascending=False)
+                    max_q_action = next_action_q_df.iloc[0, :]["action_key"]
+                return max_q_action
+        else:
+            return random.choice(next_action_list)
 
     def update_state(self, state_key, action_key):
         '''

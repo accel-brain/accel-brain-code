@@ -33,6 +33,11 @@ Installers for the latest released version are available at the Python package i
 ### Dependencies
 
 - numpy: v1.13.3 or higher.
+- pandas: v0.22.0 or higher.
+
+## Demonstration: Jupyter notebook
+
+I have details of this library on my Jupyter notebook: [search_maze_by_q_learning.ipynb](search_maze_by_q_learning.ipynb). This notebook demonstrates a simple maze solving algorithm based on Q-Learning.
 
 ## Demonstration: Q-Learning
 
@@ -311,7 +316,7 @@ Under the assumption that the less number of searches the better, *Q-Learning*, 
 
 ## Version
 
-- 1.0.2
+- 1.0.3
 
 ## Author
 

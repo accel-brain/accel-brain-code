@@ -35,11 +35,11 @@ Installers for the latest released version are available at the Python package i
 - numpy: v1.13.3 or higher.
 - pandas: v0.22.0 or higher.
 
-## Demonstration: Jupyter notebook
+## Demonstration: Simple Maze Solving by Q-Learning (Jupyter notebook)
 
-<p align="center"><a href="search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/pyqlearning_pandas_numpy/Reinforcement-Learning/img/maze_q_learning_result.png" width="80%" /></a></p>
+<p align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/maze_q_learning_result.png" width="80%" /></a></p>
 
-I have details of this library on my Jupyter notebook: [search_maze_by_q_learning.ipynb](search_maze_by_q_learning.ipynb). This notebook demonstrates a simple maze solving algorithm based on Q-Learning. As shown in the above image, the state-action value function and parameters setting can be designed to correspond with the optimality of route.
+I have details of this library on my Jupyter notebook: [search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb). This notebook demonstrates a simple maze solving algorithm based on Q-Learning. As shown in the above image, the state-action value function and parameters setting can be designed to correspond with the optimality of route.
 
 ## Demonstration: Q-Learning
 

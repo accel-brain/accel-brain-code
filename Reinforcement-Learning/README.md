@@ -37,7 +37,9 @@ Installers for the latest released version are available at the Python package i
 
 ## Demonstration: Jupyter notebook
 
-I have details of this library on my Jupyter notebook: [search_maze_by_q_learning.ipynb](search_maze_by_q_learning.ipynb). This notebook demonstrates a simple maze solving algorithm based on Q-Learning.
+<p align="center"><a href="search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/pyqlearning_pandas_numpy/Reinforcement-Learning/img/maze_q_learning_result.png" width="80%" /></a></p>
+
+I have details of this library on my Jupyter notebook: [search_maze_by_q_learning.ipynb](search_maze_by_q_learning.ipynb). This notebook demonstrates a simple maze solving algorithm based on Q-Learning. As shown in the above image, the state-action value function and parameters setting can be designed to correspond with the optimality of route.
 
 ## Demonstration: Q-Learning
 

@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pyqlearning',
-    version='1.0.2',
+    version='1.0.3',
     description='pyqlearning is Python library to implement Reinforcement Learning, especially for Q-Learning.',
     long_description='Considering many variable parts and functional extensions in the Q-learning paradigm, I implemented these Python Scripts for demonstrations of commonality/variability analysis in order to design the models.',
     url='https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning',
@@ -21,5 +21,5 @@ setup(
     ],
     keywords='Q-Learning Deep Q-Network DQN DBM Reinforcement Learning Boltzmann',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
-    install_requires=['numpy'],
+    install_requires=['numpy', 'pandas'],
 )

@@ -37,9 +37,34 @@ Installers for the latest released version are available at the Python package i
 
 ## Demonstration: Simple Maze Solving by Q-Learning (Jupyter notebook)
 
-<p align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/maze_q_learning_result.png" width="80%" /></a></p>
+I have details of this library on my Jupyter notebook: [search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb). This notebook demonstrates a simple maze solving algorithm based on Epsilon-Greedy Q-Learning or Q-Learning, loosely coupled with Deep Boltzmann Machine(DBM). 
 
-I have details of this library on my Jupyter notebook: [search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb). This notebook demonstrates a simple maze solving algorithm based on Q-Learning. As shown in the above image, the state-action value function and parameters setting can be designed to correspond with the optimality of route.
+As shown in the below image, the state-action value function and parameters setting can be designed to correspond with the optimality of route.
+
+<div align="center">
+ <table style="border: none;">
+  <tr>
+   <td width="45%" align="center">
+    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/maze_map.png" /></a>
+    <p>Maze map</p>
+   </td>
+   <td width="45%" align="center">
+    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/feature_point.png" /></a>
+    <p>Feature Points in the maze map</p>
+   </td>
+  </tr>
+  <tr>
+   <td width="45%" align="center">
+    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/fail_searched.png" /></a>
+    <p>The result of searching by Epsilon-Greedy Q-Learning</p>
+   </td>
+   <td width="45%" align="center">
+    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/maze_q_learning_result.png"  /></a>
+    <p>The result of searching by Q-Learning, loosely coupled with Deep Boltzmann Machine.</p>
+   </td>
+  </tr>
+ </table>
+</div>
 
 ## Demonstration: Q-Learning
 

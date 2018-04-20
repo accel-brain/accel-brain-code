@@ -68,6 +68,10 @@ As shown in the below image, the state-action value function and parameters sett
 
 ## Demonstration: Q-Learning
 
+Q-Learning is a kind of `Temporal Difference learning`(`TD Learning`) that can be considered as hybrid of `Monte Carlo method` and `Dynamic Programming Method`. As `Monte Carlo method`, `TD Learning` algorithm can learn by experience without model of environment. And this learning algorithm is *functionally equivalent* of bootstrap method as `Dynamic Programming Method`.
+
+`Epsilon Greedy Q-Leanring` algorithm is `off-policy`. In this paradigm, *stochastic* searching and *deterministic* searching can coexist by hyperparameter $\epsilon (0 < \epsilon < 1)$ that is probability that agent searches greedy. Greedy searching is *deterministic* in the sense that policy of agent follows the selection that maximizes the Q-Value.
+
 [demo_maze_greedy_q_learning.py](demo_maze_greedy_q_learning.py) is a simple maze solving algorithm. `MazeGreedyQLearning` in  [devsample/maze_greedy_q_learning.py](devsample/maze_greedy_q_learning.py) is a `Concrete Class` in `Template Method Pattern` to run the Q-Learning algorithm for this task. `GreedyQLearning` in [pyqlearning/qlearning/greedy_q_learning.py](pyqlearning/qlearning/greedy_q_learning.py) is also `Concreat Class` for the epsilon-greedy-method. The `Abstract Class` that defines the skeleton of Q-Learning algorithm in the operation and declares algorithm placeholders is [pyqlearning/q_learning.py](pyqlearning/q_learning.py).  So [demo_maze_greedy_q_learning.py](demo_maze_greedy_q_learning.py) is a kind of `Client` in `Template Method Pattern`. 
 
 This algorithm allow the *agent* to search the goal in maze by *reward value* in each point in map. 
@@ -92,7 +96,33 @@ The following is an example of map.
 - `G` is a goal.
 - `@` is the agent.
 
-In relation to reinforcement learning, the *state* of *agent* is 2-d position coordinates and the *action* is to dicide the direction of movement. Within the wall, the *agent* is movable in a cross direction and can advance by one point at a time. After moving into a new position, the *agent* can obtain a *reward*. On greedy searching, this extrinsically motivated *agent* performs in order to obtain some *reward* as high as possible. Each *reward value* is plot in map.
+In relation to reinforcement learning theory, the *state* of *agent* is 2D position coordinates and the *action* is to dicide the direction of movement. Within the wall, the *agent* is movable in a cross direction and can advance by one point at a time. After moving into a new position, the *agent* can obtain a *reward*. On greedy searching, this extrinsically motivated agent performs in order to obtain some *reward* as high as possible. Each *reward value* is plot in map.
+
+The map data that agent will observe is as follow.
+
+$$\boldsymbol{M}_{reward} =
+\begin{pmatrix}
+r_{1,1} & \cdots & r_{1,j} & \cdots & r_{1,m} \\
+\vdots & \ddots &        &        & \vdots \\
+r_{i,1} &        & r_{i,j} & \cdots & r_{i,m} \\
+\vdots &        &        & \ddots & \vdots \\
+r_{n,1} & \cdots & r_{n,j} & \cdots & r_{n,m}
+\end{pmatrix}
+$$
+
+where $(i, j)$ is tuple of 2D position coordinates in the maze map. Then $r_{i,j}$ is reward value that the agent can get by arriving the point: $(i, j)$. The state of agent is $s_{i,j}$. In this case, the form of agent's state transition matrix is designed to correspond with $\boldsymbol{M}_{reward}$ as follow.
+
+$$\boldsymbol{M}_{state} =
+\begin{pmatrix}
+s_{1,1} & \cdots & s_{1,j} & \cdots & s_{1,m} \\
+\vdots & \ddots &        &        & \vdots \\
+s_{i,1} &        & s_{i,j} & \cdots & s_{i,m} \\
+\vdots &        &        & \ddots & \vdots \\
+s_{n,1} & \cdots & s_{n,j} & \cdots & s_{n,m}
+\end{pmatrix}
+$$
+
+The possible actions of agent can be limited by $s_{i,j}$. Agent can select adjacent elements in $\boldsymbol{M}_{state}$.
 
 To see how *agent* can search and rearch the goal, run the batch program: [demo_maze_greedy_q_learning.py](demo_maze_greedy_q_learning.py)
 
@@ -112,37 +142,38 @@ To realize the power of DBM, I performed a simple experiment.
 
 For instance, the following is a tuple of so-called *observed data points* in DBM learning.
 
-```python
-Tuple(
-    'real reward value',
-    'expected reward value if moving on position: left top',
-    'expected reward value if moving on position: center top',
-    'expected reward value if moving on position: right top',
-    'expected reward value if moving on position: left middle',
-    'expected reward value if moving on position: right middle',
-    'expected reward value if moving on position: left bottom',
-    'expected reward value if moving on position: center bottom',
-    'expected reward value if moving on position: right bottom'
-)
-```
+For instance, the following is a matrix of so-called observed data points in DBM learning. $\boldsymbol{M}_{feature}$ can have compositions corresponding to $\boldsymbol{M}_{reward}$ as follow.
 
-Then, the following is a tuple of so-called *feature points* in DBM learning.
+$$\boldsymbol{M}_{feature} = 
+\begin{pmatrix}
+f_{1,1} & \cdots & f_{1,i} & \cdots & f_{1,m} \\
+\vdots & \ddots &        &        & \vdots \\
+f_{i,1} &        & f_{i,j} & \cdots & f_{i,m} \\
+\vdots &        &        & \ddots & \vdots \\
+f_{n,1} & \cdots & f_{n,j} & \cdots & f_{n,m}
+\end{pmatrix}
+$$
 
-```python
-Tuple(
-    'extracted feature point which can correspond the real reward value',
-    'extracted feature point which can correspond expected reward value if moving on position: left top',
-    'extracted feature point which can correspond expected reward value if moving on position: center top',
-    'extracted feature point which can correspond expected reward value if moving on position: right top',
-    'extracted feature point which can correspond expected reward value if moving on position: left middle',
-    'extracted feature point which can correspond expected reward value if moving on position: right middle',
-    'extracted feature point which can correspond expected reward value if moving on position: left bottom',
-    'extracted feature point which can correspond expected reward value if moving on position: center bottom',
-    'extracted feature point which can correspond expected reward value if moving on position: right bottom'
-)
-```
+where $f_{i,j}$ is the feature point corresponding to $r_{i,j}$ in $\boldsymbol{M}_{reward}$. The observed data point $\boldsymbol{D}_{ij}$ can be transformed by function of DBM: $\mathcal{F}_{DBM}$ as follow.
 
-After pre-training, the DBM has extracted *feature points* below.
+$$f_{i,j} = \mathcal{F}_{DBM}(\boldsymbol{D}_{i,j})$$
+
+$$\boldsymbol{D}_{i, j} = \begin{pmatrix}
+r_{i-5,j-5}\\
+r_{i-4,j-5}\\
+\vdots \\
+r_{i-5,j-5}\\
+r_{i-4,j-4}\\
+\vdots \\
+r_{i,j}\\
+r_{i+1,j}\\
+\vdots \\
+r_{i,j+1}\\
+\vdots \\
+f_{i+5,j+5}
+\end{pmatrix}$$
+
+Then the feature representation can be as calculated. After this pre-training, the DBM has extracted *feature points* below.
 
 ```
 [['#' '#' '#' '#' '#' '#' '#' '#' '#' '#']

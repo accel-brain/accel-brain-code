@@ -98,32 +98,6 @@ The following is an example of map.
 
 In relation to reinforcement learning theory, the *state* of *agent* is 2D position coordinates and the *action* is to dicide the direction of movement. Within the wall, the *agent* is movable in a cross direction and can advance by one point at a time. After moving into a new position, the *agent* can obtain a *reward*. On greedy searching, this extrinsically motivated agent performs in order to obtain some *reward* as high as possible. Each *reward value* is plot in map.
 
-The map data that agent will observe is as follow.
-
-$$\boldsymbol{M}_{reward} =
-\begin{pmatrix}
-r_{1,1} & \cdots & r_{1,j} & \cdots & r_{1,m} \\
-\vdots & \ddots &        &        & \vdots \\
-r_{i,1} &        & r_{i,j} & \cdots & r_{i,m} \\
-\vdots &        &        & \ddots & \vdots \\
-r_{n,1} & \cdots & r_{n,j} & \cdots & r_{n,m}
-\end{pmatrix}
-$$
-
-where $(i, j)$ is tuple of 2D position coordinates in the maze map. Then $r_{i,j}$ is reward value that the agent can get by arriving the point: $(i, j)$. The state of agent is $s_{i,j}$. In this case, the form of agent's state transition matrix is designed to correspond with $\boldsymbol{M}_{reward}$ as follow.
-
-$$\boldsymbol{M}_{state} =
-\begin{pmatrix}
-s_{1,1} & \cdots & s_{1,j} & \cdots & s_{1,m} \\
-\vdots & \ddots &        &        & \vdots \\
-s_{i,1} &        & s_{i,j} & \cdots & s_{i,m} \\
-\vdots &        &        & \ddots & \vdots \\
-s_{n,1} & \cdots & s_{n,j} & \cdots & s_{n,m}
-\end{pmatrix}
-$$
-
-The possible actions of agent can be limited by $s_{i,j}$. Agent can select adjacent elements in $\boldsymbol{M}_{state}$.
-
 To see how *agent* can search and rearch the goal, run the batch program: [demo_maze_greedy_q_learning.py](demo_maze_greedy_q_learning.py)
 
 ```bash
@@ -140,38 +114,7 @@ To realize the power of DBM, I performed a simple experiment.
 
 ### Feature engineering
 
-For instance, the following is a tuple of so-called *observed data points* in DBM learning.
-
-For instance, the following is a matrix of so-called observed data points in DBM learning. $\boldsymbol{M}_{feature}$ can have compositions corresponding to $\boldsymbol{M}_{reward}$ as follow.
-
-$$\boldsymbol{M}_{feature} = 
-\begin{pmatrix}
-f_{1,1} & \cdots & f_{1,i} & \cdots & f_{1,m} \\
-\vdots & \ddots &        &        & \vdots \\
-f_{i,1} &        & f_{i,j} & \cdots & f_{i,m} \\
-\vdots &        &        & \ddots & \vdots \\
-f_{n,1} & \cdots & f_{n,j} & \cdots & f_{n,m}
-\end{pmatrix}
-$$
-
-where $f_{i,j}$ is the feature point corresponding to $r_{i,j}$ in $\boldsymbol{M}_{reward}$. The observed data point $\boldsymbol{D}_{ij}$ can be transformed by function of DBM: $\mathcal{F}_{DBM}$ as follow.
-
-$$f_{i,j} = \mathcal{F}_{DBM}(\boldsymbol{D}_{i,j})$$
-
-$$\boldsymbol{D}_{i, j} = \begin{pmatrix}
-r_{i-5,j-5}\\
-r_{i-4,j-5}\\
-\vdots \\
-r_{i-5,j-5}\\
-r_{i-4,j-4}\\
-\vdots \\
-r_{i,j}\\
-r_{i+1,j}\\
-\vdots \\
-r_{i,j+1}\\
-\vdots \\
-f_{i+5,j+5}
-\end{pmatrix}$$
+For instance, a feature in each coordinate can be transformed and extracted by reward value as so-called *observed data points* in its adjoining points. More formally, see [search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb).
 
 Then the feature representation can be as calculated. After this pre-training, the DBM has extracted *feature points* below.
 

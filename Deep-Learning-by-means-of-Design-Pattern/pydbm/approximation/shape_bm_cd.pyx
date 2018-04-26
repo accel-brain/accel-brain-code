@@ -244,7 +244,7 @@ class ShapeBMCD(ApproximateInterface):
             left_visible_activity_arr[-1] + right_visible_activity_arr[0],
             right_visible_activity_arr[1:]
         ]
-        self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
+
         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
             self.__graph.hidden_activity_arr
         )

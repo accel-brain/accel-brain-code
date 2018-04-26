@@ -330,22 +330,19 @@ class RTRBMCD(ApproximateInterface):
             if self.__dropout_rate > 0:
                 self.__graph.visible_activity_arr = self.__dropout(self.__graph.visible_activity_arr)
 
-        link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
-        link_value_arr = np.nan_to_num(link_value_arr)
-        self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
-        self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(self.__graph.hidden_activity_arr)
+            link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
+            link_value_arr = np.nan_to_num(link_value_arr)
+            self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
+            self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(self.__graph.hidden_activity_arr)
 
-        if self.__r_batch_size != -1:
             if self.__dropout_rate > 0:
                 self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
 
-        if self.__r_batch_size != -1:
             self.__graph.diff_weights_arr += self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate * (-1)
             self.__graph.visible_diff_bias_arr += self.__learning_rate * self.__graph.visible_activity_arr * (-1)
             self.__graph.hidden_diff_bias_arr += self.__learning_rate * self.__graph.hidden_activity_arr * (-1)
 
-        # Learning.
-        if self.__r_batch_size != -1:
+            # Learning.
             if self.__r_batch_size == 0 or self.__r_batch_step % self.__r_batch_size == 0:
                 self.__graph.visible_bias_arr += self.__graph.visible_diff_bias_arr
                 self.__graph.hidden_bias_arr += self.__graph.hidden_diff_bias_arr

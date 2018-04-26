@@ -152,6 +152,7 @@ class ShapeBMCD(ApproximateInterface):
         self.__graph.visible_activity_arr = observed_data_arr.copy()
 
         cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
+        
         link_value_arr = np.nan_to_num(link_value_arr)
         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
@@ -169,25 +170,27 @@ class ShapeBMCD(ApproximateInterface):
         cdef int left_num = np.floor(self.__graph.hidden_activity_arr.shape[0] / 2).astype(int)
         cdef int right_num = np.ceil(self.__graph.hidden_activity_arr.shape[0] / 2).astype(int)
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] left_link_value_arr = (self.__graph.weights_arr.T[:left_num, :]) * self.__graph.hidden_activity_arr[:left_num, :].reshape(-1, 1) + self.__graph.hidden_bias_arr[:left_num, :].reshape(-1, 1)
+        cdef np.ndarray[DOUBLE_t, ndim=2] left_link_value_arr = (self.__graph.weights_arr.T[:left_num, :]) * self.__graph.hidden_activity_arr[:left_num].reshape(-1, 1) + self.__graph.hidden_bias_arr[:left_num].reshape(-1, 1)
         left_link_value_arr = np.nan_to_num(left_link_value_arr)
         
-        cdef np.ndarray[DOUBLE_t, ndim=2] right_link_value_arr = (self.__graph.weights_arr.T[right_num:, :]) * self.__graph.hidden_activity_arr[right_num:, :].reshape(-1, 1) + self.__graph.hidden_bias_arr[right_num:, :].reshape(-1, 1)
+        cdef np.ndarray[DOUBLE_t, ndim=2] right_link_value_arr = (self.__graph.weights_arr.T[right_num:, :]) * self.__graph.hidden_activity_arr[right_num:].reshape(-1, 1) + self.__graph.hidden_bias_arr[right_num:].reshape(-1, 1)
         right_link_value_arr = np.nan_to_num(right_link_value_arr)
-        
-        cdef np.ndarray[DOUBLE_t, ndim=1] left_visible_activity_arr = left_link_value_arr.sum(axis=0)
-        cdef np.ndarray[DOUBLE_t, ndim=1] right_visible_activity_arr = right_link_value_arr.sum(axis=0)
+
+        cdef np.ndarray[DOUBLE_t, ndim=1] left_visible_activity_arr = left_link_value_arr.sum(axis=1)
+        cdef np.ndarray[DOUBLE_t, ndim=1] right_visible_activity_arr = right_link_value_arr.sum(axis=1)
         
         # Overlapping for Shape-BM.
         self.__graph.visible_activity_arr = np.r_[
-            left_visible_activity_arr[:-1], 
+            left_visible_activity_arr, 
             left_visible_activity_arr[-1] + right_visible_activity_arr[0],
-            right_visible_activity_arr[1:]
+            right_visible_activity_arr
         ]
 
         self.__graph.visible_activity_arr = self.__graph.visible_activating_function.activate(self.__graph.visible_activity_arr)
 
         # Validation.
+        self.compute_reconstruct_error(observed_data_arr, self.__graph.visible_activity_arr)
+
         if self.__dropout_rate > 0:
             self.__graph.visible_activity_arr = self.__dropout(self.__graph.visible_activity_arr)
 
@@ -226,28 +229,13 @@ class ShapeBMCD(ApproximateInterface):
         # Waking.
         self.__graph.visible_activity_arr = observed_data_arr.copy()
 
-        cdef int left_num = np.floor(self.__graph.visible_activity_arr.shape[0] / 2).astype(int)
-        cdef int right_num = np.ceil(self.__graph.visible_activity_arr.shape[0] / 2).astype(int)
-
-        cdef np.ndarray[DOUBLE_t, ndim=2] left_link_value_arr = (self.__graph.weights_arr[:left_num, :]) * self.__graph.visible_activity_arr[:left_num, :].reshape(-1, 1) + self.__graph.visible_bias_arr[:left_num, :].reshape(-1, 1)
-        left_link_value_arr = np.nan_to_num(left_link_value_arr)
-        
-        cdef np.ndarray[DOUBLE_t, ndim=2] right_link_value_arr = (self.__graph.weights_arr[right_num:, :]) * self.__graph.visible_activity_arr[right_num:, :].reshape(-1, 1) + self.__graph.visible_bias_arr[right_num:, :].reshape(-1, 1)
-        right_link_value_arr = np.nan_to_num(right_link_value_arr)
-
-        cdef np.ndarray[DOUBLE_t, ndim=1] left_visible_activity_arr = left_link_value_arr.sum(axis=0)
-        cdef np.ndarray[DOUBLE_t, ndim=1] right_visible_activity_arr = right_link_value_arr.sum(axis=0)
-
-        # Overlapping for Shape-BM.
-        self.__graph.hidden_activity_arr = np.r_[
-            left_visible_activity_arr[:-1], 
-            left_visible_activity_arr[-1] + right_visible_activity_arr[0],
-            right_visible_activity_arr[1:]
-        ]
-
+        cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
+        link_value_arr = np.nan_to_num(link_value_arr)
+        self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
             self.__graph.hidden_activity_arr
         )
+
         if self.__dropout_rate > 0:
             self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
 
@@ -257,12 +245,14 @@ class ShapeBMCD(ApproximateInterface):
         self.__graph.hidden_diff_bias_arr += self.__learning_rate * self.__graph.hidden_activity_arr
 
         # Sleeping.
-        cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.__graph.weights_arr.T) * self.__graph.hidden_activity_arr.reshape(-1, 1) + self.__graph.hidden_bias_arr.reshape(-1, 1)
+        link_value_arr = (self.__graph.weights_arr.T) * self.__graph.hidden_activity_arr.reshape(-1, 1) + self.__graph.hidden_bias_arr.reshape(-1, 1)
         link_value_arr = np.nan_to_num(link_value_arr)
         self.__graph.visible_activity_arr = link_value_arr.sum(axis=0)
         self.__graph.visible_activity_arr = self.__graph.visible_activating_function.activate(self.__graph.visible_activity_arr)
 
         # Validation.
+        self.compute_reconstruct_error(observed_data_arr, self.__graph.visible_activity_arr)
+
         if self.__dropout_rate > 0:
             self.__graph.visible_activity_arr = self.__dropout(self.__graph.visible_activity_arr)
 
@@ -298,20 +288,20 @@ class ShapeBMCD(ApproximateInterface):
         cdef int left_num = np.floor(self.__graph.hidden_activity_arr.shape[0] / 2).astype(int)
         cdef int right_num = np.ceil(self.__graph.hidden_activity_arr.shape[0] / 2).astype(int)
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] left_link_value_arr = (self.__graph.weights_arr.T[:left_num, :]) * self.__graph.hidden_activity_arr[:left_num, :].reshape(-1, 1) + self.__graph.hidden_bias_arr[:left_num, :].reshape(-1, 1)
+        cdef np.ndarray[DOUBLE_t, ndim=2] left_link_value_arr = (self.__graph.weights_arr[:, :left_num].T) * self.__graph.hidden_activity_arr[:left_num].reshape(-1, 1) + self.__graph.hidden_bias_arr[:left_num].reshape(-1, 1)
         left_link_value_arr = np.nan_to_num(left_link_value_arr)
         
-        cdef np.ndarray[DOUBLE_t, ndim=2] right_link_value_arr = (self.__graph.weights_arr.T[right_num:, :]) * self.__graph.hidden_activity_arr[right_num:, :].reshape(-1, 1) + self.__graph.hidden_bias_arr[right_num:, :].reshape(-1, 1)
+        cdef np.ndarray[DOUBLE_t, ndim=2] right_link_value_arr = (self.__graph.weights_arr[:, right_num:].T) * self.__graph.hidden_activity_arr[right_num:].reshape(-1, 1) + self.__graph.hidden_bias_arr[right_num:].reshape(-1, 1)
         right_link_value_arr = np.nan_to_num(right_link_value_arr)
         
-        cdef np.ndarray[DOUBLE_t, ndim=1] left_visible_activity_arr = left_link_value_arr.sum(axis=0)
-        cdef np.ndarray[DOUBLE_t, ndim=1] right_visible_activity_arr = right_link_value_arr.sum(axis=0)
+        cdef np.ndarray[DOUBLE_t, ndim=1] left_visible_activity_arr = left_link_value_arr.sum(axis=1)
+        cdef np.ndarray[DOUBLE_t, ndim=1] right_visible_activity_arr = right_link_value_arr.sum(axis=1)
         
         # Overlapping for Shape-BM.
         self.__graph.visible_activity_arr = np.r_[
-            left_visible_activity_arr[:-1], 
+            left_visible_activity_arr, 
             left_visible_activity_arr[-1] + right_visible_activity_arr[0],
-            right_visible_activity_arr[1:]
+            right_visible_activity_arr
         ]
 
         link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
@@ -362,20 +352,20 @@ class ShapeBMCD(ApproximateInterface):
         cdef int left_num = np.floor(self.__graph.visible_activity_arr.shape[0] / 2).astype(int)
         cdef int right_num = np.ceil(self.__graph.visible_activity_arr.shape[0] / 2).astype(int)
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] left_link_value_arr = (self.__graph.weights_arr[:left_num, :]) * self.__graph.visible_activity_arr[:left_num, :].reshape(-1, 1) + self.__graph.visible_bias_arr[:left_num, :].reshape(-1, 1)
+        cdef np.ndarray[DOUBLE_t, ndim=2] left_link_value_arr = (self.__graph.weights_arr[:left_num, :]) * self.__graph.visible_activity_arr[:left_num].reshape(-1, 1) + self.__graph.visible_bias_arr[:left_num].reshape(-1, 1)
         left_link_value_arr = np.nan_to_num(left_link_value_arr)
         
-        cdef np.ndarray[DOUBLE_t, ndim=2] right_link_value_arr = (self.__graph.weights_arr[right_num:, :]) * self.__graph.visible_activity_arr[right_num:, :].reshape(-1, 1) + self.__graph.visible_bias_arr[right_num:, :].reshape(-1, 1)
+        cdef np.ndarray[DOUBLE_t, ndim=2] right_link_value_arr = (self.__graph.weights_arr[right_num:, :]) * self.__graph.visible_activity_arr[right_num:].reshape(-1, 1) + self.__graph.visible_bias_arr[right_num:].reshape(-1, 1)
         right_link_value_arr = np.nan_to_num(right_link_value_arr)
 
-        cdef np.ndarray[DOUBLE_t, ndim=1] left_visible_activity_arr = left_link_value_arr.sum(axis=0)
-        cdef np.ndarray[DOUBLE_t, ndim=1] right_visible_activity_arr = right_link_value_arr.sum(axis=0)
+        cdef np.ndarray[DOUBLE_t, ndim=1] left_visible_activity_arr = left_link_value_arr.sum(axis=1)
+        cdef np.ndarray[DOUBLE_t, ndim=1] right_visible_activity_arr = right_link_value_arr.sum(axis=1)
 
         # Overlapping for Shape-BM.
         self.__graph.hidden_activity_arr = np.r_[
-            left_visible_activity_arr[:-1], 
+            left_visible_activity_arr, 
             left_visible_activity_arr[-1] + right_visible_activity_arr[0],
-            right_visible_activity_arr[1:]
+            right_visible_activity_arr
         ]
         self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
@@ -415,3 +405,14 @@ class ShapeBMCD(ApproximateInterface):
         cdef np.ndarray[DOUBLE_t, ndim=1] dropout_rate_arr = np.random.uniform(0, 1, size=(row, ))
         activity_arr = activity_arr * dropout_rate_arr.T
         return activity_arr
+
+    def compute_reconstruct_error(
+        self,
+        np.ndarray[DOUBLE_t, ndim=1] observed_data_arr, 
+        np.ndarray[DOUBLE_t, ndim=1] reconstructed_arr
+    ):
+        '''
+        Compute reconstruction error rate.
+        '''
+        cdef double reconstruct_error = np.sum((reconstructed_arr - observed_data_arr) ** 2) / observed_data_arr.shape[0]
+        self.__reconstruct_error_list.append(reconstruct_error)

@@ -17,6 +17,18 @@ class DeepBoltzmannMachine(object):
 
     # The list of restricted boltzmann machines.
     __rbm_list = []
+    
+    def get_rbm_list(self):
+        return self.__rbm_list
+    
+    def set_rbm_list(self, value):
+        if isinstance(value, list):
+            self.__rbm_list = value
+        else:
+            raise TypeError()
+
+    rbm_list = property(get_rbm_list, set_rbm_list)
+
     # The dict of Hyper parameters.
     __hyper_param_dict = {}
 
@@ -134,10 +146,11 @@ class DeepBoltzmannMachine(object):
                         feature_point_arr = self.get_feature_point(j)
                         data_arr = feature_point_arr
 
-                    for j in range(len(self.__rbm_list)):
-                        _j = len(self.__rbm_list) - j - 1
-                        data_arr = self.get_visible_activity_arr_list()[_j]
-                        self.__rbm_list[_j - 1].approximate_inferencing(
+                    rbm_list = self.__rbm_list[::-1]
+
+                    for j in range(len(rbm_list)):
+                        data_arr = self.get_feature_point(len(rbm_list)-1-j)
+                        rbm_list[j].approximate_inferencing(
                             data_arr,
                             traning_count,
                             r_batch_size
@@ -160,10 +173,11 @@ class DeepBoltzmannMachine(object):
                         feature_point_arr = self.get_feature_point(j)
                         data_arr = feature_point_arr
 
-                for j in range(len(self.__rbm_list)):
-                    _j = len(self.__rbm_list) - j - 1
-                    data_arr = self.get_visible_activity_arr_list()[_j]
-                    self.__rbm_list[_j - 1].approximate_inferencing(
+                rbm_list = self.__rbm_list[::-1]
+                for j in range(len(rbm_list)):
+                    data_arr = self.get_feature_point(len(rbm_list)-1)
+
+                    rbm_list[j].approximate_inferencing(
                         data_arr,
                         traning_count,
                         r_batch_size

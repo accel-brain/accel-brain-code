@@ -43,8 +43,10 @@ class ShapeBMCD(ApproximateInterface):
     
     # the pair of layers.
     __v_h_flag = None
+    # The number of overlaped pixels.
+    __overlap_n = 1
     
-    def __init__(self, v_h_flag):
+    def __init__(self, v_h_flag, overlap_n=1):
         '''
         Init.
         
@@ -54,6 +56,11 @@ class ShapeBMCD(ApproximateInterface):
         '''
         if isinstance(v_h_flag, bool):
             self.__v_h_flag = v_h_flag
+        else:
+            raise TypeError()
+
+        if isinstance(overlap_n, int):
+            self.__overlap_n = overlap_n
         else:
             raise TypeError()
 
@@ -151,8 +158,9 @@ class ShapeBMCD(ApproximateInterface):
         # Waking.
         self.__graph.visible_activity_arr = observed_data_arr.copy()
 
-        cdef int split_num = int(self.__graph.visible_activity_arr.shape[0] / 2)
-        cdef int split_h_num = int(self.__graph.hidden_activity_arr.shape[0] / 2)
+        cdef int split_v_num = int((self.__graph.visible_activity_arr.shape[0] - self.__overlap_n) / 2)
+        cdef int split_h_num = int(self.__graph.weights_arr.shape[1] / 2)
+
         cdef np.ndarray[DOUBLE_t, ndim=2] left_link_value_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] right_link_value_arr
         cdef np.ndarray[DOUBLE_t, ndim=1] left_visible_activity_arr
@@ -161,9 +169,9 @@ class ShapeBMCD(ApproximateInterface):
         cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr
         
         if self.__graph.visible_activity_arr.shape[0] % 2 != 0:
-            left_link_value_arr = (self.__graph.weights_arr[:split_num+1, :split_h_num] * self.__graph.visible_activity_arr[:split_num+1].reshape(-1, 1)) + self.__graph.visible_bias_arr[:split_num+1].reshape(-1, 1)
+            left_link_value_arr = (self.__graph.weights_arr[:split_v_num, :split_h_num] * self.__graph.visible_activity_arr[:split_v_num].reshape(-1, 1)) + self.__graph.visible_bias_arr[:split_v_num].reshape(-1, 1)
             left_link_value_arr = np.nan_to_num(left_link_value_arr)
-            right_link_value_arr = (self.__graph.weights_arr[-split_num-1:, split_h_num:] * self.__graph.visible_activity_arr[-split_num-1:].reshape(-1, 1)) + self.__graph.visible_bias_arr[-split_num-1:].reshape(-1, 1)
+            right_link_value_arr = (self.__graph.weights_arr[-split_v_num:, split_h_num:] * self.__graph.visible_activity_arr[-split_v_num:].reshape(-1, 1)) + self.__graph.visible_bias_arr[-split_v_num:].reshape(-1, 1)
             right_link_value_arr = np.nan_to_num(right_link_value_arr)
             left_visible_activity_arr = left_link_value_arr.sum(axis=0)
             right_visible_activity_arr = right_link_value_arr.sum(axis=0)
@@ -197,22 +205,27 @@ class ShapeBMCD(ApproximateInterface):
         cdef np.ndarray[DOUBLE_t, ndim=2] center_link_value_arr
 
         if self.__graph.hidden_activity_arr.shape[0] % 2 == 0:
-            left_link_value_arr = (self.__graph.weights_arr.T[:split_num, :]) * self.__graph.hidden_activity_arr[:split_num].reshape(-1, 1) + self.__graph.hidden_bias_arr[:split_num].reshape(-1, 1)
+            left_link_value_arr = (self.__graph.weights_arr.T[:split_h_num, :split_v_num]) * self.__graph.hidden_activity_arr[:split_h_num].reshape(-1, 1) + self.__graph.hidden_bias_arr[:split_h_num].reshape(-1, 1)
             left_link_value_arr = np.nan_to_num(left_link_value_arr)
 
             center_link_value_arr = (self.__graph.weights_arr.T * self.__graph.hidden_activity_arr.reshape(-1, 1)) + self.__graph.hidden_bias_arr.reshape(-1, 1)
             center_link_value_arr = np.nan_to_num(center_link_value_arr)
 
-            right_link_value_arr = (self.__graph.weights_arr.T[-split_num:, :]) * self.__graph.hidden_activity_arr[-split_num:].reshape(-1, 1) + self.__graph.hidden_bias_arr[-split_num:].reshape(-1, 1)
+            right_link_value_arr = (self.__graph.weights_arr.T[split_h_num:, -split_v_num:]) * self.__graph.hidden_activity_arr[-split_h_num:].reshape(-1, 1) + self.__graph.hidden_bias_arr[-split_h_num:].reshape(-1, 1)
             right_link_value_arr = np.nan_to_num(right_link_value_arr)
 
-            left_visible_activity_arr = left_link_value_arr.sum(axis=1)
-            right_visible_activity_arr = right_link_value_arr.sum(axis=1)
+            left_visible_activity_arr = left_link_value_arr.sum(axis=0)
+            right_visible_activity_arr = right_link_value_arr.sum(axis=0)
         
             # Overlapping for Shape-BM.
+            if left_visible_activity_arr.shape[0] + self.__overlap_n + right_visible_activity_arr.shape[0] < self.__graph.visible_activity_arr.shape[0]:
+                center_n = self.__overlap_n + 1
+            else:
+                center_n = self.__overlap_n
+
             self.__graph.visible_activity_arr = np.r_[
                 left_visible_activity_arr, 
-                center_link_value_arr.sum(),
+                np.array([center_link_value_arr.sum()] * center_n),
                 right_visible_activity_arr
             ]
             self.__graph.visible_activity_arr = np.nan_to_num(self.__graph.visible_activity_arr)
@@ -319,7 +332,9 @@ class ShapeBMCD(ApproximateInterface):
         '''
         self.__graph.hidden_activity_arr = observed_data_arr.copy()
 
-        cdef int split_num = int(self.__graph.hidden_activity_arr.shape[0] / 2)
+        cdef int split_v_num = int((self.__graph.visible_activity_arr.shape[0] - self.__overlap_n) / 2)
+        cdef int split_h_num = int(self.__graph.hidden_activity_arr.shape[0] / 2)
+
         cdef np.ndarray[DOUBLE_t, ndim=2] left_link_value_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] right_link_value_arr
         cdef np.ndarray[DOUBLE_t, ndim=1] left_visible_activity_arr
@@ -329,22 +344,22 @@ class ShapeBMCD(ApproximateInterface):
         cdef np.ndarray[DOUBLE_t, ndim=2] center_link_value_arr
 
         if self.__graph.hidden_activity_arr.shape[0] % 2 == 0:
-            left_link_value_arr = (self.__graph.weights_arr[:, :split_num].T) * self.__graph.hidden_activity_arr[:split_num].reshape(-1, 1) + self.__graph.hidden_bias_arr[:split_num].reshape(-1, 1)
+            left_link_value_arr = (self.__graph.weights_arr.T[:split_h_num, :split_v_num]) * self.__graph.hidden_activity_arr[:split_h_num].reshape(-1, 1) + self.__graph.hidden_bias_arr[:split_h_num].reshape(-1, 1)
             left_link_value_arr = np.nan_to_num(left_link_value_arr)
 
             center_link_value_arr = (self.__graph.weights_arr.T * self.__graph.hidden_activity_arr.reshape(-1, 1)) + self.__graph.hidden_bias_arr.reshape(-1, 1)
             center_link_value_arr = np.nan_to_num(center_link_value_arr)
 
-            right_link_value_arr = (self.__graph.weights_arr[:, -split_num:].T) * self.__graph.hidden_activity_arr[-split_num:].reshape(-1, 1) + self.__graph.hidden_bias_arr[-split_num:].reshape(-1, 1)
+            right_link_value_arr = (self.__graph.weights_arr.T[split_h_num:, -split_v_num:]) * self.__graph.hidden_activity_arr[-split_h_num:].reshape(-1, 1) + self.__graph.hidden_bias_arr[-split_h_num:].reshape(-1, 1)
             right_link_value_arr = np.nan_to_num(right_link_value_arr)
 
-            left_visible_activity_arr = left_link_value_arr.sum(axis=1)
-            right_visible_activity_arr = right_link_value_arr.sum(axis=1)
-
+            left_visible_activity_arr = left_link_value_arr.sum(axis=0)
+            right_visible_activity_arr = right_link_value_arr.sum(axis=0)
+        
             # Overlapping for Shape-BM.
             self.__graph.visible_activity_arr = np.r_[
                 left_visible_activity_arr, 
-                center_link_value_arr.sum(),
+                np.array([center_link_value_arr.sum()] * self.__overlap_n),
                 right_visible_activity_arr
             ]
             self.__graph.visible_activity_arr = np.nan_to_num(self.__graph.visible_activity_arr)

@@ -2,6 +2,8 @@
 import numpy as np
 cimport numpy as np
 from pydbm.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
+from pydbm.approximation.shape_bm_cd import ShapeBMCD
+from pydbm.activation.logistic_function import LogisticFunction
 ctypedef np.float64_t DOUBLE_t
 
 
@@ -21,15 +23,23 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         return self.__visible_points_arr
 
     visible_points_arr = property(get_visible_points_arr, set_readonly)
+    
+    # The number of overlapped pixels.
+    __overlap_n = 9
+    
+    # The width of reshaped image.
+    __reshaped_w = 12
 
     def __init__(
         self,
         dbm_builder,
-        neuron_assign_list,
-        activating_function_list,
-        approximate_interface_list,
-        double learning_rate,
-        double dropout_rate=0.5
+        neuron_assign_list=[],
+        activating_function_list=[],
+        approximate_interface_list=[],
+        double learning_rate=0.01,
+        double dropout_rate=0.0,
+        int overlap_n=9,
+        int reshaped_w=12
     ):
         '''
         Initialize deep boltzmann machine.
@@ -41,10 +51,40 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
             approximate_interface_list:  The object of function approximation.
             learning_rate:               Learning rate.
             dropout_rate:                Dropout rate.
-            inferencing_flag:            Execute inferencing or not. 
-            inferencing_plan:            `each`:  Learn -> Inferece -> Learn -> ...
-                                         `at_once`: All learn -> All inference   
+            overlap_n:                   The number of overlapped pixels.
+            reshaped_w:                  The width of reshaped image.
         '''
+        self.__overlap_n = overlap_n
+        self.__reshaped_w = reshaped_w
+        
+        if isinstance(neuron_assign_list, list) is False:
+            raise TypeError()
+
+        if isinstance(activating_function_list, list) is False:
+            raise TypeError()
+
+        if isinstance(approximate_interface_list, list) is False:
+            raise TypeError()
+
+        if len(neuron_assign_list) == 0:
+            v_n = (self.__reshaped_w - 2) ** 2
+            neuron_assign_list = [v_n, v_n-1, v_n-2]
+
+        if len(activating_function_list) == 0:
+            # Default setting objects for activation function.
+            activating_function_list = [
+                LogisticFunction(binary_flag=True), 
+                LogisticFunction(binary_flag=True), 
+                LogisticFunction(binary_flag=True)
+            ]
+
+        if len(approximate_interface_list) == 0:
+            # Default setting the object for function approximation.
+            approximate_interface_list = [
+                ShapeBMCD(v_h_flag=True, overlap_n=overlap_n), 
+                ShapeBMCD(v_h_flag=False, overlap_n=overlap_n)
+            ]
+
         super().__init__(
             dbm_builder,
             neuron_assign_list,
@@ -77,6 +117,13 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
                                   If this value is '-1', the inferencing is not a recursive learning.
             sgd_flag:             Learning with the stochastic gradient descent(SGD) or not.
         '''
+        cdef np.ndarray[DOUBLE_t, ndim=2] init_observed_data_arr = observed_data_arr.copy()
+
+        observed_data_arr = self.__reshape_observed_data(observed_data_arr)
+
+        cdef int row_y = observed_data_arr.shape[0]
+        cdef int col_x = observed_data_arr.shape[1]
+
         cdef int i
         cdef int row_i = observed_data_arr.shape[0]
         cdef int j
@@ -113,106 +160,74 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
                 if k == traning_count - 1:
                     inferenced_data_list[i] = rbm_list[-1].graph.visible_activity_arr
         self.__visible_points_arr = np.array(inferenced_data_list)
+        self.__visible_points_arr = self.__reshape_inferenced_data(init_observed_data_arr, self.__visible_points_arr)
 
-    def reshape_observed_data(self, np.ndarray[DOUBLE_t, ndim=2] observed_data_arr, int overlap_n=1):
+    def __reshape_observed_data(self, np.ndarray[DOUBLE_t, ndim=2] observed_data_arr):
         '''
         Reshape `np.ndarray` of observed data ponints for Shape-BM.
         
         Args:
             observed_data_arr:    The `np.ndarray` of observed data points.
-            overlap_n:            The number of pixels that overlaps its neighbor.
 
         Returns:
             np.ndarray[DOUBLE_t, ndim=2] observed data points
         '''
-        cdef int row_i = observed_data_arr.shape[0]
-        cdef int col_j = observed_data_arr.shape[1]
-        
-        if row_i != col_j:
-            raise ValueError("The shape of observed data array must be sequre.")
 
-        if row_i % 2 == 0 or col_j % 2 == 0:
-            raise ValueError("The row and col of observed data array must be odd number.")
+        cdef int row_y = observed_data_arr.shape[0]
+        cdef int col_x = observed_data_arr.shape[1]
 
         feature_arr_list = []
-        
-        cdef np.ndarray[DOUBLE_t, ndim=2] target_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] feature_arr
 
-        for i in range(int(row_i/2)):
-            for j in range(int(col_j/2)):
-                target_arr = observed_data_arr[i:i+overlap_n+2, j:j+overlap_n+2]
+        cdef int unit_n = int(self.__reshaped_w / 2)
+        unit_arr = np.array(list(range(unit_n)))
+        length_list = np.r_[
+            unit_arr.copy()[::-1] * -1,
+            unit_arr[1:]
+        ].tolist()
 
-                feature_arr = np.r_[
-                    target_arr[:int(target_arr.shape[0]/2), :].reshape(-1, 1),
-                    target_arr[int(target_arr.shape[0]/2):int(target_arr.shape[0]/2)+1, :int(target_arr.shape[1]/2)].reshape(-1, 1),
-                    target_arr[int(target_arr.shape[0]/2):int(target_arr.shape[0]/2)+1, int(target_arr.shape[1]/2):int(target_arr.shape[1]/2)+1].reshape(-1, 1),
-                    target_arr[int(target_arr.shape[0]/2):int(target_arr.shape[0]/2)+1, int(target_arr.shape[1]/2)+1:].reshape(-1, 1),
-                    target_arr[int(target_arr.shape[0]/2)+1:, :].reshape(-1, 1)
-                ].reshape(1, -1)
-                feature_arr_list.append(feature_arr)
-
-                target_arr = target_arr.T
-                feature_arr = np.r_[
-                    target_arr[:int(target_arr.shape[0]/2), :].reshape(-1, 1),
-                    target_arr[int(target_arr.shape[0]/2):int(target_arr.shape[0]/2)+1, :int(target_arr.shape[1]/2)].reshape(-1, 1),
-                    target_arr[int(target_arr.shape[0]/2):int(target_arr.shape[0]/2)+1, int(target_arr.shape[1]/2):int(target_arr.shape[1]/2)+1].reshape(-1, 1),
-                    target_arr[int(target_arr.shape[0]/2):int(target_arr.shape[0]/2)+1, int(target_arr.shape[1]/2)+1:].reshape(-1, 1),
-                    target_arr[int(target_arr.shape[0]/2)+1:, :].reshape(-1, 1)
-                ].reshape(1, -1)
-                feature_arr_list.append(feature_arr)
-
-                d_arr = target_arr[np.sort(np.diag(np.diag(target_arr)+1) == 0)]
-                d_arr = np.diag(np.diag(target_arr+1)).astype(np.float64)
-                d_arr[d_arr != 0] = np.inf
-                d_arr = target_arr + d_arr
-                d_arr = d_arr[d_arr != np.inf]
-                d_key = int(d_arr.shape[0]/2)
-                feature_arr = np.r_[
-                    d_arr[:d_key],
-                    np.diag(target_arr),
-                    d_arr[d_key:]
-                ].reshape(1, -1)
-                feature_arr_list.append(feature_arr)
-
-                target_arr = target_arr[::-1]
-                d_arr = target_arr[np.sort(np.diag(np.diag(target_arr)+1) == 0)]
-                d_arr = np.diag(np.diag(target_arr+1)).astype(np.float64)
-                d_arr[d_arr != 0] = np.inf
-                d_arr = target_arr + d_arr
-                d_arr = d_arr[d_arr != np.inf]
-                feature_arr = np.r_[
-                    d_arr[:d_key],
-                    np.diag(target_arr),
-                    d_arr[d_key:]
-                ].reshape(1, -1)
-                feature_arr_list.append(feature_arr)
-
-        cdef np.ndarray[DOUBLE_t, ndim=2] reshape_arr = np.array(feature_arr_list)[:, 0, :]
+        v_list_list = []
+        for x in range(col_x):
+            for y in range(row_y):
+                v_list = []
+                for x_add in length_list:
+                    for y_add in length_list:
+                        try:
+                            v_list.append(observed_data_arr[y+y_add, x+x_add])
+                        except IndexError:
+                            v_list.append(0)
+                v_list_list.append(v_list)
+        cdef np.ndarray[DOUBLE_t, ndim=2] reshape_arr = np.array(v_list_list).astype(np.float64)
         return reshape_arr
 
-    def reshape_inferenced_data(self, np.ndarray[DOUBLE_t, ndim=2] inferenced_data_arr):
+    def __reshape_inferenced_data(
+        self, 
+        np.ndarray[DOUBLE_t, ndim=2] observed_data_arr, 
+        np.ndarray[DOUBLE_t, ndim=2] inferenced_data_arr
+    ):
         '''
         Reshape `np.ndarray` of inferenced data ponints for Shape-BM.
         
         Args:
+            observed_data_arr:    The `np.ndarray` of observed data points.
             inferenced_data_arr:  The `np.ndarray` of inferenced data points.
 
         Returns:
             np.ndarray[DOUBLE_t, ndim=2] inferenced data points
         '''
-        cdef int row_i = inferenced_data_arr.shape[0]
-        cdef int col_j = inferenced_data_arr.shape[1]
+        cdef int center_i = int(inferenced_data_arr.shape[1]/2)+1
+        cdef np.ndarray[DOUBLE_t, ndim=1] shaped_data_arr = inferenced_data_arr[:, center_i]
 
-        if col_j % 2 == 0:
-            raise ValueError("The col of inferenced data array must be odd number.")
+        cdef int row_y = observed_data_arr.shape[0]
+        cdef int col_x = observed_data_arr.shape[1]
 
-        mean_field_list = []
-        cdef float mean_field
-        for i in range(int(row_i/4)):
-            mean_field = inferenced_data_arr[i*4:(i+1)*4, int(col_j/2):int(col_j/2)+1].mean()
-            mean_field_list.append(mean_field)
-        mean_field_arr = np.array(mean_field_list).reshape(int(row_i/4), int(row_i/4))
-        shape_arr = np.zeros((int(row_i/4)+2, int(row_i/4)+2))
-        shape_arr[1:1+mean_field_arr.shape[0], 1:1+mean_field_arr.shape[1]] = mean_field_arr
-        return shape_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] reshape_arr = observed_data_arr.copy()
+
+        i = 0
+        for x in range(col_x):
+            for y in range(row_y):
+                reshape_arr[y, x] = reshape_arr[y, x] * shaped_data_arr[i]
+                i += 1
+
+        if reshape_arr.min() != 0 or reshape_arr.max() != 1:
+            reshape_arr = 255 * (reshape_arr - reshape_arr.min()) / (reshape_arr.max() - reshape_arr.min())
+        return reshape_arr

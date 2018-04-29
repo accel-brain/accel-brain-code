@@ -150,8 +150,6 @@ class ShapeBMCD(ApproximateInterface):
         Standing on the premise that the settings of
         the activation function and weights operation are common.
 
-        The binary activity is unsupported.
-
         Args:
             observed_data_list:      observed data points.
         '''
@@ -267,8 +265,6 @@ class ShapeBMCD(ApproximateInterface):
 
         Standing on the premise that the settings of
         the activation function and weights operation are common.
-
-        The binary activity is unsupported.
 
         Args:
             observed_data_list:      observed data points (feature points).

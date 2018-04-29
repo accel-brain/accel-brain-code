@@ -16,7 +16,10 @@ class LogisticFunction(ActivatingFunctionInterface):
     # Binary flag.
     __binary_flag = False
     
-    def __init__(self, binary_flag=False, normalize_flag=True):
+    # for overflow
+    __for_overflow = "max"
+    
+    def __init__(self, binary_flag=False, normalize_flag=False, for_overflow="max"):
         if isinstance(binary_flag, bool):
             self.__binary_flag = binary_flag
         else:
@@ -24,6 +27,11 @@ class LogisticFunction(ActivatingFunctionInterface):
         
         if isinstance(normalize_flag, bool):
             self.__normalize_flag = normalize_flag
+        else:
+            raise TypeError()
+        
+        if isinstance(for_overflow, str):
+            self.__for_overflow = for_overflow
         else:
             raise TypeError()
 
@@ -43,10 +51,16 @@ class LogisticFunction(ActivatingFunctionInterface):
             if x_sum != 0:
                 x = x / x_sum
 
+        if self.__for_overflow == "max":
+            c = x.max()
+        else:
+            c = 0.0
+
+        activity_arr = 1.0 / (1.0 + np.exp(-x + c))
+        activity_arr = np.nan_to_num(activity_arr)
+
         if self.__binary_flag is True:
-            activity_arr = 1.0 / (1.0 + np.exp(-x))
             activity_arr = np.random.binomial(1, activity_arr, activity_arr.shape[0])
             activity_arr = activity_arr.astype(np.float64)
-            return activity_arr
-        else:
-            return 1.0 / (1.0 + np.exp(-x))
+
+        return activity_arr

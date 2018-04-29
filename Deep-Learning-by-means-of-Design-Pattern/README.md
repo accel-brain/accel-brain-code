@@ -1,12 +1,33 @@
 # Deep Learning Library: pydbm
 
-`pydbm` is Python3 library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), and Recurrent Temporal Restricted Boltzmann Machine(RTRBM).
+`pydbm` is Python3 library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Recurrent Temporal Restricted Boltzmann Machine(RTRBM), and Shape Boltzmann Machine(Shape-BM).
 
 This is Cython version. [pydbm_mxnet](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern/mxnet) (MXNet version) is derived from this library.
 
 ## Description
 
-The function of this library is building and modeling restricted boltzmann machine, deep boltzmann machine, and multi-layer neural networks. The models are functionally equivalent to stacked auto-encoder. The main function is the same as dimensions reduction(or pre-training).
+The function of this library is building and modeling Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine, Recurrent Temporal Restricted Boltzmann Machine(RTRBM), and Shape Boltzmann Machine(Shape-BM). The models are functionally equivalent to stacked auto-encoder. The basic function is the same as dimensions reduction(or pre-training).
+
+As more usecases, RTRBM is a probabilistic time-series model which can be viewed as a temporal stack of RBMs, where each RBM has a contextual hidden state that is received from the previous RBM and is used to modulate its hidden units bias. Then this model can learn dependency structures in temporal patterns such as music, natural sentences, and n-gram.
+
+On the other hand, the usecases of Shape-BM are image segmentation, object detection, inpainting and graphics. Shape-BM is the model for the task of modeling binary shape images, in that samples from the model look realistic and it can generalize to generate samples that differ from training examples.
+
+<table border="0">
+    <tr>
+        <td>
+            <img src="https://github.com/chimera0/accel-brain-code/raw/master/Deep-Learning-by-means-of-Design-Pattern/img/horse099.jpg" />
+        <p>Image in <a href="https://avaminzhang.wordpress.com/2012/12/07/%E3%80%90dataset%E3%80%91weizmann-horses/" target="_blank">the Weizmann horse dataset</a>.</p>
+        </td>
+        <td>
+            <img src="https://github.com/chimera0/accel-brain-code/raw/master/Deep-Learning-by-means-of-Design-Pattern/img/horse099_binary.png" />
+            <p>Binarized image.</p>
+        </td>
+        <td>
+            <img src="https://github.com/chimera0/accel-brain-code/raw/master/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_horse099.gif" />
+            <p>Reconstructed image by Shape-BM.</p>
+        </td>
+    </tr>
+</table>
 
 ## Documentation
 
@@ -23,7 +44,7 @@ pip install pydbm
 Or, you can install from wheel file.
 
 ```sh
-pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.1.8-cp36-cp36m-linux_x86_64.whl
+pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-1.2.0-cp36-cp36m-linux_x86_64.whl
 ```
 
 ### Source code
@@ -91,6 +112,76 @@ And the feature points can be extracted by this method.
 ```python
 print(dbm.get_feature_point_list(0))
 ```
+
+## Usecase: Image segmentation by Shape-BM.
+
+First, acquire image data and binarize it.
+
+```python
+from PIL import Image
+img = Image.open("horse099.jpg")
+img
+```
+
+<img src="https://github.com/chimera0/accel-brain-code/raw/master/Deep-Learning-by-means-of-Design-Pattern/img/horse099.jpg" />
+
+```python
+img_bin = img.convert("1")
+img_bin
+```
+
+<img src="https://github.com/chimera0/accel-brain-code/raw/master/Deep-Learning-by-means-of-Design-Pattern/img/horse099_binary.png" />
+
+Set up hyperparameters.
+
+```python
+overlap_n = 4
+learning_rate = 0.01
+```
+
+`overlap_n` is hyperparameter specific to Shape-BM. In the visible layer, this model has so-called local receptive fields by connecting each first hidden unit only to a subset of the visible units, corresponding to one of four square patches. Each patch overlaps its neighbor by `overlap_n` pixels (Eslami, S. A., et al, 2014).
+
+And import Python and Cython modules.
+
+```python
+# The `Client` in Builder Pattern
+from pydbm.dbm.deepboltzmannmachine.shape_boltzmann_machine import ShapeBoltzmannMachine
+# The `Concrete Builder` in Builder Pattern.
+from pydbm.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
+```
+
+Instantiate objects and call the method.
+
+```python
+dbm = ShapeBoltzmannMachine(
+    DBMMultiLayerBuilder(),
+    learning_rate=learning_rate,
+    overlap_n=overlap_n
+)
+
+img_arr = np.asarray(img_bin)
+img_arr = img_arr.astype(np.float64)
+
+# Execute learning.
+dbm.learn(
+    img_arr, # `np.ndarray` of image data.
+    1, # If approximation is the Contrastive Divergence, this parameter is `k` in CD method.
+    batch_size=300,  # Batch size in mini-batch training.
+    r_batch_size=-1,  # if `r_batch_size` > 0, the function of `dbm.learn` is a kind of reccursive learning.
+    sgd_flag=True
+)
+```
+
+Extract `dbm.visible_points_arr` as the observed data points in visible layer. This `np.ndarray` is segmented image data.
+
+```python
+inferenced_data_arr = dbm.visible_points_arr.copy()
+inferenced_data_arr = 255 - inferenced_data_arr
+Image.fromarray(np.uint8(inferenced_data_arr))
+```
+
+<img src="https://github.com/chimera0/accel-brain-code/raw/master/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_horse099.gif" />
+
 
 ## Usecase: Building the Recurrent Temporal Restricted Boltzmann Machine for recursive learning.
 
@@ -295,6 +386,7 @@ The observated data is the result of `np.random.uniform(size=(10000, 10000))`.
 ## References
 
 - Ackley, D. H., Hinton, G. E., &amp; Sejnowski, T. J. (1985). A learning algorithm for Boltzmann machines. Cognitive science, 9(1), 147-169.
+- Eslami, S. A., Heess, N., Williams, C. K., & Winn, J. (2014). The shape boltzmann machine: a strong model of object shape. International Journal of Computer Vision, 107(2), 155-176.
 - Hinton, G. E. (2002). Training products of experts by minimizing contrastive divergence. Neural computation, 14(8), 1771-1800.
 - Le Roux, N., &amp; Bengio, Y. (2008). Representational power of restricted Boltzmann machines and deep belief networks. Neural computation, 20(6), 1631-1649.
 - Salakhutdinov, R., &amp; Hinton, G. E. (2009). Deep boltzmann machines. InInternational conference on artificial intelligence and statistics (pp. 448-455).

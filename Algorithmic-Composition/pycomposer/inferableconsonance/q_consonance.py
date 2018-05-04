@@ -49,22 +49,10 @@ class QConsonance(GreedyQLearning, InferableConsonance):
         Returns:
             [pitch]
         '''
-        if state_key == 0:
-            return np.arange(127).tolist()
-        else:
-            possible_actoins_list = []
-            for key, val in self.__r_dict.items():
-                pre, post = key
-                action_key = state_key * (post/pre)
-                action_key = int(action_key)
-                if action_key > 0 and action_key <= 127:
-                    possible_actoins_list.append(action_key)
-                action_key = state_key * (pre/post)
-                action_key = int(action_key)
-                if action_key > 0 and action_key <= 127:
-                    possible_actoins_list.append(action_key)
-
-            return possible_actoins_list
+        next_arr = np.arange(state_key-12, state_key+12)
+        next_arr = next_arr[next_arr >= 0]
+        next_arr = next_arr[next_arr <= 127]
+        return next_arr.tolist()
 
     def __gcd(self, a, b):
         while b:

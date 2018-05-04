@@ -10,12 +10,13 @@ class MidiVectorlizer(object):
     Vectorlize MIDI file.
     '''
 
-    def extract(self, file_path):
+    def extract(self, file_path, is_drum=False):
         '''
         Extract MIDI file.
         
         Args:
             file_path:    File path of MIDI.
+            is_drum:      Extract drum data or not.
             
         Returns:
             pd.DataFrame(columns=["program", "start", "end", "pitch", "velocity", "duration"])
@@ -23,7 +24,7 @@ class MidiVectorlizer(object):
         midi_data = pretty_midi.PrettyMIDI(file_path)
         note_tuple_list = []
         for instrument in midi_data.instruments:
-            if instrument.is_drum is False:
+            if (is_drum is False and instrument.is_drum is False) or (is_drum is True and instrument.is_drum is True):
                 for note in instrument.notes:
                     note_tuple_list.append((instrument.program, note.start, note.end, note.pitch, note.velocity))
         note_df = pd.DataFrame(note_tuple_list, columns=["program", "start", "end", "pitch", "velocity"])

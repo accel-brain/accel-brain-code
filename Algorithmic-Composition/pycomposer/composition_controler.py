@@ -4,12 +4,14 @@ import pandas as pd
 import pretty_midi
 from pycomposer.chord_progression import ChordProgression
 from pycomposer.melody_composer import MelodyComposer
+from pycomposer.inferable_pitch import InferablePitch
+from pycomposer.inferable_consonance import InferableConsonance
 
 
 class CompositionControler(object):
 
     # The object of `pretty_midi.PrettyMIDI`.
-    __pm = None
+    __pretty_midi = None
     # The object of `pretty_midi.Instrument`.
     __instrument_chord = None
     # The object of `pretty_midi.Instrument`.
@@ -18,16 +20,9 @@ class CompositionControler(object):
     __chord_progression = None
     # The object of `MelodyComposer`.
     __melody_composer = None
-    # Now time.
-    __now_time = 0.0
-    
-    __pitch_max = None
-    __pitch_min = None
-    __pre_pitch_n = 5
 
     def __init__(
         self,
-        rbm,
         resolution=960,
         initial_tempo=120,
         chord_instrument_num=39,
@@ -37,35 +32,21 @@ class CompositionControler(object):
             resolution,
             initial_tempo,
             chord_instrument_num,
-            melody_instrument_num        
+            melody_instrument_num
         )
         self.__chord_progression = ChordProgression()
         self.__melody_composer = MelodyComposer()
-        self.__rbm = rbm
 
     def reset(
         self,
         resolution=960,
         initial_tempo=120,
-        chord_instrument_num=39,
-        melody_instrument_num=0
+        chord_instrument_num=33,
+        melody_instrument_num=1
     ):
-        self.__pm = pretty_midi.PrettyMIDI(resolution=resolution, initial_tempo=initial_tempo)
+        self.__pretty_midi = pretty_midi.PrettyMIDI(resolution=resolution, initial_tempo=initial_tempo)
         self.__instrument_chord = pretty_midi.Instrument(chord_instrument_num)
         self.__instrument_melody = pretty_midi.Instrument(melody_instrument_num)
-
-    def learn_pitch(self, tone_df, training_count, batch_size):
-        for i in range(tone_df.shape[0]):
-            pitch_arr = np.zeros(127)
-            pitch_arr[tone_df.pitch.values[i]] = 1
-            pitch_arr = pitch_arr.astype(np.float64)
-            self.__rbm.approximate_learning(
-                pitch_arr,
-                traning_count=training_count, 
-                batch_size=batch_size
-            )
-        self.__training_count = training_count
-        self.__r_batch_size = batch_size
 
     def create_chord_melody_list(
         self,
@@ -79,84 +60,70 @@ class CompositionControler(object):
             chord_melody_list.append(self.__melody_composer.create(chord))
 
         return chord_melody_list
-
+    
     def match_melody_to_chords(
         self,
+        inferable_pitch,
+        inferable_consonance,
         chord_melody_list,
-        chord_duration_range=(0.75, 1),
-        start_time=None,
-        beat=4,
-        melody_duration_range=(0.01, 0.25),
-        space_range=(0.0, 0.01),
+        measure_n=4,
+        start_measure_n=0,
+        beat_n=4,
+        metronome_time=60,
         chord_velocity_range=(70, 90),
         melody_velocity_range=(90, 110)
     ):
-        if start_time is not None:
-            time = start_time
-        else:
-            time = self.__now_time
+        if isinstance(inferable_pitch, InferablePitch) is False:
+            raise TypeError("The type of `inferable_pitch` must be `InferablePitch`.")
+        if isinstance(inferable_consonance, InferableConsonance) is False:
+            raise TypeError("The type of `inferable_consonance` must be `InferableConsonance`.")
 
-        pre_pitch = None
-        for note_arr in chord_melody_list:
-            chord_duration = np.random.uniform(low=chord_duration_range[0], high=chord_duration_range[1])
-            pitch_arr = note_arr.copy()
-            for i in range(note_arr.shape[0]):
-                velocity = np.random.randint(low=chord_velocity_range[0], high=chord_velocity_range[1])
-                note = pretty_midi.Note(velocity=velocity, pitch=note_arr[i], start=time, end=time+chord_duration)
+        chord_time = 0.0
+        for measure in range(len(chord_melody_list)):
+            pitch_arr = chord_melody_list[measure]
+            measure = measure + 1 + start_measure_n
+            start = chord_time
+            end = (((60/metronome_time) * 4 * (measure - 1))) + ((60/metronome_time) * (4 - 1))
+            velocity = np.random.randint(low=chord_velocity_range[0], high=chord_velocity_range[1])
+            for i in range(pitch_arr.shape[0]):
+                note = pretty_midi.Note(velocity=velocity, pitch=pitch_arr[i], start=start, end=end)
                 self.__instrument_chord.notes.append(note)
+            chord_time = end
 
-            start = time
-            for i in range(beat):
-                space = np.random.uniform(low=space_range[0], high=space_range[1])
-                if melody_duration_range is None and beat is not None:
-                    duration = np.random.uniform(low=0.01, high=(1/beat)-space)
-                elif melody_duration_range is not None and beat is None:
-                    duration = np.random.uniform(low=melody_duration_range[0], high=melody_duration_range[1]-space)
-                elif melody_duration_range is not None and beat is not None:
-                    duration = np.random.uniform(
-                        low=melody_duration_range[0],
-                        high=min([(1/beat), melody_duration_range[1]])-space
-                    )
-                else:
-                    # may be unnecessary.
-                    raise ValueError("The parameter of `melody_duration_range` and `beat` must be not `None`.")
-                    
-                end = start + duration
-                if end > time + chord_duration:
-                    raise ValueError("The duration of melody should match to chord.")
+        melody_time = 0.0
+        for measure in range(measure_n):
+            pitch_arr = chord_melody_list[measure]
+            measure = measure + 1 + start_measure_n
+            for beat in range(beat_n):
+                beat = beat + 1
+                start = melody_time
+                end = (((60/metronome_time) * 4 * (measure - 1))) + ((60/metronome_time) * (beat - 1))
 
-                velocity = np.random.randint(low=melody_velocity_range[0], high=melody_velocity_range[1])
-
-                if i == 0:
+                if beat == 1:
                     np.random.shuffle(pitch_arr)
                     pitch = pitch_arr[0]
                 else:
-                    pitch = self.__inference_pitch(pre_pitch, pitch_arr)
+                    consonance_pitch_arr = inferable_consonance.inference(pre_pitch, limit=5)
+                    if consonance_pitch_arr.shape[0]:
+                        _pitch_arr = consonance_pitch_arr
+                    else:
+                        _pitch_arr = pitch_arr
+                    pitch = inferable_pitch.inferance(pre_pitch, _pitch_arr)
 
-                note = pretty_midi.Note(velocity=velocity, pitch=pitch, start=time, end=time+duration)
-                pre_pitch = pitch
+                velocity = np.random.randint(low=melody_velocity_range[0], high=melody_velocity_range[1])
+
+                note = pretty_midi.Note(
+                    velocity=velocity, 
+                    pitch=pitch, 
+                    start=start, 
+                    end=end
+                )
                 self.__instrument_melody.notes.append(note)
-                start = end + space
+                pre_pitch = pitch
+                melody_time = end
 
-            time = time + chord_duration
-
-        self.__now_time = time
-        self.__pm.instruments.append(self.__instrument_chord)
-        self.__pm.instruments.append(self.__instrument_melody)
-
-    def __inference_pitch(self, pre_pitch, pitch_arr):
-        test_arr = np.zeros(127)
-        test_arr[pre_pitch] = 1
-        test_arr = test_arr.astype(np.float64)
-        self.__rbm.approximate_inferencing(
-            test_arr,
-            traning_count=self.__training_count, 
-            r_batch_size=self.__r_batch_size
-        )
-        pitch_min = pitch_arr.min()
-        pitch_max = pitch_arr.max()
-        pitch = pitch_min + 1 + np.argmax(self.__rbm.graph.visible_activity_arr[pitch_arr.min():pitch_arr.max()])
-        return pitch
+        self.__pretty_midi.instruments.append(self.__instrument_chord)
+        self.__pretty_midi.instruments.append(self.__instrument_melody)
 
     def save(self, file_path):
-        self.__pm.write(file_path)
+        self.__pretty_midi.write(file_path)

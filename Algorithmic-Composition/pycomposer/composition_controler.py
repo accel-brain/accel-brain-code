@@ -12,10 +12,6 @@ class CompositionControler(object):
 
     # The object of `pretty_midi.PrettyMIDI`.
     __pretty_midi = None
-    # The object of `pretty_midi.Instrument`.
-    __instrument_chord = None
-    # The object of `pretty_midi.Instrument`.
-    __instrument_melody = None
     # The object of `ChordProgression`.
     __chord_progression = None
     # The object of `MelodyComposer`.
@@ -24,15 +20,18 @@ class CompositionControler(object):
     def __init__(
         self,
         resolution=960,
-        initial_tempo=120,
-        chord_instrument_num=39,
-        melody_instrument_num=0
+        initial_tempo=120
     ):
+        '''
+        Initialize.
+        
+        Args:
+            resolution:             Resolution of the MIDI data, when no file is provided.
+            initial_tempo:          Initial tempo for the MIDI data, when no file is provided.
+        '''
         self.reset(
             resolution,
-            initial_tempo,
-            chord_instrument_num,
-            melody_instrument_num
+            initial_tempo
         )
         self.__chord_progression = ChordProgression()
         self.__melody_composer = MelodyComposer()
@@ -40,59 +39,128 @@ class CompositionControler(object):
     def reset(
         self,
         resolution=960,
-        initial_tempo=120,
-        chord_instrument_num=33,
-        melody_instrument_num=1
+        initial_tempo=120
     ):
-        self.__pretty_midi = pretty_midi.PrettyMIDI(resolution=resolution, initial_tempo=initial_tempo)
-        self.__instrument_chord = pretty_midi.Instrument(chord_instrument_num)
-        self.__instrument_melody = pretty_midi.Instrument(melody_instrument_num)
+        '''
+        Reset.
+        
+        Args:
+            resolution:             Resolution of the MIDI data, when no file is provided.
+            initial_tempo:          Initial tempo for the MIDI data, when no file is provided.
 
-    def create_chord_melody_list(
+        '''
+        self.__pretty_midi = pretty_midi.PrettyMIDI(resolution=resolution, initial_tempo=initial_tempo)
+
+    def create_chord_list(
         self,
         octave,
         first_chord="I",
-        length=8
+        measure_n=8
     ):
-        chord_melody_list = [self.__melody_composer.create(first_chord)]
-        for i in range(length):
+        '''
+        Create chord progression.
+        
+        Args:
+            octave:         octave.
+            first_chord:    The string of Diatonic code. (I, II, III, IV, V, VI, VII)
+            measure_n:      The length of measures.
+        
+        Retruns:
+            The list of `np.ndarray` that contains the string of Diatonic code.
+        '''
+        chord_list = [self.__melody_composer.create(first_chord)]
+        for i in range(measure_n):
             chord = self.__chord_progression.progression(state=first_chord, octave=octave)
-            chord_melody_list.append(self.__melody_composer.create(chord))
+            chord_list.append(self.__melody_composer.create(chord))
 
-        return chord_melody_list
+        return chord_list
     
-    def match_melody_to_chords(
+    def compose_chord(
         self,
-        inferable_pitch,
-        inferable_consonance,
-        chord_melody_list,
-        measure_n=4,
+        chord_list,
+        metronome_time=60, 
         start_measure_n=0,
-        beat_n=4,
-        metronome_time=60,
+        chord_instrument_num=39,
         chord_velocity_range=(70, 90),
-        melody_velocity_range=(90, 110)
     ):
-        if isinstance(inferable_pitch, InferablePitch) is False:
-            raise TypeError("The type of `inferable_pitch` must be `InferablePitch`.")
-        if isinstance(inferable_consonance, InferableConsonance) is False:
-            raise TypeError("The type of `inferable_consonance` must be `InferableConsonance`.")
+        '''
+        Compose chords.
+        
+        Args:
+            chord_list:             The list of `np.ndarray` that contains the string of Diatonic code.
+            metronome_time:         Metronome time.
+            start_measure_n:        The timing of the beginning of the measure.
+            chord_instrument_num:   MIDI program number (instrument index), in [0, 127].
+            chord_velocity_range:   The tuple of chord velocity in MIDI.
+                                    The form of tuple is (low velocity, high veloicty).
+                                    The value of velocity is determined by `np.random.randint`.
+
+        @TODO(chimera0):    Reconsider specification of velocity.
+
+        '''
+        instrument_chord = pretty_midi.Instrument(chord_instrument_num)
 
         chord_time = 0.0
-        for measure in range(len(chord_melody_list)):
-            pitch_arr = chord_melody_list[measure]
+        for measure in range(len(chord_list)):
+            pitch_arr = chord_list[measure]
             measure = measure + 1 + start_measure_n
             start = chord_time
             end = (((60/metronome_time) * 4 * (measure - 1))) + ((60/metronome_time) * (4 - 1))
             velocity = np.random.randint(low=chord_velocity_range[0], high=chord_velocity_range[1])
             for i in range(pitch_arr.shape[0]):
-                note = pretty_midi.Note(velocity=velocity, pitch=pitch_arr[i], start=start, end=end)
-                self.__instrument_chord.notes.append(note)
+                note = pretty_midi.Note(
+                    velocity=velocity, 
+                    pitch=pitch_arr[i], 
+                    start=start, 
+                    end=end
+                )
+                instrument_chord.notes.append(note)
             chord_time = end
+
+        self.__pretty_midi.instruments.append(instrument_chord)
+    
+    def compose_melody(
+        self,
+        inferable_pitch,
+        inferable_consonance,
+        chord_list,
+        measure_n=4,
+        start_measure_n=0,
+        beat_n=4,
+        metronome_time=60,
+        melody_instrument_num=0,
+        melody_velocity_range=(90, 110)
+    ):
+        '''
+        Compose melody.
+        
+        Args:
+            inferable_pitch:            The object of `InferablePitch`.
+            inferable_consonance:       The object of `InferableConsonance`.
+            chord_list:                 The list of `np.ndarray` that contains the string of Diatonic code.
+            measure_n:                  The number of measures.
+            start_measure_n:            The timing of the beginning of the measure.
+            beat_n:                     The number of beats.
+            metronome_time:             Metronome time.
+            melody_instrument_num:      MIDI program number (instrument index), in [0, 127].
+            melody_velocity_range:      The tuple of melody velocity in MIDI.
+                                        The form of tuple is (low velocity, high veloicty).
+                                        The value of velocity is determined by `np.random.randint`.
+
+        @TODO(chimera0):    Reconsider specification of velocity.
+
+        '''
+
+        if isinstance(inferable_pitch, InferablePitch) is False:
+            raise TypeError("The type of `inferable_pitch` must be `InferablePitch`.")
+        if isinstance(inferable_consonance, InferableConsonance) is False:
+            raise TypeError("The type of `inferable_consonance` must be `InferableConsonance`.")
+
+        instrument_melody = pretty_midi.Instrument(melody_instrument_num)
 
         melody_time = 0.0
         for measure in range(measure_n):
-            pitch_arr = chord_melody_list[measure]
+            pitch_arr = chord_list[measure]
             measure = measure + 1 + start_measure_n
             for beat in range(beat_n):
                 beat = beat + 1
@@ -118,12 +186,17 @@ class CompositionControler(object):
                     start=start, 
                     end=end
                 )
-                self.__instrument_melody.notes.append(note)
+                instrument_melody.notes.append(note)
                 pre_pitch = pitch
                 melody_time = end
 
-        self.__pretty_midi.instruments.append(self.__instrument_chord)
-        self.__pretty_midi.instruments.append(self.__instrument_melody)
+        self.__pretty_midi.instruments.append(instrument_melody)
 
     def save(self, file_path):
+        '''
+        Save MIDI file.
+        
+        Args:
+            file_path:    Saved file path.
+        '''
         self.__pretty_midi.write(file_path)

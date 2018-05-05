@@ -27,7 +27,9 @@ class QConsonance(GreedyQLearning, InferableConsonance):
     
     __r_dict = {}
     
-    def initialize(self, r_dict=None):
+    __tone_df = None
+    
+    def initialize(self, r_dict=None, tone_df=None):
         '''
         Initialize the definition of Consonances.
 
@@ -39,6 +41,8 @@ class QConsonance(GreedyQLearning, InferableConsonance):
         for key, val in r_dict.items():
             pre, post = key
             self.__r_dict.setdefault((float(pre), float(post)), val)
+        
+        self.__tone_df = tone_df
 
     def extract_possible_actions(self, state_key):
         '''
@@ -49,9 +53,21 @@ class QConsonance(GreedyQLearning, InferableConsonance):
         Returns:
             [pitch]
         '''
-        next_arr = np.arange(state_key-12, state_key+12)
-        next_arr = next_arr[next_arr >= 0]
-        next_arr = next_arr[next_arr <= 127]
+        def extract(state_key):
+            next_arr = np.arange(state_key-12, state_key+12)
+            next_arr = next_arr[next_arr >= 0]
+            next_arr = next_arr[next_arr <= 127]
+            return next_arr
+
+        if self.__tone_df is None:
+            next_arr = extract(state_key)
+        else:
+            next_arr = self.__tone_df.pitch.drop_duplicates().values
+            next_arr = next_arr[next_arr >= state_key - 12]
+            next_arr = next_arr[next_arr <= state_key + 12]
+            if next_arr.shape[0] == 0:
+                next_arr = extract(state_key)
+
         return next_arr.tolist()
 
     def __gcd(self, a, b):

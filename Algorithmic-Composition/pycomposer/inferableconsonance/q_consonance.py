@@ -29,6 +29,8 @@ class QConsonance(GreedyQLearning, InferableConsonance):
     
     __tone_df = None
     
+    __rate_arr = None
+    
     def initialize(self, r_dict=None, tone_df=None):
         '''
         Initialize the definition of Consonances.
@@ -38,11 +40,15 @@ class QConsonance(GreedyQLearning, InferableConsonance):
         if r_dict is None:
             r_dict = self.__default_r_dict
 
+        rate_list = []
         for key, val in r_dict.items():
             pre, post = key
-            self.__r_dict.setdefault((float(pre), float(post)), val)
+            key = pre/post
+            self.__r_dict.setdefault(key, val)
+            rate_list.append(key)
         
         self.__tone_df = tone_df
+        self.__rate_arr = np.array(rate_list)
 
     def extract_possible_actions(self, state_key):
         '''
@@ -89,15 +95,10 @@ class QConsonance(GreedyQLearning, InferableConsonance):
         pre_f = self.__frequency_from_pitch(state_key)
         post_f = self.__frequency_from_pitch(action_key)
         
-        g = self.__gcd(pre_f, post_f)
-        
-        pre_r = pre_f/g
-        post_r = post_f/g
-        
-        if (pre_r, post_r) in self.__r_dict:
-            reward_value = self.__r_dict[(pre_r, post_r)]
-        else:
-            reward_value = 0.0
+        f_rate = pre_f/post_f
+        f_diff_arr = np.abs(self.__rate_arr - f_rate)
+        min_diff_key = np.argmin(f_diff_arr)
+        reward_value = self.__rate_arr[min_diff_key]
 
         self.save_r_df(state_key, reward_value, action_key)
         return reward_value

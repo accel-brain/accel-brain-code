@@ -94,6 +94,14 @@ Full documentation is available on [https://code.accel-brain.com/Reinforcement-L
 
 These JavaScript modules are library to implement Reinforcement Learning, especially for Q-Learning. These modules are functionally equivalent to [pyqlearning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning).
 
+## [Algorithmic-Composition](https://github.com/chimera0/accel-brain-code/tree/master/Algorithmic-Composition)
+
+`pycomposer` is Python library for Algorithmic Composition or Automatic Composition by Reinforcement Learning such as Q-Learning and Recurrent Temporal Restricted Boltzmann Machine(RTRBM). Q-Learning and RTRBM in this library allows you to extract the melody information about a MIDI tracks and these models can learn and inference patterns of the melody. And This library has wrapper class for converting melody data inferenced by Q-Learning and RTRBM into MIDI file.
+
+### Documentation
+
+Full documentation is available on [https://code.accel-brain.com/Algorithmic-Composition/](https://code.accel-brain.com/Algorithmic-Composition/). This document contains information on functionally reusability, functional scalability and functional extensibility.
+
 ## [Cardbox](https://github.com/chimera0/accel-brain-code/tree/master/Cardbox)
 
 This is the simple card box system that make you able to find and save your ideas.

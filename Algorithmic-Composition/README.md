@@ -26,7 +26,7 @@ As concrete usecase of Algorithmic Composition, RTRBM can be considered as gener
 
 ## Documentation
 
-Full documentation is available on [https://code.accel-brain.com/Algorithmic-Composition/](https://code.accel-brain.com/Algorithmic Composition/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
+Full documentation is available on [https://code.accel-brain.com/Algorithmic-Composition/](https://code.accel-brain.com/Algorithmic-Composition/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
 
 ## Installation
 

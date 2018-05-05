@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import math
 import numpy as np
 import pandas as pd
 from pyqlearning.qlearning.greedy_q_learning import GreedyQLearning

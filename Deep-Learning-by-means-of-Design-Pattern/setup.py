@@ -14,11 +14,19 @@ for dirpath, dirs, files in os.walk('.'):
             pyx_path = os.path.join(dirpath, f)
             pyx_list.append(Extension("*", [pyx_path]))
 
+
+def read_rst(file_name):
+    from os import path
+    with open(path.join(path.dirname(__file__), file_name)) as f:
+        rst = f.read()
+    return rst
+
+
 setup(
     name='pydbm',
-    version='1.2.0',
+    version='1.2.2',
     description='pydbm is Python library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Recurrent Temporal Restricted Boltzmann Machine(RTRBM), and Shape Boltzmann Machine(Shape-BM).',
-    long_description='The models are functionally equivalent to stacked auto-encoder. The main function I observe is the same as dimensions reduction(or pre-training).',
+    long_description=read_rst("README.rst"),
     url='https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern',
     author='chimera0',
     author_email='ai-brain-lab@accel-brain.com',

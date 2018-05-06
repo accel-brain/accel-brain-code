@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
 
+def read_rst(file_name):
+    from os import path
+    with open(path.join(path.dirname(__file__), file_name)) as f:
+        rst = f.read()
+    return rst
+
+
 setup(
     name='pyqlearning',
-    version='1.0.3',
+    version='1.0.5',
     description='pyqlearning is Python library to implement Reinforcement Learning, especially for Q-Learning.',
-    long_description='Considering many variable parts and functional extensions in the Q-learning paradigm, I implemented these Python Scripts for demonstrations of commonality/variability analysis in order to design the models.',
+    long_description=read_rst("README.rst"),
     url='https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning',
     author='chimera0',
     author_email='ai-brain-lab@accel-brain.com',

@@ -315,10 +315,6 @@ Under the assumption that the less number of searches the better, *Q-Learning*, 
 - [ヴァーチャルリアリティにおける動物的「身体」の物神崇拝的なユースケース](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/) (Japanese)
     - [プロトタイプの開発：「人工天使ヒューズ＝ヒストリア」](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/4/#i-6)
 
-## Version
-
-- 1.0.3
-
 ## Author
 
 - chimera0(RUM)

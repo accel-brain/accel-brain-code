@@ -6,6 +6,7 @@ from pycomposer.chord_progression import ChordProgression
 from pycomposer.melody_composer import MelodyComposer
 from pycomposer.inferable_pitch import InferablePitch
 from pycomposer.inferable_consonance import InferableConsonance
+from pycomposer.inferable_duration import InferableDuration
 
 
 class CompositionControler(object):
@@ -135,6 +136,7 @@ class CompositionControler(object):
         self,
         inferable_pitch,
         inferable_consonance,
+        inferable_duration,
         chord_list,
         total_measure_n=40,
         measure_n=4,
@@ -150,6 +152,7 @@ class CompositionControler(object):
         Args:
             inferable_pitch:            The object of `InferablePitch`.
             inferable_consonance:       The object of `InferableConsonance`.
+            inferable_duration:         The object of `InferableDuration`.
             chord_list:                 The list of `np.ndarray` that contains the string of Diatonic code.
             total_measure_n:            The length of measures.
             measure_n:                  The number of measures.
@@ -169,17 +172,35 @@ class CompositionControler(object):
             raise TypeError("The type of `inferable_pitch` must be `InferablePitch`.")
         if isinstance(inferable_consonance, InferableConsonance) is False:
             raise TypeError("The type of `inferable_consonance` must be `InferableConsonance`.")
+        if isinstance(inferable_duration, InferableDuration) is False and inferable_duration is not None:
+            raise TypeError("The type of `inferable_duration` must be `InferableDuration` or `None`.")
 
         instrument_melody = pretty_midi.Instrument(melody_instrument_num)
 
+        chord_time = 0.0
         melody_time = 0.0
         for measure in range(total_measure_n):
             pitch_arr = chord_list[measure]
-            measure = measure + 1 + start_measure_n
+            duration_arr = None
+            if inferable_duration is not None:
+                duration_arr = inferable_duration.inference(
+                    chord_time,
+                    measure,
+                    metronome_time,
+                    measure_n,
+                    beat_n,
+                    total_measure_n
+                )
+                chord_end = (((60/metronome_time) * measure_n * (measure))) + ((60/metronome_time) * (beat_n))
+                chord_time = chord_end
+
             for beat in range(beat_n):
                 beat = beat + 1
                 start = melody_time
-                end = (((60/metronome_time) * measure_n * (measure))) + ((60/metronome_time) * (beat))
+                if duration_arr is None:
+                    end = (((60/metronome_time) * measure_n * (measure))) + ((60/metronome_time) * (beat))
+                else:
+                    end = start + duration_arr[beat - 1]
 
                 if beat == 1:
                     np.random.shuffle(pitch_arr)

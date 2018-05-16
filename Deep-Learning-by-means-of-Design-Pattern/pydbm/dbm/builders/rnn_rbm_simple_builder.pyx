@@ -6,11 +6,12 @@ from pydbm.synapse.recurrent_temporal_graph import RecurrentTemporalGraph
 from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
 
 
-class RTRBMSimpleBuilder(RTRBMBuilder):
+class RNNRBMSimpleBuilder(RTRBMBuilder):
     '''
     `Concrete Builder` in Builder Pattern.
 
-    Compose restricted boltzmann machines for building a RTRBM.
+    Compose restricted boltzmann machines for building a RNNRBM.
+
     '''
     # The list of neurons in visible layer.
     __visible_neuron_count = 10
@@ -87,15 +88,15 @@ class RTRBMSimpleBuilder(RTRBMBuilder):
 
     def graph_part(self, approximate_interface):
         '''
-        Build RTRBM graph.
+        Build RNNRBM graph.
 
         Args:
             approximate_interface:       The function approximation.
         '''
         self.__approximate_interface = approximate_interface
-        self.__rt_graph = RecurrentTemporalGraph()
-        self.__rt_graph.rnn_activating_function = self.__rnn_activating_function
-        self.__rt_graph.create_node(
+        self.__rnn_graph = RecurrentTemporalGraph()
+        self.__rnn_graph.rnn_activating_function = self.__rnn_activating_function
+        self.__rnn_graph.create_node(
             self.__visible_neuron_count,
             self.__hidden_neuron_count,
             self.__visible_activating_function,
@@ -111,7 +112,7 @@ class RTRBMSimpleBuilder(RTRBMBuilder):
 
         '''
         rbm = RestrictedBoltzmannMachine(
-            self.__rt_graph,
+            self.__rnn_graph,
             self.__learning_rate,
             self.__dropout_rate,
             self.__approximate_interface

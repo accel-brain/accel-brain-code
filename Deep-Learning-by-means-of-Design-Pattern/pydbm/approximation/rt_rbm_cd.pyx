@@ -12,6 +12,15 @@ class RTRBMCD(ApproximateInterface):
     based on Contrastive Divergence.
 
     Conceptually, the positive phase is to the negative phase what waking is to sleeping.
+
+    Parameters:
+        graph.weights_arr:                $W$ (Connection between v^{(t)} and h^{(t)})
+        graph.visible_bias_arr:           $b_v$ (Bias in visible layer)
+        graph.hidden_bias_arr:            $b_h$ (Bias in hidden layer)
+        graph.rnn_hidden_weights_arr:     $W'$ (Connection between h^{(t-1)} and b_h^{(t)})
+        graph.rnn_visible_weights_arr:    $W''$ (Connection between h^{(t-1)} and b_v^{(t)})
+        graph.hat_hidden_activity_arr:    $\hat{h}^{(t)}$ (RNN with hidden units)
+        graph.pre_hidden_activity_arr:    $\hat{h}^{(t-1)}$
     '''
 
     # The list of the reconstruction error rate (MSE)
@@ -28,25 +37,25 @@ class RTRBMCD(ApproximateInterface):
     reconstruct_error_list = property(get_reconstrct_error_list, set_readonly)
 
     # Graph of neurons.
-    __graph = None
+    graph = None
     # Learning rate.
-    __learning_rate = 0.5
+    learning_rate = 0.5
     # Dropout rate.
-    __dropout_rate = 0.5
+    dropout_rate = 0.5
     # Batch size in learning.
-    __batch_size = 0
+    batch_size = 0
     # Batch step in learning.
-    __batch_step = 0
+    batch_step = 0
     # Batch size in inference(recursive learning or not).
-    __r_batch_size = 0
+    r_batch_size = 0
     # Batch step in inference(recursive learning or not).
-    __r_batch_step = 0
+    r_batch_step = 0
     # visible activity in negative phase.
-    __negative_visible_activity_arr = None
+    negative_visible_activity_arr = None
     # gradient in visible layer.
-    __b_v_c_diff_arr = np.array([])
+    b_v_c_diff_arr = np.array([])
     # gradient in hidden layer.
-    __b_h_c_diff_arr = np.array([])
+    b_h_c_diff_arr = np.array([])
 
     def approximate_learn(
         self,
@@ -71,30 +80,30 @@ class RTRBMCD(ApproximateInterface):
         Returns:
             Graph of neurons.
         '''
-        self.__graph = graph
-        self.__learning_rate = learning_rate
-        self.__dropout_rate = dropout_rate
-        self.__batch_size = batch_size
+        self.graph = graph
+        self.learning_rate = learning_rate
+        self.dropout_rate = dropout_rate
+        self.batch_size = batch_size
 
         # RNN learning.
-        self.__rnn_learn(observed_data_arr)
+        self.rnn_learn(observed_data_arr)
 
         cdef int _
         for _ in range(traning_count):
-            self.__batch_step += 1
-            self.__wake_sleep_learn(self.__graph.visible_activity_arr)
+            self.batch_step += 1
+            self.wake_sleep_learn(self.graph.visible_activity_arr)
 
         # Memorizing.
-        self.__memory_activity(
+        self.memorize_activity(
             observed_data_arr,
-            self.__graph.visible_activity_arr
+            self.graph.visible_activity_arr
         )
 
         # Back propagation.
-        if self.__batch_size == 0 or self.__batch_step % self.__batch_size == 0:
-            self.__back_propagation()
+        if self.batch_size == 0 or self.batch_step % self.batch_size == 0:
+            self.back_propagation()
 
-        return self.__graph
+        return self.graph
 
     def approximate_inference(
         self,
@@ -122,63 +131,63 @@ class RTRBMCD(ApproximateInterface):
         Returns:
             Graph of neurons.
         '''
-        self.__graph = graph
-        self.__learning_rate = learning_rate
-        self.__dropout_rate = dropout_rate
-        self.__r_batch_size = r_batch_size
+        self.graph = graph
+        self.learning_rate = learning_rate
+        self.dropout_rate = dropout_rate
+        self.r_batch_size = r_batch_size
 
         # RNN learning.
-        self.__rnn_learn(observed_data_arr)
+        self.rnn_learn(observed_data_arr)
 
         cdef int _
         for _ in range(traning_count):
-            self.__r_batch_step += 1
-            self.__wake_sleep_inference(observed_data_arr)
+            self.r_batch_step += 1
+            self.wake_sleep_inference(observed_data_arr)
 
         # Memorizing.
-        if self.__r_batch_size != -1:
-            self.__memory_activity(
+        if self.r_batch_size != -1:
+            self.memorize_activity(
                 observed_data_arr,
-                self.__graph.visible_activity_arr
+                self.graph.visible_activity_arr
             )
 
             # Back propagation.
-            if self.__r_batch_size == 0 or self.__r_batch_step % self.__r_batch_size == 0:
-                self.__back_propagation()
+            if self.r_batch_size == 0 or self.r_batch_step % self.r_batch_size == 0:
+                self.back_propagation()
 
-        return self.__graph
+        return self.graph
 
-    def __rnn_learn(self, np.ndarray[DOUBLE_t, ndim=1] observed_data_arr):
+    def rnn_learn(self, np.ndarray[DOUBLE_t, ndim=1] observed_data_arr):
         '''
         Learning for RNN.
 
         Args:
             observed_data_list:      observed data points.
         '''
-        self.__graph.visible_activity_arr = observed_data_arr.copy()
+        self.graph.visible_activity_arr = observed_data_arr.copy()
 
-        if self.__graph.pre_hidden_activity_arr.shape[0] == 0:
+        if self.graph.pre_hidden_activity_arr.shape[0] == 0:
             return
-        if self.__graph.hat_hidden_activity_arr.shape[0] == 0:
+        if self.graph.hat_hidden_activity_arr.shape[0] == 0:
             return
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.__graph.rnn_hidden_weights_arr * self.__graph.hat_hidden_activity_arr.reshape(-1, 1)) + self.__graph.hidden_bias_arr.reshape(-1, 1) * self.__learning_rate
+        cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.graph.rnn_hidden_weights_arr * self.graph.hat_hidden_activity_arr.reshape(-1, 1)) + self.graph.hidden_bias_arr.reshape(-1, 1) * self.learning_rate
         link_value_arr = np.nan_to_num(link_value_arr)
-        self.__graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=0)
+        self.graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=0)
 
-        link_value_arr = (self.__graph.rnn_visible_weights_arr.T * self.__graph.hat_hidden_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1).T * self.__learning_rate
+        link_value_arr = (self.graph.rnn_visible_weights_arr.T * self.graph.hat_hidden_activity_arr.reshape(-1, 1)) + self.graph.visible_bias_arr.reshape(-1, 1).T * self.learning_rate
         link_value_arr = np.nan_to_num(link_value_arr)
-        self.__graph.rnn_visible_bias_arr = link_value_arr.sum(axis=0)
+        self.graph.rnn_visible_bias_arr = link_value_arr.sum(axis=0)
 
-        link_value_arr = (self.__graph.rnn_hidden_weights_arr * self.__graph.pre_hidden_activity_arr.reshape(-1, 1)) + self.__graph.hidden_bias_arr.reshape(-1, 1) * self.__learning_rate
+        link_value_arr = (self.graph.rnn_hidden_weights_arr * self.graph.pre_hidden_activity_arr.reshape(-1, 1)) + self.graph.hidden_bias_arr.reshape(-1, 1) * self.learning_rate
         link_value_arr = np.nan_to_num(link_value_arr)
-        self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
+        self.graph.hidden_activity_arr = link_value_arr.sum(axis=0)
 
-        link_value_arr = (self.__graph.rnn_visible_weights_arr * self.__graph.pre_hidden_activity_arr.reshape(-1, 1).T) + self.__graph.visible_bias_arr.reshape(-1, 1) * self.__learning_rate
+        link_value_arr = (self.graph.rnn_visible_weights_arr * self.graph.pre_hidden_activity_arr.reshape(-1, 1).T) + self.graph.visible_bias_arr.reshape(-1, 1) * self.learning_rate
         link_value_arr = np.nan_to_num(link_value_arr)
-        self.__graph.visible_activity_arr = link_value_arr.sum(axis=1)
+        self.graph.visible_activity_arr = link_value_arr.sum(axis=1)
 
-    def __memory_activity(
+    def memorize_activity(
         self,
         np.ndarray[DOUBLE_t, ndim=1] observed_data_arr,
         np.ndarray[DOUBLE_t, ndim=1] negative_visible_activity_arr
@@ -190,46 +199,46 @@ class RTRBMCD(ApproximateInterface):
             observed_data_arr:                Observed data points in positive phase.
             negative_visible_activity_arr:    visible acitivty in negative phase.
         '''
-        self.__graph.pre_hidden_activity_arr = self.__graph.hidden_activity_arr
+        self.graph.pre_hidden_activity_arr = self.graph.hat_hidden_activity_arr
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.hidden_bias_arr.reshape(-1, 1).T
+        cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.graph.weights_arr * self.graph.visible_activity_arr.reshape(-1, 1)) + self.graph.hidden_bias_arr.reshape(-1, 1).T
         link_value_arr = np.nan_to_num(link_value_arr)
-        self.__graph.hat_hidden_activity_arr = link_value_arr.sum(axis=0)
-        self.__graph.hat_hidden_activity_arr = self.__graph.rnn_activating_function.activate(
-            self.__graph.hat_hidden_activity_arr
+        self.graph.hat_hidden_activity_arr = link_value_arr.sum(axis=0)
+        self.graph.hat_hidden_activity_arr = self.graph.rnn_activating_function.activate(
+            self.graph.hat_hidden_activity_arr
         )
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] b_h_c_diff_arr = self.__graph.rnn_activating_function.activate(
-            (self.__graph.weights_arr * (negative_visible_activity_arr.reshape(-1, 1)) - self.__graph.hidden_bias_arr.reshape(-1, 1).T
-        ) - self.__graph.rnn_activating_function.activate(
-            (self.__graph.weights_arr * observed_data_arr.reshape(-1, 1))) - self.__graph.hidden_bias_arr.reshape(-1, 1).T
+        cdef np.ndarray[DOUBLE_t, ndim=2] b_h_c_diff_arr = self.graph.rnn_activating_function.activate(
+            (self.graph.weights_arr * (negative_visible_activity_arr.reshape(-1, 1)) - self.graph.hidden_bias_arr.reshape(-1, 1).T
+        ) - self.graph.rnn_activating_function.activate(
+            (self.graph.weights_arr * observed_data_arr.reshape(-1, 1))) - self.graph.hidden_bias_arr.reshape(-1, 1).T
         )
-        cdef np.ndarray[DOUBLE_t, ndim=2] b_v_c_diff_arr = self.__graph.rnn_activating_function.activate(
-            (self.__graph.weights_arr * (negative_visible_activity_arr.reshape(-1, 1)) - self.__graph.visible_bias_arr.reshape(-1, 1)
-        ) - self.__graph.rnn_activating_function.activate(
-            (self.__graph.weights_arr * observed_data_arr.reshape(-1, 1))) - self.__graph.visible_bias_arr.reshape(-1, 1)
+        cdef np.ndarray[DOUBLE_t, ndim=2] b_v_c_diff_arr = self.graph.rnn_activating_function.activate(
+            (self.graph.weights_arr * (negative_visible_activity_arr.reshape(-1, 1)) - self.graph.visible_bias_arr.reshape(-1, 1)
+        ) - self.graph.rnn_activating_function.activate(
+            (self.graph.weights_arr * observed_data_arr.reshape(-1, 1))) - self.graph.visible_bias_arr.reshape(-1, 1)
         )
         b_h_c_diff_arr = b_h_c_diff_arr.T
         b_v_c_diff_arr = b_v_c_diff_arr.T
-        if self.__b_h_c_diff_arr.shape[0]:
-            self.__b_h_c_diff_arr += b_h_c_diff_arr
+        if self.b_h_c_diff_arr.shape[0]:
+            self.b_h_c_diff_arr += b_h_c_diff_arr
         else:
-            self.__b_h_c_diff_arr = b_h_c_diff_arr
-        if self.__b_v_c_diff_arr.shape[0]:
-            self.__b_v_c_diff_arr += b_v_c_diff_arr
+            self.b_h_c_diff_arr = b_h_c_diff_arr
+        if self.b_v_c_diff_arr.shape[0]:
+            self.b_v_c_diff_arr += b_v_c_diff_arr
         else:
-            self.__b_v_c_diff_arr = b_v_c_diff_arr
+            self.b_v_c_diff_arr = b_v_c_diff_arr
 
-    def __back_propagation(self):
+    def back_propagation(self):
         '''
         Details of the backpropagation through time algorithm.
         '''
-        self.__graph.rnn_hidden_weights_arr = self.__b_h_c_diff_arr * self.__graph.hat_hidden_activity_arr.reshape(-1, 1) * self.__learning_rate
-        self.__graph.rnn_visible_weights_arr = (self.__b_v_c_diff_arr * self.__graph.hat_hidden_activity_arr.reshape(-1, 1)).T * self.__learning_rate
-        self.__b_v_c_diff_arr = np.array([])
-        self.__b_h_c_diff_arr = np.array([])
+        self.graph.rnn_hidden_weights_arr = self.b_h_c_diff_arr * self.graph.hat_hidden_activity_arr.reshape(-1, 1) * self.learning_rate
+        self.graph.rnn_visible_weights_arr = (self.b_v_c_diff_arr * self.graph.hat_hidden_activity_arr.reshape(-1, 1)).T * self.learning_rate
+        self.b_v_c_diff_arr = np.array([])
+        self.b_h_c_diff_arr = np.array([])
 
-    def __wake_sleep_learn(self, np.ndarray[DOUBLE_t, ndim=1] observed_data_arr):
+    def wake_sleep_learn(self, np.ndarray[DOUBLE_t, ndim=1] observed_data_arr):
         '''
         Waking, sleeping, and learning.
 
@@ -241,116 +250,116 @@ class RTRBMCD(ApproximateInterface):
         Args:
             observed_data_list:      observed data points.
         '''
-        self.__graph.visible_activity_arr = observed_data_arr
+        self.graph.visible_activity_arr = observed_data_arr
 
         # Waking.
-        link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
+        link_value_arr = (self.graph.weights_arr * self.graph.visible_activity_arr.reshape(-1, 1)) + self.graph.visible_bias_arr.reshape(-1, 1)
         link_value_arr = np.nan_to_num(link_value_arr)
-        self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
-        self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
-            self.__graph.hidden_activity_arr
+        self.graph.hidden_activity_arr = link_value_arr.sum(axis=0)
+        self.graph.hidden_activity_arr = self.graph.hidden_activating_function.activate(
+            self.graph.hidden_activity_arr
         )
-        if self.__dropout_rate > 0:
-            self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
+        if self.dropout_rate > 0:
+            self.graph.hidden_activity_arr = self.dropout(self.graph.hidden_activity_arr)
 
-        self.__graph.diff_weights_arr += self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate
+        self.graph.diff_weights_arr += self.graph.visible_activity_arr.reshape(-1, 1) * self.graph.hidden_activity_arr.reshape(-1, 1).T * self.learning_rate
 
-        self.__graph.visible_diff_bias_arr += self.__learning_rate * self.__graph.visible_activity_arr
-        self.__graph.hidden_diff_bias_arr += self.__learning_rate * self.__graph.hidden_activity_arr
+        self.graph.visible_diff_bias_arr += self.learning_rate * self.graph.visible_activity_arr
+        self.graph.hidden_diff_bias_arr += self.learning_rate * self.graph.hidden_activity_arr
 
         # Sleeping.
-        link_value_arr = (self.__graph.weights_arr.T) * self.__graph.hidden_activity_arr.reshape(-1, 1) + self.__graph.hidden_bias_arr.reshape(-1, 1)
+        link_value_arr = (self.graph.weights_arr.T) * self.graph.hidden_activity_arr.reshape(-1, 1) + self.graph.hidden_bias_arr.reshape(-1, 1)
         link_value_arr = np.nan_to_num(link_value_arr)
 
-        self.__graph.visible_activity_arr = link_value_arr.sum(axis=0)
-        self.__graph.visible_activity_arr = self.__graph.visible_activating_function.activate(self.__graph.visible_activity_arr)
+        self.graph.visible_activity_arr = link_value_arr.sum(axis=0)
+        self.graph.visible_activity_arr = self.graph.visible_activating_function.activate(self.graph.visible_activity_arr)
 
         # Validation.
-        self.compute_reconstruct_error(observed_data_arr, self.__graph.visible_activity_arr)
+        self.compute_reconstruct_error(observed_data_arr, self.graph.visible_activity_arr)
 
-        if self.__dropout_rate > 0:
-            self.__graph.visible_activity_arr = self.__dropout(self.__graph.visible_activity_arr)
+        if self.dropout_rate > 0:
+            self.graph.visible_activity_arr = self.dropout(self.graph.visible_activity_arr)
 
-        link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
+        link_value_arr = (self.graph.weights_arr * self.graph.visible_activity_arr.reshape(-1, 1)) + self.graph.visible_bias_arr.reshape(-1, 1)
         link_value_arr = np.nan_to_num(link_value_arr)
-        self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
-        self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(self.__graph.hidden_activity_arr)
-        if self.__dropout_rate > 0:
-            self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
+        self.graph.hidden_activity_arr = link_value_arr.sum(axis=0)
+        self.graph.hidden_activity_arr = self.graph.hidden_activating_function.activate(self.graph.hidden_activity_arr)
+        if self.dropout_rate > 0:
+            self.graph.hidden_activity_arr = self.dropout(self.graph.hidden_activity_arr)
 
-        self.__graph.diff_weights_arr += self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate * (-1)
+        self.graph.diff_weights_arr += self.graph.visible_activity_arr.reshape(-1, 1) * self.graph.hidden_activity_arr.reshape(-1, 1).T * self.learning_rate * (-1)
 
-        self.__graph.visible_diff_bias_arr += self.__learning_rate * self.__graph.visible_activity_arr * (-1)
-        self.__graph.hidden_diff_bias_arr += self.__learning_rate * self.__graph.hidden_activity_arr * (-1)
+        self.graph.visible_diff_bias_arr += self.learning_rate * self.graph.visible_activity_arr * (-1)
+        self.graph.hidden_diff_bias_arr += self.learning_rate * self.graph.hidden_activity_arr * (-1)
 
         # Learning.
-        if self.__batch_size == 0 or self.__batch_step % self.__batch_size == 0:
-            self.__graph.visible_bias_arr += self.__graph.visible_diff_bias_arr
-            self.__graph.hidden_bias_arr += self.__graph.hidden_diff_bias_arr
-            self.__graph.visible_diff_bias_arr = np.zeros(self.__graph.visible_bias_arr.shape)
-            self.__graph.hidden_diff_bias_arr = np.zeros(self.__graph.hidden_bias_arr.shape)
-            self.__graph.learn_weights()
+        if self.batch_size == 0 or self.batch_step % self.batch_size == 0:
+            self.graph.visible_bias_arr += self.graph.visible_diff_bias_arr
+            self.graph.hidden_bias_arr += self.graph.hidden_diff_bias_arr
+            self.graph.visible_diff_bias_arr = np.zeros(self.graph.visible_bias_arr.shape)
+            self.graph.hidden_diff_bias_arr = np.zeros(self.graph.hidden_bias_arr.shape)
+            self.graph.learn_weights()
 
-    def __wake_sleep_inference(self, np.ndarray[DOUBLE_t, ndim=1] observed_data_arr):
+    def wake_sleep_inference(self, np.ndarray[DOUBLE_t, ndim=1] observed_data_arr):
         '''
         Sleeping, waking, and inferencing.
 
         Args:
              observed_data_arr:      feature points.
         '''
-        self.__graph.visible_activity_arr = observed_data_arr
+        self.graph.visible_activity_arr = observed_data_arr
 
         # Waking.
-        link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
+        link_value_arr = (self.graph.weights_arr * self.graph.visible_activity_arr.reshape(-1, 1)) + self.graph.visible_bias_arr.reshape(-1, 1)
         link_value_arr = np.nan_to_num(link_value_arr)
-        self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
-        self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
-            self.__graph.hidden_activity_arr
+        self.graph.hidden_activity_arr = link_value_arr.sum(axis=0)
+        self.graph.hidden_activity_arr = self.graph.hidden_activating_function.activate(
+            self.graph.hidden_activity_arr
         )
-        if self.__r_batch_size != -1:
-            if self.__dropout_rate > 0:
-                self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
+        if self.r_batch_size != -1:
+            if self.dropout_rate > 0:
+                self.graph.hidden_activity_arr = self.dropout(self.graph.hidden_activity_arr)
 
-        if self.__r_batch_size != -1:
-            self.__graph.diff_weights_arr += self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate
-            self.__graph.visible_diff_bias_arr += self.__learning_rate * self.__graph.visible_activity_arr
-            self.__graph.hidden_diff_bias_arr += self.__learning_rate * self.__graph.hidden_activity_arr
+        if self.r_batch_size != -1:
+            self.graph.diff_weights_arr += self.graph.visible_activity_arr.reshape(-1, 1) * self.graph.hidden_activity_arr.reshape(-1, 1).T * self.learning_rate
+            self.graph.visible_diff_bias_arr += self.learning_rate * self.graph.visible_activity_arr
+            self.graph.hidden_diff_bias_arr += self.learning_rate * self.graph.hidden_activity_arr
 
         # Sleeping.
-        link_value_arr = (self.__graph.weights_arr.T) * self.__graph.hidden_activity_arr.reshape(-1, 1) + self.__graph.hidden_bias_arr.reshape(-1, 1)
+        link_value_arr = (self.graph.weights_arr.T) * self.graph.hidden_activity_arr.reshape(-1, 1) + self.graph.hidden_bias_arr.reshape(-1, 1)
         link_value_arr = np.nan_to_num(link_value_arr)
 
-        self.__graph.visible_activity_arr = link_value_arr.sum(axis=0)
-        self.__graph.visible_activity_arr = self.__graph.visible_activating_function.activate(self.__graph.visible_activity_arr)
+        self.graph.visible_activity_arr = link_value_arr.sum(axis=0)
+        self.graph.visible_activity_arr = self.graph.visible_activating_function.activate(self.graph.visible_activity_arr)
 
         # Validation.
-        self.compute_reconstruct_error(observed_data_arr, self.__graph.visible_activity_arr)
+        self.compute_reconstruct_error(observed_data_arr, self.graph.visible_activity_arr)
 
-        if self.__r_batch_size != -1:
-            if self.__dropout_rate > 0:
-                self.__graph.visible_activity_arr = self.__dropout(self.__graph.visible_activity_arr)
+        if self.r_batch_size != -1:
+            if self.dropout_rate > 0:
+                self.graph.visible_activity_arr = self.dropout(self.graph.visible_activity_arr)
 
-            link_value_arr = (self.__graph.weights_arr * self.__graph.visible_activity_arr.reshape(-1, 1)) + self.__graph.visible_bias_arr.reshape(-1, 1)
+            link_value_arr = (self.graph.weights_arr * self.graph.visible_activity_arr.reshape(-1, 1)) + self.graph.visible_bias_arr.reshape(-1, 1)
             link_value_arr = np.nan_to_num(link_value_arr)
-            self.__graph.hidden_activity_arr = link_value_arr.sum(axis=0)
-            self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(self.__graph.hidden_activity_arr)
+            self.graph.hidden_activity_arr = link_value_arr.sum(axis=0)
+            self.graph.hidden_activity_arr = self.graph.hidden_activating_function.activate(self.graph.hidden_activity_arr)
 
-            if self.__dropout_rate > 0:
-                self.__graph.hidden_activity_arr = self.__dropout(self.__graph.hidden_activity_arr)
+            if self.dropout_rate > 0:
+                self.graph.hidden_activity_arr = self.dropout(self.graph.hidden_activity_arr)
 
-            self.__graph.diff_weights_arr += self.__graph.visible_activity_arr.reshape(-1, 1) * self.__graph.hidden_activity_arr.reshape(-1, 1).T * self.__learning_rate * (-1)
-            self.__graph.visible_diff_bias_arr += self.__learning_rate * self.__graph.visible_activity_arr * (-1)
-            self.__graph.hidden_diff_bias_arr += self.__learning_rate * self.__graph.hidden_activity_arr * (-1)
+            self.graph.diff_weights_arr += self.graph.visible_activity_arr.reshape(-1, 1) * self.graph.hidden_activity_arr.reshape(-1, 1).T * self.learning_rate * (-1)
+            self.graph.visible_diff_bias_arr += self.learning_rate * self.graph.visible_activity_arr * (-1)
+            self.graph.hidden_diff_bias_arr += self.learning_rate * self.graph.hidden_activity_arr * (-1)
 
             # Learning.
-            if self.__r_batch_size == 0 or self.__r_batch_step % self.__r_batch_size == 0:
-                self.__graph.visible_bias_arr += self.__graph.visible_diff_bias_arr
-                self.__graph.hidden_bias_arr += self.__graph.hidden_diff_bias_arr
-                self.__graph.visible_diff_bias_arr = np.zeros(self.__graph.visible_bias_arr.shape)
-                self.__graph.hidden_diff_bias_arr = np.zeros(self.__graph.hidden_bias_arr.shape)
-                self.__graph.learn_weights()
+            if self.r_batch_size == 0 or self.r_batch_step % self.r_batch_size == 0:
+                self.graph.visible_bias_arr += self.graph.visible_diff_bias_arr
+                self.graph.hidden_bias_arr += self.graph.hidden_diff_bias_arr
+                self.graph.visible_diff_bias_arr = np.zeros(self.graph.visible_bias_arr.shape)
+                self.graph.hidden_diff_bias_arr = np.zeros(self.graph.hidden_bias_arr.shape)
+                self.graph.learn_weights()
 
-    def __dropout(self, np.ndarray[DOUBLE_t, ndim=1] activity_arr):
+    def dropout(self, np.ndarray[DOUBLE_t, ndim=1] activity_arr):
         '''
         Dropout.
         '''

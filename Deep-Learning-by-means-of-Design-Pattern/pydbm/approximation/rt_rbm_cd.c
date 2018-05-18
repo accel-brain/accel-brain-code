@@ -3518,7 +3518,7 @@ static PyObject *__pyx_pf_5pydbm_13approximation_9rt_rbm_cd_7RTRBMCD_8rnn_learn(
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.graph.rnn_hidden_weights_arr * self.graph.hat_hidden_activity_arr.reshape(-1, 1)) + self.graph.hidden_bias_arr.reshape(-1, 1) * self.learning_rate             # <<<<<<<<<<<<<<
  *         link_value_arr = np.nan_to_num(link_value_arr)
- *         self.graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=0)
+ *         self.graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=1)
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 170, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -3579,7 +3579,7 @@ static PyObject *__pyx_pf_5pydbm_13approximation_9rt_rbm_cd_7RTRBMCD_8rnn_learn(
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.graph.rnn_hidden_weights_arr * self.graph.hat_hidden_activity_arr.reshape(-1, 1)) + self.graph.hidden_bias_arr.reshape(-1, 1) * self.learning_rate
  *         link_value_arr = np.nan_to_num(link_value_arr)             # <<<<<<<<<<<<<<
- *         self.graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=0)
+ *         self.graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=1)
  * 
  */
   __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 171, __pyx_L1_error)
@@ -3656,7 +3656,7 @@ static PyObject *__pyx_pf_5pydbm_13approximation_9rt_rbm_cd_7RTRBMCD_8rnn_learn(
   /* "pydbm/approximation/rt_rbm_cd.pyx":172
  *         cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.graph.rnn_hidden_weights_arr * self.graph.hat_hidden_activity_arr.reshape(-1, 1)) + self.graph.hidden_bias_arr.reshape(-1, 1) * self.learning_rate
  *         link_value_arr = np.nan_to_num(link_value_arr)
- *         self.graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=0)             # <<<<<<<<<<<<<<
+ *         self.graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=1)             # <<<<<<<<<<<<<<
  * 
  *         link_value_arr = (self.graph.rnn_visible_weights_arr.T * self.graph.hat_hidden_activity_arr.reshape(-1, 1)) + self.graph.visible_bias_arr.reshape(-1, 1).T * self.learning_rate
  */
@@ -3664,7 +3664,7 @@ static PyObject *__pyx_pf_5pydbm_13approximation_9rt_rbm_cd_7RTRBMCD_8rnn_learn(
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 172, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 172, __pyx_L1_error)
   __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3676,7 +3676,7 @@ static PyObject *__pyx_pf_5pydbm_13approximation_9rt_rbm_cd_7RTRBMCD_8rnn_learn(
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pydbm/approximation/rt_rbm_cd.pyx":174
- *         self.graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=0)
+ *         self.graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=1)
  * 
  *         link_value_arr = (self.graph.rnn_visible_weights_arr.T * self.graph.hat_hidden_activity_arr.reshape(-1, 1)) + self.graph.visible_bias_arr.reshape(-1, 1).T * self.learning_rate             # <<<<<<<<<<<<<<
  *         link_value_arr = np.nan_to_num(link_value_arr)
@@ -11971,7 +11971,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.graph.rnn_hidden_weights_arr * self.graph.hat_hidden_activity_arr.reshape(-1, 1)) + self.graph.hidden_bias_arr.reshape(-1, 1) * self.learning_rate             # <<<<<<<<<<<<<<
  *         link_value_arr = np.nan_to_num(link_value_arr)
- *         self.graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=0)
+ *         self.graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=1)
  */
   __pyx_tuple__2 = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 170, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
@@ -11981,7 +11981,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__3);
 
   /* "pydbm/approximation/rt_rbm_cd.pyx":174
- *         self.graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=0)
+ *         self.graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=1)
  * 
  *         link_value_arr = (self.graph.rnn_visible_weights_arr.T * self.graph.hat_hidden_activity_arr.reshape(-1, 1)) + self.graph.visible_bias_arr.reshape(-1, 1).T * self.learning_rate             # <<<<<<<<<<<<<<
  *         link_value_arr = np.nan_to_num(link_value_arr)

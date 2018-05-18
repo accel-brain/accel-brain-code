@@ -169,7 +169,7 @@ class RTRBMCD(ApproximateInterface):
 
         cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr = (self.graph.rnn_hidden_weights_arr * self.graph.hat_hidden_activity_arr.reshape(-1, 1)) + self.graph.hidden_bias_arr.reshape(-1, 1) * self.learning_rate
         link_value_arr = np.nan_to_num(link_value_arr)
-        self.graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=0)
+        self.graph.rnn_hidden_bias_arr = link_value_arr.sum(axis=1)
 
         link_value_arr = (self.graph.rnn_visible_weights_arr.T * self.graph.hat_hidden_activity_arr.reshape(-1, 1)) + self.graph.visible_bias_arr.reshape(-1, 1).T * self.learning_rate
         link_value_arr = np.nan_to_num(link_value_arr)

@@ -2,7 +2,7 @@
 import numpy as np
 cimport numpy as np
 from pydbm.dbm.interface.rt_rbm_builder import RTRBMBuilder
-from pydbm.synapse.recurrent_temporal_graph import RecurrentTemporalGraph
+from pydbm.synapse.recurrenttemporalgraph.rnn_graph import RNNGraph
 from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
 
 
@@ -94,7 +94,7 @@ class RNNRBMSimpleBuilder(RTRBMBuilder):
             approximate_interface:       The function approximation.
         '''
         self.__approximate_interface = approximate_interface
-        self.__rnn_graph = RecurrentTemporalGraph()
+        self.__rnn_graph = RNNGraph()
         self.__rnn_graph.rnn_activating_function = self.__rnn_activating_function
         self.__rnn_graph.create_node(
             self.__visible_neuron_count,

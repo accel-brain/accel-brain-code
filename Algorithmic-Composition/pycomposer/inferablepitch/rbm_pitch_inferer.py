@@ -4,26 +4,26 @@ from pycomposer.inferable_pitch import InferablePitch
 from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
 
 
-class RBMInferer(InferablePitch):
+class RBMPitchInferer(InferablePitch):
     '''
     Inferacing next pitch by RBM.
     '''
     
-    __pitch_rbm = None
+    __rbm = None
     
-    def get_pitch_rbm(self):
+    def get_rbm(self):
         ''' getter '''
-        if isinstance(self.__pitch_rbm, RestrictedBoltzmannMachine) is False:
+        if isinstance(self.__rbm, RestrictedBoltzmannMachine) is False:
             raise TypeError()
-        return self.__pitch_rbm
+        return self.__rbm
 
-    def set_pitch_rbm(self, value):
+    def set_rbm(self, value):
         ''' setter '''
         if isinstance(value, RestrictedBoltzmannMachine) is False:
             raise TypeError()
-        self.__pitch_rbm = value
+        self.__rbm = value
     
-    pitch_rbm = property(get_pitch_rbm, set_pitch_rbm)
+    rbm = property(get_rbm, set_rbm)
     
     __inferancing_training_count = None
     
@@ -70,7 +70,7 @@ class RBMInferer(InferablePitch):
             pitch_arr = np.zeros(127)
             pitch_arr[tone_df.pitch.values[i]] = 1
             pitch_arr = pitch_arr.astype(np.float64)
-            self.pitch_rbm.approximate_learning(
+            self.rbm.approximate_learning(
                 pitch_arr,
                 traning_count=training_count, 
                 batch_size=batch_size
@@ -92,19 +92,19 @@ class RBMInferer(InferablePitch):
         test_arr = np.zeros(127)
         test_arr[pre_pitch] = 1
         test_arr = test_arr.astype(np.float64)
-        self.pitch_rbm.approximate_inferencing(
+        self.rbm.approximate_inferencing(
             test_arr,
             traning_count=self.inferancing_training_count, 
             r_batch_size=self.r_batch_size
         )
         
         pitch = None
-        for key in self.pitch_rbm.graph.visible_activity_arr.argsort()[::-1].tolist():
+        for key in self.rbm.graph.visible_activity_arr.argsort()[::-1].tolist():
             if key in pitch_arr.tolist():
                 pitch = key
                 break
 
         if pitch is None:
-            pitch = np.argmax(self.pitch_rbm.graph.visible_activity_arr)
+            pitch = np.argmax(self.rbm.graph.visible_activity_arr)
 
         return int(pitch)

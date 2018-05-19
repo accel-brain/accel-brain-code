@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from pycomposer.inferablepitch.rbm_inferer import RBMInferer
-from pydbm.dbm.builders.rnn_rbm_simple_builder import RNNRBMSimpleBuilder
-from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
-from pydbm.approximation.rnnrbmcd.rnn_rbm_cd import RNNRBMCD
+from pycomposer.inferablepitch.rbm_pitch_inferer import RBMPitchInferer
+from pydbm.dbm.builders.rt_rbm_simple_builder import RTRBMSimpleBuilder
+from pydbm.approximation.rt_rbm_cd import RTRBMCD
 from pydbm.activation.logistic_function import LogisticFunction
 from pydbm.activation.softmax_function import SoftmaxFunction
 
 
-class RNNRBMInferer(RBMInferer):
+class RTRBMPitchInferer(RBMPitchInferer):
     '''
-    Inferacing next pitch by RNNRBM.
+    Inferacing next pitch by RTRBM.
     '''
     
     def __init__(
@@ -24,25 +23,25 @@ class RNNRBMInferer(RBMInferer):
         self.inferancing_training_count = inferancing_training_count
         self.r_batch_size = r_batch_size
 
-        # `Builder` in `Builder Pattern` for rnnrbm.
-        rnnrbm_builder = RNNRBMSimpleBuilder()
+        # `Builder` in `Builder Pattern` for RTRBM.
+        rtrbm_builder = RTRBMSimpleBuilder()
         # Learning rate.
-        rnnrbm_builder.learning_rate = learning_rate
+        rtrbm_builder.learning_rate = learning_rate
         # Set units in visible layer.
-        rnnrbm_builder.visible_neuron_part(
+        rtrbm_builder.visible_neuron_part(
             SoftmaxFunction(), 
             127
         )
         # Set units in hidden layer.
-        rnnrbm_builder.hidden_neuron_part(
+        rtrbm_builder.hidden_neuron_part(
             LogisticFunction(normalize_flag=False, binary_flag=hidden_binary_flag), 
             hidden_n
         )
         # Set units in RNN layer.
-        rnnrbm_builder.rnn_neuron_part(
+        rtrbm_builder.rnn_neuron_part(
             LogisticFunction(normalize_flag=False, binary_flag=False)
         )
         # Set graph and approximation function.
-        rnnrbm_builder.graph_part(RNNRBMCD())
+        rtrbm_builder.graph_part(RTRBMCD())
         # Building.
-        self.pitch_rbm = rnnrbm_builder.get_result()
+        self.rbm = rtrbm_builder.get_result()

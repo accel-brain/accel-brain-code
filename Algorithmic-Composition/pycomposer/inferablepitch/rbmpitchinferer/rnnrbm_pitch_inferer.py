@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from pycomposer.inferablepitch.rbm_inferer import RBMInferer
-from pydbm.dbm.builders.rt_rbm_simple_builder import RTRBMSimpleBuilder
-from pydbm.approximation.rt_rbm_cd import RTRBMCD
+from pycomposer.inferablepitch.rbm_pitch_inferer import RBMPitchInferer
+from pydbm.dbm.builders.rnn_rbm_simple_builder import RNNRBMSimpleBuilder
+from pydbm.approximation.rtrbmcd.rnn_rbm_cd import RNNRBMCD
 from pydbm.activation.logistic_function import LogisticFunction
 from pydbm.activation.softmax_function import SoftmaxFunction
 
 
-class RTRBMInferer(RBMInferer):
+class RNNRBMPitchInferer(RBMPitchInferer):
     '''
-    Inferacing next pitch by RTRBM.
+    Inferacing next pitch by RNNRBM.
     '''
     
     def __init__(
@@ -23,25 +23,25 @@ class RTRBMInferer(RBMInferer):
         self.inferancing_training_count = inferancing_training_count
         self.r_batch_size = r_batch_size
 
-        # `Builder` in `Builder Pattern` for RTRBM.
-        rtrbm_builder = RTRBMSimpleBuilder()
+        # `Builder` in `Builder Pattern` for rnnrbm.
+        rnnrbm_builder = RNNRBMSimpleBuilder()
         # Learning rate.
-        rtrbm_builder.learning_rate = learning_rate
+        rnnrbm_builder.learning_rate = learning_rate
         # Set units in visible layer.
-        rtrbm_builder.visible_neuron_part(
+        rnnrbm_builder.visible_neuron_part(
             SoftmaxFunction(), 
             127
         )
         # Set units in hidden layer.
-        rtrbm_builder.hidden_neuron_part(
+        rnnrbm_builder.hidden_neuron_part(
             LogisticFunction(normalize_flag=False, binary_flag=hidden_binary_flag), 
             hidden_n
         )
         # Set units in RNN layer.
-        rtrbm_builder.rnn_neuron_part(
+        rnnrbm_builder.rnn_neuron_part(
             LogisticFunction(normalize_flag=False, binary_flag=False)
         )
         # Set graph and approximation function.
-        rtrbm_builder.graph_part(RTRBMCD())
+        rnnrbm_builder.graph_part(RNNRBMCD())
         # Building.
-        self.pitch_rbm = rtrbm_builder.get_result()
+        self.rbm = rnnrbm_builder.get_result()

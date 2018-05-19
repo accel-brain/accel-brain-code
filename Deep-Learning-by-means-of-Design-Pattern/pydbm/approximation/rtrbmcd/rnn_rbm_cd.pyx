@@ -116,7 +116,9 @@ class RNNRBMCD(RTRBMCD):
             return
 
         hat_list = self.graph.diff_hidden_bias_arr_list[::-1]
+
         diff_v_b_list = self.graph.diff_visible_bias_arr_list[::-1]
+
         diff_h_b_list = self.graph.diff_hidden_bias_arr_list[::-1]
 
         diff_rnn_hidden_bias_arr = None

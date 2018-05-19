@@ -1,14 +1,16 @@
 # Deep Learning Library: pydbm
 
-`pydbm` is Python3 library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Recurrent Temporal Restricted Boltzmann Machine(RTRBM), and Shape Boltzmann Machine(Shape-BM).
+`pydbm` is Python library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Recurrent Temporal Restricted Boltzmann Machine(RTRBM), Recurrent neural network Restricted Boltzmann Machine(RNN-RBM), and Shape Boltzmann Machine(Shape-BM).
 
 This is Cython version. [pydbm_mxnet](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern/mxnet) (MXNet version) is derived from this library.
 
 ## Description
 
-The function of this library is building and modeling Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine, Recurrent Temporal Restricted Boltzmann Machine(RTRBM), and Shape Boltzmann Machine(Shape-BM). The models are functionally equivalent to stacked auto-encoder. The basic function is the same as dimensions reduction(or pre-training).
+`pydbm` is Python library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Recurrent Temporal Restricted Boltzmann Machine(RTRBM), Recurrent neural network Restricted Boltzmann Machine(RNN-RBM), and Shape Boltzmann Machine(Shape-BM). This is **Cython version**. [pydbm_mxnet](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern/mxnet) (MXNet version) is derived from this library.
 
-As more usecases, RTRBM is a probabilistic time-series model which can be viewed as a temporal stack of RBMs, where each RBM has a contextual hidden state that is received from the previous RBM and is used to modulate its hidden units bias. Then this model can learn dependency structures in temporal patterns such as music, natural sentences, and n-gram.
+The function of this library is building and modeling Restricted Boltzmann Machine(RBM) and Deep Boltzmann Machine(DBM). The models are functionally equivalent to stacked auto-encoder. The basic function is the same as dimensions reduction(or pre-training). And this library enables you to build many functional extensions from RBM and DBM such as Recurrent Temporal Restricted Boltzmann Machine(RTRBM), Recurrent Neural Network Restricted Boltzmann Machine(RNN-RBM), and Shape Boltzmann Machine(Shape-BM).
+
+As more usecases, RTRBM and RNN-RBM can learn dependency structures in temporal patterns such as music, natural sentences, and n-gram. RTRBM is a probabilistic time-series model which can be viewed as a temporal stack of RBMs, where each RBM has a contextual hidden state that is received from the previous RBM and is used to modulate its hidden units bias. The RTRBM can be understood as a sequence of conditional RBMs whose parameters are the output of a deterministic RNN, with the constraint that the hidden units must describe the conditional distributions. This constraint can be lifted by combining a full RNN with distinct hidden units. In terms of this possibility, RNN-RBM is structurally expanded model from RTRBM that allows more freedom to describe the temporal dependencies involved.
 
 On the other hand, the usecases of Shape-BM are image segmentation, object detection, inpainting and graphics. Shape-BM is the model for the task of modeling binary shape images, in that samples from the model look realistic and it can generalize to generate samples that differ from training examples.
 
@@ -217,6 +219,68 @@ rtrbm_builder.rnn_neuron_part(LogisticFunction())
 rtrbm_builder.graph_part(RTRBMCD())
 # Building.
 rbm = rtrbm_builder.get_result()
+
+# Learning.
+for i in range(arr.shape[0]):
+    rbm.approximate_learning(
+        arr[i],
+        traning_count=1, 
+        batch_size=200
+    )
+```
+
+The `rbm` has a `np.ndarray` of `graph.visible_activity_arr`. The `graph.visible_activity_arr` is the inferenced feature points. This value can be observed as data point.
+
+```python
+test_arr = arr[0]
+result_list = [None] * arr.shape[0]
+for i in range(arr.shape[0]):
+    # Execute recursive learning.
+    rbm.approximate_inferencing(
+        test_arr,
+        traning_count=1, 
+        r_batch_size=-1
+    )
+    # The feature points can be observed data points.
+    result_list[i] = test_arr = rbm.graph.visible_activity_arr
+
+print(np.array(result_list))
+```
+
+## Usecase: Building the Recurrent Neural Network Restricted Boltzmann Machine for recursive learning.
+
+Import Python and Cython modules.
+
+```python
+# `Builder` in `Builder Patter`.
+from pydbm.dbm.builders.rnn_rbm_simple_builder import RNNRBMSimpleBuilder
+# The object of Restricted Boltzmann Machine.
+from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
+# RNN and Contrastive Divergence for function approximation.
+from pydbm.approximation.rtrbmcd.rnn_rbm_cd import RNNRBMCD
+# Logistic Function as activation function.
+from pydbm.activation.logistic_function import LogisticFunction
+# Softmax Function as activation function.
+from pydbm.activation.softmax_function import SoftmaxFunction
+```
+
+Instantiate objects and execute learning.
+
+```python
+# `Builder` in `Builder Pattern` for RNN-RBM.
+rnnrbm_builder = RNNRBMSimpleBuilder()
+# Learning rate.
+rnnrbm_builder.learning_rate = 0.00001
+# Set units in visible layer.
+rnnrbm_builder.visible_neuron_part(LogisticFunction(), arr.shape[1])
+# Set units in hidden layer.
+rnnrbm_builder.hidden_neuron_part(LogisticFunction(), 3)
+# Set units in RNN layer.
+rnnrbm_builder.rnn_neuron_part(LogisticFunction())
+# Set graph and approximation function.
+rnnrbm_builder.graph_part(RNNRBMCD())
+# Building.
+rbm = rnnrbm_builder.get_result()
 
 # Learning.
 for i in range(arr.shape[0]):

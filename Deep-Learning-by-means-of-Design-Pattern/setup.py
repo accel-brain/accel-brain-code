@@ -10,7 +10,7 @@ from Cython.Build import cythonize
 pyx_list = []
 for dirpath, dirs, files in os.walk('.'):
     for f in files:
-        if ".pyx" in f:
+        if ".pyx" in f and "checkpoint" not in f:
             pyx_path = os.path.join(dirpath, f)
             pyx_list.append(Extension("*", [pyx_path]))
 
@@ -24,8 +24,8 @@ def read_rst(file_name):
 
 setup(
     name='pydbm',
-    version='1.2.2',
-    description='pydbm is Python library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Recurrent Temporal Restricted Boltzmann Machine(RTRBM), and Shape Boltzmann Machine(Shape-BM).',
+    version='1.2.3',
+    description='`pydbm` is Python library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Recurrent Temporal Restricted Boltzmann Machine(RTRBM), Recurrent neural network Restricted Boltzmann Machine(RNN-RBM), and Shape Boltzmann Machine(Shape-BM).',
     long_description=read_rst("README.rst"),
     url='https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern',
     author='chimera0',

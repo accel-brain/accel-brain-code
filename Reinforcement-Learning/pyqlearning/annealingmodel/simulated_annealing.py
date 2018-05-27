@@ -125,7 +125,6 @@ class SimulatedAnnealing(AnnealingModel):
                 current_pos = self.__move(current_pos)
                 pos_log_list.append(current_pos)
                 self.__now_dist_mat_arr = self.dist_mat_arr[current_pos, :]
-                self.__now_dist_mat_arr = np.maximum(np.minimum(self.__now_dist_mat_arr, 1.0), -1.0)
                 cost_arr = self.__cost_functionable.compute(self.__now_dist_mat_arr)
                 delta_e = np.abs(cost_arr - self.current_cost_arr)
                 

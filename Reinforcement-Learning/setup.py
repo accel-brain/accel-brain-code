@@ -10,7 +10,7 @@ def read_rst(file_name):
 
 setup(
     name='pyqlearning',
-    version='1.0.8',
+    version='1.0.9',
     description='pyqlearning is Python library to implement Reinforcement Learning, especially for Q-Learning.',
     long_description=read_rst("README.rst"),
     url='https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning',

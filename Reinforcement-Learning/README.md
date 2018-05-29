@@ -2,14 +2,6 @@
 
 `pyqlearning` is Python library to implement Reinforcement Learning, especially for Q-Learning.
 
-## Description
-
-Considering many variable parts and functional extensions in the Q-learning paradigm, I implemented these Python Scripts for  demonstrations of *commonality/variability analysis* in order to design the models.
-
-## Documentation
-
-Full documentation is available on [https://code.accel-brain.com/Reinforcement-Learning/](https://code.accel-brain.com/Reinforcement-Learning/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
-
 ## Installation
 
 Install using pip:
@@ -35,9 +27,35 @@ Installers for the latest released version are available at the Python package i
 - numpy: v1.13.3 or higher.
 - pandas: v0.22.0 or higher.
 
-## Demonstration: Simple Maze Solving by Q-Learning (Jupyter notebook)
+## Description
 
-I have details of this library on my Jupyter notebook: [search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb). This notebook demonstrates a simple maze solving algorithm based on Epsilon-Greedy Q-Learning or Q-Learning, loosely coupled with Deep Boltzmann Machine(DBM). 
+In Reinforcement Learning problem settings, Q-Learning is a kind of Temporal Difference learning(TD Learning) that can be considered as hybrid of Monte Carlo method and Dynamic Programming Method. As Monte Carlo method, TD Learning algorithm can learn by experience without model of environment. And this learning algorithm is *functionally equivalent* of bootstrap method as Dynamic Programming Method.
+
+In this library, Q-Learning can be distinguished into Epsilon Greedy Q-Leanring and Boltzmann Q-Learning.
+
+Epsilon Greedy Q-Leanring algorithm is a typical off-policy algorithm. In this paradigm, *stochastic* searching and *deterministic* searching can coexist by hyperparameter <img src="img/latex/epsilon.gif" /> that is probability that agent searches greedy. Greedy searching is *deterministic* in the sense that policy of agent follows the selection that maximizes the Q-Value.
+
+Boltzmann Q-Learning algorithm is based on Boltzmann action selection mechanism, where the probability
+<img src="img/latex/x_i.gif" /> of selecting the action <img src="img/latex/i.gif" /> is given by
+
+<!-- $$x_i(t) = \frac{e^{\frac{Q_i(t)}{T}}}{\sum_{k}^{ } e^{\frac{Q_i(t)}{T}}} \ \  (i = 1, 2, ..., n)$$ -->
+<div><img src="img/latex/boltzmann_action_selection.gif" /></div>
+
+where the temperature <img src="img/latex/t_gt_0.gif" /> controls exploration/exploitation tradeoff. For <img src="img/latex/t_to_0.gif" /> the agent always acts greedily and chooses the strategy corresponding to the maximum Q–value, so as to be pure *deterministic* exploitation, whereas for <img src="img/latex/t_to_infty.gif" /> the agent’s strategy is completely random, so as to be pure *stochastic* exploration.
+
+Considering many variable parts and functional extensions in the Q-learning paradigm from perspective of *commonality/variability analysis* in order to practice object-oriented design, this library provides abstract class that defines the skeleton of a Q-Learning algorithm in an operation, deferring some steps in concrete variant algorithms such as Epsilon Greedy Q-Leanring and Boltzmann Q-Learning to client subclasses. The abstract class in this library lets subclasses redefine certain steps of a Q-Learning algorithm without changing the algorithm's structure.
+
+## Documentation
+
+Full documentation is available on [https://code.accel-brain.com/Reinforcement-Learning/](https://code.accel-brain.com/Reinforcement-Learning/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
+
+## Tutorial: Simple Maze Solving by Q-Learning (Jupyter notebook)
+
+[search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb) is a Jupyter notebook which demonstrates a simple maze solving algorithm based on Epsilon-Greedy Q-Learning or Q-Learning, loosely coupled with Deep Boltzmann Machine(DBM).
+
+In this demonstration, let me cite the Q-Learning, *loosely coupled with Deep Boltzmann Machine* (DBM). As API Documentation of [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library has pointed out, DBM is functionally equivalent to stacked auto-encoder. The main function I observe is the same as dimensions reduction(or pre-training). Then the function of this DBM is dimensionality reduction of reward value matrix.
+
+Q-Learning, loosely coupled with Deep Boltzmann Machine (DBM), is a more effective way to solve maze. The pre-training by DBM allow Q-Learning agent to abstract feature of reward value matrix and to observe the map in a bird's-eye view. Then agent can reach the goal with a smaller number of trials.
 
 As shown in the below image, the state-action value function and parameters setting can be designed to correspond with the optimality of route.
 
@@ -66,11 +84,17 @@ As shown in the below image, the state-action value function and parameters sett
  </table>
 </div>
 
+## Tutorial: Complexity of Hyperparameters, or how can be hyperparameters decided?
+
+There are many hyperparameters that we have to set before the actual searching and learning process begins. Each parameter should be decided in relation to Reinforcement Learning theory and it cause side effects in training model. Because of this complexity of hyperparameters, so-called the hyperparameter tuning must become a burden of Data scientists and R & D engineers from the perspective of not only a theoretical point of view but also implementation level.
+
+This issue can be considered as Combinatorial optimization problem which is an optimization problem, where an optimal solution has to be identified from a finite set of solutions. The solutions are normally discrete or can be converted into discrete. This is an important topic studied in operations research such as software engineering, artificial intelligence(AI), and machine learning. For instance, travelling sales man problem is one of the popular combinatorial optimization problem.
+
+In this problem setting, this library provides an Annealing Model to search optimal combination of hyperparameters. For instance, Simulated Annealing is a probabilistic single solution based search method inspired by the annealing process in metallurgy. Annealing is a physical process referred to as tempering certain alloys of metal, glass, or crystal by heating above its melting point, holding its temperature, and then cooling it very slowly until it solidifies into a perfect crystalline structure. The simulation of this process is known as simulated annealing.
+
+[annealing_hand_written_digits.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/annealing_hand_written_digits.ipynb) is a Jupyter notebook which demonstrates a very simple classification problem: Recognizing hand-written digits, in which the aim is to assign each input vector to one of a finite number of discrete categories, to learn observed data points from already labeled data how to predict the class of unlabeled data. In the usecase of hand-written digits dataset, the task is to predict, given an image, which digit it represents.
+
 ## Demonstration: Q-Learning
-
-Q-Learning is a kind of `Temporal Difference learning`(`TD Learning`) that can be considered as hybrid of `Monte Carlo method` and `Dynamic Programming Method`. As `Monte Carlo method`, `TD Learning` algorithm can learn by experience without model of environment. And this learning algorithm is *functionally equivalent* of bootstrap method as `Dynamic Programming Method`.
-
-`Epsilon Greedy Q-Leanring` algorithm is `off-policy`. In this paradigm, *stochastic* searching and *deterministic* searching can coexist by hyperparameter ε (0 < ε < 1) that is probability that agent searches greedy. Greedy searching is *deterministic* in the sense that policy of agent follows the selection that maximizes the Q-Value.
 
 [demo_maze_greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_greedy_q_learning.py) is a simple maze solving algorithm. `MazeGreedyQLearning` in  [devsample/maze_greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/devsample/maze_greedy_q_learning.py) is a `Concrete Class` in `Template Method Pattern` to run the Q-Learning algorithm for this task. `GreedyQLearning` in [pyqlearning/qlearning/greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/pyqlearning/qlearning/greedy_q_learning.py) is also `Concreat Class` for the epsilon-greedy-method. The `Abstract Class` that defines the skeleton of Q-Learning algorithm in the operation and declares algorithm placeholders is [pyqlearning/q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/pyqlearning/q_learning.py).  So [demo_maze_greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_greedy_q_learning.py) is a kind of `Client` in `Template Method Pattern`. 
 

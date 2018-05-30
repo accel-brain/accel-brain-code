@@ -95,6 +95,95 @@ In this problem setting, this library provides an Annealing Model to search opti
 
 [annealing_hand_written_digits.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/annealing_hand_written_digits.ipynb) is a Jupyter notebook which demonstrates a very simple classification problem: Recognizing hand-written digits, in which the aim is to assign each input vector to one of a finite number of discrete categories, to learn observed data points from already labeled data how to predict the class of unlabeled data. In the usecase of hand-written digits dataset, the task is to predict, given an image, which digit it represents.
 
+## Demonstration: Epsilon Greedy Q-Learning and Simulated Annealing.
+
+Import python modules.
+
+```python
+from pyqlearning.annealingmodel.costfunctionable.greedy_q_learning_cost import GreedyQLearningCost
+from pyqlearning.annealingmodel.simulated_annealing import SimulatedAnnealing
+from devsample.maze_greedy_q_learning import MazeGreedyQLearning
+```
+
+The class `GreedyQLearningCost` is implemented the interface `CostFunctionable` to be called by `AnnealingModel`. This cost function is defined by
+
+<div><img src="img/latex/q_cost.gif"></div>
+
+where <img src="img/latex/n_search.gif"> is the number of searching(learning) and L is a limit of <img src="img/latex/n_search.gif">. 
+
+Like Monte Carlo method, let us draw random samples from a normal (Gaussian) or unifrom distribution.
+
+```python
+# Epsilon-Greedy rate in Epsilon-Greedy-Q-Learning.
+greedy_rate_arr = np.random.normal(loc=0.5, scale=0.1, size=100)
+# Alpha value in Q-Learning.
+alpha_value_arr = np.random.normal(loc=0.5, scale=0.1, size=100)
+# Gamma value in Q-Learning.
+gamma_value_arr = np.random.normal(loc=0.5, scale=0.1, size=100)
+# Limit of the number of Learning(searching).
+limit_arr = np.random.normal(loc=10, scale=1, size=100)
+
+cost_arr = np.c_[greedy_rate_arr, alpha_value_arr, gamma_value_arr, limit_arr]
+```
+
+Instantiate and initialize `MazeGreedyQLearning` which is-a `GreedyQLearning`.
+
+```python
+# Instantiation.
+greedy_q_learning = MazeGreedyQLearning()
+greedy_q_learning.initialize(hoge=fuga)
+```
+
+Instantiate `GreedyQLearningCost` which is implemented the interface `CostFunctionable` to be called by `AnnealingModel`.
+
+```python
+init_state_key = ("Some", "data")
+cost_functionable = GreedyQLearningCost(
+    greedy_q_learning, 
+    init_state_key=init_state_key
+)
+```
+
+Instantiate `SimulatedAnnealing` which is-a `AnnealingModel`.
+
+```python
+annealing_model = SimulatedAnnealing(
+    # is-a `CostFunctionable`.
+    cost_functionable=cost_functionable,
+    # The number of searching cycles.
+    cycles_num=5,
+    # The number of trials per a cycle.
+    trials_per_cycle=3
+)
+```
+
+Fit the `cost_arr` to `annealing_model`.
+
+```python
+annealing_model.fit_dist_mat(cost_arr)
+```
+
+Start annealing.
+
+```python
+annealing_model.annealing()
+```
+
+To extract result of searching, call the property `predicted_log_list` which is list of tuple: `(Cost, Delta energy, Mean of delta energy, probability in Boltzmann distribution, accept flag)`. And refer the property `x` which is `np.ndarray` that has combination of hyperparameters. The optimal combination can be extracted as follow.
+
+```python
+# Extract list: [(Cost, Delta energy, Mean of delta energy, probability, accept)]
+predicted_log_list = annealing_model.predicted_log_list
+predicted_log_arr = np.array(predicted_log_list)
+
+# [greedy rate, Alpha value, Gamma value, Limit of the number of searching.]
+min_e_v_arr = annealing_model.x[np.argmin(predicted_log_arr[:, 2])]
+```
+
+### Contingency of definitions
+
+The above definition of cost function is possible option: not necessity but contingent from the point of view of modal logic. You should questions the necessity of definition and re-define, for designing the implementation of interface `CostFunctionable`, in relation to *your* problem settings.
+
 ## Experiment: Q-Learning VS Q-Learning, loosely coupled with Deep Boltzmann Machine.
 
 The tutorial in [search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb) exemplifies the function of Deep Boltzmann Machine(DBM). Here, I verify if that DBM impacts on the number of searches by Q-Learning in the maze problem setting.

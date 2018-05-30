@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 def read_readme(file_name):
     from os import path
     this_directory = path.abspath(path.dirname(__file__))
-    with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    with open(path.join(this_directory, file_name), encoding='utf-8') as f:
         long_description = f.read()
 
     return long_description
@@ -15,7 +15,7 @@ setup(
     version='1.1.0',
     description='pyqlearning is Python library to implement Reinforcement Learning, especially for Q-Learning.',
     long_description=read_readme("README.md"),
-    long_description_content_type='text/markdown'
+    long_description_content_type='text/markdown',
     url='https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning',
     author='chimera0',
     author_email='ai-brain-lab@accel-brain.com',

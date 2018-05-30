@@ -34,15 +34,15 @@ In Reinforcement Learning problem settings, Q-Learning is a kind of Temporal Dif
 In this library, Q-Learning can be distinguished into Epsilon Greedy Q-Leanring and Boltzmann Q-Learning. These algorithm is 
 functionally equivalent but their structures should be conceptually distinguished.
 
-Epsilon Greedy Q-Leanring algorithm is a typical off-policy algorithm. In this paradigm, *stochastic* searching and *deterministic* searching can coexist by hyperparameter <img src="img/latex/epsilon.gif" /> that is probability that agent searches greedy. Greedy searching is *deterministic* in the sense that policy of agent follows the selection that maximizes the Q-Value.
+Epsilon Greedy Q-Leanring algorithm is a typical off-policy algorithm. In this paradigm, *stochastic* searching and *deterministic* searching can coexist by hyperparameter <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/epsilon.gif" /> that is probability that agent searches greedy. Greedy searching is *deterministic* in the sense that policy of agent follows the selection that maximizes the Q-Value.
 
 Boltzmann Q-Learning algorithm is based on Boltzmann action selection mechanism, where the probability
-<img src="img/latex/x_i.gif" /> of selecting the action <img src="img/latex/i.gif" /> is given by
+<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/x_i.gif" /> of selecting the action <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/i.gif" /> is given by
 
 <!-- $$x_i(t) = \frac{e^{\frac{Q_i(t)}{T}}}{\sum_{k}^{ } e^{\frac{Q_i(t)}{T}}} \ \  (i = 1, 2, ..., n)$$ -->
-<div><img src="img/latex/boltzmann_action_selection.gif" /></div>
+<div><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/boltzmann_action_selection.gif" /></div>
 
-where the temperature <img src="img/latex/t_gt_0.gif" /> controls exploration/exploitation tradeoff. For <img src="img/latex/t_to_0.gif" /> the agent always acts greedily and chooses the strategy corresponding to the maximum Q–value, so as to be pure *deterministic* exploitation, whereas for <img src="img/latex/t_to_infty.gif" /> the agent’s strategy is completely random, so as to be pure *stochastic* exploration.
+where the temperature <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/t_gt_0.gif" /> controls exploration/exploitation tradeoff. For <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/t_to_0.gif" /> the agent always acts greedily and chooses the strategy corresponding to the maximum Q–value, so as to be pure *deterministic* exploitation, whereas for <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/t_to_infty.gif" /> the agent’s strategy is completely random, so as to be pure *stochastic* exploration.
 
 Considering many variable parts and functional extensions in the Q-learning paradigm from perspective of *commonality/variability analysis* in order to practice object-oriented design, this library provides abstract class that defines the skeleton of a Q-Learning algorithm in an operation, deferring some steps in concrete variant algorithms such as Epsilon Greedy Q-Leanring and Boltzmann Q-Learning to client subclasses. The abstract class in this library lets subclasses redefine certain steps of a Q-Learning algorithm without changing the algorithm's structure.
 
@@ -64,21 +64,21 @@ As shown in the below image, the state-action value function and parameters sett
  <table style="border: none;">
   <tr>
    <td width="45%" align="center">
-    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/maze_map.png" /></a>
+    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/maze_map.png" /></a>
     <p>Maze map</p>
    </td>
    <td width="45%" align="center">
-    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/feature_point.png" /></a>
+    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/feature_point.png" /></a>
     <p>Feature Points in the maze map</p>
    </td>
   </tr>
   <tr>
    <td width="45%" align="center">
-    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/fail_searched.png" /></a>
+    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/fail_searched.png" /></a>
     <p>The result of searching by Epsilon-Greedy Q-Learning</p>
    </td>
    <td width="45%" align="center">
-    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/maze_q_learning_result.png"  /></a>
+    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/maze_q_learning_result.png"  /></a>
     <p>The result of searching by Q-Learning, loosely coupled with Deep Boltzmann Machine.</p>
    </td>
   </tr>
@@ -107,9 +107,9 @@ from devsample.maze_greedy_q_learning import MazeGreedyQLearning
 
 The class `GreedyQLearningCost` is implemented the interface `CostFunctionable` to be called by `AnnealingModel`. This cost function is defined by
 
-<div><img src="img/latex/q_cost.gif"></div>
+<div><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/q_cost.gif"></div>
 
-where <img src="img/latex/n_search.gif"> is the number of searching(learning) and L is a limit of <img src="img/latex/n_search.gif">. 
+where <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/n_search.gif"> is the number of searching(learning) and L is a limit of <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/n_search.gif">. 
 
 Like Monte Carlo method, let us draw random samples from a normal (Gaussian) or unifrom distribution.
 

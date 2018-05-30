@@ -9,9 +9,7 @@ Installation
 
 Install using pip:
 
-.. code:: sh
-
-    pip install pyqlearning
+``sh pip install pyqlearning``
 
 Source code
 ~~~~~~~~~~~
@@ -64,11 +62,7 @@ mechanism, where the probability of selecting the action is given by
 
 .. raw:: html
 
-   <div>
-
-.. raw:: html
-
-   </div>
+   <div><img src="img/latex/boltzmann_action_selection.gif" /></div>
 
 where the temperature controls exploration/exploitation tradeoff. For
 the agent always acts greedily and chooses the strategy corresponding to
@@ -97,7 +91,7 @@ and functional extensibility.
 Tutorial: Simple Maze Solving by Q-Learning (Jupyter notebook)
 --------------------------------------------------------------
 
-`search\_maze\_by\_q\_learning.ipynb <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb>`__
+`search\ *maze*\ by\ *q*\ learning.ipynb <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb>`__
 is a Jupyter notebook which demonstrates a simple maze solving algorithm
 based on Epsilon-Greedy Q-Learning or Q-Learning, loosely coupled with
 Deep Boltzmann Machine(DBM).
@@ -123,85 +117,28 @@ route.
 .. raw:: html
 
    <div align="center">
-
-.. raw:: html
-
-   <table style="border: none;">
-
-.. raw:: html
-
-   <tr>
-
-.. raw:: html
-
-   <td width="45%" align="center">
-
-::
-
-    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/maze_map.png" /></a>
-    <p>Maze map</p>
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td width="45%" align="center">
-
-::
-
-    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/feature_point.png" /></a>
-    <p>Feature Points in the maze map</p>
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   </tr>
-
-.. raw:: html
-
-   <tr>
-
-.. raw:: html
-
-   <td width="45%" align="center">
-
-::
-
-    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/fail_searched.png" /></a>
-    <p>The result of searching by Epsilon-Greedy Q-Learning</p>
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td width="45%" align="center">
-
-::
-
-    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/maze_q_learning_result.png"  /></a>
-    <p>The result of searching by Q-Learning, loosely coupled with Deep Boltzmann Machine.</p>
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   </tr>
-
-.. raw:: html
-
-   </table>
-
-.. raw:: html
-
+    <table style="border: none;">
+     <tr>
+      <td width="45%" align="center">
+       <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/maze_map.png" /></a>
+       <p>Maze map</p>
+      </td>
+      <td width="45%" align="center">
+       <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/feature_point.png" /></a>
+       <p>Feature Points in the maze map</p>
+      </td>
+     </tr>
+     <tr>
+      <td width="45%" align="center">
+       <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/fail_searched.png" /></a>
+       <p>The result of searching by Epsilon-Greedy Q-Learning</p>
+      </td>
+      <td width="45%" align="center">
+       <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://github.com/chimera0/accel-brain-code/raw/master/Reinforcement-Learning/img/maze_q_learning_result.png"  /></a>
+       <p>The result of searching by Q-Learning, loosely coupled with Deep Boltzmann Machine.</p>
+      </td>
+     </tr>
+    </table>
    </div>
 
 Tutorial: Complexity of Hyperparameters, or how can be hyperparameters decided?
@@ -233,7 +170,7 @@ then cooling it very slowly until it solidifies into a perfect
 crystalline structure. The simulation of this process is known as
 simulated annealing.
 
-`annealing\_hand\_written\_digits.ipynb <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/annealing_hand_written_digits.ipynb>`__
+`annealing\ *hand*\ written\_digits.ipynb <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/annealing_hand_written_digits.ipynb>`__
 is a Jupyter notebook which demonstrates a very simple classification
 problem: Recognizing hand-written digits, in which the aim is to assign
 each input vector to one of a finite number of discrete categories, to
@@ -246,11 +183,7 @@ Demonstration: Epsilon Greedy Q-Learning and Simulated Annealing.
 
 Import python modules.
 
-.. code:: python
-
-    from pyqlearning.annealingmodel.costfunctionable.greedy_q_learning_cost import GreedyQLearningCost
-    from pyqlearning.annealingmodel.simulated_annealing import SimulatedAnnealing
-    from devsample.maze_greedy_q_learning import MazeGreedyQLearning
+``python from pyqlearning.annealingmodel.costfunctionable.greedy_q_learning_cost import GreedyQLearningCost from pyqlearning.annealingmodel.simulated_annealing import SimulatedAnnealing from devsample.maze_greedy_q_learning import MazeGreedyQLearning``
 
 The class ``GreedyQLearningCost`` is implemented the interface
 ``CostFunctionable`` to be called by ``AnnealingModel``. This cost
@@ -258,74 +191,59 @@ function is defined by
 
 .. raw:: html
 
-   <div>
-
-.. raw:: html
-
-   </div>
+   <div><img src="img/latex/q_cost.gif"></div>
 
 where is the number of searching(learning) and L is a limit of .
 
 Like Monte Carlo method, let us draw random samples from a normal
 (Gaussian) or unifrom distribution.
 
-.. code:: python
+\`\`\`python
 
-    # Epsilon-Greedy rate in Epsilon-Greedy-Q-Learning.
-    greedy_rate_arr = np.random.normal(loc=0.5, scale=0.1, size=100)
-    # Alpha value in Q-Learning.
-    alpha_value_arr = np.random.normal(loc=0.5, scale=0.1, size=100)
-    # Gamma value in Q-Learning.
-    gamma_value_arr = np.random.normal(loc=0.5, scale=0.1, size=100)
-    # Limit of the number of Learning(searching).
-    limit_arr = np.random.normal(loc=10, scale=1, size=100)
+Epsilon-Greedy rate in Epsilon-Greedy-Q-Learning.
+=================================================
 
-    cost_arr = np.c_[greedy_rate_arr, alpha_value_arr, gamma_value_arr, limit_arr]
+greedy\ *rate*\ arr = np.random.normal(loc=0.5, scale=0.1, size=100)
+
+Alpha value in Q-Learning.
+==========================
+
+alpha\ *value*\ arr = np.random.normal(loc=0.5, scale=0.1, size=100)
+
+Gamma value in Q-Learning.
+==========================
+
+gamma\ *value*\ arr = np.random.normal(loc=0.5, scale=0.1, size=100)
+
+Limit of the number of Learning(searching).
+===========================================
+
+limit\_arr = np.random.normal(loc=10, scale=1, size=100)
+
+cost\ *arr = np.c*\ [greedy*rate*\ arr, alpha\ *value*\ arr,
+gamma\ *value*\ arr, limit\_arr] \`\`\`
 
 Instantiate and initialize ``MazeGreedyQLearning`` which is-a
 ``GreedyQLearning``.
 
-.. code:: python
-
-    # Instantiation.
-    greedy_q_learning = MazeGreedyQLearning()
-    greedy_q_learning.initialize(hoge=fuga)
+``python # Instantiation. greedy_q_learning = MazeGreedyQLearning() greedy_q_learning.initialize(hoge=fuga)``
 
 Instantiate ``GreedyQLearningCost`` which is implemented the interface
 ``CostFunctionable`` to be called by ``AnnealingModel``.
 
-.. code:: python
-
-    init_state_key = ("Some", "data")
-    cost_functionable = GreedyQLearningCost(
-        greedy_q_learning, 
-        init_state_key=init_state_key
-    )
+``python init_state_key = ("Some", "data") cost_functionable = GreedyQLearningCost(     greedy_q_learning,      init_state_key=init_state_key )``
 
 Instantiate ``SimulatedAnnealing`` which is-a ``AnnealingModel``.
 
-.. code:: python
-
-    annealing_model = SimulatedAnnealing(
-        # is-a `CostFunctionable`.
-        cost_functionable=cost_functionable,
-        # The number of searching cycles.
-        cycles_num=5,
-        # The number of trials per a cycle.
-        trials_per_cycle=3
-    )
+``python annealing_model = SimulatedAnnealing(     # is-a `CostFunctionable`.     cost_functionable=cost_functionable,     # The number of searching cycles.     cycles_num=5,     # The number of trials per a cycle.     trials_per_cycle=3 )``
 
 Fit the ``cost_arr`` to ``annealing_model``.
 
-.. code:: python
-
-    annealing_model.fit_dist_mat(cost_arr)
+``python annealing_model.fit_dist_mat(cost_arr)``
 
 Start annealing.
 
-.. code:: python
-
-    annealing_model.annealing()
+``python annealing_model.annealing()``
 
 To extract result of searching, call the property ``predicted_log_list``
 which is list of tuple:
@@ -334,14 +252,19 @@ And refer the property ``x`` which is ``np.ndarray`` that has
 combination of hyperparameters. The optimal combination can be extracted
 as follow.
 
-.. code:: python
+\`\`\`python
 
-    # Extract list: [(Cost, Delta energy, Mean of delta energy, probability, accept)]
-    predicted_log_list = annealing_model.predicted_log_list
-    predicted_log_arr = np.array(predicted_log_list)
+Extract list: [(Cost, Delta energy, Mean of delta energy, probability, accept)]
+===============================================================================
 
-    # [greedy rate, Alpha value, Gamma value, Limit of the number of searching.]
-    min_e_v_arr = annealing_model.x[np.argmin(predicted_log_arr[:, 2])]
+predicted\ *log*\ list = annealing\ *model.predicted*\ log\ *list
+predicted*\ log\ *arr = np.array(predicted*\ log\_list)
+
+[greedy rate, Alpha value, Gamma value, Limit of the number of searching.]
+==========================================================================
+
+min\ *e*\ v\ *arr =
+annealing*\ model.x[np.argmin(predicted\ *log*\ arr[:, 2])] \`\`\`
 
 Contingency of definitions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -356,7 +279,7 @@ Experiment: Q-Learning VS Q-Learning, loosely coupled with Deep Boltzmann Machin
 ----------------------------------------------------------------------------------
 
 The tutorial in
-`search\_maze\_by\_q\_learning.ipynb <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb>`__
+`search\ *maze*\ by\ *q*\ learning.ipynb <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb>`__
 exemplifies the function of Deep Boltzmann Machine(DBM). Here, I verify
 if that DBM impacts on the number of searches by Q-Learning in the maze
 problem setting.
@@ -364,18 +287,18 @@ problem setting.
 Batch program for Q-Learning.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`demo\_maze\_greedy\_q\_learning.py <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_greedy_q_learning.py>`__
+`demo\ *maze*\ greedy\ *q*\ learning.py <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_greedy_q_learning.py>`__
 is a simple maze solving algorithm. ``MazeGreedyQLearning`` in
- `devsample/maze\_greedy\_q\_learning.py <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/devsample/maze_greedy_q_learning.py>`__
+ `devsample/maze\ *greedy*\ q\_learning.py <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/devsample/maze_greedy_q_learning.py>`__
 is a ``Concrete Class`` in ``Template Method Pattern`` to run the
 Q-Learning algorithm for this task. ``GreedyQLearning`` in
-`pyqlearning/qlearning/greedy\_q\_learning.py <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/pyqlearning/qlearning/greedy_q_learning.py>`__
+`pyqlearning/qlearning/greedy\ *q*\ learning.py <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/pyqlearning/qlearning/greedy_q_learning.py>`__
 is also ``Concreat Class`` for the epsilon-greedy-method. The
 ``Abstract Class`` that defines the skeleton of Q-Learning algorithm in
 the operation and declares algorithm placeholders is
 `pyqlearning/q\_learning.py <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/pyqlearning/q_learning.py>`__.
 So
-`demo\_maze\_greedy\_q\_learning.py <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_greedy_q_learning.py>`__
+`demo\ *maze*\ greedy\ *q*\ learning.py <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_greedy_q_learning.py>`__
 is a kind of ``Client`` in ``Template Method Pattern``.
 
 This algorithm allow the *agent* to search the goal in maze by *reward
@@ -383,18 +306,7 @@ value* in each point in map.
 
 The following is an example of map.
 
-::
-
-    [['#' '#' '#' '#' '#' '#' '#' '#' '#' '#']
-     ['#' 'S'  4   8   8   4   9   6   0  '#']
-     ['#'  2  26   2   5   9   0   6   6  '#']
-     ['#'  2  '@' 38   5   8   8   1   2  '#']
-     ['#'  3   6   0  49   8   3   4   9  '#']
-     ['#'  9   7   4   6  55   7   0   3  '#']
-     ['#'  1   8   4   8   2  69   8   2  '#']
-     ['#'  1   0   2   1   7   0  76   2  '#']
-     ['#'  2   8   0   1   4   7   5  'G' '#']
-     ['#' '#' '#' '#' '#' '#' '#' '#' '#' '#']]
+``[['#' '#' '#' '#' '#' '#' '#' '#' '#' '#']  ['#' 'S'  4   8   8   4   9   6   0  '#']  ['#'  2  26   2   5   9   0   6   6  '#']  ['#'  2  '@' 38   5   8   8   1   2  '#']  ['#'  3   6   0  49   8   3   4   9  '#']  ['#'  9   7   4   6  55   7   0   3  '#']  ['#'  1   8   4   8   2  69   8   2  '#']  ['#'  1   0   2   1   7   0  76   2  '#']  ['#'  2   8   0   1   4   7   5  'G' '#']  ['#' '#' '#' '#' '#' '#' '#' '#' '#' '#']]``
 
 -  ``#`` is wall in maze.
 -  ``S`` is a start point.
@@ -411,16 +323,14 @@ as high as possible. Each *reward value* is plot in map.
 
 To see how *agent* can search and rearch the goal, run the batch
 program:
-`demo\_maze\_greedy\_q\_learning.py <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_greedy_q_learning.py>`__
+`demo\ *maze*\ greedy\ *q*\ learning.py <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_greedy_q_learning.py>`__
 
-.. code:: bash
-
-    python demo_maze_greedy_q_learning.py
+``bash python demo_maze_greedy_q_learning.py``
 
 Batch program for Q-Learning, loosely coupled with Deep Boltzmann Machine.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`demo\_maze\_deep\_boltzmann\_q\_learning.py <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_deep_boltzmann_q_learning.py>`__
+`demo\ *maze*\ deep\ *boltzmann*\ q\_learning.py <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_deep_boltzmann_q_learning.py>`__
 is a demonstration of how the *Q-Learning* can be to *deepen*. A
 so-called *Deep Q-Network* (DQN) is meant only as an example. In this
 demonstration, let me cite the *Q-Learning* , loosely coupled with
@@ -445,48 +355,19 @@ Feature engineering
 For instance, a feature in each coordinate can be transformed and
 extracted by reward value as so-called *observed data points* in its
 adjoining points. More formally, see
-`search\_maze\_by\_q\_learning.ipynb <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb>`__.
+`search\ *maze*\ by\ *q*\ learning.ipynb <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb>`__.
 
 Then the feature representation can be as calculated. After this
 pre-training, the DBM has extracted *feature points* below.
 
-::
-
-    [['#' '#' '#' '#' '#' '#' '#' '#' '#' '#']
-     ['#' 'S' 0.22186305563593528 0.22170599483791015 0.2216928599218454
-      0.22164807496640074 0.22170371283788584 0.22164021608623224
-      0.2218165339471332 '#']
-     ['#' 0.22174745260072407 0.221880094307873 0.22174244728061343
-      0.2214709292493749 0.22174626768015263 0.2216756589222596
-      0.22181057818975275 0.22174525714311788 '#']
-     ['#' 0.22177496678085065 0.2219122743656551 0.22187543599733664
-      0.22170745588799798 0.2215226084843615 0.22153827385193636
-      0.22168466277729898 0.22179391402965035 '#']
-     ['#' 0.2215341770250964 0.22174315536140118 0.22143149966676515
-      0.22181685688674144 0.22178215385805333 0.2212249704384472
-      0.22149210148879617 0.22185413678274837 '#']
-     ['#' 0.22162363223483128 0.22171313373253035 0.2217109987501002
-      0.22152432841656014 0.22175562457887335 0.22176040052504634
-      0.22137688854285298 0.22175365642579478 '#']
-     ['#' 0.22149515807715153 0.22169199881701832 0.22169558478042856
-      0.2216904005450013 0.22145368271014734 0.2217144069625017
-      0.2214896100292738 0.221398594191006 '#']
-     ['#' 0.22139837944992058 0.22130176116356184 0.2215414328019404
-      0.22146667964656613 0.22164354506366127 0.22148685616333666
-      0.22162822887193126 0.22140174437162474 '#']
-     ['#' 0.22140060918518528 0.22155145714201702 0.22162929776464463
-      0.22147466752374162 0.22150300682310872 0.22162775291471243
-      0.2214233075299188 'G' '#']
-     ['#' '#' '#' '#' '#' '#' '#' '#' '#' '#']]
+``[['#' '#' '#' '#' '#' '#' '#' '#' '#' '#']  ['#' 'S' 0.22186305563593528 0.22170599483791015 0.2216928599218454   0.22164807496640074 0.22170371283788584 0.22164021608623224   0.2218165339471332 '#']  ['#' 0.22174745260072407 0.221880094307873 0.22174244728061343   0.2214709292493749 0.22174626768015263 0.2216756589222596   0.22181057818975275 0.22174525714311788 '#']  ['#' 0.22177496678085065 0.2219122743656551 0.22187543599733664   0.22170745588799798 0.2215226084843615 0.22153827385193636   0.22168466277729898 0.22179391402965035 '#']  ['#' 0.2215341770250964 0.22174315536140118 0.22143149966676515   0.22181685688674144 0.22178215385805333 0.2212249704384472   0.22149210148879617 0.22185413678274837 '#']  ['#' 0.22162363223483128 0.22171313373253035 0.2217109987501002   0.22152432841656014 0.22175562457887335 0.22176040052504634   0.22137688854285298 0.22175365642579478 '#']  ['#' 0.22149515807715153 0.22169199881701832 0.22169558478042856   0.2216904005450013 0.22145368271014734 0.2217144069625017   0.2214896100292738 0.221398594191006 '#']  ['#' 0.22139837944992058 0.22130176116356184 0.2215414328019404   0.22146667964656613 0.22164354506366127 0.22148685616333666   0.22162822887193126 0.22140174437162474 '#']  ['#' 0.22140060918518528 0.22155145714201702 0.22162929776464463   0.22147466752374162 0.22150300682310872 0.22162775291471243   0.2214233075299188 'G' '#']  ['#' '#' '#' '#' '#' '#' '#' '#' '#' '#']]``
 
 To see how *agent* can search and rearch the goal, install
 `pydbm <https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern>`__
 library and run the batch program:
-`demo\_maze\_deep\_boltzmann\_q\_learning.py <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_deep_boltzmann_q_learning.py>`__
+`demo\ *maze*\ deep\ *boltzmann*\ q\_learning.py <https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_deep_boltzmann_q_learning.py>`__
 
-.. code:: bash
-
-    python demo_maze_deep_boltzmann_q_learning.py
+``bash python demo_maze_deep_boltzmann_q_learning.py``
 
 Case 1: for more greedy searches
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -501,13 +382,10 @@ Map setting.
 Reward value
 ^^^^^^^^^^^^
 
-.. code:: python
+\`\`\`python import numpy as np
 
-    import numpy as np
-
-    map_d = 20
-    map_arr = np.random.rand(map_d, map_d)
-    map_arr += np.diag(list(range(map_d)))
+map\ *d = 20 map*\ arr = np.random.rand(map\ *d, map*\ d) map\ *arr +=
+np.diag(list(range(map*\ d))) \`\`\`
 
 Hyperparameters
 ^^^^^^^^^^^^^^^
@@ -533,292 +411,44 @@ pre-training is smaller than not with pre-training.
 .. raw:: html
 
    <table>
-
-.. raw:: html
-
    <thead>
-
-.. raw:: html
-
    <tr>
-
-.. raw:: html
-
-   <th align="left">
-
-Number of searches
-
-.. raw:: html
-
-   </th>
-
-.. raw:: html
-
-   <th align="left">
-
-not pre-training
-
-.. raw:: html
-
-   </th>
-
-.. raw:: html
-
-   <th align="left">
-
-pre-training
-
-.. raw:: html
-
-   </th>
-
-.. raw:: html
-
+   <th align="left">Number of searches</th>
+   <th align="left">not pre-training</th>
+   <th align="left">pre-training</th>
    </tr>
-
-.. raw:: html
-
    </thead>
-
-.. raw:: html
-
    <tbody>
-
-.. raw:: html
-
    <tr>
-
-.. raw:: html
-
-   <td align="left">
-
-Max
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-8155
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-4373
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
+   <td align="left">Max</td>
+   <td align="left">8155</td>
+   <td align="left">4373</td>
    </tr>
-
-.. raw:: html
-
    <tr>
-
-.. raw:: html
-
-   <td align="left">
-
-mean
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-3753.80
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-1826.0
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
+   <td align="left">mean</td>
+   <td align="left">3753.80</td>
+   <td align="left">1826.0</td>
    </tr>
-
-.. raw:: html
-
    <tr>
-
-.. raw:: html
-
-   <td align="left">
-
-median
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-3142.0
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-1192.0
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
+   <td align="left">median</td>
+   <td align="left">3142.0</td>
+   <td align="left">1192.0</td>
    </tr>
-
-.. raw:: html
-
    <tr>
-
-.. raw:: html
-
-   <td align="left">
-
-min
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-1791
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-229
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
+   <td align="left">min</td>
+   <td align="left">1791</td>
+   <td align="left">229</td>
    </tr>
-
-.. raw:: html
-
    <tr>
-
-.. raw:: html
-
-   <td align="left">
-
-var
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-3262099.36
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-2342445.78
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
+   <td align="left">var</td>
+   <td align="left">3262099.36</td>
+   <td align="left">2342445.78</td>
    </tr>
-
-.. raw:: html
-
    <tr>
-
-.. raw:: html
-
-   <td align="left">
-
-std
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-1806.13
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-1530.56
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   </tr>
-
-.. raw:: html
-
-   </tbody>
-
-.. raw:: html
-
-   </table>
+   <td align="left">std</td>
+   <td align="left">1806.13</td>
+   <td align="left">1530.56</td>
+   </tr></tbody></table>
 
 Case 2: for less greedy searches
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -833,13 +463,10 @@ Map setting
 Reward value
 ^^^^^^^^^^^^
 
-.. code:: python
+\`\`\`python import numpy as np
 
-    import numpy as np
-
-    map_d = 20
-    map_arr = np.random.rand(map_d, map_d)
-    map_arr += np.diag(list(range(map_d)))
+map\ *d = 20 map*\ arr = np.random.rand(map\ *d, map*\ d) map\ *arr +=
+np.diag(list(range(map*\ d))) \`\`\`
 
 Hyperparameters
 ^^^^^^^^^^^^^^^
@@ -862,292 +489,44 @@ Metrics (Number of searches)
 .. raw:: html
 
    <table>
-
-.. raw:: html
-
    <thead>
-
-.. raw:: html
-
    <tr>
-
-.. raw:: html
-
-   <th align="left">
-
-Number of searches
-
-.. raw:: html
-
-   </th>
-
-.. raw:: html
-
-   <th align="left">
-
-not pre-training
-
-.. raw:: html
-
-   </th>
-
-.. raw:: html
-
-   <th align="left">
-
-pre-training
-
-.. raw:: html
-
-   </th>
-
-.. raw:: html
-
+   <th align="left">Number of searches</th>
+   <th align="left">not pre-training</th>
+   <th align="left">pre-training</th>
    </tr>
-
-.. raw:: html
-
    </thead>
-
-.. raw:: html
-
    <tbody>
-
-.. raw:: html
-
    <tr>
-
-.. raw:: html
-
-   <td align="left">
-
-Max
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-10000
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-10000
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
+   <td align="left">Max</td>
+   <td align="left">10000</td>
+   <td align="left">10000</td>
    </tr>
-
-.. raw:: html
-
    <tr>
-
-.. raw:: html
-
-   <td align="left">
-
-mean
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-7136.0
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-3296.89
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
+   <td align="left">mean</td>
+   <td align="left">7136.0</td>
+   <td align="left">3296.89</td>
    </tr>
-
-.. raw:: html
-
    <tr>
-
-.. raw:: html
-
-   <td align="left">
-
-median
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-9305.0
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-1765.0
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
+   <td align="left">median</td>
+   <td align="left">9305.0</td>
+   <td align="left">1765.0</td>
    </tr>
-
-.. raw:: html
-
    <tr>
-
-.. raw:: html
-
-   <td align="left">
-
-min
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-2401
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-195
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
+   <td align="left">min</td>
+   <td align="left">2401</td>
+   <td align="left">195</td>
    </tr>
-
-.. raw:: html
-
    <tr>
-
-.. raw:: html
-
-   <td align="left">
-
-var
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-9734021.11
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-10270136.10
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
+   <td align="left">var</td>
+   <td align="left">9734021.11</td>
+   <td align="left">10270136.10</td>
    </tr>
-
-.. raw:: html
-
    <tr>
-
-.. raw:: html
-
-   <td align="left">
-
-std
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-3119.94
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-3204.71
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   </tr>
-
-.. raw:: html
-
-   </tbody>
-
-.. raw:: html
-
-   </table>
+   <td align="left">std</td>
+   <td align="left">3119.94</td>
+   <td align="left">3204.71</td>
+   </tr></tbody></table>
 
 Under the assumption that the less number of searches the better,
 *Q-Learning*, loosely coupled with *Deep Boltzmann Machine*, is a more

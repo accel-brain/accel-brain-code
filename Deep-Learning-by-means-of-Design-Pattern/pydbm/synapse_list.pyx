@@ -101,7 +101,12 @@ class Synapse(object):
         self.shallower_activating_function = shallower_activating_function
         self.deeper_activating_function = deeper_activating_function
 
-        cdef np.ndarray init_weights_arr = np.random.uniform(size=(shallower_neuron_count, deeper_neuron_count))
+        cdef np.ndarray init_weights_arr = np.random.normal(
+            loc=0.5,
+            scale=0.2
+            size=(shallower_neuron_count, deeper_neuron_count)
+        )
+
         if weights_arr.shape[0]:
             self.weights_arr = weights_arr
         else:

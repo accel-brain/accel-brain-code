@@ -15,18 +15,21 @@ for dirpath, dirs, files in os.walk('.'):
             pyx_list.append(Extension("*", [pyx_path]))
 
 
-def read_rst(file_name):
+def read_readme(file_name):
     from os import path
-    with open(path.join(path.dirname(__file__), file_name)) as f:
-        rst = f.read()
-    return rst
+    this_directory = path.abspath(path.dirname(__file__))
+    with open(path.join(this_directory, file_name), encoding='utf-8') as f:
+        long_description = f.read()
+
+    return long_description
 
 
 setup(
     name='pydbm',
-    version='1.2.3',
+    version='1.2.4',
     description='`pydbm` is Python library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Recurrent Temporal Restricted Boltzmann Machine(RTRBM), Recurrent neural network Restricted Boltzmann Machine(RNN-RBM), and Shape Boltzmann Machine(Shape-BM).',
-    long_description=read_rst("README.rst"),
+    long_description=read_readme("README.md"),
+    long_description_content_type='text/markdown',
     url='https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern',
     author='chimera0',
     author_email='ai-brain-lab@accel-brain.com',

@@ -350,23 +350,6 @@ dbm.learn(
 )
 ```
 
-### Extract the result of dimention reduction
-
-And the result of dimention reduction can be extracted by this property.
-
-```python
-pre_trained_arr = dbm.feature_points_arr
-```
-
-### Extract pre-training weights
-
-If you want to get the pre-training weights, call `get_weight_arr_list` method.
-
-```python
-weight_arr_list = dbm.get_weight_arr_list()
-```
-`weight_arr_list` is the `list` of weights of each links in DBM. `weight_arr_list[0]` is 2-d `np.ndarray` of weights between visible layer and first hidden layer.
-
 ### Extract reconstruction error rate.
 
 You can check the reconstruction error rate. During the approximation of the Contrastive Divergence, the mean squared error(MSE) between the observed data points and the activities in visible layer is computed as the reconstruction error rate.
@@ -378,6 +361,61 @@ reconstruct_error_arr = dbm.get_reconstruct_error_arr(layer_number=0)
 ```
 
 `layer_number` corresponds to the index of `approximaion_list`. And `reconstruct_error_arr` is the `np.ndarray` of reconstruction error rates.
+
+### Extract the result of dimention reduction
+
+And the result of dimention reduction can be extracted by this property.
+
+```python
+pre_trained_arr = dbm.feature_points_arr
+```
+
+### Extract weights obtained by pre-training. 
+
+If you want to get the pre-training weights, call `get_weight_arr_list` method.
+
+```python
+weight_arr_list = dbm.get_weight_arr_list()
+```
+`weight_arr_list` is the `list` of weights of each links in DBM. `weight_arr_list[0]` is 2-d `np.ndarray` of weights between visible layer and first hidden layer.
+
+### Extract biases obtained by pre-training.
+
+Call `get_visible_bias_arr_list` method and `get_hidden_bias_arr_list` method in the same way.
+
+```python
+visible_bias_arr_list = dbm.get_visible_bias_arr_list()
+hidden_bias_arr_list = dbm.get_hidden_bias_arr_list()
+```
+
+`visible_bias_arr_list` and `hidden_bias_arr_list` are the `list` of biases of each links in DBM.
+
+### Transfer learning in DBM.
+
+`DBMMultiLayerBuilder` can be given `weight_arr_list`, `visible_bias_arr_list`, and `hidden_bias_arr_list` obtained by pre-training.
+
+```python
+dbm = StackedAutoEncoder(
+    DBMMultiLayerBuilder(
+        weight_arr_list,
+        visible_bias_arr_list,
+        hidden_bias_arr_list
+    ),
+    [target_arr.shape[1], 10, target_arr.shape[1]],
+    activation_list,
+    approximaion_list,
+    0.05, # Setting learning rate.
+    0.5   # Setting dropout rate.
+)
+
+# Execute learning.
+dbm.learn(
+    next_target_arr,
+    1, # If approximation is the Contrastive Divergence, this parameter is `k` in CD method.
+    batch_size=200,  # Batch size in mini-batch training.
+    r_batch_size=-1  # if `r_batch_size` > 0, the function of `dbm.learn` is a kind of reccursive learning.
+)
+```
 
 ### Performance
 

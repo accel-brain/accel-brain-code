@@ -67,7 +67,7 @@ Full documentation is available on [https://code.accel-brain.com/Deep-Learning-b
 
 In Reinforcement Learning problem settings, Q-Learning is a kind of Temporal Difference learning(TD Learning) that can be considered as hybrid of Monte Carlo method and Dynamic Programming Method. As Monte Carlo method, TD Learning algorithm can learn by experience without model of environment. And this learning algorithm is functional extension of bootstrap method as Dynamic Programming Method.
 
-### commonality/variability of Q-Learning.
+### The commonality/variability of Q-Learning.
 
 In this library, Q-Learning can be distinguished into Epsilon Greedy Q-Leanring and Boltzmann Q-Learning. These algorithm is functionally equivalent but their structures should be conceptually distinguished.
 

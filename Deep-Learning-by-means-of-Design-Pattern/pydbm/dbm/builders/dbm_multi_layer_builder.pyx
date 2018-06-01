@@ -59,9 +59,9 @@ class DBMMultiLayerBuilder(DBMBuilder):
 
     def __init__(
         self,
-        pre_weights_arr_list=np.array([]),
-        pre_visible_bias_arr_list=np.array([]),
-        pre_hidden_bias_arr_list=np.array([])
+        weights_arr_list=np.array([]),
+        visible_bias_arr_list=np.array([]),
+        hidden_bias_arr_list=np.array([])
     ):
         '''
         Initialize.
@@ -72,9 +72,9 @@ class DBMMultiLayerBuilder(DBMBuilder):
         self.__graph_list = []
         self.__rbm_list = []
 
-        self.__pre_weights_arr_list = pre_weights_arr_list
-        self.__pre_visible_bias_arr_list = pre_bias_arr_list
-        self.__pre_hidden_bias_arr_list = pre_hidden_bias_arr_list
+        self.__weights_arr_list = weights_arr_list
+        self.__visible_bias_arr_list = visible_bias_arr_list
+        self.__hidden_bias_arr_list = hidden_bias_arr_list
 
     def visible_neuron_part(self, activating_function, int neuron_count):
         '''
@@ -124,41 +124,77 @@ class DBMMultiLayerBuilder(DBMBuilder):
         self.__approximate_interface_list = approximate_interface_list
 
         complete_bipartite_graph = CompleteBipartiteGraph()
-        complete_bipartite_graph.create_node(
-            self.__visible_neuron_count,
-            self.__feature_point_count_list[0],
-            self.__visible_activating_function,
-            self.__feature_activating_function_list[0],
-            self.__pre_weights_arr_list[0]
-        )
-        complete_bipartite_graph.visible_bias_arr = self.__visible_bias_arr_list[0]
-        complete_bipartite_graph.hidden_bias_arr = self.__hidden_bias_arr_list[0]
+        
+        if len(self.__weights_arr_list):
+            complete_bipartite_graph.create_node(
+                self.__visible_neuron_count,
+                self.__feature_point_count_list[0],
+                self.__visible_activating_function,
+                self.__feature_activating_function_list[0],
+                self.__weights_arr_list[0]
+            )
+        else:
+            complete_bipartite_graph.create_node(
+                self.__visible_neuron_count,
+                self.__feature_point_count_list[0],
+                self.__visible_activating_function,
+                self.__feature_activating_function_list[0],
+            )
+
+        if len(self.__visible_bias_arr_list):
+            complete_bipartite_graph.visible_bias_arr = self.__visible_bias_arr_list[0]
+        if len(self.__hidden_bias_arr_list):
+            complete_bipartite_graph.hidden_bias_arr = self.__hidden_bias_arr_list[0]
         self.__graph_list.append(complete_bipartite_graph)
 
         cdef int i
         for i in range(1, len(self.__feature_point_count_list)):
             complete_bipartite_graph = CompleteBipartiteGraph()
-            complete_bipartite_graph.create_node(
-                self.__feature_point_count_list[i - 1],
-                self.__feature_point_count_list[i],
-                self.__feature_activating_function_list[i - 1],
-                self.__feature_activating_function_list[i],
-                self.__pre_weights_arr_list[i]
-            )
-            complete_bipartite_graph.visible_bias_arr = self.__visible_bias_arr_list[i]
-            complete_bipartite_graph.hidden_bias_arr = self.__hidden_bias_arr_list[i]
+            
+            if len(self.__weights_arr_list):
+                complete_bipartite_graph.create_node(
+                    self.__feature_point_count_list[i - 1],
+                    self.__feature_point_count_list[i],
+                    self.__feature_activating_function_list[i - 1],
+                    self.__feature_activating_function_list[i],
+                    self.__weights_arr_list[i]
+                )
+            else:
+                complete_bipartite_graph.create_node(
+                    self.__feature_point_count_list[i - 1],
+                    self.__feature_point_count_list[i],
+                    self.__feature_activating_function_list[i - 1],
+                    self.__feature_activating_function_list[i]
+                )
+
+            if len(self.__visible_bias_arr_list):
+                complete_bipartite_graph.visible_bias_arr = self.__visible_bias_arr_list[i]
+            if len(self.__hidden_bias_arr_list):
+                complete_bipartite_graph.hidden_bias_arr = self.__hidden_bias_arr_list[i]
             self.__graph_list.append(complete_bipartite_graph)
 
         complete_bipartite_graph = CompleteBipartiteGraph()
-        complete_bipartite_graph.create_node(
-            self.__feature_point_count_list[-1],
-            self.__hidden_neuron_list,
-            self.__feature_activating_function_list[-1],
-            self.__hidden_activating_function,
-            self.__pre_weights_arr_list[-1]
-        )
-        complete_bipartite_graph.visible_bias_arr = self.__visible_bias_arr_list[-1]
-        complete_bipartite_graph.hidden_bias_arr = self.__hidden_bias_arr_list[-1]
+        
+        if len(self.__weights_arr_list):
+            complete_bipartite_graph.create_node(
+                self.__feature_point_count_list[-1],
+                self.__hidden_neuron_list,
+                self.__feature_activating_function_list[-1],
+                self.__hidden_activating_function,
+                self.__weights_arr_list[-1]
+            )
+        else:
+            complete_bipartite_graph.create_node(
+                self.__feature_point_count_list[-1],
+                self.__hidden_neuron_list,
+                self.__feature_activating_function_list[-1],
+                self.__hidden_activating_function
+            )
+
+        if len(self.__visible_bias_arr_list):
+            complete_bipartite_graph.visible_bias_arr = self.__visible_bias_arr_list[-1]
+        if len(self.__hidden_bias_arr_list):
+            complete_bipartite_graph.hidden_bias_arr = self.__hidden_bias_arr_list[-1]
         self.__graph_list.append(complete_bipartite_graph)
 
     def get_result(self):

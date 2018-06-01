@@ -103,7 +103,7 @@ class Synapse(object):
 
         cdef np.ndarray init_weights_arr = np.random.normal(
             loc=0.5,
-            scale=0.2
+            scale=0.2,
             size=(shallower_neuron_count, deeper_neuron_count)
         )
 

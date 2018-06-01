@@ -17,15 +17,15 @@ On the other hand, the usecases of Shape-BM are image segmentation, object detec
 <table border="0">
     <tr>
         <td>
-            <img src="https://github.com/chimera0/accel-brain-code/raw/master/Deep-Learning-by-means-of-Design-Pattern/img/horse099.jpg" />
+            <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/horse099.jpg" />
         <p>Image in <a href="https://avaminzhang.wordpress.com/2012/12/07/%E3%80%90dataset%E3%80%91weizmann-horses/" target="_blank">the Weizmann horse dataset</a>.</p>
         </td>
         <td>
-            <img src="https://github.com/chimera0/accel-brain-code/raw/master/Deep-Learning-by-means-of-Design-Pattern/img/horse099_binary.png" />
+            <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/horse099_binary.png" />
             <p>Binarized image.</p>
         </td>
         <td>
-            <img src="https://github.com/chimera0/accel-brain-code/raw/master/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_horse099.gif" />
+            <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_horse099.gif" />
             <p>Reconstructed image by Shape-BM.</p>
         </td>
     </tr>
@@ -125,14 +125,14 @@ img = Image.open("horse099.jpg")
 img
 ```
 
-<img src="https://github.com/chimera0/accel-brain-code/raw/master/Deep-Learning-by-means-of-Design-Pattern/img/horse099.jpg" />
+<img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/horse099.jpg" />
 
 ```python
 img_bin = img.convert("1")
 img_bin
 ```
 
-<img src="https://github.com/chimera0/accel-brain-code/raw/master/Deep-Learning-by-means-of-Design-Pattern/img/horse099_binary.png" />
+<img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/horse099_binary.png" />
 
 Set up hyperparameters.
 
@@ -182,7 +182,7 @@ inferenced_data_arr = 255 - inferenced_data_arr
 Image.fromarray(np.uint8(inferenced_data_arr))
 ```
 
-<img src="https://github.com/chimera0/accel-brain-code/raw/master/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_09.png" />
+<img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_09.png" />
 
 
 ## Usecase: Building the Recurrent Temporal Restricted Boltzmann Machine for recursive learning.

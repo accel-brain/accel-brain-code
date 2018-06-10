@@ -123,7 +123,7 @@ gamma_value_arr = np.random.normal(loc=0.5, scale=0.1, size=100)
 # Limit of the number of Learning(searching).
 limit_arr = np.random.normal(loc=10, scale=1, size=100)
 
-cost_arr = np.c_[greedy_rate_arr, alpha_value_arr, gamma_value_arr, limit_arr]
+var_arr = np.c_[greedy_rate_arr, alpha_value_arr, gamma_value_arr, limit_arr]
 ```
 
 Instantiate and initialize `MazeGreedyQLearning` which is-a `GreedyQLearning`.
@@ -160,7 +160,7 @@ annealing_model = SimulatedAnnealing(
 Fit the `cost_arr` to `annealing_model`.
 
 ```python
-annealing_model.fit_dist_mat(cost_arr)
+annealing_model.var_arr = var_arr
 ```
 
 Start annealing.
@@ -173,11 +173,10 @@ To extract result of searching, call the property `predicted_log_list` which is 
 
 ```python
 # Extract list: [(Cost, Delta energy, Mean of delta energy, probability, accept)]
-predicted_log_list = annealing_model.predicted_log_list
-predicted_log_arr = np.array(predicted_log_list)
+predicted_log_arr = annealing_model.predicted_log_arr
 
 # [greedy rate, Alpha value, Gamma value, Limit of the number of searching.]
-min_e_v_arr = annealing_model.x[np.argmin(predicted_log_arr[:, 2])]
+min_e_v_arr = annealing_model.var_arr[np.argmin(predicted_log_arr[:, 2])]
 ```
 
 ### Contingency of definitions

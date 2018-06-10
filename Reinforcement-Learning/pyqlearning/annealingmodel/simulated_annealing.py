@@ -73,6 +73,8 @@ class SimulatedAnnealing(AnnealingModel):
         self.__init_prob = init_prob
         self.__final_prob = final_prob
         self.__start_pos = start_pos
+        if move_range <= 1:
+            move_range = 2
         self.__move_range = move_range
 
         # Initial temperature
@@ -96,25 +98,25 @@ class SimulatedAnnealing(AnnealingModel):
             next_pos = np.random.randint(current_pos - self.__move_range, current_pos + self.__move_range)
             if next_pos < 0:
                 next_pos = 0
-            elif next_pos >= self.dist_mat_arr.shape[0] - 1:
-                next_pos = self.dist_mat_arr.shape[0] - 1
+            elif next_pos >= self.var_arr.shape[0] - 1:
+                next_pos = self.var_arr.shape[0] - 1
             return next_pos
         else:
-            next_pos = np.random.randint(self.dist_mat_arr.shape[0] - 1)
+            next_pos = np.random.randint(self.var_arr.shape[0] - 1)
             return next_pos
 
     def annealing(self):
         '''
         Annealing.
         '''
-        self.x = np.zeros((self.__cycles_num + 1, self.dist_mat_arr.shape[1]))
+        self.var_log_arr = np.zeros((self.__cycles_num + 1, self.var_arr.shape[1]))
 
         current_pos = self.__start_pos
+        current_var_arr = self.var_arr[current_pos, :]
+        current_cost_arr = self.__cost_functionable.compute(self.var_arr[current_pos, :])
 
-        self.current_dist_arr = self.dist_mat_arr[current_pos, :]
-        self.current_cost_arr = self.__cost_functionable.compute(self.dist_mat_arr[current_pos, :])
-        self.stocked_predicted_arr = np.zeros(self.__cycles_num + 1)
-        self.stocked_predicted_arr[0] = self.current_cost_arr
+        self.computed_cost_arr = np.zeros(self.__cycles_num + 1)
+        self.computed_cost_arr[0] = current_cost_arr
 
         t = self.__init_temp
         delta_e_avg = 0.0
@@ -124,11 +126,11 @@ class SimulatedAnnealing(AnnealingModel):
             for j in range(self.__trials_per_cycle):
                 current_pos = self.__move(current_pos)
                 pos_log_list.append(current_pos)
-                self.__now_dist_mat_arr = self.dist_mat_arr[current_pos, :]
+                self.__now_dist_mat_arr = self.var_arr[current_pos, :]
                 cost_arr = self.__cost_functionable.compute(self.__now_dist_mat_arr)
-                delta_e = np.abs(cost_arr - self.current_cost_arr)
+                delta_e = np.abs(cost_arr - current_cost_arr)
                 
-                if (cost_arr > self.current_cost_arr):
+                if (cost_arr > current_cost_arr):
                     if (i == 0 and j == 0):
                         delta_e_avg = delta_e
                     p = np.exp(-delta_e/(delta_e_avg * t))
@@ -141,12 +143,12 @@ class SimulatedAnnealing(AnnealingModel):
                     p = 0.0
 
                 if accept is True:
-                    self.current_dist_arr = self.__now_dist_mat_arr
-                    self.current_cost_arr = cost_arr
+                    current_var_arr = self.__now_dist_mat_arr
+                    current_cost_arr = cost_arr
                     self.__accepted_sol_num = self.__accepted_sol_num + 1.0
                     delta_e_avg = (delta_e_avg * (self.__accepted_sol_num - 1.0) +  delta_e) / self.__accepted_sol_num
-                    self.accepted_pos = current_pos
-                self.predicted_log_list.append((cost_arr , delta_e, delta_e_avg, p, int(accept)))
-            self.x[i + 1] = self.current_dist_arr
-            self.stocked_predicted_arr[i + 1] = self.current_cost_arr
+                predicted_log_list.append((cost_arr , delta_e, delta_e_avg, p, int(accept)))
+            self.var_log_arr[i + 1] = current_var_arr
+            self.computed_cost_arr[i + 1] = current_cost_arr
             t = t * self.__fractional_reduction
+        self.predicted_log_arr = np.array(predicted_log_list)

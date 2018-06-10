@@ -12,7 +12,7 @@ def read_readme(file_name):
 
 setup(
     name='pyqlearning',
-    version='1.1.2',
+    version='1.1.3',
     description='pyqlearning is Python library to implement Reinforcement Learning, especially for Q-Learning.',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',

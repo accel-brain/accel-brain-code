@@ -36,7 +36,7 @@ class QuantumMonteCarlo(AnnealingModel):
             point_num:                   The number of parameters.
             spin_arr:                    `np.ndarray` of 2-D spin glass in Ising model.
         '''
-        if isinstance(distance_computable, DistanceFunctionable):
+        if isinstance(distance_computable, DistanceComputable):
             self.__distance_computable = distance_computable
         else:
             raise TypeError()
@@ -71,7 +71,7 @@ class QuantumMonteCarlo(AnnealingModel):
 
             arr = np.diag([1] * self.__point_num)
             arr[arr == 0] = -1
-            key_arr = np.arange(self.__total_time) % self.__point_num
+            key_arr = np.arange(self.__mc_step) % self.__point_num
             np.random.shuffle(key_arr)
             spin_arr_list = [None] * self.__trotter_dimention
             for i in range(self.__trotter_dimention):
@@ -82,10 +82,12 @@ class QuantumMonteCarlo(AnnealingModel):
         '''
         Annealing.
         '''
+        self.__predicted_log_list = []
         for cycle in range(self.__cycles_num):
             for mc_step in range(self.__mc_step):
                 self.__move()
             self.__gammma *= self.__fractional_reduction
+        self.predicted_log_arr = np.array(self.__predicted_log_list)
 
     def __move(self):
         # Choice torotter.
@@ -99,25 +101,25 @@ class QuantumMonteCarlo(AnnealingModel):
         # Decide point.
         pre_point = self.__spin_arr[torotter, pre_time].argmax()
         post_point = self.__spin_arr[torotter, post_time].argmax()
-        
-        # Δ
+
+        # ΔE
         delta_e_arr = np.array([0] * 5)
         for point in range(self.__point_num):
-            dist_pre_point = self.__distance_computable(pre_point, point)
-            dist_post_point = self.__distance_computable(post_point, point)
+            dist_pre_point = self.__distance_computable.compute(pre_point, point)
+            dist_post_point = self.__distance_computable.compute(post_point, point)
             
-            delta_e_arr[0] += 2 * (-dist_pre_point * self.__spin_arr[torotter][pre_time][pre_point] - dist_post_point * self.__spin_arr[torotter][pre_time][post_point]) * (self.__spin_arr[torotter][pre_time - 1][point] + self.__spin_arr[torotter][(pre_time + 1) % self.__total_time][point])
-            delta_e_arr[0] += 2 + (-dist_pre_point * self.__spin_arr[torotter][pre_time][post_point] - dist_dist_point * self.__spin_arr[torotter][post_time][post_point]) * (self.__spin_arr[torotter][post_time - 1][point] + self.__spin_arr[torotter][(post_time + 1) % self.__total_time][point])
+            delta_e_arr[0] += 2 * (-dist_pre_point * self.__spin_arr[torotter][pre_time][pre_point] - dist_post_point * self.__spin_arr[torotter][pre_time][post_point]) * (self.__spin_arr[torotter][pre_time - 1][point] + self.__spin_arr[torotter][(pre_time + 1) % self.__mc_step][point])
+            delta_e_arr[0] += 2 + (-dist_pre_point * self.__spin_arr[torotter][pre_time][post_point] - dist_post_point * self.__spin_arr[torotter][post_time][post_point]) * (self.__spin_arr[torotter][post_time - 1][point] + self.__spin_arr[torotter][(post_time + 1) % self.__mc_step][point])
 
 
-        annealing_e = (1 / self.__inverse_temperature_beta) * np.log(np.cosh(self.__inverse_temperature_beta * self.__gammma / self.__torotter) / np.sinh(self.__inverse_temperature_beta * self.__gammma / self.__torotter))
+        annealing_e = (1 / self.__inverse_temperature_beta) * np.log(np.cosh(self.__inverse_temperature_beta * self.__gammma / self.__trotter_dimention) / np.sinh(self.__inverse_temperature_beta * self.__gammma / self.__trotter_dimention))
 
-        delta_e_arr[1] = self.__spin_arr[self.__torotter][pre_time][pre_point] * (self.__spin_arr[(self.__torotter - 1) % self.__trotter][pre_time][pre_time] + self.__spin_arr[(torotter + 1) % self.__torotter][pre_time][pre_point])
-        delta_e_arr[2] = self.__spin_arr[self.__torotter][pre_time][post_time] * (self.__spin_arr[(self.__torotter - 1) % self.__torotter][pre_time][post_point] + self.__spin_arr[(self.__torotter + 1) % self.__trotter][pre_time][post_point])
-        delta_e_arr[3] = self.__spin_arr[self.__torotter][post_time][pre_point] * (self.__spin_arr[(self.__torotter - 1) % self.__torotter][post_time][pre_time] + self.__spin_arr[(self.__torotter + 1) % self.__torotter][post_time][pre_point])
-        delta_e_arr[4] = self.__spin_arr[self.__torotter][post_time][post_point] * (self.__spin_arr[(self.__torotter - 1) % self.__torotter][post_time][post_point] + self.__spin_arr[(self.__torotter + 1) % self.__torotter][post_time][post_point])
+        delta_e_arr[1] = self.__spin_arr[torotter][pre_time][pre_point] * (self.__spin_arr[(torotter - 1) % self.__trotter_dimention][pre_time][pre_time] + self.__spin_arr[(torotter + 1) % self.__trotter_dimention][pre_time][pre_point])
+        delta_e_arr[2] = self.__spin_arr[torotter][pre_time][post_time] * (self.__spin_arr[(torotter - 1) % self.__trotter_dimention][pre_time][post_point] + self.__spin_arr[(torotter + 1) % self.__trotter_dimention][pre_time][post_point])
+        delta_e_arr[3] = self.__spin_arr[torotter][post_time][pre_point] * (self.__spin_arr[(torotter - 1) % self.__trotter_dimention][post_time][pre_time] + self.__spin_arr[(torotter + 1) % self.__trotter_dimention][post_time][pre_point])
+        delta_e_arr[4] = self.__spin_arr[torotter][post_time][post_point] * (self.__spin_arr[(torotter - 1) % self.__trotter_dimention][post_time][post_point] + self.__spin_arr[(torotter + 1) % self.__trotter_dimention][post_time][post_point])
 
-        delta_e = delta_e_arr[0] / self.__torotter + annealing_e * delta_e_arr[1:].sum()
+        delta_e = delta_e_arr[0] / self.__trotter_dimention + annealing_e * delta_e_arr[1:].sum()
 
         # Flip or not.
         flip_flag = False
@@ -129,10 +131,20 @@ class QuantumMonteCarlo(AnnealingModel):
                 flip_flag = True
 
         if flip_flag is True:
-            self.__spin_arr[self.__torotter][pre_time][pre_point] *= -1
-            self.__spin_arr[self.__torotter][pre_time][post_point] *= -1
-            self.__spin_arr[self.__torotter][post_time][pre_point] *= -1
-            self.__spin_arr[self.__torotter][post_time][post_time] *= -1
+            self.__spin_arr[torotter][pre_time][pre_point] *= -1
+            self.__spin_arr[torotter][pre_time][post_point] *= -1
+            self.__spin_arr[torotter][post_time][pre_point] *= -1
+            self.__spin_arr[torotter][post_time][post_point] *= -1
+
+        self.__predicted_log_list.append(
+            (
+                torotter,
+                pre_time,
+                post_time,
+                delta_e,
+                flip_flag
+            )
+        )
 
     def get_spin_arr(self):
         ''' getter '''

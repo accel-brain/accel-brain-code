@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta, abstractmethod, abstractproperty
 import numpy as np
 import warnings
 
@@ -30,7 +30,7 @@ class AnnealingModel(metaclass=ABCMeta):
         warnings.warn("This property will be removed in future version. Use `var_arr`.", FutureWarning)
         # Set the data points.
         self.var_arr = dist_mat_arr
-
+        
     @abstractmethod
     def annealing(self):
         '''

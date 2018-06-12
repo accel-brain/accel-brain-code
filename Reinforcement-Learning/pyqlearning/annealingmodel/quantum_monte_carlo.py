@@ -123,6 +123,7 @@ class QuantumMonteCarlo(AnnealingModel):
 
         # Flip or not.
         flip_flag = False
+        prob = 0.0
         if delta_e <= 0:
             flip_flag = True
         else:
@@ -142,6 +143,7 @@ class QuantumMonteCarlo(AnnealingModel):
                 pre_time,
                 post_time,
                 delta_e,
+                prob,
                 flip_flag
             )
         )

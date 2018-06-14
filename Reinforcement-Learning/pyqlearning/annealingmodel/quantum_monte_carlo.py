@@ -21,7 +21,8 @@ class QuantumMonteCarlo(AnnealingModel):
         trotter_dimention=None,
         mc_step=None,
         point_num=None,
-        spin_arr=None
+        spin_arr=None,
+        tolerance_diff_e=None
     ):
         '''
         Init.
@@ -35,6 +36,10 @@ class QuantumMonteCarlo(AnnealingModel):
             mc_step:                     The number of Monte Carlo steps.
             point_num:                   The number of parameters.
             spin_arr:                    `np.ndarray` of 2-D spin glass in Ising model.
+            tolerance_diff_e:            Tolerance for the optimization.
+                                         When the ΔE is not improving by at least `tolerance_diff_e`
+                                         for two consecutive iterations, annealing will stops.
+
         '''
         if isinstance(distance_computable, DistanceComputable):
             self.__distance_computable = distance_computable
@@ -45,6 +50,7 @@ class QuantumMonteCarlo(AnnealingModel):
         self.__inverse_temperature_beta = inverse_temperature_beta
         self.__gammma = gammma
         self.__fractional_reduction = fractional_reduction
+        self.__tolerance_diff_e = tolerance_diff_e
         
         if spin_arr is not None:
             if isinstance(spin_arr, np.ndarray):
@@ -87,6 +93,12 @@ class QuantumMonteCarlo(AnnealingModel):
             for mc_step in range(self.__mc_step):
                 self.__move()
             self.__gammma *= self.__fractional_reduction
+
+            if isinstance(self.__tolerance_diff_e, float) and len(self.__predicted_log_list) > 1:
+                diff = abs(self.__predicted_log_list[-1][3] - self.__predicted_log_list[-2][3])
+                if diff < self.__tolerance_diff_e:
+                    break
+
         self.predicted_log_arr = np.array(self.__predicted_log_list)
 
     def __move(self):

@@ -9,6 +9,8 @@ class DistanceComputable(metaclass=ABCMeta):
     
     def compute(self, x, y):
         '''
+        Compute distance.
+        
         Args:
             x:    Data point.
             y:    Data point.

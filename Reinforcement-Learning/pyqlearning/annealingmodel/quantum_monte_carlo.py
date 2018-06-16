@@ -95,7 +95,7 @@ class QuantumMonteCarlo(AnnealingModel):
             self.__gammma *= self.__fractional_reduction
 
             if isinstance(self.__tolerance_diff_e, float) and len(self.__predicted_log_list) > 1:
-                diff = abs(self.__predicted_log_list[-1][3] - self.__predicted_log_list[-2][3])
+                diff = abs(self.__predicted_log_list[-1][5] - self.__predicted_log_list[-2][5])
                 if diff < self.__tolerance_diff_e:
                     break
 
@@ -152,6 +152,8 @@ class QuantumMonteCarlo(AnnealingModel):
                 torotter,
                 pre_time,
                 post_time,
+                pre_point,
+                post_point,
                 delta_e,
                 prob,
                 flip_flag

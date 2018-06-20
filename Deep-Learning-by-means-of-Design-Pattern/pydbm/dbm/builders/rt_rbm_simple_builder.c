@@ -1565,6 +1565,7 @@ static const char __pyx_k_rbm[] = "rbm";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_self[] = "self";
 static const char __pyx_k_test[] = "__test__";
+static const char __pyx_k_RTRBM[] = "RTRBM";
 static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_value[] = "value";
@@ -1598,7 +1599,6 @@ static const char __pyx_k_visible_neuron_part[] = "visible_neuron_part";
 static const char __pyx_k_approximate_interface[] = "approximate_interface";
 static const char __pyx_k_RecurrentTemporalGraph[] = "RecurrentTemporalGraph";
 static const char __pyx_k_rnn_activating_function[] = "rnn_activating_function";
-static const char __pyx_k_RestrictedBoltzmannMachine[] = "RestrictedBoltzmannMachine";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_RTRBMSimpleBuilder__rbm_list[] = "_RTRBMSimpleBuilder__rbm_list";
 static const char __pyx_k_RTRBMSimpleBuilder__rt_graph[] = "_RTRBMSimpleBuilder__rt_graph";
@@ -1629,7 +1629,7 @@ static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not F
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
 static const char __pyx_k_pydbm_dbm_builders_rt_rbm_simple[] = "pydbm.dbm.builders.rt_rbm_simple_builder";
 static const char __pyx_k_pydbm_dbm_interface_rt_rbm_build[] = "pydbm.dbm.interface.rt_rbm_builder";
-static const char __pyx_k_pydbm_dbm_restricted_boltzmann_m[] = "pydbm.dbm.restricted_boltzmann_machines";
+static const char __pyx_k_pydbm_dbm_restrictedboltzmannmac[] = "pydbm.dbm.restrictedboltzmannmachines.rt_rbm";
 static const char __pyx_k_pydbm_synapse_recurrent_temporal[] = "pydbm.synapse.recurrent_temporal_graph";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
 static const char __pyx_k_pydbm_dbm_builders_rt_rbm_simple_2[] = "pydbm/dbm/builders/rt_rbm_simple_builder.pyx";
@@ -1638,6 +1638,7 @@ static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
 static PyObject *__pyx_n_s_ImportError;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
+static PyObject *__pyx_n_s_RTRBM;
 static PyObject *__pyx_n_s_RTRBMBuilder;
 static PyObject *__pyx_n_s_RTRBMSimpleBuilder;
 static PyObject *__pyx_n_s_RTRBMSimpleBuilder__approximate;
@@ -1661,7 +1662,6 @@ static PyObject *__pyx_n_s_RTRBMSimpleBuilder_set_dropout_r;
 static PyObject *__pyx_n_s_RTRBMSimpleBuilder_set_learning;
 static PyObject *__pyx_n_s_RTRBMSimpleBuilder_visible_neuro;
 static PyObject *__pyx_n_s_RecurrentTemporalGraph;
-static PyObject *__pyx_n_s_RestrictedBoltzmannMachine;
 static PyObject *__pyx_n_s_RuntimeError;
 static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_n_s_ValueError;
@@ -1693,7 +1693,7 @@ static PyObject *__pyx_n_s_property;
 static PyObject *__pyx_n_s_pydbm_dbm_builders_rt_rbm_simple;
 static PyObject *__pyx_kp_s_pydbm_dbm_builders_rt_rbm_simple_2;
 static PyObject *__pyx_n_s_pydbm_dbm_interface_rt_rbm_build;
-static PyObject *__pyx_n_s_pydbm_dbm_restricted_boltzmann_m;
+static PyObject *__pyx_n_s_pydbm_dbm_restrictedboltzmannmac;
 static PyObject *__pyx_n_s_pydbm_synapse_recurrent_temporal;
 static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_range;
@@ -2918,16 +2918,16 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_21rt_rbm_simple_builder_18RTRBMS
   /* "pydbm/dbm/builders/rt_rbm_simple_builder.pyx":113
  * 
  *         '''
- *         rbm = RestrictedBoltzmannMachine(             # <<<<<<<<<<<<<<
+ *         rbm = RTRBM(             # <<<<<<<<<<<<<<
  *             self.__rt_graph,
  *             self.__learning_rate,
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_RestrictedBoltzmannMachine); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_RTRBM); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "pydbm/dbm/builders/rt_rbm_simple_builder.pyx":114
  *         '''
- *         rbm = RestrictedBoltzmannMachine(
+ *         rbm = RTRBM(
  *             self.__rt_graph,             # <<<<<<<<<<<<<<
  *             self.__learning_rate,
  *             self.__dropout_rate,
@@ -2936,7 +2936,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_21rt_rbm_simple_builder_18RTRBMS
   __Pyx_GOTREF(__pyx_t_3);
 
   /* "pydbm/dbm/builders/rt_rbm_simple_builder.pyx":115
- *         rbm = RestrictedBoltzmannMachine(
+ *         rbm = RTRBM(
  *             self.__rt_graph,
  *             self.__learning_rate,             # <<<<<<<<<<<<<<
  *             self.__dropout_rate,
@@ -5687,6 +5687,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
+  {&__pyx_n_s_RTRBM, __pyx_k_RTRBM, sizeof(__pyx_k_RTRBM), 0, 0, 1, 1},
   {&__pyx_n_s_RTRBMBuilder, __pyx_k_RTRBMBuilder, sizeof(__pyx_k_RTRBMBuilder), 0, 0, 1, 1},
   {&__pyx_n_s_RTRBMSimpleBuilder, __pyx_k_RTRBMSimpleBuilder, sizeof(__pyx_k_RTRBMSimpleBuilder), 0, 0, 1, 1},
   {&__pyx_n_s_RTRBMSimpleBuilder__approximate, __pyx_k_RTRBMSimpleBuilder__approximate, sizeof(__pyx_k_RTRBMSimpleBuilder__approximate), 0, 0, 1, 1},
@@ -5710,7 +5711,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_RTRBMSimpleBuilder_set_learning, __pyx_k_RTRBMSimpleBuilder_set_learning, sizeof(__pyx_k_RTRBMSimpleBuilder_set_learning), 0, 0, 1, 1},
   {&__pyx_n_s_RTRBMSimpleBuilder_visible_neuro, __pyx_k_RTRBMSimpleBuilder_visible_neuro, sizeof(__pyx_k_RTRBMSimpleBuilder_visible_neuro), 0, 0, 1, 1},
   {&__pyx_n_s_RecurrentTemporalGraph, __pyx_k_RecurrentTemporalGraph, sizeof(__pyx_k_RecurrentTemporalGraph), 0, 0, 1, 1},
-  {&__pyx_n_s_RestrictedBoltzmannMachine, __pyx_k_RestrictedBoltzmannMachine, sizeof(__pyx_k_RestrictedBoltzmannMachine), 0, 0, 1, 1},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
@@ -5742,7 +5742,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_pydbm_dbm_builders_rt_rbm_simple, __pyx_k_pydbm_dbm_builders_rt_rbm_simple, sizeof(__pyx_k_pydbm_dbm_builders_rt_rbm_simple), 0, 0, 1, 1},
   {&__pyx_kp_s_pydbm_dbm_builders_rt_rbm_simple_2, __pyx_k_pydbm_dbm_builders_rt_rbm_simple_2, sizeof(__pyx_k_pydbm_dbm_builders_rt_rbm_simple_2), 0, 0, 1, 0},
   {&__pyx_n_s_pydbm_dbm_interface_rt_rbm_build, __pyx_k_pydbm_dbm_interface_rt_rbm_build, sizeof(__pyx_k_pydbm_dbm_interface_rt_rbm_build), 0, 0, 1, 1},
-  {&__pyx_n_s_pydbm_dbm_restricted_boltzmann_m, __pyx_k_pydbm_dbm_restricted_boltzmann_m, sizeof(__pyx_k_pydbm_dbm_restricted_boltzmann_m), 0, 0, 1, 1},
+  {&__pyx_n_s_pydbm_dbm_restrictedboltzmannmac, __pyx_k_pydbm_dbm_restrictedboltzmannmac, sizeof(__pyx_k_pydbm_dbm_restrictedboltzmannmac), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_synapse_recurrent_temporal, __pyx_k_pydbm_synapse_recurrent_temporal, sizeof(__pyx_k_pydbm_synapse_recurrent_temporal), 0, 0, 1, 1},
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
@@ -6172,7 +6172,7 @@ static int __pyx_pymod_exec_rt_rbm_simple_builder(PyObject *__pyx_pyinit_module)
  * cimport numpy as np
  * from pydbm.dbm.interface.rt_rbm_builder import RTRBMBuilder             # <<<<<<<<<<<<<<
  * from pydbm.synapse.recurrent_temporal_graph import RecurrentTemporalGraph
- * from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
+ * from pydbm.dbm.restrictedboltzmannmachines.rt_rbm import RTRBM
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -6192,7 +6192,7 @@ static int __pyx_pymod_exec_rt_rbm_simple_builder(PyObject *__pyx_pyinit_module)
  * cimport numpy as np
  * from pydbm.dbm.interface.rt_rbm_builder import RTRBMBuilder
  * from pydbm.synapse.recurrent_temporal_graph import RecurrentTemporalGraph             # <<<<<<<<<<<<<<
- * from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
+ * from pydbm.dbm.restrictedboltzmannmachines.rt_rbm import RTRBM
  * 
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
@@ -6212,21 +6212,21 @@ static int __pyx_pymod_exec_rt_rbm_simple_builder(PyObject *__pyx_pyinit_module)
   /* "pydbm/dbm/builders/rt_rbm_simple_builder.pyx":6
  * from pydbm.dbm.interface.rt_rbm_builder import RTRBMBuilder
  * from pydbm.synapse.recurrent_temporal_graph import RecurrentTemporalGraph
- * from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine             # <<<<<<<<<<<<<<
+ * from pydbm.dbm.restrictedboltzmannmachines.rt_rbm import RTRBM             # <<<<<<<<<<<<<<
  * 
  * 
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_INCREF(__pyx_n_s_RestrictedBoltzmannMachine);
-  __Pyx_GIVEREF(__pyx_n_s_RestrictedBoltzmannMachine);
-  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_RestrictedBoltzmannMachine);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_dbm_restricted_boltzmann_m, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_INCREF(__pyx_n_s_RTRBM);
+  __Pyx_GIVEREF(__pyx_n_s_RTRBM);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_RTRBM);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_dbm_restrictedboltzmannmac, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_RestrictedBoltzmannMachine); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_RTRBM); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_RestrictedBoltzmannMachine, __pyx_t_1) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_RTRBM, __pyx_t_1) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 

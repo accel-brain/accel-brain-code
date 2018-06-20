@@ -25,17 +25,18 @@ class RTRBM(RestrictedBoltzmannMachine):
             batch_size:           Batch size.
         '''
         cdef int i
-        cdef int row_i
+        cdef int j
+        cdef int row_j
         cdef int batch
-        cdef np.ndarray[DOUBLE_t, ndim=1] data_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] data_arr
 
         # Learning.
-        for batch in range(batch_size):
-            row_i = observed_data_arr.shape[0] - batch
-            for i in range(batch, row_i):
-                data_arr = observed_data_arr[i]
+        for i in range(batch_size):
+            data_arr = observed_data_arr[i:, :]
+            row_j = data_arr.shape[0]
+            for j in range(row_j):
                 self.approximate_learning(
-                    data_arr[i],
+                    data_arr[j],
                     traning_count=traning_count, 
                     batch_size=batch_size
                 )

@@ -58,14 +58,29 @@ class RTRBM(RestrictedBoltzmannMachine):
         '''
         cdef int i
         cdef int j
+        cdef int row_i
         cdef int row_j
         cdef np.ndarray[DOUBLE_t, ndim=2] data_arr
         cdef np.ndarray[DOUBLE_t, ndim=1] test_arr
-
-        # Learning.
+        cdef np.ndarray[DOUBLE_t, ndim=2] result_arr
+        row_i = observed_data_arr.shape[0]
         result_arr_list = []
-        for i in range(r_batch_size):
-            data_arr = observed_data_arr[i:, :]
+        if r_batch_size > 0:
+            for i in range(r_batch_size, row_i):
+                data_arr = observed_data_arr[i-r_batch_size:i, :]
+                row_j = data_arr.shape[0]
+                for j in range(row_j):
+                    # Execute recursive learning.
+                    self.approximate_inferencing(
+                        data_arr[j],
+                        traning_count=traning_count, 
+                        r_batch_size=r_batch_size
+                    )
+                # The feature points can be observed data points.
+                test_arr = self.graph.visible_activity_arr
+                result_arr_list.append(test_arr)
+        else:
+            data_arr = observed_data_arr
             row_j = data_arr.shape[0]
             for j in range(row_j):
                 # Execute recursive learning.
@@ -74,10 +89,12 @@ class RTRBM(RestrictedBoltzmannMachine):
                     traning_count=traning_count, 
                     r_batch_size=r_batch_size
                 )
-                if j == row_j - 1:
-                    # The feature points can be observed data points.
-                    test_arr = self.graph.visible_activity_arr
-                    result_arr_list.append(test_arr)
+                # The feature points can be observed data points.
+                test_arr = self.graph.visible_activity_arr
+                result_arr_list.append(test_arr)
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] result_arr = np.array(result_arr_list)
-        return result_arr
+        if len(result_arr_list):
+            result_arr = np.array(result_arr_list)
+            return result_arr
+        else:
+            return np.array([])

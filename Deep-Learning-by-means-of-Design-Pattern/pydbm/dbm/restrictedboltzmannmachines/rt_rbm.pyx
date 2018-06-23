@@ -27,7 +27,6 @@ class RTRBM(RestrictedBoltzmannMachine):
         cdef int i
         cdef int j
         cdef int row_j
-        cdef int batch
         cdef np.ndarray[DOUBLE_t, ndim=2] data_arr
 
         # Learning.
@@ -43,7 +42,7 @@ class RTRBM(RestrictedBoltzmannMachine):
     
     def inference(
         self,
-        np.ndarray observed_data_arr,
+        np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
         int traning_count=1000,
         int r_batch_size=200
     ):
@@ -58,17 +57,27 @@ class RTRBM(RestrictedBoltzmannMachine):
             The `np.ndarray` of feature points.
         '''
         cdef int i
-        cdef int row_i = observed_data_arr.shape[0]
-        cdef np.ndarray[DOUBLE_t, ndim=1] test_arr = observed_data_arr[0]
-        cdef np.ndarray[DOUBLE_t, ndim=2] result_arr = np.array([None] * observed_data_arr.shape[0])
-        for i in range(row_i):
-            # Execute recursive learning.
-            self.approximate_inferencing(
-                test_arr,
-                traning_count=traning_count, 
-                r_batch_size=r_batch_size
-            )
-            # The feature points can be observed data points.
-            result_arr[i] = test_arr = self.graph.visible_activity_arr
+        cdef int j
+        cdef int row_j
+        cdef np.ndarray[DOUBLE_t, ndim=2] data_arr
+        cdef np.ndarray[DOUBLE_t, ndim=1] test_arr
 
+        # Learning.
+        result_arr_list = []
+        for i in range(r_batch_size):
+            data_arr = observed_data_arr[i:, :]
+            row_j = data_arr.shape[0]
+            for j in range(row_j):
+                # Execute recursive learning.
+                self.approximate_inferencing(
+                    data_arr[j],
+                    traning_count=traning_count, 
+                    r_batch_size=r_batch_size
+                )
+                if j == row_j - 1:
+                    # The feature points can be observed data points.
+                    test_arr = self.graph.visible_activity_arr
+                    result_arr_list.append(test_arr)
+
+        cdef np.ndarray[DOUBLE_t, ndim=2] result_arr = np.array(result_arr_list)
         return result_arr

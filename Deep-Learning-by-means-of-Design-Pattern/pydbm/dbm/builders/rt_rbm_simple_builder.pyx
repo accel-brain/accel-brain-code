@@ -3,7 +3,7 @@ import numpy as np
 cimport numpy as np
 from pydbm.dbm.interface.rt_rbm_builder import RTRBMBuilder
 from pydbm.synapse.recurrent_temporal_graph import RecurrentTemporalGraph
-from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
+from pydbm.dbm.restrictedboltzmannmachines.rt_rbm import RTRBM
 
 
 class RTRBMSimpleBuilder(RTRBMBuilder):
@@ -110,7 +110,7 @@ class RTRBMSimpleBuilder(RTRBMBuilder):
             The list of restricted boltzmann machines.
 
         '''
-        rbm = RestrictedBoltzmannMachine(
+        rbm = RTRBM(
             self.__rt_graph,
             self.__learning_rate,
             self.__dropout_rate,

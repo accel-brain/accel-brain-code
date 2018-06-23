@@ -26,7 +26,7 @@ def read_readme(file_name):
 
 setup(
     name='pydbm',
-    version='1.2.4',
+    version='1.2.5',
     description='`pydbm` is Python library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Recurrent Temporal Restricted Boltzmann Machine(RTRBM), Recurrent neural network Restricted Boltzmann Machine(RNN-RBM), and Shape Boltzmann Machine(Shape-BM).',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',

@@ -55,6 +55,10 @@ class ReversiGreedyQLearning(GreedyQLearning):
 
         reward = (after_gain / before_gain) * self.t
         
+        if self.check_the_end_flag(action_key) is True:
+            gain_rate = after_map_arr[after_map_arr == self.__color].ravel().shape[0] / after_map_arr.shape[0]
+            reward *= gain_rate
+        
         self.save_r_df(
             state_key=state_key,
             r_value=reward,

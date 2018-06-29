@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from pyqlearning.q_learning import QLearning
+from abc import ABCMeta, abstractmethod
 import pandas as pd
 import numpy as np
 import random
 
 
-class MultiAgentQLearning(object):
+class MultiAgentQLearning(metaclass=ABCMeta):
     '''
     Controler for Multi Agent Q-Learning.
 
@@ -23,10 +24,10 @@ class MultiAgentQLearning(object):
     def get_q_learning_list(self):
         return self.__q_learning_list
     
-    def set_readonly(self, value):
-        raise TypeError()
+    def set_q_learning_list(self, value):
+        self.__q_learning_list = value
     
-    q_learning_list = property(get_q_learning_list, set_readonly)
+    q_learning_list = property(get_q_learning_list, set_q_learning_list)
     
     __state_key_list = []
     
@@ -46,6 +47,7 @@ class MultiAgentQLearning(object):
                 raise TypeError()
 
         self.__q_learning_list = q_learning_list
+        self.state_key_list = []
 
     # Time.
     __t = 0
@@ -69,51 +71,15 @@ class MultiAgentQLearning(object):
         self.__t = value
 
     t = property(get_t, set_t)
+    
+    @abstractmethod
+    def learn(self, first_state_key, limit=1000, game_n=1):
+        '''
+        Multi-Agent Learning.
 
-    def learning_interaction(self, first_state_key, limit=1000, game_n=1):
-        end_flag = False
-        for game in range(game_n):
-            state_key = first_state_key
-            self.t = 1
-            while self.t <= limit:
-                for i in range(len(self.__q_learning_list)):
-                    if game + 1 == game_n:
-                        self.state_key_list.append(state_key)
-                    self.__q_learning_list[i].t = self.t
-                    next_action_list = self.__q_learning_list[i].extract_possible_actions(state_key)
-                    if len(next_action_list):
-                        action_key = self.__q_learning_list[i].select_action(
-                            state_key=state_key,
-                            next_action_list=next_action_list
-                        )
-                        reward_value = self.__q_learning_list[i].observe_reward_value(state_key, action_key)
-
-                        # Check.
-                        if self.__q_learning_list[i].check_the_end_flag(state_key) is True:
-                            end_flag = True
-
-                        # Max-Q-Value in next action time.
-                        next_next_action_list = self.__q_learning_list[i].extract_possible_actions(action_key)
-                        if len(next_next_action_list):
-                            next_action_key = self.__q_learning_list[i].predict_next_action(action_key, next_next_action_list)
-                            next_max_q = self.__q_learning_list[i].extract_q_df(action_key, next_action_key)
-
-                            # Update Q-Value.
-                            self.__q_learning_list[i].update_q(
-                                state_key=state_key,
-                                action_key=action_key,
-                                reward_value=reward_value,
-                                next_max_q=next_max_q
-                            )
-
-                            # Update State.
-                            state_key = self.__q_learning_list[i].update_state(
-                                state_key=state_key,
-                                action_key=action_key
-                            )
-
-                    # Epsode.
-                    self.t += 1
-                    self.__q_learning_list[i].t = self.t
-                    if end_flag is True:
-                        break
+        Args:
+            first_state_key:    first state.
+            limit:              Limit of the number of learning.
+            game_n:             The number of games.
+        '''
+        raise NotImplementedError("This method must be implemented.")

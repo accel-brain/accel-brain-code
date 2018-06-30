@@ -2,11 +2,14 @@
 from pyqlearning.multi_agent_q_learning import MultiAgentQLearning
 
 
-class AlternatedMultiAgent(MultiAgentQLearning):
+class CompletedMultiAgent(MultiAgentQLearning):
     '''
-    Multi-Agent which do alternated learn.
+    Multi-Agent which learn in complete information, 
+    to play a game in which knowledge about other players is available to all participants.
+
+    Each agent can search optimal policy, observing accurate state of other agents.
     '''
-    
+
     def learn(self, first_state_key, limit=1000, game_n=1):
         '''
         Multi-Agent Learning.

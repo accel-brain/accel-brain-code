@@ -290,6 +290,8 @@ learning_rate = 0.01
 
 `filter_size` is the 'filter' size. This value must be more than `4`. And `overlap_n` is hyperparameter specific to Shape-BM. In the visible layer, this model has so-called local receptive fields by connecting each first hidden unit only to a subset of the visible units, corresponding to one of four square patches. Each patch overlaps its neighbor by `overlap_n` pixels (Eslami, S. A., et al, 2014).
 
+**Please note** that the recommended ratio of `filter_size` and `overlap_n` is 5:4. It is not a constraint demanded by pure theory of Shape Boltzmann Machine itself but is a kind of limitation to simplify design and implementation in this library. 
+
 And import Python and Cython modules.
 
 ```python

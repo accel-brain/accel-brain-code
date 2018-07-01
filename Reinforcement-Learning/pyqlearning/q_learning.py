@@ -236,43 +236,46 @@ class QLearning(metaclass=ABCMeta):
         self.t = 1
         while self.t <= limit:
             next_action_list = self.extract_possible_actions(state_key)
-            action_key = self.select_action(
-                state_key=state_key,
-                next_action_list=next_action_list
-            )
-            reward_value = self.observe_reward_value(state_key, action_key)
-            
+            if len(next_action_list):
+                action_key = self.select_action(
+                    state_key=state_key,
+                    next_action_list=next_action_list
+                )
+                reward_value = self.observe_reward_value(state_key, action_key)
+
+            if len(next_action_list):
+                # Max-Q-Value in next action time.
+                next_state_key = self.update_state(
+                    state_key=state_key,
+                    action_key=action_key
+                )
+
+                next_next_action_list = self.extract_possible_actions(next_state_key)
+                next_action_key = self.predict_next_action(next_state_key, next_next_action_list)
+                next_max_q = self.extract_q_df(next_state_key, next_action_key)
+
+                # Update Q-Value.
+                self.update_q(
+                    state_key=state_key,
+                    action_key=action_key,
+                    reward_value=reward_value,
+                    next_max_q=next_max_q
+                )
+                # Update State.
+                state_key = next_state_key
+
+            # Normalize.
+            self.normalize_q_value()
+            self.normalize_r_value()
+
             # Vis.
             self.visualize_learning_result(state_key)
             # Check.
             if self.check_the_end_flag(state_key) is True:
                 break
 
-            # Max-Q-Value in next action time.
-            next_next_action_list = self.extract_possible_actions(action_key)
-            next_action_key = self.predict_next_action(action_key, next_next_action_list)
-            next_max_q = self.extract_q_df(action_key, next_action_key)
-
-            # Update Q-Value.
-            self.update_q(
-                state_key=state_key,
-                action_key=action_key,
-                reward_value=reward_value,
-                next_max_q=next_max_q
-            )
-
             # Epsode.
             self.t += 1
-            
-            # Update State.
-            state_key = self.update_state(
-                state_key=state_key,
-                action_key=action_key
-            )
-            
-            # Normalize.
-            self.normalize_q_value()
-            self.normalize_r_value()
 
     @abstractmethod
     def select_action(self, state_key, next_action_list):

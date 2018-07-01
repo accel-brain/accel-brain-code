@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 cimport numpy as np
+import warnings
 from pydbm.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
 from pydbm.approximation.shape_bm_cd import ShapeBMCD
 from pydbm.activation.logistic_function import LogisticFunction
@@ -27,8 +28,8 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
     # The number of overlapped pixels.
     __overlap_n = 9
     
-    # The width of reshaped image.
-    __reshaped_w = 12
+    # The 'filter' size.
+    __filter_size = 12
 
     def __init__(
         self,
@@ -39,7 +40,8 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         double learning_rate=0.01,
         double dropout_rate=0.0,
         int overlap_n=9,
-        int reshaped_w=12
+        int reshaped_w=-1,
+        int filter_size=12
     ):
         '''
         Initialize deep boltzmann machine.
@@ -52,11 +54,15 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
             learning_rate:               Learning rate.
             dropout_rate:                Dropout rate.
             overlap_n:                   The number of overlapped pixels.
-            reshaped_w:                  The width of reshaped image.
+            filter_size:                 The 'filter' size.
         '''
         self.__overlap_n = overlap_n
-        self.__reshaped_w = reshaped_w
-        
+        if reshaped_w != -1:
+            filter_size = reshaped_w
+            warnings.warn("`reshaped_w` will be removed in future version. Use `filter_size`.", FutureWarning)
+
+        self.__filter_size = filter_size
+
         if isinstance(neuron_assign_list, list) is False:
             raise TypeError()
 
@@ -67,7 +73,10 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
             raise TypeError()
 
         if len(neuron_assign_list) == 0:
-            v_n = (self.__reshaped_w - 2) ** 2
+            if self.__filter_size < 4:
+                raise ValueError("`filter_size` must be more than `4`.")
+
+            v_n = (self.__filter_size - 2) ** 2
             neuron_assign_list = [v_n, v_n-1, v_n-2]
 
         if len(activating_function_list) == 0:
@@ -98,18 +107,19 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
 
     def learn(
         self,
-        np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
-        int traning_count=1000,
+        np.ndarray[DOUBLE_t, ndim=2] observed_data_arr, 
+        int traning_count=-1,
         int batch_size=200,
         int r_batch_size=-1,
-        sgd_flag=False
+        sgd_flag=False,
+        int training_count=1000
     ):
         '''
         Learning.
 
         Args:
             observed_data_arr:    The `np.ndarray` of observed data points.
-            traning_count:        Training counts.
+            training_count:       Training counts.
             batch_size:           Batch size.
             r_batch_size:         Batch size.
                                   If this value is `0`, the inferencing is a recursive learning.
@@ -117,6 +127,10 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
                                   If this value is '-1', the inferencing is not a recursive learning.
             sgd_flag:             Learning with the stochastic gradient descent(SGD) or not.
         '''
+        if traning_count != -1:
+            training_count = traning_count
+            warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
+
         cdef np.ndarray[DOUBLE_t, ndim=2] init_observed_data_arr = observed_data_arr.copy()
 
         observed_data_arr = self.__reshape_observed_data(observed_data_arr)
@@ -124,15 +138,21 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         cdef int row_y = observed_data_arr.shape[0]
         cdef int col_x = observed_data_arr.shape[1]
 
+        if row_y == 0 or col_x == 0:
+            raise ValueError(
+                "`filter_size` or `overlap_n` can be invalid. The size of reshaped image is " + str(row_y) + " x " + str(col_x)
+            )
+
         cdef int i
         cdef int row_i = observed_data_arr.shape[0]
         cdef int j
         cdef np.ndarray[DOUBLE_t, ndim=1] data_arr
+        cdef int data_row
         cdef np.ndarray[DOUBLE_t, ndim=1] feature_point_arr
         cdef int sgd_key
 
         inferenced_data_list = [None] * row_i
-        for k in range(traning_count):
+        for k in range(training_count):
             for i in range(row_i):
                 if sgd_flag is True:
                     sgd_key = np.random.randint(row_i)
@@ -140,24 +160,35 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
                 else:
                     data_arr = observed_data_arr[i].copy()
 
+                data_row = data_arr.shape[0]
+                if data_row <= 0:
+                    raise ValueError("Choiced `observed_data_arr` is invalid.")
+
                 for j in range(len(self.rbm_list)):
                     self.rbm_list[j].approximate_learning(
                         data_arr,
-                        1,
-                        batch_size
+                        training_count=1,
+                        batch_size=batch_size
                     )
                     feature_point_arr = self.get_feature_point(j)
                     data_arr = feature_point_arr
+                    data_row = data_arr.shape[0]
+                    if data_row <= 0:
+                        raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(j) + " layer's learning.")
 
                 rbm_list = self.rbm_list[::-1]
                 for j in range(len(rbm_list)):
                     data_arr = self.get_feature_point(len(rbm_list)-1-j)
+                    data_row = data_arr.shape[0]
+                    if data_row <= 0:
+                        raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(j) + " layer's  inference.")
+
                     rbm_list[j].approximate_inferencing(
                         data_arr,
-                        1,
-                        r_batch_size
+                        training_count=1,
+                        r_batch_size=r_batch_size
                     )
-                if k == traning_count - 1:
+                if k == training_count - 1:
                     inferenced_data_list[i] = rbm_list[-1].graph.visible_activity_arr
         self.__visible_points_arr = np.array(inferenced_data_list)
         self.__visible_points_arr = self.__reshape_inferenced_data(init_observed_data_arr, self.__visible_points_arr)
@@ -178,7 +209,7 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
 
         feature_arr_list = []
 
-        cdef int unit_n = int(self.__reshaped_w / 2)
+        cdef int unit_n = int(self.__filter_size / 2)
         unit_arr = np.array(list(range(unit_n)))
         length_list = np.r_[
             unit_arr.copy()[::-1] * -1,

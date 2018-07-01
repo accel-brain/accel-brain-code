@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 cimport numpy as np
+import warnings
 from pydbm.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
 ctypedef np.float64_t DOUBLE_t
 
@@ -34,17 +35,18 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
     def learn(
         self,
         np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
-        int traning_count=1000,
+        int traning_count=-1,
         int batch_size=200,
         int r_batch_size=-1,
-        sgd_flag=False
+        sgd_flag=False,
+        int training_count=1000
     ):
         '''
         Learning and auto-saving featrue points with `np.ndarray`.
 
         Args:
             observed_data_arr:    The `np.ndarray` of observed data points.
-            traning_count:        Training counts.
+            training_count:       Training counts.
             batch_size:           Batch size.
             r_batch_size:         Batch size.
                                   If this value is `0`, the inferencing is a recursive learning.
@@ -52,6 +54,10 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
                                   If this value is '-1', the inferencing is not a recursive learning.
             sgd_flag:             Learning with the stochastic gradient descent(SGD) or not.
         '''
+        if traning_count != -1:
+            training_count = traning_count
+            warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
+
         cdef int row_i = observed_data_arr.shape[0]
         cdef int t
         cdef np.ndarray[DOUBLE_t, ndim=1] data_arr
@@ -60,7 +66,7 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
 
         visible_points_list = [None] * row_i
         feature_points_list = [None] * row_i
-        for t in range(traning_count):
+        for t in range(training_count):
             for i in range(row_i):
                 if t == traning_count - 1:
                     data_arr = observed_data_arr[i]
@@ -73,12 +79,12 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
 
                 super().learn(
                     observed_data_arr=np.array([data_arr]),
-                    traning_count=1,
+                    training_count=1,
                     batch_size=batch_size,
                     r_batch_size=r_batch_size,
                     sgd_flag=False
                 )
-                if t == traning_count - 1:
+                if t == training_count - 1:
                     visible_points_arr = self.get_visible_point()
                     visible_points_list[i] = visible_points_arr
                     feature_point_arr = self.get_feature_point()

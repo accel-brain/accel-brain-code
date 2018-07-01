@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 cimport numpy as np
+import warnings
 cimport cython
 from pydbm.approximation.interface.approximate_interface import ApproximateInterface
 ctypedef np.float64_t DOUBLE_t
@@ -59,8 +60,9 @@ class RTRBMCD(ApproximateInterface):
         double learning_rate,
         double dropout_rate,
         np.ndarray observed_data_arr,
-        int traning_count=1000,
-        int batch_size=200
+        int traning_count=-1,
+        int batch_size=200,
+        int training_count=1000
     ):
         '''
         learning with function approximation.
@@ -70,12 +72,16 @@ class RTRBMCD(ApproximateInterface):
             learning_rate:        Learning rate.
             dropout_rate:         Dropout rate.
             observed_data_arr:    observed data points.
-            traning_count:        Training counts.
+            training_count:       Training counts.
             batch_size:           Batch size (0: not mini-batch)
 
         Returns:
             Graph of neurons.
         '''
+        if traning_count != -1:
+            training_count = traning_count
+            warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
+
         self.graph = graph
         self.learning_rate = learning_rate
         self.dropout_rate = dropout_rate
@@ -85,7 +91,7 @@ class RTRBMCD(ApproximateInterface):
         self.rnn_learn(observed_data_arr)
 
         cdef int _
-        for _ in range(traning_count):
+        for _ in range(training_count):
             self.batch_step += 1
             self.wake_sleep_learn(self.graph.visible_activity_arr)
 
@@ -107,8 +113,9 @@ class RTRBMCD(ApproximateInterface):
         double learning_rate,
         double dropout_rate,
         np.ndarray observed_data_arr,
-        int traning_count=1000,
-        int r_batch_size=200
+        int traning_count=-1,
+        int r_batch_size=200,
+        int training_count=1000,
     ):
         '''
         Inference with function approximation.
@@ -118,7 +125,7 @@ class RTRBMCD(ApproximateInterface):
             learning_rate:        Learning rate.
             dropout_rate:         Dropout rate.
             observed_data_arr:    observed data points.
-            traning_count:        Training counts.
+            training_count:       Training counts.
             r_batch_size:         Batch size.
                                   If this value is `0`, the inferencing is a recursive learning.
                                   If this value is more than `0`, the inferencing is a mini-batch recursive learning.
@@ -127,6 +134,10 @@ class RTRBMCD(ApproximateInterface):
         Returns:
             Graph of neurons.
         '''
+        if traning_count != -1:
+            training_count = traning_count
+            warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
+
         self.graph = graph
         self.learning_rate = learning_rate
         self.dropout_rate = dropout_rate
@@ -136,7 +147,7 @@ class RTRBMCD(ApproximateInterface):
         self.rnn_learn(observed_data_arr)
 
         cdef int _
-        for _ in range(traning_count):
+        for _ in range(training_count):
             self.r_batch_step += 1
             self.wake_sleep_inference(observed_data_arr)
 

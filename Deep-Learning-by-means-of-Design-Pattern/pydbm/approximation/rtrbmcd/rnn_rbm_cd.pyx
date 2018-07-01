@@ -42,9 +42,9 @@ class RNNRBMCD(RTRBMCD):
         if self.graph.hat_hidden_activity_arr.shape[0] == 0:
             return
 
-        #cdef np.ndarray[DOUBLE_t, ndim=2] v_link_value_arr
-        #cdef np.ndarray[DOUBLE_t, ndim=2] h_link_value_arr
-        #cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] v_link_value_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] h_link_value_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] link_value_arr
 
         v_link_value_arr = self.graph.v_hat_weights_arr * self.graph.visible_activity_arr.reshape(-1, 1)
         v_link_value_arr = np.nan_to_num(v_link_value_arr)

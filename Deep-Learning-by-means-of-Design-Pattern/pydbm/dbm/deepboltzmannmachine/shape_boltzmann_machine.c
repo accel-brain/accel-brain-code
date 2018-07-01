@@ -992,7 +992,7 @@ typedef npy_double __pyx_t_5numpy_double_t;
  */
 typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 
-/* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":7
+/* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":8
  * from pydbm.approximation.shape_bm_cd import ShapeBMCD
  * from pydbm.activation.logistic_function import LogisticFunction
  * ctypedef np.float64_t DOUBLE_t             # <<<<<<<<<<<<<<
@@ -1229,6 +1229,9 @@ static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr
 #define __Pyx_PyObject_SetAttrStr(o,n,v) PyObject_SetAttr(o,n,v)
 #endif
 
+/* GetModuleGlobalName.proto */
+static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
+
 /* PyFunctionFastCall.proto */
 #if CYTHON_FAST_PYCALL
 #define __Pyx_PyFunction_FastCall(func, args, nargs)\
@@ -1259,9 +1262,6 @@ static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, long int
 #define __Pyx_PyInt_SubtractObjC(op1, op2, intval, inplace)\
     (inplace ? PyNumber_InPlaceSubtract(op1, op2) : PyNumber_Subtract(op1, op2))
 #endif
-
-/* GetModuleGlobalName.proto */
-static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
 
 /* ArgTypeTest.proto */
 #define __Pyx_ArgTypeTest(obj, type, none_allowed, name, exact)\
@@ -1742,29 +1742,32 @@ int __pyx_module_is_main_pydbm__dbm__deepboltzmannmachine__shape_boltzmann_machi
 /* Implementation of 'pydbm.dbm.deepboltzmannmachine.shape_boltzmann_machine' */
 static PyObject *__pyx_builtin_property;
 static PyObject *__pyx_builtin_TypeError;
+static PyObject *__pyx_builtin_FutureWarning;
+static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_super;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_IndexError;
-static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_ImportError;
 static const char __pyx_k_i[] = "i";
 static const char __pyx_k_j[] = "j";
 static const char __pyx_k_k[] = "k";
 static const char __pyx_k_r[] = "r_";
-static const char __pyx_k_x[] = "x";
+static const char __pyx_k_x[] = " x ";
 static const char __pyx_k_y[] = "y";
 static const char __pyx_k_np[] = "np";
 static const char __pyx_k_doc[] = "__doc__";
 static const char __pyx_k_max[] = "max";
 static const char __pyx_k_min[] = "min";
 static const char __pyx_k_v_n[] = "v_n";
+static const char __pyx_k_x_2[] = "x";
 static const char __pyx_k_copy[] = "copy";
 static const char __pyx_k_each[] = "each";
 static const char __pyx_k_init[] = "__init__";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_self[] = "self";
 static const char __pyx_k_test[] = "__test__";
+static const char __pyx_k_warn[] = "warn";
 static const char __pyx_k_array[] = "array";
 static const char __pyx_k_col_x[] = "col_x";
 static const char __pyx_k_graph[] = "graph";
@@ -1790,12 +1793,14 @@ static const char __pyx_k_randint[] = "randint";
 static const char __pyx_k_sgd_key[] = "sgd_key";
 static const char __pyx_k_center_i[] = "center_i";
 static const char __pyx_k_data_arr[] = "data_arr";
+static const char __pyx_k_data_row[] = "data_row";
 static const char __pyx_k_property[] = "property";
 static const char __pyx_k_qualname[] = "__qualname__";
 static const char __pyx_k_rbm_list[] = "rbm_list";
 static const char __pyx_k_sgd_flag[] = "sgd_flag";
 static const char __pyx_k_unit_arr[] = "unit_arr";
 static const char __pyx_k_v_h_flag[] = "v_h_flag";
+static const char __pyx_k_warnings[] = "warnings";
 static const char __pyx_k_ShapeBMCD[] = "ShapeBMCD";
 static const char __pyx_k_TypeError[] = "TypeError";
 static const char __pyx_k_metaclass[] = "__metaclass__";
@@ -1807,6 +1812,7 @@ static const char __pyx_k_reshaped_w[] = "reshaped_w";
 static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_binary_flag[] = "binary_flag";
 static const char __pyx_k_dbm_builder[] = "dbm_builder";
+static const char __pyx_k_filter_size[] = "filter_size";
 static const char __pyx_k_length_list[] = "length_list";
 static const char __pyx_k_reshape_arr[] = "reshape_arr";
 static const char __pyx_k_v_list_list[] = "v_list_list";
@@ -1814,15 +1820,19 @@ static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_dropout_rate[] = "dropout_rate";
 static const char __pyx_k_r_batch_size[] = "r_batch_size";
 static const char __pyx_k_set_readonly[] = "set_readonly";
+static const char __pyx_k_FutureWarning[] = "FutureWarning";
 static const char __pyx_k_learning_rate[] = "learning_rate";
 static const char __pyx_k_traning_count[] = "traning_count";
+static const char __pyx_k_training_count[] = "training_count";
 static const char __pyx_k_shaped_data_arr[] = "shaped_data_arr";
 static const char __pyx_k_LogisticFunction[] = "LogisticFunction";
 static const char __pyx_k_feature_arr_list[] = "feature_arr_list";
 static const char __pyx_k_inferencing_flag[] = "inferencing_flag";
 static const char __pyx_k_inferencing_plan[] = "inferencing_plan";
+static const char __pyx_k_layer_s_learning[] = " layer's learning.";
 static const char __pyx_k_feature_point_arr[] = "feature_point_arr";
 static const char __pyx_k_get_feature_point[] = "get_feature_point";
+static const char __pyx_k_layer_s_inference[] = " layer's  inference.";
 static const char __pyx_k_observed_data_arr[] = "observed_data_arr";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_neuron_assign_list[] = "neuron_assign_list";
@@ -1847,12 +1857,18 @@ static const char __pyx_k_ShapeBoltzmannMachine___init[] = "ShapeBoltzmannMachin
 static const char __pyx_k_ShapeBoltzmannMachine__overlap[] = "_ShapeBoltzmannMachine__overlap_n";
 static const char __pyx_k_ShapeBoltzmannMachine__reshape[] = "_ShapeBoltzmannMachine__reshape_observed_data";
 static const char __pyx_k_ShapeBoltzmannMachine__visible[] = "_ShapeBoltzmannMachine__visible_points_arr";
+static const char __pyx_k_Reconstructed_feature_point_arr[] = "Reconstructed `feature_point_arr` is invalid in ";
 static const char __pyx_k_ShapeBoltzmannMachine___reshape[] = "ShapeBoltzmannMachine.__reshape_observed_data";
-static const char __pyx_k_ShapeBoltzmannMachine__reshaped[] = "_ShapeBoltzmannMachine__reshaped_w";
+static const char __pyx_k_ShapeBoltzmannMachine__filter_s[] = "_ShapeBoltzmannMachine__filter_size";
 static const char __pyx_k_Shape_Boltzmann_Machine_Shape_B[] = "\n    Shape Boltzmann Machine(Shape-BM).\n    ";
+static const char __pyx_k_filter_size_must_be_more_than_4[] = "`filter_size` must be more than `4`.";
+static const char __pyx_k_filter_size_or_overlap_n_can_be[] = "`filter_size` or `overlap_n` can be invalid. The size of reshaped image is ";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_pydbm_approximation_shape_bm_cd[] = "pydbm.approximation.shape_bm_cd";
+static const char __pyx_k_reshaped_w_will_be_removed_in_f[] = "`reshaped_w` will be removed in future version. Use `filter_size`.";
+static const char __pyx_k_traning_count_will_be_removed_i[] = "`traning_count` will be removed in future version. Use `training_count`.";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
+static const char __pyx_k_Choiced_observed_data_arr_is_inv[] = "Choiced `observed_data_arr` is invalid.";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
 static const char __pyx_k_ShapeBoltzmannMachine__reshape_2[] = "_ShapeBoltzmannMachine__reshape_inferenced_data";
@@ -1866,23 +1882,26 @@ static const char __pyx_k_pydbm_dbm_deepboltzmannmachine_s[] = "pydbm.dbm.deepbo
 static const char __pyx_k_ShapeBoltzmannMachine___reshape_2[] = "ShapeBoltzmannMachine.__reshape_inferenced_data";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
 static const char __pyx_k_pydbm_dbm_deepboltzmannmachine_s_2[] = "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx";
+static PyObject *__pyx_kp_s_Choiced_observed_data_arr_is_inv;
 static PyObject *__pyx_n_s_DeepBoltzmannMachine;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
+static PyObject *__pyx_n_s_FutureWarning;
 static PyObject *__pyx_n_s_ImportError;
 static PyObject *__pyx_n_s_IndexError;
 static PyObject *__pyx_n_s_LogisticFunction;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
+static PyObject *__pyx_kp_s_Reconstructed_feature_point_arr;
 static PyObject *__pyx_n_s_RuntimeError;
 static PyObject *__pyx_n_s_ShapeBMCD;
 static PyObject *__pyx_n_s_ShapeBoltzmannMachine;
 static PyObject *__pyx_n_s_ShapeBoltzmannMachine___init;
 static PyObject *__pyx_n_s_ShapeBoltzmannMachine___reshape;
 static PyObject *__pyx_n_s_ShapeBoltzmannMachine___reshape_2;
+static PyObject *__pyx_n_s_ShapeBoltzmannMachine__filter_s;
 static PyObject *__pyx_n_s_ShapeBoltzmannMachine__overlap;
 static PyObject *__pyx_n_s_ShapeBoltzmannMachine__reshape;
 static PyObject *__pyx_n_s_ShapeBoltzmannMachine__reshape_2;
-static PyObject *__pyx_n_s_ShapeBoltzmannMachine__reshaped;
 static PyObject *__pyx_n_s_ShapeBoltzmannMachine__visible;
 static PyObject *__pyx_n_s_ShapeBoltzmannMachine_get_visibl;
 static PyObject *__pyx_n_s_ShapeBoltzmannMachine_learn;
@@ -1904,12 +1923,16 @@ static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_col_x;
 static PyObject *__pyx_n_s_copy;
 static PyObject *__pyx_n_s_data_arr;
+static PyObject *__pyx_n_s_data_row;
 static PyObject *__pyx_n_s_dbm_builder;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_dropout_rate;
 static PyObject *__pyx_n_s_each;
 static PyObject *__pyx_n_s_feature_arr_list;
 static PyObject *__pyx_n_s_feature_point_arr;
+static PyObject *__pyx_n_s_filter_size;
+static PyObject *__pyx_kp_s_filter_size_must_be_more_than_4;
+static PyObject *__pyx_kp_s_filter_size_or_overlap_n_can_be;
 static PyObject *__pyx_n_s_float64;
 static PyObject *__pyx_n_s_get_feature_point;
 static PyObject *__pyx_n_s_get_visible_points_arr;
@@ -1924,6 +1947,8 @@ static PyObject *__pyx_n_s_init;
 static PyObject *__pyx_n_s_init_observed_data_arr;
 static PyObject *__pyx_n_s_j;
 static PyObject *__pyx_n_s_k;
+static PyObject *__pyx_kp_s_layer_s_inference;
+static PyObject *__pyx_kp_s_layer_s_learning;
 static PyObject *__pyx_n_s_learn;
 static PyObject *__pyx_n_s_learning_rate;
 static PyObject *__pyx_n_s_length_list;
@@ -1959,6 +1984,7 @@ static PyObject *__pyx_n_s_reshape_arr;
 static PyObject *__pyx_n_s_reshape_inferenced_data;
 static PyObject *__pyx_n_s_reshape_observed_data;
 static PyObject *__pyx_n_s_reshaped_w;
+static PyObject *__pyx_kp_s_reshaped_w_will_be_removed_in_f;
 static PyObject *__pyx_n_s_row_i;
 static PyObject *__pyx_n_s_row_y;
 static PyObject *__pyx_n_s_self;
@@ -1969,7 +1995,9 @@ static PyObject *__pyx_n_s_shaped_data_arr;
 static PyObject *__pyx_n_s_super;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_tolist;
+static PyObject *__pyx_n_s_training_count;
 static PyObject *__pyx_n_s_traning_count;
+static PyObject *__pyx_kp_s_traning_count_will_be_removed_i;
 static PyObject *__pyx_n_s_unit_arr;
 static PyObject *__pyx_n_s_unit_n;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
@@ -1980,15 +2008,18 @@ static PyObject *__pyx_n_s_v_n;
 static PyObject *__pyx_n_s_value;
 static PyObject *__pyx_n_s_visible_activity_arr;
 static PyObject *__pyx_n_s_visible_points_arr;
-static PyObject *__pyx_n_s_x;
+static PyObject *__pyx_n_s_warn;
+static PyObject *__pyx_n_s_warnings;
+static PyObject *__pyx_kp_s_x;
+static PyObject *__pyx_n_s_x_2;
 static PyObject *__pyx_n_s_x_add;
 static PyObject *__pyx_n_s_y;
 static PyObject *__pyx_n_s_y_add;
 static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_set_readonly(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_2get_visible_points_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine___defaults__(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_4__init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_dbm_builder, PyObject *__pyx_v_neuron_assign_list, PyObject *__pyx_v_activating_function_list, PyObject *__pyx_v_approximate_interface_list, double __pyx_v_learning_rate, double __pyx_v_dropout_rate, int __pyx_v_overlap_n, int __pyx_v_reshaped_w); /* proto */
-static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_6learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr, int __pyx_v_traning_count, int __pyx_v_batch_size, int __pyx_v_r_batch_size, PyObject *__pyx_v_sgd_flag); /* proto */
+static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_4__init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_dbm_builder, PyObject *__pyx_v_neuron_assign_list, PyObject *__pyx_v_activating_function_list, PyObject *__pyx_v_approximate_interface_list, double __pyx_v_learning_rate, double __pyx_v_dropout_rate, int __pyx_v_overlap_n, int __pyx_v_reshaped_w, int __pyx_v_filter_size); /* proto */
+static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_6learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr, int __pyx_v_traning_count, int __pyx_v_batch_size, int __pyx_v_r_batch_size, PyObject *__pyx_v_sgd_flag, int __pyx_v_training_count); /* proto */
 static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_8__reshape_observed_data(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr); /* proto */
 static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_10__reshape_inferenced_data(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr, PyArrayObject *__pyx_v_inferenced_data_arr); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
@@ -1996,38 +2027,43 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_2;
+static PyObject *__pyx_int_4;
 static PyObject *__pyx_int_9;
 static PyObject *__pyx_int_12;
 static PyObject *__pyx_int_255;
 static PyObject *__pyx_int_neg_1;
 static PyObject *__pyx_tuple_;
-static PyObject *__pyx_slice__2;
-static PyObject *__pyx_slice__3;
-static PyObject *__pyx_slice__4;
-static PyObject *__pyx_slice__5;
-static PyObject *__pyx_tuple__6;
-static PyObject *__pyx_tuple__7;
-static PyObject *__pyx_tuple__8;
-static PyObject *__pyx_tuple__9;
+static PyObject *__pyx_slice__6;
+static PyObject *__pyx_slice__7;
+static PyObject *__pyx_slice__8;
+static PyObject *__pyx_slice__9;
+static PyObject *__pyx_tuple__2;
+static PyObject *__pyx_tuple__3;
+static PyObject *__pyx_tuple__4;
+static PyObject *__pyx_tuple__5;
 static PyObject *__pyx_tuple__10;
 static PyObject *__pyx_tuple__11;
 static PyObject *__pyx_tuple__12;
 static PyObject *__pyx_tuple__13;
 static PyObject *__pyx_tuple__14;
 static PyObject *__pyx_tuple__15;
+static PyObject *__pyx_tuple__16;
 static PyObject *__pyx_tuple__17;
+static PyObject *__pyx_tuple__18;
 static PyObject *__pyx_tuple__19;
 static PyObject *__pyx_tuple__21;
 static PyObject *__pyx_tuple__23;
 static PyObject *__pyx_tuple__25;
-static PyObject *__pyx_codeobj__16;
-static PyObject *__pyx_codeobj__18;
+static PyObject *__pyx_tuple__27;
+static PyObject *__pyx_tuple__29;
 static PyObject *__pyx_codeobj__20;
 static PyObject *__pyx_codeobj__22;
 static PyObject *__pyx_codeobj__24;
 static PyObject *__pyx_codeobj__26;
+static PyObject *__pyx_codeobj__28;
+static PyObject *__pyx_codeobj__30;
 
-/* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":14
+/* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":15
  *     Shape Boltzmann Machine(Shape-BM).
  *     '''
  *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
@@ -2068,11 +2104,11 @@ static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_readonly", 1, 2, 2, 1); __PYX_ERR(0, 14, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_readonly", 1, 2, 2, 1); __PYX_ERR(0, 15, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_readonly") < 0)) __PYX_ERR(0, 14, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_readonly") < 0)) __PYX_ERR(0, 15, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2085,7 +2121,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_readonly", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 14, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_readonly", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 15, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.dbm.deepboltzmannmachine.shape_boltzmann_machine.ShapeBoltzmannMachine.set_readonly", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2104,20 +2140,20 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("set_readonly", 0);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":16
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":17
  *     def set_readonly(self, value):
  *         ''' setter '''
  *         raise TypeError("This property is read-only.")             # <<<<<<<<<<<<<<
  * 
  *     # auto-saved shallower visible data points which is reconstructed.
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __PYX_ERR(0, 16, __pyx_L1_error)
+  __PYX_ERR(0, 17, __pyx_L1_error)
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":14
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":15
  *     Shape Boltzmann Machine(Shape-BM).
  *     '''
  *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
@@ -2135,7 +2171,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   return __pyx_r;
 }
 
-/* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":21
+/* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":22
  *     __visible_points_arr = None
  * 
  *     def get_visible_points_arr(self):             # <<<<<<<<<<<<<<
@@ -2164,7 +2200,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_visible_points_arr", 0);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":23
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":24
  *     def get_visible_points_arr(self):
  *         ''' getter '''
  *         return self.__visible_points_arr             # <<<<<<<<<<<<<<
@@ -2172,13 +2208,13 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
  *     visible_points_arr = property(get_visible_points_arr, set_readonly)
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__visible); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__visible); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":21
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":22
  *     __visible_points_arr = None
  * 
  *     def get_visible_points_arr(self):             # <<<<<<<<<<<<<<
@@ -2197,8 +2233,8 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   return __pyx_r;
 }
 
-/* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":33
- *     __reshaped_w = 12
+/* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":34
+ *     __filter_size = 12
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
  *         self,
@@ -2213,89 +2249,103 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("__defaults__", 0);
   __Pyx_XDECREF(__pyx_r);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":39
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":40
  *         activating_function_list=[],
  *         approximate_interface_list=[],
  *         double learning_rate=0.01,             # <<<<<<<<<<<<<<
  *         double dropout_rate=0.0,
  *         int overlap_n=9,
  */
-  __pyx_t_1 = PyFloat_FromDouble(((double)0.01)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(((double)0.01)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":40
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":41
  *         approximate_interface_list=[],
  *         double learning_rate=0.01,
  *         double dropout_rate=0.0,             # <<<<<<<<<<<<<<
  *         int overlap_n=9,
- *         int reshaped_w=12
+ *         int reshaped_w=-1,
  */
-  __pyx_t_2 = PyFloat_FromDouble(((double)0.0)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(((double)0.0)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 41, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":41
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":42
  *         double learning_rate=0.01,
  *         double dropout_rate=0.0,
  *         int overlap_n=9,             # <<<<<<<<<<<<<<
- *         int reshaped_w=12
- *     ):
+ *         int reshaped_w=-1,
+ *         int filter_size=12
  */
-  __pyx_t_3 = __Pyx_PyInt_From_int(((int)9)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(((int)9)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":42
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":43
  *         double dropout_rate=0.0,
  *         int overlap_n=9,
- *         int reshaped_w=12             # <<<<<<<<<<<<<<
+ *         int reshaped_w=-1,             # <<<<<<<<<<<<<<
+ *         int filter_size=12
+ *     ):
+ */
+  __pyx_t_4 = __Pyx_PyInt_From_int(((int)-1)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":44
+ *         int overlap_n=9,
+ *         int reshaped_w=-1,
+ *         int filter_size=12             # <<<<<<<<<<<<<<
  *     ):
  *         '''
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(((int)12)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 42, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = __Pyx_PyInt_From_int(((int)12)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 44, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":33
- *     __reshaped_w = 12
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":34
+ *     __filter_size = 12
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
  *         self,
  *         dbm_builder,
  */
-  __pyx_t_5 = PyTuple_New(7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 33, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = PyTuple_New(8); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_neuron_assign_list);
   __Pyx_GIVEREF(__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_neuron_assign_list);
-  PyTuple_SET_ITEM(__pyx_t_5, 0, __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_neuron_assign_list);
+  PyTuple_SET_ITEM(__pyx_t_6, 0, __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_neuron_assign_list);
   __Pyx_INCREF(__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_activating_function_list);
   __Pyx_GIVEREF(__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_activating_function_list);
-  PyTuple_SET_ITEM(__pyx_t_5, 1, __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_activating_function_list);
+  PyTuple_SET_ITEM(__pyx_t_6, 1, __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_activating_function_list);
   __Pyx_INCREF(__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_approximate_interface_list);
   __Pyx_GIVEREF(__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_approximate_interface_list);
-  PyTuple_SET_ITEM(__pyx_t_5, 2, __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_approximate_interface_list);
+  PyTuple_SET_ITEM(__pyx_t_6, 2, __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_approximate_interface_list);
   __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_5, 3, __pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_6, 3, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_5, 4, __pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_6, 4, __pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_5, 5, __pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_6, 5, __pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_4);
-  PyTuple_SET_ITEM(__pyx_t_5, 6, __pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_6, 6, __pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_6, 7, __pyx_t_5);
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 33, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GIVEREF(__pyx_t_5);
-  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5);
+  __pyx_t_5 = 0;
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_GIVEREF(__pyx_t_6);
+  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_6);
   __Pyx_INCREF(Py_None);
   __Pyx_GIVEREF(Py_None);
-  PyTuple_SET_ITEM(__pyx_t_4, 1, Py_None);
+  PyTuple_SET_ITEM(__pyx_t_5, 1, Py_None);
+  __pyx_t_6 = 0;
+  __pyx_r = __pyx_t_5;
   __pyx_t_5 = 0;
-  __pyx_r = __pyx_t_4;
-  __pyx_t_4 = 0;
   goto __pyx_L0;
 
   /* function exit code */
@@ -2305,6 +2355,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
   __Pyx_AddTraceback("pydbm.dbm.deepboltzmannmachine.shape_boltzmann_machine.__defaults__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -2315,7 +2366,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_5__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_4__init__[] = "\n        Initialize deep boltzmann machine.\n\n        Args:\n            dbm_builder:            `    Concrete Builder` in Builder Pattern.\n            neuron_assign_list:          The number of neurons in each layers.\n            activating_function_list:    Activation function.\n            approximate_interface_list:  The object of function approximation.\n            learning_rate:               Learning rate.\n            dropout_rate:                Dropout rate.\n            overlap_n:                   The number of overlapped pixels.\n            reshaped_w:                  The width of reshaped image.\n        ";
+static char __pyx_doc_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_4__init__[] = "\n        Initialize deep boltzmann machine.\n\n        Args:\n            dbm_builder:            `    Concrete Builder` in Builder Pattern.\n            neuron_assign_list:          The number of neurons in each layers.\n            activating_function_list:    Activation function.\n            approximate_interface_list:  The object of function approximation.\n            learning_rate:               Learning rate.\n            dropout_rate:                Dropout rate.\n            overlap_n:                   The number of overlapped pixels.\n            filter_size:                 The 'filter' size.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_5__init__ = {"__init__", (PyCFunction)__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_5__init__, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_4__init__};
 static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_5__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
@@ -2327,12 +2378,13 @@ static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   double __pyx_v_dropout_rate;
   int __pyx_v_overlap_n;
   int __pyx_v_reshaped_w;
+  int __pyx_v_filter_size;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_dbm_builder,&__pyx_n_s_neuron_assign_list,&__pyx_n_s_activating_function_list,&__pyx_n_s_approximate_interface_list,&__pyx_n_s_learning_rate,&__pyx_n_s_dropout_rate,&__pyx_n_s_overlap_n,&__pyx_n_s_reshaped_w,0};
-    PyObject* values[9] = {0,0,0,0,0,0,0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_dbm_builder,&__pyx_n_s_neuron_assign_list,&__pyx_n_s_activating_function_list,&__pyx_n_s_approximate_interface_list,&__pyx_n_s_learning_rate,&__pyx_n_s_dropout_rate,&__pyx_n_s_overlap_n,&__pyx_n_s_reshaped_w,&__pyx_n_s_filter_size,0};
+    PyObject* values[10] = {0,0,0,0,0,0,0,0,0,0};
     __pyx_defaults *__pyx_dynamic_args = __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self);
     values[2] = __pyx_dynamic_args->__pyx_arg_neuron_assign_list;
     values[3] = __pyx_dynamic_args->__pyx_arg_activating_function_list;
@@ -2341,6 +2393,8 @@ static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case 10: values[9] = PyTuple_GET_ITEM(__pyx_args, 9);
+        CYTHON_FALLTHROUGH;
         case  9: values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
         CYTHON_FALLTHROUGH;
         case  8: values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
@@ -2371,7 +2425,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_dbm_builder)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 9, 1); __PYX_ERR(0, 33, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 10, 1); __PYX_ERR(0, 34, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -2415,12 +2469,20 @@ static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
           PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_reshaped_w);
           if (value) { values[8] = value; kw_args--; }
         }
+        CYTHON_FALLTHROUGH;
+        case  9:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_filter_size);
+          if (value) { values[9] = value; kw_args--; }
+        }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 33, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 34, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case 10: values[9] = PyTuple_GET_ITEM(__pyx_args, 9);
+        CYTHON_FALLTHROUGH;
         case  9: values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
         CYTHON_FALLTHROUGH;
         case  8: values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
@@ -2447,50 +2509,55 @@ static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     __pyx_v_activating_function_list = values[3];
     __pyx_v_approximate_interface_list = values[4];
     if (values[5]) {
-      __pyx_v_learning_rate = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_learning_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L3_error)
+      __pyx_v_learning_rate = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_learning_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 40, __pyx_L3_error)
     } else {
       __pyx_v_learning_rate = ((double)((double)0.01));
     }
     if (values[6]) {
-      __pyx_v_dropout_rate = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_dropout_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 40, __pyx_L3_error)
+      __pyx_v_dropout_rate = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_dropout_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 41, __pyx_L3_error)
     } else {
       __pyx_v_dropout_rate = ((double)((double)0.0));
     }
     if (values[7]) {
-      __pyx_v_overlap_n = __Pyx_PyInt_As_int(values[7]); if (unlikely((__pyx_v_overlap_n == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 41, __pyx_L3_error)
+      __pyx_v_overlap_n = __Pyx_PyInt_As_int(values[7]); if (unlikely((__pyx_v_overlap_n == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 42, __pyx_L3_error)
     } else {
       __pyx_v_overlap_n = ((int)((int)9));
     }
     if (values[8]) {
-      __pyx_v_reshaped_w = __Pyx_PyInt_As_int(values[8]); if (unlikely((__pyx_v_reshaped_w == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 42, __pyx_L3_error)
+      __pyx_v_reshaped_w = __Pyx_PyInt_As_int(values[8]); if (unlikely((__pyx_v_reshaped_w == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 43, __pyx_L3_error)
     } else {
-      __pyx_v_reshaped_w = ((int)((int)12));
+      __pyx_v_reshaped_w = ((int)((int)-1));
+    }
+    if (values[9]) {
+      __pyx_v_filter_size = __Pyx_PyInt_As_int(values[9]); if (unlikely((__pyx_v_filter_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 44, __pyx_L3_error)
+    } else {
+      __pyx_v_filter_size = ((int)((int)12));
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 33, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 10, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 34, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.dbm.deepboltzmannmachine.shape_boltzmann_machine.ShapeBoltzmannMachine.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_4__init__(__pyx_self, __pyx_v_self, __pyx_v_dbm_builder, __pyx_v_neuron_assign_list, __pyx_v_activating_function_list, __pyx_v_approximate_interface_list, __pyx_v_learning_rate, __pyx_v_dropout_rate, __pyx_v_overlap_n, __pyx_v_reshaped_w);
+  __pyx_r = __pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_4__init__(__pyx_self, __pyx_v_self, __pyx_v_dbm_builder, __pyx_v_neuron_assign_list, __pyx_v_activating_function_list, __pyx_v_approximate_interface_list, __pyx_v_learning_rate, __pyx_v_dropout_rate, __pyx_v_overlap_n, __pyx_v_reshaped_w, __pyx_v_filter_size);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_4__init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_dbm_builder, PyObject *__pyx_v_neuron_assign_list, PyObject *__pyx_v_activating_function_list, PyObject *__pyx_v_approximate_interface_list, double __pyx_v_learning_rate, double __pyx_v_dropout_rate, int __pyx_v_overlap_n, int __pyx_v_reshaped_w) {
+static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_4__init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_dbm_builder, PyObject *__pyx_v_neuron_assign_list, PyObject *__pyx_v_activating_function_list, PyObject *__pyx_v_approximate_interface_list, double __pyx_v_learning_rate, double __pyx_v_dropout_rate, int __pyx_v_overlap_n, int __pyx_v_reshaped_w, int __pyx_v_filter_size) {
   PyObject *__pyx_v_v_n = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   int __pyx_t_2;
-  int __pyx_t_3;
-  Py_ssize_t __pyx_t_4;
-  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  int __pyx_t_4;
+  Py_ssize_t __pyx_t_5;
   PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
   PyObject *__pyx_t_8 = NULL;
@@ -2499,113 +2566,92 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   __Pyx_INCREF(__pyx_v_activating_function_list);
   __Pyx_INCREF(__pyx_v_approximate_interface_list);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":57
- *             reshaped_w:                  The width of reshaped image.
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":59
+ *             filter_size:                 The 'filter' size.
  *         '''
  *         self.__overlap_n = overlap_n             # <<<<<<<<<<<<<<
- *         self.__reshaped_w = reshaped_w
- * 
+ *         if reshaped_w != -1:
+ *             filter_size = reshaped_w
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_overlap_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_overlap_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__overlap, __pyx_t_1) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":58
- *         '''
- *         self.__overlap_n = overlap_n
- *         self.__reshaped_w = reshaped_w             # <<<<<<<<<<<<<<
- * 
- *         if isinstance(neuron_assign_list, list) is False:
- */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_reshaped_w); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__reshaped, __pyx_t_1) < 0) __PYX_ERR(0, 58, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__overlap, __pyx_t_1) < 0) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":60
- *         self.__reshaped_w = reshaped_w
+ *         '''
+ *         self.__overlap_n = overlap_n
+ *         if reshaped_w != -1:             # <<<<<<<<<<<<<<
+ *             filter_size = reshaped_w
+ *             warnings.warn("`reshaped_w` will be removed in future version. Use `filter_size`.", FutureWarning)
+ */
+  __pyx_t_2 = ((__pyx_v_reshaped_w != -1L) != 0);
+  if (__pyx_t_2) {
+
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":61
+ *         self.__overlap_n = overlap_n
+ *         if reshaped_w != -1:
+ *             filter_size = reshaped_w             # <<<<<<<<<<<<<<
+ *             warnings.warn("`reshaped_w` will be removed in future version. Use `filter_size`.", FutureWarning)
+ * 
+ */
+    __pyx_v_filter_size = __pyx_v_reshaped_w;
+
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":62
+ *         if reshaped_w != -1:
+ *             filter_size = reshaped_w
+ *             warnings.warn("`reshaped_w` will be removed in future version. Use `filter_size`.", FutureWarning)             # <<<<<<<<<<<<<<
+ * 
+ *         self.__filter_size = filter_size
+ */
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_warnings); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_warn); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":60
+ *         '''
+ *         self.__overlap_n = overlap_n
+ *         if reshaped_w != -1:             # <<<<<<<<<<<<<<
+ *             filter_size = reshaped_w
+ *             warnings.warn("`reshaped_w` will be removed in future version. Use `filter_size`.", FutureWarning)
+ */
+  }
+
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":64
+ *             warnings.warn("`reshaped_w` will be removed in future version. Use `filter_size`.", FutureWarning)
+ * 
+ *         self.__filter_size = filter_size             # <<<<<<<<<<<<<<
+ * 
+ *         if isinstance(neuron_assign_list, list) is False:
+ */
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_filter_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__filter_s, __pyx_t_1) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":66
+ *         self.__filter_size = filter_size
  * 
  *         if isinstance(neuron_assign_list, list) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError()
  * 
  */
   __pyx_t_2 = PyList_Check(__pyx_v_neuron_assign_list); 
-  __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
-  if (__pyx_t_3) {
+  __pyx_t_4 = ((__pyx_t_2 == 0) != 0);
+  if (__pyx_t_4) {
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":61
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":67
  * 
  *         if isinstance(neuron_assign_list, list) is False:
  *             raise TypeError()             # <<<<<<<<<<<<<<
  * 
  *         if isinstance(activating_function_list, list) is False:
- */
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 61, __pyx_L1_error)
-
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":60
- *         self.__reshaped_w = reshaped_w
- * 
- *         if isinstance(neuron_assign_list, list) is False:             # <<<<<<<<<<<<<<
- *             raise TypeError()
- * 
- */
-  }
-
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":63
- *             raise TypeError()
- * 
- *         if isinstance(activating_function_list, list) is False:             # <<<<<<<<<<<<<<
- *             raise TypeError()
- * 
- */
-  __pyx_t_3 = PyList_Check(__pyx_v_activating_function_list); 
-  __pyx_t_2 = ((__pyx_t_3 == 0) != 0);
-  if (__pyx_t_2) {
-
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":64
- * 
- *         if isinstance(activating_function_list, list) is False:
- *             raise TypeError()             # <<<<<<<<<<<<<<
- * 
- *         if isinstance(approximate_interface_list, list) is False:
- */
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 64, __pyx_L1_error)
-
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":63
- *             raise TypeError()
- * 
- *         if isinstance(activating_function_list, list) is False:             # <<<<<<<<<<<<<<
- *             raise TypeError()
- * 
- */
-  }
-
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":66
- *             raise TypeError()
- * 
- *         if isinstance(approximate_interface_list, list) is False:             # <<<<<<<<<<<<<<
- *             raise TypeError()
- * 
- */
-  __pyx_t_2 = PyList_Check(__pyx_v_approximate_interface_list); 
-  __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
-  if (__pyx_t_3) {
-
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":67
- * 
- *         if isinstance(approximate_interface_list, list) is False:
- *             raise TypeError()             # <<<<<<<<<<<<<<
- * 
- *         if len(neuron_assign_list) == 0:
  */
     __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
@@ -2614,9 +2660,9 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     __PYX_ERR(0, 67, __pyx_L1_error)
 
     /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":66
- *             raise TypeError()
+ *         self.__filter_size = filter_size
  * 
- *         if isinstance(approximate_interface_list, list) is False:             # <<<<<<<<<<<<<<
+ *         if isinstance(neuron_assign_list, list) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError()
  * 
  */
@@ -2625,150 +2671,253 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":69
  *             raise TypeError()
  * 
- *         if len(neuron_assign_list) == 0:             # <<<<<<<<<<<<<<
- *             v_n = (self.__reshaped_w - 2) ** 2
- *             neuron_assign_list = [v_n, v_n-1, v_n-2]
+ *         if isinstance(activating_function_list, list) is False:             # <<<<<<<<<<<<<<
+ *             raise TypeError()
+ * 
  */
-  __pyx_t_4 = PyObject_Length(__pyx_v_neuron_assign_list); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 69, __pyx_L1_error)
-  __pyx_t_3 = ((__pyx_t_4 == 0) != 0);
-  if (__pyx_t_3) {
+  __pyx_t_4 = PyList_Check(__pyx_v_activating_function_list); 
+  __pyx_t_2 = ((__pyx_t_4 == 0) != 0);
+  if (__pyx_t_2) {
 
     /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":70
  * 
- *         if len(neuron_assign_list) == 0:
- *             v_n = (self.__reshaped_w - 2) ** 2             # <<<<<<<<<<<<<<
- *             neuron_assign_list = [v_n, v_n-1, v_n-2]
+ *         if isinstance(activating_function_list, list) is False:
+ *             raise TypeError()             # <<<<<<<<<<<<<<
  * 
+ *         if isinstance(approximate_interface_list, list) is False:
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__reshaped); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_PyInt_SubtractObjC(__pyx_t_1, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 70, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Power(__pyx_t_5, __pyx_int_2, Py_None); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_v_v_n = __pyx_t_1;
-    __pyx_t_1 = 0;
-
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":71
- *         if len(neuron_assign_list) == 0:
- *             v_n = (self.__reshaped_w - 2) ** 2
- *             neuron_assign_list = [v_n, v_n-1, v_n-2]             # <<<<<<<<<<<<<<
- * 
- *         if len(activating_function_list) == 0:
- */
-    __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_v_n, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_PyInt_SubtractObjC(__pyx_v_v_n, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 71, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = PyList_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 71, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_INCREF(__pyx_v_v_n);
-    __Pyx_GIVEREF(__pyx_v_v_n);
-    PyList_SET_ITEM(__pyx_t_6, 0, __pyx_v_v_n);
-    __Pyx_GIVEREF(__pyx_t_1);
-    PyList_SET_ITEM(__pyx_t_6, 1, __pyx_t_1);
-    __Pyx_GIVEREF(__pyx_t_5);
-    PyList_SET_ITEM(__pyx_t_6, 2, __pyx_t_5);
-    __pyx_t_1 = 0;
-    __pyx_t_5 = 0;
-    __Pyx_DECREF_SET(__pyx_v_neuron_assign_list, __pyx_t_6);
-    __pyx_t_6 = 0;
+    __PYX_ERR(0, 70, __pyx_L1_error)
 
     /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":69
  *             raise TypeError()
  * 
- *         if len(neuron_assign_list) == 0:             # <<<<<<<<<<<<<<
- *             v_n = (self.__reshaped_w - 2) ** 2
- *             neuron_assign_list = [v_n, v_n-1, v_n-2]
+ *         if isinstance(activating_function_list, list) is False:             # <<<<<<<<<<<<<<
+ *             raise TypeError()
+ * 
  */
   }
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":73
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":72
+ *             raise TypeError()
+ * 
+ *         if isinstance(approximate_interface_list, list) is False:             # <<<<<<<<<<<<<<
+ *             raise TypeError()
+ * 
+ */
+  __pyx_t_2 = PyList_Check(__pyx_v_approximate_interface_list); 
+  __pyx_t_4 = ((__pyx_t_2 == 0) != 0);
+  if (__pyx_t_4) {
+
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":73
+ * 
+ *         if isinstance(approximate_interface_list, list) is False:
+ *             raise TypeError()             # <<<<<<<<<<<<<<
+ * 
+ *         if len(neuron_assign_list) == 0:
+ */
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 73, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __PYX_ERR(0, 73, __pyx_L1_error)
+
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":72
+ *             raise TypeError()
+ * 
+ *         if isinstance(approximate_interface_list, list) is False:             # <<<<<<<<<<<<<<
+ *             raise TypeError()
+ * 
+ */
+  }
+
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":75
+ *             raise TypeError()
+ * 
+ *         if len(neuron_assign_list) == 0:             # <<<<<<<<<<<<<<
+ *             if self.__filter_size < 4:
+ *                 raise ValueError("`filter_size` must be more than `4`.")
+ */
+  __pyx_t_5 = PyObject_Length(__pyx_v_neuron_assign_list); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 75, __pyx_L1_error)
+  __pyx_t_4 = ((__pyx_t_5 == 0) != 0);
+  if (__pyx_t_4) {
+
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":76
+ * 
+ *         if len(neuron_assign_list) == 0:
+ *             if self.__filter_size < 4:             # <<<<<<<<<<<<<<
+ *                 raise ValueError("`filter_size` must be more than `4`.")
+ * 
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__filter_s); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_int_4, Py_LT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 76, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 76, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if (__pyx_t_4) {
+
+      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":77
+ *         if len(neuron_assign_list) == 0:
+ *             if self.__filter_size < 4:
+ *                 raise ValueError("`filter_size` must be more than `4`.")             # <<<<<<<<<<<<<<
+ * 
+ *             v_n = (self.__filter_size - 2) ** 2
+ */
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 77, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_Raise(__pyx_t_3, 0, 0, 0);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __PYX_ERR(0, 77, __pyx_L1_error)
+
+      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":76
+ * 
+ *         if len(neuron_assign_list) == 0:
+ *             if self.__filter_size < 4:             # <<<<<<<<<<<<<<
+ *                 raise ValueError("`filter_size` must be more than `4`.")
+ * 
+ */
+    }
+
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":79
+ *                 raise ValueError("`filter_size` must be more than `4`.")
+ * 
+ *             v_n = (self.__filter_size - 2) ** 2             # <<<<<<<<<<<<<<
+ *             neuron_assign_list = [v_n, v_n-1, v_n-2]
+ * 
+ */
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__filter_s); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 79, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_t_3, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_3 = PyNumber_Power(__pyx_t_1, __pyx_int_2, Py_None); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 79, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_v_v_n = __pyx_t_3;
+    __pyx_t_3 = 0;
+
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":80
+ * 
+ *             v_n = (self.__filter_size - 2) ** 2
+ *             neuron_assign_list = [v_n, v_n-1, v_n-2]             # <<<<<<<<<<<<<<
+ * 
+ *         if len(activating_function_list) == 0:
+ */
+    __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_v_n, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 80, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_v_n, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_6 = PyList_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 80, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_INCREF(__pyx_v_v_n);
+    __Pyx_GIVEREF(__pyx_v_v_n);
+    PyList_SET_ITEM(__pyx_t_6, 0, __pyx_v_v_n);
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyList_SET_ITEM(__pyx_t_6, 1, __pyx_t_3);
+    __Pyx_GIVEREF(__pyx_t_1);
+    PyList_SET_ITEM(__pyx_t_6, 2, __pyx_t_1);
+    __pyx_t_3 = 0;
+    __pyx_t_1 = 0;
+    __Pyx_DECREF_SET(__pyx_v_neuron_assign_list, __pyx_t_6);
+    __pyx_t_6 = 0;
+
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":75
+ *             raise TypeError()
+ * 
+ *         if len(neuron_assign_list) == 0:             # <<<<<<<<<<<<<<
+ *             if self.__filter_size < 4:
+ *                 raise ValueError("`filter_size` must be more than `4`.")
+ */
+  }
+
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":82
  *             neuron_assign_list = [v_n, v_n-1, v_n-2]
  * 
  *         if len(activating_function_list) == 0:             # <<<<<<<<<<<<<<
  *             # Default setting objects for activation function.
  *             activating_function_list = [
  */
-  __pyx_t_4 = PyObject_Length(__pyx_v_activating_function_list); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 73, __pyx_L1_error)
-  __pyx_t_3 = ((__pyx_t_4 == 0) != 0);
-  if (__pyx_t_3) {
+  __pyx_t_5 = PyObject_Length(__pyx_v_activating_function_list); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_4 = ((__pyx_t_5 == 0) != 0);
+  if (__pyx_t_4) {
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":76
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":85
  *             # Default setting objects for activation function.
  *             activating_function_list = [
  *                 LogisticFunction(binary_flag=True),             # <<<<<<<<<<<<<<
  *                 LogisticFunction(binary_flag=True),
  *                 LogisticFunction(binary_flag=True)
  */
-    __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 76, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 85, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 76, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_binary_flag, Py_True) < 0) __PYX_ERR(0, 76, __pyx_L1_error)
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_empty_tuple, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_binary_flag, Py_True) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 85, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":77
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":86
  *             activating_function_list = [
  *                 LogisticFunction(binary_flag=True),
  *                 LogisticFunction(binary_flag=True),             # <<<<<<<<<<<<<<
  *                 LogisticFunction(binary_flag=True)
  *             ]
  */
-    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 77, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 77, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 86, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_binary_flag, Py_True) < 0) __PYX_ERR(0, 77, __pyx_L1_error)
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 77, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_binary_flag, Py_True) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 86, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":78
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":87
  *                 LogisticFunction(binary_flag=True),
  *                 LogisticFunction(binary_flag=True),
  *                 LogisticFunction(binary_flag=True)             # <<<<<<<<<<<<<<
  *             ]
  * 
  */
-    __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 78, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 87, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 78, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_binary_flag, Py_True) < 0) __PYX_ERR(0, 78, __pyx_L1_error)
-    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_empty_tuple, __pyx_t_5); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 78, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_binary_flag, Py_True) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 87, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":75
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":84
  *         if len(activating_function_list) == 0:
  *             # Default setting objects for activation function.
  *             activating_function_list = [             # <<<<<<<<<<<<<<
  *                 LogisticFunction(binary_flag=True),
  *                 LogisticFunction(binary_flag=True),
  */
-    __pyx_t_5 = PyList_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 75, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_GIVEREF(__pyx_t_1);
-    PyList_SET_ITEM(__pyx_t_5, 0, __pyx_t_1);
+    __pyx_t_1 = PyList_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyList_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
     __Pyx_GIVEREF(__pyx_t_7);
-    PyList_SET_ITEM(__pyx_t_5, 1, __pyx_t_7);
+    PyList_SET_ITEM(__pyx_t_1, 1, __pyx_t_7);
     __Pyx_GIVEREF(__pyx_t_8);
-    PyList_SET_ITEM(__pyx_t_5, 2, __pyx_t_8);
-    __pyx_t_1 = 0;
+    PyList_SET_ITEM(__pyx_t_1, 2, __pyx_t_8);
+    __pyx_t_3 = 0;
     __pyx_t_7 = 0;
     __pyx_t_8 = 0;
-    __Pyx_DECREF_SET(__pyx_v_activating_function_list, __pyx_t_5);
-    __pyx_t_5 = 0;
+    __Pyx_DECREF_SET(__pyx_v_activating_function_list, __pyx_t_1);
+    __pyx_t_1 = 0;
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":73
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":82
  *             neuron_assign_list = [v_n, v_n-1, v_n-2]
  * 
  *         if len(activating_function_list) == 0:             # <<<<<<<<<<<<<<
@@ -2777,78 +2926,78 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
  */
   }
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":81
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":90
  *             ]
  * 
  *         if len(approximate_interface_list) == 0:             # <<<<<<<<<<<<<<
  *             # Default setting the object for function approximation.
  *             approximate_interface_list = [
  */
-  __pyx_t_4 = PyObject_Length(__pyx_v_approximate_interface_list); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 81, __pyx_L1_error)
-  __pyx_t_3 = ((__pyx_t_4 == 0) != 0);
-  if (__pyx_t_3) {
+  __pyx_t_5 = PyObject_Length(__pyx_v_approximate_interface_list); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 90, __pyx_L1_error)
+  __pyx_t_4 = ((__pyx_t_5 == 0) != 0);
+  if (__pyx_t_4) {
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":84
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":93
  *             # Default setting the object for function approximation.
  *             approximate_interface_list = [
  *                 ShapeBMCD(v_h_flag=True, overlap_n=overlap_n),             # <<<<<<<<<<<<<<
  *                 ShapeBMCD(v_h_flag=False, overlap_n=overlap_n)
  *             ]
  */
-    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_ShapeBMCD); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 84, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 84, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ShapeBMCD); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 93, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 93, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_v_h_flag, Py_True) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
-    __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_overlap_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 84, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_v_h_flag, Py_True) < 0) __PYX_ERR(0, 93, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_overlap_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 93, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_overlap_n, __pyx_t_7) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_overlap_n, __pyx_t_7) < 0) __PYX_ERR(0, 93, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_empty_tuple, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 84, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 93, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":85
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":94
  *             approximate_interface_list = [
  *                 ShapeBMCD(v_h_flag=True, overlap_n=overlap_n),
  *                 ShapeBMCD(v_h_flag=False, overlap_n=overlap_n)             # <<<<<<<<<<<<<<
  *             ]
  * 
  */
-    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_ShapeBMCD); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 85, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_ShapeBMCD); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 94, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_5 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 85, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_v_h_flag, Py_False) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
-    __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_overlap_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_overlap_n, __pyx_t_1) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_empty_tuple, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_v_h_flag, Py_False) < 0) __PYX_ERR(0, 94, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_overlap_n); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 94, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_overlap_n, __pyx_t_3) < 0) __PYX_ERR(0, 94, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 94, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":83
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":92
  *         if len(approximate_interface_list) == 0:
  *             # Default setting the object for function approximation.
  *             approximate_interface_list = [             # <<<<<<<<<<<<<<
  *                 ShapeBMCD(v_h_flag=True, overlap_n=overlap_n),
  *                 ShapeBMCD(v_h_flag=False, overlap_n=overlap_n)
  */
-    __pyx_t_5 = PyList_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 83, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_1 = PyList_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
     __Pyx_GIVEREF(__pyx_t_7);
-    PyList_SET_ITEM(__pyx_t_5, 0, __pyx_t_7);
-    __Pyx_GIVEREF(__pyx_t_1);
-    PyList_SET_ITEM(__pyx_t_5, 1, __pyx_t_1);
+    PyList_SET_ITEM(__pyx_t_1, 0, __pyx_t_7);
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyList_SET_ITEM(__pyx_t_1, 1, __pyx_t_3);
     __pyx_t_7 = 0;
+    __pyx_t_3 = 0;
+    __Pyx_DECREF_SET(__pyx_v_approximate_interface_list, __pyx_t_1);
     __pyx_t_1 = 0;
-    __Pyx_DECREF_SET(__pyx_v_approximate_interface_list, __pyx_t_5);
-    __pyx_t_5 = 0;
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":81
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":90
  *             ]
  * 
  *         if len(approximate_interface_list) == 0:             # <<<<<<<<<<<<<<
@@ -2857,59 +3006,59 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
  */
   }
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":88
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":97
  *             ]
  * 
  *         super().__init__(             # <<<<<<<<<<<<<<
  *             dbm_builder,
  *             neuron_assign_list,
  */
-  __pyx_t_5 = __Pyx_CyFunction_GetClassObj(__pyx_self);
-  if (!__pyx_t_5) { PyErr_SetString(PyExc_SystemError, "super(): empty __class__ cell"); __PYX_ERR(0, 88, __pyx_L1_error) }
-  __Pyx_INCREF(__pyx_t_5);
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GIVEREF(__pyx_t_5);
-  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_5);
+  __pyx_t_1 = __Pyx_CyFunction_GetClassObj(__pyx_self);
+  if (!__pyx_t_1) { PyErr_SetString(PyExc_SystemError, "super(): empty __class__ cell"); __PYX_ERR(0, 97, __pyx_L1_error) }
+  __Pyx_INCREF(__pyx_t_1);
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
   __Pyx_INCREF(__pyx_v_self);
   __Pyx_GIVEREF(__pyx_v_self);
-  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_self);
-  __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_super, __pyx_t_1, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 88, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_init); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
+  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_v_self);
+  __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_super, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_init); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":93
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":102
  *             activating_function_list,
  *             approximate_interface_list,
  *             learning_rate,             # <<<<<<<<<<<<<<
  *             dropout_rate,
  *             inferencing_flag=True,
  */
-  __pyx_t_5 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 93, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":94
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":103
  *             approximate_interface_list,
  *             learning_rate,
  *             dropout_rate,             # <<<<<<<<<<<<<<
  *             inferencing_flag=True,
  *             inferencing_plan="each"
  */
-  __pyx_t_7 = PyFloat_FromDouble(__pyx_v_dropout_rate); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_7 = PyFloat_FromDouble(__pyx_v_dropout_rate); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":88
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":97
  *             ]
  * 
  *         super().__init__(             # <<<<<<<<<<<<<<
  *             dbm_builder,
  *             neuron_assign_list,
  */
-  __pyx_t_8 = PyTuple_New(6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_INCREF(__pyx_v_dbm_builder);
   __Pyx_GIVEREF(__pyx_v_dbm_builder);
@@ -2923,41 +3072,41 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   __Pyx_INCREF(__pyx_v_approximate_interface_list);
   __Pyx_GIVEREF(__pyx_v_approximate_interface_list);
   PyTuple_SET_ITEM(__pyx_t_8, 3, __pyx_v_approximate_interface_list);
-  __Pyx_GIVEREF(__pyx_t_5);
-  PyTuple_SET_ITEM(__pyx_t_8, 4, __pyx_t_5);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_8, 4, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_7);
   PyTuple_SET_ITEM(__pyx_t_8, 5, __pyx_t_7);
-  __pyx_t_5 = 0;
+  __pyx_t_1 = 0;
   __pyx_t_7 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":95
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":104
  *             learning_rate,
  *             dropout_rate,
  *             inferencing_flag=True,             # <<<<<<<<<<<<<<
  *             inferencing_plan="each"
  *         )
  */
-  __pyx_t_7 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 95, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_inferencing_flag, Py_True) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_inferencing_plan, __pyx_n_s_each) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_inferencing_flag, Py_True) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_inferencing_plan, __pyx_n_s_each) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":88
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":97
  *             ]
  * 
  *         super().__init__(             # <<<<<<<<<<<<<<
  *             dbm_builder,
  *             neuron_assign_list,
  */
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_8, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 88, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_8, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":33
- *     __reshaped_w = 12
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":34
+ *     __filter_size = 12
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
  *         self,
@@ -2969,7 +3118,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
@@ -2985,7 +3134,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   return __pyx_r;
 }
 
-/* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":99
+/* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":108
  *         )
  * 
  *     def learn(             # <<<<<<<<<<<<<<
@@ -2995,7 +3144,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_7learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_6learn[] = "\n        Learning.\n\n        Args:\n            observed_data_arr:    The `np.ndarray` of observed data points.\n            traning_count:        Training counts.\n            batch_size:           Batch size.\n            r_batch_size:         Batch size.\n                                  If this value is `0`, the inferencing is a recursive learning.\n                                  If this value is more than `0`, the inferencing is a mini-batch recursive learning.\n                                  If this value is '-1', the inferencing is not a recursive learning.\n            sgd_flag:             Learning with the stochastic gradient descent(SGD) or not.\n        ";
+static char __pyx_doc_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_6learn[] = "\n        Learning.\n\n        Args:\n            observed_data_arr:    The `np.ndarray` of observed data points.\n            training_count:       Training counts.\n            batch_size:           Batch size.\n            r_batch_size:         Batch size.\n                                  If this value is `0`, the inferencing is a recursive learning.\n                                  If this value is more than `0`, the inferencing is a mini-batch recursive learning.\n                                  If this value is '-1', the inferencing is not a recursive learning.\n            sgd_flag:             Learning with the stochastic gradient descent(SGD) or not.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_7learn = {"learn", (PyCFunction)__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_7learn, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_6learn};
 static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_7learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
@@ -3004,25 +3153,28 @@ static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   int __pyx_v_batch_size;
   int __pyx_v_r_batch_size;
   PyObject *__pyx_v_sgd_flag = 0;
+  int __pyx_v_training_count;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("learn (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_observed_data_arr,&__pyx_n_s_traning_count,&__pyx_n_s_batch_size,&__pyx_n_s_r_batch_size,&__pyx_n_s_sgd_flag,0};
-    PyObject* values[6] = {0,0,0,0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_observed_data_arr,&__pyx_n_s_traning_count,&__pyx_n_s_batch_size,&__pyx_n_s_r_batch_size,&__pyx_n_s_sgd_flag,&__pyx_n_s_training_count,0};
+    PyObject* values[7] = {0,0,0,0,0,0,0};
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":105
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":114
  *         int batch_size=200,
  *         int r_batch_size=-1,
- *         sgd_flag=False             # <<<<<<<<<<<<<<
+ *         sgd_flag=False,             # <<<<<<<<<<<<<<
+ *         int training_count=1000
  *     ):
- *         '''
  */
     values[5] = ((PyObject *)((PyObject *)Py_False));
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
+        CYTHON_FALLTHROUGH;
         case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
         CYTHON_FALLTHROUGH;
         case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
@@ -3047,7 +3199,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_observed_data_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("learn", 0, 2, 6, 1); __PYX_ERR(0, 99, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("learn", 0, 2, 7, 1); __PYX_ERR(0, 108, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -3073,12 +3225,20 @@ static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
           PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_sgd_flag);
           if (value) { values[5] = value; kw_args--; }
         }
+        CYTHON_FALLTHROUGH;
+        case  6:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_training_count);
+          if (value) { values[6] = value; kw_args--; }
+        }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "learn") < 0)) __PYX_ERR(0, 99, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "learn") < 0)) __PYX_ERR(0, 108, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
+        CYTHON_FALLTHROUGH;
         case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
         CYTHON_FALLTHROUGH;
         case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
@@ -3096,34 +3256,39 @@ static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     __pyx_v_self = values[0];
     __pyx_v_observed_data_arr = ((PyArrayObject *)values[1]);
     if (values[2]) {
-      __pyx_v_traning_count = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_traning_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 102, __pyx_L3_error)
+      __pyx_v_traning_count = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_traning_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 111, __pyx_L3_error)
     } else {
-      __pyx_v_traning_count = ((int)((int)0x3E8));
+      __pyx_v_traning_count = ((int)((int)-1));
     }
     if (values[3]) {
-      __pyx_v_batch_size = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_batch_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 103, __pyx_L3_error)
+      __pyx_v_batch_size = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_batch_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 112, __pyx_L3_error)
     } else {
       __pyx_v_batch_size = ((int)((int)0xC8));
     }
     if (values[4]) {
-      __pyx_v_r_batch_size = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_r_batch_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 104, __pyx_L3_error)
+      __pyx_v_r_batch_size = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_r_batch_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 113, __pyx_L3_error)
     } else {
       __pyx_v_r_batch_size = ((int)((int)-1));
     }
     __pyx_v_sgd_flag = values[5];
+    if (values[6]) {
+      __pyx_v_training_count = __Pyx_PyInt_As_int(values[6]); if (unlikely((__pyx_v_training_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 115, __pyx_L3_error)
+    } else {
+      __pyx_v_training_count = ((int)((int)0x3E8));
+    }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("learn", 0, 2, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 99, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("learn", 0, 2, 7, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 108, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.dbm.deepboltzmannmachine.shape_boltzmann_machine.ShapeBoltzmannMachine.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_data_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_data_arr", 0))) __PYX_ERR(0, 101, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_6learn(__pyx_self, __pyx_v_self, __pyx_v_observed_data_arr, __pyx_v_traning_count, __pyx_v_batch_size, __pyx_v_r_batch_size, __pyx_v_sgd_flag);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_data_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_data_arr", 0))) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_6learn(__pyx_self, __pyx_v_self, __pyx_v_observed_data_arr, __pyx_v_traning_count, __pyx_v_batch_size, __pyx_v_r_batch_size, __pyx_v_sgd_flag, __pyx_v_training_count);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":99
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":108
  *         )
  * 
  *     def learn(             # <<<<<<<<<<<<<<
@@ -3140,14 +3305,15 @@ static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_6learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr, int __pyx_v_traning_count, int __pyx_v_batch_size, int __pyx_v_r_batch_size, PyObject *__pyx_v_sgd_flag) {
+static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_6learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr, int __pyx_v_traning_count, int __pyx_v_batch_size, int __pyx_v_r_batch_size, PyObject *__pyx_v_sgd_flag, int __pyx_v_training_count) {
   PyArrayObject *__pyx_v_init_observed_data_arr = 0;
-  CYTHON_UNUSED int __pyx_v_row_y;
-  CYTHON_UNUSED int __pyx_v_col_x;
+  int __pyx_v_row_y;
+  int __pyx_v_col_x;
   int __pyx_v_i;
   int __pyx_v_row_i;
   int __pyx_v_j;
   PyArrayObject *__pyx_v_data_arr = 0;
+  int __pyx_v_data_row;
   PyArrayObject *__pyx_v_feature_point_arr = 0;
   int __pyx_v_sgd_key;
   PyObject *__pyx_v_inferenced_data_list = NULL;
@@ -3163,17 +3329,17 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   __Pyx_Buffer __pyx_pybuffer_observed_data_arr;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
-  PyArrayObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  PyArrayObject *__pyx_t_6 = NULL;
-  int __pyx_t_7;
-  PyObject *__pyx_t_8 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyArrayObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  PyArrayObject *__pyx_t_7 = NULL;
+  int __pyx_t_8;
   PyObject *__pyx_t_9 = NULL;
   PyObject *__pyx_t_10 = NULL;
-  int __pyx_t_11;
+  PyObject *__pyx_t_11 = NULL;
   int __pyx_t_12;
   int __pyx_t_13;
   int __pyx_t_14;
@@ -3182,8 +3348,8 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   int __pyx_t_17;
   PyArrayObject *__pyx_t_18 = NULL;
   Py_ssize_t __pyx_t_19;
-  int __pyx_t_20;
-  PyArrayObject *__pyx_t_21 = NULL;
+  PyArrayObject *__pyx_t_20 = NULL;
+  int __pyx_t_21;
   Py_ssize_t __pyx_t_22;
   __Pyx_RefNannySetupContext("learn", 0);
   __Pyx_INCREF((PyObject *)__pyx_v_observed_data_arr);
@@ -3205,127 +3371,172 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   __pyx_pybuffernd_observed_data_arr.rcbuffer = &__pyx_pybuffer_observed_data_arr;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 99, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 108, __pyx_L1_error)
   }
   __pyx_pybuffernd_observed_data_arr.diminfo[0].strides = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_observed_data_arr.diminfo[0].shape = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_observed_data_arr.diminfo[1].strides = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_observed_data_arr.diminfo[1].shape = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.shape[1];
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":120
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":130
  *             sgd_flag:             Learning with the stochastic gradient descent(SGD) or not.
  *         '''
+ *         if traning_count != -1:             # <<<<<<<<<<<<<<
+ *             training_count = traning_count
+ *             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
+ */
+  __pyx_t_1 = ((__pyx_v_traning_count != -1L) != 0);
+  if (__pyx_t_1) {
+
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":131
+ *         '''
+ *         if traning_count != -1:
+ *             training_count = traning_count             # <<<<<<<<<<<<<<
+ *             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
+ * 
+ */
+    __pyx_v_training_count = __pyx_v_traning_count;
+
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":132
+ *         if traning_count != -1:
+ *             training_count = traning_count
+ *             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)             # <<<<<<<<<<<<<<
+ * 
+ *         cdef np.ndarray[DOUBLE_t, ndim=2] init_observed_data_arr = observed_data_arr.copy()
+ */
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_warnings); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_warn); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 132, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":130
+ *             sgd_flag:             Learning with the stochastic gradient descent(SGD) or not.
+ *         '''
+ *         if traning_count != -1:             # <<<<<<<<<<<<<<
+ *             training_count = traning_count
+ *             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
+ */
+  }
+
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":134
+ *             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
+ * 
  *         cdef np.ndarray[DOUBLE_t, ndim=2] init_observed_data_arr = observed_data_arr.copy()             # <<<<<<<<<<<<<<
  * 
  *         observed_data_arr = self.__reshape_observed_data(observed_data_arr)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_observed_data_arr), __pyx_n_s_copy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 120, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_3);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_observed_data_arr), __pyx_n_s_copy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_4);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
     }
   }
-  if (__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 120, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (__pyx_t_4) {
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 120, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
   }
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 120, __pyx_L1_error)
-  __pyx_t_4 = ((PyArrayObject *)__pyx_t_1);
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_5 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_init_observed_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_4, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_init_observed_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_init_observed_data_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_init_observed_data_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 120, __pyx_L1_error)
+      __PYX_ERR(0, 134, __pyx_L1_error)
     } else {__pyx_pybuffernd_init_observed_data_arr.diminfo[0].strides = __pyx_pybuffernd_init_observed_data_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_init_observed_data_arr.diminfo[0].shape = __pyx_pybuffernd_init_observed_data_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_init_observed_data_arr.diminfo[1].strides = __pyx_pybuffernd_init_observed_data_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_init_observed_data_arr.diminfo[1].shape = __pyx_pybuffernd_init_observed_data_arr.rcbuffer->pybuffer.shape[1];
     }
   }
-  __pyx_t_4 = 0;
-  __pyx_v_init_observed_data_arr = ((PyArrayObject *)__pyx_t_1);
-  __pyx_t_1 = 0;
+  __pyx_t_5 = 0;
+  __pyx_v_init_observed_data_arr = ((PyArrayObject *)__pyx_t_2);
+  __pyx_t_2 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":122
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":136
  *         cdef np.ndarray[DOUBLE_t, ndim=2] init_observed_data_arr = observed_data_arr.copy()
  * 
  *         observed_data_arr = self.__reshape_observed_data(observed_data_arr)             # <<<<<<<<<<<<<<
  * 
  *         cdef int row_y = observed_data_arr.shape[0]
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__reshape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 122, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_3);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__reshape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_4);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
     }
   }
-  if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_observed_data_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
+  if (!__pyx_t_4) {
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_observed_data_arr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_2)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_3, ((PyObject *)__pyx_v_observed_data_arr)};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
+    if (PyFunction_Check(__pyx_t_3)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_4, ((PyObject *)__pyx_v_observed_data_arr)};
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_GOTREF(__pyx_t_2);
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_3, ((PyObject *)__pyx_v_observed_data_arr)};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_4, ((PyObject *)__pyx_v_observed_data_arr)};
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_GOTREF(__pyx_t_2);
     } else
     #endif
     {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 122, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_5);
-      __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3); __pyx_t_3 = NULL;
+      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 136, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_observed_data_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_observed_data_arr));
-      PyTuple_SET_ITEM(__pyx_t_5, 0+1, ((PyObject *)__pyx_v_observed_data_arr));
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      PyTuple_SET_ITEM(__pyx_t_6, 0+1, ((PyObject *)__pyx_v_observed_data_arr));
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
   }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 122, __pyx_L1_error)
-  __pyx_t_6 = ((PyArrayObject *)__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_7 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer);
-    __pyx_t_7 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_6, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
-    if (unlikely(__pyx_t_7 < 0)) {
-      PyErr_Fetch(&__pyx_t_8, &__pyx_t_9, &__pyx_t_10);
+    __pyx_t_8 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_7, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
+    if (unlikely(__pyx_t_8 < 0)) {
+      PyErr_Fetch(&__pyx_t_9, &__pyx_t_10, &__pyx_t_11);
       if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
-        Py_XDECREF(__pyx_t_8); Py_XDECREF(__pyx_t_9); Py_XDECREF(__pyx_t_10);
+        Py_XDECREF(__pyx_t_9); Py_XDECREF(__pyx_t_10); Py_XDECREF(__pyx_t_11);
         __Pyx_RaiseBufferFallbackError();
       } else {
-        PyErr_Restore(__pyx_t_8, __pyx_t_9, __pyx_t_10);
+        PyErr_Restore(__pyx_t_9, __pyx_t_10, __pyx_t_11);
       }
-      __pyx_t_8 = __pyx_t_9 = __pyx_t_10 = 0;
+      __pyx_t_9 = __pyx_t_10 = __pyx_t_11 = 0;
     }
     __pyx_pybuffernd_observed_data_arr.diminfo[0].strides = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_observed_data_arr.diminfo[0].shape = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_observed_data_arr.diminfo[1].strides = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_observed_data_arr.diminfo[1].shape = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.shape[1];
-    if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 122, __pyx_L1_error)
+    if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 136, __pyx_L1_error)
   }
-  __pyx_t_6 = 0;
-  __Pyx_DECREF_SET(__pyx_v_observed_data_arr, ((PyArrayObject *)__pyx_t_1));
-  __pyx_t_1 = 0;
+  __pyx_t_7 = 0;
+  __Pyx_DECREF_SET(__pyx_v_observed_data_arr, ((PyArrayObject *)__pyx_t_2));
+  __pyx_t_2 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":124
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":138
  *         observed_data_arr = self.__reshape_observed_data(observed_data_arr)
  * 
  *         cdef int row_y = observed_data_arr.shape[0]             # <<<<<<<<<<<<<<
@@ -3334,16 +3545,100 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
  */
   __pyx_v_row_y = (__pyx_v_observed_data_arr->dimensions[0]);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":125
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":139
  * 
  *         cdef int row_y = observed_data_arr.shape[0]
  *         cdef int col_x = observed_data_arr.shape[1]             # <<<<<<<<<<<<<<
  * 
- *         cdef int i
+ *         if row_y == 0 or col_x == 0:
  */
   __pyx_v_col_x = (__pyx_v_observed_data_arr->dimensions[1]);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":128
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":141
+ *         cdef int col_x = observed_data_arr.shape[1]
+ * 
+ *         if row_y == 0 or col_x == 0:             # <<<<<<<<<<<<<<
+ *             raise ValueError(
+ *                 "`filter_size` or `overlap_n` can be invalid. The size of reshaped image is " + str(row_y) + " x " + str(col_x)
+ */
+  __pyx_t_12 = ((__pyx_v_row_y == 0) != 0);
+  if (!__pyx_t_12) {
+  } else {
+    __pyx_t_1 = __pyx_t_12;
+    goto __pyx_L5_bool_binop_done;
+  }
+  __pyx_t_12 = ((__pyx_v_col_x == 0) != 0);
+  __pyx_t_1 = __pyx_t_12;
+  __pyx_L5_bool_binop_done:;
+  if (__pyx_t_1) {
+
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":143
+ *         if row_y == 0 or col_x == 0:
+ *             raise ValueError(
+ *                 "`filter_size` or `overlap_n` can be invalid. The size of reshaped image is " + str(row_y) + " x " + str(col_x)             # <<<<<<<<<<<<<<
+ *             )
+ * 
+ */
+    __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_row_y); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_GIVEREF(__pyx_t_2);
+    PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
+    __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_3 = PyNumber_Add(__pyx_kp_s_filter_size_or_overlap_n_can_be, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = PyNumber_Add(__pyx_t_3, __pyx_kp_s_x); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_col_x); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3);
+    __pyx_t_3 = 0;
+    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_6 = PyNumber_Add(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":142
+ * 
+ *         if row_y == 0 or col_x == 0:
+ *             raise ValueError(             # <<<<<<<<<<<<<<
+ *                 "`filter_size` or `overlap_n` can be invalid. The size of reshaped image is " + str(row_y) + " x " + str(col_x)
+ *             )
+ */
+    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_GIVEREF(__pyx_t_6);
+    PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_6);
+    __pyx_t_6 = 0;
+    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 142, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_Raise(__pyx_t_6, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __PYX_ERR(0, 142, __pyx_L1_error)
+
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":141
+ *         cdef int col_x = observed_data_arr.shape[1]
+ * 
+ *         if row_y == 0 or col_x == 0:             # <<<<<<<<<<<<<<
+ *             raise ValueError(
+ *                 "`filter_size` or `overlap_n` can be invalid. The size of reshaped image is " + str(row_y) + " x " + str(col_x)
+ */
+  }
+
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":147
  * 
  *         cdef int i
  *         cdef int row_i = observed_data_arr.shape[0]             # <<<<<<<<<<<<<<
@@ -3352,636 +3647,781 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
  */
   __pyx_v_row_i = (__pyx_v_observed_data_arr->dimensions[0]);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":134
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":154
  *         cdef int sgd_key
  * 
  *         inferenced_data_list = [None] * row_i             # <<<<<<<<<<<<<<
- *         for k in range(traning_count):
+ *         for k in range(training_count):
  *             for i in range(row_i):
  */
-  __pyx_t_1 = PyList_New(1 * ((__pyx_v_row_i<0) ? 0:__pyx_v_row_i)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_6 = PyList_New(1 * ((__pyx_v_row_i<0) ? 0:__pyx_v_row_i)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
   { Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < __pyx_v_row_i; __pyx_temp++) {
       __Pyx_INCREF(Py_None);
       __Pyx_GIVEREF(Py_None);
-      PyList_SET_ITEM(__pyx_t_1, __pyx_temp, Py_None);
+      PyList_SET_ITEM(__pyx_t_6, __pyx_temp, Py_None);
     }
   }
-  __pyx_v_inferenced_data_list = ((PyObject*)__pyx_t_1);
-  __pyx_t_1 = 0;
+  __pyx_v_inferenced_data_list = ((PyObject*)__pyx_t_6);
+  __pyx_t_6 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":135
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":155
  * 
  *         inferenced_data_list = [None] * row_i
- *         for k in range(traning_count):             # <<<<<<<<<<<<<<
+ *         for k in range(training_count):             # <<<<<<<<<<<<<<
  *             for i in range(row_i):
  *                 if sgd_flag is True:
  */
-  __pyx_t_7 = __pyx_v_traning_count;
-  for (__pyx_t_11 = 0; __pyx_t_11 < __pyx_t_7; __pyx_t_11+=1) {
-    __pyx_v_k = __pyx_t_11;
+  __pyx_t_8 = __pyx_v_training_count;
+  for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_8; __pyx_t_13+=1) {
+    __pyx_v_k = __pyx_t_13;
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":136
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":156
  *         inferenced_data_list = [None] * row_i
- *         for k in range(traning_count):
+ *         for k in range(training_count):
  *             for i in range(row_i):             # <<<<<<<<<<<<<<
  *                 if sgd_flag is True:
  *                     sgd_key = np.random.randint(row_i)
  */
-    __pyx_t_12 = __pyx_v_row_i;
-    for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_12; __pyx_t_13+=1) {
-      __pyx_v_i = __pyx_t_13;
+    __pyx_t_14 = __pyx_v_row_i;
+    for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_14; __pyx_t_15+=1) {
+      __pyx_v_i = __pyx_t_15;
 
-      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":137
- *         for k in range(traning_count):
+      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":157
+ *         for k in range(training_count):
  *             for i in range(row_i):
  *                 if sgd_flag is True:             # <<<<<<<<<<<<<<
  *                     sgd_key = np.random.randint(row_i)
  *                     data_arr = observed_data_arr[sgd_key]
  */
-      __pyx_t_14 = (__pyx_v_sgd_flag == Py_True);
-      __pyx_t_15 = (__pyx_t_14 != 0);
-      if (__pyx_t_15) {
+      __pyx_t_1 = (__pyx_v_sgd_flag == Py_True);
+      __pyx_t_12 = (__pyx_t_1 != 0);
+      if (__pyx_t_12) {
 
-        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":138
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":158
  *             for i in range(row_i):
  *                 if sgd_flag is True:
  *                     sgd_key = np.random.randint(row_i)             # <<<<<<<<<<<<<<
  *                     data_arr = observed_data_arr[sgd_key]
  *                 else:
  */
-        __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 158, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 158, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 138, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_randint); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 158, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_randint); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_row_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 158, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_row_i); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 138, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_3 = NULL;
-        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-          __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-          if (likely(__pyx_t_3)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-            __Pyx_INCREF(__pyx_t_3);
+        __pyx_t_4 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+          __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+          if (likely(__pyx_t_4)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+            __Pyx_INCREF(__pyx_t_4);
             __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_2, function);
+            __Pyx_DECREF_SET(__pyx_t_3, function);
           }
         }
-        if (!__pyx_t_3) {
-          __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __Pyx_GOTREF(__pyx_t_1);
+        if (!__pyx_t_4) {
+          __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 158, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __Pyx_GOTREF(__pyx_t_6);
         } else {
           #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_2)) {
-            PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_5};
-            __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-            __Pyx_GOTREF(__pyx_t_1);
-            __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+          if (PyFunction_Check(__pyx_t_3)) {
+            PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_2};
+            __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 158, __pyx_L1_error)
+            __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+            __Pyx_GOTREF(__pyx_t_6);
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           } else
           #endif
           #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-            PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_5};
-            __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-            __Pyx_GOTREF(__pyx_t_1);
-            __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+          if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
+            PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_2};
+            __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 158, __pyx_L1_error)
+            __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+            __Pyx_GOTREF(__pyx_t_6);
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           } else
           #endif
           {
-            __pyx_t_16 = PyTuple_New(1+1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 138, __pyx_L1_error)
+            __pyx_t_16 = PyTuple_New(1+1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 158, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_16);
-            __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_3); __pyx_t_3 = NULL;
-            __Pyx_GIVEREF(__pyx_t_5);
-            PyTuple_SET_ITEM(__pyx_t_16, 0+1, __pyx_t_5);
-            __pyx_t_5 = 0;
-            __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_16, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_1);
+            __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_4); __pyx_t_4 = NULL;
+            __Pyx_GIVEREF(__pyx_t_2);
+            PyTuple_SET_ITEM(__pyx_t_16, 0+1, __pyx_t_2);
+            __pyx_t_2 = 0;
+            __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_16, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 158, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_6);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
           }
         }
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_17 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_17 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 138, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __pyx_t_17 = __Pyx_PyInt_As_int(__pyx_t_6); if (unlikely((__pyx_t_17 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 158, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __pyx_v_sgd_key = __pyx_t_17;
 
-        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":139
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":159
  *                 if sgd_flag is True:
  *                     sgd_key = np.random.randint(row_i)
  *                     data_arr = observed_data_arr[sgd_key]             # <<<<<<<<<<<<<<
  *                 else:
  *                     data_arr = observed_data_arr[i].copy()
  */
-        __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_observed_data_arr), __pyx_v_sgd_key, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 139, __pyx_L1_error)
-        __pyx_t_18 = ((PyArrayObject *)__pyx_t_1);
+        __pyx_t_6 = __Pyx_GetItemInt(((PyObject *)__pyx_v_observed_data_arr), __pyx_v_sgd_key, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 159, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 159, __pyx_L1_error)
+        __pyx_t_18 = ((PyArrayObject *)__pyx_t_6);
         {
           __Pyx_BufFmt_StackElem __pyx_stack[1];
           __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_data_arr.rcbuffer->pybuffer);
           __pyx_t_17 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_18, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack);
           if (unlikely(__pyx_t_17 < 0)) {
-            PyErr_Fetch(&__pyx_t_10, &__pyx_t_9, &__pyx_t_8);
+            PyErr_Fetch(&__pyx_t_11, &__pyx_t_10, &__pyx_t_9);
             if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
-              Py_XDECREF(__pyx_t_10); Py_XDECREF(__pyx_t_9); Py_XDECREF(__pyx_t_8);
+              Py_XDECREF(__pyx_t_11); Py_XDECREF(__pyx_t_10); Py_XDECREF(__pyx_t_9);
               __Pyx_RaiseBufferFallbackError();
             } else {
-              PyErr_Restore(__pyx_t_10, __pyx_t_9, __pyx_t_8);
+              PyErr_Restore(__pyx_t_11, __pyx_t_10, __pyx_t_9);
             }
-            __pyx_t_10 = __pyx_t_9 = __pyx_t_8 = 0;
+            __pyx_t_11 = __pyx_t_10 = __pyx_t_9 = 0;
           }
           __pyx_pybuffernd_data_arr.diminfo[0].strides = __pyx_pybuffernd_data_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_data_arr.diminfo[0].shape = __pyx_pybuffernd_data_arr.rcbuffer->pybuffer.shape[0];
-          if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 139, __pyx_L1_error)
+          if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 159, __pyx_L1_error)
         }
         __pyx_t_18 = 0;
-        __Pyx_XDECREF_SET(__pyx_v_data_arr, ((PyArrayObject *)__pyx_t_1));
-        __pyx_t_1 = 0;
+        __Pyx_XDECREF_SET(__pyx_v_data_arr, ((PyArrayObject *)__pyx_t_6));
+        __pyx_t_6 = 0;
 
-        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":137
- *         for k in range(traning_count):
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":157
+ *         for k in range(training_count):
  *             for i in range(row_i):
  *                 if sgd_flag is True:             # <<<<<<<<<<<<<<
  *                     sgd_key = np.random.randint(row_i)
  *                     data_arr = observed_data_arr[sgd_key]
  */
-        goto __pyx_L7;
+        goto __pyx_L11;
       }
 
-      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":141
+      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":161
  *                     data_arr = observed_data_arr[sgd_key]
  *                 else:
  *                     data_arr = observed_data_arr[i].copy()             # <<<<<<<<<<<<<<
  * 
- *                 for j in range(len(self.rbm_list)):
+ *                 data_row = data_arr.shape[0]
  */
       /*else*/ {
-        __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_observed_data_arr), __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_copy); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 141, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_observed_data_arr), __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 161, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_copy); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 161, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = NULL;
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __pyx_t_3 = NULL;
         if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_16))) {
-          __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_16);
-          if (likely(__pyx_t_2)) {
+          __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_16);
+          if (likely(__pyx_t_3)) {
             PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_16);
-            __Pyx_INCREF(__pyx_t_2);
+            __Pyx_INCREF(__pyx_t_3);
             __Pyx_INCREF(function);
             __Pyx_DECREF_SET(__pyx_t_16, function);
           }
         }
-        if (__pyx_t_2) {
-          __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_16, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        if (__pyx_t_3) {
+          __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_16, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 161, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         } else {
-          __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_16); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyObject_CallNoArg(__pyx_t_16); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 161, __pyx_L1_error)
         }
-        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-        if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 141, __pyx_L1_error)
-        __pyx_t_18 = ((PyArrayObject *)__pyx_t_1);
+        if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 161, __pyx_L1_error)
+        __pyx_t_18 = ((PyArrayObject *)__pyx_t_6);
         {
           __Pyx_BufFmt_StackElem __pyx_stack[1];
           __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_data_arr.rcbuffer->pybuffer);
           __pyx_t_17 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_18, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack);
           if (unlikely(__pyx_t_17 < 0)) {
-            PyErr_Fetch(&__pyx_t_8, &__pyx_t_9, &__pyx_t_10);
+            PyErr_Fetch(&__pyx_t_9, &__pyx_t_10, &__pyx_t_11);
             if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
-              Py_XDECREF(__pyx_t_8); Py_XDECREF(__pyx_t_9); Py_XDECREF(__pyx_t_10);
+              Py_XDECREF(__pyx_t_9); Py_XDECREF(__pyx_t_10); Py_XDECREF(__pyx_t_11);
               __Pyx_RaiseBufferFallbackError();
             } else {
-              PyErr_Restore(__pyx_t_8, __pyx_t_9, __pyx_t_10);
+              PyErr_Restore(__pyx_t_9, __pyx_t_10, __pyx_t_11);
             }
-            __pyx_t_8 = __pyx_t_9 = __pyx_t_10 = 0;
+            __pyx_t_9 = __pyx_t_10 = __pyx_t_11 = 0;
           }
           __pyx_pybuffernd_data_arr.diminfo[0].strides = __pyx_pybuffernd_data_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_data_arr.diminfo[0].shape = __pyx_pybuffernd_data_arr.rcbuffer->pybuffer.shape[0];
-          if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 141, __pyx_L1_error)
+          if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 161, __pyx_L1_error)
         }
         __pyx_t_18 = 0;
-        __Pyx_XDECREF_SET(__pyx_v_data_arr, ((PyArrayObject *)__pyx_t_1));
-        __pyx_t_1 = 0;
+        __Pyx_XDECREF_SET(__pyx_v_data_arr, ((PyArrayObject *)__pyx_t_6));
+        __pyx_t_6 = 0;
       }
-      __pyx_L7:;
+      __pyx_L11:;
 
-      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":143
+      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":163
  *                     data_arr = observed_data_arr[i].copy()
+ * 
+ *                 data_row = data_arr.shape[0]             # <<<<<<<<<<<<<<
+ *                 if data_row <= 0:
+ *                     raise ValueError("Choiced `observed_data_arr` is invalid.")
+ */
+      __pyx_v_data_row = (__pyx_v_data_arr->dimensions[0]);
+
+      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":164
+ * 
+ *                 data_row = data_arr.shape[0]
+ *                 if data_row <= 0:             # <<<<<<<<<<<<<<
+ *                     raise ValueError("Choiced `observed_data_arr` is invalid.")
+ * 
+ */
+      __pyx_t_12 = ((__pyx_v_data_row <= 0) != 0);
+      if (__pyx_t_12) {
+
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":165
+ *                 data_row = data_arr.shape[0]
+ *                 if data_row <= 0:
+ *                     raise ValueError("Choiced `observed_data_arr` is invalid.")             # <<<<<<<<<<<<<<
+ * 
+ *                 for j in range(len(self.rbm_list)):
+ */
+        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_Raise(__pyx_t_6, 0, 0, 0);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __PYX_ERR(0, 165, __pyx_L1_error)
+
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":164
+ * 
+ *                 data_row = data_arr.shape[0]
+ *                 if data_row <= 0:             # <<<<<<<<<<<<<<
+ *                     raise ValueError("Choiced `observed_data_arr` is invalid.")
+ * 
+ */
+      }
+
+      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":167
+ *                     raise ValueError("Choiced `observed_data_arr` is invalid.")
  * 
  *                 for j in range(len(self.rbm_list)):             # <<<<<<<<<<<<<<
  *                     self.rbm_list[j].approximate_learning(
  *                         data_arr,
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rbm_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_19 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_19 == ((Py_ssize_t)-1))) __PYX_ERR(0, 143, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rbm_list); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 167, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_19 = PyObject_Length(__pyx_t_6); if (unlikely(__pyx_t_19 == ((Py_ssize_t)-1))) __PYX_ERR(0, 167, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       for (__pyx_t_17 = 0; __pyx_t_17 < __pyx_t_19; __pyx_t_17+=1) {
         __pyx_v_j = __pyx_t_17;
 
-        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":144
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":168
  * 
  *                 for j in range(len(self.rbm_list)):
  *                     self.rbm_list[j].approximate_learning(             # <<<<<<<<<<<<<<
  *                         data_arr,
- *                         1,
+ *                         training_count=1,
  */
-        __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rbm_list); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 144, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rbm_list); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 168, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __pyx_t_16 = __Pyx_GetItemInt(__pyx_t_6, __pyx_v_j, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 168, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
-        __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_j, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 144, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_approximate_learning); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 168, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-        __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_approximate_learning); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 144, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_16);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":147
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":169
+ *                 for j in range(len(self.rbm_list)):
+ *                     self.rbm_list[j].approximate_learning(
+ *                         data_arr,             # <<<<<<<<<<<<<<
+ *                         training_count=1,
+ *                         batch_size=batch_size
+ */
+        __pyx_t_16 = PyTuple_New(1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 168, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_16);
+        __Pyx_INCREF(((PyObject *)__pyx_v_data_arr));
+        __Pyx_GIVEREF(((PyObject *)__pyx_v_data_arr));
+        PyTuple_SET_ITEM(__pyx_t_16, 0, ((PyObject *)__pyx_v_data_arr));
+
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":170
+ *                     self.rbm_list[j].approximate_learning(
  *                         data_arr,
- *                         1,
- *                         batch_size             # <<<<<<<<<<<<<<
+ *                         training_count=1,             # <<<<<<<<<<<<<<
+ *                         batch_size=batch_size
+ *                     )
+ */
+        __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 170, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_training_count, __pyx_int_1) < 0) __PYX_ERR(0, 170, __pyx_L1_error)
+
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":171
+ *                         data_arr,
+ *                         training_count=1,
+ *                         batch_size=batch_size             # <<<<<<<<<<<<<<
  *                     )
  *                     feature_point_arr = self.get_feature_point(j)
  */
-        __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_batch_size); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_batch_size); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 171, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_5 = NULL;
-        __pyx_t_20 = 0;
-        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_16))) {
-          __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_16);
-          if (likely(__pyx_t_5)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_16);
-            __Pyx_INCREF(__pyx_t_5);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_16, function);
-            __pyx_t_20 = 1;
-          }
-        }
-        #if CYTHON_FAST_PYCALL
-        if (PyFunction_Check(__pyx_t_16)) {
-          PyObject *__pyx_temp[4] = {__pyx_t_5, ((PyObject *)__pyx_v_data_arr), __pyx_int_1, __pyx_t_2};
-          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_20, 3+__pyx_t_20); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __Pyx_GOTREF(__pyx_t_1);
-          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        } else
-        #endif
-        #if CYTHON_FAST_PYCCALL
-        if (__Pyx_PyFastCFunction_Check(__pyx_t_16)) {
-          PyObject *__pyx_temp[4] = {__pyx_t_5, ((PyObject *)__pyx_v_data_arr), __pyx_int_1, __pyx_t_2};
-          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_20, 3+__pyx_t_20); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __Pyx_GOTREF(__pyx_t_1);
-          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        } else
-        #endif
-        {
-          __pyx_t_3 = PyTuple_New(3+__pyx_t_20); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 144, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_3);
-          if (__pyx_t_5) {
-            __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_5); __pyx_t_5 = NULL;
-          }
-          __Pyx_INCREF(((PyObject *)__pyx_v_data_arr));
-          __Pyx_GIVEREF(((PyObject *)__pyx_v_data_arr));
-          PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_20, ((PyObject *)__pyx_v_data_arr));
-          __Pyx_INCREF(__pyx_int_1);
-          __Pyx_GIVEREF(__pyx_int_1);
-          PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_20, __pyx_int_1);
-          __Pyx_GIVEREF(__pyx_t_2);
-          PyTuple_SET_ITEM(__pyx_t_3, 2+__pyx_t_20, __pyx_t_2);
-          __pyx_t_2 = 0;
-          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_1);
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        }
-        __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_batch_size, __pyx_t_2) < 0) __PYX_ERR(0, 170, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":149
- *                         batch_size
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":168
+ * 
+ *                 for j in range(len(self.rbm_list)):
+ *                     self.rbm_list[j].approximate_learning(             # <<<<<<<<<<<<<<
+ *                         data_arr,
+ *                         training_count=1,
+ */
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_16, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 168, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":173
+ *                         batch_size=batch_size
  *                     )
  *                     feature_point_arr = self.get_feature_point(j)             # <<<<<<<<<<<<<<
  *                     data_arr = feature_point_arr
- * 
+ *                     data_row = data_arr.shape[0]
  */
-        __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_feature_point); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 149, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_16);
-        __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_feature_point); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 173, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_2 = NULL;
-        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_16))) {
-          __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_16);
-          if (likely(__pyx_t_2)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_16);
-            __Pyx_INCREF(__pyx_t_2);
+        __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 173, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_16);
+        __pyx_t_6 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+          __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_3);
+          if (likely(__pyx_t_6)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+            __Pyx_INCREF(__pyx_t_6);
             __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_16, function);
+            __Pyx_DECREF_SET(__pyx_t_3, function);
           }
         }
-        if (!__pyx_t_2) {
-          __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_16, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          __Pyx_GOTREF(__pyx_t_1);
+        if (!__pyx_t_6) {
+          __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_16); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 173, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+          __Pyx_GOTREF(__pyx_t_2);
         } else {
           #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_16)) {
-            PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_3};
-            __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-            __Pyx_GOTREF(__pyx_t_1);
-            __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          if (PyFunction_Check(__pyx_t_3)) {
+            PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_16};
+            __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 173, __pyx_L1_error)
+            __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+            __Pyx_GOTREF(__pyx_t_2);
+            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
           } else
           #endif
           #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_16)) {
-            PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_3};
-            __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-            __Pyx_GOTREF(__pyx_t_1);
-            __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
+            PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_16};
+            __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 173, __pyx_L1_error)
+            __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+            __Pyx_GOTREF(__pyx_t_2);
+            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
           } else
           #endif
           {
-            __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 149, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_5);
-            __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __pyx_t_2 = NULL;
-            __Pyx_GIVEREF(__pyx_t_3);
-            PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_3);
-            __pyx_t_3 = 0;
-            __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_1);
-            __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+            __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 173, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_4);
+            __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_6); __pyx_t_6 = NULL;
+            __Pyx_GIVEREF(__pyx_t_16);
+            PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_16);
+            __pyx_t_16 = 0;
+            __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 173, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           }
         }
-        __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-        if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 149, __pyx_L1_error)
-        __pyx_t_21 = ((PyArrayObject *)__pyx_t_1);
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 173, __pyx_L1_error)
+        __pyx_t_20 = ((PyArrayObject *)__pyx_t_2);
         {
           __Pyx_BufFmt_StackElem __pyx_stack[1];
           __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_feature_point_arr.rcbuffer->pybuffer);
-          __pyx_t_20 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_feature_point_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_21, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack);
-          if (unlikely(__pyx_t_20 < 0)) {
-            PyErr_Fetch(&__pyx_t_10, &__pyx_t_9, &__pyx_t_8);
+          __pyx_t_21 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_feature_point_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_20, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack);
+          if (unlikely(__pyx_t_21 < 0)) {
+            PyErr_Fetch(&__pyx_t_11, &__pyx_t_10, &__pyx_t_9);
             if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_feature_point_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_feature_point_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
-              Py_XDECREF(__pyx_t_10); Py_XDECREF(__pyx_t_9); Py_XDECREF(__pyx_t_8);
+              Py_XDECREF(__pyx_t_11); Py_XDECREF(__pyx_t_10); Py_XDECREF(__pyx_t_9);
               __Pyx_RaiseBufferFallbackError();
             } else {
-              PyErr_Restore(__pyx_t_10, __pyx_t_9, __pyx_t_8);
+              PyErr_Restore(__pyx_t_11, __pyx_t_10, __pyx_t_9);
             }
-            __pyx_t_10 = __pyx_t_9 = __pyx_t_8 = 0;
+            __pyx_t_11 = __pyx_t_10 = __pyx_t_9 = 0;
           }
           __pyx_pybuffernd_feature_point_arr.diminfo[0].strides = __pyx_pybuffernd_feature_point_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_feature_point_arr.diminfo[0].shape = __pyx_pybuffernd_feature_point_arr.rcbuffer->pybuffer.shape[0];
-          if (unlikely(__pyx_t_20 < 0)) __PYX_ERR(0, 149, __pyx_L1_error)
+          if (unlikely(__pyx_t_21 < 0)) __PYX_ERR(0, 173, __pyx_L1_error)
         }
-        __pyx_t_21 = 0;
-        __Pyx_XDECREF_SET(__pyx_v_feature_point_arr, ((PyArrayObject *)__pyx_t_1));
-        __pyx_t_1 = 0;
+        __pyx_t_20 = 0;
+        __Pyx_XDECREF_SET(__pyx_v_feature_point_arr, ((PyArrayObject *)__pyx_t_2));
+        __pyx_t_2 = 0;
 
-        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":150
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":174
  *                     )
  *                     feature_point_arr = self.get_feature_point(j)
  *                     data_arr = feature_point_arr             # <<<<<<<<<<<<<<
- * 
- *                 rbm_list = self.rbm_list[::-1]
+ *                     data_row = data_arr.shape[0]
+ *                     if data_row <= 0:
  */
         {
           __Pyx_BufFmt_StackElem __pyx_stack[1];
           __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_data_arr.rcbuffer->pybuffer);
-          __pyx_t_20 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data_arr.rcbuffer->pybuffer, (PyObject*)((PyArrayObject *)__pyx_v_feature_point_arr), &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack);
-          if (unlikely(__pyx_t_20 < 0)) {
-            PyErr_Fetch(&__pyx_t_8, &__pyx_t_9, &__pyx_t_10);
+          __pyx_t_21 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data_arr.rcbuffer->pybuffer, (PyObject*)((PyArrayObject *)__pyx_v_feature_point_arr), &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack);
+          if (unlikely(__pyx_t_21 < 0)) {
+            PyErr_Fetch(&__pyx_t_9, &__pyx_t_10, &__pyx_t_11);
             if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
-              Py_XDECREF(__pyx_t_8); Py_XDECREF(__pyx_t_9); Py_XDECREF(__pyx_t_10);
+              Py_XDECREF(__pyx_t_9); Py_XDECREF(__pyx_t_10); Py_XDECREF(__pyx_t_11);
               __Pyx_RaiseBufferFallbackError();
             } else {
-              PyErr_Restore(__pyx_t_8, __pyx_t_9, __pyx_t_10);
+              PyErr_Restore(__pyx_t_9, __pyx_t_10, __pyx_t_11);
             }
-            __pyx_t_8 = __pyx_t_9 = __pyx_t_10 = 0;
+            __pyx_t_9 = __pyx_t_10 = __pyx_t_11 = 0;
           }
           __pyx_pybuffernd_data_arr.diminfo[0].strides = __pyx_pybuffernd_data_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_data_arr.diminfo[0].shape = __pyx_pybuffernd_data_arr.rcbuffer->pybuffer.shape[0];
-          if (unlikely(__pyx_t_20 < 0)) __PYX_ERR(0, 150, __pyx_L1_error)
+          if (unlikely(__pyx_t_21 < 0)) __PYX_ERR(0, 174, __pyx_L1_error)
         }
         __Pyx_INCREF(((PyObject *)__pyx_v_feature_point_arr));
         __Pyx_DECREF_SET(__pyx_v_data_arr, ((PyArrayObject *)__pyx_v_feature_point_arr));
+
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":175
+ *                     feature_point_arr = self.get_feature_point(j)
+ *                     data_arr = feature_point_arr
+ *                     data_row = data_arr.shape[0]             # <<<<<<<<<<<<<<
+ *                     if data_row <= 0:
+ *                         raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(j) + " layer's learning.")
+ */
+        __pyx_v_data_row = (__pyx_v_data_arr->dimensions[0]);
+
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":176
+ *                     data_arr = feature_point_arr
+ *                     data_row = data_arr.shape[0]
+ *                     if data_row <= 0:             # <<<<<<<<<<<<<<
+ *                         raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(j) + " layer's learning.")
+ * 
+ */
+        __pyx_t_12 = ((__pyx_v_data_row <= 0) != 0);
+        if (__pyx_t_12) {
+
+          /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":177
+ *                     data_row = data_arr.shape[0]
+ *                     if data_row <= 0:
+ *                         raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(j) + " layer's learning.")             # <<<<<<<<<<<<<<
+ * 
+ *                 rbm_list = self.rbm_list[::-1]
+ */
+          __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 177, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 177, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_GIVEREF(__pyx_t_2);
+          PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
+          __pyx_t_2 = 0;
+          __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 177, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __pyx_t_3 = PyNumber_Add(__pyx_kp_s_Reconstructed_feature_point_arr, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 177, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __pyx_t_2 = PyNumber_Add(__pyx_t_3, __pyx_kp_s_layer_s_learning); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 177, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 177, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_GIVEREF(__pyx_t_2);
+          PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
+          __pyx_t_2 = 0;
+          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 177, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __Pyx_Raise(__pyx_t_2, 0, 0, 0);
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __PYX_ERR(0, 177, __pyx_L1_error)
+
+          /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":176
+ *                     data_arr = feature_point_arr
+ *                     data_row = data_arr.shape[0]
+ *                     if data_row <= 0:             # <<<<<<<<<<<<<<
+ *                         raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(j) + " layer's learning.")
+ * 
+ */
+        }
       }
 
-      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":152
- *                     data_arr = feature_point_arr
+      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":179
+ *                         raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(j) + " layer's learning.")
  * 
  *                 rbm_list = self.rbm_list[::-1]             # <<<<<<<<<<<<<<
  *                 for j in range(len(rbm_list)):
  *                     data_arr = self.get_feature_point(len(rbm_list)-1-j)
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rbm_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_16 = PyObject_GetItem(__pyx_t_1, __pyx_slice__2); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 152, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_16);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_XDECREF_SET(__pyx_v_rbm_list, __pyx_t_16);
-      __pyx_t_16 = 0;
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rbm_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 179, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_3 = PyObject_GetItem(__pyx_t_2, __pyx_slice__6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 179, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __Pyx_XDECREF_SET(__pyx_v_rbm_list, __pyx_t_3);
+      __pyx_t_3 = 0;
 
-      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":153
+      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":180
  * 
  *                 rbm_list = self.rbm_list[::-1]
  *                 for j in range(len(rbm_list)):             # <<<<<<<<<<<<<<
  *                     data_arr = self.get_feature_point(len(rbm_list)-1-j)
- *                     rbm_list[j].approximate_inferencing(
+ *                     data_row = data_arr.shape[0]
  */
-      __pyx_t_19 = PyObject_Length(__pyx_v_rbm_list); if (unlikely(__pyx_t_19 == ((Py_ssize_t)-1))) __PYX_ERR(0, 153, __pyx_L1_error)
+      __pyx_t_19 = PyObject_Length(__pyx_v_rbm_list); if (unlikely(__pyx_t_19 == ((Py_ssize_t)-1))) __PYX_ERR(0, 180, __pyx_L1_error)
       for (__pyx_t_17 = 0; __pyx_t_17 < __pyx_t_19; __pyx_t_17+=1) {
         __pyx_v_j = __pyx_t_17;
 
-        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":154
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":181
  *                 rbm_list = self.rbm_list[::-1]
  *                 for j in range(len(rbm_list)):
  *                     data_arr = self.get_feature_point(len(rbm_list)-1-j)             # <<<<<<<<<<<<<<
- *                     rbm_list[j].approximate_inferencing(
- *                         data_arr,
+ *                     data_row = data_arr.shape[0]
+ *                     if data_row <= 0:
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_feature_point); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_22 = PyObject_Length(__pyx_v_rbm_list); if (unlikely(__pyx_t_22 == ((Py_ssize_t)-1))) __PYX_ERR(0, 154, __pyx_L1_error)
-        __pyx_t_5 = PyInt_FromSsize_t(((__pyx_t_22 - 1) - __pyx_v_j)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 154, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_3 = NULL;
-        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
-          __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
-          if (likely(__pyx_t_3)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-            __Pyx_INCREF(__pyx_t_3);
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_get_feature_point); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 181, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_22 = PyObject_Length(__pyx_v_rbm_list); if (unlikely(__pyx_t_22 == ((Py_ssize_t)-1))) __PYX_ERR(0, 181, __pyx_L1_error)
+        __pyx_t_4 = PyInt_FromSsize_t(((__pyx_t_22 - 1) - __pyx_v_j)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 181, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __pyx_t_16 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+          __pyx_t_16 = PyMethod_GET_SELF(__pyx_t_2);
+          if (likely(__pyx_t_16)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+            __Pyx_INCREF(__pyx_t_16);
             __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_1, function);
+            __Pyx_DECREF_SET(__pyx_t_2, function);
           }
         }
-        if (!__pyx_t_3) {
-          __pyx_t_16 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 154, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __Pyx_GOTREF(__pyx_t_16);
+        if (!__pyx_t_16) {
+          __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+          __Pyx_GOTREF(__pyx_t_3);
         } else {
           #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_1)) {
-            PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_5};
-            __pyx_t_16 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 154, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-            __Pyx_GOTREF(__pyx_t_16);
-            __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+          if (PyFunction_Check(__pyx_t_2)) {
+            PyObject *__pyx_temp[2] = {__pyx_t_16, __pyx_t_4};
+            __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
+            __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
+            __Pyx_GOTREF(__pyx_t_3);
+            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           } else
           #endif
           #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
-            PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_5};
-            __pyx_t_16 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 154, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-            __Pyx_GOTREF(__pyx_t_16);
-            __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+          if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
+            PyObject *__pyx_temp[2] = {__pyx_t_16, __pyx_t_4};
+            __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
+            __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
+            __Pyx_GOTREF(__pyx_t_3);
+            __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           } else
           #endif
           {
-            __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 154, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_2);
-            __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
-            __Pyx_GIVEREF(__pyx_t_5);
-            PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_5);
-            __pyx_t_5 = 0;
-            __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 154, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_16);
-            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+            __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 181, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_6);
+            __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_16); __pyx_t_16 = NULL;
+            __Pyx_GIVEREF(__pyx_t_4);
+            PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_4);
+            __pyx_t_4 = 0;
+            __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_3);
+            __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           }
         }
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        if (!(likely(((__pyx_t_16) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_16, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 154, __pyx_L1_error)
-        __pyx_t_18 = ((PyArrayObject *)__pyx_t_16);
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 181, __pyx_L1_error)
+        __pyx_t_18 = ((PyArrayObject *)__pyx_t_3);
         {
           __Pyx_BufFmt_StackElem __pyx_stack[1];
           __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_data_arr.rcbuffer->pybuffer);
-          __pyx_t_20 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_18, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack);
-          if (unlikely(__pyx_t_20 < 0)) {
-            PyErr_Fetch(&__pyx_t_10, &__pyx_t_9, &__pyx_t_8);
+          __pyx_t_21 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_18, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack);
+          if (unlikely(__pyx_t_21 < 0)) {
+            PyErr_Fetch(&__pyx_t_11, &__pyx_t_10, &__pyx_t_9);
             if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
-              Py_XDECREF(__pyx_t_10); Py_XDECREF(__pyx_t_9); Py_XDECREF(__pyx_t_8);
+              Py_XDECREF(__pyx_t_11); Py_XDECREF(__pyx_t_10); Py_XDECREF(__pyx_t_9);
               __Pyx_RaiseBufferFallbackError();
             } else {
-              PyErr_Restore(__pyx_t_10, __pyx_t_9, __pyx_t_8);
+              PyErr_Restore(__pyx_t_11, __pyx_t_10, __pyx_t_9);
             }
-            __pyx_t_10 = __pyx_t_9 = __pyx_t_8 = 0;
+            __pyx_t_11 = __pyx_t_10 = __pyx_t_9 = 0;
           }
           __pyx_pybuffernd_data_arr.diminfo[0].strides = __pyx_pybuffernd_data_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_data_arr.diminfo[0].shape = __pyx_pybuffernd_data_arr.rcbuffer->pybuffer.shape[0];
-          if (unlikely(__pyx_t_20 < 0)) __PYX_ERR(0, 154, __pyx_L1_error)
+          if (unlikely(__pyx_t_21 < 0)) __PYX_ERR(0, 181, __pyx_L1_error)
         }
         __pyx_t_18 = 0;
-        __Pyx_DECREF_SET(__pyx_v_data_arr, ((PyArrayObject *)__pyx_t_16));
-        __pyx_t_16 = 0;
+        __Pyx_DECREF_SET(__pyx_v_data_arr, ((PyArrayObject *)__pyx_t_3));
+        __pyx_t_3 = 0;
 
-        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":155
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":182
  *                 for j in range(len(rbm_list)):
  *                     data_arr = self.get_feature_point(len(rbm_list)-1-j)
+ *                     data_row = data_arr.shape[0]             # <<<<<<<<<<<<<<
+ *                     if data_row <= 0:
+ *                         raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(j) + " layer's  inference.")
+ */
+        __pyx_v_data_row = (__pyx_v_data_arr->dimensions[0]);
+
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":183
+ *                     data_arr = self.get_feature_point(len(rbm_list)-1-j)
+ *                     data_row = data_arr.shape[0]
+ *                     if data_row <= 0:             # <<<<<<<<<<<<<<
+ *                         raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(j) + " layer's  inference.")
+ * 
+ */
+        __pyx_t_12 = ((__pyx_v_data_row <= 0) != 0);
+        if (__pyx_t_12) {
+
+          /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":184
+ *                     data_row = data_arr.shape[0]
+ *                     if data_row <= 0:
+ *                         raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(j) + " layer's  inference.")             # <<<<<<<<<<<<<<
+ * 
+ *                     rbm_list[j].approximate_inferencing(
+ */
+          __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 184, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 184, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __Pyx_GIVEREF(__pyx_t_3);
+          PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3);
+          __pyx_t_3 = 0;
+          __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 184, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __pyx_t_2 = PyNumber_Add(__pyx_kp_s_Reconstructed_feature_point_arr, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 184, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __pyx_t_3 = PyNumber_Add(__pyx_t_2, __pyx_kp_s_layer_s_inference); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 184, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 184, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __Pyx_GIVEREF(__pyx_t_3);
+          PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3);
+          __pyx_t_3 = 0;
+          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 184, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __Pyx_Raise(__pyx_t_3, 0, 0, 0);
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __PYX_ERR(0, 184, __pyx_L1_error)
+
+          /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":183
+ *                     data_arr = self.get_feature_point(len(rbm_list)-1-j)
+ *                     data_row = data_arr.shape[0]
+ *                     if data_row <= 0:             # <<<<<<<<<<<<<<
+ *                         raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(j) + " layer's  inference.")
+ * 
+ */
+        }
+
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":186
+ *                         raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(j) + " layer's  inference.")
+ * 
  *                     rbm_list[j].approximate_inferencing(             # <<<<<<<<<<<<<<
  *                         data_arr,
- *                         1,
+ *                         training_count=1,
  */
-        __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_rbm_list, __pyx_v_j, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_approximate_inferencing); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 155, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_rbm_list, __pyx_v_j, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 186, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_approximate_inferencing); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 186, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":158
- *                         data_arr,
- *                         1,
- *                         r_batch_size             # <<<<<<<<<<<<<<
- *                     )
- *                 if k == traning_count - 1:
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":187
+ * 
+ *                     rbm_list[j].approximate_inferencing(
+ *                         data_arr,             # <<<<<<<<<<<<<<
+ *                         training_count=1,
+ *                         r_batch_size=r_batch_size
  */
-        __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_r_batch_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 158, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_5 = NULL;
-        __pyx_t_20 = 0;
-        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-          __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
-          if (likely(__pyx_t_5)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-            __Pyx_INCREF(__pyx_t_5);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_2, function);
-            __pyx_t_20 = 1;
-          }
-        }
-        #if CYTHON_FAST_PYCALL
-        if (PyFunction_Check(__pyx_t_2)) {
-          PyObject *__pyx_temp[4] = {__pyx_t_5, ((PyObject *)__pyx_v_data_arr), __pyx_int_1, __pyx_t_1};
-          __pyx_t_16 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_20, 3+__pyx_t_20); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 155, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __Pyx_GOTREF(__pyx_t_16);
-          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        } else
-        #endif
-        #if CYTHON_FAST_PYCCALL
-        if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-          PyObject *__pyx_temp[4] = {__pyx_t_5, ((PyObject *)__pyx_v_data_arr), __pyx_int_1, __pyx_t_1};
-          __pyx_t_16 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_20, 3+__pyx_t_20); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 155, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __Pyx_GOTREF(__pyx_t_16);
-          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        } else
-        #endif
-        {
-          __pyx_t_3 = PyTuple_New(3+__pyx_t_20); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_3);
-          if (__pyx_t_5) {
-            __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_5); __pyx_t_5 = NULL;
-          }
-          __Pyx_INCREF(((PyObject *)__pyx_v_data_arr));
-          __Pyx_GIVEREF(((PyObject *)__pyx_v_data_arr));
-          PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_20, ((PyObject *)__pyx_v_data_arr));
-          __Pyx_INCREF(__pyx_int_1);
-          __Pyx_GIVEREF(__pyx_int_1);
-          PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_20, __pyx_int_1);
-          __Pyx_GIVEREF(__pyx_t_1);
-          PyTuple_SET_ITEM(__pyx_t_3, 2+__pyx_t_20, __pyx_t_1);
-          __pyx_t_1 = 0;
-          __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 155, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_16);
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        }
+        __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 186, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_INCREF(((PyObject *)__pyx_v_data_arr));
+        __Pyx_GIVEREF(((PyObject *)__pyx_v_data_arr));
+        PyTuple_SET_ITEM(__pyx_t_3, 0, ((PyObject *)__pyx_v_data_arr));
+
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":188
+ *                     rbm_list[j].approximate_inferencing(
+ *                         data_arr,
+ *                         training_count=1,             # <<<<<<<<<<<<<<
+ *                         r_batch_size=r_batch_size
+ *                     )
+ */
+        __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 188, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_training_count, __pyx_int_1) < 0) __PYX_ERR(0, 188, __pyx_L1_error)
+
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":189
+ *                         data_arr,
+ *                         training_count=1,
+ *                         r_batch_size=r_batch_size             # <<<<<<<<<<<<<<
+ *                     )
+ *                 if k == training_count - 1:
+ */
+        __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_r_batch_size); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 189, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_r_batch_size, __pyx_t_4) < 0) __PYX_ERR(0, 188, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":186
+ *                         raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(j) + " layer's  inference.")
+ * 
+ *                     rbm_list[j].approximate_inferencing(             # <<<<<<<<<<<<<<
+ *                         data_arr,
+ *                         training_count=1,
+ */
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 186, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       }
 
-      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":160
- *                         r_batch_size
+      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":191
+ *                         r_batch_size=r_batch_size
  *                     )
- *                 if k == traning_count - 1:             # <<<<<<<<<<<<<<
+ *                 if k == training_count - 1:             # <<<<<<<<<<<<<<
  *                     inferenced_data_list[i] = rbm_list[-1].graph.visible_activity_arr
  *         self.__visible_points_arr = np.array(inferenced_data_list)
  */
-      __pyx_t_15 = ((__pyx_v_k == (__pyx_v_traning_count - 1)) != 0);
-      if (__pyx_t_15) {
+      __pyx_t_12 = ((__pyx_v_k == (__pyx_v_training_count - 1)) != 0);
+      if (__pyx_t_12) {
 
-        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":161
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":192
  *                     )
- *                 if k == traning_count - 1:
+ *                 if k == training_count - 1:
  *                     inferenced_data_list[i] = rbm_list[-1].graph.visible_activity_arr             # <<<<<<<<<<<<<<
  *         self.__visible_points_arr = np.array(inferenced_data_list)
  *         self.__visible_points_arr = self.__reshape_inferenced_data(init_observed_data_arr, self.__visible_points_arr)
  */
-        __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_rbm_list, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 161, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_16);
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 161, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-        __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 161, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_16);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        if (unlikely(__Pyx_SetItemInt(__pyx_v_inferenced_data_list, __pyx_v_i, __pyx_t_16, int, 1, __Pyx_PyInt_From_int, 1, 1, 1) < 0)) __PYX_ERR(0, 161, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+        __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_rbm_list, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 192, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 192, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_visible_activity_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 192, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        if (unlikely(__Pyx_SetItemInt(__pyx_v_inferenced_data_list, __pyx_v_i, __pyx_t_4, int, 1, __Pyx_PyInt_From_int, 1, 1, 1) < 0)) __PYX_ERR(0, 192, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":160
- *                         r_batch_size
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":191
+ *                         r_batch_size=r_batch_size
  *                     )
- *                 if k == traning_count - 1:             # <<<<<<<<<<<<<<
+ *                 if k == training_count - 1:             # <<<<<<<<<<<<<<
  *                     inferenced_data_list[i] = rbm_list[-1].graph.visible_activity_arr
  *         self.__visible_points_arr = np.array(inferenced_data_list)
  */
@@ -3989,126 +4429,126 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     }
   }
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":162
- *                 if k == traning_count - 1:
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":193
+ *                 if k == training_count - 1:
  *                     inferenced_data_list[i] = rbm_list[-1].graph.visible_activity_arr
  *         self.__visible_points_arr = np.array(inferenced_data_list)             # <<<<<<<<<<<<<<
  *         self.__visible_points_arr = self.__reshape_inferenced_data(init_observed_data_arr, self.__visible_points_arr)
  * 
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 193, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 193, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = NULL;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_2)) {
+    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_6)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_6);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_3, function);
     }
   }
-  if (!__pyx_t_2) {
-    __pyx_t_16 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_inferenced_data_list); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 162, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_16);
+  if (!__pyx_t_6) {
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_inferenced_data_list); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 193, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_inferenced_data_list};
-      __pyx_t_16 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 162, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_GOTREF(__pyx_t_16);
+      PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_v_inferenced_data_list};
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 193, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_4);
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_inferenced_data_list};
-      __pyx_t_16 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 162, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_GOTREF(__pyx_t_16);
+      PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_v_inferenced_data_list};
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 193, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_4);
     } else
     #endif
     {
-      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2); __pyx_t_2 = NULL;
+      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 193, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_6); __pyx_t_6 = NULL;
       __Pyx_INCREF(__pyx_v_inferenced_data_list);
       __Pyx_GIVEREF(__pyx_v_inferenced_data_list);
-      PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_v_inferenced_data_list);
-      __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 162, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_16);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_v_inferenced_data_list);
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_2, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 193, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__visible, __pyx_t_16) < 0) __PYX_ERR(0, 162, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__visible, __pyx_t_4) < 0) __PYX_ERR(0, 193, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":163
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":194
  *                     inferenced_data_list[i] = rbm_list[-1].graph.visible_activity_arr
  *         self.__visible_points_arr = np.array(inferenced_data_list)
  *         self.__visible_points_arr = self.__reshape_inferenced_data(init_observed_data_arr, self.__visible_points_arr)             # <<<<<<<<<<<<<<
  * 
  *     def __reshape_observed_data(self, np.ndarray[DOUBLE_t, ndim=2] observed_data_arr):
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__reshape_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__reshape_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 194, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__visible); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = NULL;
-  __pyx_t_7 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__visible); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_6 = NULL;
+  __pyx_t_8 = 0;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_2)) {
+    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_6)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_6);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_3, function);
-      __pyx_t_7 = 1;
+      __pyx_t_8 = 1;
     }
   }
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_3)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_2, ((PyObject *)__pyx_v_init_observed_data_arr), __pyx_t_1};
-    __pyx_t_16 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 163, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_GOTREF(__pyx_t_16);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    PyObject *__pyx_temp[3] = {__pyx_t_6, ((PyObject *)__pyx_v_init_observed_data_arr), __pyx_t_2};
+    __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 194, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_2, ((PyObject *)__pyx_v_init_observed_data_arr), __pyx_t_1};
-    __pyx_t_16 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 163, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_GOTREF(__pyx_t_16);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    PyObject *__pyx_temp[3] = {__pyx_t_6, ((PyObject *)__pyx_v_init_observed_data_arr), __pyx_t_2};
+    __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 194, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else
   #endif
   {
-    __pyx_t_5 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 163, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    if (__pyx_t_2) {
-      __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __pyx_t_2 = NULL;
+    __pyx_t_16 = PyTuple_New(2+__pyx_t_8); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 194, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_16);
+    if (__pyx_t_6) {
+      __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_6); __pyx_t_6 = NULL;
     }
     __Pyx_INCREF(((PyObject *)__pyx_v_init_observed_data_arr));
     __Pyx_GIVEREF(((PyObject *)__pyx_v_init_observed_data_arr));
-    PyTuple_SET_ITEM(__pyx_t_5, 0+__pyx_t_7, ((PyObject *)__pyx_v_init_observed_data_arr));
-    __Pyx_GIVEREF(__pyx_t_1);
-    PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_7, __pyx_t_1);
-    __pyx_t_1 = 0;
-    __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 163, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_16);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    PyTuple_SET_ITEM(__pyx_t_16, 0+__pyx_t_8, ((PyObject *)__pyx_v_init_observed_data_arr));
+    __Pyx_GIVEREF(__pyx_t_2);
+    PyTuple_SET_ITEM(__pyx_t_16, 1+__pyx_t_8, __pyx_t_2);
+    __pyx_t_2 = 0;
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 194, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__visible, __pyx_t_16) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__visible, __pyx_t_4) < 0) __PYX_ERR(0, 194, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":99
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":108
  *         )
  * 
  *     def learn(             # <<<<<<<<<<<<<<
@@ -4120,10 +4560,10 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_16);
   { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
     __Pyx_PyThreadState_declare
@@ -4154,7 +4594,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   return __pyx_r;
 }
 
-/* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":165
+/* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":196
  *         self.__visible_points_arr = self.__reshape_inferenced_data(init_observed_data_arr, self.__visible_points_arr)
  * 
  *     def __reshape_observed_data(self, np.ndarray[DOUBLE_t, ndim=2] observed_data_arr):             # <<<<<<<<<<<<<<
@@ -4195,11 +4635,11 @@ static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_observed_data_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__reshape_observed_data", 1, 2, 2, 1); __PYX_ERR(0, 165, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__reshape_observed_data", 1, 2, 2, 1); __PYX_ERR(0, 196, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__reshape_observed_data") < 0)) __PYX_ERR(0, 165, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__reshape_observed_data") < 0)) __PYX_ERR(0, 196, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -4212,13 +4652,13 @@ static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__reshape_observed_data", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 165, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__reshape_observed_data", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 196, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.dbm.deepboltzmannmachine.shape_boltzmann_machine.ShapeBoltzmannMachine.__reshape_observed_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_data_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_data_arr", 0))) __PYX_ERR(0, 165, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_data_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_data_arr", 0))) __PYX_ERR(0, 196, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_8__reshape_observed_data(__pyx_self, __pyx_v_self, __pyx_v_observed_data_arr);
 
   /* function exit code */
@@ -4282,11 +4722,11 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   __pyx_pybuffernd_observed_data_arr.rcbuffer = &__pyx_pybuffer_observed_data_arr;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 165, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 196, __pyx_L1_error)
   }
   __pyx_pybuffernd_observed_data_arr.diminfo[0].strides = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_observed_data_arr.diminfo[0].shape = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_observed_data_arr.diminfo[1].strides = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_observed_data_arr.diminfo[1].shape = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.shape[1];
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":176
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":207
  *         '''
  * 
  *         cdef int row_y = observed_data_arr.shape[0]             # <<<<<<<<<<<<<<
@@ -4295,7 +4735,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
  */
   __pyx_v_row_y = (__pyx_v_observed_data_arr->dimensions[0]);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":177
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":208
  * 
  *         cdef int row_y = observed_data_arr.shape[0]
  *         cdef int col_x = observed_data_arr.shape[1]             # <<<<<<<<<<<<<<
@@ -4304,60 +4744,60 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
  */
   __pyx_v_col_x = (__pyx_v_observed_data_arr->dimensions[1]);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":179
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":210
  *         cdef int col_x = observed_data_arr.shape[1]
  * 
  *         feature_arr_list = []             # <<<<<<<<<<<<<<
  * 
- *         cdef int unit_n = int(self.__reshaped_w / 2)
+ *         cdef int unit_n = int(self.__filter_size / 2)
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_feature_arr_list = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":181
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":212
  *         feature_arr_list = []
  * 
- *         cdef int unit_n = int(self.__reshaped_w / 2)             # <<<<<<<<<<<<<<
+ *         cdef int unit_n = int(self.__filter_size / 2)             # <<<<<<<<<<<<<<
  *         unit_arr = np.array(list(range(unit_n)))
  *         length_list = np.r_[
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__reshaped); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ShapeBoltzmannMachine__filter_s); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyNumber_Divide(__pyx_t_1, __pyx_int_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyNumber_Divide(__pyx_t_1, __pyx_int_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyNumber_Int(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyNumber_Int(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 181, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 212, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_unit_n = __pyx_t_3;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":182
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":213
  * 
- *         cdef int unit_n = int(self.__reshaped_w / 2)
+ *         cdef int unit_n = int(self.__filter_size / 2)
  *         unit_arr = np.array(list(range(unit_n)))             # <<<<<<<<<<<<<<
  *         length_list = np.r_[
  *             unit_arr.copy()[::-1] * -1,
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 182, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 182, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_unit_n); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 182, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_unit_n); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 182, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 182, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PySequence_List(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 182, __pyx_L1_error)
+  __pyx_t_5 = PySequence_List(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -4371,14 +4811,14 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_5};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -4387,20 +4827,20 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_5};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     } else
     #endif
     {
-      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 182, __pyx_L1_error)
+      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 213, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_GIVEREF(__pyx_t_5);
       PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_5);
       __pyx_t_5 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
@@ -4409,27 +4849,27 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   __pyx_v_unit_arr = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":183
- *         cdef int unit_n = int(self.__reshaped_w / 2)
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":214
+ *         cdef int unit_n = int(self.__filter_size / 2)
  *         unit_arr = np.array(list(range(unit_n)))
  *         length_list = np.r_[             # <<<<<<<<<<<<<<
  *             unit_arr.copy()[::-1] * -1,
  *             unit_arr[1:]
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 183, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 214, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_r); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 183, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_r); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 214, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":184
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":215
  *         unit_arr = np.array(list(range(unit_n)))
  *         length_list = np.r_[
  *             unit_arr.copy()[::-1] * -1,             # <<<<<<<<<<<<<<
  *             unit_arr[1:]
  *         ].tolist()
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_unit_arr, __pyx_n_s_copy); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 184, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_unit_arr, __pyx_n_s_copy); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 215, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_2 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -4442,38 +4882,38 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     }
   }
   if (__pyx_t_2) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 184, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 215, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
-    __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 184, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 215, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyObject_GetItem(__pyx_t_4, __pyx_slice__3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 184, __pyx_L1_error)
+  __pyx_t_5 = PyObject_GetItem(__pyx_t_4, __pyx_slice__7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 215, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_5, __pyx_int_neg_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 184, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Multiply(__pyx_t_5, __pyx_int_neg_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 215, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":185
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":216
  *         length_list = np.r_[
  *             unit_arr.copy()[::-1] * -1,
  *             unit_arr[1:]             # <<<<<<<<<<<<<<
  *         ].tolist()
  * 
  */
-  __pyx_t_5 = __Pyx_PyObject_GetSlice(__pyx_v_unit_arr, 1, 0, NULL, NULL, &__pyx_slice__4, 1, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 185, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetSlice(__pyx_v_unit_arr, 1, 0, NULL, NULL, &__pyx_slice__8, 1, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 216, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":183
- *         cdef int unit_n = int(self.__reshaped_w / 2)
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":214
+ *         cdef int unit_n = int(self.__filter_size / 2)
  *         unit_arr = np.array(list(range(unit_n)))
  *         length_list = np.r_[             # <<<<<<<<<<<<<<
  *             unit_arr.copy()[::-1] * -1,
  *             unit_arr[1:]
  */
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 183, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 214, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_4);
@@ -4481,19 +4921,19 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_5);
   __pyx_t_4 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_5 = PyObject_GetItem(__pyx_t_6, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 183, __pyx_L1_error)
+  __pyx_t_5 = PyObject_GetItem(__pyx_t_6, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 214, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":186
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":217
  *             unit_arr.copy()[::-1] * -1,
  *             unit_arr[1:]
  *         ].tolist()             # <<<<<<<<<<<<<<
  * 
  *         v_list_list = []
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_tolist); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_tolist); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = NULL;
@@ -4507,52 +4947,52 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     }
   }
   if (__pyx_t_5) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 186, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 186, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_length_list = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":188
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":219
  *         ].tolist()
  * 
  *         v_list_list = []             # <<<<<<<<<<<<<<
  *         for x in range(col_x):
  *             for y in range(row_y):
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 188, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_list_list = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":189
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":220
  * 
  *         v_list_list = []
  *         for x in range(col_x):             # <<<<<<<<<<<<<<
  *             for y in range(row_y):
  *                 v_list = []
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_col_x); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_col_x); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_7 = 0;
     __pyx_t_8 = NULL;
   } else {
-    __pyx_t_7 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 189, __pyx_L1_error)
+    __pyx_t_7 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_8 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 189, __pyx_L1_error)
+    __pyx_t_8 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 220, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -4560,17 +5000,17 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_7 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_1); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 189, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_1); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 220, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 189, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_7 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_1); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 189, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_1); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 220, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 189, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -4580,7 +5020,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 189, __pyx_L1_error)
+          else __PYX_ERR(0, 220, __pyx_L1_error)
         }
         break;
       }
@@ -4589,30 +5029,30 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     __Pyx_XDECREF_SET(__pyx_v_x, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":190
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":221
  *         v_list_list = []
  *         for x in range(col_x):
  *             for y in range(row_y):             # <<<<<<<<<<<<<<
  *                 v_list = []
  *                 for x_add in length_list:
  */
-    __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_row_y); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_row_y); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 190, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 221, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_1);
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1);
     __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
       __pyx_t_5 = __pyx_t_1; __Pyx_INCREF(__pyx_t_5); __pyx_t_9 = 0;
       __pyx_t_10 = NULL;
     } else {
-      __pyx_t_9 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 190, __pyx_L1_error)
+      __pyx_t_9 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 221, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_10 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 190, __pyx_L1_error)
+      __pyx_t_10 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 221, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     for (;;) {
@@ -4620,17 +5060,17 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
         if (likely(PyList_CheckExact(__pyx_t_5))) {
           if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_5)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_1); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 190, __pyx_L1_error)
+          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_1); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 221, __pyx_L1_error)
           #else
-          __pyx_t_1 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           #endif
         } else {
           if (__pyx_t_9 >= PyTuple_GET_SIZE(__pyx_t_5)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_1); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 190, __pyx_L1_error)
+          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_9); __Pyx_INCREF(__pyx_t_1); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 221, __pyx_L1_error)
           #else
-          __pyx_t_1 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_5, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           #endif
         }
@@ -4640,7 +5080,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 190, __pyx_L1_error)
+            else __PYX_ERR(0, 221, __pyx_L1_error)
           }
           break;
         }
@@ -4649,19 +5089,19 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
       __Pyx_XDECREF_SET(__pyx_v_y, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":191
+      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":222
  *         for x in range(col_x):
  *             for y in range(row_y):
  *                 v_list = []             # <<<<<<<<<<<<<<
  *                 for x_add in length_list:
  *                     for y_add in length_list:
  */
-      __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
+      __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_v_list, ((PyObject*)__pyx_t_1));
       __pyx_t_1 = 0;
 
-      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":192
+      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":223
  *             for y in range(row_y):
  *                 v_list = []
  *                 for x_add in length_list:             # <<<<<<<<<<<<<<
@@ -4672,26 +5112,26 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
         __pyx_t_1 = __pyx_v_length_list; __Pyx_INCREF(__pyx_t_1); __pyx_t_11 = 0;
         __pyx_t_12 = NULL;
       } else {
-        __pyx_t_11 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_length_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 192, __pyx_L1_error)
+        __pyx_t_11 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_length_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 223, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_12 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 192, __pyx_L1_error)
+        __pyx_t_12 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 223, __pyx_L1_error)
       }
       for (;;) {
         if (likely(!__pyx_t_12)) {
           if (likely(PyList_CheckExact(__pyx_t_1))) {
             if (__pyx_t_11 >= PyList_GET_SIZE(__pyx_t_1)) break;
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_6 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_11); __Pyx_INCREF(__pyx_t_6); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(0, 192, __pyx_L1_error)
+            __pyx_t_6 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_11); __Pyx_INCREF(__pyx_t_6); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(0, 223, __pyx_L1_error)
             #else
-            __pyx_t_6 = PySequence_ITEM(__pyx_t_1, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 192, __pyx_L1_error)
+            __pyx_t_6 = PySequence_ITEM(__pyx_t_1, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 223, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_6);
             #endif
           } else {
             if (__pyx_t_11 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_11); __Pyx_INCREF(__pyx_t_6); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(0, 192, __pyx_L1_error)
+            __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_11); __Pyx_INCREF(__pyx_t_6); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(0, 223, __pyx_L1_error)
             #else
-            __pyx_t_6 = PySequence_ITEM(__pyx_t_1, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 192, __pyx_L1_error)
+            __pyx_t_6 = PySequence_ITEM(__pyx_t_1, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 223, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_6);
             #endif
           }
@@ -4701,7 +5141,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
             PyObject* exc_type = PyErr_Occurred();
             if (exc_type) {
               if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-              else __PYX_ERR(0, 192, __pyx_L1_error)
+              else __PYX_ERR(0, 223, __pyx_L1_error)
             }
             break;
           }
@@ -4710,7 +5150,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
         __Pyx_XDECREF_SET(__pyx_v_x_add, __pyx_t_6);
         __pyx_t_6 = 0;
 
-        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":193
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":224
  *                 v_list = []
  *                 for x_add in length_list:
  *                     for y_add in length_list:             # <<<<<<<<<<<<<<
@@ -4721,26 +5161,26 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
           __pyx_t_6 = __pyx_v_length_list; __Pyx_INCREF(__pyx_t_6); __pyx_t_13 = 0;
           __pyx_t_14 = NULL;
         } else {
-          __pyx_t_13 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_v_length_list); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 193, __pyx_L1_error)
+          __pyx_t_13 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_v_length_list); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 224, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_14 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 193, __pyx_L1_error)
+          __pyx_t_14 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 224, __pyx_L1_error)
         }
         for (;;) {
           if (likely(!__pyx_t_14)) {
             if (likely(PyList_CheckExact(__pyx_t_6))) {
               if (__pyx_t_13 >= PyList_GET_SIZE(__pyx_t_6)) break;
               #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-              __pyx_t_4 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_13); __Pyx_INCREF(__pyx_t_4); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 193, __pyx_L1_error)
+              __pyx_t_4 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_13); __Pyx_INCREF(__pyx_t_4); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 224, __pyx_L1_error)
               #else
-              __pyx_t_4 = PySequence_ITEM(__pyx_t_6, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 193, __pyx_L1_error)
+              __pyx_t_4 = PySequence_ITEM(__pyx_t_6, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 224, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_4);
               #endif
             } else {
               if (__pyx_t_13 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
               #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-              __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_13); __Pyx_INCREF(__pyx_t_4); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 193, __pyx_L1_error)
+              __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_13); __Pyx_INCREF(__pyx_t_4); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 224, __pyx_L1_error)
               #else
-              __pyx_t_4 = PySequence_ITEM(__pyx_t_6, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 193, __pyx_L1_error)
+              __pyx_t_4 = PySequence_ITEM(__pyx_t_6, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 224, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_4);
               #endif
             }
@@ -4750,7 +5190,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
               PyObject* exc_type = PyErr_Occurred();
               if (exc_type) {
                 if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                else __PYX_ERR(0, 193, __pyx_L1_error)
+                else __PYX_ERR(0, 224, __pyx_L1_error)
               }
               break;
             }
@@ -4759,7 +5199,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
           __Pyx_XDECREF_SET(__pyx_v_y_add, __pyx_t_4);
           __pyx_t_4 = 0;
 
-          /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":194
+          /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":225
  *                 for x_add in length_list:
  *                     for y_add in length_list:
  *                         try:             # <<<<<<<<<<<<<<
@@ -4775,18 +5215,18 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
             __Pyx_XGOTREF(__pyx_t_17);
             /*try:*/ {
 
-              /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":195
+              /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":226
  *                     for y_add in length_list:
  *                         try:
  *                             v_list.append(observed_data_arr[y+y_add, x+x_add])             # <<<<<<<<<<<<<<
  *                         except IndexError:
  *                             v_list.append(0)
  */
-              __pyx_t_4 = PyNumber_Add(__pyx_v_y, __pyx_v_y_add); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 195, __pyx_L11_error)
+              __pyx_t_4 = PyNumber_Add(__pyx_v_y, __pyx_v_y_add); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 226, __pyx_L11_error)
               __Pyx_GOTREF(__pyx_t_4);
-              __pyx_t_18 = PyNumber_Add(__pyx_v_x, __pyx_v_x_add); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 195, __pyx_L11_error)
+              __pyx_t_18 = PyNumber_Add(__pyx_v_x, __pyx_v_x_add); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 226, __pyx_L11_error)
               __Pyx_GOTREF(__pyx_t_18);
-              __pyx_t_19 = PyTuple_New(2); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 195, __pyx_L11_error)
+              __pyx_t_19 = PyTuple_New(2); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 226, __pyx_L11_error)
               __Pyx_GOTREF(__pyx_t_19);
               __Pyx_GIVEREF(__pyx_t_4);
               PyTuple_SET_ITEM(__pyx_t_19, 0, __pyx_t_4);
@@ -4794,13 +5234,13 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
               PyTuple_SET_ITEM(__pyx_t_19, 1, __pyx_t_18);
               __pyx_t_4 = 0;
               __pyx_t_18 = 0;
-              __pyx_t_18 = PyObject_GetItem(((PyObject *)__pyx_v_observed_data_arr), __pyx_t_19); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 195, __pyx_L11_error)
+              __pyx_t_18 = PyObject_GetItem(((PyObject *)__pyx_v_observed_data_arr), __pyx_t_19); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 226, __pyx_L11_error)
               __Pyx_GOTREF(__pyx_t_18);
               __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-              __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_v_list, __pyx_t_18); if (unlikely(__pyx_t_20 == ((int)-1))) __PYX_ERR(0, 195, __pyx_L11_error)
+              __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_v_list, __pyx_t_18); if (unlikely(__pyx_t_20 == ((int)-1))) __PYX_ERR(0, 226, __pyx_L11_error)
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
-              /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":194
+              /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":225
  *                 for x_add in length_list:
  *                     for y_add in length_list:
  *                         try:             # <<<<<<<<<<<<<<
@@ -4817,7 +5257,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
             __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
             __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
 
-            /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":196
+            /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":227
  *                         try:
  *                             v_list.append(observed_data_arr[y+y_add, x+x_add])
  *                         except IndexError:             # <<<<<<<<<<<<<<
@@ -4827,19 +5267,19 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
             __pyx_t_3 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_IndexError);
             if (__pyx_t_3) {
               __Pyx_AddTraceback("pydbm.dbm.deepboltzmannmachine.shape_boltzmann_machine.ShapeBoltzmannMachine.__reshape_observed_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
-              if (__Pyx_GetException(&__pyx_t_18, &__pyx_t_19, &__pyx_t_4) < 0) __PYX_ERR(0, 196, __pyx_L13_except_error)
+              if (__Pyx_GetException(&__pyx_t_18, &__pyx_t_19, &__pyx_t_4) < 0) __PYX_ERR(0, 227, __pyx_L13_except_error)
               __Pyx_GOTREF(__pyx_t_18);
               __Pyx_GOTREF(__pyx_t_19);
               __Pyx_GOTREF(__pyx_t_4);
 
-              /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":197
+              /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":228
  *                             v_list.append(observed_data_arr[y+y_add, x+x_add])
  *                         except IndexError:
  *                             v_list.append(0)             # <<<<<<<<<<<<<<
  *                 v_list_list.append(v_list)
  *         cdef np.ndarray[DOUBLE_t, ndim=2] reshape_arr = np.array(v_list_list).astype(np.float64)
  */
-              __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_v_list, __pyx_int_0); if (unlikely(__pyx_t_20 == ((int)-1))) __PYX_ERR(0, 197, __pyx_L13_except_error)
+              __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_v_list, __pyx_int_0); if (unlikely(__pyx_t_20 == ((int)-1))) __PYX_ERR(0, 228, __pyx_L13_except_error)
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
               __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
               __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -4848,7 +5288,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
             goto __pyx_L13_except_error;
             __pyx_L13_except_error:;
 
-            /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":194
+            /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":225
  *                 for x_add in length_list:
  *                     for y_add in length_list:
  *                         try:             # <<<<<<<<<<<<<<
@@ -4868,7 +5308,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
             __pyx_L18_try_end:;
           }
 
-          /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":193
+          /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":224
  *                 v_list = []
  *                 for x_add in length_list:
  *                     for y_add in length_list:             # <<<<<<<<<<<<<<
@@ -4878,7 +5318,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
         }
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":192
+        /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":223
  *             for y in range(row_y):
  *                 v_list = []
  *                 for x_add in length_list:             # <<<<<<<<<<<<<<
@@ -4888,16 +5328,16 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":198
+      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":229
  *                         except IndexError:
  *                             v_list.append(0)
  *                 v_list_list.append(v_list)             # <<<<<<<<<<<<<<
  *         cdef np.ndarray[DOUBLE_t, ndim=2] reshape_arr = np.array(v_list_list).astype(np.float64)
  *         return reshape_arr
  */
-      __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_v_list_list, __pyx_v_v_list); if (unlikely(__pyx_t_20 == ((int)-1))) __PYX_ERR(0, 198, __pyx_L1_error)
+      __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_v_list_list, __pyx_v_v_list); if (unlikely(__pyx_t_20 == ((int)-1))) __PYX_ERR(0, 229, __pyx_L1_error)
 
-      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":190
+      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":221
  *         v_list_list = []
  *         for x in range(col_x):
  *             for y in range(row_y):             # <<<<<<<<<<<<<<
@@ -4907,7 +5347,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":189
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":220
  * 
  *         v_list_list = []
  *         for x in range(col_x):             # <<<<<<<<<<<<<<
@@ -4917,16 +5357,16 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":199
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":230
  *                             v_list.append(0)
  *                 v_list_list.append(v_list)
  *         cdef np.ndarray[DOUBLE_t, ndim=2] reshape_arr = np.array(v_list_list).astype(np.float64)             # <<<<<<<<<<<<<<
  *         return reshape_arr
  * 
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -4940,13 +5380,13 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     }
   }
   if (!__pyx_t_1) {
-    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_v_v_list_list); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 199, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_v_v_list_list); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 230, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_v_v_list_list};
-      __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 199, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 230, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_5);
     } else
@@ -4954,30 +5394,30 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_v_v_list_list};
-      __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 199, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 230, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_5);
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 199, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 230, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_1); __pyx_t_1 = NULL;
       __Pyx_INCREF(__pyx_v_v_list_list);
       __Pyx_GIVEREF(__pyx_v_v_list_list);
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_v_list_list);
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 199, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 230, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_astype); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_astype); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float64); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float64); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = NULL;
@@ -4991,14 +5431,14 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 199, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 230, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_4};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 199, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 230, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -5007,32 +5447,32 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_4};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 199, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 230, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     } else
     #endif
     {
-      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_5); __pyx_t_5 = NULL;
       __Pyx_GIVEREF(__pyx_t_4);
       PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_4);
       __pyx_t_4 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 199, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 230, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 199, __pyx_L1_error)
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 230, __pyx_L1_error)
   __pyx_t_21 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_21, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_reshape_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 199, __pyx_L1_error)
+      __PYX_ERR(0, 230, __pyx_L1_error)
     } else {__pyx_pybuffernd_reshape_arr.diminfo[0].strides = __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_reshape_arr.diminfo[0].shape = __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_reshape_arr.diminfo[1].strides = __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_reshape_arr.diminfo[1].shape = __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -5040,7 +5480,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   __pyx_v_reshape_arr = ((PyArrayObject *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":200
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":231
  *                 v_list_list.append(v_list)
  *         cdef np.ndarray[DOUBLE_t, ndim=2] reshape_arr = np.array(v_list_list).astype(np.float64)
  *         return reshape_arr             # <<<<<<<<<<<<<<
@@ -5052,7 +5492,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   __pyx_r = ((PyObject *)__pyx_v_reshape_arr);
   goto __pyx_L0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":165
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":196
  *         self.__visible_points_arr = self.__reshape_inferenced_data(init_observed_data_arr, self.__visible_points_arr)
  * 
  *     def __reshape_observed_data(self, np.ndarray[DOUBLE_t, ndim=2] observed_data_arr):             # <<<<<<<<<<<<<<
@@ -5098,7 +5538,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   return __pyx_r;
 }
 
-/* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":202
+/* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":233
  *         return reshape_arr
  * 
  *     def __reshape_inferenced_data(             # <<<<<<<<<<<<<<
@@ -5142,17 +5582,17 @@ static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_observed_data_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__reshape_inferenced_data", 1, 3, 3, 1); __PYX_ERR(0, 202, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__reshape_inferenced_data", 1, 3, 3, 1); __PYX_ERR(0, 233, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_inferenced_data_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__reshape_inferenced_data", 1, 3, 3, 2); __PYX_ERR(0, 202, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__reshape_inferenced_data", 1, 3, 3, 2); __PYX_ERR(0, 233, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__reshape_inferenced_data") < 0)) __PYX_ERR(0, 202, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__reshape_inferenced_data") < 0)) __PYX_ERR(0, 233, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -5167,14 +5607,14 @@ static PyObject *__pyx_pw_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__reshape_inferenced_data", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 202, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__reshape_inferenced_data", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 233, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.dbm.deepboltzmannmachine.shape_boltzmann_machine.ShapeBoltzmannMachine.__reshape_inferenced_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_data_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_data_arr", 0))) __PYX_ERR(0, 204, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_inferenced_data_arr), __pyx_ptype_5numpy_ndarray, 1, "inferenced_data_arr", 0))) __PYX_ERR(0, 205, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_data_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_data_arr", 0))) __PYX_ERR(0, 235, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_inferenced_data_arr), __pyx_ptype_5numpy_ndarray, 1, "inferenced_data_arr", 0))) __PYX_ERR(0, 236, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_10__reshape_inferenced_data(__pyx_self, __pyx_v_self, __pyx_v_observed_data_arr, __pyx_v_inferenced_data_arr);
 
   /* function exit code */
@@ -5246,66 +5686,66 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   __pyx_pybuffernd_inferenced_data_arr.rcbuffer = &__pyx_pybuffer_inferenced_data_arr;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 202, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 233, __pyx_L1_error)
   }
   __pyx_pybuffernd_observed_data_arr.diminfo[0].strides = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_observed_data_arr.diminfo[0].shape = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_observed_data_arr.diminfo[1].strides = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_observed_data_arr.diminfo[1].shape = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_inferenced_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_inferenced_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 202, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_inferenced_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_inferenced_data_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 233, __pyx_L1_error)
   }
   __pyx_pybuffernd_inferenced_data_arr.diminfo[0].strides = __pyx_pybuffernd_inferenced_data_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_inferenced_data_arr.diminfo[0].shape = __pyx_pybuffernd_inferenced_data_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_inferenced_data_arr.diminfo[1].strides = __pyx_pybuffernd_inferenced_data_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_inferenced_data_arr.diminfo[1].shape = __pyx_pybuffernd_inferenced_data_arr.rcbuffer->pybuffer.shape[1];
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":217
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":248
  *             np.ndarray[DOUBLE_t, ndim=2] inferenced data points
  *         '''
  *         cdef int center_i = int(inferenced_data_arr.shape[1]/2)+1             # <<<<<<<<<<<<<<
  *         cdef np.ndarray[DOUBLE_t, ndim=1] shaped_data_arr = inferenced_data_arr[:, center_i]
  * 
  */
-  __pyx_t_1 = __Pyx_PyInt_From_long(__Pyx_div_long((__pyx_v_inferenced_data_arr->dimensions[1]), 2)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_long(__Pyx_div_long((__pyx_v_inferenced_data_arr->dimensions[1]), 2)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)(&PyInt_Type)), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)(&PyInt_Type)), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_AddObjC(__pyx_t_1, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_AddObjC(__pyx_t_1, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 248, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_center_i = __pyx_t_3;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":218
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":249
  *         '''
  *         cdef int center_i = int(inferenced_data_arr.shape[1]/2)+1
  *         cdef np.ndarray[DOUBLE_t, ndim=1] shaped_data_arr = inferenced_data_arr[:, center_i]             # <<<<<<<<<<<<<<
  * 
  *         cdef int row_y = observed_data_arr.shape[0]
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_center_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_center_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_INCREF(__pyx_slice__5);
-  __Pyx_GIVEREF(__pyx_slice__5);
-  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_slice__5);
+  __Pyx_INCREF(__pyx_slice__9);
+  __Pyx_GIVEREF(__pyx_slice__9);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_slice__9);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = PyObject_GetItem(((PyObject *)__pyx_v_inferenced_data_arr), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __pyx_t_2 = PyObject_GetItem(((PyObject *)__pyx_v_inferenced_data_arr), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 218, __pyx_L1_error)
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 249, __pyx_L1_error)
   __pyx_t_4 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_shaped_data_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_4, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_shaped_data_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_shaped_data_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 218, __pyx_L1_error)
+      __PYX_ERR(0, 249, __pyx_L1_error)
     } else {__pyx_pybuffernd_shaped_data_arr.diminfo[0].strides = __pyx_pybuffernd_shaped_data_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_shaped_data_arr.diminfo[0].shape = __pyx_pybuffernd_shaped_data_arr.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -5313,7 +5753,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   __pyx_v_shaped_data_arr = ((PyArrayObject *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":220
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":251
  *         cdef np.ndarray[DOUBLE_t, ndim=1] shaped_data_arr = inferenced_data_arr[:, center_i]
  * 
  *         cdef int row_y = observed_data_arr.shape[0]             # <<<<<<<<<<<<<<
@@ -5322,7 +5762,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
  */
   __pyx_v_row_y = (__pyx_v_observed_data_arr->dimensions[0]);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":221
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":252
  * 
  *         cdef int row_y = observed_data_arr.shape[0]
  *         cdef int col_x = observed_data_arr.shape[1]             # <<<<<<<<<<<<<<
@@ -5331,14 +5771,14 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
  */
   __pyx_v_col_x = (__pyx_v_observed_data_arr->dimensions[1]);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":223
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":254
  *         cdef int col_x = observed_data_arr.shape[1]
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=2] reshape_arr = observed_data_arr.copy()             # <<<<<<<<<<<<<<
  * 
  *         i = 0
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_observed_data_arr), __pyx_n_s_copy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 223, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_observed_data_arr), __pyx_n_s_copy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_5 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -5351,20 +5791,20 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     }
   }
   if (__pyx_t_5) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 223, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   } else {
-    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 223, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 254, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 223, __pyx_L1_error)
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 254, __pyx_L1_error)
   __pyx_t_6 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_6, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES| PyBUF_WRITABLE, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_reshape_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 223, __pyx_L1_error)
+      __PYX_ERR(0, 254, __pyx_L1_error)
     } else {__pyx_pybuffernd_reshape_arr.diminfo[0].strides = __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_reshape_arr.diminfo[0].shape = __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_reshape_arr.diminfo[1].strides = __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_reshape_arr.diminfo[1].shape = __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -5372,7 +5812,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   __pyx_v_reshape_arr = ((PyArrayObject *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":225
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":256
  *         cdef np.ndarray[DOUBLE_t, ndim=2] reshape_arr = observed_data_arr.copy()
  * 
  *         i = 0             # <<<<<<<<<<<<<<
@@ -5382,7 +5822,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_i = __pyx_int_0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":226
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":257
  * 
  *         i = 0
  *         for x in range(col_x):             # <<<<<<<<<<<<<<
@@ -5393,7 +5833,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_3; __pyx_t_7+=1) {
     __pyx_v_x = __pyx_t_7;
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":227
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":258
  *         i = 0
  *         for x in range(col_x):
  *             for y in range(row_y):             # <<<<<<<<<<<<<<
@@ -5404,7 +5844,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_y = __pyx_t_9;
 
-      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":228
+      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":259
  *         for x in range(col_x):
  *             for y in range(row_y):
  *                 reshape_arr[y, x] = reshape_arr[y, x] * shaped_data_arr[i]             # <<<<<<<<<<<<<<
@@ -5424,17 +5864,17 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
       } else if (unlikely(__pyx_t_11 >= __pyx_pybuffernd_reshape_arr.diminfo[1].shape)) __pyx_t_12 = 1;
       if (unlikely(__pyx_t_12 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_12);
-        __PYX_ERR(0, 228, __pyx_L1_error)
+        __PYX_ERR(0, 259, __pyx_L1_error)
       }
-      __pyx_t_2 = PyFloat_FromDouble((*__Pyx_BufPtrStrided2d(__pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t *, __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.buf, __pyx_t_10, __pyx_pybuffernd_reshape_arr.diminfo[0].strides, __pyx_t_11, __pyx_pybuffernd_reshape_arr.diminfo[1].strides))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 228, __pyx_L1_error)
+      __pyx_t_2 = PyFloat_FromDouble((*__Pyx_BufPtrStrided2d(__pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t *, __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.buf, __pyx_t_10, __pyx_pybuffernd_reshape_arr.diminfo[0].strides, __pyx_t_11, __pyx_pybuffernd_reshape_arr.diminfo[1].strides))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 259, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = PyObject_GetItem(((PyObject *)__pyx_v_shaped_data_arr), __pyx_v_i); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L1_error)
+      __pyx_t_1 = PyObject_GetItem(((PyObject *)__pyx_v_shaped_data_arr), __pyx_v_i); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_5 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 228, __pyx_L1_error)
+      __pyx_t_5 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 259, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_13 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_13 == ((npy_float64)-1)) && PyErr_Occurred())) __PYX_ERR(0, 228, __pyx_L1_error)
+      __pyx_t_13 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_13 == ((npy_float64)-1)) && PyErr_Occurred())) __PYX_ERR(0, 259, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __pyx_t_14 = __pyx_v_y;
       __pyx_t_15 = __pyx_v_x;
@@ -5449,32 +5889,32 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
       } else if (unlikely(__pyx_t_15 >= __pyx_pybuffernd_reshape_arr.diminfo[1].shape)) __pyx_t_12 = 1;
       if (unlikely(__pyx_t_12 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_12);
-        __PYX_ERR(0, 228, __pyx_L1_error)
+        __PYX_ERR(0, 259, __pyx_L1_error)
       }
       *__Pyx_BufPtrStrided2d(__pyx_t_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_DOUBLE_t *, __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.buf, __pyx_t_14, __pyx_pybuffernd_reshape_arr.diminfo[0].strides, __pyx_t_15, __pyx_pybuffernd_reshape_arr.diminfo[1].strides) = __pyx_t_13;
 
-      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":229
+      /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":260
  *             for y in range(row_y):
  *                 reshape_arr[y, x] = reshape_arr[y, x] * shaped_data_arr[i]
  *                 i += 1             # <<<<<<<<<<<<<<
  * 
  *         if reshape_arr.min() != 0 or reshape_arr.max() != 1:
  */
-      __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 229, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 260, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF_SET(__pyx_v_i, __pyx_t_5);
       __pyx_t_5 = 0;
     }
   }
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":231
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":262
  *                 i += 1
  * 
  *         if reshape_arr.min() != 0 or reshape_arr.max() != 1:             # <<<<<<<<<<<<<<
  *             reshape_arr = 255 * (reshape_arr - reshape_arr.min()) / (reshape_arr.max() - reshape_arr.min())
  *         return reshape_arr
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_reshape_arr), __pyx_n_s_min); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_reshape_arr), __pyx_n_s_min); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 262, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -5487,23 +5927,23 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     }
   }
   if (__pyx_t_2) {
-    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 231, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 262, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
-    __pyx_t_5 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 231, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 262, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_5, __pyx_int_0, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_1 = PyObject_RichCompare(__pyx_t_5, __pyx_int_0, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 262, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_17 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 262, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (!__pyx_t_17) {
   } else {
     __pyx_t_16 = __pyx_t_17;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_reshape_arr), __pyx_n_s_max); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_reshape_arr), __pyx_n_s_max); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 262, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_2 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -5516,28 +5956,28 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
     }
   }
   if (__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 262, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 262, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_1, __pyx_int_1, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_5 = PyObject_RichCompare(__pyx_t_1, __pyx_int_1, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 262, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_17 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 262, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_16 = __pyx_t_17;
   __pyx_L8_bool_binop_done:;
   if (__pyx_t_16) {
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":232
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":263
  * 
  *         if reshape_arr.min() != 0 or reshape_arr.max() != 1:
  *             reshape_arr = 255 * (reshape_arr - reshape_arr.min()) / (reshape_arr.max() - reshape_arr.min())             # <<<<<<<<<<<<<<
  *         return reshape_arr
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_reshape_arr), __pyx_n_s_min); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_reshape_arr), __pyx_n_s_min); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_2 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -5550,20 +5990,20 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
       }
     }
     if (__pyx_t_2) {
-      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 232, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     } else {
-      __pyx_t_5 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 232, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 263, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Subtract(((PyObject *)__pyx_v_reshape_arr), __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Subtract(((PyObject *)__pyx_v_reshape_arr), __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyNumber_Multiply(__pyx_int_255, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Multiply(__pyx_int_255, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 263, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_reshape_arr), __pyx_n_s_max); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_reshape_arr), __pyx_n_s_max); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 263, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_18 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -5576,14 +6016,14 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
       }
     }
     if (__pyx_t_18) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_18); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 232, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_18); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
     } else {
-      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 232, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_reshape_arr), __pyx_n_s_min); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_reshape_arr), __pyx_n_s_min); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 263, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_18);
     __pyx_t_19 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_18))) {
@@ -5596,22 +6036,22 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
       }
     }
     if (__pyx_t_19) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_18, __pyx_t_19); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_18, __pyx_t_19); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
     } else {
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_18); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_18); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 263, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-    __pyx_t_18 = PyNumber_Subtract(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __pyx_t_18 = PyNumber_Subtract(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 263, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_18);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyNumber_Divide(__pyx_t_5, __pyx_t_18); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyNumber_Divide(__pyx_t_5, __pyx_t_18); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 263, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 232, __pyx_L1_error)
+    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 263, __pyx_L1_error)
     __pyx_t_6 = ((PyArrayObject *)__pyx_t_2);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -5628,13 +6068,13 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
         __pyx_t_20 = __pyx_t_21 = __pyx_t_22 = 0;
       }
       __pyx_pybuffernd_reshape_arr.diminfo[0].strides = __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_reshape_arr.diminfo[0].shape = __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_reshape_arr.diminfo[1].strides = __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_reshape_arr.diminfo[1].shape = __pyx_pybuffernd_reshape_arr.rcbuffer->pybuffer.shape[1];
-      if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 232, __pyx_L1_error)
+      if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 263, __pyx_L1_error)
     }
     __pyx_t_6 = 0;
     __Pyx_DECREF_SET(__pyx_v_reshape_arr, ((PyArrayObject *)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":231
+    /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":262
  *                 i += 1
  * 
  *         if reshape_arr.min() != 0 or reshape_arr.max() != 1:             # <<<<<<<<<<<<<<
@@ -5643,7 +6083,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
  */
   }
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":233
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":264
  *         if reshape_arr.min() != 0 or reshape_arr.max() != 1:
  *             reshape_arr = 255 * (reshape_arr - reshape_arr.min()) / (reshape_arr.max() - reshape_arr.min())
  *         return reshape_arr             # <<<<<<<<<<<<<<
@@ -5653,7 +6093,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_m
   __pyx_r = ((PyObject *)__pyx_v_reshape_arr);
   goto __pyx_L0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":202
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":233
  *         return reshape_arr
  * 
  *     def __reshape_inferenced_data(             # <<<<<<<<<<<<<<
@@ -5863,7 +6303,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 235, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 235, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -5919,7 +6359,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  * 
  *             info.buf = PyArray_DATA(self)
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 239, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 239, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -6228,7 +6668,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 276, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 276, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -7117,7 +7557,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 823, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 823, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -7185,7 +7625,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  *             # One could encode it in the format string and have Cython
  *             # complain instead, BUT: < and > in format strings also imply
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 827, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 827, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -7294,7 +7734,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  */
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 847, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__15, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 847, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_Raise(__pyx_t_4, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -7974,7 +8414,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
  * 
  * cdef inline int import_umath() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1013, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__16, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1013, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -8103,7 +8543,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
  * 
  * cdef inline int import_ufunc() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1019, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__17, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1019, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -8229,7 +8669,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1025, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__18, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1025, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -8313,23 +8753,26 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
+  {&__pyx_kp_s_Choiced_observed_data_arr_is_inv, __pyx_k_Choiced_observed_data_arr_is_inv, sizeof(__pyx_k_Choiced_observed_data_arr_is_inv), 0, 0, 1, 0},
   {&__pyx_n_s_DeepBoltzmannMachine, __pyx_k_DeepBoltzmannMachine, sizeof(__pyx_k_DeepBoltzmannMachine), 0, 0, 1, 1},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
+  {&__pyx_n_s_FutureWarning, __pyx_k_FutureWarning, sizeof(__pyx_k_FutureWarning), 0, 0, 1, 1},
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
   {&__pyx_n_s_IndexError, __pyx_k_IndexError, sizeof(__pyx_k_IndexError), 0, 0, 1, 1},
   {&__pyx_n_s_LogisticFunction, __pyx_k_LogisticFunction, sizeof(__pyx_k_LogisticFunction), 0, 0, 1, 1},
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
+  {&__pyx_kp_s_Reconstructed_feature_point_arr, __pyx_k_Reconstructed_feature_point_arr, sizeof(__pyx_k_Reconstructed_feature_point_arr), 0, 0, 1, 0},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
   {&__pyx_n_s_ShapeBMCD, __pyx_k_ShapeBMCD, sizeof(__pyx_k_ShapeBMCD), 0, 0, 1, 1},
   {&__pyx_n_s_ShapeBoltzmannMachine, __pyx_k_ShapeBoltzmannMachine, sizeof(__pyx_k_ShapeBoltzmannMachine), 0, 0, 1, 1},
   {&__pyx_n_s_ShapeBoltzmannMachine___init, __pyx_k_ShapeBoltzmannMachine___init, sizeof(__pyx_k_ShapeBoltzmannMachine___init), 0, 0, 1, 1},
   {&__pyx_n_s_ShapeBoltzmannMachine___reshape, __pyx_k_ShapeBoltzmannMachine___reshape, sizeof(__pyx_k_ShapeBoltzmannMachine___reshape), 0, 0, 1, 1},
   {&__pyx_n_s_ShapeBoltzmannMachine___reshape_2, __pyx_k_ShapeBoltzmannMachine___reshape_2, sizeof(__pyx_k_ShapeBoltzmannMachine___reshape_2), 0, 0, 1, 1},
+  {&__pyx_n_s_ShapeBoltzmannMachine__filter_s, __pyx_k_ShapeBoltzmannMachine__filter_s, sizeof(__pyx_k_ShapeBoltzmannMachine__filter_s), 0, 0, 1, 1},
   {&__pyx_n_s_ShapeBoltzmannMachine__overlap, __pyx_k_ShapeBoltzmannMachine__overlap, sizeof(__pyx_k_ShapeBoltzmannMachine__overlap), 0, 0, 1, 1},
   {&__pyx_n_s_ShapeBoltzmannMachine__reshape, __pyx_k_ShapeBoltzmannMachine__reshape, sizeof(__pyx_k_ShapeBoltzmannMachine__reshape), 0, 0, 1, 1},
   {&__pyx_n_s_ShapeBoltzmannMachine__reshape_2, __pyx_k_ShapeBoltzmannMachine__reshape_2, sizeof(__pyx_k_ShapeBoltzmannMachine__reshape_2), 0, 0, 1, 1},
-  {&__pyx_n_s_ShapeBoltzmannMachine__reshaped, __pyx_k_ShapeBoltzmannMachine__reshaped, sizeof(__pyx_k_ShapeBoltzmannMachine__reshaped), 0, 0, 1, 1},
   {&__pyx_n_s_ShapeBoltzmannMachine__visible, __pyx_k_ShapeBoltzmannMachine__visible, sizeof(__pyx_k_ShapeBoltzmannMachine__visible), 0, 0, 1, 1},
   {&__pyx_n_s_ShapeBoltzmannMachine_get_visibl, __pyx_k_ShapeBoltzmannMachine_get_visibl, sizeof(__pyx_k_ShapeBoltzmannMachine_get_visibl), 0, 0, 1, 1},
   {&__pyx_n_s_ShapeBoltzmannMachine_learn, __pyx_k_ShapeBoltzmannMachine_learn, sizeof(__pyx_k_ShapeBoltzmannMachine_learn), 0, 0, 1, 1},
@@ -8351,12 +8794,16 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_col_x, __pyx_k_col_x, sizeof(__pyx_k_col_x), 0, 0, 1, 1},
   {&__pyx_n_s_copy, __pyx_k_copy, sizeof(__pyx_k_copy), 0, 0, 1, 1},
   {&__pyx_n_s_data_arr, __pyx_k_data_arr, sizeof(__pyx_k_data_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_data_row, __pyx_k_data_row, sizeof(__pyx_k_data_row), 0, 0, 1, 1},
   {&__pyx_n_s_dbm_builder, __pyx_k_dbm_builder, sizeof(__pyx_k_dbm_builder), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_dropout_rate, __pyx_k_dropout_rate, sizeof(__pyx_k_dropout_rate), 0, 0, 1, 1},
   {&__pyx_n_s_each, __pyx_k_each, sizeof(__pyx_k_each), 0, 0, 1, 1},
   {&__pyx_n_s_feature_arr_list, __pyx_k_feature_arr_list, sizeof(__pyx_k_feature_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_feature_point_arr, __pyx_k_feature_point_arr, sizeof(__pyx_k_feature_point_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_filter_size, __pyx_k_filter_size, sizeof(__pyx_k_filter_size), 0, 0, 1, 1},
+  {&__pyx_kp_s_filter_size_must_be_more_than_4, __pyx_k_filter_size_must_be_more_than_4, sizeof(__pyx_k_filter_size_must_be_more_than_4), 0, 0, 1, 0},
+  {&__pyx_kp_s_filter_size_or_overlap_n_can_be, __pyx_k_filter_size_or_overlap_n_can_be, sizeof(__pyx_k_filter_size_or_overlap_n_can_be), 0, 0, 1, 0},
   {&__pyx_n_s_float64, __pyx_k_float64, sizeof(__pyx_k_float64), 0, 0, 1, 1},
   {&__pyx_n_s_get_feature_point, __pyx_k_get_feature_point, sizeof(__pyx_k_get_feature_point), 0, 0, 1, 1},
   {&__pyx_n_s_get_visible_points_arr, __pyx_k_get_visible_points_arr, sizeof(__pyx_k_get_visible_points_arr), 0, 0, 1, 1},
@@ -8371,6 +8818,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_init_observed_data_arr, __pyx_k_init_observed_data_arr, sizeof(__pyx_k_init_observed_data_arr), 0, 0, 1, 1},
   {&__pyx_n_s_j, __pyx_k_j, sizeof(__pyx_k_j), 0, 0, 1, 1},
   {&__pyx_n_s_k, __pyx_k_k, sizeof(__pyx_k_k), 0, 0, 1, 1},
+  {&__pyx_kp_s_layer_s_inference, __pyx_k_layer_s_inference, sizeof(__pyx_k_layer_s_inference), 0, 0, 1, 0},
+  {&__pyx_kp_s_layer_s_learning, __pyx_k_layer_s_learning, sizeof(__pyx_k_layer_s_learning), 0, 0, 1, 0},
   {&__pyx_n_s_learn, __pyx_k_learn, sizeof(__pyx_k_learn), 0, 0, 1, 1},
   {&__pyx_n_s_learning_rate, __pyx_k_learning_rate, sizeof(__pyx_k_learning_rate), 0, 0, 1, 1},
   {&__pyx_n_s_length_list, __pyx_k_length_list, sizeof(__pyx_k_length_list), 0, 0, 1, 1},
@@ -8406,6 +8855,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_reshape_inferenced_data, __pyx_k_reshape_inferenced_data, sizeof(__pyx_k_reshape_inferenced_data), 0, 0, 1, 1},
   {&__pyx_n_s_reshape_observed_data, __pyx_k_reshape_observed_data, sizeof(__pyx_k_reshape_observed_data), 0, 0, 1, 1},
   {&__pyx_n_s_reshaped_w, __pyx_k_reshaped_w, sizeof(__pyx_k_reshaped_w), 0, 0, 1, 1},
+  {&__pyx_kp_s_reshaped_w_will_be_removed_in_f, __pyx_k_reshaped_w_will_be_removed_in_f, sizeof(__pyx_k_reshaped_w_will_be_removed_in_f), 0, 0, 1, 0},
   {&__pyx_n_s_row_i, __pyx_k_row_i, sizeof(__pyx_k_row_i), 0, 0, 1, 1},
   {&__pyx_n_s_row_y, __pyx_k_row_y, sizeof(__pyx_k_row_y), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
@@ -8416,7 +8866,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_super, __pyx_k_super, sizeof(__pyx_k_super), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_tolist, __pyx_k_tolist, sizeof(__pyx_k_tolist), 0, 0, 1, 1},
+  {&__pyx_n_s_training_count, __pyx_k_training_count, sizeof(__pyx_k_training_count), 0, 0, 1, 1},
   {&__pyx_n_s_traning_count, __pyx_k_traning_count, sizeof(__pyx_k_traning_count), 0, 0, 1, 1},
+  {&__pyx_kp_s_traning_count_will_be_removed_i, __pyx_k_traning_count_will_be_removed_i, sizeof(__pyx_k_traning_count_will_be_removed_i), 0, 0, 1, 0},
   {&__pyx_n_s_unit_arr, __pyx_k_unit_arr, sizeof(__pyx_k_unit_arr), 0, 0, 1, 1},
   {&__pyx_n_s_unit_n, __pyx_k_unit_n, sizeof(__pyx_k_unit_n), 0, 0, 1, 1},
   {&__pyx_kp_u_unknown_dtype_code_in_numpy_pxd, __pyx_k_unknown_dtype_code_in_numpy_pxd, sizeof(__pyx_k_unknown_dtype_code_in_numpy_pxd), 0, 1, 0, 0},
@@ -8427,19 +8879,23 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_value, __pyx_k_value, sizeof(__pyx_k_value), 0, 0, 1, 1},
   {&__pyx_n_s_visible_activity_arr, __pyx_k_visible_activity_arr, sizeof(__pyx_k_visible_activity_arr), 0, 0, 1, 1},
   {&__pyx_n_s_visible_points_arr, __pyx_k_visible_points_arr, sizeof(__pyx_k_visible_points_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_x, __pyx_k_x, sizeof(__pyx_k_x), 0, 0, 1, 1},
+  {&__pyx_n_s_warn, __pyx_k_warn, sizeof(__pyx_k_warn), 0, 0, 1, 1},
+  {&__pyx_n_s_warnings, __pyx_k_warnings, sizeof(__pyx_k_warnings), 0, 0, 1, 1},
+  {&__pyx_kp_s_x, __pyx_k_x, sizeof(__pyx_k_x), 0, 0, 1, 0},
+  {&__pyx_n_s_x_2, __pyx_k_x_2, sizeof(__pyx_k_x_2), 0, 0, 1, 1},
   {&__pyx_n_s_x_add, __pyx_k_x_add, sizeof(__pyx_k_x_add), 0, 0, 1, 1},
   {&__pyx_n_s_y, __pyx_k_y, sizeof(__pyx_k_y), 0, 0, 1, 1},
   {&__pyx_n_s_y_add, __pyx_k_y_add, sizeof(__pyx_k_y_add), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 25, __pyx_L1_error)
-  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 16, __pyx_L1_error)
-  __pyx_builtin_super = __Pyx_GetBuiltinName(__pyx_n_s_super); if (!__pyx_builtin_super) __PYX_ERR(0, 88, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 135, __pyx_L1_error)
-  __pyx_builtin_IndexError = __Pyx_GetBuiltinName(__pyx_n_s_IndexError); if (!__pyx_builtin_IndexError) __PYX_ERR(0, 196, __pyx_L1_error)
-  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 235, __pyx_L1_error)
+  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_builtin_FutureWarning = __Pyx_GetBuiltinName(__pyx_n_s_FutureWarning); if (!__pyx_builtin_FutureWarning) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_builtin_super = __Pyx_GetBuiltinName(__pyx_n_s_super); if (!__pyx_builtin_super) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 155, __pyx_L1_error)
+  __pyx_builtin_IndexError = __Pyx_GetBuiltinName(__pyx_n_s_IndexError); if (!__pyx_builtin_IndexError) __PYX_ERR(0, 227, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 823, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 1013, __pyx_L1_error)
   return 0;
@@ -8451,60 +8907,104 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":16
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":17
  *     def set_readonly(self, value):
  *         ''' setter '''
  *         raise TypeError("This property is read-only.")             # <<<<<<<<<<<<<<
  * 
  *     # auto-saved shallower visible data points which is reconstructed.
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_This_property_is_read_only); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_This_property_is_read_only); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":152
- *                     data_arr = feature_point_arr
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":62
+ *         if reshaped_w != -1:
+ *             filter_size = reshaped_w
+ *             warnings.warn("`reshaped_w` will be removed in future version. Use `filter_size`.", FutureWarning)             # <<<<<<<<<<<<<<
+ * 
+ *         self.__filter_size = filter_size
+ */
+  __pyx_tuple__2 = PyTuple_Pack(2, __pyx_kp_s_reshaped_w_will_be_removed_in_f, __pyx_builtin_FutureWarning); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__2);
+  __Pyx_GIVEREF(__pyx_tuple__2);
+
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":77
+ *         if len(neuron_assign_list) == 0:
+ *             if self.__filter_size < 4:
+ *                 raise ValueError("`filter_size` must be more than `4`.")             # <<<<<<<<<<<<<<
+ * 
+ *             v_n = (self.__filter_size - 2) ** 2
+ */
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_filter_size_must_be_more_than_4); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__3);
+  __Pyx_GIVEREF(__pyx_tuple__3);
+
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":132
+ *         if traning_count != -1:
+ *             training_count = traning_count
+ *             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)             # <<<<<<<<<<<<<<
+ * 
+ *         cdef np.ndarray[DOUBLE_t, ndim=2] init_observed_data_arr = observed_data_arr.copy()
+ */
+  __pyx_tuple__4 = PyTuple_Pack(2, __pyx_kp_s_traning_count_will_be_removed_i, __pyx_builtin_FutureWarning); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__4);
+  __Pyx_GIVEREF(__pyx_tuple__4);
+
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":165
+ *                 data_row = data_arr.shape[0]
+ *                 if data_row <= 0:
+ *                     raise ValueError("Choiced `observed_data_arr` is invalid.")             # <<<<<<<<<<<<<<
+ * 
+ *                 for j in range(len(self.rbm_list)):
+ */
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_Choiced_observed_data_arr_is_inv); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__5);
+  __Pyx_GIVEREF(__pyx_tuple__5);
+
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":179
+ *                         raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(j) + " layer's learning.")
  * 
  *                 rbm_list = self.rbm_list[::-1]             # <<<<<<<<<<<<<<
  *                 for j in range(len(rbm_list)):
  *                     data_arr = self.get_feature_point(len(rbm_list)-1-j)
  */
-  __pyx_slice__2 = PySlice_New(Py_None, Py_None, __pyx_int_neg_1); if (unlikely(!__pyx_slice__2)) __PYX_ERR(0, 152, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__2);
-  __Pyx_GIVEREF(__pyx_slice__2);
+  __pyx_slice__6 = PySlice_New(Py_None, Py_None, __pyx_int_neg_1); if (unlikely(!__pyx_slice__6)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__6);
+  __Pyx_GIVEREF(__pyx_slice__6);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":184
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":215
  *         unit_arr = np.array(list(range(unit_n)))
  *         length_list = np.r_[
  *             unit_arr.copy()[::-1] * -1,             # <<<<<<<<<<<<<<
  *             unit_arr[1:]
  *         ].tolist()
  */
-  __pyx_slice__3 = PySlice_New(Py_None, Py_None, __pyx_int_neg_1); if (unlikely(!__pyx_slice__3)) __PYX_ERR(0, 184, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__3);
-  __Pyx_GIVEREF(__pyx_slice__3);
+  __pyx_slice__7 = PySlice_New(Py_None, Py_None, __pyx_int_neg_1); if (unlikely(!__pyx_slice__7)) __PYX_ERR(0, 215, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__7);
+  __Pyx_GIVEREF(__pyx_slice__7);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":185
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":216
  *         length_list = np.r_[
  *             unit_arr.copy()[::-1] * -1,
  *             unit_arr[1:]             # <<<<<<<<<<<<<<
  *         ].tolist()
  * 
  */
-  __pyx_slice__4 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__4)) __PYX_ERR(0, 185, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__4);
-  __Pyx_GIVEREF(__pyx_slice__4);
+  __pyx_slice__8 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__8)) __PYX_ERR(0, 216, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__8);
+  __Pyx_GIVEREF(__pyx_slice__8);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":218
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":249
  *         '''
  *         cdef int center_i = int(inferenced_data_arr.shape[1]/2)+1
  *         cdef np.ndarray[DOUBLE_t, ndim=1] shaped_data_arr = inferenced_data_arr[:, center_i]             # <<<<<<<<<<<<<<
  * 
  *         cdef int row_y = observed_data_arr.shape[0]
  */
-  __pyx_slice__5 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__5)) __PYX_ERR(0, 218, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__5);
-  __Pyx_GIVEREF(__pyx_slice__5);
+  __pyx_slice__9 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__9)) __PYX_ERR(0, 249, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__9);
+  __Pyx_GIVEREF(__pyx_slice__9);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":235
  *             if ((flags & pybuf.PyBUF_C_CONTIGUOUS == pybuf.PyBUF_C_CONTIGUOUS)
@@ -8513,9 +9013,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  */
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_C_contiguous); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(1, 235, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__6);
-  __Pyx_GIVEREF(__pyx_tuple__6);
+  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_C_contiguous); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(1, 235, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__10);
+  __Pyx_GIVEREF(__pyx_tuple__10);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":239
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
@@ -8524,9 +9024,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             info.buf = PyArray_DATA(self)
  */
-  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_Fortran_contiguou); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(1, 239, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__7);
-  __Pyx_GIVEREF(__pyx_tuple__7);
+  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_Fortran_contiguou); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(1, 239, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__11);
+  __Pyx_GIVEREF(__pyx_tuple__11);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":276
  *                 if ((descr.byteorder == c'>' and little_endian) or
@@ -8535,9 +9035,9 @@ static int __Pyx_InitCachedConstants(void) {
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"
  */
-  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(1, 276, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__8);
-  __Pyx_GIVEREF(__pyx_tuple__8);
+  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(1, 276, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__12);
+  __Pyx_GIVEREF(__pyx_tuple__12);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":823
  * 
@@ -8546,9 +9046,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  */
-  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(1, 823, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__9);
-  __Pyx_GIVEREF(__pyx_tuple__9);
+  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(1, 823, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__13);
+  __Pyx_GIVEREF(__pyx_tuple__13);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":827
  *         if ((child.byteorder == c'>' and little_endian) or
@@ -8557,9 +9057,9 @@ static int __Pyx_InitCachedConstants(void) {
  *             # One could encode it in the format string and have Cython
  *             # complain instead, BUT: < and > in format strings also imply
  */
-  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(1, 827, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__10);
-  __Pyx_GIVEREF(__pyx_tuple__10);
+  __pyx_tuple__14 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(1, 827, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__14);
+  __Pyx_GIVEREF(__pyx_tuple__14);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":847
  *             t = child.type_num
@@ -8568,9 +9068,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  */
-  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor_2); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(1, 847, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__11);
-  __Pyx_GIVEREF(__pyx_tuple__11);
+  __pyx_tuple__15 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor_2); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(1, 847, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__15);
+  __Pyx_GIVEREF(__pyx_tuple__15);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":1013
  *         _import_array()
@@ -8579,9 +9079,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * cdef inline int import_umath() except -1:
  */
-  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(1, 1013, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__12);
-  __Pyx_GIVEREF(__pyx_tuple__12);
+  __pyx_tuple__16 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(1, 1013, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__16);
+  __Pyx_GIVEREF(__pyx_tuple__16);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":1019
  *         _import_umath()
@@ -8590,90 +9090,90 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * cdef inline int import_ufunc() except -1:
  */
-  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(1, 1019, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__13);
-  __Pyx_GIVEREF(__pyx_tuple__13);
+  __pyx_tuple__17 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(1, 1019, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__17);
+  __Pyx_GIVEREF(__pyx_tuple__17);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":1025
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__14 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(1, 1025, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__14);
-  __Pyx_GIVEREF(__pyx_tuple__14);
+  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(1, 1025, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__18);
+  __Pyx_GIVEREF(__pyx_tuple__18);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":14
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":15
  *     Shape Boltzmann Machine(Shape-BM).
  *     '''
  *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         raise TypeError("This property is read-only.")
  */
-  __pyx_tuple__15 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 14, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__15);
-  __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deepboltzmannmachine_s_2, __pyx_n_s_set_readonly, 14, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __pyx_tuple__19 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__19);
+  __Pyx_GIVEREF(__pyx_tuple__19);
+  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deepboltzmannmachine_s_2, __pyx_n_s_set_readonly, 15, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 15, __pyx_L1_error)
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":21
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":22
  *     __visible_points_arr = None
  * 
  *     def get_visible_points_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__visible_points_arr
  */
-  __pyx_tuple__17 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 21, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__17);
-  __Pyx_GIVEREF(__pyx_tuple__17);
-  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deepboltzmannmachine_s_2, __pyx_n_s_get_visible_points_arr, 21, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__21);
+  __Pyx_GIVEREF(__pyx_tuple__21);
+  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deepboltzmannmachine_s_2, __pyx_n_s_get_visible_points_arr, 22, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 22, __pyx_L1_error)
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":33
- *     __reshaped_w = 12
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":34
+ *     __filter_size = 12
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
  *         self,
  *         dbm_builder,
  */
-  __pyx_tuple__19 = PyTuple_Pack(10, __pyx_n_s_self, __pyx_n_s_dbm_builder, __pyx_n_s_neuron_assign_list, __pyx_n_s_activating_function_list, __pyx_n_s_approximate_interface_list, __pyx_n_s_learning_rate, __pyx_n_s_dropout_rate, __pyx_n_s_overlap_n, __pyx_n_s_reshaped_w, __pyx_n_s_v_n); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 33, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__19);
-  __Pyx_GIVEREF(__pyx_tuple__19);
-  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(9, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deepboltzmannmachine_s_2, __pyx_n_s_init, 33, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 33, __pyx_L1_error)
+  __pyx_tuple__23 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_dbm_builder, __pyx_n_s_neuron_assign_list, __pyx_n_s_activating_function_list, __pyx_n_s_approximate_interface_list, __pyx_n_s_learning_rate, __pyx_n_s_dropout_rate, __pyx_n_s_overlap_n, __pyx_n_s_reshaped_w, __pyx_n_s_filter_size, __pyx_n_s_v_n); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__23);
+  __Pyx_GIVEREF(__pyx_tuple__23);
+  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(10, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deepboltzmannmachine_s_2, __pyx_n_s_init, 34, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 34, __pyx_L1_error)
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":99
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":108
  *         )
  * 
  *     def learn(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
  */
-  __pyx_tuple__21 = PyTuple_Pack(18, __pyx_n_s_self, __pyx_n_s_observed_data_arr, __pyx_n_s_traning_count, __pyx_n_s_batch_size, __pyx_n_s_r_batch_size, __pyx_n_s_sgd_flag, __pyx_n_s_init_observed_data_arr, __pyx_n_s_row_y, __pyx_n_s_col_x, __pyx_n_s_i, __pyx_n_s_row_i, __pyx_n_s_j, __pyx_n_s_data_arr, __pyx_n_s_feature_point_arr, __pyx_n_s_sgd_key, __pyx_n_s_inferenced_data_list, __pyx_n_s_k, __pyx_n_s_rbm_list); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 99, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__21);
-  __Pyx_GIVEREF(__pyx_tuple__21);
-  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(6, 0, 18, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deepboltzmannmachine_s_2, __pyx_n_s_learn, 99, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_tuple__25 = PyTuple_Pack(20, __pyx_n_s_self, __pyx_n_s_observed_data_arr, __pyx_n_s_traning_count, __pyx_n_s_batch_size, __pyx_n_s_r_batch_size, __pyx_n_s_sgd_flag, __pyx_n_s_training_count, __pyx_n_s_init_observed_data_arr, __pyx_n_s_row_y, __pyx_n_s_col_x, __pyx_n_s_i, __pyx_n_s_row_i, __pyx_n_s_j, __pyx_n_s_data_arr, __pyx_n_s_data_row, __pyx_n_s_feature_point_arr, __pyx_n_s_sgd_key, __pyx_n_s_inferenced_data_list, __pyx_n_s_k, __pyx_n_s_rbm_list); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__25);
+  __Pyx_GIVEREF(__pyx_tuple__25);
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(7, 0, 20, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deepboltzmannmachine_s_2, __pyx_n_s_learn, 108, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 108, __pyx_L1_error)
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":165
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":196
  *         self.__visible_points_arr = self.__reshape_inferenced_data(init_observed_data_arr, self.__visible_points_arr)
  * 
  *     def __reshape_observed_data(self, np.ndarray[DOUBLE_t, ndim=2] observed_data_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Reshape `np.ndarray` of observed data ponints for Shape-BM.
  */
-  __pyx_tuple__23 = PyTuple_Pack(15, __pyx_n_s_self, __pyx_n_s_observed_data_arr, __pyx_n_s_row_y, __pyx_n_s_col_x, __pyx_n_s_feature_arr_list, __pyx_n_s_unit_n, __pyx_n_s_unit_arr, __pyx_n_s_length_list, __pyx_n_s_v_list_list, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_v_list, __pyx_n_s_x_add, __pyx_n_s_y_add, __pyx_n_s_reshape_arr); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 165, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__23);
-  __Pyx_GIVEREF(__pyx_tuple__23);
-  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(2, 0, 15, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deepboltzmannmachine_s_2, __pyx_n_s_reshape_observed_data, 165, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __pyx_tuple__27 = PyTuple_Pack(15, __pyx_n_s_self, __pyx_n_s_observed_data_arr, __pyx_n_s_row_y, __pyx_n_s_col_x, __pyx_n_s_feature_arr_list, __pyx_n_s_unit_n, __pyx_n_s_unit_arr, __pyx_n_s_length_list, __pyx_n_s_v_list_list, __pyx_n_s_x_2, __pyx_n_s_y, __pyx_n_s_v_list, __pyx_n_s_x_add, __pyx_n_s_y_add, __pyx_n_s_reshape_arr); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__27);
+  __Pyx_GIVEREF(__pyx_tuple__27);
+  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(2, 0, 15, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deepboltzmannmachine_s_2, __pyx_n_s_reshape_observed_data, 196, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 196, __pyx_L1_error)
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":202
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":233
  *         return reshape_arr
  * 
  *     def __reshape_inferenced_data(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
  */
-  __pyx_tuple__25 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_observed_data_arr, __pyx_n_s_inferenced_data_arr, __pyx_n_s_center_i, __pyx_n_s_shaped_data_arr, __pyx_n_s_row_y, __pyx_n_s_col_x, __pyx_n_s_reshape_arr, __pyx_n_s_i, __pyx_n_s_x, __pyx_n_s_y); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 202, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__25);
-  __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(3, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deepboltzmannmachine_s_2, __pyx_n_s_reshape_inferenced_data, 202, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 202, __pyx_L1_error)
+  __pyx_tuple__29 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_observed_data_arr, __pyx_n_s_inferenced_data_arr, __pyx_n_s_center_i, __pyx_n_s_shaped_data_arr, __pyx_n_s_row_y, __pyx_n_s_col_x, __pyx_n_s_reshape_arr, __pyx_n_s_i, __pyx_n_s_x_2, __pyx_n_s_y); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 233, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__29);
+  __Pyx_GIVEREF(__pyx_tuple__29);
+  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(3, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deepboltzmannmachine_s_2, __pyx_n_s_reshape_inferenced_data, 233, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 233, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -8686,6 +9186,7 @@ static int __Pyx_InitGlobals(void) {
   __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_2 = PyInt_FromLong(2); if (unlikely(!__pyx_int_2)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_4 = PyInt_FromLong(4); if (unlikely(!__pyx_int_4)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_9 = PyInt_FromLong(9); if (unlikely(!__pyx_int_9)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_12 = PyInt_FromLong(12); if (unlikely(!__pyx_int_12)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_255 = PyInt_FromLong(255); if (unlikely(!__pyx_int_255)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -8752,6 +9253,7 @@ static int __pyx_pymod_exec_shape_boltzmann_machine(PyObject *__pyx_pyinit_modul
   PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
   PyObject *__pyx_t_8 = NULL;
+  PyObject *__pyx_t_9 = NULL;
   __Pyx_RefNannyDeclarations
   #if CYTHON_PEP489_MULTI_PHASE_INIT
   if (__pyx_m && __pyx_m == __pyx_pyinit_module) return 0;
@@ -8863,7 +9365,7 @@ static int __pyx_pymod_exec_shape_boltzmann_machine(PyObject *__pyx_pyinit_modul
  * # -*- coding: utf-8 -*-
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
- * from pydbm.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
+ * import warnings
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -8873,121 +9375,133 @@ static int __pyx_pymod_exec_shape_boltzmann_machine(PyObject *__pyx_pyinit_modul
   /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":4
  * import numpy as np
  * cimport numpy as np
+ * import warnings             # <<<<<<<<<<<<<<
+ * from pydbm.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
+ * from pydbm.approximation.shape_bm_cd import ShapeBMCD
+ */
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_warnings, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_warnings, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":5
+ * cimport numpy as np
+ * import warnings
  * from pydbm.dbm.deep_boltzmann_machine import DeepBoltzmannMachine             # <<<<<<<<<<<<<<
  * from pydbm.approximation.shape_bm_cd import ShapeBMCD
  * from pydbm.activation.logistic_function import LogisticFunction
  */
-  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_DeepBoltzmannMachine);
   __Pyx_GIVEREF(__pyx_n_s_DeepBoltzmannMachine);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_DeepBoltzmannMachine);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_dbm_deep_boltzmann_machine, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_dbm_deep_boltzmann_machine, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_DeepBoltzmannMachine); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_DeepBoltzmannMachine); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_DeepBoltzmannMachine, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_DeepBoltzmannMachine, __pyx_t_1) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":5
- * cimport numpy as np
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":6
+ * import warnings
  * from pydbm.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
  * from pydbm.approximation.shape_bm_cd import ShapeBMCD             # <<<<<<<<<<<<<<
  * from pydbm.activation.logistic_function import LogisticFunction
  * ctypedef np.float64_t DOUBLE_t
  */
-  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_ShapeBMCD);
   __Pyx_GIVEREF(__pyx_n_s_ShapeBMCD);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_ShapeBMCD);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pydbm_approximation_shape_bm_cd, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pydbm_approximation_shape_bm_cd, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_ShapeBMCD); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_ShapeBMCD); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ShapeBMCD, __pyx_t_2) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ShapeBMCD, __pyx_t_2) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":6
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":7
  * from pydbm.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
  * from pydbm.approximation.shape_bm_cd import ShapeBMCD
  * from pydbm.activation.logistic_function import LogisticFunction             # <<<<<<<<<<<<<<
  * ctypedef np.float64_t DOUBLE_t
  * 
  */
-  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_LogisticFunction);
   __Pyx_GIVEREF(__pyx_n_s_LogisticFunction);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_LogisticFunction);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_activation_logistic_functi, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_activation_logistic_functi, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_LogisticFunction, __pyx_t_1) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_LogisticFunction, __pyx_t_1) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":10
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":11
  * 
  * 
  * class ShapeBoltzmannMachine(DeepBoltzmannMachine):             # <<<<<<<<<<<<<<
  *     '''
  *     Shape Boltzmann Machine(Shape-BM).
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_DeepBoltzmannMachine); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_DeepBoltzmannMachine); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_ShapeBoltzmannMachine, __pyx_n_s_ShapeBoltzmannMachine, (PyObject *) NULL, __pyx_n_s_pydbm_dbm_deepboltzmannmachine_s, __pyx_kp_s_Shape_Boltzmann_Machine_Shape_B); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_ShapeBoltzmannMachine, __pyx_n_s_ShapeBoltzmannMachine, (PyObject *) NULL, __pyx_n_s_pydbm_dbm_deepboltzmannmachine_s, __pyx_kp_s_Shape_Boltzmann_Machine_Shape_B); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":14
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":15
  *     Shape Boltzmann Machine(Shape-BM).
  *     '''
  *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         raise TypeError("This property is read-only.")
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_1set_readonly, 0, __pyx_n_s_ShapeBoltzmannMachine_set_readon, NULL, __pyx_n_s_pydbm_dbm_deepboltzmannmachine_s, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_1set_readonly, 0, __pyx_n_s_ShapeBoltzmannMachine_set_readon, NULL, __pyx_n_s_pydbm_dbm_deepboltzmannmachine_s, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_readonly, __pyx_t_5) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_readonly, __pyx_t_5) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":19
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":20
  * 
  *     # auto-saved shallower visible data points which is reconstructed.
  *     __visible_points_arr = None             # <<<<<<<<<<<<<<
  * 
  *     def get_visible_points_arr(self):
  */
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ShapeBoltzmannMachine__visible, Py_None) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ShapeBoltzmannMachine__visible, Py_None) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":21
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":22
  *     __visible_points_arr = None
  * 
  *     def get_visible_points_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__visible_points_arr
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_3get_visible_points_arr, 0, __pyx_n_s_ShapeBoltzmannMachine_get_visibl, NULL, __pyx_n_s_pydbm_dbm_deepboltzmannmachine_s, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_3get_visible_points_arr, 0, __pyx_n_s_ShapeBoltzmannMachine_get_visibl, NULL, __pyx_n_s_pydbm_dbm_deepboltzmannmachine_s, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_visible_points_arr, __pyx_t_5) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_visible_points_arr, __pyx_t_5) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":25
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":26
  *         return self.__visible_points_arr
  * 
  *     visible_points_arr = property(get_visible_points_arr, set_readonly)             # <<<<<<<<<<<<<<
@@ -8999,16 +9513,16 @@ static int __pyx_pymod_exec_shape_boltzmann_machine(PyObject *__pyx_pyinit_modul
     PyErr_Clear();
     __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_visible_points_arr);
   }
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 25, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_readonly);
   if (unlikely(!__pyx_t_6)) {
     PyErr_Clear();
     __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_readonly);
   }
-  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 25, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_GIVEREF(__pyx_t_5);
   PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5);
@@ -9016,181 +9530,194 @@ static int __pyx_pymod_exec_shape_boltzmann_machine(PyObject *__pyx_pyinit_modul
   PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_6);
   __pyx_t_5 = 0;
   __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_7, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_7, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_visible_points_arr, __pyx_t_6) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_visible_points_arr, __pyx_t_6) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":28
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":29
  * 
  *     # The number of overlapped pixels.
  *     __overlap_n = 9             # <<<<<<<<<<<<<<
  * 
- *     # The width of reshaped image.
+ *     # The 'filter' size.
  */
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ShapeBoltzmannMachine__overlap, __pyx_int_9) < 0) __PYX_ERR(0, 28, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ShapeBoltzmannMachine__overlap, __pyx_int_9) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":31
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":32
  * 
- *     # The width of reshaped image.
- *     __reshaped_w = 12             # <<<<<<<<<<<<<<
+ *     # The 'filter' size.
+ *     __filter_size = 12             # <<<<<<<<<<<<<<
  * 
  *     def __init__(
  */
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ShapeBoltzmannMachine__reshaped, __pyx_int_12) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ShapeBoltzmannMachine__filter_s, __pyx_int_12) < 0) __PYX_ERR(0, 32, __pyx_L1_error)
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":33
- *     __reshaped_w = 12
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":34
+ *     __filter_size = 12
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
  *         self,
  *         dbm_builder,
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_5__init__, 0, __pyx_n_s_ShapeBoltzmannMachine___init, NULL, __pyx_n_s_pydbm_dbm_deepboltzmannmachine_s, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 33, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_5__init__, 0, __pyx_n_s_ShapeBoltzmannMachine___init, NULL, __pyx_n_s_pydbm_dbm_deepboltzmannmachine_s, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_t_6);
   PyList_Append(__pyx_t_4, __pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_6);
-  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_6, sizeof(__pyx_defaults), 3)) __PYX_ERR(0, 33, __pyx_L1_error)
+  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_6, sizeof(__pyx_defaults), 3)) __PYX_ERR(0, 34, __pyx_L1_error)
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":36
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":37
  *         self,
  *         dbm_builder,
  *         neuron_assign_list=[],             # <<<<<<<<<<<<<<
  *         activating_function_list=[],
  *         approximate_interface_list=[],
  */
-  __pyx_t_7 = PyList_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_7 = PyList_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_t_6)->__pyx_arg_neuron_assign_list = __pyx_t_7;
   __Pyx_GIVEREF(__pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":37
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":38
  *         dbm_builder,
  *         neuron_assign_list=[],
  *         activating_function_list=[],             # <<<<<<<<<<<<<<
  *         approximate_interface_list=[],
  *         double learning_rate=0.01,
  */
-  __pyx_t_7 = PyList_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 37, __pyx_L1_error)
+  __pyx_t_7 = PyList_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_t_6)->__pyx_arg_activating_function_list = __pyx_t_7;
   __Pyx_GIVEREF(__pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":38
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":39
  *         neuron_assign_list=[],
  *         activating_function_list=[],
  *         approximate_interface_list=[],             # <<<<<<<<<<<<<<
  *         double learning_rate=0.01,
  *         double dropout_rate=0.0,
  */
-  __pyx_t_7 = PyList_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_t_7 = PyList_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_t_6)->__pyx_arg_approximate_interface_list = __pyx_t_7;
   __Pyx_GIVEREF(__pyx_t_7);
   __pyx_t_7 = 0;
   __Pyx_CyFunction_SetDefaultsGetter(__pyx_t_6, __pyx_pf_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine___defaults__);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_init, __pyx_t_6) < 0) __PYX_ERR(0, 33, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_init, __pyx_t_6) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":102
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":111
  *         self,
  *         np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
- *         int traning_count=1000,             # <<<<<<<<<<<<<<
+ *         int traning_count=-1,             # <<<<<<<<<<<<<<
  *         int batch_size=200,
  *         int r_batch_size=-1,
  */
-  __pyx_t_6 = __Pyx_PyInt_From_int(((int)0x3E8)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_int(((int)-1)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":103
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":112
  *         np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
- *         int traning_count=1000,
+ *         int traning_count=-1,
  *         int batch_size=200,             # <<<<<<<<<<<<<<
  *         int r_batch_size=-1,
- *         sgd_flag=False
+ *         sgd_flag=False,
  */
-  __pyx_t_7 = __Pyx_PyInt_From_int(((int)0xC8)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_int(((int)0xC8)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":104
- *         int traning_count=1000,
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":113
+ *         int traning_count=-1,
  *         int batch_size=200,
  *         int r_batch_size=-1,             # <<<<<<<<<<<<<<
- *         sgd_flag=False
- *     ):
+ *         sgd_flag=False,
+ *         int training_count=1000
  */
-  __pyx_t_5 = __Pyx_PyInt_From_int(((int)-1)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_int(((int)-1)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":99
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":115
+ *         int r_batch_size=-1,
+ *         sgd_flag=False,
+ *         int training_count=1000             # <<<<<<<<<<<<<<
+ *     ):
+ *         '''
+ */
+  __pyx_t_8 = __Pyx_PyInt_From_int(((int)0x3E8)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":108
  *         )
  * 
  *     def learn(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
  */
-  __pyx_t_8 = PyTuple_New(4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 99, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
+  __pyx_t_9 = PyTuple_New(5); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
   __Pyx_GIVEREF(__pyx_t_6);
-  PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6);
+  PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_7);
-  PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_7);
+  PyTuple_SET_ITEM(__pyx_t_9, 1, __pyx_t_7);
   __Pyx_GIVEREF(__pyx_t_5);
-  PyTuple_SET_ITEM(__pyx_t_8, 2, __pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_9, 2, __pyx_t_5);
   __Pyx_INCREF(((PyObject *)Py_False));
   __Pyx_GIVEREF(((PyObject *)Py_False));
-  PyTuple_SET_ITEM(__pyx_t_8, 3, ((PyObject *)Py_False));
+  PyTuple_SET_ITEM(__pyx_t_9, 3, ((PyObject *)Py_False));
+  __Pyx_GIVEREF(__pyx_t_8);
+  PyTuple_SET_ITEM(__pyx_t_9, 4, __pyx_t_8);
   __pyx_t_6 = 0;
   __pyx_t_7 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_7learn, 0, __pyx_n_s_ShapeBoltzmannMachine_learn, NULL, __pyx_n_s_pydbm_dbm_deepboltzmannmachine_s, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 99, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_5, __pyx_t_8);
+  __pyx_t_8 = 0;
+  __pyx_t_8 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_7learn, 0, __pyx_n_s_ShapeBoltzmannMachine_learn, NULL, __pyx_n_s_pydbm_dbm_deepboltzmannmachine_s, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_8, __pyx_t_9);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_learn, __pyx_t_8) < 0) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_learn, __pyx_t_5) < 0) __PYX_ERR(0, 99, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":165
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":196
  *         self.__visible_points_arr = self.__reshape_inferenced_data(init_observed_data_arr, self.__visible_points_arr)
  * 
  *     def __reshape_observed_data(self, np.ndarray[DOUBLE_t, ndim=2] observed_data_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Reshape `np.ndarray` of observed data ponints for Shape-BM.
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_9__reshape_observed_data, 0, __pyx_n_s_ShapeBoltzmannMachine___reshape, NULL, __pyx_n_s_pydbm_dbm_deepboltzmannmachine_s, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 165, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ShapeBoltzmannMachine__reshape, __pyx_t_5) < 0) __PYX_ERR(0, 165, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_8 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_9__reshape_observed_data, 0, __pyx_n_s_ShapeBoltzmannMachine___reshape, NULL, __pyx_n_s_pydbm_dbm_deepboltzmannmachine_s, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ShapeBoltzmannMachine__reshape, __pyx_t_8) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":202
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":233
  *         return reshape_arr
  * 
  *     def __reshape_inferenced_data(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_11__reshape_inferenced_data, 0, __pyx_n_s_ShapeBoltzmannMachine___reshape_2, NULL, __pyx_n_s_pydbm_dbm_deepboltzmannmachine_s, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 202, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ShapeBoltzmannMachine__reshape_2, __pyx_t_5) < 0) __PYX_ERR(0, 202, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_8 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_20deepboltzmannmachine_23shape_boltzmann_machine_21ShapeBoltzmannMachine_11__reshape_inferenced_data, 0, __pyx_n_s_ShapeBoltzmannMachine___reshape_2, NULL, __pyx_n_s_pydbm_dbm_deepboltzmannmachine_s, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 233, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ShapeBoltzmannMachine__reshape_2, __pyx_t_8) < 0) __PYX_ERR(0, 233, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":10
+  /* "pydbm/dbm/deepboltzmannmachine/shape_boltzmann_machine.pyx":11
  * 
  * 
  * class ShapeBoltzmannMachine(DeepBoltzmannMachine):             # <<<<<<<<<<<<<<
  *     '''
  *     Shape Boltzmann Machine(Shape-BM).
  */
-  __pyx_t_5 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_ShapeBoltzmannMachine, __pyx_t_1, __pyx_t_3, NULL, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 10, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  if (__Pyx_CyFunction_InitClassCell(__pyx_t_4, __pyx_t_5) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_ShapeBoltzmannMachine, __pyx_t_1, __pyx_t_3, NULL, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  if (__Pyx_CyFunction_InitClassCell(__pyx_t_4, __pyx_t_8) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ShapeBoltzmannMachine, __pyx_t_5) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ShapeBoltzmannMachine, __pyx_t_8) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -9225,6 +9752,7 @@ static int __pyx_pymod_exec_shape_boltzmann_machine(PyObject *__pyx_pyinit_modul
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_9);
   if (__pyx_m) {
     if (__pyx_d) {
       __Pyx_AddTraceback("init pydbm.dbm.deepboltzmannmachine.shape_boltzmann_machine", 0, __pyx_lineno, __pyx_filename);
@@ -9621,8 +10149,26 @@ bad:
 }
 #endif
 
+/* GetModuleGlobalName */
+static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name) {
+    PyObject *result;
+#if !CYTHON_AVOID_BORROWED_REFS
+    result = PyDict_GetItem(__pyx_d, name);
+    if (likely(result)) {
+        Py_INCREF(result);
+    } else {
+#else
+    result = PyObject_GetItem(__pyx_d, name);
+    if (!result) {
+        PyErr_Clear();
+#endif
+        result = __Pyx_GetBuiltinName(name);
+    }
+    return result;
+}
+
 /* PyFunctionFastCall */
-#if CYTHON_FAST_PYCALL
+  #if CYTHON_FAST_PYCALL
 #include "frameobject.h"
 static PyObject* __Pyx_PyFunction_FastCallNoKw(PyCodeObject *co, PyObject **args, Py_ssize_t na,
                                                PyObject *globals) {
@@ -9742,7 +10288,7 @@ done:
 #endif
 
 /* PyObjectCallMethO */
-#if CYTHON_COMPILING_IN_CPYTHON
+  #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
     PyObject *self, *result;
     PyCFunction cfunc;
@@ -9762,7 +10308,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject
 #endif
 
 /* PyObjectCallNoArg */
-#if CYTHON_COMPILING_IN_CPYTHON
+  #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
 #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(func)) {
@@ -9783,7 +10329,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
 #endif
 
 /* PyIntBinop */
-  #if !CYTHON_COMPILING_IN_PYPY
+    #if !CYTHON_COMPILING_IN_PYPY
 static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, CYTHON_UNUSED int inplace) {
     #if PY_MAJOR_VERSION < 3
     if (likely(PyInt_CheckExact(op1))) {
@@ -9897,24 +10443,6 @@ static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, CYTHON_U
     return (inplace ? PyNumber_InPlaceSubtract : PyNumber_Subtract)(op1, op2);
 }
 #endif
-
-/* GetModuleGlobalName */
-  static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name) {
-    PyObject *result;
-#if !CYTHON_AVOID_BORROWED_REFS
-    result = PyDict_GetItem(__pyx_d, name);
-    if (likely(result)) {
-        Py_INCREF(result);
-    } else {
-#else
-    result = PyObject_GetItem(__pyx_d, name);
-    if (!result) {
-        PyErr_Clear();
-#endif
-        result = __Pyx_GetBuiltinName(name);
-    }
-    return result;
-}
 
 /* ArgTypeTest */
     static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact)

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 cimport numpy as np
+import warnings
 from pydbm.dbm.interface.dbm_builder import DBMBuilder
 from pydbm.dbm.dbm_director import DBMDirector
 from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
@@ -87,17 +88,18 @@ class DeepBoltzmannMachine(object):
     def learn(
         self,
         np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
-        int traning_count=1000,
+        int traning_count=-1,
         int batch_size=200,
         int r_batch_size=-1,
-        sgd_flag=False
+        sgd_flag=False,
+        int training_count=1000
     ):
         '''
         Learning.
 
         Args:
             observed_data_arr:    The `np.ndarray` of observed data points.
-            traning_count:        Training counts.
+            training_count:       Training counts.
             batch_size:           Batch size.
             r_batch_size:         Batch size.
                                   If this value is `0`, the inferencing is a recursive learning.
@@ -105,6 +107,10 @@ class DeepBoltzmannMachine(object):
                                   If this value is '-1', the inferencing is not a recursive learning.
             sgd_flag:             Learning with the stochastic gradient descent(SGD) or not.
         '''
+        if traning_count != -1:
+            training_count = traning_count
+            warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
+
         cdef int i
         cdef int row_i = observed_data_arr.shape[0]
         cdef int j
@@ -123,8 +129,8 @@ class DeepBoltzmannMachine(object):
                 for j in range(len(self.__rbm_list)):
                     self.__rbm_list[j].approximate_learning(
                         data_arr,
-                        traning_count,
-                        batch_size
+                        training_count=training_count,
+                        batch_size=batch_size
                     )
                     feature_point_arr = self.get_feature_point(j)
                     data_arr = feature_point_arr
@@ -140,8 +146,8 @@ class DeepBoltzmannMachine(object):
                     for j in range(len(self.__rbm_list)):
                         self.__rbm_list[j].approximate_learning(
                             data_arr,
-                            traning_count,
-                            batch_size
+                            training_count=training_count,
+                            batch_size=batch_size
                         )
                         feature_point_arr = self.get_feature_point(j)
                         data_arr = feature_point_arr
@@ -152,8 +158,8 @@ class DeepBoltzmannMachine(object):
                         data_arr = self.get_feature_point(len(rbm_list)-1-j)
                         rbm_list[j].approximate_inferencing(
                             data_arr,
-                            traning_count,
-                            r_batch_size
+                            training_count=training_count,
+                            r_batch_size=r_batch_size
                         )
 
             elif self.__inferencing_plan == "at_once":
@@ -167,8 +173,8 @@ class DeepBoltzmannMachine(object):
                     for j in range(len(self.__rbm_list)):
                         self.__rbm_list[j].approximate_learning(
                             data_arr,
-                            traning_count,
-                            batch_size
+                            training_count=training_count,
+                            batch_size=batch_size
                         )
                         feature_point_arr = self.get_feature_point(j)
                         data_arr = feature_point_arr
@@ -179,8 +185,8 @@ class DeepBoltzmannMachine(object):
 
                     rbm_list[j].approximate_inferencing(
                         data_arr,
-                        traning_count,
-                        r_batch_size
+                        training_count=training_count,
+                        r_batch_size=r_batch_size
                     )
 
     def get_feature_point(self, int layer_number=0):

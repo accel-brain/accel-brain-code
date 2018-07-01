@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 cimport numpy as np
+import warnings
 from pydbm.synapse_list import Synapse
 from pydbm.approximation.interface.approximate_interface import ApproximateInterface
 
@@ -58,8 +59,9 @@ class RestrictedBoltzmannMachine(object):
     def approximate_learning(
         self,
         np.ndarray observed_data_arr,
-        int traning_count, 
-        int batch_size
+        int traning_count=-1, 
+        int batch_size=200,
+        int training_count=1000
     ):
         '''
         Learning with function approximation.
@@ -69,20 +71,25 @@ class RestrictedBoltzmannMachine(object):
             traning_count:          Training counts.
             batch_size:             Batch size.
         '''
+        if traning_count != -1:
+            training_count = traning_count
+            warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
+
         self.__graph = self.__approximate_interface.approximate_learn(
             self.__graph,
             self.__learning_rate,
             self.__dropout_rate,
             observed_data_arr,
-            traning_count=traning_count,
+            training_count=training_count,
             batch_size=batch_size
         )
 
     def approximate_inferencing(
         self,
         np.ndarray observed_data_arr,
-        int traning_count,
-        int r_batch_size
+        int traning_count=-1,
+        int r_batch_size=-1,
+        int training_count=1000
     ):
         '''
         Learning with function approximation.
@@ -96,12 +103,16 @@ class RestrictedBoltzmannMachine(object):
                                   If this value is '-1', the inferencing is not a recursive learning.
 
         '''
+        if traning_count != -1:
+            training_count = traning_count
+            warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
+
         self.__graph = self.__approximate_interface.approximate_inference(
             self.__graph,
             self.__learning_rate,
             self.__dropout_rate,
             observed_data_arr,
-            traning_count=traning_count,
+            training_count=training_count,
             r_batch_size=r_batch_size
         )
 

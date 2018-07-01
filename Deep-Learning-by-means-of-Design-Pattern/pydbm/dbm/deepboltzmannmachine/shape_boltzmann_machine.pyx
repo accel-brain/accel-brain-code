@@ -39,9 +39,9 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         approximate_interface_list=[],
         double learning_rate=0.01,
         double dropout_rate=0.0,
-        int overlap_n=9,
+        int overlap_n=4,
         int reshaped_w=-1,
-        int filter_size=12
+        int filter_size=5
     ):
         '''
         Initialize deep boltzmann machine.
@@ -55,6 +55,20 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
             dropout_rate:                Dropout rate.
             overlap_n:                   The number of overlapped pixels.
             filter_size:                 The 'filter' size.
+        
+        `filter_size` is the 'filter' size. This value must be more than 4.
+        And `overlap_n` is hyperparameter specific to Shape-BM. 
+        In the visible layer, this model has so-called local receptive fields 
+        by connecting each first hidden unit only to a subset of the visible units, 
+        corresponding to one of four square patches. 
+        Each patch overlaps its neighbor by overlap_n pixels (Eslami, S. A., et al, 2014).
+
+        Please note that the recommended ratio of filter_size and overlap_n is 5:4. 
+        It is not a constraint demanded by pure theory of Shape Boltzmann Machine itself 
+        but is a kind of limitation to simplify design and implementation in this library.
+        
+        Reference:
+            Eslami, S. A., Heess, N., Williams, C. K., & Winn, J. (2014). The shape boltzmann machine: a strong model of object shape. International Journal of Computer Vision, 107(2), 155-176.
         '''
         self.__overlap_n = overlap_n
         if reshaped_w != -1:

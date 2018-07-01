@@ -37,8 +37,8 @@ if __name__ == "__main__":
     dbm = StackedAutoEncoder(
         DBMMultiLayerBuilder(),
         [vector_arr.shape[1], vector_arr.shape[1], 10],
-        LogisticFunction(),
-        ContrastiveDivergence(),
+        [LogisticFunction(), LogisticFunction(), LogisticFunction()],
+        [ContrastiveDivergence(), ContrastiveDivergence()],
         0.005
     )
     dbm.learn(vector_arr, traning_count=1)

@@ -221,18 +221,26 @@ Instantiate objects and call the method.
 dbm = DeepBoltzmannMachine(
     DBMMultiLayerBuilder(),
     # Dimention in visible layer, hidden layer, and second hidden layer.
-    [traning_x.shape[1], 10, traning_x.shape[1]],
-    [ReLuFunction(), LogisticFunction(), TanhFunction()], # Setting objects for activation function.
-    [ContrastiveDivergence(), ContrastiveDivergence()],   # Setting the object for function approximation.
-    0.05, # Setting learning rate.
-    0.5   # Setting dropout rate.
+    [train_arr.shape[1], 10, train_arr.shape[1]],
+    # Setting objects for activation function.
+    [ReLuFunction(), LogisticFunction(), TanhFunction()],
+    # Setting the object for function approximation.
+    [ContrastiveDivergence(), ContrastiveDivergence()], 
+    # Setting learning rate.
+    0.05,
+    # Setting dropout rate.
+    0.5
 )
+
 # Execute learning.
 dbm.learn(
-    traning_arr
-    1, # If approximation is the Contrastive Divergence, this parameter is `k` in CD method.
-    batch_size=200,  # Batch size in mini-batch training.
-    r_batch_size=-1  # if `r_batch_size` > 0, the function of `dbm.learn` is a kind of reccursive learning.
+    train_arr,
+     # If approximation is the Contrastive Divergence, this parameter is `k` in CD method.
+    training_count=1,
+    # Batch size in mini-batch training.
+    batch_size=200,
+    # if `r_batch_size` > 0, the function of `dbm.learn` is a kind of reccursive learning.
+    r_batch_size=-1 
 )
 ```
 
@@ -241,7 +249,7 @@ If you do not want to execute the mini-batch training, the value of `batch_size`
 And the feature points can be extracted by this method.
 
 ```python
-print(dbm.get_feature_point_list(0))
+print(dbm.get_feature_point(layer_number=1))
 ```
 
 ## Usecase: Image segmentation by Shape-BM.
@@ -256,6 +264,14 @@ img
 
 <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/horse099.jpg" />
 
+If you think the size of your image datasets may be large, resize it to an arbitrary size.
+
+```python
+img = img.resize((90, 90))
+```
+
+Convert RGB images to binary images.
+
 ```python
 img_bin = img.convert("1")
 img_bin
@@ -266,11 +282,13 @@ img_bin
 Set up hyperparameters.
 
 ```python
+filter_size = 5
 overlap_n = 4
+
 learning_rate = 0.01
 ```
 
-`overlap_n` is hyperparameter specific to Shape-BM. In the visible layer, this model has so-called local receptive fields by connecting each first hidden unit only to a subset of the visible units, corresponding to one of four square patches. Each patch overlaps its neighbor by `overlap_n` pixels (Eslami, S. A., et al, 2014).
+`filter_size` is the 'filter' size. This value must be more than `4`. And `overlap_n` is hyperparameter specific to Shape-BM. In the visible layer, this model has so-called local receptive fields by connecting each first hidden unit only to a subset of the visible units, corresponding to one of four square patches. Each patch overlaps its neighbor by `overlap_n` pixels (Eslami, S. A., et al, 2014).
 
 And import Python and Cython modules.
 
@@ -287,7 +305,8 @@ Instantiate objects and call the method.
 dbm = ShapeBoltzmannMachine(
     DBMMultiLayerBuilder(),
     learning_rate=learning_rate,
-    overlap_n=overlap_n
+    overlap_n=overlap_n,
+    filter_size=filter_size
 )
 
 img_arr = np.asarray(img_bin)
@@ -295,10 +314,15 @@ img_arr = img_arr.astype(np.float64)
 
 # Execute learning.
 dbm.learn(
-    img_arr, # `np.ndarray` of image data.
-    1, # If approximation is the Contrastive Divergence, this parameter is `k` in CD method.
-    batch_size=300,  # Batch size in mini-batch training.
-    r_batch_size=-1,  # if `r_batch_size` > 0, the function of `dbm.learn` is a kind of reccursive learning.
+    # `np.ndarray` of image data.
+    img_arr,
+    # If approximation is the Contrastive Divergence, this parameter is `k` in CD method.
+    training_count=1,
+    # Batch size in mini-batch training.
+    batch_size=300,
+    # if `r_batch_size` > 0, the function of `dbm.learn` is a kind of reccursive learning.
+    r_batch_size=-1,
+    # Learning with the stochastic gradient descent(SGD) or not.
     sgd_flag=True
 )
 ```
@@ -352,7 +376,7 @@ rbm = rtrbm_builder.get_result()
 # Learning.
 rbm.learn(
     arr,
-    traning_count=1, 
+    training_count=1, 
     batch_size=200
 )
 ```
@@ -363,7 +387,7 @@ The `rbm` has a `np.ndarray` of `graph.visible_activity_arr`. The `graph.visible
 # Execute recursive learning.
 inferenced_arr = rbm.inference(
     test_arr,
-    traning_count=1, 
+    training_count=1, 
     r_batch_size=-1
 )
 ```
@@ -408,7 +432,7 @@ rbm = rnnrbm_builder.get_result()
 # Learning.
 rbm.learn(
     arr,
-    traning_count=1, 
+    training_count=1, 
     batch_size=200
 )
 ```
@@ -419,7 +443,7 @@ The `rbm` has a `np.ndarray` of `graph.visible_activity_arr`. The `graph.visible
 # Execute recursive learning.
 inferenced_arr = rbm.inference(
     test_arr,
-    traning_count=1, 
+    training_count=1, 
     r_batch_size=-1
 )
 ```
@@ -514,15 +538,20 @@ hidden_bias_arr_list = dbm.get_hidden_bias_arr_list()
 ```python
 dbm = StackedAutoEncoder(
     DBMMultiLayerBuilder(
+        # Setting pre-learned weights matrix.
         weight_arr_list,
+        # Setting pre-learned bias in visible layer.
         visible_bias_arr_list,
+        # Setting pre-learned bias in hidden layer.
         hidden_bias_arr_list
     ),
-    [target_arr.shape[1], 10, target_arr.shape[1]],
+    [next_target_arr.shape[1], 10, next_target_arr.shape[1]],
     activation_list,
     approximaion_list,
-    0.05, # Setting learning rate.
-    0.5   # Setting dropout rate.
+    # Setting learning rate.
+    0.05,
+    # Setting dropout rate.
+    0.0
 )
 
 # Execute learning.

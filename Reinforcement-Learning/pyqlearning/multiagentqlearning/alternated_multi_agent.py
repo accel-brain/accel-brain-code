@@ -27,7 +27,7 @@ class AlternatedMultiAgent(MultiAgentQLearning):
             while self.t <= limit:
                 for i in range(len(self.q_learning_list)):
                     if game + 1 == game_n:
-                        self.state_key_list.append(state_key.copy())
+                        self.state_key_list.append((i, copy.copy(state_key)))
                     self.q_learning_list[i].t = self.t
                     next_action_list = self.q_learning_list[i].extract_possible_actions(state_key)
 

@@ -125,6 +125,12 @@ class LSTMRTRBMCD(RTRBMCD):
         self.graph.learn_weights()
 
         self.graph.diff_visible_bias_arr_list.append(self.graph.visible_diff_bias_arr)
+        
+        cdef np.ndarray visible_step_arr
+        cdef np.ndarray link_value_arr
+        cdef np.ndarray visible_step_activity
+        cdef np.ndarray visible_negative_arr
+        cdef np.ndarray diff
 
         visible_step_arr = (self.graph.visible_activity_arr + self.graph.visible_diff_bias_arr).reshape(-1, 1)
         link_value_arr = (self.graph.weights_arr * visible_step_arr) - self.graph.hidden_bias_arr.reshape(-1, 1).T

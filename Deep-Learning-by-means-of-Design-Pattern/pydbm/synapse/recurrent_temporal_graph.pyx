@@ -161,6 +161,23 @@ class RecurrentTemporalGraph(Synapse):
 
     hat_hidden_activity_arr = property(get_hat_hidden_activity_arr, set_hat_hidden_activity_arr)
 
+    __inferenced_arr = np.array([])
+    
+    def get_inferenced_arr(self):
+        ''' getter '''
+        if isinstance(self.__inferenced_arr, np.ndarray) is False:
+            raise TypeError("The type of __inferenced_arr must be `np.ndarray`.")
+        return self.__inferenced_arr
+
+    def set_inferenced_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of value must be `np.ndarray`.")
+
+        self.__inferenced_arr = value
+    
+    inferenced_arr = property(get_inferenced_arr, set_inferenced_arr)
+
     # Activation function in visible layer.
     def get_visible_activating_function(self):
         ''' getter '''

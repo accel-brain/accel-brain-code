@@ -110,8 +110,6 @@ class RTRBMCD(ApproximateInterface):
                 # Wake and sleep.
                 self.wake_sleep_learn(self.graph.visible_activity_arr)
 
-            # Learning.
-            self.graph.learn_weights()
             # Back propagation.
             self.back_propagation()
 
@@ -251,8 +249,10 @@ class RTRBMCD(ApproximateInterface):
         '''
         Details of the backpropagation through time algorithm.
         '''
+        # Learning.
         self.graph.visible_bias_arr += self.graph.visible_diff_bias_arr
         self.graph.hidden_bias_arr += self.graph.hidden_diff_bias_arr
+        self.graph.learn_weights()
 
         visible_step_arr = (self.graph.visible_activity_arr + self.graph.visible_diff_bias_arr).reshape(-1, 1)
         link_value_arr = (self.graph.weights_arr * visible_step_arr) - self.graph.hidden_bias_arr.reshape(-1, 1).T
@@ -375,14 +375,6 @@ class RTRBMCD(ApproximateInterface):
             self.graph.diff_weights_arr += self.graph.visible_activity_arr.reshape(-1, 1) * self.graph.hidden_activity_arr.reshape(-1, 1).T * self.learning_rate * (-1)
             self.graph.visible_diff_bias_arr += self.learning_rate * self.graph.visible_activity_arr * (-1)
             self.graph.hidden_diff_bias_arr += self.learning_rate * self.graph.hidden_activity_arr * (-1)
-
-            # Learning.
-            if self.r_batch_size == 0 or self.r_batch_step % self.r_batch_size == 0:
-                self.graph.visible_bias_arr += self.graph.visible_diff_bias_arr
-                self.graph.hidden_bias_arr += self.graph.hidden_diff_bias_arr
-                self.graph.visible_diff_bias_arr = np.zeros(self.graph.visible_bias_arr.shape)
-                self.graph.hidden_diff_bias_arr = np.zeros(self.graph.hidden_bias_arr.shape)
-                self.graph.learn_weights()
 
     def dropout(self, np.ndarray[DOUBLE_t, ndim=1] activity_arr):
         '''

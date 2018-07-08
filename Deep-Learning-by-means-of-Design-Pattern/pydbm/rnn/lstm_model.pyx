@@ -150,6 +150,9 @@ class LSTMModel(ReconstructableFeature):
 
         if row_t == 0:
             target_arr = observed_arr.copy()
+        else:
+            if target_arr.ndim == 2:
+                target_arr = target_arr.reshape((target_arr.shape[0], 1, target_arr.shape[1]))
 
         if self.__test_size_rate > 0:
             train_index = np.random.choice(observed_arr.shape[0], round(self.__test_size_rate * observed_arr.shape[0]), replace=False)
@@ -224,6 +227,7 @@ class LSTMModel(ReconstructableFeature):
                     output_arr = np.vstack([output_arr, output])
 
                 target_time_series_X = batch_target_arr[batch_index]
+                
                 if label_arr is None:
                     label_arr = target_time_series_X[-1]
                 else:
@@ -233,8 +237,7 @@ class LSTMModel(ReconstructableFeature):
             if epoch == 0:
                 self.__logger.debug("Computing loss is end.")
 
-            self.graph = self.optimizable_loss.optimize(
-                self.graph,
+            self.back_propagation(
                 input_arr,
                 rnn_arr,
                 hidden_arr,
@@ -423,6 +426,67 @@ class LSTMModel(ReconstructableFeature):
             output_arr_list.append(yhat)
         return (output_arr_list, h, c)
 
+    def back_propagation(
+        self,
+        np.ndarray[DOUBLE_t, ndim=2] input_arr,
+        np.ndarray[DOUBLE_t, ndim=2] rnn_arr,
+        np.ndarray[DOUBLE_t, ndim=2] hidden_arr,
+        np.ndarray[DOUBLE_t, ndim=2] output_arr,
+        np.ndarray[DOUBLE_t, ndim=2] label_arr,
+        double learning_rate
+    ):
+        cdef np.ndarray[DOUBLE_t, ndim=2] E
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_o_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_h_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_ho_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_hf_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_hi_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_hg_arr
+
+        cdef np.ndarray[DOUBLE_t, ndim=2] weights_hidden_output_diff_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] weights_hy_diff_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] weights_ho_diff_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] weights_hf_diff_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] weights_hi_diff_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] weights_hg_diff_arr
+
+        E = label_arr - output_arr
+
+        delta_o_arr = E * self.graph.output_activating_function.derivative(output_arr)
+        weights_hidden_output_diff_arr = hidden_arr.T.dot(delta_o_arr)
+
+        delta_h_arr = delta_o_arr.dot(
+            self.graph.weights_hidden_output_arr.T
+        ) * self.graph.linear_activating_function.derivative(hidden_arr)
+        weights_hy_diff_arr = rnn_arr.T.dot(delta_h_arr)
+
+        delta_ho_arr = delta_h_arr.dot(
+            self.graph.weights_hy_arr.T
+        ) * self.graph.rnn_output_activating_function.derivative(rnn_arr)
+        weights_ho_diff_arr = np.dot(input_arr, self.graph.weights_xo_arr).T.dot(delta_ho_arr)
+
+        delta_hf_arr = delta_h_arr.dot(
+            self.graph.weights_hf_arr.T
+        ) * self.graph.forget_activating_function.derivative(rnn_arr)
+        weights_hf_diff_arr = np.dot(input_arr, self.graph.weights_xf_arr).T.dot(delta_hf_arr)
+
+        delta_hi_arr = delta_h_arr.dot(
+            self.graph.weights_hi_arr.T
+        ) * self.graph.input_activating_function.derivative(rnn_arr)
+        weights_hi_diff_arr = np.dot(input_arr, self.graph.weights_xi_arr).T.dot(delta_hi_arr)
+
+        delta_hg_arr = delta_h_arr.dot(
+            self.graph.weights_hg_arr.T
+        ) * self.graph.observed_activating_function.derivative(rnn_arr)
+        weights_hg_diff_arr = np.dot(input_arr, self.graph.weights_xg_arr).T.dot(delta_hg_arr)
+
+        self.graph.weights_hidden_output_arr += weights_hidden_output_diff_arr * learning_rate
+        self.graph.weights_hy_arr += weights_hy_diff_arr * learning_rate
+        self.graph.weights_ho_arr += weights_ho_diff_arr * learning_rate
+        self.graph.weights_hf_arr += weights_hf_diff_arr * learning_rate
+        self.graph.weights_hi_arr += weights_hi_diff_arr * learning_rate
+        self.graph.weights_hg_arr += weights_hg_diff_arr * learning_rate
+    
     def set_readonly(self, value):
         raise TypeError("This property must be read-only.")
 

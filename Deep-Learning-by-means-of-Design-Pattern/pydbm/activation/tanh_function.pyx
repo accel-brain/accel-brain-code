@@ -25,3 +25,15 @@ class TanhFunction(ActivatingFunctionInterface):
         if x_sum != 0:
             x = x / x_sum
         return np.tanh(x)
+
+    def derivative(self, np.ndarray x):
+        '''
+        Return of derivative with respect to this activation function.
+
+        Args:
+            x   Parameter.
+
+        Returns:
+            The result.
+        '''
+        return 1 - x ** 2

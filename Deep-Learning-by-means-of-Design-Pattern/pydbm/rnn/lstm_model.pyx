@@ -392,21 +392,20 @@ class LSTMModel(ReconstructableFeature):
     def back_propagation(
         self,
         np.ndarray[DOUBLE_t, ndim=2] input_arr,
-        #np.ndarray[DOUBLE_t, ndim=2] rnn_arr,
-        rnn_arr,
+        np.ndarray[DOUBLE_t, ndim=2] rnn_arr,
         np.ndarray[DOUBLE_t, ndim=2] hidden_arr,
         np.ndarray[DOUBLE_t, ndim=2] output_arr,
         np.ndarray[DOUBLE_t, ndim=2] label_arr,
         double learning_rate
     ):
-        #cdef np.ndarray[DOUBLE_t, ndim=2] delta_o_arr
-        #cdef np.ndarray[DOUBLE_t, ndim=2] delta_hy_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_o_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_hy_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_ho_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_hf_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_hi_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_hg_arr
 
-        #cdef np.ndarray[DOUBLE_t, ndim=2] weights_hy_diff_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] weights_hy_diff_arr
 
         cdef np.ndarray[DOUBLE_t, ndim=2] weights_ho_diff_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] weights_hf_diff_arr
@@ -439,7 +438,7 @@ class LSTMModel(ReconstructableFeature):
         ) * self.graph.observed_activating_function.derivative(rnn_arr)
         weights_hg_diff_arr = np.dot(input_arr, self.graph.weights_xg_arr).T.dot(delta_hg_arr)
 
-        #self.graph.weights_hy_arr += weights_hy_diff_arr * learning_rate
+        self.graph.weights_hy_arr += weights_hy_diff_arr * learning_rate
         self.graph.weights_ho_arr += weights_ho_diff_arr * learning_rate
         self.graph.weights_hf_arr += weights_hf_diff_arr * learning_rate
         self.graph.weights_hi_arr += weights_hi_diff_arr * learning_rate

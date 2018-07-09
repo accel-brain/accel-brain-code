@@ -234,22 +234,6 @@ class LSTMGraph(RecurrentTemporalGraph):
 
     linear_bias_arr = property(get_linear_bias_arr, set_linear_bias_arr)
 
-    __output_layer_bias_arr = np.array([])
-
-    def get_output_layer_bias_arr(self):
-        ''' getter '''
-        if isinstance(self.__output_layer_bias_arr, np.ndarray) is False:
-            raise TypeError("The type of __output_layer_bias_arr must be `np.ndarray`.")
-        return self.__output_layer_bias_arr
-    
-    def set_output_layer_bias_arr(self, value):
-        ''' setter '''
-        if isinstance(value, np.ndarray) is False:
-            raise TypeError("The type of __output_layer_bias_arr must be `np.ndarray`.")
-        self.__output_layer_bias_arr = value
-    
-    output_layer_bias_arr = property(get_output_layer_bias_arr, set_output_layer_bias_arr)
-
     __observed_activating_function = None
 
     # Activation function in visible layer.
@@ -330,23 +314,6 @@ class LSTMGraph(RecurrentTemporalGraph):
         self.__rnn_output_activating_function = value
 
     rnn_output_activating_function = property(get_rnn_output_activating_function, set_rnn_output_activating_function)
-
-    __output_activating_function = None
-
-    # Activation function in hidden layer.
-    def get_output_activating_function(self):
-        ''' getter '''
-        if isinstance(self.__output_activating_function, ActivatingFunctionInterface) is False and self.__output_activating_function is not None:
-            raise TypeError("The type of __output_activating_function must be `ActivatingFunctionInterface`.")
-        return self.__output_activating_function
-
-    def set_output_activating_function(self, value):
-        ''' setter '''
-        if isinstance(value, ActivatingFunctionInterface) is False and value is not None:
-            raise TypeError("The type of __output_activating_function must be `ActivatingFunctionInterface`.")
-        self.__output_activating_function = value
-
-    output_activating_function = property(get_output_activating_function, set_output_activating_function)
 
     __linear_activating_function = None
 
@@ -466,18 +433,6 @@ class LSTMGraph(RecurrentTemporalGraph):
         self.__weights_hy_arr = value
     
     weights_hy_arr = property(get_weights_hy_arr, set_weights_hy_arr)
-
-    __weights_hidden_output_arr = np.array([])
-    
-    def get_weights_hidden_output_arr(self):
-        ''' getter '''
-        return self.__weights_hidden_output_arr
-
-    def set_weights_hidden_output_arr(self, value):
-        ''' setter '''
-        self.__weights_hidden_output_arr = value
-    
-    weights_hidden_output_arr = property(get_weights_hidden_output_arr, set_weights_hidden_output_arr)
 
     __rbm_hidden_activity_arr_list = []
     
@@ -659,16 +614,14 @@ class LSTMGraph(RecurrentTemporalGraph):
         self.weights_hf_arr = np.random.normal(size=(hidden_neuron_count, hidden_neuron_count)) * 0.01
         self.weights_ho_arr = np.random.normal(size=(hidden_neuron_count, hidden_neuron_count)) * 0.01
 
-        self.weights_hy_arr = np.random.normal(size=(hidden_neuron_count, hidden_neuron_count)) * 0.01
+        self.weights_hy_arr = np.random.normal(size=(hidden_neuron_count, output_neuron_count)) * 0.01
 
         self.input_bias_arr = np.random.normal(size=hidden_neuron_count) * 0.01
         self.hidden_bias_arr = np.random.normal(size=hidden_neuron_count) * 0.01
         self.forget_bias_arr = np.random.normal(size=hidden_neuron_count) * 0.01
         self.rnn_output_bias_arr = np.random.normal(size=hidden_neuron_count) * 0.01
-        self.linear_bias_arr = np.random.normal(size=hidden_neuron_count) * 0.01
-        
-        self.weights_hidden_output_arr = np.random.normal(size=(hidden_neuron_count, output_neuron_count)) * 0.01
-        self.output_layer_bias_arr = np.random.normal(size=output_neuron_count) * 0.01
+
+        self.linear_bias_arr = np.random.normal(size=output_neuron_count) * 0.01
 
     def create_node(
         self,

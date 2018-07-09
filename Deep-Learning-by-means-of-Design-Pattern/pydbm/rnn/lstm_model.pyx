@@ -184,47 +184,28 @@ class LSTMModel(ReconstructableFeature):
             output_arr = None
             label_arr = None
             for batch_index in range(batch_observed_arr.shape[0]):
-                if epoch == 0:
-                    self.__logger.debug("Batch: " + str(batch_index))
-
                 time_series_X = batch_observed_arr[batch_index]
-
-                if epoch == 0:
-                    self.__logger.debug("RNN is started.")
-
                 output_arr_list, _hidden_activity_arr, _rnn_activity_arr = self.rnn_learn(time_series_X, hidden_activity_arr, rnn_activity_arr)
-
-                if epoch == 0:
-                    self.__logger.debug("RNN is end.")
-                
-                if hidden_arr is None:
-                    hidden_arr = output_arr_list[-1]
-                else:
-                    hidden_arr = np.vstack([hidden_arr, output_arr_list[-1]])
-                
-                if rnn_arr is None:
-                    rnn_arr = _rnn_activity_arr[-1]
-                else:
-                    rnn_arr = np.vstack([rnn_arr, _rnn_activity_arr[-1]])
-
-                if self.graph.output_activating_function is not None:
-                    output = self.graph.output_activating_function.activate(
-                        np.dot(output_arr_list[-1], self.graph.weights_hidden_output_arr) + self.graph.output_layer_bias_arr
-                    )
-                    if epoch == 0:
-                        self.__logger.debug("Activation in output layer is end.")
-                else:
-                    output = output_arr_list[-1]
 
                 if input_arr is None:
                     input_arr = time_series_X[-1]
                 else:
                     input_arr = np.vstack([input_arr, time_series_X[-1]])
 
-                if output_arr is None:
-                    output_arr = output
+                if hidden_arr is None:
+                    hidden_arr = _hidden_activity_arr
                 else:
-                    output_arr = np.vstack([output_arr, output])
+                    hidden_arr = np.vstack([hidden_arr, _hidden_activity_arr])
+                
+                if rnn_arr is None:
+                    rnn_arr = _rnn_activity_arr
+                else:
+                    rnn_arr = np.vstack([rnn_arr, _rnn_activity_arr])
+
+                if output_arr is None:
+                    output_arr = output_arr_list[-1]
+                else:
+                    output_arr = np.vstack([output_arr, output_arr_list[-1]])
 
                 target_time_series_X = batch_target_arr[batch_index]
                 
@@ -258,31 +239,12 @@ class LSTMModel(ReconstructableFeature):
                 test_label_arr = None
                 for batch_index in range(batch_observed_arr.shape[0]):
                     time_series_X = batch_observed_arr[batch_index]
-                    if epoch == 0:
-                        self.__logger.debug("Inferencing is started.")
-
                     test_output_arr_list = self.inference(time_series_X)
 
-                    if epoch == 0:
-                        self.__logger.debug("Inferencing is end.")
-
-                    if self.graph.output_activating_function is not None:
-                        if epoch == 0:
-                            self.__logger.debug("Activating inferenced result is started.")
-
-                        test_output = self.graph.output_activating_function.activate(
-                            np.dot(test_output_arr_list[-1], self.graph.weights_hidden_output_arr) + self.graph.output_layer_bias_arr
-                        )
-                        if epoch == 0:
-                            self.__logger.debug("Activating inferenced result is end.")
-
-                    else:
-                        test_output = test_output_arr_list[-1]
-
                     if test_output_arr is None:
-                        test_output_arr = test_output
+                        test_output_arr = test_output_arr_list[-1]
                     else:
-                        test_output_arr = np.vstack([test_output_arr, test_output])
+                        test_output_arr = np.vstack([test_output_arr, test_output_arr_list[-1]])
 
                     target_time_series_X = batch_target_arr[batch_index]
                     if test_label_arr is None:
@@ -421,67 +383,63 @@ class LSTMModel(ReconstructableFeature):
             )
             c = f * c + i * g
             h = o * self.graph.hidden_activating_function.activate(c)
-            yhat_linear = np.dot(h, self.graph.weights_hy_arr) + self.graph.linear_bias_arr
-            yhat = self.graph.linear_activating_function.activate(yhat_linear)
+            yhat = self.graph.linear_activating_function.activate(
+                np.dot(h, self.graph.weights_hy_arr) + self.graph.linear_bias_arr
+            )
             output_arr_list.append(yhat)
         return (output_arr_list, h, c)
 
     def back_propagation(
         self,
         np.ndarray[DOUBLE_t, ndim=2] input_arr,
-        np.ndarray[DOUBLE_t, ndim=2] rnn_arr,
+        #np.ndarray[DOUBLE_t, ndim=2] rnn_arr,
+        rnn_arr,
         np.ndarray[DOUBLE_t, ndim=2] hidden_arr,
         np.ndarray[DOUBLE_t, ndim=2] output_arr,
         np.ndarray[DOUBLE_t, ndim=2] label_arr,
         double learning_rate
     ):
-        cdef np.ndarray[DOUBLE_t, ndim=2] E
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_o_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_h_arr
+        #cdef np.ndarray[DOUBLE_t, ndim=2] delta_o_arr
+        #cdef np.ndarray[DOUBLE_t, ndim=2] delta_hy_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_ho_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_hf_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_hi_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_hg_arr
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] weights_hidden_output_diff_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] weights_hy_diff_arr
+        #cdef np.ndarray[DOUBLE_t, ndim=2] weights_hy_diff_arr
+
         cdef np.ndarray[DOUBLE_t, ndim=2] weights_ho_diff_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] weights_hf_diff_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] weights_hi_diff_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] weights_hg_diff_arr
 
-        E = label_arr - output_arr
-
-        delta_o_arr = E * self.graph.output_activating_function.derivative(output_arr)
-        weights_hidden_output_diff_arr = hidden_arr.T.dot(delta_o_arr)
-
-        delta_h_arr = delta_o_arr.dot(
-            self.graph.weights_hidden_output_arr.T
-        ) * self.graph.linear_activating_function.derivative(hidden_arr)
-        weights_hy_diff_arr = rnn_arr.T.dot(delta_h_arr)
-
-        delta_ho_arr = delta_h_arr.dot(
+        delta_o_arr = (label_arr - output_arr) * self.graph.linear_activating_function.derivative(output_arr)
+        delta_hy_arr = delta_o_arr.dot(
             self.graph.weights_hy_arr.T
+        ) * self.graph.hidden_activating_function.derivative(hidden_arr)
+        weights_hy_diff_arr = rnn_arr.T.dot(delta_o_arr)
+
+        delta_ho_arr = delta_hy_arr.dot(
+            self.graph.weights_ho_arr.T
         ) * self.graph.rnn_output_activating_function.derivative(rnn_arr)
         weights_ho_diff_arr = np.dot(input_arr, self.graph.weights_xo_arr).T.dot(delta_ho_arr)
 
-        delta_hf_arr = delta_h_arr.dot(
+        delta_hf_arr = delta_ho_arr.dot(
             self.graph.weights_hf_arr.T
         ) * self.graph.forget_activating_function.derivative(rnn_arr)
         weights_hf_diff_arr = np.dot(input_arr, self.graph.weights_xf_arr).T.dot(delta_hf_arr)
 
-        delta_hi_arr = delta_h_arr.dot(
+        delta_hi_arr = delta_hf_arr.dot(
             self.graph.weights_hi_arr.T
         ) * self.graph.input_activating_function.derivative(rnn_arr)
         weights_hi_diff_arr = np.dot(input_arr, self.graph.weights_xi_arr).T.dot(delta_hi_arr)
 
-        delta_hg_arr = delta_h_arr.dot(
+        delta_hg_arr = delta_hi_arr.dot(
             self.graph.weights_hg_arr.T
         ) * self.graph.observed_activating_function.derivative(rnn_arr)
         weights_hg_diff_arr = np.dot(input_arr, self.graph.weights_xg_arr).T.dot(delta_hg_arr)
 
-        self.graph.weights_hidden_output_arr += weights_hidden_output_diff_arr * learning_rate
-        self.graph.weights_hy_arr += weights_hy_diff_arr * learning_rate
+        #self.graph.weights_hy_arr += weights_hy_diff_arr * learning_rate
         self.graph.weights_ho_arr += weights_ho_diff_arr * learning_rate
         self.graph.weights_hf_arr += weights_hf_diff_arr * learning_rate
         self.graph.weights_hi_arr += weights_hi_diff_arr * learning_rate

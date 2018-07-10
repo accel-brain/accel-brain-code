@@ -162,8 +162,6 @@ class LSTMModel(ReconstructableFeature):
             train_target_arr = observed_arr
 
         for epoch in range(self.__epochs):
-            self.__logger.debug("Epoch: " + str(epoch+1))
-
             if ((epoch + 1) % self.__attenuate_epoch == 0):
                 learning_rate = learning_rate / self.__learning_attenuate_rate
 

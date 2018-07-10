@@ -381,7 +381,7 @@ class RTRBMCD(ApproximateInterface):
         Dropout.
         '''
         cdef int row = activity_arr.shape[0]
-        cdef int dropout_flag = np.random.binomial(n=1, p=self.__dropout_rate, size=1).astype(int)
+        cdef int dropout_flag = np.random.binomial(n=1, p=self.dropout_rate, size=1).astype(int)
         cdef np.ndarray[DOUBLE_t, ndim=1] dropout_rate_arr
 
         if dropout_flag == 1:

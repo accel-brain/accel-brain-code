@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from logging import getLogger
+import numpy as np
+cimport numpy as np
 from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
 from pydbm.rnn.optimization.interface.optimizable_loss import OptimizableLoss
 import pandas as pd
-import numpy as np
 
 
 class VerificateRegression(VerificatableResult):
@@ -40,10 +41,10 @@ class VerificateRegression(VerificatableResult):
 
     def verificate(
         self,
-        train_pred_arr,
-        train_label_arr,
-        test_pred_arr,
-        test_label_arr
+        np.ndarray train_pred_arr,
+        np.ndarray train_label_arr,
+        np.ndarray test_pred_arr,
+        np.ndarray test_label_arr
     ):
         '''
         Verificate result.
@@ -57,20 +58,41 @@ class VerificateRegression(VerificatableResult):
         '''
         train_loss = self.__optimizable_loss.compute_loss(train_pred_arr, train_label_arr)
         test_loss = self.__optimizable_loss.compute_loss(test_pred_arr, test_label_arr)
+        train_r2 = self.__r2_score(train_pred_arr, train_label_arr)
+        test_r2 = self.__r2_score(test_pred_arr, test_label_arr)
 
-        self.__logger.info("Epoch: " + str(len(self.__logs_tuple_list) + 1))
+        self.__logger.debug("Epoch: " + str(len(self.__logs_tuple_list) + 1))
 
-        self.__logger.info("Loss: ")
-        self.__logger.info(
+        self.__logger.debug("Loss: ")
+        self.__logger.debug(
             "Training: " + str(train_loss) + " Test: " + str(test_loss)
         )
-
+        self.__logger.debug("R2 score: ")
+        self.__logger.debug(
+            "Training: " + str(train_r2) + " Test: " + str(test_r2)
+        )
+        
         self.__logs_tuple_list.append(
             (
                 train_loss,
-                test_loss
+                test_loss,
+                train_r2,
+                test_r2
             )
         )
+
+    def __r2_score(self, np.ndarray pred_arr, np.ndarray label_arr):
+        '''
+        R2.
+        
+        Args:
+            pred_arr:    Predicted array.
+            label_arr:   Labeled array.
+        
+        Returns:
+            R2 score.
+        '''
+        return 1 - (np.sum(np.power(label_arr - pred_arr, 2)) / np.sum(np.power(label_arr - np.mean(label_arr), 2)))
 
     def get_logs_df(self):
         ''' getter '''
@@ -78,7 +100,9 @@ class VerificateRegression(VerificatableResult):
             self.__logs_tuple_list,
             columns=[
                 "train_loss",
-                "test_loss"
+                "test_loss",
+                "train_r2",
+                "test_r2"
             ]
         )
 

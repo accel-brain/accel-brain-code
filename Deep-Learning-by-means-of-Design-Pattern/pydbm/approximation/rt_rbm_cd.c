@@ -1814,7 +1814,6 @@ static const char __pyx_k_rnn_visible_bias_arr[] = "rnn_visible_bias_arr";
 static const char __pyx_k_visible_activity_arr[] = "visible_activity_arr";
 static const char __pyx_k_visible_negative_arr[] = "visible_negative_arr";
 static const char __pyx_k_wake_sleep_inference[] = "wake_sleep_inference";
-static const char __pyx_k_RTRBMCD__dropout_rate[] = "_RTRBMCD__dropout_rate";
 static const char __pyx_k_approximate_inference[] = "approximate_inference";
 static const char __pyx_k_visible_diff_bias_arr[] = "visible_diff_bias_arr";
 static const char __pyx_k_visible_step_activity[] = "visible_step_activity";
@@ -1858,7 +1857,6 @@ static PyObject *__pyx_n_s_FutureWarning;
 static PyObject *__pyx_n_s_ImportError;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_RTRBMCD;
-static PyObject *__pyx_n_s_RTRBMCD__dropout_rate;
 static PyObject *__pyx_n_s_RTRBMCD__reconstruct_error_list;
 static PyObject *__pyx_n_s_RTRBMCD_approximate_inference;
 static PyObject *__pyx_n_s_RTRBMCD_approximate_learn;
@@ -9195,7 +9193,7 @@ static PyObject *__pyx_pf_5pydbm_13approximation_9rt_rbm_cd_7RTRBMCD_18dropout(C
  *         Dropout.
  *         '''
  *         cdef int row = activity_arr.shape[0]             # <<<<<<<<<<<<<<
- *         cdef int dropout_flag = np.random.binomial(n=1, p=self.__dropout_rate, size=1).astype(int)
+ *         cdef int dropout_flag = np.random.binomial(n=1, p=self.dropout_rate, size=1).astype(int)
  *         cdef np.ndarray[DOUBLE_t, ndim=1] dropout_rate_arr
  */
   __pyx_v_row = (__pyx_v_activity_arr->dimensions[0]);
@@ -9203,7 +9201,7 @@ static PyObject *__pyx_pf_5pydbm_13approximation_9rt_rbm_cd_7RTRBMCD_18dropout(C
   /* "pydbm/approximation/rt_rbm_cd.pyx":384
  *         '''
  *         cdef int row = activity_arr.shape[0]
- *         cdef int dropout_flag = np.random.binomial(n=1, p=self.__dropout_rate, size=1).astype(int)             # <<<<<<<<<<<<<<
+ *         cdef int dropout_flag = np.random.binomial(n=1, p=self.dropout_rate, size=1).astype(int)             # <<<<<<<<<<<<<<
  *         cdef np.ndarray[DOUBLE_t, ndim=1] dropout_rate_arr
  * 
  */
@@ -9218,7 +9216,7 @@ static PyObject *__pyx_pf_5pydbm_13approximation_9rt_rbm_cd_7RTRBMCD_18dropout(C
   __pyx_t_3 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 384, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_n, __pyx_int_1) < 0) __PYX_ERR(0, 384, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMCD__dropout_rate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 384, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dropout_rate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 384, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_p, __pyx_t_4) < 0) __PYX_ERR(0, 384, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -12356,7 +12354,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
   {&__pyx_n_s_RTRBMCD, __pyx_k_RTRBMCD, sizeof(__pyx_k_RTRBMCD), 0, 0, 1, 1},
-  {&__pyx_n_s_RTRBMCD__dropout_rate, __pyx_k_RTRBMCD__dropout_rate, sizeof(__pyx_k_RTRBMCD__dropout_rate), 0, 0, 1, 1},
   {&__pyx_n_s_RTRBMCD__reconstruct_error_list, __pyx_k_RTRBMCD__reconstruct_error_list, sizeof(__pyx_k_RTRBMCD__reconstruct_error_list), 0, 0, 1, 1},
   {&__pyx_n_s_RTRBMCD_approximate_inference, __pyx_k_RTRBMCD_approximate_inference, sizeof(__pyx_k_RTRBMCD_approximate_inference), 0, 0, 1, 1},
   {&__pyx_n_s_RTRBMCD_approximate_learn, __pyx_k_RTRBMCD_approximate_learn, sizeof(__pyx_k_RTRBMCD_approximate_learn), 0, 0, 1, 1},

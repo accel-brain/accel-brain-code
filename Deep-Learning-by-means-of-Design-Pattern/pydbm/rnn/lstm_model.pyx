@@ -100,16 +100,12 @@ class LSTMModel(ReconstructableFeature):
         '''
         Learn the observed data points.
         for vector representation of the input time-series.
-
         In Encoder-Decode scheme, usecase of this method may be pre-training with `__learned_params_dict`.
-
         Override.
-
         Args:
             observed_arr:    Array like or sparse matrix as the observed data ponts.
             target_arr:      Array like or sparse matrix as the target data points.
                              To learn as Auto-encoder, this value must be `None` or equivalent to `observed_arr`.
-
         '''
         self.__logger.debug("pydbm.rnn.lstm_model.learn is started. ")
 
@@ -280,19 +276,19 @@ class LSTMModel(ReconstructableFeature):
 
         self.__logger.debug("end. ")
 
-    def inference(self, np.ndarray[DOUBLE_t, ndim=2] time_series_X_arr):
+    def inference(self, np.ndarray[DOUBLE_t, ndim=2] time_series_arr):
         '''
         Inference the feature points to reconstruct the time-series.
 
         Override.
 
         Args:
-            time_series_X_arr:    Array like or sparse matrix as the observed data ponts.
+            time_series_arr:    Array like or sparse matrix as the observed data ponts.
         
         Returns:
             Array like or sparse matrix of reconstructed instances of time-series.
         '''
-        result_list = [None] * time_series_X_arr.shape[0]
+        result_list = [None] * time_series_arr.shape[0]
 
         cdef np.ndarray hidden_activity_arr = np.array([])
         cdef np.ndarray rnn_activity_arr = np.array([])
@@ -301,7 +297,7 @@ class LSTMModel(ReconstructableFeature):
         cdef np.ndarray _rnn_activity_arr
 
         output_arr_list, _hidden_activity_arr, _rnn_activity_arr = self.rnn_learn(
-            time_series_X_arr,
+            time_series_arr,
             hidden_activity_arr,
             rnn_activity_arr
         )
@@ -327,15 +323,15 @@ class LSTMModel(ReconstructableFeature):
 
     def rnn_learn(
         self,
-        np.ndarray[DOUBLE_t, ndim=2] time_series_X,
-        np.ndarray h=np.array([]),
-        np.ndarray c=np.array([])
+        np.ndarray[DOUBLE_t, ndim=2] time_series_arr,
+        np.ndarray hidden_activity_arr=np.array([]),
+        np.ndarray rnn_activity_arr=np.array([])
     ):
         '''
         Encoder model.
 
         Args:
-            time_series_X:          A time-series $X = \{x^{(1)}, x^{(2)}, ..., x^{(L)}\}$ in observed data points.
+            time_series_arr:          A time-series $X = \{x^{(1)}, x^{(2)}, ..., x^{(L)}\}$ in observed data points.
             h:                      The initial state in hidden layer.
             c:                      The initial state in hidden layer.
         
@@ -346,55 +342,60 @@ class LSTMModel(ReconstructableFeature):
                 `The parameter of hidden layer`
             )
         '''
-        cdef int default_row_h = h.shape[0]
-        cdef int default_row_c = c.shape[0]
+        cdef int default_row_h = 0
+        if hidden_activity_arr is not None:
+            default_row_h = hidden_activity_arr.shape[0]
+        cdef int default_row_r = 0
+        if rnn_activity_arr is not None:
+            default_row_r = rnn_activity_arr.shape[0]
 
         cdef int row_h = self.graph.hidden_activity_arr.shape[0]
         cdef int col_h = self.graph.hidden_activity_arr.shape[1]
-        cdef int row_c = self.graph.rnn_activity_arr.shape[0]
-        cdef int col_c = self.graph.rnn_activity_arr.shape[1]
+        cdef int row_r = self.graph.rnn_activity_arr.shape[0]
+        cdef int col_r = self.graph.rnn_activity_arr.shape[1]
 
         if default_row_h == 0:
-            h = np.zeros((row_h, col_h))
+            hidden_activity_arr = np.zeros((row_h, col_h))
 
-        if default_row_c == 0:
-            c = np.zeros((row_c, col_c))
-
-        cdef np.ndarray[DOUBLE_t, ndim=2] g
-        cdef np.ndarray[DOUBLE_t, ndim=2] i
-        cdef np.ndarray[DOUBLE_t, ndim=2] f
-        cdef np.ndarray[DOUBLE_t, ndim=2] o
-        cdef np.ndarray[DOUBLE_t, ndim=2] yhat_linear
-        cdef np.ndarray[DOUBLE_t, ndim=2] yhat
+        if default_row_r == 0:
+            rnn_activity_arr = np.zeros((row_r, col_r))
+        
+        cdef np.ndarray[DOUBLE_t, ndim=2] given_activity_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] input_gate_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] forget_gate_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] output_gate_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] output_arr
 
         output_arr_list = []
-        for X in time_series_X:
-            g = self.graph.observed_activating_function.activate(
-                np.dot(X, self.graph.weights_xg_arr) + np.dot(h, self.graph.weights_hg_arr) + self.graph.input_bias_arr
+        for arr in time_series_arr:
+            given_activity_arr = self.graph.observed_activating_function.activate(
+                np.dot(arr, self.graph.weights_xg_arr) + np.dot(hidden_activity_arr, self.graph.weights_hg_arr) + self.graph.input_bias_arr
             )
-            i = self.graph.input_activating_function.activate(
-                np.dot(X, self.graph.weights_xi_arr) + np.dot(h, self.graph.weights_hi_arr) + self.graph.hidden_bias_arr
+            input_gate_arr = self.graph.input_activating_function.activate(
+                np.dot(arr, self.graph.weights_xi_arr) + np.dot(hidden_activity_arr, self.graph.weights_hi_arr) + self.graph.hidden_bias_arr
             )
-            f = self.graph.forget_activating_function.activate(
-                np.dot(X, self.graph.weights_xf_arr) + np.dot(h, self.graph.weights_hf_arr) + self.graph.forget_bias_arr
+            forget_gate_arr = self.graph.forget_activating_function.activate(
+                np.dot(arr, self.graph.weights_xf_arr) + np.dot(hidden_activity_arr, self.graph.weights_hf_arr) + self.graph.forget_bias_arr
             )
-            o = self.graph.rnn_output_activating_function.activate(
-                np.dot(X, self.graph.weights_xo_arr) + np.dot(h, self.graph.weights_ho_arr) + self.graph.rnn_output_bias_arr
+            output_gate_arr = self.graph.rnn_output_activating_function.activate(
+                np.dot(arr, self.graph.weights_xo_arr) + np.dot(hidden_activity_arr, self.graph.weights_ho_arr) + self.graph.rnn_output_bias_arr
             )
-            c = f * c + i * g
-            h = o * self.graph.hidden_activating_function.activate(c)
-            yhat = self.graph.linear_activating_function.activate(
-                np.dot(h, self.graph.weights_hy_arr) + self.graph.linear_bias_arr
+            rnn_activity_arr = forget_gate_arr * rnn_activity_arr + input_gate_arr * given_activity_arr
+            hidden_activity_arr = output_gate_arr * self.graph.hidden_activating_function.activate(rnn_activity_arr)
+
+            output_arr = self.graph.linear_activating_function.activate(
+                np.dot(hidden_activity_arr, self.graph.weights_hy_arr) + self.graph.linear_bias_arr
             )
-            output_arr_list.append(yhat)
-        return (output_arr_list, h, c)
+            output_arr_list.append(output_arr)
+
+        return (output_arr_list, hidden_activity_arr, rnn_activity_arr)
 
     def back_propagation(
         self,
-        np.ndarray[DOUBLE_t, ndim=2] input_arr,
-        np.ndarray[DOUBLE_t, ndim=2] rnn_arr,
-        np.ndarray[DOUBLE_t, ndim=2] hidden_arr,
-        np.ndarray[DOUBLE_t, ndim=2] output_arr,
+        np.ndarray[DOUBLE_t, ndim=2] input_activity_arr,
+        np.ndarray[DOUBLE_t, ndim=2] rnn_activity_arr,
+        np.ndarray[DOUBLE_t, ndim=2] hidden_activity_arr,
+        np.ndarray[DOUBLE_t, ndim=2] output_activity_arr,
         np.ndarray[DOUBLE_t, ndim=2] label_arr,
         double learning_rate
     ):
@@ -412,31 +413,31 @@ class LSTMModel(ReconstructableFeature):
         cdef np.ndarray[DOUBLE_t, ndim=2] weights_hi_diff_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] weights_hg_diff_arr
 
-        delta_o_arr = (label_arr - output_arr) * self.graph.linear_activating_function.derivative(output_arr)
+        delta_o_arr = (label_arr - output_activity_arr) * self.graph.linear_activating_function.derivative(output_activity_arr)
         delta_hy_arr = delta_o_arr.dot(
             self.graph.weights_hy_arr.T
-        ) * self.graph.hidden_activating_function.derivative(hidden_arr)
-        weights_hy_diff_arr = rnn_arr.T.dot(delta_o_arr)
+        ) * self.graph.hidden_activating_function.derivative(hidden_activity_arr)
+        weights_hy_diff_arr = rnn_activity_arr.T.dot(delta_o_arr) / self.__batch_size
 
         delta_ho_arr = delta_hy_arr.dot(
             self.graph.weights_ho_arr.T
-        ) * self.graph.rnn_output_activating_function.derivative(rnn_arr)
-        weights_ho_diff_arr = np.dot(input_arr, self.graph.weights_xo_arr).T.dot(delta_ho_arr)
+        ) * self.graph.rnn_output_activating_function.derivative(rnn_activity_arr)
+        weights_ho_diff_arr = np.dot(input_activity_arr, self.graph.weights_xo_arr).T.dot(delta_ho_arr) / self.__batch_size
 
         delta_hf_arr = delta_ho_arr.dot(
             self.graph.weights_hf_arr.T
-        ) * self.graph.forget_activating_function.derivative(rnn_arr)
-        weights_hf_diff_arr = np.dot(input_arr, self.graph.weights_xf_arr).T.dot(delta_hf_arr)
+        ) * self.graph.forget_activating_function.derivative(rnn_activity_arr)
+        weights_hf_diff_arr = np.dot(input_activity_arr, self.graph.weights_xf_arr).T.dot(delta_hf_arr) / self.__batch_size
 
         delta_hi_arr = delta_hf_arr.dot(
             self.graph.weights_hi_arr.T
-        ) * self.graph.input_activating_function.derivative(rnn_arr)
-        weights_hi_diff_arr = np.dot(input_arr, self.graph.weights_xi_arr).T.dot(delta_hi_arr)
+        ) * self.graph.input_activating_function.derivative(rnn_activity_arr)
+        weights_hi_diff_arr = np.dot(input_activity_arr, self.graph.weights_xi_arr).T.dot(delta_hi_arr) / self.__batch_size
 
         delta_hg_arr = delta_hi_arr.dot(
             self.graph.weights_hg_arr.T
-        ) * self.graph.observed_activating_function.derivative(rnn_arr)
-        weights_hg_diff_arr = np.dot(input_arr, self.graph.weights_xg_arr).T.dot(delta_hg_arr)
+        ) * self.graph.observed_activating_function.derivative(rnn_activity_arr)
+        weights_hg_diff_arr = np.dot(input_activity_arr, self.graph.weights_xg_arr).T.dot(delta_hg_arr) / self.__batch_size
 
         self.graph.weights_hy_arr += weights_hy_diff_arr * learning_rate
         self.graph.weights_ho_arr += weights_ho_diff_arr * learning_rate

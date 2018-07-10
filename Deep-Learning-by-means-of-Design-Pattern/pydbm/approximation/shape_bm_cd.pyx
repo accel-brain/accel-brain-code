@@ -446,8 +446,12 @@ class ShapeBMCD(ApproximateInterface):
         Dropout.
         '''
         cdef int row = activity_arr.shape[0]
-        cdef np.ndarray[DOUBLE_t, ndim=1] dropout_rate_arr = np.random.uniform(0, 1, size=(row, ))
-        activity_arr = activity_arr * dropout_rate_arr.T
+        cdef int dropout_flag = np.random.binomial(n=1, p=self.__dropout_rate, size=1).astype(int)
+        cdef np.ndarray[DOUBLE_t, ndim=1] dropout_rate_arr
+
+        if dropout_flag == 1:
+            dropout_rate_arr = np.random.randint(0, 2, size=(row, )).astype(np.float64)
+            activity_arr = activity_arr * dropout_rate_arr.T
         return activity_arr
 
     def compute_reconstruct_error(

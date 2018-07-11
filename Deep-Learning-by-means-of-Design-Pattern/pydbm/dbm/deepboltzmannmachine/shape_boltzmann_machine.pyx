@@ -63,7 +63,7 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         corresponding to one of four square patches. 
         Each patch overlaps its neighbor by overlap_n pixels (Eslami, S. A., et al, 2014).
 
-        Please note that the recommended ratio of filter_size and overlap_n is 5:4. 
+        Please note that the recommended ratio of `filter_size` and `overlap_n` is 5:4. 
         It is not a constraint demanded by pure theory of Shape Boltzmann Machine itself 
         but is a kind of limitation to simplify design and implementation in this library.
         
@@ -144,6 +144,12 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         if traning_count != -1:
             training_count = traning_count
             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
+
+        observed_data_arr = observed_data_arr.astype(np.float64)
+        observed_data_arr = (observed_data_arr - observed_data_arr.mean()) / observed_data_arr.std()
+        observed_data_arr = observed_data_arr * -1
+        observed_data_arr[observed_data_arr < 0.0] = 0.0
+        observed_data_arr[observed_data_arr > 0.0] = 1.0
 
         cdef np.ndarray[DOUBLE_t, ndim=2] init_observed_data_arr = observed_data_arr.copy()
 

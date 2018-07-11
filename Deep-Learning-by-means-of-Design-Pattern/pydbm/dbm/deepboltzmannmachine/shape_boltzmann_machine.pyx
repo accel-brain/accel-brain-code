@@ -147,7 +147,6 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
 
         observed_data_arr = observed_data_arr.astype(np.float64)
         observed_data_arr = (observed_data_arr - observed_data_arr.mean()) / observed_data_arr.std()
-        observed_data_arr = observed_data_arr * -1
         observed_data_arr[observed_data_arr < 0.0] = 0.0
         observed_data_arr[observed_data_arr > 0.0] = 1.0
 

@@ -98,12 +98,12 @@ class LSTMRTRBMSimpleBuilder(RTRBMBuilder):
 
         self.__lstm_graph = LSTMGraph()
         self.__lstm_graph.observed_activating_function = self.__visible_activating_function
-        self.__lstm_graph.input_activating_function = LogisticFunction()
+        self.__lstm_graph.input_gate_activating_function = LogisticFunction()
         self.__lstm_graph.hidden_activating_function = self.__rnn_activating_function
-        self.__lstm_graph.forget_activating_function = self.__rnn_activating_function
-        self.__lstm_graph.linear_activating_function = self.__rnn_activating_function
+        self.__lstm_graph.forget_gate_activating_function = self.__rnn_activating_function
+        self.__lstm_graph.output_activating_function = self.__rnn_activating_function
         self.__lstm_graph.rnn_activating_function = self.__rnn_activating_function
-        self.__lstm_graph.rnn_output_activating_function = self.__hidden_activating_function
+        self.__lstm_graph.output_gate_activating_function = self.__hidden_activating_function
 
         self.__lstm_graph.create_rnn_cells(
             input_neuron_count=self.__visible_neuron_count,

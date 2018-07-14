@@ -43,14 +43,14 @@ class LSTMRTRBM(RTRBM):
         if self.graph.rbm_hidden_weights_arr.shape[1] != hidden_neuron_count:
             raise ValueError("The shape of pre-learned parameter must be the shape of transfer-learned parameters.")
 
-        self.graph.weights_xg_arr += self.graph.v_hat_weights_arr
-        self.graph.weights_xi_arr += self.graph.v_hat_weights_arr
-        self.graph.weights_xf_arr += self.graph.v_hat_weights_arr
-        self.graph.weights_xo_arr += self.graph.v_hat_weights_arr
+        self.graph.weights_given_arr += self.graph.v_hat_weights_arr
+        self.graph.weights_input_gate_arr += self.graph.v_hat_weights_arr
+        self.graph.weights_forget_gate_arr += self.graph.v_hat_weights_arr
+        self.graph.weights_output_gate_arr += self.graph.v_hat_weights_arr
         
-        self.graph.weights_hg_arr += self.graph.rbm_hidden_weights_arr
-        self.graph.weights_hi_arr += self.graph.rbm_hidden_weights_arr
-        self.graph.weights_hf_arr += self.graph.rbm_hidden_weights_arr
-        self.graph.weights_ho_arr += self.graph.rbm_hidden_weights_arr
+        self.graph.given_bias_arr += self.graph.hidden_bias_arr
+        self.graph.input_gate_bias_arr += self.graph.hidden_bias_arr
+        self.graph.forget_gate_bias_arr += self.graph.hidden_bias_arr
+        self.graph.output_gate_bias_arr += self.graph.hidden_bias_arr
 
         return self.graph

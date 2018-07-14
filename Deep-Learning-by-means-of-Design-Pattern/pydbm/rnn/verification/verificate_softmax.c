@@ -1165,12 +1165,12 @@ static const char __pyx_k_test_accuracy[] = "test_accuracy";
 static const char __pyx_k_test_pred_arr[] = "test_pred_arr";
 static const char __pyx_k_total_train_n[] = "total_train_n";
 static const char __pyx_k_train_match_n[] = "train_match_n";
+static const char __pyx_k_ComputableLoss[] = "ComputableLoss";
 static const char __pyx_k_test_label_arr[] = "test_label_arr";
 static const char __pyx_k_train_accuracy[] = "train_accuracy";
 static const char __pyx_k_train_pred_arr[] = "train_pred_arr";
-static const char __pyx_k_OptimizableLoss[] = "OptimizableLoss";
+static const char __pyx_k_computable_loss[] = "computable_loss";
 static const char __pyx_k_train_label_arr[] = "train_label_arr";
-static const char __pyx_k_optimizable_loss[] = "optimizable_loss";
 static const char __pyx_k_VerificateSoftmax[] = "VerificateSoftmax";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_total_test_match_n[] = "total_test_match_n";
@@ -1183,35 +1183,35 @@ static const char __pyx_k_VerificateSoftmax___init[] = "VerificateSoftmax.__init
 static const char __pyx_k_VerificateSoftmax__logger[] = "_VerificateSoftmax__logger";
 static const char __pyx_k_VerificateSoftmax_verificate[] = "VerificateSoftmax.verificate";
 static const char __pyx_k_VerificateSoftmax_get_logs_df[] = "VerificateSoftmax.get_logs_df";
-static const char __pyx_k_VerificateSoftmax__optimizable[] = "_VerificateSoftmax__optimizable_loss";
 static const char __pyx_k_VerificateSoftmax__total_train[] = "_VerificateSoftmax__total_train_n";
 static const char __pyx_k_VerificateSoftmax_set_readonly[] = "VerificateSoftmax.set_readonly";
 static const char __pyx_k_Verification_of_softmax_result[] = "\n    Verification of softmax result.\n    ";
+static const char __pyx_k_VerificateSoftmax__computable_l[] = "_VerificateSoftmax__computable_loss";
 static const char __pyx_k_VerificateSoftmax__logs_tuple_l[] = "_VerificateSoftmax__logs_tuple_list";
 static const char __pyx_k_VerificateSoftmax__total_test_a[] = "_VerificateSoftmax__total_test_accuracy";
 static const char __pyx_k_VerificateSoftmax__total_test_m[] = "_VerificateSoftmax__total_test_match_n";
 static const char __pyx_k_VerificateSoftmax__total_test_n[] = "_VerificateSoftmax__total_test_n";
 static const char __pyx_k_VerificateSoftmax__total_train_2[] = "_VerificateSoftmax__total_train_match_n";
 static const char __pyx_k_VerificateSoftmax__total_train_3[] = "_VerificateSoftmax__total_train_accuracy";
-static const char __pyx_k_pydbm_rnn_optimization_interface[] = "pydbm.rnn.optimization.interface.optimizable_loss";
+static const char __pyx_k_pydbm_rnn_loss_interface_computa[] = "pydbm.rnn.loss.interface.computable_loss";
 static const char __pyx_k_pydbm_rnn_verification_interface[] = "pydbm.rnn.verification.interface.verificatable_result";
 static const char __pyx_k_pydbm_rnn_verification_verificat[] = "pydbm.rnn.verification.verificate_softmax";
 static const char __pyx_k_pydbm_rnn_verification_verificat_2[] = "pydbm/rnn/verification/verificate_softmax.pyx";
 static PyObject *__pyx_kp_s_Accuracy;
+static PyObject *__pyx_n_s_ComputableLoss;
 static PyObject *__pyx_kp_s_Cumulative_accuracy;
 static PyObject *__pyx_n_s_DataFrame;
 static PyObject *__pyx_kp_s_Epoch;
 static PyObject *__pyx_kp_s_Loss;
-static PyObject *__pyx_n_s_OptimizableLoss;
 static PyObject *__pyx_kp_s_Test;
 static PyObject *__pyx_kp_s_Training;
 static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_n_s_VerificatableResult;
 static PyObject *__pyx_n_s_VerificateSoftmax;
 static PyObject *__pyx_n_s_VerificateSoftmax___init;
+static PyObject *__pyx_n_s_VerificateSoftmax__computable_l;
 static PyObject *__pyx_n_s_VerificateSoftmax__logger;
 static PyObject *__pyx_n_s_VerificateSoftmax__logs_tuple_l;
-static PyObject *__pyx_n_s_VerificateSoftmax__optimizable;
 static PyObject *__pyx_n_s_VerificateSoftmax__total_test_a;
 static PyObject *__pyx_n_s_VerificateSoftmax__total_test_m;
 static PyObject *__pyx_n_s_VerificateSoftmax__total_test_n;
@@ -1228,6 +1228,7 @@ static PyObject *__pyx_n_s_astype;
 static PyObject *__pyx_n_s_axis;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_columns;
+static PyObject *__pyx_n_s_computable_loss;
 static PyObject *__pyx_n_s_compute_loss;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_getLogger;
@@ -1243,13 +1244,12 @@ static PyObject *__pyx_n_s_metaclass;
 static PyObject *__pyx_n_s_module;
 static PyObject *__pyx_n_s_np;
 static PyObject *__pyx_n_s_numpy;
-static PyObject *__pyx_n_s_optimizable_loss;
 static PyObject *__pyx_n_s_pandas;
 static PyObject *__pyx_n_s_pd;
 static PyObject *__pyx_n_s_prepare;
 static PyObject *__pyx_n_s_property;
 static PyObject *__pyx_n_s_pydbm;
-static PyObject *__pyx_n_s_pydbm_rnn_optimization_interface;
+static PyObject *__pyx_n_s_pydbm_rnn_loss_interface_computa;
 static PyObject *__pyx_n_s_pydbm_rnn_verification_interface;
 static PyObject *__pyx_n_s_pydbm_rnn_verification_verificat;
 static PyObject *__pyx_kp_s_pydbm_rnn_verification_verificat_2;
@@ -1279,7 +1279,7 @@ static PyObject *__pyx_n_s_train_n;
 static PyObject *__pyx_n_s_train_pred_arr;
 static PyObject *__pyx_n_s_value;
 static PyObject *__pyx_n_s_verificate;
-static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_optimizable_loss); /* proto */
+static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_computable_loss); /* proto */
 static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_2verificate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_train_pred_arr, PyObject *__pyx_v_train_label_arr, PyObject *__pyx_v_test_pred_arr, PyObject *__pyx_v_test_label_arr); /* proto */
 static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_4get_logs_df(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_6set_readonly(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_value); /* proto */
@@ -1301,7 +1301,7 @@ static PyObject *__pyx_codeobj__12;
 /* "pydbm/rnn/verification/verificate_softmax.pyx":24
  *     __logger = None
  * 
- *     def __init__(self, optimizable_loss):             # <<<<<<<<<<<<<<
+ *     def __init__(self, computable_loss):             # <<<<<<<<<<<<<<
  *         '''
  *         Init.
  */
@@ -1312,12 +1312,12 @@ static char __pyx_doc_5pydbm_3rnn_12verification_18verificate_softmax_17Verifica
 static PyMethodDef __pyx_mdef_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_1__init__ = {"__init__", (PyCFunction)__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_1__init__, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax___init__};
 static PyObject *__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
-  PyObject *__pyx_v_optimizable_loss = 0;
+  PyObject *__pyx_v_computable_loss = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_optimizable_loss,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_computable_loss,0};
     PyObject* values[2] = {0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -1337,7 +1337,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
-        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_optimizable_loss)) != 0)) kw_args--;
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_computable_loss)) != 0)) kw_args--;
         else {
           __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, 1); __PYX_ERR(0, 24, __pyx_L3_error)
         }
@@ -1352,7 +1352,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_self = values[0];
-    __pyx_v_optimizable_loss = values[1];
+    __pyx_v_computable_loss = values[1];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
@@ -1362,14 +1362,14 @@ static PyObject *__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax___init__(__pyx_self, __pyx_v_self, __pyx_v_optimizable_loss);
+  __pyx_r = __pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax___init__(__pyx_self, __pyx_v_self, __pyx_v_computable_loss);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_optimizable_loss) {
+static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_computable_loss) {
   PyObject *__pyx_v_logger = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -1382,38 +1382,38 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   /* "pydbm/rnn/verification/verificate_softmax.pyx":33
  *         '''
  * 
- *         if isinstance(optimizable_loss, OptimizableLoss):             # <<<<<<<<<<<<<<
- *             self.__optimizable_loss = optimizable_loss
+ *         if isinstance(computable_loss, ComputableLoss):             # <<<<<<<<<<<<<<
+ *             self.__computable_loss = computable_loss
  *         else:
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_OptimizableLoss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ComputableLoss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_optimizable_loss, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 33, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_computable_loss, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
     /* "pydbm/rnn/verification/verificate_softmax.pyx":34
  * 
- *         if isinstance(optimizable_loss, OptimizableLoss):
- *             self.__optimizable_loss = optimizable_loss             # <<<<<<<<<<<<<<
+ *         if isinstance(computable_loss, ComputableLoss):
+ *             self.__computable_loss = computable_loss             # <<<<<<<<<<<<<<
  *         else:
  *             raise TypeError()
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__optimizable, __pyx_v_optimizable_loss) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__computable_l, __pyx_v_computable_loss) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
 
     /* "pydbm/rnn/verification/verificate_softmax.pyx":33
  *         '''
  * 
- *         if isinstance(optimizable_loss, OptimizableLoss):             # <<<<<<<<<<<<<<
- *             self.__optimizable_loss = optimizable_loss
+ *         if isinstance(computable_loss, ComputableLoss):             # <<<<<<<<<<<<<<
+ *             self.__computable_loss = computable_loss
  *         else:
  */
     goto __pyx_L3;
   }
 
   /* "pydbm/rnn/verification/verificate_softmax.pyx":36
- *             self.__optimizable_loss = optimizable_loss
+ *             self.__computable_loss = computable_loss
  *         else:
  *             raise TypeError()             # <<<<<<<<<<<<<<
  * 
@@ -1455,7 +1455,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   /* "pydbm/rnn/verification/verificate_softmax.pyx":24
  *     __logger = None
  * 
- *     def __init__(self, optimizable_loss):             # <<<<<<<<<<<<<<
+ *     def __init__(self, computable_loss):             # <<<<<<<<<<<<<<
  *         '''
  *         Init.
  */
@@ -1858,7 +1858,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
  *         train_accuracy = train_match_n / train_pred_arr.shape[0]
  *         test_accuracy = test_match_n / test_pred_arr.shape[0]             # <<<<<<<<<<<<<<
  * 
- *         train_loss = self.__optimizable_loss.compute_loss(train_pred_arr, train_label_arr)
+ *         train_loss = self.__computable_loss.compute_loss(train_pred_arr, train_label_arr)
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_test_pred_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -1874,11 +1874,11 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   /* "pydbm/rnn/verification/verificate_softmax.pyx":64
  *         test_accuracy = test_match_n / test_pred_arr.shape[0]
  * 
- *         train_loss = self.__optimizable_loss.compute_loss(train_pred_arr, train_label_arr)             # <<<<<<<<<<<<<<
- *         test_loss = self.__optimizable_loss.compute_loss(test_pred_arr, test_label_arr)
+ *         train_loss = self.__computable_loss.compute_loss(train_pred_arr, train_label_arr)             # <<<<<<<<<<<<<<
+ *         test_loss = self.__computable_loss.compute_loss(test_pred_arr, test_label_arr)
  * 
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__optimizable); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 64, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__computable_l); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_compute_loss); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
@@ -1933,12 +1933,12 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
 
   /* "pydbm/rnn/verification/verificate_softmax.pyx":65
  * 
- *         train_loss = self.__optimizable_loss.compute_loss(train_pred_arr, train_label_arr)
- *         test_loss = self.__optimizable_loss.compute_loss(test_pred_arr, test_label_arr)             # <<<<<<<<<<<<<<
+ *         train_loss = self.__computable_loss.compute_loss(train_pred_arr, train_label_arr)
+ *         test_loss = self.__computable_loss.compute_loss(test_pred_arr, test_label_arr)             # <<<<<<<<<<<<<<
  * 
  *         self.__total_train_n += train_pred_arr.shape[0]
  */
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__optimizable); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__computable_l); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_compute_loss); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
@@ -1992,7 +1992,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_t_1 = 0;
 
   /* "pydbm/rnn/verification/verificate_softmax.pyx":67
- *         test_loss = self.__optimizable_loss.compute_loss(test_pred_arr, test_label_arr)
+ *         test_loss = self.__computable_loss.compute_loss(test_pred_arr, test_label_arr)
  * 
  *         self.__total_train_n += train_pred_arr.shape[0]             # <<<<<<<<<<<<<<
  *         self.__total_test_n += test_pred_arr.shape[0]
@@ -3017,20 +3017,20 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Accuracy, __pyx_k_Accuracy, sizeof(__pyx_k_Accuracy), 0, 0, 1, 0},
+  {&__pyx_n_s_ComputableLoss, __pyx_k_ComputableLoss, sizeof(__pyx_k_ComputableLoss), 0, 0, 1, 1},
   {&__pyx_kp_s_Cumulative_accuracy, __pyx_k_Cumulative_accuracy, sizeof(__pyx_k_Cumulative_accuracy), 0, 0, 1, 0},
   {&__pyx_n_s_DataFrame, __pyx_k_DataFrame, sizeof(__pyx_k_DataFrame), 0, 0, 1, 1},
   {&__pyx_kp_s_Epoch, __pyx_k_Epoch, sizeof(__pyx_k_Epoch), 0, 0, 1, 0},
   {&__pyx_kp_s_Loss, __pyx_k_Loss, sizeof(__pyx_k_Loss), 0, 0, 1, 0},
-  {&__pyx_n_s_OptimizableLoss, __pyx_k_OptimizableLoss, sizeof(__pyx_k_OptimizableLoss), 0, 0, 1, 1},
   {&__pyx_kp_s_Test, __pyx_k_Test, sizeof(__pyx_k_Test), 0, 0, 1, 0},
   {&__pyx_kp_s_Training, __pyx_k_Training, sizeof(__pyx_k_Training), 0, 0, 1, 0},
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_n_s_VerificatableResult, __pyx_k_VerificatableResult, sizeof(__pyx_k_VerificatableResult), 0, 0, 1, 1},
   {&__pyx_n_s_VerificateSoftmax, __pyx_k_VerificateSoftmax, sizeof(__pyx_k_VerificateSoftmax), 0, 0, 1, 1},
   {&__pyx_n_s_VerificateSoftmax___init, __pyx_k_VerificateSoftmax___init, sizeof(__pyx_k_VerificateSoftmax___init), 0, 0, 1, 1},
+  {&__pyx_n_s_VerificateSoftmax__computable_l, __pyx_k_VerificateSoftmax__computable_l, sizeof(__pyx_k_VerificateSoftmax__computable_l), 0, 0, 1, 1},
   {&__pyx_n_s_VerificateSoftmax__logger, __pyx_k_VerificateSoftmax__logger, sizeof(__pyx_k_VerificateSoftmax__logger), 0, 0, 1, 1},
   {&__pyx_n_s_VerificateSoftmax__logs_tuple_l, __pyx_k_VerificateSoftmax__logs_tuple_l, sizeof(__pyx_k_VerificateSoftmax__logs_tuple_l), 0, 0, 1, 1},
-  {&__pyx_n_s_VerificateSoftmax__optimizable, __pyx_k_VerificateSoftmax__optimizable, sizeof(__pyx_k_VerificateSoftmax__optimizable), 0, 0, 1, 1},
   {&__pyx_n_s_VerificateSoftmax__total_test_a, __pyx_k_VerificateSoftmax__total_test_a, sizeof(__pyx_k_VerificateSoftmax__total_test_a), 0, 0, 1, 1},
   {&__pyx_n_s_VerificateSoftmax__total_test_m, __pyx_k_VerificateSoftmax__total_test_m, sizeof(__pyx_k_VerificateSoftmax__total_test_m), 0, 0, 1, 1},
   {&__pyx_n_s_VerificateSoftmax__total_test_n, __pyx_k_VerificateSoftmax__total_test_n, sizeof(__pyx_k_VerificateSoftmax__total_test_n), 0, 0, 1, 1},
@@ -3047,6 +3047,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_axis, __pyx_k_axis, sizeof(__pyx_k_axis), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_columns, __pyx_k_columns, sizeof(__pyx_k_columns), 0, 0, 1, 1},
+  {&__pyx_n_s_computable_loss, __pyx_k_computable_loss, sizeof(__pyx_k_computable_loss), 0, 0, 1, 1},
   {&__pyx_n_s_compute_loss, __pyx_k_compute_loss, sizeof(__pyx_k_compute_loss), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_getLogger, __pyx_k_getLogger, sizeof(__pyx_k_getLogger), 0, 0, 1, 1},
@@ -3062,13 +3063,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_module, __pyx_k_module, sizeof(__pyx_k_module), 0, 0, 1, 1},
   {&__pyx_n_s_np, __pyx_k_np, sizeof(__pyx_k_np), 0, 0, 1, 1},
   {&__pyx_n_s_numpy, __pyx_k_numpy, sizeof(__pyx_k_numpy), 0, 0, 1, 1},
-  {&__pyx_n_s_optimizable_loss, __pyx_k_optimizable_loss, sizeof(__pyx_k_optimizable_loss), 0, 0, 1, 1},
   {&__pyx_n_s_pandas, __pyx_k_pandas, sizeof(__pyx_k_pandas), 0, 0, 1, 1},
   {&__pyx_n_s_pd, __pyx_k_pd, sizeof(__pyx_k_pd), 0, 0, 1, 1},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
   {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm, __pyx_k_pydbm, sizeof(__pyx_k_pydbm), 0, 0, 1, 1},
-  {&__pyx_n_s_pydbm_rnn_optimization_interface, __pyx_k_pydbm_rnn_optimization_interface, sizeof(__pyx_k_pydbm_rnn_optimization_interface), 0, 0, 1, 1},
+  {&__pyx_n_s_pydbm_rnn_loss_interface_computa, __pyx_k_pydbm_rnn_loss_interface_computa, sizeof(__pyx_k_pydbm_rnn_loss_interface_computa), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_rnn_verification_interface, __pyx_k_pydbm_rnn_verification_interface, sizeof(__pyx_k_pydbm_rnn_verification_interface), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_rnn_verification_verificat, __pyx_k_pydbm_rnn_verification_verificat, sizeof(__pyx_k_pydbm_rnn_verification_verificat), 0, 0, 1, 1},
   {&__pyx_kp_s_pydbm_rnn_verification_verificat_2, __pyx_k_pydbm_rnn_verification_verificat_2, sizeof(__pyx_k_pydbm_rnn_verification_verificat_2), 0, 0, 1, 0},
@@ -3159,11 +3159,11 @@ static int __Pyx_InitCachedConstants(void) {
   /* "pydbm/rnn/verification/verificate_softmax.pyx":24
  *     __logger = None
  * 
- *     def __init__(self, optimizable_loss):             # <<<<<<<<<<<<<<
+ *     def __init__(self, computable_loss):             # <<<<<<<<<<<<<<
  *         '''
  *         Init.
  */
-  __pyx_tuple__5 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_optimizable_loss, __pyx_n_s_logger); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_computable_loss, __pyx_n_s_logger); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
   __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_verification_verificat_2, __pyx_n_s_init, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 24, __pyx_L1_error)
@@ -3373,7 +3373,7 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
  * # -*- coding: utf-8 -*-
  * from logging import getLogger             # <<<<<<<<<<<<<<
  * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
- * from pydbm.rnn.optimization.interface.optimizable_loss import OptimizableLoss
+ * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -3393,7 +3393,7 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
  * # -*- coding: utf-8 -*-
  * from logging import getLogger
  * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult             # <<<<<<<<<<<<<<
- * from pydbm.rnn.optimization.interface.optimizable_loss import OptimizableLoss
+ * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
  * import pandas as pd
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
@@ -3413,27 +3413,27 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
   /* "pydbm/rnn/verification/verificate_softmax.pyx":4
  * from logging import getLogger
  * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
- * from pydbm.rnn.optimization.interface.optimizable_loss import OptimizableLoss             # <<<<<<<<<<<<<<
+ * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss             # <<<<<<<<<<<<<<
  * import pandas as pd
  * import numpy as np
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_INCREF(__pyx_n_s_OptimizableLoss);
-  __Pyx_GIVEREF(__pyx_n_s_OptimizableLoss);
-  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_OptimizableLoss);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_rnn_optimization_interface, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_INCREF(__pyx_n_s_ComputableLoss);
+  __Pyx_GIVEREF(__pyx_n_s_ComputableLoss);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_ComputableLoss);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_rnn_loss_interface_computa, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_OptimizableLoss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_ComputableLoss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_OptimizableLoss, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ComputableLoss, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pydbm/rnn/verification/verificate_softmax.pyx":5
  * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
- * from pydbm.rnn.optimization.interface.optimizable_loss import OptimizableLoss
+ * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
  * import pandas as pd             # <<<<<<<<<<<<<<
  * import numpy as np
  * 
@@ -3444,7 +3444,7 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pydbm/rnn/verification/verificate_softmax.pyx":6
- * from pydbm.rnn.optimization.interface.optimizable_loss import OptimizableLoss
+ * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
  * import pandas as pd
  * import numpy as np             # <<<<<<<<<<<<<<
  * 
@@ -3527,14 +3527,14 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
  *     # Logger.
  *     __logger = None             # <<<<<<<<<<<<<<
  * 
- *     def __init__(self, optimizable_loss):
+ *     def __init__(self, computable_loss):
  */
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_VerificateSoftmax__logger, Py_None) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
 
   /* "pydbm/rnn/verification/verificate_softmax.pyx":24
  *     __logger = None
  * 
- *     def __init__(self, optimizable_loss):             # <<<<<<<<<<<<<<
+ *     def __init__(self, computable_loss):             # <<<<<<<<<<<<<<
  *         '''
  *         Init.
  */

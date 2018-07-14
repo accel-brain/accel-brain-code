@@ -4,12 +4,12 @@
 {
     "distutils": {
         "depends": [],
-        "name": "pydbm.rnn.optimization.interface.optimizable_loss",
+        "name": "pydbm.rnn.loss.interface.computable_loss",
         "sources": [
-            "./pydbm/rnn/optimization/interface/optimizable_loss.pyx"
+            "./pydbm/rnn/loss/interface/computable_loss.pyx"
         ]
     },
-    "module_name": "pydbm.rnn.optimization.interface.optimizable_loss"
+    "module_name": "pydbm.rnn.loss.interface.computable_loss"
 }
 END: Cython Metadata */
 
@@ -531,8 +531,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__pydbm__rnn__optimization__interface__optimizable_loss
-#define __PYX_HAVE_API__pydbm__rnn__optimization__interface__optimizable_loss
+#define __PYX_HAVE__pydbm__rnn__loss__interface__computable_loss
+#define __PYX_HAVE_API__pydbm__rnn__loss__interface__computable_loss
 #include <string.h>
 #include <stdio.h>
 #include "numpy/arrayobject.h"
@@ -762,7 +762,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pydbm/rnn/optimization/interface/optimizable_loss.pyx",
+  "pydbm/rnn/loss/interface/computable_loss.pyx",
   "__init__.pxd",
   "type.pxd",
 };
@@ -1535,12 +1535,12 @@ static PyTypeObject *__pyx_ptype_5numpy_ndarray = 0;
 static PyTypeObject *__pyx_ptype_5numpy_ufunc = 0;
 static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *, char *, char *, int *); /*proto*/
 
-/* Module declarations from 'pydbm.rnn.optimization.interface.optimizable_loss' */
-#define __Pyx_MODULE_NAME "pydbm.rnn.optimization.interface.optimizable_loss"
-extern int __pyx_module_is_main_pydbm__rnn__optimization__interface__optimizable_loss;
-int __pyx_module_is_main_pydbm__rnn__optimization__interface__optimizable_loss = 0;
+/* Module declarations from 'pydbm.rnn.loss.interface.computable_loss' */
+#define __Pyx_MODULE_NAME "pydbm.rnn.loss.interface.computable_loss"
+extern int __pyx_module_is_main_pydbm__rnn__loss__interface__computable_loss;
+int __pyx_module_is_main_pydbm__rnn__loss__interface__computable_loss = 0;
 
-/* Implementation of 'pydbm.rnn.optimization.interface.optimizable_loss' */
+/* Implementation of 'pydbm.rnn.loss.interface.computable_loss' */
 static PyObject *__pyx_builtin_NotImplementedError;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_range;
@@ -1567,31 +1567,31 @@ static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_labeled_arr[] = "labeled_arr";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_compute_loss[] = "compute_loss";
+static const char __pyx_k_ComputableLoss[] = "ComputableLoss";
 static const char __pyx_k_abstractmethod[] = "abstractmethod";
-static const char __pyx_k_OptimizableLoss[] = "OptimizableLoss";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_NotImplementedError[] = "NotImplementedError";
+static const char __pyx_k_ComputableLoss_compute_loss[] = "ComputableLoss.compute_loss";
 static const char __pyx_k_Interface_of_Loss_functions[] = "\n    Interface of Loss functions.\n    ";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
-static const char __pyx_k_OptimizableLoss_compute_loss[] = "OptimizableLoss.compute_loss";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
-static const char __pyx_k_pydbm_rnn_optimization_interface[] = "pydbm.rnn.optimization.interface.optimizable_loss";
+static const char __pyx_k_pydbm_rnn_loss_interface_computa[] = "pydbm.rnn.loss.interface.computable_loss";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
-static const char __pyx_k_pydbm_rnn_optimization_interface_2[] = "pydbm/rnn/optimization/interface/optimizable_loss.pyx";
+static const char __pyx_k_pydbm_rnn_loss_interface_computa_2[] = "pydbm/rnn/loss/interface/computable_loss.pyx";
 static PyObject *__pyx_n_s_ABCMeta;
+static PyObject *__pyx_n_s_ComputableLoss;
+static PyObject *__pyx_n_s_ComputableLoss_compute_loss;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
 static PyObject *__pyx_n_s_ImportError;
 static PyObject *__pyx_kp_s_Interface_of_Loss_functions;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_NotImplementedError;
-static PyObject *__pyx_n_s_OptimizableLoss;
-static PyObject *__pyx_n_s_OptimizableLoss_compute_loss;
 static PyObject *__pyx_n_s_RuntimeError;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_abc;
@@ -1613,14 +1613,14 @@ static PyObject *__pyx_kp_s_numpy_core_multiarray_failed_to;
 static PyObject *__pyx_kp_s_numpy_core_umath_failed_to_impor;
 static PyObject *__pyx_n_s_pred_arr;
 static PyObject *__pyx_n_s_prepare;
-static PyObject *__pyx_n_s_pydbm_rnn_optimization_interface;
-static PyObject *__pyx_kp_s_pydbm_rnn_optimization_interface_2;
+static PyObject *__pyx_n_s_pydbm_rnn_loss_interface_computa;
+static PyObject *__pyx_kp_s_pydbm_rnn_loss_interface_computa_2;
 static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_self;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
-static PyObject *__pyx_pf_5pydbm_3rnn_12optimization_9interface_16optimizable_loss_15OptimizableLoss_compute_loss(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_pred_arr, CYTHON_UNUSED PyArrayObject *__pyx_v_labeled_arr, CYTHON_UNUSED PyObject *__pyx_v_axis); /* proto */
+static PyObject *__pyx_pf_5pydbm_3rnn_4loss_9interface_15computable_loss_14ComputableLoss_compute_loss(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_pred_arr, CYTHON_UNUSED PyArrayObject *__pyx_v_labeled_arr, CYTHON_UNUSED PyObject *__pyx_v_axis); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tuple_;
@@ -1636,7 +1636,7 @@ static PyObject *__pyx_tuple__10;
 static PyObject *__pyx_tuple__12;
 static PyObject *__pyx_codeobj__11;
 
-/* "pydbm/rnn/optimization/interface/optimizable_loss.pyx":13
+/* "pydbm/rnn/loss/interface/computable_loss.pyx":13
  * 
  *     @abstractmethod
  *     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):             # <<<<<<<<<<<<<<
@@ -1645,10 +1645,10 @@ static PyObject *__pyx_codeobj__11;
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3rnn_12optimization_9interface_16optimizable_loss_15OptimizableLoss_1compute_loss(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_12optimization_9interface_16optimizable_loss_15OptimizableLoss_compute_loss[] = "\n        Return of result from this Cost function.\n\n        Args:\n            pred_arr:       Predicted data.\n            labeled_arr:    Labeled data.\n            axis:           None or int or tuple of ints, optional.\n                            Axis or axes along which the means are computed.\n                            The default is to compute the mean of the flattened array.\n\n        Returns:\n            Cost.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3rnn_12optimization_9interface_16optimizable_loss_15OptimizableLoss_1compute_loss = {"compute_loss", (PyCFunction)__pyx_pw_5pydbm_3rnn_12optimization_9interface_16optimizable_loss_15OptimizableLoss_1compute_loss, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_12optimization_9interface_16optimizable_loss_15OptimizableLoss_compute_loss};
-static PyObject *__pyx_pw_5pydbm_3rnn_12optimization_9interface_16optimizable_loss_15OptimizableLoss_1compute_loss(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_3rnn_4loss_9interface_15computable_loss_14ComputableLoss_1compute_loss(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3rnn_4loss_9interface_15computable_loss_14ComputableLoss_compute_loss[] = "\n        Return of result from this Cost function.\n\n        Args:\n            pred_arr:       Predicted data.\n            labeled_arr:    Labeled data.\n            axis:           None or int or tuple of ints, optional.\n                            Axis or axes along which the means are computed.\n                            The default is to compute the mean of the flattened array.\n\n        Returns:\n            Cost.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3rnn_4loss_9interface_15computable_loss_14ComputableLoss_1compute_loss = {"compute_loss", (PyCFunction)__pyx_pw_5pydbm_3rnn_4loss_9interface_15computable_loss_14ComputableLoss_1compute_loss, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_4loss_9interface_15computable_loss_14ComputableLoss_compute_loss};
+static PyObject *__pyx_pw_5pydbm_3rnn_4loss_9interface_15computable_loss_14ComputableLoss_1compute_loss(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
   CYTHON_UNUSED PyArrayObject *__pyx_v_pred_arr = 0;
   CYTHON_UNUSED PyArrayObject *__pyx_v_labeled_arr = 0;
@@ -1722,13 +1722,13 @@ static PyObject *__pyx_pw_5pydbm_3rnn_12optimization_9interface_16optimizable_lo
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("compute_loss", 0, 3, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 13, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.rnn.optimization.interface.optimizable_loss.OptimizableLoss.compute_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.rnn.loss.interface.computable_loss.ComputableLoss.compute_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_pred_arr), __pyx_ptype_5numpy_ndarray, 1, "pred_arr", 0))) __PYX_ERR(0, 13, __pyx_L1_error)
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_labeled_arr), __pyx_ptype_5numpy_ndarray, 1, "labeled_arr", 0))) __PYX_ERR(0, 13, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5pydbm_3rnn_12optimization_9interface_16optimizable_loss_15OptimizableLoss_compute_loss(__pyx_self, __pyx_v_self, __pyx_v_pred_arr, __pyx_v_labeled_arr, __pyx_v_axis);
+  __pyx_r = __pyx_pf_5pydbm_3rnn_4loss_9interface_15computable_loss_14ComputableLoss_compute_loss(__pyx_self, __pyx_v_self, __pyx_v_pred_arr, __pyx_v_labeled_arr, __pyx_v_axis);
 
   /* function exit code */
   goto __pyx_L0;
@@ -1739,13 +1739,13 @@ static PyObject *__pyx_pw_5pydbm_3rnn_12optimization_9interface_16optimizable_lo
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3rnn_12optimization_9interface_16optimizable_loss_15OptimizableLoss_compute_loss(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_pred_arr, CYTHON_UNUSED PyArrayObject *__pyx_v_labeled_arr, CYTHON_UNUSED PyObject *__pyx_v_axis) {
+static PyObject *__pyx_pf_5pydbm_3rnn_4loss_9interface_15computable_loss_14ComputableLoss_compute_loss(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_pred_arr, CYTHON_UNUSED PyArrayObject *__pyx_v_labeled_arr, CYTHON_UNUSED PyObject *__pyx_v_axis) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("compute_loss", 0);
 
-  /* "pydbm/rnn/optimization/interface/optimizable_loss.pyx":27
+  /* "pydbm/rnn/loss/interface/computable_loss.pyx":27
  *             Cost.
  *         '''
  *         raise NotImplementedError()             # <<<<<<<<<<<<<<
@@ -1756,7 +1756,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12optimization_9interface_16optimizable_lo
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __PYX_ERR(0, 27, __pyx_L1_error)
 
-  /* "pydbm/rnn/optimization/interface/optimizable_loss.pyx":13
+  /* "pydbm/rnn/loss/interface/computable_loss.pyx":13
  * 
  *     @abstractmethod
  *     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):             # <<<<<<<<<<<<<<
@@ -1767,7 +1767,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12optimization_9interface_16optimizable_lo
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.rnn.optimization.interface.optimizable_loss.OptimizableLoss.compute_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.rnn.loss.interface.computable_loss.ComputableLoss.compute_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
@@ -4363,17 +4363,17 @@ static PyMethodDef __pyx_methods[] = {
 #if PY_MAJOR_VERSION >= 3
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 static PyObject* __pyx_pymod_create(PyObject *spec, PyModuleDef *def); /*proto*/
-static int __pyx_pymod_exec_optimizable_loss(PyObject* module); /*proto*/
+static int __pyx_pymod_exec_computable_loss(PyObject* module); /*proto*/
 static PyModuleDef_Slot __pyx_moduledef_slots[] = {
   {Py_mod_create, (void*)__pyx_pymod_create},
-  {Py_mod_exec, (void*)__pyx_pymod_exec_optimizable_loss},
+  {Py_mod_exec, (void*)__pyx_pymod_exec_computable_loss},
   {0, NULL}
 };
 #endif
 
 static struct PyModuleDef __pyx_moduledef = {
     PyModuleDef_HEAD_INIT,
-    "optimizable_loss",
+    "computable_loss",
     0, /* m_doc */
   #if CYTHON_PEP489_MULTI_PHASE_INIT
     0, /* m_size */
@@ -4394,14 +4394,14 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ABCMeta, __pyx_k_ABCMeta, sizeof(__pyx_k_ABCMeta), 0, 0, 1, 1},
+  {&__pyx_n_s_ComputableLoss, __pyx_k_ComputableLoss, sizeof(__pyx_k_ComputableLoss), 0, 0, 1, 1},
+  {&__pyx_n_s_ComputableLoss_compute_loss, __pyx_k_ComputableLoss_compute_loss, sizeof(__pyx_k_ComputableLoss_compute_loss), 0, 0, 1, 1},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
   {&__pyx_kp_s_Interface_of_Loss_functions, __pyx_k_Interface_of_Loss_functions, sizeof(__pyx_k_Interface_of_Loss_functions), 0, 0, 1, 0},
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
   {&__pyx_n_s_NotImplementedError, __pyx_k_NotImplementedError, sizeof(__pyx_k_NotImplementedError), 0, 0, 1, 1},
-  {&__pyx_n_s_OptimizableLoss, __pyx_k_OptimizableLoss, sizeof(__pyx_k_OptimizableLoss), 0, 0, 1, 1},
-  {&__pyx_n_s_OptimizableLoss_compute_loss, __pyx_k_OptimizableLoss_compute_loss, sizeof(__pyx_k_OptimizableLoss_compute_loss), 0, 0, 1, 1},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_abc, __pyx_k_abc, sizeof(__pyx_k_abc), 0, 0, 1, 1},
@@ -4423,8 +4423,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 0, 1, 0},
   {&__pyx_n_s_pred_arr, __pyx_k_pred_arr, sizeof(__pyx_k_pred_arr), 0, 0, 1, 1},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
-  {&__pyx_n_s_pydbm_rnn_optimization_interface, __pyx_k_pydbm_rnn_optimization_interface, sizeof(__pyx_k_pydbm_rnn_optimization_interface), 0, 0, 1, 1},
-  {&__pyx_kp_s_pydbm_rnn_optimization_interface_2, __pyx_k_pydbm_rnn_optimization_interface_2, sizeof(__pyx_k_pydbm_rnn_optimization_interface_2), 0, 0, 1, 0},
+  {&__pyx_n_s_pydbm_rnn_loss_interface_computa, __pyx_k_pydbm_rnn_loss_interface_computa, sizeof(__pyx_k_pydbm_rnn_loss_interface_computa), 0, 0, 1, 1},
+  {&__pyx_kp_s_pydbm_rnn_loss_interface_computa_2, __pyx_k_pydbm_rnn_loss_interface_computa_2, sizeof(__pyx_k_pydbm_rnn_loss_interface_computa_2), 0, 0, 1, 0},
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
@@ -4544,7 +4544,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
 
-  /* "pydbm/rnn/optimization/interface/optimizable_loss.pyx":13
+  /* "pydbm/rnn/loss/interface/computable_loss.pyx":13
  * 
  *     @abstractmethod
  *     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):             # <<<<<<<<<<<<<<
@@ -4554,7 +4554,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__10 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_pred_arr, __pyx_n_s_labeled_arr, __pyx_n_s_axis); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
-  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_optimization_interface_2, __pyx_n_s_compute_loss, 13, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_loss_interface_computa_2, __pyx_n_s_compute_loss, 13, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 13, __pyx_L1_error)
   __pyx_tuple__12 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
@@ -4573,11 +4573,11 @@ static int __Pyx_InitGlobals(void) {
 }
 
 #if PY_MAJOR_VERSION < 3
-PyMODINIT_FUNC initoptimizable_loss(void); /*proto*/
-PyMODINIT_FUNC initoptimizable_loss(void)
+PyMODINIT_FUNC initcomputable_loss(void); /*proto*/
+PyMODINIT_FUNC initcomputable_loss(void)
 #else
-PyMODINIT_FUNC PyInit_optimizable_loss(void); /*proto*/
-PyMODINIT_FUNC PyInit_optimizable_loss(void)
+PyMODINIT_FUNC PyInit_computable_loss(void); /*proto*/
+PyMODINIT_FUNC PyInit_computable_loss(void)
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 {
   return PyModuleDef_Init(&__pyx_moduledef);
@@ -4617,7 +4617,7 @@ bad:
 }
 
 
-static int __pyx_pymod_exec_optimizable_loss(PyObject *__pyx_pyinit_module)
+static int __pyx_pymod_exec_computable_loss(PyObject *__pyx_pyinit_module)
 #endif
 #endif
 {
@@ -4642,7 +4642,7 @@ static int __pyx_pymod_exec_optimizable_loss(PyObject *__pyx_pyinit_module)
           Py_FatalError("failed to import 'refnanny' module");
   }
   #endif
-  __Pyx_RefNannySetupContext("PyMODINIT_FUNC PyInit_optimizable_loss(void)", 0);
+  __Pyx_RefNannySetupContext("PyMODINIT_FUNC PyInit_computable_loss(void)", 0);
   if (__Pyx_check_binary_version() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -4678,7 +4678,7 @@ static int __pyx_pymod_exec_optimizable_loss(PyObject *__pyx_pyinit_module)
   Py_INCREF(__pyx_m);
   #else
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("optimizable_loss", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("computable_loss", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
@@ -4697,14 +4697,14 @@ static int __pyx_pymod_exec_optimizable_loss(PyObject *__pyx_pyinit_module)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_pydbm__rnn__optimization__interface__optimizable_loss) {
+  if (__pyx_module_is_main_pydbm__rnn__loss__interface__computable_loss) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "pydbm.rnn.optimization.interface.optimizable_loss")) {
-      if (unlikely(PyDict_SetItemString(modules, "pydbm.rnn.optimization.interface.optimizable_loss", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "pydbm.rnn.loss.interface.computable_loss")) {
+      if (unlikely(PyDict_SetItemString(modules, "pydbm.rnn.loss.interface.computable_loss", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -4736,7 +4736,7 @@ static int __pyx_pymod_exec_optimizable_loss(PyObject *__pyx_pyinit_module)
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "pydbm/rnn/optimization/interface/optimizable_loss.pyx":2
+  /* "pydbm/rnn/loss/interface/computable_loss.pyx":2
  * # -*- coding: utf-8 -*-
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
@@ -4747,7 +4747,7 @@ static int __pyx_pymod_exec_optimizable_loss(PyObject *__pyx_pyinit_module)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/optimization/interface/optimizable_loss.pyx":4
+  /* "pydbm/rnn/loss/interface/computable_loss.pyx":4
  * import numpy as np
  * cimport numpy as np
  * from abc import ABCMeta, abstractmethod             # <<<<<<<<<<<<<<
@@ -4775,10 +4775,10 @@ static int __pyx_pymod_exec_optimizable_loss(PyObject *__pyx_pyinit_module)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/optimization/interface/optimizable_loss.pyx":7
+  /* "pydbm/rnn/loss/interface/computable_loss.pyx":7
  * 
  * 
- * class OptimizableLoss(metaclass=ABCMeta):             # <<<<<<<<<<<<<<
+ * class ComputableLoss(metaclass=ABCMeta):             # <<<<<<<<<<<<<<
  *     '''
  *     Interface of Loss functions.
  */
@@ -4786,10 +4786,10 @@ static int __pyx_pymod_exec_optimizable_loss(PyObject *__pyx_pyinit_module)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ABCMeta); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_1, __pyx_empty_tuple, __pyx_n_s_OptimizableLoss, __pyx_n_s_OptimizableLoss, __pyx_t_2, __pyx_n_s_pydbm_rnn_optimization_interface, __pyx_kp_s_Interface_of_Loss_functions); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_1, __pyx_empty_tuple, __pyx_n_s_ComputableLoss, __pyx_n_s_ComputableLoss, __pyx_t_2, __pyx_n_s_pydbm_rnn_loss_interface_computa, __pyx_kp_s_Interface_of_Loss_functions); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "pydbm/rnn/optimization/interface/optimizable_loss.pyx":12
+  /* "pydbm/rnn/loss/interface/computable_loss.pyx":12
  *     '''
  * 
  *     @abstractmethod             # <<<<<<<<<<<<<<
@@ -4799,14 +4799,14 @@ static int __pyx_pymod_exec_optimizable_loss(PyObject *__pyx_pyinit_module)
   __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_abstractmethod); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
 
-  /* "pydbm/rnn/optimization/interface/optimizable_loss.pyx":13
+  /* "pydbm/rnn/loss/interface/computable_loss.pyx":13
  * 
  *     @abstractmethod
  *     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):             # <<<<<<<<<<<<<<
  *         '''
  *         Return of result from this Cost function.
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_12optimization_9interface_16optimizable_loss_15OptimizableLoss_1compute_loss, 0, __pyx_n_s_OptimizableLoss_compute_loss, NULL, __pyx_n_s_pydbm_rnn_optimization_interface, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_4loss_9interface_15computable_loss_14ComputableLoss_1compute_loss, 0, __pyx_n_s_ComputableLoss_compute_loss, NULL, __pyx_n_s_pydbm_rnn_loss_interface_computa, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_6, __pyx_tuple__12);
   __pyx_t_7 = NULL;
@@ -4858,22 +4858,22 @@ static int __pyx_pymod_exec_optimizable_loss(PyObject *__pyx_pyinit_module)
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_compute_loss, __pyx_t_4) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/optimization/interface/optimizable_loss.pyx":7
+  /* "pydbm/rnn/loss/interface/computable_loss.pyx":7
  * 
  * 
- * class OptimizableLoss(metaclass=ABCMeta):             # <<<<<<<<<<<<<<
+ * class ComputableLoss(metaclass=ABCMeta):             # <<<<<<<<<<<<<<
  *     '''
  *     Interface of Loss functions.
  */
-  __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_1, __pyx_n_s_OptimizableLoss, __pyx_empty_tuple, __pyx_t_3, __pyx_t_2, 1, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_1, __pyx_n_s_ComputableLoss, __pyx_empty_tuple, __pyx_t_3, __pyx_t_2, 1, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_OptimizableLoss, __pyx_t_4) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ComputableLoss, __pyx_t_4) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/optimization/interface/optimizable_loss.pyx":1
+  /* "pydbm/rnn/loss/interface/computable_loss.pyx":1
  * # -*- coding: utf-8 -*-             # <<<<<<<<<<<<<<
  * import numpy as np
  * cimport numpy as np
@@ -4905,11 +4905,11 @@ static int __pyx_pymod_exec_optimizable_loss(PyObject *__pyx_pyinit_module)
   __Pyx_XDECREF(__pyx_t_8);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pydbm.rnn.optimization.interface.optimizable_loss", 0, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pydbm.rnn.loss.interface.computable_loss", 0, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pydbm.rnn.optimization.interface.optimizable_loss");
+    PyErr_SetString(PyExc_ImportError, "init pydbm.rnn.loss.interface.computable_loss");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

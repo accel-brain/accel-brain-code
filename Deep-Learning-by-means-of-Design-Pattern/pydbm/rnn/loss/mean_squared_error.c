@@ -4,12 +4,12 @@
 {
     "distutils": {
         "depends": [],
-        "name": "pydbm.rnn.optimization.mean_squared_error",
+        "name": "pydbm.rnn.loss.mean_squared_error",
         "sources": [
-            "./pydbm/rnn/optimization/mean_squared_error.pyx"
+            "./pydbm/rnn/loss/mean_squared_error.pyx"
         ]
     },
-    "module_name": "pydbm.rnn.optimization.mean_squared_error"
+    "module_name": "pydbm.rnn.loss.mean_squared_error"
 }
 END: Cython Metadata */
 
@@ -531,8 +531,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__pydbm__rnn__optimization__mean_squared_error
-#define __PYX_HAVE_API__pydbm__rnn__optimization__mean_squared_error
+#define __PYX_HAVE__pydbm__rnn__loss__mean_squared_error
+#define __PYX_HAVE_API__pydbm__rnn__loss__mean_squared_error
 #include <string.h>
 #include <stdio.h>
 #include "numpy/arrayobject.h"
@@ -762,7 +762,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pydbm/rnn/optimization/mean_squared_error.pyx",
+  "pydbm/rnn/loss/mean_squared_error.pyx",
   "__init__.pxd",
   "type.pxd",
 };
@@ -1528,12 +1528,12 @@ static PyTypeObject *__pyx_ptype_5numpy_ndarray = 0;
 static PyTypeObject *__pyx_ptype_5numpy_ufunc = 0;
 static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *, char *, char *, int *); /*proto*/
 
-/* Module declarations from 'pydbm.rnn.optimization.mean_squared_error' */
-#define __Pyx_MODULE_NAME "pydbm.rnn.optimization.mean_squared_error"
-extern int __pyx_module_is_main_pydbm__rnn__optimization__mean_squared_error;
-int __pyx_module_is_main_pydbm__rnn__optimization__mean_squared_error = 0;
+/* Module declarations from 'pydbm.rnn.loss.mean_squared_error' */
+#define __Pyx_MODULE_NAME "pydbm.rnn.loss.mean_squared_error"
+extern int __pyx_module_is_main_pydbm__rnn__loss__mean_squared_error;
+int __pyx_module_is_main_pydbm__rnn__loss__mean_squared_error = 0;
 
-/* Implementation of 'pydbm.rnn.optimization.mean_squared_error' */
+/* Implementation of 'pydbm.rnn.loss.mean_squared_error' */
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_RuntimeError;
@@ -1559,7 +1559,7 @@ static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_labeled_arr[] = "labeled_arr";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_compute_loss[] = "compute_loss";
-static const char __pyx_k_OptimizableLoss[] = "OptimizableLoss";
+static const char __pyx_k_ComputableLoss[] = "ComputableLoss";
 static const char __pyx_k_MeanSquaredError[] = "MeanSquaredError";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_The_mean_squared_error_MSE[] = "\n    The mean squared error (MSE).\n    ";
@@ -1571,17 +1571,17 @@ static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string al
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
-static const char __pyx_k_pydbm_rnn_optimization_interface[] = "pydbm.rnn.optimization.interface.optimizable_loss";
-static const char __pyx_k_pydbm_rnn_optimization_mean_squa[] = "pydbm.rnn.optimization.mean_squared_error";
+static const char __pyx_k_pydbm_rnn_loss_interface_computa[] = "pydbm.rnn.loss.interface.computable_loss";
+static const char __pyx_k_pydbm_rnn_loss_mean_squared_erro[] = "pydbm.rnn.loss.mean_squared_error";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
-static const char __pyx_k_pydbm_rnn_optimization_mean_squa_2[] = "pydbm/rnn/optimization/mean_squared_error.pyx";
+static const char __pyx_k_pydbm_rnn_loss_mean_squared_erro_2[] = "pydbm/rnn/loss/mean_squared_error.pyx";
+static PyObject *__pyx_n_s_ComputableLoss;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
 static PyObject *__pyx_n_s_ImportError;
 static PyObject *__pyx_n_s_MeanSquaredError;
 static PyObject *__pyx_n_s_MeanSquaredError_compute_loss;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
-static PyObject *__pyx_n_s_OptimizableLoss;
 static PyObject *__pyx_n_s_RuntimeError;
 static PyObject *__pyx_kp_s_The_mean_squared_error_MSE;
 static PyObject *__pyx_n_s_ValueError;
@@ -1603,16 +1603,16 @@ static PyObject *__pyx_kp_s_numpy_core_multiarray_failed_to;
 static PyObject *__pyx_kp_s_numpy_core_umath_failed_to_impor;
 static PyObject *__pyx_n_s_pred_arr;
 static PyObject *__pyx_n_s_prepare;
-static PyObject *__pyx_n_s_pydbm_rnn_optimization_interface;
-static PyObject *__pyx_n_s_pydbm_rnn_optimization_mean_squa;
-static PyObject *__pyx_kp_s_pydbm_rnn_optimization_mean_squa_2;
+static PyObject *__pyx_n_s_pydbm_rnn_loss_interface_computa;
+static PyObject *__pyx_n_s_pydbm_rnn_loss_mean_squared_erro;
+static PyObject *__pyx_kp_s_pydbm_rnn_loss_mean_squared_erro_2;
 static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_self;
 static PyObject *__pyx_n_s_square;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
-static PyObject *__pyx_pf_5pydbm_3rnn_12optimization_18mean_squared_error_16MeanSquaredError_compute_loss(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyArrayObject *__pyx_v_pred_arr, PyArrayObject *__pyx_v_labeled_arr, PyObject *__pyx_v_axis); /* proto */
+static PyObject *__pyx_pf_5pydbm_3rnn_4loss_18mean_squared_error_16MeanSquaredError_compute_loss(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyArrayObject *__pyx_v_pred_arr, PyArrayObject *__pyx_v_labeled_arr, PyObject *__pyx_v_axis); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tuple_;
@@ -1628,7 +1628,7 @@ static PyObject *__pyx_tuple__10;
 static PyObject *__pyx_tuple__12;
 static PyObject *__pyx_codeobj__11;
 
-/* "pydbm/rnn/optimization/mean_squared_error.pyx":12
+/* "pydbm/rnn/loss/mean_squared_error.pyx":12
  *     '''
  * 
  *     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):             # <<<<<<<<<<<<<<
@@ -1637,10 +1637,10 @@ static PyObject *__pyx_codeobj__11;
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3rnn_12optimization_18mean_squared_error_16MeanSquaredError_1compute_loss(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_12optimization_18mean_squared_error_16MeanSquaredError_compute_loss[] = "\n        Return of result from this Cost function.\n\n        Args:\n            pred_arr:       Predicted data.\n            labeled_arr:    Labeled data.\n            axis:           None or int or tuple of ints, optional.\n                            Axis or axes along which the means are computed.\n                            The default is to compute the mean of the flattened array.\n\n        Returns:\n            Cost.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3rnn_12optimization_18mean_squared_error_16MeanSquaredError_1compute_loss = {"compute_loss", (PyCFunction)__pyx_pw_5pydbm_3rnn_12optimization_18mean_squared_error_16MeanSquaredError_1compute_loss, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_12optimization_18mean_squared_error_16MeanSquaredError_compute_loss};
-static PyObject *__pyx_pw_5pydbm_3rnn_12optimization_18mean_squared_error_16MeanSquaredError_1compute_loss(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_3rnn_4loss_18mean_squared_error_16MeanSquaredError_1compute_loss(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3rnn_4loss_18mean_squared_error_16MeanSquaredError_compute_loss[] = "\n        Return of result from this Cost function.\n\n        Args:\n            pred_arr:       Predicted data.\n            labeled_arr:    Labeled data.\n            axis:           None or int or tuple of ints, optional.\n                            Axis or axes along which the means are computed.\n                            The default is to compute the mean of the flattened array.\n\n        Returns:\n            Cost.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3rnn_4loss_18mean_squared_error_16MeanSquaredError_1compute_loss = {"compute_loss", (PyCFunction)__pyx_pw_5pydbm_3rnn_4loss_18mean_squared_error_16MeanSquaredError_1compute_loss, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_4loss_18mean_squared_error_16MeanSquaredError_compute_loss};
+static PyObject *__pyx_pw_5pydbm_3rnn_4loss_18mean_squared_error_16MeanSquaredError_1compute_loss(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
   PyArrayObject *__pyx_v_pred_arr = 0;
   PyArrayObject *__pyx_v_labeled_arr = 0;
@@ -1714,13 +1714,13 @@ static PyObject *__pyx_pw_5pydbm_3rnn_12optimization_18mean_squared_error_16Mean
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("compute_loss", 0, 3, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 12, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.rnn.optimization.mean_squared_error.MeanSquaredError.compute_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.rnn.loss.mean_squared_error.MeanSquaredError.compute_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_pred_arr), __pyx_ptype_5numpy_ndarray, 1, "pred_arr", 0))) __PYX_ERR(0, 12, __pyx_L1_error)
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_labeled_arr), __pyx_ptype_5numpy_ndarray, 1, "labeled_arr", 0))) __PYX_ERR(0, 12, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5pydbm_3rnn_12optimization_18mean_squared_error_16MeanSquaredError_compute_loss(__pyx_self, __pyx_v_self, __pyx_v_pred_arr, __pyx_v_labeled_arr, __pyx_v_axis);
+  __pyx_r = __pyx_pf_5pydbm_3rnn_4loss_18mean_squared_error_16MeanSquaredError_compute_loss(__pyx_self, __pyx_v_self, __pyx_v_pred_arr, __pyx_v_labeled_arr, __pyx_v_axis);
 
   /* function exit code */
   goto __pyx_L0;
@@ -1731,7 +1731,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_12optimization_18mean_squared_error_16Mean
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3rnn_12optimization_18mean_squared_error_16MeanSquaredError_compute_loss(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyArrayObject *__pyx_v_pred_arr, PyArrayObject *__pyx_v_labeled_arr, PyObject *__pyx_v_axis) {
+static PyObject *__pyx_pf_5pydbm_3rnn_4loss_18mean_squared_error_16MeanSquaredError_compute_loss(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyArrayObject *__pyx_v_pred_arr, PyArrayObject *__pyx_v_labeled_arr, PyObject *__pyx_v_axis) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1741,7 +1741,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12optimization_18mean_squared_error_16Mean
   PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("compute_loss", 0);
 
-  /* "pydbm/rnn/optimization/mean_squared_error.pyx":26
+  /* "pydbm/rnn/loss/mean_squared_error.pyx":26
  *             Cost.
  *         '''
  *         return np.square(labeled_arr - pred_arr).mean(axis=axis)             # <<<<<<<<<<<<<<
@@ -1814,7 +1814,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12optimization_18mean_squared_error_16Mean
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/rnn/optimization/mean_squared_error.pyx":12
+  /* "pydbm/rnn/loss/mean_squared_error.pyx":12
  *     '''
  * 
  *     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):             # <<<<<<<<<<<<<<
@@ -1829,7 +1829,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12optimization_18mean_squared_error_16Mean
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("pydbm.rnn.optimization.mean_squared_error.MeanSquaredError.compute_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.rnn.loss.mean_squared_error.MeanSquaredError.compute_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4456,13 +4456,13 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
+  {&__pyx_n_s_ComputableLoss, __pyx_k_ComputableLoss, sizeof(__pyx_k_ComputableLoss), 0, 0, 1, 1},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
   {&__pyx_n_s_MeanSquaredError, __pyx_k_MeanSquaredError, sizeof(__pyx_k_MeanSquaredError), 0, 0, 1, 1},
   {&__pyx_n_s_MeanSquaredError_compute_loss, __pyx_k_MeanSquaredError_compute_loss, sizeof(__pyx_k_MeanSquaredError_compute_loss), 0, 0, 1, 1},
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
-  {&__pyx_n_s_OptimizableLoss, __pyx_k_OptimizableLoss, sizeof(__pyx_k_OptimizableLoss), 0, 0, 1, 1},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
   {&__pyx_kp_s_The_mean_squared_error_MSE, __pyx_k_The_mean_squared_error_MSE, sizeof(__pyx_k_The_mean_squared_error_MSE), 0, 0, 1, 0},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
@@ -4484,9 +4484,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 0, 1, 0},
   {&__pyx_n_s_pred_arr, __pyx_k_pred_arr, sizeof(__pyx_k_pred_arr), 0, 0, 1, 1},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
-  {&__pyx_n_s_pydbm_rnn_optimization_interface, __pyx_k_pydbm_rnn_optimization_interface, sizeof(__pyx_k_pydbm_rnn_optimization_interface), 0, 0, 1, 1},
-  {&__pyx_n_s_pydbm_rnn_optimization_mean_squa, __pyx_k_pydbm_rnn_optimization_mean_squa, sizeof(__pyx_k_pydbm_rnn_optimization_mean_squa), 0, 0, 1, 1},
-  {&__pyx_kp_s_pydbm_rnn_optimization_mean_squa_2, __pyx_k_pydbm_rnn_optimization_mean_squa_2, sizeof(__pyx_k_pydbm_rnn_optimization_mean_squa_2), 0, 0, 1, 0},
+  {&__pyx_n_s_pydbm_rnn_loss_interface_computa, __pyx_k_pydbm_rnn_loss_interface_computa, sizeof(__pyx_k_pydbm_rnn_loss_interface_computa), 0, 0, 1, 1},
+  {&__pyx_n_s_pydbm_rnn_loss_mean_squared_erro, __pyx_k_pydbm_rnn_loss_mean_squared_erro, sizeof(__pyx_k_pydbm_rnn_loss_mean_squared_erro), 0, 0, 1, 1},
+  {&__pyx_kp_s_pydbm_rnn_loss_mean_squared_erro_2, __pyx_k_pydbm_rnn_loss_mean_squared_erro_2, sizeof(__pyx_k_pydbm_rnn_loss_mean_squared_erro_2), 0, 0, 1, 0},
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
@@ -4606,7 +4606,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
 
-  /* "pydbm/rnn/optimization/mean_squared_error.pyx":12
+  /* "pydbm/rnn/loss/mean_squared_error.pyx":12
  *     '''
  * 
  *     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):             # <<<<<<<<<<<<<<
@@ -4616,7 +4616,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__10 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_pred_arr, __pyx_n_s_labeled_arr, __pyx_n_s_axis); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
-  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_optimization_mean_squa_2, __pyx_n_s_compute_loss, 12, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_loss_mean_squared_erro_2, __pyx_n_s_compute_loss, 12, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 12, __pyx_L1_error)
   __pyx_tuple__12 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
@@ -4755,14 +4755,14 @@ static int __pyx_pymod_exec_mean_squared_error(PyObject *__pyx_pyinit_module)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_pydbm__rnn__optimization__mean_squared_error) {
+  if (__pyx_module_is_main_pydbm__rnn__loss__mean_squared_error) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "pydbm.rnn.optimization.mean_squared_error")) {
-      if (unlikely(PyDict_SetItemString(modules, "pydbm.rnn.optimization.mean_squared_error", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "pydbm.rnn.loss.mean_squared_error")) {
+      if (unlikely(PyDict_SetItemString(modules, "pydbm.rnn.loss.mean_squared_error", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -4794,46 +4794,46 @@ static int __pyx_pymod_exec_mean_squared_error(PyObject *__pyx_pyinit_module)
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "pydbm/rnn/optimization/mean_squared_error.pyx":2
+  /* "pydbm/rnn/loss/mean_squared_error.pyx":2
  * # -*- coding: utf-8 -*-
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
- * from pydbm.rnn.optimization.interface.optimizable_loss import OptimizableLoss
+ * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/optimization/mean_squared_error.pyx":4
+  /* "pydbm/rnn/loss/mean_squared_error.pyx":4
  * import numpy as np
  * cimport numpy as np
- * from pydbm.rnn.optimization.interface.optimizable_loss import OptimizableLoss             # <<<<<<<<<<<<<<
+ * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss             # <<<<<<<<<<<<<<
  * 
  * 
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_INCREF(__pyx_n_s_OptimizableLoss);
-  __Pyx_GIVEREF(__pyx_n_s_OptimizableLoss);
-  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_OptimizableLoss);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_rnn_optimization_interface, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_INCREF(__pyx_n_s_ComputableLoss);
+  __Pyx_GIVEREF(__pyx_n_s_ComputableLoss);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_ComputableLoss);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_rnn_loss_interface_computa, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_OptimizableLoss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_ComputableLoss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_OptimizableLoss, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ComputableLoss, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/optimization/mean_squared_error.pyx":7
+  /* "pydbm/rnn/loss/mean_squared_error.pyx":7
  * 
  * 
- * class MeanSquaredError(OptimizableLoss):             # <<<<<<<<<<<<<<
+ * class MeanSquaredError(ComputableLoss):             # <<<<<<<<<<<<<<
  *     '''
  *     The mean squared error (MSE).
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_OptimizableLoss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ComputableLoss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -4842,26 +4842,26 @@ static int __pyx_pymod_exec_mean_squared_error(PyObject *__pyx_pyinit_module)
   __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_MeanSquaredError, __pyx_n_s_MeanSquaredError, (PyObject *) NULL, __pyx_n_s_pydbm_rnn_optimization_mean_squa, __pyx_kp_s_The_mean_squared_error_MSE); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_MeanSquaredError, __pyx_n_s_MeanSquaredError, (PyObject *) NULL, __pyx_n_s_pydbm_rnn_loss_mean_squared_erro, __pyx_kp_s_The_mean_squared_error_MSE); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "pydbm/rnn/optimization/mean_squared_error.pyx":12
+  /* "pydbm/rnn/loss/mean_squared_error.pyx":12
  *     '''
  * 
  *     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):             # <<<<<<<<<<<<<<
  *         '''
  *         Return of result from this Cost function.
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_12optimization_18mean_squared_error_16MeanSquaredError_1compute_loss, 0, __pyx_n_s_MeanSquaredError_compute_loss, NULL, __pyx_n_s_pydbm_rnn_optimization_mean_squa, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_4loss_18mean_squared_error_16MeanSquaredError_1compute_loss, 0, __pyx_n_s_MeanSquaredError_compute_loss, NULL, __pyx_n_s_pydbm_rnn_loss_mean_squared_erro, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__12);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_compute_loss, __pyx_t_4) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/optimization/mean_squared_error.pyx":7
+  /* "pydbm/rnn/loss/mean_squared_error.pyx":7
  * 
  * 
- * class MeanSquaredError(OptimizableLoss):             # <<<<<<<<<<<<<<
+ * class MeanSquaredError(ComputableLoss):             # <<<<<<<<<<<<<<
  *     '''
  *     The mean squared error (MSE).
  */
@@ -4873,7 +4873,7 @@ static int __pyx_pymod_exec_mean_squared_error(PyObject *__pyx_pyinit_module)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/optimization/mean_squared_error.pyx":1
+  /* "pydbm/rnn/loss/mean_squared_error.pyx":1
  * # -*- coding: utf-8 -*-             # <<<<<<<<<<<<<<
  * import numpy as np
  * cimport numpy as np
@@ -4901,11 +4901,11 @@ static int __pyx_pymod_exec_mean_squared_error(PyObject *__pyx_pyinit_module)
   __Pyx_XDECREF(__pyx_t_4);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pydbm.rnn.optimization.mean_squared_error", 0, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pydbm.rnn.loss.mean_squared_error", 0, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pydbm.rnn.optimization.mean_squared_error");
+    PyErr_SetString(PyExc_ImportError, "init pydbm.rnn.loss.mean_squared_error");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

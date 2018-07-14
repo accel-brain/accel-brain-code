@@ -3,7 +3,7 @@ from logging import getLogger
 import numpy as np
 cimport numpy as np
 from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
-from pydbm.rnn.optimization.interface.optimizable_loss import OptimizableLoss
+from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
 import pandas as pd
 
 
@@ -22,7 +22,7 @@ class VerificateRegression(VerificatableResult):
     # Logger.
     __logger = None
     
-    def __init__(self, optimizable_loss):
+    def __init__(self, computable_loss):
         '''
         Init.
         
@@ -31,8 +31,8 @@ class VerificateRegression(VerificatableResult):
 
         '''
 
-        if isinstance(optimizable_loss, OptimizableLoss):
-            self.__optimizable_loss = optimizable_loss
+        if isinstance(computable_loss, ComputableLoss):
+            self.__computable_loss = computable_loss
         else:
             raise TypeError()
 
@@ -56,8 +56,8 @@ class VerificateRegression(VerificatableResult):
             test_label_arr:    Labeled data in test.
 
         '''
-        train_loss = self.__optimizable_loss.compute_loss(train_pred_arr, train_label_arr)
-        test_loss = self.__optimizable_loss.compute_loss(test_pred_arr, test_label_arr)
+        train_loss = self.__computable_loss.compute_loss(train_pred_arr, train_label_arr)
+        test_loss = self.__computable_loss.compute_loss(test_pred_arr, test_label_arr)
         train_r2 = self.__r2_score(train_pred_arr, train_label_arr)
         test_r2 = self.__r2_score(test_pred_arr, test_label_arr)
 

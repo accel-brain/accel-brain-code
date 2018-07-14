@@ -1604,14 +1604,12 @@ static const char __pyx_k_visible_neuron_part[] = "visible_neuron_part";
 static const char __pyx_k_approximate_interface[] = "approximate_interface";
 static const char __pyx_k_LSTMRTRBMSimpleBuilder[] = "LSTMRTRBMSimpleBuilder";
 static const char __pyx_k_rnn_activating_function[] = "rnn_activating_function";
-static const char __pyx_k_input_activating_function[] = "input_activating_function";
-static const char __pyx_k_forget_activating_function[] = "forget_activating_function";
 static const char __pyx_k_hidden_activating_function[] = "hidden_activating_function";
-static const char __pyx_k_linear_activating_function[] = "linear_activating_function";
+static const char __pyx_k_output_activating_function[] = "output_activating_function";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_observed_activating_function[] = "observed_activating_function";
 static const char __pyx_k_LSTMRTRBMSimpleBuilder__hidden[] = "_LSTMRTRBMSimpleBuilder__hidden_activating_function";
-static const char __pyx_k_rnn_output_activating_function[] = "rnn_output_activating_function";
+static const char __pyx_k_input_gate_activating_function[] = "input_gate_activating_function";
 static const char __pyx_k_Concrete_Builder_in_Builder_Pat[] = "\n    `Concrete Builder` in Builder Pattern.\n\n    Compose restricted boltzmann machines for building a LSTM-RTRBM.\n\n    ";
 static const char __pyx_k_LSTMRTRBMSimpleBuilder__approxi[] = "_LSTMRTRBMSimpleBuilder__approximate_interface";
 static const char __pyx_k_LSTMRTRBMSimpleBuilder__dropout[] = "_LSTMRTRBMSimpleBuilder__dropout_rate";
@@ -1621,7 +1619,9 @@ static const char __pyx_k_LSTMRTRBMSimpleBuilder__lstm_gr[] = "_LSTMRTRBMSimpleB
 static const char __pyx_k_LSTMRTRBMSimpleBuilder__rbm_lis[] = "_LSTMRTRBMSimpleBuilder__rbm_list";
 static const char __pyx_k_LSTMRTRBMSimpleBuilder__rnn_act[] = "_LSTMRTRBMSimpleBuilder__rnn_activating_function";
 static const char __pyx_k_LSTMRTRBMSimpleBuilder__visible[] = "_LSTMRTRBMSimpleBuilder__visible_activating_function";
+static const char __pyx_k_forget_gate_activating_function[] = "forget_gate_activating_function";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
+static const char __pyx_k_output_gate_activating_function[] = "output_gate_activating_function";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_LSTMRTRBMSimpleBuilder__hidden_2[] = "_LSTMRTRBMSimpleBuilder__hidden_neuron_count";
@@ -1685,7 +1685,7 @@ static PyObject *__pyx_n_s_create_node;
 static PyObject *__pyx_n_s_create_rnn_cells;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_dropout_rate;
-static PyObject *__pyx_n_s_forget_activating_function;
+static PyObject *__pyx_n_s_forget_gate_activating_function;
 static PyObject *__pyx_n_s_get_dropout_rate;
 static PyObject *__pyx_n_s_get_learning_rate;
 static PyObject *__pyx_n_s_get_result;
@@ -1694,10 +1694,9 @@ static PyObject *__pyx_n_s_hidden_activating_function;
 static PyObject *__pyx_n_s_hidden_neuron_count;
 static PyObject *__pyx_n_s_hidden_neuron_part;
 static PyObject *__pyx_n_s_import;
-static PyObject *__pyx_n_s_input_activating_function;
+static PyObject *__pyx_n_s_input_gate_activating_function;
 static PyObject *__pyx_n_s_input_neuron_count;
 static PyObject *__pyx_n_s_learning_rate;
-static PyObject *__pyx_n_s_linear_activating_function;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_metaclass;
 static PyObject *__pyx_n_s_module;
@@ -1709,6 +1708,8 @@ static PyObject *__pyx_n_s_numpy;
 static PyObject *__pyx_kp_s_numpy_core_multiarray_failed_to;
 static PyObject *__pyx_kp_s_numpy_core_umath_failed_to_impor;
 static PyObject *__pyx_n_s_observed_activating_function;
+static PyObject *__pyx_n_s_output_activating_function;
+static PyObject *__pyx_n_s_output_gate_activating_function;
 static PyObject *__pyx_n_s_output_neuron_count;
 static PyObject *__pyx_n_s_prepare;
 static PyObject *__pyx_n_s_property;
@@ -1723,7 +1724,6 @@ static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_rbm;
 static PyObject *__pyx_n_s_rnn_activating_function;
 static PyObject *__pyx_n_s_rnn_neuron_part;
-static PyObject *__pyx_n_s_rnn_output_activating_function;
 static PyObject *__pyx_n_s_self;
 static PyObject *__pyx_n_s_set_dropout_rate;
 static PyObject *__pyx_n_s_set_learning_rate;
@@ -2720,7 +2720,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_26lstm_rt_rbm_simple_builder_22L
  * 
  *         self.__lstm_graph = LSTMGraph()             # <<<<<<<<<<<<<<
  *         self.__lstm_graph.observed_activating_function = self.__visible_activating_function
- *         self.__lstm_graph.input_activating_function = LogisticFunction()
+ *         self.__lstm_graph.input_gate_activating_function = LogisticFunction()
  */
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_LSTMGraph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -2749,7 +2749,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_26lstm_rt_rbm_simple_builder_22L
  * 
  *         self.__lstm_graph = LSTMGraph()
  *         self.__lstm_graph.observed_activating_function = self.__visible_activating_function             # <<<<<<<<<<<<<<
- *         self.__lstm_graph.input_activating_function = LogisticFunction()
+ *         self.__lstm_graph.input_gate_activating_function = LogisticFunction()
  *         self.__lstm_graph.hidden_activating_function = self.__rnn_activating_function
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LSTMRTRBMSimpleBuilder__visible); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
@@ -2763,9 +2763,9 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_26lstm_rt_rbm_simple_builder_22L
   /* "pydbm/dbm/builders/lstm_rt_rbm_simple_builder.pyx":101
  *         self.__lstm_graph = LSTMGraph()
  *         self.__lstm_graph.observed_activating_function = self.__visible_activating_function
- *         self.__lstm_graph.input_activating_function = LogisticFunction()             # <<<<<<<<<<<<<<
+ *         self.__lstm_graph.input_gate_activating_function = LogisticFunction()             # <<<<<<<<<<<<<<
  *         self.__lstm_graph.hidden_activating_function = self.__rnn_activating_function
- *         self.__lstm_graph.forget_activating_function = self.__rnn_activating_function
+ *         self.__lstm_graph.forget_gate_activating_function = self.__rnn_activating_function
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -2789,16 +2789,16 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_26lstm_rt_rbm_simple_builder_22L
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LSTMRTRBMSimpleBuilder__lstm_gr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_input_activating_function, __pyx_t_2) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_input_gate_activating_function, __pyx_t_2) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/dbm/builders/lstm_rt_rbm_simple_builder.pyx":102
  *         self.__lstm_graph.observed_activating_function = self.__visible_activating_function
- *         self.__lstm_graph.input_activating_function = LogisticFunction()
+ *         self.__lstm_graph.input_gate_activating_function = LogisticFunction()
  *         self.__lstm_graph.hidden_activating_function = self.__rnn_activating_function             # <<<<<<<<<<<<<<
- *         self.__lstm_graph.forget_activating_function = self.__rnn_activating_function
- *         self.__lstm_graph.linear_activating_function = self.__rnn_activating_function
+ *         self.__lstm_graph.forget_gate_activating_function = self.__rnn_activating_function
+ *         self.__lstm_graph.output_activating_function = self.__rnn_activating_function
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LSTMRTRBMSimpleBuilder__rnn_act); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -2809,40 +2809,40 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_26lstm_rt_rbm_simple_builder_22L
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pydbm/dbm/builders/lstm_rt_rbm_simple_builder.pyx":103
- *         self.__lstm_graph.input_activating_function = LogisticFunction()
+ *         self.__lstm_graph.input_gate_activating_function = LogisticFunction()
  *         self.__lstm_graph.hidden_activating_function = self.__rnn_activating_function
- *         self.__lstm_graph.forget_activating_function = self.__rnn_activating_function             # <<<<<<<<<<<<<<
- *         self.__lstm_graph.linear_activating_function = self.__rnn_activating_function
+ *         self.__lstm_graph.forget_gate_activating_function = self.__rnn_activating_function             # <<<<<<<<<<<<<<
+ *         self.__lstm_graph.output_activating_function = self.__rnn_activating_function
  *         self.__lstm_graph.rnn_activating_function = self.__rnn_activating_function
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LSTMRTRBMSimpleBuilder__rnn_act); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LSTMRTRBMSimpleBuilder__lstm_gr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_forget_activating_function, __pyx_t_2) < 0) __PYX_ERR(0, 103, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_forget_gate_activating_function, __pyx_t_2) < 0) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/dbm/builders/lstm_rt_rbm_simple_builder.pyx":104
  *         self.__lstm_graph.hidden_activating_function = self.__rnn_activating_function
- *         self.__lstm_graph.forget_activating_function = self.__rnn_activating_function
- *         self.__lstm_graph.linear_activating_function = self.__rnn_activating_function             # <<<<<<<<<<<<<<
+ *         self.__lstm_graph.forget_gate_activating_function = self.__rnn_activating_function
+ *         self.__lstm_graph.output_activating_function = self.__rnn_activating_function             # <<<<<<<<<<<<<<
  *         self.__lstm_graph.rnn_activating_function = self.__rnn_activating_function
- *         self.__lstm_graph.rnn_output_activating_function = self.__hidden_activating_function
+ *         self.__lstm_graph.output_gate_activating_function = self.__hidden_activating_function
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LSTMRTRBMSimpleBuilder__rnn_act); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LSTMRTRBMSimpleBuilder__lstm_gr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_linear_activating_function, __pyx_t_1) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_output_activating_function, __pyx_t_1) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pydbm/dbm/builders/lstm_rt_rbm_simple_builder.pyx":105
- *         self.__lstm_graph.forget_activating_function = self.__rnn_activating_function
- *         self.__lstm_graph.linear_activating_function = self.__rnn_activating_function
+ *         self.__lstm_graph.forget_gate_activating_function = self.__rnn_activating_function
+ *         self.__lstm_graph.output_activating_function = self.__rnn_activating_function
  *         self.__lstm_graph.rnn_activating_function = self.__rnn_activating_function             # <<<<<<<<<<<<<<
- *         self.__lstm_graph.rnn_output_activating_function = self.__hidden_activating_function
+ *         self.__lstm_graph.output_gate_activating_function = self.__hidden_activating_function
  * 
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LSTMRTRBMSimpleBuilder__rnn_act); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 105, __pyx_L1_error)
@@ -2854,9 +2854,9 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_26lstm_rt_rbm_simple_builder_22L
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/dbm/builders/lstm_rt_rbm_simple_builder.pyx":106
- *         self.__lstm_graph.linear_activating_function = self.__rnn_activating_function
+ *         self.__lstm_graph.output_activating_function = self.__rnn_activating_function
  *         self.__lstm_graph.rnn_activating_function = self.__rnn_activating_function
- *         self.__lstm_graph.rnn_output_activating_function = self.__hidden_activating_function             # <<<<<<<<<<<<<<
+ *         self.__lstm_graph.output_gate_activating_function = self.__hidden_activating_function             # <<<<<<<<<<<<<<
  * 
  *         self.__lstm_graph.create_rnn_cells(
  */
@@ -2864,12 +2864,12 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_26lstm_rt_rbm_simple_builder_22L
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LSTMRTRBMSimpleBuilder__lstm_gr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_rnn_output_activating_function, __pyx_t_1) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_output_gate_activating_function, __pyx_t_1) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pydbm/dbm/builders/lstm_rt_rbm_simple_builder.pyx":108
- *         self.__lstm_graph.rnn_output_activating_function = self.__hidden_activating_function
+ *         self.__lstm_graph.output_gate_activating_function = self.__hidden_activating_function
  * 
  *         self.__lstm_graph.create_rnn_cells(             # <<<<<<<<<<<<<<
  *             input_neuron_count=self.__visible_neuron_count,
@@ -2920,7 +2920,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_8builders_26lstm_rt_rbm_simple_builder_22L
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "pydbm/dbm/builders/lstm_rt_rbm_simple_builder.pyx":108
- *         self.__lstm_graph.rnn_output_activating_function = self.__hidden_activating_function
+ *         self.__lstm_graph.output_gate_activating_function = self.__hidden_activating_function
  * 
  *         self.__lstm_graph.create_rnn_cells(             # <<<<<<<<<<<<<<
  *             input_neuron_count=self.__visible_neuron_count,
@@ -5918,7 +5918,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_create_rnn_cells, __pyx_k_create_rnn_cells, sizeof(__pyx_k_create_rnn_cells), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_dropout_rate, __pyx_k_dropout_rate, sizeof(__pyx_k_dropout_rate), 0, 0, 1, 1},
-  {&__pyx_n_s_forget_activating_function, __pyx_k_forget_activating_function, sizeof(__pyx_k_forget_activating_function), 0, 0, 1, 1},
+  {&__pyx_n_s_forget_gate_activating_function, __pyx_k_forget_gate_activating_function, sizeof(__pyx_k_forget_gate_activating_function), 0, 0, 1, 1},
   {&__pyx_n_s_get_dropout_rate, __pyx_k_get_dropout_rate, sizeof(__pyx_k_get_dropout_rate), 0, 0, 1, 1},
   {&__pyx_n_s_get_learning_rate, __pyx_k_get_learning_rate, sizeof(__pyx_k_get_learning_rate), 0, 0, 1, 1},
   {&__pyx_n_s_get_result, __pyx_k_get_result, sizeof(__pyx_k_get_result), 0, 0, 1, 1},
@@ -5927,10 +5927,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_hidden_neuron_count, __pyx_k_hidden_neuron_count, sizeof(__pyx_k_hidden_neuron_count), 0, 0, 1, 1},
   {&__pyx_n_s_hidden_neuron_part, __pyx_k_hidden_neuron_part, sizeof(__pyx_k_hidden_neuron_part), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
-  {&__pyx_n_s_input_activating_function, __pyx_k_input_activating_function, sizeof(__pyx_k_input_activating_function), 0, 0, 1, 1},
+  {&__pyx_n_s_input_gate_activating_function, __pyx_k_input_gate_activating_function, sizeof(__pyx_k_input_gate_activating_function), 0, 0, 1, 1},
   {&__pyx_n_s_input_neuron_count, __pyx_k_input_neuron_count, sizeof(__pyx_k_input_neuron_count), 0, 0, 1, 1},
   {&__pyx_n_s_learning_rate, __pyx_k_learning_rate, sizeof(__pyx_k_learning_rate), 0, 0, 1, 1},
-  {&__pyx_n_s_linear_activating_function, __pyx_k_linear_activating_function, sizeof(__pyx_k_linear_activating_function), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_metaclass, __pyx_k_metaclass, sizeof(__pyx_k_metaclass), 0, 0, 1, 1},
   {&__pyx_n_s_module, __pyx_k_module, sizeof(__pyx_k_module), 0, 0, 1, 1},
@@ -5942,6 +5941,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_numpy_core_multiarray_failed_to, __pyx_k_numpy_core_multiarray_failed_to, sizeof(__pyx_k_numpy_core_multiarray_failed_to), 0, 0, 1, 0},
   {&__pyx_kp_s_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 0, 1, 0},
   {&__pyx_n_s_observed_activating_function, __pyx_k_observed_activating_function, sizeof(__pyx_k_observed_activating_function), 0, 0, 1, 1},
+  {&__pyx_n_s_output_activating_function, __pyx_k_output_activating_function, sizeof(__pyx_k_output_activating_function), 0, 0, 1, 1},
+  {&__pyx_n_s_output_gate_activating_function, __pyx_k_output_gate_activating_function, sizeof(__pyx_k_output_gate_activating_function), 0, 0, 1, 1},
   {&__pyx_n_s_output_neuron_count, __pyx_k_output_neuron_count, sizeof(__pyx_k_output_neuron_count), 0, 0, 1, 1},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
   {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
@@ -5956,7 +5957,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_rbm, __pyx_k_rbm, sizeof(__pyx_k_rbm), 0, 0, 1, 1},
   {&__pyx_n_s_rnn_activating_function, __pyx_k_rnn_activating_function, sizeof(__pyx_k_rnn_activating_function), 0, 0, 1, 1},
   {&__pyx_n_s_rnn_neuron_part, __pyx_k_rnn_neuron_part, sizeof(__pyx_k_rnn_neuron_part), 0, 0, 1, 1},
-  {&__pyx_n_s_rnn_output_activating_function, __pyx_k_rnn_output_activating_function, sizeof(__pyx_k_rnn_output_activating_function), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
   {&__pyx_n_s_set_dropout_rate, __pyx_k_set_dropout_rate, sizeof(__pyx_k_set_dropout_rate), 0, 0, 1, 1},
   {&__pyx_n_s_set_learning_rate, __pyx_k_set_learning_rate, sizeof(__pyx_k_set_learning_rate), 0, 0, 1, 1},

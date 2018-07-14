@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from logging import getLogger
 from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
-from pydbm.rnn.optimization.interface.optimizable_loss import OptimizableLoss
+from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
 import pandas as pd
 import numpy as np
 
@@ -21,7 +21,7 @@ class VerificateSoftmax(VerificatableResult):
     # Logger.
     __logger = None
     
-    def __init__(self, optimizable_loss):
+    def __init__(self, computable_loss):
         '''
         Init.
         
@@ -30,8 +30,8 @@ class VerificateSoftmax(VerificatableResult):
 
         '''
 
-        if isinstance(optimizable_loss, OptimizableLoss):
-            self.__optimizable_loss = optimizable_loss
+        if isinstance(computable_loss, ComputableLoss):
+            self.__computable_loss = computable_loss
         else:
             raise TypeError()
 
@@ -61,8 +61,8 @@ class VerificateSoftmax(VerificatableResult):
         train_accuracy = train_match_n / train_pred_arr.shape[0]
         test_accuracy = test_match_n / test_pred_arr.shape[0]
         
-        train_loss = self.__optimizable_loss.compute_loss(train_pred_arr, train_label_arr)
-        test_loss = self.__optimizable_loss.compute_loss(test_pred_arr, test_label_arr)
+        train_loss = self.__computable_loss.compute_loss(train_pred_arr, train_label_arr)
+        test_loss = self.__computable_loss.compute_loss(test_pred_arr, test_label_arr)
 
         self.__total_train_n += train_pred_arr.shape[0]
         self.__total_test_n += test_pred_arr.shape[0]

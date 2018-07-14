@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 cimport numpy as np
-from abc import ABCMeta, abstractmethod
+from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
 
 
-class OptimizableLoss(metaclass=ABCMeta):
+class MeanSquaredError(ComputableLoss):
     '''
-    Interface of Loss functions.
+    The mean squared error (MSE).
     '''
 
-    @abstractmethod
     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):
         '''
         Return of result from this Cost function.
@@ -24,4 +23,4 @@ class OptimizableLoss(metaclass=ABCMeta):
         Returns:
             Cost.
         '''
-        raise NotImplementedError()
+        return np.square(labeled_arr - pred_arr).mean(axis=axis)

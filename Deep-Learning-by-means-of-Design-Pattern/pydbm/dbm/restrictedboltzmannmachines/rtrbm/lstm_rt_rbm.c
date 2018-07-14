@@ -1594,21 +1594,22 @@ static const char __pyx_k_LSTM_RTRBM[] = "\n    LSTM-RTRBM.\n    ";
 static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
-static const char __pyx_k_weights_hf_arr[] = "weights_hf_arr";
-static const char __pyx_k_weights_hg_arr[] = "weights_hg_arr";
-static const char __pyx_k_weights_hi_arr[] = "weights_hi_arr";
-static const char __pyx_k_weights_ho_arr[] = "weights_ho_arr";
-static const char __pyx_k_weights_xf_arr[] = "weights_xf_arr";
-static const char __pyx_k_weights_xg_arr[] = "weights_xg_arr";
-static const char __pyx_k_weights_xi_arr[] = "weights_xi_arr";
-static const char __pyx_k_weights_xo_arr[] = "weights_xo_arr";
+static const char __pyx_k_given_bias_arr[] = "given_bias_arr";
+static const char __pyx_k_hidden_bias_arr[] = "hidden_bias_arr";
 static const char __pyx_k_create_rnn_cells[] = "create_rnn_cells";
 static const char __pyx_k_v_hat_weights_arr[] = "v_hat_weights_arr";
+static const char __pyx_k_weights_given_arr[] = "weights_given_arr";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_input_neuron_count[] = "input_neuron_count";
 static const char __pyx_k_hidden_neuron_count[] = "hidden_neuron_count";
+static const char __pyx_k_input_gate_bias_arr[] = "input_gate_bias_arr";
 static const char __pyx_k_output_neuron_count[] = "output_neuron_count";
+static const char __pyx_k_forget_gate_bias_arr[] = "forget_gate_bias_arr";
+static const char __pyx_k_output_gate_bias_arr[] = "output_gate_bias_arr";
 static const char __pyx_k_rbm_hidden_weights_arr[] = "rbm_hidden_weights_arr";
+static const char __pyx_k_weights_input_gate_arr[] = "weights_input_gate_arr";
+static const char __pyx_k_weights_forget_gate_arr[] = "weights_forget_gate_arr";
+static const char __pyx_k_weights_output_gate_arr[] = "weights_output_gate_arr";
 static const char __pyx_k_extract_transfered_params[] = "extract_transfered_params";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
@@ -1638,9 +1639,13 @@ static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_create_rnn_cells;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_extract_transfered_params;
+static PyObject *__pyx_n_s_forget_gate_bias_arr;
+static PyObject *__pyx_n_s_given_bias_arr;
 static PyObject *__pyx_n_s_graph;
+static PyObject *__pyx_n_s_hidden_bias_arr;
 static PyObject *__pyx_n_s_hidden_neuron_count;
 static PyObject *__pyx_n_s_import;
+static PyObject *__pyx_n_s_input_gate_bias_arr;
 static PyObject *__pyx_n_s_input_neuron_count;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_metaclass;
@@ -1651,6 +1656,7 @@ static PyObject *__pyx_n_s_np;
 static PyObject *__pyx_n_s_numpy;
 static PyObject *__pyx_kp_s_numpy_core_multiarray_failed_to;
 static PyObject *__pyx_kp_s_numpy_core_umath_failed_to_impor;
+static PyObject *__pyx_n_s_output_gate_bias_arr;
 static PyObject *__pyx_n_s_output_neuron_count;
 static PyObject *__pyx_n_s_prepare;
 static PyObject *__pyx_n_s_pydbm_dbm_restrictedboltzmannmac;
@@ -1665,14 +1671,10 @@ static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
 static PyObject *__pyx_n_s_v_hat_weights_arr;
 static PyObject *__pyx_n_s_warnings;
-static PyObject *__pyx_n_s_weights_hf_arr;
-static PyObject *__pyx_n_s_weights_hg_arr;
-static PyObject *__pyx_n_s_weights_hi_arr;
-static PyObject *__pyx_n_s_weights_ho_arr;
-static PyObject *__pyx_n_s_weights_xf_arr;
-static PyObject *__pyx_n_s_weights_xg_arr;
-static PyObject *__pyx_n_s_weights_xi_arr;
-static PyObject *__pyx_n_s_weights_xo_arr;
+static PyObject *__pyx_n_s_weights_forget_gate_arr;
+static PyObject *__pyx_n_s_weights_given_arr;
+static PyObject *__pyx_n_s_weights_input_gate_arr;
+static PyObject *__pyx_n_s_weights_output_gate_arr;
 static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_5rtrbm_11lstm_rt_rbm_9LSTMRTRBM_extract_transfered_params(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, int __pyx_v_input_neuron_count, int __pyx_v_hidden_neuron_count, int __pyx_v_output_neuron_count); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
@@ -2076,7 +2078,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_5rtrbm_11lst
  *         if self.graph.rbm_hidden_weights_arr.shape[1] != hidden_neuron_count:
  *             raise ValueError("The shape of pre-learned parameter must be the shape of transfer-learned parameters.")             # <<<<<<<<<<<<<<
  * 
- *         self.graph.weights_xg_arr += self.graph.v_hat_weights_arr
+ *         self.graph.weights_given_arr += self.graph.v_hat_weights_arr
  */
     __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
@@ -2096,13 +2098,13 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_5rtrbm_11lst
   /* "pydbm/dbm/restrictedboltzmannmachines/rtrbm/lstm_rt_rbm.pyx":46
  *             raise ValueError("The shape of pre-learned parameter must be the shape of transfer-learned parameters.")
  * 
- *         self.graph.weights_xg_arr += self.graph.v_hat_weights_arr             # <<<<<<<<<<<<<<
- *         self.graph.weights_xi_arr += self.graph.v_hat_weights_arr
- *         self.graph.weights_xf_arr += self.graph.v_hat_weights_arr
+ *         self.graph.weights_given_arr += self.graph.v_hat_weights_arr             # <<<<<<<<<<<<<<
+ *         self.graph.weights_input_gate_arr += self.graph.v_hat_weights_arr
+ *         self.graph.weights_forget_gate_arr += self.graph.v_hat_weights_arr
  */
   __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_weights_xg_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_weights_given_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -2113,20 +2115,20 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_5rtrbm_11lst
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_weights_xg_arr, __pyx_t_3) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_weights_given_arr, __pyx_t_3) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
   /* "pydbm/dbm/restrictedboltzmannmachines/rtrbm/lstm_rt_rbm.pyx":47
  * 
- *         self.graph.weights_xg_arr += self.graph.v_hat_weights_arr
- *         self.graph.weights_xi_arr += self.graph.v_hat_weights_arr             # <<<<<<<<<<<<<<
- *         self.graph.weights_xf_arr += self.graph.v_hat_weights_arr
- *         self.graph.weights_xo_arr += self.graph.v_hat_weights_arr
+ *         self.graph.weights_given_arr += self.graph.v_hat_weights_arr
+ *         self.graph.weights_input_gate_arr += self.graph.v_hat_weights_arr             # <<<<<<<<<<<<<<
+ *         self.graph.weights_forget_gate_arr += self.graph.v_hat_weights_arr
+ *         self.graph.weights_output_gate_arr += self.graph.v_hat_weights_arr
  */
   __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 47, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_weights_xi_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 47, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_weights_input_gate_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 47, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 47, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
@@ -2137,20 +2139,20 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_5rtrbm_11lst
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_weights_xi_arr, __pyx_t_5) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_weights_input_gate_arr, __pyx_t_5) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
   /* "pydbm/dbm/restrictedboltzmannmachines/rtrbm/lstm_rt_rbm.pyx":48
- *         self.graph.weights_xg_arr += self.graph.v_hat_weights_arr
- *         self.graph.weights_xi_arr += self.graph.v_hat_weights_arr
- *         self.graph.weights_xf_arr += self.graph.v_hat_weights_arr             # <<<<<<<<<<<<<<
- *         self.graph.weights_xo_arr += self.graph.v_hat_weights_arr
+ *         self.graph.weights_given_arr += self.graph.v_hat_weights_arr
+ *         self.graph.weights_input_gate_arr += self.graph.v_hat_weights_arr
+ *         self.graph.weights_forget_gate_arr += self.graph.v_hat_weights_arr             # <<<<<<<<<<<<<<
+ *         self.graph.weights_output_gate_arr += self.graph.v_hat_weights_arr
  * 
  */
   __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_weights_xf_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_weights_forget_gate_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -2161,20 +2163,20 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_5rtrbm_11lst
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_weights_xf_arr, __pyx_t_1) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_weights_forget_gate_arr, __pyx_t_1) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
   /* "pydbm/dbm/restrictedboltzmannmachines/rtrbm/lstm_rt_rbm.pyx":49
- *         self.graph.weights_xi_arr += self.graph.v_hat_weights_arr
- *         self.graph.weights_xf_arr += self.graph.v_hat_weights_arr
- *         self.graph.weights_xo_arr += self.graph.v_hat_weights_arr             # <<<<<<<<<<<<<<
+ *         self.graph.weights_input_gate_arr += self.graph.v_hat_weights_arr
+ *         self.graph.weights_forget_gate_arr += self.graph.v_hat_weights_arr
+ *         self.graph.weights_output_gate_arr += self.graph.v_hat_weights_arr             # <<<<<<<<<<<<<<
  * 
- *         self.graph.weights_hg_arr += self.graph.rbm_hidden_weights_arr
+ *         self.graph.given_bias_arr += self.graph.hidden_bias_arr
  */
   __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_weights_xo_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_weights_output_gate_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -2185,108 +2187,108 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_5rtrbm_11lst
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_weights_xo_arr, __pyx_t_3) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_weights_output_gate_arr, __pyx_t_3) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
   /* "pydbm/dbm/restrictedboltzmannmachines/rtrbm/lstm_rt_rbm.pyx":51
- *         self.graph.weights_xo_arr += self.graph.v_hat_weights_arr
+ *         self.graph.weights_output_gate_arr += self.graph.v_hat_weights_arr
  * 
- *         self.graph.weights_hg_arr += self.graph.rbm_hidden_weights_arr             # <<<<<<<<<<<<<<
- *         self.graph.weights_hi_arr += self.graph.rbm_hidden_weights_arr
- *         self.graph.weights_hf_arr += self.graph.rbm_hidden_weights_arr
+ *         self.graph.given_bias_arr += self.graph.hidden_bias_arr             # <<<<<<<<<<<<<<
+ *         self.graph.input_gate_bias_arr += self.graph.hidden_bias_arr
+ *         self.graph.forget_gate_bias_arr += self.graph.hidden_bias_arr
  */
   __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_weights_hg_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_given_bias_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_rbm_hidden_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_hidden_bias_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = PyNumber_InPlaceAdd(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_weights_hg_arr, __pyx_t_5) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_given_bias_arr, __pyx_t_5) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
   /* "pydbm/dbm/restrictedboltzmannmachines/rtrbm/lstm_rt_rbm.pyx":52
  * 
- *         self.graph.weights_hg_arr += self.graph.rbm_hidden_weights_arr
- *         self.graph.weights_hi_arr += self.graph.rbm_hidden_weights_arr             # <<<<<<<<<<<<<<
- *         self.graph.weights_hf_arr += self.graph.rbm_hidden_weights_arr
- *         self.graph.weights_ho_arr += self.graph.rbm_hidden_weights_arr
+ *         self.graph.given_bias_arr += self.graph.hidden_bias_arr
+ *         self.graph.input_gate_bias_arr += self.graph.hidden_bias_arr             # <<<<<<<<<<<<<<
+ *         self.graph.forget_gate_bias_arr += self.graph.hidden_bias_arr
+ *         self.graph.output_gate_bias_arr += self.graph.hidden_bias_arr
  */
   __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_weights_hi_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_input_gate_bias_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_rbm_hidden_weights_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_hidden_bias_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_weights_hi_arr, __pyx_t_1) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_input_gate_bias_arr, __pyx_t_1) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
   /* "pydbm/dbm/restrictedboltzmannmachines/rtrbm/lstm_rt_rbm.pyx":53
- *         self.graph.weights_hg_arr += self.graph.rbm_hidden_weights_arr
- *         self.graph.weights_hi_arr += self.graph.rbm_hidden_weights_arr
- *         self.graph.weights_hf_arr += self.graph.rbm_hidden_weights_arr             # <<<<<<<<<<<<<<
- *         self.graph.weights_ho_arr += self.graph.rbm_hidden_weights_arr
+ *         self.graph.given_bias_arr += self.graph.hidden_bias_arr
+ *         self.graph.input_gate_bias_arr += self.graph.hidden_bias_arr
+ *         self.graph.forget_gate_bias_arr += self.graph.hidden_bias_arr             # <<<<<<<<<<<<<<
+ *         self.graph.output_gate_bias_arr += self.graph.hidden_bias_arr
  * 
  */
   __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_weights_hf_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_forget_gate_bias_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_rbm_hidden_weights_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_hidden_bias_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_weights_hf_arr, __pyx_t_3) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_forget_gate_bias_arr, __pyx_t_3) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
   /* "pydbm/dbm/restrictedboltzmannmachines/rtrbm/lstm_rt_rbm.pyx":54
- *         self.graph.weights_hi_arr += self.graph.rbm_hidden_weights_arr
- *         self.graph.weights_hf_arr += self.graph.rbm_hidden_weights_arr
- *         self.graph.weights_ho_arr += self.graph.rbm_hidden_weights_arr             # <<<<<<<<<<<<<<
+ *         self.graph.input_gate_bias_arr += self.graph.hidden_bias_arr
+ *         self.graph.forget_gate_bias_arr += self.graph.hidden_bias_arr
+ *         self.graph.output_gate_bias_arr += self.graph.hidden_bias_arr             # <<<<<<<<<<<<<<
  * 
  *         return self.graph
  */
   __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_weights_ho_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 54, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_output_gate_bias_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_rbm_hidden_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_hidden_bias_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = PyNumber_InPlaceAdd(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_weights_ho_arr, __pyx_t_5) < 0) __PYX_ERR(0, 54, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_output_gate_bias_arr, __pyx_t_5) < 0) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
   /* "pydbm/dbm/restrictedboltzmannmachines/rtrbm/lstm_rt_rbm.pyx":56
- *         self.graph.weights_ho_arr += self.graph.rbm_hidden_weights_arr
+ *         self.graph.output_gate_bias_arr += self.graph.hidden_bias_arr
  * 
  *         return self.graph             # <<<<<<<<<<<<<<
  */
@@ -4956,9 +4958,13 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_create_rnn_cells, __pyx_k_create_rnn_cells, sizeof(__pyx_k_create_rnn_cells), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_extract_transfered_params, __pyx_k_extract_transfered_params, sizeof(__pyx_k_extract_transfered_params), 0, 0, 1, 1},
+  {&__pyx_n_s_forget_gate_bias_arr, __pyx_k_forget_gate_bias_arr, sizeof(__pyx_k_forget_gate_bias_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_given_bias_arr, __pyx_k_given_bias_arr, sizeof(__pyx_k_given_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_graph, __pyx_k_graph, sizeof(__pyx_k_graph), 0, 0, 1, 1},
+  {&__pyx_n_s_hidden_bias_arr, __pyx_k_hidden_bias_arr, sizeof(__pyx_k_hidden_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_hidden_neuron_count, __pyx_k_hidden_neuron_count, sizeof(__pyx_k_hidden_neuron_count), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
+  {&__pyx_n_s_input_gate_bias_arr, __pyx_k_input_gate_bias_arr, sizeof(__pyx_k_input_gate_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_input_neuron_count, __pyx_k_input_neuron_count, sizeof(__pyx_k_input_neuron_count), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_metaclass, __pyx_k_metaclass, sizeof(__pyx_k_metaclass), 0, 0, 1, 1},
@@ -4969,6 +4975,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_numpy, __pyx_k_numpy, sizeof(__pyx_k_numpy), 0, 0, 1, 1},
   {&__pyx_kp_s_numpy_core_multiarray_failed_to, __pyx_k_numpy_core_multiarray_failed_to, sizeof(__pyx_k_numpy_core_multiarray_failed_to), 0, 0, 1, 0},
   {&__pyx_kp_s_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 0, 1, 0},
+  {&__pyx_n_s_output_gate_bias_arr, __pyx_k_output_gate_bias_arr, sizeof(__pyx_k_output_gate_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_output_neuron_count, __pyx_k_output_neuron_count, sizeof(__pyx_k_output_neuron_count), 0, 0, 1, 1},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_dbm_restrictedboltzmannmac, __pyx_k_pydbm_dbm_restrictedboltzmannmac, sizeof(__pyx_k_pydbm_dbm_restrictedboltzmannmac), 0, 0, 1, 1},
@@ -4983,14 +4990,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_unknown_dtype_code_in_numpy_pxd, __pyx_k_unknown_dtype_code_in_numpy_pxd, sizeof(__pyx_k_unknown_dtype_code_in_numpy_pxd), 0, 1, 0, 0},
   {&__pyx_n_s_v_hat_weights_arr, __pyx_k_v_hat_weights_arr, sizeof(__pyx_k_v_hat_weights_arr), 0, 0, 1, 1},
   {&__pyx_n_s_warnings, __pyx_k_warnings, sizeof(__pyx_k_warnings), 0, 0, 1, 1},
-  {&__pyx_n_s_weights_hf_arr, __pyx_k_weights_hf_arr, sizeof(__pyx_k_weights_hf_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_weights_hg_arr, __pyx_k_weights_hg_arr, sizeof(__pyx_k_weights_hg_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_weights_hi_arr, __pyx_k_weights_hi_arr, sizeof(__pyx_k_weights_hi_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_weights_ho_arr, __pyx_k_weights_ho_arr, sizeof(__pyx_k_weights_ho_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_weights_xf_arr, __pyx_k_weights_xf_arr, sizeof(__pyx_k_weights_xf_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_weights_xg_arr, __pyx_k_weights_xg_arr, sizeof(__pyx_k_weights_xg_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_weights_xi_arr, __pyx_k_weights_xi_arr, sizeof(__pyx_k_weights_xi_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_weights_xo_arr, __pyx_k_weights_xo_arr, sizeof(__pyx_k_weights_xo_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_weights_forget_gate_arr, __pyx_k_weights_forget_gate_arr, sizeof(__pyx_k_weights_forget_gate_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_weights_given_arr, __pyx_k_weights_given_arr, sizeof(__pyx_k_weights_given_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_weights_input_gate_arr, __pyx_k_weights_input_gate_arr, sizeof(__pyx_k_weights_input_gate_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_weights_output_gate_arr, __pyx_k_weights_output_gate_arr, sizeof(__pyx_k_weights_output_gate_arr), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
@@ -5045,7 +5048,7 @@ static int __Pyx_InitCachedConstants(void) {
  *         if self.graph.rbm_hidden_weights_arr.shape[1] != hidden_neuron_count:
  *             raise ValueError("The shape of pre-learned parameter must be the shape of transfer-learned parameters.")             # <<<<<<<<<<<<<<
  * 
- *         self.graph.weights_xg_arr += self.graph.v_hat_weights_arr
+ *         self.graph.weights_given_arr += self.graph.v_hat_weights_arr
  */
   __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_The_shape_of_pre_learned_paramet); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);

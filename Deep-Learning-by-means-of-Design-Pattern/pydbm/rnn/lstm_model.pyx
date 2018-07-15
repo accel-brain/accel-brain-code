@@ -10,9 +10,9 @@ ctypedef np.float64_t DOUBLE_t
 
 class LSTMModel(ReconstructableFeature):
     '''
-    Long short term memory(LSTM) networks.
+    Long short term memory(LSTM) networks for the function approximation.
     
-    Alpha version.
+    This is a beta version.
     '''
     # is-a `Synapse`.
     __graph = None

@@ -28,6 +28,9 @@ class LSTMRTRBM(RTRBM):
         Returns:
             `Synapse` which has pre-learned parameters.
         '''
+        # Common parameters.
+        hidden_bias_arr = self.graph.hidden_bias_arr.copy()
+        
         self.graph.create_rnn_cells(
             input_neuron_count,
             hidden_neuron_count,
@@ -38,19 +41,25 @@ class LSTMRTRBM(RTRBM):
             raise ValueError("The shape of pre-learned parameter must be the shape of transfer-learned parameters.")
         if self.graph.v_hat_weights_arr.shape[1] != hidden_neuron_count:
             raise ValueError("The shape of pre-learned parameter must be the shape of transfer-learned parameters.")
-        if self.graph.rbm_hidden_weights_arr.shape[0] != hidden_neuron_count:
+        if self.graph.hat_weights_arr.shape[0] != hidden_neuron_count:
             raise ValueError("The shape of pre-learned parameter must be the shape of transfer-learned parameters.")
-        if self.graph.rbm_hidden_weights_arr.shape[1] != hidden_neuron_count:
+        if self.graph.hat_weights_arr.shape[1] != hidden_neuron_count:
+            raise ValueError("The shape of pre-learned parameter must be the shape of transfer-learned parameters.")
+        if self.graph.rnn_hidden_bias_arr.shape[0] != hidden_neuron_count:
+            raise ValueError("The shape of pre-learned parameter must be the shape of transfer-learned parameters.")
+        if hidden_bias_arr.shape[0] != hidden_neuron_count:
             raise ValueError("The shape of pre-learned parameter must be the shape of transfer-learned parameters.")
 
         self.graph.weights_given_arr += self.graph.v_hat_weights_arr
         self.graph.weights_input_gate_arr += self.graph.v_hat_weights_arr
         self.graph.weights_forget_gate_arr += self.graph.v_hat_weights_arr
         self.graph.weights_output_gate_arr += self.graph.v_hat_weights_arr
-        
-        self.graph.given_bias_arr += self.graph.hidden_bias_arr
-        self.graph.input_gate_bias_arr += self.graph.hidden_bias_arr
-        self.graph.forget_gate_bias_arr += self.graph.hidden_bias_arr
-        self.graph.output_gate_bias_arr += self.graph.hidden_bias_arr
+        self.graph.weights_hidden_arr = self.graph.hat_weights_arr
+
+        self.graph.given_bias_arr += self.graph.rnn_hidden_bias_arr
+        self.graph.input_gate_bias_arr += self.graph.rnn_hidden_bias_arr
+        self.graph.forget_gate_bias_arr += self.graph.rnn_hidden_bias_arr
+        self.graph.output_gate_bias_arr += self.graph.rnn_hidden_bias_arr
+        self.graph.hidden_bias_arr = hidden_bias_arr
 
         return self.graph

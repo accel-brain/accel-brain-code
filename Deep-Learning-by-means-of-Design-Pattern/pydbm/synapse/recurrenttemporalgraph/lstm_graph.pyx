@@ -18,6 +18,44 @@ class LSTMGraph(RecurrentTemporalGraph):
     '''
     
     ##
+    # The common parameters of LSTM-RTRBM and LSTM.
+    #
+
+    # Bias of neuron in RBM's hidden layer and LSTM's hidden layer.
+    __hidden_bias_arr = np.array([])
+
+    def get_hidden_bias_arr(self):
+        ''' getter '''
+        if isinstance(self.__hidden_bias_arr, np.ndarray) is False:
+            raise TypeError("The type of __hidden_bias_arr must be `np.ndarray`.")
+
+        return self.__hidden_bias_arr
+
+    def set_hidden_bias_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __hidden_bias_arr must be `np.ndarray`.")
+
+        self.__hidden_bias_arr = value
+
+    hidden_bias_arr = property(get_hidden_bias_arr, set_hidden_bias_arr)
+
+    # Activation function in RBM's hidden layer and LSTM's hidden layer.
+    def get_hidden_activating_function(self):
+        ''' getter '''
+        if isinstance(self.deeper_activating_function, ActivatingFunctionInterface) is False:
+            raise TypeError("The type of __hidden_activating_function must be `ActivatingFunctionInterface`.")
+        return self.deeper_activating_function
+
+    def set_hidden_activating_function(self, value):
+        ''' setter '''
+        if isinstance(value, ActivatingFunctionInterface) is False:
+            raise TypeError("The type of __hidden_activating_function must be `ActivatingFunctionInterface`.")
+        self.deeper_activating_function = value
+
+    hidden_activating_function = property(get_hidden_activating_function, set_hidden_activating_function)
+
+    ##
     # The parameters of LSTM-RTRBM.
     #
     #
@@ -39,25 +77,6 @@ class LSTMGraph(RecurrentTemporalGraph):
 
     hidden_activity_arr = property(get_hidden_activity_arr, set_hidden_activity_arr)
 
-    # Bias of neuron in hidden layer in RBM.
-    __hidden_bias_arr = np.array([])
-
-    def get_hidden_bias_arr(self):
-        ''' getter '''
-        if isinstance(self.__hidden_bias_arr, np.ndarray) is False:
-            raise TypeError("The type of __hidden_bias_arr must be `np.ndarray`.")
-
-        return self.__hidden_bias_arr
-
-    def set_hidden_bias_arr(self, value):
-        ''' setter '''
-        if isinstance(value, np.ndarray) is False:
-            raise TypeError("The type of __hidden_bias_arr must be `np.ndarray`.")
-
-        self.__hidden_bias_arr = value
-
-    hidden_bias_arr = property(get_hidden_bias_arr, set_hidden_bias_arr)
-
     # The list of `__hidden_bias_arr` to be memorized in RBM.
     __hidden_bias_arr_list = []
     
@@ -70,21 +89,6 @@ class LSTMGraph(RecurrentTemporalGraph):
         self.__hidden_bias_arr_list = value
     
     hidden_bias_arr_list = property(get_hidden_bias_arr_list, set_hidden_bias_arr_list)
-
-    # Activation function in RBM's hidden layer and LSTM's hidden layer.
-    def get_hidden_activating_function(self):
-        ''' getter '''
-        if isinstance(self.deeper_activating_function, ActivatingFunctionInterface) is False:
-            raise TypeError("The type of __hidden_activating_function must be `ActivatingFunctionInterface`.")
-        return self.deeper_activating_function
-
-    def set_hidden_activating_function(self, value):
-        ''' setter '''
-        if isinstance(value, ActivatingFunctionInterface) is False:
-            raise TypeError("The type of __hidden_activating_function must be `ActivatingFunctionInterface`.")
-        self.deeper_activating_function = value
-
-    hidden_activating_function = property(get_hidden_activating_function, set_hidden_activating_function)
 
     # The list of activities in RBM hidden layer.
     __rbm_hidden_activity_arr_list = []
@@ -407,25 +411,6 @@ class LSTMGraph(RecurrentTemporalGraph):
         self.__output_gate_bias_arr = value
 
     output_gate_bias_arr = property(get_output_gate_bias_arr, set_output_gate_bias_arr)
-
-    # Bias of neuron in LSTM hidden layer.
-    __hidden_bias_arr = np.array([])
-
-    def get_hidden_bias_arr(self):
-        ''' getter '''
-        if isinstance(self.__hidden_bias_arr, np.ndarray) is False:
-            raise TypeError("The type of __hidden_bias_arr must be `np.ndarray`.")
-
-        return self.__hidden_bias_arr
-
-    def set_hidden_bias_arr(self, value):
-        ''' setter '''
-        if isinstance(value, np.ndarray) is False:
-            raise TypeError("The type of __hidden_bias_arr must be `np.ndarray`.")
-
-        self.__hidden_bias_arr = value
-
-    hidden_bias_arr = property(get_hidden_bias_arr, set_hidden_bias_arr)
 
     # Bias of neuron in LSTM output layer.
     __output_bias_arr = np.array([])

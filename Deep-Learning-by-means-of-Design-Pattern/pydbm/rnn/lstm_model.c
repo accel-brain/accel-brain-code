@@ -1952,7 +1952,7 @@ static const char __pyx_k_LSTMModel__learning_attenuate_r[] = "_LSTMModel__learn
 static const char __pyx_k_LSTMModel__output_gate_arr_list[] = "_LSTMModel__output_gate_arr_list";
 static const char __pyx_k_LSTMModel__rnn_activity_arr_lis[] = "_LSTMModel__rnn_activity_arr_list";
 static const char __pyx_k_LSTMModel__verificatable_result[] = "_LSTMModel__verificatable_result";
-static const char __pyx_k_Long_short_term_memory_LSTM_net[] = "\n    Long short term memory(LSTM) networks.\n    \n    Alpha version.\n    ";
+static const char __pyx_k_Long_short_term_memory_LSTM_net[] = "\n    Long short term memory(LSTM) networks for the function approximation.\n    \n    This is a beta version.\n    ";
 static const char __pyx_k_This_property_must_be_read_only[] = "This property must be read-only.";
 static const char __pyx_k_forget_gate_activating_function[] = "forget_gate_activating_function";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
@@ -17702,7 +17702,7 @@ static int __pyx_pymod_exec_lstm_model(PyObject *__pyx_pyinit_module)
  * 
  * class LSTMModel(ReconstructableFeature):             # <<<<<<<<<<<<<<
  *     '''
- *     Long short term memory(LSTM) networks.
+ *     Long short term memory(LSTM) networks for the function approximation.
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ReconstructableFeature); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -18255,7 +18255,7 @@ static int __pyx_pymod_exec_lstm_model(PyObject *__pyx_pyinit_module)
  * 
  * class LSTMModel(ReconstructableFeature):             # <<<<<<<<<<<<<<
  *     '''
- *     Long short term memory(LSTM) networks.
+ *     Long short term memory(LSTM) networks for the function approximation.
  */
   __pyx_t_8 = __Pyx_Py3ClassCreate(__pyx_t_1, __pyx_n_s_LSTMModel, __pyx_t_2, __pyx_t_3, NULL, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);

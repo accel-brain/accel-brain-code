@@ -24,17 +24,31 @@ Full documentation is available on [https://code.accel-brain.com/Automatic-Summa
 
 ## [Deep Learning Library: pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern)
 
-`pydbm` is Python library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Recurrent Temporal Restricted Boltzmann Machine(RTRBM), Recurrent neural network Restricted Boltzmann Machine(RNN-RBM), and Shape Boltzmann Machine(Shape-BM). This is **Cython version**. [pydbm_mxnet](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern/mxnet) (MXNet version) is derived from this library.
+The function of `pydbm` is building and modeling **Restricted Boltzmann Machine**(RBM) and **Deep Boltzmann Machine**(DBM). The models are functionally equivalent to **stacked auto-encoder**. The basic function is the same as **dimensions reduction**(or **pre-training**). And this library enables you to build many functional extensions from RBM and DBM such as Recurrent Temporal Restricted Boltzmann Machine(RTRBM), Recurrent Neural Network Restricted Boltzmann Machine(RNN-RBM), Long Short-Term Memory Recurrent Temporal Restricted Boltzmann Machine(LSTM-RTRBM), and Shape Boltzmann Machine(Shape-BM).
 
-The function of this library is building and modeling **Restricted Boltzmann Machine(RBM)** and **Deep Boltzmann Machine(DBM)**. The models are functionally equivalent to **stacked auto-encoder**. The basic function is the same as dimensions reduction(or pre-training). And this library enables you to build many functional extensions from RBM and DBM such as Recurrent Temporal Restricted Boltzmann Machine(RTRBM), Recurrent Neural Network Restricted Boltzmann Machine(RNN-RBM), and Shape Boltzmann Machine(Shape-BM).
+This is **Cython version**. [pydbm_mxnet](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern/mxnet) (MXNet version) is derived from this library.
 
-### RTRBM and RNN-RBM for probabilistic time-series model.
+### RTRBM, RNN-RBM, and LSTM-RTRBM for probabilistic time-series model.
 
-As more usecases, **RTRBM** and **RNN-RBM** can learn dependency structures in temporal patterns such as music, natural sentences, and n-gram. RTRBM is a probabilistic time-series model which can be viewed as a temporal stack of RBMs, where each RBM has a contextual hidden state that is received from the previous RBM and is used to modulate its hidden units bias. The RTRBM can be understood as a sequence of conditional RBMs whose parameters are the output of a deterministic RNN, with the constraint that the hidden units must describe the conditional distributions. This constraint can be lifted by combining a full RNN with distinct hidden units. In terms of this possibility, RNN-RBM is structurally expanded model from RTRBM that allows more freedom to describe the temporal dependencies involved.
+As more usecases, **RTRBM**, **RNN-RBM**, and **LSTM-RTRBM** can learn dependency structures in temporal patterns such as music, natural sentences, and n-gram. RTRBM is a probabilistic time-series model which can be viewed as a temporal stack of RBMs, where each RBM has a contextual hidden state that is received from the previous RBM and is used to modulate its hidden units bias. The RTRBM can be understood as a sequence of conditional RBMs whose parameters are the output of a deterministic RNN, with the constraint that the hidden units must describe the conditional distributions. This constraint can be lifted by combining a full RNN with distinct hidden units. In terms of this possibility, RNN-RBM and LSTM-RTRBM are structurally expanded model from RTRBM that allows more freedom to describe the temporal dependencies involved.
+
+In this library, the function of LSTM-RTRBM is the pre-learning for **LSTM**. It is possible to do Transfer learning, delegating pre-learned parameters to LSTM model. For instance, it can be easy to implement a comparison of this initialization strategies by introducing simple toy problem, namely Sine Wave Prediction, executing pre-learning the dataset by LSTM-RTRBM and learning same dataset by LSTM under the same conditions, and logging the loss function: Mean Square Error(MSE). The result of with-and-without comparison were as follows.
+
+#### Without pre-learning (Standard learning in LSTM).
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/LSTM_loss_not_pre_learning.png" /></div>
+
+#### With pre-learning (LSTM-RTRBM's pre-learning and LSTM's learning).
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/LSTM_loss_pre_learning.png" /></div>
+
+#### Difference demonstrates the function.
+
+The difference of MSE observed from the simple toy problem demonstrates that the function of LSTM-RTRBM's pre-learning is to improve performance of LSTM's learning. On the context of paradigm of Deep learning and Transfer learning, the initialization strategies, based on not only a mere Gaussian noise but also unsupervised pre-learning of each layer, have been shown to be important both for supervised and unsupervised learning of Machine learning. In particular, LSTM-RTRBM makes it possible to do pre-learning and Transfer learning for probabilistic time series patterns.
 
 ### Shape-BM for image segmentation, object detection, inpainting and graphics.
 
-On the other hand, the usecases of **Shape-BM** are image segmentation, object detection, inpainting and graphics. Shape-BM is the model for the task of modeling binary shape images, in that samples from the model look realistic and it can generalize to generate samples that differ from training examples.
+The usecases of **Shape-BM** are image segmentation, object detection, inpainting and graphics. Shape-BM is the model for the task of modeling binary shape images, in that samples from the model look realistic and it can generalize to generate samples that differ from training examples.
 
 <table border="0">
     <tr>
@@ -52,10 +66,6 @@ On the other hand, the usecases of **Shape-BM** are image segmentation, object d
         </td>
     </tr>
 </table>
-
-### Deep Boltzmann Machine as stacked auto-encoder for dimensions reduction or pre-training.
-
-In relation to my [Automatic Summarization Library](https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization), it is important for me that the models are functionally equivalent to stacked auto-encoder. The main function I observe is the same as dimensions reduction(or pre-training). But the functional reusability of the models can be not limited to this. These Python Scripts can be considered a kind of experiment result to verify effectiveness of object-oriented analysis, object-oriented design, and GoF's design pattern in designing and modeling neural network, deep learning, and [Reinforcement-Learning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning).
 
 ### Documentation
 

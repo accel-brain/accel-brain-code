@@ -48,6 +48,7 @@ class LSTMModel(ReconstructableFeature):
         double learning_rate,
         double learning_attenuate_rate,
         int attenuate_epoch,
+        int bptt_tau=16,
         double test_size_rate=0.3,
         verificatable_result=None
     ):
@@ -61,6 +62,7 @@ class LSTMModel(ReconstructableFeature):
             learning_rate:                  Learning rate.
             learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
             attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+            bptt_tau:                       Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
             verificatable_result:           Verification function.
         '''
@@ -77,6 +79,7 @@ class LSTMModel(ReconstructableFeature):
         self.__learning_attenuate_rate = learning_attenuate_rate
         self.__attenuate_epoch = attenuate_epoch
 
+        self.__bptt_tau = bptt_tau
         self.__test_size_rate = test_size_rate
 
         self.__delta_weights_output_arr = None
@@ -483,7 +486,12 @@ class LSTMModel(ReconstructableFeature):
         if self.__delta_given_bias_arr is None:
             self.__delta_given_bias_arr = np.zeros(delta_given_arr.shape[0])
 
-        for i in range(1, len(self.__output_arr_list[:])):
+        if self.__bptt_tau == 0:
+            tau = self.__output_arr_list.shape[0]
+        else:
+            tau = self.__bptt_tau
+
+        for i in range(1, len(self.__output_arr_list[:tau])):
             delta_hidden_arr = self.__hidden_activity_arr_list[i-1] * np.dot(
                 self.graph.hidden_activating_function.derivative(self.__hidden_activity_arr_list[i]),
                 self.graph.weights_hidden_arr

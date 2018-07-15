@@ -408,6 +408,25 @@ class LSTMGraph(RecurrentTemporalGraph):
 
     output_gate_bias_arr = property(get_output_gate_bias_arr, set_output_gate_bias_arr)
 
+    # Bias of neuron in LSTM hidden layer.
+    __hidden_bias_arr = np.array([])
+
+    def get_hidden_bias_arr(self):
+        ''' getter '''
+        if isinstance(self.__hidden_bias_arr, np.ndarray) is False:
+            raise TypeError("The type of __hidden_bias_arr must be `np.ndarray`.")
+
+        return self.__hidden_bias_arr
+
+    def set_hidden_bias_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __hidden_bias_arr must be `np.ndarray`.")
+
+        self.__hidden_bias_arr = value
+
+    hidden_bias_arr = property(get_hidden_bias_arr, set_hidden_bias_arr)
+
     # Bias of neuron in LSTM output layer.
     __output_bias_arr = np.array([])
 
@@ -503,6 +522,23 @@ class LSTMGraph(RecurrentTemporalGraph):
     
     weights_output_gate_arr = property(get_weights_output_gate_arr, set_weights_output_gate_arr)
 
+    # Weight matrix of LSTM hidden layer.
+    __weights_hidden_arr = np.array([])
+    
+    def get_weights_hidden_arr(self):
+        ''' getter '''
+        if isinstance(self.__weights_hidden_arr, np.ndarray) is False:
+            raise TypeError("The type of __weights_hidden_arr must be `np.ndarray`.")
+        return self.__weights_hidden_arr
+    
+    def set_weights_hidden_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __weights_hidden_arr must be `np.ndarray`.")
+        self.__weights_hidden_arr = value
+    
+    weights_hidden_arr = property(get_weights_hidden_arr, set_weights_hidden_arr)
+    
     # Weight matrix of LSTM output layer.
     __weights_output_arr = np.array([])
     
@@ -533,6 +569,8 @@ class LSTMGraph(RecurrentTemporalGraph):
         self.weights_input_gate_arr = np.random.normal(size=(input_neuron_count, hidden_neuron_count)) * 0.01
         self.weights_forget_gate_arr = np.random.normal(size=(input_neuron_count, hidden_neuron_count)) * 0.01
         self.weights_output_gate_arr = np.random.normal(size=(input_neuron_count, hidden_neuron_count)) * 0.01
+        
+        self.weights_hidden_arr = np.random.normal(size=(hidden_neuron_count, hidden_neuron_count)) * 0.01
 
         self.weights_output_arr = np.random.normal(size=(hidden_neuron_count, output_neuron_count)) * 0.01
 
@@ -540,6 +578,7 @@ class LSTMGraph(RecurrentTemporalGraph):
         self.input_gate_bias_arr = np.random.normal(size=hidden_neuron_count) * 0.01
         self.forget_gate_bias_arr = np.random.normal(size=hidden_neuron_count) * 0.01
         self.output_gate_bias_arr = np.random.normal(size=hidden_neuron_count) * 0.01
+        self.hidden_bias_arr = np.random.normal(size=hidden_neuron_count) * 0.01
 
         self.output_bias_arr = np.random.normal(size=output_neuron_count) * 0.01
 

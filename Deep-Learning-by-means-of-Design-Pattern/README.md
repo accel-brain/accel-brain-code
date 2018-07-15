@@ -688,6 +688,53 @@ lstm_model = LSTMModel(
 )
 ```
 
+### Toy problem: Sine Wave Prediction.
+
+It can be easy to implement a comparison of initialization strategies by introducing simple toy problem, namely Sine Wave Prediction. In this demonstration, the training dataset is generated as follows.
+
+```python
+# The number of sampled data.
+sample_n = 1000
+# The length of one cycle.
+cycle_len = 100
+# Amplitude of Sine Wave.
+amp = 0.05
+# The rate of the length of predicted data.
+target_size = 0.5
+
+# The list of observed data points.
+observed_arr_list = []
+# The list of objective data.
+target_arr_list = []
+
+for _ in range(sample_n):
+    sin_arr = np.sin(2.0 * np.pi * np.arange(0, cycle_len))
+    noise_arr = amp * np.random.normal(loc=0.0, scale=0.5, size=sin_arr.shape[0])
+    sin_arr += noise_arr
+
+    observed_arr_list.append(sin_arr[:int(sin_arr.shape[0] * (1 - target_size))])
+    target_arr_list.append(sin_arr[int(sin_arr.shape[0] * (1 - target_size)):])
+
+# Reshape for `LSTMModel`.
+observed_arr = np.array(observed_arr_list)
+observed_arr = observed_arr.reshape(observed_arr.shape[0], observed_arr.shape[1], 1)
+target_arr = np.array(target_arr_list)
+```
+
+Then execute pre-learning the dataset by LSTM-RTRBM and learning same dataset by LSTM under the same conditions, where `hidden_neuron_count` is `100`, LSTM-RTRBM's `training_count` is `100`, LSTM's `epochs` is `1000`, `batch_size` is `20`, `learning_rate` is `1e-05`, `learning_attenuate_rate` is `0.1`, `attenuate_epoch` is `50`, and `test_size_rate` is `0.3`, and logging the loss function: Mean Square Error(MSE). The result of with-and-without comparison were as follows.  
+
+#### Without pre-learning (Standard learning in LSTM).
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/LSTM_loss_not_pre_learning.png" /></div>
+
+#### With pre-learning (LSTM-RTRBM's pre-learning and LSTM's learning).
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/LSTM_loss_pre_learning.png" /></div>
+
+#### Difference demonstrates the function.
+
+The difference of MSE observed from the simple toy problem demonstrates that the function of LSTM-RTRBM's pre-learning is to improve performance of LSTM's learning. On the context of paradigm of Deep learning and Transfer learning, the initialization strategies, based on not only a mere Gaussian noise but also unsupervised pre-learning of each layer, have been shown to be important both for supervised and unsupervised learning of Machine learning. In particular, LSTM-RTRBM makes it possible to do pre-learning and Transfer learning for probabilistic time series patterns.
+
 ## Usecase: Image segmentation by Shape-BM.
 
 First, acquire image data and binarize it.

@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 from logging import getLogger
 import numpy as np
-from pydbm.loss.interface.computable_loss import ComputableLoss
+cimport numpy as np
+from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
 from pydbm.rnn.interface.reconstructable_feature import ReconstructableFeature
+ctypedef np.float64_t DOUBLE_t
 
 
-class EncoderDecoderControler(object):
+class EncoderDecoderController(object):
     '''
     Encoder-Decoder scheme.
     '''
@@ -28,25 +30,22 @@ class EncoderDecoderControler(object):
         learning_rate,
         learning_attenuate_rate,
         attenuate_epoch,
-        computable_loss,
-        test_size_rate=0.3
+        test_size_rate=0.3,
+        verificatable_result=None
     ):
         '''
         Init.
 
         Args:
-            encoder:    is-a `ReconstructableFeature` for vector representation of the input time-series.
-            decoder:    is-a `ReconstructableFeature` to reconstruct the time-series.
+            encoder:                    is-a `ReconstructableFeature` for vector representation of the input time-series.
+            decoder:                    is-a `ReconstructableFeature` to reconstruct the time-series.
 
-            epochs:                         Epochs of Mini-batch.
-            bath_size:                      Batch size of Mini-batch.
-            learning_rate:                  Learning rate.
-            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
-            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
-
-            computable_loss:                Loss function for training Encoder/Decoder.
-
-            test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
+            epochs:                     Epochs of Mini-batch.
+            bath_size:                  Batch size of Mini-batch.
+            learning_rate:              Learning rate.
+            learning_attenuate_rate:    Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:            Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+            test_size_rate:             Size of Test data set. If this value is `0`, the validation will not be executed.
 
         '''
         if isinstance(encoder, ReconstructableFeature):
@@ -66,14 +65,16 @@ class EncoderDecoderControler(object):
         self.__attenuate_epoch = attenuate_epoch
 
         self.__test_size_rate = test_size_rate
+        if isinstance(verificatable_result, VerificatableResult):
+            self.__verificatable_result = verificatable_result
+        else:
+            raise TypeError()
 
-        self.__computable_loss = computable_loss
-
-        logger = getLogger("pydbm.encoder_decoder_controller")
+        logger = getLogger("pydbm")
         self.__logger = logger
         self.__logger.debug("encoder_decoder_controller is started. ")
 
-    def learn(self, observed_arr, target_arr=None):
+    def learn(self, np.ndarray[DOUBLE_t, ndim=3] observed_arr, np.ndarray target_arr=np.array([])):
         '''
         Learn the observed data points.
         for vector representation of the input time-series.
@@ -83,15 +84,52 @@ class EncoderDecoderControler(object):
         Override.
 
         Args:
-            image_generator:    is-a `ImageGenerator`.
+            observed_arr:    Array like or sparse matrix as the observed data ponts.
+            target_arr:      Array like or sparse matrix as the target data points.
 
         '''
         self.__logger.debug("encoder_decoder_controler.learn is started. ")
-        # to reduce gradually using `__learning_attenuate_rate`.
-        learning_rate = self.__learning_rate
 
-        if target_arr is not None:
-            if target_arr.shape[0] != observed_arr.shape[0]:
+        cdef int row_o = observed_arr.shape[0]
+        cdef int row_t = target_arr.shape[0]
+
+        cdef np.ndarray train_index
+        cdef np.ndarray test_index
+        cdef np.ndarray[DOUBLE_t, ndim=3] train_observed_arr
+        cdef np.ndarray train_target_arr
+        cdef np.ndarray[DOUBLE_t, ndim=3] test_observed_arr
+        cdef np.ndarray test_target_arr
+
+        cdef double learning_rate = self.__learning_rate
+
+        cdef int epoch
+        cdef np.ndarray rand_index
+        cdef np.ndarray[DOUBLE_t, ndim=3] batch_observed_arr
+        cdef np.ndarray batch_target_arr
+        cdef np.ndarray[DOUBLE_t, ndim=1] hidden_activity_arr
+        cdef np.ndarray[DOUBLE_t, ndim=1] rnn_activity_arr
+
+        cdef np.ndarray[DOUBLE_t, ndim=1] _output_arr
+        cdef np.ndarray[DOUBLE_t, ndim=1] _hidden_activity_arr
+        cdef np.ndarray[DOUBLE_t, ndim=1] _rnn_activity_arr
+
+        cdef np.ndarray input_arr
+        cdef np.ndarray rnn_arr
+        cdef np.ndarray output_arr
+        cdef np.ndarray label_arr
+        cdef int batch_index
+        cdef np.ndarray[DOUBLE_t, ndim=2] time_series_X
+
+        cdef np.ndarray test_output_arr
+        cdef np.ndarray test_label_arr
+
+        if row_t == 0:
+            target_arr = observed_arr.copy()
+        else:
+            if target_arr.ndim == 2:
+                target_arr = target_arr.reshape((target_arr.shape[0], 1, target_arr.shape[1]))
+
+            if row_o != row_t:
                 raise ValueError("The row of `target_arr` must be equivalent to the row of `observed_arr`.")
 
         if target_arr is None:
@@ -115,136 +153,96 @@ class EncoderDecoderControler(object):
             if ((epoch + 1) % self.__attenuate_epoch == 0):
                 learning_rate = learning_rate / self.__learning_attenuate_rate
 
+            rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)
+            batch_observed_arr = train_observed_arr[rand_index]
+            batch_target_arr = train_target_arr[rand_index]
+
             input_arr = None
+            rnn_arr = None
+            hidden_arr = None
+            output_arr = None
+            label_arr = None
             test_input_arr = None
             reconstructed_arr = None
             test_reconstructed_arr = None
             train_labeled = None
             test_labeled = None
 
-            if epoch == 0:
-                self.__logger.debug("batch is started.")
-
-            for row in range(train_observed_arr.shape[0]):
-                if epoch == 0:
-                    self.__logger.debug("Generation image is end.")
+            for batch_index in range(batch_observed_arr.shape[0]):
+                time_series_X = batch_observed_arr[batch_index]
+                target_time_series_X = batch_target_arr[batch_index]
 
                 if input_arr is None:
-                    input_arr = train_observed_arr[row]
+                    input_arr = time_series_X[-1]
                 else:
-                    input_arr = np.r_[input_arr, train_observed_arr[row]]
+                    input_arr = np.vstack([input_arr, time_series_X[-1]])
+                if label_arr is None:
+                    label_arr = target_time_series_X[-1]
+                else:
+                    label_arr = np.vstack([label_arr, target_time_series_X[-1]])
 
-                if epoch == 0:
-                    self.__logger.debug("`input_arr` is set.")
-
-                encoder_outputs = self.encoder.inference(train_observed_arr)
-                if epoch == 0:
-                    self.__logger.debug("`encoder_outputs` is set.")
-
+                encoder_outputs = self.encoder.inference(time_series_X)
                 feature_points_arr = self.encoder.get_feature_points()
                 feature_points_arr = feature_points_arr.T
                 feature_points_arr = feature_points_arr[::-1]
-                feature_points_arr = feature_points_arr.reshape((1, feature_points_arr.shape[0], feature_points_arr.shape[1]))
-                if epoch == 0:
-                    self.__logger.debug("`feature_points_arr` is set.")
-
-                if epoch == 0:
-                    self.__logger.debug("Gradients have been attached.")
+                feature_points_arr = feature_points_arr.reshape((1, feature_points_arr.shape[0]))
 
                 decoder_outputs = self.decoder.inference(feature_points_arr)
-                if epoch == 0:
-                    self.__logger.debug("`decoder_outputs` is set.")
+                reconstructed_arr = self.decoder.get_feature_points().T
 
-                if reconstructed_arr is None:
-                    reconstructed_arr = self.decoder.get_feature_points().T
-                else:
+                for _ in range(time_series_X.shape[0]):
+                    decoder_outputs = decoder_outputs.reshape((1, decoder_outputs.shape[0]))
+                    decoder_outputs = self.decoder.inference(decoder_outputs)
                     reconstructed_arr = np.r_[reconstructed_arr, self.decoder.get_feature_points().T]
 
-                if epoch == 0:
-                    self.__logger.debug("`reconstructed_arr` is set.")
+                if output_arr is None:
+                    output_arr = reconstructed_arr
+                else:
+                    output_arr = np.vstack([output_arr, reconstructed_arr])
 
-                train_labeled = train_target_arr[0][0]
-                if self.__test_size_rate > 0:
-                    test_labeled = test_target_arr[0][0]
+                self.encoder.back_propagation(target_time_series_X[-1])
+                self.decoder.back_propagation(target_time_series_X[-1])
 
-                if self.__test_size_rate > 0:
-                    if epoch == 0:
-                        self.__logger.debug("validation is started.")
+            self.encoder.update(learning_rate)
+            self.decoder.update(learning_rate)
 
+            if self.__test_size_rate > 0:
+                rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
+                batch_observed_arr = test_observed_arr[rand_index]
+                batch_target_arr = test_target_arr[rand_index]
+
+                test_output_arr = None
+                test_label_arr = None
+                for batch_index in range(batch_observed_arr.shape[0]):
+                    time_series_X_arr = batch_observed_arr[batch_index]
+                    target_time_series_X_arr = batch_target_arr[batch_index]
                     if test_input_arr is None:
-                        test_input_arr = test_observed_arr
+                        test_input_arr = time_series_X_arr
                     else:
-                        test_input_arr = np.r_[test_input_arr, test_observed_arr]
+                        test_input_arr = np.r_[test_input_arr, time_series_X_arr]
 
-                    if test_reconstructed_arr is None:
-                        if epoch == 0:
-                            self.__logger.debug("Infernecing is started.")
-                        test_reconstructed_arr = self.inference(test_observed_arr).T
-                        if epoch == 0:
-                            self.__logger.debug("Infernecing is end.")
+                    if test_label_arr is None:
+                        test_label_arr = target_time_series_X_arr[-1]
                     else:
-                        if epoch == 0:
-                            self.__logger.debug("Infernecing is started.")
-                        test_reconstructed_arr = np.r_[
-                            test_reconstructed_arr,
-                            self.inference(test_observed_arr).T
-                        ]
-                        if epoch == 0:
-                            self.__logger.debug("Infernecing is end.")
-                    if epoch == 0:
-                        self.__logger.debug("validation is end.")
+                        test_label_arr = np.vstack([test_label_arr, target_time_series_X_arr[-1]])
 
-                if epoch == 0:
-                    self.__logger.debug("batch is end.")
-                loss = self.computable_loss.compute(reconstructed_arr, input_arr[:][-1])
-                test_loss = self.computable_loss.compute(test_reconstructed_arr, test_input_arr[:][-1])
+                    _test_output_arr = self.inference(time_series_X_arr)
+                    if test_output_arr is None:
+                        test_output_arr = _test_output_arr
+                    else:
+                        test_output_arr = np.vstack([test_output_arr, _test_output_arr])
 
-            self.encoder.optimize(loss, learning_rate)
-            self.decoder.optimize(loss, learning_rate)
+                if self.__verificatable_result is not None:
+                    if self.__test_size_rate > 0:
+                        self.__verificatable_result.verificate(
+                            train_pred_arr=output_arr,
+                            train_label_arr=label_arr,
+                            test_pred_arr=test_output_arr,
+                            test_label_arr=test_label_arr
+                        )
 
-            if epoch == 0:
-                self.__logger.debug("Optimization is end.")
 
-            reconstructed_error = self.computable_loss.compute(reconstructed_arr, input_arr[:][-1])
-            if self.__test_size_rate > 0:
-                test_reconstructed_error = self.computable_loss.compute(test_reconstructed_arr, test_input_arr[:][-1])
-
-            if epoch == 0:
-                self.__logger.debug("Computing reconstruction error is end.")
-
-            # Keeping a moving average of the losses.
-            if epoch == 0:
-                moving_loss = np.mean(loss)
-                moving_reconstructed_error = np.mean(reconstructed_error)
-                if self.__test_size_rate > 0:
-                    test_moving_loss = np.mean(test_loss)
-                    test_moving_reconstructed_error = np.mean(test_reconstructed_error)
-
-            else:
-                moving_loss = .99 * moving_loss + .01 * np.mean(loss)
-                moving_reconstructed_error = .99 * moving_reconstructed_error + .01 * np.mean(reconstructed_error)
-                if self.__test_size_rate > 0:
-                    test_moving_loss = .99 * test_moving_loss + .01 * np.mean(test_loss)
-                    test_moving_reconstructed_error = .99 * test_moving_reconstructed_error + .01 * np.mean(test_reconstructed_error)
-
-            if self.__test_size_rate > 0:
-                self.__learned_result_list.append((epoch, moving_loss, moving_reconstructed_error, test_moving_loss, test_moving_reconstructed_error))
-                self.__reconstructed_error_list.append((moving_reconstructed_error, test_moving_reconstructed_error))
-                self.__labeled_list.append((train_labeled, test_labeled))
-                self.__logger.debug("Epoch: " + str(epoch))
-                self.__logger.debug("train loss:" + str(moving_loss))
-                self.__logger.debug("train reconstruction error: " + str(moving_reconstructed_error))
-                self.__logger.debug("test loss: " + str(test_moving_loss))
-                self.__logger.debug("test reconstruction error: " + str(test_moving_reconstructed_error))
-            else:
-                self.__learned_result_list.append((epoch, moving_loss, moving_reconstructed_error))
-                self.__reconstructed_error_list.append(moving_reconstructed_error)
-                self.__labeled_list.append(train_labeled)
-                self.__logger.debug("Epoch: " + str(epoch))
-                self.__logger.debug("train loss:" + str(moving_loss))
-                self.__logger.debug("reconstruction error: " + str(moving_reconstructed_error))
-
-    def inference(self, time_series_X_arr):
+    def inference(self, np.ndarray[DOUBLE_t, ndim=2] time_series_X_arr):
         '''
         Inference the feature points
         to reconstruct the time-series.
@@ -257,11 +255,18 @@ class EncoderDecoderControler(object):
         '''
         encoder_outputs = self.encoder.inference(time_series_X_arr)
         feature_points_arr = self.encoder.get_feature_points()
-        feature_points_arr = feature_points_arr[::-1].T
-        feature_points_arr = feature_points_arr.reshape((1, feature_points_arr.shape[0], feature_points_arr.shape[1]))
+        feature_points_arr = feature_points_arr.T
+        feature_points_arr = feature_points_arr[::-1]
+        feature_points_arr = feature_points_arr.reshape((1, feature_points_arr.shape[0]))
+
         decoder_outputs = self.decoder.inference(feature_points_arr)
-        reconstructed_arr = self.decoder.get_feature_points()
-        reconstructed_arr = reconstructed_arr[::-1]
+        reconstructed_arr = self.decoder.get_feature_points().T
+
+        for _ in range(time_series_X_arr.shape[0]):
+            decoder_outputs = decoder_outputs.reshape((1, decoder_outputs.shape[0]))
+            decoder_outputs = self.decoder.inference(decoder_outputs)
+            reconstructed_arr = np.r_[reconstructed_arr, self.decoder.get_feature_points().T]
+
         return reconstructed_arr
 
     def get_reconstruction_error(self):

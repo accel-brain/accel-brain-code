@@ -122,6 +122,9 @@ class EncoderDecoderController(object):
 
         cdef np.ndarray test_output_arr
         cdef np.ndarray test_label_arr
+        
+        cdef np.ndarray reconstructed_arr
+        cdef np.ndarray test_reconstructed_arr
 
         if row_t == 0:
             target_arr = observed_arr.copy()

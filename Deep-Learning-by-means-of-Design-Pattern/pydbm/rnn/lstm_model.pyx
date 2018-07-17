@@ -48,6 +48,8 @@ class LSTMModel(ReconstructableFeature):
         double learning_rate,
         double learning_attenuate_rate,
         int attenuate_epoch,
+        double weight_limit=0.05,
+        double dropout_rate=0.5,
         int bptt_tau=16,
         double test_size_rate=0.3,
         verificatable_result=None
@@ -62,6 +64,7 @@ class LSTMModel(ReconstructableFeature):
             learning_rate:                  Learning rate.
             learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
             attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+            weight_limit:                   Regularization for weights matrix.
             bptt_tau:                       Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
             verificatable_result:           Verification function.
@@ -78,6 +81,9 @@ class LSTMModel(ReconstructableFeature):
         self.__learning_rate = learning_rate
         self.__learning_attenuate_rate = learning_attenuate_rate
         self.__attenuate_epoch = attenuate_epoch
+
+        self.__weight_limit = weight_limit
+        self.__dropout_rate = dropout_rate
 
         self.__bptt_tau = bptt_tau
         self.__test_size_rate = test_size_rate
@@ -192,7 +198,8 @@ class LSTMModel(ReconstructableFeature):
                     _output_arr, _hidden_activity_arr, _rnn_activity_arr = self.rnn_learn(
                         time_series_X_arr,
                         hidden_activity_arr,
-                        rnn_activity_arr
+                        rnn_activity_arr,
+                        dropout_flag=True
                     )
 
                     if input_arr is None:
@@ -325,7 +332,8 @@ class LSTMModel(ReconstructableFeature):
         self,
         np.ndarray[DOUBLE_t, ndim=2] time_series_arr,
         np.ndarray hidden_activity_arr=np.array([]),
-        np.ndarray rnn_activity_arr=np.array([])
+        np.ndarray rnn_activity_arr=np.array([]),
+        dropout_flag=False
     ):
         '''
         Learn in RNN layer.
@@ -392,11 +400,14 @@ class LSTMModel(ReconstructableFeature):
                 np.dot(arr, self.graph.weights_output_gate_arr) + self.graph.output_gate_bias_arr
             )
             self.__output_gate_arr_list.append(output_gate_arr)
-            rnn_activity_arr = given_activity_arr * input_gate_arr + rnn_activity_arr * forget_gate_arr
+            rnn_activity_arr = given_activity_arr * input_gate_arr + hidden_activity_arr * forget_gate_arr
             self.__rnn_activity_arr_list.append(rnn_activity_arr)
             hidden_activity_arr = self.graph.hidden_activating_function.activate(
                 output_gate_arr * (np.dot(rnn_activity_arr, self.graph.weights_hidden_arr) + self.graph.hidden_bias_arr)
             )
+            if dropout_flag is True:
+                hidden_activity_arr = self.__dropout(hidden_activity_arr)
+
             self.__hidden_activity_arr_list.append(hidden_activity_arr)
             output_arr = self.graph.output_activating_function.activate(
                 np.dot(hidden_activity_arr, self.graph.weights_output_arr) + self.graph.output_bias_arr
@@ -564,7 +575,26 @@ class LSTMModel(ReconstructableFeature):
         self.graph.weights_forget_gate_arr -= learning_rate * self.__delta_weights_forget_gate_arr / self.__batch_size
         self.graph.weights_input_gate_arr -= learning_rate * self.__delta_weights_input_gate_arr / self.__batch_size
         self.graph.weights_given_arr -= learning_rate * self.__delta_weights_given_arr / self.__batch_size
-        
+
+        if self.__weight_limit > 0.0:
+            while np.sum(np.square(self.graph.weights_output_arr)) > self.__weight_limit:
+                self.graph.weights_output_arr = self.graph.weights_output_arr * 0.9
+
+            while np.sum(np.square(self.graph.weights_hidden_arr)) > self.__weight_limit:
+                self.graph.weights_hidden_arr = self.graph.weights_hidden_arr * 0.9
+
+            while np.sum(np.square(self.graph.weights_output_gate_arr)) > self.__weight_limit:
+                self.graph.weights_output_gate_arr = self.graph.weights_output_gate_arr * 0.9
+
+            while np.sum(np.square(self.graph.weights_forget_gate_arr)) > self.__weight_limit:
+                self.graph.weights_forget_gate_arr = self.graph.weights_forget_gate_arr * 0.9
+
+            while np.sum(np.square(self.graph.weights_input_gate_arr)) > self.__weight_limit:
+                self.graph.weights_input_gate_arr = self.graph.weights_input_gate_arr * 0.9
+
+            while np.sum(np.square(self.graph.weights_given_arr)) > self.__weight_limit:
+                self.graph.weights_given_arr = self.graph.weights_given_arr * 0.9
+
         self.graph.output_bias_arr -= learning_rate * self.__delta_output_bias_arr / self.__batch_size
         self.graph.hidden_bias_arr -= learning_rate * self.__delta_hidden_bias_arr / self.__batch_size
         self.graph.output_gate_bias_arr -= learning_rate * self.__delta_output_gate_bias_arr / self.__batch_size
@@ -585,6 +615,19 @@ class LSTMModel(ReconstructableFeature):
         self.__delta_forget_gate_bias_arr = None
         self.__delta_input_gate_bias_arr = None
         self.__delta_given_bias_arr = None
+
+    def __dropout(self, np.ndarray[DOUBLE_t, ndim=1] activity_arr):
+        '''
+        Dropout.
+        '''
+        cdef int row = activity_arr.shape[0]
+        cdef int dropout_flag = np.random.binomial(n=1, p=self.__dropout_rate, size=1).astype(int)
+        cdef np.ndarray[DOUBLE_t, ndim=1] dropout_rate_arr
+
+        if dropout_flag == 1:
+            dropout_rate_arr = np.random.randint(0, 2, size=(row, )).astype(np.float64)
+            activity_arr = activity_arr * dropout_rate_arr.T
+        return activity_arr
 
     def set_readonly(self, value):
         raise TypeError("This property must be read-only.")

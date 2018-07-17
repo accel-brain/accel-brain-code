@@ -145,7 +145,7 @@ class LSTMModel(ReconstructableFeature):
         cdef np.ndarray output_arr
         cdef np.ndarray label_arr
         cdef int batch_index
-        cdef np.ndarray[DOUBLE_t, ndim=2] time_series_X
+        cdef np.ndarray[DOUBLE_t, ndim=2] time_series_X_arr
 
         cdef np.ndarray test_output_arr
         cdef np.ndarray test_label_arr
@@ -188,13 +188,17 @@ class LSTMModel(ReconstructableFeature):
                 output_arr = None
                 label_arr = None
                 for batch_index in range(batch_observed_arr.shape[0]):
-                    time_series_X = batch_observed_arr[batch_index]
-                    _output_arr, _hidden_activity_arr, _rnn_activity_arr = self.rnn_learn(time_series_X, hidden_activity_arr, rnn_activity_arr)
+                    time_series_X_arr = batch_observed_arr[batch_index]
+                    _output_arr, _hidden_activity_arr, _rnn_activity_arr = self.rnn_learn(
+                        time_series_X_arr,
+                        hidden_activity_arr,
+                        rnn_activity_arr
+                    )
 
                     if input_arr is None:
-                        input_arr = time_series_X[-1]
+                        input_arr = time_series_X_arr[-1]
                     else:
-                        input_arr = np.vstack([input_arr, time_series_X[-1]])
+                        input_arr = np.vstack([input_arr, time_series_X_arr[-1]])
 
                     if hidden_arr is None:
                         hidden_arr = _hidden_activity_arr
@@ -211,14 +215,14 @@ class LSTMModel(ReconstructableFeature):
                     else:
                         output_arr = np.vstack([output_arr, _output_arr])
 
-                    target_time_series_X = batch_target_arr[batch_index]
+                    target_time_series_X_arr = batch_target_arr[batch_index]
 
                     if label_arr is None:
-                        label_arr = target_time_series_X[-1]
+                        label_arr = target_time_series_X_arr[-1]
                     else:
-                        label_arr = np.vstack([label_arr, target_time_series_X[-1]])
+                        label_arr = np.vstack([label_arr, target_time_series_X_arr[-1]])
 
-                    self.back_propagation(target_time_series_X[-1])
+                    self.back_propagation(target_time_series_X_arr[-1])
 
                 self.update(learning_rate)
 
@@ -233,19 +237,19 @@ class LSTMModel(ReconstructableFeature):
                     test_output_arr = None
                     test_label_arr = None
                     for batch_index in range(batch_observed_arr.shape[0]):
-                        time_series_X = batch_observed_arr[batch_index]
-                        _test_output_arr = self.inference(time_series_X)
+                        time_series_X_arr = batch_observed_arr[batch_index]
+                        _test_output_arr, _, __ = self.inference(time_series_X_arr)
 
                         if test_output_arr is None:
                             test_output_arr = _test_output_arr
                         else:
                             test_output_arr = np.vstack([test_output_arr, _test_output_arr])
 
-                        target_time_series_X = batch_target_arr[batch_index]
+                        target_time_series_X_arr = batch_target_arr[batch_index]
                         if test_label_arr is None:
-                            test_label_arr = target_time_series_X[-1]
+                            test_label_arr = target_time_series_X_arr[-1]
                         else:
-                            test_label_arr = np.vstack([test_label_arr, target_time_series_X[-1]])
+                            test_label_arr = np.vstack([test_label_arr, target_time_series_X_arr[-1]])
 
                 if self.__verificatable_result is not None:
                     if self.__test_size_rate > 0:
@@ -261,22 +265,30 @@ class LSTMModel(ReconstructableFeature):
 
         self.__logger.debug("end. ")
 
-    def inference(self, np.ndarray[DOUBLE_t, ndim=2] time_series_arr):
+    def inference(
+        self,
+        np.ndarray[DOUBLE_t, ndim=2] time_series_arr,
+        np.ndarray hidden_activity_arr = np.array([]),
+        np.ndarray rnn_activity_arr = np.array([])
+    ):
         '''
         Inference the feature points to reconstruct the time-series.
 
         Override.
 
         Args:
-            time_series_arr:    Array like or sparse matrix as the observed data ponts.
+            time_series_arr:        Array like or sparse matrix as the observed data ponts.
+            hidden_activity_arr:    Array like or sparse matrix as the state in hidden layer.
+            rnn_activity_arr:       Array like or sparse matrix as the state in RNN.
         
         Returns:
-            Array like or sparse matrix of reconstructed instances of time-series.
+            Tuple(
+                Array like or sparse matrix of reconstructed instances of time-series,
+                Array like or sparse matrix of the state in hidden layer,
+                Array like or sparse matrix of the state in RNN
+            )
         '''
         result_list = [None] * time_series_arr.shape[0]
-
-        cdef np.ndarray hidden_activity_arr = np.array([])
-        cdef np.ndarray rnn_activity_arr = np.array([])
 
         cdef np.ndarray _hidden_activity_arr
         cdef np.ndarray _rnn_activity_arr
@@ -288,11 +300,14 @@ class LSTMModel(ReconstructableFeature):
         )
 
         if self.__feature_points_arr is not None and self.__feature_points_arr.shape[0] > 0:
-            self.__feature_points_arr = np.r_[self.__feature_points_arr, _hidden_activity_arr.T]
+            if self.__feature_points_arr.ndim > 1:
+                self.__feature_points_arr = np.vstack([self.__feature_points_arr, _hidden_activity_arr.T])
+            else:
+                self.__feature_points_arr = np.r_[self.__feature_points_arr, _hidden_activity_arr.T]
         else:
             self.__feature_points_arr = _hidden_activity_arr.T
 
-        return output_arr
+        return (output_arr, _hidden_activity_arr, _rnn_activity_arr)
 
     def get_feature_points(self):
         '''

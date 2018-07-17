@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 from abc import ABCMeta, abstractmethod, abstractproperty
+import numpy as np
+cimport numpy as np
+ctypedef np.float64_t DOUBLE_t
 
 
 class ReconstructableFeature(metaclass=ABCMeta):
@@ -8,17 +11,28 @@ class ReconstructableFeature(metaclass=ABCMeta):
     '''
 
     @abstractmethod
-    def inference(self, time_series_X_arr):
+    def inference(
+        self,
+        np.ndarray[DOUBLE_t, ndim=2] time_series_arr,
+        np.ndarray hidden_activity_arr = np.array([]),
+        np.ndarray rnn_activity_arr = np.array([])
+    ):
         '''
         Inference the feature points to reconstruct the time-series.
 
         Override.
 
         Args:
-            time_series_X_arr:    Array like or sparse matrix as the observed data ponts.
+            time_series_arr:        Array like or sparse matrix as the observed data ponts.
+            hidden_activity_arr:    Array like or sparse matrix as the state in hidden layer.
+            rnn_activity_arr:       Array like or sparse matrix as the state in RNN.
         
         Returns:
-            Array like or sparse matrix of reconstructed instances of time-series.
+            Tuple(
+                Array like or sparse matrix of reconstructed instances of time-series,
+                Array like or sparse matrix of the state in hidden layer,
+                Array like or sparse matrix of the state in RNN
+            )
         '''
         raise NotImplementedError()
 

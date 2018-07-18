@@ -11,8 +11,6 @@ ctypedef np.float64_t DOUBLE_t
 class LSTMModel(ReconstructableFeature):
     '''
     Long short term memory(LSTM) networks for the function approximation.
-    
-    This is a beta version.
     '''
     # is-a `Synapse`.
     __graph = None
@@ -64,8 +62,14 @@ class LSTMModel(ReconstructableFeature):
             learning_rate:                  Learning rate.
             learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
             attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
-            weight_limit:                   Regularization for weights matrix.
-            bptt_tau:                       Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
+            weight_limit:                   Regularization for weights matrix in hidden layer(RNN layers)
+                                            to repeat multiplying the weights matrix and `0.9` until
+                                            $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
+            
+            dropout_rate:                   The probability of dropout.
+            bptt_tau:                       Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
+                                            If `0`, this class referes all past data in BPTT.
+
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
             verificatable_result:           Verification function.
         '''
@@ -476,7 +480,7 @@ class LSTMModel(ReconstructableFeature):
         delta_weights_forget_gate_arr = delta_forget_gate_arr * self.__observed_arr_list[0].reshape(-1, 1)
         delta_weights_input_gate_arr = delta_input_gate_arr * self.__observed_arr_list[0].reshape(-1, 1)
         delta_weights_given_arr = delta_given_arr * self.__observed_arr_list[0].reshape(-1, 1)
-        
+
         delta_output_bias_arr = delta_output_arr
         delta_hidden_bias_arr = delta_hidden_arr
         delta_output_gate_bias_arr = delta_output_gate_arr

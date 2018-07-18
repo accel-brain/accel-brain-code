@@ -385,19 +385,19 @@ class LSTMModel(ReconstructableFeature):
             self.__observed_arr_list.append(arr.copy())
 
             given_activity_arr = self.graph.observed_activating_function.activate(
-                np.dot(arr, self.graph.weights_given_arr) + self.graph.given_bias_arr
+                (np.dot(arr, self.graph.weights_given_arr) + self.graph.given_bias_arr) * hidden_activity_arr
             )
             self.__given_activity_arr_list.append(given_activity_arr)
             input_gate_arr = self.graph.input_gate_activating_function.activate(
-                np.dot(arr, self.graph.weights_input_gate_arr) + self.graph.input_gate_bias_arr
+                (np.dot(arr, self.graph.weights_input_gate_arr) + self.graph.input_gate_bias_arr) * hidden_activity_arr
             )
             self.__input_gate_arr_list.append(input_gate_arr)
             forget_gate_arr = self.graph.forget_gate_activating_function.activate(
-                np.dot(arr, self.graph.weights_forget_gate_arr) + self.graph.forget_gate_bias_arr
+                (np.dot(arr, self.graph.weights_forget_gate_arr) + self.graph.forget_gate_bias_arr) * hidden_activity_arr
             )
             self.__forget_gate_arr_list.append(forget_gate_arr)
             output_gate_arr = self.graph.output_gate_activating_function.activate(
-                np.dot(arr, self.graph.weights_output_gate_arr) + self.graph.output_gate_bias_arr
+                (np.dot(arr, self.graph.weights_output_gate_arr) + self.graph.output_gate_bias_arr) * hidden_activity_arr
             )
             self.__output_gate_arr_list.append(output_gate_arr)
             rnn_activity_arr = given_activity_arr * input_gate_arr + hidden_activity_arr * forget_gate_arr
@@ -577,23 +577,8 @@ class LSTMModel(ReconstructableFeature):
         self.graph.weights_given_arr -= learning_rate * self.__delta_weights_given_arr / self.__batch_size
 
         if self.__weight_limit > 0.0:
-            while np.sum(np.square(self.graph.weights_output_arr)) > self.__weight_limit:
-                self.graph.weights_output_arr = self.graph.weights_output_arr * 0.9
-
             while np.sum(np.square(self.graph.weights_hidden_arr)) > self.__weight_limit:
                 self.graph.weights_hidden_arr = self.graph.weights_hidden_arr * 0.9
-
-            while np.sum(np.square(self.graph.weights_output_gate_arr)) > self.__weight_limit:
-                self.graph.weights_output_gate_arr = self.graph.weights_output_gate_arr * 0.9
-
-            while np.sum(np.square(self.graph.weights_forget_gate_arr)) > self.__weight_limit:
-                self.graph.weights_forget_gate_arr = self.graph.weights_forget_gate_arr * 0.9
-
-            while np.sum(np.square(self.graph.weights_input_gate_arr)) > self.__weight_limit:
-                self.graph.weights_input_gate_arr = self.graph.weights_input_gate_arr * 0.9
-
-            while np.sum(np.square(self.graph.weights_given_arr)) > self.__weight_limit:
-                self.graph.weights_given_arr = self.graph.weights_given_arr * 0.9
 
         self.graph.output_bias_arr -= learning_rate * self.__delta_output_bias_arr / self.__batch_size
         self.graph.hidden_bias_arr -= learning_rate * self.__delta_hidden_bias_arr / self.__batch_size

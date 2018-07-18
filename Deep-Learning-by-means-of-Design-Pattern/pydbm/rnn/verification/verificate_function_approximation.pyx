@@ -32,6 +32,7 @@ class VerificateFunctionApproximation(VerificatableResult):
         else:
             raise TypeError()
 
+        self.__logs_tuple_list = []
         logger = getLogger("pydbm")
         self.__logger = logger
 

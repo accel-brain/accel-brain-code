@@ -639,7 +639,14 @@ lstm_model = LSTMModel(
     learning_attenuate_rate=0.1,
     # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
     attenuate_epoch=50,
-    # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
+    # Regularization for weights matrix in hidden layer(RNN layers)
+    # to repeat multiplying the weights matrix and `0.9` until
+    # $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
+    weight_limit=0.05,
+    # The probability of dropout.
+    dropout_rate=0.5,
+    # Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
+    # If `0`, this class referes all past data in BPTT.
     bptt_tau=16,
     # Size of Test data set. If this value is `0`, the validation will not be executed.
     test_size_rate=0.3,
@@ -831,6 +838,7 @@ Image.fromarray(np.uint8(inferenced_data_arr))
 - Lyu, Q., Wu, Z., Zhu, J., & Meng, H. (2015, June). Modelling High-Dimensional Sequences with LSTM-RTRBM: Application to Polyphonic Music Generation. In IJCAI (pp. 4138-4139).
 - Lyu, Q., Wu, Z., & Zhu, J. (2015, October). Polyphonic music modelling with LSTM-RTRBM. In Proceedings of the 23rd ACM international conference on Multimedia (pp. 991-994). ACM.
 - Salakhutdinov, R., & Hinton, G. E. (2009). Deep boltzmann machines. InInternational conference on artificial intelligence and statistics (pp. 448-455).
+- Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. (2014). Dropout: a simple way to prevent neural networks from overfitting. The Journal of Machine Learning Research, 15(1), 1929-1958.
 - Sutskever, I., Hinton, G. E., & Taylor, G. W. (2009). The recurrent temporal restricted boltzmann machine. In Advances in Neural Information Processing Systems (pp. 1601-1608).
 - Zaremba, W., Sutskever, I., & Vinyals, O. (2014). Recurrent neural network regularization. arXiv preprint arXiv:1409.2329.
 

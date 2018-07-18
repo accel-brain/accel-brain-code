@@ -723,11 +723,11 @@ Then execute pre-learning the dataset by LSTM-RTRBM and learning same dataset by
 
 #### Without pre-learning (Standard learning in LSTM).
 
-<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/LSTM_loss_not_pre_learning.png" /></div>
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/LSTM_loss_not_pre_learning_v2.png" /></div>
 
 #### With pre-learning (LSTM-RTRBM's pre-learning and LSTM's learning).
 
-<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/LSTM_loss_pre_learning.png" /></div>
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/LSTM_loss_pre_learning_v2.png" /></div>
 
 #### Difference demonstrates the function.
 

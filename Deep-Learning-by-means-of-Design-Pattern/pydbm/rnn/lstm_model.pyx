@@ -251,12 +251,6 @@ class LSTMModel(ReconstructableFeature):
 
                     self.back_propagation(target_time_series_X_arr[-1])
 
-                    if self.__eary_stop_flag is True:
-                        break
-
-                if self.__eary_stop_flag is True:
-                    break
-
                 self.update(learning_rate)
 
                 if epoch == 0:
@@ -293,11 +287,15 @@ class LSTMModel(ReconstructableFeature):
                             test_label_arr=test_label_arr
                         )
 
+                if self.__eary_stop_flag is True:
+                    break
+
         except KeyboardInterrupt:
             self.__logger.debug("Interrupt.")
 
         if self.__eary_stop_flag is True:
             self.__logger.debug("Eary stopping.")
+            self.__eary_stop_flag = False
 
         self.__logger.debug("end. ")
 
@@ -467,7 +465,6 @@ class LSTMModel(ReconstructableFeature):
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_input_gate_bias_arr
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_given_bias_arr
 
-
         self.__output_arr_list = self.__output_arr_list[::-1]
         self.__hidden_activity_arr_list = self.__hidden_activity_arr_list[::-1]
         self.__rnn_activity_arr_list = self.__rnn_activity_arr_list[::-1]
@@ -479,12 +476,6 @@ class LSTMModel(ReconstructableFeature):
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_output_arr = (self.__output_arr_list[0] - label_arr) * self.graph.output_activating_function.derivative(
             self.__output_arr_list[0]
         )
-        if self.__latest_loss is None:
-            self.__latest_loss = delta_output_arr
-        else:
-            if np.sum(self.__latest_loss - delta_output_arr) < self.__tol:
-                self.__eary_stop_flag = True
-                return
 
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_hidden_arr = self.graph.hidden_activating_function.derivative(
             self.__hidden_activity_arr_list[0]
@@ -605,6 +596,14 @@ class LSTMModel(ReconstructableFeature):
     def update(self, double learning_rate):
         ''' Init. '''
 
+        cdef float total_loss = np.sum(self.__delta_weights_output_arr) / self.__batch_size
+        if self.__latest_loss is None:
+            self.__latest_loss = total_loss
+        else:
+            if abs(self.__latest_loss - total_loss) < self.__tol:
+                self.__eary_stop_flag = True
+                return
+
         self.graph.weights_output_arr -= learning_rate * self.__delta_weights_output_arr / self.__batch_size
         self.graph.weights_hidden_arr -= learning_rate * self.__delta_weights_hidden_arr / self.__batch_size
         self.graph.weights_output_gate_arr -= learning_rate * self.__delta_weights_output_gate_arr / self.__batch_size
@@ -617,7 +616,7 @@ class LSTMModel(ReconstructableFeature):
                 self.graph.weights_hidden_arr = self.graph.weights_hidden_arr * 0.9
 
         self.graph.output_bias_arr -= learning_rate * self.__delta_output_bias_arr / self.__batch_size
-        
+
         if self.__output_bias_norm_flag is True:
             self.graph.output_bias_arr = self.graph.output_activating_function.activate(self.graph.output_bias_arr)
 

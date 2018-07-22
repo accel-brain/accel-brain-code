@@ -36,5 +36,4 @@ class SoftmaxFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
-        cdef np.ndarray _x = x.reshape(-1,1)
-        return np.diagflat(_x) - np.dot(_x, _x.T)
+        return x * (1 - x)

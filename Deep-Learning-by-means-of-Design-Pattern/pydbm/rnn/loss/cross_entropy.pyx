@@ -8,6 +8,9 @@ class CrossEntropy(ComputableLoss):
     '''
     Cross-Entropy as loss.
     '''
+
+    # Range of x.
+    __overflow_range = 34.538776394910684
     
     def __init__(self, clip_by_value=(1e-05, 1.0)):
         '''
@@ -38,6 +41,12 @@ class CrossEntropy(ComputableLoss):
             N = pred_arr.shape[0]
         else:
             N = pred_arr.shape[axis]
+
+        labeled_arr[labeled_arr <= -self.__overflow_range] = 1e-15
+        labeled_arr[labeled_arr >= self.__overflow_range] = 1.0 - 1e-15
+
+        pred_arr[pred_arr <= -self.__overflow_range] = 1e-15
+        pred_arr[pred_arr >= self.__overflow_range] = 1.0 - 1e-15
 
         if self.__clip_by_value is not None:
             min_v, max_v = self.__clip_by_value

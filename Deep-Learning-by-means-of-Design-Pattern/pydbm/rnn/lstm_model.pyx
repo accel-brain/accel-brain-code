@@ -49,6 +49,7 @@ class LSTMModel(ReconstructableFeature):
         double weight_limit=0.05,
         double dropout_rate=0.5,
         int bptt_tau=16,
+        output_bias_norm_flag=False,
         double test_size_rate=0.3,
         verificatable_result=None
     ):
@@ -70,6 +71,9 @@ class LSTMModel(ReconstructableFeature):
             bptt_tau:                       Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
                                             If `0`, this class referes all past data in BPTT.
 
+            output_bias_norm_flag:          Regularization for bias in output layer, especially so-called softmax layer.
+                                            If `True`, the bias will be activated by softmax function after every back propagation.
+
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
             verificatable_result:           Verification function.
         '''
@@ -90,6 +94,8 @@ class LSTMModel(ReconstructableFeature):
         self.__dropout_rate = dropout_rate
 
         self.__bptt_tau = bptt_tau
+        self.__output_bias_norm_flag = output_bias_norm_flag
+
         self.__test_size_rate = test_size_rate
 
         self.__delta_weights_output_arr = None
@@ -556,19 +562,19 @@ class LSTMModel(ReconstructableFeature):
             delta_input_gate_bias_arr += delta_input_gate_arr
             delta_given_bias_arr += delta_given_arr
 
-        self.__delta_weights_output_arr += delta_weights_output_arr
-        self.__delta_weights_hidden_arr += delta_weights_hidden_arr
-        self.__delta_weights_output_gate_arr += delta_weights_output_gate_arr
-        self.__delta_weights_forget_gate_arr += delta_weights_forget_gate_arr
-        self.__delta_weights_input_gate_arr += delta_weights_input_gate_arr
-        self.__delta_weights_given_arr += delta_weights_given_arr
+        self.__delta_weights_output_arr += np.nan_to_num(delta_weights_output_arr)
+        self.__delta_weights_hidden_arr += np.nan_to_num(delta_weights_hidden_arr)
+        self.__delta_weights_output_gate_arr += np.nan_to_num(delta_weights_output_gate_arr)
+        self.__delta_weights_forget_gate_arr += np.nan_to_num(delta_weights_forget_gate_arr)
+        self.__delta_weights_input_gate_arr += np.nan_to_num(delta_weights_input_gate_arr)
+        self.__delta_weights_given_arr += np.nan_to_num(delta_weights_given_arr)
 
-        self.__delta_output_bias_arr += delta_output_bias_arr
-        self.__delta_hidden_bias_arr += delta_hidden_bias_arr
-        self.__delta_output_gate_bias_arr += delta_output_gate_bias_arr
-        self.__delta_forget_gate_bias_arr += delta_forget_gate_bias_arr
-        self.__delta_input_gate_bias_arr += delta_input_gate_bias_arr
-        self.__delta_given_bias_arr += delta_given_bias_arr
+        self.__delta_output_bias_arr += np.nan_to_num(delta_output_bias_arr)
+        self.__delta_hidden_bias_arr += np.nan_to_num(delta_hidden_bias_arr)
+        self.__delta_output_gate_bias_arr += np.nan_to_num(delta_output_gate_bias_arr)
+        self.__delta_forget_gate_bias_arr += np.nan_to_num(delta_forget_gate_bias_arr)
+        self.__delta_input_gate_bias_arr += np.nan_to_num(delta_input_gate_bias_arr)
+        self.__delta_given_bias_arr += np.nan_to_num(delta_given_bias_arr)
 
     def update(self, double learning_rate):
         ''' Init. '''
@@ -585,6 +591,10 @@ class LSTMModel(ReconstructableFeature):
                 self.graph.weights_hidden_arr = self.graph.weights_hidden_arr * 0.9
 
         self.graph.output_bias_arr -= learning_rate * self.__delta_output_bias_arr / self.__batch_size
+        
+        if self.__output_bias_norm_flag is True:
+            self.graph.output_bias_arr = self.graph.output_activating_function.activate(self.graph.output_bias_arr)
+
         self.graph.hidden_bias_arr -= learning_rate * self.__delta_hidden_bias_arr / self.__batch_size
         self.graph.output_gate_bias_arr -= learning_rate * self.__delta_output_gate_bias_arr / self.__batch_size
         self.graph.forget_gate_bias_arr -= learning_rate * self.__delta_forget_gate_bias_arr / self.__batch_size

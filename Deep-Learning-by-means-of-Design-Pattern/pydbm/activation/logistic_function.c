@@ -1672,8 +1672,8 @@ static const char __pyx_k_LogisticFunction_derivative[] = "LogisticFunction.deri
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_LogisticFunction__binary_flag[] = "_LogisticFunction__binary_flag";
 static const char __pyx_k_LogisticFunction__for_overflow[] = "_LogisticFunction__for_overflow";
-static const char __pyx_k_LogisticFunction__logistic_rang[] = "_LogisticFunction__logistic_range";
 static const char __pyx_k_LogisticFunction__normalize_fla[] = "_LogisticFunction__normalize_flag";
+static const char __pyx_k_LogisticFunction__overflow_rang[] = "_LogisticFunction__overflow_range";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
@@ -1692,8 +1692,8 @@ static PyObject *__pyx_n_s_LogisticFunction;
 static PyObject *__pyx_n_s_LogisticFunction___init;
 static PyObject *__pyx_n_s_LogisticFunction__binary_flag;
 static PyObject *__pyx_n_s_LogisticFunction__for_overflow;
-static PyObject *__pyx_n_s_LogisticFunction__logistic_rang;
 static PyObject *__pyx_n_s_LogisticFunction__normalize_fla;
+static PyObject *__pyx_n_s_LogisticFunction__overflow_rang;
 static PyObject *__pyx_n_s_LogisticFunction_activate;
 static PyObject *__pyx_n_s_LogisticFunction_derivative;
 static PyObject *__pyx_kp_s_Logistic_Function;
@@ -1769,7 +1769,7 @@ static PyObject *__pyx_codeobj__14;
 static PyObject *__pyx_codeobj__16;
 
 /* "pydbm/activation/logistic_function.pyx":25
- *     __logistic_range = 34.538776394910684
+ *     __overflow_range = 34.538776394910684
  * 
  *     def __init__(self, binary_flag=False, normalize_flag=False, for_overflow="max"):             # <<<<<<<<<<<<<<
  *         if isinstance(binary_flag, bool):
@@ -2021,7 +2021,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_17logistic_function_16LogisticFunc
   __pyx_L5:;
 
   /* "pydbm/activation/logistic_function.pyx":25
- *     __logistic_range = 34.538776394910684
+ *     __overflow_range = 34.538776394910684
  * 
  *     def __init__(self, binary_flag=False, normalize_flag=False, for_overflow="max"):             # <<<<<<<<<<<<<<
  *         if isinstance(binary_flag, bool):
@@ -2138,11 +2138,11 @@ static PyObject *__pyx_pf_5pydbm_10activation_17logistic_function_16LogisticFunc
   /* "pydbm/activation/logistic_function.pyx":51
  *             The result.
  *         '''
- *         x[x <= -self.__logistic_range] = 1e-15             # <<<<<<<<<<<<<<
- *         x[x >= self.__logistic_range] = 1.0 - 1e-15
+ *         x[x <= -self.__overflow_range] = 1e-15             # <<<<<<<<<<<<<<
+ *         x[x >= self.__overflow_range] = 1.0 - 1e-15
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LogisticFunction__logistic_rang); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LogisticFunction__overflow_rang); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = PyNumber_Negative(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -2154,14 +2154,14 @@ static PyObject *__pyx_pf_5pydbm_10activation_17logistic_function_16LogisticFunc
 
   /* "pydbm/activation/logistic_function.pyx":52
  *         '''
- *         x[x <= -self.__logistic_range] = 1e-15
- *         x[x >= self.__logistic_range] = 1.0 - 1e-15             # <<<<<<<<<<<<<<
+ *         x[x <= -self.__overflow_range] = 1e-15
+ *         x[x >= self.__overflow_range] = 1.0 - 1e-15             # <<<<<<<<<<<<<<
  * 
  *         cdef double x_sum
  */
   __pyx_t_1 = PyFloat_FromDouble((1.0 - 1e-15)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LogisticFunction__logistic_rang); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LogisticFunction__overflow_rang); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = PyObject_RichCompare(((PyObject *)__pyx_v_x), __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -5396,8 +5396,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_LogisticFunction___init, __pyx_k_LogisticFunction___init, sizeof(__pyx_k_LogisticFunction___init), 0, 0, 1, 1},
   {&__pyx_n_s_LogisticFunction__binary_flag, __pyx_k_LogisticFunction__binary_flag, sizeof(__pyx_k_LogisticFunction__binary_flag), 0, 0, 1, 1},
   {&__pyx_n_s_LogisticFunction__for_overflow, __pyx_k_LogisticFunction__for_overflow, sizeof(__pyx_k_LogisticFunction__for_overflow), 0, 0, 1, 1},
-  {&__pyx_n_s_LogisticFunction__logistic_rang, __pyx_k_LogisticFunction__logistic_rang, sizeof(__pyx_k_LogisticFunction__logistic_rang), 0, 0, 1, 1},
   {&__pyx_n_s_LogisticFunction__normalize_fla, __pyx_k_LogisticFunction__normalize_fla, sizeof(__pyx_k_LogisticFunction__normalize_fla), 0, 0, 1, 1},
+  {&__pyx_n_s_LogisticFunction__overflow_rang, __pyx_k_LogisticFunction__overflow_rang, sizeof(__pyx_k_LogisticFunction__overflow_rang), 0, 0, 1, 1},
   {&__pyx_n_s_LogisticFunction_activate, __pyx_k_LogisticFunction_activate, sizeof(__pyx_k_LogisticFunction_activate), 0, 0, 1, 1},
   {&__pyx_n_s_LogisticFunction_derivative, __pyx_k_LogisticFunction_derivative, sizeof(__pyx_k_LogisticFunction_derivative), 0, 0, 1, 1},
   {&__pyx_kp_s_Logistic_Function, __pyx_k_Logistic_Function, sizeof(__pyx_k_Logistic_Function), 0, 0, 1, 0},
@@ -5560,7 +5560,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__9);
 
   /* "pydbm/activation/logistic_function.pyx":25
- *     __logistic_range = 34.538776394910684
+ *     __overflow_range = 34.538776394910684
  * 
  *     def __init__(self, binary_flag=False, normalize_flag=False, for_overflow="max"):             # <<<<<<<<<<<<<<
  *         if isinstance(binary_flag, bool):
@@ -5857,14 +5857,14 @@ static int __pyx_pymod_exec_logistic_function(PyObject *__pyx_pyinit_module)
   /* "pydbm/activation/logistic_function.pyx":23
  * 
  *     # Range of x.
- *     __logistic_range = 34.538776394910684             # <<<<<<<<<<<<<<
+ *     __overflow_range = 34.538776394910684             # <<<<<<<<<<<<<<
  * 
  *     def __init__(self, binary_flag=False, normalize_flag=False, for_overflow="max"):
  */
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_LogisticFunction__logistic_rang, __pyx_float_34_538776394910684) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_LogisticFunction__overflow_rang, __pyx_float_34_538776394910684) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
 
   /* "pydbm/activation/logistic_function.pyx":25
- *     __logistic_range = 34.538776394910684
+ *     __overflow_range = 34.538776394910684
  * 
  *     def __init__(self, binary_flag=False, normalize_flag=False, for_overflow="max"):             # <<<<<<<<<<<<<<
  *         if isinstance(binary_flag, bool):

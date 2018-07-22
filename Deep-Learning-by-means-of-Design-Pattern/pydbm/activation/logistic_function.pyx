@@ -20,7 +20,7 @@ class LogisticFunction(ActivatingFunctionInterface):
     __for_overflow = "max"
     
     # Range of x.
-    __logistic_range = 34.538776394910684
+    __overflow_range = 34.538776394910684
 
     def __init__(self, binary_flag=False, normalize_flag=False, for_overflow="max"):
         if isinstance(binary_flag, bool):
@@ -48,8 +48,8 @@ class LogisticFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
-        x[x <= -self.__logistic_range] = 1e-15
-        x[x >= self.__logistic_range] = 1.0 - 1e-15
+        x[x <= -self.__overflow_range] = 1e-15
+        x[x >= self.__overflow_range] = 1.0 - 1e-15
 
         cdef double x_sum
         if self.__normalize_flag is True:

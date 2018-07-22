@@ -37,6 +37,9 @@ class LSTMModel(ReconstructableFeature):
 
     # The list of paramters to be differentiated.
     __learned_params_list = []
+    
+    # Latest loss
+    __latest_loss = None
 
     def __init__(
         self,
@@ -51,7 +54,8 @@ class LSTMModel(ReconstructableFeature):
         int bptt_tau=16,
         output_bias_norm_flag=False,
         double test_size_rate=0.3,
-        verificatable_result=None
+        verificatable_result=None,
+        tol=1e-04
     ):
         '''
         Init for building LSTM networks.
@@ -76,6 +80,10 @@ class LSTMModel(ReconstructableFeature):
 
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
             verificatable_result:           Verification function.
+            tol:                            Tolerance for the optimization.
+                                            When the loss or score is not improving by at least tol 
+                                            for two consecutive iterations, convergence is considered 
+                                            to be reached and training stops.
         '''
         self.graph = graph
         if isinstance(verificatable_result, VerificatableResult):
@@ -97,6 +105,8 @@ class LSTMModel(ReconstructableFeature):
         self.__output_bias_norm_flag = output_bias_norm_flag
 
         self.__test_size_rate = test_size_rate
+        self.__tol = tol
+        self.__eary_stop_flag = False
 
         self.__delta_weights_output_arr = None
         self.__delta_weights_hidden_arr = None
@@ -241,6 +251,12 @@ class LSTMModel(ReconstructableFeature):
 
                     self.back_propagation(target_time_series_X_arr[-1])
 
+                    if self.__eary_stop_flag is True:
+                        break
+
+                if self.__eary_stop_flag is True:
+                    break
+
                 self.update(learning_rate)
 
                 if epoch == 0:
@@ -279,6 +295,9 @@ class LSTMModel(ReconstructableFeature):
 
         except KeyboardInterrupt:
             self.__logger.debug("Interrupt.")
+
+        if self.__eary_stop_flag is True:
+            self.__logger.debug("Eary stopping.")
 
         self.__logger.debug("end. ")
 
@@ -460,6 +479,13 @@ class LSTMModel(ReconstructableFeature):
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_output_arr = (self.__output_arr_list[0] - label_arr) * self.graph.output_activating_function.derivative(
             self.__output_arr_list[0]
         )
+        if self.__latest_loss is None:
+            self.__latest_loss = delta_output_arr
+        else:
+            if np.sum(self.__latest_loss - delta_output_arr) < self.__tol:
+                self.__eary_stop_flag = True
+                return
+
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_hidden_arr = self.graph.hidden_activating_function.derivative(
             self.__hidden_activity_arr_list[0]
         ) * np.dot(delta_output_arr, self.graph.weights_output_arr.T)

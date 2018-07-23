@@ -25,15 +25,3 @@ class SoftmaxFunction(ActivatingFunctionInterface):
         exp_x = np.exp(x - np.max(x))
         prob = exp_x / exp_x.sum(axis=0)
         return prob
-
-    def derivative(self, np.ndarray x):
-        '''
-        Return of derivative with respect to this activation function.
-
-        Args:
-            x   Parameter.
-
-        Returns:
-            The result.
-        '''
-        return x * (1 - x)

@@ -70,15 +70,3 @@ class LogisticFunction(ActivatingFunctionInterface):
             activity_arr = activity_arr.astype(np.float64)
 
         return activity_arr
-
-    def derivative(self, np.ndarray x):
-        '''
-        Return of derivative result from this activation function.
-
-        Args:
-            x   Parameter.
-
-        Returns:
-            The result.
-        '''
-        return x * (1 - x)

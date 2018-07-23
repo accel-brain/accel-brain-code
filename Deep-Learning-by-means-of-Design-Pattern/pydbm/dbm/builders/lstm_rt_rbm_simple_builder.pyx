@@ -3,7 +3,7 @@ import numpy as np
 cimport numpy as np
 from pydbm.dbm.interface.rt_rbm_builder import RTRBMBuilder
 from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph
-from pydbm.dbm.restrictedboltzmannmachines.rtrbm.lstm_rt_rbm import LSTMRTRBM
+from pydbm.dbm.restrictedboltzmannmachines.rt_rbm import RTRBM
 from pydbm.activation.logistic_function import LogisticFunction
 
 
@@ -125,7 +125,7 @@ class LSTMRTRBMSimpleBuilder(RTRBMBuilder):
             The list of restricted boltzmann machines.
 
         '''
-        rbm = LSTMRTRBM(
+        rbm = RTRBM(
             self.__lstm_graph,
             self.__learning_rate,
             self.__dropout_rate,

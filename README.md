@@ -32,20 +32,6 @@ This is **Cython version**. [pydbm_mxnet](https://github.com/chimera0/accel-brai
 
 As more usecases, **RTRBM**, **RNN-RBM**, and **LSTM-RTRBM** can learn dependency structures in temporal patterns such as music, natural sentences, and n-gram. RTRBM is a probabilistic time-series model which can be viewed as a temporal stack of RBMs, where each RBM has a contextual hidden state that is received from the previous RBM and is used to modulate its hidden units bias. The RTRBM can be understood as a sequence of conditional RBMs whose parameters are the output of a deterministic RNN, with the constraint that the hidden units must describe the conditional distributions. This constraint can be lifted by combining a full RNN with distinct hidden units. In terms of this possibility, RNN-RBM and LSTM-RTRBM are structurally expanded model from RTRBM that allows more freedom to describe the temporal dependencies involved.
 
-In this library, the function of LSTM-RTRBM is the pre-learning for **LSTM**. It is possible to do Transfer learning, delegating pre-learned parameters to LSTM model. For instance, it can be easy to implement a comparison of this initialization strategies by introducing simple toy problem, namely Sine Wave Prediction, executing pre-learning the dataset by LSTM-RTRBM and learning same dataset by LSTM [under the same conditions](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/README.md#toy-problem-sine-wave-prediction), and logging the loss function: Mean Square Error(MSE). The result of with-and-without comparison were as follows.
-
-#### Without pre-learning (Standard learning in LSTM).
-
-<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/LSTM_loss_not_pre_learning.png" /></div>
-
-#### With pre-learning (LSTM-RTRBM's pre-learning and LSTM's learning).
-
-<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/LSTM_loss_pre_learning.png" /></div>
-
-#### Difference demonstrates the function.
-
-The difference of MSE observed from the simple toy problem demonstrates that the function of LSTM-RTRBM's pre-learning is to improve performance of LSTM's learning. On the context of paradigm of Deep learning and Transfer learning, the initialization strategies, based on not only a mere Gaussian noise but also unsupervised pre-learning of each layer, have been shown to be important both for supervised and unsupervised learning of Machine learning. In particular, LSTM-RTRBM makes it possible to do pre-learning and Transfer learning for probabilistic time series patterns.
-
 ### Shape-BM for image segmentation, object detection, inpainting and graphics.
 
 The usecases of **Shape-BM** are image segmentation, object detection, inpainting and graphics. Shape-BM is the model for the task of modeling binary shape images, in that samples from the model look realistic and it can generalize to generate samples that differ from training examples.

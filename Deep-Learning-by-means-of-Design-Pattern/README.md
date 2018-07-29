@@ -393,7 +393,7 @@ dbm.learn(
 
 ### Performance
 
-Run a program: [demo_stacked_auto_encoder.py](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo_stacked_auto_encoder.py)
+Run a program: [test/demo_stacked_auto_encoder.py](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/test/demo_stacked_auto_encoder.py)
 
 ```sh
 time python demo_stacked_auto_encoder.py

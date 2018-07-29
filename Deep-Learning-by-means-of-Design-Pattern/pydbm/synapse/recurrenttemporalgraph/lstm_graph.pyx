@@ -178,49 +178,6 @@ class LSTMGraph(RecurrentTemporalGraph):
         self.__visible_bias_arr_list = value
 
     visible_bias_arr_list = property(get_visible_bias_arr_list, set_visible_bias_arr_list)
-    
-    # The list of activities in RBM at step t-1.
-    __pre_hidden_activity_arr_list = []
-    
-    def get_pre_hidden_activity_arr_list(self):
-        ''' getter '''
-        if isinstance(self.__pre_hidden_activity_arr_list, list) is False:
-            raise TypeError()
-        return self.__pre_hidden_activity_arr_list
-
-    def set_pre_hidden_activity_arr_list(self, value):
-        ''' setter '''
-        if isinstance(value, list) is False:
-            raise TypeError()
-        self.__pre_hidden_activity_arr_list = value
-
-    pre_hidden_activity_arr_list = property(get_pre_hidden_activity_arr_list, set_pre_hidden_activity_arr_list)
-
-    # delta of bias in RBM visible layer.
-    __diff_visible_bias_arr_list = []
-    
-    def get_diff_visible_bias_arr_list(self):
-        ''' getter '''
-        return self.__diff_visible_bias_arr_list
-
-    def set_diff_visible_bias_arr_list(self, value):
-        ''' setter '''
-        self.__diff_visible_bias_arr_list = value
-    
-    diff_visible_bias_arr_list = property(get_diff_visible_bias_arr_list, set_diff_visible_bias_arr_list)
-
-    # delta of bias in RBM hidden layer.
-    __diff_hidden_bias_arr_list = []
-
-    def get_diff_hidden_bias_arr_list(self):
-        ''' getter '''
-        return self.__diff_hidden_bias_arr_list
-
-    def set_diff_hidden_bias_arr_list(self, value):
-        ''' setter '''
-        self.__diff_hidden_bias_arr_list = value
-    
-    diff_hidden_bias_arr_list = property(get_diff_hidden_bias_arr_list, set_diff_hidden_bias_arr_list)
 
     # Weight matrix in RBM hidden layer.
     __rbm_hidden_weights_arr = np.array([])
@@ -238,6 +195,19 @@ class LSTMGraph(RecurrentTemporalGraph):
         self.__rbm_hidden_weights_arr = value
     
     rbm_hidden_weights_arr = property(get_rbm_hidden_weights_arr, set_rbm_hidden_weights_arr)
+
+    # The list of activities in RBM at step t-1.
+    pre_hidden_activity_arr_list = []
+    # delta of bias in RBM visible layer.
+    diff_visible_bias_arr_list = []
+    # delta of bias in RBM hidden layer.
+    diff_hidden_bias_arr_list = []
+    # delta of weight matrix in RBM, which connected visible RBM layer and hidden RBM layer.
+    diff_weights_arr_list = []
+    # delta of weight matrix in RNN hidden layer.
+    diff_rnn_hidden_weights_arr_list = []
+    # delta of weight matrix in RBM, which connected hidden RBM layer and previous hidden layer.
+    diff_rbm_hidden_weights_arr_list = []
 
     def create_rnn_cells(
         self,

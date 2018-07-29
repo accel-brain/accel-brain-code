@@ -65,6 +65,10 @@ class LogisticFunction(ActivatingFunctionInterface):
         activity_arr = 1.0 / (1.0 + np.exp(-x + c))
         activity_arr = np.nan_to_num(activity_arr)
 
+        if self.__for_overflow == "max":
+            if activity_arr.max() - activity_arr.min() > 0:
+                activity_arr = (activity_arr - activity_arr.min()) / (activity_arr.max() - activity_arr.min())
+
         if self.__binary_flag is True:
             activity_arr = np.random.binomial(1, activity_arr, activity_arr.shape[0])
             activity_arr = activity_arr.astype(np.float64)

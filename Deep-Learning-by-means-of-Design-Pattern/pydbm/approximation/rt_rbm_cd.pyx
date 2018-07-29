@@ -102,13 +102,13 @@ class RTRBMCD(ApproximateInterface):
                 for cycle_index in range(time_series_X.shape[0]):
                     # RNN learning.
                     self.rnn_learn(time_series_X[cycle_index])
+                    # Wake and sleep.
+                    self.wake_sleep_learn(self.graph.visible_activity_arr)
                     # Memorizing.
                     self.memorize_activity(
                         time_series_X[cycle_index],
                         self.graph.visible_activity_arr
                     )
-                # Wake and sleep.
-                self.wake_sleep_learn(self.graph.visible_activity_arr)
 
             # Back propagation.
             self.back_propagation()
@@ -142,12 +142,13 @@ class RTRBMCD(ApproximateInterface):
         Returns:
             Graph of neurons.
         '''
-        cdef int _
+        cdef int counter = 0
         cdef np.ndarray rand_index
         cdef np.ndarray[DOUBLE_t, ndim=3] batch_observed_arr
         cdef int batch_index
         cdef np.ndarray[DOUBLE_t, ndim=2] time_series_X
         cdef np.ndarray inferenced_arr = np.array([])
+        cdef np.ndarray feature_points_arr = np.array([])
 
         if traning_count != -1:
             training_count = traning_count
@@ -158,7 +159,7 @@ class RTRBMCD(ApproximateInterface):
         self.dropout_rate = dropout_rate
         self.r_batch_size = r_batch_size
 
-        for _ in range(training_count):
+        for counter in range(training_count):
             if r_batch_size > 0:
                 rand_index = np.random.choice(observed_data_arr.shape[0], size=r_batch_size)
                 batch_observed_arr = observed_data_arr[rand_index]
@@ -176,16 +177,20 @@ class RTRBMCD(ApproximateInterface):
                             self.graph.visible_activity_arr
                         )
                 self.wake_sleep_inference(self.graph.visible_activity_arr)
-                if inferenced_arr.shape[0] == 0:
-                    inferenced_arr = self.graph.visible_activity_arr
-                else:
-                    inferenced_arr = np.vstack([inferenced_arr, self.graph.visible_activity_arr])
+                if counter + 1 == training_count:
+                    if inferenced_arr.shape[0] == 0:
+                        inferenced_arr = self.graph.visible_activity_arr
+                        feature_points_arr = self.graph.hidden_activity_arr
+                    else:
+                        inferenced_arr = np.vstack([inferenced_arr, self.graph.visible_activity_arr])
+                        feature_points_arr = np.vstack([feature_points_arr, self.graph.hidden_activity_arr])
 
             if r_batch_size != -1:
                 # Back propagation.
                 self.back_propagation()
 
         self.graph.inferenced_arr = inferenced_arr
+        self.graph.feature_points_arr = feature_points_arr
         return self.graph
 
     def rnn_learn(self, np.ndarray[DOUBLE_t, ndim=1] observed_data_arr):

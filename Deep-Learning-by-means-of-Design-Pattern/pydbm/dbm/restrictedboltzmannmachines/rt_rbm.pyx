@@ -22,7 +22,10 @@ class RTRBM(RestrictedBoltzmannMachine):
         Learning.
 
         Args:
-            observed_data_arr:    The `np.ndarray` of observed data points.
+            observed_data_arr:    The `np.ndarray` of observed data points,
+                                  which is a rank-3 array-like or sparse matrix of shape: 
+                                  (`The number of samples`, `The length of cycle`, `The number of features`)
+
             traning_count:        Training counts.
             batch_size:           Batch size.
         '''
@@ -48,9 +51,22 @@ class RTRBM(RestrictedBoltzmannMachine):
         Inferencing.
         
         Args:
-            observed_data_arr:    The `np.ndarray` of observed data points.
+            observed_data_arr:    The `np.ndarray` of observed data points,
+                                  which is a rank-3 array-like or sparse matrix of shape: 
+                                  (`The number of samples`, `The length of cycle`, `The number of features`)
+
             r_batch_size:         Batch size.
-        
+                                  If this value is `0`, the inferencing is a recursive learning.
+                                  If this value is more than `0`, the inferencing is a mini-batch recursive learning.
+                                  If this value is '-1', the inferencing is not a recursive learning.
+
+                                  If you do not want to execute the mini-batch training, 
+                                  the value of `batch_size` must be `-1`. 
+                                  And `r_batch_size` is also parameter to control the mini-batch training 
+                                  but is refered only in inference and reconstruction. 
+                                  If this value is more than `0`, 
+                                  the inferencing is a kind of reccursive learning with the mini-batch training.
+
         Returns:
             The `np.ndarray` of feature points.
         '''
@@ -66,3 +82,12 @@ class RTRBM(RestrictedBoltzmannMachine):
 
         # The feature points can be observed data points.
         return self.graph.inferenced_arr
+
+    def get_feature_points(self):
+        '''
+        Extract feature points from hidden layer.
+        
+        Returns:
+            np.ndarray
+        '''
+        return self.graph.feature_points_arr

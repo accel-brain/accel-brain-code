@@ -110,27 +110,23 @@ class LSTMRTRBMCD(RTRBMCD):
             observed_data_arr:                Observed data points in positive phase.
             negative_visible_activity_arr:    visible acitivty in negative phase.
         '''
-        self.graph.pre_hidden_activity_arr_list.append(self.graph.hat_hidden_activity_arr)
-        super().memorize_activity(observed_data_arr, negative_visible_activity_arr)
+        if self.graph.pre_hidden_activity_arr.shape[0] == 0 or self.graph.hat_hidden_activity_arr.shape[0] == 0:
+            super().memorize_activity(observed_data_arr, negative_visible_activity_arr)
+            return
 
-    def back_propagation(self):
-        '''
-        Details of the backpropagation through time algorithm.
-        
-        Override.
-        '''
-        # Learning.
-        self.graph.visible_bias_arr += self.graph.visible_diff_bias_arr
-        self.graph.hidden_bias_arr += self.graph.hidden_diff_bias_arr
-        self.graph.learn_weights()
-
-        self.graph.diff_visible_bias_arr_list.append(self.graph.visible_diff_bias_arr)
-        
         cdef np.ndarray visible_step_arr
         cdef np.ndarray link_value_arr
         cdef np.ndarray visible_step_activity
         cdef np.ndarray visible_negative_arr
         cdef np.ndarray diff
+        cdef np.ndarray diff_weights_arr
+        cdef np.ndarray rnn_hidden_weights_arr
+        cdef np.ndarray rbm_hidden_weights_arr
+        
+        self.graph.pre_hidden_activity_arr_list.append(self.graph.hat_hidden_activity_arr)
+        
+        diff = (observed_data_arr - negative_visible_activity_arr) * self.learning_rate
+        self.graph.diff_visible_bias_arr_list.append(diff)
 
         visible_step_arr = (self.graph.visible_activity_arr + self.graph.visible_diff_bias_arr).reshape(-1, 1)
         link_value_arr = (self.graph.weights_arr * visible_step_arr) - self.graph.hidden_bias_arr.reshape(-1, 1).T
@@ -142,24 +138,38 @@ class LSTMRTRBMCD(RTRBMCD):
         visible_negative_arr = self.graph.rnn_activating_function.activate(visible_negative_arr)
         diff = (visible_step_activity - visible_negative_arr) * self.learning_rate
         self.graph.diff_hidden_bias_arr_list.append(diff)
-        self.graph.hidden_bias_arr += diff
-        self.graph.weights_arr += ((visible_step_activity.reshape(-1, 1) * visible_step_arr.reshape(-1, 1).T).T - (visible_negative_arr.reshape(-1, 1).T * self.graph.visible_activity_arr.reshape(-1, 1))) * self.learning_rate
 
-        self.graph.rnn_hidden_weights_arr += (visible_step_activity.reshape(-1, 1) - visible_negative_arr.reshape(-1, 1)) * self.graph.pre_hidden_activity_arr.reshape(-1, 1) * self.learning_rate
+        diff_weights_arr = ((visible_step_activity.reshape(-1, 1) * visible_step_arr.reshape(-1, 1).T).T - (visible_negative_arr.reshape(-1, 1).T * self.graph.visible_activity_arr.reshape(-1, 1))) * self.learning_rate
+        self.graph.diff_weights_arr_list.append(diff_weights_arr)
 
-        self.graph.rbm_hidden_weights_arr += (visible_step_activity.reshape(-1, 1) - visible_negative_arr.reshape(-1, 1)) * self.graph.pre_rbm_hidden_activity_arr.reshape(-1, 1) * self.learning_rate
+        rnn_hidden_weights_arr = (visible_step_activity.reshape(-1, 1) - visible_negative_arr.reshape(-1, 1)) * self.graph.pre_hidden_activity_arr.reshape(-1, 1) * self.learning_rate
+        self.graph.diff_rnn_hidden_weights_arr_list.append(rnn_hidden_weights_arr)
 
-        if len(self.graph.diff_hidden_bias_arr_list) <= 1:
-            return
-        if len(self.graph.diff_visible_bias_arr_list) <= 1:
-            return
-        if len(self.graph.diff_hidden_bias_arr_list) <= 1:
-            return
+        rbm_hidden_weights_arr = (visible_step_activity.reshape(-1, 1) - visible_negative_arr.reshape(-1, 1)) * self.graph.pre_rbm_hidden_activity_arr.reshape(-1, 1) * self.learning_rate
+        self.graph.diff_rbm_hidden_weights_arr_list.append(rbm_hidden_weights_arr)
 
-        hat_list = self.graph.diff_hidden_bias_arr_list[::-1]
+        super().memorize_activity(observed_data_arr, negative_visible_activity_arr)
 
-        diff_v_b_list = self.graph.diff_visible_bias_arr_list[::-1]
+    def back_propagation(self):
+        '''
+        Details of the backpropagation through time algorithm.
+        
+        Override.
+        '''
+        # Learning.
+        self.graph.visible_bias_arr += self.graph.visible_diff_bias_arr
+        self.graph.visible_bias_arr += np.array(self.graph.diff_visible_bias_arr_list).sum(axis=0)
+        self.graph.hidden_bias_arr += self.graph.hidden_diff_bias_arr
+        self.graph.hidden_bias_arr += np.array(self.graph.diff_hidden_bias_arr_list).sum(axis=0)
+        self.graph.learn_weights()
+        cdef np.ndarray diff_weights_arr = np.array(self.graph.diff_weights_arr_list).sum(axis=0)
+        self.graph.weights_arr += diff_weights_arr
+        cdef np.ndarray diff_rnn_hidden_weights_arr = np.array(self.graph.diff_weights_arr_list).sum(axis=0)
+        self.graph.rnn_hidden_weights_arr += diff_rnn_hidden_weights_arr.T
+        cdef np.ndarray rbm_hidden_weights_arr = np.array(self.graph.diff_rbm_hidden_weights_arr_list).sum(axis=0)
+        self.graph.rbm_hidden_weights_arr += rbm_hidden_weights_arr
 
+        hat_list = self.graph.pre_hidden_activity_arr_list[::-1]
         diff_h_b_list = self.graph.diff_hidden_bias_arr_list[::-1]
 
         diff_rnn_hidden_bias_arr = None
@@ -196,14 +206,16 @@ class LSTMRTRBMCD(RTRBMCD):
                 diff_v_hat_weights_arr += diff
 
         self.graph.rnn_hidden_bias_arr += diff_rnn_hidden_bias_arr
-
         self.graph.hat_weights_arr += diff_hat_weights_arr
-
         self.graph.v_hat_weights_arr += diff_v_hat_weights_arr
 
         self.graph.visible_diff_bias_arr = np.zeros(self.graph.visible_bias_arr.shape)
         self.graph.hidden_diff_bias_arr = np.zeros(self.graph.hidden_bias_arr.shape)
-
-        self.graph.diff_hidden_bias_arr_list = []
         self.graph.diff_visible_bias_arr_list = []
+        self.graph.diff_hidden_bias_arr_list = []
+        self.graph.diff_weights_arr_list = []
+        self.graph.diff_rnn_hidden_weights_arr_list = []
+        self.graph.diff_rbm_hidden_weights_arr_list = []
+
+        self.graph.pre_hidden_activity_arr_list = []
         self.graph.diff_hidden_bias_arr_list = []

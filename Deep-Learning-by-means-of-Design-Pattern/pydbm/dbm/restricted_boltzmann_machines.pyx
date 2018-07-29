@@ -75,6 +75,10 @@ class RestrictedBoltzmannMachine(object):
             training_count = traning_count
             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
 
+        cdef int row = observed_data_arr.shape[0]
+        if batch_size > row:
+            raise ValueError("`batch_size` must be less than `observed_data_arr.shape[0]`.")
+
         self.__graph = self.__approximate_interface.approximate_learn(
             self.__graph,
             self.__learning_rate,
@@ -102,10 +106,21 @@ class RestrictedBoltzmannMachine(object):
                                   If this value is more than `0`, the inferencing is a mini-batch recursive learning.
                                   If this value is '-1', the inferencing is not a recursive learning.
 
+                                  If you do not want to execute the mini-batch training, 
+                                  the value of `batch_size` must be `-1`. 
+                                  And `r_batch_size` is also parameter to control the mini-batch training 
+                                  but is refered only in inference and reconstruction. 
+                                  If this value is more than `0`, 
+                                  the inferencing is a kind of reccursive learning with the mini-batch training.
+
         '''
         if traning_count != -1:
             training_count = traning_count
             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
+
+        cdef int row = observed_data_arr.shape[0]
+        if r_batch_size > row:
+            raise ValueError("If `r_batch_size` > 0, the value must be less than `observed_data_arr.shape[0]`.")
 
         self.__graph = self.__approximate_interface.approximate_inference(
             self.__graph,

@@ -100,11 +100,19 @@ class DeepBoltzmannMachine(object):
         Args:
             observed_data_arr:    The `np.ndarray` of observed data points.
             training_count:       Training counts.
-            batch_size:           Batch size.
-            r_batch_size:         Batch size.
+            batch_size:           Batch size in learning.
+            r_batch_size:         Batch size in inferencing.
                                   If this value is `0`, the inferencing is a recursive learning.
                                   If this value is more than `0`, the inferencing is a mini-batch recursive learning.
                                   If this value is '-1', the inferencing is not a recursive learning.
+
+                                  If you do not want to execute the mini-batch training, 
+                                  the value of `batch_size` must be `-1`. 
+                                  And `r_batch_size` is also parameter to control the mini-batch training 
+                                  but is refered only in inference and reconstruction. 
+                                  If this value is more than `0`, 
+                                  the inferencing is a kind of reccursive learning with the mini-batch training.
+
             sgd_flag:             Learning with the stochastic gradient descent(SGD) or not.
         '''
         if traning_count != -1:
@@ -195,7 +203,9 @@ class DeepBoltzmannMachine(object):
 
         Args:
             layer_number:   The index of layers. 
-                            For instance, 0 is visible layer, 1 is hidden or middle layer, and 2 is hidden layer in three layers.
+                            For instance, `0` is visible layer, 
+                            `1` is hidden or middle layer, 
+                            and `2` is hidden layer in three layers.
 
         Returns:
             The np.ndarray of feature points.
@@ -209,7 +219,9 @@ class DeepBoltzmannMachine(object):
 
         Args:
             layer_number:    The index of layers.
-                             For instance, 0 is visible layer, 1 is hidden or middle layer, and 2 is hidden layer in three layers.
+                             For instance, `0` is visible layer, 
+                             `1` is hidden or middle layer, 
+                             and `2` is hidden layer in three layers.
 
         Returns:
             The np.ndarray of visible data points.

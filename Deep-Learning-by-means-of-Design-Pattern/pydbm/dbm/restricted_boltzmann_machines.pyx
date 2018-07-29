@@ -75,10 +75,6 @@ class RestrictedBoltzmannMachine(object):
             training_count = traning_count
             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
 
-        cdef int row = observed_data_arr.shape[0]
-        if batch_size > row:
-            raise ValueError("`batch_size` must be less than `observed_data_arr.shape[0]`.")
-
         self.__graph = self.__approximate_interface.approximate_learn(
             self.__graph,
             self.__learning_rate,
@@ -117,10 +113,6 @@ class RestrictedBoltzmannMachine(object):
         if traning_count != -1:
             training_count = traning_count
             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
-
-        cdef int row = observed_data_arr.shape[0]
-        if r_batch_size > row:
-            raise ValueError("If `r_batch_size` > 0, the value must be less than `observed_data_arr.shape[0]`.")
 
         self.__graph = self.__approximate_interface.approximate_inference(
             self.__graph,

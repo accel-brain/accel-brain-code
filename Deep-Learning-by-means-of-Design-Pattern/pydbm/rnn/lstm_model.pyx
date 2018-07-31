@@ -293,12 +293,27 @@ class LSTMModel(object):
                 Array like or sparse matrix of the state in RNN
             )
         '''
+        cdef int sample_n = observed_arr.shape[0]
+        cdef int cycle_len = observed_arr.shape[1]
+        cdef int feature_n = observed_arr.shape[2]
+        cdef int hidden_n = self.graph.weights_lstm_hidden_arr.shape[0]
+
+        if hidden_activity_arr is None:
+            self.graph.hidden_activity_arr = np.zeros((sample_n, hidden_n), dtype=np.float64)
+        else:
+            self.graph.hidden_activity_arr = hidden_activity_arr
+
+        if rnn_activity_arr is None:
+            self.graph.rnn_activity_arr = np.zeros((sample_n, hidden_n), dtype=np.float64)
+        else:
+            self.graph.rnn_activity_arr = rnn_activity_arr
+
         self.__opt_params.dropout_rate = 0.0
-        self.graph.hidden_activity_arr = hidden_activity_arr
-        self.graph.rnn_activity_arr = rnn_activity_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.__lstm_forward_propagate(observed_arr)
+        cdef np.ndarray[DOUBLE_t, ndim=3] _hidden_activity_arr = self.__lstm_forward_propagate(observed_arr)
+        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.__output_forward_propagate(_hidden_activity_arr)
+        self.__opt_params.dropout_rate = self.__dropout_rate
+
         self.__feature_points_arr = self.__memory_tuple_list[-1][8]
-        self.__opt_params.dropout_rate = self.dropout_rate
         return pred_arr
 
     def get_feature_points(self):

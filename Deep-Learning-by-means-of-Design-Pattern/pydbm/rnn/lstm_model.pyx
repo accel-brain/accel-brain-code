@@ -194,43 +194,51 @@ class LSTMModel(object):
                 batch_observed_arr = train_observed_arr[rand_index]
                 batch_target_arr = train_target_arr[rand_index]
 
-                hidden_activity_arr = self.__lstm_forward_propagate(batch_observed_arr)
-                pred_arr = self.__output_forward_propagate(hidden_activity_arr)
-                loss_arr = self.__computable_loss.compute_loss(pred_arr, batch_target_arr[:, -1, :], axis=0)
-                loss = loss_arr.mean()
-                delta_arr = self.__computable_loss.compute_delta(pred_arr, batch_target_arr[:, -1, :])
-                delta_arr, output_grads_list = self.__output_back_propagate(pred_arr, delta_arr)
-                _, lstm_grads_list = self.__lstm_back_propagate(delta_arr)
+                try:
+                    hidden_activity_arr = self.__lstm_forward_propagate(batch_observed_arr)
+                    pred_arr = self.__output_forward_propagate(hidden_activity_arr)
+                    loss_arr = self.__computable_loss.compute_loss(pred_arr, batch_target_arr[:, -1, :], axis=0)
+                    loss = loss_arr.mean()
+                    delta_arr = self.__computable_loss.compute_delta(pred_arr, batch_target_arr[:, -1, :])
+                    delta_arr, output_grads_list = self.__output_back_propagate(pred_arr, delta_arr)
+                    _, lstm_grads_list = self.__lstm_back_propagate(delta_arr)
 
-                grads_list = output_grads_list
-                grads_list.extend(lstm_grads_list)
+                    grads_list = output_grads_list
+                    grads_list.extend(lstm_grads_list)
 
-                params_list = self.__opt_params.optimize(
-                    [
-                        self.graph.weights_output_arr,
-                        self.graph.output_bias_arr,
-                        self.graph.weights_lstm_hidden_arr,
-                        self.graph.weights_lstm_observed_arr,
-                        self.graph.lstm_bias_arr
-                    ],
-                    grads_list,
-                    learning_rate
-                )
-                self.graph.weights_output_arr = params_list[0]
-                self.graph.output_bias_arr = params_list[1]
-                self.graph.weights_lstm_hidden_arr = params_list[2]
-                self.graph.weights_lstm_observed_arr = params_list[3]
-                self.graph.lstm_bias_arr = params_list[4]
+                    params_list = self.__opt_params.optimize(
+                        [
+                            self.graph.weights_output_arr,
+                            self.graph.output_bias_arr,
+                            self.graph.weights_lstm_hidden_arr,
+                            self.graph.weights_lstm_observed_arr,
+                            self.graph.lstm_bias_arr
+                        ],
+                        grads_list,
+                        learning_rate
+                    )
+                    self.graph.weights_output_arr = params_list[0]
+                    self.graph.output_bias_arr = params_list[1]
+                    self.graph.weights_lstm_hidden_arr = params_list[2]
+                    self.graph.weights_lstm_observed_arr = params_list[3]
+                    self.graph.lstm_bias_arr = params_list[4]
 
-                if ((epoch + 1) % self.__attenuate_epoch == 0):
-                    self.graph.weights_output_arr = self.__opt_params.constrain_weight(self.graph.weights_output_arr)
-                    self.graph.weights_lstm_hidden_arr = self.__opt_params.constrain_weight(self.graph.weights_lstm_hidden_arr)
-                    self.graph.weights_lstm_observed_arr = self.__opt_params.constrain_weight(self.graph.weights_lstm_observed_arr)
+                    if ((epoch + 1) % self.__attenuate_epoch == 0):
+                        self.graph.weights_output_arr = self.__opt_params.constrain_weight(self.graph.weights_output_arr)
+                        self.graph.weights_lstm_hidden_arr = self.__opt_params.constrain_weight(self.graph.weights_lstm_hidden_arr)
+                        self.graph.weights_lstm_observed_arr = self.__opt_params.constrain_weight(self.graph.weights_lstm_observed_arr)
 
-                loss_list.append(loss)
+                    loss_list.append(loss)
 
-                self.graph.hidden_activity_arr = np.array([])
-                self.graph.rnn_activity_arr = np.array([])
+                    self.graph.hidden_activity_arr = np.array([])
+                    self.graph.rnn_activity_arr = np.array([])
+
+                except FloatingPointError:
+                    self.__logger.debug(
+                        "Underflow occurred when the parameters are being updated. Because of early stopping, this error is catched and the parameter is not updated."
+                    )
+                    eary_stop_flag = True
+                    break
 
                 self.__logger.debug("Training loss: " + str(loss))
                 if self.__test_size_rate > 0:

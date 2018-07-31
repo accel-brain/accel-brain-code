@@ -20,7 +20,7 @@ class LogisticFunction(ActivatingFunctionInterface):
     __for_overflow = "max"
     
     # Range of x.
-    __overflow_range = 709.0
+    __overflow_range = 708.0
     
     # Normalization mode.
     __normalization_mode = "sum_partition"
@@ -100,11 +100,11 @@ class LogisticFunction(ActivatingFunctionInterface):
             c = 0.0
 
         cdef np.ndarray c_arr = -x + c
-        if c_arr[c_arr >= self.__overflow_range].shape[0] > 0:
+        if c_arr[c_arr >= self.__overflow_range].shape[0] > 0 or c_arr[c_arr < -self.__overflow_range].shape[0] > 0:
             c_max = c_arr.max()
             c_min = c_arr.min()
             if c_max != c_min:
-                c_arr = self.__overflow_range * (c_arr - c_min) / (c_max - c_min)
+                c_arr = (self.__overflow_range - (-self.__overflow_range)) * (c_arr - c_min) / (c_max - c_min) -self.__overflow_range
 
         activity_arr = 1.0 / (1.0 + np.exp(c_arr))
         activity_arr = np.nan_to_num(activity_arr)

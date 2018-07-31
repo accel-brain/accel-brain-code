@@ -17,6 +17,199 @@ class LSTMGraph(RecurrentTemporalGraph):
     In relation to do `transfer learning`, this object is-a `Synapse` which can be delegated to `LSTMModel`.
     '''
     
+    ##
+    # The parameters of LSTM.
+    #
+    #
+
+    # Activation function to activate the observed data points in LSTM RNN layer.
+    __observed_activating_function = None
+
+    def get_observed_activating_function(self):
+        ''' getter '''
+        if isinstance(self.__observed_activating_function, ActivatingFunctionInterface) is False:
+            raise TypeError("The type of __observed_activating_function must be `ActivatingFunctionInterface`.")
+        return self.__observed_activating_function
+
+    def set_observed_activating_function(self, value):
+        ''' setter '''
+        if isinstance(value, ActivatingFunctionInterface) is False:
+            raise TypeError("The type of __observed_activating_function must be `ActivatingFunctionInterface`.")
+        self.__observed_activating_function = value
+
+    observed_activating_function = property(get_observed_activating_function, set_observed_activating_function)
+
+    # Activation function in LSTM input gate.
+    __input_gate_activating_function = None
+    
+    def get_input_gate_activating_function(self):
+        ''' getter '''
+        if isinstance(self.__input_gate_activating_function, ActivatingFunctionInterface) is False:
+            raise TypeError("The type of __visible_activating_function must be `ActivatingFunctionInterface`.")
+        return self.__input_gate_activating_function
+
+    def set_input_gate_activating_function(self, value):
+        ''' setter '''
+        if isinstance(value, ActivatingFunctionInterface) is False:
+            raise TypeError("The type of __visible_activating_function must be `ActivatingFunctionInterface`.")
+        self.__input_gate_activating_function = value
+
+    input_gate_activating_function = property(get_input_gate_activating_function, set_input_gate_activating_function)
+
+    # Activation function in LSTM forget gate.
+    __forget_gate_activating_function = None
+
+    def get_forget_gate_activating_function(self):
+        ''' getter '''
+        if isinstance(self.__forget_gate_activating_function, ActivatingFunctionInterface) is False:
+            raise TypeError("The type of __forget_gate_activating_function must be `ActivatingFunctionInterface`.")
+        return self.__forget_gate_activating_function
+
+    def set_forget_gate_activating_function(self, value):
+        ''' setter '''
+        if isinstance(value, ActivatingFunctionInterface) is False:
+            raise TypeError("The type of __forget_gate_activating_function must be `ActivatingFunctionInterface`.")
+        self.__forget_gate_activating_function = value
+
+    forget_gate_activating_function = property(get_forget_gate_activating_function, set_forget_gate_activating_function)
+
+    # Activation function in LSTM output gate.
+    __output_gate_activating_function = None
+
+    def get_output_gate_activating_function(self):
+        ''' getter '''
+        if isinstance(self.__output_gate_activating_function, ActivatingFunctionInterface) is False:
+            raise TypeError("The type of __output_gate_activating_function must be `ActivatingFunctionInterface`.")
+        return self.__output_gate_activating_function
+
+    def set_output_gate_activating_function(self, value):
+        ''' setter '''
+        if isinstance(value, ActivatingFunctionInterface) is False:
+            raise TypeError("The type of __output_gate_activating_function must be `ActivatingFunctionInterface`.")
+        self.__output_gate_activating_function = value
+
+    output_gate_activating_function = property(get_output_gate_activating_function, set_output_gate_activating_function)
+
+    # Activation function in LSTM output layer.
+    __output_activating_function = None
+
+    def get_output_activating_function(self):
+        ''' getter '''
+        if isinstance(self.__output_activating_function, ActivatingFunctionInterface) is False:
+            raise TypeError("The type of __output_activating_function must be `ActivatingFunctionInterface`.")
+        return self.__output_activating_function
+
+    def set_output_activating_function(self, value):
+        ''' setter '''
+        if isinstance(value, ActivatingFunctionInterface) is False:
+            raise TypeError("The type of __output_activating_function must be `ActivatingFunctionInterface`.")
+        self.__output_activating_function = value
+
+    output_activating_function = property(get_output_activating_function, set_output_activating_function)
+
+
+    # Bias of neuron in LSTM RNN layer.
+    __lstm_bias_arr = np.array([])
+
+    def get_lstm_bias_arr(self):
+        ''' getter '''
+        if isinstance(self.__lstm_bias_arr, np.ndarray) is False:
+            raise TypeError("The type of __lstm_bias_arr must be `np.ndarray`.")
+
+        return self.__lstm_bias_arr
+
+    def set_lstm_bias_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __lstm_bias_arr must be `np.ndarray`.")
+
+        self.__lstm_bias_arr = value
+
+    lstm_bias_arr = property(get_lstm_bias_arr, set_lstm_bias_arr)
+
+    # Weight matrix which connect observed data points and hidden units in LSTM RNN layer.
+    __weights_lstm_observed_arr = np.array([])
+
+    def get_weights_lstm_observed_arr(self):
+        ''' getter '''
+        if isinstance(self.__weights_lstm_observed_arr, np.ndarray) is False:
+            raise TypeError("The type of __weights_lstm_observed_arr must be `np.ndarray`.")
+
+        return self.__weights_lstm_observed_arr
+
+    def set_weights_lstm_observed_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __weights_lstm_observed_arr must be `np.ndarray`.")
+
+        self.__weights_lstm_observed_arr = value
+    
+    weights_lstm_observed_arr = property(get_weights_lstm_observed_arr, set_weights_lstm_observed_arr)
+
+    # Weight matrix which connect observed data points and hidden units in LSTM RNN layer.
+    __weights_lstm_hidden_arr = np.array([])
+
+    def get_weights_lstm_hidden_arr(self):
+        ''' getter '''
+        if isinstance(self.__weights_lstm_hidden_arr, np.ndarray) is False:
+            raise TypeError("The type of __weights_lstm_hidden_arr must be `np.ndarray`.")
+
+        return self.__weights_lstm_hidden_arr
+
+    def set_weights_lstm_hidden_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __weights_lstm_hidden_arr must be `np.ndarray`.")
+
+        self.__weights_lstm_hidden_arr = value
+    
+    weights_lstm_hidden_arr = property(get_weights_lstm_hidden_arr, set_weights_lstm_hidden_arr)
+
+
+    # Bias of neuron in output layer.
+    __output_bias_arr = np.array([])
+
+    def get_output_bias_arr(self):
+        ''' getter '''
+        if isinstance(self.__output_bias_arr, np.ndarray) is False:
+            raise TypeError("The type of __output_bias_arr must be `np.ndarray`.")
+
+        return self.__output_bias_arr
+
+    def set_output_bias_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __output_bias_arr must be `np.ndarray`.")
+
+        self.__output_bias_arr = value
+
+    output_bias_arr = property(get_output_bias_arr, set_output_bias_arr)
+    
+    # Weight matrix of LSTM output layer.
+    __weights_output_arr = np.array([])
+    
+    def get_weights_output_arr(self):
+        ''' getter '''
+        if isinstance(self.__weights_output_arr, np.ndarray) is False:
+            raise TypeError("The type of __weights_output_arr must be `np.ndarray`.")
+
+        return self.__weights_output_arr
+    
+    def set_weights_output_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __weights_output_arr must be `np.ndarray`.")
+
+        self.__weights_output_arr = value
+
+    weights_output_arr = property(get_weights_output_arr, set_weights_output_arr)
+
+
+    ##
+    # The parameters of LSTM-RTRBM.
+    #
+    #
+
     # Bias of neuron in RBM's hidden layer hidden layer.
     __hidden_bias_arr = np.array([])
 
@@ -50,7 +243,6 @@ class LSTMGraph(RecurrentTemporalGraph):
         self.deeper_activating_function = value
 
     hidden_activating_function = property(get_hidden_activating_function, set_hidden_activating_function)
-
 
     # Activity of neuron in hidden layer in RBM.
     __hidden_activity_arr = np.array([])
@@ -215,24 +407,14 @@ class LSTMGraph(RecurrentTemporalGraph):
         int hidden_neuron_count,
         int output_neuron_count
     ):
-        self.hidden_activity_arr = np.zeros((hidden_neuron_count, ))
-        self.rnn_activity_arr = np.zeros((hidden_neuron_count, ))
+        self.hidden_activity_arr = np.array([])
+        self.rnn_activity_arr = np.array([])
 
-        self.weights_given_arr = np.random.normal(size=(input_neuron_count, hidden_neuron_count)) * 0.001
-        self.weights_input_gate_arr = np.random.normal(size=(input_neuron_count, hidden_neuron_count)) * 0.001
-        self.weights_forget_gate_arr = np.random.normal(size=(input_neuron_count, hidden_neuron_count)) * 0.001
-        self.weights_output_gate_arr = np.random.normal(size=(input_neuron_count, hidden_neuron_count)) * 0.001
-        
-        self.weights_hidden_arr = np.random.normal(size=(hidden_neuron_count, hidden_neuron_count)) * 0.001
+        self.weights_lstm_observed_arr = np.random.normal(size=(input_neuron_count, hidden_neuron_count * 4)) * 0.001
+        self.weights_lstm_hidden_arr = np.random.normal(size=(hidden_neuron_count, hidden_neuron_count * 4)) * 0.001
+        self.lstm_bias_arr = np.random.normal(size=hidden_neuron_count * 4) * 0.001
 
         self.weights_output_arr = np.random.normal(size=(hidden_neuron_count, output_neuron_count)) * 0.001
-
-        self.given_bias_arr = np.random.normal(size=hidden_neuron_count) * 0.001
-        self.input_gate_bias_arr = np.random.normal(size=hidden_neuron_count) * 0.001
-        self.forget_gate_bias_arr = np.random.normal(size=hidden_neuron_count) * 0.001
-        self.output_gate_bias_arr = np.random.normal(size=hidden_neuron_count) * 0.001
-        self.hidden_bias_arr = np.random.normal(size=hidden_neuron_count) * 0.001
-
         self.output_bias_arr = np.random.normal(size=output_neuron_count) * 0.001
 
     def create_node(

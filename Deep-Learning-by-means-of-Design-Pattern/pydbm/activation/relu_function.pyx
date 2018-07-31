@@ -27,3 +27,15 @@ class ReLuFunction(ActivatingFunctionInterface):
         if x_sum != 0:
             x = x / x_sum
         return np.maximum(0, x).astype(np.float64)
+
+    def derivative(self, np.ndarray y):
+        '''
+        Return of derivative result from this activation function.
+
+        Args:
+            y:   The result of activation.
+
+        Returns:
+            The result.
+        '''
+        return (y > 0).astype(int).astype(np.float64)

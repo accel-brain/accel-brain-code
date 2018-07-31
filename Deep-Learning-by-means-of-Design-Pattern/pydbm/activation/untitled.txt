@@ -1,0 +1,75 @@
+    # Weight matrix of observed data points in LSTM RNN layer.
+    __weights_h_given_arr = np.array([])
+    
+    def get_weights_h_given_arr(self):
+        ''' getter '''
+        if isinstance(self.__weights_h_given_arr, np.ndarray) is False:
+            raise TypeError("The type of __weights_h_given_arr must be `np.ndarray`.")
+
+        return self.__weights_h_given_arr
+
+    def set_weights_h_given_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __weights_h_given_arr must be `np.ndarray`.")
+
+        self.__weights_h_given_arr = value
+    
+    weights_h_given_arr = property(get_weights_h_given_arr, set_weights_h_given_arr)
+
+    # Weight matrix of LSTM input gate.
+    __weights_h_input_gate_arr = np.array([])
+    
+    def get_weights_h_input_gate_arr(self):
+        ''' getter '''
+        if isinstance(self.__weights_h_input_gate_arr, np.ndarray) is False:
+            raise TypeError("The type of __weights_h_input_gate_arr must be `np.ndarray`.")
+
+        return self.__weights_h_input_gate_arr
+
+    def set_weights_h_input_gate_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __weights_h_input_gate_arr must be `np.ndarray`.")
+
+        self.__weights_h_input_gate_arr = value
+
+    weights_h_input_gate_arr = property(get_weights_h_input_gate_arr, set_weights_h_input_gate_arr)
+    
+    # Weight matrix of LSTM forget gate.
+    __weights_h_forget_gate_arr = np.array([])
+
+    def get_weights_h_forget_gate_arr(self):
+        ''' getter '''
+        if isinstance(self.__weights_h_forget_gate_arr, np.ndarray) is False:
+            raise TypeError("The type of __weights_h_forget_gate_arr must be `np.ndarray`.")
+
+        return self.__weights_h_forget_gate_arr
+
+    def set_weights_h_forget_gate_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __weights_h_forget_gate_arr must be `np.ndarray`.")
+
+        self.__weights_h_forget_gate_arr = value
+    
+    weights_h_forget_gate_arr = property(get_weights_h_forget_gate_arr, set_weights_h_forget_gate_arr)
+
+    # Weight matrix of LSTM output gate.
+    __weights_h_output_gate_arr = np.array([])
+
+    def get_weights_h_output_gate_arr(self):
+        ''' getter '''
+        if isinstance(self.__weights_h_output_gate_arr, np.ndarray) is False:
+            raise TypeError("The type of __weights_h_output_gate_arr must be `np.ndarray`.")
+
+        return self.__weights_h_output_gate_arr
+
+    def set_weights_h_output_gate_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __weights_h_output_gate_arr must be `np.ndarray`.")
+
+        self.__weights_h_output_gate_arr = value
+    
+    weights_h_output_gate_arr = property(get_weights_h_output_gate_arr, set_weights_h_output_gate_arr)

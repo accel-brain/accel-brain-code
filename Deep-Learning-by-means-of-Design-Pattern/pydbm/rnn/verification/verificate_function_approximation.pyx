@@ -48,9 +48,7 @@ class VerificateFunctionApproximation(VerificatableResult):
             test_label_arr:    Labeled data in test.
 
         '''
-        if isinstance(computable_loss, ComputableLoss):
-            computable_loss = computable_loss
-        else:
+        if isinstance(computable_loss, ComputableLoss) is False:
             raise TypeError()
 
         train_loss = computable_loss.compute_loss(train_pred_arr, train_label_arr)

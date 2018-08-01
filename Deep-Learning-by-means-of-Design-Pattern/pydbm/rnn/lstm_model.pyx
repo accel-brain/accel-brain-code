@@ -173,8 +173,6 @@ class LSTMModel(object):
 
         cdef double loss
         cdef double test_loss
-        cdef np.ndarray[DOUBLE_t, ndim=1] loss_arr
-        cdef np.ndarray[DOUBLE_t, ndim=1] test_loss_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] test_pred_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_arr
@@ -197,8 +195,7 @@ class LSTMModel(object):
                 try:
                     hidden_activity_arr = self.__lstm_forward_propagate(batch_observed_arr)
                     pred_arr = self.__output_forward_propagate(hidden_activity_arr)
-                    loss_arr = self.__computable_loss.compute_loss(pred_arr, batch_target_arr[:, -1, :], axis=0)
-                    loss = loss_arr.mean()
+                    loss = self.__computable_loss.compute_loss(pred_arr, batch_target_arr[:, -1, :])
                     delta_arr = self.__computable_loss.compute_delta(pred_arr, batch_target_arr[:, -1, :])
                     delta_arr, output_grads_list = self.__output_back_propagate(pred_arr, delta_arr)
                     _, lstm_grads_list = self.__lstm_back_propagate(delta_arr)
@@ -252,9 +249,7 @@ class LSTMModel(object):
 
                     test_hidden_activity_arr = self.__lstm_forward_propagate(test_batch_observed_arr)
                     test_pred_arr = self.__output_forward_propagate(test_hidden_activity_arr)
-                    test_loss_arr = self.__computable_loss.compute_loss(test_pred_arr, test_batch_target_arr[:, -1, :], axis=0)
-                    test_loss = test_loss_arr.mean()
-
+                    test_loss = self.__computable_loss.compute_loss(test_pred_arr, test_batch_target_arr[:, -1, :])
                     test_loss_list.append(test_loss)
                     self.__logger.debug("Test loss: " + str(test_loss))
 

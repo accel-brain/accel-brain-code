@@ -20,7 +20,7 @@ class OptParams(metaclass=ABCMeta):
     @abstractmethod
     def optimize(self, params_list, np.ndarray grads_arr, double learning_rate):
         '''
-        Return of result from this Cost function.
+        Return of result from this concrete optimization function.
 
         Args:
             params_dict:    `list` of parameters.

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from logging import getLogger
 import numpy as np
 cimport numpy as np
 from pydbm.rnn.optimization.opt_params import OptParams
@@ -20,13 +19,9 @@ class SGD(OptParams):
         self.__momentum = momentum
         self.__variation_list = []
 
-        logger = getLogger("pydbm")
-        self.__logger = logger
-        self.__logger.debug("pydbm.rnn.lstm_model is started. ")
-
     def optimize(self, params_list, grads_list, double learning_rate):
         '''
-        Return of result from this Cost function.
+        Return of result from this optimization function.
         
         Override.
 

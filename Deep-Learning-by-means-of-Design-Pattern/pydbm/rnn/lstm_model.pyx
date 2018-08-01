@@ -234,11 +234,14 @@ class LSTMModel(object):
                     self.graph.rnn_activity_arr = np.array([])
 
                 except FloatingPointError:
-                    self.__logger.debug(
-                        "Underflow occurred when the parameters are being updated. Because of early stopping, this error is catched and the parameter is not updated."
-                    )
-                    eary_stop_flag = True
-                    break
+                    if epoch > 100:
+                        self.__logger.debug(
+                            "Underflow occurred when the parameters are being updated. Because of early stopping, this error is catched and the parameter is not updated."
+                        )
+                        eary_stop_flag = True
+                        break
+                    else:
+                        raise
 
                 self.__logger.debug("Training loss: " + str(loss))
                 if self.__test_size_rate > 0:

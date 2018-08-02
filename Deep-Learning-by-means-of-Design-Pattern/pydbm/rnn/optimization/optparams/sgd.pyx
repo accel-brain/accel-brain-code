@@ -33,10 +33,16 @@ class SGD(OptParams):
         Returns:
             `list` of optimized parameters.
         '''
+        if len(params_list) != len(grads_list):
+            raise ValueError("The row of `params_list` and `grads_list` must be equivalent.")
+
         if len(self.__variation_list) == 0 or len(self.__variation_list) != len(params_list):
             self.__variation_list  = [None] * len(params_list)
 
         for i in range(len(params_list)):
+            if params_list[i] is None or grads_list[i] is None:
+                continue
+
             if self.__variation_list[i] is not None:
                 self.__variation_list[i] = self.__momentum * self.__variation_list[i] - learning_rate * grads_list[i]
                 self.__variation_list[i] = np.nan_to_num(self.__variation_list[i])

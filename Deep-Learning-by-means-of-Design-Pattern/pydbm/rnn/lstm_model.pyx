@@ -6,10 +6,11 @@ from pydbm.synapse_list import Synapse
 from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
 from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
 from pydbm.rnn.optimization.opt_params import OptParams
+from pydbm.rnn.interface.reconstructable_model import ReconstructableModel
 ctypedef np.float64_t DOUBLE_t
 
 
-class LSTMModel(object):
+class LSTMModel(ReconstructableModel):
     '''
     Long short term memory(LSTM) networks.
     '''
@@ -51,7 +52,6 @@ class LSTMModel(object):
         double learning_attenuate_rate,
         int attenuate_epoch,
         int bptt_tau=16,
-        output_bias_norm_flag=False,
         double test_size_rate=0.3,
         computable_loss=None,
         opt_params=None,
@@ -112,6 +112,8 @@ class LSTMModel(object):
 
         self.__test_size_rate = test_size_rate
         self.__tol = tol
+
+        self.__memory_tuple_list = []
 
         logger = getLogger("pydbm")
         self.__logger = logger
@@ -193,40 +195,15 @@ class LSTMModel(object):
                 batch_target_arr = train_target_arr[rand_index]
 
                 try:
-                    hidden_activity_arr = self.__lstm_forward_propagate(batch_observed_arr)
-                    pred_arr = self.__output_forward_propagate(hidden_activity_arr)
+                    pred_arr = self.forward_propagation(batch_observed_arr)
                     loss = self.__computable_loss.compute_loss(pred_arr, batch_target_arr[:, -1, :])
                     delta_arr = self.__computable_loss.compute_delta(pred_arr, batch_target_arr[:, -1, :])
-                    delta_arr, output_grads_list = self.__output_back_propagate(pred_arr, delta_arr)
-                    _, lstm_grads_list = self.__lstm_back_propagate(delta_arr)
-
+                    delta_arr, output_grads_list = self.output_back_propagate(pred_arr, delta_arr)
+                    _delta_arr, lstm_grads_list = self.lstm_back_propagate(delta_arr)
                     grads_list = output_grads_list
                     grads_list.extend(lstm_grads_list)
-
-                    params_list = self.__opt_params.optimize(
-                        [
-                            self.graph.weights_output_arr,
-                            self.graph.output_bias_arr,
-                            self.graph.weights_lstm_hidden_arr,
-                            self.graph.weights_lstm_observed_arr,
-                            self.graph.lstm_bias_arr
-                        ],
-                        grads_list,
-                        learning_rate
-                    )
-                    self.graph.weights_output_arr = params_list[0]
-                    self.graph.output_bias_arr = params_list[1]
-                    self.graph.weights_lstm_hidden_arr = params_list[2]
-                    self.graph.weights_lstm_observed_arr = params_list[3]
-                    self.graph.lstm_bias_arr = params_list[4]
-
-                    if ((epoch + 1) % self.__attenuate_epoch == 0):
-                        self.graph.weights_output_arr = self.__opt_params.constrain_weight(self.graph.weights_output_arr)
-                        self.graph.weights_lstm_hidden_arr = self.__opt_params.constrain_weight(self.graph.weights_lstm_hidden_arr)
-                        self.graph.weights_lstm_observed_arr = self.__opt_params.constrain_weight(self.graph.weights_lstm_observed_arr)
-
+                    self.optimize(grads_list, learning_rate, epoch)
                     loss_list.append(loss)
-
                     self.graph.hidden_activity_arr = np.array([])
                     self.graph.rnn_activity_arr = np.array([])
 
@@ -247,7 +224,7 @@ class LSTMModel(object):
                     test_batch_observed_arr = test_observed_arr[rand_index]
                     test_batch_target_arr = test_target_arr[rand_index]
 
-                    test_hidden_activity_arr = self.__lstm_forward_propagate(test_batch_observed_arr)
+                    test_hidden_activity_arr = self.lstm_forward_propagate(test_batch_observed_arr)
                     test_pred_arr = self.__output_forward_propagate(test_hidden_activity_arr)
                     test_loss = self.__computable_loss.compute_loss(test_pred_arr, test_batch_target_arr[:, -1, :])
                     test_loss_list.append(test_loss)
@@ -275,6 +252,57 @@ class LSTMModel(object):
             eary_stop_flag = False
 
         self.__logger.debug("end. ")
+
+    def forward_propagation(self, np.ndarray[DOUBLE_t, ndim=3] batch_observed_arr):
+        '''
+        Forward propagation.
+        
+        Args:
+            batch_observed_arr:    Array like or sparse matrix as the observed data ponts.
+        
+        Returns:
+            Array like or sparse matrix as the predicted data ponts.
+        '''
+        cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr = self.lstm_forward_propagate(batch_observed_arr)
+        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.__output_forward_propagate(hidden_activity_arr)
+        return pred_arr
+
+    def optimize(
+        self,
+        grads_list,
+        double learning_rate,
+        int epoch
+    ):
+        '''
+        Back propagation.
+        
+        Args:
+            grads_list:     `list` of graduations.
+            learning_rate:  Learning rate.
+            epoch:          Now epoch.
+            
+        '''
+        params_list = self.__opt_params.optimize(
+            [
+                self.graph.weights_output_arr,
+                self.graph.output_bias_arr,
+                self.graph.weights_lstm_hidden_arr,
+                self.graph.weights_lstm_observed_arr,
+                self.graph.lstm_bias_arr
+            ],
+            grads_list,
+            learning_rate
+        )
+        self.graph.weights_output_arr = params_list[0]
+        self.graph.output_bias_arr = params_list[1]
+        self.graph.weights_lstm_hidden_arr = params_list[2]
+        self.graph.weights_lstm_observed_arr = params_list[3]
+        self.graph.lstm_bias_arr = params_list[4]
+
+        if ((epoch + 1) % self.__attenuate_epoch == 0):
+            self.graph.weights_output_arr = self.__opt_params.constrain_weight(self.graph.weights_output_arr)
+            self.graph.weights_lstm_hidden_arr = self.__opt_params.constrain_weight(self.graph.weights_lstm_hidden_arr)
+            self.graph.weights_lstm_observed_arr = self.__opt_params.constrain_weight(self.graph.weights_lstm_observed_arr)
 
     def inference(
         self,
@@ -315,14 +343,13 @@ class LSTMModel(object):
             self.graph.rnn_activity_arr = rnn_activity_arr
 
         self.__opt_params.dropout_rate = 0.0
-        cdef np.ndarray[DOUBLE_t, ndim=3] _hidden_activity_arr = self.__lstm_forward_propagate(observed_arr)
-        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.__output_forward_propagate(_hidden_activity_arr)
+        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.forward_propagation(observed_arr)
         self.__opt_params.dropout_rate = self.__dropout_rate
 
         self.__feature_points_arr = self.__memory_tuple_list[-1][8]
         return pred_arr
 
-    def get_feature_points(self):
+    def get_feature_points_arr(self):
         '''
         Extract the activities in hidden layer and reset it, 
         considering this method will be called per one cycle in instances of time-series.
@@ -330,11 +357,11 @@ class LSTMModel(object):
         Returns:
             The `list` of array like or sparse matrix of feature points or virtual visible observed data points.
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=1] feature_points_arr = self.__feature_points_arr
+        feature_points_arr = self.__feature_points_arr
         self.__feature_points_arr = np.array([])
         return feature_points_arr
 
-    def __lstm_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=3] observed_arr):
+    def lstm_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=3] observed_arr):
         '''
         Forward propagation in LSTM gate.
         
@@ -383,10 +410,10 @@ class LSTMModel(object):
         )
         return _pred_arr
 
-    def __output_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] pred_arr, np.ndarray[DOUBLE_t, ndim=2] delta_arr):
+    def output_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] pred_arr, np.ndarray[DOUBLE_t, ndim=2] delta_arr):
         '''
         Back propagation in output layer.
-        
+
         Args:
             pred_arr:            `np.ndarray` of predicted data points.
             delta_output_arr:    Delta.
@@ -397,7 +424,6 @@ class LSTMModel(object):
                 `list` of gradations
             )
         '''
-
         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = np.dot(delta_arr, self.graph.weights_output_arr.T)
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weights_arr = np.dot(pred_arr.T, _delta_arr).T
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = np.sum(delta_arr, axis=0)
@@ -409,7 +435,7 @@ class LSTMModel(object):
         
         return (_delta_arr, grads_list)
 
-    def __lstm_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] delta_output_arr):
+    def lstm_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] delta_output_arr):
         '''
         Back propagation in LSTM gate.
         
@@ -551,12 +577,19 @@ class LSTMModel(object):
         if delta_rnn_arr.shape[0] == 0:
             delta_rnn_arr = np.zeros((delta_hidden_arr.shape[0], delta_hidden_arr.shape[1]))
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_top_arr = delta_rnn_arr + (delta_hidden_arr * output_gate_activity_arr) * self.graph.hidden_activating_function.derivative(rnn_activity_arr)
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_pre_rnn_arr = delta_top_arr * forget_gate_activity_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_output_gate_arr = delta_hidden_arr * rnn_activity_arr * self.graph.output_gate_activating_function.derivative(output_gate_activity_arr)
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_forget_gate_arr = delta_top_arr * delta_pre_rnn_arr * self.graph.forget_gate_activating_function.derivative(forget_gate_activity_arr)
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_input_gate_arr = delta_top_arr * given_activity_arr * self.graph.input_gate_activating_function.derivative(input_gate_activity_arr)
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_given_arr = delta_top_arr * input_gate_activity_arr * self.graph.observed_activating_function.derivative(given_activity_arr)
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_top_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_pre_rnn_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_output_gate_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_forget_gate_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_input_gate_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_given_arr
+
+        delta_top_arr = delta_rnn_arr + (delta_hidden_arr * output_gate_activity_arr) * self.graph.hidden_activating_function.derivative(rnn_activity_arr)
+        delta_pre_rnn_arr = delta_top_arr * forget_gate_activity_arr
+        delta_output_gate_arr = delta_hidden_arr * rnn_activity_arr * self.graph.output_gate_activating_function.derivative(output_gate_activity_arr)
+        delta_forget_gate_arr = delta_top_arr * delta_pre_rnn_arr * self.graph.forget_gate_activating_function.derivative(forget_gate_activity_arr)
+        delta_input_gate_arr = delta_top_arr * given_activity_arr * self.graph.input_gate_activating_function.derivative(input_gate_activity_arr)
+        delta_given_arr = delta_top_arr * input_gate_activity_arr * self.graph.observed_activating_function.derivative(given_activity_arr)
         
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_lstm_matrix = np.hstack([
             delta_output_gate_arr,

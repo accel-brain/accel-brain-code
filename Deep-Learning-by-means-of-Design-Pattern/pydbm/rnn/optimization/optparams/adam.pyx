@@ -36,6 +36,9 @@ class Adam(OptParams):
         Returns:
             `list` of optimized parameters.
         '''
+        if len(params_list) != len(grads_list):
+            raise ValueError("The row of `params_list` and `grads_list` must be equivalent.")
+
         if len(self.__first_moment_list) == 0 or len(self.__first_moment_list) != len(params_list):
             self.__first_moment_list  = [None] * len(params_list)
         if len(self.__second_moment_list) == 0 or len(self.__second_moment_list) != len(params_list):
@@ -49,6 +52,9 @@ class Adam(OptParams):
         learning_rate = learning_rate * np.sqrt(1 - self.__beta_2 ** self.__epoch) / (1 - self.__beta_1 ** self.__epoch)
 
         for i in range(len(params_list)):
+            if params_list[i] is None or grads_list[i] is None:
+                continue
+
             if self.__first_moment_list[i] is not None or self.__second_moment_list[i] is not None:
                 self.__second_moment_list[i] += (1 - self.__beta_1) * (grads_list[i] - self.__second_moment_list[i])
                 self.__first_moment_list[i] += (1 - self.__beta_2) * (grads_list[i] ** 2 - self.__first_moment_list[i])

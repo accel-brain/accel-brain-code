@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import numpy as np
 from pysummarization.nlp_base import NlpBase
 from pysummarization.tokenizabledoc.mecab_tokenizer import MeCabTokenizer
 from pysummarization.web_scraping import WebScraping
@@ -31,7 +32,7 @@ def Main(url):
     vectorlizable_sentence = EncoderDecoder()
     vectorlizable_sentence.learn(
         sentence_list=sentence_list, 
-        sentence_msater_list=list(set(all_token_list))
+        token_master_list=list(set(all_token_list))
     )
     feature_points_arr = vectorlizable_sentence.vectorlize(sentence_list[:5])
     

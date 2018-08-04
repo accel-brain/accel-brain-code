@@ -52,4 +52,10 @@ if __name__ == "__main__":
     logger.setLevel(DEBUG)
     logger.addHandler(handler)
 
+    logger = getLogger("pysummarization")
+    handler = StreamHandler()
+    handler.setLevel(DEBUG)
+    logger.setLevel(DEBUG)
+    logger.addHandler(handler)
+
     Main(url)

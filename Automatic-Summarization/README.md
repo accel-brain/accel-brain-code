@@ -205,9 +205,9 @@ The result is as follows.
 
 If the sentences you want to summarize consist of repetition of same or similar sense in different words, the summary results may also be redundant. Then before summarization, you should filter the mutually similar, tautological, pleonastic, or redundant sentences to extract features having an information quantity. The function of `SimilarityFilter` is to cut-off the sentences having the state of resembling or being alike by calculating the similarity measure.
 
-### Methods for calculating the similarity measure
+### Dice, Jaccard, and Simpson
 
-There are some methods for calculating the similarity measure. In this library, Dice coefficient, Jaccard coefficient, and Simpson coefficient between two sentences is calculated as follows.
+There are some classes for calculating the similarity measure. In this library, **Dice coefficient**, **Jaccard coefficient**, and **Simpson coefficient** between two sentences is calculated as follows.
 
 Import Python modules for calculating the similarity measure and instantiate the object.
 
@@ -230,25 +230,67 @@ from pysummarization.similarityfilter.simpson import Simpson
 similarity_filter = Simpson()
 ```
 
+### Functional equivalent: Combination of Tf-Idf and Cosine similarity
+
+If you want to calculate similarity with **Tf-Idf cosine similarity**, instantiate `TfIdfCosine`.
+
+```python
+from pysummarization.similarityfilter.tfidf_cosine import TfIdfCosine
+similarity_filter = TfIdfCosine()
+```
+
+### Functional equivalent: Combination of Encoder/Decoder based on LSTM and Cosine similarity
+
+According to the neural networks theory, and in relation to manifold hypothesis, it is well known that multilayer neural networks can learn features of observed data points and have the feature points in hidden layer. High-dimensional data can be converted to low-dimensional codes by training the model such as **Stacked Auto-Encoder** and **Encoder/Decoder** with a small central layer to reconstruct high-dimensional input vectors. This function of dimensionality reduction facilitates feature expressions to calculate similarity of each data point.
+
+This library provides **Encoder/Decoder based on LSTM**, which makes it possible to extract series features of natural sentences embedded in deeper layers. *Intuitively* speaking, similarities of the series feature points correspond to similarities of the observed data points. You can extracted the result of dimensionality reduction and cosine similarity of the manifolds, which is embedded in hidden layer of Encoder/Decoder based on LSTM, by coding as follows.
+
+```python
+from pysummarization.similarityfilter.encoder_decoder_cosine import EncoderDecoderCosine
+
+# Instantiation and learn natural sentences.
+similarity_filter = EncoderDecoderCosine(
+    # String of natural sentences.
+    document,
+    # The number of hidden units.
+    hidden_neuron_count=200,
+    # Epochs of Mini-batch.
+    epochs=100,
+    # Batch size of Mini-batch.
+    batch_size=100,
+    # Learning rate.
+    learning_rate=1e-05,
+    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+    learning_attenuate_rate=0.1,
+    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+    attenuate_epoch=50,
+    # Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
+    bptt_tau=8,
+    # Regularization for weights matrix
+    # to repeat multiplying the weights matrix and `0.9`
+    # until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
+    weight_limit=0.5,
+    # The probability of dropout.
+    dropout_rate=0.5,
+    # Size of Test data set. If this value is `0`, the validation will not be executed.
+    test_size_rate=0.3,
+    # Debug mode or not.
+    debug_mode=True
+)
+```
+
+`document` is a `str` of natural sentences, which are subject to automatic summarization. When instantiated, this class starts learning. If `debug_mode` is `True`, the progress of learning is printed by the logger.
+
+### Calculating similarity
+
 If you want to calculate similarity between two sentences, call `calculate` method as follow.
 
 ```python
-# Instantiate
-similarity_filter = Jaccard()
 # Tokenized sentences
 token_list_x = ["Dice", "coefficient", "is", "a", "similarity", "measure", "."]
 token_list_y = ["Jaccard", "coefficient", "is", "a", "similarity", "measure", "."]
 # 0.75
 similarity_num = similarity_filter.calculate(token_list_x, token_list_y)
-```
-
-### Tf-Idf and Cosine similarity
-
-If you want to calculate similarity with Tf-Idf cosine similarity, instantiate `TfIdfCosine`.
-
-```python
-from pysummarization.similarityfilter.tfidf_cosine import TfIdfCosine
-similarity_filter = TfIdfCosine()
 ```
 
 ### Filtering similar sentences and summarization
@@ -318,7 +360,7 @@ Run the batch program: [demo/demo_similarity_filtering_japanese_web_page.py](htt
 python demo/demo_similarity_filtering_japanese_web_page.py {URL} {SimilarityFilter} {SimilarityLimit}
 ```
 - {URL}: web site URL.
-- {SimilarityFilter}: The object of `SimilarityFilter`: `Dice`, `Jaccard`, `Simpson`, or `TfIdfCosine`.
+- {SimilarityFilter}: The object of `SimilarityFilter`: `Dice`, `Jaccard`, `Simpson`, `TfIdfCosine`, or `EncoderDecoderCosine`.
 - {SimilarityLimit}: The cut-off threshold.
 
 For instance, command line argument is as follows:
@@ -336,6 +378,12 @@ The result is as follows.
 
  ある用語の 定義 を与える表現の中にその用語自体が本質的に登場していること [1]
 ```
+
+# References
+
+- Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.
+- Luhn, Hans Peter. "The automatic creation of literature abstracts." IBM Journal of research and development 2.2 (1958): 159-165.
+- Matthew A. Russell　著、佐藤 敏紀、瀬戸口 光宏、原川 浩一　監訳、長尾 高弘　訳『入門 ソーシャルデータ 第2版――ソーシャルウェブのデータマイニング』 2014年06月 発行
 
 ## More detail demos
 
@@ -361,8 +409,3 @@ The result is as follows.
 ## License
 
 - GNU General Public License v2.0
-
-# References
-
-- Luhn, Hans Peter. "The automatic creation of literature abstracts." IBM Journal of research and development 2.2 (1958): 159-165.
-- Matthew A. Russell　著、佐藤 敏紀、瀬戸口 光宏、原川 浩一　監訳、長尾 高弘　訳『入門 ソーシャルデータ 第2版――ソーシャルウェブのデータマイニング』 2014年06月 発行

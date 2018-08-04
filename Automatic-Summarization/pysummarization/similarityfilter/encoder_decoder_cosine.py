@@ -110,8 +110,8 @@ class EncoderDecoderCosine(SimilarityFilter):
         '''
         if len(token_list_x) == 0 or len(token_list_y) == 0:
             return 0.0
-        x_arr = self.__vectorlizable_sentence.vectorize([token_list_x])
-        y_arr = self.__vectorlizable_sentence.vectorize([token_list_y])
+        x_arr = self.__vectorlizable_sentence.vectorize([token_list_x])[0]
+        y_arr = self.__vectorlizable_sentence.vectorize([token_list_y])[0]
 
         dot_prod = np.dot(x_arr, y_arr)
         norm_x = np.linalg.norm(x_arr)

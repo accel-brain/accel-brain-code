@@ -34,7 +34,7 @@ def Main(url):
         sentence_list=sentence_list, 
         token_master_list=list(set(all_token_list))
     )
-    feature_points_arr = vectorlizable_sentence.vectorlize(sentence_list[:5])
+    feature_points_arr = vectorlizable_sentence.vectorize(sentence_list[:5])
     
     print(feature_points_arr)
 

@@ -4,7 +4,7 @@
 
 ## Description
 
-The function of this library is automatic summarization using a kind of natural language processing. This library enable you to create a summary with the major points of the original document or web-scraped text that filtered by text clustering.
+The function of this library is automatic summarization using a kind of natural language processing. This library enable you to create a summary with the major points of the original document or web-scraped text that filtered by text clustering. And this library applies [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) to implement **Encoder/Decoder based on LSTM**, improving the accuracy of summarization.
 
 ## Documentation
 
@@ -37,6 +37,8 @@ Installers for the latest released version are available at the Python package i
 - mecab-python3: v0.7 or higher.
 - pdfminer2
 - pyquery:v1.2.17 or higher.
+- pydbm: v1.3.2 or higher.
+    * Only when using **Encoder/Decoder based on LSTM**.
 
 ## Usecase: Summarize an English string argument.
 
@@ -279,7 +281,9 @@ similarity_filter = EncoderDecoderCosine(
 )
 ```
 
-`document` is a `str` of natural sentences, which are subject to automatic summarization. When instantiated, this class starts learning. If `debug_mode` is `True`, the progress of learning is printed by the logger.
+`document` is a `str` of all natural sentences, which are subject to automatic summarization by `AutoAbstractor`. When instantiated, this class starts learning. If `debug_mode` is `True`, the progress of learning is printed by the logger.
+
+Refer to [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library for details related to Encoder/Decoder.
 
 ### Calculating similarity
 

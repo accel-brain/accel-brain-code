@@ -24,7 +24,7 @@ class EncoderDecoderCosine(SimilarityFilter):
         bptt_tau=8,
         weight_limit=0.5,
         dropout_rate=0.5,
-        test_size_rate=0.3
+        test_size_rate=0.3,
         debug_mode=False
     ):
         '''

@@ -3,7 +3,7 @@ import numpy as np
 from pysummarization.nlp_base import NlpBase
 from pysummarization.tokenizabledoc.mecab_tokenizer import MeCabTokenizer
 from pysummarization.web_scraping import WebScraping
-from pysummarization.vectorlizablesentence.encoder_decoder import EncoderDecoder
+from pysummarization.vectorizablesentence.encoder_decoder import EncoderDecoder
 
 
 def Main(url):

@@ -10,6 +10,7 @@ class VerificatableResult(metaclass=ABCMeta):
     @abstractmethod
     def verificate(
         self,
+        computable_loss,
         train_pred_arr,
         train_label_arr,
         test_pred_arr,
@@ -19,6 +20,7 @@ class VerificatableResult(metaclass=ABCMeta):
         Verificate result.
 
         Args:
+            computable_loss:   is-a `ComputableLoss`.
             train_pred_arr:    Predicted data in training.
             train_label_arr:   Labeled data in training.
             test_pred_arr:     Predicted data in test.

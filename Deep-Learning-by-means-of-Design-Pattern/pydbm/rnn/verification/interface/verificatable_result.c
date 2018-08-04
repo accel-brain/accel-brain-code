@@ -1066,6 +1066,7 @@ static const char __pyx_k_test_pred_arr[] = "test_pred_arr";
 static const char __pyx_k_abstractmethod[] = "abstractmethod";
 static const char __pyx_k_test_label_arr[] = "test_label_arr";
 static const char __pyx_k_train_pred_arr[] = "train_pred_arr";
+static const char __pyx_k_computable_loss[] = "computable_loss";
 static const char __pyx_k_train_label_arr[] = "train_label_arr";
 static const char __pyx_k_abstractproperty[] = "abstractproperty";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
@@ -1084,6 +1085,7 @@ static PyObject *__pyx_n_s_abc;
 static PyObject *__pyx_n_s_abstractmethod;
 static PyObject *__pyx_n_s_abstractproperty;
 static PyObject *__pyx_n_s_cline_in_traceback;
+static PyObject *__pyx_n_s_computable_loss;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_main;
@@ -1100,7 +1102,7 @@ static PyObject *__pyx_n_s_test_pred_arr;
 static PyObject *__pyx_n_s_train_label_arr;
 static PyObject *__pyx_n_s_train_pred_arr;
 static PyObject *__pyx_n_s_verificate;
-static PyObject *__pyx_pf_5pydbm_3rnn_12verification_9interface_20verificatable_result_19VerificatableResult_verificate(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_train_pred_arr, CYTHON_UNUSED PyObject *__pyx_v_train_label_arr, CYTHON_UNUSED PyObject *__pyx_v_test_pred_arr, CYTHON_UNUSED PyObject *__pyx_v_test_label_arr); /* proto */
+static PyObject *__pyx_pf_5pydbm_3rnn_12verification_9interface_20verificatable_result_19VerificatableResult_verificate(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_computable_loss, CYTHON_UNUSED PyObject *__pyx_v_train_pred_arr, CYTHON_UNUSED PyObject *__pyx_v_train_label_arr, CYTHON_UNUSED PyObject *__pyx_v_test_pred_arr, CYTHON_UNUSED PyObject *__pyx_v_test_label_arr); /* proto */
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_codeobj__2;
 
@@ -1109,15 +1111,16 @@ static PyObject *__pyx_codeobj__2;
  *     @abstractmethod
  *     def verificate(             # <<<<<<<<<<<<<<
  *         self,
- *         train_pred_arr,
+ *         computable_loss,
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_3rnn_12verification_9interface_20verificatable_result_19VerificatableResult_1verificate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_12verification_9interface_20verificatable_result_19VerificatableResult_verificate[] = "\n        Verificate result.\n\n        Args:\n            train_pred_arr:    Predicted data in training.\n            train_label_arr:   Labeled data in training.\n            test_pred_arr:     Predicted data in test.\n            test_label_arr:    Labeled data in test.\n        \n        ";
+static char __pyx_doc_5pydbm_3rnn_12verification_9interface_20verificatable_result_19VerificatableResult_verificate[] = "\n        Verificate result.\n\n        Args:\n            computable_loss:   is-a `ComputableLoss`.\n            train_pred_arr:    Predicted data in training.\n            train_label_arr:   Labeled data in training.\n            test_pred_arr:     Predicted data in test.\n            test_label_arr:    Labeled data in test.\n        \n        ";
 static PyMethodDef __pyx_mdef_5pydbm_3rnn_12verification_9interface_20verificatable_result_19VerificatableResult_1verificate = {"verificate", (PyCFunction)__pyx_pw_5pydbm_3rnn_12verification_9interface_20verificatable_result_19VerificatableResult_1verificate, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_12verification_9interface_20verificatable_result_19VerificatableResult_verificate};
 static PyObject *__pyx_pw_5pydbm_3rnn_12verification_9interface_20verificatable_result_19VerificatableResult_1verificate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
+  CYTHON_UNUSED PyObject *__pyx_v_computable_loss = 0;
   CYTHON_UNUSED PyObject *__pyx_v_train_pred_arr = 0;
   CYTHON_UNUSED PyObject *__pyx_v_train_label_arr = 0;
   CYTHON_UNUSED PyObject *__pyx_v_test_pred_arr = 0;
@@ -1126,12 +1129,14 @@ static PyObject *__pyx_pw_5pydbm_3rnn_12verification_9interface_20verificatable_
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("verificate (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_train_pred_arr,&__pyx_n_s_train_label_arr,&__pyx_n_s_test_pred_arr,&__pyx_n_s_test_label_arr,0};
-    PyObject* values[5] = {0,0,0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_computable_loss,&__pyx_n_s_train_pred_arr,&__pyx_n_s_train_label_arr,&__pyx_n_s_test_pred_arr,&__pyx_n_s_test_label_arr,0};
+    PyObject* values[6] = {0,0,0,0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
+        CYTHON_FALLTHROUGH;
         case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
         CYTHON_FALLTHROUGH;
         case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
@@ -1152,33 +1157,39 @@ static PyObject *__pyx_pw_5pydbm_3rnn_12verification_9interface_20verificatable_
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
-        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_train_pred_arr)) != 0)) kw_args--;
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_computable_loss)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("verificate", 1, 5, 5, 1); __PYX_ERR(0, 11, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("verificate", 1, 6, 6, 1); __PYX_ERR(0, 11, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
-        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_train_label_arr)) != 0)) kw_args--;
+        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_train_pred_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("verificate", 1, 5, 5, 2); __PYX_ERR(0, 11, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("verificate", 1, 6, 6, 2); __PYX_ERR(0, 11, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
-        if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_test_pred_arr)) != 0)) kw_args--;
+        if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_train_label_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("verificate", 1, 5, 5, 3); __PYX_ERR(0, 11, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("verificate", 1, 6, 6, 3); __PYX_ERR(0, 11, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
-        if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_test_label_arr)) != 0)) kw_args--;
+        if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_test_pred_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("verificate", 1, 5, 5, 4); __PYX_ERR(0, 11, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("verificate", 1, 6, 6, 4); __PYX_ERR(0, 11, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  5:
+        if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_test_label_arr)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("verificate", 1, 6, 6, 5); __PYX_ERR(0, 11, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "verificate") < 0)) __PYX_ERR(0, 11, __pyx_L3_error)
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 5) {
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 6) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
@@ -1186,51 +1197,53 @@ static PyObject *__pyx_pw_5pydbm_3rnn_12verification_9interface_20verificatable_
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
       values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+      values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
     }
     __pyx_v_self = values[0];
-    __pyx_v_train_pred_arr = values[1];
-    __pyx_v_train_label_arr = values[2];
-    __pyx_v_test_pred_arr = values[3];
-    __pyx_v_test_label_arr = values[4];
+    __pyx_v_computable_loss = values[1];
+    __pyx_v_train_pred_arr = values[2];
+    __pyx_v_train_label_arr = values[3];
+    __pyx_v_test_pred_arr = values[4];
+    __pyx_v_test_label_arr = values[5];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("verificate", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 11, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("verificate", 1, 6, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 11, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.rnn.verification.interface.verificatable_result.VerificatableResult.verificate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_3rnn_12verification_9interface_20verificatable_result_19VerificatableResult_verificate(__pyx_self, __pyx_v_self, __pyx_v_train_pred_arr, __pyx_v_train_label_arr, __pyx_v_test_pred_arr, __pyx_v_test_label_arr);
+  __pyx_r = __pyx_pf_5pydbm_3rnn_12verification_9interface_20verificatable_result_19VerificatableResult_verificate(__pyx_self, __pyx_v_self, __pyx_v_computable_loss, __pyx_v_train_pred_arr, __pyx_v_train_label_arr, __pyx_v_test_pred_arr, __pyx_v_test_label_arr);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3rnn_12verification_9interface_20verificatable_result_19VerificatableResult_verificate(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_train_pred_arr, CYTHON_UNUSED PyObject *__pyx_v_train_label_arr, CYTHON_UNUSED PyObject *__pyx_v_test_pred_arr, CYTHON_UNUSED PyObject *__pyx_v_test_label_arr) {
+static PyObject *__pyx_pf_5pydbm_3rnn_12verification_9interface_20verificatable_result_19VerificatableResult_verificate(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_computable_loss, CYTHON_UNUSED PyObject *__pyx_v_train_pred_arr, CYTHON_UNUSED PyObject *__pyx_v_train_label_arr, CYTHON_UNUSED PyObject *__pyx_v_test_pred_arr, CYTHON_UNUSED PyObject *__pyx_v_test_label_arr) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("verificate", 0);
 
-  /* "pydbm/rnn/verification/interface/verificatable_result.pyx":28
+  /* "pydbm/rnn/verification/interface/verificatable_result.pyx":30
  * 
  *         '''
  *         raise NotImplementedError()             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __PYX_ERR(0, 28, __pyx_L1_error)
+  __PYX_ERR(0, 30, __pyx_L1_error)
 
   /* "pydbm/rnn/verification/interface/verificatable_result.pyx":11
  * 
  *     @abstractmethod
  *     def verificate(             # <<<<<<<<<<<<<<
  *         self,
- *         train_pred_arr,
+ *         computable_loss,
  */
 
   /* function exit code */
@@ -1289,6 +1302,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_abstractmethod, __pyx_k_abstractmethod, sizeof(__pyx_k_abstractmethod), 0, 0, 1, 1},
   {&__pyx_n_s_abstractproperty, __pyx_k_abstractproperty, sizeof(__pyx_k_abstractproperty), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
+  {&__pyx_n_s_computable_loss, __pyx_k_computable_loss, sizeof(__pyx_k_computable_loss), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
@@ -1308,7 +1322,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_NotImplementedError = __Pyx_GetBuiltinName(__pyx_n_s_NotImplementedError); if (!__pyx_builtin_NotImplementedError) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_builtin_NotImplementedError = __Pyx_GetBuiltinName(__pyx_n_s_NotImplementedError); if (!__pyx_builtin_NotImplementedError) __PYX_ERR(0, 30, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -1323,12 +1337,12 @@ static int __Pyx_InitCachedConstants(void) {
  *     @abstractmethod
  *     def verificate(             # <<<<<<<<<<<<<<
  *         self,
- *         train_pred_arr,
+ *         computable_loss,
  */
-  __pyx_tuple_ = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_train_pred_arr, __pyx_n_s_train_label_arr, __pyx_n_s_test_pred_arr, __pyx_n_s_test_label_arr); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_computable_loss, __pyx_n_s_train_pred_arr, __pyx_n_s_train_label_arr, __pyx_n_s_test_pred_arr, __pyx_n_s_test_label_arr); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(5, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_verification_interface_2, __pyx_n_s_verificate, 11, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(6, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_verification_interface_2, __pyx_n_s_verificate, 11, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -1558,7 +1572,7 @@ static int __pyx_pymod_exec_verificatable_result(PyObject *__pyx_pyinit_module)
  *     @abstractmethod
  *     def verificate(             # <<<<<<<<<<<<<<
  *         self,
- *         train_pred_arr,
+ *         computable_loss,
  */
   __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_12verification_9interface_20verificatable_result_19VerificatableResult_1verificate, 0, __pyx_n_s_VerificatableResult_verificate, NULL, __pyx_n_s_pydbm_rnn_verification_interface, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);

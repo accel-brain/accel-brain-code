@@ -187,7 +187,6 @@ class EncoderDecoderController(ReconstructableModel):
                     else:
                         raise
 
-                self.__logger.debug("Training loss: " + str(loss))
                 if self.__test_size_rate > 0:
                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
                     test_batch_observed_arr = test_observed_arr[rand_index]
@@ -196,7 +195,6 @@ class EncoderDecoderController(ReconstructableModel):
                     test_decoded_arr = self.__decoder.lstm_forward_propagate(test_encoded_arr)
                     test_loss = self.__computable_loss.compute_loss(test_decoded_arr[:, -1, :], test_batch_target_arr[:, -1, :])
                     test_loss_list.append(test_loss)
-                    self.__logger.debug("Test loss: " + str(test_loss))
 
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
@@ -207,6 +205,10 @@ class EncoderDecoderController(ReconstructableModel):
                                 test_pred_arr=test_decoded_arr[:, -1, :],
                                 test_label_arr=test_batch_target_arr[:, -1, :]
                             )
+                    self.__encoder.graph.hidden_activity_arr = np.array([])
+                    self.__encoder.graph.rnn_activity_arr = np.array([])
+                    self.__decoder.graph.hidden_activity_arr = np.array([])
+                    self.__decoder.graph.rnn_activity_arr = np.array([])
 
                 if epoch > 0 and abs(loss - loss_list[-1]) < self.__tol:
                     eary_stop_flag = True
@@ -285,7 +287,7 @@ class EncoderDecoderController(ReconstructableModel):
         Returns:
             The `list` of array like or sparse matrix of feature points or virtual visible observed data points.
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=1] feature_points_arr = self.__feature_points_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] feature_points_arr = self.__feature_points_arr
         self.__feature_points_arr = np.array([])
         return feature_points_arr
 

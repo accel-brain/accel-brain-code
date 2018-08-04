@@ -217,7 +217,6 @@ class LSTMModel(ReconstructableModel):
                     else:
                         raise
 
-                self.__logger.debug("Training loss: " + str(loss))
                 if self.__test_size_rate > 0:
                     self.__opt_params.dropout_rate = 0.0
                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
@@ -228,7 +227,6 @@ class LSTMModel(ReconstructableModel):
                     test_pred_arr = self.__output_forward_propagate(test_hidden_activity_arr)
                     test_loss = self.__computable_loss.compute_loss(test_pred_arr, test_batch_target_arr[:, -1, :])
                     test_loss_list.append(test_loss)
-                    self.__logger.debug("Test loss: " + str(test_loss))
 
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:

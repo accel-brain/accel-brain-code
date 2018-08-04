@@ -20,22 +20,13 @@ def Main(url, similarity_mode="TfIdfCosine", similarity_limit=0.75):
     Args:
         url:    PDF url.
     '''
-    # The object of the NLP.
-    nlp_base = NlpBase()
-    # Set tokenizer. This is japanese tokenizer with MeCab.
-    nlp_base.tokenizable_doc = MeCabTokenizer()
-    # Set the object of NLP.
-    similarity_filter.nlp_base = nlp_base
-
-    # If the similarity exceeds this value, the sentence will be cut off.
-    similarity_filter.similarity_limit = similarity_limit
-
     # The object of Web-scraping.
     web_scrape = WebScraping()
     # Set the object of reading PDF files.
     web_scrape.readable_web_pdf = WebPDFReading()
     # Execute Web-scraping.
     document = web_scrape.scrape(url)
+
 
     if similarity_mode == "EncoderDecoderCosine":
         # The object of `Similarity Filter`.
@@ -78,6 +69,16 @@ def Main(url, similarity_mode="TfIdfCosine", similarity_limit=0.75):
     
     else:
         raise ValueError()
+
+
+    # The object of the NLP.
+    nlp_base = NlpBase()
+    # Set tokenizer. This is japanese tokenizer with MeCab.
+    nlp_base.tokenizable_doc = MeCabTokenizer()
+    # Set the object of NLP.
+    similarity_filter.nlp_base = nlp_base
+    # If the similarity exceeds this value, the sentence will be cut off.
+    similarity_filter.similarity_limit = similarity_limit
 
     # The object of automatic sumamrization.
     auto_abstractor = AutoAbstractor()

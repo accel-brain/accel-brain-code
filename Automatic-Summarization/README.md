@@ -119,10 +119,10 @@ for sentence in result_dict["summarize_result"]:
 
 ## Usecase: English Web-Page Summarization
 
-Run the batch program: [demo_summarization_english_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_summarization_english_web_page.py)
+Run the batch program: [demo/demo_summarization_english_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo/demo_summarization_english_web_page.py)
 
 ```
-python demo_summarization_english_web_page.py {URL}
+python demo/demo_summarization_english_web_page.py {URL}
 ```
 
 - {URL}: web site URL.
@@ -132,7 +132,7 @@ python demo_summarization_english_web_page.py {URL}
 Let's summarize this page: [Natural_language_generation - Wikipedia](https://en.wikipedia.org/wiki/Natural_language_generation).
 
 ```
-python demo_summarization_english_web_page.py https://en.wikipedia.org/wiki/Natural_language_generation
+python demo/demo_summarization_english_web_page.py https://en.wikipedia.org/wiki/Natural_language_generation
 ```
 
 The result is as follows.
@@ -146,10 +146,10 @@ Natural language generation From Wikipedia, the free encyclopedia Jump to: navig
 
 ## Usecase: Japanese Web-Page Summarization
 
-Run the batch program: [demo_summarization_japanese_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_summarization_japanese_web_page.py)
+Run the batch program: [demo/demo_summarization_japanese_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo/demo_summarization_japanese_web_page.py)
 
 ```
-python demo_summarization_japanese_web_page.py {URL}
+python demo/demo_summarization_japanese_web_page.py {URL}
 ```
 - {URL}: web site URL.
 
@@ -158,7 +158,7 @@ python demo_summarization_japanese_web_page.py {URL}
 Let's summarize this page: [自動要約 - Wikipedia](https://ja.wikipedia.org/wiki/%E8%87%AA%E5%8B%95%E8%A6%81%E7%B4%84).
 
 ```
-python demo_summarization_japanese_web_page.py https://ja.wikipedia.org/wiki/%E8%87%AA%E5%8B%95%E8%A6%81%E7%B4%84
+python demo/demo_summarization_japanese_web_page.py https://ja.wikipedia.org/wiki/%E8%87%AA%E5%8B%95%E8%A6%81%E7%B4%84
 ```
 
 The result is as follows.
@@ -176,7 +176,7 @@ The result is as follows.
 
 The minimum unit of token is not necessarily `a word` in automatic summarization. `N-gram` is also applicable to the tokenization.
 
-Run the batch program: [demo_with_n_gram_japanese_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_with_n_gram_japanese_web_page.py)
+Run the batch program: [demo/demo_with_n_gram_japanese_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo/demo_with_n_gram_japanese_web_page.py)
 
 ```
 python demo_with_n_gram_japanese_web_page.py {URL}
@@ -188,7 +188,7 @@ python demo_with_n_gram_japanese_web_page.py {URL}
 Let's summarize this page:[情報検索 - Wikipedia](https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E6%A4%9C%E7%B4%A2).
 
 ```
-python demo_with_n_gram_japanese_web_page.py https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E6%A4%9C%E7%B4%A2
+python demo/demo_with_n_gram_japanese_web_page.py https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E6%A4%9C%E7%B4%A2
 ```
 
 The result is as follows.
@@ -312,10 +312,10 @@ result_dict = auto_abstractor.summarize(document, abstractable_doc, similarity_f
 
 Let's summarize this page:[循環論法 - Wikipedia](https://ja.wikipedia.org/wiki/%E5%BE%AA%E7%92%B0%E8%AB%96%E6%B3%95).
 
-Run the batch program: [demo_similarity_filtering_japanese_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo_similarity_filtering_japanese_web_page.py)
+Run the batch program: [demo/demo_similarity_filtering_japanese_web_page.py](https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo/demo_similarity_filtering_japanese_web_page.py)
 
 ```
-python demo_similarity_filtering_japanese_web_page.py {URL} {SimilarityFilter} {SimilarityLimit}
+python demo/demo_similarity_filtering_japanese_web_page.py {URL} {SimilarityFilter} {SimilarityLimit}
 ```
 - {URL}: web site URL.
 - {SimilarityFilter}: The object of `SimilarityFilter`: `Dice`, `Jaccard`, `Simpson`, or `TfIdfCosine`.
@@ -324,7 +324,7 @@ python demo_similarity_filtering_japanese_web_page.py {URL} {SimilarityFilter} {
 For instance, command line argument is as follows:
 
 ```
-python demo_similarity_filtering_japanese_web_page.py https://ja.wikipedia.org/wiki/%E5%BE%AA%E7%92%B0%E8%AB%96%E6%B3%95 Jaccard 0.3
+python demo/demo_similarity_filtering_japanese_web_page.py https://ja.wikipedia.org/wiki/%E5%BE%AA%E7%92%B0%E8%AB%96%E6%B3%95 Jaccard 0.3
 ```
 
 The result is as follows.

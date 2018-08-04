@@ -33,11 +33,15 @@ def Main(url):
     vectorlizable_sentence.learn(
         sentence_list=sentence_list, 
         token_master_list=list(set(all_token_list)),
-        epochs=25
+        epochs=60
     )
     feature_points_arr = vectorlizable_sentence.vectorize(sentence_list[:5])
+    reconstruction_error_arr = vectorlizable_sentence.controller.get_reconstruction_error_arr()    
     
+    print("Feature points:")
     print(feature_points_arr)
+    print("Reconstruction error(MSE):")
+    print(reconstruction_error_arr)
 
 if __name__ == "__main__":
     import sys

@@ -23,24 +23,12 @@ def Main(url):
     nlp_base.tokenizable_doc = MeCabTokenizer()
 
     sentence_list = nlp_base.listup_sentence(document)
-    
-    # https://ja.wikipedia.org/wiki/%E7%B5%8C%E6%B8%88%E5%AD%A6
-    diff_sentence_list = [
-        "広辞苑には、「経済現象を研究する学問」とある[2]。",
-        "総じて経済活動が研究の対象となっている。",
-        "また、1878年頃、フリードリヒ・エンゲルスは、経済学について次のように述べた。"
-    ]
 
     all_token_list = []
     for i in range(len(sentence_list)):
         nlp_base.tokenize(sentence_list[i])
         all_token_list.extend(nlp_base.token)
         sentence_list[i] = nlp_base.token
-
-    for i in range(len(diff_sentence_list)):
-        nlp_base.tokenize(diff_sentence_list[i])
-        all_token_list.extend(nlp_base.token)
-        diff_sentence_list[i] = nlp_base.token
         
     vectorlizable_sentence = EncoderDecoder()
     vectorlizable_sentence.learn(
@@ -49,11 +37,10 @@ def Main(url):
         epochs=60
     )
     test_list = sentence_list[:5]
-    test_list.extend(diff_sentence_list)
     feature_points_arr = vectorlizable_sentence.vectorize(test_list)
     reconstruction_error_arr = vectorlizable_sentence.controller.get_reconstruction_error_arr()
     
-    print("Feature points:")
+    print("Feature points (Top 5 sentences):")
     print(feature_points_arr)
     print("Reconstruction error(MSE):")
     print(reconstruction_error_arr)

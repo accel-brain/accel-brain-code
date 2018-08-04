@@ -248,46 +248,30 @@ class EncoderDecoderController(ReconstructableModel):
         '''
         cdef int sample_n = observed_arr.shape[0]
         cdef int hidden_n
+
         if hidden_activity_arr is not None:
             self.__encoder.graph.hidden_activity_arr = hidden_activity_arr
         else:
             if self.__encoder.graph.hidden_activity_arr is None:
                 raise ValueError("The shape of __encoder.graph.hidden_activity_arr is lost.")
-            if self.__encoder.graph.hidden_activity_arr.ndim > 1:
-                hidden_n = self.__encoder.graph.hidden_activity_arr.shape[1]
-            else:
-                hidden_n = self.__encoder.graph.hidden_activity_arr.shape[0]
-                
+            hidden_n = self.__encoder.graph.weights_lstm_hidden_arr.shape[0]
             self.__encoder.graph.hidden_activity_arr = np.zeros((sample_n, hidden_n), dtype=np.float64)
-
-        if self.__decoder.graph.hidden_activity_arr is None:
-            raise ValueError("The shape of __decoder.graph.hidden_activity_arr is lost.")
-        if self.__decoder.graph.hidden_activity_arr > 1:
-            hidden_n = self.__decoder.graph.hidden_activity_arr.shape[1]
-        else:
-            hidden_n = self.__decoder.graph.hidden_activity_arr.shape[0]
-
-        self.__decoder.graph.hidden_activity_arr = np.zeros((sample_n, hidden_n), dtype=np.float64)
 
         if rnn_activity_arr is not None:
             self.__encoder.graph.rnn_activity_arr = rnn_activity_arr
         else:
             if self.__encoder.graph.rnn_activity_arr is None:
                 raise ValueError("The shape of __encoder.graph.rnn_activity_arr is lost.")
-            if self.__encoder.graph.rnn_activity_arr.ndim > 1:
-                hidden_n = self.__encoder.graph.rnn_activity_arr.shape[1]
-            else:
-                hidden_n = self.__encoder.graph.rnn_activity_arr.shape[0]
-
+            hidden_n = self.__encoder.graph.weights_lstm_hidden_arr.shape[0]
             self.__encoder.graph.rnn_activity_arr = np.zeros((sample_n, hidden_n), dtype=np.float64)
 
+        if self.__decoder.graph.hidden_activity_arr is None:
+            raise ValueError("The shape of __decoder.graph.hidden_activity_arr is lost.")
         if self.__decoder.graph.rnn_activity_arr is None:
             raise ValueError("The shape of __decoder.graph.rnn_activity_arr is lost.")
-        if self.__decoder.graph.rnn_activity_arr.ndim > 1:
-            hidden_n = self.__decoder.graph.rnn_activity_arr.shape[1]
-        else:
-            hidden_n = self.__decoder.graph.rnn_activity_arr.shape[0]
 
+        hidden_n = self.__decoder.graph.weights_lstm_hidden_arr.shape[0]
+        self.__decoder.graph.hidden_activity_arr = np.zeros((sample_n, hidden_n), dtype=np.float64)
         self.__decoder.graph.rnn_activity_arr = np.zeros((sample_n, hidden_n), dtype=np.float64)
 
         cdef np.ndarray[DOUBLE_t, ndim=3] encoded_arr = self.__encoder.lstm_forward_propagate(observed_arr)

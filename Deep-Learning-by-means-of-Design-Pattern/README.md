@@ -170,7 +170,34 @@ where <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by
 
 ### Structural expansion for LSTM-RTRBM.
 
-An example of the application to polyphonic music generation(Lyu, Q., et al. 2015) clued me in on how is it possible to connect RTRBM with LSTM. **LSTM-RTRBM** model integrates the ability of LSTM in memorizing and retrieving useful history information, together with the advantage of RBM in high dimensional data modelling. Like RTRBM, LSTM-RTRBM also has the recurrent hidden units. Let <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/pre_hidden_units.png" /> be previous hidden units. The conditional distribution of the current hidden layer is as following:
+An example of the application to polyphonic music generation(Lyu, Q., et al. 2015) clued me in on how is it possible to connect RTRBM with LSTM.
+
+#### Structure of LSTM.
+
+Originally, Long Short-Term Memory(LSTM) networks as a special RNN structure has proven stable and
+powerful for modeling long-range dependencies. The Key point of structural expansion is its memory cell <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/c_t.png" /> which essentially acts as an accumulator of the state information. Every time observed data points are given as new information <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/g_t.png" /> and input to LSTM's input gate, its information will be accumulated to the cell if the input gate <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/i_t.png" /> is activated. The past state of cell <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/c_t-1.png" /> could be forgotten in this process if LSTM's forget gate <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/f_t.png" /> is on. Whether the latest cell output <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/c_t.png" /> will be propagated to the final state <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/h_t.png" /> is further controlled by the output gate $o^t$.
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_affine.png" /></div>
+
+where <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/w.png" /> is a weight matrix which connects observed data points and hidden units in LSTM gates, and <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/u.png" /> is a weight matrix which connects hidden units as a remembered memory in LSTM gates. Furthermore, activation functions are as follows:
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_given.png" /></div>
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_input_gate.png" /></div>
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_forget_gate.png" /></div>
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_output_gate.png" /></div>
+
+and the acitivation of memory cell and hidden units are calculated as follows:
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_memory_cell.png" /></div>
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_hidden_activity.png" /></div>
+
+#### Structure of LSTM-RTRBM.
+
+**LSTM-RTRBM** model integrates the ability of LSTM in memorizing and retrieving useful history information, together with the advantage of RBM in high dimensional data modelling. Like RTRBM, LSTM-RTRBM also has the recurrent hidden units. Let <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/pre_hidden_units.png" /> be previous hidden units. The conditional distribution of the current hidden layer is as following:
 
 <div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/LSTM-RTRBM_current_hidden_distribution.png" /></div>
 
@@ -219,6 +246,18 @@ where <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by
 From perspective of *commonality/variability analysis* in order to practice object-oriented design, the concepts of RBM and DBM paradigms can be organized as follows.
 
 While each model is *common* in that it is constituted by stacked RBM, its approximation methods and activation functions are *variable* depending on the problem settings. Considering the *commonality*, it is useful to design based on `Builder Pattern`, which separates the construction of RBM object from its representation so that the same construction process can create different representations such as DBM, RTRBM, RNN-RBM, and Shape-BM. On the other hand, to deal with the *variability*, `Strategy Pattern`, which provides a way to define a family of algorithms such as approximation methods and activation functions, is useful design method, which is encapsulate each one as an object, and make them interchangeable from the point of view of functionally equivalent.
+
+### Encoder/Decoder based on LSTM as functionally equivalent.
+
+The methodology of *equivalent-functionalism* enables us to introduce more functional equivalents and compare problem solutions structured with different algorithms and models in common problem setting. For example, in dimension reduction problem, the function of **Encoder/Decoder schema** is equivalent to **DBM** as a **Stacked Auto-Encoder**.
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/encoder_decoder.png" />
+<p><cite>Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078., p2.</cite></p>
+</div>
+
+According to the neural networks theory, and in relation to manifold hypothesis, it is well known that multilayer neural networks can learn features of observed data points and have the feature points in hidden layer. High-dimensional data can be converted to low-dimensional codes by training the model such as **Stacked Auto-Encoder** and **Encoder/Decoder** with a small central layer to reconstruct high-dimensional input vectors. This function of dimensionality reduction facilitates feature expressions to calculate similarity of each data point.
+
+This library provides **Encoder/Decoder based on LSTM**, which is a reconstruction model and makes it possible to extract series features of natural sentences embedded in deeper layers. The LSTM encoder learns a fixed length vector representation of the input time-series and the LSTM decoder uses this representation to reconstruct the time-series using the current hidden state and the value predicted at the previous time-step.
 
 ## Usecase: Building the deep boltzmann machine for feature extracting.
 
@@ -692,12 +731,14 @@ Image.fromarray(np.uint8(inferenced_data_arr))
 
 - Ackley, D. H., Hinton, G. E., & Sejnowski, T. J. (1985). A learning algorithm for Boltzmann machines. Cognitive science, 9(1), 147-169.
 - Boulanger-Lewandowski, N., Bengio, Y., & Vincent, P. (2012). Modeling temporal dependencies in high-dimensional sequences: Application to polyphonic music generation and transcription. arXiv preprint arXiv:1206.6392.
+- Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.
 - Eslami, S. A., Heess, N., Williams, C. K., & Winn, J. (2014). The shape boltzmann machine: a strong model of object shape. International Journal of Computer Vision, 107(2), 155-176.
 - Hinton, G. E. (2002). Training products of experts by minimizing contrastive divergence. Neural computation, 14(8), 1771-1800.
 - Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.
 - Le Roux, N., & Bengio, Y. (2008). Representational power of restricted Boltzmann machines and deep belief networks. Neural computation, 20(6), 1631-1649.
 - Lyu, Q., Wu, Z., Zhu, J., & Meng, H. (2015, June). Modelling High-Dimensional Sequences with LSTM-RTRBM: Application to Polyphonic Music Generation. In IJCAI (pp. 4138-4139).
 - Lyu, Q., Wu, Z., & Zhu, J. (2015, October). Polyphonic music modelling with LSTM-RTRBM. In Proceedings of the 23rd ACM international conference on Multimedia (pp. 991-994). ACM.
+- Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., & Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.
 - Salakhutdinov, R., & Hinton, G. E. (2009). Deep boltzmann machines. InInternational conference on artificial intelligence and statistics (pp. 448-455).
 - Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. (2014). Dropout: a simple way to prevent neural networks from overfitting. The Journal of Machine Learning Research, 15(1), 1929-1958.
 - Sutskever, I., Hinton, G. E., & Taylor, G. W. (2009). The recurrent temporal restricted boltzmann machine. In Advances in Neural Information Processing Systems (pp. 1601-1608).

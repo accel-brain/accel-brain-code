@@ -277,6 +277,13 @@ class EncoderDecoderController(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=3] encoded_arr = self.__encoder.lstm_forward_propagate(observed_arr)
         cdef np.ndarray[DOUBLE_t, ndim=3] decoded_arr = self.__decoder.lstm_forward_propagate(encoded_arr)
         self.__feature_points_arr = self.__encoder.get_feature_points_arr()
+
+        cdef np.ndarray[DOUBLE_t, ndim=2] reconstruction_error_arr = self.__computable_loss.compute_loss(
+            decoded_arr,
+            observed_arr[:, :, :],
+            axis=0
+        )
+        self.__reconstruction_error_arr = reconstruction_error_arr
         return decoded_arr
 
     def get_feature_points_arr(self):
@@ -285,11 +292,22 @@ class EncoderDecoderController(ReconstructableModel):
         considering this method will be called per one cycle in instances of time-series.
 
         Returns:
-            The `list` of array like or sparse matrix of feature points or virtual visible observed data points.
+            The array like or sparse matrix of feature points.
         '''
         cdef np.ndarray[DOUBLE_t, ndim=2] feature_points_arr = self.__feature_points_arr
         self.__feature_points_arr = np.array([])
         return feature_points_arr
+
+    def get_reconstruction_error_arr(self):
+        '''
+        Extract the reconstructed error in inferencing.
+        
+        Returns:
+            The array like or sparse matrix of reconstruction error. 
+        '''
+        cdef np.ndarray[DOUBLE_t, ndim=2] reconstruction_error_arr = self.__reconstruction_error_arr
+        self.__reconstruction_error_arr = np.array([])
+        return reconstruction_error_arr
 
     def get_verificatable_result(self):
         ''' getter '''

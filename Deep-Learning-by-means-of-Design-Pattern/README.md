@@ -175,11 +175,11 @@ An example of the application to polyphonic music generation(Lyu, Q., et al. 201
 #### Structure of LSTM.
 
 Originally, Long Short-Term Memory(LSTM) networks as a special RNN structure has proven stable and
-powerful for modeling long-range dependencies. The Key point of structural expansion is its memory cell <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/c_t.png" /> which essentially acts as an accumulator of the state information. Every time observed data points are given as new information <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/g_t.png" /> and input to LSTM's input gate, its information will be accumulated to the cell if the input gate <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/i_t.png" /> is activated. The past state of cell <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/c_t-1.png" /> could be forgotten in this process if LSTM's forget gate <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/f_t.png" /> is on. Whether the latest cell output <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/c_t.png" /> will be propagated to the final state <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/h_t.png" /> is further controlled by the output gate $o^t$.
+powerful for modeling long-range dependencies. The Key point of structural expansion is its memory cell <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/c_t.png" /> which essentially acts as an accumulator of the state information. Every time observed data points are given as new information <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/g_t.png" /> and input to LSTM's input gate, its information will be accumulated to the cell if the input gate <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/i_t.png" /> is activated. The past state of cell <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/c_t-1.png" /> could be forgotten in this process if LSTM's forget gate <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/f_t.png" /> is on. Whether the latest cell output <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/c_t.png" /> will be propagated to the final state <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/h_t.png" /> is further controlled by the output gate <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/o_t.png" />.
 
 <div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_affine.png" /></div>
 
-where <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/w.png" /> is a weight matrix which connects observed data points and hidden units in LSTM gates, and <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/u.png" /> is a weight matrix which connects hidden units as a remembered memory in LSTM gates. Furthermore, activation functions are as follows:
+where <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/W_lstm.png" /> is a weight matrix which connects observed data points and hidden units in LSTM gates, and <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/u.png" /> is a weight matrix which connects hidden units as a remembered memory in LSTM gates. Furthermore, activation functions are as follows:
 
 <div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_given.png" /></div>
 
@@ -257,7 +257,7 @@ The methodology of *equivalent-functionalism* enables us to introduce more funct
 
 According to the neural networks theory, and in relation to manifold hypothesis, it is well known that multilayer neural networks can learn features of observed data points and have the feature points in hidden layer. High-dimensional data can be converted to low-dimensional codes by training the model such as **Stacked Auto-Encoder** and **Encoder/Decoder** with a small central layer to reconstruct high-dimensional input vectors. This function of dimensionality reduction facilitates feature expressions to calculate similarity of each data point.
 
-This library provides **Encoder/Decoder based on LSTM**, which is a reconstruction model and makes it possible to extract series features of natural sentences embedded in deeper layers. The LSTM encoder learns a fixed length vector representation of the input time-series and the LSTM decoder uses this representation to reconstruct the time-series using the current hidden state and the value predicted at the previous time-step.
+This library provides **Encoder/Decoder based on LSTM**, which is a reconstruction model and makes it possible to extract series features embedded in deeper layers. The LSTM encoder learns a fixed length vector of time-series observed data points and the LSTM decoder uses this representation to reconstruct the time-series using the current hidden state and the value inferenced at the previous time-step.
 
 ## Usecase: Building the deep boltzmann machine for feature extracting.
 
@@ -725,6 +725,252 @@ Image.fromarray(np.uint8(inferenced_data_arr))
 ```
 
 <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_09.png" />
+
+## Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model.
+
+Setup logger for verbose output.
+
+```python
+from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
+
+logger = getLogger("pydbm")
+handler = StreamHandler()
+handler.setLevel(DEBUG)
+logger.setLevel(DEBUG)
+logger.addHandler(handler)
+```
+
+Import Python and Cython modules for computation graphs.
+
+```python
+# LSTM Graph which is-a `Synapse`.
+from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as EncoderGraph
+from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as DecoderGraph
+```
+
+Import Python and Cython modules of activation functions.
+
+```python
+# Logistic Function as activation function.
+from pydbm.activation.logistic_function import LogisticFunction
+# Tanh Function as activation function.
+from pydbm.activation.tanh_function import TanhFunction
+```
+
+Import Python and Cython modules for loss function.
+
+```python
+# Loss function.
+from pydbm.rnn.loss.mean_squared_error import MeanSquaredError
+```
+
+Import Python and Cython modules for optimizer.
+
+```python
+# SGD as a Loss function.
+from pydbm.rnn.optimization.optparams.sgd import SGD as EncoderSGD
+from pydbm.rnn.optimization.optparams.sgd import SGD as DecoderSGD
+```
+
+If you want to use not Stochastic Gradient Descent(SGD) but **Adam** optimizer, import `Adam`.
+
+```python
+# Adam as a Loss function.
+from pydbm.rnn.optimization.optparams.adam import Adam as EncoderAdam
+from pydbm.rnn.optimization.optparams.adam import Adam as DecoderAdam
+```
+
+Futhermore, import class for verification of function approximation.
+
+```python
+# Verification.
+from pydbm.rnn.verification.verificate_function_approximation import VerificateFunctionApproximation
+```
+
+The activation by softmax function can be verificated by `VerificateSoftmax`.
+
+```python
+from pydbm.rnn.verification.verificate_softmax import VerificateSoftmax
+```
+
+And import LSTM Model and Encoder/Decoder schema.
+
+```python
+# LSTM model.
+from pydbm.rnn.lstm_model import LSTMModel as Encoder
+from pydbm.rnn.lstm_model import LSTMModel as Decoder
+
+# Encoder/Decoder
+from pydbm.rnn.encoder_decoder_controller import EncoderDecoderController
+```
+
+Instantiate `Encoder`.
+
+```python
+# Init.
+encoder_graph = EncoderGraph()
+
+# Activation function in LSTM.
+encoder_graph.observed_activating_function = TanhFunction()
+encoder_graph.input_gate_activating_function = LogisticFunction()
+encoder_graph.forget_gate_activating_function = LogisticFunction()
+encoder_graph.output_gate_activating_function = LogisticFunction()
+encoder_graph.hidden_activating_function = TanhFunction()
+encoder_graph.output_activating_function = LogisticFunction()
+
+# Initialization strategy.
+# This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
+encoder_graph.create_rnn_cells(
+    input_neuron_count=observed_arr.shape[-1],
+    hidden_neuron_count=200,
+    output_neuron_count=target_arr.shape[-1]
+)
+
+# Optimizer for Encoder.
+encoder_opt_params = EncoderAdam()
+encoder_opt_params.weight_limit = 0.5
+encoder_opt_params.dropout_rate = 0.5
+
+encoder = Encoder(
+    # Delegate `graph` to `LSTMModel`.
+    graph=encoder_graph,
+    # The number of epochs in mini-batch training.
+    epochs=100,
+    # The batch size.
+    batch_size=100,
+    # Learning rate.
+    learning_rate=1e-05,
+    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+    learning_attenuate_rate=0.1,
+    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+    attenuate_epoch=50,
+    # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
+    bptt_tau=8,
+    # Size of Test data set. If this value is `0`, the validation will not be executed.
+    test_size_rate=0.3,
+    # Loss function.
+    computable_loss=MeanSquaredError(),
+    # Optimizer.
+    opt_params=encoder_opt_params,
+    # Verification function.
+    verificatable_result=VerificateFunctionApproximation(),
+    tol=0.0
+)
+```
+
+Instantiate `Decoder`.
+
+```python
+# Init.
+decoder_graph = DecoderGraph()
+
+# Activation function in LSTM.
+decoder_graph.observed_activating_function = TanhFunction()
+decoder_graph.input_gate_activating_function = LogisticFunction()
+decoder_graph.forget_gate_activating_function = LogisticFunction()
+decoder_graph.output_gate_activating_function = LogisticFunction()
+decoder_graph.hidden_activating_function = TanhFunction()
+decoder_graph.output_activating_function = LogisticFunction()
+
+# Initialization strategy.
+# This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
+decoder_graph.create_rnn_cells(
+    input_neuron_count=200,
+    hidden_neuron_count=observed_arr.shape[-1],
+    output_neuron_count=200
+)
+
+# Optimizer for Decoder.
+decoder_opt_params = DecoderAdam()
+decoder_opt_params.weight_limit = 0.5
+decoder_opt_params.dropout_rate = 0.5
+
+decoder = Decoder(
+    # Delegate `graph` to `LSTMModel`.
+    graph=decoder_graph,
+    # The number of epochs in mini-batch training.
+    epochs=100,
+    # The batch size.
+    batch_size=100,
+    # Learning rate.
+    learning_rate=1e-05,
+    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+    learning_attenuate_rate=0.1,
+    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+    attenuate_epoch=50,
+    # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
+    bptt_tau=8,
+    # Size of Test data set. If this value is `0`, the validation will not be executed.
+    test_size_rate=0.3,
+    # Loss function.
+    computable_loss=MeanSquaredError(),
+    # Optimizer.
+    opt_params=decoder_opt_params,
+    # Verification function.
+    verificatable_result=VerificateFunctionApproximation(),
+    tol=0.0
+)
+```
+
+Instantiate `EncoderDecoderController` and delegate `encoder` and `decoder` to this object.
+
+```python
+encoder_decoder_controller = EncoderDecoderController(
+    # is-a LSTM model.
+    encoder=encoder,
+    # is-a LSTM model.
+    decoder=decoder,
+    # The number of epochs in mini-batch training.
+    epochs=100,
+    # The batch size.
+    batch_size=100,
+    # Learning rate.
+    learning_rate=1e-05,
+    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+    learning_attenuate_rate=0.1,
+    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+    attenuate_epoch=50,
+    # Size of Test data set. If this value is `0`, the validation will not be executed.
+    test_size_rate=0.3,
+    # Loss function.
+    computable_loss=MeanSquaredError(),
+    # Verification function.
+    verificatable_result=VerificateFunctionApproximation(),
+    tol=0.0
+)
+```
+
+Execute learning.
+
+```python
+# Learning.
+encoder_decoder_controller.learn(observed_arr, observed_arr)
+```
+
+This method can receive a `np.ndarray` of observed data points, which is a rank-3 array-like or sparse matrix of shape: (`The number of samples`, `The length of cycle`, `The number of features`), as the first and second argument. If the value of this second argument is not equivalent to the first argument and the shape is (`The number of samples`, `The number of features`), in other words, the rank is 2, the function of `encoder_decoder_controller` corresponds to a kind of Regression model.
+
+After learning, the `encoder_decoder_controller` provides a function of `inference` method. 
+
+```python
+# Execute recursive learning.
+inferenced_arr = encoder_decoder_controller.inference(test_arr)
+```
+
+The shape of `test_arr` and `inferenced_arr` are equivalent to `observed_arr`. Returned value `inferenced_arr` is generated by input parameter `test_arr` and can be considered as a decoded data points based on encoded `test_arr`.
+
+On the other hand, the `encoder_decoder_controller` also stores the feature points in hidden layers. To extract this embedded data, call the method as follows.
+
+```python
+feature_points_arr = encoder_decoder_controller.get_feature_points()
+```
+
+The shape of `feature_points_arr` is rank-2 array-like or sparse matrix: (`The number of samples`, `The number of units in hidden layers`). So this matrix also means time series data embedded as manifolds.
+
+You can check the reconstruction error rate. Call `get_reconstruct_error` method as follow.
+
+```python
+reconstruct_error_arr = dbm.get_reconstruction_error()
+```
 
 
 ## References

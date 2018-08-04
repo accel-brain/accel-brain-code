@@ -349,7 +349,7 @@ class LSTMModel(ReconstructableModel):
         self.__feature_points_arr = self.__memory_tuple_list[-1][8]
         return pred_arr
 
-    def get_feature_points_arr(self):
+    def get_feature_points(self):
         '''
         Extract the activities in hidden layer and reset it, 
         considering this method will be called per one cycle in instances of time-series.

@@ -12728,7 +12728,7 @@ static int __pyx_pymod_exec_lstm_graph(PyObject *__pyx_pyinit_module)
  * 
  *     lstm_bias_arr = property(get_lstm_bias_arr, set_lstm_bias_arr)             # <<<<<<<<<<<<<<
  * 
- *     # Weight matrix which connect observed data points and hidden units in LSTM RNN layer.
+ *     # Weight matrix which connects observed data points and hidden units in LSTM gates.
  */
   __pyx_t_7 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_lstm_bias_arr);
   if (unlikely(!__pyx_t_7)) {
@@ -12760,7 +12760,7 @@ static int __pyx_pymod_exec_lstm_graph(PyObject *__pyx_pyinit_module)
 
   /* "pydbm/synapse/recurrenttemporalgraph/lstm_graph.pyx":131
  * 
- *     # Weight matrix which connect observed data points and hidden units in LSTM RNN layer.
+ *     # Weight matrix which connects observed data points and hidden units in LSTM gates.
  *     __weights_lstm_observed_arr = np.array([])             # <<<<<<<<<<<<<<
  * 
  *     def get_weights_lstm_observed_arr(self):
@@ -12850,7 +12850,7 @@ static int __pyx_pymod_exec_lstm_graph(PyObject *__pyx_pyinit_module)
  * 
  *     weights_lstm_observed_arr = property(get_weights_lstm_observed_arr, set_weights_lstm_observed_arr)             # <<<<<<<<<<<<<<
  * 
- *     # Weight matrix which connect observed data points and hidden units in LSTM RNN layer.
+ *     # Weight matrix which connects hidden units as a remembered memory in LSTM gates.
  */
   __pyx_t_6 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_weights_lstm_observed_arr);
   if (unlikely(!__pyx_t_6)) {
@@ -12882,7 +12882,7 @@ static int __pyx_pymod_exec_lstm_graph(PyObject *__pyx_pyinit_module)
 
   /* "pydbm/synapse/recurrenttemporalgraph/lstm_graph.pyx":150
  * 
- *     # Weight matrix which connect observed data points and hidden units in LSTM RNN layer.
+ *     # Weight matrix which connects hidden units as a remembered memory in LSTM gates.
  *     __weights_lstm_hidden_arr = np.array([])             # <<<<<<<<<<<<<<
  * 
  *     def get_weights_lstm_hidden_arr(self):

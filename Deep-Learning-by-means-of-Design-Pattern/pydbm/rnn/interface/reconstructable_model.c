@@ -1666,10 +1666,10 @@ static const char __pyx_k_observed_arr[] = "observed_arr";
 static const char __pyx_k_abstractmethod[] = "abstractmethod";
 static const char __pyx_k_rnn_activity_arr[] = "rnn_activity_arr";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
+static const char __pyx_k_get_feature_points[] = "get_feature_points";
 static const char __pyx_k_NotImplementedError[] = "NotImplementedError";
 static const char __pyx_k_hidden_activity_arr[] = "hidden_activity_arr";
 static const char __pyx_k_ReconstructableModel[] = "ReconstructableModel";
-static const char __pyx_k_get_feature_points_arr[] = "get_feature_points_arr";
 static const char __pyx_k_ReconstructableModel_learn[] = "ReconstructableModel.learn";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_ReconstructableModel_inference[] = "ReconstructableModel.inference";
@@ -1678,7 +1678,7 @@ static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multia
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
-static const char __pyx_k_ReconstructableModel_get_feature[] = "ReconstructableModel.get_feature_points_arr";
+static const char __pyx_k_ReconstructableModel_get_feature[] = "ReconstructableModel.get_feature_points";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
 static const char __pyx_k_pydbm_rnn_interface_reconstructa[] = "pydbm.rnn.interface.reconstructable_model";
@@ -1702,7 +1702,7 @@ static PyObject *__pyx_n_s_abstractmethod;
 static PyObject *__pyx_n_s_array;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_doc;
-static PyObject *__pyx_n_s_get_feature_points_arr;
+static PyObject *__pyx_n_s_get_feature_points;
 static PyObject *__pyx_n_s_hidden_activity_arr;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_inference;
@@ -1730,7 +1730,7 @@ static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
 static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model___defaults__(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
 static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_learn(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_observed_arr, CYTHON_UNUSED PyArrayObject *__pyx_v_target_arr); /* proto */
 static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_2inference(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_observed_arr, CYTHON_UNUSED PyArrayObject *__pyx_v_hidden_activity_arr, CYTHON_UNUSED PyArrayObject *__pyx_v_rnn_activity_arr); /* proto */
-static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_4get_feature_points_arr(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_4get_feature_points(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tuple_;
@@ -2152,31 +2152,31 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20Recon
 /* "pydbm/rnn/interface/reconstructable_model.pyx":53
  * 
  *     @abstractmethod
- *     def get_feature_points_arr(self):             # <<<<<<<<<<<<<<
+ *     def get_feature_points(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Extract feature points.
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_5get_feature_points_arr(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_4get_feature_points_arr[] = "\n        Extract feature points.\n        \n        Returns:\n            Array like or sparse matrix of feature points.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_5get_feature_points_arr = {"get_feature_points_arr", (PyCFunction)__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_5get_feature_points_arr, METH_O, __pyx_doc_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_4get_feature_points_arr};
-static PyObject *__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_5get_feature_points_arr(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_5get_feature_points(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_4get_feature_points[] = "\n        Extract feature points.\n        \n        Returns:\n            Array like or sparse matrix of feature points.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_5get_feature_points = {"get_feature_points", (PyCFunction)__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_5get_feature_points, METH_O, __pyx_doc_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_4get_feature_points};
+static PyObject *__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_5get_feature_points(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("get_feature_points_arr (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_4get_feature_points_arr(__pyx_self, ((PyObject *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("get_feature_points (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_4get_feature_points(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_4get_feature_points_arr(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_4get_feature_points(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  __Pyx_RefNannySetupContext("get_feature_points_arr", 0);
+  __Pyx_RefNannySetupContext("get_feature_points", 0);
 
   /* "pydbm/rnn/interface/reconstructable_model.pyx":60
  *             Array like or sparse matrix of feature points.
@@ -2192,7 +2192,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20Recon
   /* "pydbm/rnn/interface/reconstructable_model.pyx":53
  * 
  *     @abstractmethod
- *     def get_feature_points_arr(self):             # <<<<<<<<<<<<<<
+ *     def get_feature_points(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Extract feature points.
  */
@@ -2200,7 +2200,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20Recon
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.rnn.interface.reconstructable_model.ReconstructableModel.get_feature_points_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.rnn.interface.reconstructable_model.ReconstructableModel.get_feature_points", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
@@ -4844,7 +4844,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_array, __pyx_k_array, sizeof(__pyx_k_array), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
-  {&__pyx_n_s_get_feature_points_arr, __pyx_k_get_feature_points_arr, sizeof(__pyx_k_get_feature_points_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_get_feature_points, __pyx_k_get_feature_points, sizeof(__pyx_k_get_feature_points), 0, 0, 1, 1},
   {&__pyx_n_s_hidden_activity_arr, __pyx_k_hidden_activity_arr, sizeof(__pyx_k_hidden_activity_arr), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_inference, __pyx_k_inference, sizeof(__pyx_k_inference), 0, 0, 1, 1},
@@ -5013,14 +5013,14 @@ static int __Pyx_InitCachedConstants(void) {
   /* "pydbm/rnn/interface/reconstructable_model.pyx":53
  * 
  *     @abstractmethod
- *     def get_feature_points_arr(self):             # <<<<<<<<<<<<<<
+ *     def get_feature_points(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Extract feature points.
  */
   __pyx_tuple__15 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_interface_reconstructa_2, __pyx_n_s_get_feature_points_arr, 53, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_interface_reconstructa_2, __pyx_n_s_get_feature_points, 53, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5455,7 +5455,7 @@ static int __pyx_pymod_exec_reconstructable_model(PyObject *__pyx_pyinit_module)
  *         raise NotImplementedError()
  * 
  *     @abstractmethod             # <<<<<<<<<<<<<<
- *     def get_feature_points_arr(self):
+ *     def get_feature_points(self):
  *         '''
  */
   __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_abstractmethod); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 52, __pyx_L1_error)
@@ -5464,11 +5464,11 @@ static int __pyx_pymod_exec_reconstructable_model(PyObject *__pyx_pyinit_module)
   /* "pydbm/rnn/interface/reconstructable_model.pyx":53
  * 
  *     @abstractmethod
- *     def get_feature_points_arr(self):             # <<<<<<<<<<<<<<
+ *     def get_feature_points(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Extract feature points.
  */
-  __pyx_t_7 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_5get_feature_points_arr, 0, __pyx_n_s_ReconstructableModel_get_feature, NULL, __pyx_n_s_pydbm_rnn_interface_reconstructa, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_5get_feature_points, 0, __pyx_n_s_ReconstructableModel_get_feature, NULL, __pyx_n_s_pydbm_rnn_interface_reconstructa, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_9 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -5516,7 +5516,7 @@ static int __pyx_pymod_exec_reconstructable_model(PyObject *__pyx_pyinit_module)
     }
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_feature_points_arr, __pyx_t_4) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_feature_points, __pyx_t_4) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "pydbm/rnn/interface/reconstructable_model.pyx":8

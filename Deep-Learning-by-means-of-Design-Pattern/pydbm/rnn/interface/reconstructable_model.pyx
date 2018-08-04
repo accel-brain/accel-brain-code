@@ -50,7 +50,7 @@ class ReconstructableModel(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    def get_feature_points_arr(self):
+    def get_feature_points(self):
         '''
         Extract feature points.
         

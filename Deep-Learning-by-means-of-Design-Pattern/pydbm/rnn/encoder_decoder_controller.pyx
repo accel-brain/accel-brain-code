@@ -273,7 +273,7 @@ class EncoderDecoderController(ReconstructableModel):
 
         cdef np.ndarray[DOUBLE_t, ndim=3] encoded_arr = self.__encoder.lstm_forward_propagate(observed_arr)
         cdef np.ndarray[DOUBLE_t, ndim=3] decoded_arr = self.__decoder.lstm_forward_propagate(encoded_arr)
-        self.__feature_points_arr = self.__encoder.get_feature_points_arr()
+        self.__feature_points_arr = self.__encoder.get_feature_points()
 
         cdef np.ndarray[DOUBLE_t, ndim=1] reconstruction_error_arr = self.__computable_loss.compute_loss(
             decoded_arr[:, 0, :],
@@ -283,7 +283,7 @@ class EncoderDecoderController(ReconstructableModel):
         self.__reconstruction_error_arr = reconstruction_error_arr
         return decoded_arr
 
-    def get_feature_points_arr(self):
+    def get_feature_points(self):
         '''
         Extract the activities in hidden layer and reset it, 
         considering this method will be called per one cycle in instances of time-series.
@@ -295,7 +295,7 @@ class EncoderDecoderController(ReconstructableModel):
         self.__feature_points_arr = np.array([])
         return feature_points_arr
 
-    def get_reconstruction_error_arr(self):
+    def get_reconstruction_error(self):
         '''
         Extract the reconstructed error in inferencing.
         

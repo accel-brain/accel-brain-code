@@ -127,7 +127,7 @@ class LSTMGraph(RecurrentTemporalGraph):
 
     lstm_bias_arr = property(get_lstm_bias_arr, set_lstm_bias_arr)
 
-    # Weight matrix which connect observed data points and hidden units in LSTM RNN layer.
+    # Weight matrix which connects observed data points and hidden units in LSTM gates.
     __weights_lstm_observed_arr = np.array([])
 
     def get_weights_lstm_observed_arr(self):
@@ -146,7 +146,7 @@ class LSTMGraph(RecurrentTemporalGraph):
     
     weights_lstm_observed_arr = property(get_weights_lstm_observed_arr, set_weights_lstm_observed_arr)
 
-    # Weight matrix which connect observed data points and hidden units in LSTM RNN layer.
+    # Weight matrix which connects hidden units as a remembered memory in LSTM gates.
     __weights_lstm_hidden_arr = np.array([])
 
     def get_weights_lstm_hidden_arr(self):

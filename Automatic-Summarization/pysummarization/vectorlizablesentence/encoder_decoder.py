@@ -202,18 +202,13 @@ class EncoderDecoder(VectorlizableSentence):
         for i in range(len(sentence_list)):
             arr_list = [None] * sentence_mean_len
             for j in range(sentence_mean_len):
+                arr = np.zeros(len(token_master_list))
                 try:
                     token = sentence_list[i][j]
-                except IndexError:
-                    token = None
-                arr = np.zeros(len(token_master_list))
-                if token is not None:
-                    value = 1
-                else:
-                    value = 0
-                arr[token_master_list.index(token)] = value
-                arr = arr.astype(np.float64)
-                arr_list[j] = arr
+                    arr[token_master_list.index(token)] = 1
+                finally:
+                    arr = arr.astype(np.float64)
+                    arr_list[j] = arr
             observed_list[i] = arr_list
         observed_arr = np.array(observed_list)
         return observed_arr

@@ -182,7 +182,6 @@ class LSTMModel(ReconstructableModel):
         try:
             self.__memory_tuple_list = []
             loss_list = []
-            test_loss_list = []
             eary_stop_flag = False
             for epoch in range(self.__epochs):
                 self.__opt_params.dropout_rate = self.__dropout_rate
@@ -196,8 +195,14 @@ class LSTMModel(ReconstructableModel):
 
                 try:
                     pred_arr = self.forward_propagation(batch_observed_arr)
-                    loss = self.__computable_loss.compute_loss(pred_arr, batch_target_arr[:, -1, :])
-                    delta_arr = self.__computable_loss.compute_delta(pred_arr, batch_target_arr[:, -1, :])
+                    loss = self.__computable_loss.compute_loss(
+                        pred_arr,
+                        batch_target_arr[:, -1, :]
+                    )
+                    delta_arr = self.__computable_loss.compute_delta(
+                        pred_arr,
+                        batch_target_arr[:, -1, :]
+                    )
                     delta_arr, output_grads_list = self.output_back_propagate(pred_arr, delta_arr)
                     _delta_arr, lstm_grads_list = self.lstm_back_propagate(delta_arr)
                     grads_list = output_grads_list
@@ -225,8 +230,6 @@ class LSTMModel(ReconstructableModel):
 
                     test_hidden_activity_arr = self.lstm_forward_propagate(test_batch_observed_arr)
                     test_pred_arr = self.__output_forward_propagate(test_hidden_activity_arr)
-                    test_loss = self.__computable_loss.compute_loss(test_pred_arr, test_batch_target_arr[:, -1, :])
-                    test_loss_list.append(test_loss)
 
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:

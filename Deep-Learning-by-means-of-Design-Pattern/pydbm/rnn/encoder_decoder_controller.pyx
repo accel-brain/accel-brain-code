@@ -143,9 +143,8 @@ class EncoderDecoderController(ReconstructableModel):
 
         try:
             self.__memory_tuple_list = []
-            loss_list = []
-            test_loss_list = []
             eary_stop_flag = False
+            loss_list = []
             for epoch in range(self.__epochs):
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
                     learning_rate = learning_rate / self.__learning_attenuate_rate
@@ -153,32 +152,34 @@ class EncoderDecoderController(ReconstructableModel):
                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)
                 batch_observed_arr = train_observed_arr[rand_index]
                 batch_target_arr = train_target_arr[rand_index]
-
                 try:
-                    encoded_arr = self.__encoder.lstm_forward_propagate(batch_observed_arr)
-                    decoded_arr = self.__decoder.lstm_forward_propagate(encoded_arr)
-
-                    loss = self.__computable_loss.compute_loss(decoded_arr, batch_target_arr[:, :, :])
-                    delta_arr = self.__computable_loss.compute_delta(decoded_arr[:, -1, :], batch_target_arr[:, -1, :])
-
-                    decoder_delta_arr, decoder_lstm_grads_list = self.__decoder.lstm_back_propagate(delta_arr)
-                    encoder_delta_arr, encoder_lstm_grads_list = self.__encoder.lstm_back_propagate(decoder_delta_arr[:, 0, :])
+                    encoded_arr = self.__encoder.lstm_forward_propagate(batch_observed_arr)[::-1]
+                    decoded_arr = self.__decoder.lstm_forward_propagate(encoded_arr)[::-1]
+                    delta_arr = self.__computable_loss.compute_delta(
+                        decoded_arr[:, -1, :],
+                        batch_target_arr[:, -1, :]
+                    )
+                    loss = self.__computable_loss.compute_loss(decoded_arr, batch_target_arr)
+                    loss_list.append(loss)
+                    decoder_delta_arr, decoder_lstm_grads_list = self.__decoder.lstm_back_propagate(
+                        delta_arr
+                    )
+                    encoder_delta_arr, encoder_lstm_grads_list = self.__encoder.lstm_back_propagate(
+                        decoder_delta_arr[:, 0, :]
+                    )
                     decoder_grads_list = [None, None]
                     [decoder_grads_list.append(d) for d in decoder_lstm_grads_list]
                     encoder_grads_list = [None, None]
                     [encoder_grads_list.append(d) for d in encoder_lstm_grads_list]
-
                     self.__decoder.optimize(decoder_grads_list, learning_rate, epoch)
                     self.__encoder.optimize(encoder_grads_list, learning_rate, epoch)
-
-                    loss_list.append(loss)
                     self.__encoder.graph.hidden_activity_arr = np.array([])
                     self.__encoder.graph.rnn_activity_arr = np.array([])
                     self.__decoder.graph.hidden_activity_arr = np.array([])
                     self.__decoder.graph.rnn_activity_arr = np.array([])
 
                 except FloatingPointError:
-                    if epoch > 100:
+                    if epoch > int(self.__epochs * 0.7):
                         self.__logger.debug(
                             "Underflow occurred when the parameters are being updated. Because of early stopping, this error is catched and the parameter is not updated."
                         )
@@ -191,19 +192,16 @@ class EncoderDecoderController(ReconstructableModel):
                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
                     test_batch_observed_arr = test_observed_arr[rand_index]
                     test_batch_target_arr = test_target_arr[rand_index]
-                    test_encoded_arr = self.__encoder.lstm_forward_propagate(test_batch_observed_arr)
-                    test_decoded_arr = self.__decoder.lstm_forward_propagate(test_encoded_arr)
-                    test_loss = self.__computable_loss.compute_loss(test_decoded_arr[:, -1, :], test_batch_target_arr[:, -1, :])
-                    test_loss_list.append(test_loss)
-
+                    test_encoded_arr = self.__encoder.lstm_forward_propagate(test_batch_observed_arr)[::-1]
+                    test_decoded_arr = self.__decoder.lstm_forward_propagate(test_encoded_arr)[::-1]
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=decoded_arr[:, -1, :], 
-                                train_label_arr=batch_target_arr[:, -1, :],
-                                test_pred_arr=test_decoded_arr[:, -1, :],
-                                test_label_arr=test_batch_target_arr[:, -1, :]
+                                train_pred_arr=decoded_arr, 
+                                train_label_arr=batch_target_arr,
+                                test_pred_arr=test_decoded_arr,
+                                test_label_arr=test_batch_target_arr
                             )
                     self.__encoder.graph.hidden_activity_arr = np.array([])
                     self.__encoder.graph.rnn_activity_arr = np.array([])

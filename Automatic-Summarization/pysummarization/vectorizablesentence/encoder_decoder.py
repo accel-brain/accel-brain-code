@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from logging import getLogger
 import numpy as np
 from pysummarization.vectorizable_sentence import VectorizableSentence
 
@@ -29,6 +30,11 @@ class EncoderDecoder(VectorizableSentence):
     '''
     Vectorize sentences by Encoder/Decoder based on LSTM.
     '''
+    
+    def __init__(self):
+        ''' Init. '''
+        logger = getLogger("pysummarization")
+        self.__logger = logger
 
     def vectorize(self, sentence_list):
         '''
@@ -73,6 +79,9 @@ class EncoderDecoder(VectorizableSentence):
         Init.
         '''
         observed_arr = self.__setup_dataset(sentence_list, token_master_list)
+        
+        self.__logger.debug("Shape of observed data points:")
+        self.__logger.debug(observed_arr.shape)
 
         # Init.
         encoder_graph = EncoderGraph()

@@ -537,6 +537,7 @@ class LSTMModel(ReconstructableModel):
             _rnn_activity_arr,
             _hidden_activity_arr
         ))
+        self.__feature_points_arr = _hidden_activity_arr
         return (_hidden_activity_arr, _rnn_activity_arr)
 
     def __lstm_backward(

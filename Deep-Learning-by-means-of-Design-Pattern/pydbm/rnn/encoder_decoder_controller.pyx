@@ -305,7 +305,7 @@ class EncoderDecoderController(ReconstructableModel):
         Returns:
             The array like or sparse matrix of reconstruction error. 
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=2] reconstruction_error_arr = self.__reconstruction_error_arr.mean(axis=0)
+        cdef np.ndarray[DOUBLE_t, ndim=1] reconstruction_error_arr = self.__reconstruction_error_arr.mean(axis=0)
         self.__reconstruction_error_arr = np.array([])
         return reconstruction_error_arr
 

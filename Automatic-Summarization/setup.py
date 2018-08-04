@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
 
-def read_rst(file_name):
+def read_readme(file_name):
     from os import path
-    with open(path.join(path.dirname(__file__), file_name)) as f:
-        rst = f.read()
-    return rst
+    this_directory = path.abspath(path.dirname(__file__))
+    with open(path.join(this_directory, file_name), encoding='utf-8') as f:
+        long_description = f.read()
 
+    return long_description
 
 setup(
     name='pysummarization',
-    version='1.0.6',
-    description='pysummarization is Python library for the automatic summarization, document abstraction, and text filtering.',
-    long_description=read_rst("README.rst"),
+    version='1.0.7',
+    description='pysummarization is Python library for the automatic summarization, document abstraction, and text filtering in relation to Encoder/Decoder based on LSTM.',
+    long_description=read_readme("README.md"),
+    long_description_content_type='text/markdown',
     url='https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization',
     author='chimera0',
     author_email='ai-brain-lab@accel-brain.com',

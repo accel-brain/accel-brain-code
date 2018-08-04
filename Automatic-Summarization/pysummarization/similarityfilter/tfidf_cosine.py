@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 from pysummarization.similarity_filter import SimilarityFilter
-from pysummarization.vectorlizabletoken.tfidf_vectorizer import TfidfVectorizer
+from pysummarization.vectorizabletoken.tfidf_vectorizer import TfidfVectorizer
 
 
 class TfIdfCosine(SimilarityFilter):
@@ -31,8 +31,8 @@ class TfIdfCosine(SimilarityFilter):
 
         tfidf_vectorizer = TfidfVectorizer(document_list)
 
-        vector_list_x = tfidf_vectorizer.vectorlize(token_list_x)
-        vector_list_y = tfidf_vectorizer.vectorlize(token_list_y)
+        vector_list_x = tfidf_vectorizer.vectorize(token_list_x)
+        vector_list_y = tfidf_vectorizer.vectorize(token_list_y)
         
         if len(vector_list_x) > len(vector_list_y):
             [vector_list_y.append(0.0) for _ in range(len(vector_list_x) - len(vector_list_y))]

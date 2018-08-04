@@ -2,13 +2,13 @@
 from abc import ABCMeta, abstractmethod
 
 
-class VectorlizableSentence(metaclass=ABCMeta):
+class VectorizableSentence(metaclass=ABCMeta):
     '''
-    Vectorlize sentence.
+    Vectorize sentence.
     '''
     
     @abstractmethod
-    def vectorlize(self, sentence_list):
+    def vectorize(self, sentence_list):
         '''
         Tokenize token list.
         

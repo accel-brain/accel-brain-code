@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 import nltk
-from pysummarization.vectorlizable_token import VectorlizableToken
+from pysummarization.vectorizable_token import VectorizableToken
 
 
-class TfidfVectorizer(VectorlizableToken):
+class TfidfVectorizer(VectorizableToken):
     '''
-    Vectorlize token.
+    Vectorize token.
     '''
     # Document
     __collection = []
@@ -19,7 +19,7 @@ class TfidfVectorizer(VectorlizableToken):
         '''
         self.__collection = nltk.TextCollection(token_list_list)
 
-    def vectorlize(self, token_list):
+    def vectorize(self, token_list):
         '''
         Tokenize token list.
         

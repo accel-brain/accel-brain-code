@@ -2,13 +2,13 @@
 from abc import ABCMeta, abstractmethod
 
 
-class VectorlizableToken(metaclass=ABCMeta):
+class VectorizableToken(metaclass=ABCMeta):
     '''
-    Vectorlize token.
+    Vectorize token.
     '''
     
     @abstractmethod
-    def vectorlize(self, token_list):
+    def vectorize(self, token_list):
         '''
         Tokenize token list.
         

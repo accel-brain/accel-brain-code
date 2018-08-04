@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from pysummarization.vectorlizable_sentence import VectorlizableSentence
+from pysummarization.vectorizable_sentence import VectorizableSentence
 
 # LSTM Graph which is-a `Synapse`.
 from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph
@@ -25,12 +25,12 @@ from pydbm.activation.tanh_function import TanhFunction
 from pydbm.rnn.encoder_decoder_controller import EncoderDecoderController
 
 
-class EncoderDecoder(VectorlizableSentence):
+class EncoderDecoder(VectorizableSentence):
     '''
-    Vectorlize sentences by Encoder/Decoder based on LSTM.
+    Vectorize sentences by Encoder/Decoder based on LSTM.
     '''
 
-    def vectorlize(self, sentence_list):
+    def vectorize(self, sentence_list):
         '''
         Tokenize token list.
         
@@ -51,8 +51,8 @@ class EncoderDecoder(VectorlizableSentence):
             ]
         '''
         test_observed_arr = self.__setup_dataset(sentence_list, self.__token_master_list)
-        pred_arr = self.__encoder_decoder_controller.inference(test_observed_arr)
-        return self.__encoder_decoder_controller.get_feature_points_arr()
+        pred_arr = self.__controller.inference(test_observed_arr)
+        return self.__controller.get_feature_points_arr()
 
     def learn(
         self,
@@ -189,7 +189,7 @@ class EncoderDecoder(VectorlizableSentence):
         # Learning.
         encoder_decoder_controller.learn(observed_arr, observed_arr)
         
-        self.__encoder_decoder_controller = encoder_decoder_controller
+        self.__controller = encoder_decoder_controller
         self.__token_master_list = token_master_list
 
     def __setup_dataset(self, sentence_list, token_master_list):
@@ -215,12 +215,12 @@ class EncoderDecoder(VectorlizableSentence):
         observed_arr = np.array(observed_list)
         return observed_arr
 
-    def get_encoder_decoder_controller(self):
+    def get_controller(self):
         ''' getter '''
-        return self.__encoder_decoder_controller
+        return self.__controller
 
     def set_readonly(self, value):
         ''' setter '''
         raise TypeError("This property must be read-only.")
     
-    encoder_decoder_controller = property(get_encoder_decoder_controller, set_readonly)
+    controller = property(get_controller, set_readonly)

@@ -32,7 +32,8 @@ def Main(url):
     vectorlizable_sentence = EncoderDecoder()
     vectorlizable_sentence.learn(
         sentence_list=sentence_list, 
-        token_master_list=list(set(all_token_list))
+        token_master_list=list(set(all_token_list)),
+        epochs=25
     )
     feature_points_arr = vectorlizable_sentence.vectorize(sentence_list[:5])
     

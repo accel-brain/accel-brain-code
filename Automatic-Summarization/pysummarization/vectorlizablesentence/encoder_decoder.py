@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import numpy as np
 from pysummarization.vectorlizable_sentence import VectorlizableSentence
 
 # LSTM Graph which is-a `Synapse`.

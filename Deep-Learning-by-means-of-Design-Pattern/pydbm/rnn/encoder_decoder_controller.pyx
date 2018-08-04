@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from logging import getLogger
-from copy import copy
 import numpy as np
 cimport numpy as np
 from pydbm.rnn.interface.reconstructable_model import ReconstructableModel
@@ -8,8 +7,6 @@ from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
 from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
 ctypedef np.float64_t DOUBLE_t
 
-
-np.seterr(all="raise")
 
 class EncoderDecoderController(ReconstructableModel):
     '''
@@ -157,8 +154,6 @@ class EncoderDecoderController(ReconstructableModel):
                 batch_observed_arr = train_observed_arr[rand_index]
                 batch_target_arr = train_target_arr[rand_index]
 
-                encoder_graph = copy(self.__encoder.graph)
-                decoder_graph = copy(self.__decoder.graph)
                 try:
                     encoded_arr = self.__encoder.lstm_forward_propagate(batch_observed_arr)
                     decoded_arr = self.__decoder.lstm_forward_propagate(encoded_arr)
@@ -190,12 +185,7 @@ class EncoderDecoderController(ReconstructableModel):
                         eary_stop_flag = True
                         break
                     else:
-                        self.__encoder.graph = copy(encoder_graph)
-                        self.__decoder.graph = copy(decoder_graph)
-                        self.__logger.debug(
-                            "Underflow occurred when the parameters are being updated."
-                        )
-                        continue
+                        raise
 
                 if self.__test_size_rate > 0:
                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)

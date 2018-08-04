@@ -10,6 +10,7 @@ from pysummarization.similarityfilter.tfidf_cosine import TfIdfCosine
 from pysummarization.similarityfilter.dice import Dice
 from pysummarization.similarityfilter.jaccard import Jaccard
 from pysummarization.similarityfilter.simpson import Simpson
+from pysummarization.similarityfilter.encoder_decoder_cosine import EncoderDecoderCosine
 
 
 def Main(url, similarity_mode="TfIdfCosine", similarity_limit=0.75):
@@ -19,7 +20,43 @@ def Main(url, similarity_mode="TfIdfCosine", similarity_limit=0.75):
     Args:
         url:    PDF url.
     '''
-    if similarity_mode == "TfIdfCosine":
+    # The object of the NLP.
+    nlp_base = NlpBase()
+    # Set tokenizer. This is japanese tokenizer with MeCab.
+    nlp_base.tokenizable_doc = MeCabTokenizer()
+    # Set the object of NLP.
+    similarity_filter.nlp_base = nlp_base
+
+    # If the similarity exceeds this value, the sentence will be cut off.
+    similarity_filter.similarity_limit = similarity_limit
+
+    # The object of Web-scraping.
+    web_scrape = WebScraping()
+    # Set the object of reading PDF files.
+    web_scrape.readable_web_pdf = WebPDFReading()
+    # Execute Web-scraping.
+    document = web_scrape.scrape(url)
+
+    if similarity_mode == "EncoderDecoderCosine":
+        # The object of `Similarity Filter`.
+        # The similarity observed by this object is so-called cosine similarity of manifolds,
+        # which is embedded in hidden layer of Encoder/Decoder based on LSTM.
+        similarity_filter = EncoderDecoderCosine(
+            document,
+            hidden_neuron_count=200,
+            epochs=100,
+            batch_size=100,
+            learning_rate=1e-05,
+            learning_attenuate_rate=0.1,
+            attenuate_epoch=50,
+            bptt_tau=8,
+            weight_limit=0.5,
+            dropout_rate=0.5,
+            test_size_rate=0.3
+            debug_mode=True
+        )
+
+    elif similarity_mode == "TfIdfCosine":
         # The object of `Similarity Filter`. 
         # The similarity observed by this object is so-called cosine similarity of Tf-Idf vectors.
         similarity_filter = TfIdfCosine()
@@ -42,22 +79,6 @@ def Main(url, similarity_mode="TfIdfCosine", similarity_limit=0.75):
     else:
         raise ValueError()
 
-    # The object of the NLP.
-    nlp_base = NlpBase()
-    # Set tokenizer. This is japanese tokenizer with MeCab.
-    nlp_base.tokenizable_doc = MeCabTokenizer()
-    # Set the object of NLP.
-    similarity_filter.nlp_base = nlp_base
-
-    # If the similarity exceeds this value, the sentence will be cut off.
-    similarity_filter.similarity_limit = similarity_limit
-
-    # The object of Web-scraping.
-    web_scrape = WebScraping()
-    # Set the object of reading PDF files.
-    web_scrape.readable_web_pdf = WebPDFReading()
-    # Execute Web-scraping.
-    document = web_scrape.scrape(url)
     # The object of automatic sumamrization.
     auto_abstractor = AutoAbstractor()
     # Set tokenizer. This is japanese tokenizer with MeCab.

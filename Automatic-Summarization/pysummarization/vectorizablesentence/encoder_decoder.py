@@ -77,6 +77,26 @@ class EncoderDecoder(VectorizableSentence):
     ):
         '''
         Init.
+        
+        Args:
+            sentence_list:                  The `list` of sentences.
+            token_master_list:              Unique `list` of tokens.
+            hidden_neuron_count:            The number of units in hidden layer.
+            epochs:                         Epochs of Mini-batch.
+            bath_size:                      Batch size of Mini-batch.
+            learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+                                            Additionally, in relation to regularization,
+                                            this class constrains weight matrixes every `attenuate_epoch`.
+
+            bptt_tau:                       Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
+            weight_limit:                   Regularization for weights matrix
+                                            to repeat multiplying the weights matrix and `0.9`
+                                            until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
+
+            dropout_rate:                   The probability of dropout.
+            test_size_rate:                 Size of Test data set. If this value is `0`, the 
         '''
         observed_arr = self.__setup_dataset(sentence_list, token_master_list)
         

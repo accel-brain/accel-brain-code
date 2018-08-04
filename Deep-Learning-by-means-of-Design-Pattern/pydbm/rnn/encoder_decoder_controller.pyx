@@ -276,7 +276,7 @@ class EncoderDecoderController(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=3] decoded_arr = self.__decoder.lstm_forward_propagate(encoded_arr)
         self.__feature_points_arr = self.__encoder.get_feature_points_arr()
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] reconstruction_error_arr = self.__computable_loss.compute_loss(
+        cdef np.ndarray[DOUBLE_t, ndim=1] reconstruction_error_arr = self.__computable_loss.compute_loss(
             decoded_arr[:, 0, :],
             observed_arr[:, 0, :],
             axis=1

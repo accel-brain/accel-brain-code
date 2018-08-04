@@ -206,6 +206,8 @@ class EncoderDecoder(VectorlizableSentence):
                 try:
                     token = sentence_list[i][j]
                     arr[token_master_list.index(token)] = 1
+                except IndexError:
+                    pass
                 finally:
                     arr = arr.astype(np.float64)
                     arr_list[j] = arr

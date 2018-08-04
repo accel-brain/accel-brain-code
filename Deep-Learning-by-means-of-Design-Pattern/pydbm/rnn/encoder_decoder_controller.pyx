@@ -77,7 +77,6 @@ class EncoderDecoderController(ReconstructableModel):
 
         logger = getLogger("pydbm")
         self.__logger = logger
-        self.__logger.debug("pydbm.rnn.lstm_model is started. ")
 
     def learn(self, np.ndarray[DOUBLE_t, ndim=3] observed_arr, np.ndarray target_arr=np.array([])):
         '''

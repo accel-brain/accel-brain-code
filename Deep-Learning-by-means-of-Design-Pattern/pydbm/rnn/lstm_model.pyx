@@ -208,7 +208,7 @@ class LSTMModel(ReconstructableModel):
                     self.graph.rnn_activity_arr = np.array([])
 
                 except FloatingPointError:
-                    if epoch > 100:
+                    if epoch > int(self.__epochs * 0.7):
                         self.__logger.debug(
                             "Underflow occurred when the parameters are being updated. Because of early stopping, this error is catched and the parameter is not updated."
                         )

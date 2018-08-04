@@ -40,6 +40,15 @@ def Main(url):
 
 if __name__ == "__main__":
     import sys
+    from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
+
     # web site url.
     url = sys.argv[1]
+
+    logger = getLogger("pydbm")
+    handler = StreamHandler()
+    handler.setLevel(DEBUG)
+    logger.setLevel(DEBUG)
+    logger.addHandler(handler)
+
     Main(url)

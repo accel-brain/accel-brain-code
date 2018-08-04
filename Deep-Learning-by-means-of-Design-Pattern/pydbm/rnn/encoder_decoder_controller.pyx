@@ -156,8 +156,8 @@ class EncoderDecoderController(ReconstructableModel):
                     encoded_arr = self.__encoder.lstm_forward_propagate(batch_observed_arr)[::-1]
                     decoded_arr = self.__decoder.lstm_forward_propagate(encoded_arr)[::-1]
                     delta_arr = self.__computable_loss.compute_delta(
-                        decoded_arr[:, -1, :],
-                        batch_target_arr[:, -1, :]
+                        decoded_arr[:, 0, :],
+                        batch_target_arr[:, 0, :]
                     )
                     loss = self.__computable_loss.compute_loss(decoded_arr, batch_target_arr)
                     loss_list.append(loss)
@@ -165,7 +165,7 @@ class EncoderDecoderController(ReconstructableModel):
                         delta_arr
                     )
                     encoder_delta_arr, encoder_lstm_grads_list = self.__encoder.lstm_back_propagate(
-                        decoder_delta_arr[:, 0, :]
+                        decoder_delta_arr[:, -1, :]
                     )
                     decoder_grads_list = [None, None]
                     [decoder_grads_list.append(d) for d in decoder_lstm_grads_list]
@@ -277,9 +277,9 @@ class EncoderDecoderController(ReconstructableModel):
         self.__feature_points_arr = self.__encoder.get_feature_points_arr()
 
         cdef np.ndarray[DOUBLE_t, ndim=2] reconstruction_error_arr = self.__computable_loss.compute_loss(
-            decoded_arr,
-            observed_arr[:, :, :],
-            axis=0
+            decoded_arr[:, 0, :],
+            observed_arr[:, 0, :],
+            axis=1
         )
         self.__reconstruction_error_arr = reconstruction_error_arr
         return decoded_arr
@@ -303,7 +303,7 @@ class EncoderDecoderController(ReconstructableModel):
         Returns:
             The array like or sparse matrix of reconstruction error. 
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=1] reconstruction_error_arr = self.__reconstruction_error_arr.mean(axis=1)
+        cdef np.ndarray[DOUBLE_t, ndim=1] reconstruction_error_arr = self.__reconstruction_error_arr
         self.__reconstruction_error_arr = np.array([])
         return reconstruction_error_arr
 

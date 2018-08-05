@@ -281,7 +281,7 @@ similarity_filter = EncoderDecoderCosine(
 )
 ```
 
-`document` is a `str` of all natural sentences, which are subject to automatic summarization by `AutoAbstractor`. When instantiated, this class starts learning. If `debug_mode` is `True`, the progress of learning is printed by the logger.
+`document` is a `str` of all natural sentences, which are subject to automatic summarization by `AutoAbstractor`. When instantiated, `EncoderDecoderCosine` converts the datasets to t-hot vectors of each token, of which the shape is (`The number of sentences`, `The mean number of token`, `The dimention of t-hot`), and starts learning. If `debug_mode` is `True`, the progress of learning is printed by the logger.
 
 Refer to [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library for details related to Encoder/Decoder.
 

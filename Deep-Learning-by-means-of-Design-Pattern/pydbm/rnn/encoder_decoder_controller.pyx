@@ -8,7 +8,7 @@ from pydbm.rnn.verification.interface.verificatable_result import VerificatableR
 ctypedef np.float64_t DOUBLE_t
 
 
-class EncoderDecoderController(ReconstructableModel):
+class EncoderDecoderController(object):
     '''
     Encoder/Decoder based on LSTM networks.
     '''

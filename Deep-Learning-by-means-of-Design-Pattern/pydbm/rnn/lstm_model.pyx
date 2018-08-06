@@ -34,9 +34,6 @@ class LSTMModel(ReconstructableModel):
     # Verification function.
     __verificatable_result = None
 
-    # The list of inferenced feature points.
-    __feature_points_arr = None
-
     # The list of paramters to be differentiated.
     __learned_params_list = []
     
@@ -126,7 +123,7 @@ class LSTMModel(ReconstructableModel):
         Override.
 
         Args:
-            observed_arr:    Array like or sparse matrix as the observed data ponts.
+            observed_arr:    Array like or sparse matrix as the observed data points.
             target_arr:      Array like or sparse matrix as the target data points.
                              To learn as Auto-encoder, this value must be `None` or equivalent to `observed_arr`.
         '''
@@ -149,8 +146,6 @@ class LSTMModel(ReconstructableModel):
         cdef np.ndarray rand_index
         cdef np.ndarray[DOUBLE_t, ndim=3] batch_observed_arr
         cdef np.ndarray batch_target_arr
-        cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr
-        cdef np.ndarray[DOUBLE_t, ndim=3] test_hidden_activity_arr
 
         if row_t != 0 and row_t != row_o:
             raise ValueError("The row of `target_arr` must be equivalent to the row of `observed_arr`.")
@@ -203,11 +198,10 @@ class LSTMModel(ReconstructableModel):
                         batch_target_arr[:, -1, :]
                     )
                     delta_arr, output_grads_list = self.output_back_propagate(pred_arr, delta_arr)
-                    _delta_arr, lstm_grads_list = self.lstm_back_propagate(delta_arr)
+                    _delta_arr, lstm_grads_list = self.hidden_back_propagate(delta_arr)
                     grads_list = output_grads_list
                     grads_list.extend(lstm_grads_list)
                     self.optimize(grads_list, learning_rate, epoch)
-                    loss_list.append(loss)
                     self.graph.hidden_activity_arr = np.array([])
                     self.graph.rnn_activity_arr = np.array([])
 
@@ -227,9 +221,7 @@ class LSTMModel(ReconstructableModel):
                     test_batch_observed_arr = test_observed_arr[rand_index]
                     test_batch_target_arr = test_target_arr[rand_index]
 
-                    test_hidden_activity_arr = self.lstm_forward_propagate(test_batch_observed_arr)
-                    test_pred_arr = self.__output_forward_propagate(test_hidden_activity_arr)
-
+                    test_pred_arr = self.forward_propagation(test_batch_observed_arr)
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(
@@ -240,9 +232,10 @@ class LSTMModel(ReconstructableModel):
                                 test_label_arr=test_batch_target_arr[:, -1, :]
                             )
 
-                if epoch > 0 and abs(loss - loss_list[-1]) < self.__tol:
+                if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
                     eary_stop_flag = True
                     break
+                loss_list.append(loss)
 
         except KeyboardInterrupt:
             self.__logger.debug("Interrupt.")
@@ -258,13 +251,18 @@ class LSTMModel(ReconstructableModel):
         Forward propagation.
         
         Args:
-            batch_observed_arr:    Array like or sparse matrix as the observed data ponts.
+            batch_observed_arr:    Array like or sparse matrix as the observed data points.
         
         Returns:
-            Array like or sparse matrix as the predicted data ponts.
+            Array like or sparse matrix as the predicted data points.
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr = self.lstm_forward_propagate(batch_observed_arr)
-        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.__output_forward_propagate(hidden_activity_arr)
+        cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr = self.__lstm_forward_propagate(
+            batch_observed_arr
+        )
+        self.graph.hidden_activity_arr = hidden_activity_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.__output_forward_propagate(
+            hidden_activity_arr
+        )
         return pred_arr
 
     def optimize(
@@ -316,7 +314,7 @@ class LSTMModel(ReconstructableModel):
         Override.
 
         Args:
-            observed_arr:           Array like or sparse matrix as the observed data ponts.
+            observed_arr:           Array like or sparse matrix as the observed data points.
             hidden_activity_arr:    Array like or sparse matrix as the state in hidden layer.
             rnn_activity_arr:       Array like or sparse matrix as the state in RNN.
 
@@ -346,7 +344,6 @@ class LSTMModel(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.forward_propagation(observed_arr)
         self.__opt_params.dropout_rate = self.__dropout_rate
 
-        self.__feature_points_arr = self.__memory_tuple_list[-1][8]
         return pred_arr
 
     def get_feature_points(self):
@@ -357,11 +354,9 @@ class LSTMModel(ReconstructableModel):
         Returns:
             The `list` of array like or sparse matrix of feature points or virtual visible observed data points.
         '''
-        feature_points_arr = self.__feature_points_arr
-        self.__feature_points_arr = np.array([])
-        return feature_points_arr
+        return self.graph.hidden_activity_arr
 
-    def lstm_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=3] observed_arr):
+    def __lstm_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=3] observed_arr):
         '''
         Forward propagation in LSTM gate.
         
@@ -435,9 +430,9 @@ class LSTMModel(ReconstructableModel):
         
         return (_delta_arr, grads_list)
 
-    def lstm_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] delta_output_arr):
+    def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] delta_output_arr):
         '''
-        Back propagation in LSTM gate.
+        Back propagation in hidden layer.
         
         Args:
             delta_output_arr:    Delta.
@@ -539,7 +534,6 @@ class LSTMModel(ReconstructableModel):
             _rnn_activity_arr,
             _hidden_activity_arr
         ))
-        self.__feature_points_arr = _hidden_activity_arr
         return (_hidden_activity_arr, _rnn_activity_arr)
 
     def __lstm_backward(

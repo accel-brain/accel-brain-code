@@ -41,9 +41,9 @@ class Adam(OptParams):
             raise ValueError("The row of `params_list` and `grads_list` must be equivalent.")
 
         if len(self.__first_moment_list) == 0 or len(self.__first_moment_list) != len(params_list):
-            self.__first_moment_list = [None] * len(params_list)
+            self.__first_moment_list = [np.zeros_like(params_list[i]) for i in range(len(params_list))]
         if len(self.__second_moment_list) == 0 or len(self.__second_moment_list) != len(params_list):
-            self.__second_moment_list  = [None] * len(params_list)
+            self.__second_moment_list  = [np.zeros_like(params_list[i]) for i in range(len(params_list))]
         
         if self.__first_moment_list[0] is None or self.__second_moment_list[0] is None:
             self.__epoch = 0
@@ -56,13 +56,14 @@ class Adam(OptParams):
             if params_list[i] is None or grads_list[i] is None:
                 continue
 
-            if self.__first_moment_list[i] is not None and self.__second_moment_list[i] is not None:
-                self.__first_moment_list[i] += (1 - self.__beta_1) * (grads_list[i] - self.__first_moment_list[i])
-                self.__second_moment_list[i] += (1 - self.__beta_2) * (grads_list[i] ** 2 - self.__second_moment_list[i])
-            else:
-                self.__first_moment_list[i] = (1 - self.__beta_1) * (grads_list[i])
-                self.__second_moment_list[i] = (1 - self.__beta_2) * (grads_list[i] ** 2)
+            self.__first_moment_list[i] += (1 - self.__beta_1) * (grads_list[i] - self.__first_moment_list[i])
+            self.__second_moment_list[i] += (1 - self.__beta_2) * (grads_list[i] ** 2 - self.__second_moment_list[i])
+            
+            var_arr = learning_rate * self.__first_moment_list[i] / (np.sqrt(self.__second_moment_list[i]) + 0.00001)
+            var_max = np.nan_to_num(var_arr[~np.isinf(var_arr)]).max()
+            var_arr[np.isinf(var_arr)] = var_max
+            var_arr = np.nan_to_num(var_arr)
 
-            params_list[i] -= learning_rate * self.__first_moment_list[i] / (np.sqrt(self.__second_moment_list[i] + 1e-15))
+            params_list[i] = params_list[i] - var_arr
 
         return params_list

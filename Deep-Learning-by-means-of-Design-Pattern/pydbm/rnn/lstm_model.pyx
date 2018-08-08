@@ -256,11 +256,11 @@ class LSTMModel(ReconstructableModel):
         Returns:
             Array like or sparse matrix as the predicted data points.
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr = self.__lstm_forward_propagate(
+        cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr = self.hidden_forward_propagate(
             batch_observed_arr
         )
         self.graph.hidden_activity_arr = hidden_activity_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.__output_forward_propagate(
+        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.output_forward_propagate(
             hidden_activity_arr
         )
         return pred_arr
@@ -356,7 +356,7 @@ class LSTMModel(ReconstructableModel):
         '''
         return self.graph.hidden_activity_arr
 
-    def __lstm_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=3] observed_arr):
+    def hidden_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=3] observed_arr):
         '''
         Forward propagation in LSTM gate.
         
@@ -390,7 +390,7 @@ class LSTMModel(ReconstructableModel):
 
         return pred_arr
 
-    def __output_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=3] pred_arr):
+    def output_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=3] pred_arr):
         '''
         Forward propagation in output layer.
         
@@ -463,7 +463,7 @@ class LSTMModel(ReconstructableModel):
             else:
                 _delta_hidden_arr = delta_hidden_arr
 
-            delta_observed_arr, delta_hidden_arr, delta_rnn_arr, grad_list = self.__lstm_backward(
+            delta_observed_arr, delta_hidden_arr, delta_rnn_arr, grad_list = self.lstm_backward(
                 _delta_hidden_arr,
                 delta_rnn_arr,
                 cycle
@@ -536,7 +536,7 @@ class LSTMModel(ReconstructableModel):
         ))
         return (_hidden_activity_arr, _rnn_activity_arr)
 
-    def __lstm_backward(
+    def lstm_backward(
         self,
         np.ndarray[DOUBLE_t, ndim=2] delta_hidden_arr,
         np.ndarray delta_rnn_arr,
@@ -585,7 +585,7 @@ class LSTMModel(ReconstructableModel):
         delta_forget_gate_arr = delta_top_arr * delta_pre_rnn_arr * self.graph.forget_gate_activating_function.derivative(forget_gate_activity_arr)
         delta_input_gate_arr = delta_top_arr * given_activity_arr * self.graph.input_gate_activating_function.derivative(input_gate_activity_arr)
         delta_given_arr = delta_top_arr * input_gate_activity_arr * self.graph.observed_activating_function.derivative(given_activity_arr)
-        
+
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_lstm_matrix = np.hstack([
             delta_output_gate_arr,
             delta_forget_gate_arr,

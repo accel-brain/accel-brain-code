@@ -118,7 +118,7 @@ class EncoderDecoderController(object):
                 target_arr = target_arr.reshape((target_arr.shape[0], 1, target_arr.shape[1]))
 
         if self.__test_size_rate > 0:
-            train_index = np.random.choice(observed_arr.shape[0], round(self.__test_size_rate * observed_arr.shape[0]), replace=False)
+            train_index = np.random.choice(observed_arr.shape[0], round((1 - self.__test_size_rate) * observed_arr.shape[0]), replace=False)
             test_index = np.array(list(set(range(observed_arr.shape[0])) - set(train_index)))
             train_observed_arr = observed_arr[train_index]
             test_observed_arr = observed_arr[test_index]
@@ -126,7 +126,7 @@ class EncoderDecoderController(object):
             test_target_arr = target_arr[test_index]
         else:
             train_observed_arr = observed_arr
-            train_target_arr = observed_arr
+            train_target_arr = target_arr
 
         cdef double loss
         cdef double test_loss
@@ -158,25 +158,27 @@ class EncoderDecoderController(object):
                     )
                     hidden_activity_arr = self.__decoder.get_feature_points()[:, ::-1, :]
                     delta_arr = self.__computable_loss.compute_delta(
-                        hidden_activity_arr[:, -1, :],
-                        batch_target_arr[:, -1, :]
+                        hidden_activity_arr[:, 0, :],
+                        batch_target_arr[:, 0, :]
                     )
                     loss = self.__computable_loss.compute_loss(
-                        hidden_activity_arr[:, -1, :],
-                        batch_target_arr[:, -1, :]
+                        hidden_activity_arr[:, 0, :],
+                        batch_target_arr[:, 0, :]
                     )
                     decoder_delta_arr, decoder_lstm_grads_list = self.__decoder.hidden_back_propagate(
                         delta_arr
                     )
                     encoder_delta_arr, encoder_lstm_grads_list = self.__encoder.hidden_back_propagate(
-                        decoder_delta_arr[:, -1, :]
+                        decoder_delta_arr[:, 0, :]
                     )
                     decoder_grads_list = [None, None]
                     [decoder_grads_list.append(d) for d in decoder_lstm_grads_list]
                     encoder_grads_list = [None, None]
                     [encoder_grads_list.append(d) for d in encoder_lstm_grads_list]
+
                     self.__decoder.optimize(decoder_grads_list, learning_rate, epoch)
                     self.__encoder.optimize(encoder_grads_list, learning_rate, epoch)
+
                     self.__encoder.graph.hidden_activity_arr = np.array([])
                     self.__encoder.graph.rnn_activity_arr = np.array([])
                     self.__decoder.graph.hidden_activity_arr = np.array([])
@@ -190,6 +192,9 @@ class EncoderDecoderController(object):
                         eary_stop_flag = True
                         break
                     else:
+                        self.__logger.debug(
+                            "Underflow occurred when the parameters are being updated."
+                        )
                         raise
 
                 if self.__test_size_rate > 0:
@@ -288,7 +293,7 @@ class EncoderDecoderController(object):
             axis=1
         )
         self.__reconstruction_error_arr = reconstruction_error_arr
-        return decoded_arr
+        return _hidden_activity_arr
 
     def get_feature_points(self):
         '''
@@ -311,6 +316,22 @@ class EncoderDecoderController(object):
         cdef np.ndarray[DOUBLE_t, ndim=1] reconstruction_error_arr = self.__reconstruction_error_arr
         self.__reconstruction_error_arr = np.array([])
         return reconstruction_error_arr
+
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+
+    def get_encoder(self):
+        ''' getter '''
+        return self.__encoder
+
+    encoder = property(get_encoder, set_readonly)
+
+    def get_decoder(self):
+        ''' getter '''
+        return self.__decoder
+
+    decoder = property(get_decoder, set_readonly)
 
     def get_verificatable_result(self):
         ''' getter '''

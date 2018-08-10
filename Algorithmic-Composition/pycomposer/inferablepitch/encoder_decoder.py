@@ -59,8 +59,9 @@ class EncoderDecoder(InferablePitch):
             `np.ndarray` of pitch.
         '''
         midi_arr[:, 0] = (midi_arr[:, 0] - self.__min_pitch) / (self.__max_pitch - self.__min_pitch)
-        midi_arr[:, 1] = (midi_arr[:, 1] - self.__min_duration) / (self.__max_duration - self.__min_duration)
-        midi_arr[:, 2] = (midi_arr[:, 2] - self.__min_velocity) / (self.__max_velocity - self.__min_velocity)
+        midi_arr[:, 1] = (midi_arr[:, 1] - self.__min_start) / (self.__max_start - self.__min_start)
+        midi_arr[:, 2] = (midi_arr[:, 2] - self.__min_duration) / (self.__max_duration - self.__min_duration)
+        midi_arr[:, 3] = (midi_arr[:, 3] - self.__min_velocity) / (self.__max_velocity - self.__min_velocity)
         midi_arr *= 0.1
 
         observed_arr, target_arr = self.__setup_dataset(midi_arr, self.__cycle_len)
@@ -69,8 +70,12 @@ class EncoderDecoder(InferablePitch):
         
         midi_arr *= 10.0
         midi_arr[:, 0] = ((self.__max_pitch - self.__min_pitch) * (midi_arr[:, 0] - midi_arr[:, 0].min()) / (midi_arr[:, 0].max() - midi_arr[:, 0].min())) + self.__min_pitch
-        midi_arr[:, 1] = ((self.__max_duration - self.__min_duration) * (midi_arr[:, 1] - midi_arr[:, 1].min()) / (midi_arr[:, 0].max() - midi_arr[:, 1].min())) + self.__min_duration
-        midi_arr[:, 2] = ((self.__max_velocity - self.__min_velocity) * (midi_arr[:, 2] - midi_arr[:, 2].min()) / (midi_arr[:, 0].max() - midi_arr[:, 2].min())) + self.__min_velocity
+
+        midi_arr[:, 1] = ((self.__max_start - self.__min_start) * (midi_arr[:, 1] - midi_arr[:, 1].min()) / (midi_arr[:, 1].max() - midi_arr[:, 1].min())) + self.__min_start
+
+        midi_arr[:, 2] = ((self.__max_duration - self.__min_duration) * (midi_arr[:, 2] - midi_arr[:, 2].min()) / (midi_arr[:, 2].max() - midi_arr[:, 2].min())) + self.__min_duration
+
+        midi_arr[:, 3] = ((self.__max_velocity - self.__min_velocity) * (midi_arr[:, 3] - midi_arr[:, 3].min()) / (midi_arr[:, 3].max() - midi_arr[:, 3].min())) + self.__min_velocity
         return midi_arr
 
     def learn(
@@ -114,16 +119,19 @@ class EncoderDecoder(InferablePitch):
         '''
         # (`pitch`, `duration`, `velocity`)
         self.__min_pitch = midi_arr[:, 0].min()
-        self.__min_duration = midi_arr[:, 1].min()
-        self.__min_velocity = midi_arr[:, 2].min()
+        self.__min_start = midi_arr[:, 1].min()
+        self.__min_duration = midi_arr[:, 2].min()
+        self.__min_velocity = midi_arr[:, 3].min()
 
         self.__max_pitch = midi_arr[:, 0].max()
-        self.__max_duration = midi_arr[:, 1].max()
-        self.__max_velocity = midi_arr[:, 2].max()
+        self.__max_start = midi_arr[:, 1].max()
+        self.__max_duration = midi_arr[:, 2].max()
+        self.__max_velocity = midi_arr[:, 3].max()
 
         midi_arr[:, 0] = (midi_arr[:, 0] - self.__min_pitch) / (self.__max_pitch - self.__min_pitch)
-        midi_arr[:, 1] = (midi_arr[:, 1] - self.__min_duration) / (self.__max_duration - self.__min_duration)
-        midi_arr[:, 2] = (midi_arr[:, 2] - self.__min_velocity) / (self.__max_velocity - self.__min_velocity)
+        midi_arr[:, 1] = (midi_arr[:, 1] - self.__min_start) / (self.__max_start - self.__min_start)
+        midi_arr[:, 2] = (midi_arr[:, 2] - self.__min_duration) / (self.__max_duration - self.__min_duration)
+        midi_arr[:, 3] = (midi_arr[:, 3] - self.__min_velocity) / (self.__max_velocity - self.__min_velocity)
         midi_arr *= 0.1
 
         observed_arr, target_arr = self.__setup_dataset(midi_arr, self.__cycle_len)

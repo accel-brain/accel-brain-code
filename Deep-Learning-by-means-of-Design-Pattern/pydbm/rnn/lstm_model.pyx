@@ -381,11 +381,20 @@ class LSTMModel(ReconstructableModel):
 
         cdef int cycle
         for cycle in range(cycle_len):
-            self.graph.hidden_activity_arr, self.graph.rnn_activity_arr = self.__lstm_forward(
-                observed_arr[:, cycle, :],
-                self.graph.hidden_activity_arr,
-                self.graph.rnn_activity_arr
-            )
+            if self.graph.hidden_activity_arr.ndim == 2:
+                self.graph.hidden_activity_arr, self.graph.rnn_activity_arr = self.__lstm_forward(
+                    observed_arr[:, cycle, :],
+                    self.graph.hidden_activity_arr,
+                    self.graph.rnn_activity_arr
+                )
+            elif self.graph.hidden_activity_arr.ndim == 3:
+                self.graph.hidden_activity_arr, self.graph.rnn_activity_arr = self.__lstm_forward(
+                    observed_arr[:, cycle, :],
+                    self.graph.hidden_activity_arr[:, cycle, :],
+                    self.graph.rnn_activity_arr
+                )
+            else:
+                raise ValueError("The shape of hidden activity array is invalid.")
             pred_arr[:, cycle, :] = self.graph.hidden_activity_arr
 
         return pred_arr
@@ -500,7 +509,6 @@ class LSTMModel(ReconstructableModel):
             )
         '''
         cdef int h_col = int(self.graph.weights_lstm_hidden_arr.shape[1] / 4)
-
         cdef np.ndarray[DOUBLE_t, ndim=2] lstm_matrix = np.dot(
             observed_arr,
             self.graph.weights_lstm_observed_arr
@@ -523,6 +531,7 @@ class LSTMModel(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=2] _hidden_activity_arr = output_gate_activity_arr * self.graph.hidden_activating_function.activate(_rnn_activity_arr)
 
         _hidden_activity_arr = self.__opt_params.dropout(_hidden_activity_arr)
+
         self.__memory_tuple_list.append((
             observed_arr, 
             hidden_activity_arr, 

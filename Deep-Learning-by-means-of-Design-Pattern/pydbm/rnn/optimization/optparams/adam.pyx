@@ -50,7 +50,9 @@ class Adam(OptParams):
 
         self.__epoch += 1
 
-        learning_rate = learning_rate * np.sqrt(1 - self.__beta_2 ** self.__epoch) / (1 - self.__beta_1 ** self.__epoch)
+        learning_rate = learning_rate * np.sqrt(
+            (1 - self.__beta_2 ** self.__epoch) / (1 - self.__beta_1 ** self.__epoch)
+        )
 
         for i in range(len(params_list)):
             if params_list[i] is None or grads_list[i] is None:

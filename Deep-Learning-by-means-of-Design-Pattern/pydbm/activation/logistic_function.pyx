@@ -116,7 +116,7 @@ class LogisticFunction(ActivatingFunctionInterface):
                 activity_arr = (activity_arr - x_min) / (x_max - x_min)
 
         if self.__binary_flag is True:
-            activity_arr = np.random.binomial(1, activity_arr, activity_arr.shape[0])
+            activity_arr = np.random.binomial(1, activity_arr, activity_arr.shape)
             activity_arr = activity_arr.astype(np.float64)
 
         return activity_arr

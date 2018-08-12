@@ -157,6 +157,7 @@ class EncoderDecoderController(object):
                         self.__encoder.get_feature_points()[:, ::-1, :]
                     )
                     hidden_activity_arr = self.__decoder.get_feature_points()[:, ::-1, :]
+                    ver_hidden_activity_arr = hidden_activity_arr.copy()
                     delta_arr = self.__computable_loss.compute_delta(
                         hidden_activity_arr[:, 0, :],
                         batch_target_arr[:, 0, :]
@@ -211,7 +212,7 @@ class EncoderDecoderController(object):
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=hidden_activity_arr[:, 0, :], 
+                                train_pred_arr=ver_hidden_activity_arr[:, 0, :], 
                                 train_label_arr=batch_target_arr[:, 0, :],
                                 test_pred_arr=test_hidden_activity_arr[:, 0, :],
                                 test_label_arr=test_batch_target_arr[:, 0, :]

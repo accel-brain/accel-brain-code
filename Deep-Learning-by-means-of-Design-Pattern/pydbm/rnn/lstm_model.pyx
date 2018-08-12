@@ -189,6 +189,7 @@ class LSTMModel(ReconstructableModel):
 
                 try:
                     pred_arr = self.forward_propagation(batch_observed_arr)
+                    ver_pred_arr = pred_arr.copy()
                     loss = self.__computable_loss.compute_loss(
                         pred_arr,
                         batch_target_arr[:, -1, :]
@@ -226,7 +227,7 @@ class LSTMModel(ReconstructableModel):
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=pred_arr, 
+                                train_pred_arr=ver_pred_arr, 
                                 train_label_arr=batch_target_arr[:, -1, :],
                                 test_pred_arr=test_pred_arr,
                                 test_label_arr=test_batch_target_arr[:, -1, :]

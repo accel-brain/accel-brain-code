@@ -83,6 +83,8 @@ class ConvolutionalNeuralNetwork(object):
 
         logger = getLogger("pydbm")
         self.__logger = logger
+        
+        self.__logger.debug("Setup CNN layers and the parameters.")
 
     def learn(
         self,
@@ -96,12 +98,16 @@ class ConvolutionalNeuralNetwork(object):
             observed_arr:   `np.ndarray` of observed data points.
             observed_arr:   `np.ndarray` of labeled data.
         '''
+        self.__logger.debug("CNN starts learning.")
+
         cdef double learning_rate = self.__learning_rate
         cdef int epoch
         cdef int batch_index
 
         cdef int row_o = observed_arr.shape[0]
-        cdef int row_t = target_arr.shape[0]
+        cdef int row_t = 0
+        if target_arr is not None:
+            row_t = target_arr.shape[0]
 
         cdef np.ndarray train_index
         cdef np.ndarray test_index
@@ -211,7 +217,23 @@ class ConvolutionalNeuralNetwork(object):
 
         self.__logger.debug("end. ")
         
-        
+    def inference(self, np.ndarray[DOUBLE_t, ndim=4] observed_arr):
+        '''
+        Inference the feature points to reconstruct the time-series.
+
+        Override.
+
+        Args:
+            observed_arr:           Array like or sparse matrix as the observed data points.
+
+        Returns:
+            Predicted array like or sparse matrix.
+        '''
+        cdef np.ndarray[DOUBLE_t, ndim=4] pred_arr = self.forward_propagation(
+            observed_arr
+        )
+        return pred_arr
+
     def forward_propagation(self, np.ndarray[DOUBLE_t, ndim=4] img_arr):
         '''
         Forward propagation in CNN.
@@ -232,11 +254,7 @@ class ConvolutionalNeuralNetwork(object):
         
         return img_arr
 
-    def back_propagation(
-        self,
-        np.ndarray[DOUBLE_t, ndim=4] pred_arr,
-        np.ndarray[DOUBLE_t, ndim=4] delta_arr
-    ):
+    def back_propagation(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):
         '''
         Back propagation in CNN.
         

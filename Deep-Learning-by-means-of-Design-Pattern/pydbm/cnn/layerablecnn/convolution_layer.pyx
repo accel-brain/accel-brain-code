@@ -61,13 +61,11 @@ class ConvolutionLayer(LayerableCNN):
 
         if sample_n != img_sample_n:
             raise ValueError()
-        if channel != img_channel:
-            raise ValueError()
 
         cdef int result_h = int((img_height + 2 * self.__pad - kernel_height) / self.__stride) + 1
         cdef int result_w = int((img_width + 2 * self.__pad - kernel_width) / self.__stride) + 1
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr = self.affine_transform(
+        cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr = self.affine_to_matrix(
             img_arr,
             kernel_height, 
             kernel_width, 
@@ -151,7 +149,7 @@ class ConvolutionLayer(LayerableCNN):
         ''' getter '''
         return self.__delta_weight_arr
 
-    delta_weigth_arr = property(get_delta_weight_arr, set_readonly)
+    delta_weight_arr = property(get_delta_weight_arr, set_readonly)
 
     def get_delta_bias_arr(self):
         ''' getter '''

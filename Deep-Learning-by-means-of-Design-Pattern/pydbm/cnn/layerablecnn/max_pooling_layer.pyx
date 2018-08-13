@@ -14,8 +14,8 @@ class MaxPoolingLayer(LayerableCNN):
     def __init__(
         self,
         graph,
-        int pool_height,
-        int pool_width,
+        int pool_height=3,
+        int pool_width=3,
         int stride=1,
         int pad=0
     ):
@@ -60,7 +60,7 @@ class MaxPoolingLayer(LayerableCNN):
         cdef int result_height = int(1 + (img_height - self.__pool_height) / self.__stride)
         cdef int result_width = int(1 + (img_width - self.__pool_width) / self.__stride)
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr = self.affine_transform(
+        cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr = self.affine_to_matrix(
             img_arr,
             self.__pool_height, 
             self.__pool_width, 
@@ -68,8 +68,8 @@ class MaxPoolingLayer(LayerableCNN):
             self.__pad
         )
         reshaped_img_arr = reshaped_img_arr.reshape(-1, self.__pool_height * self.__pool_width)
-        cdef np.ndarray[DOUBLE_t, ndim=2] max_index_arr = reshaped_img_arr.argmax(axis=1)
-        cdef np.ndarray[DOUBLE_t, ndim=2] result_arr = np.max(reshaped_img_arr, axis=1)
+        cdef np.ndarray max_index_arr = reshaped_img_arr.argmax(axis=1)
+        cdef np.ndarray result_arr = np.max(reshaped_img_arr, axis=1)
         cdef np.ndarray[DOUBLE_t, ndim=4] _result_arr = result_arr.reshape(
             img_sample_n,
             result_height,
@@ -134,7 +134,7 @@ class MaxPoolingLayer(LayerableCNN):
         ''' getter '''
         return self.__delta_weight_arr
 
-    delta_weigth_arr = property(get_delta_weight_arr, set_readonly)
+    delta_weight_arr = property(get_delta_weight_arr, set_readonly)
 
     def get_delta_bias_arr(self):
         ''' getter '''

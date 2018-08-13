@@ -47,17 +47,35 @@ class DeconvolutionLayer(ConvolutionLayer):
         Returns:
             4-rank array like or sparse matrix.
         '''
+        cdef int channel = self.graph.weight_arr.shape[1]
+        cdef int kernel_height = self.graph.weight_arr.shape[2]
+        cdef int kernel_width = self.graph.weight_arr.shape[3]
+
         cdef int img_sample_n = img_arr.shape[0]
-        cdef int img_channel = img_arr.shape[1]
-        cdef int n, c
+
+        cdef int n = 0
+        cdef int c = 0
+        cdef np.ndarray[DOUBLE_t, ndim=2] arr = self.__transpose(img_arr[n, c])
+        cdef int t_height = arr.shape[0]
+        cdef int t_width = arr.shape[1]
+        
+        if kernel_height != t_height or kernel_width != t_width:
+            raise ValueError("The shape of kernel is invalid. Infered shape is " + str((t_height, t_width)))
+
+        cdef np.ndarray[DOUBLE_t, ndim=4] _img_arr = np.zeros((
+            img_sample_n,
+            channel,
+            t_height,
+            t_width
+        ))
 
         for n in range(img_sample_n):
-            for c in range(img_channel):
-                img_arr[n, c] = self.__transpose(img_arr[n, c])
+            for c in range(channel):
+                _img_arr[n, c] = self.__transpose(img_arr[n, c])
 
-        return super().forward_propagate(img_arr)
+        return super().forward_propagate(_img_arr)
 
-    def __transpose(self, arr):
+    def __transpose(self, np.ndarray[DOUBLE_t, ndim=2] arr):
         '''
         Transpose of convolving `arr`.
         
@@ -67,24 +85,11 @@ class DeconvolutionLayer(ConvolutionLayer):
         Returns:
             Transposed array.
         '''
-        output_height = arr.shape[0] * (2 + self.__t_pad_width - 1) + 1
-        output_width = arr.shape[1] * (2 + self.__t_pad_width - 1) + 1
-        pad_arr = np.zeros((output_height, output_width))
-        pad_list = []
-        for height in range(arr.shape[0]):
-            w_list = []
-            for width in range(arr.shape[1]):
-                w_list.append(
-                    np.pad(
-                        arr[height, width].reshape(-1, 1),
-                        pad_width=(self.__t_pad_width, 0),
-                        mode="constant",
-                    )
-                )
-                w_arr = np.hstack(w_list)
-            pad_list.append(w_arr)
-        pad_arr[:output_height-1, :output_width-1] = np.vstack(pad_list)
-        return pad_arr
+        
+        for _ in range(self.__t_pad_width):
+            arr = np.insert(arr, obj=list(range(arr.shape[0])), values=0, axis=0)
+            arr = np.insert(arr, obj=list(range(arr.shape[1])), values=0, axis=1)
+        return arr
 
     def get_t_pad_width(self):
         ''' getter '''

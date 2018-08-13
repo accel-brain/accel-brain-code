@@ -35,3 +35,14 @@ class CNNGraph(Synapse):
         self.__bias_arr = value
     
     bias_arr = property(get_bias_arr, set_bias_arr)
+
+    def __init__(
+        self,
+        batch_size=100,
+        channel=3,
+        height=100,
+        width=100,
+        scale=0.01
+    ):
+        self.__weight_arr = np.random.normal(size=(batch_size, channel, height, width)) * scale
+        self.__bias_arr = np.random.normal(size=(batch_size, )) * scale

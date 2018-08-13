@@ -3,12 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
-        "name": "pydbm.rnn.verification.verificate_softmax",
+        "name": "pydbm.verification.verificate_softmax",
         "sources": [
-            "./pydbm/rnn/verification/verificate_softmax.pyx"
+            "./pydbm/verification/verificate_softmax.pyx"
         ]
     },
-    "module_name": "pydbm.rnn.verification.verificate_softmax"
+    "module_name": "pydbm.verification.verificate_softmax"
 }
 END: Cython Metadata */
 
@@ -530,8 +530,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__pydbm__rnn__verification__verificate_softmax
-#define __PYX_HAVE_API__pydbm__rnn__verification__verificate_softmax
+#define __PYX_HAVE__pydbm__verification__verificate_softmax
+#define __PYX_HAVE_API__pydbm__verification__verificate_softmax
 #ifdef _OPENMP
 #include <omp.h>
 #endif /* _OPENMP */
@@ -735,7 +735,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pydbm/rnn/verification/verificate_softmax.pyx",
+  "pydbm/verification/verificate_softmax.pyx",
 };
 
 /*--- Type declarations ---*/
@@ -1107,12 +1107,12 @@ static int __Pyx_check_binary_version(void);
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'pydbm.rnn.verification.verificate_softmax' */
-#define __Pyx_MODULE_NAME "pydbm.rnn.verification.verificate_softmax"
-extern int __pyx_module_is_main_pydbm__rnn__verification__verificate_softmax;
-int __pyx_module_is_main_pydbm__rnn__verification__verificate_softmax = 0;
+/* Module declarations from 'pydbm.verification.verificate_softmax' */
+#define __Pyx_MODULE_NAME "pydbm.verification.verificate_softmax"
+extern int __pyx_module_is_main_pydbm__verification__verificate_softmax;
+int __pyx_module_is_main_pydbm__verification__verificate_softmax = 0;
 
-/* Implementation of 'pydbm.rnn.verification.verificate_softmax' */
+/* Implementation of 'pydbm.verification.verificate_softmax' */
 static PyObject *__pyx_builtin_property;
 static PyObject *__pyx_builtin_TypeError;
 static const char __pyx_k_np[] = "np";
@@ -1190,12 +1190,12 @@ static const char __pyx_k_VerificateSoftmax__logs_tuple_l[] = "_VerificateSoftma
 static const char __pyx_k_VerificateSoftmax__total_test_a[] = "_VerificateSoftmax__total_test_accuracy";
 static const char __pyx_k_VerificateSoftmax__total_test_m[] = "_VerificateSoftmax__total_test_match_n";
 static const char __pyx_k_VerificateSoftmax__total_test_n[] = "_VerificateSoftmax__total_test_n";
+static const char __pyx_k_pydbm_loss_interface_computable[] = "pydbm.loss.interface.computable_loss";
 static const char __pyx_k_VerificateSoftmax__total_train_2[] = "_VerificateSoftmax__total_train_match_n";
 static const char __pyx_k_VerificateSoftmax__total_train_3[] = "_VerificateSoftmax__total_train_accuracy";
-static const char __pyx_k_pydbm_rnn_loss_interface_computa[] = "pydbm.rnn.loss.interface.computable_loss";
-static const char __pyx_k_pydbm_rnn_verification_interface[] = "pydbm.rnn.verification.interface.verificatable_result";
-static const char __pyx_k_pydbm_rnn_verification_verificat[] = "pydbm.rnn.verification.verificate_softmax";
-static const char __pyx_k_pydbm_rnn_verification_verificat_2[] = "pydbm/rnn/verification/verificate_softmax.pyx";
+static const char __pyx_k_pydbm_verification_interface_ver[] = "pydbm.verification.interface.verificatable_result";
+static const char __pyx_k_pydbm_verification_verificate_so[] = "pydbm.verification.verificate_softmax";
+static const char __pyx_k_pydbm_verification_verificate_so_2[] = "pydbm/verification/verificate_softmax.pyx";
 static PyObject *__pyx_kp_s_Accuracy;
 static PyObject *__pyx_n_s_ComputableLoss;
 static PyObject *__pyx_kp_s_Cumulative_accuracy;
@@ -1247,10 +1247,10 @@ static PyObject *__pyx_n_s_pd;
 static PyObject *__pyx_n_s_prepare;
 static PyObject *__pyx_n_s_property;
 static PyObject *__pyx_n_s_pydbm;
-static PyObject *__pyx_n_s_pydbm_rnn_loss_interface_computa;
-static PyObject *__pyx_n_s_pydbm_rnn_verification_interface;
-static PyObject *__pyx_n_s_pydbm_rnn_verification_verificat;
-static PyObject *__pyx_kp_s_pydbm_rnn_verification_verificat_2;
+static PyObject *__pyx_n_s_pydbm_loss_interface_computable;
+static PyObject *__pyx_n_s_pydbm_verification_interface_ver;
+static PyObject *__pyx_n_s_pydbm_verification_verificate_so;
+static PyObject *__pyx_kp_s_pydbm_verification_verificate_so_2;
 static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_self;
 static PyObject *__pyx_n_s_set_readonly;
@@ -1277,10 +1277,10 @@ static PyObject *__pyx_n_s_train_n;
 static PyObject *__pyx_n_s_train_pred_arr;
 static PyObject *__pyx_n_s_value;
 static PyObject *__pyx_n_s_verificate;
-static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_2verificate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_computable_loss, PyObject *__pyx_v_train_pred_arr, PyObject *__pyx_v_train_label_arr, PyObject *__pyx_v_test_pred_arr, PyObject *__pyx_v_test_label_arr); /* proto */
-static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_4get_logs_df(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_6set_readonly(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_2verificate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_computable_loss, PyObject *__pyx_v_train_pred_arr, PyObject *__pyx_v_train_label_arr, PyObject *__pyx_v_test_pred_arr, PyObject *__pyx_v_test_label_arr); /* proto */
+static PyObject *__pyx_pf_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_4get_logs_df(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_6set_readonly(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
 static PyObject *__pyx_tuple_;
@@ -1296,7 +1296,7 @@ static PyObject *__pyx_codeobj__8;
 static PyObject *__pyx_codeobj__10;
 static PyObject *__pyx_codeobj__12;
 
-/* "pydbm/rnn/verification/verificate_softmax.pyx":24
+/* "pydbm/verification/verificate_softmax.pyx":24
  *     __logger = None
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -1305,21 +1305,21 @@ static PyObject *__pyx_codeobj__12;
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_1__init__(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax___init__[] = "\n        Init.\n        \n        Args:\n            computable_loss:    is-a `OptimizableLoss`.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_1__init__ = {"__init__", (PyCFunction)__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_1__init__, METH_O, __pyx_doc_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax___init__};
-static PyObject *__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_1__init__(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_1__init__(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax___init__[] = "\n        Init.\n        \n        Args:\n            computable_loss:    is-a `OptimizableLoss`.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_1__init__ = {"__init__", (PyCFunction)__pyx_pw_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_1__init__, METH_O, __pyx_doc_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax___init__};
+static PyObject *__pyx_pw_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_1__init__(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax___init__(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax___init__(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_v_logger = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -1327,7 +1327,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":31
+  /* "pydbm/verification/verificate_softmax.pyx":31
  *             computable_loss:    is-a `OptimizableLoss`.
  *         '''
  *         logger = getLogger("pydbm")             # <<<<<<<<<<<<<<
@@ -1342,7 +1342,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_v_logger = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":32
+  /* "pydbm/verification/verificate_softmax.pyx":32
  *         '''
  *         logger = getLogger("pydbm")
  *         self.__logger = logger             # <<<<<<<<<<<<<<
@@ -1351,7 +1351,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__logger, __pyx_v_logger) < 0) __PYX_ERR(0, 32, __pyx_L1_error)
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":24
+  /* "pydbm/verification/verificate_softmax.pyx":24
  *     __logger = None
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -1365,7 +1365,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("pydbm.rnn.verification.verificate_softmax.VerificateSoftmax.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.verification.verificate_softmax.VerificateSoftmax.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_logger);
@@ -1374,7 +1374,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   return __pyx_r;
 }
 
-/* "pydbm/rnn/verification/verificate_softmax.pyx":34
+/* "pydbm/verification/verificate_softmax.pyx":34
  *         self.__logger = logger
  * 
  *     def verificate(             # <<<<<<<<<<<<<<
@@ -1383,10 +1383,10 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_3verificate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_2verificate[] = "\n        Verificate result.\n        Args:\n            train_pred_arr:    Predicted data in training.\n            train_label_arr:   Labeled data in training.\n            test_pred_arr:     Predicted data in test.\n            test_label_arr:    Labeled data in test.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_3verificate = {"verificate", (PyCFunction)__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_3verificate, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_2verificate};
-static PyObject *__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_3verificate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_3verificate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_2verificate[] = "\n        Verificate result.\n        Args:\n            train_pred_arr:    Predicted data in training.\n            train_label_arr:   Labeled data in training.\n            test_pred_arr:     Predicted data in test.\n            test_label_arr:    Labeled data in test.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_3verificate = {"verificate", (PyCFunction)__pyx_pw_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_3verificate, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_2verificate};
+static PyObject *__pyx_pw_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_3verificate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_computable_loss = 0;
   PyObject *__pyx_v_train_pred_arr = 0;
@@ -1478,18 +1478,18 @@ static PyObject *__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("verificate", 1, 6, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 34, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.rnn.verification.verificate_softmax.VerificateSoftmax.verificate", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.verification.verificate_softmax.VerificateSoftmax.verificate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_2verificate(__pyx_self, __pyx_v_self, __pyx_v_computable_loss, __pyx_v_train_pred_arr, __pyx_v_train_label_arr, __pyx_v_test_pred_arr, __pyx_v_test_label_arr);
+  __pyx_r = __pyx_pf_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_2verificate(__pyx_self, __pyx_v_self, __pyx_v_computable_loss, __pyx_v_train_pred_arr, __pyx_v_train_label_arr, __pyx_v_test_pred_arr, __pyx_v_test_label_arr);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_2verificate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_computable_loss, PyObject *__pyx_v_train_pred_arr, PyObject *__pyx_v_train_label_arr, PyObject *__pyx_v_test_pred_arr, PyObject *__pyx_v_test_label_arr) {
+static PyObject *__pyx_pf_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_2verificate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_computable_loss, PyObject *__pyx_v_train_pred_arr, PyObject *__pyx_v_train_label_arr, PyObject *__pyx_v_test_pred_arr, PyObject *__pyx_v_test_label_arr) {
   PyObject *__pyx_v_train_match_n = NULL;
   PyObject *__pyx_v_test_match_n = NULL;
   PyObject *__pyx_v_train_accuracy = NULL;
@@ -1515,7 +1515,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   int __pyx_t_15;
   __Pyx_RefNannySetupContext("verificate", 0);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":50
+  /* "pydbm/verification/verificate_softmax.pyx":50
  *             test_label_arr:    Labeled data in test.
  *         '''
  *         if isinstance(computable_loss, ComputableLoss) is False:             # <<<<<<<<<<<<<<
@@ -1529,7 +1529,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
   if (__pyx_t_3) {
 
-    /* "pydbm/rnn/verification/verificate_softmax.pyx":51
+    /* "pydbm/verification/verificate_softmax.pyx":51
  *         '''
  *         if isinstance(computable_loss, ComputableLoss) is False:
  *             raise TypeError()             # <<<<<<<<<<<<<<
@@ -1542,7 +1542,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __PYX_ERR(0, 51, __pyx_L1_error)
 
-    /* "pydbm/rnn/verification/verificate_softmax.pyx":50
+    /* "pydbm/verification/verificate_softmax.pyx":50
  *             test_label_arr:    Labeled data in test.
  *         '''
  *         if isinstance(computable_loss, ComputableLoss) is False:             # <<<<<<<<<<<<<<
@@ -1551,7 +1551,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
  */
   }
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":53
+  /* "pydbm/verification/verificate_softmax.pyx":53
  *             raise TypeError()
  * 
  *         train_match_n = (np.argmax(train_pred_arr, axis=1) == np.argmax(train_label_arr, axis=1)).astype(int).sum()             # <<<<<<<<<<<<<<
@@ -1667,7 +1667,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_v_train_match_n = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":54
+  /* "pydbm/verification/verificate_softmax.pyx":54
  * 
  *         train_match_n = (np.argmax(train_pred_arr, axis=1) == np.argmax(train_label_arr, axis=1)).astype(int).sum()
  *         test_match_n = (np.argmax(test_pred_arr, axis=1) == np.argmax(test_label_arr, axis=1)).astype(int).sum()             # <<<<<<<<<<<<<<
@@ -1783,7 +1783,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_v_test_match_n = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":56
+  /* "pydbm/verification/verificate_softmax.pyx":56
  *         test_match_n = (np.argmax(test_pred_arr, axis=1) == np.argmax(test_label_arr, axis=1)).astype(int).sum()
  * 
  *         train_accuracy = train_match_n / train_pred_arr.shape[0]             # <<<<<<<<<<<<<<
@@ -1801,7 +1801,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_v_train_accuracy = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":57
+  /* "pydbm/verification/verificate_softmax.pyx":57
  * 
  *         train_accuracy = train_match_n / train_pred_arr.shape[0]
  *         test_accuracy = test_match_n / test_pred_arr.shape[0]             # <<<<<<<<<<<<<<
@@ -1819,7 +1819,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_v_test_accuracy = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":59
+  /* "pydbm/verification/verificate_softmax.pyx":59
  *         test_accuracy = test_match_n / test_pred_arr.shape[0]
  * 
  *         train_loss = computable_loss.compute_loss(train_pred_arr, train_label_arr)             # <<<<<<<<<<<<<<
@@ -1876,7 +1876,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_v_train_loss = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":60
+  /* "pydbm/verification/verificate_softmax.pyx":60
  * 
  *         train_loss = computable_loss.compute_loss(train_pred_arr, train_label_arr)
  *         test_loss = computable_loss.compute_loss(test_pred_arr, test_label_arr)             # <<<<<<<<<<<<<<
@@ -1933,7 +1933,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_v_test_loss = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":62
+  /* "pydbm/verification/verificate_softmax.pyx":62
  *         test_loss = computable_loss.compute_loss(test_pred_arr, test_label_arr)
  * 
  *         self.__total_train_n += train_pred_arr.shape[0]             # <<<<<<<<<<<<<<
@@ -1954,7 +1954,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__total_train, __pyx_t_5) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":63
+  /* "pydbm/verification/verificate_softmax.pyx":63
  * 
  *         self.__total_train_n += train_pred_arr.shape[0]
  *         self.__total_test_n += test_pred_arr.shape[0]             # <<<<<<<<<<<<<<
@@ -1975,7 +1975,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__total_test_n, __pyx_t_9) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":64
+  /* "pydbm/verification/verificate_softmax.pyx":64
  *         self.__total_train_n += train_pred_arr.shape[0]
  *         self.__total_test_n += test_pred_arr.shape[0]
  *         self.__total_train_match_n += train_match_n             # <<<<<<<<<<<<<<
@@ -1990,7 +1990,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__total_train_2, __pyx_t_1) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":65
+  /* "pydbm/verification/verificate_softmax.pyx":65
  *         self.__total_test_n += test_pred_arr.shape[0]
  *         self.__total_train_match_n += train_match_n
  *         self.__total_test_match_n += test_match_n             # <<<<<<<<<<<<<<
@@ -2005,7 +2005,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__total_test_m, __pyx_t_9) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":66
+  /* "pydbm/verification/verificate_softmax.pyx":66
  *         self.__total_train_match_n += train_match_n
  *         self.__total_test_match_n += test_match_n
  *         self.__total_train_accuracy = self.__total_train_match_n / self.__total_train_n             # <<<<<<<<<<<<<<
@@ -2023,7 +2023,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__total_train_3, __pyx_t_5) < 0) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":67
+  /* "pydbm/verification/verificate_softmax.pyx":67
  *         self.__total_test_match_n += test_match_n
  *         self.__total_train_accuracy = self.__total_train_match_n / self.__total_train_n
  *         self.__total_test_accuracy = self.__total_test_match_n / self.__total_test_n             # <<<<<<<<<<<<<<
@@ -2041,7 +2041,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__total_test_a, __pyx_t_9) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":69
+  /* "pydbm/verification/verificate_softmax.pyx":69
  *         self.__total_test_accuracy = self.__total_test_match_n / self.__total_test_n
  * 
  *         self.__logger.info("Epoch: " + str(len(self.__logs_tuple_list) + 1))             # <<<<<<<<<<<<<<
@@ -2118,7 +2118,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":71
+  /* "pydbm/verification/verificate_softmax.pyx":71
  *         self.__logger.info("Epoch: " + str(len(self.__logs_tuple_list) + 1))
  * 
  *         self.__logger.info("Loss: ")             # <<<<<<<<<<<<<<
@@ -2135,7 +2135,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":72
+  /* "pydbm/verification/verificate_softmax.pyx":72
  * 
  *         self.__logger.info("Loss: ")
  *         self.__logger.info(             # <<<<<<<<<<<<<<
@@ -2148,7 +2148,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":73
+  /* "pydbm/verification/verificate_softmax.pyx":73
  *         self.__logger.info("Loss: ")
  *         self.__logger.info(
  *             "Training: " + str(train_loss) + " Test: " + str(test_loss)             # <<<<<<<<<<<<<<
@@ -2229,7 +2229,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":76
+  /* "pydbm/verification/verificate_softmax.pyx":76
  *         )
  * 
  *         self.__logger.info("Accuracy: ")             # <<<<<<<<<<<<<<
@@ -2246,7 +2246,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":77
+  /* "pydbm/verification/verificate_softmax.pyx":77
  * 
  *         self.__logger.info("Accuracy: ")
  *         self.__logger.info(             # <<<<<<<<<<<<<<
@@ -2259,7 +2259,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":78
+  /* "pydbm/verification/verificate_softmax.pyx":78
  *         self.__logger.info("Accuracy: ")
  *         self.__logger.info(
  *             "Training: " + str(train_accuracy) + " Test: " + str(test_accuracy)             # <<<<<<<<<<<<<<
@@ -2340,7 +2340,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":80
+  /* "pydbm/verification/verificate_softmax.pyx":80
  *             "Training: " + str(train_accuracy) + " Test: " + str(test_accuracy)
  *         )
  *         self.__logger.info("Cumulative accuracy: ")             # <<<<<<<<<<<<<<
@@ -2357,7 +2357,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":81
+  /* "pydbm/verification/verificate_softmax.pyx":81
  *         )
  *         self.__logger.info("Cumulative accuracy: ")
  *         self.__logger.info(             # <<<<<<<<<<<<<<
@@ -2370,7 +2370,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":82
+  /* "pydbm/verification/verificate_softmax.pyx":82
  *         self.__logger.info("Cumulative accuracy: ")
  *         self.__logger.info(
  *             "Training: " + str(self.__total_train_accuracy) + " Test: " + str(self.__total_test_accuracy)             # <<<<<<<<<<<<<<
@@ -2455,7 +2455,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":85
+  /* "pydbm/verification/verificate_softmax.pyx":85
  *         )
  * 
  *         self.__logs_tuple_list.append(             # <<<<<<<<<<<<<<
@@ -2465,7 +2465,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__logs_tuple_l); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":87
+  /* "pydbm/verification/verificate_softmax.pyx":87
  *         self.__logs_tuple_list.append(
  *             (
  *                 train_pred_arr.shape[0],             # <<<<<<<<<<<<<<
@@ -2478,7 +2478,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":91
+  /* "pydbm/verification/verificate_softmax.pyx":91
  *                 train_match_n,
  *                 train_accuracy,
  *                 self.__total_train_n,             # <<<<<<<<<<<<<<
@@ -2488,7 +2488,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__total_train); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":92
+  /* "pydbm/verification/verificate_softmax.pyx":92
  *                 train_accuracy,
  *                 self.__total_train_n,
  *                 self.__total_train_match_n,             # <<<<<<<<<<<<<<
@@ -2498,7 +2498,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__total_train_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":93
+  /* "pydbm/verification/verificate_softmax.pyx":93
  *                 self.__total_train_n,
  *                 self.__total_train_match_n,
  *                 self.__total_train_accuracy,             # <<<<<<<<<<<<<<
@@ -2508,7 +2508,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__total_train_3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":94
+  /* "pydbm/verification/verificate_softmax.pyx":94
  *                 self.__total_train_match_n,
  *                 self.__total_train_accuracy,
  *                 test_pred_arr.shape[0],             # <<<<<<<<<<<<<<
@@ -2521,7 +2521,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":98
+  /* "pydbm/verification/verificate_softmax.pyx":98
  *                 test_match_n,
  *                 test_accuracy,
  *                 self.__total_test_n,             # <<<<<<<<<<<<<<
@@ -2531,7 +2531,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__total_test_n); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 98, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":99
+  /* "pydbm/verification/verificate_softmax.pyx":99
  *                 test_accuracy,
  *                 self.__total_test_n,
  *                 self.__total_test_match_n,             # <<<<<<<<<<<<<<
@@ -2541,7 +2541,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__total_test_m); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":100
+  /* "pydbm/verification/verificate_softmax.pyx":100
  *                 self.__total_test_n,
  *                 self.__total_test_match_n,
  *                 self.__total_test_accuracy             # <<<<<<<<<<<<<<
@@ -2551,7 +2551,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__total_test_a); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 100, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":87
+  /* "pydbm/verification/verificate_softmax.pyx":87
  *         self.__logs_tuple_list.append(
  *             (
  *                 train_pred_arr.shape[0],             # <<<<<<<<<<<<<<
@@ -2603,7 +2603,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_t_12 = 0;
   __pyx_t_13 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":85
+  /* "pydbm/verification/verificate_softmax.pyx":85
  *         )
  * 
  *         self.__logs_tuple_list.append(             # <<<<<<<<<<<<<<
@@ -2614,7 +2614,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":34
+  /* "pydbm/verification/verificate_softmax.pyx":34
  *         self.__logger = logger
  * 
  *     def verificate(             # <<<<<<<<<<<<<<
@@ -2636,7 +2636,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_XDECREF(__pyx_t_12);
   __Pyx_XDECREF(__pyx_t_13);
   __Pyx_XDECREF(__pyx_t_14);
-  __Pyx_AddTraceback("pydbm.rnn.verification.verificate_softmax.VerificateSoftmax.verificate", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.verification.verificate_softmax.VerificateSoftmax.verificate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_train_match_n);
@@ -2650,7 +2650,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   return __pyx_r;
 }
 
-/* "pydbm/rnn/verification/verificate_softmax.pyx":104
+/* "pydbm/verification/verificate_softmax.pyx":104
  *         )
  * 
  *     def get_logs_df(self):             # <<<<<<<<<<<<<<
@@ -2659,21 +2659,21 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_5get_logs_df(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_4get_logs_df[] = " getter ";
-static PyMethodDef __pyx_mdef_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_5get_logs_df = {"get_logs_df", (PyCFunction)__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_5get_logs_df, METH_O, __pyx_doc_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_4get_logs_df};
-static PyObject *__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_5get_logs_df(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_5get_logs_df(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_4get_logs_df[] = " getter ";
+static PyMethodDef __pyx_mdef_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_5get_logs_df = {"get_logs_df", (PyCFunction)__pyx_pw_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_5get_logs_df, METH_O, __pyx_doc_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_4get_logs_df};
+static PyObject *__pyx_pw_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_5get_logs_df(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_logs_df (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_4get_logs_df(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_4get_logs_df(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_4get_logs_df(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_4get_logs_df(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2682,7 +2682,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("get_logs_df", 0);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":106
+  /* "pydbm/verification/verificate_softmax.pyx":106
  *     def get_logs_df(self):
  *         ''' getter '''
  *         return pd.DataFrame(             # <<<<<<<<<<<<<<
@@ -2696,7 +2696,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":107
+  /* "pydbm/verification/verificate_softmax.pyx":107
  *         ''' getter '''
  *         return pd.DataFrame(
  *             self.__logs_tuple_list,             # <<<<<<<<<<<<<<
@@ -2706,7 +2706,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_VerificateSoftmax__logs_tuple_l); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":106
+  /* "pydbm/verification/verificate_softmax.pyx":106
  *     def get_logs_df(self):
  *         ''' getter '''
  *         return pd.DataFrame(             # <<<<<<<<<<<<<<
@@ -2719,7 +2719,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":108
+  /* "pydbm/verification/verificate_softmax.pyx":108
  *         return pd.DataFrame(
  *             self.__logs_tuple_list,
  *             columns=[             # <<<<<<<<<<<<<<
@@ -2775,7 +2775,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_columns, __pyx_t_4) < 0) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":106
+  /* "pydbm/verification/verificate_softmax.pyx":106
  *     def get_logs_df(self):
  *         ''' getter '''
  *         return pd.DataFrame(             # <<<<<<<<<<<<<<
@@ -2791,7 +2791,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":104
+  /* "pydbm/verification/verificate_softmax.pyx":104
  *         )
  * 
  *     def get_logs_df(self):             # <<<<<<<<<<<<<<
@@ -2805,7 +2805,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pydbm.rnn.verification.verificate_softmax.VerificateSoftmax.get_logs_df", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.verification.verificate_softmax.VerificateSoftmax.get_logs_df", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2813,7 +2813,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   return __pyx_r;
 }
 
-/* "pydbm/rnn/verification/verificate_softmax.pyx":126
+/* "pydbm/verification/verificate_softmax.pyx":126
  *         )
  * 
  *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
@@ -2822,10 +2822,10 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_7set_readonly(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_6set_readonly[] = " setter ";
-static PyMethodDef __pyx_mdef_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_7set_readonly = {"set_readonly", (PyCFunction)__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_7set_readonly, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_6set_readonly};
-static PyObject *__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_7set_readonly(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_7set_readonly(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_6set_readonly[] = " setter ";
+static PyMethodDef __pyx_mdef_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_7set_readonly = {"set_readonly", (PyCFunction)__pyx_pw_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_7set_readonly, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_6set_readonly};
+static PyObject *__pyx_pw_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_7set_readonly(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
   CYTHON_UNUSED PyObject *__pyx_v_value = 0;
   PyObject *__pyx_r = 0;
@@ -2873,24 +2873,24 @@ static PyObject *__pyx_pw_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("set_readonly", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 126, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.rnn.verification.verificate_softmax.VerificateSoftmax.set_readonly", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.verification.verificate_softmax.VerificateSoftmax.set_readonly", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_6set_readonly(__pyx_self, __pyx_v_self, __pyx_v_value);
+  __pyx_r = __pyx_pf_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_6set_readonly(__pyx_self, __pyx_v_self, __pyx_v_value);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_6set_readonly(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_value) {
+static PyObject *__pyx_pf_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_6set_readonly(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_value) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("set_readonly", 0);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":128
+  /* "pydbm/verification/verificate_softmax.pyx":128
  *     def set_readonly(self, value):
  *         ''' setter '''
  *         raise TypeError()             # <<<<<<<<<<<<<<
@@ -2903,7 +2903,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __PYX_ERR(0, 128, __pyx_L1_error)
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":126
+  /* "pydbm/verification/verificate_softmax.pyx":126
  *         )
  * 
  *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
@@ -2914,7 +2914,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_12verification_18verificate_softmax_17Veri
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.rnn.verification.verificate_softmax.VerificateSoftmax.set_readonly", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.verification.verificate_softmax.VerificateSoftmax.set_readonly", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
@@ -3009,10 +3009,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
   {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm, __pyx_k_pydbm, sizeof(__pyx_k_pydbm), 0, 0, 1, 1},
-  {&__pyx_n_s_pydbm_rnn_loss_interface_computa, __pyx_k_pydbm_rnn_loss_interface_computa, sizeof(__pyx_k_pydbm_rnn_loss_interface_computa), 0, 0, 1, 1},
-  {&__pyx_n_s_pydbm_rnn_verification_interface, __pyx_k_pydbm_rnn_verification_interface, sizeof(__pyx_k_pydbm_rnn_verification_interface), 0, 0, 1, 1},
-  {&__pyx_n_s_pydbm_rnn_verification_verificat, __pyx_k_pydbm_rnn_verification_verificat, sizeof(__pyx_k_pydbm_rnn_verification_verificat), 0, 0, 1, 1},
-  {&__pyx_kp_s_pydbm_rnn_verification_verificat_2, __pyx_k_pydbm_rnn_verification_verificat_2, sizeof(__pyx_k_pydbm_rnn_verification_verificat_2), 0, 0, 1, 0},
+  {&__pyx_n_s_pydbm_loss_interface_computable, __pyx_k_pydbm_loss_interface_computable, sizeof(__pyx_k_pydbm_loss_interface_computable), 0, 0, 1, 1},
+  {&__pyx_n_s_pydbm_verification_interface_ver, __pyx_k_pydbm_verification_interface_ver, sizeof(__pyx_k_pydbm_verification_interface_ver), 0, 0, 1, 1},
+  {&__pyx_n_s_pydbm_verification_verificate_so, __pyx_k_pydbm_verification_verificate_so, sizeof(__pyx_k_pydbm_verification_verificate_so), 0, 0, 1, 1},
+  {&__pyx_kp_s_pydbm_verification_verificate_so_2, __pyx_k_pydbm_verification_verificate_so_2, sizeof(__pyx_k_pydbm_verification_verificate_so_2), 0, 0, 1, 0},
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
   {&__pyx_n_s_set_readonly, __pyx_k_set_readonly, sizeof(__pyx_k_set_readonly), 0, 0, 1, 1},
@@ -3053,7 +3053,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":31
+  /* "pydbm/verification/verificate_softmax.pyx":31
  *             computable_loss:    is-a `OptimizableLoss`.
  *         '''
  *         logger = getLogger("pydbm")             # <<<<<<<<<<<<<<
@@ -3064,7 +3064,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":71
+  /* "pydbm/verification/verificate_softmax.pyx":71
  *         self.__logger.info("Epoch: " + str(len(self.__logs_tuple_list) + 1))
  * 
  *         self.__logger.info("Loss: ")             # <<<<<<<<<<<<<<
@@ -3075,7 +3075,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":76
+  /* "pydbm/verification/verificate_softmax.pyx":76
  *         )
  * 
  *         self.__logger.info("Accuracy: ")             # <<<<<<<<<<<<<<
@@ -3086,7 +3086,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":80
+  /* "pydbm/verification/verificate_softmax.pyx":80
  *             "Training: " + str(train_accuracy) + " Test: " + str(test_accuracy)
  *         )
  *         self.__logger.info("Cumulative accuracy: ")             # <<<<<<<<<<<<<<
@@ -3097,7 +3097,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":24
+  /* "pydbm/verification/verificate_softmax.pyx":24
  *     __logger = None
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -3107,9 +3107,9 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__5 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_logger); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
-  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_verification_verificat_2, __pyx_n_s_init, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_verification_verificate_so_2, __pyx_n_s_init, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 24, __pyx_L1_error)
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":34
+  /* "pydbm/verification/verificate_softmax.pyx":34
  *         self.__logger = logger
  * 
  *     def verificate(             # <<<<<<<<<<<<<<
@@ -3119,9 +3119,9 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__7 = PyTuple_Pack(12, __pyx_n_s_self, __pyx_n_s_computable_loss, __pyx_n_s_train_pred_arr, __pyx_n_s_train_label_arr, __pyx_n_s_test_pred_arr, __pyx_n_s_test_label_arr, __pyx_n_s_train_match_n, __pyx_n_s_test_match_n, __pyx_n_s_train_accuracy, __pyx_n_s_test_accuracy, __pyx_n_s_train_loss, __pyx_n_s_test_loss); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
-  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(6, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_verification_verificat_2, __pyx_n_s_verificate, 34, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(6, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_verification_verificate_so_2, __pyx_n_s_verificate, 34, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 34, __pyx_L1_error)
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":104
+  /* "pydbm/verification/verificate_softmax.pyx":104
  *         )
  * 
  *     def get_logs_df(self):             # <<<<<<<<<<<<<<
@@ -3131,9 +3131,9 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__9 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_verification_verificat_2, __pyx_n_s_get_logs_df, 104, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_verification_verificate_so_2, __pyx_n_s_get_logs_df, 104, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 104, __pyx_L1_error)
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":126
+  /* "pydbm/verification/verificate_softmax.pyx":126
  *         )
  * 
  *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
@@ -3143,7 +3143,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__11 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
-  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_verification_verificat_2, __pyx_n_s_set_readonly, 126, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 126, __pyx_L1_error)
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_verification_verificate_so_2, __pyx_n_s_set_readonly, 126, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -3283,14 +3283,14 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_pydbm__rnn__verification__verificate_softmax) {
+  if (__pyx_module_is_main_pydbm__verification__verificate_softmax) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "pydbm.rnn.verification.verificate_softmax")) {
-      if (unlikely(PyDict_SetItemString(modules, "pydbm.rnn.verification.verificate_softmax", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "pydbm.verification.verificate_softmax")) {
+      if (unlikely(PyDict_SetItemString(modules, "pydbm.verification.verificate_softmax", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -3310,11 +3310,11 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":2
+  /* "pydbm/verification/verificate_softmax.pyx":2
  * # -*- coding: utf-8 -*-
  * from logging import getLogger             # <<<<<<<<<<<<<<
- * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
- * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
+ * from pydbm.verification.interface.verificatable_result import VerificatableResult
+ * from pydbm.loss.interface.computable_loss import ComputableLoss
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -3330,11 +3330,11 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":3
+  /* "pydbm/verification/verificate_softmax.pyx":3
  * # -*- coding: utf-8 -*-
  * from logging import getLogger
- * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult             # <<<<<<<<<<<<<<
- * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
+ * from pydbm.verification.interface.verificatable_result import VerificatableResult             # <<<<<<<<<<<<<<
+ * from pydbm.loss.interface.computable_loss import ComputableLoss
  * import pandas as pd
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
@@ -3342,7 +3342,7 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
   __Pyx_INCREF(__pyx_n_s_VerificatableResult);
   __Pyx_GIVEREF(__pyx_n_s_VerificatableResult);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_VerificatableResult);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pydbm_rnn_verification_interface, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pydbm_verification_interface_ver, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
@@ -3351,10 +3351,10 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":4
+  /* "pydbm/verification/verificate_softmax.pyx":4
  * from logging import getLogger
- * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
- * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss             # <<<<<<<<<<<<<<
+ * from pydbm.verification.interface.verificatable_result import VerificatableResult
+ * from pydbm.loss.interface.computable_loss import ComputableLoss             # <<<<<<<<<<<<<<
  * import pandas as pd
  * import numpy as np
  */
@@ -3363,7 +3363,7 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
   __Pyx_INCREF(__pyx_n_s_ComputableLoss);
   __Pyx_GIVEREF(__pyx_n_s_ComputableLoss);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_ComputableLoss);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_rnn_loss_interface_computa, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_loss_interface_computable, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_ComputableLoss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
@@ -3372,9 +3372,9 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":5
- * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
- * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
+  /* "pydbm/verification/verificate_softmax.pyx":5
+ * from pydbm.verification.interface.verificatable_result import VerificatableResult
+ * from pydbm.loss.interface.computable_loss import ComputableLoss
  * import pandas as pd             # <<<<<<<<<<<<<<
  * import numpy as np
  * 
@@ -3384,8 +3384,8 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pd, __pyx_t_2) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":6
- * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
+  /* "pydbm/verification/verificate_softmax.pyx":6
+ * from pydbm.loss.interface.computable_loss import ComputableLoss
  * import pandas as pd
  * import numpy as np             # <<<<<<<<<<<<<<
  * 
@@ -3396,7 +3396,7 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_2) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":9
+  /* "pydbm/verification/verificate_softmax.pyx":9
  * 
  * 
  * class VerificateSoftmax(VerificatableResult):             # <<<<<<<<<<<<<<
@@ -3412,10 +3412,10 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
   __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_VerificateSoftmax, __pyx_n_s_VerificateSoftmax, (PyObject *) NULL, __pyx_n_s_pydbm_rnn_verification_verificat, __pyx_kp_s_Verification_of_softmax_result); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_VerificateSoftmax, __pyx_n_s_VerificateSoftmax, (PyObject *) NULL, __pyx_n_s_pydbm_verification_verificate_so, __pyx_kp_s_Verification_of_softmax_result); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":15
+  /* "pydbm/verification/verificate_softmax.pyx":15
  * 
  *     # Logs of accuracy.
  *     __logs_tuple_list = []             # <<<<<<<<<<<<<<
@@ -3427,7 +3427,7 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_VerificateSoftmax__logs_tuple_l, __pyx_t_4) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":16
+  /* "pydbm/verification/verificate_softmax.pyx":16
  *     # Logs of accuracy.
  *     __logs_tuple_list = []
  *     __total_train_n = 0             # <<<<<<<<<<<<<<
@@ -3436,7 +3436,7 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
  */
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_VerificateSoftmax__total_train, __pyx_int_0) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":17
+  /* "pydbm/verification/verificate_softmax.pyx":17
  *     __logs_tuple_list = []
  *     __total_train_n = 0
  *     __total_test_n = 0             # <<<<<<<<<<<<<<
@@ -3445,7 +3445,7 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
  */
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_VerificateSoftmax__total_test_n, __pyx_int_0) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":18
+  /* "pydbm/verification/verificate_softmax.pyx":18
  *     __total_train_n = 0
  *     __total_test_n = 0
  *     __total_train_match_n = 0             # <<<<<<<<<<<<<<
@@ -3454,7 +3454,7 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
  */
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_VerificateSoftmax__total_train_2, __pyx_int_0) < 0) __PYX_ERR(0, 18, __pyx_L1_error)
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":19
+  /* "pydbm/verification/verificate_softmax.pyx":19
  *     __total_test_n = 0
  *     __total_train_match_n = 0
  *     __total_test_match_n = 0             # <<<<<<<<<<<<<<
@@ -3463,7 +3463,7 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
  */
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_VerificateSoftmax__total_test_m, __pyx_int_0) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":22
+  /* "pydbm/verification/verificate_softmax.pyx":22
  * 
  *     # Logger.
  *     __logger = None             # <<<<<<<<<<<<<<
@@ -3472,55 +3472,55 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
  */
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_VerificateSoftmax__logger, Py_None) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":24
+  /* "pydbm/verification/verificate_softmax.pyx":24
  *     __logger = None
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Init.
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_1__init__, 0, __pyx_n_s_VerificateSoftmax___init, NULL, __pyx_n_s_pydbm_rnn_verification_verificat, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_1__init__, 0, __pyx_n_s_VerificateSoftmax___init, NULL, __pyx_n_s_pydbm_verification_verificate_so, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":34
+  /* "pydbm/verification/verificate_softmax.pyx":34
  *         self.__logger = logger
  * 
  *     def verificate(             # <<<<<<<<<<<<<<
  *         self,
  *         computable_loss,
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_3verificate, 0, __pyx_n_s_VerificateSoftmax_verificate, NULL, __pyx_n_s_pydbm_rnn_verification_verificat, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_3verificate, 0, __pyx_n_s_VerificateSoftmax_verificate, NULL, __pyx_n_s_pydbm_verification_verificate_so, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_verificate, __pyx_t_4) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":104
+  /* "pydbm/verification/verificate_softmax.pyx":104
  *         )
  * 
  *     def get_logs_df(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return pd.DataFrame(
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_5get_logs_df, 0, __pyx_n_s_VerificateSoftmax_get_logs_df, NULL, __pyx_n_s_pydbm_rnn_verification_verificat, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_5get_logs_df, 0, __pyx_n_s_VerificateSoftmax_get_logs_df, NULL, __pyx_n_s_pydbm_verification_verificate_so, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_logs_df, __pyx_t_4) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":126
+  /* "pydbm/verification/verificate_softmax.pyx":126
  *         )
  * 
  *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         raise TypeError()
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_12verification_18verificate_softmax_17VerificateSoftmax_7set_readonly, 0, __pyx_n_s_VerificateSoftmax_set_readonly, NULL, __pyx_n_s_pydbm_rnn_verification_verificat, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12verification_18verificate_softmax_17VerificateSoftmax_7set_readonly, 0, __pyx_n_s_VerificateSoftmax_set_readonly, NULL, __pyx_n_s_pydbm_verification_verificate_so, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_readonly, __pyx_t_4) < 0) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":130
+  /* "pydbm/verification/verificate_softmax.pyx":130
  *         raise TypeError()
  * 
  *     logs_df = property(get_logs_df, set_readonly)             # <<<<<<<<<<<<<<
@@ -3553,7 +3553,7 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_logs_df, __pyx_t_5) < 0) __PYX_ERR(0, 130, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":9
+  /* "pydbm/verification/verificate_softmax.pyx":9
  * 
  * 
  * class VerificateSoftmax(VerificatableResult):             # <<<<<<<<<<<<<<
@@ -3568,10 +3568,10 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/verification/verificate_softmax.pyx":1
+  /* "pydbm/verification/verificate_softmax.pyx":1
  * # -*- coding: utf-8 -*-             # <<<<<<<<<<<<<<
  * from logging import getLogger
- * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
+ * from pydbm.verification.interface.verificatable_result import VerificatableResult
  */
   __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -3590,11 +3590,11 @@ static int __pyx_pymod_exec_verificate_softmax(PyObject *__pyx_pyinit_module)
   __Pyx_XDECREF(__pyx_t_6);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pydbm.rnn.verification.verificate_softmax", 0, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pydbm.verification.verificate_softmax", 0, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pydbm.rnn.verification.verificate_softmax");
+    PyErr_SetString(PyExc_ImportError, "init pydbm.verification.verificate_softmax");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

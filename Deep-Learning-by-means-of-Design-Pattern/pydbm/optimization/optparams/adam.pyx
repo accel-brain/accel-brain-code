@@ -1,7 +1,7 @@
 # -*- codiAdam utf-8 -*-
 import numpy as np
 cimport numpy as np
-from pydbm.rnn.optimization.opt_params import OptParams
+from pydbm.optimization.opt_params import OptParams
 
 
 class Adam(OptParams):

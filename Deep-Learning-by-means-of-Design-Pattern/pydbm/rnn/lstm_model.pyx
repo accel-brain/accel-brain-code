@@ -3,9 +3,9 @@ from logging import getLogger
 import numpy as np
 cimport numpy as np
 from pydbm.synapse_list import Synapse
-from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
-from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
-from pydbm.rnn.optimization.opt_params import OptParams
+from pydbm.verification.interface.verificatable_result import VerificatableResult
+from pydbm.loss.interface.computable_loss import ComputableLoss
+from pydbm.optimization.opt_params import OptParams
 from pydbm.rnn.interface.reconstructable_model import ReconstructableModel
 ctypedef np.float64_t DOUBLE_t
 

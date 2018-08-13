@@ -993,8 +993,8 @@ typedef npy_double __pyx_t_5numpy_double_t;
 typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 
 /* "pydbm/rnn/encoder_decoder_controller.pyx":8
- * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
- * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
+ * from pydbm.loss.interface.computable_loss import ComputableLoss
+ * from pydbm.verification.interface.verificatable_result import VerificatableResult
  * ctypedef np.float64_t DOUBLE_t             # <<<<<<<<<<<<<<
  * 
  * 
@@ -1892,6 +1892,7 @@ static const char __pyx_k_EncoderDecoderController__verif[] = "_EncoderDecoderCo
 static const char __pyx_k_Encoder_Decoder_based_on_LSTM_n[] = "\n    Encoder/Decoder based on LSTM networks.\n    ";
 static const char __pyx_k_This_property_must_be_read_only[] = "This property must be read-only.";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
+static const char __pyx_k_pydbm_loss_interface_computable[] = "pydbm.loss.interface.computable_loss";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_EncoderDecoderController_get_dec[] = "EncoderDecoderController.get_decoder";
 static const char __pyx_k_EncoderDecoderController_get_enc[] = "EncoderDecoderController.get_encoder";
@@ -1909,8 +1910,7 @@ static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not F
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
 static const char __pyx_k_pydbm_rnn_encoder_decoder_contro[] = "pydbm.rnn.encoder_decoder_controller";
 static const char __pyx_k_pydbm_rnn_interface_reconstructa[] = "pydbm.rnn.interface.reconstructable_model";
-static const char __pyx_k_pydbm_rnn_loss_interface_computa[] = "pydbm.rnn.loss.interface.computable_loss";
-static const char __pyx_k_pydbm_rnn_verification_interface[] = "pydbm.rnn.verification.interface.verificatable_result";
+static const char __pyx_k_pydbm_verification_interface_ver[] = "pydbm.verification.interface.verificatable_result";
 static const char __pyx_k_EncoderDecoderController__learn_2[] = "_EncoderDecoderController__learning_attenuate_rate";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
 static const char __pyx_k_Underflow_occurred_when_the_para_2[] = "Underflow occurred when the parameters are being updated.";
@@ -2030,11 +2030,11 @@ static PyObject *__pyx_n_s_optimize;
 static PyObject *__pyx_n_s_prepare;
 static PyObject *__pyx_n_s_property;
 static PyObject *__pyx_n_s_pydbm;
+static PyObject *__pyx_n_s_pydbm_loss_interface_computable;
 static PyObject *__pyx_n_s_pydbm_rnn_encoder_decoder_contro;
 static PyObject *__pyx_kp_s_pydbm_rnn_encoder_decoder_contro_2;
 static PyObject *__pyx_n_s_pydbm_rnn_interface_reconstructa;
-static PyObject *__pyx_n_s_pydbm_rnn_loss_interface_computa;
-static PyObject *__pyx_n_s_pydbm_rnn_verification_interface;
+static PyObject *__pyx_n_s_pydbm_verification_interface_ver;
 static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_rand_index;
 static PyObject *__pyx_n_s_random;
@@ -10767,11 +10767,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
   {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm, __pyx_k_pydbm, sizeof(__pyx_k_pydbm), 0, 0, 1, 1},
+  {&__pyx_n_s_pydbm_loss_interface_computable, __pyx_k_pydbm_loss_interface_computable, sizeof(__pyx_k_pydbm_loss_interface_computable), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_rnn_encoder_decoder_contro, __pyx_k_pydbm_rnn_encoder_decoder_contro, sizeof(__pyx_k_pydbm_rnn_encoder_decoder_contro), 0, 0, 1, 1},
   {&__pyx_kp_s_pydbm_rnn_encoder_decoder_contro_2, __pyx_k_pydbm_rnn_encoder_decoder_contro_2, sizeof(__pyx_k_pydbm_rnn_encoder_decoder_contro_2), 0, 0, 1, 0},
   {&__pyx_n_s_pydbm_rnn_interface_reconstructa, __pyx_k_pydbm_rnn_interface_reconstructa, sizeof(__pyx_k_pydbm_rnn_interface_reconstructa), 0, 0, 1, 1},
-  {&__pyx_n_s_pydbm_rnn_loss_interface_computa, __pyx_k_pydbm_rnn_loss_interface_computa, sizeof(__pyx_k_pydbm_rnn_loss_interface_computa), 0, 0, 1, 1},
-  {&__pyx_n_s_pydbm_rnn_verification_interface, __pyx_k_pydbm_rnn_verification_interface, sizeof(__pyx_k_pydbm_rnn_verification_interface), 0, 0, 1, 1},
+  {&__pyx_n_s_pydbm_verification_interface_ver, __pyx_k_pydbm_verification_interface_ver, sizeof(__pyx_k_pydbm_verification_interface_ver), 0, 0, 1, 1},
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
   {&__pyx_n_s_rand_index, __pyx_k_rand_index, sizeof(__pyx_k_rand_index), 0, 0, 1, 1},
   {&__pyx_n_s_random, __pyx_k_random, sizeof(__pyx_k_random), 0, 0, 1, 1},
@@ -11699,8 +11699,8 @@ static int __pyx_pymod_exec_encoder_decoder_controller(PyObject *__pyx_pyinit_mo
  * import numpy as np
  * cimport numpy as np
  * from pydbm.rnn.interface.reconstructable_model import ReconstructableModel             # <<<<<<<<<<<<<<
- * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
- * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
+ * from pydbm.loss.interface.computable_loss import ComputableLoss
+ * from pydbm.verification.interface.verificatable_result import VerificatableResult
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -11719,8 +11719,8 @@ static int __pyx_pymod_exec_encoder_decoder_controller(PyObject *__pyx_pyinit_mo
   /* "pydbm/rnn/encoder_decoder_controller.pyx":6
  * cimport numpy as np
  * from pydbm.rnn.interface.reconstructable_model import ReconstructableModel
- * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss             # <<<<<<<<<<<<<<
- * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
+ * from pydbm.loss.interface.computable_loss import ComputableLoss             # <<<<<<<<<<<<<<
+ * from pydbm.verification.interface.verificatable_result import VerificatableResult
  * ctypedef np.float64_t DOUBLE_t
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
@@ -11728,7 +11728,7 @@ static int __pyx_pymod_exec_encoder_decoder_controller(PyObject *__pyx_pyinit_mo
   __Pyx_INCREF(__pyx_n_s_ComputableLoss);
   __Pyx_GIVEREF(__pyx_n_s_ComputableLoss);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_ComputableLoss);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_rnn_loss_interface_computa, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_loss_interface_computable, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_ComputableLoss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
@@ -11739,8 +11739,8 @@ static int __pyx_pymod_exec_encoder_decoder_controller(PyObject *__pyx_pyinit_mo
 
   /* "pydbm/rnn/encoder_decoder_controller.pyx":7
  * from pydbm.rnn.interface.reconstructable_model import ReconstructableModel
- * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
- * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult             # <<<<<<<<<<<<<<
+ * from pydbm.loss.interface.computable_loss import ComputableLoss
+ * from pydbm.verification.interface.verificatable_result import VerificatableResult             # <<<<<<<<<<<<<<
  * ctypedef np.float64_t DOUBLE_t
  * 
  */
@@ -11749,7 +11749,7 @@ static int __pyx_pymod_exec_encoder_decoder_controller(PyObject *__pyx_pyinit_mo
   __Pyx_INCREF(__pyx_n_s_VerificatableResult);
   __Pyx_GIVEREF(__pyx_n_s_VerificatableResult);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_VerificatableResult);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pydbm_rnn_verification_interface, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pydbm_verification_interface_ver, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)

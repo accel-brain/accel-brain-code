@@ -3,8 +3,8 @@ from logging import getLogger
 import numpy as np
 cimport numpy as np
 from pydbm.rnn.interface.reconstructable_model import ReconstructableModel
-from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
-from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
+from pydbm.loss.interface.computable_loss import ComputableLoss
+from pydbm.verification.interface.verificatable_result import VerificatableResult
 ctypedef np.float64_t DOUBLE_t
 
 

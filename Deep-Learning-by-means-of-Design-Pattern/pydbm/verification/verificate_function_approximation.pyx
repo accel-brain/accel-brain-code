@@ -2,8 +2,8 @@
 from logging import getLogger
 import numpy as np
 cimport numpy as np
-from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
-from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
+from pydbm.verification.interface.verificatable_result import VerificatableResult
+from pydbm.loss.interface.computable_loss import ComputableLoss
 import pandas as pd
 
 

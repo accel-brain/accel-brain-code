@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 cimport numpy as np
-from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
+from pydbm.loss.interface.computable_loss import ComputableLoss
 
 
 class CrossEntropy(ComputableLoss):

@@ -993,7 +993,7 @@ typedef npy_double __pyx_t_5numpy_double_t;
 typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 
 /* "pydbm/rnn/lstm_model.pyx":10
- * from pydbm.rnn.optimization.opt_params import OptParams
+ * from pydbm.optimization.opt_params import OptParams
  * from pydbm.rnn.interface.reconstructable_model import ReconstructableModel
  * ctypedef np.float64_t DOUBLE_t             # <<<<<<<<<<<<<<
  * 
@@ -1945,6 +1945,7 @@ static const char __pyx_k_LSTMModel__memory_tuple_list[] = "_LSTMModel__memory_t
 static const char __pyx_k_LSTMModel_get_feature_points[] = "LSTMModel.get_feature_points";
 static const char __pyx_k_observed_activating_function[] = "observed_activating_function";
 static const char __pyx_k_LSTMModel_forward_propagation[] = "LSTMModel.forward_propagation";
+static const char __pyx_k_pydbm_optimization_opt_params[] = "pydbm.optimization.opt_params";
 static const char __pyx_k_LSTMModel__learned_params_list[] = "_LSTMModel__learned_params_list";
 static const char __pyx_k_input_gate_activating_function[] = "input_gate_activating_function";
 static const char __pyx_k_LSTMModel__learning_attenuate_r[] = "_LSTMModel__learning_attenuate_rate";
@@ -1955,6 +1956,7 @@ static const char __pyx_k_Long_short_term_memory_LSTM_net[] = "\n    Long short 
 static const char __pyx_k_forget_gate_activating_function[] = "forget_gate_activating_function";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_output_gate_activating_function[] = "output_gate_activating_function";
+static const char __pyx_k_pydbm_loss_interface_computable[] = "pydbm.loss.interface.computable_loss";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_LSTMModel_get_verificatable_resu[] = "LSTMModel.get_verificatable_result";
@@ -1968,10 +1970,8 @@ static const char __pyx_k_Underflow_occurred_when_the_para[] = "Underflow occurr
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
 static const char __pyx_k_pydbm_rnn_interface_reconstructa[] = "pydbm.rnn.interface.reconstructable_model";
-static const char __pyx_k_pydbm_rnn_loss_interface_computa[] = "pydbm.rnn.loss.interface.computable_loss";
 static const char __pyx_k_pydbm_rnn_lstm_model_learn_is_st[] = "pydbm.rnn.lstm_model.learn is started. ";
-static const char __pyx_k_pydbm_rnn_optimization_opt_param[] = "pydbm.rnn.optimization.opt_params";
-static const char __pyx_k_pydbm_rnn_verification_interface[] = "pydbm.rnn.verification.interface.verificatable_result";
+static const char __pyx_k_pydbm_verification_interface_ver[] = "pydbm.verification.interface.verificatable_result";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
 static PyObject *__pyx_n_s_ComputableLoss;
 static PyObject *__pyx_kp_s_Eary_stopping;
@@ -2150,14 +2150,14 @@ static PyObject *__pyx_n_s_pred_arr_2;
 static PyObject *__pyx_n_s_prepare;
 static PyObject *__pyx_n_s_property;
 static PyObject *__pyx_n_s_pydbm;
+static PyObject *__pyx_n_s_pydbm_loss_interface_computable;
+static PyObject *__pyx_n_s_pydbm_optimization_opt_params;
 static PyObject *__pyx_n_s_pydbm_rnn_interface_reconstructa;
-static PyObject *__pyx_n_s_pydbm_rnn_loss_interface_computa;
 static PyObject *__pyx_n_s_pydbm_rnn_lstm_model;
 static PyObject *__pyx_kp_s_pydbm_rnn_lstm_model_learn_is_st;
 static PyObject *__pyx_kp_s_pydbm_rnn_lstm_model_pyx;
-static PyObject *__pyx_n_s_pydbm_rnn_optimization_opt_param;
-static PyObject *__pyx_n_s_pydbm_rnn_verification_interface;
 static PyObject *__pyx_n_s_pydbm_synapse_list;
+static PyObject *__pyx_n_s_pydbm_verification_interface_ver;
 static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_rand_index;
 static PyObject *__pyx_n_s_random;
@@ -15770,14 +15770,14 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
   {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm, __pyx_k_pydbm, sizeof(__pyx_k_pydbm), 0, 0, 1, 1},
+  {&__pyx_n_s_pydbm_loss_interface_computable, __pyx_k_pydbm_loss_interface_computable, sizeof(__pyx_k_pydbm_loss_interface_computable), 0, 0, 1, 1},
+  {&__pyx_n_s_pydbm_optimization_opt_params, __pyx_k_pydbm_optimization_opt_params, sizeof(__pyx_k_pydbm_optimization_opt_params), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_rnn_interface_reconstructa, __pyx_k_pydbm_rnn_interface_reconstructa, sizeof(__pyx_k_pydbm_rnn_interface_reconstructa), 0, 0, 1, 1},
-  {&__pyx_n_s_pydbm_rnn_loss_interface_computa, __pyx_k_pydbm_rnn_loss_interface_computa, sizeof(__pyx_k_pydbm_rnn_loss_interface_computa), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_rnn_lstm_model, __pyx_k_pydbm_rnn_lstm_model, sizeof(__pyx_k_pydbm_rnn_lstm_model), 0, 0, 1, 1},
   {&__pyx_kp_s_pydbm_rnn_lstm_model_learn_is_st, __pyx_k_pydbm_rnn_lstm_model_learn_is_st, sizeof(__pyx_k_pydbm_rnn_lstm_model_learn_is_st), 0, 0, 1, 0},
   {&__pyx_kp_s_pydbm_rnn_lstm_model_pyx, __pyx_k_pydbm_rnn_lstm_model_pyx, sizeof(__pyx_k_pydbm_rnn_lstm_model_pyx), 0, 0, 1, 0},
-  {&__pyx_n_s_pydbm_rnn_optimization_opt_param, __pyx_k_pydbm_rnn_optimization_opt_param, sizeof(__pyx_k_pydbm_rnn_optimization_opt_param), 0, 0, 1, 1},
-  {&__pyx_n_s_pydbm_rnn_verification_interface, __pyx_k_pydbm_rnn_verification_interface, sizeof(__pyx_k_pydbm_rnn_verification_interface), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_synapse_list, __pyx_k_pydbm_synapse_list, sizeof(__pyx_k_pydbm_synapse_list), 0, 0, 1, 1},
+  {&__pyx_n_s_pydbm_verification_interface_ver, __pyx_k_pydbm_verification_interface_ver, sizeof(__pyx_k_pydbm_verification_interface_ver), 0, 0, 1, 1},
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
   {&__pyx_n_s_rand_index, __pyx_k_rand_index, sizeof(__pyx_k_rand_index), 0, 0, 1, 1},
   {&__pyx_n_s_random, __pyx_k_random, sizeof(__pyx_k_random), 0, 0, 1, 1},
@@ -16647,8 +16647,8 @@ static int __pyx_pymod_exec_lstm_model(PyObject *__pyx_pyinit_module)
  * import numpy as np
  * cimport numpy as np
  * from pydbm.synapse_list import Synapse             # <<<<<<<<<<<<<<
- * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
- * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
+ * from pydbm.verification.interface.verificatable_result import VerificatableResult
+ * from pydbm.loss.interface.computable_loss import ComputableLoss
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -16667,16 +16667,16 @@ static int __pyx_pymod_exec_lstm_model(PyObject *__pyx_pyinit_module)
   /* "pydbm/rnn/lstm_model.pyx":6
  * cimport numpy as np
  * from pydbm.synapse_list import Synapse
- * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult             # <<<<<<<<<<<<<<
- * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
- * from pydbm.rnn.optimization.opt_params import OptParams
+ * from pydbm.verification.interface.verificatable_result import VerificatableResult             # <<<<<<<<<<<<<<
+ * from pydbm.loss.interface.computable_loss import ComputableLoss
+ * from pydbm.optimization.opt_params import OptParams
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_VerificatableResult);
   __Pyx_GIVEREF(__pyx_n_s_VerificatableResult);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_VerificatableResult);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_rnn_verification_interface, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_verification_interface_ver, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
@@ -16687,9 +16687,9 @@ static int __pyx_pymod_exec_lstm_model(PyObject *__pyx_pyinit_module)
 
   /* "pydbm/rnn/lstm_model.pyx":7
  * from pydbm.synapse_list import Synapse
- * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
- * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss             # <<<<<<<<<<<<<<
- * from pydbm.rnn.optimization.opt_params import OptParams
+ * from pydbm.verification.interface.verificatable_result import VerificatableResult
+ * from pydbm.loss.interface.computable_loss import ComputableLoss             # <<<<<<<<<<<<<<
+ * from pydbm.optimization.opt_params import OptParams
  * from pydbm.rnn.interface.reconstructable_model import ReconstructableModel
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
@@ -16697,7 +16697,7 @@ static int __pyx_pymod_exec_lstm_model(PyObject *__pyx_pyinit_module)
   __Pyx_INCREF(__pyx_n_s_ComputableLoss);
   __Pyx_GIVEREF(__pyx_n_s_ComputableLoss);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_ComputableLoss);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pydbm_rnn_loss_interface_computa, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pydbm_loss_interface_computable, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_ComputableLoss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
@@ -16707,9 +16707,9 @@ static int __pyx_pymod_exec_lstm_model(PyObject *__pyx_pyinit_module)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/rnn/lstm_model.pyx":8
- * from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
- * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
- * from pydbm.rnn.optimization.opt_params import OptParams             # <<<<<<<<<<<<<<
+ * from pydbm.verification.interface.verificatable_result import VerificatableResult
+ * from pydbm.loss.interface.computable_loss import ComputableLoss
+ * from pydbm.optimization.opt_params import OptParams             # <<<<<<<<<<<<<<
  * from pydbm.rnn.interface.reconstructable_model import ReconstructableModel
  * ctypedef np.float64_t DOUBLE_t
  */
@@ -16718,7 +16718,7 @@ static int __pyx_pymod_exec_lstm_model(PyObject *__pyx_pyinit_module)
   __Pyx_INCREF(__pyx_n_s_OptParams);
   __Pyx_GIVEREF(__pyx_n_s_OptParams);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_OptParams);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_rnn_optimization_opt_param, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_optimization_opt_params, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_OptParams); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
@@ -16728,8 +16728,8 @@ static int __pyx_pymod_exec_lstm_model(PyObject *__pyx_pyinit_module)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pydbm/rnn/lstm_model.pyx":9
- * from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
- * from pydbm.rnn.optimization.opt_params import OptParams
+ * from pydbm.loss.interface.computable_loss import ComputableLoss
+ * from pydbm.optimization.opt_params import OptParams
  * from pydbm.rnn.interface.reconstructable_model import ReconstructableModel             # <<<<<<<<<<<<<<
  * ctypedef np.float64_t DOUBLE_t
  * 

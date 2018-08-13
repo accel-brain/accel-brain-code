@@ -11,6 +11,11 @@ class LayerableCNN(metaclass=ABCMeta):
     '''
 
     @abstractproperty
+    def graph(self):
+        ''' Graph which is-a `Synapse`. '''
+        raise NotImplementedError()
+
+    @abstractproperty
     def delta_weight_arr(self):
         ''' Delta of weight matirx.'''
         raise NotImplementedError()

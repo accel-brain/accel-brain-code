@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from pydbm.cnn.layerable_cnn import LayerableCNN
-from pydbm.synapse import Synapse
+from pydbm.synapse_list import Synapse
 import numpy as np
 cimport numpy as np
 ctypedef np.float64_t DOUBLE_t
@@ -10,6 +10,8 @@ class ConvolutionLayer(LayerableCNN):
     '''
     Convolution Layer.
     '''
+    # Computation graph which is-a `Synapse`.
+    __graph = None
     # Delta of weight matrix.
     __delta_weight_arr = np.array([[]])
     # Delta of bias vector.
@@ -138,7 +140,13 @@ class ConvolutionLayer(LayerableCNN):
     def set_readonly(self, value):
         ''' setter '''
         raise TypeError("This property must be read-only.")
-    
+
+    def get_graph(self):
+        ''' getter '''
+        return self.__graph
+
+    graph = property(get_graph, set_readonly)
+
     def get_delta_weight_arr(self):
         ''' getter '''
         return self.__delta_weight_arr

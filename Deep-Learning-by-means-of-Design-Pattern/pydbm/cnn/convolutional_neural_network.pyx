@@ -295,3 +295,6 @@ class ConvolutionalNeuralNetwork(object):
 
         for i in range(len(self.__layerable_cnn_list)):
             self.__layerable_cnn_list[i].graph.bias_arr = params_list.pop(0)
+
+        for i in range(len(self.__layerable_cnn_list)):
+            self.__layerable_cnn_list[i].reset_delta()

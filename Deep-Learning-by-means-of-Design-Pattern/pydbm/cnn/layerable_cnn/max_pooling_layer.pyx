@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from logging import getLogger
 from pydbm.cnn.layerable_cnn import LayerableCNN
 from pydbm.synapse import Synapse
 import numpy as np
@@ -7,9 +6,9 @@ cimport numpy as np
 ctypedef np.float64_t DOUBLE_t
 
 
-class MaxPooling(LayerableCNN):
+class MaxPoolingLayer(LayerableCNN):
     '''
-    Max Pooling operator.
+    Max Pooling Layer.
     '''
 
     def __init__(
@@ -120,3 +119,19 @@ class MaxPooling(LayerableCNN):
         )
         
         return delta_img_arr
+
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+    
+    def get_delta_weight_arr(self):
+        ''' getter '''
+        return self.__delta_weight_arr
+
+    delta_weigth_arr = property(get_delta_weight_arr, set_readonly)
+
+    def get_delta_bias_arr(self):
+        ''' getter '''
+        return self.__delta_bias_arr
+    
+    delta_bias_arr = property(get_delta_bias_arr, set_readonly)

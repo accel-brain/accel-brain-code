@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta, abstractmethod, abstractproperty
 import numpy as np
 cimport numpy as np
 ctypedef np.float64_t DOUBLE_t
@@ -9,7 +9,18 @@ class LayerableCNN(metaclass=ABCMeta):
     '''
     The abstract class of convolutional neural network.
     '''
-    
+
+    @abstractproperty
+    def delta_weight_arr(self):
+        ''' Delta of weight matirx.'''
+        raise NotImplementedError()
+        
+    @abstractproperty
+    def delta_bias_arr(self):
+        ''' Delta of bias vector.'''
+        raise NotImplementedError()
+
+    @abstractmethod
     def forward_propagate(self, np.ndarray[DOUBLE_t, ndim=4] img_arr):
         '''
         Forward propagation in CNN layers.
@@ -22,6 +33,7 @@ class LayerableCNN(metaclass=ABCMeta):
         '''
         raise NotImplementedError()
 
+    @abstractmethod
     def back_propagate(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):
         '''
         Back propagation in CNN layers.
@@ -147,3 +159,10 @@ class LayerableCNN(metaclass=ABCMeta):
                 result_arr[:, :, height:max_height:stride, width:max_width:stride] += _reshaped_img_arr[:, :, height, width, :, :]
 
         return result_arr[:, :, pad:img_height + pad, pad:img_width + pad]
+
+    def reset_delta(self):
+        '''
+        Reset delta.
+        '''
+        self.delta_weight_arr = None
+        self.delta_bias_arr = None

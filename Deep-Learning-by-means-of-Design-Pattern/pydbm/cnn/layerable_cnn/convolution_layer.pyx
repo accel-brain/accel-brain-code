@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from logging import getLogger
 from pydbm.cnn.layerable_cnn import LayerableCNN
 from pydbm.synapse import Synapse
 import numpy as np
@@ -7,10 +6,14 @@ cimport numpy as np
 ctypedef np.float64_t DOUBLE_t
 
 
-class Convolution(LayerableCNN):
+class ConvolutionLayer(LayerableCNN):
     '''
-    Convolution operator.
+    Convolution Layer.
     '''
+    # Delta of weight matrix.
+    __delta_weight_arr = np.array([[]])
+    # Delta of bias vector.
+    __delta_bias_arr = np.array([[]])
 
     def __init__(self, graph, int stride=1, int pad=0):
         '''
@@ -28,6 +31,9 @@ class Convolution(LayerableCNN):
 
         self.__stride = stride
         self.__pad = pad
+        
+        self.__delta_weight_arr = None
+        self.__delta_bias_arr = None
 
     def forward_propagate(self, np.ndarray[DOUBLE_t, ndim=4] img_arr):
         '''
@@ -56,8 +62,8 @@ class Convolution(LayerableCNN):
         if channel != img_channel:
             raise ValueError()
 
-        cdef int result_h = 1 + int((img_height + 2 * self.__pad - kernel_height) / self.__stride)
-        cdef int result_w = 1 + int((img_width + 2 * self.__pad - kernel_width) / self.__stride)
+        cdef int result_h = int((img_height + 2 * self.__pad - kernel_height) / self.__stride) + 1
+        cdef int result_w = int((img_width + 2 * self.__pad - kernel_width) / self.__stride) + 1
 
         cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr = self.affine_transform(
             img_arr,
@@ -108,8 +114,16 @@ class Convolution(LayerableCNN):
             kernel_height,
             kernel_width
         )
-        self.__delta_bias_arr = delta_bias_arr
-        self.__delta_weight_arr = delta_weight_arr
+        if self.__delta_bias_arr is None:
+            self.__delta_bias_arr = delta_bias_arr
+        else:
+            self.__delta_bias_arr += delta_bias_arr
+
+        if self.__delta_weight_arr is None:
+            self.__delta_weight_arr = delta_weight_arr
+        else:
+            self.__delta_weight_arr += delta_weight_arr
+
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_reshaped_img_arr = np.dot(__delta_arr, self.__reshaped_weight_arr.T)
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_img_arr = self.affine_to_img(
             delta_reshaped_img_arr,
@@ -120,3 +134,19 @@ class Convolution(LayerableCNN):
             self.__pad
         )
         return delta_img_arr
+
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+    
+    def get_delta_weight_arr(self):
+        ''' getter '''
+        return self.__delta_weight_arr
+
+    delta_weigth_arr = property(get_delta_weight_arr, set_readonly)
+
+    def get_delta_bias_arr(self):
+        ''' getter '''
+        return self.__delta_bias_arr
+    
+    delta_bias_arr = property(get_delta_bias_arr, set_readonly)

@@ -38,11 +38,42 @@ class CNNGraph(Synapse):
 
     def __init__(
         self,
-        batch_size=100,
-        channel=3,
-        height=100,
-        width=100,
-        scale=0.01
+        int filter_num=30,
+        int channel=3,
+        int kernel_size=3,
+        int stride=1,
+        int pad=1,
+        double scale=0.01
     ):
-        self.__weight_arr = np.random.normal(size=(batch_size, channel, height, width)) * scale
-        self.__bias_arr = np.random.normal(size=(batch_size, )) * scale
+        '''
+        Init.
+        
+        Args:
+            filter_num:     The number of kernels(filters).
+            channel:        Channel of image files.
+            kernel_size:    Size of the filters.
+            stride:         Stride.
+            pad:            Padding.
+            scale:          Scale of filters.
+        '''
+        self.__weight_arr = np.random.normal(size=(filter_num, channel, kernel_size, kernel_size)) * scale
+        self.__bias_arr = np.random.normal(size=(filter_num, )) * scale
+        
+        self.__stride = stride
+        self.__pad = pad
+
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+
+    def get_stride(self):
+        ''' getter '''
+        return self.__stride
+
+    stride = property(get_stride, set_readonly)
+
+    def get_pad(self):
+        ''' getter '''
+        return self.__pad
+
+    pad = property(get_pad, set_readonly)

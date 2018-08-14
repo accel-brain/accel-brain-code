@@ -247,11 +247,26 @@ class ConvolutionalNeuralNetwork(object):
         cdef int i = 0
         for i in range(len(self.__layerable_cnn_list)):
             try:
+                self.__logger.debug("Input shape in CNN layer: " + str(i + 1))
+                self.__logger.debug((
+                    img_arr.shape[0],
+                    img_arr.shape[1],
+                    img_arr.shape[2],
+                    img_arr.shape[3]
+                ))
                 img_arr = self.__layerable_cnn_list[i].forward_propagate(img_arr)
             except:
                 self.__logger.debug("Error raised in CNN layer " + str(i + 1))
                 raise
-        
+
+        self.__logger.debug("Propagated shape in CNN layer: " + str(i + 1))
+        self.__logger.debug((
+            img_arr.shape[0],
+            img_arr.shape[1],
+            img_arr.shape[2],
+            img_arr.shape[3]
+        ))
+
         return img_arr
 
     def back_propagation(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):
@@ -268,13 +283,29 @@ class ConvolutionalNeuralNetwork(object):
         layerable_cnn_list = self.__layerable_cnn_list[::-1]
         for i in range(len(layerable_cnn_list)):
             try:
+                self.__logger.debug("Input delta shape in CNN layer: " + str(i + 1))
+                self.__logger.debug((
+                    delta_arr.shape[0],
+                    delta_arr.shape[1],
+                    delta_arr.shape[2],
+                    delta_arr.shape[3]
+                ))
+
                 delta_arr = layerable_cnn_list[i].back_propagate(delta_arr)
+
             except:
                 self.__logger.debug(
                     "Delta computation raised an error in CNN layer " + str(len(layerable_cnn_list) - i)
                 )
                 raise
 
+        self.__logger.debug("Propagated delta shape in CNN layer: " + str(i + 1))
+        self.__logger.debug((
+            delta_arr.shape[0],
+            delta_arr.shape[1],
+            delta_arr.shape[2],
+            delta_arr.shape[3]
+        ))
         return delta_arr
 
     def optimize(self, double learning_rate, int epoch):

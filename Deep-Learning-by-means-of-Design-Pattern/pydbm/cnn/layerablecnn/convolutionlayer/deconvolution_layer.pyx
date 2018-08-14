@@ -21,19 +21,17 @@ class DeconvolutionLayer(ConvolutionLayer):
     # Number of values padded to the edges of each axis.
     __t_pad_width = 1
 
-    def __init__(self, graph, int stride=1, int pad=0):
+    def __init__(self, graph):
         '''
         Init.
         
         Args:
             graph:      is-a `Synapse`.
-            stride:     Stride.
-            pad:        Padding.
         '''
-        self.__stride = stride
-        self.__pad = pad
+        self.__stride = graph.stride
+        self.__pad = graph.pad
         
-        super().__init__(graph, stride, pad)
+        super().__init__(graph)
     
     def forward_propagate(self, np.ndarray[DOUBLE_t, ndim=4] img_arr):
         '''
@@ -47,49 +45,17 @@ class DeconvolutionLayer(ConvolutionLayer):
         Returns:
             4-rank array like or sparse matrix.
         '''
-        cdef int channel = self.graph.weight_arr.shape[1]
+        cdef int img_sample_n = img_arr.shape[0]
+        cdef int img_channel = img_arr.shape[1]
+
         cdef int kernel_height = self.graph.weight_arr.shape[2]
         cdef int kernel_width = self.graph.weight_arr.shape[3]
 
-        cdef int img_sample_n = img_arr.shape[0]
-
-        cdef int n = 0
-        cdef int c = 0
-        cdef np.ndarray[DOUBLE_t, ndim=2] arr = self.__transpose(img_arr[n, c])
-        cdef int t_height = arr.shape[0]
-        cdef int t_width = arr.shape[1]
-        
-        if kernel_height != t_height or kernel_width != t_width:
-            raise ValueError("The shape of kernel is invalid. Infered shape is " + str((t_height, t_width)))
-
-        cdef np.ndarray[DOUBLE_t, ndim=4] _img_arr = np.zeros((
-            img_sample_n,
-            channel,
-            t_height,
-            t_width
-        ))
-
-        for n in range(img_sample_n):
-            for c in range(channel):
-                _img_arr[n, c] = self.__transpose(img_arr[n, c])
-
-        return super().forward_propagate(_img_arr)
-
-    def __transpose(self, np.ndarray[DOUBLE_t, ndim=2] arr):
-        '''
-        Transpose of convolving `arr`.
-        
-        Args:
-            arr:        `np.ndarray` of image array.
-        
-        Returns:
-            Transposed array.
-        '''
-        
         for _ in range(self.__t_pad_width):
-            arr = np.insert(arr, obj=list(range(arr.shape[0])), values=0, axis=0)
-            arr = np.insert(arr, obj=list(range(arr.shape[1])), values=0, axis=1)
-        return arr
+            img_arr = np.insert(img_arr, obj=list(range(img_arr.shape[2])), values=0, axis=2)
+            img_arr = np.insert(img_arr, obj=list(range(img_arr.shape[3])), values=0, axis=3)
+
+        return super().forward_propagate(img_arr)
 
     def get_t_pad_width(self):
         ''' getter '''

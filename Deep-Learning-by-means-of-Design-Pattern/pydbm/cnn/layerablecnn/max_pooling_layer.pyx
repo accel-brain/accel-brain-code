@@ -15,9 +15,7 @@ class MaxPoolingLayer(LayerableCNN):
         self,
         graph,
         int pool_height=3,
-        int pool_width=3,
-        int stride=1,
-        int pad=0
+        int pool_width=3
     ):
         '''
         Init.
@@ -26,8 +24,6 @@ class MaxPoolingLayer(LayerableCNN):
             graph:          is-a `Synapse`.
             pool_heigh:     Height of pool.
             pool_width:     Width of pool.
-            stride:         Stride.
-            pad:            Padding.
 
         '''
         if isinstance(graph, Synapse):
@@ -37,8 +33,8 @@ class MaxPoolingLayer(LayerableCNN):
 
         self.__pool_height = pool_height
         self.__pool_width = pool_width
-        self.__stride = stride
-        self.__pad = pad
+        self.__stride = graph.stride
+        self.__pad = graph.pad
 
     def forward_propagate(self, np.ndarray[DOUBLE_t, ndim=4] img_arr):
         '''
@@ -93,7 +89,7 @@ class MaxPoolingLayer(LayerableCNN):
             delta_arr:      4-rank array like or sparse matrix.
         
         Returns:
-            3-rank array like or sparse matrix.
+            4-rank array like or sparse matrix.
         '''
         cdef np.ndarray[DOUBLE_t, ndim=4] _delta_arr = delta_arr.transpose(0, 2, 3, 1)
         

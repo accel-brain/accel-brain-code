@@ -17,22 +17,20 @@ class ConvolutionLayer(LayerableCNN):
     # Delta of bias vector.
     __delta_bias_arr = np.array([[]])
 
-    def __init__(self, graph, int stride=1, int pad=0):
+    def __init__(self, graph):
         '''
         Init.
         
         Args:
             graph:      is-a `Synapse`.
-            stride:     Stride.
-            pad:        Padding.
         '''
         if isinstance(graph, Synapse):
             self.__graph = graph
         else:
             raise TypeError()
 
-        self.__stride = stride
-        self.__pad = pad
+        self.__stride = graph.stride
+        self.__pad = graph.pad
         
         self.__delta_weight_arr = None
         self.__delta_bias_arr = None
@@ -44,7 +42,7 @@ class ConvolutionLayer(LayerableCNN):
         Override.
 
         Args:
-            matriimg_arr:      4-rank array like or sparse matrix.
+            img_arr:      4-rank array like or sparse matrix.
         
         Returns:
             4-rank array like or sparse matrix.
@@ -58,9 +56,6 @@ class ConvolutionLayer(LayerableCNN):
         cdef int img_channel = img_arr.shape[1]
         cdef int img_height = img_arr.shape[2]
         cdef int img_width = img_arr.shape[3]
-
-        if sample_n != img_sample_n:
-            raise ValueError()
 
         cdef int result_h = int((img_height + 2 * self.__pad - kernel_height) / self.__stride) + 1
         cdef int result_w = int((img_width + 2 * self.__pad - kernel_width) / self.__stride) + 1
@@ -77,6 +72,7 @@ class ConvolutionLayer(LayerableCNN):
             reshaped_img_arr,
             reshaped_weight_arr
         ) + self.graph.bias_arr
+
         cdef np.ndarray[DOUBLE_t, ndim=4] _result_arr = result_arr.reshape(sample_n, result_h, result_w, -1)
         _result_arr = _result_arr.transpose(0, 3, 1, 2)
 
@@ -96,17 +92,21 @@ class ConvolutionLayer(LayerableCNN):
             delta_arr:      4-rank array like or sparse matrix.
         
         Returns:
-            3-rank array like or sparse matrix.
+            4-rank array like or sparse matrix.
         '''
-        sample_n = self.graph.weight_arr.shape[0]
-        channel = self.graph.weight_arr.shape[1]
-        kernel_height = self.graph.weight_arr.shape[2]
-        kernel_width = self.graph.weight_arr.shape[3]
+        cdef int sample_n = self.graph.weight_arr.shape[0]
+        cdef int channel = self.graph.weight_arr.shape[1]
+        cdef int kernel_height = self.graph.weight_arr.shape[2]
+        cdef int kernel_width = self.graph.weight_arr.shape[3]
 
-        cdef np.ndarray[DOUBLE_t, ndim=4] _delta_arr = delta_arr.transpose(0, 2, 3, 1)
-        cdef np.ndarray[DOUBLE_t, ndim=2] __delta_arr = _delta_arr.reshape(-1, sample_n)
-        cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = __delta_arr.sum(axis=0)
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(self.__reshaped_img_arr.T, __delta_arr)
+        cdef int img_sample_n = delta_arr.shape[0]
+        cdef int img_channel = delta_arr.shape[1]
+        cdef int img_height = delta_arr.shape[2]
+        cdef int img_width = delta_arr.shape[3]
+
+        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = delta_arr.reshape(-1, img_sample_n)
+        cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = _delta_arr.sum(axis=0)
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(self.__reshaped_img_arr.T, _delta_arr)
         delta_weight_arr = delta_weight_arr.transpose(1, 0)
         cdef np.ndarray[DOUBLE_t, ndim=4] _delta_weight_arr = delta_weight_arr.reshape(
             sample_n,
@@ -114,6 +114,7 @@ class ConvolutionLayer(LayerableCNN):
             kernel_height,
             kernel_width
         )
+
         if self.__delta_bias_arr is None:
             self.__delta_bias_arr = delta_bias_arr
         else:
@@ -124,7 +125,7 @@ class ConvolutionLayer(LayerableCNN):
         else:
             self.__delta_weight_arr += delta_weight_arr
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_reshaped_img_arr = np.dot(__delta_arr, self.__reshaped_weight_arr.T)
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_reshaped_img_arr = np.dot(_delta_arr, self.__reshaped_weight_arr.T)
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_img_arr = self.affine_to_img(
             delta_reshaped_img_arr,
             self.__img_arr, 

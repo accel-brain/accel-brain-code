@@ -77,8 +77,8 @@ class LayerableCNN(metaclass=ABCMeta):
         cdef int img_height = img_arr.shape[2]
         cdef int img_width = img_arr.shape[3]
 
-        cdef int result_height = (img_height + 2 * pad - kernel_height) // stride + 1
-        cdef int result_width = (img_width + 2 * pad - kernel_width) // stride + 1
+        cdef int result_height = int((img_height + 2 * pad - kernel_height) // stride) + 1
+        cdef int result_width = int((img_width + 2 * pad - kernel_width) // stride) + 1
 
         cdef np.ndarray[DOUBLE_t, ndim=4] pad_arr = np.pad(
             img_arr,
@@ -130,8 +130,8 @@ class LayerableCNN(metaclass=ABCMeta):
         cdef int img_channel = img_arr.shape[1]
         cdef int img_height = img_arr.shape[2]
         cdef int img_width = img_arr.shape[3]
-        cdef int result_height = (img_height + 2 * pad - kernel_height) // stride + 1
-        cdef int result_width = (img_width + 2 * pad - kernel_width) // stride + 1
+        cdef int result_height = int((img_height + 2 * pad - kernel_height) // stride) + 1
+        cdef int result_width = int((img_width + 2 * pad - kernel_width) // stride) + 1
         cdef np.ndarray[DOUBLE_t, ndim=6] _reshaped_img_arr = reshaped_img_arr.reshape(
             (
                 img_sample_n,
@@ -169,5 +169,5 @@ class LayerableCNN(metaclass=ABCMeta):
         '''
         Reset delta.
         '''
-        self.delta_weight_arr = None
-        self.delta_bias_arr = None
+        self.__delta_weight_arr = None
+        self.__delta_bias_arr = None

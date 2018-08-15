@@ -19,7 +19,7 @@ class DeconvolutionLayer(ConvolutionLayer):
 
     '''
     # Number of values padded to the edges of each axis.
-    __t_pad_width = 1
+    __t_pad_width = 0
 
     def __init__(self, graph):
         '''
@@ -52,8 +52,8 @@ class DeconvolutionLayer(ConvolutionLayer):
         cdef int kernel_width = self.graph.weight_arr.shape[3]
 
         for _ in range(self.__t_pad_width):
-            img_arr = np.insert(img_arr, obj=list(range(img_arr.shape[2])), values=0, axis=2)
-            img_arr = np.insert(img_arr, obj=list(range(img_arr.shape[3])), values=0, axis=3)
+            img_arr = np.insert(img_arr, obj=list(range(1, img_arr.shape[2] - 1)), values=0, axis=2)
+            img_arr = np.insert(img_arr, obj=list(range(1, img_arr.shape[3] - 1)), values=0, axis=3)
 
         return super().forward_propagate(img_arr)
 

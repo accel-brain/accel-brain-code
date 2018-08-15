@@ -245,6 +245,7 @@ class ConvolutionalNeuralNetwork(object):
             Propagated `np.ndarray`.
         '''
         cdef int i = 0
+        self.__logger.debug("-" * 100)
         for i in range(len(self.__layerable_cnn_list)):
             try:
                 self.__logger.debug("Input shape in CNN layer: " + str(i + 1))
@@ -259,6 +260,7 @@ class ConvolutionalNeuralNetwork(object):
                 self.__logger.debug("Error raised in CNN layer " + str(i + 1))
                 raise
 
+        self.__logger.debug("-" * 100)
         self.__logger.debug("Propagated shape in CNN layer: " + str(i + 1))
         self.__logger.debug((
             img_arr.shape[0],
@@ -266,6 +268,7 @@ class ConvolutionalNeuralNetwork(object):
             img_arr.shape[2],
             img_arr.shape[3]
         ))
+        self.__logger.debug("-" * 100)
 
         return img_arr
 
@@ -281,9 +284,10 @@ class ConvolutionalNeuralNetwork(object):
         '''
         cdef int i = 0
         layerable_cnn_list = self.__layerable_cnn_list[::-1]
+        self.__logger.debug("-" * 100)
         for i in range(len(layerable_cnn_list)):
             try:
-                self.__logger.debug("Input delta shape in CNN layer: " + str(i + 1))
+                self.__logger.debug("Input delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
                 self.__logger.debug((
                     delta_arr.shape[0],
                     delta_arr.shape[1],
@@ -299,13 +303,15 @@ class ConvolutionalNeuralNetwork(object):
                 )
                 raise
 
-        self.__logger.debug("Propagated delta shape in CNN layer: " + str(i + 1))
+        self.__logger.debug("-" * 100)
+        self.__logger.debug("Propagated delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
         self.__logger.debug((
             delta_arr.shape[0],
             delta_arr.shape[1],
             delta_arr.shape[2],
             delta_arr.shape[3]
         ))
+        self.__logger.debug("-" * 100)
         return delta_arr
 
     def optimize(self, double learning_rate, int epoch):

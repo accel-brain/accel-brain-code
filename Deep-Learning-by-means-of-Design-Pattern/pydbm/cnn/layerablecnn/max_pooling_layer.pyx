@@ -55,7 +55,7 @@ class MaxPoolingLayer(LayerableCNN):
 
         cdef int result_height = int(1 + (img_height - self.__pool_height) / self.__stride)
         cdef int result_width = int(1 + (img_width - self.__pool_width) / self.__stride)
-
+        
         cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr = self.affine_to_matrix(
             img_arr,
             self.__pool_height, 

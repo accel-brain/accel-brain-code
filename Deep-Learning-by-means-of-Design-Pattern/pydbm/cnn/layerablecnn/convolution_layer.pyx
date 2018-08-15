@@ -57,8 +57,8 @@ class ConvolutionLayer(LayerableCNN):
         cdef int img_height = img_arr.shape[2]
         cdef int img_width = img_arr.shape[3]
 
-        cdef int result_h = int((img_height + 2 * self.__pad - kernel_height) / self.__stride) + 1
-        cdef int result_w = int((img_width + 2 * self.__pad - kernel_width) / self.__stride) + 1
+        cdef int result_h = int((img_height + 2 * self.__pad - kernel_height) // self.__stride) + 1
+        cdef int result_w = int((img_width + 2 * self.__pad - kernel_width) // self.__stride) + 1
 
         cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr = self.affine_to_matrix(
             img_arr,
@@ -104,6 +104,8 @@ class ConvolutionLayer(LayerableCNN):
         cdef int img_height = delta_arr.shape[2]
         cdef int img_width = delta_arr.shape[3]
 
+        delta_arr = delta_arr.transpose(0, 2, 3, 1)
+
         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = delta_arr.reshape(-1, img_sample_n)
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = _delta_arr.sum(axis=0)
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(self.__reshaped_img_arr.T, _delta_arr)
@@ -121,9 +123,9 @@ class ConvolutionLayer(LayerableCNN):
             self.__delta_bias_arr += delta_bias_arr
 
         if self.__delta_weight_arr is None:
-            self.__delta_weight_arr = delta_weight_arr
+            self.__delta_weight_arr = delta_weight_arr.reshape((sample_n, channel, kernel_height, kernel_width))
         else:
-            self.__delta_weight_arr += delta_weight_arr
+            self.__delta_weight_arr += delta_weight_arr.reshape((sample_n, channel, kernel_height, kernel_width))
 
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_reshaped_img_arr = np.dot(_delta_arr, self.__reshaped_weight_arr.T)
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_img_arr = self.affine_to_img(

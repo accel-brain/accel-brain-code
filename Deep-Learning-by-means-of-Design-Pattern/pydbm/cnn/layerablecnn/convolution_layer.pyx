@@ -80,7 +80,7 @@ class ConvolutionLayer(LayerableCNN):
         self.__reshaped_img_arr = reshaped_img_arr
         self.__reshaped_weight_arr = reshaped_weight_arr
 
-        return _result_arr
+        return self.graph.activation_function.activate(_result_arr)
 
     def back_propagate(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):
         '''
@@ -94,6 +94,8 @@ class ConvolutionLayer(LayerableCNN):
         Returns:
             4-rank array like or sparse matrix.
         '''
+        delta_arr = self.graph.activation_function.derivative(delta_arr)
+
         cdef int sample_n = self.graph.weight_arr.shape[0]
         cdef int channel = self.graph.weight_arr.shape[1]
         cdef int kernel_height = self.graph.weight_arr.shape[2]

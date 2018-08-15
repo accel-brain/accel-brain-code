@@ -36,8 +36,22 @@ class CNNGraph(Synapse):
     
     bias_arr = property(get_bias_arr, set_bias_arr)
 
+    # Activation function.
+    __activation_function = None
+    
+    def get_activation_function(self):
+        ''' getter '''
+        return self.__activation_function
+    
+    def set_activation_function(self, value):
+        ''' setter '''
+        self.__activation_function = value
+    
+    activation_function = property(get_activation_function, set_activation_function)
+
     def __init__(
         self,
+        activation_function,
         int filter_num=30,
         int channel=3,
         int kernel_size=3,
@@ -49,15 +63,17 @@ class CNNGraph(Synapse):
         Init.
         
         Args:
-            filter_num:     The number of kernels(filters).
-            channel:        Channel of image files.
-            kernel_size:    Size of the filters.
-            stride:         Stride.
-            pad:            Padding.
-            scale:          Scale of filters.
+            activation_function:    Activation function.
+            filter_num:             The number of kernels(filters).
+            channel:                Channel of image files.
+            kernel_size:            Size of the filters.
+            stride:                 Stride.
+            pad:                    Padding.
+            scale:                  Scale of filters.
         '''
+        self.__activation_function = activation_function
         self.__weight_arr = np.random.normal(size=(filter_num, channel, kernel_size, kernel_size)) * scale
-        self.__bias_arr = np.random.normal(size=(filter_num, )) * scale
+        self.__bias_arr = np.zeros((filter_num, ))
         
         self.__stride = stride
         self.__pad = pad

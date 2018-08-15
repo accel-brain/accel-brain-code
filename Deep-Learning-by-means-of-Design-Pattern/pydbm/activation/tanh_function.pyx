@@ -20,10 +20,6 @@ class TanhFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
-        cdef double x_sum
-        x_sum = x.sum()
-        if x_sum != 0:
-            x = x / x_sum
         return np.tanh(x)
 
     def derivative(self, np.ndarray y):

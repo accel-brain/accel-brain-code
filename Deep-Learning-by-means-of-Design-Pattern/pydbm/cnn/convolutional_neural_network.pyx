@@ -26,7 +26,8 @@ class ConvolutionalNeuralNetwork(object):
         opt_params,
         verificatable_result,
         double test_size_rate=0.3,
-        tol=1e-15
+        tol=1e-15,
+        save_flag=False
     ):
         '''
         Init.
@@ -46,6 +47,7 @@ class ConvolutionalNeuralNetwork(object):
             opt_params:                     Optimization function.
             verificatable_result:           Verification function.
             tol:                            Tolerance for the optimization.
+            save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.
 
         '''
         for layerable_cnn in layerable_cnn_list:
@@ -80,6 +82,8 @@ class ConvolutionalNeuralNetwork(object):
         self.__tol = tol
 
         self.__memory_tuple_list = []
+        
+        self.__save_flag = save_flag
 
         logger = getLogger("pydbm")
         self.__logger = logger
@@ -193,6 +197,9 @@ class ConvolutionalNeuralNetwork(object):
                     test_pred_arr = self.forward_propagation(
                         test_batch_observed_arr
                     )
+                    if self.__save_flag is True:
+                        np.save("test_pred_arr_" + str(epoch), test_pred_arr)
+
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(

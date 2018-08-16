@@ -165,7 +165,7 @@ class ConvolutionalNeuralNetwork(object):
                 batch_target_arr = train_target_arr[rand_index]
 
                 try:
-                    pred_arr = self.forward_propagation(batch_observed_arr)
+                    pred_arr = self.inference(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
                     loss = self.__computable_loss.compute_loss(
                         pred_arr,
@@ -194,6 +194,7 @@ class ConvolutionalNeuralNetwork(object):
                     test_batch_observed_arr = test_observed_arr[rand_index]
                     test_batch_target_arr = test_target_arr[rand_index]
 
+                    
                     test_pred_arr = self.forward_propagation(
                         test_batch_observed_arr
                     )
@@ -360,3 +361,17 @@ class ConvolutionalNeuralNetwork(object):
 
         for i in range(len(self.__layerable_cnn_list)):
             self.__layerable_cnn_list[i].reset_delta()
+
+    def get_layerable_cnn_list(self):
+        ''' getter '''
+        return self.__layerable_cnn_list
+
+    def set_layerable_cnn_list(self, value):
+        ''' setter '''
+        for layerable_cnn in value:
+            if isinstance(layerable_cnn, LayerableCNN) is False:
+                raise TypeError()
+
+        self.__layerable_cnn_list = value
+
+    layerable_cnn_list = property(get_layerable_cnn_list, set_layerable_cnn_list)

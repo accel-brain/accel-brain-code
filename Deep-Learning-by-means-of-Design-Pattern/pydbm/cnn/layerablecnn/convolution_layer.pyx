@@ -125,9 +125,9 @@ class ConvolutionLayer(LayerableCNN):
             self.__delta_bias_arr += delta_bias_arr
 
         if self.__delta_weight_arr is None:
-            self.__delta_weight_arr = delta_weight_arr.reshape((sample_n, channel, kernel_height, kernel_width))
+            self.__delta_weight_arr = _delta_weight_arr
         else:
-            self.__delta_weight_arr += delta_weight_arr.reshape((sample_n, channel, kernel_height, kernel_width))
+            self.__delta_weight_arr += _delta_weight_arr
 
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_reshaped_img_arr = np.dot(_delta_arr, self.__reshaped_weight_arr.T)
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_img_arr = self.affine_to_img(
@@ -150,14 +150,52 @@ class ConvolutionLayer(LayerableCNN):
 
     graph = property(get_graph, set_readonly)
 
+    def get_img_arr(self):
+        ''' getter '''
+        return self.__img_arr
+
+    def set_img_arr(self, value):
+        ''' setter '''
+        self.__img_arr = value
+
+    img_arr = property(get_img_arr, set_img_arr)
+
+    def get_reshaped_img_arr(self):
+        ''' getter '''
+        return self.__reshaped_img_arr
+
+    def set_reshaped_img_arr(self, value):
+        ''' setter '''
+        self.__reshaped_img_arr = value
+    
+    reshaped_img_arr = property(get_reshaped_img_arr, set_reshaped_img_arr)
+    
+    def get_reshaped_weight_arr(self):
+        ''' getter '''
+        return self.__reshaped_weight_arr
+
+    def set_reshaped_weight_arr(self, value):
+        ''' setter '''
+        self.__reshaped_weight_arr = value
+    
+    reshaped_weight_arr = property(get_reshaped_weight_arr, set_reshaped_weight_arr)
+
     def get_delta_weight_arr(self):
         ''' getter '''
         return self.__delta_weight_arr
 
-    delta_weight_arr = property(get_delta_weight_arr, set_readonly)
+    def set_delta_weight_arr(self, value):
+        ''' setter '''
+        self.__delta_weight_arr = value
+
+    delta_weight_arr = property(get_delta_weight_arr, set_delta_weight_arr)
 
     def get_delta_bias_arr(self):
         ''' getter '''
         return self.__delta_bias_arr
-    
-    delta_bias_arr = property(get_delta_bias_arr, set_readonly)
+
+    def set_delta_bias_arr(self, value):
+        ''' setter '''
+        self.__delta_bias_arr = value
+
+    delta_bias_arr = property(get_delta_bias_arr, set_delta_bias_arr)

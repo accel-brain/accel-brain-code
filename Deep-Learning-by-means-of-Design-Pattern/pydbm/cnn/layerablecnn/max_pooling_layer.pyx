@@ -130,10 +130,18 @@ class MaxPoolingLayer(LayerableCNN):
         ''' getter '''
         return self.__delta_weight_arr
 
-    delta_weight_arr = property(get_delta_weight_arr, set_readonly)
+    def set_delta_weight_arr(self, value):
+        ''' setter '''
+        self.__delta_weight_arr = value
+
+    delta_weight_arr = property(get_delta_weight_arr, set_delta_weight_arr)
 
     def get_delta_bias_arr(self):
         ''' getter '''
         return self.__delta_bias_arr
-    
-    delta_bias_arr = property(get_delta_bias_arr, set_readonly)
+
+    def set_delta_bias_arr(self, value):
+        ''' setter '''
+        self.__delta_bias_arr = value
+
+    delta_bias_arr = property(get_delta_bias_arr, set_delta_bias_arr)

@@ -83,8 +83,8 @@ class LayerableCNN(metaclass=ABCMeta):
         cdef np.ndarray[DOUBLE_t, ndim=4] pad_arr = np.pad(
             img_arr,
             [
-                (0,0),
-                (0,0),
+                (0, 0),
+                (0, 0),
                 (pad, pad),
                 (pad, pad)
             ],
@@ -126,6 +126,20 @@ class LayerableCNN(metaclass=ABCMeta):
         int stride, 
         int pad
     ):
+        '''
+        Affine transform for Convolution.
+        
+        Args:
+            reshaped_img_arr:   `np.ndarray` of 2-rank image array.
+            img_arr:            `np.ndarray` of 4-rank image array.
+            kernel_height:      Height of kernel.
+            kernel_width:       Width of kernel.
+            stride:             Stride.
+            pad:                padding value.
+        
+        Returns:
+            2-rank image array.
+        '''
         cdef int img_sample_n = img_arr.shape[0]
         cdef int img_channel = img_arr.shape[1]
         cdef int img_height = img_arr.shape[2]
@@ -169,5 +183,5 @@ class LayerableCNN(metaclass=ABCMeta):
         '''
         Reset delta.
         '''
-        self.__delta_weight_arr = None
-        self.__delta_bias_arr = None
+        self.delta_weight_arr = None
+        self.delta_bias_arr = None

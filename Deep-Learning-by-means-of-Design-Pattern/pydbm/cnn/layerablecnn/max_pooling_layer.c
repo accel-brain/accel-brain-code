@@ -1736,8 +1736,10 @@ static const char __pyx_k_forward_propagate[] = "forward_propagate";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_get_delta_bias_arr[] = "get_delta_bias_arr";
 static const char __pyx_k_pydbm_synapse_list[] = "pydbm.synapse_list";
+static const char __pyx_k_set_delta_bias_arr[] = "set_delta_bias_arr";
 static const char __pyx_k_MaxPoolingLayer__pad[] = "_MaxPoolingLayer__pad";
 static const char __pyx_k_get_delta_weight_arr[] = "get_delta_weight_arr";
+static const char __pyx_k_set_delta_weight_arr[] = "set_delta_weight_arr";
 static const char __pyx_k_MaxPoolingLayer___init[] = "MaxPoolingLayer.__init__";
 static const char __pyx_k_MaxPoolingLayer__graph[] = "_MaxPoolingLayer__graph";
 static const char __pyx_k_MaxPoolingLayer__stride[] = "_MaxPoolingLayer__stride";
@@ -1760,6 +1762,8 @@ static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string al
 static const char __pyx_k_MaxPoolingLayer_forward_propagat[] = "MaxPoolingLayer.forward_propagate";
 static const char __pyx_k_MaxPoolingLayer_get_delta_bias_a[] = "MaxPoolingLayer.get_delta_bias_arr";
 static const char __pyx_k_MaxPoolingLayer_get_delta_weight[] = "MaxPoolingLayer.get_delta_weight_arr";
+static const char __pyx_k_MaxPoolingLayer_set_delta_bias_a[] = "MaxPoolingLayer.set_delta_bias_arr";
+static const char __pyx_k_MaxPoolingLayer_set_delta_weight[] = "MaxPoolingLayer.set_delta_weight_arr";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
@@ -1786,6 +1790,8 @@ static PyObject *__pyx_n_s_MaxPoolingLayer_forward_propagat;
 static PyObject *__pyx_n_s_MaxPoolingLayer_get_delta_bias_a;
 static PyObject *__pyx_n_s_MaxPoolingLayer_get_delta_weight;
 static PyObject *__pyx_n_s_MaxPoolingLayer_get_graph;
+static PyObject *__pyx_n_s_MaxPoolingLayer_set_delta_bias_a;
+static PyObject *__pyx_n_s_MaxPoolingLayer_set_delta_weight;
 static PyObject *__pyx_n_s_MaxPoolingLayer_set_readonly;
 static PyObject *__pyx_kp_s_Max_Pooling_Layer;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
@@ -1855,6 +1861,8 @@ static PyObject *__pyx_n_s_result_arr_2;
 static PyObject *__pyx_n_s_result_height;
 static PyObject *__pyx_n_s_result_width;
 static PyObject *__pyx_n_s_self;
+static PyObject *__pyx_n_s_set_delta_bias_arr;
+static PyObject *__pyx_n_s_set_delta_weight_arr;
 static PyObject *__pyx_n_s_set_readonly;
 static PyObject *__pyx_n_s_size;
 static PyObject *__pyx_n_s_stride;
@@ -1869,7 +1877,9 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPo
 static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_6set_readonly(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_8get_graph(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_10get_delta_weight_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_12get_delta_bias_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_12set_delta_weight_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_14get_delta_bias_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_16set_delta_bias_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_int_0;
@@ -1896,6 +1906,8 @@ static PyObject *__pyx_tuple__19;
 static PyObject *__pyx_tuple__21;
 static PyObject *__pyx_tuple__23;
 static PyObject *__pyx_tuple__25;
+static PyObject *__pyx_tuple__27;
+static PyObject *__pyx_tuple__29;
 static PyObject *__pyx_codeobj__14;
 static PyObject *__pyx_codeobj__16;
 static PyObject *__pyx_codeobj__18;
@@ -1903,6 +1915,8 @@ static PyObject *__pyx_codeobj__20;
 static PyObject *__pyx_codeobj__22;
 static PyObject *__pyx_codeobj__24;
 static PyObject *__pyx_codeobj__26;
+static PyObject *__pyx_codeobj__28;
+static PyObject *__pyx_codeobj__30;
 
 /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":14
  *     '''
@@ -3878,7 +3892,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPo
  *         ''' getter '''
  *         return self.__delta_weight_arr             # <<<<<<<<<<<<<<
  * 
- *     delta_weight_arr = property(get_delta_weight_arr, set_readonly)
+ *     def set_delta_weight_arr(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_MaxPoolingLayer__delta_weight_a); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
@@ -3906,8 +3920,113 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPo
   return __pyx_r;
 }
 
-/* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":135
- *     delta_weight_arr = property(get_delta_weight_arr, set_readonly)
+/* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":133
+ *         return self.__delta_weight_arr
+ * 
+ *     def set_delta_weight_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__delta_weight_arr = value
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_13set_delta_weight_arr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_12set_delta_weight_arr[] = " setter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_13set_delta_weight_arr = {"set_delta_weight_arr", (PyCFunction)__pyx_pw_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_13set_delta_weight_arr, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_12set_delta_weight_arr};
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_13set_delta_weight_arr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_self = 0;
+  PyObject *__pyx_v_value = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_delta_weight_arr (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_value,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("set_delta_weight_arr", 1, 2, 2, 1); __PYX_ERR(0, 133, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_delta_weight_arr") < 0)) __PYX_ERR(0, 133, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_self = values[0];
+    __pyx_v_value = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("set_delta_weight_arr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 133, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.max_pooling_layer.MaxPoolingLayer.set_delta_weight_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_12set_delta_weight_arr(__pyx_self, __pyx_v_self, __pyx_v_value);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_12set_delta_weight_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_delta_weight_arr", 0);
+
+  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":135
+ *     def set_delta_weight_arr(self, value):
+ *         ''' setter '''
+ *         self.__delta_weight_arr = value             # <<<<<<<<<<<<<<
+ * 
+ *     delta_weight_arr = property(get_delta_weight_arr, set_delta_weight_arr)
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_MaxPoolingLayer__delta_weight_a, __pyx_v_value) < 0) __PYX_ERR(0, 135, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":133
+ *         return self.__delta_weight_arr
+ * 
+ *     def set_delta_weight_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__delta_weight_arr = value
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.max_pooling_layer.MaxPoolingLayer.set_delta_weight_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":139
+ *     delta_weight_arr = property(get_delta_weight_arr, set_delta_weight_arr)
  * 
  *     def get_delta_bias_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
@@ -3915,42 +4034,42 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPo
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_13get_delta_bias_arr(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_12get_delta_bias_arr[] = " getter ";
-static PyMethodDef __pyx_mdef_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_13get_delta_bias_arr = {"get_delta_bias_arr", (PyCFunction)__pyx_pw_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_13get_delta_bias_arr, METH_O, __pyx_doc_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_12get_delta_bias_arr};
-static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_13get_delta_bias_arr(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_15get_delta_bias_arr(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_14get_delta_bias_arr[] = " getter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_15get_delta_bias_arr = {"get_delta_bias_arr", (PyCFunction)__pyx_pw_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_15get_delta_bias_arr, METH_O, __pyx_doc_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_14get_delta_bias_arr};
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_15get_delta_bias_arr(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_delta_bias_arr (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_12get_delta_bias_arr(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_14get_delta_bias_arr(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_12get_delta_bias_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_14get_delta_bias_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_delta_bias_arr", 0);
 
-  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":137
+  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":141
  *     def get_delta_bias_arr(self):
  *         ''' getter '''
  *         return self.__delta_bias_arr             # <<<<<<<<<<<<<<
  * 
- *     delta_bias_arr = property(get_delta_bias_arr, set_readonly)
+ *     def set_delta_bias_arr(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_MaxPoolingLayer__delta_bias_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_MaxPoolingLayer__delta_bias_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":135
- *     delta_weight_arr = property(get_delta_weight_arr, set_readonly)
+  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":139
+ *     delta_weight_arr = property(get_delta_weight_arr, set_delta_weight_arr)
  * 
  *     def get_delta_bias_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
@@ -3961,6 +4080,111 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPo
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_AddTraceback("pydbm.cnn.layerablecnn.max_pooling_layer.MaxPoolingLayer.get_delta_bias_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":143
+ *         return self.__delta_bias_arr
+ * 
+ *     def set_delta_bias_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__delta_bias_arr = value
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_17set_delta_bias_arr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_16set_delta_bias_arr[] = " setter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_17set_delta_bias_arr = {"set_delta_bias_arr", (PyCFunction)__pyx_pw_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_17set_delta_bias_arr, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_16set_delta_bias_arr};
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_17set_delta_bias_arr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_self = 0;
+  PyObject *__pyx_v_value = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_delta_bias_arr (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_value,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("set_delta_bias_arr", 1, 2, 2, 1); __PYX_ERR(0, 143, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_delta_bias_arr") < 0)) __PYX_ERR(0, 143, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_self = values[0];
+    __pyx_v_value = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("set_delta_bias_arr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 143, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.max_pooling_layer.MaxPoolingLayer.set_delta_bias_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_16set_delta_bias_arr(__pyx_self, __pyx_v_self, __pyx_v_value);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_16set_delta_bias_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_delta_bias_arr", 0);
+
+  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":145
+ *     def set_delta_bias_arr(self, value):
+ *         ''' setter '''
+ *         self.__delta_bias_arr = value             # <<<<<<<<<<<<<<
+ * 
+ *     delta_bias_arr = property(get_delta_bias_arr, set_delta_bias_arr)
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_MaxPoolingLayer__delta_bias_arr, __pyx_v_value) < 0) __PYX_ERR(0, 145, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":143
+ *         return self.__delta_bias_arr
+ * 
+ *     def set_delta_bias_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__delta_bias_arr = value
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.max_pooling_layer.MaxPoolingLayer.set_delta_bias_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6607,6 +6831,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_MaxPoolingLayer_get_delta_bias_a, __pyx_k_MaxPoolingLayer_get_delta_bias_a, sizeof(__pyx_k_MaxPoolingLayer_get_delta_bias_a), 0, 0, 1, 1},
   {&__pyx_n_s_MaxPoolingLayer_get_delta_weight, __pyx_k_MaxPoolingLayer_get_delta_weight, sizeof(__pyx_k_MaxPoolingLayer_get_delta_weight), 0, 0, 1, 1},
   {&__pyx_n_s_MaxPoolingLayer_get_graph, __pyx_k_MaxPoolingLayer_get_graph, sizeof(__pyx_k_MaxPoolingLayer_get_graph), 0, 0, 1, 1},
+  {&__pyx_n_s_MaxPoolingLayer_set_delta_bias_a, __pyx_k_MaxPoolingLayer_set_delta_bias_a, sizeof(__pyx_k_MaxPoolingLayer_set_delta_bias_a), 0, 0, 1, 1},
+  {&__pyx_n_s_MaxPoolingLayer_set_delta_weight, __pyx_k_MaxPoolingLayer_set_delta_weight, sizeof(__pyx_k_MaxPoolingLayer_set_delta_weight), 0, 0, 1, 1},
   {&__pyx_n_s_MaxPoolingLayer_set_readonly, __pyx_k_MaxPoolingLayer_set_readonly, sizeof(__pyx_k_MaxPoolingLayer_set_readonly), 0, 0, 1, 1},
   {&__pyx_kp_s_Max_Pooling_Layer, __pyx_k_Max_Pooling_Layer, sizeof(__pyx_k_Max_Pooling_Layer), 0, 0, 1, 0},
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
@@ -6676,6 +6902,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_result_height, __pyx_k_result_height, sizeof(__pyx_k_result_height), 0, 0, 1, 1},
   {&__pyx_n_s_result_width, __pyx_k_result_width, sizeof(__pyx_k_result_width), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
+  {&__pyx_n_s_set_delta_bias_arr, __pyx_k_set_delta_bias_arr, sizeof(__pyx_k_set_delta_bias_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_set_delta_weight_arr, __pyx_k_set_delta_weight_arr, sizeof(__pyx_k_set_delta_weight_arr), 0, 0, 1, 1},
   {&__pyx_n_s_set_readonly, __pyx_k_set_readonly, sizeof(__pyx_k_set_readonly), 0, 0, 1, 1},
   {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
   {&__pyx_n_s_stride, __pyx_k_stride, sizeof(__pyx_k_stride), 0, 0, 1, 1},
@@ -6904,17 +7132,41 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__23);
   __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_max_pooli_2, __pyx_n_s_get_delta_weight_arr, 129, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 129, __pyx_L1_error)
 
-  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":135
- *     delta_weight_arr = property(get_delta_weight_arr, set_readonly)
+  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":133
+ *         return self.__delta_weight_arr
+ * 
+ *     def set_delta_weight_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__delta_weight_arr = value
+ */
+  __pyx_tuple__25 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__25);
+  __Pyx_GIVEREF(__pyx_tuple__25);
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_max_pooli_2, __pyx_n_s_set_delta_weight_arr, 133, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 133, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":139
+ *     delta_weight_arr = property(get_delta_weight_arr, set_delta_weight_arr)
  * 
  *     def get_delta_bias_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__delta_bias_arr
  */
-  __pyx_tuple__25 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 135, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__25);
-  __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_max_pooli_2, __pyx_n_s_get_delta_bias_arr, 135, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __pyx_tuple__27 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 139, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__27);
+  __Pyx_GIVEREF(__pyx_tuple__27);
+  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_max_pooli_2, __pyx_n_s_get_delta_bias_arr, 139, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 139, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":143
+ *         return self.__delta_bias_arr
+ * 
+ *     def set_delta_bias_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__delta_bias_arr = value
+ */
+  __pyx_tuple__29 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__29);
+  __Pyx_GIVEREF(__pyx_tuple__29);
+  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_max_pooli_2, __pyx_n_s_set_delta_bias_arr, 143, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 143, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -7308,7 +7560,19 @@ static int __pyx_pymod_exec_max_pooling_layer(PyObject *__pyx_pyinit_module)
   /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":133
  *         return self.__delta_weight_arr
  * 
- *     delta_weight_arr = property(get_delta_weight_arr, set_readonly)             # <<<<<<<<<<<<<<
+ *     def set_delta_weight_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__delta_weight_arr = value
+ */
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_13set_delta_weight_arr, 0, __pyx_n_s_MaxPoolingLayer_set_delta_weight, NULL, __pyx_n_s_pydbm_cnn_layerablecnn_max_pooli, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_delta_weight_arr, __pyx_t_6) < 0) __PYX_ERR(0, 133, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+
+  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":137
+ *         self.__delta_weight_arr = value
+ * 
+ *     delta_weight_arr = property(get_delta_weight_arr, set_delta_weight_arr)             # <<<<<<<<<<<<<<
  * 
  *     def get_delta_bias_arr(self):
  */
@@ -7317,16 +7581,16 @@ static int __pyx_pymod_exec_max_pooling_layer(PyObject *__pyx_pyinit_module)
     PyErr_Clear();
     __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_delta_weight_arr);
   }
-  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 133, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_4 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_readonly);
+  __pyx_t_4 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_delta_weight_arr);
   if (unlikely(!__pyx_t_4)) {
     PyErr_Clear();
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_readonly);
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_delta_weight_arr);
   }
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 133, __pyx_L1_error)
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_6);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_6);
@@ -7334,44 +7598,56 @@ static int __pyx_pymod_exec_max_pooling_layer(PyObject *__pyx_pyinit_module)
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_4);
   __pyx_t_6 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_delta_weight_arr, __pyx_t_4) < 0) __PYX_ERR(0, 133, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_delta_weight_arr, __pyx_t_4) < 0) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":135
- *     delta_weight_arr = property(get_delta_weight_arr, set_readonly)
+  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":139
+ *     delta_weight_arr = property(get_delta_weight_arr, set_delta_weight_arr)
  * 
  *     def get_delta_bias_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__delta_bias_arr
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_13get_delta_bias_arr, 0, __pyx_n_s_MaxPoolingLayer_get_delta_bias_a, NULL, __pyx_n_s_pydbm_cnn_layerablecnn_max_pooli, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_15get_delta_bias_arr, 0, __pyx_n_s_MaxPoolingLayer_get_delta_bias_a, NULL, __pyx_n_s_pydbm_cnn_layerablecnn_max_pooli, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_delta_bias_arr, __pyx_t_4) < 0) __PYX_ERR(0, 135, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_delta_bias_arr, __pyx_t_4) < 0) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":139
+  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":143
  *         return self.__delta_bias_arr
  * 
- *     delta_bias_arr = property(get_delta_bias_arr, set_readonly)             # <<<<<<<<<<<<<<
+ *     def set_delta_bias_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__delta_bias_arr = value
+ */
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_12layerablecnn_17max_pooling_layer_15MaxPoolingLayer_17set_delta_bias_arr, 0, __pyx_n_s_MaxPoolingLayer_set_delta_bias_a, NULL, __pyx_n_s_pydbm_cnn_layerablecnn_max_pooli, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_delta_bias_arr, __pyx_t_4) < 0) __PYX_ERR(0, 143, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":147
+ *         self.__delta_bias_arr = value
+ * 
+ *     delta_bias_arr = property(get_delta_bias_arr, set_delta_bias_arr)             # <<<<<<<<<<<<<<
  */
   __pyx_t_4 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_delta_bias_arr);
   if (unlikely(!__pyx_t_4)) {
     PyErr_Clear();
     __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_delta_bias_arr);
   }
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 139, __pyx_L1_error)
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_readonly);
+  __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_delta_bias_arr);
   if (unlikely(!__pyx_t_5)) {
     PyErr_Clear();
-    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_readonly);
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_delta_bias_arr);
   }
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 139, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 139, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4);
@@ -7379,10 +7655,10 @@ static int __pyx_pymod_exec_max_pooling_layer(PyObject *__pyx_pyinit_module)
   PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_5);
   __pyx_t_4 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 139, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_delta_bias_arr, __pyx_t_5) < 0) __PYX_ERR(0, 139, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_delta_bias_arr, __pyx_t_5) < 0) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
   /* "pydbm/cnn/layerablecnn/max_pooling_layer.pyx":9

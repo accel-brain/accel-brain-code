@@ -1733,7 +1733,9 @@ static const char __pyx_k_result_arr[] = "result_arr";
 static const char __pyx_k_weight_arr[] = "weight_arr";
 static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_delta_arr_2[] = "_delta_arr";
+static const char __pyx_k_get_img_arr[] = "get_img_arr";
 static const char __pyx_k_img_channel[] = "img_channel";
+static const char __pyx_k_set_img_arr[] = "set_img_arr";
 static const char __pyx_k_LayerableCNN[] = "LayerableCNN";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_img_sample_n[] = "img_sample_n";
@@ -1755,18 +1757,26 @@ static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_delta_weight_arr_2[] = "_delta_weight_arr";
 static const char __pyx_k_get_delta_bias_arr[] = "get_delta_bias_arr";
 static const char __pyx_k_pydbm_synapse_list[] = "pydbm.synapse_list";
+static const char __pyx_k_set_delta_bias_arr[] = "set_delta_bias_arr";
 static const char __pyx_k_activation_function[] = "activation_function";
 static const char __pyx_k_reshaped_weight_arr[] = "reshaped_weight_arr";
 static const char __pyx_k_get_delta_weight_arr[] = "get_delta_weight_arr";
+static const char __pyx_k_get_reshaped_img_arr[] = "get_reshaped_img_arr";
+static const char __pyx_k_set_delta_weight_arr[] = "set_delta_weight_arr";
+static const char __pyx_k_set_reshaped_img_arr[] = "set_reshaped_img_arr";
 static const char __pyx_k_ConvolutionLayer__pad[] = "_ConvolutionLayer__pad";
 static const char __pyx_k_delta_reshaped_img_arr[] = "delta_reshaped_img_arr";
 static const char __pyx_k_ConvolutionLayer___init[] = "ConvolutionLayer.__init__";
 static const char __pyx_k_ConvolutionLayer__graph[] = "_ConvolutionLayer__graph";
+static const char __pyx_k_get_reshaped_weight_arr[] = "get_reshaped_weight_arr";
 static const char __pyx_k_pydbm_cnn_layerable_cnn[] = "pydbm.cnn.layerable_cnn";
+static const char __pyx_k_set_reshaped_weight_arr[] = "set_reshaped_weight_arr";
 static const char __pyx_k_ConvolutionLayer__stride[] = "_ConvolutionLayer__stride";
 static const char __pyx_k_ConvolutionLayer__img_arr[] = "_ConvolutionLayer__img_arr";
 static const char __pyx_k_ConvolutionLayer_get_graph[] = "ConvolutionLayer.get_graph";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
+static const char __pyx_k_ConvolutionLayer_get_img_arr[] = "ConvolutionLayer.get_img_arr";
+static const char __pyx_k_ConvolutionLayer_set_img_arr[] = "ConvolutionLayer.set_img_arr";
 static const char __pyx_k_ConvolutionLayer_set_readonly[] = "ConvolutionLayer.set_readonly";
 static const char __pyx_k_ConvolutionLayer__delta_weight[] = "_ConvolutionLayer__delta_weight_arr";
 static const char __pyx_k_ConvolutionLayer__reshaped_img[] = "_ConvolutionLayer__reshaped_img_arr";
@@ -1774,11 +1784,17 @@ static const char __pyx_k_ConvolutionLayer__delta_bias_ar[] = "_ConvolutionLayer
 static const char __pyx_k_ConvolutionLayer__reshaped_weig[] = "_ConvolutionLayer__reshaped_weight_arr";
 static const char __pyx_k_ConvolutionLayer_back_propagate[] = "ConvolutionLayer.back_propagate";
 static const char __pyx_k_ConvolutionLayer_get_delta_bias[] = "ConvolutionLayer.get_delta_bias_arr";
+static const char __pyx_k_ConvolutionLayer_set_delta_bias[] = "ConvolutionLayer.set_delta_bias_arr";
 static const char __pyx_k_This_property_must_be_read_only[] = "This property must be read-only.";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_ConvolutionLayer_forward_propaga[] = "ConvolutionLayer.forward_propagate";
 static const char __pyx_k_ConvolutionLayer_get_delta_weigh[] = "ConvolutionLayer.get_delta_weight_arr";
+static const char __pyx_k_ConvolutionLayer_get_reshaped_im[] = "ConvolutionLayer.get_reshaped_img_arr";
+static const char __pyx_k_ConvolutionLayer_get_reshaped_we[] = "ConvolutionLayer.get_reshaped_weight_arr";
+static const char __pyx_k_ConvolutionLayer_set_delta_weigh[] = "ConvolutionLayer.set_delta_weight_arr";
+static const char __pyx_k_ConvolutionLayer_set_reshaped_im[] = "ConvolutionLayer.set_reshaped_img_arr";
+static const char __pyx_k_ConvolutionLayer_set_reshaped_we[] = "ConvolutionLayer.set_reshaped_weight_arr";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
@@ -1801,7 +1817,15 @@ static PyObject *__pyx_n_s_ConvolutionLayer_forward_propaga;
 static PyObject *__pyx_n_s_ConvolutionLayer_get_delta_bias;
 static PyObject *__pyx_n_s_ConvolutionLayer_get_delta_weigh;
 static PyObject *__pyx_n_s_ConvolutionLayer_get_graph;
+static PyObject *__pyx_n_s_ConvolutionLayer_get_img_arr;
+static PyObject *__pyx_n_s_ConvolutionLayer_get_reshaped_im;
+static PyObject *__pyx_n_s_ConvolutionLayer_get_reshaped_we;
+static PyObject *__pyx_n_s_ConvolutionLayer_set_delta_bias;
+static PyObject *__pyx_n_s_ConvolutionLayer_set_delta_weigh;
+static PyObject *__pyx_n_s_ConvolutionLayer_set_img_arr;
 static PyObject *__pyx_n_s_ConvolutionLayer_set_readonly;
+static PyObject *__pyx_n_s_ConvolutionLayer_set_reshaped_im;
+static PyObject *__pyx_n_s_ConvolutionLayer_set_reshaped_we;
 static PyObject *__pyx_kp_s_Convolution_Layer;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
@@ -1838,6 +1862,9 @@ static PyObject *__pyx_n_s_forward_propagate;
 static PyObject *__pyx_n_s_get_delta_bias_arr;
 static PyObject *__pyx_n_s_get_delta_weight_arr;
 static PyObject *__pyx_n_s_get_graph;
+static PyObject *__pyx_n_s_get_img_arr;
+static PyObject *__pyx_n_s_get_reshaped_img_arr;
+static PyObject *__pyx_n_s_get_reshaped_weight_arr;
 static PyObject *__pyx_n_s_graph;
 static PyObject *__pyx_n_s_img_arr;
 static PyObject *__pyx_n_s_img_channel;
@@ -1875,7 +1902,12 @@ static PyObject *__pyx_n_s_result_h;
 static PyObject *__pyx_n_s_result_w;
 static PyObject *__pyx_n_s_sample_n;
 static PyObject *__pyx_n_s_self;
+static PyObject *__pyx_n_s_set_delta_bias_arr;
+static PyObject *__pyx_n_s_set_delta_weight_arr;
+static PyObject *__pyx_n_s_set_img_arr;
 static PyObject *__pyx_n_s_set_readonly;
+static PyObject *__pyx_n_s_set_reshaped_img_arr;
+static PyObject *__pyx_n_s_set_reshaped_weight_arr;
 static PyObject *__pyx_n_s_shape;
 static PyObject *__pyx_n_s_stride;
 static PyObject *__pyx_n_s_sum;
@@ -1889,8 +1921,16 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
 static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_4back_propagate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_delta_arr); /* proto */
 static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_6set_readonly(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_8get_graph(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_10get_delta_weight_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_12get_delta_bias_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_10get_img_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_12set_img_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_14get_reshaped_img_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_16set_reshaped_img_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_18get_reshaped_weight_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_20set_reshaped_weight_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_22get_delta_weight_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_24set_delta_weight_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_26get_delta_bias_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_28set_delta_bias_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_int_0;
@@ -1918,6 +1958,14 @@ static PyObject *__pyx_tuple__20;
 static PyObject *__pyx_tuple__22;
 static PyObject *__pyx_tuple__24;
 static PyObject *__pyx_tuple__26;
+static PyObject *__pyx_tuple__28;
+static PyObject *__pyx_tuple__30;
+static PyObject *__pyx_tuple__32;
+static PyObject *__pyx_tuple__34;
+static PyObject *__pyx_tuple__36;
+static PyObject *__pyx_tuple__38;
+static PyObject *__pyx_tuple__40;
+static PyObject *__pyx_tuple__42;
 static PyObject *__pyx_codeobj__15;
 static PyObject *__pyx_codeobj__17;
 static PyObject *__pyx_codeobj__19;
@@ -1925,6 +1973,14 @@ static PyObject *__pyx_codeobj__21;
 static PyObject *__pyx_codeobj__23;
 static PyObject *__pyx_codeobj__25;
 static PyObject *__pyx_codeobj__27;
+static PyObject *__pyx_codeobj__29;
+static PyObject *__pyx_codeobj__31;
+static PyObject *__pyx_codeobj__33;
+static PyObject *__pyx_codeobj__35;
+static PyObject *__pyx_codeobj__37;
+static PyObject *__pyx_codeobj__39;
+static PyObject *__pyx_codeobj__41;
+static PyObject *__pyx_codeobj__43;
 
 /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":20
  *     __delta_bias_arr = np.array([[]])
@@ -3123,7 +3179,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
   PyArrayObject *__pyx_v__delta_arr = 0;
   PyArrayObject *__pyx_v_delta_bias_arr = 0;
   PyArrayObject *__pyx_v_delta_weight_arr = 0;
-  CYTHON_UNUSED PyArrayObject *__pyx_v__delta_weight_arr = 0;
+  PyArrayObject *__pyx_v__delta_weight_arr = 0;
   PyArrayObject *__pyx_v_delta_reshaped_img_arr = 0;
   PyArrayObject *__pyx_v_delta_img_arr = 0;
   __Pyx_LocalBuf_ND __pyx_pybuffernd__delta_arr;
@@ -3840,7 +3896,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
  *             self.__delta_bias_arr += delta_bias_arr
  * 
  *         if self.__delta_weight_arr is None:             # <<<<<<<<<<<<<<
- *             self.__delta_weight_arr = delta_weight_arr.reshape((sample_n, channel, kernel_height, kernel_width))
+ *             self.__delta_weight_arr = _delta_weight_arr
  *         else:
  */
   __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__delta_weight); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 127, __pyx_L1_error)
@@ -3853,248 +3909,106 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
     /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":128
  * 
  *         if self.__delta_weight_arr is None:
- *             self.__delta_weight_arr = delta_weight_arr.reshape((sample_n, channel, kernel_height, kernel_width))             # <<<<<<<<<<<<<<
+ *             self.__delta_weight_arr = _delta_weight_arr             # <<<<<<<<<<<<<<
  *         else:
- *             self.__delta_weight_arr += delta_weight_arr.reshape((sample_n, channel, kernel_height, kernel_width))
+ *             self.__delta_weight_arr += _delta_weight_arr
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_delta_weight_arr), __pyx_n_s_reshape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 128, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_sample_n); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 128, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_16);
-    __pyx_t_14 = __Pyx_PyInt_From_int(__pyx_v_channel); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 128, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_14);
-    __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_kernel_height); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_kernel_width); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 128, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = PyTuple_New(4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 128, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_GIVEREF(__pyx_t_16);
-    PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_16);
-    __Pyx_GIVEREF(__pyx_t_14);
-    PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_14);
-    __Pyx_GIVEREF(__pyx_t_1);
-    PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_t_1);
-    __Pyx_GIVEREF(__pyx_t_4);
-    PyTuple_SET_ITEM(__pyx_t_3, 3, __pyx_t_4);
-    __pyx_t_16 = 0;
-    __pyx_t_14 = 0;
-    __pyx_t_1 = 0;
-    __pyx_t_4 = 0;
-    __pyx_t_4 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
-      if (likely(__pyx_t_4)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-        __Pyx_INCREF(__pyx_t_4);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_2, function);
-      }
-    }
-    if (!__pyx_t_4) {
-      __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 128, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_GOTREF(__pyx_t_10);
-    } else {
-      #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_2)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_3};
-        __pyx_t_10 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 128, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __Pyx_GOTREF(__pyx_t_10);
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      } else
-      #endif
-      #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_3};
-        __pyx_t_10 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 128, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __Pyx_GOTREF(__pyx_t_10);
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      } else
-      #endif
-      {
-        __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_4); __pyx_t_4 = NULL;
-        __Pyx_GIVEREF(__pyx_t_3);
-        PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_3);
-        __pyx_t_3 = 0;
-        __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 128, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_10);
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      }
-    }
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__delta_weight, __pyx_t_10) < 0) __PYX_ERR(0, 128, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__delta_weight, ((PyObject *)__pyx_v__delta_weight_arr)) < 0) __PYX_ERR(0, 128, __pyx_L1_error)
 
     /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":127
  *             self.__delta_bias_arr += delta_bias_arr
  * 
  *         if self.__delta_weight_arr is None:             # <<<<<<<<<<<<<<
- *             self.__delta_weight_arr = delta_weight_arr.reshape((sample_n, channel, kernel_height, kernel_width))
+ *             self.__delta_weight_arr = _delta_weight_arr
  *         else:
  */
     goto __pyx_L4;
   }
 
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":130
- *             self.__delta_weight_arr = delta_weight_arr.reshape((sample_n, channel, kernel_height, kernel_width))
+ *             self.__delta_weight_arr = _delta_weight_arr
  *         else:
- *             self.__delta_weight_arr += delta_weight_arr.reshape((sample_n, channel, kernel_height, kernel_width))             # <<<<<<<<<<<<<<
+ *             self.__delta_weight_arr += _delta_weight_arr             # <<<<<<<<<<<<<<
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=2] delta_reshaped_img_arr = np.dot(_delta_arr, self.__reshaped_weight_arr.T)
  */
   /*else*/ {
     __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__delta_weight); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 130, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_delta_weight_arr), __pyx_n_s_reshape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 130, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_sample_n); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 130, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_channel); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 130, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_14 = __Pyx_PyInt_From_int(__pyx_v_kernel_height); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 130, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_14);
-    __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_kernel_width); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 130, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_16);
-    __pyx_t_15 = PyTuple_New(4); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 130, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_15);
-    __Pyx_GIVEREF(__pyx_t_3);
-    PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_t_3);
-    __Pyx_GIVEREF(__pyx_t_4);
-    PyTuple_SET_ITEM(__pyx_t_15, 1, __pyx_t_4);
-    __Pyx_GIVEREF(__pyx_t_14);
-    PyTuple_SET_ITEM(__pyx_t_15, 2, __pyx_t_14);
-    __Pyx_GIVEREF(__pyx_t_16);
-    PyTuple_SET_ITEM(__pyx_t_15, 3, __pyx_t_16);
-    __pyx_t_3 = 0;
-    __pyx_t_4 = 0;
-    __pyx_t_14 = 0;
-    __pyx_t_16 = 0;
-    __pyx_t_16 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
-      __pyx_t_16 = PyMethod_GET_SELF(__pyx_t_1);
-      if (likely(__pyx_t_16)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-        __Pyx_INCREF(__pyx_t_16);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_1, function);
-      }
-    }
-    if (!__pyx_t_16) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_15); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 130, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-      __Pyx_GOTREF(__pyx_t_2);
-    } else {
-      #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_1)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_16, __pyx_t_15};
-        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 130, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-      } else
-      #endif
-      #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_16, __pyx_t_15};
-        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 130, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-      } else
-      #endif
-      {
-        __pyx_t_14 = PyTuple_New(1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 130, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_14);
-        __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_16); __pyx_t_16 = NULL;
-        __Pyx_GIVEREF(__pyx_t_15);
-        PyTuple_SET_ITEM(__pyx_t_14, 0+1, __pyx_t_15);
-        __pyx_t_15 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_14, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 130, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-      }
-    }
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_t_10, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 130, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_10, ((PyObject *)__pyx_v__delta_weight_arr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 130, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__delta_weight, __pyx_t_2) < 0) __PYX_ERR(0, 130, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__delta_weight, __pyx_t_1) < 0) __PYX_ERR(0, 130, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
   __pyx_L4:;
 
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":132
- *             self.__delta_weight_arr += delta_weight_arr.reshape((sample_n, channel, kernel_height, kernel_width))
+ *             self.__delta_weight_arr += _delta_weight_arr
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=2] delta_reshaped_img_arr = np.dot(_delta_arr, self.__reshaped_weight_arr.T)             # <<<<<<<<<<<<<<
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_img_arr = self.affine_to_img(
  *             delta_reshaped_img_arr,
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_dot); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__reshaped_weig); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_T); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_dot); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_16);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__reshaped_weig); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_T); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = NULL;
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = NULL;
   __pyx_t_6 = 0;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_10))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_10);
-    if (likely(__pyx_t_2)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
-      __Pyx_INCREF(__pyx_t_2);
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_16))) {
+    __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_16);
+    if (likely(__pyx_t_10)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_16);
+      __Pyx_INCREF(__pyx_t_10);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_10, function);
+      __Pyx_DECREF_SET(__pyx_t_16, function);
       __pyx_t_6 = 1;
     }
   }
   #if CYTHON_FAST_PYCALL
-  if (PyFunction_Check(__pyx_t_10)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_2, ((PyObject *)__pyx_v__delta_arr), __pyx_t_14};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
+  if (PyFunction_Check(__pyx_t_16)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_10, ((PyObject *)__pyx_v__delta_arr), __pyx_t_14};
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
-  if (__Pyx_PyFastCFunction_Check(__pyx_t_10)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_2, ((PyObject *)__pyx_v__delta_arr), __pyx_t_14};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_16)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_10, ((PyObject *)__pyx_v__delta_arr), __pyx_t_14};
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   } else
   #endif
   {
-    __pyx_t_15 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 132, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_15);
-    if (__pyx_t_2) {
-      __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_t_2); __pyx_t_2 = NULL;
+    __pyx_t_1 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    if (__pyx_t_10) {
+      __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_10); __pyx_t_10 = NULL;
     }
     __Pyx_INCREF(((PyObject *)__pyx_v__delta_arr));
     __Pyx_GIVEREF(((PyObject *)__pyx_v__delta_arr));
-    PyTuple_SET_ITEM(__pyx_t_15, 0+__pyx_t_6, ((PyObject *)__pyx_v__delta_arr));
+    PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_6, ((PyObject *)__pyx_v__delta_arr));
     __Pyx_GIVEREF(__pyx_t_14);
-    PyTuple_SET_ITEM(__pyx_t_15, 1+__pyx_t_6, __pyx_t_14);
+    PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_6, __pyx_t_14);
     __pyx_t_14 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_15, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
-  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 132, __pyx_L1_error)
-  __pyx_t_20 = ((PyArrayObject *)__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_20 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_reshaped_img_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_20, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_12layerablecnn_17convolution_layer_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
@@ -4104,8 +4018,8 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
     }
   }
   __pyx_t_20 = 0;
-  __pyx_v_delta_reshaped_img_arr = ((PyArrayObject *)__pyx_t_1);
-  __pyx_t_1 = 0;
+  __pyx_v_delta_reshaped_img_arr = ((PyArrayObject *)__pyx_t_2);
+  __pyx_t_2 = 0;
 
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":133
  * 
@@ -4114,8 +4028,8 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
  *             delta_reshaped_img_arr,
  *             self.__img_arr,
  */
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_affine_to_img); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 133, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_affine_to_img); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_16);
 
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":135
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_img_arr = self.affine_to_img(
@@ -4124,8 +4038,8 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
  *             kernel_height,
  *             kernel_width,
  */
-  __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__img_arr); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 135, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_15);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__img_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
 
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":136
  *             delta_reshaped_img_arr,
@@ -4144,8 +4058,8 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
  *             self.__stride,
  *             self.__pad
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_kernel_width); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_10 = __Pyx_PyInt_From_int(__pyx_v_kernel_width); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 137, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
 
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":138
  *             kernel_height,
@@ -4154,8 +4068,8 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
  *             self.__pad
  *         )
  */
-  __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__stride); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 138, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_16);
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__stride); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
 
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":139
  *             kernel_width,
@@ -4164,75 +4078,75 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
  *         )
  *         return delta_img_arr
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__pad); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 139, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = NULL;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__pad); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 139, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_15 = NULL;
   __pyx_t_6 = 0;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_10))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_10);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
-      __Pyx_INCREF(__pyx_t_3);
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_16))) {
+    __pyx_t_15 = PyMethod_GET_SELF(__pyx_t_16);
+    if (likely(__pyx_t_15)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_16);
+      __Pyx_INCREF(__pyx_t_15);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_10, function);
+      __Pyx_DECREF_SET(__pyx_t_16, function);
       __pyx_t_6 = 1;
     }
   }
   #if CYTHON_FAST_PYCALL
-  if (PyFunction_Check(__pyx_t_10)) {
-    PyObject *__pyx_temp[7] = {__pyx_t_3, ((PyObject *)__pyx_v_delta_reshaped_img_arr), __pyx_t_15, __pyx_t_14, __pyx_t_2, __pyx_t_16, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_6, 6+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+  if (PyFunction_Check(__pyx_t_16)) {
+    PyObject *__pyx_temp[7] = {__pyx_t_15, ((PyObject *)__pyx_v_delta_reshaped_img_arr), __pyx_t_1, __pyx_t_14, __pyx_t_10, __pyx_t_4, __pyx_t_3};
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_6, 6+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
-  if (__Pyx_PyFastCFunction_Check(__pyx_t_10)) {
-    PyObject *__pyx_temp[7] = {__pyx_t_3, ((PyObject *)__pyx_v_delta_reshaped_img_arr), __pyx_t_15, __pyx_t_14, __pyx_t_2, __pyx_t_16, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_6, 6+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_16)) {
+    PyObject *__pyx_temp[7] = {__pyx_t_15, ((PyObject *)__pyx_v_delta_reshaped_img_arr), __pyx_t_1, __pyx_t_14, __pyx_t_10, __pyx_t_4, __pyx_t_3};
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_16, __pyx_temp+1-__pyx_t_6, 6+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else
   #endif
   {
     __pyx_t_21 = PyTuple_New(6+__pyx_t_6); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 133, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_21);
-    if (__pyx_t_3) {
-      __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_21, 0, __pyx_t_3); __pyx_t_3 = NULL;
+    if (__pyx_t_15) {
+      __Pyx_GIVEREF(__pyx_t_15); PyTuple_SET_ITEM(__pyx_t_21, 0, __pyx_t_15); __pyx_t_15 = NULL;
     }
     __Pyx_INCREF(((PyObject *)__pyx_v_delta_reshaped_img_arr));
     __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_reshaped_img_arr));
     PyTuple_SET_ITEM(__pyx_t_21, 0+__pyx_t_6, ((PyObject *)__pyx_v_delta_reshaped_img_arr));
-    __Pyx_GIVEREF(__pyx_t_15);
-    PyTuple_SET_ITEM(__pyx_t_21, 1+__pyx_t_6, __pyx_t_15);
+    __Pyx_GIVEREF(__pyx_t_1);
+    PyTuple_SET_ITEM(__pyx_t_21, 1+__pyx_t_6, __pyx_t_1);
     __Pyx_GIVEREF(__pyx_t_14);
     PyTuple_SET_ITEM(__pyx_t_21, 2+__pyx_t_6, __pyx_t_14);
-    __Pyx_GIVEREF(__pyx_t_2);
-    PyTuple_SET_ITEM(__pyx_t_21, 3+__pyx_t_6, __pyx_t_2);
-    __Pyx_GIVEREF(__pyx_t_16);
-    PyTuple_SET_ITEM(__pyx_t_21, 4+__pyx_t_6, __pyx_t_16);
+    __Pyx_GIVEREF(__pyx_t_10);
+    PyTuple_SET_ITEM(__pyx_t_21, 3+__pyx_t_6, __pyx_t_10);
     __Pyx_GIVEREF(__pyx_t_4);
-    PyTuple_SET_ITEM(__pyx_t_21, 5+__pyx_t_6, __pyx_t_4);
-    __pyx_t_15 = 0;
+    PyTuple_SET_ITEM(__pyx_t_21, 4+__pyx_t_6, __pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_21, 5+__pyx_t_6, __pyx_t_3);
+    __pyx_t_1 = 0;
     __pyx_t_14 = 0;
-    __pyx_t_2 = 0;
-    __pyx_t_16 = 0;
+    __pyx_t_10 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_21, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = 0;
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_t_21, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
   }
-  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
 
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":133
  * 
@@ -4241,8 +4155,8 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
  *             delta_reshaped_img_arr,
  *             self.__img_arr,
  */
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 133, __pyx_L1_error)
-  __pyx_t_22 = ((PyArrayObject *)__pyx_t_1);
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_22 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_img_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_22, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_12layerablecnn_17convolution_layer_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
@@ -4252,8 +4166,8 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
     }
   }
   __pyx_t_22 = 0;
-  __pyx_v_delta_img_arr = ((PyArrayObject *)__pyx_t_1);
-  __pyx_t_1 = 0;
+  __pyx_v_delta_img_arr = ((PyArrayObject *)__pyx_t_2);
+  __pyx_t_2 = 0;
 
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":141
  *             self.__pad
@@ -4495,41 +4409,41 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
 /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":153
  *     graph = property(get_graph, set_readonly)
  * 
- *     def get_delta_weight_arr(self):             # <<<<<<<<<<<<<<
+ *     def get_img_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         return self.__delta_weight_arr
+ *         return self.__img_arr
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_11get_delta_weight_arr(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_10get_delta_weight_arr[] = " getter ";
-static PyMethodDef __pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_11get_delta_weight_arr = {"get_delta_weight_arr", (PyCFunction)__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_11get_delta_weight_arr, METH_O, __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_10get_delta_weight_arr};
-static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_11get_delta_weight_arr(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_11get_img_arr(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_10get_img_arr[] = " getter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_11get_img_arr = {"get_img_arr", (PyCFunction)__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_11get_img_arr, METH_O, __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_10get_img_arr};
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_11get_img_arr(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("get_delta_weight_arr (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_10get_delta_weight_arr(__pyx_self, ((PyObject *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("get_img_arr (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_10get_img_arr(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_10get_delta_weight_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_10get_img_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  __Pyx_RefNannySetupContext("get_delta_weight_arr", 0);
+  __Pyx_RefNannySetupContext("get_img_arr", 0);
 
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":155
- *     def get_delta_weight_arr(self):
+ *     def get_img_arr(self):
  *         ''' getter '''
- *         return self.__delta_weight_arr             # <<<<<<<<<<<<<<
+ *         return self.__img_arr             # <<<<<<<<<<<<<<
  * 
- *     delta_weight_arr = property(get_delta_weight_arr, set_readonly)
+ *     def set_img_arr(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__delta_weight); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__img_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4537,6 +4451,507 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
 
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":153
  *     graph = property(get_graph, set_readonly)
+ * 
+ *     def get_img_arr(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__img_arr
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.convolution_layer.ConvolutionLayer.get_img_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/cnn/layerablecnn/convolution_layer.pyx":157
+ *         return self.__img_arr
+ * 
+ *     def set_img_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__img_arr = value
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_13set_img_arr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_12set_img_arr[] = " setter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_13set_img_arr = {"set_img_arr", (PyCFunction)__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_13set_img_arr, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_12set_img_arr};
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_13set_img_arr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_self = 0;
+  PyObject *__pyx_v_value = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_img_arr (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_value,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("set_img_arr", 1, 2, 2, 1); __PYX_ERR(0, 157, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_img_arr") < 0)) __PYX_ERR(0, 157, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_self = values[0];
+    __pyx_v_value = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("set_img_arr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 157, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.convolution_layer.ConvolutionLayer.set_img_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_12set_img_arr(__pyx_self, __pyx_v_self, __pyx_v_value);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_12set_img_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_img_arr", 0);
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":159
+ *     def set_img_arr(self, value):
+ *         ''' setter '''
+ *         self.__img_arr = value             # <<<<<<<<<<<<<<
+ * 
+ *     img_arr = property(get_img_arr, set_img_arr)
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__img_arr, __pyx_v_value) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":157
+ *         return self.__img_arr
+ * 
+ *     def set_img_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__img_arr = value
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.convolution_layer.ConvolutionLayer.set_img_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/cnn/layerablecnn/convolution_layer.pyx":163
+ *     img_arr = property(get_img_arr, set_img_arr)
+ * 
+ *     def get_reshaped_img_arr(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__reshaped_img_arr
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_15get_reshaped_img_arr(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_14get_reshaped_img_arr[] = " getter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_15get_reshaped_img_arr = {"get_reshaped_img_arr", (PyCFunction)__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_15get_reshaped_img_arr, METH_O, __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_14get_reshaped_img_arr};
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_15get_reshaped_img_arr(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_reshaped_img_arr (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_14get_reshaped_img_arr(__pyx_self, ((PyObject *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_14get_reshaped_img_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("get_reshaped_img_arr", 0);
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":165
+ *     def get_reshaped_img_arr(self):
+ *         ''' getter '''
+ *         return self.__reshaped_img_arr             # <<<<<<<<<<<<<<
+ * 
+ *     def set_reshaped_img_arr(self, value):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__reshaped_img); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":163
+ *     img_arr = property(get_img_arr, set_img_arr)
+ * 
+ *     def get_reshaped_img_arr(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__reshaped_img_arr
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.convolution_layer.ConvolutionLayer.get_reshaped_img_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/cnn/layerablecnn/convolution_layer.pyx":167
+ *         return self.__reshaped_img_arr
+ * 
+ *     def set_reshaped_img_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__reshaped_img_arr = value
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_17set_reshaped_img_arr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_16set_reshaped_img_arr[] = " setter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_17set_reshaped_img_arr = {"set_reshaped_img_arr", (PyCFunction)__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_17set_reshaped_img_arr, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_16set_reshaped_img_arr};
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_17set_reshaped_img_arr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_self = 0;
+  PyObject *__pyx_v_value = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_reshaped_img_arr (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_value,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("set_reshaped_img_arr", 1, 2, 2, 1); __PYX_ERR(0, 167, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_reshaped_img_arr") < 0)) __PYX_ERR(0, 167, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_self = values[0];
+    __pyx_v_value = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("set_reshaped_img_arr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 167, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.convolution_layer.ConvolutionLayer.set_reshaped_img_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_16set_reshaped_img_arr(__pyx_self, __pyx_v_self, __pyx_v_value);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_16set_reshaped_img_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_reshaped_img_arr", 0);
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":169
+ *     def set_reshaped_img_arr(self, value):
+ *         ''' setter '''
+ *         self.__reshaped_img_arr = value             # <<<<<<<<<<<<<<
+ * 
+ *     reshaped_img_arr = property(get_reshaped_img_arr, set_reshaped_img_arr)
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__reshaped_img, __pyx_v_value) < 0) __PYX_ERR(0, 169, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":167
+ *         return self.__reshaped_img_arr
+ * 
+ *     def set_reshaped_img_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__reshaped_img_arr = value
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.convolution_layer.ConvolutionLayer.set_reshaped_img_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/cnn/layerablecnn/convolution_layer.pyx":173
+ *     reshaped_img_arr = property(get_reshaped_img_arr, set_reshaped_img_arr)
+ * 
+ *     def get_reshaped_weight_arr(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__reshaped_weight_arr
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_19get_reshaped_weight_arr(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_18get_reshaped_weight_arr[] = " getter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_19get_reshaped_weight_arr = {"get_reshaped_weight_arr", (PyCFunction)__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_19get_reshaped_weight_arr, METH_O, __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_18get_reshaped_weight_arr};
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_19get_reshaped_weight_arr(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_reshaped_weight_arr (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_18get_reshaped_weight_arr(__pyx_self, ((PyObject *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_18get_reshaped_weight_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("get_reshaped_weight_arr", 0);
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":175
+ *     def get_reshaped_weight_arr(self):
+ *         ''' getter '''
+ *         return self.__reshaped_weight_arr             # <<<<<<<<<<<<<<
+ * 
+ *     def set_reshaped_weight_arr(self, value):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__reshaped_weig); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 175, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":173
+ *     reshaped_img_arr = property(get_reshaped_img_arr, set_reshaped_img_arr)
+ * 
+ *     def get_reshaped_weight_arr(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__reshaped_weight_arr
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.convolution_layer.ConvolutionLayer.get_reshaped_weight_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/cnn/layerablecnn/convolution_layer.pyx":177
+ *         return self.__reshaped_weight_arr
+ * 
+ *     def set_reshaped_weight_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__reshaped_weight_arr = value
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_21set_reshaped_weight_arr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_20set_reshaped_weight_arr[] = " setter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_21set_reshaped_weight_arr = {"set_reshaped_weight_arr", (PyCFunction)__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_21set_reshaped_weight_arr, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_20set_reshaped_weight_arr};
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_21set_reshaped_weight_arr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_self = 0;
+  PyObject *__pyx_v_value = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_reshaped_weight_arr (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_value,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("set_reshaped_weight_arr", 1, 2, 2, 1); __PYX_ERR(0, 177, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_reshaped_weight_arr") < 0)) __PYX_ERR(0, 177, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_self = values[0];
+    __pyx_v_value = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("set_reshaped_weight_arr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 177, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.convolution_layer.ConvolutionLayer.set_reshaped_weight_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_20set_reshaped_weight_arr(__pyx_self, __pyx_v_self, __pyx_v_value);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_20set_reshaped_weight_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_reshaped_weight_arr", 0);
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":179
+ *     def set_reshaped_weight_arr(self, value):
+ *         ''' setter '''
+ *         self.__reshaped_weight_arr = value             # <<<<<<<<<<<<<<
+ * 
+ *     reshaped_weight_arr = property(get_reshaped_weight_arr, set_reshaped_weight_arr)
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__reshaped_weig, __pyx_v_value) < 0) __PYX_ERR(0, 179, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":177
+ *         return self.__reshaped_weight_arr
+ * 
+ *     def set_reshaped_weight_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__reshaped_weight_arr = value
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.convolution_layer.ConvolutionLayer.set_reshaped_weight_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/cnn/layerablecnn/convolution_layer.pyx":183
+ *     reshaped_weight_arr = property(get_reshaped_weight_arr, set_reshaped_weight_arr)
+ * 
+ *     def get_delta_weight_arr(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__delta_weight_arr
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_23get_delta_weight_arr(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_22get_delta_weight_arr[] = " getter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_23get_delta_weight_arr = {"get_delta_weight_arr", (PyCFunction)__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_23get_delta_weight_arr, METH_O, __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_22get_delta_weight_arr};
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_23get_delta_weight_arr(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_delta_weight_arr (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_22get_delta_weight_arr(__pyx_self, ((PyObject *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_22get_delta_weight_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("get_delta_weight_arr", 0);
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":185
+ *     def get_delta_weight_arr(self):
+ *         ''' getter '''
+ *         return self.__delta_weight_arr             # <<<<<<<<<<<<<<
+ * 
+ *     def set_delta_weight_arr(self, value):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__delta_weight); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 185, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":183
+ *     reshaped_weight_arr = property(get_reshaped_weight_arr, set_reshaped_weight_arr)
  * 
  *     def get_delta_weight_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
@@ -4554,8 +4969,113 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
   return __pyx_r;
 }
 
-/* "pydbm/cnn/layerablecnn/convolution_layer.pyx":159
- *     delta_weight_arr = property(get_delta_weight_arr, set_readonly)
+/* "pydbm/cnn/layerablecnn/convolution_layer.pyx":187
+ *         return self.__delta_weight_arr
+ * 
+ *     def set_delta_weight_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__delta_weight_arr = value
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_25set_delta_weight_arr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_24set_delta_weight_arr[] = " setter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_25set_delta_weight_arr = {"set_delta_weight_arr", (PyCFunction)__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_25set_delta_weight_arr, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_24set_delta_weight_arr};
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_25set_delta_weight_arr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_self = 0;
+  PyObject *__pyx_v_value = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_delta_weight_arr (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_value,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("set_delta_weight_arr", 1, 2, 2, 1); __PYX_ERR(0, 187, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_delta_weight_arr") < 0)) __PYX_ERR(0, 187, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_self = values[0];
+    __pyx_v_value = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("set_delta_weight_arr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 187, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.convolution_layer.ConvolutionLayer.set_delta_weight_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_24set_delta_weight_arr(__pyx_self, __pyx_v_self, __pyx_v_value);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_24set_delta_weight_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_delta_weight_arr", 0);
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":189
+ *     def set_delta_weight_arr(self, value):
+ *         ''' setter '''
+ *         self.__delta_weight_arr = value             # <<<<<<<<<<<<<<
+ * 
+ *     delta_weight_arr = property(get_delta_weight_arr, set_delta_weight_arr)
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__delta_weight, __pyx_v_value) < 0) __PYX_ERR(0, 189, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":187
+ *         return self.__delta_weight_arr
+ * 
+ *     def set_delta_weight_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__delta_weight_arr = value
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.convolution_layer.ConvolutionLayer.set_delta_weight_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/cnn/layerablecnn/convolution_layer.pyx":193
+ *     delta_weight_arr = property(get_delta_weight_arr, set_delta_weight_arr)
  * 
  *     def get_delta_bias_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
@@ -4563,42 +5083,42 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_13get_delta_bias_arr(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_12get_delta_bias_arr[] = " getter ";
-static PyMethodDef __pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_13get_delta_bias_arr = {"get_delta_bias_arr", (PyCFunction)__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_13get_delta_bias_arr, METH_O, __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_12get_delta_bias_arr};
-static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_13get_delta_bias_arr(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_27get_delta_bias_arr(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_26get_delta_bias_arr[] = " getter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_27get_delta_bias_arr = {"get_delta_bias_arr", (PyCFunction)__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_27get_delta_bias_arr, METH_O, __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_26get_delta_bias_arr};
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_27get_delta_bias_arr(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_delta_bias_arr (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_12get_delta_bias_arr(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_26get_delta_bias_arr(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_12get_delta_bias_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_26get_delta_bias_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_delta_bias_arr", 0);
 
-  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":161
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":195
  *     def get_delta_bias_arr(self):
  *         ''' getter '''
  *         return self.__delta_bias_arr             # <<<<<<<<<<<<<<
  * 
- *     delta_bias_arr = property(get_delta_bias_arr, set_readonly)
+ *     def set_delta_bias_arr(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__delta_bias_ar); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__delta_bias_ar); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":159
- *     delta_weight_arr = property(get_delta_weight_arr, set_readonly)
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":193
+ *     delta_weight_arr = property(get_delta_weight_arr, set_delta_weight_arr)
  * 
  *     def get_delta_bias_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
@@ -4609,6 +5129,111 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_AddTraceback("pydbm.cnn.layerablecnn.convolution_layer.ConvolutionLayer.get_delta_bias_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/cnn/layerablecnn/convolution_layer.pyx":197
+ *         return self.__delta_bias_arr
+ * 
+ *     def set_delta_bias_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__delta_bias_arr = value
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_29set_delta_bias_arr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_28set_delta_bias_arr[] = " setter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_29set_delta_bias_arr = {"set_delta_bias_arr", (PyCFunction)__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_29set_delta_bias_arr, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_28set_delta_bias_arr};
+static PyObject *__pyx_pw_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_29set_delta_bias_arr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_self = 0;
+  PyObject *__pyx_v_value = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_delta_bias_arr (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_value,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("set_delta_bias_arr", 1, 2, 2, 1); __PYX_ERR(0, 197, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_delta_bias_arr") < 0)) __PYX_ERR(0, 197, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_self = values[0];
+    __pyx_v_value = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("set_delta_bias_arr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 197, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.convolution_layer.ConvolutionLayer.set_delta_bias_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_28set_delta_bias_arr(__pyx_self, __pyx_v_self, __pyx_v_value);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_28set_delta_bias_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_delta_bias_arr", 0);
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":199
+ *     def set_delta_bias_arr(self, value):
+ *         ''' setter '''
+ *         self.__delta_bias_arr = value             # <<<<<<<<<<<<<<
+ * 
+ *     delta_bias_arr = property(get_delta_bias_arr, set_delta_bias_arr)
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionLayer__delta_bias_ar, __pyx_v_value) < 0) __PYX_ERR(0, 199, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":197
+ *         return self.__delta_bias_arr
+ * 
+ *     def set_delta_bias_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__delta_bias_arr = value
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("pydbm.cnn.layerablecnn.convolution_layer.ConvolutionLayer.set_delta_bias_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7250,7 +7875,15 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ConvolutionLayer_get_delta_bias, __pyx_k_ConvolutionLayer_get_delta_bias, sizeof(__pyx_k_ConvolutionLayer_get_delta_bias), 0, 0, 1, 1},
   {&__pyx_n_s_ConvolutionLayer_get_delta_weigh, __pyx_k_ConvolutionLayer_get_delta_weigh, sizeof(__pyx_k_ConvolutionLayer_get_delta_weigh), 0, 0, 1, 1},
   {&__pyx_n_s_ConvolutionLayer_get_graph, __pyx_k_ConvolutionLayer_get_graph, sizeof(__pyx_k_ConvolutionLayer_get_graph), 0, 0, 1, 1},
+  {&__pyx_n_s_ConvolutionLayer_get_img_arr, __pyx_k_ConvolutionLayer_get_img_arr, sizeof(__pyx_k_ConvolutionLayer_get_img_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_ConvolutionLayer_get_reshaped_im, __pyx_k_ConvolutionLayer_get_reshaped_im, sizeof(__pyx_k_ConvolutionLayer_get_reshaped_im), 0, 0, 1, 1},
+  {&__pyx_n_s_ConvolutionLayer_get_reshaped_we, __pyx_k_ConvolutionLayer_get_reshaped_we, sizeof(__pyx_k_ConvolutionLayer_get_reshaped_we), 0, 0, 1, 1},
+  {&__pyx_n_s_ConvolutionLayer_set_delta_bias, __pyx_k_ConvolutionLayer_set_delta_bias, sizeof(__pyx_k_ConvolutionLayer_set_delta_bias), 0, 0, 1, 1},
+  {&__pyx_n_s_ConvolutionLayer_set_delta_weigh, __pyx_k_ConvolutionLayer_set_delta_weigh, sizeof(__pyx_k_ConvolutionLayer_set_delta_weigh), 0, 0, 1, 1},
+  {&__pyx_n_s_ConvolutionLayer_set_img_arr, __pyx_k_ConvolutionLayer_set_img_arr, sizeof(__pyx_k_ConvolutionLayer_set_img_arr), 0, 0, 1, 1},
   {&__pyx_n_s_ConvolutionLayer_set_readonly, __pyx_k_ConvolutionLayer_set_readonly, sizeof(__pyx_k_ConvolutionLayer_set_readonly), 0, 0, 1, 1},
+  {&__pyx_n_s_ConvolutionLayer_set_reshaped_im, __pyx_k_ConvolutionLayer_set_reshaped_im, sizeof(__pyx_k_ConvolutionLayer_set_reshaped_im), 0, 0, 1, 1},
+  {&__pyx_n_s_ConvolutionLayer_set_reshaped_we, __pyx_k_ConvolutionLayer_set_reshaped_we, sizeof(__pyx_k_ConvolutionLayer_set_reshaped_we), 0, 0, 1, 1},
   {&__pyx_kp_s_Convolution_Layer, __pyx_k_Convolution_Layer, sizeof(__pyx_k_Convolution_Layer), 0, 0, 1, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
@@ -7287,6 +7920,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_get_delta_bias_arr, __pyx_k_get_delta_bias_arr, sizeof(__pyx_k_get_delta_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_get_delta_weight_arr, __pyx_k_get_delta_weight_arr, sizeof(__pyx_k_get_delta_weight_arr), 0, 0, 1, 1},
   {&__pyx_n_s_get_graph, __pyx_k_get_graph, sizeof(__pyx_k_get_graph), 0, 0, 1, 1},
+  {&__pyx_n_s_get_img_arr, __pyx_k_get_img_arr, sizeof(__pyx_k_get_img_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_get_reshaped_img_arr, __pyx_k_get_reshaped_img_arr, sizeof(__pyx_k_get_reshaped_img_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_get_reshaped_weight_arr, __pyx_k_get_reshaped_weight_arr, sizeof(__pyx_k_get_reshaped_weight_arr), 0, 0, 1, 1},
   {&__pyx_n_s_graph, __pyx_k_graph, sizeof(__pyx_k_graph), 0, 0, 1, 1},
   {&__pyx_n_s_img_arr, __pyx_k_img_arr, sizeof(__pyx_k_img_arr), 0, 0, 1, 1},
   {&__pyx_n_s_img_channel, __pyx_k_img_channel, sizeof(__pyx_k_img_channel), 0, 0, 1, 1},
@@ -7324,7 +7960,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_result_w, __pyx_k_result_w, sizeof(__pyx_k_result_w), 0, 0, 1, 1},
   {&__pyx_n_s_sample_n, __pyx_k_sample_n, sizeof(__pyx_k_sample_n), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
+  {&__pyx_n_s_set_delta_bias_arr, __pyx_k_set_delta_bias_arr, sizeof(__pyx_k_set_delta_bias_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_set_delta_weight_arr, __pyx_k_set_delta_weight_arr, sizeof(__pyx_k_set_delta_weight_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_set_img_arr, __pyx_k_set_img_arr, sizeof(__pyx_k_set_img_arr), 0, 0, 1, 1},
   {&__pyx_n_s_set_readonly, __pyx_k_set_readonly, sizeof(__pyx_k_set_readonly), 0, 0, 1, 1},
+  {&__pyx_n_s_set_reshaped_img_arr, __pyx_k_set_reshaped_img_arr, sizeof(__pyx_k_set_reshaped_img_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_set_reshaped_weight_arr, __pyx_k_set_reshaped_weight_arr, sizeof(__pyx_k_set_reshaped_weight_arr), 0, 0, 1, 1},
   {&__pyx_n_s_shape, __pyx_k_shape, sizeof(__pyx_k_shape), 0, 0, 1, 1},
   {&__pyx_n_s_stride, __pyx_k_stride, sizeof(__pyx_k_stride), 0, 0, 1, 1},
   {&__pyx_n_s_sum, __pyx_k_sum, sizeof(__pyx_k_sum), 0, 0, 1, 1},
@@ -7555,26 +8196,122 @@ static int __Pyx_InitCachedConstants(void) {
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":153
  *     graph = property(get_graph, set_readonly)
  * 
- *     def get_delta_weight_arr(self):             # <<<<<<<<<<<<<<
+ *     def get_img_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         return self.__delta_weight_arr
+ *         return self.__img_arr
  */
   __pyx_tuple__24 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
-  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_convoluti_2, __pyx_n_s_get_delta_weight_arr, 153, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 153, __pyx_L1_error)
+  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_convoluti_2, __pyx_n_s_get_img_arr, 153, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 153, __pyx_L1_error)
 
-  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":159
- *     delta_weight_arr = property(get_delta_weight_arr, set_readonly)
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":157
+ *         return self.__img_arr
+ * 
+ *     def set_img_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__img_arr = value
+ */
+  __pyx_tuple__26 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__26);
+  __Pyx_GIVEREF(__pyx_tuple__26);
+  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_convoluti_2, __pyx_n_s_set_img_arr, 157, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 157, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":163
+ *     img_arr = property(get_img_arr, set_img_arr)
+ * 
+ *     def get_reshaped_img_arr(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__reshaped_img_arr
+ */
+  __pyx_tuple__28 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__28);
+  __Pyx_GIVEREF(__pyx_tuple__28);
+  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_convoluti_2, __pyx_n_s_get_reshaped_img_arr, 163, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 163, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":167
+ *         return self.__reshaped_img_arr
+ * 
+ *     def set_reshaped_img_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__reshaped_img_arr = value
+ */
+  __pyx_tuple__30 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__30);
+  __Pyx_GIVEREF(__pyx_tuple__30);
+  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_convoluti_2, __pyx_n_s_set_reshaped_img_arr, 167, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 167, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":173
+ *     reshaped_img_arr = property(get_reshaped_img_arr, set_reshaped_img_arr)
+ * 
+ *     def get_reshaped_weight_arr(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__reshaped_weight_arr
+ */
+  __pyx_tuple__32 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__32);
+  __Pyx_GIVEREF(__pyx_tuple__32);
+  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_convoluti_2, __pyx_n_s_get_reshaped_weight_arr, 173, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(0, 173, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":177
+ *         return self.__reshaped_weight_arr
+ * 
+ *     def set_reshaped_weight_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__reshaped_weight_arr = value
+ */
+  __pyx_tuple__34 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__34);
+  __Pyx_GIVEREF(__pyx_tuple__34);
+  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_convoluti_2, __pyx_n_s_set_reshaped_weight_arr, 177, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 177, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":183
+ *     reshaped_weight_arr = property(get_reshaped_weight_arr, set_reshaped_weight_arr)
+ * 
+ *     def get_delta_weight_arr(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__delta_weight_arr
+ */
+  __pyx_tuple__36 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 183, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__36);
+  __Pyx_GIVEREF(__pyx_tuple__36);
+  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_convoluti_2, __pyx_n_s_get_delta_weight_arr, 183, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(0, 183, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":187
+ *         return self.__delta_weight_arr
+ * 
+ *     def set_delta_weight_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__delta_weight_arr = value
+ */
+  __pyx_tuple__38 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__38)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__38);
+  __Pyx_GIVEREF(__pyx_tuple__38);
+  __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__38, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_convoluti_2, __pyx_n_s_set_delta_weight_arr, 187, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) __PYX_ERR(0, 187, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":193
+ *     delta_weight_arr = property(get_delta_weight_arr, set_delta_weight_arr)
  * 
  *     def get_delta_bias_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__delta_bias_arr
  */
-  __pyx_tuple__26 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 159, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__26);
-  __Pyx_GIVEREF(__pyx_tuple__26);
-  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_convoluti_2, __pyx_n_s_get_delta_bias_arr, 159, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_tuple__40 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__40)) __PYX_ERR(0, 193, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__40);
+  __Pyx_GIVEREF(__pyx_tuple__40);
+  __pyx_codeobj__41 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__40, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_convoluti_2, __pyx_n_s_get_delta_bias_arr, 193, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__41)) __PYX_ERR(0, 193, __pyx_L1_error)
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":197
+ *         return self.__delta_bias_arr
+ * 
+ *     def set_delta_bias_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__delta_bias_arr = value
+ */
+  __pyx_tuple__42 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__42);
+  __Pyx_GIVEREF(__pyx_tuple__42);
+  __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__42, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_layerablecnn_convoluti_2, __pyx_n_s_set_delta_bias_arr, 197, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) __PYX_ERR(0, 197, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -8040,7 +8777,7 @@ static int __pyx_pymod_exec_convolution_layer(PyObject *__pyx_pyinit_module)
  * 
  *     graph = property(get_graph, set_readonly)             # <<<<<<<<<<<<<<
  * 
- *     def get_delta_weight_arr(self):
+ *     def get_img_arr(self):
  */
   __pyx_t_4 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_graph);
   if (unlikely(!__pyx_t_4)) {
@@ -8073,19 +8810,208 @@ static int __pyx_pymod_exec_convolution_layer(PyObject *__pyx_pyinit_module)
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":153
  *     graph = property(get_graph, set_readonly)
  * 
+ *     def get_img_arr(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__img_arr
+ */
+  __pyx_t_8 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_11get_img_arr, 0, __pyx_n_s_ConvolutionLayer_get_img_arr, NULL, __pyx_n_s_pydbm_cnn_layerablecnn_convoluti, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 153, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_img_arr, __pyx_t_8) < 0) __PYX_ERR(0, 153, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":157
+ *         return self.__img_arr
+ * 
+ *     def set_img_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__img_arr = value
+ */
+  __pyx_t_8 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_13set_img_arr, 0, __pyx_n_s_ConvolutionLayer_set_img_arr, NULL, __pyx_n_s_pydbm_cnn_layerablecnn_convoluti, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_img_arr, __pyx_t_8) < 0) __PYX_ERR(0, 157, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":161
+ *         self.__img_arr = value
+ * 
+ *     img_arr = property(get_img_arr, set_img_arr)             # <<<<<<<<<<<<<<
+ * 
+ *     def get_reshaped_img_arr(self):
+ */
+  __pyx_t_8 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_img_arr);
+  if (unlikely(!__pyx_t_8)) {
+    PyErr_Clear();
+    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_img_arr);
+  }
+  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_img_arr);
+  if (unlikely(!__pyx_t_5)) {
+    PyErr_Clear();
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_img_arr);
+  }
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_8);
+  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_8);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_5);
+  __pyx_t_8 = 0;
+  __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_img_arr, __pyx_t_5) < 0) __PYX_ERR(0, 161, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":163
+ *     img_arr = property(get_img_arr, set_img_arr)
+ * 
+ *     def get_reshaped_img_arr(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__reshaped_img_arr
+ */
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_15get_reshaped_img_arr, 0, __pyx_n_s_ConvolutionLayer_get_reshaped_im, NULL, __pyx_n_s_pydbm_cnn_layerablecnn_convoluti, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_reshaped_img_arr, __pyx_t_5) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":167
+ *         return self.__reshaped_img_arr
+ * 
+ *     def set_reshaped_img_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__reshaped_img_arr = value
+ */
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_17set_reshaped_img_arr, 0, __pyx_n_s_ConvolutionLayer_set_reshaped_im, NULL, __pyx_n_s_pydbm_cnn_layerablecnn_convoluti, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_reshaped_img_arr, __pyx_t_5) < 0) __PYX_ERR(0, 167, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":171
+ *         self.__reshaped_img_arr = value
+ * 
+ *     reshaped_img_arr = property(get_reshaped_img_arr, set_reshaped_img_arr)             # <<<<<<<<<<<<<<
+ * 
+ *     def get_reshaped_weight_arr(self):
+ */
+  __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_reshaped_img_arr);
+  if (unlikely(!__pyx_t_5)) {
+    PyErr_Clear();
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_reshaped_img_arr);
+  }
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_4 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_reshaped_img_arr);
+  if (unlikely(!__pyx_t_4)) {
+    PyErr_Clear();
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_reshaped_img_arr);
+  }
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_4);
+  __pyx_t_5 = 0;
+  __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_reshaped_img_arr, __pyx_t_4) < 0) __PYX_ERR(0, 171, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":173
+ *     reshaped_img_arr = property(get_reshaped_img_arr, set_reshaped_img_arr)
+ * 
+ *     def get_reshaped_weight_arr(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__reshaped_weight_arr
+ */
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_19get_reshaped_weight_arr, 0, __pyx_n_s_ConvolutionLayer_get_reshaped_we, NULL, __pyx_n_s_pydbm_cnn_layerablecnn_convoluti, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_reshaped_weight_arr, __pyx_t_4) < 0) __PYX_ERR(0, 173, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":177
+ *         return self.__reshaped_weight_arr
+ * 
+ *     def set_reshaped_weight_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__reshaped_weight_arr = value
+ */
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_21set_reshaped_weight_arr, 0, __pyx_n_s_ConvolutionLayer_set_reshaped_we, NULL, __pyx_n_s_pydbm_cnn_layerablecnn_convoluti, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_reshaped_weight_arr, __pyx_t_4) < 0) __PYX_ERR(0, 177, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":181
+ *         self.__reshaped_weight_arr = value
+ * 
+ *     reshaped_weight_arr = property(get_reshaped_weight_arr, set_reshaped_weight_arr)             # <<<<<<<<<<<<<<
+ * 
+ *     def get_delta_weight_arr(self):
+ */
+  __pyx_t_4 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_reshaped_weight_arr);
+  if (unlikely(!__pyx_t_4)) {
+    PyErr_Clear();
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_reshaped_weight_arr);
+  }
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_8 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_reshaped_weight_arr);
+  if (unlikely(!__pyx_t_8)) {
+    PyErr_Clear();
+    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_reshaped_weight_arr);
+  }
+  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_8);
+  PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_8);
+  __pyx_t_4 = 0;
+  __pyx_t_8 = 0;
+  __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_reshaped_weight_arr, __pyx_t_8) < 0) __PYX_ERR(0, 181, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":183
+ *     reshaped_weight_arr = property(get_reshaped_weight_arr, set_reshaped_weight_arr)
+ * 
  *     def get_delta_weight_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__delta_weight_arr
  */
-  __pyx_t_8 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_11get_delta_weight_arr, 0, __pyx_n_s_ConvolutionLayer_get_delta_weigh, NULL, __pyx_n_s_pydbm_cnn_layerablecnn_convoluti, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 153, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_23get_delta_weight_arr, 0, __pyx_n_s_ConvolutionLayer_get_delta_weigh, NULL, __pyx_n_s_pydbm_cnn_layerablecnn_convoluti, __pyx_d, ((PyObject *)__pyx_codeobj__37)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 183, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_delta_weight_arr, __pyx_t_8) < 0) __PYX_ERR(0, 153, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_delta_weight_arr, __pyx_t_8) < 0) __PYX_ERR(0, 183, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":157
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":187
  *         return self.__delta_weight_arr
  * 
- *     delta_weight_arr = property(get_delta_weight_arr, set_readonly)             # <<<<<<<<<<<<<<
+ *     def set_delta_weight_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__delta_weight_arr = value
+ */
+  __pyx_t_8 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_25set_delta_weight_arr, 0, __pyx_n_s_ConvolutionLayer_set_delta_weigh, NULL, __pyx_n_s_pydbm_cnn_layerablecnn_convoluti, __pyx_d, ((PyObject *)__pyx_codeobj__39)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_delta_weight_arr, __pyx_t_8) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":191
+ *         self.__delta_weight_arr = value
+ * 
+ *     delta_weight_arr = property(get_delta_weight_arr, set_delta_weight_arr)             # <<<<<<<<<<<<<<
  * 
  *     def get_delta_bias_arr(self):
  */
@@ -8094,16 +9020,16 @@ static int __pyx_pymod_exec_convolution_layer(PyObject *__pyx_pyinit_module)
     PyErr_Clear();
     __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_delta_weight_arr);
   }
-  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 157, __pyx_L1_error)
+  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_readonly);
+  __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_delta_weight_arr);
   if (unlikely(!__pyx_t_5)) {
     PyErr_Clear();
-    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_readonly);
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_delta_weight_arr);
   }
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 157, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_8);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_8);
@@ -8111,44 +9037,56 @@ static int __pyx_pymod_exec_convolution_layer(PyObject *__pyx_pyinit_module)
   PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_5);
   __pyx_t_8 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_delta_weight_arr, __pyx_t_5) < 0) __PYX_ERR(0, 157, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_delta_weight_arr, __pyx_t_5) < 0) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":159
- *     delta_weight_arr = property(get_delta_weight_arr, set_readonly)
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":193
+ *     delta_weight_arr = property(get_delta_weight_arr, set_delta_weight_arr)
  * 
  *     def get_delta_bias_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__delta_bias_arr
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_13get_delta_bias_arr, 0, __pyx_n_s_ConvolutionLayer_get_delta_bias, NULL, __pyx_n_s_pydbm_cnn_layerablecnn_convoluti, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_27get_delta_bias_arr, 0, __pyx_n_s_ConvolutionLayer_get_delta_bias, NULL, __pyx_n_s_pydbm_cnn_layerablecnn_convoluti, __pyx_d, ((PyObject *)__pyx_codeobj__41)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 193, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_delta_bias_arr, __pyx_t_5) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_delta_bias_arr, __pyx_t_5) < 0) __PYX_ERR(0, 193, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":163
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":197
  *         return self.__delta_bias_arr
  * 
- *     delta_bias_arr = property(get_delta_bias_arr, set_readonly)             # <<<<<<<<<<<<<<
+ *     def set_delta_bias_arr(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__delta_bias_arr = value
+ */
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_12layerablecnn_17convolution_layer_16ConvolutionLayer_29set_delta_bias_arr, 0, __pyx_n_s_ConvolutionLayer_set_delta_bias, NULL, __pyx_n_s_pydbm_cnn_layerablecnn_convoluti, __pyx_d, ((PyObject *)__pyx_codeobj__43)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_delta_bias_arr, __pyx_t_5) < 0) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":201
+ *         self.__delta_bias_arr = value
+ * 
+ *     delta_bias_arr = property(get_delta_bias_arr, set_delta_bias_arr)             # <<<<<<<<<<<<<<
  */
   __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_delta_bias_arr);
   if (unlikely(!__pyx_t_5)) {
     PyErr_Clear();
     __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_delta_bias_arr);
   }
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 163, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 201, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_readonly);
+  __pyx_t_4 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_delta_bias_arr);
   if (unlikely(!__pyx_t_4)) {
     PyErr_Clear();
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_readonly);
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_delta_bias_arr);
   }
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 201, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 201, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_GIVEREF(__pyx_t_5);
   PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5);
@@ -8156,10 +9094,10 @@ static int __pyx_pymod_exec_convolution_layer(PyObject *__pyx_pyinit_module)
   PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_4);
   __pyx_t_5 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 201, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_delta_bias_arr, __pyx_t_4) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_delta_bias_arr, __pyx_t_4) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":9

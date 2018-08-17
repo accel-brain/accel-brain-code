@@ -1165,6 +1165,24 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
 #define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
 #endif
 
+/* PyFunctionFastCall.proto */
+#if CYTHON_FAST_PYCALL
+#define __Pyx_PyFunction_FastCall(func, args, nargs)\
+    __Pyx_PyFunction_FastCallDict((func), (args), (nargs), NULL)
+#if 1 || PY_VERSION_HEX < 0x030600B1
+static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, int nargs, PyObject *kwargs);
+#else
+#define __Pyx_PyFunction_FastCallDict(func, args, nargs, kwargs) _PyFunction_FastCallDict(func, args, nargs, kwargs)
+#endif
+#endif
+
+/* PyCFunctionFastCall.proto */
+#if CYTHON_FAST_PYCCALL
+static CYTHON_INLINE PyObject *__Pyx_PyCFunction_FastCall(PyObject *func, PyObject **args, Py_ssize_t nargs);
+#else
+#define __Pyx_PyCFunction_FastCall(func, args, nargs)  (assert(0), NULL)
+#endif
+
 /* GetModuleGlobalName.proto */
 static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
 
@@ -1212,24 +1230,6 @@ static void __Pyx_ZeroBuffer(Py_buffer* buf);
 static CYTHON_INLINE void __Pyx_SafeReleaseBuffer(Py_buffer* info);
 static Py_ssize_t __Pyx_minusones[] = { -1, -1, -1, -1, -1, -1, -1, -1 };
 static Py_ssize_t __Pyx_zeros[] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-
-/* PyFunctionFastCall.proto */
-#if CYTHON_FAST_PYCALL
-#define __Pyx_PyFunction_FastCall(func, args, nargs)\
-    __Pyx_PyFunction_FastCallDict((func), (args), (nargs), NULL)
-#if 1 || PY_VERSION_HEX < 0x030600B1
-static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, int nargs, PyObject *kwargs);
-#else
-#define __Pyx_PyFunction_FastCallDict(func, args, nargs, kwargs) _PyFunction_FastCallDict(func, args, nargs, kwargs)
-#endif
-#endif
-
-/* PyCFunctionFastCall.proto */
-#if CYTHON_FAST_PYCCALL
-static CYTHON_INLINE PyObject *__Pyx_PyCFunction_FastCall(PyObject *func, PyObject **args, Py_ssize_t nargs);
-#else
-#define __Pyx_PyCFunction_FastCall(func, args, nargs)  (assert(0), NULL)
-#endif
 
 /* PyThreadStateGet.proto */
 #if CYTHON_FAST_THREAD_STATE
@@ -1827,13 +1827,12 @@ static PyObject *__pyx_n_s_test_size_rate;
 static PyObject *__pyx_n_s_tol;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
 static PyObject *__pyx_n_s_verificatable_result;
-static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_learning_16ResidualLearning___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_layerable_cnn_list, int __pyx_v_epochs, int __pyx_v_batch_size, double __pyx_v_learning_rate, double __pyx_v_learning_attenuate_rate, int __pyx_v_attenuate_epoch, PyObject *__pyx_v_computable_loss, PyObject *__pyx_v_opt_params, PyObject *__pyx_v_verificatable_result, CYTHON_UNUSED double __pyx_v_test_size_rate, CYTHON_UNUSED PyObject *__pyx_v_tol, CYTHON_UNUSED PyObject *__pyx_v_save_flag); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_learning_16ResidualLearning___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_layerable_cnn_list, int __pyx_v_epochs, int __pyx_v_batch_size, double __pyx_v_learning_rate, double __pyx_v_learning_attenuate_rate, int __pyx_v_attenuate_epoch, PyObject *__pyx_v_computable_loss, PyObject *__pyx_v_opt_params, PyObject *__pyx_v_verificatable_result, double __pyx_v_test_size_rate, PyObject *__pyx_v_tol, PyObject *__pyx_v_save_flag); /* proto */
 static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_learning_16ResidualLearning_2learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_arr, PyArrayObject *__pyx_v_target_arr); /* proto */
 static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_learning_16ResidualLearning_4inference(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_arr); /* proto */
 static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_learning_16ResidualLearning_6forward_propagation(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_img_arr); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
-static PyObject *__pyx_float_0_3;
 static PyObject *__pyx_float_1eneg_15;
 static PyObject *__pyx_int_100;
 static PyObject *__pyx_tuple_;
@@ -1881,9 +1880,9 @@ static PyObject *__pyx_pw_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_le
   PyObject *__pyx_v_computable_loss = 0;
   PyObject *__pyx_v_opt_params = 0;
   PyObject *__pyx_v_verificatable_result = 0;
-  CYTHON_UNUSED double __pyx_v_test_size_rate;
-  CYTHON_UNUSED PyObject *__pyx_v_tol = 0;
-  CYTHON_UNUSED PyObject *__pyx_v_save_flag = 0;
+  double __pyx_v_test_size_rate;
+  PyObject *__pyx_v_tol = 0;
+  PyObject *__pyx_v_save_flag = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
@@ -2077,7 +2076,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_le
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_learning_16ResidualLearning___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_layerable_cnn_list, int __pyx_v_epochs, int __pyx_v_batch_size, double __pyx_v_learning_rate, double __pyx_v_learning_attenuate_rate, int __pyx_v_attenuate_epoch, PyObject *__pyx_v_computable_loss, PyObject *__pyx_v_opt_params, PyObject *__pyx_v_verificatable_result, CYTHON_UNUSED double __pyx_v_test_size_rate, CYTHON_UNUSED PyObject *__pyx_v_tol, CYTHON_UNUSED PyObject *__pyx_v_save_flag) {
+static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_learning_16ResidualLearning___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_layerable_cnn_list, int __pyx_v_epochs, int __pyx_v_batch_size, double __pyx_v_learning_rate, double __pyx_v_learning_attenuate_rate, int __pyx_v_attenuate_epoch, PyObject *__pyx_v_computable_loss, PyObject *__pyx_v_opt_params, PyObject *__pyx_v_verificatable_result, double __pyx_v_test_size_rate, PyObject *__pyx_v_tol, PyObject *__pyx_v_save_flag) {
   PyObject *__pyx_v_logger = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -2088,6 +2087,10 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_le
   PyObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
+  PyObject *__pyx_t_8 = NULL;
+  PyObject *__pyx_t_9 = NULL;
+  int __pyx_t_10;
+  PyObject *__pyx_t_11 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
 
   /* "pydbm/cnn/convolutionalneuralnetwork/residual_learning.pyx":54
@@ -2097,23 +2100,23 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_le
  *             layerable_cnn_list,
  *             epochs,
  */
-  __pyx_t_1 = __Pyx_CyFunction_GetClassObj(__pyx_self);
-  if (!__pyx_t_1) { PyErr_SetString(PyExc_SystemError, "super(): empty __class__ cell"); __PYX_ERR(0, 54, __pyx_L1_error) }
-  __Pyx_INCREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
+  __pyx_t_2 = __Pyx_CyFunction_GetClassObj(__pyx_self);
+  if (!__pyx_t_2) { PyErr_SetString(PyExc_SystemError, "super(): empty __class__ cell"); __PYX_ERR(0, 54, __pyx_L1_error) }
+  __Pyx_INCREF(__pyx_t_2);
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 54, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
   __Pyx_INCREF(__pyx_v_self);
   __Pyx_GIVEREF(__pyx_v_self);
-  PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_v_self);
-  __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_super, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_init); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
+  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_v_self);
+  __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_super, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_init); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 54, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pydbm/cnn/convolutionalneuralnetwork/residual_learning.pyx":56
  *         super().__init__(
@@ -2122,8 +2125,8 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_le
  *             batch_size,
  *             learning_rate,
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_epochs); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_epochs); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
 
   /* "pydbm/cnn/convolutionalneuralnetwork/residual_learning.pyx":57
  *             layerable_cnn_list,
@@ -2132,8 +2135,8 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_le
  *             learning_rate,
  *             learning_attenuate_rate,
  */
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_batch_size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_batch_size); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
 
   /* "pydbm/cnn/convolutionalneuralnetwork/residual_learning.pyx":58
  *             epochs,
@@ -2142,8 +2145,8 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_le
  *             learning_attenuate_rate,
  *             attenuate_epoch,
  */
-  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 58, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 58, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
 
   /* "pydbm/cnn/convolutionalneuralnetwork/residual_learning.pyx":59
  *             batch_size,
@@ -2152,8 +2155,8 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_le
  *             attenuate_epoch,
  *             computable_loss,
  */
-  __pyx_t_5 = PyFloat_FromDouble(__pyx_v_learning_attenuate_rate); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 59, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = PyFloat_FromDouble(__pyx_v_learning_attenuate_rate); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
 
   /* "pydbm/cnn/convolutionalneuralnetwork/residual_learning.pyx":60
  *             learning_rate,
@@ -2162,80 +2165,114 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_le
  *             computable_loss,
  *             opt_params,
  */
-  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_attenuate_epoch); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 60, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-
-  /* "pydbm/cnn/convolutionalneuralnetwork/residual_learning.pyx":54
- * 
- *         '''
- *         super().__init__(             # <<<<<<<<<<<<<<
- *             layerable_cnn_list,
- *             epochs,
- */
-  __pyx_t_7 = PyTuple_New(9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 54, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_attenuate_epoch); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __Pyx_INCREF(__pyx_v_layerable_cnn_list);
-  __Pyx_GIVEREF(__pyx_v_layerable_cnn_list);
-  PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_v_layerable_cnn_list);
-  __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_1);
-  __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_7, 2, __pyx_t_3);
-  __Pyx_GIVEREF(__pyx_t_4);
-  PyTuple_SET_ITEM(__pyx_t_7, 3, __pyx_t_4);
-  __Pyx_GIVEREF(__pyx_t_5);
-  PyTuple_SET_ITEM(__pyx_t_7, 4, __pyx_t_5);
-  __Pyx_GIVEREF(__pyx_t_6);
-  PyTuple_SET_ITEM(__pyx_t_7, 5, __pyx_t_6);
-  __Pyx_INCREF(__pyx_v_computable_loss);
-  __Pyx_GIVEREF(__pyx_v_computable_loss);
-  PyTuple_SET_ITEM(__pyx_t_7, 6, __pyx_v_computable_loss);
-  __Pyx_INCREF(__pyx_v_opt_params);
-  __Pyx_GIVEREF(__pyx_v_opt_params);
-  PyTuple_SET_ITEM(__pyx_t_7, 7, __pyx_v_opt_params);
-  __Pyx_INCREF(__pyx_v_verificatable_result);
-  __Pyx_GIVEREF(__pyx_v_verificatable_result);
-  PyTuple_SET_ITEM(__pyx_t_7, 8, __pyx_v_verificatable_result);
-  __pyx_t_1 = 0;
-  __pyx_t_3 = 0;
-  __pyx_t_4 = 0;
-  __pyx_t_5 = 0;
-  __pyx_t_6 = 0;
 
   /* "pydbm/cnn/convolutionalneuralnetwork/residual_learning.pyx":64
  *             opt_params,
  *             verificatable_result,
- *             test_size_rate=0.3,             # <<<<<<<<<<<<<<
- *             tol=1e-15,
- *             save_flag=False
+ *             test_size_rate,             # <<<<<<<<<<<<<<
+ *             tol,
+ *             save_flag
  */
-  __pyx_t_6 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 64, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_test_size_rate, __pyx_float_0_3) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_tol, __pyx_float_1eneg_15) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
+  __pyx_t_8 = PyFloat_FromDouble(__pyx_v_test_size_rate); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 64, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
 
   /* "pydbm/cnn/convolutionalneuralnetwork/residual_learning.pyx":66
- *             test_size_rate=0.3,
- *             tol=1e-15,
- *             save_flag=False             # <<<<<<<<<<<<<<
+ *             test_size_rate,
+ *             tol,
+ *             save_flag             # <<<<<<<<<<<<<<
  *         )
  * 
  */
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_save_flag, Py_False) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
-
-  /* "pydbm/cnn/convolutionalneuralnetwork/residual_learning.pyx":54
- * 
- *         '''
- *         super().__init__(             # <<<<<<<<<<<<<<
- *             layerable_cnn_list,
- *             epochs,
- */
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 54, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_9 = NULL;
+  __pyx_t_10 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_9)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_9);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+      __pyx_t_10 = 1;
+    }
+  }
+  #if CYTHON_FAST_PYCALL
+  if (PyFunction_Check(__pyx_t_3)) {
+    PyObject *__pyx_temp[13] = {__pyx_t_9, __pyx_v_layerable_cnn_list, __pyx_t_2, __pyx_t_4, __pyx_t_5, __pyx_t_6, __pyx_t_7, __pyx_v_computable_loss, __pyx_v_opt_params, __pyx_v_verificatable_result, __pyx_t_8, __pyx_v_tol, __pyx_v_save_flag};
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 12+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  } else
+  #endif
+  #if CYTHON_FAST_PYCCALL
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
+    PyObject *__pyx_temp[13] = {__pyx_t_9, __pyx_v_layerable_cnn_list, __pyx_t_2, __pyx_t_4, __pyx_t_5, __pyx_t_6, __pyx_t_7, __pyx_v_computable_loss, __pyx_v_opt_params, __pyx_v_verificatable_result, __pyx_t_8, __pyx_v_tol, __pyx_v_save_flag};
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 12+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  } else
+  #endif
+  {
+    __pyx_t_11 = PyTuple_New(12+__pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 54, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_11);
+    if (__pyx_t_9) {
+      __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_9); __pyx_t_9 = NULL;
+    }
+    __Pyx_INCREF(__pyx_v_layerable_cnn_list);
+    __Pyx_GIVEREF(__pyx_v_layerable_cnn_list);
+    PyTuple_SET_ITEM(__pyx_t_11, 0+__pyx_t_10, __pyx_v_layerable_cnn_list);
+    __Pyx_GIVEREF(__pyx_t_2);
+    PyTuple_SET_ITEM(__pyx_t_11, 1+__pyx_t_10, __pyx_t_2);
+    __Pyx_GIVEREF(__pyx_t_4);
+    PyTuple_SET_ITEM(__pyx_t_11, 2+__pyx_t_10, __pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_5);
+    PyTuple_SET_ITEM(__pyx_t_11, 3+__pyx_t_10, __pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_6);
+    PyTuple_SET_ITEM(__pyx_t_11, 4+__pyx_t_10, __pyx_t_6);
+    __Pyx_GIVEREF(__pyx_t_7);
+    PyTuple_SET_ITEM(__pyx_t_11, 5+__pyx_t_10, __pyx_t_7);
+    __Pyx_INCREF(__pyx_v_computable_loss);
+    __Pyx_GIVEREF(__pyx_v_computable_loss);
+    PyTuple_SET_ITEM(__pyx_t_11, 6+__pyx_t_10, __pyx_v_computable_loss);
+    __Pyx_INCREF(__pyx_v_opt_params);
+    __Pyx_GIVEREF(__pyx_v_opt_params);
+    PyTuple_SET_ITEM(__pyx_t_11, 7+__pyx_t_10, __pyx_v_opt_params);
+    __Pyx_INCREF(__pyx_v_verificatable_result);
+    __Pyx_GIVEREF(__pyx_v_verificatable_result);
+    PyTuple_SET_ITEM(__pyx_t_11, 8+__pyx_t_10, __pyx_v_verificatable_result);
+    __Pyx_GIVEREF(__pyx_t_8);
+    PyTuple_SET_ITEM(__pyx_t_11, 9+__pyx_t_10, __pyx_t_8);
+    __Pyx_INCREF(__pyx_v_tol);
+    __Pyx_GIVEREF(__pyx_v_tol);
+    PyTuple_SET_ITEM(__pyx_t_11, 10+__pyx_t_10, __pyx_v_tol);
+    __Pyx_INCREF(__pyx_v_save_flag);
+    __Pyx_GIVEREF(__pyx_v_save_flag);
+    PyTuple_SET_ITEM(__pyx_t_11, 11+__pyx_t_10, __pyx_v_save_flag);
+    __pyx_t_2 = 0;
+    __pyx_t_4 = 0;
+    __pyx_t_5 = 0;
+    __pyx_t_6 = 0;
+    __pyx_t_7 = 0;
+    __pyx_t_8 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_11, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/cnn/convolutionalneuralnetwork/residual_learning.pyx":69
  *         )
@@ -2244,13 +2281,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_le
  *         self.__logger = logger
  *         self.__learn_mode = True
  */
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_getLogger); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 69, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 69, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_v_logger = __pyx_t_6;
-  __pyx_t_6 = 0;
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_getLogger); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 69, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_logger = __pyx_t_3;
+  __pyx_t_3 = 0;
 
   /* "pydbm/cnn/convolutionalneuralnetwork/residual_learning.pyx":70
  * 
@@ -2277,15 +2314,15 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_le
  * 
  *     def learn(
  */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ResidualLearning__logger); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 72, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_debug); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 72, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 72, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ResidualLearning__logger); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_debug); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "pydbm/cnn/convolutionalneuralnetwork/residual_learning.pyx":16
  *     __learn_mode = True
@@ -2306,6 +2343,9 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_17residual_le
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_9);
+  __Pyx_XDECREF(__pyx_t_11);
   __Pyx_AddTraceback("pydbm.cnn.convolutionalneuralnetwork.residual_learning.ResidualLearning.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -6813,7 +6853,6 @@ static int __Pyx_InitCachedConstants(void) {
 
 static int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
-  __pyx_float_0_3 = PyFloat_FromDouble(0.3); if (unlikely(!__pyx_float_0_3)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_float_1eneg_15 = PyFloat_FromDouble(1e-15); if (unlikely(!__pyx_float_1eneg_15)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_100 = PyInt_FromLong(100); if (unlikely(!__pyx_int_100)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
@@ -7402,6 +7441,149 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
             "NULL result without error in PyObject_Call");
     }
     return result;
+}
+#endif
+
+/* PyFunctionFastCall */
+#if CYTHON_FAST_PYCALL
+#include "frameobject.h"
+static PyObject* __Pyx_PyFunction_FastCallNoKw(PyCodeObject *co, PyObject **args, Py_ssize_t na,
+                                               PyObject *globals) {
+    PyFrameObject *f;
+    PyThreadState *tstate = __Pyx_PyThreadState_Current;
+    PyObject **fastlocals;
+    Py_ssize_t i;
+    PyObject *result;
+    assert(globals != NULL);
+    /* XXX Perhaps we should create a specialized
+       PyFrame_New() that doesn't take locals, but does
+       take builtins without sanity checking them.
+       */
+    assert(tstate != NULL);
+    f = PyFrame_New(tstate, co, globals, NULL);
+    if (f == NULL) {
+        return NULL;
+    }
+    fastlocals = f->f_localsplus;
+    for (i = 0; i < na; i++) {
+        Py_INCREF(*args);
+        fastlocals[i] = *args++;
+    }
+    result = PyEval_EvalFrameEx(f,0);
+    ++tstate->recursion_depth;
+    Py_DECREF(f);
+    --tstate->recursion_depth;
+    return result;
+}
+#if 1 || PY_VERSION_HEX < 0x030600B1
+static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, int nargs, PyObject *kwargs) {
+    PyCodeObject *co = (PyCodeObject *)PyFunction_GET_CODE(func);
+    PyObject *globals = PyFunction_GET_GLOBALS(func);
+    PyObject *argdefs = PyFunction_GET_DEFAULTS(func);
+    PyObject *closure;
+#if PY_MAJOR_VERSION >= 3
+    PyObject *kwdefs;
+#endif
+    PyObject *kwtuple, **k;
+    PyObject **d;
+    Py_ssize_t nd;
+    Py_ssize_t nk;
+    PyObject *result;
+    assert(kwargs == NULL || PyDict_Check(kwargs));
+    nk = kwargs ? PyDict_Size(kwargs) : 0;
+    if (Py_EnterRecursiveCall((char*)" while calling a Python object")) {
+        return NULL;
+    }
+    if (
+#if PY_MAJOR_VERSION >= 3
+            co->co_kwonlyargcount == 0 &&
+#endif
+            likely(kwargs == NULL || nk == 0) &&
+            co->co_flags == (CO_OPTIMIZED | CO_NEWLOCALS | CO_NOFREE)) {
+        if (argdefs == NULL && co->co_argcount == nargs) {
+            result = __Pyx_PyFunction_FastCallNoKw(co, args, nargs, globals);
+            goto done;
+        }
+        else if (nargs == 0 && argdefs != NULL
+                 && co->co_argcount == Py_SIZE(argdefs)) {
+            /* function called with no arguments, but all parameters have
+               a default value: use default values as arguments .*/
+            args = &PyTuple_GET_ITEM(argdefs, 0);
+            result =__Pyx_PyFunction_FastCallNoKw(co, args, Py_SIZE(argdefs), globals);
+            goto done;
+        }
+    }
+    if (kwargs != NULL) {
+        Py_ssize_t pos, i;
+        kwtuple = PyTuple_New(2 * nk);
+        if (kwtuple == NULL) {
+            result = NULL;
+            goto done;
+        }
+        k = &PyTuple_GET_ITEM(kwtuple, 0);
+        pos = i = 0;
+        while (PyDict_Next(kwargs, &pos, &k[i], &k[i+1])) {
+            Py_INCREF(k[i]);
+            Py_INCREF(k[i+1]);
+            i += 2;
+        }
+        nk = i / 2;
+    }
+    else {
+        kwtuple = NULL;
+        k = NULL;
+    }
+    closure = PyFunction_GET_CLOSURE(func);
+#if PY_MAJOR_VERSION >= 3
+    kwdefs = PyFunction_GET_KW_DEFAULTS(func);
+#endif
+    if (argdefs != NULL) {
+        d = &PyTuple_GET_ITEM(argdefs, 0);
+        nd = Py_SIZE(argdefs);
+    }
+    else {
+        d = NULL;
+        nd = 0;
+    }
+#if PY_MAJOR_VERSION >= 3
+    result = PyEval_EvalCodeEx((PyObject*)co, globals, (PyObject *)NULL,
+                               args, nargs,
+                               k, (int)nk,
+                               d, (int)nd, kwdefs, closure);
+#else
+    result = PyEval_EvalCodeEx(co, globals, (PyObject *)NULL,
+                               args, nargs,
+                               k, (int)nk,
+                               d, (int)nd, closure);
+#endif
+    Py_XDECREF(kwtuple);
+done:
+    Py_LeaveRecursiveCall();
+    return result;
+}
+#endif
+#endif
+
+/* PyCFunctionFastCall */
+#if CYTHON_FAST_PYCCALL
+static CYTHON_INLINE PyObject * __Pyx_PyCFunction_FastCall(PyObject *func_obj, PyObject **args, Py_ssize_t nargs) {
+    PyCFunctionObject *func = (PyCFunctionObject*)func_obj;
+    PyCFunction meth = PyCFunction_GET_FUNCTION(func);
+    PyObject *self = PyCFunction_GET_SELF(func);
+    int flags = PyCFunction_GET_FLAGS(func);
+    assert(PyCFunction_Check(func));
+    assert(METH_FASTCALL == (flags & ~(METH_CLASS | METH_STATIC | METH_COEXIST | METH_KEYWORDS)));
+    assert(nargs >= 0);
+    assert(nargs == 0 || args != NULL);
+    /* _PyCFunction_FastCallDict() must not be called with an exception set,
+       because it may clear it (directly or indirectly) and so the
+       caller loses its exception */
+    assert(!PyErr_Occurred());
+    if ((PY_VERSION_HEX < 0x030700A0) || unlikely(flags & METH_KEYWORDS)) {
+        return (*((__Pyx_PyCFunctionFastWithKeywords)meth)) (self, args, nargs, NULL);
+    } else {
+        return (*((__Pyx_PyCFunctionFast)meth)) (self, args, nargs);
+    }
 }
 #endif
 
@@ -8001,149 +8183,6 @@ fail:;
   __Pyx_SafeReleaseBuffer(buf);
   return -1;
 }
-
-/* PyFunctionFastCall */
-    #if CYTHON_FAST_PYCALL
-#include "frameobject.h"
-static PyObject* __Pyx_PyFunction_FastCallNoKw(PyCodeObject *co, PyObject **args, Py_ssize_t na,
-                                               PyObject *globals) {
-    PyFrameObject *f;
-    PyThreadState *tstate = __Pyx_PyThreadState_Current;
-    PyObject **fastlocals;
-    Py_ssize_t i;
-    PyObject *result;
-    assert(globals != NULL);
-    /* XXX Perhaps we should create a specialized
-       PyFrame_New() that doesn't take locals, but does
-       take builtins without sanity checking them.
-       */
-    assert(tstate != NULL);
-    f = PyFrame_New(tstate, co, globals, NULL);
-    if (f == NULL) {
-        return NULL;
-    }
-    fastlocals = f->f_localsplus;
-    for (i = 0; i < na; i++) {
-        Py_INCREF(*args);
-        fastlocals[i] = *args++;
-    }
-    result = PyEval_EvalFrameEx(f,0);
-    ++tstate->recursion_depth;
-    Py_DECREF(f);
-    --tstate->recursion_depth;
-    return result;
-}
-#if 1 || PY_VERSION_HEX < 0x030600B1
-static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, int nargs, PyObject *kwargs) {
-    PyCodeObject *co = (PyCodeObject *)PyFunction_GET_CODE(func);
-    PyObject *globals = PyFunction_GET_GLOBALS(func);
-    PyObject *argdefs = PyFunction_GET_DEFAULTS(func);
-    PyObject *closure;
-#if PY_MAJOR_VERSION >= 3
-    PyObject *kwdefs;
-#endif
-    PyObject *kwtuple, **k;
-    PyObject **d;
-    Py_ssize_t nd;
-    Py_ssize_t nk;
-    PyObject *result;
-    assert(kwargs == NULL || PyDict_Check(kwargs));
-    nk = kwargs ? PyDict_Size(kwargs) : 0;
-    if (Py_EnterRecursiveCall((char*)" while calling a Python object")) {
-        return NULL;
-    }
-    if (
-#if PY_MAJOR_VERSION >= 3
-            co->co_kwonlyargcount == 0 &&
-#endif
-            likely(kwargs == NULL || nk == 0) &&
-            co->co_flags == (CO_OPTIMIZED | CO_NEWLOCALS | CO_NOFREE)) {
-        if (argdefs == NULL && co->co_argcount == nargs) {
-            result = __Pyx_PyFunction_FastCallNoKw(co, args, nargs, globals);
-            goto done;
-        }
-        else if (nargs == 0 && argdefs != NULL
-                 && co->co_argcount == Py_SIZE(argdefs)) {
-            /* function called with no arguments, but all parameters have
-               a default value: use default values as arguments .*/
-            args = &PyTuple_GET_ITEM(argdefs, 0);
-            result =__Pyx_PyFunction_FastCallNoKw(co, args, Py_SIZE(argdefs), globals);
-            goto done;
-        }
-    }
-    if (kwargs != NULL) {
-        Py_ssize_t pos, i;
-        kwtuple = PyTuple_New(2 * nk);
-        if (kwtuple == NULL) {
-            result = NULL;
-            goto done;
-        }
-        k = &PyTuple_GET_ITEM(kwtuple, 0);
-        pos = i = 0;
-        while (PyDict_Next(kwargs, &pos, &k[i], &k[i+1])) {
-            Py_INCREF(k[i]);
-            Py_INCREF(k[i+1]);
-            i += 2;
-        }
-        nk = i / 2;
-    }
-    else {
-        kwtuple = NULL;
-        k = NULL;
-    }
-    closure = PyFunction_GET_CLOSURE(func);
-#if PY_MAJOR_VERSION >= 3
-    kwdefs = PyFunction_GET_KW_DEFAULTS(func);
-#endif
-    if (argdefs != NULL) {
-        d = &PyTuple_GET_ITEM(argdefs, 0);
-        nd = Py_SIZE(argdefs);
-    }
-    else {
-        d = NULL;
-        nd = 0;
-    }
-#if PY_MAJOR_VERSION >= 3
-    result = PyEval_EvalCodeEx((PyObject*)co, globals, (PyObject *)NULL,
-                               args, nargs,
-                               k, (int)nk,
-                               d, (int)nd, kwdefs, closure);
-#else
-    result = PyEval_EvalCodeEx(co, globals, (PyObject *)NULL,
-                               args, nargs,
-                               k, (int)nk,
-                               d, (int)nd, closure);
-#endif
-    Py_XDECREF(kwtuple);
-done:
-    Py_LeaveRecursiveCall();
-    return result;
-}
-#endif
-#endif
-
-/* PyCFunctionFastCall */
-    #if CYTHON_FAST_PYCCALL
-static CYTHON_INLINE PyObject * __Pyx_PyCFunction_FastCall(PyObject *func_obj, PyObject **args, Py_ssize_t nargs) {
-    PyCFunctionObject *func = (PyCFunctionObject*)func_obj;
-    PyCFunction meth = PyCFunction_GET_FUNCTION(func);
-    PyObject *self = PyCFunction_GET_SELF(func);
-    int flags = PyCFunction_GET_FLAGS(func);
-    assert(PyCFunction_Check(func));
-    assert(METH_FASTCALL == (flags & ~(METH_CLASS | METH_STATIC | METH_COEXIST | METH_KEYWORDS)));
-    assert(nargs >= 0);
-    assert(nargs == 0 || args != NULL);
-    /* _PyCFunction_FastCallDict() must not be called with an exception set,
-       because it may clear it (directly or indirectly) and so the
-       caller loses its exception */
-    assert(!PyErr_Occurred());
-    if ((PY_VERSION_HEX < 0x030700A0) || unlikely(flags & METH_KEYWORDS)) {
-        return (*((__Pyx_PyCFunctionFastWithKeywords)meth)) (self, args, nargs, NULL);
-    } else {
-        return (*((__Pyx_PyCFunctionFast)meth)) (self, args, nargs);
-    }
-}
-#endif
 
 /* PyErrFetchRestore */
     #if CYTHON_FAST_THREAD_STATE

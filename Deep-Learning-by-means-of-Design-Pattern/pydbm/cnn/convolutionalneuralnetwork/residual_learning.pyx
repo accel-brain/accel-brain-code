@@ -61,9 +61,9 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
             computable_loss,
             opt_params,
             verificatable_result,
-            test_size_rate=0.3,
-            tol=1e-15,
-            save_flag=False
+            test_size_rate,
+            tol,
+            save_flag
         )
 
         logger = getLogger("pydbm")

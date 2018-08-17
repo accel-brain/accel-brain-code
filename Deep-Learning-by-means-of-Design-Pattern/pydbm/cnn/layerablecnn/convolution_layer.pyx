@@ -16,6 +16,10 @@ class ConvolutionLayer(LayerableCNN):
     __delta_weight_arr = np.array([[]])
     # Delta of bias vector.
     __delta_bias_arr = np.array([[]])
+    # Height of image.
+    __img_height = None
+    # Width of image.
+    __img_width = None
 
     def __init__(self, graph):
         '''
@@ -56,6 +60,9 @@ class ConvolutionLayer(LayerableCNN):
         cdef int img_channel = img_arr.shape[1]
         cdef int img_height = img_arr.shape[2]
         cdef int img_width = img_arr.shape[3]
+        
+        self.__img_height = img_height
+        self.__img_width = img_width
 
         cdef int result_h = int((img_height + 2 * self.__pad - kernel_height) // self.__stride) + 1
         cdef int result_w = int((img_width + 2 * self.__pad - kernel_width) // self.__stride) + 1
@@ -105,10 +112,31 @@ class ConvolutionLayer(LayerableCNN):
         cdef int img_channel = delta_arr.shape[1]
         cdef int img_height = delta_arr.shape[2]
         cdef int img_width = delta_arr.shape[3]
+        
+        if self.__img_height is None:
+            self.__img_height = img_height
+        if self.__img_width is None:
+            self.__img_width = img_width
 
-        delta_arr = delta_arr.transpose(0, 2, 3, 1)
+        cdef np.ndarray[DOUBLE_t, ndim=4] resized_delta_arr = np.zeros((
+            img_sample_n,
+            img_channel,
+            self.__img_height,
+            self.__img_width
+        ))
+        if img_height != self.__img_height or img_width != self.__img_width:
+            for n in range(img_sample_n):
+                for c in range(img_channel):
+                    resized_delta_arr[n, c] = self.resize_array(
+                        img_arr=delta_arr[n, c],
+                        target_shape=(self.__img_height, self.__img_width)
+                    )
+        else:
+            resized_delta_arr = delta_arr
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = delta_arr.reshape(-1, img_sample_n)
+        resized_delta_arr = resized_delta_arr.transpose(0, 2, 3, 1)
+
+        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = resized_delta_arr.reshape(-1, img_sample_n)
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = _delta_arr.sum(axis=0)
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(self.__reshaped_img_arr.T, _delta_arr)
         delta_weight_arr = delta_weight_arr.transpose(1, 0)

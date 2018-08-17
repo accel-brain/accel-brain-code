@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from abc import ABCMeta, abstractmethod, abstractproperty
+from PIL import Image
 import numpy as np
 cimport numpy as np
 ctypedef np.float64_t DOUBLE_t
@@ -178,6 +179,22 @@ class LayerableCNN(metaclass=ABCMeta):
                 result_arr[:, :, height:max_height:stride, width:max_width:stride] += _reshaped_img_arr[:, :, height, width, :, :]
 
         return result_arr[:, :, pad:img_height + pad, pad:img_width + pad]
+
+    def resize_array(self, np.ndarray[DOUBLE_t, ndim=2] img_arr, target_shape):
+        '''
+        Resize 2-rank `np.ndarray`.
+        
+        Args:
+            img_arr:        `np.ndarray`.
+            target_shape:   Target shape.
+        
+        Returns:
+            Resized `np.ndarray`.
+        '''
+        img = Image.fromarray(img_arr)
+        img = img.resize(target_shape)
+        cdef np.ndarray resized_img_arr = np.asarray(img)
+        return resized_img_arr
 
     def reset_delta(self):
         '''

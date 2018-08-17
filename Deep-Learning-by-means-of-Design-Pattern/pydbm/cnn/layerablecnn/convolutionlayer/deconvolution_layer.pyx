@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from PIL import Image
 from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer
 import numpy as np
 cimport numpy as np
@@ -76,10 +75,7 @@ class DeconvolutionLayer(ConvolutionLayer):
         ))
         for n in range(img_sample_n):
             for c in range(img_channel):
-                img = Image.fromarray(img_arr[n, c])
-                img = img.resize(self.__target_shape)
-                resized_img_arr = np.asarray(img)
-                result_arr[n, c] = resized_img_arr
+                result_arr[n, c] = self.resize_array(img_arr=img_arr[n, c], target_shape=self.__target_shape)
 
         return super().forward_propagate(result_arr)
 
@@ -120,19 +116,19 @@ class DeconvolutionLayer(ConvolutionLayer):
 
         for n in range(img_sample_n):
             for c in range(img_channel):
-                img = Image.fromarray(delta_arr[n, c])
-                img = img.resize(self.__target_shape)
-                resized_delta_arr = np.asarray(img)
-                result_arr[n, c] = resized_delta_arr
+                result_arr[n, c] = self.resize_array(
+                    img_arr=delta_arr[n, c],
+                    target_shape=self.__target_shape
+                )
 
         result_arr = super().back_propagate(result_arr)
 
         for n in range(img_sample_n):
             for c in range(img_channel):
-                img = Image.fromarray(result_arr[n, c])
-                img = img.resize(self.__target_shape)
-                resized_delta_arr = np.asarray(img)
-                _delta_arr[n, c] = resized_delta_arr
+                _delta_arr[n, c] = self.resize_array(
+                    img_arr=result_arr[n, c],
+                    target_shape=(img_height, img_width)
+                )
 
         return _delta_arr
 

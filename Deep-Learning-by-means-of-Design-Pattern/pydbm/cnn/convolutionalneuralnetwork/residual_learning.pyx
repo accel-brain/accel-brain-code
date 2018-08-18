@@ -34,7 +34,7 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
         Override.
         
         Args:
-            layerable_cnn_list:     The `list` of `LayerableCNN`.
+            layerable_cnn_list:             The `list` of `LayerableCNN`.
             epochs:                         Epochs of Mini-batch.
             bath_size:                      Batch size of Mini-batch.
             learning_rate:                  Learning rate.

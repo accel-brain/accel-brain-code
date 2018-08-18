@@ -1,0 +1,206 @@
+# -*- coding: utf-8 -*-
+from logging import getLogger
+from pydbm.cnn.convolutional_neural_network import ConvolutionalNeuralNetwork
+from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer
+import numpy as np
+cimport numpy as np
+ctypedef np.float64_t DOUBLE_t
+
+
+class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
+    '''
+    Convolutional Auto-Encoder.
+    '''
+
+    def __init__(
+        self,
+        layerable_cnn_list,
+        int epochs,
+        int batch_size,
+        double learning_rate,
+        double learning_attenuate_rate,
+        int attenuate_epoch,
+        computable_loss,
+        opt_params,
+        verificatable_result,
+        double test_size_rate=0.3,
+        tol=1e-15,
+        save_flag=False
+    ):
+        '''
+        Init.
+        
+        Override.
+        
+        Args:
+            layerable_cnn_list:             The `list` of `LayerableCNN`.
+            epochs:                         Epochs of Mini-batch.
+            bath_size:                      Batch size of Mini-batch.
+            learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+                                            Additionally, in relation to regularization,
+                                            this class constrains weight matrixes every `attenuate_epoch`.
+
+            test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
+            computable_loss:                Loss function.
+            opt_params:                     Optimization function.
+            verificatable_result:           Verification function.
+            tol:                            Tolerance for the optimization.
+            save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.
+
+        '''
+        super().__init__(
+            layerable_cnn_list,
+            epochs,
+            batch_size,
+            learning_rate,
+            learning_attenuate_rate,
+            attenuate_epoch,
+            computable_loss,
+            opt_params,
+            verificatable_result,
+            test_size_rate,
+            tol,
+            save_flag
+        )
+        for layerable_cnn in layerable_cnn_list:
+            if isinstance(layerable_cnn, ConvolutionLayer) is False:
+                raise TypeError("The type of value of `layerable_cnn_list` must be `ConvolutionLayer`.")
+
+        self.__epochs = epochs
+        self.__batch_size = batch_size
+
+        self.__learning_rate = learning_rate
+        self.__learning_attenuate_rate = learning_attenuate_rate
+        self.__attenuate_epoch = attenuate_epoch
+
+        self.__test_size_rate = test_size_rate
+        self.__tol = tol
+
+        self.__memory_tuple_list = []
+        
+        self.__save_flag = save_flag
+
+        logger = getLogger("pydbm")
+        self.__logger = logger
+        self.__learn_mode = True
+        self.__logger.debug("Setup Convolutional Auto-Encoder and the parameters.")
+
+    def forward_propagation(self, np.ndarray[DOUBLE_t, ndim=4] img_arr):
+        '''
+        Forward propagation in Convolutional Auto-Encoder.
+        
+        Override.
+        
+        Args:
+            img_arr:    `np.ndarray` of image file array.
+        
+        Returns:
+            Propagated `np.ndarray`.
+        '''
+        cdef int i = 0
+        self.__logger.debug("-" * 100)
+        cdef np.ndarray[DOUBLE_t, ndim=4] _img_arr
+
+        for i in range(len(self.layerable_cnn_list)):
+            try:
+                self.__logger.debug("Input shape in Convolution: " + str(i + 1))
+                self.__logger.debug((
+                    img_arr.shape[0],
+                    img_arr.shape[1],
+                    img_arr.shape[2],
+                    img_arr.shape[3]
+                ))
+                img_arr = self.layerable_cnn_list[i].convolve(img_arr)
+            except:
+                self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
+                raise
+
+        self.__logger.debug("-" * 100)
+        self.__logger.debug("Propagated shape in Convolution: " + str(i + 1))
+        self.__logger.debug((
+            img_arr.shape[0],
+            img_arr.shape[1],
+            img_arr.shape[2],
+            img_arr.shape[3]
+        ))
+        self.__logger.debug("-" * 100)
+
+        layerable_cnn_list = self.layerable_cnn_list[::-1]
+        for i in range(len(layerable_cnn_list)):
+            try:
+                self.__logger.debug("Input shape in Deconvolution: " + str(i + 1))
+                self.__logger.debug((
+                    img_arr.shape[0],
+                    img_arr.shape[1],
+                    img_arr.shape[2],
+                    img_arr.shape[3]
+                ))
+                img_arr, _ = layerable_cnn_list[i].deconvolve(img_arr)
+            except:
+                self.__logger.debug("Error raised in Deconvolution layer " + str(i + 1))
+                raise
+
+        self.__logger.debug("-" * 100)
+        self.__logger.debug("Propagated shape in Deconvolution: " + str(i + 1))
+        self.__logger.debug((
+            img_arr.shape[0],
+            img_arr.shape[1],
+            img_arr.shape[2],
+            img_arr.shape[3]
+        ))
+        self.__logger.debug("-" * 100)
+
+        return img_arr
+
+    def back_propagation(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):
+        '''
+        Back propagation in CNN.
+        
+        Override.
+        
+        Args:
+            Delta.
+        
+        Returns.
+            Delta.
+        '''
+        cdef int i = 0
+        
+        for i in range(len(self.layerable_cnn_list)):
+            try:
+                delta_arr = self.layerable_cnn_list[i].convolve(delta_arr, no_bias_flag=True)
+            except:
+                self.__logger.debug("Backward raised error in Convolution layer " + str(i + 1))
+                raise
+        
+        layerable_cnn_list = self.layerable_cnn_list[::-1]
+        self.__logger.debug("-" * 100)
+        for i in range(len(layerable_cnn_list)):
+            try:
+                self.__logger.debug("Input delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
+                self.__logger.debug((
+                    delta_arr.shape[0],
+                    delta_arr.shape[1],
+                    delta_arr.shape[2],
+                    delta_arr.shape[3]
+                ))
+
+                delta_arr = layerable_cnn_list[i].back_propagate(delta_arr)
+            except:
+                self.__logger.debug(
+                    "Delta computation raised an error in CNN layer " + str(len(layerable_cnn_list) - i)
+                )
+                raise
+
+        self.__logger.debug("-" * 100)
+        self.__logger.debug("Propagated delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
+        self.__logger.debug((
+            delta_arr.shape[0],
+            delta_arr.shape[1],
+            delta_arr.shape[2],
+            delta_arr.shape[3]
+        ))
+        self.__logger.debug("-" * 100)
+        return delta_arr

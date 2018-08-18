@@ -60,9 +60,6 @@ class ConvolutionLayer(LayerableCNN):
         cdef int img_channel = img_arr.shape[1]
         cdef int img_height = img_arr.shape[2]
         cdef int img_width = img_arr.shape[3]
-        
-        self.__img_height = img_height
-        self.__img_width = img_width
 
         cdef int result_h = int((img_height + 2 * self.__pad - kernel_height) // self.__stride) + 1
         cdef int result_w = int((img_width + 2 * self.__pad - kernel_width) // self.__stride) + 1
@@ -84,6 +81,8 @@ class ConvolutionLayer(LayerableCNN):
         _result_arr = _result_arr.transpose(0, 3, 1, 2)
 
         self.__img_arr = img_arr
+        self.__img_height = result_h
+        self.__img_width = result_w
         self.__reshaped_img_arr = reshaped_img_arr
         self.__reshaped_weight_arr = reshaped_weight_arr
 

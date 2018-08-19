@@ -9,7 +9,22 @@ ctypedef np.float64_t DOUBLE_t
 
 class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
     '''
-    Convolutional Auto-Encoder.
+    Convolutional Auto-Encoder which is-a `ConvolutionalNeuralNetwork`.
+    
+    A stack of Convolutional Auto-Encoder (Masci, J., et al., 2011) 
+    forms a convolutional neural network(CNN), which are among the most successful models 
+    for supervised image classification.  Each Convolutional Auto-Encoder is trained 
+    using conventional on-line gradient descent without additional regularization terms.
+    
+    In this library, Convolutional Auto-Encoder is also based on Encoder/Decoder scheme.
+    The encoder is to the decoder what the Convolution is to the Deconvolution.
+    The Deconvolution also called transposed convolutions 
+    "work by swapping the forward and backward passes of a convolution." (Dumoulin, V., & Visin, F. 2016, p20.)
+
+    Reference:
+        Dumoulin, V., & V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
+        Masci, J., Meier, U., Cireşan, D., & Schmidhuber, J. (2011, June). Stacked convolutional auto-encoders for hierarchical feature extraction. In International Conference on Artificial Neural Networks (pp. 52-59). Springer, Berlin, Heidelberg.
+
     '''
 
     def __init__(
@@ -33,7 +48,7 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         Override.
         
         Args:
-            layerable_cnn_list:             The `list` of `LayerableCNN`.
+            layerable_cnn_list:             The `list` of `ConvolutionLayer`.
             epochs:                         Epochs of Mini-batch.
             bath_size:                      Batch size of Mini-batch.
             learning_rate:                  Learning rate.

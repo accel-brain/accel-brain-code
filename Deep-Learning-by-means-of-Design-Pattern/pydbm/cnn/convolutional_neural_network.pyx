@@ -52,24 +52,24 @@ class ConvolutionalNeuralNetwork(object):
         '''
         for layerable_cnn in layerable_cnn_list:
             if isinstance(layerable_cnn, LayerableCNN) is False:
-                raise TypeError()
+                raise TypeError("The type of value of `layerable_cnn` must be `LayerableCNN`.")
         self.__layerable_cnn_list = layerable_cnn_list
 
         if isinstance(computable_loss, ComputableLoss):
             self.__computable_loss = computable_loss
         else:
-            raise TypeError()
+            raise TypeError("The type of `computable_loss` must be `ComputableLoss`.")
 
         if isinstance(opt_params, OptParams):
             self.__opt_params = opt_params
             self.__dropout_rate = self.__opt_params.dropout_rate
         else:
-            raise TypeError()
+            raise TypeError("The type of `opt_params` must be `OptParams`.")
 
         if isinstance(verificatable_result, VerificatableResult):
             self.__verificatable_result = verificatable_result
         else:
-            raise TypeError()
+            raise TypeError("The type of `verificatable_result` must be `VerificatableResult`.")
 
         self.__epochs = epochs
         self.__batch_size = batch_size
@@ -100,7 +100,9 @@ class ConvolutionalNeuralNetwork(object):
         
         Args:
             observed_arr:   `np.ndarray` of observed data points.
-            observed_arr:   `np.ndarray` of labeled data.
+            target_arr:     `np.ndarray` of labeled data.
+                            If `None`, the function of this cnn model is equivalent to Convolutional Auto-Encoder.
+
         '''
         self.__logger.debug("CNN starts learning.")
 
@@ -375,3 +377,19 @@ class ConvolutionalNeuralNetwork(object):
         self.__layerable_cnn_list = value
 
     layerable_cnn_list = property(get_layerable_cnn_list, set_layerable_cnn_list)
+
+    def get_verificatable_result(self):
+        ''' getter '''
+        if isinstance(self.__verificatable_result, VerificatableResult):
+            return self.__verificatable_result
+        else:
+            raise TypeError()
+
+    def set_verificatable_result(self, value):
+        ''' setter '''
+        if isinstance(value, VerificatableResult):
+            self.__verificatable_result = value
+        else:
+            raise TypeError()
+    
+    verificatable_result = property(get_verificatable_result, set_verificatable_result)

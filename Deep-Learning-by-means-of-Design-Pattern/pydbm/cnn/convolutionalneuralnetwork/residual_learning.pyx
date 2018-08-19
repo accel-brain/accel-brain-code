@@ -8,8 +8,17 @@ ctypedef np.float64_t DOUBLE_t
 
 class ResidualLearning(ConvolutionalNeuralNetwork):
     '''
-    Residual Learning Framework.
+    Deep Residual Learning Framework which hypothesize that
+    "it is easier to optimize the residual mapping than to optimize the original, 
+    unreferenced mapping. To the extreme, if an identity mapping were optimal, 
+    it would be easier to push the residual to zero than to fit an identity mapping 
+    by a stack of nonlinear layers." (He, K. et al., 2016, p771.)
+    
+    Reference:
+        He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 770-778).
+
     '''
+
     # Learning or not. If `True`, this class executes residual learning.
     __learn_mode = True
 
@@ -77,11 +86,20 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
         np.ndarray target_arr=None
     ):
         '''
-        Learn.
+        Learn with Deep Residual Learning Framework.
+        
+        "With the residual learning reformulation, if identity mappings are optimal, 
+        the solvers may simply drive the weights of the multiple nonlinear layers
+        toward zero to approach identity mappings". (He, K. et al., 2016, p771.)
         
         Args:
             observed_arr:   `np.ndarray` of observed data points.
-            observed_arr:   `np.ndarray` of labeled data.
+            target_arr:     `np.ndarray` of labeled data.
+                            If `None`, the function of this cnn model is equivalent to Convolutional Auto-Encoder.
+
+        Reference:
+            He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 770-778).
+        
         '''
         self.__learn_mode = True
         super().learn(observed_arr, target_arr)

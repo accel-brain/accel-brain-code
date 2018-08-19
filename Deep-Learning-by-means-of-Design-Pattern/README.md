@@ -262,10 +262,29 @@ This library provides **Encoder/Decoder based on LSTM**, which is a reconstructi
 
 ### Functionally equivalent: Convolutional Auto-Encoder.
 
-**Shape-BM** is a kind of problem solution in relation to problem settings such as image segmentation, object detection, inpainting and graphics. In this problem settings, **Convolutional Auto-Encoder** is a functionally equivalent of **Shape-BM**. A stack of Convolutional Auto-Encoder forms a convolutional neural network(CNN), which are among the most
+**Shape-BM** is a kind of problem solution in relation to problem settings such as image segmentation, object detection, inpainting and graphics. In this problem settings, **Convolutional Auto-Encoder**(Masci, J., et al., 2011) is a functionally equivalent of **Shape-BM**. A stack of Convolutional Auto-Encoder forms a convolutional neural network(CNN), which are among the most
 successful models for supervised image classification. Each Convolutional Auto-Encoder is trained using conventional on-line gradient descent without additional regularization terms.
 
+<table border="0">
+    <tr>
+        <td>
+            <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/horse099.jpg" />
+        <p>Image in <a href="https://avaminzhang.wordpress.com/2012/12/07/%E3%80%90dataset%E3%80%91weizmann-horses/" target="_blank">the Weizmann horse dataset</a>.</p>
+        </td>
+        <td>
+            <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_horse099.gif" />
+            <p>Reconstructed image by <strong>Shape-BM</strong>.</p>
+        </td>
+        <td>
+            <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/reconstrcuted_by_CAE.gif" />
+            <p>Reconstructed image by <strong>Convolutional Auto-Encoder</strong>.</p>
+        </td>
+    </tr>
+</table>
+
 This library can draw a distinction between **Stacked Auto-Encoder** and **Convolutional Auto-Encoder**, and is able to design and implement respective models. **Stacked Auto-Encoder** ignores the 2 dimentional image structures. In many cases, the rank of observed tensors extracted from image dataset is more than 3. This is not only a problem when dealing with realistically sized inputs, but also introduces redundancy in the parameters, forcing each feature to be global. Like **Shape-BM**, **Convolutional Auto-Encoder** differs from **Stacked Auto-Encoder** as their weights are shared among all locations in the input, preserving spatial locality. Hence, the reconstructed image data is due to a linear combination of basic image patches based on the latent code.
+
+In this library, **Convolutional Auto-Encoder** is also based on **Encoder/Decoder** scheme. The *encoder* is to the *decoder* what the *Convolution* is to the *Deconvolution*. The Deconvolution also called transposed convolutions "work by swapping the forward and backward passes of a convolution." (Dumoulin, V., & Visin, F. 2016, p20.)
 
 ## Usecase: Building the deep boltzmann machine for feature extracting.
 
@@ -769,36 +788,36 @@ Import Python and Cython modules for loss function.
 
 ```python
 # Loss function.
-from pydbm.rnn.loss.mean_squared_error import MeanSquaredError
+from pydbm.loss.mean_squared_error import MeanSquaredError
 ```
 
 Import Python and Cython modules for optimizer.
 
 ```python
 # SGD as a Loss function.
-from pydbm.rnn.optimization.optparams.sgd import SGD as EncoderSGD
-from pydbm.rnn.optimization.optparams.sgd import SGD as DecoderSGD
+from pydbm.optimization.optparams.sgd import SGD as EncoderSGD
+from pydbm.optimization.optparams.sgd import SGD as DecoderSGD
 ```
 
 If you want to use not Stochastic Gradient Descent(SGD) but **Adam** optimizer, import `Adam`.
 
 ```python
 # Adam as a Loss function.
-from pydbm.rnn.optimization.optparams.adam import Adam as EncoderAdam
-from pydbm.rnn.optimization.optparams.adam import Adam as DecoderAdam
+from pydbm.optimization.optparams.adam import Adam as EncoderAdam
+from pydbm.optimization.optparams.adam import Adam as DecoderAdam
 ```
 
 Futhermore, import class for verification of function approximation.
 
 ```python
 # Verification.
-from pydbm.rnn.verification.verificate_function_approximation import VerificateFunctionApproximation
+from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
 ```
 
 The activation by softmax function can be verificated by `VerificateSoftmax`.
 
 ```python
-from pydbm.rnn.verification.verificate_softmax import VerificateSoftmax
+from pydbm.verification.verificate_softmax import VerificateSoftmax
 ```
 
 And import LSTM Model and Encoder/Decoder schema.
@@ -986,6 +1005,7 @@ reconstruct_error_arr = dbm.get_reconstruction_error()
 - Ackley, D. H., Hinton, G. E., & Sejnowski, T. J. (1985). A learning algorithm for Boltzmann machines. Cognitive science, 9(1), 147-169.
 - Boulanger-Lewandowski, N., Bengio, Y., & Vincent, P. (2012). Modeling temporal dependencies in high-dimensional sequences: Application to polyphonic music generation and transcription. arXiv preprint arXiv:1206.6392.
 - Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.
+- Dumoulin, V., & Visin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
 - Eslami, S. A., Heess, N., Williams, C. K., & Winn, J. (2014). The shape boltzmann machine: a strong model of object shape. International Journal of Computer Vision, 107(2), 155-176.
 - Hinton, G. E. (2002). Training products of experts by minimizing contrastive divergence. Neural computation, 14(8), 1771-1800.
 - Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.

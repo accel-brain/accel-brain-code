@@ -157,9 +157,8 @@ While the hidden units are binary during inference and sampling, it is the mean-
 The RTRBM can be understood as a sequence of conditional RBMs whose parameters are the output of a deterministic RNN, with the constraint that the hidden units must describe the conditional distributions and convey temporal information. This constraint can be lifted by combining a full RNN with distinct hidden units. **RNN-RBM** (Boulanger-Lewandowski, N., et al. 2012), which is the more structural expansion of RTRBM, has also hidden units <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/hat_h_t.png" />.
 
 <div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/rtrbm_and_rnn-rbm.png" />
-<p><cite>Boulanger-Lewandowski, N., Bengio, Y., & Vincent, P. (2012). Modeling temporal dependencies in high-dimensional sequences: Application to polyphonic music generation and transcription. arXiv preprint arXiv:1206.6392., p4. Single arrows
-represent a deterministic function, double arrows represent
-the stochastic hidden-visible connections of an RBM.</cite></p>
+<p><cite>Boulanger-Lewandowski, N., Bengio, Y., & Vincent, P. (2012). Modeling temporal dependencies in high-dimensional sequences: Application to polyphonic music generation and transcription. arXiv preprint arXiv:1206.6392., p4.</cite></p>
+<p><cite>Single arrows represent a deterministic function, double arrows represent the stochastic hidden-visible connections of an RBM.</cite></p>
 </div>
 
 The biases are linear function of <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/hat_h_t.png" />. This hidden units are only connected to their direct predecessor <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/hat_h_t_1.png" /> and visible units in time `t` by the relation:
@@ -249,7 +248,7 @@ From perspective of *commonality/variability analysis* in order to practice obje
 
 While each model is *common* in that it is constituted by stacked RBM, its approximation methods and activation functions are *variable* depending on the problem settings. Considering the *commonality*, it is useful to design based on `Builder Pattern`, which separates the construction of RBM object from its representation so that the same construction process can create different representations such as DBM, RTRBM, RNN-RBM, and Shape-BM. On the other hand, to deal with the *variability*, `Strategy Pattern`, which provides a way to define a family of algorithms such as approximation methods and activation functions, is useful design method, which is encapsulate each one as an object, and make them interchangeable from the point of view of functionally equivalent.
 
-### Encoder/Decoder based on LSTM as functionally equivalent.
+### Functionally equivalent: Encoder/Decoder based on LSTM.
 
 The methodology of *equivalent-functionalism* enables us to introduce more functional equivalents and compare problem solutions structured with different algorithms and models in common problem setting. For example, in dimension reduction problem, the function of **Encoder/Decoder schema** is equivalent to **DBM** as a **Stacked Auto-Encoder**.
 
@@ -260,6 +259,32 @@ The methodology of *equivalent-functionalism* enables us to introduce more funct
 According to the neural networks theory, and in relation to manifold hypothesis, it is well known that multilayer neural networks can learn features of observed data points and have the feature points in hidden layer. High-dimensional data can be converted to low-dimensional codes by training the model such as **Stacked Auto-Encoder** and **Encoder/Decoder** with a small central layer to reconstruct high-dimensional input vectors. This function of dimensionality reduction facilitates feature expressions to calculate similarity of each data point.
 
 This library provides **Encoder/Decoder based on LSTM**, which is a reconstruction model and makes it possible to extract series features embedded in deeper layers. The LSTM encoder learns a fixed length vector of time-series observed data points and the LSTM decoder uses this representation to reconstruct the time-series using the current hidden state and the value inferenced at the previous time-step.
+
+### Functionally equivalent: Convolutional Auto-Encoder.
+
+**Shape-BM** is a kind of problem solution in relation to problem settings such as image segmentation, object detection, inpainting and graphics. In this problem settings, **Convolutional Auto-Encoder**(Masci, J., et al., 2011) is a functionally equivalent of **Shape-BM**. A stack of Convolutional Auto-Encoder forms a convolutional neural network(CNN), which are among the most
+successful models for supervised image classification. Each Convolutional Auto-Encoder is trained using conventional on-line gradient descent without additional regularization terms.
+
+<table border="0">
+    <tr>
+        <td>
+            <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/horse099.jpg" />
+        <p>Image in <a href="https://avaminzhang.wordpress.com/2012/12/07/%E3%80%90dataset%E3%80%91weizmann-horses/" target="_blank">the Weizmann horse dataset</a>.</p>
+        </td>
+        <td>
+            <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_horse099.gif" />
+            <p>Reconstructed image by <strong>Shape-BM</strong>.</p>
+        </td>
+        <td>
+            <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_by_CAE.gif" />
+            <p>Reconstructed image by <strong>Convolutional Auto-Encoder</strong>.</p>
+        </td>
+    </tr>
+</table>
+
+This library can draw a distinction between **Stacked Auto-Encoder** and **Convolutional Auto-Encoder**, and is able to design and implement respective models. **Stacked Auto-Encoder** ignores the 2 dimentional image structures. In many cases, the rank of observed tensors extracted from image dataset is more than 3. This is not only a problem when dealing with realistically sized inputs, but also introduces redundancy in the parameters, forcing each feature to be global. Like **Shape-BM**, **Convolutional Auto-Encoder** differs from **Stacked Auto-Encoder** as their weights are shared among all locations in the input, preserving spatial locality. Hence, the reconstructed image data is due to a linear combination of basic image patches based on the latent code.
+
+In this library, **Convolutional Auto-Encoder** is also based on **Encoder/Decoder** scheme. The *encoder* is to the *decoder* what the *Convolution* is to the *Deconvolution*. The Deconvolution also called transposed convolutions "work by swapping the forward and backward passes of a convolution." (Dumoulin, V., & Visin, F. 2016, p20.)
 
 ## Usecase: Building the deep boltzmann machine for feature extracting.
 
@@ -728,6 +753,8 @@ Image.fromarray(np.uint8(inferenced_data_arr))
 
 <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_09.png" />
 
+<a name="build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model"></a>
+
 ## Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model.
 
 Setup logger for verbose output.
@@ -763,36 +790,36 @@ Import Python and Cython modules for loss function.
 
 ```python
 # Loss function.
-from pydbm.rnn.loss.mean_squared_error import MeanSquaredError
+from pydbm.loss.mean_squared_error import MeanSquaredError
 ```
 
 Import Python and Cython modules for optimizer.
 
 ```python
-# SGD as a Loss function.
-from pydbm.rnn.optimization.optparams.sgd import SGD as EncoderSGD
-from pydbm.rnn.optimization.optparams.sgd import SGD as DecoderSGD
+# SGD as a optimizer.
+from pydbm.optimization.optparams.sgd import SGD as EncoderSGD
+from pydbm.optimization.optparams.sgd import SGD as DecoderSGD
 ```
 
 If you want to use not Stochastic Gradient Descent(SGD) but **Adam** optimizer, import `Adam`.
 
 ```python
-# Adam as a Loss function.
-from pydbm.rnn.optimization.optparams.adam import Adam as EncoderAdam
-from pydbm.rnn.optimization.optparams.adam import Adam as DecoderAdam
+# Adam as a optimizer.
+from pydbm.optimization.optparams.adam import Adam as EncoderAdam
+from pydbm.optimization.optparams.adam import Adam as DecoderAdam
 ```
 
 Futhermore, import class for verification of function approximation.
 
 ```python
 # Verification.
-from pydbm.rnn.verification.verificate_function_approximation import VerificateFunctionApproximation
+from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
 ```
 
 The activation by softmax function can be verificated by `VerificateSoftmax`.
 
 ```python
-from pydbm.rnn.verification.verificate_softmax import VerificateSoftmax
+from pydbm.verification.verificate_softmax import VerificateSoftmax
 ```
 
 And import LSTM Model and Encoder/Decoder schema.
@@ -856,6 +883,10 @@ encoder = Encoder(
     opt_params=encoder_opt_params,
     # Verification function.
     verificatable_result=VerificateFunctionApproximation(),
+    # Tolerance for the optimization.
+    # When the loss or score is not improving by at least tol 
+    # for two consecutive iterations, convergence is considered 
+    # to be reached and training stops.
     tol=0.0
 )
 ```
@@ -910,6 +941,10 @@ decoder = Decoder(
     opt_params=decoder_opt_params,
     # Verification function.
     verificatable_result=VerificateFunctionApproximation(),
+    # Tolerance for the optimization.
+    # When the loss or score is not improving by at least tol 
+    # for two consecutive iterations, convergence is considered 
+    # to be reached and training stops.
     tol=0.0
 )
 ```
@@ -923,7 +958,7 @@ encoder_decoder_controller = EncoderDecoderController(
     # is-a LSTM model.
     decoder=decoder,
     # The number of epochs in mini-batch training.
-    epochs=100,
+    epochs=200,
     # The batch size.
     batch_size=100,
     # Learning rate.
@@ -938,6 +973,10 @@ encoder_decoder_controller = EncoderDecoderController(
     computable_loss=MeanSquaredError(),
     # Verification function.
     verificatable_result=VerificateFunctionApproximation(),
+    # Tolerance for the optimization.
+    # When the loss or score is not improving by at least tol 
+    # for two consecutive iterations, convergence is considered 
+    # to be reached and training stops.
     tol=0.0
 )
 ```
@@ -974,19 +1013,163 @@ You can check the reconstruction error rate. Call `get_reconstruct_error` method
 reconstruct_error_arr = dbm.get_reconstruction_error()
 ```
 
+## Usecase: Build Convolutional Auto-Encoder.
+
+Setup logger for verbose output and import Python and Cython modules in the same manner as <a href="#build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model</a>.
+
+```python
+from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
+
+logger = getLogger("pydbm")
+handler = StreamHandler()
+handler.setLevel(DEBUG)
+logger.setLevel(DEBUG)
+logger.addHandler(handler)
+
+# ReLu Function as activation function.
+from pydbm.activation.relu_function import ReLuFunction
+# Tanh Function as activation function.
+from pydbm.activation.tanh_function import TanhFunction
+# Logistic Function as activation function.
+from pydbm.activation.logistic_function import LogisticFunction
+
+# Loss function.
+from pydbm.loss.mean_squared_error import MeanSquaredError
+
+# Adam as a optimizer.
+from pydbm.optimization.optparams.adam import Adam
+
+# Verification.
+from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
+```
+
+And import Python and Cython modules of the Convolutional Auto-Encoder.
+
+```python
+# Controller of Convolutional Auto-Encoder
+from pydbm.cnn.convolutionalneuralnetwork.convolutional_auto_encoder import ConvolutionalAutoEncoder
+# First convolution layer.
+from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer1
+# Second convolution layer.
+from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer2
+# Computation graph for first convolution layer.
+from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph1
+# Computation graph for second convolution layer.
+from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph2
+```
+
+Instantiate `ConvolutionLayer`s, delegating `CNNGraph`s respectively.
+
+```python
+# First convolution layer.
+conv1 = ConvolutionLayer1(
+    # Computation graph for first convolution layer.
+    ConvGraph1(
+        # Logistic function as activation function.
+        activation_function=LogisticFunction(),
+        # The number of `filter`.
+        filter_num=20,
+        # The number of channel.
+        channel=1,
+        # The size of kernel.
+        kernel_size=3,
+        # The filter scale.
+        scale=0.1,
+        # The nubmer of stride.
+        stride=1,
+        # The number of zero-padding.
+        pad=1
+    )
+)
+
+# Second convolution layer.
+conv2 = ConvolutionLayer2(
+    # Computation graph for second convolution layer.
+    ConvGraph2(
+        # Computation graph for second convolution layer.
+        activation_function=LogisticFunction(),
+        # The number of `filter`.
+        filter_num=1,
+        # The number of channel.
+        channel=20,
+        # The size of kernel.
+        kernel_size=3,
+        # The filter scale.
+        scale=0.1,
+        # The nubmer of stride.
+        stride=1,
+        # The number of zero-padding.
+        pad=1
+    )
+)
+```
+
+Instantiate `ConvolutionalAutoEncoder` and setup parameters.
+
+```python
+cnn = ConvolutionalAutoEncoder(
+    # The `list` of `ConvolutionLayer`.
+    layerable_cnn_list=[
+        conv1, 
+        conv2
+    ],
+    # The number of epochs in mini-batch training.
+    epochs=200,
+    # The batch size.
+    batch_size=100,
+    # Learning rate.
+    learning_rate=1e-05,
+    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+    learning_attenuate_rate=0.1,
+    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+    attenuate_epoch=50,
+    # Size of Test data set. If this value is `0`, the validation will not be executed.
+    test_size_rate=0.3,
+    # Optimizer.
+    opt_params=Adam(),
+    # Verification.
+    verificatable_result=VerificateFunctionApproximation(),
+    # The rate of dataset for test.
+    test_size_rate=0.3,
+    # Tolerance for the optimization.
+    # When the loss or score is not improving by at least tol 
+    # for two consecutive iterations, convergence is considered 
+    # to be reached and training stops.
+    tol=1e-15
+)
+```
+
+Execute learning.
+
+```python
+cnn.learn(img_arr, img_arr)
+```
+
+`img_arr` is a `np.ndarray` of image data, which is a rank-4 array-like or sparse matrix of shape: (`The number of samples`, `The number of channel`, `Height of image`, `Width of image`), as the first and second argument. If the value of this second argument is not equivalent to the first argument and the shape is (`The number of samples`, `The number of features`), in other words, the rank is 2, the function of `cnn` corresponds to a kind of Regression model.
+
+After learning, the `cnn` provides a function of `inference` method.
+
+```python
+result_arr = cnn.inference(test_img_arr[:100])
+```
+
+The shape of `test_img_arr` and `result_arr` is equivalent to `img_arr`. 
 
 ## References
 
 - Ackley, D. H., Hinton, G. E., & Sejnowski, T. J. (1985). A learning algorithm for Boltzmann machines. Cognitive science, 9(1), 147-169.
 - Boulanger-Lewandowski, N., Bengio, Y., & Vincent, P. (2012). Modeling temporal dependencies in high-dimensional sequences: Application to polyphonic music generation and transcription. arXiv preprint arXiv:1206.6392.
 - Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.
+- Dumoulin, V., & Visin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
 - Eslami, S. A., Heess, N., Williams, C. K., & Winn, J. (2014). The shape boltzmann machine: a strong model of object shape. International Journal of Computer Vision, 107(2), 155-176.
+- He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 770-778).
 - Hinton, G. E. (2002). Training products of experts by minimizing contrastive divergence. Neural computation, 14(8), 1771-1800.
 - Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.
 - Le Roux, N., & Bengio, Y. (2008). Representational power of restricted Boltzmann machines and deep belief networks. Neural computation, 20(6), 1631-1649.
 - Lyu, Q., Wu, Z., Zhu, J., & Meng, H. (2015, June). Modelling High-Dimensional Sequences with LSTM-RTRBM: Application to Polyphonic Music Generation. In IJCAI (pp. 4138-4139).
 - Lyu, Q., Wu, Z., & Zhu, J. (2015, October). Polyphonic music modelling with LSTM-RTRBM. In Proceedings of the 23rd ACM international conference on Multimedia (pp. 991-994). ACM.
 - Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., & Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.
+- Masci, J., Meier, U., Cireşan, D., & Schmidhuber, J. (2011, June). Stacked convolutional auto-encoders for hierarchical feature extraction. In International Conference on Artificial Neural Networks (pp. 52-59). Springer, Berlin, Heidelberg.
 - Salakhutdinov, R., & Hinton, G. E. (2009). Deep boltzmann machines. InInternational conference on artificial intelligence and statistics (pp. 448-455).
 - Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. (2014). Dropout: a simple way to prevent neural networks from overfitting. The Journal of Machine Learning Research, 15(1), 1929-1958.
 - Sutskever, I., Hinton, G. E., & Taylor, G. W. (2009). The recurrent temporal restricted boltzmann machine. In Advances in Neural Information Processing Systems (pp. 1601-1608).

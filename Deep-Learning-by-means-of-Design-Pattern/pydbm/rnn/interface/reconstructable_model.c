@@ -1664,12 +1664,14 @@ static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_observed_arr[] = "observed_arr";
 static const char __pyx_k_abstractmethod[] = "abstractmethod";
+static const char __pyx_k_delta_output_arr[] = "delta_output_arr";
 static const char __pyx_k_rnn_activity_arr[] = "rnn_activity_arr";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_get_feature_points[] = "get_feature_points";
 static const char __pyx_k_NotImplementedError[] = "NotImplementedError";
 static const char __pyx_k_hidden_activity_arr[] = "hidden_activity_arr";
 static const char __pyx_k_ReconstructableModel[] = "ReconstructableModel";
+static const char __pyx_k_hidden_back_propagate[] = "hidden_back_propagate";
 static const char __pyx_k_ReconstructableModel_learn[] = "ReconstructableModel.learn";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_ReconstructableModel_inference[] = "ReconstructableModel.inference";
@@ -1679,6 +1681,7 @@ static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype cod
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
 static const char __pyx_k_ReconstructableModel_get_feature[] = "ReconstructableModel.get_feature_points";
+static const char __pyx_k_ReconstructableModel_hidden_back[] = "ReconstructableModel.hidden_back_propagate";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
 static const char __pyx_k_pydbm_rnn_interface_reconstructa[] = "pydbm.rnn.interface.reconstructable_model";
@@ -1692,6 +1695,7 @@ static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_NotImplementedError;
 static PyObject *__pyx_n_s_ReconstructableModel;
 static PyObject *__pyx_n_s_ReconstructableModel_get_feature;
+static PyObject *__pyx_n_s_ReconstructableModel_hidden_back;
 static PyObject *__pyx_n_s_ReconstructableModel_inference;
 static PyObject *__pyx_n_s_ReconstructableModel_learn;
 static PyObject *__pyx_n_s_RuntimeError;
@@ -1701,9 +1705,11 @@ static PyObject *__pyx_n_s_abc;
 static PyObject *__pyx_n_s_abstractmethod;
 static PyObject *__pyx_n_s_array;
 static PyObject *__pyx_n_s_cline_in_traceback;
+static PyObject *__pyx_n_s_delta_output_arr;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_get_feature_points;
 static PyObject *__pyx_n_s_hidden_activity_arr;
+static PyObject *__pyx_n_s_hidden_back_propagate;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_inference;
 static PyObject *__pyx_n_s_learn;
@@ -1731,6 +1737,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model___defau
 static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_learn(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_observed_arr, CYTHON_UNUSED PyArrayObject *__pyx_v_target_arr); /* proto */
 static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_2inference(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_observed_arr, CYTHON_UNUSED PyArrayObject *__pyx_v_hidden_activity_arr, CYTHON_UNUSED PyArrayObject *__pyx_v_rnn_activity_arr); /* proto */
 static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_4get_feature_points(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_6hidden_back_propagate(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_delta_output_arr); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tuple_;
@@ -1746,9 +1753,11 @@ static PyObject *__pyx_tuple__10;
 static PyObject *__pyx_tuple__12;
 static PyObject *__pyx_tuple__14;
 static PyObject *__pyx_tuple__15;
+static PyObject *__pyx_tuple__17;
 static PyObject *__pyx_codeobj__11;
 static PyObject *__pyx_codeobj__13;
 static PyObject *__pyx_codeobj__16;
+static PyObject *__pyx_codeobj__18;
 
 /* "pydbm/rnn/interface/reconstructable_model.pyx":14
  * 
@@ -1796,7 +1805,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model___defau
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_1learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_learn[] = "\n        Learn the observed data points\n        for vector representation of the input time-series.\n\n        Override.\n\n        Args:\n            observed_arr:    Array like or sparse matrix as the observed data ponts.\n            target_arr:      Array like or sparse matrix as the target data points.\n                             To learn as Auto-encoder, this value must be `None` or equivalent to `observed_arr`.\n        ";
+static char __pyx_doc_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_learn[] = "\n        Learn the observed data points\n        for vector representation of the input time-series.\n\n        Override.\n\n        Args:\n            observed_arr:    Array like or sparse matrix as the observed data points.\n            target_arr:      Array like or sparse matrix as the target data points.\n                             To learn as Auto-encoder, this value must be `None` or equivalent to `observed_arr`.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_1learn = {"learn", (PyCFunction)__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_1learn, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_learn};
 static PyObject *__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_1learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
@@ -1946,7 +1955,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20Recon
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_3inference(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_2inference[] = "\n        Inference the feature points to reconstruct the time-series.\n\n        Args:\n            observed_arr:           Array like or sparse matrix as the observed data ponts.\n            hidden_activity_arr:    Array like or sparse matrix as the state in hidden layer.\n            rnn_activity_arr:       Array like or sparse matrix as the state in RNN.\n\n        Returns:\n            Tuple(\n                Array like or sparse matrix of reconstructed instances of time-series,\n                Array like or sparse matrix of the state in hidden layer,\n                Array like or sparse matrix of the state in RNN\n            )\n        ";
+static char __pyx_doc_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_2inference[] = "\n        Inference the feature points to reconstruct the time-series.\n\n        Args:\n            observed_arr:           Array like or sparse matrix as the observed data points.\n            hidden_activity_arr:    Array like or sparse matrix as the state in hidden layer.\n            rnn_activity_arr:       Array like or sparse matrix as the state in RNN.\n\n        Returns:\n            Tuple(\n                Array like or sparse matrix of reconstructed instances of time-series,\n                Array like or sparse matrix of the state in hidden layer,\n                Array like or sparse matrix of the state in RNN\n            )\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_3inference = {"inference", (PyCFunction)__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_3inference, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_2inference};
 static PyObject *__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_3inference(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
@@ -2182,6 +2191,8 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20Recon
  *             Array like or sparse matrix of feature points.
  *         '''
  *         raise NotImplementedError()             # <<<<<<<<<<<<<<
+ * 
+ *     @abstractmethod
  */
   __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -2202,6 +2213,137 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20Recon
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_AddTraceback("pydbm.rnn.interface.reconstructable_model.ReconstructableModel.get_feature_points", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/rnn/interface/reconstructable_model.pyx":63
+ * 
+ *     @abstractmethod
+ *     def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] delta_output_arr):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Back propagation in hidden layer.
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_7hidden_back_propagate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_6hidden_back_propagate[] = "\n        Back propagation in hidden layer.\n        \n        Args:\n            delta_output_arr:    Delta.\n        \n        Returns:\n            Tuple(\n                `np.ndarray` of Delta, \n                `list` of gradations\n            )\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_7hidden_back_propagate = {"hidden_back_propagate", (PyCFunction)__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_7hidden_back_propagate, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_6hidden_back_propagate};
+static PyObject *__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_7hidden_back_propagate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  CYTHON_UNUSED PyObject *__pyx_v_self = 0;
+  CYTHON_UNUSED PyArrayObject *__pyx_v_delta_output_arr = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("hidden_back_propagate (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_delta_output_arr,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_delta_output_arr)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("hidden_back_propagate", 1, 2, 2, 1); __PYX_ERR(0, 63, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "hidden_back_propagate") < 0)) __PYX_ERR(0, 63, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_self = values[0];
+    __pyx_v_delta_output_arr = ((PyArrayObject *)values[1]);
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("hidden_back_propagate", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 63, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pydbm.rnn.interface.reconstructable_model.ReconstructableModel.hidden_back_propagate", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_delta_output_arr), __pyx_ptype_5numpy_ndarray, 1, "delta_output_arr", 0))) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_6hidden_back_propagate(__pyx_self, __pyx_v_self, __pyx_v_delta_output_arr);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_6hidden_back_propagate(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_delta_output_arr) {
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_delta_output_arr;
+  __Pyx_Buffer __pyx_pybuffer_delta_output_arr;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("hidden_back_propagate", 0);
+  __pyx_pybuffer_delta_output_arr.pybuffer.buf = NULL;
+  __pyx_pybuffer_delta_output_arr.refcount = 0;
+  __pyx_pybuffernd_delta_output_arr.data = NULL;
+  __pyx_pybuffernd_delta_output_arr.rcbuffer = &__pyx_pybuffer_delta_output_arr;
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_delta_output_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9interface_21reconstructable_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 63, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_delta_output_arr.diminfo[0].strides = __pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_output_arr.diminfo[0].shape = __pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_output_arr.diminfo[1].strides = __pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_output_arr.diminfo[1].shape = __pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer.shape[1];
+
+  /* "pydbm/rnn/interface/reconstructable_model.pyx":76
+ *             )
+ *         '''
+ *         raise NotImplementedError()             # <<<<<<<<<<<<<<
+ */
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __PYX_ERR(0, 76, __pyx_L1_error)
+
+  /* "pydbm/rnn/interface/reconstructable_model.pyx":63
+ * 
+ *     @abstractmethod
+ *     def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] delta_output_arr):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Back propagation in hidden layer.
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
+    __Pyx_PyThreadState_declare
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer);
+  __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
+  __Pyx_AddTraceback("pydbm.rnn.interface.reconstructable_model.ReconstructableModel.hidden_back_propagate", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  goto __pyx_L2;
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer);
+  __pyx_L2:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -4834,6 +4976,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_NotImplementedError, __pyx_k_NotImplementedError, sizeof(__pyx_k_NotImplementedError), 0, 0, 1, 1},
   {&__pyx_n_s_ReconstructableModel, __pyx_k_ReconstructableModel, sizeof(__pyx_k_ReconstructableModel), 0, 0, 1, 1},
   {&__pyx_n_s_ReconstructableModel_get_feature, __pyx_k_ReconstructableModel_get_feature, sizeof(__pyx_k_ReconstructableModel_get_feature), 0, 0, 1, 1},
+  {&__pyx_n_s_ReconstructableModel_hidden_back, __pyx_k_ReconstructableModel_hidden_back, sizeof(__pyx_k_ReconstructableModel_hidden_back), 0, 0, 1, 1},
   {&__pyx_n_s_ReconstructableModel_inference, __pyx_k_ReconstructableModel_inference, sizeof(__pyx_k_ReconstructableModel_inference), 0, 0, 1, 1},
   {&__pyx_n_s_ReconstructableModel_learn, __pyx_k_ReconstructableModel_learn, sizeof(__pyx_k_ReconstructableModel_learn), 0, 0, 1, 1},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
@@ -4843,9 +4986,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_abstractmethod, __pyx_k_abstractmethod, sizeof(__pyx_k_abstractmethod), 0, 0, 1, 1},
   {&__pyx_n_s_array, __pyx_k_array, sizeof(__pyx_k_array), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
+  {&__pyx_n_s_delta_output_arr, __pyx_k_delta_output_arr, sizeof(__pyx_k_delta_output_arr), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_get_feature_points, __pyx_k_get_feature_points, sizeof(__pyx_k_get_feature_points), 0, 0, 1, 1},
   {&__pyx_n_s_hidden_activity_arr, __pyx_k_hidden_activity_arr, sizeof(__pyx_k_hidden_activity_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_hidden_back_propagate, __pyx_k_hidden_back_propagate, sizeof(__pyx_k_hidden_back_propagate), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_inference, __pyx_k_inference, sizeof(__pyx_k_inference), 0, 0, 1, 1},
   {&__pyx_n_s_learn, __pyx_k_learn, sizeof(__pyx_k_learn), 0, 0, 1, 1},
@@ -5021,6 +5166,18 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
   __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_interface_reconstructa_2, __pyx_n_s_get_feature_points, 53, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 53, __pyx_L1_error)
+
+  /* "pydbm/rnn/interface/reconstructable_model.pyx":63
+ * 
+ *     @abstractmethod
+ *     def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] delta_output_arr):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Back propagation in hidden layer.
+ */
+  __pyx_tuple__17 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_delta_output_arr); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__17);
+  __Pyx_GIVEREF(__pyx_tuple__17);
+  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_interface_reconstructa_2, __pyx_n_s_hidden_back_propagate, 63, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5517,6 +5674,74 @@ static int __pyx_pymod_exec_reconstructable_model(PyObject *__pyx_pyinit_module)
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_feature_points, __pyx_t_4) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/rnn/interface/reconstructable_model.pyx":62
+ *         raise NotImplementedError()
+ * 
+ *     @abstractmethod             # <<<<<<<<<<<<<<
+ *     def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] delta_output_arr):
+ *         '''
+ */
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_abstractmethod); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+
+  /* "pydbm/rnn/interface/reconstructable_model.pyx":63
+ * 
+ *     @abstractmethod
+ *     def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] delta_output_arr):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Back propagation in hidden layer.
+ */
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_7hidden_back_propagate, 0, __pyx_n_s_ReconstructableModel_hidden_back, NULL, __pyx_n_s_pydbm_rnn_interface_reconstructa, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_7 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_5);
+    if (likely(__pyx_t_7)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_7);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_5, function);
+    }
+  }
+  if (!__pyx_t_7) {
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 62, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_GOTREF(__pyx_t_4);
+  } else {
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(__pyx_t_5)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_6};
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 62, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    } else
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_6};
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 62, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    } else
+    #endif
+    {
+      __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 62, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7); __pyx_t_7 = NULL;
+      __Pyx_GIVEREF(__pyx_t_6);
+      PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_t_6);
+      __pyx_t_6 = 0;
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_9, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 62, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    }
+  }
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_hidden_back_propagate, __pyx_t_4) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "pydbm/rnn/interface/reconstructable_model.pyx":8

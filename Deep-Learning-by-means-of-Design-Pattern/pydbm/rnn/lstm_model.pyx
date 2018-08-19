@@ -3,9 +3,9 @@ from logging import getLogger
 import numpy as np
 cimport numpy as np
 from pydbm.synapse_list import Synapse
-from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
-from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
-from pydbm.rnn.optimization.opt_params import OptParams
+from pydbm.verification.interface.verificatable_result import VerificatableResult
+from pydbm.loss.interface.computable_loss import ComputableLoss
+from pydbm.optimization.opt_params import OptParams
 from pydbm.rnn.interface.reconstructable_model import ReconstructableModel
 ctypedef np.float64_t DOUBLE_t
 
@@ -33,9 +33,6 @@ class LSTMModel(ReconstructableModel):
     
     # Verification function.
     __verificatable_result = None
-
-    # The list of inferenced feature points.
-    __feature_points_arr = None
 
     # The list of paramters to be differentiated.
     __learned_params_list = []
@@ -126,7 +123,7 @@ class LSTMModel(ReconstructableModel):
         Override.
 
         Args:
-            observed_arr:    Array like or sparse matrix as the observed data ponts.
+            observed_arr:    Array like or sparse matrix as the observed data points.
             target_arr:      Array like or sparse matrix as the target data points.
                              To learn as Auto-encoder, this value must be `None` or equivalent to `observed_arr`.
         '''
@@ -149,8 +146,6 @@ class LSTMModel(ReconstructableModel):
         cdef np.ndarray rand_index
         cdef np.ndarray[DOUBLE_t, ndim=3] batch_observed_arr
         cdef np.ndarray batch_target_arr
-        cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr
-        cdef np.ndarray[DOUBLE_t, ndim=3] test_hidden_activity_arr
 
         if row_t != 0 and row_t != row_o:
             raise ValueError("The row of `target_arr` must be equivalent to the row of `observed_arr`.")
@@ -194,6 +189,7 @@ class LSTMModel(ReconstructableModel):
 
                 try:
                     pred_arr = self.forward_propagation(batch_observed_arr)
+                    ver_pred_arr = pred_arr.copy()
                     loss = self.__computable_loss.compute_loss(
                         pred_arr,
                         batch_target_arr[:, -1, :]
@@ -203,11 +199,10 @@ class LSTMModel(ReconstructableModel):
                         batch_target_arr[:, -1, :]
                     )
                     delta_arr, output_grads_list = self.output_back_propagate(pred_arr, delta_arr)
-                    _delta_arr, lstm_grads_list = self.lstm_back_propagate(delta_arr)
+                    _delta_arr, lstm_grads_list = self.hidden_back_propagate(delta_arr)
                     grads_list = output_grads_list
                     grads_list.extend(lstm_grads_list)
                     self.optimize(grads_list, learning_rate, epoch)
-                    loss_list.append(loss)
                     self.graph.hidden_activity_arr = np.array([])
                     self.graph.rnn_activity_arr = np.array([])
 
@@ -227,22 +222,21 @@ class LSTMModel(ReconstructableModel):
                     test_batch_observed_arr = test_observed_arr[rand_index]
                     test_batch_target_arr = test_target_arr[rand_index]
 
-                    test_hidden_activity_arr = self.lstm_forward_propagate(test_batch_observed_arr)
-                    test_pred_arr = self.__output_forward_propagate(test_hidden_activity_arr)
-
+                    test_pred_arr = self.forward_propagation(test_batch_observed_arr)
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=pred_arr, 
+                                train_pred_arr=ver_pred_arr, 
                                 train_label_arr=batch_target_arr[:, -1, :],
                                 test_pred_arr=test_pred_arr,
                                 test_label_arr=test_batch_target_arr[:, -1, :]
                             )
 
-                if epoch > 0 and abs(loss - loss_list[-1]) < self.__tol:
+                if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
                     eary_stop_flag = True
                     break
+                loss_list.append(loss)
 
         except KeyboardInterrupt:
             self.__logger.debug("Interrupt.")
@@ -258,13 +252,18 @@ class LSTMModel(ReconstructableModel):
         Forward propagation.
         
         Args:
-            batch_observed_arr:    Array like or sparse matrix as the observed data ponts.
+            batch_observed_arr:    Array like or sparse matrix as the observed data points.
         
         Returns:
-            Array like or sparse matrix as the predicted data ponts.
+            Array like or sparse matrix as the predicted data points.
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr = self.lstm_forward_propagate(batch_observed_arr)
-        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.__output_forward_propagate(hidden_activity_arr)
+        cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr = self.hidden_forward_propagate(
+            batch_observed_arr
+        )
+        self.graph.hidden_activity_arr = hidden_activity_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.output_forward_propagate(
+            hidden_activity_arr
+        )
         return pred_arr
 
     def optimize(
@@ -316,7 +315,7 @@ class LSTMModel(ReconstructableModel):
         Override.
 
         Args:
-            observed_arr:           Array like or sparse matrix as the observed data ponts.
+            observed_arr:           Array like or sparse matrix as the observed data points.
             hidden_activity_arr:    Array like or sparse matrix as the state in hidden layer.
             rnn_activity_arr:       Array like or sparse matrix as the state in RNN.
 
@@ -346,7 +345,6 @@ class LSTMModel(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.forward_propagation(observed_arr)
         self.__opt_params.dropout_rate = self.__dropout_rate
 
-        self.__feature_points_arr = self.__memory_tuple_list[-1][8]
         return pred_arr
 
     def get_feature_points(self):
@@ -357,11 +355,9 @@ class LSTMModel(ReconstructableModel):
         Returns:
             The `list` of array like or sparse matrix of feature points or virtual visible observed data points.
         '''
-        feature_points_arr = self.__feature_points_arr
-        self.__feature_points_arr = np.array([])
-        return feature_points_arr
+        return self.graph.hidden_activity_arr
 
-    def lstm_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=3] observed_arr):
+    def hidden_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=3] observed_arr):
         '''
         Forward propagation in LSTM gate.
         
@@ -386,16 +382,25 @@ class LSTMModel(ReconstructableModel):
 
         cdef int cycle
         for cycle in range(cycle_len):
-            self.graph.hidden_activity_arr, self.graph.rnn_activity_arr = self.__lstm_forward(
-                observed_arr[:, cycle, :],
-                self.graph.hidden_activity_arr,
-                self.graph.rnn_activity_arr
-            )
+            if self.graph.hidden_activity_arr.ndim == 2:
+                self.graph.hidden_activity_arr, self.graph.rnn_activity_arr = self.__lstm_forward(
+                    observed_arr[:, cycle, :],
+                    self.graph.hidden_activity_arr,
+                    self.graph.rnn_activity_arr
+                )
+            elif self.graph.hidden_activity_arr.ndim == 3:
+                self.graph.hidden_activity_arr, self.graph.rnn_activity_arr = self.__lstm_forward(
+                    observed_arr[:, cycle, :],
+                    self.graph.hidden_activity_arr[:, cycle, :],
+                    self.graph.rnn_activity_arr
+                )
+            else:
+                raise ValueError("The shape of hidden activity array is invalid.")
             pred_arr[:, cycle, :] = self.graph.hidden_activity_arr
 
         return pred_arr
 
-    def __output_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=3] pred_arr):
+    def output_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=3] pred_arr):
         '''
         Forward propagation in output layer.
         
@@ -435,9 +440,9 @@ class LSTMModel(ReconstructableModel):
         
         return (_delta_arr, grads_list)
 
-    def lstm_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] delta_output_arr):
+    def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] delta_output_arr):
         '''
-        Back propagation in LSTM gate.
+        Back propagation in hidden layer.
         
         Args:
             delta_output_arr:    Delta.
@@ -468,7 +473,7 @@ class LSTMModel(ReconstructableModel):
             else:
                 _delta_hidden_arr = delta_hidden_arr
 
-            delta_observed_arr, delta_hidden_arr, delta_rnn_arr, grad_list = self.__lstm_backward(
+            delta_observed_arr, delta_hidden_arr, delta_rnn_arr, grad_list = self.lstm_backward(
                 _delta_hidden_arr,
                 delta_rnn_arr,
                 cycle
@@ -505,7 +510,6 @@ class LSTMModel(ReconstructableModel):
             )
         '''
         cdef int h_col = int(self.graph.weights_lstm_hidden_arr.shape[1] / 4)
-
         cdef np.ndarray[DOUBLE_t, ndim=2] lstm_matrix = np.dot(
             observed_arr,
             self.graph.weights_lstm_observed_arr
@@ -528,6 +532,7 @@ class LSTMModel(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=2] _hidden_activity_arr = output_gate_activity_arr * self.graph.hidden_activating_function.activate(_rnn_activity_arr)
 
         _hidden_activity_arr = self.__opt_params.dropout(_hidden_activity_arr)
+
         self.__memory_tuple_list.append((
             observed_arr, 
             hidden_activity_arr, 
@@ -539,10 +544,9 @@ class LSTMModel(ReconstructableModel):
             _rnn_activity_arr,
             _hidden_activity_arr
         ))
-        self.__feature_points_arr = _hidden_activity_arr
         return (_hidden_activity_arr, _rnn_activity_arr)
 
-    def __lstm_backward(
+    def lstm_backward(
         self,
         np.ndarray[DOUBLE_t, ndim=2] delta_hidden_arr,
         np.ndarray delta_rnn_arr,
@@ -591,7 +595,7 @@ class LSTMModel(ReconstructableModel):
         delta_forget_gate_arr = delta_top_arr * delta_pre_rnn_arr * self.graph.forget_gate_activating_function.derivative(forget_gate_activity_arr)
         delta_input_gate_arr = delta_top_arr * given_activity_arr * self.graph.input_gate_activating_function.derivative(input_gate_activity_arr)
         delta_given_arr = delta_top_arr * input_gate_activity_arr * self.graph.observed_activating_function.derivative(given_activity_arr)
-        
+
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_lstm_matrix = np.hstack([
             delta_output_gate_arr,
             delta_forget_gate_arr,

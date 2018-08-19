@@ -46,16 +46,6 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         '''
         Initialize deep boltzmann machine.
 
-        Args:
-            dbm_builder:            `    Concrete Builder` in Builder Pattern.
-            neuron_assign_list:          The number of neurons in each layers.
-            activating_function_list:    Activation function.
-            approximate_interface_list:  The object of function approximation.
-            learning_rate:               Learning rate.
-            dropout_rate:                Dropout rate.
-            overlap_n:                   The number of overlapped pixels.
-            filter_size:                 The 'filter' size.
-        
         `filter_size` is the 'filter' size. This value must be more than 4.
         And `overlap_n` is hyperparameter specific to Shape-BM. 
         In the visible layer, this model has so-called local receptive fields 
@@ -66,6 +56,16 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         Please note that the recommended ratio of `filter_size` and `overlap_n` is 5:4. 
         It is not a constraint demanded by pure theory of Shape Boltzmann Machine itself 
         but is a kind of limitation to simplify design and implementation in this library.
+
+        Args:
+            dbm_builder:            `    Concrete Builder` in Builder Pattern.
+            neuron_assign_list:          The number of neurons in each layers.
+            activating_function_list:    Activation function.
+            approximate_interface_list:  The object of function approximation.
+            learning_rate:               Learning rate.
+            dropout_rate:                Dropout rate.
+            overlap_n:                   The number of overlapped pixels.
+            filter_size:                 The 'filter' size.
         
         Reference:
             Eslami, S. A., Heess, N., Williams, C. K., & Winn, J. (2014). The shape boltzmann machine: a strong model of object shape. International Journal of Computer Vision, 107(2), 155-176.

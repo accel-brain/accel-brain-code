@@ -19,7 +19,7 @@ class ReconstructableModel(metaclass=ABCMeta):
         Override.
 
         Args:
-            observed_arr:    Array like or sparse matrix as the observed data ponts.
+            observed_arr:    Array like or sparse matrix as the observed data points.
             target_arr:      Array like or sparse matrix as the target data points.
                              To learn as Auto-encoder, this value must be `None` or equivalent to `observed_arr`.
         '''
@@ -36,7 +36,7 @@ class ReconstructableModel(metaclass=ABCMeta):
         Inference the feature points to reconstruct the time-series.
 
         Args:
-            observed_arr:           Array like or sparse matrix as the observed data ponts.
+            observed_arr:           Array like or sparse matrix as the observed data points.
             hidden_activity_arr:    Array like or sparse matrix as the state in hidden layer.
             rnn_activity_arr:       Array like or sparse matrix as the state in RNN.
 
@@ -56,5 +56,21 @@ class ReconstructableModel(metaclass=ABCMeta):
         
         Returns:
             Array like or sparse matrix of feature points.
+        '''
+        raise NotImplementedError()
+
+    @abstractmethod
+    def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] delta_output_arr):
+        '''
+        Back propagation in hidden layer.
+        
+        Args:
+            delta_output_arr:    Delta.
+        
+        Returns:
+            Tuple(
+                `np.ndarray` of Delta, 
+                `list` of gradations
+            )
         '''
         raise NotImplementedError()

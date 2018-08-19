@@ -412,10 +412,10 @@ class LSTMGraph(RecurrentTemporalGraph):
 
         self.weights_lstm_observed_arr = np.random.normal(size=(input_neuron_count, hidden_neuron_count * 4)) * 0.1
         self.weights_lstm_hidden_arr = np.random.normal(size=(hidden_neuron_count, hidden_neuron_count * 4)) * 0.1
-        self.lstm_bias_arr = np.random.normal(size=hidden_neuron_count * 4) * 0.1
+        self.lstm_bias_arr = np.zeros(hidden_neuron_count * 4)
 
         self.weights_output_arr = np.random.normal(size=(hidden_neuron_count, output_neuron_count)) * 0.1
-        self.output_bias_arr = np.random.normal(size=output_neuron_count) * 0.1
+        self.output_bias_arr = np.zeros(output_neuron_count)
 
     def create_node(
         self,
@@ -446,7 +446,7 @@ class LSTMGraph(RecurrentTemporalGraph):
         self.rbm_hidden_weights_arr = np.zeros(
             (deeper_neuron_count, deeper_neuron_count)
         )
-        self.rnn_hidden_bias_arr = np.random.uniform(low=0, high=1, size=(deeper_neuron_count, ))
+        self.rnn_hidden_bias_arr = np.zeros((deeper_neuron_count, ))
 
         super().create_node(
             shallower_neuron_count,

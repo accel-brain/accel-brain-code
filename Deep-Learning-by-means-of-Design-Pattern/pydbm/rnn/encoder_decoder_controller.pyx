@@ -3,8 +3,8 @@ from logging import getLogger
 import numpy as np
 cimport numpy as np
 from pydbm.rnn.interface.reconstructable_model import ReconstructableModel
-from pydbm.rnn.loss.interface.computable_loss import ComputableLoss
-from pydbm.rnn.verification.interface.verificatable_result import VerificatableResult
+from pydbm.loss.interface.computable_loss import ComputableLoss
+from pydbm.verification.interface.verificatable_result import VerificatableResult
 ctypedef np.float64_t DOUBLE_t
 
 
@@ -107,8 +107,6 @@ class EncoderDecoderController(object):
         cdef np.ndarray rand_index
         cdef np.ndarray[DOUBLE_t, ndim=3] batch_observed_arr
         cdef np.ndarray batch_target_arr
-        cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr
-        cdef np.ndarray[DOUBLE_t, ndim=3] test_hidden_activity_arr
 
         if row_t != 0 and row_t != row_o:
             raise ValueError("The row of `target_arr` must be equivalent to the row of `observed_arr`.")
@@ -120,7 +118,7 @@ class EncoderDecoderController(object):
                 target_arr = target_arr.reshape((target_arr.shape[0], 1, target_arr.shape[1]))
 
         if self.__test_size_rate > 0:
-            train_index = np.random.choice(observed_arr.shape[0], round(self.__test_size_rate * observed_arr.shape[0]), replace=False)
+            train_index = np.random.choice(observed_arr.shape[0], round((1 - self.__test_size_rate) * observed_arr.shape[0]), replace=False)
             test_index = np.array(list(set(range(observed_arr.shape[0])) - set(train_index)))
             train_observed_arr = observed_arr[train_index]
             test_observed_arr = observed_arr[test_index]
@@ -128,14 +126,16 @@ class EncoderDecoderController(object):
             test_target_arr = target_arr[test_index]
         else:
             train_observed_arr = observed_arr
-            train_target_arr = observed_arr
+            train_target_arr = target_arr
 
         cdef double loss
         cdef double test_loss
-        cdef np.ndarray[DOUBLE_t, ndim=3] encoded_arr
-        cdef np.ndarray[DOUBLE_t, ndim=3] test_encoded_arr
-        cdef np.ndarray[DOUBLE_t, ndim=3] decoded_arr
-        cdef np.ndarray[DOUBLE_t, ndim=3] test_decoded_arr
+        cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr
+        cdef np.ndarray[DOUBLE_t, ndim=3] test_hidden_activity_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] encoded_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] test_encoded_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] decoded_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] test_decoded_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_arr
         cdef np.ndarray[DOUBLE_t, ndim=3] encoder_delta_arr
         cdef np.ndarray[DOUBLE_t, ndim=3] decoder_delta_arr
@@ -152,26 +152,34 @@ class EncoderDecoderController(object):
                 batch_observed_arr = train_observed_arr[rand_index]
                 batch_target_arr = train_target_arr[rand_index]
                 try:
-                    encoded_arr = self.__encoder.lstm_forward_propagate(batch_observed_arr)[::-1]
-                    decoded_arr = self.__decoder.lstm_forward_propagate(encoded_arr)[::-1]
+                    encoded_arr = self.__encoder.inference(batch_observed_arr)
+                    decoded_arr = self.__decoder.inference(
+                        self.__encoder.get_feature_points()[:, ::-1, :]
+                    )
+                    hidden_activity_arr = self.__decoder.get_feature_points()[:, ::-1, :]
+                    ver_hidden_activity_arr = hidden_activity_arr.copy()
                     delta_arr = self.__computable_loss.compute_delta(
-                        decoded_arr[:, 0, :],
+                        hidden_activity_arr[:, 0, :],
                         batch_target_arr[:, 0, :]
                     )
-                    loss = self.__computable_loss.compute_loss(decoded_arr, batch_target_arr)
-                    loss_list.append(loss)
-                    decoder_delta_arr, decoder_lstm_grads_list = self.__decoder.lstm_back_propagate(
+                    loss = self.__computable_loss.compute_loss(
+                        hidden_activity_arr[:, 0, :],
+                        batch_target_arr[:, 0, :]
+                    )
+                    decoder_delta_arr, decoder_lstm_grads_list = self.__decoder.hidden_back_propagate(
                         delta_arr
                     )
-                    encoder_delta_arr, encoder_lstm_grads_list = self.__encoder.lstm_back_propagate(
-                        decoder_delta_arr[:, -1, :]
+                    encoder_delta_arr, encoder_lstm_grads_list = self.__encoder.hidden_back_propagate(
+                        decoder_delta_arr[:, 0, :]
                     )
                     decoder_grads_list = [None, None]
                     [decoder_grads_list.append(d) for d in decoder_lstm_grads_list]
                     encoder_grads_list = [None, None]
                     [encoder_grads_list.append(d) for d in encoder_lstm_grads_list]
+
                     self.__decoder.optimize(decoder_grads_list, learning_rate, epoch)
                     self.__encoder.optimize(encoder_grads_list, learning_rate, epoch)
+
                     self.__encoder.graph.hidden_activity_arr = np.array([])
                     self.__encoder.graph.rnn_activity_arr = np.array([])
                     self.__decoder.graph.hidden_activity_arr = np.array([])
@@ -185,37 +193,45 @@ class EncoderDecoderController(object):
                         eary_stop_flag = True
                         break
                     else:
+                        self.__logger.debug(
+                            "Underflow occurred when the parameters are being updated."
+                        )
                         raise
 
                 if self.__test_size_rate > 0:
                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
                     test_batch_observed_arr = test_observed_arr[rand_index]
                     test_batch_target_arr = test_target_arr[rand_index]
-                    test_encoded_arr = self.__encoder.lstm_forward_propagate(test_batch_observed_arr)[::-1]
-                    test_decoded_arr = self.__decoder.lstm_forward_propagate(test_encoded_arr)[::-1]
+
+                    test_encoded_arr = self.__encoder.inference(test_batch_observed_arr)
+                    test_decoded_arr = self.__decoder.inference(
+                        self.__encoder.get_feature_points()[:, ::-1, :]
+                    )
+                    test_hidden_activity_arr = self.__decoder.get_feature_points()[:, ::-1, :]
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=decoded_arr, 
-                                train_label_arr=batch_target_arr,
-                                test_pred_arr=test_decoded_arr,
-                                test_label_arr=test_batch_target_arr
+                                train_pred_arr=ver_hidden_activity_arr[:, 0, :], 
+                                train_label_arr=batch_target_arr[:, 0, :],
+                                test_pred_arr=test_hidden_activity_arr[:, 0, :],
+                                test_label_arr=test_batch_target_arr[:, 0, :]
                             )
                     self.__encoder.graph.hidden_activity_arr = np.array([])
                     self.__encoder.graph.rnn_activity_arr = np.array([])
                     self.__decoder.graph.hidden_activity_arr = np.array([])
                     self.__decoder.graph.rnn_activity_arr = np.array([])
 
-                if epoch > 0 and abs(loss - loss_list[-1]) < self.__tol:
+                if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
                     eary_stop_flag = True
                     break
+                loss_list.append(loss)
 
         except KeyboardInterrupt:
             self.__logger.debug("Interrupt.")
 
         if eary_stop_flag is True:
-            self.__logger.debug("Eary stopping.")
+            self.__logger.debug("Early stopping.")
             eary_stop_flag = False
 
         self.__logger.debug("end. ")
@@ -249,39 +265,36 @@ class EncoderDecoderController(object):
         if hidden_activity_arr is not None:
             self.__encoder.graph.hidden_activity_arr = hidden_activity_arr
         else:
-            if self.__encoder.graph.hidden_activity_arr is None:
-                raise ValueError("The shape of __encoder.graph.hidden_activity_arr is lost.")
             hidden_n = self.__encoder.graph.weights_lstm_hidden_arr.shape[0]
             self.__encoder.graph.hidden_activity_arr = np.zeros((sample_n, hidden_n), dtype=np.float64)
 
         if rnn_activity_arr is not None:
             self.__encoder.graph.rnn_activity_arr = rnn_activity_arr
         else:
-            if self.__encoder.graph.rnn_activity_arr is None:
-                raise ValueError("The shape of __encoder.graph.rnn_activity_arr is lost.")
             hidden_n = self.__encoder.graph.weights_lstm_hidden_arr.shape[0]
             self.__encoder.graph.rnn_activity_arr = np.zeros((sample_n, hidden_n), dtype=np.float64)
-
-        if self.__decoder.graph.hidden_activity_arr is None:
-            raise ValueError("The shape of __decoder.graph.hidden_activity_arr is lost.")
-        if self.__decoder.graph.rnn_activity_arr is None:
-            raise ValueError("The shape of __decoder.graph.rnn_activity_arr is lost.")
 
         hidden_n = self.__decoder.graph.weights_lstm_hidden_arr.shape[0]
         self.__decoder.graph.hidden_activity_arr = np.zeros((sample_n, hidden_n), dtype=np.float64)
         self.__decoder.graph.rnn_activity_arr = np.zeros((sample_n, hidden_n), dtype=np.float64)
 
-        cdef np.ndarray[DOUBLE_t, ndim=3] encoded_arr = self.__encoder.lstm_forward_propagate(observed_arr)
-        cdef np.ndarray[DOUBLE_t, ndim=3] decoded_arr = self.__decoder.lstm_forward_propagate(encoded_arr)
-        self.__feature_points_arr = self.__encoder.get_feature_points()
+        cdef np.ndarray[DOUBLE_t, ndim=2] encoded_arr = self.__encoder.inference(
+            observed_arr
+        )
+        cdef np.ndarray[DOUBLE_t, ndim=2] decoded_arr = self.__decoder.inference(
+            self.__encoder.get_feature_points()[:, ::-1, :]
+        )
+        cdef np.ndarray[DOUBLE_t, ndim=3] _hidden_activity_arr = self.__decoder.get_feature_points()[:, ::-1, :]
+
+        self.__feature_points_arr = self.__encoder.graph.hidden_activity_arr
 
         cdef np.ndarray[DOUBLE_t, ndim=1] reconstruction_error_arr = self.__computable_loss.compute_loss(
-            decoded_arr[:, 0, :],
+            _hidden_activity_arr[:, 0, :],
             observed_arr[:, 0, :],
             axis=1
         )
         self.__reconstruction_error_arr = reconstruction_error_arr
-        return decoded_arr
+        return _hidden_activity_arr
 
     def get_feature_points(self):
         '''
@@ -291,8 +304,7 @@ class EncoderDecoderController(object):
         Returns:
             The array like or sparse matrix of feature points.
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=2] feature_points_arr = self.__feature_points_arr
-        self.__feature_points_arr = np.array([])
+        cdef np.ndarray[DOUBLE_t, ndim=2] feature_points_arr = self.__feature_points_arr[:, -1, :]
         return feature_points_arr
 
     def get_reconstruction_error(self):
@@ -303,8 +315,23 @@ class EncoderDecoderController(object):
             The array like or sparse matrix of reconstruction error. 
         '''
         cdef np.ndarray[DOUBLE_t, ndim=1] reconstruction_error_arr = self.__reconstruction_error_arr
-        self.__reconstruction_error_arr = np.array([])
         return reconstruction_error_arr
+
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+
+    def get_encoder(self):
+        ''' getter '''
+        return self.__encoder
+
+    encoder = property(get_encoder, set_readonly)
+
+    def get_decoder(self):
+        ''' getter '''
+        return self.__decoder
+
+    decoder = property(get_decoder, set_readonly)
 
     def get_verificatable_result(self):
         ''' getter '''

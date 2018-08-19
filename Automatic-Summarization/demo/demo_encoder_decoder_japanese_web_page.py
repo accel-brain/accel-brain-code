@@ -38,7 +38,7 @@ def Main(url):
     )
     test_list = sentence_list[:5]
     feature_points_arr = vectorlizable_sentence.vectorize(test_list)
-    reconstruction_error_arr = vectorlizable_sentence.controller.get_reconstruction_error_arr()
+    reconstruction_error_arr = vectorlizable_sentence.controller.get_reconstruction_error()
     
     print("Feature points (Top 5 sentences):")
     print(feature_points_arr)

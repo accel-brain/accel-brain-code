@@ -753,6 +753,8 @@ Image.fromarray(np.uint8(inferenced_data_arr))
 
 <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_09.png" />
 
+<a name="build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model"></a>
+
 ## Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model.
 
 Setup logger for verbose output.
@@ -794,7 +796,7 @@ from pydbm.loss.mean_squared_error import MeanSquaredError
 Import Python and Cython modules for optimizer.
 
 ```python
-# SGD as a Loss function.
+# SGD as a optimizer.
 from pydbm.optimization.optparams.sgd import SGD as EncoderSGD
 from pydbm.optimization.optparams.sgd import SGD as DecoderSGD
 ```
@@ -802,7 +804,7 @@ from pydbm.optimization.optparams.sgd import SGD as DecoderSGD
 If you want to use not Stochastic Gradient Descent(SGD) but **Adam** optimizer, import `Adam`.
 
 ```python
-# Adam as a Loss function.
+# Adam as a optimizer.
 from pydbm.optimization.optparams.adam import Adam as EncoderAdam
 from pydbm.optimization.optparams.adam import Adam as DecoderAdam
 ```
@@ -881,6 +883,10 @@ encoder = Encoder(
     opt_params=encoder_opt_params,
     # Verification function.
     verificatable_result=VerificateFunctionApproximation(),
+    # Tolerance for the optimization.
+    # When the loss or score is not improving by at least tol 
+    # for two consecutive iterations, convergence is considered 
+    # to be reached and training stops.
     tol=0.0
 )
 ```
@@ -935,6 +941,10 @@ decoder = Decoder(
     opt_params=decoder_opt_params,
     # Verification function.
     verificatable_result=VerificateFunctionApproximation(),
+    # Tolerance for the optimization.
+    # When the loss or score is not improving by at least tol 
+    # for two consecutive iterations, convergence is considered 
+    # to be reached and training stops.
     tol=0.0
 )
 ```
@@ -948,7 +958,7 @@ encoder_decoder_controller = EncoderDecoderController(
     # is-a LSTM model.
     decoder=decoder,
     # The number of epochs in mini-batch training.
-    epochs=100,
+    epochs=200,
     # The batch size.
     batch_size=100,
     # Learning rate.
@@ -963,6 +973,10 @@ encoder_decoder_controller = EncoderDecoderController(
     computable_loss=MeanSquaredError(),
     # Verification function.
     verificatable_result=VerificateFunctionApproximation(),
+    # Tolerance for the optimization.
+    # When the loss or score is not improving by at least tol 
+    # for two consecutive iterations, convergence is considered 
+    # to be reached and training stops.
     tol=0.0
 )
 ```
@@ -999,6 +1013,147 @@ You can check the reconstruction error rate. Call `get_reconstruct_error` method
 reconstruct_error_arr = dbm.get_reconstruction_error()
 ```
 
+## Usecase: Build Convolutional Auto-Encoder.
+
+Setup logger for verbose output and import Python and Cython modules in the same manner as <a href="#build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model</a>.
+
+```python
+from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
+
+logger = getLogger("pydbm")
+handler = StreamHandler()
+handler.setLevel(DEBUG)
+logger.setLevel(DEBUG)
+logger.addHandler(handler)
+
+# ReLu Function as activation function.
+from pydbm.activation.relu_function import ReLuFunction
+# Tanh Function as activation function.
+from pydbm.activation.tanh_function import TanhFunction
+# Logistic Function as activation function.
+from pydbm.activation.logistic_function import LogisticFunction
+
+# Loss function.
+from pydbm.loss.mean_squared_error import MeanSquaredError
+
+# Adam as a optimizer.
+from pydbm.optimization.optparams.adam import Adam
+
+# Verification.
+from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
+```
+
+And import Python and Cython modules of the Convolutional Auto-Encoder.
+
+```python
+# Controller of Convolutional Auto-Encoder
+from pydbm.cnn.convolutionalneuralnetwork.convolutional_auto_encoder import ConvolutionalAutoEncoder
+# First convolution layer.
+from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer1
+# Second convolution layer.
+from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer2
+# Computation graph for first convolution layer.
+from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph1
+# Computation graph for second convolution layer.
+from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph2
+```
+
+Instantiate `ConvolutionLayer`s, delegating `CNNGraph`s respectively.
+
+```python
+# First convolution layer.
+conv1 = ConvolutionLayer1(
+    # Computation graph for first convolution layer.
+    ConvGraph1(
+        # Logistic function as activation function.
+        activation_function=LogisticFunction(),
+        # The number of `filter`.
+        filter_num=20,
+        # The number of channel.
+        channel=1,
+        # The size of kernel.
+        kernel_size=3,
+        # The filter scale.
+        scale=0.1,
+        # The nubmer of stride.
+        stride=1,
+        # The number of zero-padding.
+        pad=1
+    )
+)
+
+# Second convolution layer.
+conv2 = ConvolutionLayer2(
+    # Computation graph for second convolution layer.
+    ConvGraph2(
+        # Computation graph for second convolution layer.
+        activation_function=LogisticFunction(),
+        # The number of `filter`.
+        filter_num=1,
+        # The number of channel.
+        channel=20,
+        # The size of kernel.
+        kernel_size=3,
+        # The filter scale.
+        scale=0.1,
+        # The nubmer of stride.
+        stride=1,
+        # The number of zero-padding.
+        pad=1
+    )
+)
+```
+
+Instantiate `ConvolutionalAutoEncoder` and setup parameters.
+
+```python
+cnn = ConvolutionalAutoEncoder(
+    # The `list` of `ConvolutionLayer`.
+    layerable_cnn_list=[
+        conv1, 
+        conv2
+    ],
+    # The number of epochs in mini-batch training.
+    epochs=200,
+    # The batch size.
+    batch_size=100,
+    # Learning rate.
+    learning_rate=1e-05,
+    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+    learning_attenuate_rate=0.1,
+    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+    attenuate_epoch=50,
+    # Size of Test data set. If this value is `0`, the validation will not be executed.
+    test_size_rate=0.3,
+    # Optimizer.
+    opt_params=Adam(),
+    # Verification.
+    verificatable_result=VerificateFunctionApproximation(),
+    # The rate of dataset for test.
+    test_size_rate=0.3,
+    # Tolerance for the optimization.
+    # When the loss or score is not improving by at least tol 
+    # for two consecutive iterations, convergence is considered 
+    # to be reached and training stops.
+    tol=1e-15
+)
+```
+
+Execute learning.
+
+```python
+cnn.learn(img_arr, img_arr)
+```
+
+`img_arr` is a `np.ndarray` of image data, which is a rank-4 array-like or sparse matrix of shape: (`The number of samples`, `The number of channel`, `Height of image`, `Width of image`), as the first and second argument. If the value of this second argument is not equivalent to the first argument and the shape is (`The number of samples`, `The number of features`), in other words, the rank is 2, the function of `cnn` corresponds to a kind of Regression model.
+
+After learning, the `cnn` provides a function of `inference` method.
+
+```python
+result_arr = cnn.inference(test_img_arr[:100])
+```
+
+The shape of `test_img_arr` and `result_arr` is equivalent to `img_arr`. 
 
 ## References
 
@@ -1007,6 +1162,7 @@ reconstruct_error_arr = dbm.get_reconstruction_error()
 - Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.
 - Dumoulin, V., & Visin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
 - Eslami, S. A., Heess, N., Williams, C. K., & Winn, J. (2014). The shape boltzmann machine: a strong model of object shape. International Journal of Computer Vision, 107(2), 155-176.
+- He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 770-778).
 - Hinton, G. E. (2002). Training products of experts by minimizing contrastive divergence. Neural computation, 14(8), 1771-1800.
 - Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.
 - Le Roux, N., & Bengio, Y. (2008). Representational power of restricted Boltzmann machines and deep belief networks. Neural computation, 20(6), 1631-1649.

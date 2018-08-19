@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from logging import getLogger
 import numpy as np
-from pycomposer.inferable_pitch import InferablePitch
+import pandas as pd
+
+from pycomposer.inferable_melody import InferableMelody
 
 # LSTM Graph which is-a `Synapse`.
 from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph
@@ -9,15 +11,16 @@ from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as Encoder
 from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as DecoderGraph
 
 # Loss function.
-from pydbm.rnn.loss.mean_squared_error import MeanSquaredError
+from pydbm.loss.mean_squared_error import MeanSquaredError
+from pydbm.loss.cross_entropy import CrossEntropy
 # Adam as a Loss function.
-from pydbm.rnn.optimization.optparams.adam import Adam as EncoderAdam
-from pydbm.rnn.optimization.optparams.adam import Adam as DecoderAdam
-from pydbm.rnn.optimization.optparams.sgd import SGD as EncoderSGD
-from pydbm.rnn.optimization.optparams.sgd import SGD as DecoderSGD
+from pydbm.optimization.optparams.adam import Adam as EncoderAdam
+from pydbm.optimization.optparams.adam import Adam as DecoderAdam
+from pydbm.optimization.optparams.sgd import SGD as EncoderSGD
+from pydbm.optimization.optparams.sgd import SGD as DecoderSGD
 
 # Verification.
-from pydbm.rnn.verification.verificate_function_approximation import VerificateFunctionApproximation
+from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
 
 # LSTM model.
 from pydbm.rnn.lstm_model import LSTMModel as Encoder
@@ -32,55 +35,66 @@ from pydbm.activation.relu_function import ReLuFunction
 from pydbm.rnn.encoder_decoder_controller import EncoderDecoderController
 
 
-class EncoderDecoder(InferablePitch):
+class EncoderDecoder(InferableMelody):
     '''
-    Inference MIDI by Encoder/Decoder based on LSTM.
+    Inference melody by Encoder/Decoder based on LSTM.
     '''
     
-    def __init__(self, cycle_len=30):
+    def __init__(
+        self,
+        cycle_len=30,
+        time_step_range=1.0
+    ):
         '''
         Init.
         
         Args:
-            cycle_len:    Length of one cycle.
+            time_step_range:                The range of time step.
+            cycle_len:                      One cycle length.
+
         '''
-        self.__cycle_len = cycle_len
         logger = getLogger("pycomposer")
         self.__logger = logger
+        self.__cycle_len = cycle_len
+        self.__time_step_range = time_step_range
+        self.__logistic_function = LogisticFunction(binary_flag=True)
 
-    def inferance(self, midi_arr):
+    def inferance(self, midi_df, octave=6):
         '''
-        Inferance and select next pitch of `pre_pitch` from the values of `midi_arr`.
+        Inferance next melody.
         
         Args:
-            midi_arr:    `np.ndarray` of pitch.
+            midi_df:    `pd.DataFrame` of MIDI file.
+            octave:     Octave.
         
         Returns:
-            `np.ndarray` of pitch.
+            `pd.DataFrame` of MIDI file.
         '''
-        midi_arr[:, 0] = (midi_arr[:, 0] - self.__min_pitch) / (self.__max_pitch - self.__min_pitch)
-        midi_arr[:, 1] = (midi_arr[:, 1] - self.__min_start) / (self.__max_start - self.__min_start)
-        midi_arr[:, 2] = (midi_arr[:, 2] - self.__min_duration) / (self.__max_duration - self.__min_duration)
-        midi_arr[:, 3] = (midi_arr[:, 3] - self.__min_velocity) / (self.__max_velocity - self.__min_velocity)
-        midi_arr *= 0.1
-
-        observed_arr, target_arr = self.__setup_dataset(midi_arr, self.__cycle_len)
-        midi_arr = self.__controller.inference(observed_arr)[:, -1, :]
-        #midi_arr = self.__controller.get_feature_points()
+        observed_arr = self.__setup_dataset(midi_df)
+        midi_arr = self.__controller.inference(observed_arr)[-1, :, :]
         
-        midi_arr *= 10.0
-        midi_arr[:, 0] = ((self.__max_pitch - self.__min_pitch) * (midi_arr[:, 0] - midi_arr[:, 0].min()) / (midi_arr[:, 0].max() - midi_arr[:, 0].min())) + self.__min_pitch
+        midi_arr = self.__logistic_function.activate(midi_arr)
 
-        midi_arr[:, 1] = ((self.__max_start - self.__min_start) * (midi_arr[:, 1] - midi_arr[:, 1].min()) / (midi_arr[:, 1].max() - midi_arr[:, 1].min())) + self.__min_start
-
-        midi_arr[:, 2] = ((self.__max_duration - self.__min_duration) * (midi_arr[:, 2] - midi_arr[:, 2].min()) / (midi_arr[:, 2].max() - midi_arr[:, 2].min())) + self.__min_duration
-
-        midi_arr[:, 3] = ((self.__max_velocity - self.__min_velocity) * (midi_arr[:, 3] - midi_arr[:, 3].min()) / (midi_arr[:, 3].max() - midi_arr[:, 3].min())) + self.__min_velocity
-        return midi_arr
+        midi_tuple_list = []
+        for i in range(midi_arr.shape[0]):
+            index_tuple = np.where(midi_arr[i] == 1)
+            for index in index_tuple[0]:
+                pitch = index + (12 * octave)
+                start = i * self.__time_step_range
+                end = (i + 1) * self.__time_step_range
+                velocity = 100
+                midi_tuple_list.append((
+                    pitch,
+                    start,
+                    end,
+                    velocity
+                ))
+        melody_df = pd.DataFrame(midi_tuple_list, columns=["pitch", "start", "end", "velocity"])
+        return melody_df
 
     def learn(
         self,
-        midi_arr,
+        midi_df,
         hidden_neuron_count=200,
         epochs=1000,
         batch_size=50,
@@ -96,10 +110,8 @@ class EncoderDecoder(InferablePitch):
         Init.
         
         Args:
-            midi_arr:                      `np.ndarray` of MIDI file.
-                                            The shape is (`pitch`, `duration`, `velocity`).
+            midi_df:                       `pd.DataFrame` of MIDI file.
 
-            cycle_len:                      One cycle length.
             hidden_neuron_count:            The number of units in hidden layer.
             epochs:                         Epochs of Mini-batch.
             bath_size:                      Batch size of Mini-batch.
@@ -118,23 +130,9 @@ class EncoderDecoder(InferablePitch):
             test_size_rate:                 Size of Test data set. If this value is `0`, the 
         '''
         # (`pitch`, `duration`, `velocity`)
-        self.__min_pitch = midi_arr[:, 0].min()
-        self.__min_start = midi_arr[:, 1].min()
-        self.__min_duration = midi_arr[:, 2].min()
-        self.__min_velocity = midi_arr[:, 3].min()
-
-        self.__max_pitch = midi_arr[:, 0].max()
-        self.__max_start = midi_arr[:, 1].max()
-        self.__max_duration = midi_arr[:, 2].max()
-        self.__max_velocity = midi_arr[:, 3].max()
-
-        midi_arr[:, 0] = (midi_arr[:, 0] - self.__min_pitch) / (self.__max_pitch - self.__min_pitch)
-        midi_arr[:, 1] = (midi_arr[:, 1] - self.__min_start) / (self.__max_start - self.__min_start)
-        midi_arr[:, 2] = (midi_arr[:, 2] - self.__min_duration) / (self.__max_duration - self.__min_duration)
-        midi_arr[:, 3] = (midi_arr[:, 3] - self.__min_velocity) / (self.__max_velocity - self.__min_velocity)
-        midi_arr *= 0.1
-
-        observed_arr, target_arr = self.__setup_dataset(midi_arr, self.__cycle_len)
+        observed_arr = self.__setup_dataset(midi_df)
+        observed_arr = np.nan_to_num(observed_arr)
+        target_arr = observed_arr.copy()
 
         self.__logger.debug("Value of observed data points:")
         self.__logger.debug(observed_arr[0, :5, :])
@@ -146,12 +144,12 @@ class EncoderDecoder(InferablePitch):
         encoder_graph = EncoderGraph()
 
         # Activation function in LSTM.
-        encoder_graph.observed_activating_function = LogisticFunction()
+        encoder_graph.observed_activating_function = TanhFunction()
         encoder_graph.input_gate_activating_function = LogisticFunction()
         encoder_graph.forget_gate_activating_function = LogisticFunction()
         encoder_graph.output_gate_activating_function = LogisticFunction()
-        encoder_graph.hidden_activating_function = LogisticFunction()
-        encoder_graph.output_activating_function = LogisticFunction()
+        encoder_graph.hidden_activating_function = TanhFunction()
+        encoder_graph.output_activating_function = TanhFunction()
 
         # Initialization strategy.
         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
@@ -165,12 +163,12 @@ class EncoderDecoder(InferablePitch):
         decoder_graph = DecoderGraph()
 
         # Activation function in LSTM.
-        decoder_graph.observed_activating_function = LogisticFunction()
+        decoder_graph.observed_activating_function = TanhFunction()
         decoder_graph.input_gate_activating_function = LogisticFunction()
         decoder_graph.forget_gate_activating_function = LogisticFunction()
         decoder_graph.output_gate_activating_function = LogisticFunction()
-        decoder_graph.hidden_activating_function = LogisticFunction()
-        decoder_graph.output_activating_function = LogisticFunction()
+        decoder_graph.hidden_activating_function = LogisticFunction(binary_flag=True)
+        decoder_graph.output_activating_function = LogisticFunction(binary_flag=True)
 
         # Initialization strategy.
         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
@@ -255,24 +253,47 @@ class EncoderDecoder(InferablePitch):
         )
 
         # Learning.
-        encoder_decoder_controller.learn(observed_arr, target_arr)
+        encoder_decoder_controller.learn(observed_arr)
 
         self.__controller = encoder_decoder_controller
 
-    def __setup_dataset(self, midi_arr, cycle_len):
+    def __setup_dataset(self, midi_df):
         observed_arr_list = []
-        for i in range(midi_arr.shape[0] - cycle_len - 1):
-            cycle_list = [None] * cycle_len
-            for j in range(cycle_len):
-                cycle_list[j] = midi_arr[i + j]
+        
+        start_t = 0.0
+        end_t = 0.0
+        prog_flag = True
+        arr_list = []
+        while prog_flag:
+            start_t += self.__time_step_range
+            df = midi_df[midi_df.start >= start_t]
+            if df.shape[0] == 0:
+                prog_flag = False
+                break
+
+            end_t += self.__time_step_range + self.__time_step_range
+            df = df[df.end <= end_t]
+            
+            if df.shape[0] == 0:
+                continue
+
+            arr = np.zeros(12)
+            for pitch in df.pitch.drop_duplicates():
+                arr[int(pitch % 12)] = 1
+            arr_list.append(arr)
+
+        arr = np.array(arr_list)
+        for i in range(arr.shape[0] - self.__cycle_len - 1):
+            cycle_list = [None] * self.__cycle_len
+            for j in range(self.__cycle_len):
+                cycle_list[j] = arr[i + j]
             observed_arr_list.append(cycle_list)
         observed_arr = np.array(observed_arr_list)
-        target_arr = observed_arr[1:]
-        observed_arr = observed_arr[:-1]
+        observed_arr = observed_arr.astype(np.float64)
         
         self.__logger.debug("The shape of observed data points:")
         self.__logger.debug(observed_arr.shape)
-        return (observed_arr, target_arr)
+        return observed_arr
 
     def get_controller(self):
         ''' getter '''

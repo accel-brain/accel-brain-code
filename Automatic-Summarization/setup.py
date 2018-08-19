@@ -11,7 +11,7 @@ def read_readme(file_name):
 
 setup(
     name='pysummarization',
-    version='1.0.7',
+    version='1.0.8',
     description='pysummarization is Python library for the automatic summarization, document abstraction, and text filtering in relation to Encoder/Decoder based on LSTM.',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',

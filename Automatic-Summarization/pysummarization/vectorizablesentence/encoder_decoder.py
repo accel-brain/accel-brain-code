@@ -9,12 +9,12 @@ from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as Encoder
 from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as DecoderGraph
 
 # Loss function.
-from pydbm.rnn.loss.mean_squared_error import MeanSquaredError
+from pydbm.loss.mean_squared_error import MeanSquaredError
 # Adam as a Loss function.
-from pydbm.rnn.optimization.optparams.adam import Adam as EncoderAdam
-from pydbm.rnn.optimization.optparams.adam import Adam as DecoderAdam
+from pydbm.optimization.optparams.adam import Adam as EncoderAdam
+from pydbm.optimization.optparams.adam import Adam as DecoderAdam
 # Verification.
-from pydbm.rnn.verification.verificate_function_approximation import VerificateFunctionApproximation
+from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
 # LSTM model.
 from pydbm.rnn.lstm_model import LSTMModel as Encoder
 from pydbm.rnn.lstm_model import LSTMModel as Decoder

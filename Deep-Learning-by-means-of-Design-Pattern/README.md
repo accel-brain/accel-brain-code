@@ -276,7 +276,7 @@ successful models for supervised image classification. Each Convolutional Auto-E
             <p>Reconstructed image by <strong>Shape-BM</strong>.</p>
         </td>
         <td>
-            <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/reconstrcuted_by_CAE.gif" />
+            <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_by_CAE.gif" />
             <p>Reconstructed image by <strong>Convolutional Auto-Encoder</strong>.</p>
         </td>
     </tr>

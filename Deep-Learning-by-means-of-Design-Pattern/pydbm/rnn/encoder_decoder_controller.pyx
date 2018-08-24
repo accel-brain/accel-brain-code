@@ -288,12 +288,11 @@ class EncoderDecoderController(object):
 
         self.__feature_points_arr = self.__encoder.graph.hidden_activity_arr
 
-        cdef np.ndarray[DOUBLE_t, ndim=1] reconstruction_error_arr = self.__computable_loss.compute_loss(
+        self.__reconstruction_error_arr = self.__computable_loss.compute_loss(
             _hidden_activity_arr[:, 0, :],
             observed_arr[:, 0, :],
-            axis=1
+            axis=0
         )
-        self.__reconstruction_error_arr = reconstruction_error_arr
         return _hidden_activity_arr
 
     def get_feature_points(self):

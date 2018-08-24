@@ -80,31 +80,43 @@ class LogisticFunction(ActivatingFunctionInterface):
         cdef double c_min
 
         if self.__normalize_flag is True:
-            if self.__normalization_mode == "sum_partition":
-                x_sum = x.sum()
-                if x_sum != 0.0:
-                    x = x / x_sum
-            elif self.__normalization_mode == "z_score":
-                x_std = x.std()
-                if x_std != 0.0:
-                    x = (x - x.mean()) / x_std
-            elif self.__normalization_mode == "min_max":
-                x_max = x.max()
-                x_min = x.min()
-                if x_max != x_min:
-                    x = (x - x.min()) / (x.max() - x.min())
+            try:
+                if self.__normalization_mode == "sum_partition":
+                    x_sum = x.sum()
+                    if x_sum != 0.0:
+                        x = x / x_sum
+                elif self.__normalization_mode == "z_score":
+                    x_std = x.std()
+                    if x_std != 0.0:
+                        x = (x - x.mean()) / x_std
+                elif self.__normalization_mode == "min_max":
+                    x_max = x.max()
+                    x_min = x.min()
+                    if x_max != x_min:
+                        x = (x - x.min()) / (x.max() - x.min())
+            except FloatingPointError:
+                pass
 
         if self.__for_overflow == "max":
             c = x.max()
         else:
             c = 0.0
 
-        cdef np.ndarray c_arr = -x + c
+        cdef np.ndarray c_arr = np.nansum(
+            np.array([
+                np.expand_dims(-x, axis=0), 
+                np.expand_dims(np.ones_like(x) * c, axis=0)
+            ]),
+            axis=0
+        )[0]
         if c_arr[c_arr >= self.__overflow_range].shape[0] > 0 or c_arr[c_arr < -self.__overflow_range].shape[0] > 0:
             c_max = c_arr.max()
             c_min = c_arr.min()
             if c_max != c_min:
-                c_arr = (self.__overflow_range - (-self.__overflow_range)) * (c_arr - c_min) / (c_max - c_min) -self.__overflow_range
+                try:
+                    c_arr = (self.__overflow_range - (-self.__overflow_range)) * (c_arr - c_min) / (c_max - c_min) -self.__overflow_range
+                except FloatingPointError:
+                    pass
 
         activity_arr = 1.0 / (1.0 + np.exp(c_arr))
         activity_arr = np.nan_to_num(activity_arr)
@@ -113,7 +125,21 @@ class LogisticFunction(ActivatingFunctionInterface):
             x_max = activity_arr.max()
             x_min = activity_arr.min()
             if x_max != x_min:
-                activity_arr = (activity_arr - x_min) / (x_max - x_min)
+                activity_arr = np.nansum(
+                    np.array([
+                        np.expand_dims(activity_arr, axis=0),
+                        np.expand_dims(np.ones_like(activity_arr) * x_min * -1, axis=0)
+                    ]),
+                    axis=0
+                )[0]
+                partition = np.nansum(np.array([x_max, -1 * x_min]))
+                activity_arr = np.nanprod(
+                    np.array([
+                        np.expand_dims(activity_arr, axis=0),
+                        np.expand_dims(np.ones_like(activity_arr) / partition, axis=0)
+                    ]),
+                    axis=0
+                )[0]
 
         if self.__binary_flag is True:
             activity_arr = np.random.binomial(1, activity_arr, activity_arr.shape)

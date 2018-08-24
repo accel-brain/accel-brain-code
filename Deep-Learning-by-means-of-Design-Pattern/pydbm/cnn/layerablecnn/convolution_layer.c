@@ -3568,7 +3568,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
   int __pyx_v_channel;
   int __pyx_v_kernel_height;
   int __pyx_v_kernel_width;
-  int __pyx_v_img_sample_n;
+  CYTHON_UNUSED int __pyx_v_img_sample_n;
   CYTHON_UNUSED int __pyx_v_img_channel;
   CYTHON_UNUSED int __pyx_v_img_height;
   CYTHON_UNUSED int __pyx_v_img_width;
@@ -3928,7 +3928,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
  *         cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr = self.__reshaped_img_arr
  *         delta_img_arr, deconv_delta_arr = self.deconvolve(delta_arr)             # <<<<<<<<<<<<<<
  * 
- *         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = deconv_delta_arr.reshape(-1, img_sample_n)
+ *         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = deconv_delta_arr.reshape(-1, sample_n)
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_deconvolve); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -4073,13 +4073,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":147
  *         delta_img_arr, deconv_delta_arr = self.deconvolve(delta_arr)
  * 
- *         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = deconv_delta_arr.reshape(-1, img_sample_n)             # <<<<<<<<<<<<<<
+ *         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = deconv_delta_arr.reshape(-1, sample_n)             # <<<<<<<<<<<<<<
  *         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = _delta_arr.sum(axis=0)
  *         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(reshaped_img_arr.T, _delta_arr)
  */
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_deconv_delta_arr), __pyx_n_s_reshape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_img_sample_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_sample_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_4 = NULL;
   __pyx_t_6 = 0;
@@ -4144,7 +4144,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
 
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":148
  * 
- *         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = deconv_delta_arr.reshape(-1, img_sample_n)
+ *         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = deconv_delta_arr.reshape(-1, sample_n)
  *         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = _delta_arr.sum(axis=0)             # <<<<<<<<<<<<<<
  *         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(reshaped_img_arr.T, _delta_arr)
  *         delta_weight_arr = delta_weight_arr.transpose(1, 0)
@@ -4173,7 +4173,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_17convolution_layer_16Convo
   __pyx_t_14 = 0;
 
   /* "pydbm/cnn/layerablecnn/convolution_layer.pyx":149
- *         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = deconv_delta_arr.reshape(-1, img_sample_n)
+ *         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = deconv_delta_arr.reshape(-1, sample_n)
  *         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = _delta_arr.sum(axis=0)
  *         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(reshaped_img_arr.T, _delta_arr)             # <<<<<<<<<<<<<<
  *         delta_weight_arr = delta_weight_arr.transpose(1, 0)

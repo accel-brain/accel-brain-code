@@ -480,7 +480,16 @@ class LSTMModel(ReconstructableModel):
             )
             delta_arr[:, cycle, :] = delta_observed_arr
             for i in range(len(grad_list)):
-                grads_list[i] += grad_list[i]
+                if isinstance(grads_list[i], int) and grads_list[i] == 0:
+                    grads_list[i] = grad_list[i]
+                else:
+                    grads_list[i] = np.nansum(
+                        np.array([
+                            np.expand_dims(grads_list[i], axis=0),
+                            np.expand_dims(grad_list[i], axis=0)
+                        ]),
+                        axis=0
+                    )[0]
 
             if bp_count >= self.__bptt_tau:
                 break
@@ -528,8 +537,33 @@ class LSTMModel(ReconstructableModel):
         forget_gate_activity_arr = self.graph.forget_gate_activating_function.activate(forget_gate_activity_arr)
         output_gate_activity_arr = self.graph.output_gate_activating_function.activate(output_gate_activity_arr)
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] _rnn_activity_arr = given_activity_arr * input_gate_activity_arr + forget_gate_activity_arr * rnn_activity_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] _hidden_activity_arr = output_gate_activity_arr * self.graph.hidden_activating_function.activate(_rnn_activity_arr)
+        cdef np.ndarray[DOUBLE_t, ndim=2] _rnn_activity_arr = np.nansum(
+            np.array([
+                np.nanprod(
+                    np.array([
+                        np.expand_dims(given_activity_arr, axis=0),
+                        np.expand_dims(input_gate_activity_arr, axis=0)
+                    ]),
+                    axis=0
+                ),
+                np.nanprod(
+                    np.array([
+                        np.expand_dims(forget_gate_activity_arr, axis=0),
+                        np.expand_dims(rnn_activity_arr, axis=0)
+                    ]),
+                    axis=0
+                )
+            ]),
+            axis=0
+        )[0]
+
+        cdef np.ndarray[DOUBLE_t, ndim=2] _hidden_activity_arr = np.nanprod(
+            np.array([
+                np.expand_dims(output_gate_activity_arr, axis=0),
+                np.expand_dims(self.graph.hidden_activating_function.activate(_rnn_activity_arr), axis=0)
+            ]),
+            axis=0
+        )[0]
 
         _hidden_activity_arr = self.__opt_params.dropout(_hidden_activity_arr)
 
@@ -582,19 +616,56 @@ class LSTMModel(ReconstructableModel):
         if delta_rnn_arr.shape[0] == 0:
             delta_rnn_arr = np.zeros((delta_hidden_arr.shape[0], delta_hidden_arr.shape[1]))
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_top_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_pre_rnn_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_output_gate_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_forget_gate_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_input_gate_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_given_arr
-
-        delta_top_arr = delta_rnn_arr + (delta_hidden_arr * output_gate_activity_arr) * self.graph.hidden_activating_function.derivative(rnn_activity_arr)
-        delta_pre_rnn_arr = delta_top_arr * forget_gate_activity_arr
-        delta_output_gate_arr = delta_hidden_arr * rnn_activity_arr * self.graph.output_gate_activating_function.derivative(output_gate_activity_arr)
-        delta_forget_gate_arr = delta_top_arr * delta_pre_rnn_arr * self.graph.forget_gate_activating_function.derivative(forget_gate_activity_arr)
-        delta_input_gate_arr = delta_top_arr * given_activity_arr * self.graph.input_gate_activating_function.derivative(input_gate_activity_arr)
-        delta_given_arr = delta_top_arr * input_gate_activity_arr * self.graph.observed_activating_function.derivative(given_activity_arr)
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_top_arr = np.nanprod(
+            np.array([
+                delta_rnn_arr,
+                np.nansum(
+                    np.array([
+                        delta_hidden_arr,
+                        output_gate_activity_arr,
+                        self.graph.hidden_activating_function.derivative(rnn_activity_arr)
+                    ]),
+                    axis=0
+                )
+            ]),
+            axis=0
+        )
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_pre_rnn_arr = np.nanprod(
+            np.array([delta_top_arr, forget_gate_activity_arr]),
+            axis=0
+        )
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_output_gate_arr = np.nanprod(
+            np.array([
+                delta_hidden_arr,
+                rnn_activity_arr,
+                self.graph.output_gate_activating_function.derivative(output_gate_activity_arr)]
+            ),
+            axis=0
+        )
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_forget_gate_arr = np.nanprod(
+            np.array([
+                delta_top_arr,
+                delta_pre_rnn_arr,
+                self.graph.forget_gate_activating_function.derivative(forget_gate_activity_arr)
+            ]),
+            axis=0
+        )
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_input_gate_arr = np.nanprod(
+            np.array([
+                delta_top_arr,
+                given_activity_arr,
+                self.graph.input_gate_activating_function.derivative(input_gate_activity_arr)
+            ]),
+            axis=0
+        )
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_given_arr = np.nanprod(
+            np.array([
+                delta_top_arr,
+                input_gate_activity_arr,
+                self.graph.observed_activating_function.derivative(given_activity_arr)
+            ]),
+            axis=0
+        )
 
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_lstm_matrix = np.hstack([
             delta_output_gate_arr,

@@ -144,7 +144,7 @@ class ConvolutionLayer(LayerableCNN):
         cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr = self.__reshaped_img_arr
         delta_img_arr, deconv_delta_arr = self.deconvolve(delta_arr)
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = deconv_delta_arr.reshape(-1, img_sample_n)
+        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = deconv_delta_arr.reshape(-1, sample_n)
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = _delta_arr.sum(axis=0)
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(reshaped_img_arr.T, _delta_arr)
         delta_weight_arr = delta_weight_arr.transpose(1, 0)

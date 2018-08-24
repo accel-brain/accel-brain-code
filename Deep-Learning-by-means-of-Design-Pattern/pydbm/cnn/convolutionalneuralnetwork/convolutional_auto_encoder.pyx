@@ -116,7 +116,6 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         '''
         cdef int i = 0
         self.__logger.debug("-" * 100)
-        cdef np.ndarray[DOUBLE_t, ndim=4] _img_arr
 
         for i in range(len(self.layerable_cnn_list)):
             try:

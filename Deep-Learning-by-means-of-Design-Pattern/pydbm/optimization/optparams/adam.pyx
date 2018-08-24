@@ -49,23 +49,118 @@ class Adam(OptParams):
             self.__epoch = 0
 
         self.__epoch += 1
-
-        learning_rate = learning_rate * np.sqrt(
-            (1 - self.__beta_2 ** self.__epoch) / (1 - self.__beta_1 ** self.__epoch)
+        
+        cdef double beta_2 = 1 - np.nanprod(
+            np.array([self.__beta_2] * self.__epoch),
+            axis=0
         )
+        cdef double beta_1 = 1 - np.nanprod(
+            np.array([self.__beta_1] * self.__epoch),
+            axis=0
+        )
+        
+        cdef double sqrt = np.sqrt(
+            np.nanprod(
+                np.array([beta_2, 1 / beta_1]),
+                axis=0
+            )
+        )
+        learning_rate = np.nanprod(np.array([learning_rate, sqrt]), axis=0)
 
         for i in range(len(params_list)):
             if params_list[i] is None or grads_list[i] is None:
                 continue
 
-            self.__first_moment_list[i] += (1 - self.__beta_1) * (grads_list[i] - self.__first_moment_list[i])
-            self.__second_moment_list[i] += (1 - self.__beta_2) * (grads_list[i] ** 2 - self.__second_moment_list[i])
-            
-            var_arr = learning_rate * self.__first_moment_list[i] / (np.sqrt(self.__second_moment_list[i]) + 0.00001)
-            var_max = np.nan_to_num(var_arr[~np.isinf(var_arr)]).max()
-            var_arr[np.isinf(var_arr)] = var_max
-            var_arr = np.nan_to_num(var_arr)
+            first_moment_arr = np.nansum(
+                np.array([
+                    np.expand_dims(grads_list[i], axis=0),
+                    np.expand_dims(
+                        np.nanprod(
+                            np.array([
+                                np.expand_dims(np.ones_like(self.__first_moment_list[i]) * -1, axis=0),
+                                np.expand_dims(self.__first_moment_list[i], axis=0)
+                            ]),
+                            axis=0
+                        )[0],
+                        axis=0
+                    )
+                ]),
+                axis=0
+            )[0]
+            try:
+                first_moment_arr = (1 - self.__beta_1) * first_moment_arr
+            except FloatingPointError:
+                pass
 
-            params_list[i] = params_list[i] - var_arr
+            self.__first_moment_list[i] = np.nansum(
+                np.array([
+                    np.expand_dims(self.__first_moment_list[i], axis=0),
+                    np.expand_dims(first_moment_arr, axis=0)
+                ]),
+                axis=0
+            )[0]
+
+            self.__second_moment_list[i] = np.nansum(
+                np.array([
+                    np.expand_dims(self.__second_moment_list[i], axis=0),
+                    np.nanprod(
+                        np.array([
+                            np.expand_dims(np.ones_like(self.__second_moment_list[i]) * (1 - self.__beta_2), axis=0),
+                            np.expand_dims(
+                                np.nansum(
+                                    np.array([
+                                        np.nanprod(
+                                            np.array([
+                                                np.expand_dims(grads_list[i], axis=0),
+                                                np.expand_dims(grads_list[i], axis=0)
+                                            ]),
+                                            axis=0
+                                        ),
+                                        np.expand_dims(-1 * self.__second_moment_list[i], axis=0)
+                                    ]),
+                                    axis=0
+                                )[0],
+                                axis=0
+                            )
+                        ]),
+                        axis=0
+                    )
+                ]),
+                axis=0
+            )[0]
+
+            var_arr = np.nanprod(
+                np.array([
+                    np.expand_dims(
+                        np.nanprod(
+                            np.array([
+                                np.expand_dims(np.ones_like(self.__first_moment_list[i]) * learning_rate, axis=0),
+                                np.expand_dims(self.__first_moment_list[i], axis=0)
+                            ]),
+                            axis=0
+                        )[0],
+                        axis=0
+                    ),
+                    np.expand_dims(1 / (np.sqrt(self.__second_moment_list[i]) + 0.00001), axis=0)
+                ]),
+                axis=0
+            )[0]
+
+            params_list[i] = np.nansum(
+                np.array([
+                    np.expand_dims(params_list[i], axis=0),
+                    np.expand_dims(
+                        np.nanprod(
+                            np.array([
+                                np.expand_dims(np.ones_like(var_arr) * -1, axis=0),
+                                np.expand_dims(var_arr, axis=0)
+                            ]),
+                            axis=0
+                        )[0],
+                        axis=0
+                    )
+                ]),
+                axis=0
+            )[0]
 
         return params_list

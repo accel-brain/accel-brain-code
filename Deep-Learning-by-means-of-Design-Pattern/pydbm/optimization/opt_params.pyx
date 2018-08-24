@@ -44,8 +44,29 @@ class OptParams(metaclass=ABCMeta):
         Returns:
             weight matrix.
         '''
-        while np.sum(np.square(weight_arr)) > self.weight_limit:
-            weight_arr = weight_arr * 0.9
+        cdef np.ndarray square_weight_arr = np.nanprod(
+            np.array([
+                np.expand_dims(weight_arr, axis=0),
+                np.expand_dims(weight_arr, axis=0)
+            ]),
+            axis=0
+        )[0]
+        while np.nansum(square_weight_arr) > self.weight_limit:
+            weight_arr = np.nanprod(
+                np.array([
+                    np.expand_dims(weight_arr, axis=0),
+                    np.expand_dims(np.ones_like(weight_arr) * 0.9, axis=0)
+                ]),
+                axis=0
+            )[0]
+
+            square_weight_arr = np.nanprod(
+                np.array([
+                    np.expand_dims(weight_arr, axis=0),
+                    np.expand_dims(weight_arr, axis=0)
+                ]),
+                axis=0
+            )[0]
 
         return weight_arr
 
@@ -73,7 +94,13 @@ class OptParams(metaclass=ABCMeta):
             col = activity_arr.shape[1]
             dropout_rate_arr = np.random.binomial(n=1, p=1-self.dropout_rate, size=(row, col)).astype(int)
 
-        activity_arr = activity_arr * dropout_rate_arr
+        activity_arr = np.nanprod(
+            np.array([
+                np.expand_dims(activity_arr, axis=0),
+                np.expand_dims(dropout_rate_arr, axis=0)
+            ]),
+            axis=0
+        )[0]
         return activity_arr
 
     def get_weight_limit(self):

@@ -21,6 +21,8 @@ from pydbm.optimization.optparams.sgd import SGD as DecoderSGD
 
 # Verification.
 from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
+from pydbm.verification.verificate_softmax import VerificateSoftmax
+
 
 # LSTM model.
 from pydbm.rnn.lstm_model import LSTMModel as Encoder
@@ -31,6 +33,9 @@ from pydbm.activation.logistic_function import LogisticFunction
 from pydbm.activation.tanh_function import TanhFunction
 # ReLu Function as activation function.
 from pydbm.activation.relu_function import ReLuFunction
+# Softmax Function as activation function.
+from pydbm.activation.softmax_function import SoftmaxFunction
+
 # Encoder/Decoder
 from pydbm.rnn.encoder_decoder_controller import EncoderDecoderController
 
@@ -40,57 +45,19 @@ class EncoderDecoder(InferableMelody):
     Inference melody by Encoder/Decoder based on LSTM.
     '''
     
-    def __init__(
-        self,
-        cycle_len=30,
-        time_step_range=1.0
-    ):
+    def __init__(self, cycle_len=30, time_fraction=0.01):
         '''
         Init.
         
         Args:
-            time_step_range:                The range of time step.
-            cycle_len:                      One cycle length.
+            cycle_len:          One cycle length.
+            time_fraction:      Time fraction.
 
         '''
         logger = getLogger("pycomposer")
         self.__logger = logger
         self.__cycle_len = cycle_len
-        self.__time_step_range = time_step_range
-        self.__logistic_function = LogisticFunction(binary_flag=True)
-
-    def inferance(self, midi_df, octave=6):
-        '''
-        Inferance next melody.
-        
-        Args:
-            midi_df:    `pd.DataFrame` of MIDI file.
-            octave:     Octave.
-        
-        Returns:
-            `pd.DataFrame` of MIDI file.
-        '''
-        observed_arr = self.__setup_dataset(midi_df)
-        midi_arr = self.__controller.inference(observed_arr)[-1, :, :]
-        
-        midi_arr = self.__logistic_function.activate(midi_arr)
-
-        midi_tuple_list = []
-        for i in range(midi_arr.shape[0]):
-            index_tuple = np.where(midi_arr[i] == 1)
-            for index in index_tuple[0]:
-                pitch = index + (12 * octave)
-                start = i * self.__time_step_range
-                end = (i + 1) * self.__time_step_range
-                velocity = 100
-                midi_tuple_list.append((
-                    pitch,
-                    start,
-                    end,
-                    velocity
-                ))
-        melody_df = pd.DataFrame(midi_tuple_list, columns=["pitch", "start", "end", "velocity"])
-        return melody_df
+        self.__time_fraction = time_fraction
 
     def learn(
         self,
@@ -130,15 +97,12 @@ class EncoderDecoder(InferableMelody):
             test_size_rate:                 Size of Test data set. If this value is `0`, the 
         '''
         # (`pitch`, `duration`, `velocity`)
-        observed_arr = self.__setup_dataset(midi_df)
-        observed_arr = np.nan_to_num(observed_arr)
-        target_arr = observed_arr.copy()
+        # Save only in learning.
+        self.__max_pitch = midi_df.pitch.max()
+        self.__min_pitch = midi_df.pitch.min()
 
-        self.__logger.debug("Value of observed data points:")
-        self.__logger.debug(observed_arr[0, :5, :])
-        
-        self.__logger.debug("Shape of observed data points:")
-        self.__logger.debug(observed_arr.shape)
+        observed_arr, target_arr = self.__setup_dataset(midi_df)
+        observed_arr = np.nan_to_num(observed_arr)
 
         # Init.
         encoder_graph = EncoderGraph()
@@ -148,8 +112,8 @@ class EncoderDecoder(InferableMelody):
         encoder_graph.input_gate_activating_function = LogisticFunction()
         encoder_graph.forget_gate_activating_function = LogisticFunction()
         encoder_graph.output_gate_activating_function = LogisticFunction()
-        encoder_graph.hidden_activating_function = TanhFunction()
-        encoder_graph.output_activating_function = TanhFunction()
+        encoder_graph.hidden_activating_function = LogisticFunction(binary_flag=True)
+        encoder_graph.output_activating_function = LogisticFunction(binary_flag=True)
 
         # Initialization strategy.
         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
@@ -257,43 +221,62 @@ class EncoderDecoder(InferableMelody):
 
         self.__controller = encoder_decoder_controller
 
+    def inferance(self, midi_df):
+        '''
+        Inferance next melody.
+        
+        Args:
+            midi_df:    `pd.DataFrame` of MIDI file.
+        
+        Returns:
+            `pd.DataFrame` of MIDI file.
+        '''
+        observed_arr, _ = self.__setup_dataset(midi_df)
+        pred_arr = self.__controller.inference(observed_arr)
+
+        start = 0
+        end = self.__time_fraction
+        
+        generated_tuple_list = []
+        for i in range(pred_arr.shape[0]):
+            pitch_arr = np.where(pred_arr[:, -1][i] != 0)[0]
+            pitch_arr = np.array(list(set(pitch_arr.tolist())))
+            for j in range(pitch_arr.shape[0]):
+                generated_tuple_list.append(
+                    (
+                        pitch_arr[j] + self.__min_pitch,
+                        start,
+                        end
+                    )
+                )
+            start += self.__time_fraction
+            end += self.__time_fraction
+        return np.array(generated_tuple_list)
+
     def __setup_dataset(self, midi_df):
         observed_arr_list = []
-        
-        start_t = 0.0
-        end_t = 0.0
-        prog_flag = True
-        arr_list = []
-        while prog_flag:
-            start_t += self.__time_step_range
-            df = midi_df[midi_df.start >= start_t]
-            if df.shape[0] == 0:
-                prog_flag = False
-                break
+        dim = self.__max_pitch - self.__min_pitch + 1
+        start_t = midi_df.start.min()
+        end_t = midi_df.end.max()
+        t = start_t
+        cycle_list = []
+        while t >= start_t and t <= end_t:
+            df = midi_df[midi_df.start <= t]
+            df = df[df.end >= t]
+            arr = np.zeros(dim)
+            for i in range(df.shape[0]):
+                arr[df.pitch.values[i] - self.__min_pitch] = 1
+            cycle_list.append(arr)
+            if len(cycle_list) >= self.__cycle_len:
+                observed_arr_list.append(cycle_list)
+                cycle_list = []
+            t += self.__time_fraction
 
-            end_t += self.__time_step_range + self.__time_step_range
-            df = df[df.end <= end_t]
-            
-            if df.shape[0] == 0:
-                continue
-
-            arr = np.zeros(12)
-            for pitch in df.pitch.drop_duplicates():
-                arr[int(pitch % 12)] = 1
-            arr_list.append(arr)
-
-        arr = np.array(arr_list)
-        for i in range(arr.shape[0] - self.__cycle_len - 1):
-            cycle_list = [None] * self.__cycle_len
-            for j in range(self.__cycle_len):
-                cycle_list[j] = arr[i + j]
-            observed_arr_list.append(cycle_list)
         observed_arr = np.array(observed_arr_list)
         observed_arr = observed_arr.astype(np.float64)
+        target_arr = observed_arr.copy()
         
-        self.__logger.debug("The shape of observed data points:")
-        self.__logger.debug(observed_arr.shape)
-        return observed_arr
+        return observed_arr, target_arr
 
     def get_controller(self):
         ''' getter '''

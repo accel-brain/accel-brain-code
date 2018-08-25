@@ -31,7 +31,7 @@ class RestrictedBoltzmannMachine(object):
         self,
         graph,
         double learning_rate=0.005,
-        double dropout_rate=0.5,
+        dropout_rate=None,
         approximate_interface=None
     ):
         '''
@@ -51,9 +51,11 @@ class RestrictedBoltzmannMachine(object):
             if approximate_interface is not None:
                 raise TypeError("ApproximateInterface")
 
+        if dropout_rate is not None:
+            warnings.warn("`dropout_rate` will be removed in future version. Use `OptParams`.", FutureWarning)
+
         self.__graph = graph
         self.__learning_rate = learning_rate
-        self.__dropout_rate = dropout_rate
         self.__approximate_interface = approximate_interface
 
     def approximate_learning(
@@ -78,7 +80,6 @@ class RestrictedBoltzmannMachine(object):
         self.__graph = self.__approximate_interface.approximate_learn(
             self.__graph,
             self.__learning_rate,
-            self.__dropout_rate,
             observed_data_arr,
             training_count=training_count,
             batch_size=batch_size
@@ -117,7 +118,6 @@ class RestrictedBoltzmannMachine(object):
         self.__graph = self.__approximate_interface.approximate_inference(
             self.__graph,
             self.__learning_rate,
-            self.__dropout_rate,
             observed_data_arr,
             training_count=training_count,
             r_batch_size=r_batch_size

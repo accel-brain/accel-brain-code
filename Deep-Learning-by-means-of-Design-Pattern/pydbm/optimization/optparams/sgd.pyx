@@ -36,19 +36,38 @@ class SGD(OptParams):
         if len(params_list) != len(grads_list):
             raise ValueError("The row of `params_list` and `grads_list` must be equivalent.")
 
-        if len(self.__variation_list) == 0 or len(self.__variation_list) != len(params_list):
-            self.__variation_list  = [None] * len(params_list)
+        if self.__momentum > 0:
+            if len(self.__variation_list) == 0 or len(self.__variation_list) != len(params_list):
+                self.__variation_list  = [None] * len(params_list)
 
-        for i in range(len(params_list)):
-            if params_list[i] is None or grads_list[i] is None:
-                continue
+            for i in range(len(params_list)):
+                if params_list[i] is None or grads_list[i] is None:
+                    continue
 
-            if self.__variation_list[i] is not None:
-                self.__variation_list[i] = self.__momentum * self.__variation_list[i] - learning_rate * grads_list[i]
-                self.__variation_list[i] = np.nan_to_num(self.__variation_list[i])
-                params_list[i] += self.__variation_list[i]
-            else:
-                params_list[i] -= np.nan_to_num(learning_rate * grads_list[i])
-                self.__variation_list[i] = learning_rate * grads_list[i]
+                if self.__variation_list[i] is not None:
+                    self.__variation_list[i] = self.__momentum * self.__variation_list[i] - learning_rate * grads_list[i]
+                    self.__variation_list[i] = np.nan_to_num(self.__variation_list[i])
+                    params_list[i] += self.__variation_list[i]
+                else:
+                    params_list[i] -= np.nan_to_num(learning_rate * grads_list[i])
+                    self.__variation_list[i] = learning_rate * grads_list[i]
+        else:
+            for i in range(len(params_list)):
+                if params_list[i] is None or grads_list[i] is None:
+                    continue
+
+                params_list[i] = np.nansum(
+                    np.array([
+                        np.expand_dims(params_list[i], axis=0),
+                        np.nanprod(
+                            np.array([
+                                np.expand_dims(np.ones_like(params_list[i]) * learning_rate, axis=0),
+                                np.expand_dims(grads_list[i], axis=0)
+                            ]),
+                            axis=0
+                        )
+                    ]),
+                    axis=0
+                )[0]
 
         return params_list

@@ -45,9 +45,9 @@ class DeepBoltzmannMachine(object):
         activating_function_list,
         approximate_interface_list,
         double learning_rate,
-        double dropout_rate=0.5,
+        dropout_rate=None,
         inferencing_flag=True,
-        inferencing_plan="each"
+        inferencing_plan=None
     ):
         '''
         Initialize deep boltzmann machine.
@@ -58,13 +58,17 @@ class DeepBoltzmannMachine(object):
             activating_function_list:    Activation function.
             approximate_interface_list:  The object of function approximation.
             learning_rate:               Learning rate.
-            dropout_rate:                Dropout rate.
             inferencing_flag:            Execute inferencing or not. 
             inferencing_plan:            `each`:  Learn -> Inferece -> Learn -> ...
                                          `at_once`: All learn -> All inference   
         '''
+        if dropout_rate is not None:
+            warnings.warn("`dropout_rate` will be removed in future version. Use `OptParams`.", FutureWarning)
+
+        if inferencing_plan is not None:
+            warnings.warn("`inferencing_plan` will be removed in future version.", FutureWarning)
+            
         dbm_builder.learning_rate = learning_rate
-        dbm_builder.dropout_rate = dropout_rate
         dbm_director = DBMDirector(
             dbm_builder=dbm_builder
         )
@@ -80,18 +84,13 @@ class DeepBoltzmannMachine(object):
         else:
             raise TypeError()
 
-        if isinstance(inferencing_plan, str):
-            self.__inferencing_plan = inferencing_plan
-        else:
-            raise TypeError()
-
     def learn(
         self,
         np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
         int traning_count=-1,
         int batch_size=200,
         int r_batch_size=-1,
-        sgd_flag=False,
+        sgd_flag=None,
         int training_count=1000
     ):
         '''
@@ -112,90 +111,48 @@ class DeepBoltzmannMachine(object):
                                   but is refered only in inference and reconstruction. 
                                   If this value is more than `0`, 
                                   the inferencing is a kind of reccursive learning with the mini-batch training.
-
-            sgd_flag:             Learning with the stochastic gradient descent(SGD) or not.
         '''
         if traning_count != -1:
             training_count = traning_count
             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
 
+        if sgd_flag is not None:
+            warnings.warn("`sgd_flag` will be removed in future version. All learning will be mini-batch training.", FutureWarning)
+
         cdef int i
-        cdef int row_i = observed_data_arr.shape[0]
-        cdef int j
-        cdef np.ndarray[DOUBLE_t, ndim=1] data_arr
-        cdef np.ndarray[DOUBLE_t, ndim=1] feature_point_arr
-        cdef int sgd_key
+        cdef np.ndarray[DOUBLE_t, ndim=2] data_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] feature_point_arr
 
         if self.__inferencing_flag is False:
-            for i in range(row_i):
-                if sgd_flag is True:
-                    sgd_key = np.random.randint(row_i)
-                    data_arr = observed_data_arr[sgd_key]
-                else:
-                    data_arr = observed_data_arr[i].copy()
-
-                for j in range(len(self.__rbm_list)):
-                    self.__rbm_list[j].approximate_learning(
-                        data_arr,
-                        training_count=training_count,
-                        batch_size=batch_size
-                    )
-                    feature_point_arr = self.get_feature_point(j)
-                    data_arr = feature_point_arr
+            data_arr = observed_data_arr.copy()
+            for i in range(len(self.__rbm_list)):
+                self.__rbm_list[i].approximate_learning(
+                    data_arr,
+                    training_count=training_count,
+                    batch_size=batch_size
+                )
+                feature_point_arr = self.get_feature_point(i)
+                data_arr = feature_point_arr
         else:
-            if self.__inferencing_plan == "each":
-                for i in range(row_i):
-                    if sgd_flag is True:
-                        sgd_key = np.random.randint(row_i)
-                        data_arr = observed_data_arr[sgd_key]
-                    else:
-                        data_arr = observed_data_arr[i].copy()
+            data_arr = observed_data_arr.copy()
+            for i in range(len(self.__rbm_list)):
+                self.__rbm_list[i].approximate_learning(
+                    data_arr,
+                    training_count=training_count,
+                    batch_size=batch_size
+                )
+                feature_point_arr = self.get_feature_point(i)
+                data_arr = feature_point_arr
 
-                    for j in range(len(self.__rbm_list)):
-                        self.__rbm_list[j].approximate_learning(
-                            data_arr,
-                            training_count=training_count,
-                            batch_size=batch_size
-                        )
-                        feature_point_arr = self.get_feature_point(j)
-                        data_arr = feature_point_arr
+            rbm_list = self.__rbm_list[::-1]
 
-                    rbm_list = self.__rbm_list[::-1]
-
-                    for j in range(len(rbm_list)):
-                        data_arr = self.get_feature_point(len(rbm_list)-1-j)
-                        rbm_list[j].approximate_inferencing(
-                            data_arr,
-                            training_count=training_count,
-                            r_batch_size=r_batch_size
-                        )
-
-            elif self.__inferencing_plan == "at_once":
-                for i in range(row_i):
-                    if sgd_flag is True:
-                        sgd_key = np.random.randint(row_i)
-                        data_arr = observed_data_arr[sgd_key]
-                    else:
-                        data_arr = observed_data_arr[i].copy()
-
-                    for j in range(len(self.__rbm_list)):
-                        self.__rbm_list[j].approximate_learning(
-                            data_arr,
-                            training_count=training_count,
-                            batch_size=batch_size
-                        )
-                        feature_point_arr = self.get_feature_point(j)
-                        data_arr = feature_point_arr
-
-                rbm_list = self.__rbm_list[::-1]
-                for j in range(len(rbm_list)):
-                    data_arr = self.get_feature_point(len(rbm_list)-1)
-
-                    rbm_list[j].approximate_inferencing(
-                        data_arr,
-                        training_count=training_count,
-                        r_batch_size=r_batch_size
-                    )
+            for i in range(len(rbm_list)):
+                data_arr = self.get_feature_point(len(rbm_list)-1-i)
+                rbm_list[i].approximate_inferencing(
+                    data_arr,
+                    training_count=training_count,
+                    r_batch_size=r_batch_size
+                )
 
     def get_feature_point(self, int layer_number=0):
         '''

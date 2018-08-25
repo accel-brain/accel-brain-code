@@ -38,7 +38,7 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
         int traning_count=-1,
         int batch_size=200,
         int r_batch_size=-1,
-        sgd_flag=False,
+        sgd_flag=None,
         int training_count=1000
     ):
         '''
@@ -52,43 +52,40 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
                                   If this value is `0`, the inferencing is a recursive learning.
                                   If this value is more than `0`, the inferencing is a mini-batch recursive learning.
                                   If this value is '-1', the inferencing is not a recursive learning.
-            sgd_flag:             Learning with the stochastic gradient descent(SGD) or not.
         '''
         if traning_count != -1:
             training_count = traning_count
             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
 
-        cdef int row_i = observed_data_arr.shape[0]
-        cdef int t
-        cdef np.ndarray[DOUBLE_t, ndim=1] data_arr
-        cdef np.ndarray[DOUBLE_t, ndim=1] feature_point_arr
-        cdef int sgd_key
+        super().learn(
+            observed_data_arr=observed_data_arr,
+            training_count=training_count,
+            batch_size=batch_size,
+            r_batch_size=r_batch_size
+        )
 
-        visible_points_list = [None] * row_i
-        feature_points_list = [None] * row_i
-        for t in range(training_count):
-            for i in range(row_i):
-                if t == traning_count - 1:
-                    data_arr = observed_data_arr[i]
-                else:
-                    if sgd_flag is True:
-                        sgd_key = np.random.randint(row_i)
-                        data_arr = observed_data_arr[sgd_key]
-                    else:
-                        data_arr = observed_data_arr[i]
+        cdef int start_index
+        cdef int end_index
+        cdef np.ndarray[DOUBLE_t, ndim=2] visible_points_arr = None
+        cdef np.ndarray[DOUBLE_t, ndim=2] feature_points_arr = None
+        for i in range(int(observed_data_arr.shape[0] / batch_size)):
+            start_index = i * batch_size
+            end_index = (i + 1) * batch_size
+            super().learn(
+                observed_data_arr=observed_data_arr[start_index:end_index],
+                training_count=1,
+                batch_size=0,
+                r_batch_size=0
+            )
+            if visible_points_arr is None:
+                visible_points_arr = self.get_visible_point()
+            else:
+                visible_points_arr = np.r_[visible_points_arr, self.get_visible_point()]
 
-                super().learn(
-                    observed_data_arr=np.array([data_arr]),
-                    training_count=1,
-                    batch_size=batch_size,
-                    r_batch_size=r_batch_size,
-                    sgd_flag=False
-                )
-                if t == training_count - 1:
-                    visible_points_arr = self.get_visible_point()
-                    visible_points_list[i] = visible_points_arr
-                    feature_point_arr = self.get_feature_point()
-                    feature_points_list[i] = feature_point_arr
+            if feature_points_arr is None:
+                feature_points_arr = self.get_feature_point()
+            else:
+                feature_points_arr = np.r_[feature_points_arr, self.get_feature_point()]
 
-        self.__visible_points_arr = np.array(visible_points_list)
-        self.__feature_points_arr = np.array(feature_points_list)
+        self.__visible_points_arr = visible_points_arr
+        self.__feature_points_arr = feature_points_arr

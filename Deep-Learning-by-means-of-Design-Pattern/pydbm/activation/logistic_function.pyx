@@ -78,6 +78,7 @@ class LogisticFunction(ActivatingFunctionInterface):
         cdef double x_min
         cdef double c_max
         cdef double c_min
+        cdef double partition
 
         if self.__normalize_flag is True:
             try:
@@ -113,10 +114,39 @@ class LogisticFunction(ActivatingFunctionInterface):
             c_max = c_arr.max()
             c_min = c_arr.min()
             if c_max != c_min:
-                try:
-                    c_arr = (self.__overflow_range - (-self.__overflow_range)) * (c_arr - c_min) / (c_max - c_min) -self.__overflow_range
-                except FloatingPointError:
-                    pass
+                c_arr = np.nansum(
+                    np.array([
+                        np.expand_dims(c_arr, axis=0),
+                        np.expand_dims(np.ones_like(c_arr) * c_min * -1, axis=0)
+                    ]),
+                    axis=0
+                )[0]
+                partition = np.nansum(np.array([c_max, -1 * c_min]))
+                c_arr = np.nanprod(
+                    np.array([
+                        np.expand_dims(c_arr, axis=0),
+                        np.expand_dims(np.ones_like(c_arr) / partition, axis=0)
+                    ]),
+                    axis=0
+                )[0]
+
+                c_arr = np.nanprod(
+                    np.array([
+                        np.expand_dims(c_arr, axis=0),
+                        np.expand_dims(
+                            np.ones_like(c_arr) * (self.__overflow_range - (-self.__overflow_range)),
+                            axis=0
+                        )
+                    ]),
+                    axis=0
+                )[0]
+                c_arr = np.nansum(
+                    np.array([
+                        np.expand_dims(c_arr, axis=0),
+                        np.expand_dims(np.ones_like(c_arr) * -self.__overflow_range, axis=0)
+                    ]),
+                    axis=0
+                )[0]
 
         activity_arr = 1.0 / (1.0 + np.exp(c_arr))
         activity_arr = np.nan_to_num(activity_arr)

@@ -174,8 +174,8 @@ class CompleteBipartiteGraph(Synapse):
             deeper_activating_function:         The activation function in deeper layer.
             weights_arr:                        The weights of links.
         '''
-        self.visible_bias_arr = np.random.uniform(low=0, high=1, size=(shallower_neuron_count, ))
-        self.hidden_bias_arr = np.random.uniform(low=0, high=1, size=(deeper_neuron_count, ))
+        self.visible_bias_arr = np.zeros((shallower_neuron_count, ))
+        self.hidden_bias_arr = np.zeros((deeper_neuron_count, ))
         self.visible_diff_bias_arr = np.zeros(self.visible_bias_arr.shape)
         self.hidden_diff_bias_arr = np.zeros(self.hidden_bias_arr.shape)
 

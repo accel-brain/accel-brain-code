@@ -72,14 +72,3 @@ class ApproximateInterface(metaclass=ABCMeta):
             Graph of neurons.
         '''
         raise NotImplementedError()
-
-    @abstractmethod
-    def compute_reconstruct_error(
-        self,
-        np.ndarray[DOUBLE_t, ndim=1] observed_data_arr, 
-        np.ndarray[DOUBLE_t, ndim=1] reconstructed_arr
-    ):
-        '''
-        Compute reconstruction error rate.
-        '''
-        raise NotImplementedError()

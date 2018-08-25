@@ -171,13 +171,8 @@ class ContrastiveDivergence(ApproximateInterface):
             self.__graph.hidden_activity_arr
         )
 
-        self.__graph.visible_diff_bias_arr += np.nansum(
-            self.__graph.visible_activity_arr, axis=0
-        ) / self.__graph.visible_activity_arr.shape[0]
-
-        self.__graph.hidden_diff_bias_arr += np.nansum(
-            self.__graph.hidden_activity_arr, axis=0
-        ) / self.__graph.hidden_activity_arr.shape[0]
+        self.__graph.visible_diff_bias_arr += np.nansum(self.__graph.visible_activity_arr, axis=0)
+        self.__graph.hidden_diff_bias_arr += np.nansum(self.__graph.hidden_activity_arr, axis=0)
 
         # Sleeping.
         self.__graph.visible_activity_arr = self.__graph.visible_activating_function.activate(

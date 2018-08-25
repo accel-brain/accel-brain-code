@@ -38,7 +38,7 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         activating_function_list=[],
         approximate_interface_list=[],
         double learning_rate=0.01,
-        double dropout_rate=0.0,
+        dropout_rate=None,
         int overlap_n=4,
         int reshaped_w=-1,
         int filter_size=5
@@ -63,12 +63,12 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
             activating_function_list:    Activation function.
             approximate_interface_list:  The object of function approximation.
             learning_rate:               Learning rate.
-            dropout_rate:                Dropout rate.
             overlap_n:                   The number of overlapped pixels.
             filter_size:                 The 'filter' size.
         
         Reference:
             Eslami, S. A., Heess, N., Williams, C. K., & Winn, J. (2014). The shape boltzmann machine: a strong model of object shape. International Journal of Computer Vision, 107(2), 155-176.
+
         '''
         self.__overlap_n = overlap_n
         if reshaped_w != -1:
@@ -121,11 +121,11 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
 
     def learn(
         self,
-        np.ndarray[DOUBLE_t, ndim=2] observed_data_arr, 
+        np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
         int traning_count=-1,
         int batch_size=200,
         int r_batch_size=-1,
-        sgd_flag=False,
+        sgd_flag=None,
         int training_count=1000
     ):
         '''
@@ -134,12 +134,18 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         Args:
             observed_data_arr:    The `np.ndarray` of observed data points.
             training_count:       Training counts.
-            batch_size:           Batch size.
-            r_batch_size:         Batch size.
+            batch_size:           Batch size in learning.
+            r_batch_size:         Batch size in inferencing.
                                   If this value is `0`, the inferencing is a recursive learning.
                                   If this value is more than `0`, the inferencing is a mini-batch recursive learning.
                                   If this value is '-1', the inferencing is not a recursive learning.
-            sgd_flag:             Learning with the stochastic gradient descent(SGD) or not.
+
+                                  If you do not want to execute the mini-batch training, 
+                                  the value of `batch_size` must be `-1`. 
+                                  And `r_batch_size` is also parameter to control the mini-batch training 
+                                  but is refered only in inference and reconstruction. 
+                                  If this value is more than `0`, 
+                                  the inferencing is a kind of reccursive learning with the mini-batch training.
         '''
         if traning_count != -1:
             training_count = traning_count
@@ -166,51 +172,53 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         cdef int i
         cdef int row_i = observed_data_arr.shape[0]
         cdef int j
-        cdef np.ndarray[DOUBLE_t, ndim=1] data_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] data_arr
         cdef int data_row
-        cdef np.ndarray[DOUBLE_t, ndim=1] feature_point_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] feature_point_arr
         cdef int sgd_key
 
-        inferenced_data_list = [None] * row_i
+        self.__visible_points_arr = None
         for k in range(training_count):
-            for i in range(row_i):
-                if sgd_flag is True:
-                    sgd_key = np.random.randint(row_i)
-                    data_arr = observed_data_arr[sgd_key]
-                else:
-                    data_arr = observed_data_arr[i].copy()
+            for j in range(int(observed_data_arr.shape[0] / batch_size)):
+                start_index = j * batch_size
+                end_index = (j + 1) * batch_size
 
-                data_row = data_arr.shape[0]
-                if data_row <= 0:
-                    raise ValueError("Choiced `observed_data_arr` is invalid.")
-
-                for j in range(len(self.rbm_list)):
-                    self.rbm_list[j].approximate_learning(
+                data_arr = observed_data_arr[start_index:end_index]
+                for i in range(len(self.rbm_list)):
+                    self.rbm_list[i].approximate_learning(
                         data_arr,
                         training_count=1,
                         batch_size=batch_size
                     )
-                    feature_point_arr = self.get_feature_point(j)
+                    feature_point_arr = self.get_feature_point(i)
                     data_arr = feature_point_arr
                     data_row = data_arr.shape[0]
                     if data_row <= 0:
-                        raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(j) + " layer's learning.")
+                        raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(i) + " layer's learning.")
 
                 rbm_list = self.rbm_list[::-1]
                 for j in range(len(rbm_list)):
-                    data_arr = self.get_feature_point(len(rbm_list)-1-j)
+                    data_arr = self.get_feature_point(len(rbm_list)-1-i)
                     data_row = data_arr.shape[0]
                     if data_row <= 0:
-                        raise ValueError("Reconstructed `feature_point_arr` is invalid in " + str(j) + " layer's  inference.")
+                        raise ValueError(
+                            "Reconstructed `feature_point_arr` is invalid in " + str(i) + " layer's  inference."
+                        )
 
-                    rbm_list[j].approximate_inferencing(
+                    rbm_list[i].approximate_inferencing(
                         data_arr,
                         training_count=1,
                         r_batch_size=r_batch_size
                     )
                 if k == training_count - 1:
-                    inferenced_data_list[i] = rbm_list[-1].graph.visible_activity_arr
-        self.__visible_points_arr = np.array(inferenced_data_list)
+                    if self.__visible_points_arr is None:
+                        self.__visible_points_arr = rbm_list[-1].graph.visible_activity_arr
+                    else:
+                        self.__visible_points_arr = np.r_[
+                            self.__visible_points_arr,
+                            rbm_list[-1].graph.visible_activity_arr
+                        ]
+
         self.__visible_points_arr = self.__reshape_inferenced_data(init_observed_data_arr, self.__visible_points_arr)
 
     def __reshape_observed_data(self, np.ndarray[DOUBLE_t, ndim=2] observed_data_arr):

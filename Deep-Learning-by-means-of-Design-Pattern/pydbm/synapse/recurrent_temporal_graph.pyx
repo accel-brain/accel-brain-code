@@ -327,17 +327,17 @@ class RecurrentTemporalGraph(Synapse):
             deeper_activating_function:         The activation function in deeper layer.
             weights_arr:                        The weights of links.
         '''
-        self.visible_bias_arr = np.random.uniform(low=0, high=1, size=(shallower_neuron_count, ))
-        self.hidden_bias_arr = np.random.uniform(low=0, high=1, size=(deeper_neuron_count, ))
+        self.visible_bias_arr = np.zeros((shallower_neuron_count, ))
+        self.hidden_bias_arr = np.zeros((deeper_neuron_count, ))
         self.visible_diff_bias_arr = np.zeros(self.visible_bias_arr.shape)
         self.hidden_diff_bias_arr = np.zeros(self.hidden_bias_arr.shape)
 
-        self.rnn_visible_weights_arr = np.zeros(
-            (shallower_neuron_count, deeper_neuron_count)
-        )
-        self.rnn_hidden_weights_arr = np.zeros(
-            (deeper_neuron_count, shallower_neuron_count)
-        )
+        self.rnn_visible_weights_arr = np.random.normal(
+            size=(shallower_neuron_count, deeper_neuron_count)
+        ) * 0.1
+        self.rnn_hidden_weights_arr = np.random.normal(
+            size=(deeper_neuron_count, deeper_neuron_count)
+        ) * 0.1
 
         super().create_node(
             shallower_neuron_count,

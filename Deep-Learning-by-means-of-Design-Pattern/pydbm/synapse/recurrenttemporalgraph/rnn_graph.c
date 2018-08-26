@@ -1578,8 +1578,6 @@ static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_ImportError;
 static const char __pyx_k_np[] = "np";
 static const char __pyx_k_doc[] = "__doc__";
-static const char __pyx_k_low[] = "low";
-static const char __pyx_k_high[] = "high";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_self[] = "self";
 static const char __pyx_k_size[] = "size";
@@ -1592,9 +1590,9 @@ static const char __pyx_k_value[] = "value";
 static const char __pyx_k_zeros[] = "zeros";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_module[] = "__module__";
+static const char __pyx_k_normal[] = "normal";
 static const char __pyx_k_random[] = "random";
 static const char __pyx_k_prepare[] = "__prepare__";
-static const char __pyx_k_uniform[] = "uniform";
 static const char __pyx_k_RNNGraph[] = "RNNGraph";
 static const char __pyx_k_property[] = "property";
 static const char __pyx_k_qualname[] = "__qualname__";
@@ -1613,23 +1611,20 @@ static const char __pyx_k_get_hat_weights_arr[] = "get_hat_weights_arr";
 static const char __pyx_k_rnn_hidden_bias_arr[] = "rnn_hidden_bias_arr";
 static const char __pyx_k_set_hat_weights_arr[] = "set_hat_weights_arr";
 static const char __pyx_k_RNNGraph_create_node[] = "RNNGraph.create_node";
-static const char __pyx_k_hidden_bias_arr_list[] = "hidden_bias_arr_list";
 static const char __pyx_k_get_v_hat_weights_arr[] = "get_v_hat_weights_arr";
 static const char __pyx_k_set_v_hat_weights_arr[] = "set_v_hat_weights_arr";
-static const char __pyx_k_visible_bias_arr_list[] = "visible_bias_arr_list";
 static const char __pyx_k_RecurrentTemporalGraph[] = "RecurrentTemporalGraph";
+static const char __pyx_k_rnn_hidden_weights_arr[] = "rnn_hidden_weights_arr";
 static const char __pyx_k_shallower_neuron_count[] = "shallower_neuron_count";
 static const char __pyx_k_get_rnn_hidden_bias_arr[] = "get_rnn_hidden_bias_arr";
+static const char __pyx_k_rnn_visible_weights_arr[] = "rnn_visible_weights_arr";
 static const char __pyx_k_set_rnn_hidden_bias_arr[] = "set_rnn_hidden_bias_arr";
-static const char __pyx_k_get_hidden_bias_arr_list[] = "get_hidden_bias_arr_list";
-static const char __pyx_k_set_hidden_bias_arr_list[] = "set_hidden_bias_arr_list";
 static const char __pyx_k_RNNGraph__hat_weights_arr[] = "_RNNGraph__hat_weights_arr";
 static const char __pyx_k_diff_hidden_bias_arr_list[] = "diff_hidden_bias_arr_list";
-static const char __pyx_k_get_visible_bias_arr_list[] = "get_visible_bias_arr_list";
-static const char __pyx_k_set_visible_bias_arr_list[] = "set_visible_bias_arr_list";
 static const char __pyx_k_deeper_activating_function[] = "deeper_activating_function";
 static const char __pyx_k_diff_visible_bias_arr_list[] = "diff_visible_bias_arr_list";
 static const char __pyx_k_RNNGraph__v_hat_weights_arr[] = "_RNNGraph__v_hat_weights_arr";
+static const char __pyx_k_diff_rnn_hidden_weights_arr[] = "diff_rnn_hidden_weights_arr";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_RNNGraph_get_hat_weights_arr[] = "RNNGraph.get_hat_weights_arr";
 static const char __pyx_k_RNNGraph_set_hat_weights_arr[] = "RNNGraph.set_hat_weights_arr";
@@ -1639,14 +1634,12 @@ static const char __pyx_k_get_diff_hidden_bias_arr_list[] = "get_diff_hidden_bia
 static const char __pyx_k_set_diff_hidden_bias_arr_list[] = "set_diff_hidden_bias_arr_list";
 static const char __pyx_k_shallower_activating_function[] = "shallower_activating_function";
 static const char __pyx_k_RNNGraph__diff_hidden_bias_arr[] = "_RNNGraph__diff_hidden_bias_arr_list";
-static const char __pyx_k_RNNGraph__hidden_bias_arr_list[] = "_RNNGraph__hidden_bias_arr_list";
 static const char __pyx_k_RNNGraph_get_v_hat_weights_arr[] = "RNNGraph.get_v_hat_weights_arr";
 static const char __pyx_k_RNNGraph_set_v_hat_weights_arr[] = "RNNGraph.set_v_hat_weights_arr";
 static const char __pyx_k_get_diff_visible_bias_arr_list[] = "get_diff_visible_bias_arr_list";
 static const char __pyx_k_set_diff_visible_bias_arr_list[] = "set_diff_visible_bias_arr_list";
 static const char __pyx_k_RNNGraph__diff_visible_bias_arr[] = "_RNNGraph__diff_visible_bias_arr_list";
 static const char __pyx_k_RNNGraph__pre_hidden_activity_a[] = "_RNNGraph__pre_hidden_activity_arr_list";
-static const char __pyx_k_RNNGraph__visible_bias_arr_list[] = "_RNNGraph__visible_bias_arr_list";
 static const char __pyx_k_Recurrent_Neural_Network_Restri[] = "\n    Recurrent Neural Network Restricted Boltzmann Machines (RNN-RBM)\n    based on Complete Bipartite Graph.\n    \n    The shallower layer is to the deeper layer what the visible layer is to the hidden layer.\n    ";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
@@ -1654,16 +1647,12 @@ static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string al
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
 static const char __pyx_k_RNNGraph_get_diff_hidden_bias_ar[] = "RNNGraph.get_diff_hidden_bias_arr_list";
 static const char __pyx_k_RNNGraph_get_diff_visible_bias_a[] = "RNNGraph.get_diff_visible_bias_arr_list";
-static const char __pyx_k_RNNGraph_get_hidden_bias_arr_lis[] = "RNNGraph.get_hidden_bias_arr_list";
 static const char __pyx_k_RNNGraph_get_pre_hidden_activity[] = "RNNGraph.get_pre_hidden_activity_arr_list";
 static const char __pyx_k_RNNGraph_get_rnn_hidden_bias_arr[] = "RNNGraph.get_rnn_hidden_bias_arr";
-static const char __pyx_k_RNNGraph_get_visible_bias_arr_li[] = "RNNGraph.get_visible_bias_arr_list";
 static const char __pyx_k_RNNGraph_set_diff_hidden_bias_ar[] = "RNNGraph.set_diff_hidden_bias_arr_list";
 static const char __pyx_k_RNNGraph_set_diff_visible_bias_a[] = "RNNGraph.set_diff_visible_bias_arr_list";
-static const char __pyx_k_RNNGraph_set_hidden_bias_arr_lis[] = "RNNGraph.set_hidden_bias_arr_list";
 static const char __pyx_k_RNNGraph_set_pre_hidden_activity[] = "RNNGraph.set_pre_hidden_activity_arr_list";
 static const char __pyx_k_RNNGraph_set_rnn_hidden_bias_arr[] = "RNNGraph.set_rnn_hidden_bias_arr";
-static const char __pyx_k_RNNGraph_set_visible_bias_arr_li[] = "RNNGraph.set_visible_bias_arr_list";
 static const char __pyx_k_get_pre_hidden_activity_arr_list[] = "get_pre_hidden_activity_arr_list";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
@@ -1680,28 +1669,22 @@ static PyObject *__pyx_n_s_RNNGraph;
 static PyObject *__pyx_n_s_RNNGraph__diff_hidden_bias_arr;
 static PyObject *__pyx_n_s_RNNGraph__diff_visible_bias_arr;
 static PyObject *__pyx_n_s_RNNGraph__hat_weights_arr;
-static PyObject *__pyx_n_s_RNNGraph__hidden_bias_arr_list;
 static PyObject *__pyx_n_s_RNNGraph__pre_hidden_activity_a;
 static PyObject *__pyx_n_s_RNNGraph__rnn_hidden_bias_arr;
 static PyObject *__pyx_n_s_RNNGraph__v_hat_weights_arr;
-static PyObject *__pyx_n_s_RNNGraph__visible_bias_arr_list;
 static PyObject *__pyx_n_s_RNNGraph_create_node;
 static PyObject *__pyx_n_s_RNNGraph_get_diff_hidden_bias_ar;
 static PyObject *__pyx_n_s_RNNGraph_get_diff_visible_bias_a;
 static PyObject *__pyx_n_s_RNNGraph_get_hat_weights_arr;
-static PyObject *__pyx_n_s_RNNGraph_get_hidden_bias_arr_lis;
 static PyObject *__pyx_n_s_RNNGraph_get_pre_hidden_activity;
 static PyObject *__pyx_n_s_RNNGraph_get_rnn_hidden_bias_arr;
 static PyObject *__pyx_n_s_RNNGraph_get_v_hat_weights_arr;
-static PyObject *__pyx_n_s_RNNGraph_get_visible_bias_arr_li;
 static PyObject *__pyx_n_s_RNNGraph_set_diff_hidden_bias_ar;
 static PyObject *__pyx_n_s_RNNGraph_set_diff_visible_bias_a;
 static PyObject *__pyx_n_s_RNNGraph_set_hat_weights_arr;
-static PyObject *__pyx_n_s_RNNGraph_set_hidden_bias_arr_lis;
 static PyObject *__pyx_n_s_RNNGraph_set_pre_hidden_activity;
 static PyObject *__pyx_n_s_RNNGraph_set_rnn_hidden_bias_arr;
 static PyObject *__pyx_n_s_RNNGraph_set_v_hat_weights_arr;
-static PyObject *__pyx_n_s_RNNGraph_set_visible_bias_arr_li;
 static PyObject *__pyx_n_s_RecurrentTemporalGraph;
 static PyObject *__pyx_kp_s_Recurrent_Neural_Network_Restri;
 static PyObject *__pyx_n_s_RuntimeError;
@@ -1713,26 +1696,23 @@ static PyObject *__pyx_n_s_create_node;
 static PyObject *__pyx_n_s_deeper_activating_function;
 static PyObject *__pyx_n_s_deeper_neuron_count;
 static PyObject *__pyx_n_s_diff_hidden_bias_arr_list;
+static PyObject *__pyx_n_s_diff_rnn_hidden_weights_arr;
 static PyObject *__pyx_n_s_diff_visible_bias_arr_list;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_get_diff_hidden_bias_arr_list;
 static PyObject *__pyx_n_s_get_diff_visible_bias_arr_list;
 static PyObject *__pyx_n_s_get_hat_weights_arr;
-static PyObject *__pyx_n_s_get_hidden_bias_arr_list;
 static PyObject *__pyx_n_s_get_pre_hidden_activity_arr_list;
 static PyObject *__pyx_n_s_get_rnn_hidden_bias_arr;
 static PyObject *__pyx_n_s_get_v_hat_weights_arr;
-static PyObject *__pyx_n_s_get_visible_bias_arr_list;
 static PyObject *__pyx_n_s_hat_weights_arr;
-static PyObject *__pyx_n_s_hidden_bias_arr_list;
-static PyObject *__pyx_n_s_high;
 static PyObject *__pyx_n_s_import;
-static PyObject *__pyx_n_s_low;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_metaclass;
 static PyObject *__pyx_n_s_module;
 static PyObject *__pyx_kp_u_ndarray_is_not_C_contiguous;
 static PyObject *__pyx_kp_u_ndarray_is_not_Fortran_contiguou;
+static PyObject *__pyx_n_s_normal;
 static PyObject *__pyx_n_s_np;
 static PyObject *__pyx_n_s_numpy;
 static PyObject *__pyx_kp_s_numpy_core_multiarray_failed_to;
@@ -1747,25 +1727,23 @@ static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_random;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_rnn_hidden_bias_arr;
+static PyObject *__pyx_n_s_rnn_hidden_weights_arr;
+static PyObject *__pyx_n_s_rnn_visible_weights_arr;
 static PyObject *__pyx_n_s_self;
 static PyObject *__pyx_n_s_set_diff_hidden_bias_arr_list;
 static PyObject *__pyx_n_s_set_diff_visible_bias_arr_list;
 static PyObject *__pyx_n_s_set_hat_weights_arr;
-static PyObject *__pyx_n_s_set_hidden_bias_arr_list;
 static PyObject *__pyx_n_s_set_pre_hidden_activity_arr_list;
 static PyObject *__pyx_n_s_set_rnn_hidden_bias_arr;
 static PyObject *__pyx_n_s_set_v_hat_weights_arr;
-static PyObject *__pyx_n_s_set_visible_bias_arr_list;
 static PyObject *__pyx_n_s_shallower_activating_function;
 static PyObject *__pyx_n_s_shallower_neuron_count;
 static PyObject *__pyx_n_s_size;
 static PyObject *__pyx_n_s_super;
 static PyObject *__pyx_n_s_test;
-static PyObject *__pyx_n_s_uniform;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
 static PyObject *__pyx_n_s_v_hat_weights_arr;
 static PyObject *__pyx_n_s_value;
-static PyObject *__pyx_n_s_visible_bias_arr_list;
 static PyObject *__pyx_n_s_weights_arr;
 static PyObject *__pyx_n_s_zeros;
 static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_get_v_hat_weights_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
@@ -1774,22 +1752,17 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
 static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_6set_hat_weights_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_8get_rnn_hidden_bias_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_10set_rnn_hidden_bias_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_12get_visible_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_14set_visible_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_16get_hidden_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_18set_hidden_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_20get_pre_hidden_activity_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_22set_pre_hidden_activity_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_24get_diff_visible_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_26set_diff_visible_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_28get_diff_hidden_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_30set_diff_hidden_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_12get_pre_hidden_activity_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_14set_pre_hidden_activity_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_16get_diff_visible_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_18set_diff_visible_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_20get_diff_hidden_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_22set_diff_hidden_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph___defaults__(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_32create_node(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, int __pyx_v_shallower_neuron_count, int __pyx_v_deeper_neuron_count, PyObject *__pyx_v_shallower_activating_function, PyObject *__pyx_v_deeper_activating_function, PyArrayObject *__pyx_v_weights_arr); /* proto */
+static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_24create_node(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, int __pyx_v_shallower_neuron_count, int __pyx_v_deeper_neuron_count, PyObject *__pyx_v_shallower_activating_function, PyObject *__pyx_v_deeper_activating_function, PyArrayObject *__pyx_v_weights_arr); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
-static PyObject *__pyx_int_0;
-static PyObject *__pyx_int_1;
+static PyObject *__pyx_float_0_1;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_tuple__3;
@@ -1812,10 +1785,6 @@ static PyObject *__pyx_tuple__28;
 static PyObject *__pyx_tuple__30;
 static PyObject *__pyx_tuple__32;
 static PyObject *__pyx_tuple__34;
-static PyObject *__pyx_tuple__36;
-static PyObject *__pyx_tuple__38;
-static PyObject *__pyx_tuple__40;
-static PyObject *__pyx_tuple__42;
 static PyObject *__pyx_codeobj__11;
 static PyObject *__pyx_codeobj__13;
 static PyObject *__pyx_codeobj__15;
@@ -1829,10 +1798,6 @@ static PyObject *__pyx_codeobj__29;
 static PyObject *__pyx_codeobj__31;
 static PyObject *__pyx_codeobj__33;
 static PyObject *__pyx_codeobj__35;
-static PyObject *__pyx_codeobj__37;
-static PyObject *__pyx_codeobj__39;
-static PyObject *__pyx_codeobj__41;
-static PyObject *__pyx_codeobj__43;
 
 /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":18
  *     __v_hat_weights_arr = np.array([])
@@ -2561,340 +2526,6 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
 }
 
 /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":66
- *     __visible_bias_arr_list = []
- * 
- *     def get_visible_bias_arr_list(self):             # <<<<<<<<<<<<<<
- *         ''' getter '''
- *         return self.__visible_bias_arr_list
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_13get_visible_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_12get_visible_bias_arr_list[] = " getter ";
-static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_13get_visible_bias_arr_list = {"get_visible_bias_arr_list", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_13get_visible_bias_arr_list, METH_O, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_12get_visible_bias_arr_list};
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_13get_visible_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("get_visible_bias_arr_list (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_12get_visible_bias_arr_list(__pyx_self, ((PyObject *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_12get_visible_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  __Pyx_RefNannySetupContext("get_visible_bias_arr_list", 0);
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":68
- *     def get_visible_bias_arr_list(self):
- *         ''' getter '''
- *         return self.__visible_bias_arr_list             # <<<<<<<<<<<<<<
- * 
- *     def set_visible_bias_arr_list(self, value):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__visible_bias_arr_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":66
- *     __visible_bias_arr_list = []
- * 
- *     def get_visible_bias_arr_list(self):             # <<<<<<<<<<<<<<
- *         ''' getter '''
- *         return self.__visible_bias_arr_list
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.synapse.recurrenttemporalgraph.rnn_graph.RNNGraph.get_visible_bias_arr_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":70
- *         return self.__visible_bias_arr_list
- * 
- *     def set_visible_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
- *         ''' setter '''
- *         self.__visible_bias_arr_list = value
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_15set_visible_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_14set_visible_bias_arr_list[] = " setter ";
-static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_15set_visible_bias_arr_list = {"set_visible_bias_arr_list", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_15set_visible_bias_arr_list, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_14set_visible_bias_arr_list};
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_15set_visible_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_self = 0;
-  PyObject *__pyx_v_value = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("set_visible_bias_arr_list (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_value,0};
-    PyObject* values[2] = {0,0};
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
-      switch (pos_args) {
-        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = PyDict_Size(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("set_visible_bias_arr_list", 1, 2, 2, 1); __PYX_ERR(0, 70, __pyx_L3_error)
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_visible_bias_arr_list") < 0)) __PYX_ERR(0, 70, __pyx_L3_error)
-      }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-    }
-    __pyx_v_self = values[0];
-    __pyx_v_value = values[1];
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_visible_bias_arr_list", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 70, __pyx_L3_error)
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.synapse.recurrenttemporalgraph.rnn_graph.RNNGraph.set_visible_bias_arr_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_14set_visible_bias_arr_list(__pyx_self, __pyx_v_self, __pyx_v_value);
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_14set_visible_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("set_visible_bias_arr_list", 0);
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":72
- *     def set_visible_bias_arr_list(self, value):
- *         ''' setter '''
- *         self.__visible_bias_arr_list = value             # <<<<<<<<<<<<<<
- * 
- *     visible_bias_arr_list = property(get_visible_bias_arr_list, set_visible_bias_arr_list)
- */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__visible_bias_arr_list, __pyx_v_value) < 0) __PYX_ERR(0, 72, __pyx_L1_error)
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":70
- *         return self.__visible_bias_arr_list
- * 
- *     def set_visible_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
- *         ''' setter '''
- *         self.__visible_bias_arr_list = value
- */
-
-  /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __Pyx_AddTraceback("pydbm.synapse.recurrenttemporalgraph.rnn_graph.RNNGraph.set_visible_bias_arr_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":78
- *     __hidden_bias_arr_list = []
- * 
- *     def get_hidden_bias_arr_list(self):             # <<<<<<<<<<<<<<
- *         ''' getter '''
- *         return self.__hidden_bias_arr_list
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_17get_hidden_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_16get_hidden_bias_arr_list[] = " getter ";
-static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_17get_hidden_bias_arr_list = {"get_hidden_bias_arr_list", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_17get_hidden_bias_arr_list, METH_O, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_16get_hidden_bias_arr_list};
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_17get_hidden_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("get_hidden_bias_arr_list (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_16get_hidden_bias_arr_list(__pyx_self, ((PyObject *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_16get_hidden_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  __Pyx_RefNannySetupContext("get_hidden_bias_arr_list", 0);
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":80
- *     def get_hidden_bias_arr_list(self):
- *         ''' getter '''
- *         return self.__hidden_bias_arr_list             # <<<<<<<<<<<<<<
- * 
- *     def set_hidden_bias_arr_list(self, value):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__hidden_bias_arr_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":78
- *     __hidden_bias_arr_list = []
- * 
- *     def get_hidden_bias_arr_list(self):             # <<<<<<<<<<<<<<
- *         ''' getter '''
- *         return self.__hidden_bias_arr_list
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.synapse.recurrenttemporalgraph.rnn_graph.RNNGraph.get_hidden_bias_arr_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":82
- *         return self.__hidden_bias_arr_list
- * 
- *     def set_hidden_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
- *         ''' setter '''
- *         self.__hidden_bias_arr_list = value
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_19set_hidden_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_18set_hidden_bias_arr_list[] = " setter ";
-static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_19set_hidden_bias_arr_list = {"set_hidden_bias_arr_list", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_19set_hidden_bias_arr_list, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_18set_hidden_bias_arr_list};
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_19set_hidden_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_self = 0;
-  PyObject *__pyx_v_value = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("set_hidden_bias_arr_list (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_value,0};
-    PyObject* values[2] = {0,0};
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
-      switch (pos_args) {
-        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = PyDict_Size(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("set_hidden_bias_arr_list", 1, 2, 2, 1); __PYX_ERR(0, 82, __pyx_L3_error)
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_hidden_bias_arr_list") < 0)) __PYX_ERR(0, 82, __pyx_L3_error)
-      }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-    }
-    __pyx_v_self = values[0];
-    __pyx_v_value = values[1];
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_hidden_bias_arr_list", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 82, __pyx_L3_error)
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.synapse.recurrenttemporalgraph.rnn_graph.RNNGraph.set_hidden_bias_arr_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_18set_hidden_bias_arr_list(__pyx_self, __pyx_v_self, __pyx_v_value);
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_18set_hidden_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("set_hidden_bias_arr_list", 0);
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":84
- *     def set_hidden_bias_arr_list(self, value):
- *         ''' setter '''
- *         self.__hidden_bias_arr_list = value             # <<<<<<<<<<<<<<
- * 
- *     hidden_bias_arr_list = property(get_hidden_bias_arr_list, set_hidden_bias_arr_list)
- */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__hidden_bias_arr_list, __pyx_v_value) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":82
- *         return self.__hidden_bias_arr_list
- * 
- *     def set_hidden_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
- *         ''' setter '''
- *         self.__hidden_bias_arr_list = value
- */
-
-  /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __Pyx_AddTraceback("pydbm.synapse.recurrenttemporalgraph.rnn_graph.RNNGraph.set_hidden_bias_arr_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":90
  *     __pre_hidden_activity_arr_list = []
  * 
  *     def get_pre_hidden_activity_arr_list(self):             # <<<<<<<<<<<<<<
@@ -2903,21 +2534,21 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_21get_pre_hidden_activity_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_20get_pre_hidden_activity_arr_list[] = " getter ";
-static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_21get_pre_hidden_activity_arr_list = {"get_pre_hidden_activity_arr_list", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_21get_pre_hidden_activity_arr_list, METH_O, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_20get_pre_hidden_activity_arr_list};
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_21get_pre_hidden_activity_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_13get_pre_hidden_activity_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_12get_pre_hidden_activity_arr_list[] = " getter ";
+static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_13get_pre_hidden_activity_arr_list = {"get_pre_hidden_activity_arr_list", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_13get_pre_hidden_activity_arr_list, METH_O, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_12get_pre_hidden_activity_arr_list};
+static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_13get_pre_hidden_activity_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_pre_hidden_activity_arr_list (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_20get_pre_hidden_activity_arr_list(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_12get_pre_hidden_activity_arr_list(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_20get_pre_hidden_activity_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_12get_pre_hidden_activity_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2925,34 +2556,34 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("get_pre_hidden_activity_arr_list", 0);
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":92
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":68
  *     def get_pre_hidden_activity_arr_list(self):
  *         ''' getter '''
  *         if isinstance(self.__pre_hidden_activity_arr_list, list) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError()
  *         return self.__pre_hidden_activity_arr_list
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__pre_hidden_activity_a); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__pre_hidden_activity_a); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = PyList_Check(__pyx_t_1); 
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
   if (__pyx_t_3) {
 
-    /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":93
+    /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":69
  *         ''' getter '''
  *         if isinstance(self.__pre_hidden_activity_arr_list, list) is False:
  *             raise TypeError()             # <<<<<<<<<<<<<<
  *         return self.__pre_hidden_activity_arr_list
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 93, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 93, __pyx_L1_error)
+    __PYX_ERR(0, 69, __pyx_L1_error)
 
-    /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":92
+    /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":68
  *     def get_pre_hidden_activity_arr_list(self):
  *         ''' getter '''
  *         if isinstance(self.__pre_hidden_activity_arr_list, list) is False:             # <<<<<<<<<<<<<<
@@ -2961,7 +2592,7 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
  */
   }
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":94
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":70
  *         if isinstance(self.__pre_hidden_activity_arr_list, list) is False:
  *             raise TypeError()
  *         return self.__pre_hidden_activity_arr_list             # <<<<<<<<<<<<<<
@@ -2969,13 +2600,13 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
  *     def set_pre_hidden_activity_arr_list(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__pre_hidden_activity_a); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__pre_hidden_activity_a); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":90
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":66
  *     __pre_hidden_activity_arr_list = []
  * 
  *     def get_pre_hidden_activity_arr_list(self):             # <<<<<<<<<<<<<<
@@ -2994,7 +2625,7 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
   return __pyx_r;
 }
 
-/* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":96
+/* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":72
  *         return self.__pre_hidden_activity_arr_list
  * 
  *     def set_pre_hidden_activity_arr_list(self, value):             # <<<<<<<<<<<<<<
@@ -3003,10 +2634,10 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_23set_pre_hidden_activity_arr_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_22set_pre_hidden_activity_arr_list[] = " setter ";
-static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_23set_pre_hidden_activity_arr_list = {"set_pre_hidden_activity_arr_list", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_23set_pre_hidden_activity_arr_list, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_22set_pre_hidden_activity_arr_list};
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_23set_pre_hidden_activity_arr_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_15set_pre_hidden_activity_arr_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_14set_pre_hidden_activity_arr_list[] = " setter ";
+static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_15set_pre_hidden_activity_arr_list = {"set_pre_hidden_activity_arr_list", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_15set_pre_hidden_activity_arr_list, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_14set_pre_hidden_activity_arr_list};
+static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_15set_pre_hidden_activity_arr_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_value = 0;
   PyObject *__pyx_r = 0;
@@ -3035,11 +2666,11 @@ static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_pre_hidden_activity_arr_list", 1, 2, 2, 1); __PYX_ERR(0, 96, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_pre_hidden_activity_arr_list", 1, 2, 2, 1); __PYX_ERR(0, 72, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_pre_hidden_activity_arr_list") < 0)) __PYX_ERR(0, 96, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_pre_hidden_activity_arr_list") < 0)) __PYX_ERR(0, 72, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3052,20 +2683,20 @@ static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_pre_hidden_activity_arr_list", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 96, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_pre_hidden_activity_arr_list", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 72, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.synapse.recurrenttemporalgraph.rnn_graph.RNNGraph.set_pre_hidden_activity_arr_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_22set_pre_hidden_activity_arr_list(__pyx_self, __pyx_v_self, __pyx_v_value);
+  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_14set_pre_hidden_activity_arr_list(__pyx_self, __pyx_v_self, __pyx_v_value);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_22set_pre_hidden_activity_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_14set_pre_hidden_activity_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -3073,7 +2704,7 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("set_pre_hidden_activity_arr_list", 0);
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":98
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":74
  *     def set_pre_hidden_activity_arr_list(self, value):
  *         ''' setter '''
  *         if isinstance(value, list) is False:             # <<<<<<<<<<<<<<
@@ -3084,20 +2715,20 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
   __pyx_t_2 = ((__pyx_t_1 == 0) != 0);
   if (__pyx_t_2) {
 
-    /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":99
+    /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":75
  *         ''' setter '''
  *         if isinstance(value, list) is False:
  *             raise TypeError()             # <<<<<<<<<<<<<<
  *         self.__pre_hidden_activity_arr_list = value
  * 
  */
-    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 75, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 99, __pyx_L1_error)
+    __PYX_ERR(0, 75, __pyx_L1_error)
 
-    /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":98
+    /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":74
  *     def set_pre_hidden_activity_arr_list(self, value):
  *         ''' setter '''
  *         if isinstance(value, list) is False:             # <<<<<<<<<<<<<<
@@ -3106,16 +2737,16 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
  */
   }
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":100
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":76
  *         if isinstance(value, list) is False:
  *             raise TypeError()
  *         self.__pre_hidden_activity_arr_list = value             # <<<<<<<<<<<<<<
  * 
  *     pre_hidden_activity_arr_list = property(get_pre_hidden_activity_arr_list, set_pre_hidden_activity_arr_list)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__pre_hidden_activity_a, __pyx_v_value) < 0) __PYX_ERR(0, 100, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__pre_hidden_activity_a, __pyx_v_value) < 0) __PYX_ERR(0, 76, __pyx_L1_error)
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":96
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":72
  *         return self.__pre_hidden_activity_arr_list
  * 
  *     def set_pre_hidden_activity_arr_list(self, value):             # <<<<<<<<<<<<<<
@@ -3136,55 +2767,93 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
   return __pyx_r;
 }
 
-/* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":106
+/* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":82
  *     __diff_visible_bias_arr_list = []
  * 
  *     def get_diff_visible_bias_arr_list(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         return self.__diff_visible_bias_arr_list
+ *         if isinstance(self.__diff_visible_bias_arr_list, list) is False:
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_25get_diff_visible_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_24get_diff_visible_bias_arr_list[] = " getter ";
-static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_25get_diff_visible_bias_arr_list = {"get_diff_visible_bias_arr_list", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_25get_diff_visible_bias_arr_list, METH_O, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_24get_diff_visible_bias_arr_list};
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_25get_diff_visible_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_17get_diff_visible_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_16get_diff_visible_bias_arr_list[] = " getter ";
+static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_17get_diff_visible_bias_arr_list = {"get_diff_visible_bias_arr_list", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_17get_diff_visible_bias_arr_list, METH_O, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_16get_diff_visible_bias_arr_list};
+static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_17get_diff_visible_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_diff_visible_bias_arr_list (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_24get_diff_visible_bias_arr_list(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_16get_diff_visible_bias_arr_list(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_24get_diff_visible_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_16get_diff_visible_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_2;
+  int __pyx_t_3;
   __Pyx_RefNannySetupContext("get_diff_visible_bias_arr_list", 0);
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":108
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":84
  *     def get_diff_visible_bias_arr_list(self):
  *         ''' getter '''
+ *         if isinstance(self.__diff_visible_bias_arr_list, list) is False:             # <<<<<<<<<<<<<<
+ *             raise TypeError()
+ *         return self.__diff_visible_bias_arr_list
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__diff_visible_bias_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyList_Check(__pyx_t_1); 
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
+  if (__pyx_t_3) {
+
+    /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":85
+ *         ''' getter '''
+ *         if isinstance(self.__diff_visible_bias_arr_list, list) is False:
+ *             raise TypeError()             # <<<<<<<<<<<<<<
+ *         return self.__diff_visible_bias_arr_list
+ * 
+ */
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __PYX_ERR(0, 85, __pyx_L1_error)
+
+    /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":84
+ *     def get_diff_visible_bias_arr_list(self):
+ *         ''' getter '''
+ *         if isinstance(self.__diff_visible_bias_arr_list, list) is False:             # <<<<<<<<<<<<<<
+ *             raise TypeError()
+ *         return self.__diff_visible_bias_arr_list
+ */
+  }
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":86
+ *         if isinstance(self.__diff_visible_bias_arr_list, list) is False:
+ *             raise TypeError()
  *         return self.__diff_visible_bias_arr_list             # <<<<<<<<<<<<<<
  * 
  *     def set_diff_visible_bias_arr_list(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__diff_visible_bias_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__diff_visible_bias_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":106
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":82
  *     __diff_visible_bias_arr_list = []
  * 
  *     def get_diff_visible_bias_arr_list(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         return self.__diff_visible_bias_arr_list
+ *         if isinstance(self.__diff_visible_bias_arr_list, list) is False:
  */
 
   /* function exit code */
@@ -3198,19 +2867,19 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
   return __pyx_r;
 }
 
-/* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":110
+/* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":88
  *         return self.__diff_visible_bias_arr_list
  * 
  *     def set_diff_visible_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
- *         self.__diff_visible_bias_arr_list = value
+ *         if isinstance(value, list) is False:
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_27set_diff_visible_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_26set_diff_visible_bias_arr_list[] = " setter ";
-static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_27set_diff_visible_bias_arr_list = {"set_diff_visible_bias_arr_list", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_27set_diff_visible_bias_arr_list, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_26set_diff_visible_bias_arr_list};
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_27set_diff_visible_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_19set_diff_visible_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_18set_diff_visible_bias_arr_list[] = " setter ";
+static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_19set_diff_visible_bias_arr_list = {"set_diff_visible_bias_arr_list", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_19set_diff_visible_bias_arr_list, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_18set_diff_visible_bias_arr_list};
+static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_19set_diff_visible_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_value = 0;
   PyObject *__pyx_r = 0;
@@ -3239,11 +2908,11 @@ static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_diff_visible_bias_arr_list", 1, 2, 2, 1); __PYX_ERR(0, 110, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_diff_visible_bias_arr_list", 1, 2, 2, 1); __PYX_ERR(0, 88, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_diff_visible_bias_arr_list") < 0)) __PYX_ERR(0, 110, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_diff_visible_bias_arr_list") < 0)) __PYX_ERR(0, 88, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3256,45 +2925,82 @@ static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_diff_visible_bias_arr_list", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 110, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_diff_visible_bias_arr_list", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 88, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.synapse.recurrenttemporalgraph.rnn_graph.RNNGraph.set_diff_visible_bias_arr_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_26set_diff_visible_bias_arr_list(__pyx_self, __pyx_v_self, __pyx_v_value);
+  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_18set_diff_visible_bias_arr_list(__pyx_self, __pyx_v_self, __pyx_v_value);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_26set_diff_visible_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_18set_diff_visible_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  int __pyx_t_2;
+  PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("set_diff_visible_bias_arr_list", 0);
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":112
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":90
  *     def set_diff_visible_bias_arr_list(self, value):
  *         ''' setter '''
+ *         if isinstance(value, list) is False:             # <<<<<<<<<<<<<<
+ *             raise TypeError()
+ *         self.__diff_visible_bias_arr_list = value
+ */
+  __pyx_t_1 = PyList_Check(__pyx_v_value); 
+  __pyx_t_2 = ((__pyx_t_1 == 0) != 0);
+  if (__pyx_t_2) {
+
+    /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":91
+ *         ''' setter '''
+ *         if isinstance(value, list) is False:
+ *             raise TypeError()             # <<<<<<<<<<<<<<
+ *         self.__diff_visible_bias_arr_list = value
+ * 
+ */
+    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_Raise(__pyx_t_3, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __PYX_ERR(0, 91, __pyx_L1_error)
+
+    /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":90
+ *     def set_diff_visible_bias_arr_list(self, value):
+ *         ''' setter '''
+ *         if isinstance(value, list) is False:             # <<<<<<<<<<<<<<
+ *             raise TypeError()
+ *         self.__diff_visible_bias_arr_list = value
+ */
+  }
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":92
+ *         if isinstance(value, list) is False:
+ *             raise TypeError()
  *         self.__diff_visible_bias_arr_list = value             # <<<<<<<<<<<<<<
  * 
  *     diff_visible_bias_arr_list = property(get_diff_visible_bias_arr_list, set_diff_visible_bias_arr_list)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__diff_visible_bias_arr, __pyx_v_value) < 0) __PYX_ERR(0, 112, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__diff_visible_bias_arr, __pyx_v_value) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":110
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":88
  *         return self.__diff_visible_bias_arr_list
  * 
  *     def set_diff_visible_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
- *         self.__diff_visible_bias_arr_list = value
+ *         if isinstance(value, list) is False:
  */
 
   /* function exit code */
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_AddTraceback("pydbm.synapse.recurrenttemporalgraph.rnn_graph.RNNGraph.set_diff_visible_bias_arr_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -3303,55 +3009,93 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
   return __pyx_r;
 }
 
-/* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":118
+/* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":98
  *     __diff_hidden_bias_arr_list = []
  * 
  *     def get_diff_hidden_bias_arr_list(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         return self.__diff_hidden_bias_arr_list
+ *         if isinstance(self.__diff_hidden_bias_arr_list, list) is False:
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_29get_diff_hidden_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_28get_diff_hidden_bias_arr_list[] = " getter ";
-static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_29get_diff_hidden_bias_arr_list = {"get_diff_hidden_bias_arr_list", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_29get_diff_hidden_bias_arr_list, METH_O, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_28get_diff_hidden_bias_arr_list};
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_29get_diff_hidden_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_21get_diff_hidden_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_20get_diff_hidden_bias_arr_list[] = " getter ";
+static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_21get_diff_hidden_bias_arr_list = {"get_diff_hidden_bias_arr_list", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_21get_diff_hidden_bias_arr_list, METH_O, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_20get_diff_hidden_bias_arr_list};
+static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_21get_diff_hidden_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_diff_hidden_bias_arr_list (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_28get_diff_hidden_bias_arr_list(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_20get_diff_hidden_bias_arr_list(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_28get_diff_hidden_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_20get_diff_hidden_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_2;
+  int __pyx_t_3;
   __Pyx_RefNannySetupContext("get_diff_hidden_bias_arr_list", 0);
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":120
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":100
  *     def get_diff_hidden_bias_arr_list(self):
  *         ''' getter '''
+ *         if isinstance(self.__diff_hidden_bias_arr_list, list) is False:             # <<<<<<<<<<<<<<
+ *             raise TypeError()
+ *         return self.__diff_hidden_bias_arr_list
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__diff_hidden_bias_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyList_Check(__pyx_t_1); 
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
+  if (__pyx_t_3) {
+
+    /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":101
+ *         ''' getter '''
+ *         if isinstance(self.__diff_hidden_bias_arr_list, list) is False:
+ *             raise TypeError()             # <<<<<<<<<<<<<<
+ *         return self.__diff_hidden_bias_arr_list
+ * 
+ */
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __PYX_ERR(0, 101, __pyx_L1_error)
+
+    /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":100
+ *     def get_diff_hidden_bias_arr_list(self):
+ *         ''' getter '''
+ *         if isinstance(self.__diff_hidden_bias_arr_list, list) is False:             # <<<<<<<<<<<<<<
+ *             raise TypeError()
+ *         return self.__diff_hidden_bias_arr_list
+ */
+  }
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":102
+ *         if isinstance(self.__diff_hidden_bias_arr_list, list) is False:
+ *             raise TypeError()
  *         return self.__diff_hidden_bias_arr_list             # <<<<<<<<<<<<<<
  * 
  *     def set_diff_hidden_bias_arr_list(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__diff_hidden_bias_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 120, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__diff_hidden_bias_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":118
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":98
  *     __diff_hidden_bias_arr_list = []
  * 
  *     def get_diff_hidden_bias_arr_list(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         return self.__diff_hidden_bias_arr_list
+ *         if isinstance(self.__diff_hidden_bias_arr_list, list) is False:
  */
 
   /* function exit code */
@@ -3365,19 +3109,19 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
   return __pyx_r;
 }
 
-/* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":122
+/* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":104
  *         return self.__diff_hidden_bias_arr_list
  * 
  *     def set_diff_hidden_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
- *         self.__diff_hidden_bias_arr_list = value
+ *         if isinstance(value, list) is False:
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_31set_diff_hidden_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_30set_diff_hidden_bias_arr_list[] = " setter ";
-static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_31set_diff_hidden_bias_arr_list = {"set_diff_hidden_bias_arr_list", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_31set_diff_hidden_bias_arr_list, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_30set_diff_hidden_bias_arr_list};
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_31set_diff_hidden_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_23set_diff_hidden_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_22set_diff_hidden_bias_arr_list[] = " setter ";
+static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_23set_diff_hidden_bias_arr_list = {"set_diff_hidden_bias_arr_list", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_23set_diff_hidden_bias_arr_list, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_22set_diff_hidden_bias_arr_list};
+static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_23set_diff_hidden_bias_arr_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_value = 0;
   PyObject *__pyx_r = 0;
@@ -3406,11 +3150,11 @@ static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_diff_hidden_bias_arr_list", 1, 2, 2, 1); __PYX_ERR(0, 122, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_diff_hidden_bias_arr_list", 1, 2, 2, 1); __PYX_ERR(0, 104, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_diff_hidden_bias_arr_list") < 0)) __PYX_ERR(0, 122, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_diff_hidden_bias_arr_list") < 0)) __PYX_ERR(0, 104, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3423,45 +3167,82 @@ static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_diff_hidden_bias_arr_list", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 122, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_diff_hidden_bias_arr_list", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 104, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.synapse.recurrenttemporalgraph.rnn_graph.RNNGraph.set_diff_hidden_bias_arr_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_30set_diff_hidden_bias_arr_list(__pyx_self, __pyx_v_self, __pyx_v_value);
+  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_22set_diff_hidden_bias_arr_list(__pyx_self, __pyx_v_self, __pyx_v_value);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_30set_diff_hidden_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_22set_diff_hidden_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  int __pyx_t_2;
+  PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("set_diff_hidden_bias_arr_list", 0);
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":124
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":106
  *     def set_diff_hidden_bias_arr_list(self, value):
  *         ''' setter '''
+ *         if isinstance(value, list) is False:             # <<<<<<<<<<<<<<
+ *             raise TypeError()
+ *         self.__diff_hidden_bias_arr_list = value
+ */
+  __pyx_t_1 = PyList_Check(__pyx_v_value); 
+  __pyx_t_2 = ((__pyx_t_1 == 0) != 0);
+  if (__pyx_t_2) {
+
+    /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":107
+ *         ''' setter '''
+ *         if isinstance(value, list) is False:
+ *             raise TypeError()             # <<<<<<<<<<<<<<
+ *         self.__diff_hidden_bias_arr_list = value
+ * 
+ */
+    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 107, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_Raise(__pyx_t_3, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __PYX_ERR(0, 107, __pyx_L1_error)
+
+    /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":106
+ *     def set_diff_hidden_bias_arr_list(self, value):
+ *         ''' setter '''
+ *         if isinstance(value, list) is False:             # <<<<<<<<<<<<<<
+ *             raise TypeError()
+ *         self.__diff_hidden_bias_arr_list = value
+ */
+  }
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":108
+ *         if isinstance(value, list) is False:
+ *             raise TypeError()
  *         self.__diff_hidden_bias_arr_list = value             # <<<<<<<<<<<<<<
  * 
  *     diff_hidden_bias_arr_list = property(get_diff_hidden_bias_arr_list, set_diff_hidden_bias_arr_list)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__diff_hidden_bias_arr, __pyx_v_value) < 0) __PYX_ERR(0, 124, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RNNGraph__diff_hidden_bias_arr, __pyx_v_value) < 0) __PYX_ERR(0, 108, __pyx_L1_error)
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":122
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":104
  *         return self.__diff_hidden_bias_arr_list
  * 
  *     def set_diff_hidden_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
- *         self.__diff_hidden_bias_arr_list = value
+ *         if isinstance(value, list) is False:
  */
 
   /* function exit code */
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_AddTraceback("pydbm.synapse.recurrenttemporalgraph.rnn_graph.RNNGraph.set_diff_hidden_bias_arr_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -3470,7 +3251,7 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
   return __pyx_r;
 }
 
-/* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":128
+/* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":112
  *     diff_hidden_bias_arr_list = property(get_diff_hidden_bias_arr_list, set_diff_hidden_bias_arr_list)
  * 
  *     def create_node(             # <<<<<<<<<<<<<<
@@ -3485,12 +3266,12 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph___
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__defaults__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_weights_arr));
   __Pyx_GIVEREF(((PyObject *)__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_weights_arr));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_weights_arr));
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 128, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
@@ -3515,10 +3296,10 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph___
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_33create_node(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_32create_node[] = "\n        Set links of nodes to the graphs.\n\n        Override.\n\n        Args:\n            shallower_neuron_count:             The number of neurons in shallower layer.\n            deeper_neuron_count:                The number of neurons in deeper layer.\n            shallower_activating_function:      The activation function in shallower layer.\n            deeper_activating_function:         The activation function in deeper layer.\n            weights_arr:                        The weights of links.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_33create_node = {"create_node", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_33create_node, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_32create_node};
-static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_33create_node(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_25create_node(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_24create_node[] = "\n        Set links of nodes to the graphs.\n\n        Override.\n\n        Args:\n            shallower_neuron_count:             The number of neurons in shallower layer.\n            deeper_neuron_count:                The number of neurons in deeper layer.\n            shallower_activating_function:      The activation function in shallower layer.\n            deeper_activating_function:         The activation function in deeper layer.\n            weights_arr:                        The weights of links.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_25create_node = {"create_node", (PyCFunction)__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_25create_node, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_24create_node};
+static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_25create_node(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   int __pyx_v_shallower_neuron_count;
   int __pyx_v_deeper_neuron_count;
@@ -3561,25 +3342,25 @@ static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_shallower_neuron_count)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 1); __PYX_ERR(0, 128, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 1); __PYX_ERR(0, 112, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_deeper_neuron_count)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 2); __PYX_ERR(0, 128, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 2); __PYX_ERR(0, 112, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_shallower_activating_function)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 3); __PYX_ERR(0, 128, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 3); __PYX_ERR(0, 112, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_deeper_activating_function)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 4); __PYX_ERR(0, 128, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 4); __PYX_ERR(0, 112, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
@@ -3589,7 +3370,7 @@ static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "create_node") < 0)) __PYX_ERR(0, 128, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "create_node") < 0)) __PYX_ERR(0, 112, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3605,22 +3386,22 @@ static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
       }
     }
     __pyx_v_self = values[0];
-    __pyx_v_shallower_neuron_count = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_shallower_neuron_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 130, __pyx_L3_error)
-    __pyx_v_deeper_neuron_count = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_deeper_neuron_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 131, __pyx_L3_error)
+    __pyx_v_shallower_neuron_count = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_shallower_neuron_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 114, __pyx_L3_error)
+    __pyx_v_deeper_neuron_count = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_deeper_neuron_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 115, __pyx_L3_error)
     __pyx_v_shallower_activating_function = values[3];
     __pyx_v_deeper_activating_function = values[4];
     __pyx_v_weights_arr = ((PyArrayObject *)values[5]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 128, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 112, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.synapse.recurrenttemporalgraph.rnn_graph.RNNGraph.create_node", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_weights_arr), __pyx_ptype_5numpy_ndarray, 1, "weights_arr", 0))) __PYX_ERR(0, 134, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_32create_node(__pyx_self, __pyx_v_self, __pyx_v_shallower_neuron_count, __pyx_v_deeper_neuron_count, __pyx_v_shallower_activating_function, __pyx_v_deeper_activating_function, __pyx_v_weights_arr);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_weights_arr), __pyx_ptype_5numpy_ndarray, 1, "weights_arr", 0))) __PYX_ERR(0, 118, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_24create_node(__pyx_self, __pyx_v_self, __pyx_v_shallower_neuron_count, __pyx_v_deeper_neuron_count, __pyx_v_shallower_activating_function, __pyx_v_deeper_activating_function, __pyx_v_weights_arr);
 
   /* function exit code */
   goto __pyx_L0;
@@ -3631,7 +3412,7 @@ static PyObject *__pyx_pw_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_32create_node(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, int __pyx_v_shallower_neuron_count, int __pyx_v_deeper_neuron_count, PyObject *__pyx_v_shallower_activating_function, PyObject *__pyx_v_deeper_activating_function, PyArrayObject *__pyx_v_weights_arr) {
+static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_24create_node(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, int __pyx_v_shallower_neuron_count, int __pyx_v_deeper_neuron_count, PyObject *__pyx_v_shallower_activating_function, PyObject *__pyx_v_deeper_activating_function, PyArrayObject *__pyx_v_weights_arr) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3643,230 +3424,450 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
   PyObject *__pyx_t_7 = NULL;
   __Pyx_RefNannySetupContext("create_node", 0);
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":148
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":132
  *             weights_arr:                        The weights of links.
  *         '''
- *         self.v_hat_weights_arr = np.zeros(             # <<<<<<<<<<<<<<
- *             (shallower_neuron_count, deeper_neuron_count)
- *         )
+ *         self.v_hat_weights_arr = np.random.normal(             # <<<<<<<<<<<<<<
+ *             size=(shallower_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_normal); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":149
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":133
  *         '''
- *         self.v_hat_weights_arr = np.zeros(
- *             (shallower_neuron_count, deeper_neuron_count)             # <<<<<<<<<<<<<<
- *         )
- *         self.hat_weights_arr = np.zeros(
+ *         self.v_hat_weights_arr = np.random.normal(
+ *             size=(shallower_neuron_count, deeper_neuron_count)             # <<<<<<<<<<<<<<
+ *         ) * 0.1
+ *         self.hat_weights_arr = np.random.normal(
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_shallower_neuron_count); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_shallower_neuron_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2);
+  __Pyx_GIVEREF(__pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_4);
-  __pyx_t_2 = 0;
+  __pyx_t_3 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_4 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_4)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_4);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_3, function);
-    }
-  }
-  if (!__pyx_t_4) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
-  } else {
-    #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_3)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_5};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    } else
-    #endif
-    #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_5};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    } else
-    #endif
-    {
-      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_4); __pyx_t_4 = NULL;
-      __Pyx_GIVEREF(__pyx_t_5);
-      PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_5);
-      __pyx_t_5 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    }
-  }
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_size, __pyx_t_5) < 0) __PYX_ERR(0, 133, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":148
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":132
  *             weights_arr:                        The weights of links.
  *         '''
- *         self.v_hat_weights_arr = np.zeros(             # <<<<<<<<<<<<<<
- *             (shallower_neuron_count, deeper_neuron_count)
- *         )
+ *         self.v_hat_weights_arr = np.random.normal(             # <<<<<<<<<<<<<<
+ *             size=(shallower_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_v_hat_weights_arr, __pyx_t_1) < 0) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":151
- *             (shallower_neuron_count, deeper_neuron_count)
- *         )
- *         self.hat_weights_arr = np.zeros(             # <<<<<<<<<<<<<<
- *             (deeper_neuron_count, deeper_neuron_count)
- *         )
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":134
+ *         self.v_hat_weights_arr = np.random.normal(
+ *             size=(shallower_neuron_count, deeper_neuron_count)
+ *         ) * 0.1             # <<<<<<<<<<<<<<
+ *         self.hat_weights_arr = np.random.normal(
+ *             size=(deeper_neuron_count, deeper_neuron_count)
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 151, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 151, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_5, __pyx_float_0_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":132
+ *             weights_arr:                        The weights of links.
+ *         '''
+ *         self.v_hat_weights_arr = np.random.normal(             # <<<<<<<<<<<<<<
+ *             size=(shallower_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_v_hat_weights_arr, __pyx_t_2) < 0) __PYX_ERR(0, 132, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":135
+ *             size=(shallower_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
+ *         self.hat_weights_arr = np.random.normal(             # <<<<<<<<<<<<<<
+ *             size=(deeper_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
+ */
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_normal); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":136
+ *         ) * 0.1
+ *         self.hat_weights_arr = np.random.normal(
+ *             size=(deeper_neuron_count, deeper_neuron_count)             # <<<<<<<<<<<<<<
+ *         ) * 0.1
+ *         self.rnn_hidden_bias_arr = np.zeros((deeper_neuron_count, ))
+ */
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_4);
+  __pyx_t_1 = 0;
+  __pyx_t_4 = 0;
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_size, __pyx_t_3) < 0) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":152
- *         )
- *         self.hat_weights_arr = np.zeros(
- *             (deeper_neuron_count, deeper_neuron_count)             # <<<<<<<<<<<<<<
- *         )
- *         self.rnn_hidden_bias_arr = np.random.uniform(low=0, high=1, size=(deeper_neuron_count, ))
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":135
+ *             size=(shallower_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
+ *         self.hat_weights_arr = np.random.normal(             # <<<<<<<<<<<<<<
+ *             size=(deeper_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
  */
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":137
+ *         self.hat_weights_arr = np.random.normal(
+ *             size=(deeper_neuron_count, deeper_neuron_count)
+ *         ) * 0.1             # <<<<<<<<<<<<<<
+ *         self.rnn_hidden_bias_arr = np.zeros((deeper_neuron_count, ))
+ * 
+ */
+  __pyx_t_5 = PyNumber_Multiply(__pyx_t_3, __pyx_float_0_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":135
+ *             size=(shallower_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
+ *         self.hat_weights_arr = np.random.normal(             # <<<<<<<<<<<<<<
+ *             size=(deeper_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_hat_weights_arr, __pyx_t_5) < 0) __PYX_ERR(0, 135, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":138
+ *             size=(deeper_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
+ *         self.rnn_hidden_bias_arr = np.zeros((deeper_neuron_count, ))             # <<<<<<<<<<<<<<
+ * 
+ *         self.rnn_visible_weights_arr = np.random.normal(
+ */
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 138, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3);
-  __Pyx_GIVEREF(__pyx_t_5);
-  PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_5);
   __pyx_t_3 = 0;
-  __pyx_t_5 = 0;
-  __pyx_t_5 = NULL;
+  __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_5)) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_2, function);
     }
   }
-  if (!__pyx_t_5) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
+  if (!__pyx_t_3) {
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 138, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_GOTREF(__pyx_t_5);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_4};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
+      PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_4};
+      __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 138, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_4};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
+      PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_4};
+      __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 138, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     } else
     #endif
     {
-      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 151, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_5); __pyx_t_5 = NULL;
-      __Pyx_GIVEREF(__pyx_t_4);
-      PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_4);
-      __pyx_t_4 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3); __pyx_t_3 = NULL;
+      __Pyx_GIVEREF(__pyx_t_4);
+      PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_4);
+      __pyx_t_4 = 0;
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 138, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_rnn_hidden_bias_arr, __pyx_t_5) < 0) __PYX_ERR(0, 138, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":151
- *             (shallower_neuron_count, deeper_neuron_count)
- *         )
- *         self.hat_weights_arr = np.zeros(             # <<<<<<<<<<<<<<
- *             (deeper_neuron_count, deeper_neuron_count)
- *         )
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":140
+ *         self.rnn_hidden_bias_arr = np.zeros((deeper_neuron_count, ))
+ * 
+ *         self.rnn_visible_weights_arr = np.random.normal(             # <<<<<<<<<<<<<<
+ *             size=(shallower_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_hat_weights_arr, __pyx_t_1) < 0) __PYX_ERR(0, 151, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_normal); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":141
+ * 
+ *         self.rnn_visible_weights_arr = np.random.normal(
+ *             size=(shallower_neuron_count, deeper_neuron_count)             # <<<<<<<<<<<<<<
+ *         ) * 0.1
+ *         self.rnn_hidden_weights_arr = np.random.normal(
+ */
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_shallower_neuron_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 141, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_4);
+  __pyx_t_1 = 0;
+  __pyx_t_4 = 0;
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_size, __pyx_t_3) < 0) __PYX_ERR(0, 141, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":140
+ *         self.rnn_hidden_bias_arr = np.zeros((deeper_neuron_count, ))
+ * 
+ *         self.rnn_visible_weights_arr = np.random.normal(             # <<<<<<<<<<<<<<
+ *             size=(shallower_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
+ */
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":142
+ *         self.rnn_visible_weights_arr = np.random.normal(
+ *             size=(shallower_neuron_count, deeper_neuron_count)
+ *         ) * 0.1             # <<<<<<<<<<<<<<
+ *         self.rnn_hidden_weights_arr = np.random.normal(
+ *             size=(deeper_neuron_count, deeper_neuron_count)
+ */
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_3, __pyx_float_0_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":140
+ *         self.rnn_hidden_bias_arr = np.zeros((deeper_neuron_count, ))
+ * 
+ *         self.rnn_visible_weights_arr = np.random.normal(             # <<<<<<<<<<<<<<
+ *             size=(shallower_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_rnn_visible_weights_arr, __pyx_t_2) < 0) __PYX_ERR(0, 140, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":143
+ *             size=(shallower_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
+ *         self.rnn_hidden_weights_arr = np.random.normal(             # <<<<<<<<<<<<<<
+ *             size=(deeper_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
+ */
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_normal); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":144
+ *         ) * 0.1
+ *         self.rnn_hidden_weights_arr = np.random.normal(
+ *             size=(deeper_neuron_count, deeper_neuron_count)             # <<<<<<<<<<<<<<
+ *         ) * 0.1
+ * 
+ */
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_5);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_4);
+  __pyx_t_5 = 0;
+  __pyx_t_4 = 0;
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_size, __pyx_t_1) < 0) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":154
- *             (deeper_neuron_count, deeper_neuron_count)
- *         )
- *         self.rnn_hidden_bias_arr = np.random.uniform(low=0, high=1, size=(deeper_neuron_count, ))             # <<<<<<<<<<<<<<
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":143
+ *             size=(shallower_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
+ *         self.rnn_hidden_weights_arr = np.random.normal(             # <<<<<<<<<<<<<<
+ *             size=(deeper_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":145
+ *         self.rnn_hidden_weights_arr = np.random.normal(
+ *             size=(deeper_neuron_count, deeper_neuron_count)
+ *         ) * 0.1             # <<<<<<<<<<<<<<
+ * 
+ *         self.diff_rnn_hidden_weights_arr = np.zeros((deeper_neuron_count, deeper_neuron_count))
+ */
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_float_0_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 145, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":143
+ *             size=(shallower_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
+ *         self.rnn_hidden_weights_arr = np.random.normal(             # <<<<<<<<<<<<<<
+ *             size=(deeper_neuron_count, deeper_neuron_count)
+ *         ) * 0.1
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_rnn_hidden_weights_arr, __pyx_t_3) < 0) __PYX_ERR(0, 143, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":147
+ *         ) * 0.1
+ * 
+ *         self.diff_rnn_hidden_weights_arr = np.zeros((deeper_neuron_count, deeper_neuron_count))             # <<<<<<<<<<<<<<
  * 
  *         super().create_node(
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_uniform); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 154, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_low, __pyx_int_0) < 0) __PYX_ERR(0, 154, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_high, __pyx_int_1) < 0) __PYX_ERR(0, 154, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 154, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3);
-  __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_size, __pyx_t_4) < 0) __PYX_ERR(0, 154, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 154, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 147, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_4);
+  __pyx_t_1 = 0;
+  __pyx_t_4 = 0;
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  if (!__pyx_t_4) {
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_GOTREF(__pyx_t_3);
+  } else {
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(__pyx_t_2)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_5};
+      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    } else
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_5};
+      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    } else
+    #endif
+    {
+      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_4); __pyx_t_4 = NULL;
+      __Pyx_GIVEREF(__pyx_t_5);
+      PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_5);
+      __pyx_t_5 = 0;
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    }
+  }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_rnn_hidden_bias_arr, __pyx_t_4) < 0) __PYX_ERR(0, 154, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_diff_rnn_hidden_weights_arr, __pyx_t_3) < 0) __PYX_ERR(0, 147, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":156
- *         self.rnn_hidden_bias_arr = np.random.uniform(low=0, high=1, size=(deeper_neuron_count, ))
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":149
+ *         self.diff_rnn_hidden_weights_arr = np.zeros((deeper_neuron_count, deeper_neuron_count))
  * 
  *         super().create_node(             # <<<<<<<<<<<<<<
  *             shallower_neuron_count,
  *             deeper_neuron_count,
  */
   __pyx_t_2 = __Pyx_CyFunction_GetClassObj(__pyx_self);
-  if (!__pyx_t_2) { PyErr_SetString(PyExc_SystemError, "super(): empty __class__ cell"); __PYX_ERR(0, 156, __pyx_L1_error) }
+  if (!__pyx_t_2) { PyErr_SetString(PyExc_SystemError, "super(): empty __class__ cell"); __PYX_ERR(0, 149, __pyx_L1_error) }
   __Pyx_INCREF(__pyx_t_2);
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
@@ -3874,46 +3875,46 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
   __Pyx_GIVEREF(__pyx_v_self);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_self);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_super, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_super, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_create_node); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_create_node); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":157
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":150
  * 
  *         super().create_node(
  *             shallower_neuron_count,             # <<<<<<<<<<<<<<
  *             deeper_neuron_count,
  *             shallower_activating_function,
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_shallower_neuron_count); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_shallower_neuron_count); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":158
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":151
  *         super().create_node(
  *             shallower_neuron_count,
  *             deeper_neuron_count,             # <<<<<<<<<<<<<<
  *             shallower_activating_function,
  *             deeper_activating_function,
  */
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 158, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 151, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":161
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":154
  *             shallower_activating_function,
  *             deeper_activating_function,
  *             weights_arr             # <<<<<<<<<<<<<<
  *         )
  */
-  __pyx_t_5 = NULL;
+  __pyx_t_4 = NULL;
   __pyx_t_6 = 0;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_5)) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_4)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_4);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_1, function);
       __pyx_t_6 = 1;
@@ -3921,34 +3922,34 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
   }
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_1)) {
-    PyObject *__pyx_temp[6] = {__pyx_t_5, __pyx_t_2, __pyx_t_3, __pyx_v_shallower_activating_function, __pyx_v_deeper_activating_function, ((PyObject *)__pyx_v_weights_arr)};
-    __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_6, 5+__pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 156, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_GOTREF(__pyx_t_4);
+    PyObject *__pyx_temp[6] = {__pyx_t_4, __pyx_t_2, __pyx_t_5, __pyx_v_shallower_activating_function, __pyx_v_deeper_activating_function, ((PyObject *)__pyx_v_weights_arr)};
+    __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_6, 5+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
-    PyObject *__pyx_temp[6] = {__pyx_t_5, __pyx_t_2, __pyx_t_3, __pyx_v_shallower_activating_function, __pyx_v_deeper_activating_function, ((PyObject *)__pyx_v_weights_arr)};
-    __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_6, 5+__pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 156, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_GOTREF(__pyx_t_4);
+    PyObject *__pyx_temp[6] = {__pyx_t_4, __pyx_t_2, __pyx_t_5, __pyx_v_shallower_activating_function, __pyx_v_deeper_activating_function, ((PyObject *)__pyx_v_weights_arr)};
+    __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_6, 5+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   } else
   #endif
   {
-    __pyx_t_7 = PyTuple_New(5+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 156, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(5+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 149, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    if (__pyx_t_5) {
-      __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
+    if (__pyx_t_4) {
+      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4); __pyx_t_4 = NULL;
     }
     __Pyx_GIVEREF(__pyx_t_2);
     PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_6, __pyx_t_2);
-    __Pyx_GIVEREF(__pyx_t_3);
-    PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_t_3);
+    __Pyx_GIVEREF(__pyx_t_5);
+    PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_t_5);
     __Pyx_INCREF(__pyx_v_shallower_activating_function);
     __Pyx_GIVEREF(__pyx_v_shallower_activating_function);
     PyTuple_SET_ITEM(__pyx_t_7, 2+__pyx_t_6, __pyx_v_shallower_activating_function);
@@ -3959,15 +3960,15 @@ static PyObject *__pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8R
     __Pyx_GIVEREF(((PyObject *)__pyx_v_weights_arr));
     PyTuple_SET_ITEM(__pyx_t_7, 4+__pyx_t_6, ((PyObject *)__pyx_v_weights_arr));
     __pyx_t_2 = 0;
-    __pyx_t_3 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 156, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = 0;
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":128
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":112
  *     diff_hidden_bias_arr_list = property(get_diff_hidden_bias_arr_list, set_diff_hidden_bias_arr_list)
  * 
  *     def create_node(             # <<<<<<<<<<<<<<
@@ -6620,28 +6621,22 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_RNNGraph__diff_hidden_bias_arr, __pyx_k_RNNGraph__diff_hidden_bias_arr, sizeof(__pyx_k_RNNGraph__diff_hidden_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph__diff_visible_bias_arr, __pyx_k_RNNGraph__diff_visible_bias_arr, sizeof(__pyx_k_RNNGraph__diff_visible_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph__hat_weights_arr, __pyx_k_RNNGraph__hat_weights_arr, sizeof(__pyx_k_RNNGraph__hat_weights_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_RNNGraph__hidden_bias_arr_list, __pyx_k_RNNGraph__hidden_bias_arr_list, sizeof(__pyx_k_RNNGraph__hidden_bias_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph__pre_hidden_activity_a, __pyx_k_RNNGraph__pre_hidden_activity_a, sizeof(__pyx_k_RNNGraph__pre_hidden_activity_a), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph__rnn_hidden_bias_arr, __pyx_k_RNNGraph__rnn_hidden_bias_arr, sizeof(__pyx_k_RNNGraph__rnn_hidden_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph__v_hat_weights_arr, __pyx_k_RNNGraph__v_hat_weights_arr, sizeof(__pyx_k_RNNGraph__v_hat_weights_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_RNNGraph__visible_bias_arr_list, __pyx_k_RNNGraph__visible_bias_arr_list, sizeof(__pyx_k_RNNGraph__visible_bias_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph_create_node, __pyx_k_RNNGraph_create_node, sizeof(__pyx_k_RNNGraph_create_node), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph_get_diff_hidden_bias_ar, __pyx_k_RNNGraph_get_diff_hidden_bias_ar, sizeof(__pyx_k_RNNGraph_get_diff_hidden_bias_ar), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph_get_diff_visible_bias_a, __pyx_k_RNNGraph_get_diff_visible_bias_a, sizeof(__pyx_k_RNNGraph_get_diff_visible_bias_a), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph_get_hat_weights_arr, __pyx_k_RNNGraph_get_hat_weights_arr, sizeof(__pyx_k_RNNGraph_get_hat_weights_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_RNNGraph_get_hidden_bias_arr_lis, __pyx_k_RNNGraph_get_hidden_bias_arr_lis, sizeof(__pyx_k_RNNGraph_get_hidden_bias_arr_lis), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph_get_pre_hidden_activity, __pyx_k_RNNGraph_get_pre_hidden_activity, sizeof(__pyx_k_RNNGraph_get_pre_hidden_activity), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph_get_rnn_hidden_bias_arr, __pyx_k_RNNGraph_get_rnn_hidden_bias_arr, sizeof(__pyx_k_RNNGraph_get_rnn_hidden_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph_get_v_hat_weights_arr, __pyx_k_RNNGraph_get_v_hat_weights_arr, sizeof(__pyx_k_RNNGraph_get_v_hat_weights_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_RNNGraph_get_visible_bias_arr_li, __pyx_k_RNNGraph_get_visible_bias_arr_li, sizeof(__pyx_k_RNNGraph_get_visible_bias_arr_li), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph_set_diff_hidden_bias_ar, __pyx_k_RNNGraph_set_diff_hidden_bias_ar, sizeof(__pyx_k_RNNGraph_set_diff_hidden_bias_ar), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph_set_diff_visible_bias_a, __pyx_k_RNNGraph_set_diff_visible_bias_a, sizeof(__pyx_k_RNNGraph_set_diff_visible_bias_a), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph_set_hat_weights_arr, __pyx_k_RNNGraph_set_hat_weights_arr, sizeof(__pyx_k_RNNGraph_set_hat_weights_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_RNNGraph_set_hidden_bias_arr_lis, __pyx_k_RNNGraph_set_hidden_bias_arr_lis, sizeof(__pyx_k_RNNGraph_set_hidden_bias_arr_lis), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph_set_pre_hidden_activity, __pyx_k_RNNGraph_set_pre_hidden_activity, sizeof(__pyx_k_RNNGraph_set_pre_hidden_activity), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph_set_rnn_hidden_bias_arr, __pyx_k_RNNGraph_set_rnn_hidden_bias_arr, sizeof(__pyx_k_RNNGraph_set_rnn_hidden_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_RNNGraph_set_v_hat_weights_arr, __pyx_k_RNNGraph_set_v_hat_weights_arr, sizeof(__pyx_k_RNNGraph_set_v_hat_weights_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_RNNGraph_set_visible_bias_arr_li, __pyx_k_RNNGraph_set_visible_bias_arr_li, sizeof(__pyx_k_RNNGraph_set_visible_bias_arr_li), 0, 0, 1, 1},
   {&__pyx_n_s_RecurrentTemporalGraph, __pyx_k_RecurrentTemporalGraph, sizeof(__pyx_k_RecurrentTemporalGraph), 0, 0, 1, 1},
   {&__pyx_kp_s_Recurrent_Neural_Network_Restri, __pyx_k_Recurrent_Neural_Network_Restri, sizeof(__pyx_k_Recurrent_Neural_Network_Restri), 0, 0, 1, 0},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
@@ -6653,26 +6648,23 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_deeper_activating_function, __pyx_k_deeper_activating_function, sizeof(__pyx_k_deeper_activating_function), 0, 0, 1, 1},
   {&__pyx_n_s_deeper_neuron_count, __pyx_k_deeper_neuron_count, sizeof(__pyx_k_deeper_neuron_count), 0, 0, 1, 1},
   {&__pyx_n_s_diff_hidden_bias_arr_list, __pyx_k_diff_hidden_bias_arr_list, sizeof(__pyx_k_diff_hidden_bias_arr_list), 0, 0, 1, 1},
+  {&__pyx_n_s_diff_rnn_hidden_weights_arr, __pyx_k_diff_rnn_hidden_weights_arr, sizeof(__pyx_k_diff_rnn_hidden_weights_arr), 0, 0, 1, 1},
   {&__pyx_n_s_diff_visible_bias_arr_list, __pyx_k_diff_visible_bias_arr_list, sizeof(__pyx_k_diff_visible_bias_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_get_diff_hidden_bias_arr_list, __pyx_k_get_diff_hidden_bias_arr_list, sizeof(__pyx_k_get_diff_hidden_bias_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_get_diff_visible_bias_arr_list, __pyx_k_get_diff_visible_bias_arr_list, sizeof(__pyx_k_get_diff_visible_bias_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_get_hat_weights_arr, __pyx_k_get_hat_weights_arr, sizeof(__pyx_k_get_hat_weights_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_get_hidden_bias_arr_list, __pyx_k_get_hidden_bias_arr_list, sizeof(__pyx_k_get_hidden_bias_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_get_pre_hidden_activity_arr_list, __pyx_k_get_pre_hidden_activity_arr_list, sizeof(__pyx_k_get_pre_hidden_activity_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_get_rnn_hidden_bias_arr, __pyx_k_get_rnn_hidden_bias_arr, sizeof(__pyx_k_get_rnn_hidden_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_get_v_hat_weights_arr, __pyx_k_get_v_hat_weights_arr, sizeof(__pyx_k_get_v_hat_weights_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_get_visible_bias_arr_list, __pyx_k_get_visible_bias_arr_list, sizeof(__pyx_k_get_visible_bias_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_hat_weights_arr, __pyx_k_hat_weights_arr, sizeof(__pyx_k_hat_weights_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_hidden_bias_arr_list, __pyx_k_hidden_bias_arr_list, sizeof(__pyx_k_hidden_bias_arr_list), 0, 0, 1, 1},
-  {&__pyx_n_s_high, __pyx_k_high, sizeof(__pyx_k_high), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
-  {&__pyx_n_s_low, __pyx_k_low, sizeof(__pyx_k_low), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_metaclass, __pyx_k_metaclass, sizeof(__pyx_k_metaclass), 0, 0, 1, 1},
   {&__pyx_n_s_module, __pyx_k_module, sizeof(__pyx_k_module), 0, 0, 1, 1},
   {&__pyx_kp_u_ndarray_is_not_C_contiguous, __pyx_k_ndarray_is_not_C_contiguous, sizeof(__pyx_k_ndarray_is_not_C_contiguous), 0, 1, 0, 0},
   {&__pyx_kp_u_ndarray_is_not_Fortran_contiguou, __pyx_k_ndarray_is_not_Fortran_contiguou, sizeof(__pyx_k_ndarray_is_not_Fortran_contiguou), 0, 1, 0, 0},
+  {&__pyx_n_s_normal, __pyx_k_normal, sizeof(__pyx_k_normal), 0, 0, 1, 1},
   {&__pyx_n_s_np, __pyx_k_np, sizeof(__pyx_k_np), 0, 0, 1, 1},
   {&__pyx_n_s_numpy, __pyx_k_numpy, sizeof(__pyx_k_numpy), 0, 0, 1, 1},
   {&__pyx_kp_s_numpy_core_multiarray_failed_to, __pyx_k_numpy_core_multiarray_failed_to, sizeof(__pyx_k_numpy_core_multiarray_failed_to), 0, 0, 1, 0},
@@ -6687,25 +6679,23 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_random, __pyx_k_random, sizeof(__pyx_k_random), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_rnn_hidden_bias_arr, __pyx_k_rnn_hidden_bias_arr, sizeof(__pyx_k_rnn_hidden_bias_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_rnn_hidden_weights_arr, __pyx_k_rnn_hidden_weights_arr, sizeof(__pyx_k_rnn_hidden_weights_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_rnn_visible_weights_arr, __pyx_k_rnn_visible_weights_arr, sizeof(__pyx_k_rnn_visible_weights_arr), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
   {&__pyx_n_s_set_diff_hidden_bias_arr_list, __pyx_k_set_diff_hidden_bias_arr_list, sizeof(__pyx_k_set_diff_hidden_bias_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_set_diff_visible_bias_arr_list, __pyx_k_set_diff_visible_bias_arr_list, sizeof(__pyx_k_set_diff_visible_bias_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_set_hat_weights_arr, __pyx_k_set_hat_weights_arr, sizeof(__pyx_k_set_hat_weights_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_set_hidden_bias_arr_list, __pyx_k_set_hidden_bias_arr_list, sizeof(__pyx_k_set_hidden_bias_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_set_pre_hidden_activity_arr_list, __pyx_k_set_pre_hidden_activity_arr_list, sizeof(__pyx_k_set_pre_hidden_activity_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_set_rnn_hidden_bias_arr, __pyx_k_set_rnn_hidden_bias_arr, sizeof(__pyx_k_set_rnn_hidden_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_set_v_hat_weights_arr, __pyx_k_set_v_hat_weights_arr, sizeof(__pyx_k_set_v_hat_weights_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_set_visible_bias_arr_list, __pyx_k_set_visible_bias_arr_list, sizeof(__pyx_k_set_visible_bias_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_shallower_activating_function, __pyx_k_shallower_activating_function, sizeof(__pyx_k_shallower_activating_function), 0, 0, 1, 1},
   {&__pyx_n_s_shallower_neuron_count, __pyx_k_shallower_neuron_count, sizeof(__pyx_k_shallower_neuron_count), 0, 0, 1, 1},
   {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
   {&__pyx_n_s_super, __pyx_k_super, sizeof(__pyx_k_super), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
-  {&__pyx_n_s_uniform, __pyx_k_uniform, sizeof(__pyx_k_uniform), 0, 0, 1, 1},
   {&__pyx_kp_u_unknown_dtype_code_in_numpy_pxd, __pyx_k_unknown_dtype_code_in_numpy_pxd, sizeof(__pyx_k_unknown_dtype_code_in_numpy_pxd), 0, 1, 0, 0},
   {&__pyx_n_s_v_hat_weights_arr, __pyx_k_v_hat_weights_arr, sizeof(__pyx_k_v_hat_weights_arr), 0, 0, 1, 1},
   {&__pyx_n_s_value, __pyx_k_value, sizeof(__pyx_k_value), 0, 0, 1, 1},
-  {&__pyx_n_s_visible_bias_arr_list, __pyx_k_visible_bias_arr_list, sizeof(__pyx_k_visible_bias_arr_list), 0, 0, 1, 1},
   {&__pyx_n_s_weights_arr, __pyx_k_weights_arr, sizeof(__pyx_k_weights_arr), 0, 0, 1, 1},
   {&__pyx_n_s_zeros, __pyx_k_zeros, sizeof(__pyx_k_zeros), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
@@ -6713,7 +6703,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 30, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 21, __pyx_L1_error)
-  __pyx_builtin_super = __Pyx_GetBuiltinName(__pyx_n_s_super); if (!__pyx_builtin_super) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_builtin_super = __Pyx_GetBuiltinName(__pyx_n_s_super); if (!__pyx_builtin_super) __PYX_ERR(0, 149, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 235, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(1, 248, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 823, __pyx_L1_error)
@@ -6897,136 +6887,88 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_set_rnn_hidden_bias_arr, 56, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 56, __pyx_L1_error)
 
   /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":66
- *     __visible_bias_arr_list = []
- * 
- *     def get_visible_bias_arr_list(self):             # <<<<<<<<<<<<<<
- *         ''' getter '''
- *         return self.__visible_bias_arr_list
- */
-  __pyx_tuple__22 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 66, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__22);
-  __Pyx_GIVEREF(__pyx_tuple__22);
-  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_get_visible_bias_arr_list, 66, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 66, __pyx_L1_error)
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":70
- *         return self.__visible_bias_arr_list
- * 
- *     def set_visible_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
- *         ''' setter '''
- *         self.__visible_bias_arr_list = value
- */
-  __pyx_tuple__24 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 70, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__24);
-  __Pyx_GIVEREF(__pyx_tuple__24);
-  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_set_visible_bias_arr_list, 70, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 70, __pyx_L1_error)
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":78
- *     __hidden_bias_arr_list = []
- * 
- *     def get_hidden_bias_arr_list(self):             # <<<<<<<<<<<<<<
- *         ''' getter '''
- *         return self.__hidden_bias_arr_list
- */
-  __pyx_tuple__26 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 78, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__26);
-  __Pyx_GIVEREF(__pyx_tuple__26);
-  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_get_hidden_bias_arr_list, 78, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 78, __pyx_L1_error)
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":82
- *         return self.__hidden_bias_arr_list
- * 
- *     def set_hidden_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
- *         ''' setter '''
- *         self.__hidden_bias_arr_list = value
- */
-  __pyx_tuple__28 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 82, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__28);
-  __Pyx_GIVEREF(__pyx_tuple__28);
-  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_set_hidden_bias_arr_list, 82, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 82, __pyx_L1_error)
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":90
  *     __pre_hidden_activity_arr_list = []
  * 
  *     def get_pre_hidden_activity_arr_list(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__pre_hidden_activity_arr_list, list) is False:
  */
-  __pyx_tuple__30 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 90, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__30);
-  __Pyx_GIVEREF(__pyx_tuple__30);
-  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_get_pre_hidden_activity_arr_list, 90, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 90, __pyx_L1_error)
+  __pyx_tuple__22 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__22);
+  __Pyx_GIVEREF(__pyx_tuple__22);
+  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_get_pre_hidden_activity_arr_list, 66, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 66, __pyx_L1_error)
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":96
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":72
  *         return self.__pre_hidden_activity_arr_list
  * 
  *     def set_pre_hidden_activity_arr_list(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, list) is False:
  */
-  __pyx_tuple__32 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(0, 96, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__32);
-  __Pyx_GIVEREF(__pyx_tuple__32);
-  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_set_pre_hidden_activity_arr_list, 96, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_tuple__24 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__24);
+  __Pyx_GIVEREF(__pyx_tuple__24);
+  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_set_pre_hidden_activity_arr_list, 72, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 72, __pyx_L1_error)
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":106
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":82
  *     __diff_visible_bias_arr_list = []
  * 
  *     def get_diff_visible_bias_arr_list(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         return self.__diff_visible_bias_arr_list
+ *         if isinstance(self.__diff_visible_bias_arr_list, list) is False:
  */
-  __pyx_tuple__34 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 106, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__34);
-  __Pyx_GIVEREF(__pyx_tuple__34);
-  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_get_diff_visible_bias_arr_list, 106, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 106, __pyx_L1_error)
+  __pyx_tuple__26 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__26);
+  __Pyx_GIVEREF(__pyx_tuple__26);
+  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_get_diff_visible_bias_arr_list, 82, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 82, __pyx_L1_error)
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":110
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":88
  *         return self.__diff_visible_bias_arr_list
  * 
  *     def set_diff_visible_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
- *         self.__diff_visible_bias_arr_list = value
+ *         if isinstance(value, list) is False:
  */
-  __pyx_tuple__36 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 110, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__36);
-  __Pyx_GIVEREF(__pyx_tuple__36);
-  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_set_diff_visible_bias_arr_list, 110, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_tuple__28 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__28);
+  __Pyx_GIVEREF(__pyx_tuple__28);
+  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_set_diff_visible_bias_arr_list, 88, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 88, __pyx_L1_error)
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":118
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":98
  *     __diff_hidden_bias_arr_list = []
  * 
  *     def get_diff_hidden_bias_arr_list(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         return self.__diff_hidden_bias_arr_list
+ *         if isinstance(self.__diff_hidden_bias_arr_list, list) is False:
  */
-  __pyx_tuple__38 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__38)) __PYX_ERR(0, 118, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__38);
-  __Pyx_GIVEREF(__pyx_tuple__38);
-  __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__38, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_get_diff_hidden_bias_arr_list, 118, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __pyx_tuple__30 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 98, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__30);
+  __Pyx_GIVEREF(__pyx_tuple__30);
+  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_get_diff_hidden_bias_arr_list, 98, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 98, __pyx_L1_error)
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":122
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":104
  *         return self.__diff_hidden_bias_arr_list
  * 
  *     def set_diff_hidden_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
- *         self.__diff_hidden_bias_arr_list = value
+ *         if isinstance(value, list) is False:
  */
-  __pyx_tuple__40 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__40)) __PYX_ERR(0, 122, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__40);
-  __Pyx_GIVEREF(__pyx_tuple__40);
-  __pyx_codeobj__41 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__40, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_set_diff_hidden_bias_arr_list, 122, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__41)) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_tuple__32 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__32);
+  __Pyx_GIVEREF(__pyx_tuple__32);
+  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_set_diff_hidden_bias_arr_list, 104, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(0, 104, __pyx_L1_error)
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":128
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":112
  *     diff_hidden_bias_arr_list = property(get_diff_hidden_bias_arr_list, set_diff_hidden_bias_arr_list)
  * 
  *     def create_node(             # <<<<<<<<<<<<<<
  *         self,
  *         int shallower_neuron_count,
  */
-  __pyx_tuple__42 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_shallower_neuron_count, __pyx_n_s_deeper_neuron_count, __pyx_n_s_shallower_activating_function, __pyx_n_s_deeper_activating_function, __pyx_n_s_weights_arr); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 128, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__42);
-  __Pyx_GIVEREF(__pyx_tuple__42);
-  __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(6, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__42, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_create_node, 128, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) __PYX_ERR(0, 128, __pyx_L1_error)
+  __pyx_tuple__34 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_shallower_neuron_count, __pyx_n_s_deeper_neuron_count, __pyx_n_s_shallower_activating_function, __pyx_n_s_deeper_activating_function, __pyx_n_s_weights_arr); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__34);
+  __Pyx_GIVEREF(__pyx_tuple__34);
+  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(6, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_recurrenttemporalg_2, __pyx_n_s_create_node, 112, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -7036,8 +6978,7 @@ static int __Pyx_InitCachedConstants(void) {
 
 static int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
-  __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_float_0_1 = PyFloat_FromDouble(0.1); if (unlikely(!__pyx_float_0_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -7598,7 +7539,7 @@ static int __pyx_pymod_exec_rnn_graph(PyObject *__pyx_pyinit_module)
  * 
  *     rnn_hidden_bias_arr = property(get_rnn_hidden_bias_arr, set_rnn_hidden_bias_arr)             # <<<<<<<<<<<<<<
  * 
- *     __visible_bias_arr_list = []
+ *     __pre_hidden_activity_arr_list = []
  */
   __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_rnn_hidden_bias_arr);
   if (unlikely(!__pyx_t_5)) {
@@ -7631,61 +7572,61 @@ static int __pyx_pymod_exec_rnn_graph(PyObject *__pyx_pyinit_module)
   /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":64
  *     rnn_hidden_bias_arr = property(get_rnn_hidden_bias_arr, set_rnn_hidden_bias_arr)
  * 
- *     __visible_bias_arr_list = []             # <<<<<<<<<<<<<<
+ *     __pre_hidden_activity_arr_list = []             # <<<<<<<<<<<<<<
  * 
- *     def get_visible_bias_arr_list(self):
+ *     def get_pre_hidden_activity_arr_list(self):
  */
   __pyx_t_7 = PyList_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_RNNGraph__visible_bias_arr_list, __pyx_t_7) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_RNNGraph__pre_hidden_activity_a, __pyx_t_7) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
   /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":66
- *     __visible_bias_arr_list = []
+ *     __pre_hidden_activity_arr_list = []
  * 
- *     def get_visible_bias_arr_list(self):             # <<<<<<<<<<<<<<
+ *     def get_pre_hidden_activity_arr_list(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
- *         return self.__visible_bias_arr_list
+ *         if isinstance(self.__pre_hidden_activity_arr_list, list) is False:
  */
-  __pyx_t_7 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_13get_visible_bias_arr_list, 0, __pyx_n_s_RNNGraph_get_visible_bias_arr_li, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_13get_pre_hidden_activity_arr_list, 0, __pyx_n_s_RNNGraph_get_pre_hidden_activity, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_visible_bias_arr_list, __pyx_t_7) < 0) __PYX_ERR(0, 66, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_pre_hidden_activity_arr_list, __pyx_t_7) < 0) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":70
- *         return self.__visible_bias_arr_list
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":72
+ *         return self.__pre_hidden_activity_arr_list
  * 
- *     def set_visible_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
+ *     def set_pre_hidden_activity_arr_list(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
- *         self.__visible_bias_arr_list = value
+ *         if isinstance(value, list) is False:
  */
-  __pyx_t_7 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_15set_visible_bias_arr_list, 0, __pyx_n_s_RNNGraph_set_visible_bias_arr_li, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 70, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_15set_pre_hidden_activity_arr_list, 0, __pyx_n_s_RNNGraph_set_pre_hidden_activity, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_visible_bias_arr_list, __pyx_t_7) < 0) __PYX_ERR(0, 70, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_pre_hidden_activity_arr_list, __pyx_t_7) < 0) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":74
- *         self.__visible_bias_arr_list = value
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":78
+ *         self.__pre_hidden_activity_arr_list = value
  * 
- *     visible_bias_arr_list = property(get_visible_bias_arr_list, set_visible_bias_arr_list)             # <<<<<<<<<<<<<<
+ *     pre_hidden_activity_arr_list = property(get_pre_hidden_activity_arr_list, set_pre_hidden_activity_arr_list)             # <<<<<<<<<<<<<<
  * 
- *     __hidden_bias_arr_list = []
+ *     __diff_visible_bias_arr_list = []
  */
-  __pyx_t_7 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_visible_bias_arr_list);
+  __pyx_t_7 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_pre_hidden_activity_arr_list);
   if (unlikely(!__pyx_t_7)) {
     PyErr_Clear();
-    __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_visible_bias_arr_list);
+    __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_pre_hidden_activity_arr_list);
   }
-  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 74, __pyx_L1_error)
+  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_visible_bias_arr_list);
+  __pyx_t_6 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_pre_hidden_activity_arr_list);
   if (unlikely(!__pyx_t_6)) {
     PyErr_Clear();
-    __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_visible_bias_arr_list);
+    __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_pre_hidden_activity_arr_list);
   }
-  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 74, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_7);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7);
@@ -7693,70 +7634,70 @@ static int __pyx_pymod_exec_rnn_graph(PyObject *__pyx_pyinit_module)
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_6);
   __pyx_t_7 = 0;
   __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_visible_bias_arr_list, __pyx_t_6) < 0) __PYX_ERR(0, 74, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_pre_hidden_activity_arr_list, __pyx_t_6) < 0) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":76
- *     visible_bias_arr_list = property(get_visible_bias_arr_list, set_visible_bias_arr_list)
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":80
+ *     pre_hidden_activity_arr_list = property(get_pre_hidden_activity_arr_list, set_pre_hidden_activity_arr_list)
  * 
- *     __hidden_bias_arr_list = []             # <<<<<<<<<<<<<<
+ *     __diff_visible_bias_arr_list = []             # <<<<<<<<<<<<<<
  * 
- *     def get_hidden_bias_arr_list(self):
+ *     def get_diff_visible_bias_arr_list(self):
  */
-  __pyx_t_6 = PyList_New(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_6 = PyList_New(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_RNNGraph__hidden_bias_arr_list, __pyx_t_6) < 0) __PYX_ERR(0, 76, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":78
- *     __hidden_bias_arr_list = []
- * 
- *     def get_hidden_bias_arr_list(self):             # <<<<<<<<<<<<<<
- *         ''' getter '''
- *         return self.__hidden_bias_arr_list
- */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_17get_hidden_bias_arr_list, 0, __pyx_n_s_RNNGraph_get_hidden_bias_arr_lis, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 78, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_hidden_bias_arr_list, __pyx_t_6) < 0) __PYX_ERR(0, 78, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_RNNGraph__diff_visible_bias_arr, __pyx_t_6) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
   /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":82
- *         return self.__hidden_bias_arr_list
+ *     __diff_visible_bias_arr_list = []
  * 
- *     def set_hidden_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
- *         ''' setter '''
- *         self.__hidden_bias_arr_list = value
+ *     def get_diff_visible_bias_arr_list(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         if isinstance(self.__diff_visible_bias_arr_list, list) is False:
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_19set_hidden_bias_arr_list, 0, __pyx_n_s_RNNGraph_set_hidden_bias_arr_lis, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_17get_diff_visible_bias_arr_list, 0, __pyx_n_s_RNNGraph_get_diff_visible_bias_a, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_hidden_bias_arr_list, __pyx_t_6) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_diff_visible_bias_arr_list, __pyx_t_6) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":86
- *         self.__hidden_bias_arr_list = value
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":88
+ *         return self.__diff_visible_bias_arr_list
  * 
- *     hidden_bias_arr_list = property(get_hidden_bias_arr_list, set_hidden_bias_arr_list)             # <<<<<<<<<<<<<<
- * 
- *     __pre_hidden_activity_arr_list = []
+ *     def set_diff_visible_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         if isinstance(value, list) is False:
  */
-  __pyx_t_6 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_hidden_bias_arr_list);
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_19set_diff_visible_bias_arr_list, 0, __pyx_n_s_RNNGraph_set_diff_visible_bias_a, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_diff_visible_bias_arr_list, __pyx_t_6) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":94
+ *         self.__diff_visible_bias_arr_list = value
+ * 
+ *     diff_visible_bias_arr_list = property(get_diff_visible_bias_arr_list, set_diff_visible_bias_arr_list)             # <<<<<<<<<<<<<<
+ * 
+ *     __diff_hidden_bias_arr_list = []
+ */
+  __pyx_t_6 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_diff_visible_bias_arr_list);
   if (unlikely(!__pyx_t_6)) {
     PyErr_Clear();
-    __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_hidden_bias_arr_list);
+    __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_diff_visible_bias_arr_list);
   }
-  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 86, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_hidden_bias_arr_list);
+  __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_diff_visible_bias_arr_list);
   if (unlikely(!__pyx_t_5)) {
     PyErr_Clear();
-    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_hidden_bias_arr_list);
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_diff_visible_bias_arr_list);
   }
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 86, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_GIVEREF(__pyx_t_6);
   PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6);
@@ -7764,70 +7705,70 @@ static int __pyx_pymod_exec_rnn_graph(PyObject *__pyx_pyinit_module)
   PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_5);
   __pyx_t_6 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_hidden_bias_arr_list, __pyx_t_5) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":88
- *     hidden_bias_arr_list = property(get_hidden_bias_arr_list, set_hidden_bias_arr_list)
- * 
- *     __pre_hidden_activity_arr_list = []             # <<<<<<<<<<<<<<
- * 
- *     def get_pre_hidden_activity_arr_list(self):
- */
-  __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 88, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_RNNGraph__pre_hidden_activity_a, __pyx_t_5) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":90
- *     __pre_hidden_activity_arr_list = []
- * 
- *     def get_pre_hidden_activity_arr_list(self):             # <<<<<<<<<<<<<<
- *         ''' getter '''
- *         if isinstance(self.__pre_hidden_activity_arr_list, list) is False:
- */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_21get_pre_hidden_activity_arr_list, 0, __pyx_n_s_RNNGraph_get_pre_hidden_activity, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 90, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_pre_hidden_activity_arr_list, __pyx_t_5) < 0) __PYX_ERR(0, 90, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_diff_visible_bias_arr_list, __pyx_t_5) < 0) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
   /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":96
- *         return self.__pre_hidden_activity_arr_list
+ *     diff_visible_bias_arr_list = property(get_diff_visible_bias_arr_list, set_diff_visible_bias_arr_list)
  * 
- *     def set_pre_hidden_activity_arr_list(self, value):             # <<<<<<<<<<<<<<
+ *     __diff_hidden_bias_arr_list = []             # <<<<<<<<<<<<<<
+ * 
+ *     def get_diff_hidden_bias_arr_list(self):
+ */
+  __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_RNNGraph__diff_hidden_bias_arr, __pyx_t_5) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":98
+ *     __diff_hidden_bias_arr_list = []
+ * 
+ *     def get_diff_hidden_bias_arr_list(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         if isinstance(self.__diff_hidden_bias_arr_list, list) is False:
+ */
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_21get_diff_hidden_bias_arr_list, 0, __pyx_n_s_RNNGraph_get_diff_hidden_bias_ar, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 98, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_diff_hidden_bias_arr_list, __pyx_t_5) < 0) __PYX_ERR(0, 98, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":104
+ *         return self.__diff_hidden_bias_arr_list
+ * 
+ *     def set_diff_hidden_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, list) is False:
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_23set_pre_hidden_activity_arr_list, 0, __pyx_n_s_RNNGraph_set_pre_hidden_activity, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_23set_diff_hidden_bias_arr_list, 0, __pyx_n_s_RNNGraph_set_diff_hidden_bias_ar, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_pre_hidden_activity_arr_list, __pyx_t_5) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_diff_hidden_bias_arr_list, __pyx_t_5) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":102
- *         self.__pre_hidden_activity_arr_list = value
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":110
+ *         self.__diff_hidden_bias_arr_list = value
  * 
- *     pre_hidden_activity_arr_list = property(get_pre_hidden_activity_arr_list, set_pre_hidden_activity_arr_list)             # <<<<<<<<<<<<<<
+ *     diff_hidden_bias_arr_list = property(get_diff_hidden_bias_arr_list, set_diff_hidden_bias_arr_list)             # <<<<<<<<<<<<<<
  * 
- *     __diff_visible_bias_arr_list = []
+ *     def create_node(
  */
-  __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_pre_hidden_activity_arr_list);
+  __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_diff_hidden_bias_arr_list);
   if (unlikely(!__pyx_t_5)) {
     PyErr_Clear();
-    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_pre_hidden_activity_arr_list);
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_diff_hidden_bias_arr_list);
   }
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 102, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_pre_hidden_activity_arr_list);
+  __pyx_t_7 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_diff_hidden_bias_arr_list);
   if (unlikely(!__pyx_t_7)) {
     PyErr_Clear();
-    __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_pre_hidden_activity_arr_list);
+    __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_diff_hidden_bias_arr_list);
   }
-  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 102, __pyx_L1_error)
+  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_5);
   PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5);
@@ -7835,182 +7776,40 @@ static int __pyx_pymod_exec_rnn_graph(PyObject *__pyx_pyinit_module)
   PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_7);
   __pyx_t_5 = 0;
   __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_6, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_6, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_pre_hidden_activity_arr_list, __pyx_t_7) < 0) __PYX_ERR(0, 102, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_diff_hidden_bias_arr_list, __pyx_t_7) < 0) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":104
- *     pre_hidden_activity_arr_list = property(get_pre_hidden_activity_arr_list, set_pre_hidden_activity_arr_list)
- * 
- *     __diff_visible_bias_arr_list = []             # <<<<<<<<<<<<<<
- * 
- *     def get_diff_visible_bias_arr_list(self):
- */
-  __pyx_t_7 = PyList_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 104, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_RNNGraph__diff_visible_bias_arr, __pyx_t_7) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":106
- *     __diff_visible_bias_arr_list = []
- * 
- *     def get_diff_visible_bias_arr_list(self):             # <<<<<<<<<<<<<<
- *         ''' getter '''
- *         return self.__diff_visible_bias_arr_list
- */
-  __pyx_t_7 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_25get_diff_visible_bias_arr_list, 0, __pyx_n_s_RNNGraph_get_diff_visible_bias_a, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 106, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_diff_visible_bias_arr_list, __pyx_t_7) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":110
- *         return self.__diff_visible_bias_arr_list
- * 
- *     def set_diff_visible_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
- *         ''' setter '''
- *         self.__diff_visible_bias_arr_list = value
- */
-  __pyx_t_7 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_27set_diff_visible_bias_arr_list, 0, __pyx_n_s_RNNGraph_set_diff_visible_bias_a, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__37)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 110, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_diff_visible_bias_arr_list, __pyx_t_7) < 0) __PYX_ERR(0, 110, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":114
- *         self.__diff_visible_bias_arr_list = value
- * 
- *     diff_visible_bias_arr_list = property(get_diff_visible_bias_arr_list, set_diff_visible_bias_arr_list)             # <<<<<<<<<<<<<<
- * 
- *     __diff_hidden_bias_arr_list = []
- */
-  __pyx_t_7 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_diff_visible_bias_arr_list);
-  if (unlikely(!__pyx_t_7)) {
-    PyErr_Clear();
-    __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_diff_visible_bias_arr_list);
-  }
-  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 114, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_diff_visible_bias_arr_list);
-  if (unlikely(!__pyx_t_6)) {
-    PyErr_Clear();
-    __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_diff_visible_bias_arr_list);
-  }
-  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 114, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_GIVEREF(__pyx_t_7);
-  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7);
-  __Pyx_GIVEREF(__pyx_t_6);
-  PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_6);
-  __pyx_t_7 = 0;
-  __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 114, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_diff_visible_bias_arr_list, __pyx_t_6) < 0) __PYX_ERR(0, 114, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":116
- *     diff_visible_bias_arr_list = property(get_diff_visible_bias_arr_list, set_diff_visible_bias_arr_list)
- * 
- *     __diff_hidden_bias_arr_list = []             # <<<<<<<<<<<<<<
- * 
- *     def get_diff_hidden_bias_arr_list(self):
- */
-  __pyx_t_6 = PyList_New(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 116, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_RNNGraph__diff_hidden_bias_arr, __pyx_t_6) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":118
- *     __diff_hidden_bias_arr_list = []
- * 
- *     def get_diff_hidden_bias_arr_list(self):             # <<<<<<<<<<<<<<
- *         ''' getter '''
- *         return self.__diff_hidden_bias_arr_list
- */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_29get_diff_hidden_bias_arr_list, 0, __pyx_n_s_RNNGraph_get_diff_hidden_bias_ar, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__39)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 118, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_diff_hidden_bias_arr_list, __pyx_t_6) < 0) __PYX_ERR(0, 118, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":122
- *         return self.__diff_hidden_bias_arr_list
- * 
- *     def set_diff_hidden_bias_arr_list(self, value):             # <<<<<<<<<<<<<<
- *         ''' setter '''
- *         self.__diff_hidden_bias_arr_list = value
- */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_31set_diff_hidden_bias_arr_list, 0, __pyx_n_s_RNNGraph_set_diff_hidden_bias_ar, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__41)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 122, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_diff_hidden_bias_arr_list, __pyx_t_6) < 0) __PYX_ERR(0, 122, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":126
- *         self.__diff_hidden_bias_arr_list = value
- * 
- *     diff_hidden_bias_arr_list = property(get_diff_hidden_bias_arr_list, set_diff_hidden_bias_arr_list)             # <<<<<<<<<<<<<<
- * 
- *     def create_node(
- */
-  __pyx_t_6 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_diff_hidden_bias_arr_list);
-  if (unlikely(!__pyx_t_6)) {
-    PyErr_Clear();
-    __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_diff_hidden_bias_arr_list);
-  }
-  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 126, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_diff_hidden_bias_arr_list);
-  if (unlikely(!__pyx_t_5)) {
-    PyErr_Clear();
-    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_diff_hidden_bias_arr_list);
-  }
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 126, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 126, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __Pyx_GIVEREF(__pyx_t_6);
-  PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6);
-  __Pyx_GIVEREF(__pyx_t_5);
-  PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_5);
-  __pyx_t_6 = 0;
-  __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 126, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_diff_hidden_bias_arr_list, __pyx_t_5) < 0) __PYX_ERR(0, 126, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":128
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":112
  *     diff_hidden_bias_arr_list = property(get_diff_hidden_bias_arr_list, set_diff_hidden_bias_arr_list)
  * 
  *     def create_node(             # <<<<<<<<<<<<<<
  *         self,
  *         int shallower_neuron_count,
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_33create_node, 0, __pyx_n_s_RNNGraph_create_node, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__43)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 128, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_INCREF(__pyx_t_5);
-  PyList_Append(__pyx_t_4, __pyx_t_5);
-  __Pyx_GIVEREF(__pyx_t_5);
-  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_5, sizeof(__pyx_defaults), 1)) __PYX_ERR(0, 128, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph_8RNNGraph_25create_node, 0, __pyx_n_s_RNNGraph_create_node, NULL, __pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_INCREF(__pyx_t_7);
+  PyList_Append(__pyx_t_4, __pyx_t_7);
+  __Pyx_GIVEREF(__pyx_t_7);
+  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_7, sizeof(__pyx_defaults), 1)) __PYX_ERR(0, 112, __pyx_L1_error)
 
-  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":134
+  /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":118
  *         shallower_activating_function,
  *         deeper_activating_function,
  *         np.ndarray weights_arr=np.array([])             # <<<<<<<<<<<<<<
  *     ):
  *         '''
  */
-  __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 134, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_array); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyList_New(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 134, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_9 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_8))) {
     __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_8);
@@ -8022,48 +7821,48 @@ static int __pyx_pymod_exec_rnn_graph(PyObject *__pyx_pyinit_module)
     }
   }
   if (!__pyx_t_9) {
-    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 134, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_GOTREF(__pyx_t_7);
+    __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_GOTREF(__pyx_t_6);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_8)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_6};
-      __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 134, __pyx_L1_error)
+      PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_5};
+      __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 118, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_8)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_6};
-      __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 134, __pyx_L1_error)
+      PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_5};
+      __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 118, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     } else
     #endif
     {
-      __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 134, __pyx_L1_error)
+      __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 118, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_9); __pyx_t_9 = NULL;
-      __Pyx_GIVEREF(__pyx_t_6);
-      PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_t_6);
-      __pyx_t_6 = 0;
-      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_10, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 134, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
+      __Pyx_GIVEREF(__pyx_t_5);
+      PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_t_5);
+      __pyx_t_5 = 0;
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_10, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 118, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 134, __pyx_L1_error)
-  __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_t_5)->__pyx_arg_weights_arr = ((PyArrayObject *)__pyx_t_7);
-  __Pyx_GIVEREF(__pyx_t_7);
-  __pyx_t_7 = 0;
-  __Pyx_CyFunction_SetDefaultsGetter(__pyx_t_5, __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph___defaults__);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_create_node, __pyx_t_5) < 0) __PYX_ERR(0, 128, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 118, __pyx_L1_error)
+  __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_t_7)->__pyx_arg_weights_arr = ((PyArrayObject *)__pyx_t_6);
+  __Pyx_GIVEREF(__pyx_t_6);
+  __pyx_t_6 = 0;
+  __Pyx_CyFunction_SetDefaultsGetter(__pyx_t_7, __pyx_pf_5pydbm_7synapse_22recurrenttemporalgraph_9rnn_graph___defaults__);
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_create_node, __pyx_t_7) < 0) __PYX_ERR(0, 112, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
   /* "pydbm/synapse/recurrenttemporalgraph/rnn_graph.pyx":8
  * 
@@ -8072,12 +7871,12 @@ static int __pyx_pymod_exec_rnn_graph(PyObject *__pyx_pyinit_module)
  *     '''
  *     Recurrent Neural Network Restricted Boltzmann Machines (RNN-RBM)
  */
-  __pyx_t_5 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_RNNGraph, __pyx_t_1, __pyx_t_3, NULL, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 8, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  if (__Pyx_CyFunction_InitClassCell(__pyx_t_4, __pyx_t_5) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_RNNGraph, __pyx_t_1, __pyx_t_3, NULL, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  if (__Pyx_CyFunction_InitClassCell(__pyx_t_4, __pyx_t_7) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_RNNGraph, __pyx_t_5) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_RNNGraph, __pyx_t_7) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;

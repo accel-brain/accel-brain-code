@@ -60,31 +60,7 @@ class RNNGraph(RecurrentTemporalGraph):
         self.__rnn_hidden_bias_arr = value
     
     rnn_hidden_bias_arr = property(get_rnn_hidden_bias_arr, set_rnn_hidden_bias_arr)
-
-    __visible_bias_arr_list = []
     
-    def get_visible_bias_arr_list(self):
-        ''' getter '''
-        return self.__visible_bias_arr_list
-
-    def set_visible_bias_arr_list(self, value):
-        ''' setter '''
-        self.__visible_bias_arr_list = value
-
-    visible_bias_arr_list = property(get_visible_bias_arr_list, set_visible_bias_arr_list)
-    
-    __hidden_bias_arr_list = []
-    
-    def get_hidden_bias_arr_list(self):
-        ''' getter '''
-        return self.__hidden_bias_arr_list
-
-    def set_hidden_bias_arr_list(self, value):
-        ''' setter '''
-        self.__hidden_bias_arr_list = value
-    
-    hidden_bias_arr_list = property(get_hidden_bias_arr_list, set_hidden_bias_arr_list)
-
     __pre_hidden_activity_arr_list = []
     
     def get_pre_hidden_activity_arr_list(self):
@@ -100,15 +76,19 @@ class RNNGraph(RecurrentTemporalGraph):
         self.__pre_hidden_activity_arr_list = value
 
     pre_hidden_activity_arr_list = property(get_pre_hidden_activity_arr_list, set_pre_hidden_activity_arr_list)
-
+    
     __diff_visible_bias_arr_list = []
     
     def get_diff_visible_bias_arr_list(self):
         ''' getter '''
+        if isinstance(self.__diff_visible_bias_arr_list, list) is False:
+            raise TypeError()
         return self.__diff_visible_bias_arr_list
 
     def set_diff_visible_bias_arr_list(self, value):
         ''' setter '''
+        if isinstance(value, list) is False:
+            raise TypeError()
         self.__diff_visible_bias_arr_list = value
     
     diff_visible_bias_arr_list = property(get_diff_visible_bias_arr_list, set_diff_visible_bias_arr_list)
@@ -117,14 +97,18 @@ class RNNGraph(RecurrentTemporalGraph):
     
     def get_diff_hidden_bias_arr_list(self):
         ''' getter '''
+        if isinstance(self.__diff_hidden_bias_arr_list, list) is False:
+            raise TypeError()
         return self.__diff_hidden_bias_arr_list
 
     def set_diff_hidden_bias_arr_list(self, value):
         ''' setter '''
+        if isinstance(value, list) is False:
+            raise TypeError()
         self.__diff_hidden_bias_arr_list = value
     
     diff_hidden_bias_arr_list = property(get_diff_hidden_bias_arr_list, set_diff_hidden_bias_arr_list)
-    
+
     def create_node(
         self,
         int shallower_neuron_count,
@@ -145,13 +129,22 @@ class RNNGraph(RecurrentTemporalGraph):
             deeper_activating_function:         The activation function in deeper layer.
             weights_arr:                        The weights of links.
         '''
-        self.v_hat_weights_arr = np.zeros(
-            (shallower_neuron_count, deeper_neuron_count)
-        )
-        self.hat_weights_arr = np.zeros(
-            (deeper_neuron_count, deeper_neuron_count)
-        )
-        self.rnn_hidden_bias_arr = np.random.uniform(low=0, high=1, size=(deeper_neuron_count, ))
+        self.v_hat_weights_arr = np.random.normal(
+            size=(shallower_neuron_count, deeper_neuron_count)
+        ) * 0.1
+        self.hat_weights_arr = np.random.normal(
+            size=(deeper_neuron_count, deeper_neuron_count)
+        ) * 0.1
+        self.rnn_hidden_bias_arr = np.zeros((deeper_neuron_count, ))
+
+        self.rnn_visible_weights_arr = np.random.normal(
+            size=(shallower_neuron_count, deeper_neuron_count)
+        ) * 0.1
+        self.rnn_hidden_weights_arr = np.random.normal(
+            size=(deeper_neuron_count, deeper_neuron_count)
+        ) * 0.1
+
+        self.diff_rnn_hidden_weights_arr = np.zeros((deeper_neuron_count, deeper_neuron_count))
 
         super().create_node(
             shallower_neuron_count,

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from logging import getLogger
 import numpy as np
 cimport numpy as np
 from pydbm.optimization.opt_params import OptParams
@@ -18,6 +19,8 @@ class SGD(OptParams):
         '''
         self.__momentum = momentum
         self.__variation_list = []
+        logger = getLogger("pydbm")
+        self.__logger = logger
 
     def optimize(self, params_list, grads_list, double learning_rate):
         '''
@@ -41,33 +44,42 @@ class SGD(OptParams):
                 self.__variation_list  = [None] * len(params_list)
 
             for i in range(len(params_list)):
-                if params_list[i] is None or grads_list[i] is None:
-                    continue
+                try:
+                    if params_list[i] is None or grads_list[i] is None:
+                        continue
 
-                if self.__variation_list[i] is not None:
-                    self.__variation_list[i] = self.__momentum * self.__variation_list[i] - learning_rate * grads_list[i]
-                    self.__variation_list[i] = np.nan_to_num(self.__variation_list[i])
-                    params_list[i] += self.__variation_list[i]
-                else:
-                    params_list[i] -= np.nan_to_num(learning_rate * grads_list[i])
-                    self.__variation_list[i] = learning_rate * grads_list[i]
+                    if self.__variation_list[i] is not None:
+                        self.__variation_list[i] = self.__momentum * self.__variation_list[i] - learning_rate * grads_list[i]
+                        self.__variation_list[i] = np.nan_to_num(self.__variation_list[i])
+                        params_list[i] += self.__variation_list[i]
+                    else:
+                        params_list[i] -= np.nan_to_num(learning_rate * grads_list[i])
+                        self.__variation_list[i] = learning_rate * grads_list[i]
+                except:
+                    self.__logger.debug("Exception raised (key: " + str(i) + ")")
+                    raise
+
         else:
             for i in range(len(params_list)):
-                if params_list[i] is None or grads_list[i] is None:
-                    continue
+                try:
+                    if params_list[i] is None or grads_list[i] is None:
+                        continue
 
-                params_list[i] = np.nansum(
-                    np.array([
-                        np.expand_dims(params_list[i], axis=0),
-                        np.nanprod(
-                            np.array([
-                                np.expand_dims(np.ones_like(params_list[i]) * learning_rate, axis=0),
-                                np.expand_dims(grads_list[i], axis=0)
-                            ]),
-                            axis=0
-                        )
-                    ]),
-                    axis=0
-                )[0]
+                    params_list[i] = np.nansum(
+                        np.array([
+                            np.expand_dims(params_list[i], axis=0),
+                            np.nanprod(
+                                np.array([
+                                    np.expand_dims(np.ones_like(params_list[i]) * learning_rate, axis=0),
+                                    np.expand_dims(grads_list[i], axis=0)
+                                ]),
+                                axis=0
+                            )
+                        ]),
+                        axis=0
+                    )[0]
+                except:
+                    self.__logger.debug("Exception raised (key: " + str(i) + ")")
+                    raise
 
         return params_list

@@ -256,6 +256,8 @@ class RTRBMCD(ApproximateInterface):
             ) + self.graph.hidden_bias_arr.T
         )
 
+        self.graph.visible_diff_bias_arr += np.nansum((observed_data_arr - negative_visible_activity_arr), axis=0)
+
     def back_propagation(self):
         '''
         Details of the backpropagation through time algorithm.
@@ -438,3 +440,9 @@ class RTRBMCD(ApproximateInterface):
             )
             self.graph.visible_diff_bias_arr -= np.nansum(self.graph.visible_activity_arr, axis=0)
             self.graph.hidden_diff_bias_arr -= np.nansum(self.graph.hidden_activity_arr, axis=0)
+
+    def get_opt_params(self):
+        ''' getter '''
+        return self.__opt_params
+
+    opt_params = property(get_opt_params, set_readonly)

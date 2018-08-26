@@ -390,12 +390,8 @@ class LSTMGraph(RecurrentTemporalGraph):
 
     # The list of activities in RBM at step t-1.
     pre_hidden_activity_arr_list = []
-    # delta of bias in RBM visible layer.
-    diff_visible_bias_arr_list = []
     # delta of bias in RBM hidden layer.
     diff_hidden_bias_arr_list = []
-    # delta of weight matrix in RBM, which connected visible RBM layer and hidden RBM layer.
-    diff_weights_arr_list = []
     # delta of weight matrix in RNN hidden layer.
     diff_rnn_hidden_weights_arr_list = []
     # delta of weight matrix in RBM, which connected hidden RBM layer and previous hidden layer.

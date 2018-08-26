@@ -462,15 +462,16 @@ dbm.learn(
 Run a program: [test/demo_stacked_auto_encoder.py](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/test/demo_stacked_auto_encoder.py)
 
 ```sh
-time python demo_stacked_auto_encoder.py
+time python test/demo_stacked_auto_encoder.py
 ```
 
 The result is follow.
  
 ```sh
-real    1m35.472s
-user    1m32.300s
-sys     0m3.136s
+
+real    1m59.875s
+user    1m30.642s
+sys     0m29.232s
 ```
 
 #### Detail
@@ -485,7 +486,7 @@ This experiment was performed under the following conditions.
 
 ##### Observation Data Points
 
-The observated data is the result of `np.random.uniform(size=(10000, 10000))`.
+The observated data is the result of `np.random.normal(loc=0.5, scale=0.2, size=(10000, 10000))`.
 
 ##### Number of units
 
@@ -511,18 +512,19 @@ The observated data is the result of `np.random.uniform(size=(10000, 10000))`.
 ##### Feature points
 
 ```
-0.190599  0.183594  0.482996  0.911710  0.939766  0.202852  0.042163
-0.470003  0.104970  0.602966  0.927917  0.134440  0.600353  0.264248
-0.419805  0.158642  0.328253  0.163071  0.017190  0.982587  0.779166
-0.656428  0.947666  0.409032  0.959559  0.397501  0.353150  0.614216
-0.167008  0.424654  0.204616  0.573720  0.147871  0.722278  0.068951
-.....
+[[0.092057   0.08856277 0.08699257 ... 0.09167331 0.08937846 0.0880063 ]
+ [0.09090537 0.08669612 0.08995347 ... 0.08641837 0.08750935 0.08617442]
+ [0.10187259 0.10633451 0.10060372 ... 0.10170306 0.10711189 0.10565192]
+ ...
+ [0.21540273 0.21737737 0.20949192 ... 0.20974982 0.2208562  0.20894371]
+ [0.30749327 0.30964707 0.2850683  ... 0.29191507 0.29968456 0.29075691]
+ [0.68022984 0.68454348 0.66431651 ... 0.67952715 0.6805653  0.66243178]]
 ```
 
 ##### Reconstruct error
 
 ```
- [ 0.08297197  0.07091231  0.0823424  ...,  0.0721624   0.08404181  0.06981017]
+ [ 0.11668085 0.07513545 0.091044  ...,  0.0719339  0.07976882 0.09121697]
 ```
 
 ## Usecase: Building the RTRBM for recursive learning.

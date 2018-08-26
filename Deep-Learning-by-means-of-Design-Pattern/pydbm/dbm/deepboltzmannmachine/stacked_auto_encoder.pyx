@@ -68,24 +68,29 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
         cdef int end_index
         cdef np.ndarray[DOUBLE_t, ndim=2] visible_points_arr = None
         cdef np.ndarray[DOUBLE_t, ndim=2] feature_points_arr = None
-        for i in range(int(observed_data_arr.shape[0] / batch_size)):
-            start_index = i * batch_size
-            end_index = (i + 1) * batch_size
-            super().learn(
-                observed_data_arr=observed_data_arr[start_index:end_index],
-                training_count=1,
-                batch_size=0,
-                r_batch_size=0
-            )
-            if visible_points_arr is None:
-                visible_points_arr = self.get_visible_point()
-            else:
-                visible_points_arr = np.r_[visible_points_arr, self.get_visible_point()]
+        if batch_size > 0:
+            for i in range(int(observed_data_arr.shape[0] / batch_size)):
+                start_index = i * batch_size
+                end_index = (i + 1) * batch_size
+                super().learn(
+                    observed_data_arr=observed_data_arr[start_index:end_index],
+                    training_count=1,
+                    batch_size=0,
+                    r_batch_size=0
+                )
+                if visible_points_arr is None:
+                    visible_points_arr = self.get_visible_point()
+                else:
+                    visible_points_arr = np.r_[visible_points_arr, self.get_visible_point()]
 
-            if feature_points_arr is None:
-                feature_points_arr = self.get_feature_point()
-            else:
-                feature_points_arr = np.r_[feature_points_arr, self.get_feature_point()]
+                if feature_points_arr is None:
+                    feature_points_arr = self.get_feature_point()
+                else:
+                    feature_points_arr = np.r_[feature_points_arr, self.get_feature_point()]
+
+        else:
+            visible_points_arr = self.get_visible_point()
+            feature_points_arr = self.get_feature_point()
 
         self.__visible_points_arr = visible_points_arr
         self.__feature_points_arr = feature_points_arr

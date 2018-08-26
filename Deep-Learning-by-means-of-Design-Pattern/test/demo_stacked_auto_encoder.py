@@ -17,9 +17,9 @@ print(observed_arr)
 
 # Setting objects for activation function.
 activation_list = [
-    LogisticFunction(binary_flag=False, normalize_flag=False), 
-    LogisticFunction(binary_flag=False, normalize_flag=False), 
-    LogisticFunction(binary_flag=False, normalize_flag=False)
+    LogisticFunction(binary_flag=False, normalization_mode="min_max", normalize_flag=True), 
+    LogisticFunction(binary_flag=False, normalization_mode="min_max", normalize_flag=True), 
+    LogisticFunction(binary_flag=False, normalization_mode="min_max", normalize_flag=True)
 ]
 
 # Setting the object for function approximation.

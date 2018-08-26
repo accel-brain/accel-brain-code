@@ -40,23 +40,6 @@ class DBMMultiLayerBuilder(DBMBuilder):
 
     learning_rate = property(get_learning_rate, set_learning_rate)
 
-    # Dropout rate.
-    __dropout_rate = 0.5
-
-    def get_dropout_rate(self):
-        ''' getter '''
-        if isinstance(self.__dropout_rate, float) is False:
-            raise TypeError()
-        return self.__dropout_rate
-
-    def set_dropout_rate(self, value):
-        ''' setter '''
-        if isinstance(value, float) is False:
-            raise TypeError()
-        self.__dropout_rate = value
-
-    dropout_rate = property(get_dropout_rate, set_dropout_rate)
-
     def __init__(
         self,
         weights_arr_list=np.array([]),
@@ -210,8 +193,7 @@ class DBMMultiLayerBuilder(DBMBuilder):
             rbm = RestrictedBoltzmannMachine(
                 graph,
                 self.__learning_rate,
-                self.__dropout_rate,
-                self.__approximate_interface_list[i]
+                approximate_interface=self.__approximate_interface_list[i]
             )
             self.__rbm_list.append(rbm)
 

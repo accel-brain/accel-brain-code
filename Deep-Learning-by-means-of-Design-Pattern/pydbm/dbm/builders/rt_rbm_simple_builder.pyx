@@ -37,23 +37,6 @@ class RTRBMSimpleBuilder(RTRBMBuilder):
 
     learning_rate = property(get_learning_rate, set_learning_rate)
 
-    # Dropout rate.
-    __dropout_rate = 0.5
-
-    def get_dropout_rate(self):
-        ''' getter '''
-        if isinstance(self.__dropout_rate, float) is False:
-            raise TypeError()
-        return self.__dropout_rate
-
-    def set_dropout_rate(self, value):
-        ''' setter '''
-        if isinstance(value, float) is False:
-            raise TypeError()
-        self.__dropout_rate = value
-
-    dropout_rate = property(get_dropout_rate, set_dropout_rate)
-
     def visible_neuron_part(self, activating_function, int neuron_count):
         '''
         Build neurons in visible layer.
@@ -113,7 +96,6 @@ class RTRBMSimpleBuilder(RTRBMBuilder):
         rbm = RTRBM(
             self.__rt_graph,
             self.__learning_rate,
-            self.__dropout_rate,
-            self.__approximate_interface
+            approximate_interface=self.__approximate_interface
         )
         return rbm

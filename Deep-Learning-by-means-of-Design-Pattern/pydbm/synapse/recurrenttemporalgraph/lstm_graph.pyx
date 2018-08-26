@@ -388,14 +388,61 @@ class LSTMGraph(RecurrentTemporalGraph):
     
     rbm_hidden_weights_arr = property(get_rbm_hidden_weights_arr, set_rbm_hidden_weights_arr)
 
+    __diff_rbm_hidden_weights_arr = np.array([])
+    
+    def get_diff_rbm_hidden_weights_arr(self):
+        ''' getter '''
+        if isinstance(self.__diff_rbm_hidden_weights_arr, np.ndarray) is False:
+            raise TypeError("The type of __diff_rbm_hidden_weights_arr must be `np.ndarray`.")
+        return self.__diff_rbm_hidden_weights_arr
+
+    def set_diff_rbm_hidden_weights_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __diff_rbm_hidden_weights_arr must be `np.ndarray`.")
+        self.__diff_rbm_hidden_weights_arr = value
+    
+    diff_rbm_hidden_weights_arr = property(get_diff_rbm_hidden_weights_arr, set_diff_rbm_hidden_weights_arr)
+
+    __diff_rnn_visible_bias_arr = np.array([])
+    
+    def get_diff_rnn_visible_bias_arr(self):
+        ''' getter '''
+        if isinstance(self.__diff_rnn_visible_bias_arr, np.ndarray) is False:
+            raise TypeError("The type of __diff_rnn_visible_bias_arr must be `np.ndarray`.")
+        return self.__diff_rnn_visible_bias_arr
+
+    def set_diff_rnn_visible_bias_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __diff_rnn_visible_bias_arr must be `np.ndarray`.")
+        
+        self.__diff_rnn_visible_bias_arr = value
+    
+    diff_rnn_visible_bias_arr = property(get_diff_rnn_visible_bias_arr, set_diff_rnn_visible_bias_arr)
+
+    __diff_rnn_hidden_bias_arr = np.array([])
+    
+    def get_diff_rnn_hidden_bias_arr(self):
+        ''' getter '''
+        if isinstance(self.__diff_rnn_hidden_bias_arr, np.ndarray) is False:
+            raise TypeError("The type of __diff_rnn_hidden_bias_arr must be `np.ndarray`.")
+        return self.__diff_rnn_hidden_bias_arr
+
+    def set_diff_rnn_hidden_bias_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __diff_rnn_hidden_bias_arr must be `np.ndarray`.")
+        self.__diff_rnn_hidden_bias_arr = value
+    
+    diff_rnn_hidden_bias_arr = property(get_diff_rnn_hidden_bias_arr, set_diff_rnn_hidden_bias_arr)
+
     # The list of activities in RBM at step t-1.
     pre_hidden_activity_arr_list = []
     # delta of bias in RBM hidden layer.
     diff_hidden_bias_arr_list = []
     # delta of weight matrix in RNN hidden layer.
     diff_rnn_hidden_weights_arr_list = []
-    # delta of weight matrix in RBM, which connected hidden RBM layer and previous hidden layer.
-    diff_rbm_hidden_weights_arr_list = []
 
     def create_rnn_cells(
         self,
@@ -433,16 +480,27 @@ class LSTMGraph(RecurrentTemporalGraph):
             deeper_activating_function:         The activation function in deeper layer.
             weights_arr:                        The weights of links.
         '''
-        self.v_hat_weights_arr = np.zeros(
-            (shallower_neuron_count, deeper_neuron_count)
-        )
-        self.hat_weights_arr = np.zeros(
-            (deeper_neuron_count, deeper_neuron_count)
-        )
-        self.rbm_hidden_weights_arr = np.zeros(
-            (deeper_neuron_count, deeper_neuron_count)
-        )
+        self.v_hat_weights_arr = np.random.normal(
+            size=(shallower_neuron_count, deeper_neuron_count)
+        ) * 0.1
+        self.hat_weights_arr = np.random.normal(
+            size=(deeper_neuron_count, deeper_neuron_count)
+        ) * 0.1
+        self.rbm_hidden_weights_arr = np.random.normal(
+            size=(deeper_neuron_count, deeper_neuron_count)
+        ) * 0.1
         self.rnn_hidden_bias_arr = np.zeros((deeper_neuron_count, ))
+
+        self.diff_rnn_hidden_weights_arr = np.zeros(
+            (deeper_neuron_count, deeper_neuron_count)
+        )
+        
+        self.diff_rbm_hidden_weights_arr = np.zeros(
+            (deeper_neuron_count, deeper_neuron_count)
+        )
+        
+        self.diff_rnn_visible_bias_arr = np.zeros((shallower_neuron_count, ))
+        self.diff_rnn_hidden_bias_arr = np.zeros((deeper_neuron_count, ))
 
         super().create_node(
             shallower_neuron_count,

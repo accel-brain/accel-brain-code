@@ -144,7 +144,9 @@ class RNNGraph(RecurrentTemporalGraph):
             size=(deeper_neuron_count, deeper_neuron_count)
         ) * 0.1
 
-        self.diff_rnn_hidden_weights_arr = np.zeros((deeper_neuron_count, deeper_neuron_count))
+        self.diff_rnn_hidden_weights_arr = np.random.normal(
+            size=(deeper_neuron_count, deeper_neuron_count)
+        ) * 0.1
 
         super().create_node(
             shallower_neuron_count,

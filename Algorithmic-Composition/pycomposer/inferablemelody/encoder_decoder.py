@@ -108,12 +108,12 @@ class EncoderDecoder(InferableMelody):
         encoder_graph = EncoderGraph()
 
         # Activation function in LSTM.
-        encoder_graph.observed_activating_function = TanhFunction()
+        encoder_graph.observed_activating_function = LogisticFunction()
         encoder_graph.input_gate_activating_function = LogisticFunction()
         encoder_graph.forget_gate_activating_function = LogisticFunction()
         encoder_graph.output_gate_activating_function = LogisticFunction()
-        encoder_graph.hidden_activating_function = LogisticFunction(binary_flag=True)
-        encoder_graph.output_activating_function = LogisticFunction(binary_flag=True)
+        encoder_graph.hidden_activating_function = LogisticFunction()
+        encoder_graph.output_activating_function = LogisticFunction()
 
         # Initialization strategy.
         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
@@ -127,10 +127,10 @@ class EncoderDecoder(InferableMelody):
         decoder_graph = DecoderGraph()
 
         # Activation function in LSTM.
-        decoder_graph.observed_activating_function = TanhFunction()
+        decoder_graph.observed_activating_function = LogisticFunction()
         decoder_graph.input_gate_activating_function = LogisticFunction()
         decoder_graph.forget_gate_activating_function = LogisticFunction()
-        decoder_graph.output_gate_activating_function = LogisticFunction()
+        decoder_graph.output_gate_activating_function = LogisticFunction(binary_flag=True)
         decoder_graph.hidden_activating_function = LogisticFunction(binary_flag=True)
         decoder_graph.output_activating_function = LogisticFunction(binary_flag=True)
 
@@ -233,25 +233,30 @@ class EncoderDecoder(InferableMelody):
         '''
         observed_arr, _ = self.__setup_dataset(midi_df)
         pred_arr = self.__controller.inference(observed_arr)
-
-        start = 0
-        end = self.__time_fraction
         
-        generated_tuple_list = []
-        for i in range(pred_arr.shape[0]):
-            pitch_arr = np.where(pred_arr[:, -1][i] != 0)[0]
-            pitch_arr = np.array(list(set(pitch_arr.tolist())))
-            for j in range(pitch_arr.shape[0]):
-                generated_tuple_list.append(
-                    (
-                        pitch_arr[j] + self.__min_pitch,
-                        start,
-                        end
+        result_list = [None] * pred_arr.shape[0]
+        for sample_n in range(pred_arr.shape[0]):
+            start = 0
+            end = self.__time_fraction
+
+            generated_tuple_list = []
+            for cycle in range(pred_arr.shape[1]):
+                if pred_arr[sample_n, cycle][pred_arr[sample_n, cycle] != 1].shape[0] == 0:
+                    raise ValueError("It may be the state of vanishing grads.")
+
+                pitch_arr = np.where(pred_arr[sample_n, cycle] == 1)[0]
+                for pitch in pitch_arr.tolist():
+                    generated_tuple_list.append(
+                        (
+                            pitch + self.__min_pitch,
+                            start,
+                            end
+                        )
                     )
-                )
-            start += self.__time_fraction
-            end += self.__time_fraction
-        return np.array(generated_tuple_list)
+                start += self.__time_fraction
+                end += self.__time_fraction
+            result_list[sample_n] = generated_tuple_list
+        return np.array(result_list)
 
     def __setup_dataset(self, midi_df):
         observed_arr_list = []

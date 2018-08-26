@@ -28,9 +28,9 @@ class LogisticFunction(ActivatingFunctionInterface):
     def __init__(
         self,
         binary_flag=False,
-        normalize_flag=False,
+        normalize_flag=True,
         for_overflow="max",
-        normalization_mode="sum_partition"
+        normalization_mode="min_max"
     ):
         '''
         Init.
@@ -43,6 +43,7 @@ class LogisticFunction(ActivatingFunctionInterface):
                                 where $c$ is maximum value of `x`.
 
             normalization_mode: How to normalize `x`.
+                                `min_max`: $x = \frac{x - x_{min}}{x_{max} - x_{min}}$
                                 `sum_partition`: $x = \frac{x}{\sum_{}^{}x}$
                                 `z_score`: $x = \frac{(x - \mu)}{\sigma}$
                                            where $\mu$ is mean of `x` and $\sigma$ is standard deviation of `x`.

@@ -288,7 +288,7 @@ In this library, **Convolutional Auto-Encoder** is also based on **Encoder/Decod
 
 ## Usecase: Building the deep boltzmann machine for feature extracting.
 
-Import Python and Cython modules.
+Import Python and Cython modules based on Builder Pattern.
 
 ```python
 # The `Client` in Builder Pattern
@@ -297,18 +297,61 @@ from pydbm.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
 from pydbm.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
 # Contrastive Divergence for function approximation.
 from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
+```
+
+Import Python and Cython modules of activation functions.
+
+```python
 # Logistic Function as activation function.
 from pydbm.activation.logistic_function import LogisticFunction
 # Tanh Function as activation function.
 from pydbm.activation.tanh_function import TanhFunction
 # ReLu Function as activation function.
 from pydbm.activation.relu_function import ReLuFunction
+```
 
+Import Python and Cython modules of optimizers, and instantiate the objects.
+
+```python
+# Stochastic Gradient Descent(SGD) as optimizer.
+from pydbm.optimization.optparams.sgd import SGD as FirstSGD
+from pydbm.optimization.optparams.sgd import SGD as SecondSGD
+
+# is-a `OptParams`.
+first_optimizer = FirstSGD()
+# is-a `OptParams`.
+second_optimizer = SecondSGD()
+```
+
+If you want to use not Stochastic Gradient Descent(SGD) but Adam optimizer, import `Adam` and instantiate it.
+
+```python
+# Adam as a optimizer.
+from pydbm.optimization.optparams.adam import Adam as FirstAdam
+from pydbm.optimization.optparams.adam import Adam as SecondAdam
+
+# is-a `OptParams`.
+first_optimizer = FirstSGD()
+# is-a `OptParams`.
+second_optimizer = SecondSGD()
+```
+
+Setup parameters of regularization. For instance, the probability of dropout can be set as follows.
+
+```python
+first_optimizer.dropout_rate = 0.5
+second_optimizer.dropout_rate = 0.5
 ```
 
 Instantiate objects and call the method.
 
 ```python
+# Contrastive Divergence for visible layer and first hidden layer.
+first_cd = ContrastiveDivergence(opt_params=first_optimizer)
+# Contrastive Divergence for first hidden layer and second hidden layer.
+second_cd = ContrastiveDivergence(opt_params=second_optimizer)
+
+# DBM
 dbm = DeepBoltzmannMachine(
     DBMMultiLayerBuilder(),
     # Dimention in visible layer, hidden layer, and second hidden layer.
@@ -316,11 +359,9 @@ dbm = DeepBoltzmannMachine(
     # Setting objects for activation function.
     [ReLuFunction(), LogisticFunction(), TanhFunction()],
     # Setting the object for function approximation.
-    [ContrastiveDivergence(), ContrastiveDivergence()], 
+    [first_cd, second_cd], 
     # Setting learning rate.
-    0.05,
-    # Setting dropout rate.
-    0.5
+    learning_rate=0.05
 )
 
 # Execute learning.
@@ -340,9 +381,8 @@ If you do not want to execute the mini-batch training, the value of `batch_size`
 And the feature points can be extracted by this method.
 
 ```python
-print(dbm.get_feature_point(layer_number=1))
+feature_point_arr = dbm.get_feature_point(layer_number=1)
 ```
-
 
 ## Usecase: Extracting all feature points for dimensions reduction(or pre-training)
 
@@ -357,23 +397,42 @@ from pydbm.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
 from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
 # Logistic Function as activation function.
 from pydbm.activation.logistic_function import LogisticFunction
+# Stochastic Gradient Descent(SGD) as optimizer.
+from pydbm.optimization.optparams.sgd import SGD as FirstSGD
+from pydbm.optimization.optparams.sgd import SGD as SecondSGD
+# The function of reconsturction error.
+from pydbm.loss.mean_squared_error import MeanSquaredError
 ```
 
 Instantiate objects and call the method.
 
 ```python
+# is-a `OptParams`.
+first_optimizer = FirstSGD()
+# is-a `OptParams`.
+second_optimizer = SecondSGD()
+
+# The probability of dropout.
+first_optimizer.dropout_rate = 0.5
+second_optimizer.dropout_rate = 0.5
+
+# Contrastive Divergence for visible layer and first hidden layer.
+first_cd = ContrastiveDivergence(opt_params=first_optimizer, computable_loss=MeanSquaredError())
+# Contrastive Divergence for first hidden layer and second hidden layer.
+second_cd = ContrastiveDivergence(opt_params=second_optimizer, computable_loss=MeanSquaredError())
+
 # Setting objects for activation function.
 activation_list = [LogisticFunction(), LogisticFunction(), LogisticFunction()]
 # Setting the object for function approximation.
-approximaion_list = [ContrastiveDivergence(), ContrastiveDivergence()]
+approximaion_list = [first_cd, second_cd]
 
+# is-a `DeepBoltzmannMachine`.
 dbm = StackedAutoEncoder(
     DBMMultiLayerBuilder(),
     [target_arr.shape[1], 10, target_arr.shape[1]],
     activation_list,
     approximaion_list,
-    0.05, # Setting learning rate.
-    0.5   # Setting dropout rate.
+    learning_rate=0.05 # Setting learning rate.
 )
 
 # Execute learning.
@@ -384,6 +443,8 @@ dbm.learn(
     r_batch_size=-1  # if `r_batch_size` > 0, the function of `dbm.learn` is a kind of reccursive learning.
 )
 ```
+
+The function of `computable_loss` is computing the reconstruction error. `MeanSquaredError` is-a `ComputableLoss`, which is so-called Loss function.
 
 ### Extract reconstruction error rate.
 
@@ -540,6 +601,8 @@ from pydbm.approximation.rt_rbm_cd import RTRBMCD
 from pydbm.activation.logistic_function import LogisticFunction
 # Softmax Function as activation function.
 from pydbm.activation.softmax_function import SoftmaxFunction
+# Stochastic Gradient Descent(SGD) as optimizer.
+from pydbm.optimization.optparams.sgd import SGD
 ```
 
 Instantiate objects and execute learning.
@@ -555,8 +618,8 @@ rtrbm_builder.visible_neuron_part(LogisticFunction(), observed_arr.shape[-1])
 rtrbm_builder.hidden_neuron_part(LogisticFunction(), 100)
 # Set units in RNN layer.
 rtrbm_builder.rnn_neuron_part(LogisticFunction())
-# Set graph and approximation function.
-rtrbm_builder.graph_part(RTRBMCD())
+# Set graph and approximation function, delegating `SGD` which is-a `OptParams`.
+rtrbm_builder.graph_part(RTRBMCD(opt_params=SGD()))
 # Building.
 rbm = rtrbm_builder.get_result()
 ```
@@ -609,6 +672,8 @@ from pydbm.approximation.rtrbmcd.rnn_rbm_cd import RNNRBMCD
 from pydbm.activation.logistic_function import LogisticFunction
 # Softmax Function as activation function.
 from pydbm.activation.softmax_function import SoftmaxFunction
+# Stochastic Gradient Descent(SGD) as optimizer.
+from pydbm.optimization.optparams.sgd import SGD
 ```
 
 Instantiate objects.
@@ -624,8 +689,8 @@ rnnrbm_builder.visible_neuron_part(LogisticFunction(), observed_arr.shape[-1])
 rnnrbm_builder.hidden_neuron_part(LogisticFunction(), 100)
 # Set units in RNN layer.
 rnnrbm_builder.rnn_neuron_part(LogisticFunction())
-# Set graph and approximation function.
-rnnrbm_builder.graph_part(RNNRBMCD())
+# Set graph and approximation function, delegating `SGD` which is-a `OptParams`.
+rnnrbm_builder.graph_part(RNNRBMCD(opt_params=SGD()))
 # Building.
 rbm = rnnrbm_builder.get_result()
 ```
@@ -645,6 +710,8 @@ from pydbm.approximation.rtrbmcd.lstm_rt_rbm_cd import LSTMRTRBMCD
 from pydbm.activation.logistic_function import LogisticFunction
 # Tanh Function as activation function.
 from pydbm.activation.tanh_function import TanhFunction
+# Stochastic Gradient Descent(SGD) as optimizer.
+from pydbm.optimization.optparams.sgd import SGD
 ```
 
 Instantiate objects.
@@ -660,8 +727,8 @@ rnnrbm_builder.visible_neuron_part(LogisticFunction(), observed_arr.shape[-1])
 rnnrbm_builder.hidden_neuron_part(LogisticFunction(), 100)
 # Set units in RNN layer.
 rnnrbm_builder.rnn_neuron_part(TanhFunction())
-# Set graph and approximation function.
-rnnrbm_builder.graph_part(LSTMRTRBMCD())
+# Set graph and approximation function, delegating `SGD` which is-a `OptParams`.
+rnnrbm_builder.graph_part(LSTMRTRBMCD(opt_params=SGD()))
 # Building.
 rbm = rnnrbm_builder.get_result()
 ```

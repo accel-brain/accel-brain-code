@@ -163,7 +163,7 @@ annealing_model = SimulatedAnnealing(
 )
 ```
 
-Fit the `cost_arr` to `annealing_model`.
+Fit the `var_arr` to `annealing_model`.
 
 ```python
 annealing_model.var_arr = var_arr

@@ -1,32 +1,8 @@
 # Algorithmic Composition or Automatic Composition Library: pycomposer
 
-`pycomposer` is Python library for Algorithmic Composition or Automatic Composition by Reinforcement Learning such as Q-Learning and Recurrent Temporal Restricted Boltzmann Machine(RTRBM).
+`pycomposer` is Python library for Algorithmic Composition or Automatic Composition based on the stochastic music theory. Especialy, this library provides apprication of the generative model such as a Restricted Boltzmann Machine(RBM). And the Monte Carlo method such as Quantum Annealing model is used in this library as optimizer of compositions.
 
 This is BETA version.
-
-## Description
-
-`pycomposer` is Python library for Algorithmic Composition or Automatic Composition by Reinforcement Learning such as Q-Learning and Recurrent Temporal Restricted Boltzmann Machine(RTRBM). Q-Learning and RTRBM in this library allows you to extract the melody information about a MIDI tracks and these models can learn and inference patterns of the melody. And This library has wrapper class for converting melody data inferenced by Q-Learning and RTRBM into MIDI file.
-
-### Reinforcement Learning such as Q-Learning
-
-Q-Learning is a kind of `Temporal Difference learning`(`TD Learning`) that can be considered as hybrid of `Monte Carlo method` and `Dynamic Programming Method`. As `Monte Carlo method`, `TD Learning` algorithm can learn by experience without model of environment. And this learning algorithm is *functionally equivalent* of bootstrap method as `Dynamic Programming Method`.
-
-`Epsilon Greedy Q-Leanring` algorithm is `off-policy`. In this paradigm, *stochastic* searching and *deterministic* searching can coexist by hyperparameter ε (0 < ε < 1) that is probability that agent searches greedy. Greedy searching is *deterministic* in the sense that policy of agent follows the selection that maximizes the Q-Value.
-
-In this library, this Q-Learning algorithm is implemented based on my [pyqlearning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning) that can offer a broad range of concrete functions. For instance, adjustment and tuning of temperament or so-called Musical temperament such as Equal temperament, Meantone temperament, and 12 temperament can be easy-to-follow example as usecase. These temperament is the provision of the relative relationship of the pitches used for music. Although pure temperament frequency ratio corresponds to the ratio of whole numbers and then we can *discretely* distinguish between **Consonance** and **Dissonance**, but considering many variable parts, in engineering, that ratio should be measured as *continuous* and quantitative degree of consonance.
-
-In relation to reinforcement learning theory, this degree of consonance can be considered as Q-Value. The state-action value function `Q(state, action)` can be defined as `Q(last sound,  current sound)` that returns the degree of consonance of `last sound` as state and `current sound` as action. In other words, this Q-Learning `agent` searches for the Combinatorial Optimization of two sounds. However, more strictly, the main function of Q-Learning in this library is not selecting only optimal solution but scoring the degrees based on the relative evaluation.
-
-### Recurrent Temporal Restricted Boltzmann Machine(RTRBM)
-
-As illustrated in my [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern), Recurrent Temporal Restricted Boltzmann Machine(RTRBM) is a probabilistic time-series model which can be viewed as a temporal stack of RBMs, where each RBM has a contextual hidden state that is received from the previous RBM and is used to modulate its hidden units bias. Then this model can learn dependency structures in temporal patterns such as music, natural sentences, and n-gram.
-
-As concrete usecase of Algorithmic Composition, RTRBM can be considered as generative model to learn probability distribution of tone row, pitch classes, or time-series pattern of sounds. The function of RTRBM model is inferencing a linear succession of musical tones that the listener perceives as a single entity.
-
-## Documentation
-
-Full documentation is available on [https://code.accel-brain.com/Algorithmic-Composition/](https://code.accel-brain.com/Algorithmic-Composition/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
 
 ## Installation
 
@@ -55,6 +31,20 @@ Installers for the latest released version are available at the Python package i
 - pretty_midi: latest.
 - [pyqlearning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning)
 - [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern)
+
+## Documentation
+
+Full documentation is available on [https://code.accel-brain.com/Algorithmic-Composition/](https://code.accel-brain.com/Algorithmic-Composition/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
+
+## Description
+
+`pycomposer` is Python library for Algorithmic Composition or Automatic Composition based on the stochastic music theory. Especialy, this library provides apprication of the generative model such as a **Restricted Boltzmann Machine**(RBM), which can be expanded as a **Recurrent Temporal Restricted Boltzmann Machine**(RTRBM) to learn probability distribution of tone row, pitch classes, or time-series pattern of sounds. The function of RTRBM model is inferencing a linear succession of musical tones that the listener perceives as a single entity.
+
+And the **Monte Carlo method** such as **Quantum Annealing** model, which can be considered as structural expansion of the **Simulated Annealing**, is used in this library as optimizer of compositions. Simulated Annealing is a probabilistic single solution based search method inspired by the annealing process in metallurgy. Annealing is a physical process referred to as tempering certain alloys of metal, glass, or crystal by heating above its melting point, holding its temperature, and then cooling it very slowly until it solidifies into a perfect crystalline structure. The simulation of this process is known as simulated annealing.
+
+There are many functional extensions and functional equivalents of **Simulated Annealing**. For instance, **Adaptive Simulated Annealing**, also known as the very fast simulated reannealing, is a very efficient version of simulated annealing. And **Quantum Monte Carlo**, which is generally known a stochastic method to solve the Schrödinger equation, is one of the earliest types of solution in order to simulate the **Quantum Annealing** in classical computer. In summary, one of the function of this algorithm is to solve the ground state search problem which is known as logically equivalent to combinatorial optimization problem.
+
+`pycomposer` is Python library which provides wrapper classes for extracting sequencial data from MIDI files, feature extraction from this sequencial data by generative models, generating new sequencial data by drawing random samples from a Gaussian distribution, optimizing generated data by anneling models, and converting optimized data into new MIDI file.
 
 ## Demonstration
 

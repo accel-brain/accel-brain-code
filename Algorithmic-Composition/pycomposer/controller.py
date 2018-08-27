@@ -92,6 +92,8 @@ class Controller(object):
             opt_df.start = opt_df.start - 180
             opt_df.end = opt_df.end - 180
 
+        opt_df = opt_df[opt_df.duration < midi_df.duration.mean()]
+
         opt_df["program"] = program
         opt_df["pitch"] = opt_df["pitch"].astype(int)
         opt_df = opt_df[opt_df.pitch < 127]

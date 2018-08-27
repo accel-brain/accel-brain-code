@@ -44,6 +44,6 @@ class RBMCostFunction(CostFunctionable):
             axis=(inferenced_arr.ndim - 1)
         )
         
-        self.__logger.debug("Epoch: " + str(self.__epoch) + " Cost: " + str(cost.mean()))
+        self.__logger.debug("Cycle: " + str(self.__epoch) + " Cost: " + str(cost.mean()))
 
         return cost.mean()

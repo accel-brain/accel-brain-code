@@ -39,6 +39,7 @@ class RTRBM(RestrictedBoltzmannMachine):
             training_count=training_count, 
             batch_size=batch_size
         )
+        self.__batch_size = batch_size
     
     def inference(
         self,
@@ -74,14 +75,30 @@ class RTRBM(RestrictedBoltzmannMachine):
             training_count = traning_count
             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
 
-        self.approximate_inferencing(
-            observed_data_arr,
-            training_count=training_count, 
-            r_batch_size=r_batch_size
-        )
+        feature_points_arr = None
+        if self.__batch_size > 0:
+            for i in range(int(observed_data_arr.shape[0] / self.__batch_size)):
+                start_index = i * self.__batch_size
+                end_index = (i + 1) * self.__batch_size
 
-        # The feature points can be observed data points.
-        return self.graph.inferenced_arr
+                self.approximate_inferencing(
+                    observed_data_arr[start_index:end_index],
+                    training_count=training_count, 
+                    r_batch_size=r_batch_size
+                )
+                if feature_points_arr is None:
+                    feature_points_arr = self.graph.inferenced_arr
+                else:
+                    feature_points_arr = np.r_[feature_points_arr, self.graph.inferenced_arr]
+        else:
+            self.approximate_inferencing(
+                observed_data_arr,
+                training_count=training_count, 
+                r_batch_size=r_batch_size
+            )
+            feature_points_arr = self.graph.inferenced_arr
+
+        return feature_points_arr
 
     def get_feature_points(self):
         '''

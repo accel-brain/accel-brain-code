@@ -181,17 +181,13 @@ class RTRBMCD(ApproximateInterface):
                         self.graph.visible_activity_arr
                     )
                 self.wake_sleep_inference(self.graph.visible_activity_arr)
-                if counter + 1 == training_count:
-                    if inferenced_arr.shape[0] == 0:
-                        inferenced_arr = self.graph.visible_activity_arr
-                        feature_points_arr = self.graph.hidden_activity_arr
-                    else:
-                        inferenced_arr = np.vstack([inferenced_arr, self.graph.visible_activity_arr])
-                        feature_points_arr = np.vstack([feature_points_arr, self.graph.hidden_activity_arr])
 
             if r_batch_size != -1:
                 # Back propagation.
                 self.back_propagation()
+
+        inferenced_arr = self.graph.visible_activity_arr
+        feature_points_arr = self.graph.hidden_activity_arr
 
         self.graph.inferenced_arr = inferenced_arr
         self.graph.feature_points_arr = feature_points_arr

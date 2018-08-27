@@ -175,16 +175,14 @@ class RTRBMCD(ApproximateInterface):
             for cycle_index in range(batch_observed_arr.shape[1]):
                 # RNN learning.
                 self.rnn_learn(batch_observed_arr[:, cycle_index])
-                if r_batch_size != -1:
-                    self.memorize_activity(
-                        batch_observed_arr[:, cycle_index],
-                        self.graph.visible_activity_arr
-                    )
+                self.memorize_activity(
+                    batch_observed_arr[:, cycle_index],
+                    self.graph.visible_activity_arr
+                )
                 self.wake_sleep_inference(self.graph.visible_activity_arr)
 
-            if r_batch_size != -1:
-                # Back propagation.
-                self.back_propagation()
+            # Back propagation.
+            self.back_propagation()
 
         inferenced_arr = self.graph.visible_activity_arr
         feature_points_arr = self.graph.hidden_activity_arr

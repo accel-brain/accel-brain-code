@@ -31,8 +31,8 @@ class LSTMRTRBMQMC(RBMAnnealing):
         Build `RestrictedBoltzmmanMachine`.
         
         Args:
-            visible_num:    The number of units in visible layer.
-            hidden_num:     The number of units in hidden layer.
+            visible_num:    The number of units in RBM's visible layer.
+            hidden_num:     The number of units in RBM's hidden layer.
             learning_rate:  Learning rate.
         
         Returns:

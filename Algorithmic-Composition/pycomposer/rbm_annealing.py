@@ -11,21 +11,13 @@ class RBMAnnealing(metaclass=ABCMeta):
     Composer based on Restricted Boltzmann Machine and Annealing Model.
     '''
     
-    def __init__(self, cycle_len=30, time_fraction=0.01, octave=8):
+    def __init__(self, cycle_len=30):
         '''
         Init.
-        
-        Args:
-            cycle_len:          One cycle length.
-            time_fraction:      Time fraction.
-            octave:             Octave.
 
         '''
         logger = getLogger("pycomposer")
         self.__logger = logger
-        self.__cycle_len = cycle_len
-        self.__time_fraction = time_fraction
-        self.__octave = octave
 
     @abstractmethod
     def create_rbm(self, visible_num, hidden_num, learning_rate):
@@ -33,8 +25,8 @@ class RBMAnnealing(metaclass=ABCMeta):
         Build `RestrictedBoltzmmanMachine`.
         
         Args:
-            visible_num:    The number of units in visible layer.
-            hidden_num:     The number of units in hidden layer.
+            visible_num:    The number of units in RBM's visible layer.
+            hidden_num:     The number of units in RBM's hidden layer.
             learning_rate:  Learning rate.
         
         Returns:
@@ -61,6 +53,8 @@ class RBMAnnealing(metaclass=ABCMeta):
     def compose(
         self,
         midi_df,
+        cycle_len=8,
+        octave=5,
         epoch=100,
         batch_size=10,
         learning_rate=1e-05,
@@ -71,15 +65,26 @@ class RBMAnnealing(metaclass=ABCMeta):
         Init.
         
         Args:
-            midi_df:                       `pd.DataFrame` of MIDI file.
+            midi_df:            `pd.DataFrame` of MIDI file.
+            cycle_len:          One cycle length observed by RBM as one sequencial data.
+            octave:             The octave of music to be composed.
+            epoch:              Epoch in RBM's mini-batch training.
+            batch_size:         Batch size in RBM's mini-batch training.
+            learning_rate:      Learning rate for RBM.
+            hidden_num:         The number of units in hidden layer of RBM.
+            annealing_cycles:   The number of cycles of annealing.
 
+        Returns:
+            `pd.DataFrame` of composed data.
         '''
         # Save only in learning.
         self.__max_pitch = midi_df.pitch.max()
         self.__min_pitch = midi_df.pitch.min()
 
+        midi_df.pitch = midi_df.pitch % 12
+
         # Extract observed data points.
-        observed_arr = self.__preprocess(midi_df)
+        observed_arr = self.__preprocess(midi_df, cycle_len)
         self.__logger.debug("The shape of observed data points: " + str(observed_arr.shape))
 
         rbm = self.create_rbm(
@@ -116,7 +121,7 @@ class RBMAnnealing(metaclass=ABCMeta):
         for i in range(annealing_cycles):
             generated_df = self.__generate(midi_df)
             generated_df_list[i] = generated_df
-            test_arr = self.__preprocess(generated_df)
+            test_arr = self.__preprocess(generated_df, cycle_len)
             if test_arr.shape[0] > observed_arr.shape[0]:
                 test_arr = test_arr[:observed_arr.shape[0]]
             elif test_arr.shape[0] < observed_arr.shape[0]:
@@ -138,25 +143,27 @@ class RBMAnnealing(metaclass=ABCMeta):
             ][0][4])
         ]
         
+        opt_df["pitch"] = 12 + (opt_df["pitch"] * octave)
+        
         self.__predicted_log_arr = annealing_model.predicted_log_arr
         self.__generated_df_list = generated_df_list
         return opt_df
 
-    def __preprocess(self, midi_df_):
+    def __preprocess(self, midi_df_, cycle_len):
         observed_arr_list = []
         midi_df = midi_df_.copy()
         midi_df = midi_df.dropna()
-        
+
         midi_df.pitch = (midi_df.pitch - midi_df.pitch.min()) / (midi_df.pitch.max() - midi_df.pitch.min())
         midi_df.start = (midi_df.start - midi_df.start.min()) / (midi_df.start.max() - midi_df.start.min())
         midi_df.end = (midi_df.end - midi_df.end.min()) / (midi_df.end.max() - midi_df.end.min())
         midi_df.duration = (midi_df.duration - midi_df.duration.min()) / (midi_df.duration.max() - midi_df.duration.min())
         midi_df.velocity = (midi_df.velocity - midi_df.velocity.min()) / (midi_df.velocity.max() - midi_df.velocity.min())
 
-        observed_arr = np.empty((midi_df.shape[0] - self.__cycle_len, self.__cycle_len, 4))
-        for i in range(self.__cycle_len, midi_df.shape[0]):
-            df = midi_df.iloc[i-self.__cycle_len:i, :]
-            observed_arr[i-self.__cycle_len] = df[["pitch", "start", "duration", "velocity"]].values 
+        observed_arr = np.empty((midi_df.shape[0] - cycle_len, cycle_len, 4))
+        for i in range(cycle_len, midi_df.shape[0]):
+            df = midi_df.iloc[i-cycle_len:i, :]
+            observed_arr[i-cycle_len] = df[["pitch", "start", "duration", "velocity"]].values 
         observed_arr = observed_arr.astype(np.float64)
         
         return observed_arr
@@ -172,6 +179,7 @@ class RBMAnnealing(metaclass=ABCMeta):
             scale=midi_df["duration"].std(),
             size=midi_df.shape[0]
         )
+        duration_arr[duration_arr < 0] = duration_arr[duration_arr > 0].min()
         velocity_arr = np.random.normal(
             loc=midi_df["velocity"].mean(),
             scale=midi_df["velocity"].std(),
@@ -201,7 +209,9 @@ class RBMAnnealing(metaclass=ABCMeta):
         )
         generated_df["start"] = generated_df["start"] + (generated_df["start"].min() * -1)
         generated_df["end"] = generated_df["start"] + generated_df["duration"]
-        
+
+        generated_df.pitch = generated_df.pitch % 12
+
         generated_df = generated_df.sort_values(by=["start", "end"])
         generated_df = generated_df.dropna()
         return generated_df

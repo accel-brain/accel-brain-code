@@ -285,10 +285,10 @@ from pyqlearning.annealingmodel.quantum_monte_carlo import QuantumMonteCarlo
 from pyqlearning.annealingmodel.distancecomputable.cost_as_distance import CostAsDistance
 
 # User defined function which is-a `CostFuntionable`.
-cost_funtionable = YourCostFunctions()
+cost_functionable = YourCostFunctions()
 
 # Compute cost as distance for `QuantumMonteCarlo`.
-distance_computable = CostAsDistance(params_arr, cost_funtionable)
+distance_computable = CostAsDistance(params_arr, cost_functionable)
 
 # Init.
 annealing_model = QuantumMonteCarlo(

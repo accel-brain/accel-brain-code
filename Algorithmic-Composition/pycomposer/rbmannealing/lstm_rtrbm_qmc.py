@@ -76,7 +76,7 @@ class LSTMRTRBMQMC(RBMAnnealing):
             distance_computable=distance_computable,
 
             # The number of annealing cycles.
-            cycles_num=100,
+            cycles_num=cycles_num,
 
             # Inverse temperature (Beta).
             inverse_temperature_beta=0.1,
@@ -91,10 +91,10 @@ class LSTMRTRBMQMC(RBMAnnealing):
             trotter_dimention=10,
 
             # The number of Monte Carlo steps.
-            mc_step=100,
+            mc_step=cycles_num,
 
             # The number of parameters which can be optimized.
-            point_num=100,
+            point_num=cycles_num,
 
             # Default `np.ndarray` of 2-D spin glass in Ising model.
             spin_arr=None,

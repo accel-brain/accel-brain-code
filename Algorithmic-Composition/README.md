@@ -38,7 +38,15 @@ Full documentation is available on [https://code.accel-brain.com/Algorithmic-Com
 
 ## Description
 
-`pycomposer` is Python library which provides wrapper classes for extracting sequencial data from MIDI files, feature extraction from this sequencial data by generative models, generating new sequencial data by drawing random samples from a Gaussian distribution, optimizing generated data by anneling models, and converting optimized data into new MIDI file. In order to realize these functions, this library implements two main algorithms: **Restricted Boltzmann Machine**(RBM) as a Generative model and **Quantum Monte Carlo**(QMC) as an Annealing model.
+`pycomposer` is Python library which provides wrapper classes for:
+
+    - reading sequencial data from MIDI files, 
+    - extracting feature points of observed data points from this sequencial data by *generative models*, 
+    - generating new sequencial data by compositions based on the Twelve tone technique, 
+    - optimizing generated data by *anneling models*, 
+    - and converting optimized data into new MIDI file.
+
+In order to realize these functions, this library implements two main algorithms: **Restricted Boltzmann Machine**(RBM) as a Generative model and **Quantum Monte Carlo**(QMC) as an Annealing model. The former model can inference feature points, which can be considered, if likened, prior knowledge and limiting conditions of composition. The function of the latter model is to minimize Kullback–Leibler divergences (KL divergences) of those inferenced feature points and new sequencial data points.
 
 ### Restricted Boltzmann Machine as a Generative model.
 
@@ -50,7 +58,7 @@ The RTRBM can be understood as a sequence of conditional RBMs whose parameters a
 
 And the **Monte Carlo method** such as **Quantum Annealing** model, which can be considered as structural expansion of the **Simulated Annealing**, is used in this library as optimizer of compositions. Simulated Annealing is a probabilistic single solution based search method inspired by the annealing process in metallurgy. Annealing is a physical process referred to as tempering certain alloys of metal, glass, or crystal by heating above its melting point, holding its temperature, and then cooling it very slowly until it solidifies into a perfect crystalline structure. The simulation of this process is known as simulated annealing.
 
-There are many functional extensions and functional equivalents of **Simulated Annealing**. For instance, **Adaptive Simulated Annealing**, also known as the very fast simulated reannealing, is a very efficient version of simulated annealing. And **Quantum Monte Carlo**, which is generally known a stochastic method to solve the Schrödinger equation, is one of the earliest types of solution in order to simulate the **Quantum Annealing** in classical computer. In summary, one of the function of this algorithm is to solve the ground state search problem which is known as logically equivalent to combinatorial optimization problem.
+There are many structural extensions and functional equivalents of **Simulated Annealing**. For instance, **Adaptive Simulated Annealing**, also known as the very fast simulated reannealing, is a very efficient version of simulated annealing. And **Quantum Monte Carlo**, which is generally known a stochastic method to solve the Schrödinger equation, is one of the earliest types of solution in order to simulate the **Quantum Annealing** in classical computer. In summary, one of the function of this algorithm is to solve the ground state search problem which is known as logically equivalent to combinatorial optimization problem.
 
 ## Demonstration
 
@@ -76,7 +84,7 @@ controller.compose(
     # Saved file path.
     saved_midi_path="/path/to/your/midi/output.mid",
     # One cycle length observed by RBM as one sequencial data.
-    cycle_len=8,
+    cycle_len=12,
     # The octave of music to be composed.
     octave=7,
     # Epoch in RBM's mini-batch training.

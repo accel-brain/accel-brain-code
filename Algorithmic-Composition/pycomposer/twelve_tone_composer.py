@@ -9,31 +9,39 @@ class TwelveToneComposer(object):
     Create 12 tone row and compose with the transposition, retrograde, and inversion.
     '''
     
-    def generate(self, rows_num=10, octave=8):
+    def generate(self, rows_num=10, start_octave=6, octave_range=(5, 7)):
         '''
         Composition.
 
         Args:
-            rows_num:  The number of twelve tone rows.
-            octave:    Octave notation given in the International Organization for Standardization  ISO system, 
-                       ISO was formed to include/replace the American National Standards Institute (ANSI) 
-                       and Deutsches Institut für Normung (DIN), the German standards institute.
+            rows_num:        The number of twelve tone rows.
+            start_octave:    Octave in first row.
+            octave_range:    `Tuple` of range of octave. The shape is: (Min, Max).
         
         Returns:
             `np.ndarray` of twelve tone rows.
         '''
+        min_octave, max_octave = octave_range
+        if min_octave > start_octave or max_octave < start_octave:
+            raise ValueError("`start_octave` is invalid in relation to `octave_range`.")
+
+        self.__min_pitch = 12 * (int(min_octave)+1)
+        self.__max_pitch = 12 * (int(max_octave)+1)
+
         twelve_tones_arr = np.empty((rows_num, 12))
         for i in range(rows_num):
             if i == 0:
-                twelve_tones_arr[i] = self.compose(octave)
+                twelve_tones_arr[i] = self.compose(start_octave)
             else:
                 flag = np.random.randint(low=0, high=4)
                 if flag == 0:
-                    add_pitch = np.random.randint(low=-6, high=6)
-                    if twelve_tones_arr[i-1][twelve_tones_arr[i-1] + add_pitch > 127].shape[0]:
-                        add_pitch = 127 - twelve_tones_arr[i-1].max()
-                    if twelve_tones_arr[i-1][twelve_tones_arr[i-1] + add_pitch <= 0].shape[0]:
-                        add_pitch = 1 - twelve_tones_arr[i-1].min()
+                    high = self.__max_pitch - twelve_tones_arr[i-1].max()
+                    low = self.__min_pitch - twelve_tones_arr[i-1].min()
+                    add_pitch = np.random.randint(low=low, high=high)
+                    if twelve_tones_arr[i-1][twelve_tones_arr[i-1] + add_pitch > self.__max_pitch].shape[0]:
+                        add_pitch = self.__max_pitch - twelve_tones_arr[i-1].max()
+                    if twelve_tones_arr[i-1][twelve_tones_arr[i-1] + add_pitch <= self.__min_pitch].shape[0]:
+                        add_pitch = self.__min_pitch + 1 - twelve_tones_arr[i-1].min()
 
                     twelve_tones_arr[i] = self.transpose(twelve_tones_arr[i-1], add_pitch)
 
@@ -46,7 +54,7 @@ class TwelveToneComposer(object):
                     axis = np.random.randint(low=0, high=twelve_tones_arr[i-1].shape[0])
                     twelve_tones_arr[i] = self.inverse_retrograde(twelve_tones_arr[i-1], axis)
                 else:
-                    twelve_tones_arr[i] = self.compose(octave)
+                    twelve_tones_arr[i] = self.compose(start_octave)
 
         return twelve_tones_arr.ravel()
 

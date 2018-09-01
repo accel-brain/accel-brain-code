@@ -58,16 +58,16 @@ class Controller(object):
         Execute composition.
         
         Args:
-            learned_midi_path:  The file path which is extracted in learning.
-            saved_midi_path:    Saved file path.
-            cycle_len:          One cycle length observed by RBM as one sequencial data.
-            octave:             The octave of music to be composed.
-            epoch:              Epoch in RBM's mini-batch training.
-            batch_size:         Batch size in RBM's mini-batch training.
-            learning_rate:      Learning rate for RBM.
-            hidden_num:         The number of units in hidden layer of RBM.
-            annealing_cycles:   The number of cycles of annealing.
-            program:            MIDI program number (instrument index), in [0, 127].
+            learned_midi_path:          The `list` of file path which is extracted in learning.
+            saved_midi_path:            Saved file path.
+            cycle_len:                  One cycle length observed by RBM as one sequencial data.
+            octave:                     The octave of music to be composed.
+            epoch:                      Epoch in RBM's mini-batch training.
+            batch_size:                 Batch size in RBM's mini-batch training.
+            learning_rate:              Learning rate for RBM.
+            hidden_num:                 The number of units in hidden layer of RBM.
+            annealing_cycles:           The number of cycles of annealing.
+            program:                    MIDI program number (instrument index), in [0, 127].
 
         '''
         midi_vectorlizer = MidiVectorlizer()
@@ -75,22 +75,20 @@ class Controller(object):
         midi_df = midi_df.sort_values(by=["start", "end"])
         midi_df = midi_df.dropna()
 
-        rbm_annealing = LSTMRTRBMQMC()
-        opt_df = rbm_annealing.compose(
-            midi_df=midi_df,
+        rbm_annealing = LSTMRTRBMQMC(
             cycle_len=cycle_len,
-            octave=octave,
             batch_size=batch_size,
             epoch=epoch,
             learning_rate=learning_rate,
             hidden_num=hidden_num,
             annealing_cycles=annealing_cycles
         )
-
-        if opt_df[opt_df.start > 180].shape[0]:
-            opt_df = opt_df[opt_df.start > 180]
-            opt_df.start = opt_df.start - 180
-            opt_df.end = opt_df.end - 180
+        rbm_annealing.learn(
+            midi_df=midi_df
+        )
+        opt_df = rbm_annealing.compose(
+            octave=octave
+        )
 
         opt_df = opt_df[opt_df.duration < midi_df.duration.mean()]
 

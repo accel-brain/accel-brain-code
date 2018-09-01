@@ -39,11 +39,11 @@ class RBMCostFunction(CostFunctionable):
             r_batch_size=self.__batch_size
         )
 
-        cost = np.sum(
+        cost_arr = np.sum(
             (inferenced_arr + 1e-08) * np.log((inferenced_arr + 1e-08) / (self.__inferenced_arr + 1e-08)),
             axis=(inferenced_arr.ndim - 1)
         )
         
-        self.__logger.debug("Cycle: " + str(self.__epoch) + " Cost: " + str(cost.mean()))
+        self.__logger.debug("Cycle: " + str(self.__epoch) + " Cost: " + str(cost_arr.mean()))
 
-        return cost.mean()
+        return cost_arr.mean()

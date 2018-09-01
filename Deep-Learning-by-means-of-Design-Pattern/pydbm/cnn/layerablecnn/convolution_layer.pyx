@@ -173,12 +173,15 @@ class ConvolutionLayer(LayerableCNN):
         "work by swapping the forward and backward passes of a convolution." (Dumoulin, V., & Visin, F. 2016, p20.)
 
         Args:
-            delta_arr:              4-rank array like or sparse matrix.
-        
-        Returns:
-            Tuple(4-rank array like or sparse matrix., 2-rank array like or sparse matrix.)
+            delta_arr:    4-rank array like or sparse matrix.
 
-        Reference:
+        Returns:
+            Tuple(
+                4-rank array like or sparse matrix.,
+                2-rank array like or sparse matrix.
+            )
+
+        References:
             Dumoulin, V., & V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
 
         '''

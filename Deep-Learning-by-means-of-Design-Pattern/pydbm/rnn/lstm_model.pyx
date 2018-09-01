@@ -309,7 +309,7 @@ class LSTMModel(ReconstructableModel):
         np.ndarray[DOUBLE_t, ndim=2] hidden_activity_arr=None,
         np.ndarray[DOUBLE_t, ndim=2] rnn_activity_arr=None
     ):
-        '''
+        r'''
         Inference the feature points to reconstruct the time-series.
 
         Override.
@@ -416,7 +416,7 @@ class LSTMModel(ReconstructableModel):
         return _pred_arr
 
     def output_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] pred_arr, np.ndarray[DOUBLE_t, ndim=2] delta_arr):
-        '''
+        r'''
         Back propagation in output layer.
 
         Args:
@@ -441,7 +441,7 @@ class LSTMModel(ReconstructableModel):
         return (_delta_arr, grads_list)
 
     def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] delta_output_arr):
-        '''
+        r'''
         Back propagation in hidden layer.
         
         Args:
@@ -586,7 +586,7 @@ class LSTMModel(ReconstructableModel):
         np.ndarray delta_rnn_arr,
         int cycle
     ):
-        '''
+        r'''
         Back propagation in LSTM gate.
         
         Args:

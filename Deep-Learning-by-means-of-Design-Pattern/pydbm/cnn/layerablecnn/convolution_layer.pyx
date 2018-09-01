@@ -168,7 +168,7 @@ class ConvolutionLayer(LayerableCNN):
         return delta_img_arr
 
     def deconvolve(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):
-        '''
+        r'''
         Deconvolution also called transposed convolutions
         "work by swapping the forward and backward passes of a convolution." (Dumoulin, V., & Visin, F. 2016, p20.)
 

@@ -242,7 +242,7 @@ class EncoderDecoderController(object):
         np.ndarray[DOUBLE_t, ndim=2] hidden_activity_arr=None,
         np.ndarray[DOUBLE_t, ndim=2] rnn_activity_arr=None
     ):
-        '''
+        r'''
         Inference the feature points to reconstruct the time-series.
 
         Override.

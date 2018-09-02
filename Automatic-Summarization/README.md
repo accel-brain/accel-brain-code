@@ -4,7 +4,7 @@
 
 ## Description
 
-The function of this library is automatic summarization using a kind of natural language processing. This library enable you to create a summary with the major points of the original document or web-scraped text that filtered by text clustering. And this library applies [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) to implement **Encoder/Decoder based on LSTM**, improving the accuracy of summarization.
+The function of this library is automatic summarization using a kind of natural language processing. This library enable you to create a summary with the major points of the original document or web-scraped text that filtered by text clustering. And this library applies [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) to implement **Encoder/Decoder based on LSTM** and **LSTM-RTRBM**, improving the accuracy of summarization.
 
 ## Documentation
 
@@ -44,7 +44,7 @@ Installers for the latest released version are available at the Python package i
 - pyquery:v1.2.17 or higher.
     * Relevant only for web scraiping.
 - pydbm: v1.3.2 or higher.
-    * Only when using **Encoder/Decoder based on LSTM**.
+    * Only when using **Encoder/Decoder based on LSTM** and **LSTM-RTRBM**.
 
 ## Usecase: Summarize an English string argument.
 
@@ -291,7 +291,7 @@ similarity_filter = EncoderDecoderCosine(
 
 Refer to [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library for details related to Encoder/Decoder.
 
-### Functional equivalent: LSTM-RTRBM
+### Functional equivalent: Combination of LSTM-RTRBM and Cosine similarity
 
 The methodology of *equivalent-functionalism* enables us to introduce more functional equivalents and compare problem solutions structured with different algorithms and models in common problem setting. For example, in dimension reduction problem for temporal or sequencial patterns, the function of **LSTM-RTRBM** is equivalent to **Encoder/Decoder** based on **LSTM**.
 
@@ -420,9 +420,13 @@ The result is as follows.
 
 # References
 
+- Boulanger-Lewandowski, N., Bengio, Y., & Vincent, P. (2012). Modeling temporal dependencies in high-dimensional sequences: Application to polyphonic music generation and transcription. arXiv preprint arXiv:1206.6392.
 - Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.
 - Luhn, Hans Peter. "The automatic creation of literature abstracts." IBM Journal of research and development 2.2 (1958): 159-165.
+- Lyu, Q., Wu, Z., Zhu, J., & Meng, H. (2015, June). Modelling High-Dimensional Sequences with LSTM-RTRBM: Application to Polyphonic Music Generation. In IJCAI (pp. 4138-4139).
+- Lyu, Q., Wu, Z., & Zhu, J. (2015, October). Polyphonic music modelling with LSTM-RTRBM. In Proceedings of the 23rd ACM international conference on Multimedia (pp. 991-994). ACM.
 - Matthew A. Russell　著、佐藤 敏紀、瀬戸口 光宏、原川 浩一　監訳、長尾 高弘　訳『入門 ソーシャルデータ 第2版――ソーシャルウェブのデータマイニング』 2014年06月 発行
+- Sutskever, I., Hinton, G. E., & Taylor, G. W. (2009). The recurrent temporal restricted boltzmann machine. In Advances in Neural Information Processing Systems (pp. 1601-1608).
 
 ## More detail demos
 

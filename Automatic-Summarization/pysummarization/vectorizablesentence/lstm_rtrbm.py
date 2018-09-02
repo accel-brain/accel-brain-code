@@ -66,7 +66,7 @@ class LSTMRTRBM(VectorizableSentence):
             sentence_list:                  The `list` of sentences.
             token_master_list:              Unique `list` of tokens.
             hidden_neuron_count:            The number of units in hidden layer.
-            epochs:                         Epochs of Mini-batch.
+            training_count:                 The number of training.
             bath_size:                      Batch size of Mini-batch.
             learning_rate:                  Learning rate.
             seq_len:                        The length of one sequence.

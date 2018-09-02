@@ -11,6 +11,7 @@ from pysummarization.similarityfilter.dice import Dice
 from pysummarization.similarityfilter.jaccard import Jaccard
 from pysummarization.similarityfilter.simpson import Simpson
 from pysummarization.similarityfilter.encoder_decoder_cosine import EncoderDecoderCosine
+from pysummarization.similarityfilter.lstm_rtrbm_cosine import LSTMRTRBMCosine
 
 
 def Main(url, similarity_mode="TfIdfCosine", similarity_limit=0.75):
@@ -26,7 +27,6 @@ def Main(url, similarity_mode="TfIdfCosine", similarity_limit=0.75):
     web_scrape.readable_web_pdf = WebPDFReading()
     # Execute Web-scraping.
     document = web_scrape.scrape(url)
-
 
     if similarity_mode == "EncoderDecoderCosine":
         # The object of `Similarity Filter`.
@@ -44,6 +44,18 @@ def Main(url, similarity_mode="TfIdfCosine", similarity_limit=0.75):
             weight_limit=0.5,
             dropout_rate=0.5,
             test_size_rate=0.3,
+            debug_mode=True
+        )
+    elif similarity_mode == "LSTMRTRBMCosine":
+        # The object of `Similarity Filter`.
+        # The similarity observed by this object is so-called cosine similarity of manifolds,
+        # which is embedded in hidden layer of LSTM-RTRBM.
+        similarity_filter = LSTMRTRBMCosine(
+            document,
+            hidden_neuron_count=1000,
+            batch_size=10,
+            learning_rate=1e-03,
+            seq_len=5,
             debug_mode=True
         )
 

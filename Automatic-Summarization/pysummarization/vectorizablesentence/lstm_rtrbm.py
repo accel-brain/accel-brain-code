@@ -46,6 +46,7 @@ class LSTMRTRBM(VectorizableSentence):
             training_count=1, 
             r_batch_size=-1
         )
+
         return inferenced_arr
 
     def learn(
@@ -81,7 +82,7 @@ class LSTMRTRBM(VectorizableSentence):
         # Set units in visible layer.
         rnnrbm_builder.visible_neuron_part(LogisticFunction(), visible_num)
         # Set units in hidden layer.
-        rnnrbm_builder.hidden_neuron_part(LogisticFunction(), hidden_num)
+        rnnrbm_builder.hidden_neuron_part(LogisticFunction(), hidden_neuron_count) 
         # Set units in RNN layer.
         rnnrbm_builder.rnn_neuron_part(TanhFunction())
         # Set graph and approximation function, delegating `SGD` which is-a `OptParams`.
@@ -103,25 +104,25 @@ class LSTMRTRBM(VectorizableSentence):
         self.__token_master_list = token_master_list
         self.__seq_len = seq_len
 
-    def __extract_token_list(self, sentence_list):
-        token_list = []
-        for _token_list in sentence_list:
-            token_list.append(_token_list)
-        return token_list
-
-    def __one_hot(self, token, token_master_list):
-        key = token_master_list.index(token)
-        arr = np.zeros(len(token_master_list))
-        arr[key] = 1
-        return arr
-
     def __setup_dataset(self, sentence_list, token_master_list, seq_len):
-        token_list = self.__extract_token_list(sentence_list)
-        observed_arr = np.empty((len(token_list), seq_len, len(token_master_list)))
-        for i in range(len(token_list) - seq_len):
-            seq_token_list = [None] * seq_len
+        sentence_len_list = [0] * len(sentence_list)
+        for i in range(len(sentence_list)):
+            sentence_len_list[i] = len(sentence_list[i])
+
+        observed_list = [None] * len(sentence_list)
+        for i in range(len(sentence_list)):
+            arr_list = [None] * seq_len
             for j in range(seq_len):
-                seq_token_list[j] = self.__one_hot(token_list[i+j], token_master_list)
-            observed_arr[i] = np.array(seq_token_list)
-        observed_arr = observed_arr.astype(np.float64)
+                arr = np.zeros(len(token_master_list))
+                try:
+                    token = sentence_list[i][j]
+                    arr[token_master_list.index(token)] = 1
+                except IndexError:
+                    pass
+                finally:
+                    arr = arr.astype(np.float64)
+                    arr_list[j] = arr
+            observed_list[i] = arr_list
+        observed_arr = np.array(observed_list)
         return observed_arr
+

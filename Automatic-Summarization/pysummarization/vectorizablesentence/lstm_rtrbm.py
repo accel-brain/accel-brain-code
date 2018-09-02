@@ -41,6 +41,7 @@ class LSTMRTRBM(VectorizableSentence):
             ]
         '''
         test_observed_arr = self.__setup_dataset(sentence_list, self.__token_master_list, self.__seq_len)
+ 
         inferenced_arr = self.__rbm.inference(
             test_observed_arr,
             training_count=1, 

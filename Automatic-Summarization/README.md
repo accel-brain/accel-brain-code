@@ -291,6 +291,35 @@ similarity_filter = EncoderDecoderCosine(
 
 Refer to [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library for details related to Encoder/Decoder.
 
+### Functional equivalent: LSTM-RTRBM
+
+The methodology of *equivalent-functionalism* enables us to introduce more functional equivalents and compare problem solutions structured with different algorithms and models in common problem setting. For example, in dimension reduction problem for temporal or sequencial patterns, the function of **LSTM-RTRBM** is equivalent to **Encoder/Decoder** based on **LSTM**.
+
+LSTM-RTRBM model integrates the ability of LSTM in memorizing and retrieving useful history information, together with the advantage of RBM in high dimensional data modelling. LSTM-RTRBM is a probabilistic time-series model which can be viewed as a temporal stack of RBMs, where each RBM has a contextual hidden state that is received from the previous RBM and is used to modulate its hidden units bias. This model can learn dependency structures in temporal patterns such as music, natural sentences, and n-gram.
+
+This library provides LSTM-RTRBM, which makes it possible to extract series features points of natural sentences. You can also extracted the result of dimensionality reduction and cosine similarity of the manifolds, which is embedded in hidden layer of LSTM-RTRBM, by coding as follows.
+
+```python
+from pysummarization.similarityfilter.lstm_rtrbm_cosine import LSTMRTRBMCosine
+
+similarity_filter = LSTMRTRBMCosine(
+    # String of natural sentences.
+    document,
+    # The number of hidden units.
+    hidden_neuron_count=1000,
+    # Batch size of Mini-batch.
+    batch_size=10,
+    # Learning rate.
+    learning_rate=1e-03,
+    # The length of one sequence.
+    seq_len=5,
+    # Debug mode or not.
+    debug_mode=True
+)
+```
+
+Refer to [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library for details related to LSTM-RTRBM.
+
 ### Calculating similarity
 
 If you want to calculate similarity between two sentences, call `calculate` method as follow.

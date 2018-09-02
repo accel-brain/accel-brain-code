@@ -1,0 +1,127 @@
+# -*- coding: utf-8 -*-
+from logging import getLogger
+import numpy as np
+from pysummarization.vectorizable_sentence import VectorizableSentence
+
+# `Builder` in `Builder Patter`.
+from pydbm.dbm.builders.lstm_rt_rbm_simple_builder import LSTMRTRBMSimpleBuilder
+# LSTM and Contrastive Divergence for function approximation.
+from pydbm.approximation.rtrbmcd.lstm_rt_rbm_cd import LSTMRTRBMCD
+# Logistic Function as activation function.
+from pydbm.activation.logistic_function import LogisticFunction
+# Tanh Function as activation function.
+from pydbm.activation.tanh_function import TanhFunction
+# Stochastic Gradient Descent(SGD) as optimizer.
+from pydbm.optimization.optparams.sgd import SGD
+
+
+class LSTMRTRBM(VectorizableSentence):
+    '''
+    Vectorize sentences by LSTM-RTRBM.
+    '''
+
+    def vectorize(self, sentence_list):
+        '''
+        Tokenize token list.
+        
+        Args:
+            sentence_list:   The list of tokenized sentences:
+                             [
+                                 [`token`, `token`, `token`, ...],
+                                 [`token`, `token`, `token`, ...],
+                                 [`token`, `token`, `token`, ...],
+                             ]
+        
+        Returns:
+            `np.ndarray`:
+            [
+                vector of token,
+                vector of token,
+                vector of token
+            ]
+        '''
+        test_observed_arr = self.__setup_dataset(sentence_list, self.__token_master_list, self.__seq_len)
+        inferenced_arr = self.__rbm.inference(
+            test_observed_arr,
+            training_count=1, 
+            r_batch_size=-1
+        )
+        return inferenced_arr
+
+    def learn(
+        self,
+        sentence_list,
+        token_master_list,
+        hidden_neuron_count=1000,
+        training_count=1,
+        batch_size=100,
+        learning_rate=1e-03,
+        seq_len=5
+    ):
+        '''
+        Init.
+        
+        Args:
+            sentence_list:                  The `list` of sentences.
+            token_master_list:              Unique `list` of tokens.
+            hidden_neuron_count:            The number of units in hidden layer.
+            epochs:                         Epochs of Mini-batch.
+            bath_size:                      Batch size of Mini-batch.
+            learning_rate:                  Learning rate.
+            seq_len:                        The length of one sequence.
+        '''
+        observed_arr = self.__setup_dataset(sentence_list, token_master_list, seq_len)
+
+        visible_num = observed_arr.shape[-1]
+
+        # `Builder` in `Builder Pattern` for LSTM-RTRBM.
+        rnnrbm_builder = LSTMRTRBMSimpleBuilder()
+        # Learning rate.
+        rnnrbm_builder.learning_rate = learning_rate
+        # Set units in visible layer.
+        rnnrbm_builder.visible_neuron_part(LogisticFunction(), visible_num)
+        # Set units in hidden layer.
+        rnnrbm_builder.hidden_neuron_part(LogisticFunction(), hidden_num)
+        # Set units in RNN layer.
+        rnnrbm_builder.rnn_neuron_part(TanhFunction())
+        # Set graph and approximation function, delegating `SGD` which is-a `OptParams`.
+        rnnrbm_builder.graph_part(LSTMRTRBMCD(opt_params=SGD()))
+        # Building.
+        rbm = rnnrbm_builder.get_result()
+        
+        # Learning.
+        rbm.learn(
+            # The `np.ndarray` of observed data points.
+            observed_arr,
+            # Training count.
+            training_count=training_count, 
+            # Batch size.
+            batch_size=batch_size
+        )
+        
+        self.__rbm = rbm
+        self.__token_master_list = token_master_list
+        self.__seq_len = seq_len
+
+    def __extract_token_list(self, sentence_list):
+        token_list = []
+        for _token_list in sentence_list:
+            token_list.append(_token_list)
+        return token_list
+
+    def __one_hot(self, token, token_master_list):
+        key = token_master_list.index(token)
+        arr = np.zeros(len(token_master_list))
+        arr[key] = 1
+        return arr
+
+    def __setup_dataset(self, sentence_list, token_master_list, seq_len):
+        token_list = self.__extract_token_list(sentence_list)
+        observed_arr = np.empty((len(token_list), seq_len, len(token_master_list)))
+        for i in range(len(token_list) - seq_len):
+            seq_token_list = [None] * seq_len
+            for j in range(seq_len):
+                seq_token_list[j] = self.__one_hot(token_list[i+j], token_master_list)
+            observed_arr[i] = np.array(seq_token_list)
+        observed_arr = observed_arr.astype(np.float64)
+        return observed_arr

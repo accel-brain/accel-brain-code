@@ -34,9 +34,15 @@ Installers for the latest released version are available at the Python package i
 
 - numpy: v1.13.3 or higher.
 - nltk: v3.2.3 or higher.
+
+#### Options
+
 - mecab-python3: v0.7 or higher.
+    * Relevant only for Japanese.
 - pdfminer2
+    * Relevant only for PDF files.
 - pyquery:v1.2.17 or higher.
+    * Relevant only for web scraiping.
 - pydbm: v1.3.2 or higher.
     * Only when using **Encoder/Decoder based on LSTM**.
 

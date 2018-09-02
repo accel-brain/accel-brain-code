@@ -11,7 +11,7 @@ def read_readme(file_name):
 
 setup(
     name='pysummarization',
-    version='1.0.8',
+    version='1.0.9',
     description='pysummarization is Python library for the automatic summarization, document abstraction, and text filtering in relation to Encoder/Decoder based on LSTM.',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',
@@ -30,5 +30,5 @@ setup(
     ],
     keywords='Automatic summarization document abstraction abstract text filtering',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
-    install_requires=['numpy', 'nltk', 'mecab-python3', 'pyquery', 'pdfminer2'],
+    install_requires=['numpy', 'nltk']
 )

@@ -52,8 +52,9 @@ def Main(url, similarity_mode="TfIdfCosine", similarity_limit=0.75):
         # which is embedded in hidden layer of LSTM-RTRBM.
         similarity_filter = LSTMRTRBMCosine(
             document,
+            training_count=1,
             hidden_neuron_count=1000,
-            batch_size=10,
+            batch_size=100,
             learning_rate=1e-03,
             seq_len=5,
             debug_mode=True

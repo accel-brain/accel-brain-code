@@ -58,6 +58,8 @@ class LSTMRTRBMCosine(SimilarityFilter):
             nlp_base.tokenizable_doc = tokenizable_doc
 
         sentence_list = nlp_base.listup_sentence(document)
+        if len(sentence_list) < batch_size:
+            raise ValueError("The number of sentence is insufficient.")
 
         all_token_list = []
         for i in range(len(sentence_list)):
@@ -78,6 +80,8 @@ class LSTMRTRBMCosine(SimilarityFilter):
         )
         self.__vectorlizable_sentence = vectorlizable_sentence
         self.__token_master_list = token_master_list
+        self.__sentence_list = sentence_list
+        self.__batch_size = batch_size
 
     def calculate(self, token_list_x, token_list_y):
         '''
@@ -94,8 +98,13 @@ class LSTMRTRBMCosine(SimilarityFilter):
         '''
         if len(token_list_x) == 0 or len(token_list_y) == 0:
             return 0.0
-        x_arr = self.__vectorlizable_sentence.vectorize([token_list_x])[0]
-        y_arr = self.__vectorlizable_sentence.vectorize([token_list_y])[0]
+
+        x_list = self.__sentence_list[:self.__batch_size-1]
+        y_list = self.__sentence_list[:self.__batch_size-1]
+        x_list.append(token_list_x)
+        y_list.append(token_list_y)
+        x_arr = self.__vectorlizable_sentence.vectorize(x_list)[-1]
+        y_arr = self.__vectorlizable_sentence.vectorize(y_list)[-1]
 
         dot_prod = np.dot(x_arr, y_arr)
         norm_x = np.linalg.norm(x_arr)

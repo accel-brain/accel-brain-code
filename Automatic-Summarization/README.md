@@ -297,6 +297,8 @@ The methodology of *equivalent-functionalism* enables us to introduce more funct
 
 LSTM-RTRBM model integrates the ability of LSTM in memorizing and retrieving useful history information, together with the advantage of RBM in high dimensional data modelling. LSTM-RTRBM is a probabilistic time-series model which can be viewed as a temporal stack of RBMs, where each RBM has a contextual hidden state that is received from the previous RBM and is used to modulate its hidden units bias. This model can learn dependency structures in temporal patterns such as music, natural sentences, and n-gram.
 
+This library provides LSTM-RTRBM, which makes it possible to extract series features points of natural sentences. You can also extracted the result of dimensionality reduction and cosine similarity of the manifolds, which is embedded in hidden layer of LSTM-RTRBM, by coding as follows.
+
 ```python
 from pysummarization.similarityfilter.lstm_rtrbm_cosine import LSTMRTRBMCosine
 

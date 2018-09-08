@@ -115,6 +115,7 @@ class EncoderDecoderCosine(SimilarityFilter):
         '''
         if len(token_list_x) == 0 or len(token_list_y) == 0:
             return 0.0
+
         x_arr = self.__vectorlizable_sentence.vectorize([token_list_x])[0]
         y_arr = self.__vectorlizable_sentence.vectorize([token_list_y])[0]
 

@@ -12,7 +12,7 @@ def read_readme(file_name):
 
 setup(
     name='pycomposer',
-    version='0.0.4',
+    version='0.0.5',
     description='pycomposer is Python library for Algorithmic Composition or Automatic Composition based on the stochastic music theory. Especialy, this library provides apprication of the generative model such as a Restricted Boltzmann Machine(RBM). And the Monte Carlo method such as Quantum Annealing model is used in this library as optimizer of compositions.',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',

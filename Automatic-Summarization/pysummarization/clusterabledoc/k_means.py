@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#i -*- coding: utf-8 -*-
 from pysummarization.clusterable_doc import ClusterableDoc
 import numpy as np
 
@@ -39,16 +39,15 @@ class KMeans(ClusterableDoc):
             `np.ndarray` of labeled data.
 
         '''
-        index_arr = np.arange(document_arr.shape[0])
-        np.random.shuffle(index_arr)
-
-        centroid_arr = index_arr[:self.__cluster_num]
-        self.__centroid_arr = document_arr[centroid_arr]
-
+        self.__centroid_arr = np.random.normal(loc=document_arr.mean(), scale=document_arr.std(), size=document_arr.shape)
         inferenced_arr = np.zeros(document_arr.shape)
         for _ in range(self.__max_iter):
-            inferenced_arr = np.array([np.array([self.__compute_distance(p_arr, c_arr) for c_arr in self.__centroid_arr]).argmin() for p_arr in document_arr])
-            self.__centroid_arr = np.array([np.mean(document_arr[inferenced_arr == i], axis=0) for i in range(self.__cluster_num)])
+            inferenced_arr = np.array([np.array([self.__compute_distance(p_arr, c_arr) for c_arr in self.__centroid_arr]) for p_arr in document_arr]) 
+            inferenced_arr = inferenced_arr.argmin(axis=1)
+            centroid_arr = np.array([np.mean(document_arr[inferenced_arr == i], axis=0) for i in range(self.__cluster_num)])
+            if np.nansum(centroid_arr) == 0:
+                continue
+            self.__centroid_arr = centroid_arr
 
         return inferenced_arr
 
@@ -66,7 +65,7 @@ class KMeans(ClusterableDoc):
         return inferenced_arr
 
     def __compute_distance(self, p_arr, c_arr):
-        return np.sum(np.square(p_arr - c_arr))
+        return np.nansum(np.square(p_arr - c_arr))
 
     def get_centroid_arr(self):
         ''' getter '''

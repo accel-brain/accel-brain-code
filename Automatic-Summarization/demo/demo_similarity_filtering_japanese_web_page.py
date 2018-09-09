@@ -12,8 +12,7 @@ from pysummarization.similarityfilter.jaccard import Jaccard
 from pysummarization.similarityfilter.simpson import Simpson
 from pysummarization.similarityfilter.encoder_decoder_cosine import EncoderDecoderCosine
 from pysummarization.similarityfilter.lstm_rtrbm_cosine import LSTMRTRBMCosine
-from pysummarization.similarityfilter.lstm_rtrbm_clustering import LSTMRTRBMClustering
-from pysummarization.clusterabledoc.k_means import KMeans
+
 
 
 def Main(url, similarity_mode="TfIdfCosine", similarity_limit=0.75):
@@ -56,24 +55,7 @@ def Main(url, similarity_mode="TfIdfCosine", similarity_limit=0.75):
         similarity_filter = LSTMRTRBMCosine(
             document,
             training_count=1,
-            hidden_neuron_count=1000,
-            batch_size=100,
-            learning_rate=1e-03,
-            seq_len=5,
-            debug_mode=True
-        )
-    
-    elif similarity_mode == "KMeans":
-        # The object of `Similarity Filter`.
-        # The similarity is observed by checking whether each sentence belonging to the same cluster, 
-        # and if so, the similarity is `1.0`, if not, the value is `0.0`.
-        # The data clustering algorithm is based on K-Means method, 
-        # learning data which is embedded in hidden layer of LSTM-RTRBM.
-        similarity_filter = LSTMRTRBMClustering(
-            document,
-            clusterable_doc=KMeans(cluster_num=10, max_iter=100),
-            tokenizable_doc=None,
-            hidden_neuron_count=1000,
+            hidden_neuron_count=100,
             batch_size=100,
             learning_rate=1e-03,
             seq_len=5,

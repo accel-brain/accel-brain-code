@@ -47,6 +47,7 @@ class SimulatedAnnealing(AnnealingModel):
         final_prob=0.001,
         start_pos=0,
         move_range=3,
+        tolerance_diff_e=None
     ):
         '''
         Initialize.
@@ -60,6 +61,9 @@ class SimulatedAnnealing(AnnealingModel):
             final_prob:           Probability of accepting worse solution at the end.
             start_pos:            The first searched position.
             move_range:           The range of moving in the feature map.
+            tolerance_diff_e:     Tolerance for the optimization.
+                                  When the ΔE is not improving by at least `tolerance_diff_e`
+                                  for two consecutive iterations, annealing will stops.
 
         '''
         if isinstance(cost_functionable, CostFunctionable):
@@ -73,6 +77,7 @@ class SimulatedAnnealing(AnnealingModel):
         self.__init_prob = init_prob
         self.__final_prob = final_prob
         self.__start_pos = start_pos
+        self.__tolerance_diff_e = tolerance_diff_e
         if move_range <= 1:
             move_range = 2
         self.__move_range = move_range
@@ -109,7 +114,9 @@ class SimulatedAnnealing(AnnealingModel):
         '''
         Annealing.
         '''
-        self.var_log_arr = np.zeros((self.__cycles_num + 1, self.var_arr.shape[1]))
+        shape_list = list(self.var_arr.shape)
+        shape_list[0] = self.__cycles_num + 1
+        self.var_log_arr = np.zeros(tuple(shape_list))
 
         current_pos = self.__start_pos
         current_var_arr = self.var_arr[current_pos, :]
@@ -123,6 +130,11 @@ class SimulatedAnnealing(AnnealingModel):
         pos_log_list = [current_pos]
         predicted_log_list = []
         for i in range(self.__cycles_num):
+            if isinstance(self.__tolerance_diff_e, float) and len(predicted_log_list) > 1:
+                diff = abs(predicted_log_list[-1][2] - predicted_log_list[-2][2])
+                if diff < self.__tolerance_diff_e:
+                    break
+
             for j in range(self.__trials_per_cycle):
                 current_pos = self.__move(current_pos)
                 pos_log_list.append(current_pos)
@@ -133,7 +145,11 @@ class SimulatedAnnealing(AnnealingModel):
                 if (cost_arr > current_cost_arr):
                     if (i == 0 and j == 0):
                         delta_e_avg = delta_e
-                    p = np.exp(-delta_e/(delta_e_avg * t))
+                    try:
+                        p = np.exp(-delta_e/(delta_e_avg * t))
+                    except ZeroDivisionError:
+                        p = 0.0
+
                     if (np.random.random() < p):
                         accept = True
                     else:
@@ -148,7 +164,9 @@ class SimulatedAnnealing(AnnealingModel):
                     self.__accepted_sol_num = self.__accepted_sol_num + 1.0
                     delta_e_avg = (delta_e_avg * (self.__accepted_sol_num - 1.0) +  delta_e) / self.__accepted_sol_num
                 predicted_log_list.append((cost_arr , delta_e, delta_e_avg, p, int(accept)))
+
             self.var_log_arr[i + 1] = current_var_arr
             self.computed_cost_arr[i + 1] = current_cost_arr
             t = t * self.__fractional_reduction
+
         self.predicted_log_arr = np.array(predicted_log_list)

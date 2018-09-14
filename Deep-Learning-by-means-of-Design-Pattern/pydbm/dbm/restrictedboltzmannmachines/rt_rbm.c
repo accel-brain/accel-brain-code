@@ -1670,6 +1670,7 @@ static const char __pyx_k_observed_data_arr[] = "observed_data_arr";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_feature_points_arr[] = "feature_points_arr";
 static const char __pyx_k_get_feature_points[] = "get_feature_points";
+static const char __pyx_k_hidden_activity_arr[] = "hidden_activity_arr";
 static const char __pyx_k_approximate_learning[] = "approximate_learning";
 static const char __pyx_k_approximate_inferencing[] = "approximate_inferencing";
 static const char __pyx_k_RTRBM_get_feature_points[] = "RTRBM.get_feature_points";
@@ -1710,6 +1711,7 @@ static PyObject *__pyx_n_s_end_index;
 static PyObject *__pyx_n_s_feature_points_arr;
 static PyObject *__pyx_n_s_get_feature_points;
 static PyObject *__pyx_n_s_graph;
+static PyObject *__pyx_n_s_hidden_activity_arr;
 static PyObject *__pyx_n_s_i;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_inference;
@@ -2723,12 +2725,12 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
   /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":110
  *             np.ndarray
  *         '''
- *         return self.graph.feature_points_arr             # <<<<<<<<<<<<<<
+ *         return self.graph.hidden_activity_arr             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_feature_points_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
@@ -5397,6 +5399,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_feature_points_arr, __pyx_k_feature_points_arr, sizeof(__pyx_k_feature_points_arr), 0, 0, 1, 1},
   {&__pyx_n_s_get_feature_points, __pyx_k_get_feature_points, sizeof(__pyx_k_get_feature_points), 0, 0, 1, 1},
   {&__pyx_n_s_graph, __pyx_k_graph, sizeof(__pyx_k_graph), 0, 0, 1, 1},
+  {&__pyx_n_s_hidden_activity_arr, __pyx_k_hidden_activity_arr, sizeof(__pyx_k_hidden_activity_arr), 0, 0, 1, 1},
   {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_inference, __pyx_k_inference, sizeof(__pyx_k_inference), 0, 0, 1, 1},

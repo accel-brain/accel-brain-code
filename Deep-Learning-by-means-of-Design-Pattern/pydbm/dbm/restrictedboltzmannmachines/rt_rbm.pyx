@@ -107,4 +107,4 @@ class RTRBM(RestrictedBoltzmannMachine):
         Returns:
             np.ndarray
         '''
-        return self.graph.feature_points_arr
+        return self.graph.hidden_activity_arr

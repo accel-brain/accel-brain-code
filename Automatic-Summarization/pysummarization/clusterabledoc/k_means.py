@@ -5,7 +5,7 @@ import numpy as np
 
 class KMeans(ClusterableDoc):
     '''
-    KMeans method.
+    K-Means method.
     '''
     
     # Centroid of clusters.

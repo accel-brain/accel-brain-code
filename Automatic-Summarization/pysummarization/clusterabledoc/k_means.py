@@ -17,16 +17,18 @@ class KMeans(ClusterableDoc):
     # Maximum number of iterations.
     __max_iter = 100
 
-    def __init__(self, cluster_num=2, max_iter=100):
+    def __init__(self, cluster_num=2, max_iter=100, init_noise_arr=None):
         '''
         Init.
 
         Args:
             cluster_num:     The number of clusters.
             max_iter:        Maximum number of iterations.
+            init_noise_arr:  `np.ndarray` of noise for initialization strategy.
         '''
         self.__cluster_num = cluster_num
         self.__max_iter = max_iter
+        self.__init_noise_arr = init_noise_arr
 
     def learn(self, document_arr):
         '''
@@ -41,6 +43,9 @@ class KMeans(ClusterableDoc):
         '''
         index_arr = np.arange(document_arr.shape[0])
         np.random.shuffle(index_arr)
+        
+        if self.__init_noise_arr is not None:
+            document_arr = document_arr + self.__init_noise_arr
 
         centroid_arr = index_arr[:self.__cluster_num]
         self.__centroid_arr = document_arr[centroid_arr]
@@ -62,6 +67,9 @@ class KMeans(ClusterableDoc):
         Retruns:
             `np.ndarray` of labeled data.
         '''
+        if self.__init_noise_arr is not None:
+            document_arr = document_arr + self.__init_noise_arr
+
         inferenced_arr = np.array([np.array([self.__compute_distance(p_arr, c_arr) for c_arr in self.__centroid_arr]).argmin() for p_arr in document_arr])
         return inferenced_arr
 

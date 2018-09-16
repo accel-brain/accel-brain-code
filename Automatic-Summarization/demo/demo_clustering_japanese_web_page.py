@@ -84,8 +84,8 @@ if __name__ == "__main__":
     else:
         similarity_mode = "TfIdfCosine"
     if len(sys.argv) > 3:
-        similarity_limit = float(sys.argv[3])
+        cluseter_num = int(sys.argv[3])
     else:
-        similarity_limit = 0.75
+        cluseter_num = 10
 
-    Main(url, similarity_mode, similarity_limit)
+    Main(url, similarity_mode, cluseter_num)

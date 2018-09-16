@@ -209,7 +209,7 @@ The result is as follows.
  ベクトル空間モデル キーワード等を各 次元 として設定した高次元 ベクトル空間 を想定し、検索の対象とするデータやユーザによる検索質問に何らかの加工を行い ベクトル を生成する
 ```
 
-## Usecase: Japanese Web-Page Summarization with Similarity Filter
+## Usecase: Summarization, filtering the mutually similar, tautological, pleonastic, or redundant sentences
 
 If the sentences you want to summarize consist of repetition of same or similar sense in different words, the summary results may also be redundant. Then before summarization, you should filter the mutually similar, tautological, pleonastic, or redundant sentences to extract features having an information quantity. The function of `SimilarityFilter` is to cut-off the sentences having the state of resembling or being alike by calculating the similarity measure.
 
@@ -477,7 +477,15 @@ Run the batch program: [demo/demo_similarity_filtering_japanese_web_page.py](htt
 python demo/demo_similarity_filtering_japanese_web_page.py {URL} {SimilarityFilter} {SimilarityLimit}
 ```
 - {URL}: web site URL.
-- {SimilarityFilter}: The object of `SimilarityFilter`: `Dice`, `Jaccard`, `Simpson`, `TfIdfCosine`, or `EncoderDecoderCosine`.
+- {SimilarityFilter}: The object of `SimilarityFilter`:
+   * `Dice`
+   * `Jaccard`
+   * `Simpson`
+   * `TfIdfCosine`
+   * `EncoderDecoderCosine`
+   * `EncoderDecoderClustering`
+   * `LSTMRTRBMCosine`
+   * `LSTMRTRBMClustering`
 - {SimilarityLimit}: The cut-off threshold.
 
 For instance, command line argument is as follows:

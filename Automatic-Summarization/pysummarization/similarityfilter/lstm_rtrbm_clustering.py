@@ -16,7 +16,7 @@ class LSTMRTRBMClustering(SimilarityFilter):
     
     def __init__(
         self,
-        document,
+        document=None,
         tokenizable_doc=None,
         hidden_neuron_count=1000,
         training_count=1,
@@ -52,17 +52,18 @@ class LSTMRTRBMClustering(SimilarityFilter):
             logger.setLevel(DEBUG)
             logger.addHandler(handler)
 
-        self.learn(
-            document=document,
-            tokenizable_doc=tokenizable_doc,
-            hidden_neuron_count=hidden_neuron_count,
-            training_count=training_count,
-            batch_size=batch_size,
-            learning_rate=learning_rate,
-            seq_len=seq_len,
-            cluster_num=cluster_num,
-            max_iter=max_iter
-        )
+        if document is not None:
+            self.learn(
+                document=document,
+                tokenizable_doc=tokenizable_doc,
+                hidden_neuron_count=hidden_neuron_count,
+                training_count=training_count,
+                batch_size=batch_size,
+                learning_rate=learning_rate,
+                seq_len=seq_len,
+                cluster_num=cluster_num,
+                max_iter=max_iter
+            )
 
     def learn(
         self,
@@ -164,12 +165,18 @@ class LSTMRTRBMClustering(SimilarityFilter):
         else:
             return 0.0
 
-    def get_labeled_arr(self):
-        ''' getter '''
-        return self.__labeled_arr
-
     def set_readonly(self, value):
         ''' setter '''
         raise TypeError()
+
+    def get_labeled_arr(self):
+        ''' getter '''
+        return self.__labeled_arr
     
     labeled_arr = property(get_labeled_arr, set_readonly)
+
+    def get_sentence_list(self):
+        ''' getter '''
+        return self.__sentence_list
+    
+    sentence_list = property(get_sentence_list, set_readonly)

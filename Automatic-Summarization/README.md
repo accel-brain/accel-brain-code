@@ -213,6 +213,8 @@ The result is as follows.
 
 If the sentences you want to summarize consist of repetition of same or similar sense in different words, the summary results may also be redundant. Then before summarization, you should filter the mutually similar, tautological, pleonastic, or redundant sentences to extract features having an information quantity. The function of `SimilarityFilter` is to cut-off the sentences having the state of resembling or being alike by calculating the similarity measure.
 
+But there is no reason to stick to a single similarity concept. *Modal logically*, the definition of this concept is *contingent*, like the concept of *distance*. Even if one similarity or distance function is defined in relation to a problem setting, there are always *functionally equivalent* algorithms to solve the problem setting. Then this library has a wide variety of subtyping polymorphisms of `SimilarityFilter`.
+
 ### Dice, Jaccard, and Simpson
 
 There are some classes for calculating the similarity measure. In this library, **Dice coefficient**, **Jaccard coefficient**, and **Simpson coefficient** between two sentences is calculated as follows.

@@ -5,7 +5,7 @@ from pysummarization.web_scraping import WebScraping
 from pysummarization.readablewebpdf.web_pdf_reading import WebPDFReading
 from pysummarization.similarityfilter.encoder_decoder_clustering import EncoderDecoderClustering
 from pysummarization.similarityfilter.lstm_rtrbm_clustering import LSTMRTRBMClustering
-
+import numpy as np
 
 
 def Main(url, similarity_mode="TfIdfCosine", cluster_num=10):
@@ -66,13 +66,14 @@ def Main(url, similarity_mode="TfIdfCosine", cluster_num=10):
     else:
         raise ValueError()
 
+
+    print("#" * 100)
     for i in range(cluster_num):
         print("Label: " + str(i))
-        print(
-            np.array(similarity_filter.sentence_list)[
-                similarity_filter.labeled_arr[similarity_filter.labeled_arr == i]
-            ]
-        )
+        key_arr = np.where(similarity_filter.labeled_arr == i)[0]
+        sentence_list = np.array(similarity_filter.sentence_list)[key_arr].tolist()
+        for j in range(len(sentence_list)):
+            print("".join(sentence_list[j]))
         print()
 
 if __name__ == "__main__":

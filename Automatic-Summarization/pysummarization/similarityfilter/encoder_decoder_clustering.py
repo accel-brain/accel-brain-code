@@ -170,7 +170,7 @@ class EncoderDecoderClustering(SimilarityFilter):
 
         self.__clusterable_doc = KMeans(
             cluster_num=cluster_num,
-            max_iter=max_iter
+            max_iter=max_iter,
             init_noise_arr=np.random.normal(size=feature_arr.shape)
         )
         self.__labeled_arr = self.__clusterable_doc.learn(feature_arr)

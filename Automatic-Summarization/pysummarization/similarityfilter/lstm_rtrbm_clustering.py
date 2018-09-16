@@ -42,9 +42,6 @@ class LSTMRTRBMClustering(SimilarityFilter):
             max_iter:                       Maximum number of iterations.
             debug_mode:                     Debug mode or not.
         '''
-        if isinstance(vectorizable_sentence, VectorizableSentence) is False:
-            raise TypeError()
-
         if debug_mode is True:
             logger = getLogger("pysummarization")
             handler = StreamHandler()
@@ -91,9 +88,6 @@ class LSTMRTRBMClustering(SimilarityFilter):
             cluster_num:                    The number of clusters.
             max_iter:                       Maximum number of iterations.
         '''
-        if isinstance(vectorizable_sentence, VectorizableSentence) is False:
-            raise TypeError()
-
         # The object of NLP.
         nlp_base = NlpBase()
         if tokenizable_doc is None:
@@ -125,7 +119,7 @@ class LSTMRTRBMClustering(SimilarityFilter):
 
         self.__clusterable_doc = KMeans(
             cluster_num=cluster_num,
-            max_iter=max_iter
+            max_iter=max_iter,
             init_noise_arr=np.random.normal(size=feature_arr.shape)
         )
         self.__labeled_arr = self.__clusterable_doc.learn(feature_arr)

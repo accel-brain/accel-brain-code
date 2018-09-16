@@ -70,6 +70,66 @@ class EncoderDecoderClustering(SimilarityFilter):
             logger.setLevel(DEBUG)
             logger.addHandler(handler)
 
+        self.learn(
+            document=document,
+            tokenizable_doc=tokenizable_doc,
+            hidden_neuron_count=hidden_neuron_count,
+            epochs=epochs,
+            batch_size=batch_size,
+            learning_rate=learning_rate,
+            learning_attenuate_rate=learning_attenuate_rate,
+            attenuate_epoch=attenuate_epoch,
+            bptt_tau=bptt_tau,
+            weight_limit=weight_limit,
+            dropout_rate=dropout_rate,
+            test_size_rate=test_size_rate,
+            cluster_num=cluster_num,
+            max_iter=max_iter
+        )
+
+    def learn(
+        self,
+        document,
+        tokenizable_doc=None,
+        hidden_neuron_count=200,
+        epochs=100,
+        batch_size=100,
+        learning_rate=1e-05,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50,
+        bptt_tau=8,
+        weight_limit=0.5,
+        dropout_rate=0.5,
+        test_size_rate=0.3,
+        cluster_num=10,
+        max_iter=100
+    ):
+        '''
+        Learning.
+        
+        Args:
+            document:                       String of document.
+            tokenizable_doc:                is-a `TokenizableDoc`.
+            hidden_neuron_count:            The number of units in hidden layer.
+            epochs:                         Epochs of Mini-batch.
+            bath_size:                      Batch size of Mini-batch.
+            learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+                                            Additionally, in relation to regularization,
+                                            this class constrains weight matrixes every `attenuate_epoch`.
+
+            bptt_tau:                       Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
+            weight_limit:                   Regularization for weights matrix
+                                            to repeat multiplying the weights matrix and `0.9`
+                                            until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
+
+            dropout_rate:                   The probability of dropout.
+            test_size_rate:                 Size of Test data set. If this value is `0`, the 
+            cluster_num:                    The number of clusters.
+            max_iter:                       Maximum number of iterations.
+
+        '''
         # The object of NLP.
         nlp_base = NlpBase()
         if tokenizable_doc is None:
@@ -112,7 +172,7 @@ class EncoderDecoderClustering(SimilarityFilter):
             max_iter=max_iter
             init_noise_arr=np.random.normal(size=feature_arr.shape)
         )
-        _ = self.__clusterable_doc.learn(feature_arr)
+        self.__labeled_arr = self.__clusterable_doc.learn(feature_arr)
         self.__sentence_list = sentence_list
         self.__batch_size = batch_size
 
@@ -144,3 +204,13 @@ class EncoderDecoderClustering(SimilarityFilter):
             return 1.0
         else:
             return 0.0
+
+    def get_labeled_arr(self):
+        ''' getter '''
+        return self.__labeled_arr
+
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError()
+    
+    labeled_arr = property(get_labeled_arr, set_readonly)

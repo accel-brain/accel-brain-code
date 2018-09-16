@@ -52,6 +52,47 @@ class LSTMRTRBMClustering(SimilarityFilter):
             logger.setLevel(DEBUG)
             logger.addHandler(handler)
 
+        self.learn(
+            document=document,
+            tokenizable_doc=tokenizable_doc,
+            hidden_neuron_count=hidden_neuron_count,
+            training_count=training_count,
+            batch_size=batch_size,
+            learning_rate=learning_rate,
+            seq_len=seq_len,
+            cluster_num=cluster_num,
+            max_iter=max_iter
+        )
+
+    def learn(
+        self,
+        document,
+        tokenizable_doc,
+        hidden_neuron_count=1000,
+        training_count=1,
+        batch_size=10,
+        learning_rate=1e-03,
+        seq_len=5,
+        cluster_num=10,
+        max_iter=100
+    ):
+        '''
+        Learning.
+        
+        Args:
+            document:                       String of document.
+            tokenizable_doc:                is-a `TokenizableDoc`.
+            hidden_neuron_count:            The number of units in hidden layer.
+            training_count:                 The number of training.
+            bath_size:                      Batch size of Mini-batch.
+            learning_rate:                  Learning rate.
+            seq_len:                        The length of one sequence.
+            cluster_num:                    The number of clusters.
+            max_iter:                       Maximum number of iterations.
+        '''
+        if isinstance(vectorizable_sentence, VectorizableSentence) is False:
+            raise TypeError()
+
         # The object of NLP.
         nlp_base = NlpBase()
         if tokenizable_doc is None:
@@ -86,7 +127,7 @@ class LSTMRTRBMClustering(SimilarityFilter):
             max_iter=max_iter
             init_noise_arr=np.random.normal(size=feature_arr.shape)
         )
-        _ = self.__clusterable_doc.learn(feature_arr)
+        self.__labeled_arr = self.__clusterable_doc.learn(feature_arr)
 
         self.__vectorlizable_sentence = vectorlizable_sentence
         self.__token_master_list = token_master_list
@@ -122,3 +163,13 @@ class LSTMRTRBMClustering(SimilarityFilter):
             return 1.0
         else:
             return 0.0
+
+    def get_labeled_arr(self):
+        ''' getter '''
+        return self.__labeled_arr
+
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError()
+    
+    labeled_arr = property(get_labeled_arr, set_readonly)

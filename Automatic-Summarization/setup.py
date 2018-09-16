@@ -11,8 +11,8 @@ def read_readme(file_name):
 
 setup(
     name='pysummarization',
-    version='1.1.0',
-    description='pysummarization is Python library for the automatic summarization, document abstraction, and text filtering in relation to Encoder/Decoder based on LSTM.',
+    version='1.1.1',
+    description='pysummarization is Python library for the automatic summarization, document abstraction, and text filtering in relation to Encoder/Decoder based on LSTM and LSTM-RTRBM.',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',
     url='https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization',

@@ -992,7 +992,7 @@ typedef npy_double __pyx_t_5numpy_double_t;
  */
 typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 
-/* "pydbm/cnn/convolutional_neural_network.pyx":9
+/* "pydbm/cnn/convolutional_neural_network.pyx":10
  * import numpy as np
  * cimport numpy as np
  * ctypedef np.float64_t DOUBLE_t             # <<<<<<<<<<<<<<
@@ -1368,6 +1368,18 @@ static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
 #define __Pyx_PyList_Append(L,x) PyList_Append(L,x)
 #endif
 
+/* RaiseTooManyValuesToUnpack.proto */
+static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected);
+
+/* RaiseNeedMoreValuesToUnpack.proto */
+static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index);
+
+/* IterFinish.proto */
+static CYTHON_INLINE int __Pyx_IterFinish(void);
+
+/* UnpackItemEndCheck.proto */
+static int __Pyx_IternextUnpackEndCheck(PyObject *retval, Py_ssize_t expected);
+
 /* PyObjectCallMethod1.proto */
 static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg);
 static PyObject* __Pyx__PyObject_CallMethod1(PyObject* method, PyObject* arg);
@@ -1418,12 +1430,6 @@ static PyObject *__Pyx_PyDict_GetItem(PyObject *d, PyObject* key) {
 #else
     #define __Pyx_PyDict_GetItem(d, key) PyObject_GetItem(d, key)
 #endif
-
-/* RaiseTooManyValuesToUnpack.proto */
-static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected);
-
-/* RaiseNeedMoreValuesToUnpack.proto */
-static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index);
 
 /* RaiseNoneIterError.proto */
 static CYTHON_INLINE void __Pyx_RaiseNoneNotIterableError(void);
@@ -1747,7 +1753,7 @@ static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_ImportError;
 static const char __pyx_k_i[] = "i";
 static const char __pyx_k_np[] = "np";
-static const char __pyx_k__13[] = "-";
+static const char __pyx_k__19[] = "-";
 static const char __pyx_k_doc[] = "__doc__";
 static const char __pyx_k_end[] = "end. ";
 static const char __pyx_k_pop[] = "pop";
@@ -1786,6 +1792,7 @@ static const char __pyx_k_prepare[] = "__prepare__";
 static const char __pyx_k_replace[] = "replace";
 static const char __pyx_k_reshape[] = "reshape";
 static const char __pyx_k_bias_arr[] = "bias_arr";
+static const char __pyx_k_generate[] = "generate";
 static const char __pyx_k_optimize[] = "optimize";
 static const char __pyx_k_pred_arr[] = "pred_arr";
 static const char __pyx_k_property[] = "property";
@@ -1835,15 +1842,18 @@ static const char __pyx_k_test_size_rate[] = "test_size_rate";
 static const char __pyx_k_train_pred_arr[] = "train_pred_arr";
 static const char __pyx_k_attenuate_epoch[] = "attenuate_epoch";
 static const char __pyx_k_computable_loss[] = "computable_loss";
+static const char __pyx_k_learn_generated[] = "learn_generated";
 static const char __pyx_k_test_pred_arr_2[] = "test_pred_arr";
 static const char __pyx_k_test_target_arr[] = "test_target_arr";
 static const char __pyx_k_train_label_arr[] = "train_label_arr";
+static const char __pyx_k_FeatureGenerator[] = "FeatureGenerator";
 static const char __pyx_k_back_propagation[] = "back_propagation";
 static const char __pyx_k_batch_target_arr[] = "batch_target_arr";
 static const char __pyx_k_constrain_weight[] = "constrain_weight";
 static const char __pyx_k_delta_weight_arr[] = "delta_weight_arr";
 static const char __pyx_k_train_target_arr[] = "train_target_arr";
 static const char __pyx_k_KeyboardInterrupt[] = "KeyboardInterrupt";
+static const char __pyx_k_feature_generator[] = "feature_generator";
 static const char __pyx_k_forward_propagate[] = "forward_propagate";
 static const char __pyx_k_test_observed_arr[] = "test_observed_arr";
 static const char __pyx_k_FloatingPointError[] = "FloatingPointError";
@@ -1867,6 +1877,7 @@ static const char __pyx_k_set_verificatable_result[] = "set_verificatable_result
 static const char __pyx_k_Error_raised_in_CNN_layer[] = "Error raised in CNN layer ";
 static const char __pyx_k_ConvolutionalNeuralNetwork[] = "ConvolutionalNeuralNetwork";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
+static const char __pyx_k_pydbm_cnn_feature_generator[] = "pydbm.cnn.feature_generator";
 static const char __pyx_k_Convolutional_Neural_Network[] = "\n    Convolutional Neural Network.\n    ";
 static const char __pyx_k_Propagated_shape_in_CNN_layer[] = "Propagated shape in CNN layer: ";
 static const char __pyx_k_pydbm_optimization_opt_params[] = "pydbm.optimization.opt_params";
@@ -1905,6 +1916,7 @@ static const char __pyx_k_Propagated_delta_shape_in_CNN_la[] = "Propagated delta
 static const char __pyx_k_Setup_CNN_layers_and_the_paramet[] = "Setup CNN layers and the parameters.";
 static const char __pyx_k_The_row_of_target_arr_must_be_eq[] = "The row of `target_arr` must be equivalent to the row of `observed_arr`.";
 static const char __pyx_k_The_type_of_computable_loss_must[] = "The type of `computable_loss` must be `ComputableLoss`.";
+static const char __pyx_k_The_type_of_feature_generator_mu[] = "The type of `feature_generator` must be `FeatureGenerator`.";
 static const char __pyx_k_The_type_of_opt_params_must_be_O[] = "The type of `opt_params` must be `OptParams`.";
 static const char __pyx_k_The_type_of_value_of_layerable_c[] = "The type of value of `layerable_cnn` must be `LayerableCNN`.";
 static const char __pyx_k_The_type_of_verificatable_result[] = "The type of `verificatable_result` must be `VerificatableResult`.";
@@ -1914,6 +1926,7 @@ static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath
 static const char __pyx_k_pydbm_cnn_convolutional_neural_n[] = "pydbm.cnn.convolutional_neural_network";
 static const char __pyx_k_pydbm_verification_interface_ver[] = "pydbm.verification.interface.verificatable_result";
 static const char __pyx_k_ConvolutionalNeuralNetwork__lea_2[] = "_ConvolutionalNeuralNetwork__learning_attenuate_rate";
+static const char __pyx_k_ConvolutionalNeuralNetwork_learn_2[] = "ConvolutionalNeuralNetwork.learn_generated";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
 static const char __pyx_k_pydbm_cnn_convolutional_neural_n_2[] = "pydbm/cnn/convolutional_neural_network.pyx";
 static PyObject *__pyx_kp_s_CNN_starts_learning;
@@ -1941,6 +1954,7 @@ static PyObject *__pyx_n_s_ConvolutionalNeuralNetwork_get_l;
 static PyObject *__pyx_n_s_ConvolutionalNeuralNetwork_get_v;
 static PyObject *__pyx_n_s_ConvolutionalNeuralNetwork_infer;
 static PyObject *__pyx_n_s_ConvolutionalNeuralNetwork_learn;
+static PyObject *__pyx_n_s_ConvolutionalNeuralNetwork_learn_2;
 static PyObject *__pyx_n_s_ConvolutionalNeuralNetwork_optim;
 static PyObject *__pyx_n_s_ConvolutionalNeuralNetwork_set_l;
 static PyObject *__pyx_n_s_ConvolutionalNeuralNetwork_set_v;
@@ -1948,6 +1962,7 @@ static PyObject *__pyx_kp_s_Convolutional_Neural_Network;
 static PyObject *__pyx_kp_s_Delta_computation_raised_an_erro;
 static PyObject *__pyx_kp_s_Eary_stopping;
 static PyObject *__pyx_kp_s_Error_raised_in_CNN_layer;
+static PyObject *__pyx_n_s_FeatureGenerator;
 static PyObject *__pyx_n_s_FloatingPointError;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
@@ -1965,6 +1980,7 @@ static PyObject *__pyx_n_s_RuntimeError;
 static PyObject *__pyx_kp_s_Setup_CNN_layers_and_the_paramet;
 static PyObject *__pyx_kp_s_The_row_of_target_arr_must_be_eq;
 static PyObject *__pyx_kp_s_The_type_of_computable_loss_must;
+static PyObject *__pyx_kp_s_The_type_of_feature_generator_mu;
 static PyObject *__pyx_kp_s_The_type_of_opt_params_must_be_O;
 static PyObject *__pyx_kp_s_The_type_of_value_of_layerable_c;
 static PyObject *__pyx_kp_s_The_type_of_verificatable_result;
@@ -1972,7 +1988,7 @@ static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_kp_s_Underflow_occurred_when_the_para;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_VerificatableResult;
-static PyObject *__pyx_kp_s__13;
+static PyObject *__pyx_kp_s__19;
 static PyObject *__pyx_n_s_append;
 static PyObject *__pyx_n_s_array;
 static PyObject *__pyx_n_s_attenuate_epoch;
@@ -2000,8 +2016,10 @@ static PyObject *__pyx_n_s_eary_stop_flag;
 static PyObject *__pyx_kp_s_end;
 static PyObject *__pyx_n_s_epoch;
 static PyObject *__pyx_n_s_epochs;
+static PyObject *__pyx_n_s_feature_generator;
 static PyObject *__pyx_n_s_forward_propagate;
 static PyObject *__pyx_n_s_forward_propagation;
+static PyObject *__pyx_n_s_generate;
 static PyObject *__pyx_n_s_getLogger;
 static PyObject *__pyx_n_s_get_layerable_cnn_list;
 static PyObject *__pyx_n_s_get_verificatable_result;
@@ -2015,6 +2033,7 @@ static PyObject *__pyx_n_s_init;
 static PyObject *__pyx_n_s_layerable_cnn;
 static PyObject *__pyx_n_s_layerable_cnn_list;
 static PyObject *__pyx_n_s_learn;
+static PyObject *__pyx_n_s_learn_generated;
 static PyObject *__pyx_n_s_learning_attenuate_rate;
 static PyObject *__pyx_n_s_learning_rate;
 static PyObject *__pyx_n_s_logger;
@@ -2043,6 +2062,7 @@ static PyObject *__pyx_n_s_property;
 static PyObject *__pyx_n_s_pydbm;
 static PyObject *__pyx_n_s_pydbm_cnn_convolutional_neural_n;
 static PyObject *__pyx_kp_s_pydbm_cnn_convolutional_neural_n_2;
+static PyObject *__pyx_n_s_pydbm_cnn_feature_generator;
 static PyObject *__pyx_n_s_pydbm_cnn_layerable_cnn;
 static PyObject *__pyx_n_s_pydbm_loss_interface_computable;
 static PyObject *__pyx_n_s_pydbm_optimization_opt_params;
@@ -2089,14 +2109,15 @@ static PyObject *__pyx_n_s_verificate;
 static PyObject *__pyx_n_s_weight_arr;
 static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_layerable_cnn_list, int __pyx_v_epochs, int __pyx_v_batch_size, double __pyx_v_learning_rate, double __pyx_v_learning_attenuate_rate, int __pyx_v_attenuate_epoch, PyObject *__pyx_v_computable_loss, PyObject *__pyx_v_opt_params, PyObject *__pyx_v_verificatable_result, double __pyx_v_test_size_rate, PyObject *__pyx_v_tol, PyObject *__pyx_v_save_flag); /* proto */
 static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_2learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_arr, PyArrayObject *__pyx_v_target_arr); /* proto */
-static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_4inference(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_arr); /* proto */
-static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_6forward_propagation(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_img_arr); /* proto */
-static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_8back_propagation(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_delta_arr); /* proto */
-static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_10optimize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, double __pyx_v_learning_rate, int __pyx_v_epoch); /* proto */
-static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_12get_layerable_cnn_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_14set_layerable_cnn_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_16get_verificatable_result(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_18set_verificatable_result(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_4learn_generated(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_feature_generator); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_6inference(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_arr); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_8forward_propagation(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_img_arr); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_10back_propagation(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_delta_arr); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_12optimize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, double __pyx_v_learning_rate, int __pyx_v_epoch); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_14get_layerable_cnn_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_16set_layerable_cnn_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_18get_verificatable_result(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_20set_verificatable_result(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_float_0_0;
@@ -2115,43 +2136,51 @@ static PyObject *__pyx_tuple__6;
 static PyObject *__pyx_tuple__7;
 static PyObject *__pyx_tuple__8;
 static PyObject *__pyx_tuple__9;
-static PyObject *__pyx_slice__14;
+static PyObject *__pyx_slice__20;
 static PyObject *__pyx_tuple__10;
 static PyObject *__pyx_tuple__11;
 static PyObject *__pyx_tuple__12;
+static PyObject *__pyx_tuple__13;
+static PyObject *__pyx_tuple__14;
 static PyObject *__pyx_tuple__15;
 static PyObject *__pyx_tuple__16;
 static PyObject *__pyx_tuple__17;
 static PyObject *__pyx_tuple__18;
-static PyObject *__pyx_tuple__19;
-static PyObject *__pyx_tuple__20;
 static PyObject *__pyx_tuple__21;
 static PyObject *__pyx_tuple__22;
 static PyObject *__pyx_tuple__23;
 static PyObject *__pyx_tuple__24;
 static PyObject *__pyx_tuple__25;
+static PyObject *__pyx_tuple__26;
 static PyObject *__pyx_tuple__27;
+static PyObject *__pyx_tuple__28;
 static PyObject *__pyx_tuple__29;
 static PyObject *__pyx_tuple__30;
-static PyObject *__pyx_tuple__32;
-static PyObject *__pyx_tuple__34;
+static PyObject *__pyx_tuple__31;
+static PyObject *__pyx_tuple__33;
+static PyObject *__pyx_tuple__35;
 static PyObject *__pyx_tuple__36;
 static PyObject *__pyx_tuple__38;
 static PyObject *__pyx_tuple__40;
 static PyObject *__pyx_tuple__42;
 static PyObject *__pyx_tuple__44;
-static PyObject *__pyx_codeobj__26;
-static PyObject *__pyx_codeobj__28;
-static PyObject *__pyx_codeobj__31;
-static PyObject *__pyx_codeobj__33;
-static PyObject *__pyx_codeobj__35;
+static PyObject *__pyx_tuple__46;
+static PyObject *__pyx_tuple__48;
+static PyObject *__pyx_tuple__50;
+static PyObject *__pyx_tuple__52;
+static PyObject *__pyx_codeobj__32;
+static PyObject *__pyx_codeobj__34;
 static PyObject *__pyx_codeobj__37;
 static PyObject *__pyx_codeobj__39;
 static PyObject *__pyx_codeobj__41;
 static PyObject *__pyx_codeobj__43;
 static PyObject *__pyx_codeobj__45;
+static PyObject *__pyx_codeobj__47;
+static PyObject *__pyx_codeobj__49;
+static PyObject *__pyx_codeobj__51;
+static PyObject *__pyx_codeobj__53;
 
-/* "pydbm/cnn/convolutional_neural_network.pyx":17
+/* "pydbm/cnn/convolutional_neural_network.pyx":18
  *     '''
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
@@ -2185,7 +2214,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     PyObject* values[13] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
     values[11] = ((PyObject *)((PyObject*)__pyx_float_1eneg_15));
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":30
+    /* "pydbm/cnn/convolutional_neural_network.pyx":31
  *         double test_size_rate=0.3,
  *         tol=1e-15,
  *         save_flag=False             # <<<<<<<<<<<<<<
@@ -2235,55 +2264,55 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_layerable_cnn_list)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 1); __PYX_ERR(0, 17, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 1); __PYX_ERR(0, 18, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_epochs)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 2); __PYX_ERR(0, 17, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 2); __PYX_ERR(0, 18, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_batch_size)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 3); __PYX_ERR(0, 17, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 3); __PYX_ERR(0, 18, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_learning_rate)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 4); __PYX_ERR(0, 17, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 4); __PYX_ERR(0, 18, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_learning_attenuate_rate)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 5); __PYX_ERR(0, 17, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 5); __PYX_ERR(0, 18, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_attenuate_epoch)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 6); __PYX_ERR(0, 17, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 6); __PYX_ERR(0, 18, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  7:
         if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_computable_loss)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 7); __PYX_ERR(0, 17, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 7); __PYX_ERR(0, 18, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  8:
         if (likely((values[8] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_opt_params)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 8); __PYX_ERR(0, 17, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 8); __PYX_ERR(0, 18, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  9:
         if (likely((values[9] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_verificatable_result)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 9); __PYX_ERR(0, 17, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, 9); __PYX_ERR(0, 18, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case 10:
@@ -2305,7 +2334,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 17, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 18, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2331,16 +2360,16 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     }
     __pyx_v_self = values[0];
     __pyx_v_layerable_cnn_list = values[1];
-    __pyx_v_epochs = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_epochs == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 20, __pyx_L3_error)
-    __pyx_v_batch_size = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_batch_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L3_error)
-    __pyx_v_learning_rate = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_learning_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L3_error)
-    __pyx_v_learning_attenuate_rate = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_learning_attenuate_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 23, __pyx_L3_error)
-    __pyx_v_attenuate_epoch = __Pyx_PyInt_As_int(values[6]); if (unlikely((__pyx_v_attenuate_epoch == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L3_error)
+    __pyx_v_epochs = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_epochs == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L3_error)
+    __pyx_v_batch_size = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_batch_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L3_error)
+    __pyx_v_learning_rate = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_learning_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 23, __pyx_L3_error)
+    __pyx_v_learning_attenuate_rate = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_learning_attenuate_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L3_error)
+    __pyx_v_attenuate_epoch = __Pyx_PyInt_As_int(values[6]); if (unlikely((__pyx_v_attenuate_epoch == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 25, __pyx_L3_error)
     __pyx_v_computable_loss = values[7];
     __pyx_v_opt_params = values[8];
     __pyx_v_verificatable_result = values[9];
     if (values[10]) {
-      __pyx_v_test_size_rate = __pyx_PyFloat_AsDouble(values[10]); if (unlikely((__pyx_v_test_size_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 28, __pyx_L3_error)
+      __pyx_v_test_size_rate = __pyx_PyFloat_AsDouble(values[10]); if (unlikely((__pyx_v_test_size_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 29, __pyx_L3_error)
     } else {
       __pyx_v_test_size_rate = ((double)((double)0.3));
     }
@@ -2349,7 +2378,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 17, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 10, 13, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 18, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2357,7 +2386,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork___init__(__pyx_self, __pyx_v_self, __pyx_v_layerable_cnn_list, __pyx_v_epochs, __pyx_v_batch_size, __pyx_v_learning_rate, __pyx_v_learning_attenuate_rate, __pyx_v_attenuate_epoch, __pyx_v_computable_loss, __pyx_v_opt_params, __pyx_v_verificatable_result, __pyx_v_test_size_rate, __pyx_v_tol, __pyx_v_save_flag);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":17
+  /* "pydbm/cnn/convolutional_neural_network.pyx":18
  *     '''
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
@@ -2383,7 +2412,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   int __pyx_t_6;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":53
+  /* "pydbm/cnn/convolutional_neural_network.pyx":54
  * 
  *         '''
  *         for layerable_cnn in layerable_cnn_list:             # <<<<<<<<<<<<<<
@@ -2394,26 +2423,26 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     __pyx_t_1 = __pyx_v_layerable_cnn_list; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
     __pyx_t_3 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_layerable_cnn_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_layerable_cnn_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 53, __pyx_L1_error)
+    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 54, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_3)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 53, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 54, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 53, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 54, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 53, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 54, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 53, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 54, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -2423,7 +2452,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 53, __pyx_L1_error)
+          else __PYX_ERR(0, 54, __pyx_L1_error)
         }
         break;
       }
@@ -2432,34 +2461,34 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     __Pyx_XDECREF_SET(__pyx_v_layerable_cnn, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":54
+    /* "pydbm/cnn/convolutional_neural_network.pyx":55
  *         '''
  *         for layerable_cnn in layerable_cnn_list:
  *             if isinstance(layerable_cnn, LayerableCNN) is False:             # <<<<<<<<<<<<<<
  *                 raise TypeError("The type of value of `layerable_cnn` must be `LayerableCNN`.")
  *         self.__layerable_cnn_list = layerable_cnn_list
  */
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_LayerableCNN); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 54, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_LayerableCNN); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 55, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = PyObject_IsInstance(__pyx_v_layerable_cnn, __pyx_t_4); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 54, __pyx_L1_error)
+    __pyx_t_5 = PyObject_IsInstance(__pyx_v_layerable_cnn, __pyx_t_4); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 55, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_6 = ((__pyx_t_5 == 0) != 0);
     if (__pyx_t_6) {
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":55
+      /* "pydbm/cnn/convolutional_neural_network.pyx":56
  *         for layerable_cnn in layerable_cnn_list:
  *             if isinstance(layerable_cnn, LayerableCNN) is False:
  *                 raise TypeError("The type of value of `layerable_cnn` must be `LayerableCNN`.")             # <<<<<<<<<<<<<<
  *         self.__layerable_cnn_list = layerable_cnn_list
  * 
  */
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 55, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 56, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_Raise(__pyx_t_4, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __PYX_ERR(0, 55, __pyx_L1_error)
+      __PYX_ERR(0, 56, __pyx_L1_error)
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":54
+      /* "pydbm/cnn/convolutional_neural_network.pyx":55
  *         '''
  *         for layerable_cnn in layerable_cnn_list:
  *             if isinstance(layerable_cnn, LayerableCNN) is False:             # <<<<<<<<<<<<<<
@@ -2468,7 +2497,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
     }
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":53
+    /* "pydbm/cnn/convolutional_neural_network.pyx":54
  * 
  *         '''
  *         for layerable_cnn in layerable_cnn_list:             # <<<<<<<<<<<<<<
@@ -2478,39 +2507,39 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":56
+  /* "pydbm/cnn/convolutional_neural_network.pyx":57
  *             if isinstance(layerable_cnn, LayerableCNN) is False:
  *                 raise TypeError("The type of value of `layerable_cnn` must be `LayerableCNN`.")
  *         self.__layerable_cnn_list = layerable_cnn_list             # <<<<<<<<<<<<<<
  * 
  *         if isinstance(computable_loss, ComputableLoss):
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay, __pyx_v_layerable_cnn_list) < 0) __PYX_ERR(0, 56, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay, __pyx_v_layerable_cnn_list) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":58
+  /* "pydbm/cnn/convolutional_neural_network.pyx":59
  *         self.__layerable_cnn_list = layerable_cnn_list
  * 
  *         if isinstance(computable_loss, ComputableLoss):             # <<<<<<<<<<<<<<
  *             self.__computable_loss = computable_loss
  *         else:
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ComputableLoss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ComputableLoss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = PyObject_IsInstance(__pyx_v_computable_loss, __pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_t_6 = PyObject_IsInstance(__pyx_v_computable_loss, __pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_5 = (__pyx_t_6 != 0);
   if (__pyx_t_5) {
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":59
+    /* "pydbm/cnn/convolutional_neural_network.pyx":60
  * 
  *         if isinstance(computable_loss, ComputableLoss):
  *             self.__computable_loss = computable_loss             # <<<<<<<<<<<<<<
  *         else:
  *             raise TypeError("The type of `computable_loss` must be `ComputableLoss`.")
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__com, __pyx_v_computable_loss) < 0) __PYX_ERR(0, 59, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__com, __pyx_v_computable_loss) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":58
+    /* "pydbm/cnn/convolutional_neural_network.pyx":59
  *         self.__layerable_cnn_list = layerable_cnn_list
  * 
  *         if isinstance(computable_loss, ComputableLoss):             # <<<<<<<<<<<<<<
@@ -2520,7 +2549,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     goto __pyx_L6;
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":61
+  /* "pydbm/cnn/convolutional_neural_network.pyx":62
  *             self.__computable_loss = computable_loss
  *         else:
  *             raise TypeError("The type of `computable_loss` must be `ComputableLoss`.")             # <<<<<<<<<<<<<<
@@ -2528,53 +2557,53 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  *         if isinstance(opt_params, OptParams):
  */
   /*else*/ {
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 61, __pyx_L1_error)
+    __PYX_ERR(0, 62, __pyx_L1_error)
   }
   __pyx_L6:;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":63
+  /* "pydbm/cnn/convolutional_neural_network.pyx":64
  *             raise TypeError("The type of `computable_loss` must be `ComputableLoss`.")
  * 
  *         if isinstance(opt_params, OptParams):             # <<<<<<<<<<<<<<
  *             self.__opt_params = opt_params
  *             self.__dropout_rate = self.__opt_params.dropout_rate
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_OptParams); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_OptParams); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = PyObject_IsInstance(__pyx_v_opt_params, __pyx_t_1); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_5 = PyObject_IsInstance(__pyx_v_opt_params, __pyx_t_1); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_6 = (__pyx_t_5 != 0);
   if (__pyx_t_6) {
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":64
+    /* "pydbm/cnn/convolutional_neural_network.pyx":65
  * 
  *         if isinstance(opt_params, OptParams):
  *             self.__opt_params = opt_params             # <<<<<<<<<<<<<<
  *             self.__dropout_rate = self.__opt_params.dropout_rate
  *         else:
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__opt, __pyx_v_opt_params) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__opt, __pyx_v_opt_params) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":65
+    /* "pydbm/cnn/convolutional_neural_network.pyx":66
  *         if isinstance(opt_params, OptParams):
  *             self.__opt_params = opt_params
  *             self.__dropout_rate = self.__opt_params.dropout_rate             # <<<<<<<<<<<<<<
  *         else:
  *             raise TypeError("The type of `opt_params` must be `OptParams`.")
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__opt); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__opt); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_dropout_rate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_dropout_rate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 66, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__dro, __pyx_t_4) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__dro, __pyx_t_4) < 0) __PYX_ERR(0, 66, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":63
+    /* "pydbm/cnn/convolutional_neural_network.pyx":64
  *             raise TypeError("The type of `computable_loss` must be `ComputableLoss`.")
  * 
  *         if isinstance(opt_params, OptParams):             # <<<<<<<<<<<<<<
@@ -2584,7 +2613,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     goto __pyx_L7;
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":67
+  /* "pydbm/cnn/convolutional_neural_network.pyx":68
  *             self.__dropout_rate = self.__opt_params.dropout_rate
  *         else:
  *             raise TypeError("The type of `opt_params` must be `OptParams`.")             # <<<<<<<<<<<<<<
@@ -2592,38 +2621,38 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  *         if isinstance(verificatable_result, VerificatableResult):
  */
   /*else*/ {
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 67, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 68, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_Raise(__pyx_t_4, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __PYX_ERR(0, 67, __pyx_L1_error)
+    __PYX_ERR(0, 68, __pyx_L1_error)
   }
   __pyx_L7:;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":69
+  /* "pydbm/cnn/convolutional_neural_network.pyx":70
  *             raise TypeError("The type of `opt_params` must be `OptParams`.")
  * 
  *         if isinstance(verificatable_result, VerificatableResult):             # <<<<<<<<<<<<<<
  *             self.__verificatable_result = verificatable_result
  *         else:
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 69, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 70, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = PyObject_IsInstance(__pyx_v_verificatable_result, __pyx_t_4); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 69, __pyx_L1_error)
+  __pyx_t_6 = PyObject_IsInstance(__pyx_v_verificatable_result, __pyx_t_4); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 70, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_5 = (__pyx_t_6 != 0);
   if (__pyx_t_5) {
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":70
+    /* "pydbm/cnn/convolutional_neural_network.pyx":71
  * 
  *         if isinstance(verificatable_result, VerificatableResult):
  *             self.__verificatable_result = verificatable_result             # <<<<<<<<<<<<<<
  *         else:
  *             raise TypeError("The type of `verificatable_result` must be `VerificatableResult`.")
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__ver, __pyx_v_verificatable_result) < 0) __PYX_ERR(0, 70, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__ver, __pyx_v_verificatable_result) < 0) __PYX_ERR(0, 71, __pyx_L1_error)
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":69
+    /* "pydbm/cnn/convolutional_neural_network.pyx":70
  *             raise TypeError("The type of `opt_params` must be `OptParams`.")
  * 
  *         if isinstance(verificatable_result, VerificatableResult):             # <<<<<<<<<<<<<<
@@ -2633,7 +2662,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     goto __pyx_L8;
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":72
+  /* "pydbm/cnn/convolutional_neural_network.pyx":73
  *             self.__verificatable_result = verificatable_result
  *         else:
  *             raise TypeError("The type of `verificatable_result` must be `VerificatableResult`.")             # <<<<<<<<<<<<<<
@@ -2641,158 +2670,158 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  *         self.__epochs = epochs
  */
   /*else*/ {
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 72, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 73, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_Raise(__pyx_t_4, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __PYX_ERR(0, 72, __pyx_L1_error)
+    __PYX_ERR(0, 73, __pyx_L1_error)
   }
   __pyx_L8:;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":74
+  /* "pydbm/cnn/convolutional_neural_network.pyx":75
  *             raise TypeError("The type of `verificatable_result` must be `VerificatableResult`.")
  * 
  *         self.__epochs = epochs             # <<<<<<<<<<<<<<
  *         self.__batch_size = batch_size
  * 
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_epochs); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_epochs); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__epo, __pyx_t_4) < 0) __PYX_ERR(0, 74, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__epo, __pyx_t_4) < 0) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":75
+  /* "pydbm/cnn/convolutional_neural_network.pyx":76
  * 
  *         self.__epochs = epochs
  *         self.__batch_size = batch_size             # <<<<<<<<<<<<<<
  * 
  *         self.__learning_rate = learning_rate
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_batch_size); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 75, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_batch_size); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__bat, __pyx_t_4) < 0) __PYX_ERR(0, 75, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__bat, __pyx_t_4) < 0) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":77
+  /* "pydbm/cnn/convolutional_neural_network.pyx":78
  *         self.__batch_size = batch_size
  * 
  *         self.__learning_rate = learning_rate             # <<<<<<<<<<<<<<
  *         self.__learning_attenuate_rate = learning_attenuate_rate
  *         self.__attenuate_epoch = attenuate_epoch
  */
-  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lea, __pyx_t_4) < 0) __PYX_ERR(0, 77, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lea, __pyx_t_4) < 0) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":78
+  /* "pydbm/cnn/convolutional_neural_network.pyx":79
  * 
  *         self.__learning_rate = learning_rate
  *         self.__learning_attenuate_rate = learning_attenuate_rate             # <<<<<<<<<<<<<<
  *         self.__attenuate_epoch = attenuate_epoch
  * 
  */
-  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_learning_attenuate_rate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_learning_attenuate_rate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lea_2, __pyx_t_4) < 0) __PYX_ERR(0, 78, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lea_2, __pyx_t_4) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":79
+  /* "pydbm/cnn/convolutional_neural_network.pyx":80
  *         self.__learning_rate = learning_rate
  *         self.__learning_attenuate_rate = learning_attenuate_rate
  *         self.__attenuate_epoch = attenuate_epoch             # <<<<<<<<<<<<<<
  * 
  *         self.__test_size_rate = test_size_rate
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_attenuate_epoch); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_attenuate_epoch); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__att, __pyx_t_4) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__att, __pyx_t_4) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":81
+  /* "pydbm/cnn/convolutional_neural_network.pyx":82
  *         self.__attenuate_epoch = attenuate_epoch
  * 
  *         self.__test_size_rate = test_size_rate             # <<<<<<<<<<<<<<
  *         self.__tol = tol
  * 
  */
-  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_test_size_rate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_test_size_rate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tes, __pyx_t_4) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tes, __pyx_t_4) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":82
+  /* "pydbm/cnn/convolutional_neural_network.pyx":83
  * 
  *         self.__test_size_rate = test_size_rate
  *         self.__tol = tol             # <<<<<<<<<<<<<<
  * 
  *         self.__memory_tuple_list = []
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tol, __pyx_v_tol) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tol, __pyx_v_tol) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":84
+  /* "pydbm/cnn/convolutional_neural_network.pyx":85
  *         self.__tol = tol
  * 
  *         self.__memory_tuple_list = []             # <<<<<<<<<<<<<<
  * 
  *         self.__save_flag = save_flag
  */
-  __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__mem, __pyx_t_4) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__mem, __pyx_t_4) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":86
+  /* "pydbm/cnn/convolutional_neural_network.pyx":87
  *         self.__memory_tuple_list = []
  * 
  *         self.__save_flag = save_flag             # <<<<<<<<<<<<<<
  * 
  *         logger = getLogger("pydbm")
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__sav, __pyx_v_save_flag) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__sav, __pyx_v_save_flag) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":88
+  /* "pydbm/cnn/convolutional_neural_network.pyx":89
  *         self.__save_flag = save_flag
  * 
  *         logger = getLogger("pydbm")             # <<<<<<<<<<<<<<
  *         self.__logger = logger
  * 
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_getLogger); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_getLogger); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_v_logger = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":89
+  /* "pydbm/cnn/convolutional_neural_network.pyx":90
  * 
  *         logger = getLogger("pydbm")
  *         self.__logger = logger             # <<<<<<<<<<<<<<
  * 
  *         self.__logger.debug("Setup CNN layers and the parameters.")
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log, __pyx_v_logger) < 0) __PYX_ERR(0, 89, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log, __pyx_v_logger) < 0) __PYX_ERR(0, 90, __pyx_L1_error)
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":91
+  /* "pydbm/cnn/convolutional_neural_network.pyx":92
  *         self.__logger = logger
  * 
  *         self.__logger.debug("Setup CNN layers and the parameters.")             # <<<<<<<<<<<<<<
  * 
  *     def learn(
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":17
+  /* "pydbm/cnn/convolutional_neural_network.pyx":18
  *     '''
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
@@ -2816,7 +2845,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   return __pyx_r;
 }
 
-/* "pydbm/cnn/convolutional_neural_network.pyx":93
+/* "pydbm/cnn/convolutional_neural_network.pyx":94
  *         self.__logger.debug("Setup CNN layers and the parameters.")
  * 
  *     def learn(             # <<<<<<<<<<<<<<
@@ -2839,7 +2868,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_observed_arr,&__pyx_n_s_target_arr,0};
     PyObject* values[3] = {0,0,0};
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":96
+    /* "pydbm/cnn/convolutional_neural_network.pyx":97
  *         self,
  *         np.ndarray[DOUBLE_t, ndim=4] observed_arr,
  *         np.ndarray target_arr=None             # <<<<<<<<<<<<<<
@@ -2869,7 +2898,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_observed_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("learn", 0, 2, 3, 1); __PYX_ERR(0, 93, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("learn", 0, 2, 3, 1); __PYX_ERR(0, 94, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -2879,7 +2908,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "learn") < 0)) __PYX_ERR(0, 93, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "learn") < 0)) __PYX_ERR(0, 94, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2897,17 +2926,17 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("learn", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 93, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("learn", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 94, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_arr", 0))) __PYX_ERR(0, 95, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_target_arr), __pyx_ptype_5numpy_ndarray, 1, "target_arr", 0))) __PYX_ERR(0, 96, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_arr", 0))) __PYX_ERR(0, 96, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_target_arr), __pyx_ptype_5numpy_ndarray, 1, "target_arr", 0))) __PYX_ERR(0, 97, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_2learn(__pyx_self, __pyx_v_self, __pyx_v_observed_arr, __pyx_v_target_arr);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":93
+  /* "pydbm/cnn/convolutional_neural_network.pyx":94
  *         self.__logger.debug("Setup CNN layers and the parameters.")
  * 
  *     def learn(             # <<<<<<<<<<<<<<
@@ -3023,41 +3052,41 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __pyx_pybuffernd_observed_arr.rcbuffer = &__pyx_pybuffer_observed_arr;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) __PYX_ERR(0, 93, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) __PYX_ERR(0, 94, __pyx_L1_error)
   }
   __pyx_pybuffernd_observed_arr.diminfo[0].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_observed_arr.diminfo[0].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_observed_arr.diminfo[1].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_observed_arr.diminfo[1].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_observed_arr.diminfo[2].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_observed_arr.diminfo[2].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_observed_arr.diminfo[3].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_observed_arr.diminfo[3].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[3];
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":107
+  /* "pydbm/cnn/convolutional_neural_network.pyx":108
  * 
  *         '''
  *         self.__logger.debug("CNN starts learning.")             # <<<<<<<<<<<<<<
  * 
  *         cdef double learning_rate = self.__learning_rate
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":109
+  /* "pydbm/cnn/convolutional_neural_network.pyx":110
  *         self.__logger.debug("CNN starts learning.")
  * 
  *         cdef double learning_rate = self.__learning_rate             # <<<<<<<<<<<<<<
  *         cdef int epoch
  *         cdef int batch_index
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lea); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lea); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_learning_rate = __pyx_t_3;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":113
+  /* "pydbm/cnn/convolutional_neural_network.pyx":114
  *         cdef int batch_index
  * 
  *         cdef int row_o = observed_arr.shape[0]             # <<<<<<<<<<<<<<
@@ -3066,7 +3095,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
   __pyx_v_row_o = (__pyx_v_observed_arr->dimensions[0]);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":114
+  /* "pydbm/cnn/convolutional_neural_network.pyx":115
  * 
  *         cdef int row_o = observed_arr.shape[0]
  *         cdef int row_t = 0             # <<<<<<<<<<<<<<
@@ -3075,7 +3104,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
   __pyx_v_row_t = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":115
+  /* "pydbm/cnn/convolutional_neural_network.pyx":116
  *         cdef int row_o = observed_arr.shape[0]
  *         cdef int row_t = 0
  *         if target_arr is not None:             # <<<<<<<<<<<<<<
@@ -3086,7 +3115,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __pyx_t_5 = (__pyx_t_4 != 0);
   if (__pyx_t_5) {
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":116
+    /* "pydbm/cnn/convolutional_neural_network.pyx":117
  *         cdef int row_t = 0
  *         if target_arr is not None:
  *             row_t = target_arr.shape[0]             # <<<<<<<<<<<<<<
@@ -3095,7 +3124,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
     __pyx_v_row_t = (__pyx_v_target_arr->dimensions[0]);
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":115
+    /* "pydbm/cnn/convolutional_neural_network.pyx":116
  *         cdef int row_o = observed_arr.shape[0]
  *         cdef int row_t = 0
  *         if target_arr is not None:             # <<<<<<<<<<<<<<
@@ -3104,7 +3133,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":129
+  /* "pydbm/cnn/convolutional_neural_network.pyx":130
  *         cdef np.ndarray batch_target_arr
  * 
  *         if row_t != 0 and row_t != row_o:             # <<<<<<<<<<<<<<
@@ -3122,20 +3151,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __pyx_L5_bool_binop_done:;
   if (__pyx_t_5) {
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":130
+    /* "pydbm/cnn/convolutional_neural_network.pyx":131
  * 
  *         if row_t != 0 and row_t != row_o:
  *             raise ValueError("The row of `target_arr` must be equivalent to the row of `observed_arr`.")             # <<<<<<<<<<<<<<
  * 
  *         if row_t == 0:
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 130, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 130, __pyx_L1_error)
+    __PYX_ERR(0, 131, __pyx_L1_error)
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":129
+    /* "pydbm/cnn/convolutional_neural_network.pyx":130
  *         cdef np.ndarray batch_target_arr
  * 
  *         if row_t != 0 and row_t != row_o:             # <<<<<<<<<<<<<<
@@ -3144,7 +3173,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":132
+  /* "pydbm/cnn/convolutional_neural_network.pyx":133
  *             raise ValueError("The row of `target_arr` must be equivalent to the row of `observed_arr`.")
  * 
  *         if row_t == 0:             # <<<<<<<<<<<<<<
@@ -3154,14 +3183,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __pyx_t_5 = ((__pyx_v_row_t == 0) != 0);
   if (__pyx_t_5) {
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":133
+    /* "pydbm/cnn/convolutional_neural_network.pyx":134
  * 
  *         if row_t == 0:
  *             target_arr = observed_arr.copy()             # <<<<<<<<<<<<<<
  *         else:
  *             if target_arr.ndim == 2:
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_observed_arr), __pyx_n_s_copy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_observed_arr), __pyx_n_s_copy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_6 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -3174,18 +3203,18 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
       }
     }
     if (__pyx_t_6) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else {
-      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 133, __pyx_L1_error)
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 134, __pyx_L1_error)
     __Pyx_DECREF_SET(__pyx_v_target_arr, ((PyArrayObject *)__pyx_t_1));
     __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":132
+    /* "pydbm/cnn/convolutional_neural_network.pyx":133
  *             raise ValueError("The row of `target_arr` must be equivalent to the row of `observed_arr`.")
  * 
  *         if row_t == 0:             # <<<<<<<<<<<<<<
@@ -3195,7 +3224,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     goto __pyx_L7;
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":135
+  /* "pydbm/cnn/convolutional_neural_network.pyx":136
  *             target_arr = observed_arr.copy()
  *         else:
  *             if target_arr.ndim == 2:             # <<<<<<<<<<<<<<
@@ -3206,20 +3235,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     __pyx_t_5 = ((__pyx_v_target_arr->nd == 2) != 0);
     if (__pyx_t_5) {
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":136
+      /* "pydbm/cnn/convolutional_neural_network.pyx":137
  *         else:
  *             if target_arr.ndim == 2:
  *                 target_arr = target_arr.reshape((target_arr.shape[0], 1, target_arr.shape[1]))             # <<<<<<<<<<<<<<
  * 
  *         if self.__test_size_rate > 0:
  */
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_target_arr), __pyx_n_s_reshape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_target_arr), __pyx_n_s_reshape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_6 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_target_arr->dimensions[0])); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 136, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_target_arr->dimensions[0])); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 137, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_7 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_target_arr->dimensions[1])); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 136, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_target_arr->dimensions[1])); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 137, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 136, __pyx_L1_error)
+      __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 137, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_GIVEREF(__pyx_t_6);
       PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6);
@@ -3241,14 +3270,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         }
       }
       if (!__pyx_t_7) {
-        __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else {
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_2)) {
           PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_8};
-          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -3257,30 +3286,30 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
           PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_8};
-          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         } else
         #endif
         {
-          __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 136, __pyx_L1_error)
+          __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 137, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_7); __pyx_t_7 = NULL;
           __Pyx_GIVEREF(__pyx_t_8);
           PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_8);
           __pyx_t_8 = 0;
-          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         }
       }
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 136, __pyx_L1_error)
+      if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 137, __pyx_L1_error)
       __Pyx_DECREF_SET(__pyx_v_target_arr, ((PyArrayObject *)__pyx_t_1));
       __pyx_t_1 = 0;
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":135
+      /* "pydbm/cnn/convolutional_neural_network.pyx":136
  *             target_arr = observed_arr.copy()
  *         else:
  *             if target_arr.ndim == 2:             # <<<<<<<<<<<<<<
@@ -3291,55 +3320,55 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   }
   __pyx_L7:;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":138
+  /* "pydbm/cnn/convolutional_neural_network.pyx":139
  *                 target_arr = target_arr.reshape((target_arr.shape[0], 1, target_arr.shape[1]))
  * 
  *         if self.__test_size_rate > 0:             # <<<<<<<<<<<<<<
  *             train_index = np.random.choice(observed_arr.shape[0], round(self.__test_size_rate * observed_arr.shape[0]), replace=False)
  *             test_index = np.array(list(set(range(observed_arr.shape[0])) - set(train_index)))
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tes); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tes); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_5) {
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":139
+    /* "pydbm/cnn/convolutional_neural_network.pyx":140
  * 
  *         if self.__test_size_rate > 0:
  *             train_index = np.random.choice(observed_arr.shape[0], round(self.__test_size_rate * observed_arr.shape[0]), replace=False)             # <<<<<<<<<<<<<<
  *             test_index = np.array(list(set(range(observed_arr.shape[0])) - set(train_index)))
  *             train_observed_arr = observed_arr[train_index]
  */
-    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_choice); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_choice); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_observed_arr->dimensions[0])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_observed_arr->dimensions[0])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tes); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tes); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_8 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_observed_arr->dimensions[0])); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_observed_arr->dimensions[0])); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_7 = PyNumber_Multiply(__pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_7 = PyNumber_Multiply(__pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = PyTuple_New(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7);
     __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_8, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_8, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_GIVEREF(__pyx_t_1);
     PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_1);
@@ -3347,50 +3376,50 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_7);
     __pyx_t_1 = 0;
     __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_replace, Py_False) < 0) __PYX_ERR(0, 139, __pyx_L1_error)
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_replace, Py_False) < 0) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 139, __pyx_L1_error)
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 140, __pyx_L1_error)
     __pyx_v_train_index = ((PyArrayObject *)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":140
+    /* "pydbm/cnn/convolutional_neural_network.pyx":141
  *         if self.__test_size_rate > 0:
  *             train_index = np.random.choice(observed_arr.shape[0], round(self.__test_size_rate * observed_arr.shape[0]), replace=False)
  *             test_index = np.array(list(set(range(observed_arr.shape[0])) - set(train_index)))             # <<<<<<<<<<<<<<
  *             train_observed_arr = observed_arr[train_index]
  *             test_observed_arr = observed_arr[test_index]
  */
-    __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_array); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_array); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_observed_arr->dimensions[0])); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_observed_arr->dimensions[0])); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_7);
     __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_2, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_2, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PySet_New(__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_2 = PySet_New(__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PySet_New(((PyObject *)__pyx_v_train_index)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_7 = PySet_New(((PyObject *)__pyx_v_train_index)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_6 = PyNumber_Subtract(__pyx_t_2, __pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_Subtract(__pyx_t_2, __pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PySequence_List(__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_7 = PySequence_List(__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __pyx_t_6 = NULL;
@@ -3404,14 +3433,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
       }
     }
     if (!__pyx_t_6) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_8)) {
         PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_7};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -3420,39 +3449,39 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_8)) {
         PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_7};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       } else
       #endif
       {
-        __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_6); __pyx_t_6 = NULL;
         __Pyx_GIVEREF(__pyx_t_7);
         PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_7);
         __pyx_t_7 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 140, __pyx_L1_error)
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 141, __pyx_L1_error)
     __pyx_v_test_index = ((PyArrayObject *)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":141
+    /* "pydbm/cnn/convolutional_neural_network.pyx":142
  *             train_index = np.random.choice(observed_arr.shape[0], round(self.__test_size_rate * observed_arr.shape[0]), replace=False)
  *             test_index = np.array(list(set(range(observed_arr.shape[0])) - set(train_index)))
  *             train_observed_arr = observed_arr[train_index]             # <<<<<<<<<<<<<<
  *             test_observed_arr = observed_arr[test_index]
  *             train_target_arr = target_arr[train_index]
  */
-    __pyx_t_1 = PyObject_GetItem(((PyObject *)__pyx_v_observed_arr), ((PyObject *)__pyx_v_train_index)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
+    __pyx_t_1 = PyObject_GetItem(((PyObject *)__pyx_v_observed_arr), ((PyObject *)__pyx_v_train_index)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 141, __pyx_L1_error)
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 142, __pyx_L1_error)
     __pyx_t_9 = ((PyArrayObject *)__pyx_t_1);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -3469,22 +3498,22 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_train_observed_arr.diminfo[0].strides = __pyx_pybuffernd_train_observed_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_train_observed_arr.diminfo[0].shape = __pyx_pybuffernd_train_observed_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_train_observed_arr.diminfo[1].strides = __pyx_pybuffernd_train_observed_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_train_observed_arr.diminfo[1].shape = __pyx_pybuffernd_train_observed_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_train_observed_arr.diminfo[2].strides = __pyx_pybuffernd_train_observed_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_train_observed_arr.diminfo[2].shape = __pyx_pybuffernd_train_observed_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_train_observed_arr.diminfo[3].strides = __pyx_pybuffernd_train_observed_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_train_observed_arr.diminfo[3].shape = __pyx_pybuffernd_train_observed_arr.rcbuffer->pybuffer.shape[3];
-      if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 141, __pyx_L1_error)
+      if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 142, __pyx_L1_error)
     }
     __pyx_t_9 = 0;
     __pyx_v_train_observed_arr = ((PyArrayObject *)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":142
+    /* "pydbm/cnn/convolutional_neural_network.pyx":143
  *             test_index = np.array(list(set(range(observed_arr.shape[0])) - set(train_index)))
  *             train_observed_arr = observed_arr[train_index]
  *             test_observed_arr = observed_arr[test_index]             # <<<<<<<<<<<<<<
  *             train_target_arr = target_arr[train_index]
  *             test_target_arr = target_arr[test_index]
  */
-    __pyx_t_1 = PyObject_GetItem(((PyObject *)__pyx_v_observed_arr), ((PyObject *)__pyx_v_test_index)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
+    __pyx_t_1 = PyObject_GetItem(((PyObject *)__pyx_v_observed_arr), ((PyObject *)__pyx_v_test_index)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 142, __pyx_L1_error)
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 143, __pyx_L1_error)
     __pyx_t_14 = ((PyArrayObject *)__pyx_t_1);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -3501,39 +3530,39 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_test_observed_arr.diminfo[0].strides = __pyx_pybuffernd_test_observed_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_test_observed_arr.diminfo[0].shape = __pyx_pybuffernd_test_observed_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_test_observed_arr.diminfo[1].strides = __pyx_pybuffernd_test_observed_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_test_observed_arr.diminfo[1].shape = __pyx_pybuffernd_test_observed_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_test_observed_arr.diminfo[2].strides = __pyx_pybuffernd_test_observed_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_test_observed_arr.diminfo[2].shape = __pyx_pybuffernd_test_observed_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_test_observed_arr.diminfo[3].strides = __pyx_pybuffernd_test_observed_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_test_observed_arr.diminfo[3].shape = __pyx_pybuffernd_test_observed_arr.rcbuffer->pybuffer.shape[3];
-      if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 142, __pyx_L1_error)
+      if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 143, __pyx_L1_error)
     }
     __pyx_t_14 = 0;
     __pyx_v_test_observed_arr = ((PyArrayObject *)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":143
+    /* "pydbm/cnn/convolutional_neural_network.pyx":144
  *             train_observed_arr = observed_arr[train_index]
  *             test_observed_arr = observed_arr[test_index]
  *             train_target_arr = target_arr[train_index]             # <<<<<<<<<<<<<<
  *             test_target_arr = target_arr[test_index]
  *         else:
  */
-    __pyx_t_1 = PyObject_GetItem(((PyObject *)__pyx_v_target_arr), ((PyObject *)__pyx_v_train_index)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_1 = PyObject_GetItem(((PyObject *)__pyx_v_target_arr), ((PyObject *)__pyx_v_train_index)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 143, __pyx_L1_error)
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 144, __pyx_L1_error)
     __pyx_v_train_target_arr = ((PyArrayObject *)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":144
+    /* "pydbm/cnn/convolutional_neural_network.pyx":145
  *             test_observed_arr = observed_arr[test_index]
  *             train_target_arr = target_arr[train_index]
  *             test_target_arr = target_arr[test_index]             # <<<<<<<<<<<<<<
  *         else:
  *             train_observed_arr = observed_arr
  */
-    __pyx_t_1 = PyObject_GetItem(((PyObject *)__pyx_v_target_arr), ((PyObject *)__pyx_v_test_index)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
+    __pyx_t_1 = PyObject_GetItem(((PyObject *)__pyx_v_target_arr), ((PyObject *)__pyx_v_test_index)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 144, __pyx_L1_error)
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 145, __pyx_L1_error)
     __pyx_v_test_target_arr = ((PyArrayObject *)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":138
+    /* "pydbm/cnn/convolutional_neural_network.pyx":139
  *                 target_arr = target_arr.reshape((target_arr.shape[0], 1, target_arr.shape[1]))
  * 
  *         if self.__test_size_rate > 0:             # <<<<<<<<<<<<<<
@@ -3543,7 +3572,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     goto __pyx_L9;
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":146
+  /* "pydbm/cnn/convolutional_neural_network.pyx":147
  *             test_target_arr = target_arr[test_index]
  *         else:
  *             train_observed_arr = observed_arr             # <<<<<<<<<<<<<<
@@ -3566,12 +3595,12 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_train_observed_arr.diminfo[0].strides = __pyx_pybuffernd_train_observed_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_train_observed_arr.diminfo[0].shape = __pyx_pybuffernd_train_observed_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_train_observed_arr.diminfo[1].strides = __pyx_pybuffernd_train_observed_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_train_observed_arr.diminfo[1].shape = __pyx_pybuffernd_train_observed_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_train_observed_arr.diminfo[2].strides = __pyx_pybuffernd_train_observed_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_train_observed_arr.diminfo[2].shape = __pyx_pybuffernd_train_observed_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_train_observed_arr.diminfo[3].strides = __pyx_pybuffernd_train_observed_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_train_observed_arr.diminfo[3].shape = __pyx_pybuffernd_train_observed_arr.rcbuffer->pybuffer.shape[3];
-      if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 146, __pyx_L1_error)
+      if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 147, __pyx_L1_error)
     }
     __Pyx_INCREF(((PyObject *)__pyx_v_observed_arr));
     __pyx_v_train_observed_arr = ((PyArrayObject *)__pyx_v_observed_arr);
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":147
+    /* "pydbm/cnn/convolutional_neural_network.pyx":148
  *         else:
  *             train_observed_arr = observed_arr
  *             train_target_arr = observed_arr             # <<<<<<<<<<<<<<
@@ -3583,7 +3612,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   }
   __pyx_L9:;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":155
+  /* "pydbm/cnn/convolutional_neural_network.pyx":156
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_arr
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -3599,31 +3628,31 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     __Pyx_XGOTREF(__pyx_t_11);
     /*try:*/ {
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":156
+      /* "pydbm/cnn/convolutional_neural_network.pyx":157
  * 
  *         try:
  *             self.__memory_tuple_list = []             # <<<<<<<<<<<<<<
  *             loss_list = []
  *             eary_stop_flag = False
  */
-      __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L10_error)
+      __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 157, __pyx_L10_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__mem, __pyx_t_1) < 0) __PYX_ERR(0, 156, __pyx_L10_error)
+      if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__mem, __pyx_t_1) < 0) __PYX_ERR(0, 157, __pyx_L10_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":157
+      /* "pydbm/cnn/convolutional_neural_network.pyx":158
  *         try:
  *             self.__memory_tuple_list = []
  *             loss_list = []             # <<<<<<<<<<<<<<
  *             eary_stop_flag = False
  *             for epoch in range(self.__epochs):
  */
-      __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 157, __pyx_L10_error)
+      __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 158, __pyx_L10_error)
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_v_loss_list = ((PyObject*)__pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":158
+      /* "pydbm/cnn/convolutional_neural_network.pyx":159
  *             self.__memory_tuple_list = []
  *             loss_list = []
  *             eary_stop_flag = False             # <<<<<<<<<<<<<<
@@ -3632,77 +3661,77 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
       __pyx_v_eary_stop_flag = 0;
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":159
+      /* "pydbm/cnn/convolutional_neural_network.pyx":160
  *             loss_list = []
  *             eary_stop_flag = False
  *             for epoch in range(self.__epochs):             # <<<<<<<<<<<<<<
  *                 self.__opt_params.dropout_rate = self.__dropout_rate
  * 
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__epo); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 159, __pyx_L10_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__epo); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L10_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_15 = __Pyx_PyInt_As_long(__pyx_t_1); if (unlikely((__pyx_t_15 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 159, __pyx_L10_error)
+      __pyx_t_15 = __Pyx_PyInt_As_long(__pyx_t_1); if (unlikely((__pyx_t_15 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 160, __pyx_L10_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       for (__pyx_t_10 = 0; __pyx_t_10 < __pyx_t_15; __pyx_t_10+=1) {
         __pyx_v_epoch = __pyx_t_10;
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":160
+        /* "pydbm/cnn/convolutional_neural_network.pyx":161
  *             eary_stop_flag = False
  *             for epoch in range(self.__epochs):
  *                 self.__opt_params.dropout_rate = self.__dropout_rate             # <<<<<<<<<<<<<<
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__dro); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L10_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__dro); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__opt); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 160, __pyx_L10_error)
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__opt); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 161, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_8);
-        if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_dropout_rate, __pyx_t_1) < 0) __PYX_ERR(0, 160, __pyx_L10_error)
+        if (__Pyx_PyObject_SetAttrStr(__pyx_t_8, __pyx_n_s_dropout_rate, __pyx_t_1) < 0) __PYX_ERR(0, 161, __pyx_L10_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":162
+        /* "pydbm/cnn/convolutional_neural_network.pyx":163
  *                 self.__opt_params.dropout_rate = self.__dropout_rate
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
  *                     learning_rate = learning_rate / self.__learning_attenuate_rate
  * 
  */
-        __pyx_t_8 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 162, __pyx_L10_error)
+        __pyx_t_8 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 163, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__att); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L10_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__att); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_2 = PyNumber_Remainder(__pyx_t_8, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L10_error)
+        __pyx_t_2 = PyNumber_Remainder(__pyx_t_8, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_t_2, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L10_error)
+        __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_t_2, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 162, __pyx_L10_error)
+        __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 163, __pyx_L10_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         if (__pyx_t_5) {
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":163
+          /* "pydbm/cnn/convolutional_neural_network.pyx":164
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):
  *                     learning_rate = learning_rate / self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
  * 
  *                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)
  */
-          __pyx_t_1 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L10_error)
+          __pyx_t_1 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 164, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lea_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L10_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lea_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 164, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_8 = __Pyx_PyNumber_Divide(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 163, __pyx_L10_error)
+          __pyx_t_8 = __Pyx_PyNumber_Divide(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 164, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-          __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_8); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 163, __pyx_L10_error)
+          __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_8); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 164, __pyx_L10_error)
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
           __pyx_v_learning_rate = __pyx_t_3;
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":162
+          /* "pydbm/cnn/convolutional_neural_network.pyx":163
  *                 self.__opt_params.dropout_rate = self.__dropout_rate
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
@@ -3711,53 +3740,53 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
         }
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":165
+        /* "pydbm/cnn/convolutional_neural_network.pyx":166
  *                     learning_rate = learning_rate / self.__learning_attenuate_rate
  * 
  *                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)             # <<<<<<<<<<<<<<
  *                 batch_observed_arr = train_observed_arr[rand_index]
  *                 batch_target_arr = train_target_arr[rand_index]
  */
-        __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 165, __pyx_L10_error)
+        __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 166, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L10_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_choice); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 165, __pyx_L10_error)
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_choice); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 166, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_train_observed_arr->dimensions[0])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L10_error)
+        __pyx_t_2 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_train_observed_arr->dimensions[0])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 165, __pyx_L10_error)
+        __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 166, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_GIVEREF(__pyx_t_2);
         PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
         __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L10_error)
+        __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__bat); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 165, __pyx_L10_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__bat); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 166, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_7);
-        if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_size, __pyx_t_7) < 0) __PYX_ERR(0, 165, __pyx_L10_error)
+        if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_size, __pyx_t_7) < 0) __PYX_ERR(0, 166, __pyx_L10_error)
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 165, __pyx_L10_error)
+        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 166, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 165, __pyx_L10_error)
+        if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 166, __pyx_L10_error)
         __Pyx_XDECREF_SET(__pyx_v_rand_index, ((PyArrayObject *)__pyx_t_7));
         __pyx_t_7 = 0;
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":166
+        /* "pydbm/cnn/convolutional_neural_network.pyx":167
  * 
  *                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)
  *                 batch_observed_arr = train_observed_arr[rand_index]             # <<<<<<<<<<<<<<
  *                 batch_target_arr = train_target_arr[rand_index]
  * 
  */
-        __pyx_t_7 = PyObject_GetItem(((PyObject *)__pyx_v_train_observed_arr), ((PyObject *)__pyx_v_rand_index)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 166, __pyx_L10_error)
+        __pyx_t_7 = PyObject_GetItem(((PyObject *)__pyx_v_train_observed_arr), ((PyObject *)__pyx_v_rand_index)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 167, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_7);
-        if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 166, __pyx_L10_error)
+        if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 167, __pyx_L10_error)
         __pyx_t_16 = ((PyArrayObject *)__pyx_t_7);
         {
           __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -3774,26 +3803,26 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
             __pyx_t_18 = __pyx_t_19 = __pyx_t_20 = 0;
           }
           __pyx_pybuffernd_batch_observed_arr.diminfo[0].strides = __pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_batch_observed_arr.diminfo[0].shape = __pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_batch_observed_arr.diminfo[1].strides = __pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_batch_observed_arr.diminfo[1].shape = __pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_batch_observed_arr.diminfo[2].strides = __pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_batch_observed_arr.diminfo[2].shape = __pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_batch_observed_arr.diminfo[3].strides = __pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_batch_observed_arr.diminfo[3].shape = __pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer.shape[3];
-          if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 166, __pyx_L10_error)
+          if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 167, __pyx_L10_error)
         }
         __pyx_t_16 = 0;
         __Pyx_XDECREF_SET(__pyx_v_batch_observed_arr, ((PyArrayObject *)__pyx_t_7));
         __pyx_t_7 = 0;
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":167
+        /* "pydbm/cnn/convolutional_neural_network.pyx":168
  *                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)
  *                 batch_observed_arr = train_observed_arr[rand_index]
  *                 batch_target_arr = train_target_arr[rand_index]             # <<<<<<<<<<<<<<
  * 
  *                 try:
  */
-        __pyx_t_7 = PyObject_GetItem(((PyObject *)__pyx_v_train_target_arr), ((PyObject *)__pyx_v_rand_index)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 167, __pyx_L10_error)
+        __pyx_t_7 = PyObject_GetItem(((PyObject *)__pyx_v_train_target_arr), ((PyObject *)__pyx_v_rand_index)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 168, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_7);
-        if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 167, __pyx_L10_error)
+        if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 168, __pyx_L10_error)
         __Pyx_XDECREF_SET(__pyx_v_batch_target_arr, ((PyArrayObject *)__pyx_t_7));
         __pyx_t_7 = 0;
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":169
+        /* "pydbm/cnn/convolutional_neural_network.pyx":170
  *                 batch_target_arr = train_target_arr[rand_index]
  * 
  *                 try:             # <<<<<<<<<<<<<<
@@ -3809,14 +3838,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           __Pyx_XGOTREF(__pyx_t_18);
           /*try:*/ {
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":170
+            /* "pydbm/cnn/convolutional_neural_network.pyx":171
  * 
  *                 try:
  *                     pred_arr = self.inference(batch_observed_arr)             # <<<<<<<<<<<<<<
  *                     ver_pred_arr = pred_arr.copy()
  *                     loss = self.__computable_loss.compute_loss(
  */
-            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_inference); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 170, __pyx_L19_error)
+            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_inference); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 171, __pyx_L19_error)
             __Pyx_GOTREF(__pyx_t_2);
             __pyx_t_1 = NULL;
             if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -3829,13 +3858,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
               }
             }
             if (!__pyx_t_1) {
-              __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_batch_observed_arr)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 170, __pyx_L19_error)
+              __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_batch_observed_arr)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 171, __pyx_L19_error)
               __Pyx_GOTREF(__pyx_t_7);
             } else {
               #if CYTHON_FAST_PYCALL
               if (PyFunction_Check(__pyx_t_2)) {
                 PyObject *__pyx_temp[2] = {__pyx_t_1, ((PyObject *)__pyx_v_batch_observed_arr)};
-                __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 170, __pyx_L19_error)
+                __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 171, __pyx_L19_error)
                 __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_GOTREF(__pyx_t_7);
               } else
@@ -3843,25 +3872,25 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
               #if CYTHON_FAST_PYCCALL
               if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
                 PyObject *__pyx_temp[2] = {__pyx_t_1, ((PyObject *)__pyx_v_batch_observed_arr)};
-                __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 170, __pyx_L19_error)
+                __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 171, __pyx_L19_error)
                 __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_GOTREF(__pyx_t_7);
               } else
               #endif
               {
-                __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 170, __pyx_L19_error)
+                __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 171, __pyx_L19_error)
                 __Pyx_GOTREF(__pyx_t_8);
                 __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_1); __pyx_t_1 = NULL;
                 __Pyx_INCREF(((PyObject *)__pyx_v_batch_observed_arr));
                 __Pyx_GIVEREF(((PyObject *)__pyx_v_batch_observed_arr));
                 PyTuple_SET_ITEM(__pyx_t_8, 0+1, ((PyObject *)__pyx_v_batch_observed_arr));
-                __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 170, __pyx_L19_error)
+                __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 171, __pyx_L19_error)
                 __Pyx_GOTREF(__pyx_t_7);
                 __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
               }
             }
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-            if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 170, __pyx_L19_error)
+            if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 171, __pyx_L19_error)
             __pyx_t_21 = ((PyArrayObject *)__pyx_t_7);
             {
               __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -3878,20 +3907,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
                 __pyx_t_22 = __pyx_t_23 = __pyx_t_24 = 0;
               }
               __pyx_pybuffernd_pred_arr.diminfo[0].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_pred_arr.diminfo[0].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_pred_arr.diminfo[1].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_pred_arr.diminfo[1].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_pred_arr.diminfo[2].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_pred_arr.diminfo[2].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_pred_arr.diminfo[3].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_pred_arr.diminfo[3].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[3];
-              if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 170, __pyx_L19_error)
+              if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 171, __pyx_L19_error)
             }
             __pyx_t_21 = 0;
             __Pyx_XDECREF_SET(__pyx_v_pred_arr, ((PyArrayObject *)__pyx_t_7));
             __pyx_t_7 = 0;
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":171
+            /* "pydbm/cnn/convolutional_neural_network.pyx":172
  *                 try:
  *                     pred_arr = self.inference(batch_observed_arr)
  *                     ver_pred_arr = pred_arr.copy()             # <<<<<<<<<<<<<<
  *                     loss = self.__computable_loss.compute_loss(
  *                         pred_arr,
  */
-            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_pred_arr), __pyx_n_s_copy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 171, __pyx_L19_error)
+            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_pred_arr), __pyx_n_s_copy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 172, __pyx_L19_error)
             __Pyx_GOTREF(__pyx_t_2);
             __pyx_t_8 = NULL;
             if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -3904,30 +3933,30 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
               }
             }
             if (__pyx_t_8) {
-              __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 171, __pyx_L19_error)
+              __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 172, __pyx_L19_error)
               __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
             } else {
-              __pyx_t_7 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 171, __pyx_L19_error)
+              __pyx_t_7 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 172, __pyx_L19_error)
             }
             __Pyx_GOTREF(__pyx_t_7);
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_XDECREF_SET(__pyx_v_ver_pred_arr, __pyx_t_7);
             __pyx_t_7 = 0;
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":172
+            /* "pydbm/cnn/convolutional_neural_network.pyx":173
  *                     pred_arr = self.inference(batch_observed_arr)
  *                     ver_pred_arr = pred_arr.copy()
  *                     loss = self.__computable_loss.compute_loss(             # <<<<<<<<<<<<<<
  *                         pred_arr,
  *                         batch_target_arr
  */
-            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__com); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 172, __pyx_L19_error)
+            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__com); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 173, __pyx_L19_error)
             __Pyx_GOTREF(__pyx_t_2);
-            __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_compute_loss); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 172, __pyx_L19_error)
+            __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_compute_loss); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 173, __pyx_L19_error)
             __Pyx_GOTREF(__pyx_t_8);
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":174
+            /* "pydbm/cnn/convolutional_neural_network.pyx":175
  *                     loss = self.__computable_loss.compute_loss(
  *                         pred_arr,
  *                         batch_target_arr             # <<<<<<<<<<<<<<
@@ -3949,7 +3978,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
             #if CYTHON_FAST_PYCALL
             if (PyFunction_Check(__pyx_t_8)) {
               PyObject *__pyx_temp[3] = {__pyx_t_2, ((PyObject *)__pyx_v_pred_arr), ((PyObject *)__pyx_v_batch_target_arr)};
-              __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 172, __pyx_L19_error)
+              __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 173, __pyx_L19_error)
               __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
               __Pyx_GOTREF(__pyx_t_7);
             } else
@@ -3957,13 +3986,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
             #if CYTHON_FAST_PYCCALL
             if (__Pyx_PyFastCFunction_Check(__pyx_t_8)) {
               PyObject *__pyx_temp[3] = {__pyx_t_2, ((PyObject *)__pyx_v_pred_arr), ((PyObject *)__pyx_v_batch_target_arr)};
-              __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 172, __pyx_L19_error)
+              __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 173, __pyx_L19_error)
               __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
               __Pyx_GOTREF(__pyx_t_7);
             } else
             #endif
             {
-              __pyx_t_1 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 172, __pyx_L19_error)
+              __pyx_t_1 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L19_error)
               __Pyx_GOTREF(__pyx_t_1);
               if (__pyx_t_2) {
                 __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -3974,37 +4003,37 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
               __Pyx_INCREF(((PyObject *)__pyx_v_batch_target_arr));
               __Pyx_GIVEREF(((PyObject *)__pyx_v_batch_target_arr));
               PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_17, ((PyObject *)__pyx_v_batch_target_arr));
-              __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_1, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 172, __pyx_L19_error)
+              __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_1, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 173, __pyx_L19_error)
               __Pyx_GOTREF(__pyx_t_7);
               __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             }
             __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":172
+            /* "pydbm/cnn/convolutional_neural_network.pyx":173
  *                     pred_arr = self.inference(batch_observed_arr)
  *                     ver_pred_arr = pred_arr.copy()
  *                     loss = self.__computable_loss.compute_loss(             # <<<<<<<<<<<<<<
  *                         pred_arr,
  *                         batch_target_arr
  */
-            __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 172, __pyx_L19_error)
+            __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 173, __pyx_L19_error)
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
             __pyx_v_loss = __pyx_t_3;
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":176
+            /* "pydbm/cnn/convolutional_neural_network.pyx":177
  *                         batch_target_arr
  *                     )
  *                     delta_arr = self.__computable_loss.compute_delta(             # <<<<<<<<<<<<<<
  *                         pred_arr,
  *                         batch_target_arr
  */
-            __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__com); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 176, __pyx_L19_error)
+            __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__com); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 177, __pyx_L19_error)
             __Pyx_GOTREF(__pyx_t_8);
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_compute_delta); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L19_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_compute_delta); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 177, __pyx_L19_error)
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":178
+            /* "pydbm/cnn/convolutional_neural_network.pyx":179
  *                     delta_arr = self.__computable_loss.compute_delta(
  *                         pred_arr,
  *                         batch_target_arr             # <<<<<<<<<<<<<<
@@ -4026,7 +4055,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
             #if CYTHON_FAST_PYCALL
             if (PyFunction_Check(__pyx_t_1)) {
               PyObject *__pyx_temp[3] = {__pyx_t_8, ((PyObject *)__pyx_v_pred_arr), ((PyObject *)__pyx_v_batch_target_arr)};
-              __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 176, __pyx_L19_error)
+              __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 177, __pyx_L19_error)
               __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
               __Pyx_GOTREF(__pyx_t_7);
             } else
@@ -4034,13 +4063,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
             #if CYTHON_FAST_PYCCALL
             if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
               PyObject *__pyx_temp[3] = {__pyx_t_8, ((PyObject *)__pyx_v_pred_arr), ((PyObject *)__pyx_v_batch_target_arr)};
-              __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 176, __pyx_L19_error)
+              __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 177, __pyx_L19_error)
               __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
               __Pyx_GOTREF(__pyx_t_7);
             } else
             #endif
             {
-              __pyx_t_2 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 176, __pyx_L19_error)
+              __pyx_t_2 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 177, __pyx_L19_error)
               __Pyx_GOTREF(__pyx_t_2);
               if (__pyx_t_8) {
                 __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_8); __pyx_t_8 = NULL;
@@ -4051,20 +4080,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
               __Pyx_INCREF(((PyObject *)__pyx_v_batch_target_arr));
               __Pyx_GIVEREF(((PyObject *)__pyx_v_batch_target_arr));
               PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_17, ((PyObject *)__pyx_v_batch_target_arr));
-              __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 176, __pyx_L19_error)
+              __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 177, __pyx_L19_error)
               __Pyx_GOTREF(__pyx_t_7);
               __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             }
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":176
+            /* "pydbm/cnn/convolutional_neural_network.pyx":177
  *                         batch_target_arr
  *                     )
  *                     delta_arr = self.__computable_loss.compute_delta(             # <<<<<<<<<<<<<<
  *                         pred_arr,
  *                         batch_target_arr
  */
-            if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 176, __pyx_L19_error)
+            if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 177, __pyx_L19_error)
             __pyx_t_25 = ((PyArrayObject *)__pyx_t_7);
             {
               __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -4081,20 +4110,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
                 __pyx_t_24 = __pyx_t_23 = __pyx_t_22 = 0;
               }
               __pyx_pybuffernd_delta_arr.diminfo[0].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_arr.diminfo[0].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_arr.diminfo[1].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_arr.diminfo[1].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_arr.diminfo[2].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_arr.diminfo[2].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_arr.diminfo[3].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_arr.diminfo[3].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[3];
-              if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 176, __pyx_L19_error)
+              if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 177, __pyx_L19_error)
             }
             __pyx_t_25 = 0;
             __Pyx_XDECREF_SET(__pyx_v_delta_arr, ((PyArrayObject *)__pyx_t_7));
             __pyx_t_7 = 0;
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":180
+            /* "pydbm/cnn/convolutional_neural_network.pyx":181
  *                         batch_target_arr
  *                     )
  *                     delta_arr = self.back_propagation(delta_arr)             # <<<<<<<<<<<<<<
  *                     self.optimize(learning_rate, epoch)
  * 
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_back_propagation); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L19_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_back_propagation); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L19_error)
             __Pyx_GOTREF(__pyx_t_1);
             __pyx_t_2 = NULL;
             if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -4107,13 +4136,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
               }
             }
             if (!__pyx_t_2) {
-              __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_1, ((PyObject *)__pyx_v_delta_arr)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 180, __pyx_L19_error)
+              __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_1, ((PyObject *)__pyx_v_delta_arr)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 181, __pyx_L19_error)
               __Pyx_GOTREF(__pyx_t_7);
             } else {
               #if CYTHON_FAST_PYCALL
               if (PyFunction_Check(__pyx_t_1)) {
                 PyObject *__pyx_temp[2] = {__pyx_t_2, ((PyObject *)__pyx_v_delta_arr)};
-                __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 180, __pyx_L19_error)
+                __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 181, __pyx_L19_error)
                 __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
                 __Pyx_GOTREF(__pyx_t_7);
               } else
@@ -4121,25 +4150,25 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
               #if CYTHON_FAST_PYCCALL
               if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
                 PyObject *__pyx_temp[2] = {__pyx_t_2, ((PyObject *)__pyx_v_delta_arr)};
-                __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 180, __pyx_L19_error)
+                __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 181, __pyx_L19_error)
                 __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
                 __Pyx_GOTREF(__pyx_t_7);
               } else
               #endif
               {
-                __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 180, __pyx_L19_error)
+                __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 181, __pyx_L19_error)
                 __Pyx_GOTREF(__pyx_t_8);
                 __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_2); __pyx_t_2 = NULL;
                 __Pyx_INCREF(((PyObject *)__pyx_v_delta_arr));
                 __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_arr));
                 PyTuple_SET_ITEM(__pyx_t_8, 0+1, ((PyObject *)__pyx_v_delta_arr));
-                __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_8, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 180, __pyx_L19_error)
+                __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_8, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 181, __pyx_L19_error)
                 __Pyx_GOTREF(__pyx_t_7);
                 __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
               }
             }
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-            if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 180, __pyx_L19_error)
+            if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 181, __pyx_L19_error)
             __pyx_t_25 = ((PyArrayObject *)__pyx_t_7);
             {
               __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -4156,24 +4185,24 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
                 __pyx_t_22 = __pyx_t_23 = __pyx_t_24 = 0;
               }
               __pyx_pybuffernd_delta_arr.diminfo[0].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_arr.diminfo[0].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_arr.diminfo[1].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_arr.diminfo[1].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_arr.diminfo[2].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_arr.diminfo[2].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_arr.diminfo[3].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_arr.diminfo[3].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[3];
-              if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 180, __pyx_L19_error)
+              if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 181, __pyx_L19_error)
             }
             __pyx_t_25 = 0;
             __Pyx_DECREF_SET(__pyx_v_delta_arr, ((PyArrayObject *)__pyx_t_7));
             __pyx_t_7 = 0;
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":181
+            /* "pydbm/cnn/convolutional_neural_network.pyx":182
  *                     )
  *                     delta_arr = self.back_propagation(delta_arr)
  *                     self.optimize(learning_rate, epoch)             # <<<<<<<<<<<<<<
  * 
  *                 except FloatingPointError:
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_optimize); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L19_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_optimize); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L19_error)
             __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_8 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 181, __pyx_L19_error)
+            __pyx_t_8 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 182, __pyx_L19_error)
             __Pyx_GOTREF(__pyx_t_8);
-            __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_epoch); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 181, __pyx_L19_error)
+            __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_epoch); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 182, __pyx_L19_error)
             __Pyx_GOTREF(__pyx_t_2);
             __pyx_t_6 = NULL;
             __pyx_t_17 = 0;
@@ -4190,7 +4219,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
             #if CYTHON_FAST_PYCALL
             if (PyFunction_Check(__pyx_t_1)) {
               PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_8, __pyx_t_2};
-              __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 181, __pyx_L19_error)
+              __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 182, __pyx_L19_error)
               __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
               __Pyx_GOTREF(__pyx_t_7);
               __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -4200,7 +4229,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
             #if CYTHON_FAST_PYCCALL
             if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
               PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_8, __pyx_t_2};
-              __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 181, __pyx_L19_error)
+              __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 182, __pyx_L19_error)
               __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
               __Pyx_GOTREF(__pyx_t_7);
               __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -4208,7 +4237,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
             } else
             #endif
             {
-              __pyx_t_26 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 181, __pyx_L19_error)
+              __pyx_t_26 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 182, __pyx_L19_error)
               __Pyx_GOTREF(__pyx_t_26);
               if (__pyx_t_6) {
                 __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_26, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -4219,14 +4248,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
               PyTuple_SET_ITEM(__pyx_t_26, 1+__pyx_t_17, __pyx_t_2);
               __pyx_t_8 = 0;
               __pyx_t_2 = 0;
-              __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_26, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 181, __pyx_L19_error)
+              __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_26, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 182, __pyx_L19_error)
               __Pyx_GOTREF(__pyx_t_7);
               __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
             }
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":169
+            /* "pydbm/cnn/convolutional_neural_network.pyx":170
  *                 batch_target_arr = train_target_arr[rand_index]
  * 
  *                 try:             # <<<<<<<<<<<<<<
@@ -4246,7 +4275,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":183
+          /* "pydbm/cnn/convolutional_neural_network.pyx":184
  *                     self.optimize(learning_rate, epoch)
  * 
  *                 except FloatingPointError:             # <<<<<<<<<<<<<<
@@ -4256,53 +4285,53 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           __pyx_t_17 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_FloatingPointError);
           if (__pyx_t_17) {
             __Pyx_AddTraceback("pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
-            if (__Pyx_GetException(&__pyx_t_7, &__pyx_t_1, &__pyx_t_26) < 0) __PYX_ERR(0, 183, __pyx_L21_except_error)
+            if (__Pyx_GetException(&__pyx_t_7, &__pyx_t_1, &__pyx_t_26) < 0) __PYX_ERR(0, 184, __pyx_L21_except_error)
             __Pyx_GOTREF(__pyx_t_7);
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_GOTREF(__pyx_t_26);
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":184
+            /* "pydbm/cnn/convolutional_neural_network.pyx":185
  * 
  *                 except FloatingPointError:
  *                     if epoch > int(self.__epochs * 0.7):             # <<<<<<<<<<<<<<
  *                         self.__logger.debug(
  *                             "Underflow occurred when the parameters are being updated. Because of early stopping, this error is catched and the parameter is not updated."
  */
-            __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_epoch); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 184, __pyx_L21_except_error)
+            __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_epoch); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 185, __pyx_L21_except_error)
             __Pyx_GOTREF(__pyx_t_2);
-            __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__epo); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 184, __pyx_L21_except_error)
+            __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__epo); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 185, __pyx_L21_except_error)
             __Pyx_GOTREF(__pyx_t_8);
-            __pyx_t_6 = PyNumber_Multiply(__pyx_t_8, __pyx_float_0_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 184, __pyx_L21_except_error)
+            __pyx_t_6 = PyNumber_Multiply(__pyx_t_8, __pyx_float_0_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 185, __pyx_L21_except_error)
             __Pyx_GOTREF(__pyx_t_6);
             __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-            __pyx_t_8 = __Pyx_PyNumber_Int(__pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 184, __pyx_L21_except_error)
+            __pyx_t_8 = __Pyx_PyNumber_Int(__pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 185, __pyx_L21_except_error)
             __Pyx_GOTREF(__pyx_t_8);
             __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-            __pyx_t_6 = PyObject_RichCompare(__pyx_t_2, __pyx_t_8, Py_GT); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 184, __pyx_L21_except_error)
+            __pyx_t_6 = PyObject_RichCompare(__pyx_t_2, __pyx_t_8, Py_GT); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 185, __pyx_L21_except_error)
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-            __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 184, __pyx_L21_except_error)
+            __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 185, __pyx_L21_except_error)
             __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
             if (__pyx_t_5) {
 
-              /* "pydbm/cnn/convolutional_neural_network.pyx":185
+              /* "pydbm/cnn/convolutional_neural_network.pyx":186
  *                 except FloatingPointError:
  *                     if epoch > int(self.__epochs * 0.7):
  *                         self.__logger.debug(             # <<<<<<<<<<<<<<
  *                             "Underflow occurred when the parameters are being updated. Because of early stopping, this error is catched and the parameter is not updated."
  *                         )
  */
-              __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 185, __pyx_L21_except_error)
+              __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 186, __pyx_L21_except_error)
               __Pyx_GOTREF(__pyx_t_6);
-              __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_debug); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 185, __pyx_L21_except_error)
+              __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_debug); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 186, __pyx_L21_except_error)
               __Pyx_GOTREF(__pyx_t_8);
               __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-              __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 185, __pyx_L21_except_error)
+              __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 186, __pyx_L21_except_error)
               __Pyx_GOTREF(__pyx_t_6);
               __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
               __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-              /* "pydbm/cnn/convolutional_neural_network.pyx":188
+              /* "pydbm/cnn/convolutional_neural_network.pyx":189
  *                             "Underflow occurred when the parameters are being updated. Because of early stopping, this error is catched and the parameter is not updated."
  *                         )
  *                         eary_stop_flag = True             # <<<<<<<<<<<<<<
@@ -4311,7 +4340,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
               __pyx_v_eary_stop_flag = 1;
 
-              /* "pydbm/cnn/convolutional_neural_network.pyx":189
+              /* "pydbm/cnn/convolutional_neural_network.pyx":190
  *                         )
  *                         eary_stop_flag = True
  *                         break             # <<<<<<<<<<<<<<
@@ -4320,7 +4349,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
               goto __pyx_L27_except_break;
 
-              /* "pydbm/cnn/convolutional_neural_network.pyx":184
+              /* "pydbm/cnn/convolutional_neural_network.pyx":185
  * 
  *                 except FloatingPointError:
  *                     if epoch > int(self.__epochs * 0.7):             # <<<<<<<<<<<<<<
@@ -4329,7 +4358,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
             }
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":191
+            /* "pydbm/cnn/convolutional_neural_network.pyx":192
  *                         break
  *                     else:
  *                         raise             # <<<<<<<<<<<<<<
@@ -4342,7 +4371,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
               __Pyx_XGIVEREF(__pyx_t_26);
               __Pyx_ErrRestoreWithState(__pyx_t_7, __pyx_t_1, __pyx_t_26);
               __pyx_t_7 = 0; __pyx_t_1 = 0; __pyx_t_26 = 0; 
-              __PYX_ERR(0, 191, __pyx_L21_except_error)
+              __PYX_ERR(0, 192, __pyx_L21_except_error)
             }
             __pyx_L27_except_break:;
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -4353,7 +4382,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           goto __pyx_L21_except_error;
           __pyx_L21_except_error:;
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":169
+          /* "pydbm/cnn/convolutional_neural_network.pyx":170
  *                 batch_target_arr = train_target_arr[rand_index]
  * 
  *                 try:             # <<<<<<<<<<<<<<
@@ -4374,106 +4403,106 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           __pyx_L26_try_end:;
         }
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":193
+        /* "pydbm/cnn/convolutional_neural_network.pyx":194
  *                         raise
  * 
  *                 if self.__test_size_rate > 0:             # <<<<<<<<<<<<<<
  *                     self.__opt_params.dropout_rate = 0.0
  *                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
  */
-        __pyx_t_26 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tes); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 193, __pyx_L10_error)
+        __pyx_t_26 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tes); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 194, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_26);
-        __pyx_t_1 = PyObject_RichCompare(__pyx_t_26, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 193, __pyx_L10_error)
+        __pyx_t_1 = PyObject_RichCompare(__pyx_t_26, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 194, __pyx_L10_error)
         __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
-        __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 193, __pyx_L10_error)
+        __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 194, __pyx_L10_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         if (__pyx_t_5) {
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":194
+          /* "pydbm/cnn/convolutional_neural_network.pyx":195
  * 
  *                 if self.__test_size_rate > 0:
  *                     self.__opt_params.dropout_rate = 0.0             # <<<<<<<<<<<<<<
  *                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
  *                     test_batch_observed_arr = test_observed_arr[rand_index]
  */
-          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__opt); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 194, __pyx_L10_error)
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__opt); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 195, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_1);
-          if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_dropout_rate, __pyx_float_0_0) < 0) __PYX_ERR(0, 194, __pyx_L10_error)
+          if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_dropout_rate, __pyx_float_0_0) < 0) __PYX_ERR(0, 195, __pyx_L10_error)
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":195
+          /* "pydbm/cnn/convolutional_neural_network.pyx":196
  *                 if self.__test_size_rate > 0:
  *                     self.__opt_params.dropout_rate = 0.0
  *                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)             # <<<<<<<<<<<<<<
  *                     test_batch_observed_arr = test_observed_arr[rand_index]
  *                     test_batch_target_arr = test_target_arr[rand_index]
  */
-          __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 195, __pyx_L10_error)
+          __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 196, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_26 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 195, __pyx_L10_error)
+          __pyx_t_26 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 196, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_26);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_26, __pyx_n_s_choice); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 195, __pyx_L10_error)
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_26, __pyx_n_s_choice); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 196, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
-          __pyx_t_26 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_test_observed_arr->dimensions[0])); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 195, __pyx_L10_error)
+          __pyx_t_26 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_test_observed_arr->dimensions[0])); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 196, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_26);
-          __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 195, __pyx_L10_error)
+          __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 196, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_7);
           __Pyx_GIVEREF(__pyx_t_26);
           PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_26);
           __pyx_t_26 = 0;
-          __pyx_t_26 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 195, __pyx_L10_error)
+          __pyx_t_26 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 196, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_26);
-          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__bat); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 195, __pyx_L10_error)
+          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__bat); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 196, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_6);
-          if (PyDict_SetItem(__pyx_t_26, __pyx_n_s_size, __pyx_t_6) < 0) __PYX_ERR(0, 195, __pyx_L10_error)
+          if (PyDict_SetItem(__pyx_t_26, __pyx_n_s_size, __pyx_t_6) < 0) __PYX_ERR(0, 196, __pyx_L10_error)
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-          __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, __pyx_t_26); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 195, __pyx_L10_error)
+          __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, __pyx_t_26); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 196, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
-          if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 195, __pyx_L10_error)
+          if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 196, __pyx_L10_error)
           __Pyx_DECREF_SET(__pyx_v_rand_index, ((PyArrayObject *)__pyx_t_6));
           __pyx_t_6 = 0;
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":196
+          /* "pydbm/cnn/convolutional_neural_network.pyx":197
  *                     self.__opt_params.dropout_rate = 0.0
  *                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
  *                     test_batch_observed_arr = test_observed_arr[rand_index]             # <<<<<<<<<<<<<<
  *                     test_batch_target_arr = test_target_arr[rand_index]
  * 
  */
-          __pyx_t_6 = PyObject_GetItem(((PyObject *)__pyx_v_test_observed_arr), ((PyObject *)__pyx_v_rand_index)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 196, __pyx_L10_error)
+          __pyx_t_6 = PyObject_GetItem(((PyObject *)__pyx_v_test_observed_arr), ((PyObject *)__pyx_v_rand_index)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 197, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_XDECREF_SET(__pyx_v_test_batch_observed_arr, __pyx_t_6);
           __pyx_t_6 = 0;
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":197
+          /* "pydbm/cnn/convolutional_neural_network.pyx":198
  *                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
  *                     test_batch_observed_arr = test_observed_arr[rand_index]
  *                     test_batch_target_arr = test_target_arr[rand_index]             # <<<<<<<<<<<<<<
  * 
  * 
  */
-          if (unlikely(!__pyx_v_test_target_arr)) { __Pyx_RaiseUnboundLocalError("test_target_arr"); __PYX_ERR(0, 197, __pyx_L10_error) }
-          __pyx_t_6 = PyObject_GetItem(((PyObject *)__pyx_v_test_target_arr), ((PyObject *)__pyx_v_rand_index)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 197, __pyx_L10_error)
+          if (unlikely(!__pyx_v_test_target_arr)) { __Pyx_RaiseUnboundLocalError("test_target_arr"); __PYX_ERR(0, 198, __pyx_L10_error) }
+          __pyx_t_6 = PyObject_GetItem(((PyObject *)__pyx_v_test_target_arr), ((PyObject *)__pyx_v_rand_index)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 198, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_XDECREF_SET(__pyx_v_test_batch_target_arr, __pyx_t_6);
           __pyx_t_6 = 0;
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":200
+          /* "pydbm/cnn/convolutional_neural_network.pyx":201
  * 
  * 
  *                     test_pred_arr = self.forward_propagation(             # <<<<<<<<<<<<<<
  *                         test_batch_observed_arr
  *                     )
  */
-          __pyx_t_26 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_forward_propagation); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 200, __pyx_L10_error)
+          __pyx_t_26 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_forward_propagation); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 201, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_26);
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":201
+          /* "pydbm/cnn/convolutional_neural_network.pyx":202
  * 
  *                     test_pred_arr = self.forward_propagation(
  *                         test_batch_observed_arr             # <<<<<<<<<<<<<<
@@ -4491,13 +4520,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
             }
           }
           if (!__pyx_t_7) {
-            __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_26, __pyx_v_test_batch_observed_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 200, __pyx_L10_error)
+            __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_26, __pyx_v_test_batch_observed_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 201, __pyx_L10_error)
             __Pyx_GOTREF(__pyx_t_6);
           } else {
             #if CYTHON_FAST_PYCALL
             if (PyFunction_Check(__pyx_t_26)) {
               PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_v_test_batch_observed_arr};
-              __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_26, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 200, __pyx_L10_error)
+              __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_26, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 201, __pyx_L10_error)
               __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
               __Pyx_GOTREF(__pyx_t_6);
             } else
@@ -4505,33 +4534,33 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
             #if CYTHON_FAST_PYCCALL
             if (__Pyx_PyFastCFunction_Check(__pyx_t_26)) {
               PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_v_test_batch_observed_arr};
-              __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_26, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 200, __pyx_L10_error)
+              __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_26, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 201, __pyx_L10_error)
               __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
               __Pyx_GOTREF(__pyx_t_6);
             } else
             #endif
             {
-              __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 200, __pyx_L10_error)
+              __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 201, __pyx_L10_error)
               __Pyx_GOTREF(__pyx_t_1);
               __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_7); __pyx_t_7 = NULL;
               __Pyx_INCREF(__pyx_v_test_batch_observed_arr);
               __Pyx_GIVEREF(__pyx_v_test_batch_observed_arr);
               PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_v_test_batch_observed_arr);
-              __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_26, __pyx_t_1, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 200, __pyx_L10_error)
+              __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_26, __pyx_t_1, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 201, __pyx_L10_error)
               __Pyx_GOTREF(__pyx_t_6);
               __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             }
           }
           __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":200
+          /* "pydbm/cnn/convolutional_neural_network.pyx":201
  * 
  * 
  *                     test_pred_arr = self.forward_propagation(             # <<<<<<<<<<<<<<
  *                         test_batch_observed_arr
  *                     )
  */
-          if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 200, __pyx_L10_error)
+          if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 201, __pyx_L10_error)
           __pyx_t_27 = ((PyArrayObject *)__pyx_t_6);
           {
             __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -4548,49 +4577,49 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
               __pyx_t_18 = __pyx_t_19 = __pyx_t_20 = 0;
             }
             __pyx_pybuffernd_test_pred_arr.diminfo[0].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_test_pred_arr.diminfo[0].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_test_pred_arr.diminfo[1].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_test_pred_arr.diminfo[1].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_test_pred_arr.diminfo[2].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_test_pred_arr.diminfo[2].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_test_pred_arr.diminfo[3].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_test_pred_arr.diminfo[3].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[3];
-            if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 200, __pyx_L10_error)
+            if (unlikely(__pyx_t_17 < 0)) __PYX_ERR(0, 201, __pyx_L10_error)
           }
           __pyx_t_27 = 0;
           __Pyx_XDECREF_SET(__pyx_v_test_pred_arr, ((PyArrayObject *)__pyx_t_6));
           __pyx_t_6 = 0;
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":203
+          /* "pydbm/cnn/convolutional_neural_network.pyx":204
  *                         test_batch_observed_arr
  *                     )
  *                     if self.__save_flag is True:             # <<<<<<<<<<<<<<
  *                         np.save("test_pred_arr_" + str(epoch), test_pred_arr)
  * 
  */
-          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__sav); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 203, __pyx_L10_error)
+          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__sav); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 204, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_6);
           __pyx_t_5 = (__pyx_t_6 == Py_True);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           __pyx_t_4 = (__pyx_t_5 != 0);
           if (__pyx_t_4) {
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":204
+            /* "pydbm/cnn/convolutional_neural_network.pyx":205
  *                     )
  *                     if self.__save_flag is True:
  *                         np.save("test_pred_arr_" + str(epoch), test_pred_arr)             # <<<<<<<<<<<<<<
  * 
  *                     if self.__verificatable_result is not None:
  */
-            __pyx_t_26 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 204, __pyx_L10_error)
+            __pyx_t_26 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 205, __pyx_L10_error)
             __Pyx_GOTREF(__pyx_t_26);
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_26, __pyx_n_s_save); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 204, __pyx_L10_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_26, __pyx_n_s_save); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L10_error)
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
-            __pyx_t_26 = __Pyx_PyInt_From_int(__pyx_v_epoch); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 204, __pyx_L10_error)
+            __pyx_t_26 = __Pyx_PyInt_From_int(__pyx_v_epoch); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 205, __pyx_L10_error)
             __Pyx_GOTREF(__pyx_t_26);
-            __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 204, __pyx_L10_error)
+            __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 205, __pyx_L10_error)
             __Pyx_GOTREF(__pyx_t_7);
             __Pyx_GIVEREF(__pyx_t_26);
             PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_26);
             __pyx_t_26 = 0;
-            __pyx_t_26 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_7, NULL); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 204, __pyx_L10_error)
+            __pyx_t_26 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_7, NULL); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 205, __pyx_L10_error)
             __Pyx_GOTREF(__pyx_t_26);
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-            __pyx_t_7 = PyNumber_Add(__pyx_n_s_test_pred_arr, __pyx_t_26); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 204, __pyx_L10_error)
+            __pyx_t_7 = PyNumber_Add(__pyx_n_s_test_pred_arr, __pyx_t_26); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 205, __pyx_L10_error)
             __Pyx_GOTREF(__pyx_t_7);
             __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
             __pyx_t_26 = NULL;
@@ -4608,7 +4637,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
             #if CYTHON_FAST_PYCALL
             if (PyFunction_Check(__pyx_t_1)) {
               PyObject *__pyx_temp[3] = {__pyx_t_26, __pyx_t_7, ((PyObject *)__pyx_v_test_pred_arr)};
-              __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 204, __pyx_L10_error)
+              __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 205, __pyx_L10_error)
               __Pyx_XDECREF(__pyx_t_26); __pyx_t_26 = 0;
               __Pyx_GOTREF(__pyx_t_6);
               __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -4617,14 +4646,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
             #if CYTHON_FAST_PYCCALL
             if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
               PyObject *__pyx_temp[3] = {__pyx_t_26, __pyx_t_7, ((PyObject *)__pyx_v_test_pred_arr)};
-              __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 204, __pyx_L10_error)
+              __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 205, __pyx_L10_error)
               __Pyx_XDECREF(__pyx_t_26); __pyx_t_26 = 0;
               __Pyx_GOTREF(__pyx_t_6);
               __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
             } else
             #endif
             {
-              __pyx_t_8 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 204, __pyx_L10_error)
+              __pyx_t_8 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 205, __pyx_L10_error)
               __Pyx_GOTREF(__pyx_t_8);
               if (__pyx_t_26) {
                 __Pyx_GIVEREF(__pyx_t_26); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_26); __pyx_t_26 = NULL;
@@ -4635,14 +4664,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
               __Pyx_GIVEREF(((PyObject *)__pyx_v_test_pred_arr));
               PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_17, ((PyObject *)__pyx_v_test_pred_arr));
               __pyx_t_7 = 0;
-              __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_8, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 204, __pyx_L10_error)
+              __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_8, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 205, __pyx_L10_error)
               __Pyx_GOTREF(__pyx_t_6);
               __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
             }
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":203
+            /* "pydbm/cnn/convolutional_neural_network.pyx":204
  *                         test_batch_observed_arr
  *                     )
  *                     if self.__save_flag is True:             # <<<<<<<<<<<<<<
@@ -4651,124 +4680,124 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
           }
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":206
+          /* "pydbm/cnn/convolutional_neural_network.pyx":207
  *                         np.save("test_pred_arr_" + str(epoch), test_pred_arr)
  * 
  *                     if self.__verificatable_result is not None:             # <<<<<<<<<<<<<<
  *                         if self.__test_size_rate > 0:
  *                             self.__verificatable_result.verificate(
  */
-          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__ver); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 206, __pyx_L10_error)
+          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__ver); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 207, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_6);
           __pyx_t_4 = (__pyx_t_6 != Py_None);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           __pyx_t_5 = (__pyx_t_4 != 0);
           if (__pyx_t_5) {
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":207
+            /* "pydbm/cnn/convolutional_neural_network.pyx":208
  * 
  *                     if self.__verificatable_result is not None:
  *                         if self.__test_size_rate > 0:             # <<<<<<<<<<<<<<
  *                             self.__verificatable_result.verificate(
  *                                 self.__computable_loss,
  */
-            __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tes); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 207, __pyx_L10_error)
+            __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tes); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 208, __pyx_L10_error)
             __Pyx_GOTREF(__pyx_t_6);
-            __pyx_t_1 = PyObject_RichCompare(__pyx_t_6, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 207, __pyx_L10_error)
+            __pyx_t_1 = PyObject_RichCompare(__pyx_t_6, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 208, __pyx_L10_error)
             __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-            __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 207, __pyx_L10_error)
+            __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 208, __pyx_L10_error)
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             if (__pyx_t_5) {
 
-              /* "pydbm/cnn/convolutional_neural_network.pyx":208
+              /* "pydbm/cnn/convolutional_neural_network.pyx":209
  *                     if self.__verificatable_result is not None:
  *                         if self.__test_size_rate > 0:
  *                             self.__verificatable_result.verificate(             # <<<<<<<<<<<<<<
  *                                 self.__computable_loss,
  *                                 train_pred_arr=ver_pred_arr,
  */
-              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__ver); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 208, __pyx_L10_error)
+              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__ver); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L10_error)
               __Pyx_GOTREF(__pyx_t_1);
-              __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_verificate); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 208, __pyx_L10_error)
+              __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_verificate); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 209, __pyx_L10_error)
               __Pyx_GOTREF(__pyx_t_6);
               __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-              /* "pydbm/cnn/convolutional_neural_network.pyx":209
+              /* "pydbm/cnn/convolutional_neural_network.pyx":210
  *                         if self.__test_size_rate > 0:
  *                             self.__verificatable_result.verificate(
  *                                 self.__computable_loss,             # <<<<<<<<<<<<<<
  *                                 train_pred_arr=ver_pred_arr,
  *                                 train_label_arr=batch_target_arr,
  */
-              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__com); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L10_error)
+              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__com); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 210, __pyx_L10_error)
               __Pyx_GOTREF(__pyx_t_1);
 
-              /* "pydbm/cnn/convolutional_neural_network.pyx":208
+              /* "pydbm/cnn/convolutional_neural_network.pyx":209
  *                     if self.__verificatable_result is not None:
  *                         if self.__test_size_rate > 0:
  *                             self.__verificatable_result.verificate(             # <<<<<<<<<<<<<<
  *                                 self.__computable_loss,
  *                                 train_pred_arr=ver_pred_arr,
  */
-              __pyx_t_8 = PyTuple_New(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 208, __pyx_L10_error)
+              __pyx_t_8 = PyTuple_New(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 209, __pyx_L10_error)
               __Pyx_GOTREF(__pyx_t_8);
               __Pyx_GIVEREF(__pyx_t_1);
               PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_1);
               __pyx_t_1 = 0;
 
-              /* "pydbm/cnn/convolutional_neural_network.pyx":210
+              /* "pydbm/cnn/convolutional_neural_network.pyx":211
  *                             self.__verificatable_result.verificate(
  *                                 self.__computable_loss,
  *                                 train_pred_arr=ver_pred_arr,             # <<<<<<<<<<<<<<
  *                                 train_label_arr=batch_target_arr,
  *                                 test_pred_arr=test_pred_arr,
  */
-              __pyx_t_1 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 210, __pyx_L10_error)
+              __pyx_t_1 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L10_error)
               __Pyx_GOTREF(__pyx_t_1);
-              if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_train_pred_arr, __pyx_v_ver_pred_arr) < 0) __PYX_ERR(0, 210, __pyx_L10_error)
+              if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_train_pred_arr, __pyx_v_ver_pred_arr) < 0) __PYX_ERR(0, 211, __pyx_L10_error)
 
-              /* "pydbm/cnn/convolutional_neural_network.pyx":211
+              /* "pydbm/cnn/convolutional_neural_network.pyx":212
  *                                 self.__computable_loss,
  *                                 train_pred_arr=ver_pred_arr,
  *                                 train_label_arr=batch_target_arr,             # <<<<<<<<<<<<<<
  *                                 test_pred_arr=test_pred_arr,
  *                                 test_label_arr=test_batch_target_arr
  */
-              if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_train_label_arr, ((PyObject *)__pyx_v_batch_target_arr)) < 0) __PYX_ERR(0, 210, __pyx_L10_error)
+              if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_train_label_arr, ((PyObject *)__pyx_v_batch_target_arr)) < 0) __PYX_ERR(0, 211, __pyx_L10_error)
 
-              /* "pydbm/cnn/convolutional_neural_network.pyx":212
+              /* "pydbm/cnn/convolutional_neural_network.pyx":213
  *                                 train_pred_arr=ver_pred_arr,
  *                                 train_label_arr=batch_target_arr,
  *                                 test_pred_arr=test_pred_arr,             # <<<<<<<<<<<<<<
  *                                 test_label_arr=test_batch_target_arr
  *                             )
  */
-              if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_test_pred_arr_2, ((PyObject *)__pyx_v_test_pred_arr)) < 0) __PYX_ERR(0, 210, __pyx_L10_error)
+              if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_test_pred_arr_2, ((PyObject *)__pyx_v_test_pred_arr)) < 0) __PYX_ERR(0, 211, __pyx_L10_error)
 
-              /* "pydbm/cnn/convolutional_neural_network.pyx":213
+              /* "pydbm/cnn/convolutional_neural_network.pyx":214
  *                                 train_label_arr=batch_target_arr,
  *                                 test_pred_arr=test_pred_arr,
  *                                 test_label_arr=test_batch_target_arr             # <<<<<<<<<<<<<<
  *                             )
  * 
  */
-              if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_test_label_arr, __pyx_v_test_batch_target_arr) < 0) __PYX_ERR(0, 210, __pyx_L10_error)
+              if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_test_label_arr, __pyx_v_test_batch_target_arr) < 0) __PYX_ERR(0, 211, __pyx_L10_error)
 
-              /* "pydbm/cnn/convolutional_neural_network.pyx":208
+              /* "pydbm/cnn/convolutional_neural_network.pyx":209
  *                     if self.__verificatable_result is not None:
  *                         if self.__test_size_rate > 0:
  *                             self.__verificatable_result.verificate(             # <<<<<<<<<<<<<<
  *                                 self.__computable_loss,
  *                                 train_pred_arr=ver_pred_arr,
  */
-              __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_8, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 208, __pyx_L10_error)
+              __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_8, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 209, __pyx_L10_error)
               __Pyx_GOTREF(__pyx_t_7);
               __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
               __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
               __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
               __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-              /* "pydbm/cnn/convolutional_neural_network.pyx":207
+              /* "pydbm/cnn/convolutional_neural_network.pyx":208
  * 
  *                     if self.__verificatable_result is not None:
  *                         if self.__test_size_rate > 0:             # <<<<<<<<<<<<<<
@@ -4777,7 +4806,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
             }
 
-            /* "pydbm/cnn/convolutional_neural_network.pyx":206
+            /* "pydbm/cnn/convolutional_neural_network.pyx":207
  *                         np.save("test_pred_arr_" + str(epoch), test_pred_arr)
  * 
  *                     if self.__verificatable_result is not None:             # <<<<<<<<<<<<<<
@@ -4786,7 +4815,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
           }
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":193
+          /* "pydbm/cnn/convolutional_neural_network.pyx":194
  *                         raise
  * 
  *                 if self.__test_size_rate > 0:             # <<<<<<<<<<<<<<
@@ -4795,7 +4824,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
         }
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":216
+        /* "pydbm/cnn/convolutional_neural_network.pyx":217
  *                             )
  * 
  *                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:             # <<<<<<<<<<<<<<
@@ -4808,29 +4837,29 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           __pyx_t_5 = __pyx_t_4;
           goto __pyx_L35_bool_binop_done;
         }
-        __pyx_t_7 = PyFloat_FromDouble(__pyx_v_loss); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 216, __pyx_L10_error)
+        __pyx_t_7 = PyFloat_FromDouble(__pyx_v_loss); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 217, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_loss_list, -1L, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L10_error)
+        __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_loss_list, -1L, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_8 = PyNumber_Subtract(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 216, __pyx_L10_error)
+        __pyx_t_8 = PyNumber_Subtract(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 217, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = PyNumber_Absolute(__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L10_error)
+        __pyx_t_1 = PyNumber_Absolute(__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tol); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 216, __pyx_L10_error)
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tol); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 217, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_7 = PyObject_RichCompare(__pyx_t_1, __pyx_t_8, Py_LT); __Pyx_XGOTREF(__pyx_t_7); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 216, __pyx_L10_error)
+        __pyx_t_7 = PyObject_RichCompare(__pyx_t_1, __pyx_t_8, Py_LT); __Pyx_XGOTREF(__pyx_t_7); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 217, __pyx_L10_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 216, __pyx_L10_error)
+        __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 217, __pyx_L10_error)
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __pyx_t_5 = __pyx_t_4;
         __pyx_L35_bool_binop_done:;
         if (__pyx_t_5) {
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":217
+          /* "pydbm/cnn/convolutional_neural_network.pyx":218
  * 
  *                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
  *                     eary_stop_flag = True             # <<<<<<<<<<<<<<
@@ -4839,7 +4868,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
           __pyx_v_eary_stop_flag = 1;
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":218
+          /* "pydbm/cnn/convolutional_neural_network.pyx":219
  *                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
  *                     eary_stop_flag = True
  *                     break             # <<<<<<<<<<<<<<
@@ -4848,7 +4877,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
           goto __pyx_L17_break;
 
-          /* "pydbm/cnn/convolutional_neural_network.pyx":216
+          /* "pydbm/cnn/convolutional_neural_network.pyx":217
  *                             )
  * 
  *                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:             # <<<<<<<<<<<<<<
@@ -4857,21 +4886,21 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
         }
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":219
+        /* "pydbm/cnn/convolutional_neural_network.pyx":220
  *                     eary_stop_flag = True
  *                     break
  *                 loss_list.append(loss)             # <<<<<<<<<<<<<<
  * 
  *         except KeyboardInterrupt:
  */
-        __pyx_t_7 = PyFloat_FromDouble(__pyx_v_loss); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 219, __pyx_L10_error)
+        __pyx_t_7 = PyFloat_FromDouble(__pyx_v_loss); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 220, __pyx_L10_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_28 = __Pyx_PyList_Append(__pyx_v_loss_list, __pyx_t_7); if (unlikely(__pyx_t_28 == ((int)-1))) __PYX_ERR(0, 219, __pyx_L10_error)
+        __pyx_t_28 = __Pyx_PyList_Append(__pyx_v_loss_list, __pyx_t_7); if (unlikely(__pyx_t_28 == ((int)-1))) __PYX_ERR(0, 220, __pyx_L10_error)
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       }
       __pyx_L17_break:;
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":155
+      /* "pydbm/cnn/convolutional_neural_network.pyx":156
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_arr
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -4891,7 +4920,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":221
+    /* "pydbm/cnn/convolutional_neural_network.pyx":222
  *                 loss_list.append(loss)
  * 
  *         except KeyboardInterrupt:             # <<<<<<<<<<<<<<
@@ -4901,24 +4930,24 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     __pyx_t_10 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyboardInterrupt);
     if (__pyx_t_10) {
       __Pyx_AddTraceback("pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_7, &__pyx_t_8, &__pyx_t_1) < 0) __PYX_ERR(0, 221, __pyx_L12_except_error)
+      if (__Pyx_GetException(&__pyx_t_7, &__pyx_t_8, &__pyx_t_1) < 0) __PYX_ERR(0, 222, __pyx_L12_except_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_GOTREF(__pyx_t_1);
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":222
+      /* "pydbm/cnn/convolutional_neural_network.pyx":223
  * 
  *         except KeyboardInterrupt:
  *             self.__logger.debug("Interrupt.")             # <<<<<<<<<<<<<<
  * 
  *         if eary_stop_flag is True:
  */
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 222, __pyx_L12_except_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 223, __pyx_L12_except_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_26 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_debug); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 222, __pyx_L12_except_error)
+      __pyx_t_26 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_debug); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 223, __pyx_L12_except_error)
       __Pyx_GOTREF(__pyx_t_26);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_26, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 222, __pyx_L12_except_error)
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_26, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 223, __pyx_L12_except_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -4930,7 +4959,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     goto __pyx_L12_except_error;
     __pyx_L12_except_error:;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":155
+    /* "pydbm/cnn/convolutional_neural_network.pyx":156
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_arr
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -4950,7 +4979,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     __pyx_L15_try_end:;
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":224
+  /* "pydbm/cnn/convolutional_neural_network.pyx":225
  *             self.__logger.debug("Interrupt.")
  * 
  *         if eary_stop_flag is True:             # <<<<<<<<<<<<<<
@@ -4960,24 +4989,24 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __pyx_t_5 = ((__pyx_v_eary_stop_flag == 1) != 0);
   if (__pyx_t_5) {
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":225
+    /* "pydbm/cnn/convolutional_neural_network.pyx":226
  * 
  *         if eary_stop_flag is True:
  *             self.__logger.debug("Eary stopping.")             # <<<<<<<<<<<<<<
  *             eary_stop_flag = False
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 225, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 225, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 225, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":226
+    /* "pydbm/cnn/convolutional_neural_network.pyx":227
  *         if eary_stop_flag is True:
  *             self.__logger.debug("Eary stopping.")
  *             eary_stop_flag = False             # <<<<<<<<<<<<<<
@@ -4986,7 +5015,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
     __pyx_v_eary_stop_flag = 0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":224
+    /* "pydbm/cnn/convolutional_neural_network.pyx":225
  *             self.__logger.debug("Interrupt.")
  * 
  *         if eary_stop_flag is True:             # <<<<<<<<<<<<<<
@@ -4995,24 +5024,24 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":228
+  /* "pydbm/cnn/convolutional_neural_network.pyx":229
  *             eary_stop_flag = False
  * 
  *         self.__logger.debug("end. ")             # <<<<<<<<<<<<<<
  * 
- *     def inference(self, np.ndarray[DOUBLE_t, ndim=4] observed_arr):
+ *     def learn_generated(self, feature_generator):
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":93
+  /* "pydbm/cnn/convolutional_neural_network.pyx":94
  *         self.__logger.debug("Setup CNN layers and the parameters.")
  * 
  *     def learn(             # <<<<<<<<<<<<<<
@@ -5076,7 +5105,1724 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   return __pyx_r;
 }
 
-/* "pydbm/cnn/convolutional_neural_network.pyx":230
+/* "pydbm/cnn/convolutional_neural_network.pyx":231
+ *         self.__logger.debug("end. ")
+ * 
+ *     def learn_generated(self, feature_generator):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Learn features generated by `FeatureGenerator`.
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_5learn_generated(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_4learn_generated[] = "\n        Learn features generated by `FeatureGenerator`.\n        \n        Args:\n            feature_generator:    is-a `FeatureGenerator`.\n\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_5learn_generated = {"learn_generated", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_5learn_generated, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_4learn_generated};
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_5learn_generated(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_self = 0;
+  PyObject *__pyx_v_feature_generator = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("learn_generated (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_feature_generator,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_feature_generator)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("learn_generated", 1, 2, 2, 1); __PYX_ERR(0, 231, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "learn_generated") < 0)) __PYX_ERR(0, 231, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_self = values[0];
+    __pyx_v_feature_generator = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("learn_generated", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 231, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork.learn_generated", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_4learn_generated(__pyx_self, __pyx_v_self, __pyx_v_feature_generator);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_4learn_generated(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_feature_generator) {
+  double __pyx_v_learning_rate;
+  int __pyx_v_epoch;
+  PyArrayObject *__pyx_v_batch_observed_arr = 0;
+  PyArrayObject *__pyx_v_batch_target_arr = 0;
+  double __pyx_v_loss;
+  PyArrayObject *__pyx_v_pred_arr = 0;
+  PyArrayObject *__pyx_v_test_pred_arr = 0;
+  PyArrayObject *__pyx_v_delta_arr = 0;
+  PyObject *__pyx_v_loss_list = NULL;
+  int __pyx_v_eary_stop_flag;
+  PyObject *__pyx_v_test_batch_observed_arr = NULL;
+  PyObject *__pyx_v_test_batch_target_arr = NULL;
+  PyObject *__pyx_v_ver_pred_arr = NULL;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_batch_observed_arr;
+  __Pyx_Buffer __pyx_pybuffer_batch_observed_arr;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_delta_arr;
+  __Pyx_Buffer __pyx_pybuffer_delta_arr;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_pred_arr;
+  __Pyx_Buffer __pyx_pybuffer_pred_arr;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_test_pred_arr;
+  __Pyx_Buffer __pyx_pybuffer_test_pred_arr;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  double __pyx_t_5;
+  PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
+  PyObject *__pyx_t_8 = NULL;
+  PyObject *__pyx_t_9 = NULL;
+  Py_ssize_t __pyx_t_10;
+  PyObject *(*__pyx_t_11)(PyObject *);
+  PyObject *__pyx_t_12 = NULL;
+  PyObject *__pyx_t_13 = NULL;
+  PyObject *__pyx_t_14 = NULL;
+  PyObject *__pyx_t_15 = NULL;
+  PyObject *(*__pyx_t_16)(PyObject *);
+  PyArrayObject *__pyx_t_17 = NULL;
+  int __pyx_t_18;
+  PyObject *__pyx_t_19 = NULL;
+  PyObject *__pyx_t_20 = NULL;
+  PyObject *__pyx_t_21 = NULL;
+  PyArrayObject *__pyx_t_22 = NULL;
+  PyObject *__pyx_t_23 = NULL;
+  PyObject *__pyx_t_24 = NULL;
+  PyObject *__pyx_t_25 = NULL;
+  PyArrayObject *__pyx_t_26 = NULL;
+  PyArrayObject *__pyx_t_27 = NULL;
+  int __pyx_t_28;
+  __Pyx_RefNannySetupContext("learn_generated", 0);
+  __pyx_pybuffer_batch_observed_arr.pybuffer.buf = NULL;
+  __pyx_pybuffer_batch_observed_arr.refcount = 0;
+  __pyx_pybuffernd_batch_observed_arr.data = NULL;
+  __pyx_pybuffernd_batch_observed_arr.rcbuffer = &__pyx_pybuffer_batch_observed_arr;
+  __pyx_pybuffer_pred_arr.pybuffer.buf = NULL;
+  __pyx_pybuffer_pred_arr.refcount = 0;
+  __pyx_pybuffernd_pred_arr.data = NULL;
+  __pyx_pybuffernd_pred_arr.rcbuffer = &__pyx_pybuffer_pred_arr;
+  __pyx_pybuffer_test_pred_arr.pybuffer.buf = NULL;
+  __pyx_pybuffer_test_pred_arr.refcount = 0;
+  __pyx_pybuffernd_test_pred_arr.data = NULL;
+  __pyx_pybuffernd_test_pred_arr.rcbuffer = &__pyx_pybuffer_test_pred_arr;
+  __pyx_pybuffer_delta_arr.pybuffer.buf = NULL;
+  __pyx_pybuffer_delta_arr.refcount = 0;
+  __pyx_pybuffernd_delta_arr.data = NULL;
+  __pyx_pybuffernd_delta_arr.rcbuffer = &__pyx_pybuffer_delta_arr;
+
+  /* "pydbm/cnn/convolutional_neural_network.pyx":239
+ * 
+ *         '''
+ *         if isinstance(feature_generator, FeatureGenerator) is False:             # <<<<<<<<<<<<<<
+ *             raise TypeError("The type of `feature_generator` must be `FeatureGenerator`.")
+ * 
+ */
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_FeatureGenerator); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_feature_generator, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 239, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
+  if (__pyx_t_3) {
+
+    /* "pydbm/cnn/convolutional_neural_network.pyx":240
+ *         '''
+ *         if isinstance(feature_generator, FeatureGenerator) is False:
+ *             raise TypeError("The type of `feature_generator` must be `FeatureGenerator`.")             # <<<<<<<<<<<<<<
+ * 
+ *         self.__logger.debug("CNN starts learning.")
+ */
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 240, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __PYX_ERR(0, 240, __pyx_L1_error)
+
+    /* "pydbm/cnn/convolutional_neural_network.pyx":239
+ * 
+ *         '''
+ *         if isinstance(feature_generator, FeatureGenerator) is False:             # <<<<<<<<<<<<<<
+ *             raise TypeError("The type of `feature_generator` must be `FeatureGenerator`.")
+ * 
+ */
+  }
+
+  /* "pydbm/cnn/convolutional_neural_network.pyx":242
+ *             raise TypeError("The type of `feature_generator` must be `FeatureGenerator`.")
+ * 
+ *         self.__logger.debug("CNN starts learning.")             # <<<<<<<<<<<<<<
+ * 
+ *         cdef double learning_rate = self.__learning_rate
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pydbm/cnn/convolutional_neural_network.pyx":244
+ *         self.__logger.debug("CNN starts learning.")
+ * 
+ *         cdef double learning_rate = self.__learning_rate             # <<<<<<<<<<<<<<
+ *         cdef int epoch
+ *         cdef int batch_index
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lea); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 244, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 244, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_learning_rate = __pyx_t_5;
+
+  /* "pydbm/cnn/convolutional_neural_network.pyx":265
+ *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_arr
+ * 
+ *         try:             # <<<<<<<<<<<<<<
+ *             self.__memory_tuple_list = []
+ *             loss_list = []
+ */
+  {
+    __Pyx_PyThreadState_declare
+    __Pyx_PyThreadState_assign
+    __Pyx_ExceptionSave(&__pyx_t_6, &__pyx_t_7, &__pyx_t_8);
+    __Pyx_XGOTREF(__pyx_t_6);
+    __Pyx_XGOTREF(__pyx_t_7);
+    __Pyx_XGOTREF(__pyx_t_8);
+    /*try:*/ {
+
+      /* "pydbm/cnn/convolutional_neural_network.pyx":266
+ * 
+ *         try:
+ *             self.__memory_tuple_list = []             # <<<<<<<<<<<<<<
+ *             loss_list = []
+ *             eary_stop_flag = False
+ */
+      __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 266, __pyx_L4_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__mem, __pyx_t_1) < 0) __PYX_ERR(0, 266, __pyx_L4_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+      /* "pydbm/cnn/convolutional_neural_network.pyx":267
+ *         try:
+ *             self.__memory_tuple_list = []
+ *             loss_list = []             # <<<<<<<<<<<<<<
+ *             eary_stop_flag = False
+ *             epoch = 0
+ */
+      __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 267, __pyx_L4_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_v_loss_list = ((PyObject*)__pyx_t_1);
+      __pyx_t_1 = 0;
+
+      /* "pydbm/cnn/convolutional_neural_network.pyx":268
+ *             self.__memory_tuple_list = []
+ *             loss_list = []
+ *             eary_stop_flag = False             # <<<<<<<<<<<<<<
+ *             epoch = 0
+ *             for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr in feature_generator.generate():
+ */
+      __pyx_v_eary_stop_flag = 0;
+
+      /* "pydbm/cnn/convolutional_neural_network.pyx":269
+ *             loss_list = []
+ *             eary_stop_flag = False
+ *             epoch = 0             # <<<<<<<<<<<<<<
+ *             for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr in feature_generator.generate():
+ *                 epoch += 1
+ */
+      __pyx_v_epoch = 0;
+
+      /* "pydbm/cnn/convolutional_neural_network.pyx":270
+ *             eary_stop_flag = False
+ *             epoch = 0
+ *             for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr in feature_generator.generate():             # <<<<<<<<<<<<<<
+ *                 epoch += 1
+ *                 self.__opt_params.dropout_rate = self.__dropout_rate
+ */
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_feature_generator, __pyx_n_s_generate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 270, __pyx_L4_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_9 = NULL;
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+        __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_4);
+        if (likely(__pyx_t_9)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+          __Pyx_INCREF(__pyx_t_9);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_4, function);
+        }
+      }
+      if (__pyx_t_9) {
+        __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 270, __pyx_L4_error)
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      } else {
+        __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 270, __pyx_L4_error)
+      }
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
+        __pyx_t_4 = __pyx_t_1; __Pyx_INCREF(__pyx_t_4); __pyx_t_10 = 0;
+        __pyx_t_11 = NULL;
+      } else {
+        __pyx_t_10 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 270, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __pyx_t_11 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 270, __pyx_L4_error)
+      }
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      for (;;) {
+        if (likely(!__pyx_t_11)) {
+          if (likely(PyList_CheckExact(__pyx_t_4))) {
+            if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_4)) break;
+            #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+            __pyx_t_1 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_1); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 270, __pyx_L4_error)
+            #else
+            __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 270, __pyx_L4_error)
+            __Pyx_GOTREF(__pyx_t_1);
+            #endif
+          } else {
+            if (__pyx_t_10 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
+            #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+            __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_1); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 270, __pyx_L4_error)
+            #else
+            __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 270, __pyx_L4_error)
+            __Pyx_GOTREF(__pyx_t_1);
+            #endif
+          }
+        } else {
+          __pyx_t_1 = __pyx_t_11(__pyx_t_4);
+          if (unlikely(!__pyx_t_1)) {
+            PyObject* exc_type = PyErr_Occurred();
+            if (exc_type) {
+              if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+              else __PYX_ERR(0, 270, __pyx_L4_error)
+            }
+            break;
+          }
+          __Pyx_GOTREF(__pyx_t_1);
+        }
+        if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
+          PyObject* sequence = __pyx_t_1;
+          #if !CYTHON_COMPILING_IN_PYPY
+          Py_ssize_t size = Py_SIZE(sequence);
+          #else
+          Py_ssize_t size = PySequence_Size(sequence);
+          #endif
+          if (unlikely(size != 4)) {
+            if (size > 4) __Pyx_RaiseTooManyValuesError(4);
+            else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
+            __PYX_ERR(0, 270, __pyx_L4_error)
+          }
+          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+          if (likely(PyTuple_CheckExact(sequence))) {
+            __pyx_t_9 = PyTuple_GET_ITEM(sequence, 0); 
+            __pyx_t_12 = PyTuple_GET_ITEM(sequence, 1); 
+            __pyx_t_13 = PyTuple_GET_ITEM(sequence, 2); 
+            __pyx_t_14 = PyTuple_GET_ITEM(sequence, 3); 
+          } else {
+            __pyx_t_9 = PyList_GET_ITEM(sequence, 0); 
+            __pyx_t_12 = PyList_GET_ITEM(sequence, 1); 
+            __pyx_t_13 = PyList_GET_ITEM(sequence, 2); 
+            __pyx_t_14 = PyList_GET_ITEM(sequence, 3); 
+          }
+          __Pyx_INCREF(__pyx_t_9);
+          __Pyx_INCREF(__pyx_t_12);
+          __Pyx_INCREF(__pyx_t_13);
+          __Pyx_INCREF(__pyx_t_14);
+          #else
+          {
+            Py_ssize_t i;
+            PyObject** temps[4] = {&__pyx_t_9,&__pyx_t_12,&__pyx_t_13,&__pyx_t_14};
+            for (i=0; i < 4; i++) {
+              PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) __PYX_ERR(0, 270, __pyx_L4_error)
+              __Pyx_GOTREF(item);
+              *(temps[i]) = item;
+            }
+          }
+          #endif
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        } else {
+          Py_ssize_t index = -1;
+          PyObject** temps[4] = {&__pyx_t_9,&__pyx_t_12,&__pyx_t_13,&__pyx_t_14};
+          __pyx_t_15 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 270, __pyx_L4_error)
+          __Pyx_GOTREF(__pyx_t_15);
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+          __pyx_t_16 = Py_TYPE(__pyx_t_15)->tp_iternext;
+          for (index=0; index < 4; index++) {
+            PyObject* item = __pyx_t_16(__pyx_t_15); if (unlikely(!item)) goto __pyx_L12_unpacking_failed;
+            __Pyx_GOTREF(item);
+            *(temps[index]) = item;
+          }
+          if (__Pyx_IternextUnpackEndCheck(__pyx_t_16(__pyx_t_15), 4) < 0) __PYX_ERR(0, 270, __pyx_L4_error)
+          __pyx_t_16 = NULL;
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+          goto __pyx_L13_unpacking_done;
+          __pyx_L12_unpacking_failed:;
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+          __pyx_t_16 = NULL;
+          if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
+          __PYX_ERR(0, 270, __pyx_L4_error)
+          __pyx_L13_unpacking_done:;
+        }
+        if (!(likely(((__pyx_t_9) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_9, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 270, __pyx_L4_error)
+        if (!(likely(((__pyx_t_12) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_12, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 270, __pyx_L4_error)
+        __pyx_t_17 = ((PyArrayObject *)__pyx_t_9);
+        {
+          __Pyx_BufFmt_StackElem __pyx_stack[1];
+          __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer);
+          __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_17, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack);
+          if (unlikely(__pyx_t_18 < 0)) {
+            PyErr_Fetch(&__pyx_t_19, &__pyx_t_20, &__pyx_t_21);
+            if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_batch_observed_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
+              Py_XDECREF(__pyx_t_19); Py_XDECREF(__pyx_t_20); Py_XDECREF(__pyx_t_21);
+              __Pyx_RaiseBufferFallbackError();
+            } else {
+              PyErr_Restore(__pyx_t_19, __pyx_t_20, __pyx_t_21);
+            }
+            __pyx_t_19 = __pyx_t_20 = __pyx_t_21 = 0;
+          }
+          __pyx_pybuffernd_batch_observed_arr.diminfo[0].strides = __pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_batch_observed_arr.diminfo[0].shape = __pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_batch_observed_arr.diminfo[1].strides = __pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_batch_observed_arr.diminfo[1].shape = __pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_batch_observed_arr.diminfo[2].strides = __pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_batch_observed_arr.diminfo[2].shape = __pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_batch_observed_arr.diminfo[3].strides = __pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_batch_observed_arr.diminfo[3].shape = __pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer.shape[3];
+          if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 270, __pyx_L4_error)
+        }
+        __pyx_t_17 = 0;
+        __Pyx_XDECREF_SET(__pyx_v_batch_observed_arr, ((PyArrayObject *)__pyx_t_9));
+        __pyx_t_9 = 0;
+        __Pyx_XDECREF_SET(__pyx_v_batch_target_arr, ((PyArrayObject *)__pyx_t_12));
+        __pyx_t_12 = 0;
+        __Pyx_XDECREF_SET(__pyx_v_test_batch_observed_arr, __pyx_t_13);
+        __pyx_t_13 = 0;
+        __Pyx_XDECREF_SET(__pyx_v_test_batch_target_arr, __pyx_t_14);
+        __pyx_t_14 = 0;
+
+        /* "pydbm/cnn/convolutional_neural_network.pyx":271
+ *             epoch = 0
+ *             for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr in feature_generator.generate():
+ *                 epoch += 1             # <<<<<<<<<<<<<<
+ *                 self.__opt_params.dropout_rate = self.__dropout_rate
+ * 
+ */
+        __pyx_v_epoch = (__pyx_v_epoch + 1);
+
+        /* "pydbm/cnn/convolutional_neural_network.pyx":272
+ *             for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr in feature_generator.generate():
+ *                 epoch += 1
+ *                 self.__opt_params.dropout_rate = self.__dropout_rate             # <<<<<<<<<<<<<<
+ * 
+ *                 if ((epoch + 1) % self.__attenuate_epoch == 0):
+ */
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__dro); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 272, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__opt); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 272, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_14);
+        if (__Pyx_PyObject_SetAttrStr(__pyx_t_14, __pyx_n_s_dropout_rate, __pyx_t_1) < 0) __PYX_ERR(0, 272, __pyx_L4_error)
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+
+        /* "pydbm/cnn/convolutional_neural_network.pyx":274
+ *                 self.__opt_params.dropout_rate = self.__dropout_rate
+ * 
+ *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
+ *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ * 
+ */
+        __pyx_t_14 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 274, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_14);
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__att); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 274, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_13 = PyNumber_Remainder(__pyx_t_14, __pyx_t_1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 274, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_13);
+        __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_t_13, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 274, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+        __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 274, __pyx_L4_error)
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if (__pyx_t_3) {
+
+          /* "pydbm/cnn/convolutional_neural_network.pyx":275
+ * 
+ *                 if ((epoch + 1) % self.__attenuate_epoch == 0):
+ *                     learning_rate = learning_rate / self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
+ * 
+ *                 try:
+ */
+          __pyx_t_1 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 275, __pyx_L4_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lea_2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 275, __pyx_L4_error)
+          __Pyx_GOTREF(__pyx_t_13);
+          __pyx_t_14 = __Pyx_PyNumber_Divide(__pyx_t_1, __pyx_t_13); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 275, __pyx_L4_error)
+          __Pyx_GOTREF(__pyx_t_14);
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+          __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+          __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_14); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 275, __pyx_L4_error)
+          __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+          __pyx_v_learning_rate = __pyx_t_5;
+
+          /* "pydbm/cnn/convolutional_neural_network.pyx":274
+ *                 self.__opt_params.dropout_rate = self.__dropout_rate
+ * 
+ *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
+ *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ * 
+ */
+        }
+
+        /* "pydbm/cnn/convolutional_neural_network.pyx":277
+ *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ * 
+ *                 try:             # <<<<<<<<<<<<<<
+ *                     pred_arr = self.inference(batch_observed_arr)
+ *                     ver_pred_arr = pred_arr.copy()
+ */
+        {
+          __Pyx_PyThreadState_declare
+          __Pyx_PyThreadState_assign
+          __Pyx_ExceptionSave(&__pyx_t_21, &__pyx_t_20, &__pyx_t_19);
+          __Pyx_XGOTREF(__pyx_t_21);
+          __Pyx_XGOTREF(__pyx_t_20);
+          __Pyx_XGOTREF(__pyx_t_19);
+          /*try:*/ {
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":278
+ * 
+ *                 try:
+ *                     pred_arr = self.inference(batch_observed_arr)             # <<<<<<<<<<<<<<
+ *                     ver_pred_arr = pred_arr.copy()
+ *                     loss = self.__computable_loss.compute_loss(
+ */
+            __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_inference); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 278, __pyx_L15_error)
+            __Pyx_GOTREF(__pyx_t_13);
+            __pyx_t_1 = NULL;
+            if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_13))) {
+              __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_13);
+              if (likely(__pyx_t_1)) {
+                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_13);
+                __Pyx_INCREF(__pyx_t_1);
+                __Pyx_INCREF(function);
+                __Pyx_DECREF_SET(__pyx_t_13, function);
+              }
+            }
+            if (!__pyx_t_1) {
+              __pyx_t_14 = __Pyx_PyObject_CallOneArg(__pyx_t_13, ((PyObject *)__pyx_v_batch_observed_arr)); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 278, __pyx_L15_error)
+              __Pyx_GOTREF(__pyx_t_14);
+            } else {
+              #if CYTHON_FAST_PYCALL
+              if (PyFunction_Check(__pyx_t_13)) {
+                PyObject *__pyx_temp[2] = {__pyx_t_1, ((PyObject *)__pyx_v_batch_observed_arr)};
+                __pyx_t_14 = __Pyx_PyFunction_FastCall(__pyx_t_13, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 278, __pyx_L15_error)
+                __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+                __Pyx_GOTREF(__pyx_t_14);
+              } else
+              #endif
+              #if CYTHON_FAST_PYCCALL
+              if (__Pyx_PyFastCFunction_Check(__pyx_t_13)) {
+                PyObject *__pyx_temp[2] = {__pyx_t_1, ((PyObject *)__pyx_v_batch_observed_arr)};
+                __pyx_t_14 = __Pyx_PyCFunction_FastCall(__pyx_t_13, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 278, __pyx_L15_error)
+                __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+                __Pyx_GOTREF(__pyx_t_14);
+              } else
+              #endif
+              {
+                __pyx_t_12 = PyTuple_New(1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 278, __pyx_L15_error)
+                __Pyx_GOTREF(__pyx_t_12);
+                __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_1); __pyx_t_1 = NULL;
+                __Pyx_INCREF(((PyObject *)__pyx_v_batch_observed_arr));
+                __Pyx_GIVEREF(((PyObject *)__pyx_v_batch_observed_arr));
+                PyTuple_SET_ITEM(__pyx_t_12, 0+1, ((PyObject *)__pyx_v_batch_observed_arr));
+                __pyx_t_14 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_t_12, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 278, __pyx_L15_error)
+                __Pyx_GOTREF(__pyx_t_14);
+                __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+              }
+            }
+            __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+            if (!(likely(((__pyx_t_14) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_14, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 278, __pyx_L15_error)
+            __pyx_t_22 = ((PyArrayObject *)__pyx_t_14);
+            {
+              __Pyx_BufFmt_StackElem __pyx_stack[1];
+              __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer);
+              __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_22, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack);
+              if (unlikely(__pyx_t_18 < 0)) {
+                PyErr_Fetch(&__pyx_t_23, &__pyx_t_24, &__pyx_t_25);
+                if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_pred_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
+                  Py_XDECREF(__pyx_t_23); Py_XDECREF(__pyx_t_24); Py_XDECREF(__pyx_t_25);
+                  __Pyx_RaiseBufferFallbackError();
+                } else {
+                  PyErr_Restore(__pyx_t_23, __pyx_t_24, __pyx_t_25);
+                }
+                __pyx_t_23 = __pyx_t_24 = __pyx_t_25 = 0;
+              }
+              __pyx_pybuffernd_pred_arr.diminfo[0].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_pred_arr.diminfo[0].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_pred_arr.diminfo[1].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_pred_arr.diminfo[1].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_pred_arr.diminfo[2].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_pred_arr.diminfo[2].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_pred_arr.diminfo[3].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_pred_arr.diminfo[3].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[3];
+              if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 278, __pyx_L15_error)
+            }
+            __pyx_t_22 = 0;
+            __Pyx_XDECREF_SET(__pyx_v_pred_arr, ((PyArrayObject *)__pyx_t_14));
+            __pyx_t_14 = 0;
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":279
+ *                 try:
+ *                     pred_arr = self.inference(batch_observed_arr)
+ *                     ver_pred_arr = pred_arr.copy()             # <<<<<<<<<<<<<<
+ *                     loss = self.__computable_loss.compute_loss(
+ *                         pred_arr,
+ */
+            __pyx_t_13 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_pred_arr), __pyx_n_s_copy); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 279, __pyx_L15_error)
+            __Pyx_GOTREF(__pyx_t_13);
+            __pyx_t_12 = NULL;
+            if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_13))) {
+              __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_13);
+              if (likely(__pyx_t_12)) {
+                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_13);
+                __Pyx_INCREF(__pyx_t_12);
+                __Pyx_INCREF(function);
+                __Pyx_DECREF_SET(__pyx_t_13, function);
+              }
+            }
+            if (__pyx_t_12) {
+              __pyx_t_14 = __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_t_12); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 279, __pyx_L15_error)
+              __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+            } else {
+              __pyx_t_14 = __Pyx_PyObject_CallNoArg(__pyx_t_13); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 279, __pyx_L15_error)
+            }
+            __Pyx_GOTREF(__pyx_t_14);
+            __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+            __Pyx_XDECREF_SET(__pyx_v_ver_pred_arr, __pyx_t_14);
+            __pyx_t_14 = 0;
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":280
+ *                     pred_arr = self.inference(batch_observed_arr)
+ *                     ver_pred_arr = pred_arr.copy()
+ *                     loss = self.__computable_loss.compute_loss(             # <<<<<<<<<<<<<<
+ *                         pred_arr,
+ *                         batch_target_arr
+ */
+            __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__com); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 280, __pyx_L15_error)
+            __Pyx_GOTREF(__pyx_t_13);
+            __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_compute_loss); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 280, __pyx_L15_error)
+            __Pyx_GOTREF(__pyx_t_12);
+            __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":282
+ *                     loss = self.__computable_loss.compute_loss(
+ *                         pred_arr,
+ *                         batch_target_arr             # <<<<<<<<<<<<<<
+ *                     )
+ *                     delta_arr = self.__computable_loss.compute_delta(
+ */
+            __pyx_t_13 = NULL;
+            __pyx_t_18 = 0;
+            if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_12))) {
+              __pyx_t_13 = PyMethod_GET_SELF(__pyx_t_12);
+              if (likely(__pyx_t_13)) {
+                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
+                __Pyx_INCREF(__pyx_t_13);
+                __Pyx_INCREF(function);
+                __Pyx_DECREF_SET(__pyx_t_12, function);
+                __pyx_t_18 = 1;
+              }
+            }
+            #if CYTHON_FAST_PYCALL
+            if (PyFunction_Check(__pyx_t_12)) {
+              PyObject *__pyx_temp[3] = {__pyx_t_13, ((PyObject *)__pyx_v_pred_arr), ((PyObject *)__pyx_v_batch_target_arr)};
+              __pyx_t_14 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_18, 2+__pyx_t_18); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 280, __pyx_L15_error)
+              __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+              __Pyx_GOTREF(__pyx_t_14);
+            } else
+            #endif
+            #if CYTHON_FAST_PYCCALL
+            if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
+              PyObject *__pyx_temp[3] = {__pyx_t_13, ((PyObject *)__pyx_v_pred_arr), ((PyObject *)__pyx_v_batch_target_arr)};
+              __pyx_t_14 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-__pyx_t_18, 2+__pyx_t_18); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 280, __pyx_L15_error)
+              __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+              __Pyx_GOTREF(__pyx_t_14);
+            } else
+            #endif
+            {
+              __pyx_t_1 = PyTuple_New(2+__pyx_t_18); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 280, __pyx_L15_error)
+              __Pyx_GOTREF(__pyx_t_1);
+              if (__pyx_t_13) {
+                __Pyx_GIVEREF(__pyx_t_13); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_13); __pyx_t_13 = NULL;
+              }
+              __Pyx_INCREF(((PyObject *)__pyx_v_pred_arr));
+              __Pyx_GIVEREF(((PyObject *)__pyx_v_pred_arr));
+              PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_18, ((PyObject *)__pyx_v_pred_arr));
+              __Pyx_INCREF(((PyObject *)__pyx_v_batch_target_arr));
+              __Pyx_GIVEREF(((PyObject *)__pyx_v_batch_target_arr));
+              PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_18, ((PyObject *)__pyx_v_batch_target_arr));
+              __pyx_t_14 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_1, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 280, __pyx_L15_error)
+              __Pyx_GOTREF(__pyx_t_14);
+              __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+            }
+            __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":280
+ *                     pred_arr = self.inference(batch_observed_arr)
+ *                     ver_pred_arr = pred_arr.copy()
+ *                     loss = self.__computable_loss.compute_loss(             # <<<<<<<<<<<<<<
+ *                         pred_arr,
+ *                         batch_target_arr
+ */
+            __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_14); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 280, __pyx_L15_error)
+            __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+            __pyx_v_loss = __pyx_t_5;
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":284
+ *                         batch_target_arr
+ *                     )
+ *                     delta_arr = self.__computable_loss.compute_delta(             # <<<<<<<<<<<<<<
+ *                         pred_arr,
+ *                         batch_target_arr
+ */
+            __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__com); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 284, __pyx_L15_error)
+            __Pyx_GOTREF(__pyx_t_12);
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_compute_delta); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 284, __pyx_L15_error)
+            __Pyx_GOTREF(__pyx_t_1);
+            __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":286
+ *                     delta_arr = self.__computable_loss.compute_delta(
+ *                         pred_arr,
+ *                         batch_target_arr             # <<<<<<<<<<<<<<
+ *                     )
+ *                     delta_arr = self.back_propagation(delta_arr)
+ */
+            __pyx_t_12 = NULL;
+            __pyx_t_18 = 0;
+            if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
+              __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_1);
+              if (likely(__pyx_t_12)) {
+                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+                __Pyx_INCREF(__pyx_t_12);
+                __Pyx_INCREF(function);
+                __Pyx_DECREF_SET(__pyx_t_1, function);
+                __pyx_t_18 = 1;
+              }
+            }
+            #if CYTHON_FAST_PYCALL
+            if (PyFunction_Check(__pyx_t_1)) {
+              PyObject *__pyx_temp[3] = {__pyx_t_12, ((PyObject *)__pyx_v_pred_arr), ((PyObject *)__pyx_v_batch_target_arr)};
+              __pyx_t_14 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_18, 2+__pyx_t_18); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 284, __pyx_L15_error)
+              __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+              __Pyx_GOTREF(__pyx_t_14);
+            } else
+            #endif
+            #if CYTHON_FAST_PYCCALL
+            if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
+              PyObject *__pyx_temp[3] = {__pyx_t_12, ((PyObject *)__pyx_v_pred_arr), ((PyObject *)__pyx_v_batch_target_arr)};
+              __pyx_t_14 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_18, 2+__pyx_t_18); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 284, __pyx_L15_error)
+              __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+              __Pyx_GOTREF(__pyx_t_14);
+            } else
+            #endif
+            {
+              __pyx_t_13 = PyTuple_New(2+__pyx_t_18); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 284, __pyx_L15_error)
+              __Pyx_GOTREF(__pyx_t_13);
+              if (__pyx_t_12) {
+                __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_12); __pyx_t_12 = NULL;
+              }
+              __Pyx_INCREF(((PyObject *)__pyx_v_pred_arr));
+              __Pyx_GIVEREF(((PyObject *)__pyx_v_pred_arr));
+              PyTuple_SET_ITEM(__pyx_t_13, 0+__pyx_t_18, ((PyObject *)__pyx_v_pred_arr));
+              __Pyx_INCREF(((PyObject *)__pyx_v_batch_target_arr));
+              __Pyx_GIVEREF(((PyObject *)__pyx_v_batch_target_arr));
+              PyTuple_SET_ITEM(__pyx_t_13, 1+__pyx_t_18, ((PyObject *)__pyx_v_batch_target_arr));
+              __pyx_t_14 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_13, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 284, __pyx_L15_error)
+              __Pyx_GOTREF(__pyx_t_14);
+              __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+            }
+            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":284
+ *                         batch_target_arr
+ *                     )
+ *                     delta_arr = self.__computable_loss.compute_delta(             # <<<<<<<<<<<<<<
+ *                         pred_arr,
+ *                         batch_target_arr
+ */
+            if (!(likely(((__pyx_t_14) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_14, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 284, __pyx_L15_error)
+            __pyx_t_26 = ((PyArrayObject *)__pyx_t_14);
+            {
+              __Pyx_BufFmt_StackElem __pyx_stack[1];
+              __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer);
+              __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_26, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack);
+              if (unlikely(__pyx_t_18 < 0)) {
+                PyErr_Fetch(&__pyx_t_25, &__pyx_t_24, &__pyx_t_23);
+                if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_delta_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
+                  Py_XDECREF(__pyx_t_25); Py_XDECREF(__pyx_t_24); Py_XDECREF(__pyx_t_23);
+                  __Pyx_RaiseBufferFallbackError();
+                } else {
+                  PyErr_Restore(__pyx_t_25, __pyx_t_24, __pyx_t_23);
+                }
+                __pyx_t_25 = __pyx_t_24 = __pyx_t_23 = 0;
+              }
+              __pyx_pybuffernd_delta_arr.diminfo[0].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_arr.diminfo[0].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_arr.diminfo[1].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_arr.diminfo[1].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_arr.diminfo[2].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_arr.diminfo[2].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_arr.diminfo[3].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_arr.diminfo[3].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[3];
+              if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 284, __pyx_L15_error)
+            }
+            __pyx_t_26 = 0;
+            __Pyx_XDECREF_SET(__pyx_v_delta_arr, ((PyArrayObject *)__pyx_t_14));
+            __pyx_t_14 = 0;
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":288
+ *                         batch_target_arr
+ *                     )
+ *                     delta_arr = self.back_propagation(delta_arr)             # <<<<<<<<<<<<<<
+ *                     self.optimize(learning_rate, epoch)
+ * 
+ */
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_back_propagation); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 288, __pyx_L15_error)
+            __Pyx_GOTREF(__pyx_t_1);
+            __pyx_t_13 = NULL;
+            if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
+              __pyx_t_13 = PyMethod_GET_SELF(__pyx_t_1);
+              if (likely(__pyx_t_13)) {
+                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+                __Pyx_INCREF(__pyx_t_13);
+                __Pyx_INCREF(function);
+                __Pyx_DECREF_SET(__pyx_t_1, function);
+              }
+            }
+            if (!__pyx_t_13) {
+              __pyx_t_14 = __Pyx_PyObject_CallOneArg(__pyx_t_1, ((PyObject *)__pyx_v_delta_arr)); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 288, __pyx_L15_error)
+              __Pyx_GOTREF(__pyx_t_14);
+            } else {
+              #if CYTHON_FAST_PYCALL
+              if (PyFunction_Check(__pyx_t_1)) {
+                PyObject *__pyx_temp[2] = {__pyx_t_13, ((PyObject *)__pyx_v_delta_arr)};
+                __pyx_t_14 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 288, __pyx_L15_error)
+                __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+                __Pyx_GOTREF(__pyx_t_14);
+              } else
+              #endif
+              #if CYTHON_FAST_PYCCALL
+              if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
+                PyObject *__pyx_temp[2] = {__pyx_t_13, ((PyObject *)__pyx_v_delta_arr)};
+                __pyx_t_14 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 288, __pyx_L15_error)
+                __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+                __Pyx_GOTREF(__pyx_t_14);
+              } else
+              #endif
+              {
+                __pyx_t_12 = PyTuple_New(1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 288, __pyx_L15_error)
+                __Pyx_GOTREF(__pyx_t_12);
+                __Pyx_GIVEREF(__pyx_t_13); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_13); __pyx_t_13 = NULL;
+                __Pyx_INCREF(((PyObject *)__pyx_v_delta_arr));
+                __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_arr));
+                PyTuple_SET_ITEM(__pyx_t_12, 0+1, ((PyObject *)__pyx_v_delta_arr));
+                __pyx_t_14 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 288, __pyx_L15_error)
+                __Pyx_GOTREF(__pyx_t_14);
+                __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+              }
+            }
+            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+            if (!(likely(((__pyx_t_14) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_14, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 288, __pyx_L15_error)
+            __pyx_t_26 = ((PyArrayObject *)__pyx_t_14);
+            {
+              __Pyx_BufFmt_StackElem __pyx_stack[1];
+              __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer);
+              __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_26, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack);
+              if (unlikely(__pyx_t_18 < 0)) {
+                PyErr_Fetch(&__pyx_t_23, &__pyx_t_24, &__pyx_t_25);
+                if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_delta_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
+                  Py_XDECREF(__pyx_t_23); Py_XDECREF(__pyx_t_24); Py_XDECREF(__pyx_t_25);
+                  __Pyx_RaiseBufferFallbackError();
+                } else {
+                  PyErr_Restore(__pyx_t_23, __pyx_t_24, __pyx_t_25);
+                }
+                __pyx_t_23 = __pyx_t_24 = __pyx_t_25 = 0;
+              }
+              __pyx_pybuffernd_delta_arr.diminfo[0].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_arr.diminfo[0].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_arr.diminfo[1].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_arr.diminfo[1].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_arr.diminfo[2].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_arr.diminfo[2].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_arr.diminfo[3].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_arr.diminfo[3].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[3];
+              if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 288, __pyx_L15_error)
+            }
+            __pyx_t_26 = 0;
+            __Pyx_DECREF_SET(__pyx_v_delta_arr, ((PyArrayObject *)__pyx_t_14));
+            __pyx_t_14 = 0;
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":289
+ *                     )
+ *                     delta_arr = self.back_propagation(delta_arr)
+ *                     self.optimize(learning_rate, epoch)             # <<<<<<<<<<<<<<
+ * 
+ *                 except FloatingPointError:
+ */
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_optimize); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 289, __pyx_L15_error)
+            __Pyx_GOTREF(__pyx_t_1);
+            __pyx_t_12 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 289, __pyx_L15_error)
+            __Pyx_GOTREF(__pyx_t_12);
+            __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_v_epoch); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 289, __pyx_L15_error)
+            __Pyx_GOTREF(__pyx_t_13);
+            __pyx_t_9 = NULL;
+            __pyx_t_18 = 0;
+            if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
+              __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_1);
+              if (likely(__pyx_t_9)) {
+                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+                __Pyx_INCREF(__pyx_t_9);
+                __Pyx_INCREF(function);
+                __Pyx_DECREF_SET(__pyx_t_1, function);
+                __pyx_t_18 = 1;
+              }
+            }
+            #if CYTHON_FAST_PYCALL
+            if (PyFunction_Check(__pyx_t_1)) {
+              PyObject *__pyx_temp[3] = {__pyx_t_9, __pyx_t_12, __pyx_t_13};
+              __pyx_t_14 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_18, 2+__pyx_t_18); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 289, __pyx_L15_error)
+              __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+              __Pyx_GOTREF(__pyx_t_14);
+              __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+              __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+            } else
+            #endif
+            #if CYTHON_FAST_PYCCALL
+            if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
+              PyObject *__pyx_temp[3] = {__pyx_t_9, __pyx_t_12, __pyx_t_13};
+              __pyx_t_14 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_18, 2+__pyx_t_18); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 289, __pyx_L15_error)
+              __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+              __Pyx_GOTREF(__pyx_t_14);
+              __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+              __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+            } else
+            #endif
+            {
+              __pyx_t_15 = PyTuple_New(2+__pyx_t_18); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 289, __pyx_L15_error)
+              __Pyx_GOTREF(__pyx_t_15);
+              if (__pyx_t_9) {
+                __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_t_9); __pyx_t_9 = NULL;
+              }
+              __Pyx_GIVEREF(__pyx_t_12);
+              PyTuple_SET_ITEM(__pyx_t_15, 0+__pyx_t_18, __pyx_t_12);
+              __Pyx_GIVEREF(__pyx_t_13);
+              PyTuple_SET_ITEM(__pyx_t_15, 1+__pyx_t_18, __pyx_t_13);
+              __pyx_t_12 = 0;
+              __pyx_t_13 = 0;
+              __pyx_t_14 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_15, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 289, __pyx_L15_error)
+              __Pyx_GOTREF(__pyx_t_14);
+              __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+            }
+            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+            __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":277
+ *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ * 
+ *                 try:             # <<<<<<<<<<<<<<
+ *                     pred_arr = self.inference(batch_observed_arr)
+ *                     ver_pred_arr = pred_arr.copy()
+ */
+          }
+          __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
+          __Pyx_XDECREF(__pyx_t_20); __pyx_t_20 = 0;
+          __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
+          goto __pyx_L22_try_end;
+          __pyx_L15_error:;
+          __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+          __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+          __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+          __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+          __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+          __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
+
+          /* "pydbm/cnn/convolutional_neural_network.pyx":291
+ *                     self.optimize(learning_rate, epoch)
+ * 
+ *                 except FloatingPointError:             # <<<<<<<<<<<<<<
+ *                     if epoch > int(self.__epochs * 0.7):
+ *                         self.__logger.debug(
+ */
+          __pyx_t_18 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_FloatingPointError);
+          if (__pyx_t_18) {
+            __Pyx_AddTraceback("pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork.learn_generated", __pyx_clineno, __pyx_lineno, __pyx_filename);
+            if (__Pyx_GetException(&__pyx_t_14, &__pyx_t_1, &__pyx_t_15) < 0) __PYX_ERR(0, 291, __pyx_L17_except_error)
+            __Pyx_GOTREF(__pyx_t_14);
+            __Pyx_GOTREF(__pyx_t_1);
+            __Pyx_GOTREF(__pyx_t_15);
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":292
+ * 
+ *                 except FloatingPointError:
+ *                     if epoch > int(self.__epochs * 0.7):             # <<<<<<<<<<<<<<
+ *                         self.__logger.debug(
+ *                             "Underflow occurred when the parameters are being updated. Because of early stopping, this error is catched and the parameter is not updated."
+ */
+            __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_v_epoch); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 292, __pyx_L17_except_error)
+            __Pyx_GOTREF(__pyx_t_13);
+            __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__epo); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 292, __pyx_L17_except_error)
+            __Pyx_GOTREF(__pyx_t_12);
+            __pyx_t_9 = PyNumber_Multiply(__pyx_t_12, __pyx_float_0_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 292, __pyx_L17_except_error)
+            __Pyx_GOTREF(__pyx_t_9);
+            __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+            __pyx_t_12 = __Pyx_PyNumber_Int(__pyx_t_9); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 292, __pyx_L17_except_error)
+            __Pyx_GOTREF(__pyx_t_12);
+            __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+            __pyx_t_9 = PyObject_RichCompare(__pyx_t_13, __pyx_t_12, Py_GT); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 292, __pyx_L17_except_error)
+            __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+            __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+            __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 292, __pyx_L17_except_error)
+            __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+            if (__pyx_t_3) {
+
+              /* "pydbm/cnn/convolutional_neural_network.pyx":293
+ *                 except FloatingPointError:
+ *                     if epoch > int(self.__epochs * 0.7):
+ *                         self.__logger.debug(             # <<<<<<<<<<<<<<
+ *                             "Underflow occurred when the parameters are being updated. Because of early stopping, this error is catched and the parameter is not updated."
+ *                         )
+ */
+              __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 293, __pyx_L17_except_error)
+              __Pyx_GOTREF(__pyx_t_9);
+              __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_debug); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 293, __pyx_L17_except_error)
+              __Pyx_GOTREF(__pyx_t_12);
+              __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+              __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_tuple__15, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 293, __pyx_L17_except_error)
+              __Pyx_GOTREF(__pyx_t_9);
+              __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+              __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+              /* "pydbm/cnn/convolutional_neural_network.pyx":296
+ *                             "Underflow occurred when the parameters are being updated. Because of early stopping, this error is catched and the parameter is not updated."
+ *                         )
+ *                         eary_stop_flag = True             # <<<<<<<<<<<<<<
+ *                         break
+ *                     else:
+ */
+              __pyx_v_eary_stop_flag = 1;
+
+              /* "pydbm/cnn/convolutional_neural_network.pyx":297
+ *                         )
+ *                         eary_stop_flag = True
+ *                         break             # <<<<<<<<<<<<<<
+ *                     else:
+ *                         raise
+ */
+              goto __pyx_L23_except_break;
+
+              /* "pydbm/cnn/convolutional_neural_network.pyx":292
+ * 
+ *                 except FloatingPointError:
+ *                     if epoch > int(self.__epochs * 0.7):             # <<<<<<<<<<<<<<
+ *                         self.__logger.debug(
+ *                             "Underflow occurred when the parameters are being updated. Because of early stopping, this error is catched and the parameter is not updated."
+ */
+            }
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":299
+ *                         break
+ *                     else:
+ *                         raise             # <<<<<<<<<<<<<<
+ * 
+ *                 if self.__test_size_rate > 0:
+ */
+            /*else*/ {
+              __Pyx_GIVEREF(__pyx_t_14);
+              __Pyx_GIVEREF(__pyx_t_1);
+              __Pyx_XGIVEREF(__pyx_t_15);
+              __Pyx_ErrRestoreWithState(__pyx_t_14, __pyx_t_1, __pyx_t_15);
+              __pyx_t_14 = 0; __pyx_t_1 = 0; __pyx_t_15 = 0; 
+              __PYX_ERR(0, 299, __pyx_L17_except_error)
+            }
+            __pyx_L23_except_break:;
+            __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+            __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+            goto __pyx_L20_try_break;
+          }
+          goto __pyx_L17_except_error;
+          __pyx_L17_except_error:;
+
+          /* "pydbm/cnn/convolutional_neural_network.pyx":277
+ *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ * 
+ *                 try:             # <<<<<<<<<<<<<<
+ *                     pred_arr = self.inference(batch_observed_arr)
+ *                     ver_pred_arr = pred_arr.copy()
+ */
+          __Pyx_XGIVEREF(__pyx_t_21);
+          __Pyx_XGIVEREF(__pyx_t_20);
+          __Pyx_XGIVEREF(__pyx_t_19);
+          __Pyx_ExceptionReset(__pyx_t_21, __pyx_t_20, __pyx_t_19);
+          goto __pyx_L4_error;
+          __pyx_L20_try_break:;
+          __Pyx_XGIVEREF(__pyx_t_21);
+          __Pyx_XGIVEREF(__pyx_t_20);
+          __Pyx_XGIVEREF(__pyx_t_19);
+          __Pyx_ExceptionReset(__pyx_t_21, __pyx_t_20, __pyx_t_19);
+          goto __pyx_L11_break;
+          __pyx_L22_try_end:;
+        }
+
+        /* "pydbm/cnn/convolutional_neural_network.pyx":301
+ *                         raise
+ * 
+ *                 if self.__test_size_rate > 0:             # <<<<<<<<<<<<<<
+ *                     self.__opt_params.dropout_rate = 0.0
+ *                     test_pred_arr = self.forward_propagation(
+ */
+        __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tes); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 301, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_15);
+        __pyx_t_1 = PyObject_RichCompare(__pyx_t_15, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 301, __pyx_L4_error)
+        __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+        __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 301, __pyx_L4_error)
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if (__pyx_t_3) {
+
+          /* "pydbm/cnn/convolutional_neural_network.pyx":302
+ * 
+ *                 if self.__test_size_rate > 0:
+ *                     self.__opt_params.dropout_rate = 0.0             # <<<<<<<<<<<<<<
+ *                     test_pred_arr = self.forward_propagation(
+ *                         test_batch_observed_arr
+ */
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__opt); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 302, __pyx_L4_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_dropout_rate, __pyx_float_0_0) < 0) __PYX_ERR(0, 302, __pyx_L4_error)
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+          /* "pydbm/cnn/convolutional_neural_network.pyx":303
+ *                 if self.__test_size_rate > 0:
+ *                     self.__opt_params.dropout_rate = 0.0
+ *                     test_pred_arr = self.forward_propagation(             # <<<<<<<<<<<<<<
+ *                         test_batch_observed_arr
+ *                     )
+ */
+          __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_forward_propagation); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 303, __pyx_L4_error)
+          __Pyx_GOTREF(__pyx_t_15);
+
+          /* "pydbm/cnn/convolutional_neural_network.pyx":304
+ *                     self.__opt_params.dropout_rate = 0.0
+ *                     test_pred_arr = self.forward_propagation(
+ *                         test_batch_observed_arr             # <<<<<<<<<<<<<<
+ *                     )
+ *                     if self.__save_flag is True:
+ */
+          __pyx_t_14 = NULL;
+          if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_15))) {
+            __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_15);
+            if (likely(__pyx_t_14)) {
+              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_15);
+              __Pyx_INCREF(__pyx_t_14);
+              __Pyx_INCREF(function);
+              __Pyx_DECREF_SET(__pyx_t_15, function);
+            }
+          }
+          if (!__pyx_t_14) {
+            __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_15, __pyx_v_test_batch_observed_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 303, __pyx_L4_error)
+            __Pyx_GOTREF(__pyx_t_1);
+          } else {
+            #if CYTHON_FAST_PYCALL
+            if (PyFunction_Check(__pyx_t_15)) {
+              PyObject *__pyx_temp[2] = {__pyx_t_14, __pyx_v_test_batch_observed_arr};
+              __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_15, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 303, __pyx_L4_error)
+              __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
+              __Pyx_GOTREF(__pyx_t_1);
+            } else
+            #endif
+            #if CYTHON_FAST_PYCCALL
+            if (__Pyx_PyFastCFunction_Check(__pyx_t_15)) {
+              PyObject *__pyx_temp[2] = {__pyx_t_14, __pyx_v_test_batch_observed_arr};
+              __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_15, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 303, __pyx_L4_error)
+              __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
+              __Pyx_GOTREF(__pyx_t_1);
+            } else
+            #endif
+            {
+              __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 303, __pyx_L4_error)
+              __Pyx_GOTREF(__pyx_t_9);
+              __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_14); __pyx_t_14 = NULL;
+              __Pyx_INCREF(__pyx_v_test_batch_observed_arr);
+              __Pyx_GIVEREF(__pyx_v_test_batch_observed_arr);
+              PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_v_test_batch_observed_arr);
+              __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_15, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 303, __pyx_L4_error)
+              __Pyx_GOTREF(__pyx_t_1);
+              __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+            }
+          }
+          __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+
+          /* "pydbm/cnn/convolutional_neural_network.pyx":303
+ *                 if self.__test_size_rate > 0:
+ *                     self.__opt_params.dropout_rate = 0.0
+ *                     test_pred_arr = self.forward_propagation(             # <<<<<<<<<<<<<<
+ *                         test_batch_observed_arr
+ *                     )
+ */
+          if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 303, __pyx_L4_error)
+          __pyx_t_27 = ((PyArrayObject *)__pyx_t_1);
+          {
+            __Pyx_BufFmt_StackElem __pyx_stack[1];
+            __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer);
+            __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_27, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack);
+            if (unlikely(__pyx_t_18 < 0)) {
+              PyErr_Fetch(&__pyx_t_19, &__pyx_t_20, &__pyx_t_21);
+              if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_test_pred_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
+                Py_XDECREF(__pyx_t_19); Py_XDECREF(__pyx_t_20); Py_XDECREF(__pyx_t_21);
+                __Pyx_RaiseBufferFallbackError();
+              } else {
+                PyErr_Restore(__pyx_t_19, __pyx_t_20, __pyx_t_21);
+              }
+              __pyx_t_19 = __pyx_t_20 = __pyx_t_21 = 0;
+            }
+            __pyx_pybuffernd_test_pred_arr.diminfo[0].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_test_pred_arr.diminfo[0].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_test_pred_arr.diminfo[1].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_test_pred_arr.diminfo[1].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_test_pred_arr.diminfo[2].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_test_pred_arr.diminfo[2].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_test_pred_arr.diminfo[3].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_test_pred_arr.diminfo[3].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[3];
+            if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 303, __pyx_L4_error)
+          }
+          __pyx_t_27 = 0;
+          __Pyx_XDECREF_SET(__pyx_v_test_pred_arr, ((PyArrayObject *)__pyx_t_1));
+          __pyx_t_1 = 0;
+
+          /* "pydbm/cnn/convolutional_neural_network.pyx":306
+ *                         test_batch_observed_arr
+ *                     )
+ *                     if self.__save_flag is True:             # <<<<<<<<<<<<<<
+ *                         np.save("test_pred_arr_" + str(epoch), test_pred_arr)
+ * 
+ */
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__sav); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 306, __pyx_L4_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          __pyx_t_3 = (__pyx_t_1 == Py_True);
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+          __pyx_t_2 = (__pyx_t_3 != 0);
+          if (__pyx_t_2) {
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":307
+ *                     )
+ *                     if self.__save_flag is True:
+ *                         np.save("test_pred_arr_" + str(epoch), test_pred_arr)             # <<<<<<<<<<<<<<
+ * 
+ *                     if self.__verificatable_result is not None:
+ */
+            __pyx_t_15 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 307, __pyx_L4_error)
+            __Pyx_GOTREF(__pyx_t_15);
+            __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_15, __pyx_n_s_save); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 307, __pyx_L4_error)
+            __Pyx_GOTREF(__pyx_t_9);
+            __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+            __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_epoch); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 307, __pyx_L4_error)
+            __Pyx_GOTREF(__pyx_t_15);
+            __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 307, __pyx_L4_error)
+            __Pyx_GOTREF(__pyx_t_14);
+            __Pyx_GIVEREF(__pyx_t_15);
+            PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_15);
+            __pyx_t_15 = 0;
+            __pyx_t_15 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_14, NULL); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 307, __pyx_L4_error)
+            __Pyx_GOTREF(__pyx_t_15);
+            __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+            __pyx_t_14 = PyNumber_Add(__pyx_n_s_test_pred_arr, __pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 307, __pyx_L4_error)
+            __Pyx_GOTREF(__pyx_t_14);
+            __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+            __pyx_t_15 = NULL;
+            __pyx_t_18 = 0;
+            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_9))) {
+              __pyx_t_15 = PyMethod_GET_SELF(__pyx_t_9);
+              if (likely(__pyx_t_15)) {
+                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
+                __Pyx_INCREF(__pyx_t_15);
+                __Pyx_INCREF(function);
+                __Pyx_DECREF_SET(__pyx_t_9, function);
+                __pyx_t_18 = 1;
+              }
+            }
+            #if CYTHON_FAST_PYCALL
+            if (PyFunction_Check(__pyx_t_9)) {
+              PyObject *__pyx_temp[3] = {__pyx_t_15, __pyx_t_14, ((PyObject *)__pyx_v_test_pred_arr)};
+              __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_9, __pyx_temp+1-__pyx_t_18, 2+__pyx_t_18); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 307, __pyx_L4_error)
+              __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+              __Pyx_GOTREF(__pyx_t_1);
+              __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+            } else
+            #endif
+            #if CYTHON_FAST_PYCCALL
+            if (__Pyx_PyFastCFunction_Check(__pyx_t_9)) {
+              PyObject *__pyx_temp[3] = {__pyx_t_15, __pyx_t_14, ((PyObject *)__pyx_v_test_pred_arr)};
+              __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_9, __pyx_temp+1-__pyx_t_18, 2+__pyx_t_18); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 307, __pyx_L4_error)
+              __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+              __Pyx_GOTREF(__pyx_t_1);
+              __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+            } else
+            #endif
+            {
+              __pyx_t_12 = PyTuple_New(2+__pyx_t_18); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 307, __pyx_L4_error)
+              __Pyx_GOTREF(__pyx_t_12);
+              if (__pyx_t_15) {
+                __Pyx_GIVEREF(__pyx_t_15); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_15); __pyx_t_15 = NULL;
+              }
+              __Pyx_GIVEREF(__pyx_t_14);
+              PyTuple_SET_ITEM(__pyx_t_12, 0+__pyx_t_18, __pyx_t_14);
+              __Pyx_INCREF(((PyObject *)__pyx_v_test_pred_arr));
+              __Pyx_GIVEREF(((PyObject *)__pyx_v_test_pred_arr));
+              PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_18, ((PyObject *)__pyx_v_test_pred_arr));
+              __pyx_t_14 = 0;
+              __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 307, __pyx_L4_error)
+              __Pyx_GOTREF(__pyx_t_1);
+              __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+            }
+            __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":306
+ *                         test_batch_observed_arr
+ *                     )
+ *                     if self.__save_flag is True:             # <<<<<<<<<<<<<<
+ *                         np.save("test_pred_arr_" + str(epoch), test_pred_arr)
+ * 
+ */
+          }
+
+          /* "pydbm/cnn/convolutional_neural_network.pyx":309
+ *                         np.save("test_pred_arr_" + str(epoch), test_pred_arr)
+ * 
+ *                     if self.__verificatable_result is not None:             # <<<<<<<<<<<<<<
+ *                         if self.__test_size_rate > 0:
+ *                             self.__verificatable_result.verificate(
+ */
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__ver); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L4_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          __pyx_t_2 = (__pyx_t_1 != Py_None);
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+          __pyx_t_3 = (__pyx_t_2 != 0);
+          if (__pyx_t_3) {
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":310
+ * 
+ *                     if self.__verificatable_result is not None:
+ *                         if self.__test_size_rate > 0:             # <<<<<<<<<<<<<<
+ *                             self.__verificatable_result.verificate(
+ *                                 self.__computable_loss,
+ */
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tes); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 310, __pyx_L4_error)
+            __Pyx_GOTREF(__pyx_t_1);
+            __pyx_t_9 = PyObject_RichCompare(__pyx_t_1, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 310, __pyx_L4_error)
+            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+            __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 310, __pyx_L4_error)
+            __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+            if (__pyx_t_3) {
+
+              /* "pydbm/cnn/convolutional_neural_network.pyx":311
+ *                     if self.__verificatable_result is not None:
+ *                         if self.__test_size_rate > 0:
+ *                             self.__verificatable_result.verificate(             # <<<<<<<<<<<<<<
+ *                                 self.__computable_loss,
+ *                                 train_pred_arr=ver_pred_arr,
+ */
+              __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__ver); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 311, __pyx_L4_error)
+              __Pyx_GOTREF(__pyx_t_9);
+              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_verificate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 311, __pyx_L4_error)
+              __Pyx_GOTREF(__pyx_t_1);
+              __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+              /* "pydbm/cnn/convolutional_neural_network.pyx":312
+ *                         if self.__test_size_rate > 0:
+ *                             self.__verificatable_result.verificate(
+ *                                 self.__computable_loss,             # <<<<<<<<<<<<<<
+ *                                 train_pred_arr=ver_pred_arr,
+ *                                 train_label_arr=batch_target_arr,
+ */
+              __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__com); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 312, __pyx_L4_error)
+              __Pyx_GOTREF(__pyx_t_9);
+
+              /* "pydbm/cnn/convolutional_neural_network.pyx":311
+ *                     if self.__verificatable_result is not None:
+ *                         if self.__test_size_rate > 0:
+ *                             self.__verificatable_result.verificate(             # <<<<<<<<<<<<<<
+ *                                 self.__computable_loss,
+ *                                 train_pred_arr=ver_pred_arr,
+ */
+              __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 311, __pyx_L4_error)
+              __Pyx_GOTREF(__pyx_t_12);
+              __Pyx_GIVEREF(__pyx_t_9);
+              PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_9);
+              __pyx_t_9 = 0;
+
+              /* "pydbm/cnn/convolutional_neural_network.pyx":313
+ *                             self.__verificatable_result.verificate(
+ *                                 self.__computable_loss,
+ *                                 train_pred_arr=ver_pred_arr,             # <<<<<<<<<<<<<<
+ *                                 train_label_arr=batch_target_arr,
+ *                                 test_pred_arr=test_pred_arr,
+ */
+              __pyx_t_9 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 313, __pyx_L4_error)
+              __Pyx_GOTREF(__pyx_t_9);
+              if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_train_pred_arr, __pyx_v_ver_pred_arr) < 0) __PYX_ERR(0, 313, __pyx_L4_error)
+
+              /* "pydbm/cnn/convolutional_neural_network.pyx":314
+ *                                 self.__computable_loss,
+ *                                 train_pred_arr=ver_pred_arr,
+ *                                 train_label_arr=batch_target_arr,             # <<<<<<<<<<<<<<
+ *                                 test_pred_arr=test_pred_arr,
+ *                                 test_label_arr=test_batch_target_arr
+ */
+              if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_train_label_arr, ((PyObject *)__pyx_v_batch_target_arr)) < 0) __PYX_ERR(0, 313, __pyx_L4_error)
+
+              /* "pydbm/cnn/convolutional_neural_network.pyx":315
+ *                                 train_pred_arr=ver_pred_arr,
+ *                                 train_label_arr=batch_target_arr,
+ *                                 test_pred_arr=test_pred_arr,             # <<<<<<<<<<<<<<
+ *                                 test_label_arr=test_batch_target_arr
+ *                             )
+ */
+              if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_test_pred_arr_2, ((PyObject *)__pyx_v_test_pred_arr)) < 0) __PYX_ERR(0, 313, __pyx_L4_error)
+
+              /* "pydbm/cnn/convolutional_neural_network.pyx":316
+ *                                 train_label_arr=batch_target_arr,
+ *                                 test_pred_arr=test_pred_arr,
+ *                                 test_label_arr=test_batch_target_arr             # <<<<<<<<<<<<<<
+ *                             )
+ * 
+ */
+              if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_test_label_arr, __pyx_v_test_batch_target_arr) < 0) __PYX_ERR(0, 313, __pyx_L4_error)
+
+              /* "pydbm/cnn/convolutional_neural_network.pyx":311
+ *                     if self.__verificatable_result is not None:
+ *                         if self.__test_size_rate > 0:
+ *                             self.__verificatable_result.verificate(             # <<<<<<<<<<<<<<
+ *                                 self.__computable_loss,
+ *                                 train_pred_arr=ver_pred_arr,
+ */
+              __pyx_t_14 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, __pyx_t_9); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 311, __pyx_L4_error)
+              __Pyx_GOTREF(__pyx_t_14);
+              __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+              __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+              __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+              __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+
+              /* "pydbm/cnn/convolutional_neural_network.pyx":310
+ * 
+ *                     if self.__verificatable_result is not None:
+ *                         if self.__test_size_rate > 0:             # <<<<<<<<<<<<<<
+ *                             self.__verificatable_result.verificate(
+ *                                 self.__computable_loss,
+ */
+            }
+
+            /* "pydbm/cnn/convolutional_neural_network.pyx":309
+ *                         np.save("test_pred_arr_" + str(epoch), test_pred_arr)
+ * 
+ *                     if self.__verificatable_result is not None:             # <<<<<<<<<<<<<<
+ *                         if self.__test_size_rate > 0:
+ *                             self.__verificatable_result.verificate(
+ */
+          }
+
+          /* "pydbm/cnn/convolutional_neural_network.pyx":301
+ *                         raise
+ * 
+ *                 if self.__test_size_rate > 0:             # <<<<<<<<<<<<<<
+ *                     self.__opt_params.dropout_rate = 0.0
+ *                     test_pred_arr = self.forward_propagation(
+ */
+        }
+
+        /* "pydbm/cnn/convolutional_neural_network.pyx":319
+ *                             )
+ * 
+ *                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:             # <<<<<<<<<<<<<<
+ *                     eary_stop_flag = True
+ *                     break
+ */
+        __pyx_t_2 = ((__pyx_v_epoch > 1) != 0);
+        if (__pyx_t_2) {
+        } else {
+          __pyx_t_3 = __pyx_t_2;
+          goto __pyx_L31_bool_binop_done;
+        }
+        __pyx_t_14 = PyFloat_FromDouble(__pyx_v_loss); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 319, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_14);
+        __pyx_t_9 = __Pyx_GetItemInt_List(__pyx_v_loss_list, -1L, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 319, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __pyx_t_12 = PyNumber_Subtract(__pyx_t_14, __pyx_t_9); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 319, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __pyx_t_9 = PyNumber_Absolute(__pyx_t_12); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 319, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__tol); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 319, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __pyx_t_14 = PyObject_RichCompare(__pyx_t_9, __pyx_t_12, Py_LT); __Pyx_XGOTREF(__pyx_t_14); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 319, __pyx_L4_error)
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+        __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_14); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 319, __pyx_L4_error)
+        __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+        __pyx_t_3 = __pyx_t_2;
+        __pyx_L31_bool_binop_done:;
+        if (__pyx_t_3) {
+
+          /* "pydbm/cnn/convolutional_neural_network.pyx":320
+ * 
+ *                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
+ *                     eary_stop_flag = True             # <<<<<<<<<<<<<<
+ *                     break
+ *                 loss_list.append(loss)
+ */
+          __pyx_v_eary_stop_flag = 1;
+
+          /* "pydbm/cnn/convolutional_neural_network.pyx":321
+ *                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
+ *                     eary_stop_flag = True
+ *                     break             # <<<<<<<<<<<<<<
+ *                 loss_list.append(loss)
+ * 
+ */
+          goto __pyx_L11_break;
+
+          /* "pydbm/cnn/convolutional_neural_network.pyx":319
+ *                             )
+ * 
+ *                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:             # <<<<<<<<<<<<<<
+ *                     eary_stop_flag = True
+ *                     break
+ */
+        }
+
+        /* "pydbm/cnn/convolutional_neural_network.pyx":322
+ *                     eary_stop_flag = True
+ *                     break
+ *                 loss_list.append(loss)             # <<<<<<<<<<<<<<
+ * 
+ *         except KeyboardInterrupt:
+ */
+        __pyx_t_14 = PyFloat_FromDouble(__pyx_v_loss); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 322, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_14);
+        __pyx_t_28 = __Pyx_PyList_Append(__pyx_v_loss_list, __pyx_t_14); if (unlikely(__pyx_t_28 == ((int)-1))) __PYX_ERR(0, 322, __pyx_L4_error)
+        __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+
+        /* "pydbm/cnn/convolutional_neural_network.pyx":270
+ *             eary_stop_flag = False
+ *             epoch = 0
+ *             for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr in feature_generator.generate():             # <<<<<<<<<<<<<<
+ *                 epoch += 1
+ *                 self.__opt_params.dropout_rate = self.__dropout_rate
+ */
+      }
+      __pyx_L11_break:;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+      /* "pydbm/cnn/convolutional_neural_network.pyx":265
+ *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_arr
+ * 
+ *         try:             # <<<<<<<<<<<<<<
+ *             self.__memory_tuple_list = []
+ *             loss_list = []
+ */
+    }
+    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+    goto __pyx_L9_try_end;
+    __pyx_L4_error:;
+    __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+    __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+    /* "pydbm/cnn/convolutional_neural_network.pyx":324
+ *                 loss_list.append(loss)
+ * 
+ *         except KeyboardInterrupt:             # <<<<<<<<<<<<<<
+ *             self.__logger.debug("Interrupt.")
+ * 
+ */
+    __pyx_t_18 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyboardInterrupt);
+    if (__pyx_t_18) {
+      __Pyx_AddTraceback("pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork.learn_generated", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_14, &__pyx_t_12) < 0) __PYX_ERR(0, 324, __pyx_L6_except_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_GOTREF(__pyx_t_14);
+      __Pyx_GOTREF(__pyx_t_12);
+
+      /* "pydbm/cnn/convolutional_neural_network.pyx":325
+ * 
+ *         except KeyboardInterrupt:
+ *             self.__logger.debug("Interrupt.")             # <<<<<<<<<<<<<<
+ * 
+ *         if eary_stop_flag is True:
+ */
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 325, __pyx_L6_except_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_debug); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 325, __pyx_L6_except_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__16, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 325, __pyx_L6_except_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+      goto __pyx_L5_exception_handled;
+    }
+    goto __pyx_L6_except_error;
+    __pyx_L6_except_error:;
+
+    /* "pydbm/cnn/convolutional_neural_network.pyx":265
+ *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_arr
+ * 
+ *         try:             # <<<<<<<<<<<<<<
+ *             self.__memory_tuple_list = []
+ *             loss_list = []
+ */
+    __Pyx_XGIVEREF(__pyx_t_6);
+    __Pyx_XGIVEREF(__pyx_t_7);
+    __Pyx_XGIVEREF(__pyx_t_8);
+    __Pyx_ExceptionReset(__pyx_t_6, __pyx_t_7, __pyx_t_8);
+    goto __pyx_L1_error;
+    __pyx_L5_exception_handled:;
+    __Pyx_XGIVEREF(__pyx_t_6);
+    __Pyx_XGIVEREF(__pyx_t_7);
+    __Pyx_XGIVEREF(__pyx_t_8);
+    __Pyx_ExceptionReset(__pyx_t_6, __pyx_t_7, __pyx_t_8);
+    __pyx_L9_try_end:;
+  }
+
+  /* "pydbm/cnn/convolutional_neural_network.pyx":327
+ *             self.__logger.debug("Interrupt.")
+ * 
+ *         if eary_stop_flag is True:             # <<<<<<<<<<<<<<
+ *             self.__logger.debug("Eary stopping.")
+ *             eary_stop_flag = False
+ */
+  __pyx_t_3 = ((__pyx_v_eary_stop_flag == 1) != 0);
+  if (__pyx_t_3) {
+
+    /* "pydbm/cnn/convolutional_neural_network.pyx":328
+ * 
+ *         if eary_stop_flag is True:
+ *             self.__logger.debug("Eary stopping.")             # <<<<<<<<<<<<<<
+ *             eary_stop_flag = False
+ * 
+ */
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 328, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_debug); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 328, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_14);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_tuple__17, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 328, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+
+    /* "pydbm/cnn/convolutional_neural_network.pyx":329
+ *         if eary_stop_flag is True:
+ *             self.__logger.debug("Eary stopping.")
+ *             eary_stop_flag = False             # <<<<<<<<<<<<<<
+ * 
+ *         self.__logger.debug("end. ")
+ */
+    __pyx_v_eary_stop_flag = 0;
+
+    /* "pydbm/cnn/convolutional_neural_network.pyx":327
+ *             self.__logger.debug("Interrupt.")
+ * 
+ *         if eary_stop_flag is True:             # <<<<<<<<<<<<<<
+ *             self.__logger.debug("Eary stopping.")
+ *             eary_stop_flag = False
+ */
+  }
+
+  /* "pydbm/cnn/convolutional_neural_network.pyx":331
+ *             eary_stop_flag = False
+ * 
+ *         self.__logger.debug("end. ")             # <<<<<<<<<<<<<<
+ * 
+ *     def inference(self, np.ndarray[DOUBLE_t, ndim=4] observed_arr):
+ */
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 331, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_12);
+  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_debug); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 331, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_14);
+  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+  __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_tuple__18, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 331, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_12);
+  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+
+  /* "pydbm/cnn/convolutional_neural_network.pyx":231
+ *         self.__logger.debug("end. ")
+ * 
+ *     def learn_generated(self, feature_generator):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Learn features generated by `FeatureGenerator`.
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_9);
+  __Pyx_XDECREF(__pyx_t_12);
+  __Pyx_XDECREF(__pyx_t_13);
+  __Pyx_XDECREF(__pyx_t_14);
+  __Pyx_XDECREF(__pyx_t_15);
+  { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
+    __Pyx_PyThreadState_declare
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer);
+  __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
+  __Pyx_AddTraceback("pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork.learn_generated", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  goto __pyx_L2;
+  __pyx_L0:;
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_batch_observed_arr.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer);
+  __pyx_L2:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_batch_observed_arr);
+  __Pyx_XDECREF((PyObject *)__pyx_v_batch_target_arr);
+  __Pyx_XDECREF((PyObject *)__pyx_v_pred_arr);
+  __Pyx_XDECREF((PyObject *)__pyx_v_test_pred_arr);
+  __Pyx_XDECREF((PyObject *)__pyx_v_delta_arr);
+  __Pyx_XDECREF(__pyx_v_loss_list);
+  __Pyx_XDECREF(__pyx_v_test_batch_observed_arr);
+  __Pyx_XDECREF(__pyx_v_test_batch_target_arr);
+  __Pyx_XDECREF(__pyx_v_ver_pred_arr);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/cnn/convolutional_neural_network.pyx":333
  *         self.__logger.debug("end. ")
  * 
  *     def inference(self, np.ndarray[DOUBLE_t, ndim=4] observed_arr):             # <<<<<<<<<<<<<<
@@ -5085,10 +6831,10 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_5inference(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_4inference[] = "\n        Inference the feature points to reconstruct the time-series.\n\n        Override.\n\n        Args:\n            observed_arr:           Array like or sparse matrix as the observed data points.\n\n        Returns:\n            Predicted array like or sparse matrix.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_5inference = {"inference", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_5inference, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_4inference};
-static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_5inference(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_7inference(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_6inference[] = "\n        Inference the feature points to reconstruct the time-series.\n\n        Override.\n\n        Args:\n            observed_arr:           Array like or sparse matrix as the observed data points.\n\n        Returns:\n            Predicted array like or sparse matrix.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_7inference = {"inference", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_7inference, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_6inference};
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_7inference(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyArrayObject *__pyx_v_observed_arr = 0;
   PyObject *__pyx_r = 0;
@@ -5117,11 +6863,11 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_observed_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("inference", 1, 2, 2, 1); __PYX_ERR(0, 230, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("inference", 1, 2, 2, 1); __PYX_ERR(0, 333, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "inference") < 0)) __PYX_ERR(0, 230, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "inference") < 0)) __PYX_ERR(0, 333, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -5134,14 +6880,14 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("inference", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 230, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("inference", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 333, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork.inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_arr", 0))) __PYX_ERR(0, 230, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_4inference(__pyx_self, __pyx_v_self, __pyx_v_observed_arr);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_arr", 0))) __PYX_ERR(0, 333, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_6inference(__pyx_self, __pyx_v_self, __pyx_v_observed_arr);
 
   /* function exit code */
   goto __pyx_L0;
@@ -5152,7 +6898,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_4inference(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_arr) {
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_6inference(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_arr) {
   PyArrayObject *__pyx_v_pred_arr = 0;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_observed_arr;
   __Pyx_Buffer __pyx_pybuffer_observed_arr;
@@ -5176,21 +6922,21 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __pyx_pybuffernd_observed_arr.rcbuffer = &__pyx_pybuffer_observed_arr;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) __PYX_ERR(0, 230, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) __PYX_ERR(0, 333, __pyx_L1_error)
   }
   __pyx_pybuffernd_observed_arr.diminfo[0].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_observed_arr.diminfo[0].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_observed_arr.diminfo[1].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_observed_arr.diminfo[1].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_observed_arr.diminfo[2].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_observed_arr.diminfo[2].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_observed_arr.diminfo[3].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_observed_arr.diminfo[3].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[3];
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":242
+  /* "pydbm/cnn/convolutional_neural_network.pyx":345
  *             Predicted array like or sparse matrix.
  *         '''
  *         cdef np.ndarray[DOUBLE_t, ndim=4] pred_arr = self.forward_propagation(             # <<<<<<<<<<<<<<
  *             observed_arr
  *         )
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_forward_propagation); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_forward_propagation); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":243
+  /* "pydbm/cnn/convolutional_neural_network.pyx":346
  *         '''
  *         cdef np.ndarray[DOUBLE_t, ndim=4] pred_arr = self.forward_propagation(
  *             observed_arr             # <<<<<<<<<<<<<<
@@ -5208,13 +6954,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_observed_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 242, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_observed_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, ((PyObject *)__pyx_v_observed_arr)};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 242, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -5222,39 +6968,39 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, ((PyObject *)__pyx_v_observed_arr)};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 242, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 242, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 345, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_observed_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_observed_arr));
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, ((PyObject *)__pyx_v_observed_arr));
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 242, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":242
+  /* "pydbm/cnn/convolutional_neural_network.pyx":345
  *             Predicted array like or sparse matrix.
  *         '''
  *         cdef np.ndarray[DOUBLE_t, ndim=4] pred_arr = self.forward_propagation(             # <<<<<<<<<<<<<<
  *             observed_arr
  *         )
  */
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 242, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 345, __pyx_L1_error)
   __pyx_t_5 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_pred_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 242, __pyx_L1_error)
+      __PYX_ERR(0, 345, __pyx_L1_error)
     } else {__pyx_pybuffernd_pred_arr.diminfo[0].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_pred_arr.diminfo[0].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_pred_arr.diminfo[1].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_pred_arr.diminfo[1].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_pred_arr.diminfo[2].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_pred_arr.diminfo[2].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_pred_arr.diminfo[3].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_pred_arr.diminfo[3].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -5262,7 +7008,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __pyx_v_pred_arr = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":245
+  /* "pydbm/cnn/convolutional_neural_network.pyx":348
  *             observed_arr
  *         )
  *         return pred_arr             # <<<<<<<<<<<<<<
@@ -5274,7 +7020,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __pyx_r = ((PyObject *)__pyx_v_pred_arr);
   goto __pyx_L0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":230
+  /* "pydbm/cnn/convolutional_neural_network.pyx":333
  *         self.__logger.debug("end. ")
  * 
  *     def inference(self, np.ndarray[DOUBLE_t, ndim=4] observed_arr):             # <<<<<<<<<<<<<<
@@ -5308,7 +7054,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   return __pyx_r;
 }
 
-/* "pydbm/cnn/convolutional_neural_network.pyx":247
+/* "pydbm/cnn/convolutional_neural_network.pyx":350
  *         return pred_arr
  * 
  *     def forward_propagation(self, np.ndarray[DOUBLE_t, ndim=4] img_arr):             # <<<<<<<<<<<<<<
@@ -5317,10 +7063,10 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_7forward_propagation(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_6forward_propagation[] = "\n        Forward propagation in CNN.\n        \n        Args:\n            img_arr:    `np.ndarray` of image file array.\n        \n        Returns:\n            Propagated `np.ndarray`.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_7forward_propagation = {"forward_propagation", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_7forward_propagation, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_6forward_propagation};
-static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_7forward_propagation(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_9forward_propagation(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_8forward_propagation[] = "\n        Forward propagation in CNN.\n        \n        Args:\n            img_arr:    `np.ndarray` of image file array.\n        \n        Returns:\n            Propagated `np.ndarray`.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_9forward_propagation = {"forward_propagation", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_9forward_propagation, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_8forward_propagation};
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_9forward_propagation(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyArrayObject *__pyx_v_img_arr = 0;
   PyObject *__pyx_r = 0;
@@ -5349,11 +7095,11 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_img_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("forward_propagation", 1, 2, 2, 1); __PYX_ERR(0, 247, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("forward_propagation", 1, 2, 2, 1); __PYX_ERR(0, 350, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "forward_propagation") < 0)) __PYX_ERR(0, 247, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "forward_propagation") < 0)) __PYX_ERR(0, 350, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -5366,14 +7112,14 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("forward_propagation", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 247, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("forward_propagation", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 350, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork.forward_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_img_arr), __pyx_ptype_5numpy_ndarray, 1, "img_arr", 0))) __PYX_ERR(0, 247, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_6forward_propagation(__pyx_self, __pyx_v_self, __pyx_v_img_arr);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_img_arr), __pyx_ptype_5numpy_ndarray, 1, "img_arr", 0))) __PYX_ERR(0, 350, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_8forward_propagation(__pyx_self, __pyx_v_self, __pyx_v_img_arr);
 
   /* function exit code */
   goto __pyx_L0;
@@ -5384,7 +7130,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_6forward_propagation(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_img_arr) {
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_8forward_propagation(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_img_arr) {
   int __pyx_v_i;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_img_arr;
   __Pyx_Buffer __pyx_pybuffer_img_arr;
@@ -5416,11 +7162,11 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __pyx_pybuffernd_img_arr.rcbuffer = &__pyx_pybuffer_img_arr;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_img_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_img_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) __PYX_ERR(0, 247, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_img_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_img_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) __PYX_ERR(0, 350, __pyx_L1_error)
   }
   __pyx_pybuffernd_img_arr.diminfo[0].strides = __pyx_pybuffernd_img_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_img_arr.diminfo[0].shape = __pyx_pybuffernd_img_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_img_arr.diminfo[1].strides = __pyx_pybuffernd_img_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_img_arr.diminfo[1].shape = __pyx_pybuffernd_img_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_img_arr.diminfo[2].strides = __pyx_pybuffernd_img_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_img_arr.diminfo[2].shape = __pyx_pybuffernd_img_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_img_arr.diminfo[3].strides = __pyx_pybuffernd_img_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_img_arr.diminfo[3].shape = __pyx_pybuffernd_img_arr.rcbuffer->pybuffer.shape[3];
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":257
+  /* "pydbm/cnn/convolutional_neural_network.pyx":360
  *             Propagated `np.ndarray`.
  *         '''
  *         cdef int i = 0             # <<<<<<<<<<<<<<
@@ -5429,19 +7175,19 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
   __pyx_v_i = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":258
+  /* "pydbm/cnn/convolutional_neural_network.pyx":361
  *         '''
  *         cdef int i = 0
  *         self.__logger.debug("-" * 100)             # <<<<<<<<<<<<<<
  *         for i in range(len(self.__layerable_cnn_list)):
  *             try:
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 361, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_debug); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_debug); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 361, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyNumber_Multiply(__pyx_kp_s__13, __pyx_int_100); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_kp_s__19, __pyx_int_100); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 361, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
@@ -5454,14 +7200,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 361, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_2};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 361, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -5470,20 +7216,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_2};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 361, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     } else
     #endif
     {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 258, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 361, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
       __Pyx_GIVEREF(__pyx_t_2);
       PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_2);
       __pyx_t_2 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 361, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
@@ -5491,21 +7237,21 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":259
+  /* "pydbm/cnn/convolutional_neural_network.pyx":362
  *         cdef int i = 0
  *         self.__logger.debug("-" * 100)
  *         for i in range(len(self.__layerable_cnn_list)):             # <<<<<<<<<<<<<<
  *             try:
  *                 self.__logger.debug("Input shape in CNN layer: " + str(i + 1))
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 362, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_6 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 362, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
     __pyx_v_i = __pyx_t_7;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":260
+    /* "pydbm/cnn/convolutional_neural_network.pyx":363
  *         self.__logger.debug("-" * 100)
  *         for i in range(len(self.__layerable_cnn_list)):
  *             try:             # <<<<<<<<<<<<<<
@@ -5521,29 +7267,29 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
       __Pyx_XGOTREF(__pyx_t_10);
       /*try:*/ {
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":261
+        /* "pydbm/cnn/convolutional_neural_network.pyx":364
  *         for i in range(len(self.__layerable_cnn_list)):
  *             try:
  *                 self.__logger.debug("Input shape in CNN layer: " + str(i + 1))             # <<<<<<<<<<<<<<
  *                 self.__logger.debug((
  *                     img_arr.shape[0],
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 261, __pyx_L5_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 364, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_debug); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 261, __pyx_L5_error)
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_debug); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 364, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_3 = __Pyx_PyInt_From_long((__pyx_v_i + 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 261, __pyx_L5_error)
+        __pyx_t_3 = __Pyx_PyInt_From_long((__pyx_v_i + 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 364, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 261, __pyx_L5_error)
+        __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 364, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GIVEREF(__pyx_t_3);
         PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3);
         __pyx_t_3 = 0;
-        __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 261, __pyx_L5_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 364, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = PyNumber_Add(__pyx_kp_s_Input_shape_in_CNN_layer, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 261, __pyx_L5_error)
+        __pyx_t_2 = PyNumber_Add(__pyx_kp_s_Input_shape_in_CNN_layer, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 364, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __pyx_t_3 = NULL;
@@ -5557,14 +7303,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           }
         }
         if (!__pyx_t_3) {
-          __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 261, __pyx_L5_error)
+          __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 364, __pyx_L5_error)
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_GOTREF(__pyx_t_1);
         } else {
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_2};
-            __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 261, __pyx_L5_error)
+            __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 364, __pyx_L5_error)
             __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -5573,20 +7319,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_2};
-            __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 261, __pyx_L5_error)
+            __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 364, __pyx_L5_error)
             __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           } else
           #endif
           {
-            __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 261, __pyx_L5_error)
+            __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 364, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
             __Pyx_GIVEREF(__pyx_t_2);
             PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_2);
             __pyx_t_2 = 0;
-            __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 261, __pyx_L5_error)
+            __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 364, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           }
@@ -5594,67 +7340,67 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":262
+        /* "pydbm/cnn/convolutional_neural_network.pyx":365
  *             try:
  *                 self.__logger.debug("Input shape in CNN layer: " + str(i + 1))
  *                 self.__logger.debug((             # <<<<<<<<<<<<<<
  *                     img_arr.shape[0],
  *                     img_arr.shape[1],
  */
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 262, __pyx_L5_error)
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 365, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_debug); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 262, __pyx_L5_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_debug); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 365, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":263
+        /* "pydbm/cnn/convolutional_neural_network.pyx":366
  *                 self.__logger.debug("Input shape in CNN layer: " + str(i + 1))
  *                 self.__logger.debug((
  *                     img_arr.shape[0],             # <<<<<<<<<<<<<<
  *                     img_arr.shape[1],
  *                     img_arr.shape[2],
  */
-        __pyx_t_5 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_img_arr->dimensions[0])); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 263, __pyx_L5_error)
+        __pyx_t_5 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_img_arr->dimensions[0])); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 366, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_5);
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":264
+        /* "pydbm/cnn/convolutional_neural_network.pyx":367
  *                 self.__logger.debug((
  *                     img_arr.shape[0],
  *                     img_arr.shape[1],             # <<<<<<<<<<<<<<
  *                     img_arr.shape[2],
  *                     img_arr.shape[3]
  */
-        __pyx_t_2 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_img_arr->dimensions[1])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 264, __pyx_L5_error)
+        __pyx_t_2 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_img_arr->dimensions[1])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 367, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_2);
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":265
+        /* "pydbm/cnn/convolutional_neural_network.pyx":368
  *                     img_arr.shape[0],
  *                     img_arr.shape[1],
  *                     img_arr.shape[2],             # <<<<<<<<<<<<<<
  *                     img_arr.shape[3]
  *                 ))
  */
-        __pyx_t_3 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_img_arr->dimensions[2])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 265, __pyx_L5_error)
+        __pyx_t_3 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_img_arr->dimensions[2])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 368, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_3);
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":266
+        /* "pydbm/cnn/convolutional_neural_network.pyx":369
  *                     img_arr.shape[1],
  *                     img_arr.shape[2],
  *                     img_arr.shape[3]             # <<<<<<<<<<<<<<
  *                 ))
  *                 img_arr = self.__layerable_cnn_list[i].forward_propagate(img_arr)
  */
-        __pyx_t_11 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_img_arr->dimensions[3])); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 266, __pyx_L5_error)
+        __pyx_t_11 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_img_arr->dimensions[3])); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 369, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_11);
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":263
+        /* "pydbm/cnn/convolutional_neural_network.pyx":366
  *                 self.__logger.debug("Input shape in CNN layer: " + str(i + 1))
  *                 self.__logger.debug((
  *                     img_arr.shape[0],             # <<<<<<<<<<<<<<
  *                     img_arr.shape[1],
  *                     img_arr.shape[2],
  */
-        __pyx_t_12 = PyTuple_New(4); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 263, __pyx_L5_error)
+        __pyx_t_12 = PyTuple_New(4); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 366, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_GIVEREF(__pyx_t_5);
         PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_5);
@@ -5679,14 +7425,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           }
         }
         if (!__pyx_t_11) {
-          __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 262, __pyx_L5_error)
+          __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 365, __pyx_L5_error)
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
           __Pyx_GOTREF(__pyx_t_1);
         } else {
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_4)) {
             PyObject *__pyx_temp[2] = {__pyx_t_11, __pyx_t_12};
-            __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 262, __pyx_L5_error)
+            __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 365, __pyx_L5_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
@@ -5695,20 +7441,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
             PyObject *__pyx_temp[2] = {__pyx_t_11, __pyx_t_12};
-            __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 262, __pyx_L5_error)
+            __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 365, __pyx_L5_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
           } else
           #endif
           {
-            __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 262, __pyx_L5_error)
+            __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 365, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_3);
             __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_11); __pyx_t_11 = NULL;
             __Pyx_GIVEREF(__pyx_t_12);
             PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_12);
             __pyx_t_12 = 0;
-            __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 262, __pyx_L5_error)
+            __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 365, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           }
@@ -5716,19 +7462,19 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":268
+        /* "pydbm/cnn/convolutional_neural_network.pyx":371
  *                     img_arr.shape[3]
  *                 ))
  *                 img_arr = self.__layerable_cnn_list[i].forward_propagate(img_arr)             # <<<<<<<<<<<<<<
  *             except:
  *                 self.__logger.debug("Error raised in CNN layer " + str(i + 1))
  */
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 268, __pyx_L5_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 371, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_4, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 268, __pyx_L5_error)
+        __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_4, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 371, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_forward_propagate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 268, __pyx_L5_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_forward_propagate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 371, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __pyx_t_3 = NULL;
@@ -5742,13 +7488,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           }
         }
         if (!__pyx_t_3) {
-          __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, ((PyObject *)__pyx_v_img_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 268, __pyx_L5_error)
+          __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, ((PyObject *)__pyx_v_img_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 371, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_1);
         } else {
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_4)) {
             PyObject *__pyx_temp[2] = {__pyx_t_3, ((PyObject *)__pyx_v_img_arr)};
-            __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 268, __pyx_L5_error)
+            __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 371, __pyx_L5_error)
             __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_GOTREF(__pyx_t_1);
           } else
@@ -5756,25 +7502,25 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
             PyObject *__pyx_temp[2] = {__pyx_t_3, ((PyObject *)__pyx_v_img_arr)};
-            __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 268, __pyx_L5_error)
+            __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 371, __pyx_L5_error)
             __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_GOTREF(__pyx_t_1);
           } else
           #endif
           {
-            __pyx_t_12 = PyTuple_New(1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 268, __pyx_L5_error)
+            __pyx_t_12 = PyTuple_New(1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 371, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_12);
             __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_3); __pyx_t_3 = NULL;
             __Pyx_INCREF(((PyObject *)__pyx_v_img_arr));
             __Pyx_GIVEREF(((PyObject *)__pyx_v_img_arr));
             PyTuple_SET_ITEM(__pyx_t_12, 0+1, ((PyObject *)__pyx_v_img_arr));
-            __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 268, __pyx_L5_error)
+            __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 371, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
           }
         }
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 268, __pyx_L5_error)
+        if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 371, __pyx_L5_error)
         __pyx_t_13 = ((PyArrayObject *)__pyx_t_1);
         {
           __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -5791,13 +7537,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
             __pyx_t_15 = __pyx_t_16 = __pyx_t_17 = 0;
           }
           __pyx_pybuffernd_img_arr.diminfo[0].strides = __pyx_pybuffernd_img_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_img_arr.diminfo[0].shape = __pyx_pybuffernd_img_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_img_arr.diminfo[1].strides = __pyx_pybuffernd_img_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_img_arr.diminfo[1].shape = __pyx_pybuffernd_img_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_img_arr.diminfo[2].strides = __pyx_pybuffernd_img_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_img_arr.diminfo[2].shape = __pyx_pybuffernd_img_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_img_arr.diminfo[3].strides = __pyx_pybuffernd_img_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_img_arr.diminfo[3].shape = __pyx_pybuffernd_img_arr.rcbuffer->pybuffer.shape[3];
-          if (unlikely(__pyx_t_14 < 0)) __PYX_ERR(0, 268, __pyx_L5_error)
+          if (unlikely(__pyx_t_14 < 0)) __PYX_ERR(0, 371, __pyx_L5_error)
         }
         __pyx_t_13 = 0;
         __Pyx_DECREF_SET(__pyx_v_img_arr, ((PyArrayObject *)__pyx_t_1));
         __pyx_t_1 = 0;
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":260
+        /* "pydbm/cnn/convolutional_neural_network.pyx":363
  *         self.__logger.debug("-" * 100)
  *         for i in range(len(self.__layerable_cnn_list)):
  *             try:             # <<<<<<<<<<<<<<
@@ -5818,7 +7564,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":269
+      /* "pydbm/cnn/convolutional_neural_network.pyx":372
  *                 ))
  *                 img_arr = self.__layerable_cnn_list[i].forward_propagate(img_arr)
  *             except:             # <<<<<<<<<<<<<<
@@ -5827,34 +7573,34 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
       /*except:*/ {
         __Pyx_AddTraceback("pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork.forward_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
-        if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_4, &__pyx_t_12) < 0) __PYX_ERR(0, 269, __pyx_L7_except_error)
+        if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_4, &__pyx_t_12) < 0) __PYX_ERR(0, 372, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_GOTREF(__pyx_t_12);
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":270
+        /* "pydbm/cnn/convolutional_neural_network.pyx":373
  *                 img_arr = self.__layerable_cnn_list[i].forward_propagate(img_arr)
  *             except:
  *                 self.__logger.debug("Error raised in CNN layer " + str(i + 1))             # <<<<<<<<<<<<<<
  *                 raise
  * 
  */
-        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 270, __pyx_L7_except_error)
+        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 373, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_11);
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_debug); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 270, __pyx_L7_except_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_debug); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 373, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-        __pyx_t_11 = __Pyx_PyInt_From_long((__pyx_v_i + 1)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 270, __pyx_L7_except_error)
+        __pyx_t_11 = __Pyx_PyInt_From_long((__pyx_v_i + 1)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 373, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_11);
-        __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 270, __pyx_L7_except_error)
+        __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 373, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_GIVEREF(__pyx_t_11);
         PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_11);
         __pyx_t_11 = 0;
-        __pyx_t_11 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_5, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 270, __pyx_L7_except_error)
+        __pyx_t_11 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_5, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 373, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_11);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __pyx_t_5 = PyNumber_Add(__pyx_kp_s_Error_raised_in_CNN_layer, __pyx_t_11); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 270, __pyx_L7_except_error)
+        __pyx_t_5 = PyNumber_Add(__pyx_kp_s_Error_raised_in_CNN_layer, __pyx_t_11); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 373, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         __pyx_t_11 = NULL;
@@ -5868,14 +7614,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           }
         }
         if (!__pyx_t_11) {
-          __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 270, __pyx_L7_except_error)
+          __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 373, __pyx_L7_except_error)
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __Pyx_GOTREF(__pyx_t_3);
         } else {
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_2)) {
             PyObject *__pyx_temp[2] = {__pyx_t_11, __pyx_t_5};
-            __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 270, __pyx_L7_except_error)
+            __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 373, __pyx_L7_except_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_3);
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -5884,20 +7630,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
             PyObject *__pyx_temp[2] = {__pyx_t_11, __pyx_t_5};
-            __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 270, __pyx_L7_except_error)
+            __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 373, __pyx_L7_except_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_3);
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           } else
           #endif
           {
-            __pyx_t_18 = PyTuple_New(1+1); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 270, __pyx_L7_except_error)
+            __pyx_t_18 = PyTuple_New(1+1); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 373, __pyx_L7_except_error)
             __Pyx_GOTREF(__pyx_t_18);
             __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_18, 0, __pyx_t_11); __pyx_t_11 = NULL;
             __Pyx_GIVEREF(__pyx_t_5);
             PyTuple_SET_ITEM(__pyx_t_18, 0+1, __pyx_t_5);
             __pyx_t_5 = 0;
-            __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_18, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 270, __pyx_L7_except_error)
+            __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_18, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 373, __pyx_L7_except_error)
             __Pyx_GOTREF(__pyx_t_3);
             __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
           }
@@ -5905,7 +7651,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":271
+        /* "pydbm/cnn/convolutional_neural_network.pyx":374
  *             except:
  *                 self.__logger.debug("Error raised in CNN layer " + str(i + 1))
  *                 raise             # <<<<<<<<<<<<<<
@@ -5917,11 +7663,11 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         __Pyx_XGIVEREF(__pyx_t_12);
         __Pyx_ErrRestoreWithState(__pyx_t_1, __pyx_t_4, __pyx_t_12);
         __pyx_t_1 = 0; __pyx_t_4 = 0; __pyx_t_12 = 0; 
-        __PYX_ERR(0, 271, __pyx_L7_except_error)
+        __PYX_ERR(0, 374, __pyx_L7_except_error)
       }
       __pyx_L7_except_error:;
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":260
+      /* "pydbm/cnn/convolutional_neural_network.pyx":363
  *         self.__logger.debug("-" * 100)
  *         for i in range(len(self.__layerable_cnn_list)):
  *             try:             # <<<<<<<<<<<<<<
@@ -5937,19 +7683,19 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     }
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":273
+  /* "pydbm/cnn/convolutional_neural_network.pyx":376
  *                 raise
  * 
  *         self.__logger.debug("-" * 100)             # <<<<<<<<<<<<<<
  *         self.__logger.debug("Propagated shape in CNN layer: " + str(i + 1))
  *         self.__logger.debug((
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 376, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_debug); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_debug); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 376, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyNumber_Multiply(__pyx_kp_s__13, __pyx_int_100); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Multiply(__pyx_kp_s__19, __pyx_int_100); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 376, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -5962,14 +7708,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 273, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 376, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_12);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_1)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_4};
-      __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 273, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 376, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -5978,20 +7724,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_4};
-      __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 273, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 376, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     } else
     #endif
     {
-      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 273, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 376, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
       __Pyx_GIVEREF(__pyx_t_4);
       PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_4);
       __pyx_t_4 = 0;
-      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 273, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 376, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
@@ -5999,29 +7745,29 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":274
+  /* "pydbm/cnn/convolutional_neural_network.pyx":377
  * 
  *         self.__logger.debug("-" * 100)
  *         self.__logger.debug("Propagated shape in CNN layer: " + str(i + 1))             # <<<<<<<<<<<<<<
  *         self.__logger.debug((
  *             img_arr.shape[0],
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 377, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 377, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyInt_From_long((__pyx_v_i + 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_long((__pyx_v_i + 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 377, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 377, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 377, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyNumber_Add(__pyx_kp_s_Propagated_shape_in_CNN_layer, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Add(__pyx_kp_s_Propagated_shape_in_CNN_layer, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 377, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -6035,14 +7781,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     }
   }
   if (!__pyx_t_1) {
-    __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 274, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 377, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_12);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_4};
-      __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 274, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 377, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -6051,20 +7797,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_4};
-      __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 274, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 377, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     } else
     #endif
     {
-      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 274, __pyx_L1_error)
+      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 377, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1); __pyx_t_1 = NULL;
       __Pyx_GIVEREF(__pyx_t_4);
       PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_4);
       __pyx_t_4 = 0;
-      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 274, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 377, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
@@ -6072,67 +7818,67 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":275
+  /* "pydbm/cnn/convolutional_neural_network.pyx":378
  *         self.__logger.debug("-" * 100)
  *         self.__logger.debug("Propagated shape in CNN layer: " + str(i + 1))
  *         self.__logger.debug((             # <<<<<<<<<<<<<<
  *             img_arr.shape[0],
  *             img_arr.shape[1],
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 378, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_debug); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_debug); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 378, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":276
+  /* "pydbm/cnn/convolutional_neural_network.pyx":379
  *         self.__logger.debug("Propagated shape in CNN layer: " + str(i + 1))
  *         self.__logger.debug((
  *             img_arr.shape[0],             # <<<<<<<<<<<<<<
  *             img_arr.shape[1],
  *             img_arr.shape[2],
  */
-  __pyx_t_2 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_img_arr->dimensions[0])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 276, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_img_arr->dimensions[0])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 379, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":277
+  /* "pydbm/cnn/convolutional_neural_network.pyx":380
  *         self.__logger.debug((
  *             img_arr.shape[0],
  *             img_arr.shape[1],             # <<<<<<<<<<<<<<
  *             img_arr.shape[2],
  *             img_arr.shape[3]
  */
-  __pyx_t_4 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_img_arr->dimensions[1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 277, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_img_arr->dimensions[1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 380, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":278
+  /* "pydbm/cnn/convolutional_neural_network.pyx":381
  *             img_arr.shape[0],
  *             img_arr.shape[1],
  *             img_arr.shape[2],             # <<<<<<<<<<<<<<
  *             img_arr.shape[3]
  *         ))
  */
-  __pyx_t_1 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_img_arr->dimensions[2])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 278, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_img_arr->dimensions[2])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 381, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":279
+  /* "pydbm/cnn/convolutional_neural_network.pyx":382
  *             img_arr.shape[1],
  *             img_arr.shape[2],
  *             img_arr.shape[3]             # <<<<<<<<<<<<<<
  *         ))
  *         self.__logger.debug("-" * 100)
  */
-  __pyx_t_18 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_img_arr->dimensions[3])); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 279, __pyx_L1_error)
+  __pyx_t_18 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_img_arr->dimensions[3])); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 382, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":276
+  /* "pydbm/cnn/convolutional_neural_network.pyx":379
  *         self.__logger.debug("Propagated shape in CNN layer: " + str(i + 1))
  *         self.__logger.debug((
  *             img_arr.shape[0],             # <<<<<<<<<<<<<<
  *             img_arr.shape[1],
  *             img_arr.shape[2],
  */
-  __pyx_t_5 = PyTuple_New(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 276, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 379, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2);
@@ -6157,14 +7903,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     }
   }
   if (!__pyx_t_18) {
-    __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 275, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 378, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_12);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_18, __pyx_t_5};
-      __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 275, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 378, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -6173,20 +7919,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_18, __pyx_t_5};
-      __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 275, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 378, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     } else
     #endif
     {
-      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 275, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 378, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_GIVEREF(__pyx_t_18); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_18); __pyx_t_18 = NULL;
       __Pyx_GIVEREF(__pyx_t_5);
       PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_5);
       __pyx_t_5 = 0;
-      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 275, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 378, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
@@ -6194,19 +7940,19 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":281
+  /* "pydbm/cnn/convolutional_neural_network.pyx":384
  *             img_arr.shape[3]
  *         ))
  *         self.__logger.debug("-" * 100)             # <<<<<<<<<<<<<<
  * 
  *         return img_arr
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 281, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 384, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_debug); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 281, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_debug); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 384, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_Multiply(__pyx_kp_s__13, __pyx_int_100); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 281, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_kp_s__19, __pyx_int_100); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 384, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_5 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -6219,14 +7965,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 281, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 384, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_12);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_1)) {
       PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_3};
-      __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 281, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 384, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -6235,20 +7981,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
       PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_3};
-      __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 281, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 384, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else
     #endif
     {
-      __pyx_t_18 = PyTuple_New(1+1); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 281, __pyx_L1_error)
+      __pyx_t_18 = PyTuple_New(1+1); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 384, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_18);
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_18, 0, __pyx_t_5); __pyx_t_5 = NULL;
       __Pyx_GIVEREF(__pyx_t_3);
       PyTuple_SET_ITEM(__pyx_t_18, 0+1, __pyx_t_3);
       __pyx_t_3 = 0;
-      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_18, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 281, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_18, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 384, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
     }
@@ -6256,7 +8002,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":283
+  /* "pydbm/cnn/convolutional_neural_network.pyx":386
  *         self.__logger.debug("-" * 100)
  * 
  *         return img_arr             # <<<<<<<<<<<<<<
@@ -6268,7 +8014,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __pyx_r = ((PyObject *)__pyx_v_img_arr);
   goto __pyx_L0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":247
+  /* "pydbm/cnn/convolutional_neural_network.pyx":350
  *         return pred_arr
  * 
  *     def forward_propagation(self, np.ndarray[DOUBLE_t, ndim=4] img_arr):             # <<<<<<<<<<<<<<
@@ -6304,7 +8050,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   return __pyx_r;
 }
 
-/* "pydbm/cnn/convolutional_neural_network.pyx":285
+/* "pydbm/cnn/convolutional_neural_network.pyx":388
  *         return img_arr
  * 
  *     def back_propagation(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):             # <<<<<<<<<<<<<<
@@ -6313,10 +8059,10 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_9back_propagation(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_8back_propagation[] = "\n        Back propagation in CNN.\n        \n        Args:\n            Delta.\n        \n        Returns.\n            Delta.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_9back_propagation = {"back_propagation", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_9back_propagation, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_8back_propagation};
-static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_9back_propagation(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_11back_propagation(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_10back_propagation[] = "\n        Back propagation in CNN.\n        \n        Args:\n            Delta.\n        \n        Returns.\n            Delta.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_11back_propagation = {"back_propagation", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_11back_propagation, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_10back_propagation};
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_11back_propagation(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyArrayObject *__pyx_v_delta_arr = 0;
   PyObject *__pyx_r = 0;
@@ -6345,11 +8091,11 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_delta_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("back_propagation", 1, 2, 2, 1); __PYX_ERR(0, 285, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("back_propagation", 1, 2, 2, 1); __PYX_ERR(0, 388, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "back_propagation") < 0)) __PYX_ERR(0, 285, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "back_propagation") < 0)) __PYX_ERR(0, 388, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -6362,14 +8108,14 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("back_propagation", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 285, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("back_propagation", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 388, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork.back_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_delta_arr), __pyx_ptype_5numpy_ndarray, 1, "delta_arr", 0))) __PYX_ERR(0, 285, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_8back_propagation(__pyx_self, __pyx_v_self, __pyx_v_delta_arr);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_delta_arr), __pyx_ptype_5numpy_ndarray, 1, "delta_arr", 0))) __PYX_ERR(0, 388, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_10back_propagation(__pyx_self, __pyx_v_self, __pyx_v_delta_arr);
 
   /* function exit code */
   goto __pyx_L0;
@@ -6380,7 +8126,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_8back_propagation(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_delta_arr) {
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_10back_propagation(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_delta_arr) {
   int __pyx_v_i;
   PyObject *__pyx_v_layerable_cnn_list = NULL;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_delta_arr;
@@ -6414,11 +8160,11 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __pyx_pybuffernd_delta_arr.rcbuffer = &__pyx_pybuffer_delta_arr;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_delta_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) __PYX_ERR(0, 285, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_delta_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_28convolutional_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) __PYX_ERR(0, 388, __pyx_L1_error)
   }
   __pyx_pybuffernd_delta_arr.diminfo[0].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_arr.diminfo[0].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_arr.diminfo[1].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_arr.diminfo[1].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_arr.diminfo[2].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_arr.diminfo[2].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_arr.diminfo[3].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_arr.diminfo[3].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[3];
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":295
+  /* "pydbm/cnn/convolutional_neural_network.pyx":398
  *             Delta.
  *         '''
  *         cdef int i = 0             # <<<<<<<<<<<<<<
@@ -6427,34 +8173,34 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
   __pyx_v_i = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":296
+  /* "pydbm/cnn/convolutional_neural_network.pyx":399
  *         '''
  *         cdef int i = 0
  *         layerable_cnn_list = self.__layerable_cnn_list[::-1]             # <<<<<<<<<<<<<<
  *         self.__logger.debug("-" * 100)
  *         for i in range(len(layerable_cnn_list)):
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 296, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 399, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_GetItem(__pyx_t_1, __pyx_slice__14); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 296, __pyx_L1_error)
+  __pyx_t_2 = PyObject_GetItem(__pyx_t_1, __pyx_slice__20); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 399, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_layerable_cnn_list = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":297
+  /* "pydbm/cnn/convolutional_neural_network.pyx":400
  *         cdef int i = 0
  *         layerable_cnn_list = self.__layerable_cnn_list[::-1]
  *         self.__logger.debug("-" * 100)             # <<<<<<<<<<<<<<
  *         for i in range(len(layerable_cnn_list)):
  *             try:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 297, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 400, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 297, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 400, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Multiply(__pyx_kp_s__13, __pyx_int_100); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 297, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Multiply(__pyx_kp_s__19, __pyx_int_100); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 400, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
@@ -6467,14 +8213,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 297, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 400, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_1};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 297, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 400, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -6483,20 +8229,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_1};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 297, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 400, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else
     #endif
     {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 297, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 400, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
       __Pyx_GIVEREF(__pyx_t_1);
       PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_1);
       __pyx_t_1 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 297, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 400, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
@@ -6504,18 +8250,18 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":298
+  /* "pydbm/cnn/convolutional_neural_network.pyx":401
  *         layerable_cnn_list = self.__layerable_cnn_list[::-1]
  *         self.__logger.debug("-" * 100)
  *         for i in range(len(layerable_cnn_list)):             # <<<<<<<<<<<<<<
  *             try:
  *                 self.__logger.debug("Input delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
  */
-  __pyx_t_6 = PyObject_Length(__pyx_v_layerable_cnn_list); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 298, __pyx_L1_error)
+  __pyx_t_6 = PyObject_Length(__pyx_v_layerable_cnn_list); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 401, __pyx_L1_error)
   for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
     __pyx_v_i = __pyx_t_7;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":299
+    /* "pydbm/cnn/convolutional_neural_network.pyx":402
  *         self.__logger.debug("-" * 100)
  *         for i in range(len(layerable_cnn_list)):
  *             try:             # <<<<<<<<<<<<<<
@@ -6531,30 +8277,30 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
       __Pyx_XGOTREF(__pyx_t_10);
       /*try:*/ {
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":300
+        /* "pydbm/cnn/convolutional_neural_network.pyx":403
  *         for i in range(len(layerable_cnn_list)):
  *             try:
  *                 self.__logger.debug("Input delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))             # <<<<<<<<<<<<<<
  *                 self.__logger.debug((
  *                     delta_arr.shape[0],
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 300, __pyx_L5_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 403, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_debug); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 300, __pyx_L5_error)
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_debug); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 403, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_11 = PyObject_Length(__pyx_v_layerable_cnn_list); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 300, __pyx_L5_error)
-        __pyx_t_3 = PyInt_FromSsize_t((__pyx_t_11 - __pyx_v_i)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 300, __pyx_L5_error)
+        __pyx_t_11 = PyObject_Length(__pyx_v_layerable_cnn_list); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 403, __pyx_L5_error)
+        __pyx_t_3 = PyInt_FromSsize_t((__pyx_t_11 - __pyx_v_i)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 403, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 300, __pyx_L5_error)
+        __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 403, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_GIVEREF(__pyx_t_3);
         PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
         __pyx_t_3 = 0;
-        __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 300, __pyx_L5_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 403, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = PyNumber_Add(__pyx_kp_s_Input_delta_shape_in_CNN_layer, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 300, __pyx_L5_error)
+        __pyx_t_1 = PyNumber_Add(__pyx_kp_s_Input_delta_shape_in_CNN_layer, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 403, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __pyx_t_3 = NULL;
@@ -6568,14 +8314,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           }
         }
         if (!__pyx_t_3) {
-          __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 300, __pyx_L5_error)
+          __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 403, __pyx_L5_error)
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_GOTREF(__pyx_t_2);
         } else {
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_1};
-            __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 300, __pyx_L5_error)
+            __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 403, __pyx_L5_error)
             __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -6584,20 +8330,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_1};
-            __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 300, __pyx_L5_error)
+            __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 403, __pyx_L5_error)
             __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           } else
           #endif
           {
-            __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 300, __pyx_L5_error)
+            __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 403, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
             __Pyx_GIVEREF(__pyx_t_1);
             PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_1);
             __pyx_t_1 = 0;
-            __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 300, __pyx_L5_error)
+            __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 403, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           }
@@ -6605,67 +8351,67 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":301
+        /* "pydbm/cnn/convolutional_neural_network.pyx":404
  *             try:
  *                 self.__logger.debug("Input delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
  *                 self.__logger.debug((             # <<<<<<<<<<<<<<
  *                     delta_arr.shape[0],
  *                     delta_arr.shape[1],
  */
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 301, __pyx_L5_error)
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 404, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_debug); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 301, __pyx_L5_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_debug); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 404, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":302
+        /* "pydbm/cnn/convolutional_neural_network.pyx":405
  *                 self.__logger.debug("Input delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
  *                 self.__logger.debug((
  *                     delta_arr.shape[0],             # <<<<<<<<<<<<<<
  *                     delta_arr.shape[1],
  *                     delta_arr.shape[2],
  */
-        __pyx_t_5 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_arr->dimensions[0])); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 302, __pyx_L5_error)
+        __pyx_t_5 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_arr->dimensions[0])); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 405, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_5);
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":303
+        /* "pydbm/cnn/convolutional_neural_network.pyx":406
  *                 self.__logger.debug((
  *                     delta_arr.shape[0],
  *                     delta_arr.shape[1],             # <<<<<<<<<<<<<<
  *                     delta_arr.shape[2],
  *                     delta_arr.shape[3]
  */
-        __pyx_t_1 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_arr->dimensions[1])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 303, __pyx_L5_error)
+        __pyx_t_1 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_arr->dimensions[1])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 406, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_1);
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":304
+        /* "pydbm/cnn/convolutional_neural_network.pyx":407
  *                     delta_arr.shape[0],
  *                     delta_arr.shape[1],
  *                     delta_arr.shape[2],             # <<<<<<<<<<<<<<
  *                     delta_arr.shape[3]
  *                 ))
  */
-        __pyx_t_3 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_arr->dimensions[2])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 304, __pyx_L5_error)
+        __pyx_t_3 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_arr->dimensions[2])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 407, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_3);
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":305
+        /* "pydbm/cnn/convolutional_neural_network.pyx":408
  *                     delta_arr.shape[1],
  *                     delta_arr.shape[2],
  *                     delta_arr.shape[3]             # <<<<<<<<<<<<<<
  *                 ))
  * 
  */
-        __pyx_t_12 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_arr->dimensions[3])); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 305, __pyx_L5_error)
+        __pyx_t_12 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_arr->dimensions[3])); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 408, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_12);
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":302
+        /* "pydbm/cnn/convolutional_neural_network.pyx":405
  *                 self.__logger.debug("Input delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
  *                 self.__logger.debug((
  *                     delta_arr.shape[0],             # <<<<<<<<<<<<<<
  *                     delta_arr.shape[1],
  *                     delta_arr.shape[2],
  */
-        __pyx_t_13 = PyTuple_New(4); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 302, __pyx_L5_error)
+        __pyx_t_13 = PyTuple_New(4); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 405, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_GIVEREF(__pyx_t_5);
         PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_5);
@@ -6690,14 +8436,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           }
         }
         if (!__pyx_t_12) {
-          __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_13); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 301, __pyx_L5_error)
+          __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_13); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 404, __pyx_L5_error)
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
           __Pyx_GOTREF(__pyx_t_2);
         } else {
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_4)) {
             PyObject *__pyx_temp[2] = {__pyx_t_12, __pyx_t_13};
-            __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 301, __pyx_L5_error)
+            __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 404, __pyx_L5_error)
             __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
@@ -6706,20 +8452,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
             PyObject *__pyx_temp[2] = {__pyx_t_12, __pyx_t_13};
-            __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 301, __pyx_L5_error)
+            __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 404, __pyx_L5_error)
             __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
           } else
           #endif
           {
-            __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 301, __pyx_L5_error)
+            __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 404, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_3);
             __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_12); __pyx_t_12 = NULL;
             __Pyx_GIVEREF(__pyx_t_13);
             PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_13);
             __pyx_t_13 = 0;
-            __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 301, __pyx_L5_error)
+            __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 404, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           }
@@ -6727,16 +8473,16 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":308
+        /* "pydbm/cnn/convolutional_neural_network.pyx":411
  *                 ))
  * 
  *                 delta_arr = layerable_cnn_list[i].back_propagate(delta_arr)             # <<<<<<<<<<<<<<
  * 
  *             except:
  */
-        __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_layerable_cnn_list, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 308, __pyx_L5_error)
+        __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_layerable_cnn_list, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 411, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_back_propagate); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 308, __pyx_L5_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_back_propagate); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 411, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_4 = NULL;
@@ -6750,13 +8496,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           }
         }
         if (!__pyx_t_4) {
-          __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_delta_arr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 308, __pyx_L5_error)
+          __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_delta_arr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 411, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_2);
         } else {
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_3)) {
             PyObject *__pyx_temp[2] = {__pyx_t_4, ((PyObject *)__pyx_v_delta_arr)};
-            __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 308, __pyx_L5_error)
+            __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 411, __pyx_L5_error)
             __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
             __Pyx_GOTREF(__pyx_t_2);
           } else
@@ -6764,25 +8510,25 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
             PyObject *__pyx_temp[2] = {__pyx_t_4, ((PyObject *)__pyx_v_delta_arr)};
-            __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 308, __pyx_L5_error)
+            __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 411, __pyx_L5_error)
             __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
             __Pyx_GOTREF(__pyx_t_2);
           } else
           #endif
           {
-            __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 308, __pyx_L5_error)
+            __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 411, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_13);
             __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_4); __pyx_t_4 = NULL;
             __Pyx_INCREF(((PyObject *)__pyx_v_delta_arr));
             __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_arr));
             PyTuple_SET_ITEM(__pyx_t_13, 0+1, ((PyObject *)__pyx_v_delta_arr));
-            __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_13, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 308, __pyx_L5_error)
+            __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_13, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 411, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
           }
         }
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 308, __pyx_L5_error)
+        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 411, __pyx_L5_error)
         __pyx_t_14 = ((PyArrayObject *)__pyx_t_2);
         {
           __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -6799,13 +8545,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
             __pyx_t_16 = __pyx_t_17 = __pyx_t_18 = 0;
           }
           __pyx_pybuffernd_delta_arr.diminfo[0].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_arr.diminfo[0].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_arr.diminfo[1].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_arr.diminfo[1].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_arr.diminfo[2].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_arr.diminfo[2].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_arr.diminfo[3].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_arr.diminfo[3].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[3];
-          if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 308, __pyx_L5_error)
+          if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 411, __pyx_L5_error)
         }
         __pyx_t_14 = 0;
         __Pyx_DECREF_SET(__pyx_v_delta_arr, ((PyArrayObject *)__pyx_t_2));
         __pyx_t_2 = 0;
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":299
+        /* "pydbm/cnn/convolutional_neural_network.pyx":402
  *         self.__logger.debug("-" * 100)
  *         for i in range(len(layerable_cnn_list)):
  *             try:             # <<<<<<<<<<<<<<
@@ -6826,7 +8572,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":310
+      /* "pydbm/cnn/convolutional_neural_network.pyx":413
  *                 delta_arr = layerable_cnn_list[i].back_propagate(delta_arr)
  * 
  *             except:             # <<<<<<<<<<<<<<
@@ -6835,43 +8581,43 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
       /*except:*/ {
         __Pyx_AddTraceback("pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork.back_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
-        if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_3, &__pyx_t_13) < 0) __PYX_ERR(0, 310, __pyx_L7_except_error)
+        if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_3, &__pyx_t_13) < 0) __PYX_ERR(0, 413, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_GOTREF(__pyx_t_13);
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":311
+        /* "pydbm/cnn/convolutional_neural_network.pyx":414
  * 
  *             except:
  *                 self.__logger.debug(             # <<<<<<<<<<<<<<
  *                     "Delta computation raised an error in CNN layer " + str(len(layerable_cnn_list) - i)
  *                 )
  */
-        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 311, __pyx_L7_except_error)
+        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 414, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_debug); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 311, __pyx_L7_except_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_debug); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 414, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":312
+        /* "pydbm/cnn/convolutional_neural_network.pyx":415
  *             except:
  *                 self.__logger.debug(
  *                     "Delta computation raised an error in CNN layer " + str(len(layerable_cnn_list) - i)             # <<<<<<<<<<<<<<
  *                 )
  *                 raise
  */
-        __pyx_t_11 = PyObject_Length(__pyx_v_layerable_cnn_list); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 312, __pyx_L7_except_error)
-        __pyx_t_12 = PyInt_FromSsize_t((__pyx_t_11 - __pyx_v_i)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 312, __pyx_L7_except_error)
+        __pyx_t_11 = PyObject_Length(__pyx_v_layerable_cnn_list); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 415, __pyx_L7_except_error)
+        __pyx_t_12 = PyInt_FromSsize_t((__pyx_t_11 - __pyx_v_i)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 415, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 312, __pyx_L7_except_error)
+        __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 415, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_GIVEREF(__pyx_t_12);
         PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_12);
         __pyx_t_12 = 0;
-        __pyx_t_12 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_5, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 312, __pyx_L7_except_error)
+        __pyx_t_12 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_5, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 415, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __pyx_t_5 = PyNumber_Add(__pyx_kp_s_Delta_computation_raised_an_erro, __pyx_t_12); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 312, __pyx_L7_except_error)
+        __pyx_t_5 = PyNumber_Add(__pyx_kp_s_Delta_computation_raised_an_erro, __pyx_t_12); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 415, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __pyx_t_12 = NULL;
@@ -6885,14 +8631,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           }
         }
         if (!__pyx_t_12) {
-          __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 311, __pyx_L7_except_error)
+          __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 414, __pyx_L7_except_error)
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __Pyx_GOTREF(__pyx_t_4);
         } else {
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_1)) {
             PyObject *__pyx_temp[2] = {__pyx_t_12, __pyx_t_5};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 311, __pyx_L7_except_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 414, __pyx_L7_except_error)
             __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -6901,20 +8647,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
             PyObject *__pyx_temp[2] = {__pyx_t_12, __pyx_t_5};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 311, __pyx_L7_except_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 414, __pyx_L7_except_error)
             __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           } else
           #endif
           {
-            __pyx_t_19 = PyTuple_New(1+1); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 311, __pyx_L7_except_error)
+            __pyx_t_19 = PyTuple_New(1+1); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 414, __pyx_L7_except_error)
             __Pyx_GOTREF(__pyx_t_19);
             __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_19, 0, __pyx_t_12); __pyx_t_12 = NULL;
             __Pyx_GIVEREF(__pyx_t_5);
             PyTuple_SET_ITEM(__pyx_t_19, 0+1, __pyx_t_5);
             __pyx_t_5 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_19, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 311, __pyx_L7_except_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_19, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 414, __pyx_L7_except_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
           }
@@ -6922,7 +8668,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "pydbm/cnn/convolutional_neural_network.pyx":314
+        /* "pydbm/cnn/convolutional_neural_network.pyx":417
  *                     "Delta computation raised an error in CNN layer " + str(len(layerable_cnn_list) - i)
  *                 )
  *                 raise             # <<<<<<<<<<<<<<
@@ -6934,11 +8680,11 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         __Pyx_XGIVEREF(__pyx_t_13);
         __Pyx_ErrRestoreWithState(__pyx_t_2, __pyx_t_3, __pyx_t_13);
         __pyx_t_2 = 0; __pyx_t_3 = 0; __pyx_t_13 = 0; 
-        __PYX_ERR(0, 314, __pyx_L7_except_error)
+        __PYX_ERR(0, 417, __pyx_L7_except_error)
       }
       __pyx_L7_except_error:;
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":299
+      /* "pydbm/cnn/convolutional_neural_network.pyx":402
  *         self.__logger.debug("-" * 100)
  *         for i in range(len(layerable_cnn_list)):
  *             try:             # <<<<<<<<<<<<<<
@@ -6954,19 +8700,19 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     }
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":316
+  /* "pydbm/cnn/convolutional_neural_network.pyx":419
  *                 raise
  * 
  *         self.__logger.debug("-" * 100)             # <<<<<<<<<<<<<<
  *         self.__logger.debug("Propagated delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
  *         self.__logger.debug((
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 316, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 419, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_debug); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 316, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_debug); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 419, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_Multiply(__pyx_kp_s__13, __pyx_int_100); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 316, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_kp_s__19, __pyx_int_100); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 419, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -6979,14 +8725,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_13 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 316, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 419, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_13);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_3};
-      __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 316, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 419, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -6995,20 +8741,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_3};
-      __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 316, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 419, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else
     #endif
     {
-      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 316, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 419, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_4); __pyx_t_4 = NULL;
       __Pyx_GIVEREF(__pyx_t_3);
       PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_3);
       __pyx_t_3 = 0;
-      __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 316, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 419, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
@@ -7016,30 +8762,30 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":317
+  /* "pydbm/cnn/convolutional_neural_network.pyx":420
  * 
  *         self.__logger.debug("-" * 100)
  *         self.__logger.debug("Propagated delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))             # <<<<<<<<<<<<<<
  *         self.__logger.debug((
  *             delta_arr.shape[0],
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 317, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 420, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_debug); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 317, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_debug); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 420, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_6 = PyObject_Length(__pyx_v_layerable_cnn_list); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 317, __pyx_L1_error)
-  __pyx_t_2 = PyInt_FromSsize_t((__pyx_t_6 - __pyx_v_i)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 317, __pyx_L1_error)
+  __pyx_t_6 = PyObject_Length(__pyx_v_layerable_cnn_list); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 420, __pyx_L1_error)
+  __pyx_t_2 = PyInt_FromSsize_t((__pyx_t_6 - __pyx_v_i)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 420, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 317, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 420, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 317, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 420, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_Add(__pyx_kp_s_Propagated_delta_shape_in_CNN_la, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 317, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Add(__pyx_kp_s_Propagated_delta_shape_in_CNN_la, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 420, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -7053,14 +8799,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_13 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 317, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 420, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_13);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_1)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_3};
-      __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 317, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 420, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -7069,20 +8815,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_3};
-      __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 317, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 420, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 317, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 420, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_GIVEREF(__pyx_t_3);
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_3);
       __pyx_t_3 = 0;
-      __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_4, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 317, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_4, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 420, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -7090,67 +8836,67 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":318
+  /* "pydbm/cnn/convolutional_neural_network.pyx":421
  *         self.__logger.debug("-" * 100)
  *         self.__logger.debug("Propagated delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
  *         self.__logger.debug((             # <<<<<<<<<<<<<<
  *             delta_arr.shape[0],
  *             delta_arr.shape[1],
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 421, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 318, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 421, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":319
+  /* "pydbm/cnn/convolutional_neural_network.pyx":422
  *         self.__logger.debug("Propagated delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
  *         self.__logger.debug((
  *             delta_arr.shape[0],             # <<<<<<<<<<<<<<
  *             delta_arr.shape[1],
  *             delta_arr.shape[2],
  */
-  __pyx_t_1 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_arr->dimensions[0])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 319, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_arr->dimensions[0])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 422, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":320
+  /* "pydbm/cnn/convolutional_neural_network.pyx":423
  *         self.__logger.debug((
  *             delta_arr.shape[0],
  *             delta_arr.shape[1],             # <<<<<<<<<<<<<<
  *             delta_arr.shape[2],
  *             delta_arr.shape[3]
  */
-  __pyx_t_3 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_arr->dimensions[1])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 320, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_arr->dimensions[1])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 423, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":321
+  /* "pydbm/cnn/convolutional_neural_network.pyx":424
  *             delta_arr.shape[0],
  *             delta_arr.shape[1],
  *             delta_arr.shape[2],             # <<<<<<<<<<<<<<
  *             delta_arr.shape[3]
  *         ))
  */
-  __pyx_t_2 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_arr->dimensions[2])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 321, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_arr->dimensions[2])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 424, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":322
+  /* "pydbm/cnn/convolutional_neural_network.pyx":425
  *             delta_arr.shape[1],
  *             delta_arr.shape[2],
  *             delta_arr.shape[3]             # <<<<<<<<<<<<<<
  *         ))
  *         self.__logger.debug("-" * 100)
  */
-  __pyx_t_19 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_arr->dimensions[3])); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_t_19 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_arr->dimensions[3])); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_19);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":319
+  /* "pydbm/cnn/convolutional_neural_network.pyx":422
  *         self.__logger.debug("Propagated delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
  *         self.__logger.debug((
  *             delta_arr.shape[0],             # <<<<<<<<<<<<<<
  *             delta_arr.shape[1],
  *             delta_arr.shape[2],
  */
-  __pyx_t_5 = PyTuple_New(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 319, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 422, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1);
@@ -7175,14 +8921,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     }
   }
   if (!__pyx_t_19) {
-    __pyx_t_13 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 318, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 421, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_13);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_19, __pyx_t_5};
-      __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 318, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 421, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -7191,20 +8937,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_19, __pyx_t_5};
-      __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 318, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 421, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     } else
     #endif
     {
-      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 318, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 421, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_GIVEREF(__pyx_t_19); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_19); __pyx_t_19 = NULL;
       __Pyx_GIVEREF(__pyx_t_5);
       PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_5);
       __pyx_t_5 = 0;
-      __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 318, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 421, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
@@ -7212,19 +8958,19 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":324
+  /* "pydbm/cnn/convolutional_neural_network.pyx":427
  *             delta_arr.shape[3]
  *         ))
  *         self.__logger.debug("-" * 100)             # <<<<<<<<<<<<<<
  *         return delta_arr
  * 
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 324, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__log); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 427, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_debug); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 324, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_debug); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 427, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyNumber_Multiply(__pyx_kp_s__13, __pyx_int_100); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 324, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Multiply(__pyx_kp_s__19, __pyx_int_100); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 427, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -7237,14 +8983,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_13 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 324, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 427, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_13);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_4};
-      __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 324, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 427, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -7253,20 +8999,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_4};
-      __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 324, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 427, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     } else
     #endif
     {
-      __pyx_t_19 = PyTuple_New(1+1); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 324, __pyx_L1_error)
+      __pyx_t_19 = PyTuple_New(1+1); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 427, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_19);
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_19, 0, __pyx_t_5); __pyx_t_5 = NULL;
       __Pyx_GIVEREF(__pyx_t_4);
       PyTuple_SET_ITEM(__pyx_t_19, 0+1, __pyx_t_4);
       __pyx_t_4 = 0;
-      __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_19, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 324, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_19, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 427, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
     }
@@ -7274,7 +9020,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":325
+  /* "pydbm/cnn/convolutional_neural_network.pyx":428
  *         ))
  *         self.__logger.debug("-" * 100)
  *         return delta_arr             # <<<<<<<<<<<<<<
@@ -7286,7 +9032,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __pyx_r = ((PyObject *)__pyx_v_delta_arr);
   goto __pyx_L0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":285
+  /* "pydbm/cnn/convolutional_neural_network.pyx":388
  *         return img_arr
  * 
  *     def back_propagation(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):             # <<<<<<<<<<<<<<
@@ -7323,7 +9069,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   return __pyx_r;
 }
 
-/* "pydbm/cnn/convolutional_neural_network.pyx":327
+/* "pydbm/cnn/convolutional_neural_network.pyx":430
  *         return delta_arr
  * 
  *     def optimize(self, double learning_rate, int epoch):             # <<<<<<<<<<<<<<
@@ -7332,10 +9078,10 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_11optimize(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_10optimize[] = "\n        Back propagation.\n        \n        Args:\n            learning_rate:  Learning rate.\n            epoch:          Now epoch.\n            \n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_11optimize = {"optimize", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_11optimize, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_10optimize};
-static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_11optimize(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_13optimize(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_12optimize[] = "\n        Back propagation.\n        \n        Args:\n            learning_rate:  Learning rate.\n            epoch:          Now epoch.\n            \n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_13optimize = {"optimize", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_13optimize, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_12optimize};
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_13optimize(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   double __pyx_v_learning_rate;
   int __pyx_v_epoch;
@@ -7367,17 +9113,17 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_learning_rate)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("optimize", 1, 3, 3, 1); __PYX_ERR(0, 327, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("optimize", 1, 3, 3, 1); __PYX_ERR(0, 430, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_epoch)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("optimize", 1, 3, 3, 2); __PYX_ERR(0, 327, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("optimize", 1, 3, 3, 2); __PYX_ERR(0, 430, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "optimize") < 0)) __PYX_ERR(0, 327, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "optimize") < 0)) __PYX_ERR(0, 430, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -7387,25 +9133,25 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
     __pyx_v_self = values[0];
-    __pyx_v_learning_rate = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_learning_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 327, __pyx_L3_error)
-    __pyx_v_epoch = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_epoch == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 327, __pyx_L3_error)
+    __pyx_v_learning_rate = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_learning_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 430, __pyx_L3_error)
+    __pyx_v_epoch = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_epoch == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 430, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("optimize", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 327, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("optimize", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 430, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork.optimize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_10optimize(__pyx_self, __pyx_v_self, __pyx_v_learning_rate, __pyx_v_epoch);
+  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_12optimize(__pyx_self, __pyx_v_self, __pyx_v_learning_rate, __pyx_v_epoch);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_10optimize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, double __pyx_v_learning_rate, int __pyx_v_epoch) {
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_12optimize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, double __pyx_v_learning_rate, int __pyx_v_epoch) {
   PyObject *__pyx_v_params_list = NULL;
   PyObject *__pyx_v_grads_list = NULL;
   Py_ssize_t __pyx_v_i;
@@ -7424,159 +9170,159 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   int __pyx_t_10;
   __Pyx_RefNannySetupContext("optimize", 0);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":336
+  /* "pydbm/cnn/convolutional_neural_network.pyx":439
  * 
  *         '''
  *         params_list = []             # <<<<<<<<<<<<<<
  *         grads_list = []
  *         for i in range(len(self.__layerable_cnn_list)):
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 336, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 439, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_params_list = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":337
+  /* "pydbm/cnn/convolutional_neural_network.pyx":440
  *         '''
  *         params_list = []
  *         grads_list = []             # <<<<<<<<<<<<<<
  *         for i in range(len(self.__layerable_cnn_list)):
  *             params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 337, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 440, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_grads_list = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":338
+  /* "pydbm/cnn/convolutional_neural_network.pyx":441
  *         params_list = []
  *         grads_list = []
  *         for i in range(len(self.__layerable_cnn_list)):             # <<<<<<<<<<<<<<
  *             params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
  *             grads_list.append(self.__layerable_cnn_list[i].delta_weight_arr)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 338, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 441, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 338, __pyx_L1_error)
+  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 441, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":339
+    /* "pydbm/cnn/convolutional_neural_network.pyx":442
  *         grads_list = []
  *         for i in range(len(self.__layerable_cnn_list)):
  *             params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)             # <<<<<<<<<<<<<<
  *             grads_list.append(self.__layerable_cnn_list[i].delta_weight_arr)
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 339, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 339, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 339, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_weight_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 339, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_weight_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_5 = __Pyx_PyObject_Append(__pyx_v_params_list, __pyx_t_4); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 339, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Append(__pyx_v_params_list, __pyx_t_4); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":340
+    /* "pydbm/cnn/convolutional_neural_network.pyx":443
  *         for i in range(len(self.__layerable_cnn_list)):
  *             params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
  *             grads_list.append(self.__layerable_cnn_list[i].delta_weight_arr)             # <<<<<<<<<<<<<<
  * 
  *         for i in range(len(self.__layerable_cnn_list)):
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 340, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 443, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_4, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 340, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_4, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 443, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_delta_weight_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 340, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_delta_weight_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 443, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_5 = __Pyx_PyList_Append(__pyx_v_grads_list, __pyx_t_4); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 340, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyList_Append(__pyx_v_grads_list, __pyx_t_4); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 443, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":342
+  /* "pydbm/cnn/convolutional_neural_network.pyx":445
  *             grads_list.append(self.__layerable_cnn_list[i].delta_weight_arr)
  * 
  *         for i in range(len(self.__layerable_cnn_list)):             # <<<<<<<<<<<<<<
  *             params_list.append(self.__layerable_cnn_list[i].graph.bias_arr)
  *             grads_list.append(self.__layerable_cnn_list[i].delta_bias_arr)
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 342, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 445, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = PyObject_Length(__pyx_t_4); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 342, __pyx_L1_error)
+  __pyx_t_2 = PyObject_Length(__pyx_t_4); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 445, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":343
+    /* "pydbm/cnn/convolutional_neural_network.pyx":446
  * 
  *         for i in range(len(self.__layerable_cnn_list)):
  *             params_list.append(self.__layerable_cnn_list[i].graph.bias_arr)             # <<<<<<<<<<<<<<
  *             grads_list.append(self.__layerable_cnn_list[i].delta_bias_arr)
  * 
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 343, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 446, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_4, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 343, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_4, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 446, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 343, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 446, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_bias_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 343, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_bias_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 446, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_5 = __Pyx_PyObject_Append(__pyx_v_params_list, __pyx_t_1); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 343, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Append(__pyx_v_params_list, __pyx_t_1); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 446, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":344
+    /* "pydbm/cnn/convolutional_neural_network.pyx":447
  *         for i in range(len(self.__layerable_cnn_list)):
  *             params_list.append(self.__layerable_cnn_list[i].graph.bias_arr)
  *             grads_list.append(self.__layerable_cnn_list[i].delta_bias_arr)             # <<<<<<<<<<<<<<
  * 
  *         params_list = self.__opt_params.optimize(
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 344, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 447, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 344, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 447, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_delta_bias_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 344, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_delta_bias_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 447, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_5 = __Pyx_PyList_Append(__pyx_v_grads_list, __pyx_t_1); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 344, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyList_Append(__pyx_v_grads_list, __pyx_t_1); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 447, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":346
+  /* "pydbm/cnn/convolutional_neural_network.pyx":449
  *             grads_list.append(self.__layerable_cnn_list[i].delta_bias_arr)
  * 
  *         params_list = self.__opt_params.optimize(             # <<<<<<<<<<<<<<
  *             params_list,
  *             grads_list,
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__opt); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 346, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__opt); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 449, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_optimize); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 346, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_optimize); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 449, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":349
+  /* "pydbm/cnn/convolutional_neural_network.pyx":452
  *             params_list,
  *             grads_list,
  *             learning_rate             # <<<<<<<<<<<<<<
  *         )
  * 
  */
-  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 349, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 452, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_7 = NULL;
   __pyx_t_8 = 0;
@@ -7593,7 +9339,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_6)) {
     PyObject *__pyx_temp[4] = {__pyx_t_7, __pyx_v_params_list, __pyx_v_grads_list, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_8, 3+__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 346, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_8, 3+__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 449, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -7602,14 +9348,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
     PyObject *__pyx_temp[4] = {__pyx_t_7, __pyx_v_params_list, __pyx_v_grads_list, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_8, 3+__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 346, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_8, 3+__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 449, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   } else
   #endif
   {
-    __pyx_t_9 = PyTuple_New(3+__pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 346, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(3+__pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 449, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     if (__pyx_t_7) {
       __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -7623,7 +9369,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     __Pyx_GIVEREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_9, 2+__pyx_t_8, __pyx_t_4);
     __pyx_t_4 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 346, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 449, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   }
@@ -7631,19 +9377,19 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   __Pyx_DECREF_SET(__pyx_v_params_list, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":352
+  /* "pydbm/cnn/convolutional_neural_network.pyx":455
  *         )
  * 
  *         params_dict = {}             # <<<<<<<<<<<<<<
  *         i = 0
  *         for i in range(len(self.__layerable_cnn_list)):
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 352, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 455, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_params_dict = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":353
+  /* "pydbm/cnn/convolutional_neural_network.pyx":456
  * 
  *         params_dict = {}
  *         i = 0             # <<<<<<<<<<<<<<
@@ -7652,92 +9398,92 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
   __pyx_v_i = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":354
+  /* "pydbm/cnn/convolutional_neural_network.pyx":457
  *         params_dict = {}
  *         i = 0
  *         for i in range(len(self.__layerable_cnn_list)):             # <<<<<<<<<<<<<<
  *             self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)
  *             if ((epoch + 1) % self.__attenuate_epoch == 0):
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 354, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 457, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 354, __pyx_L1_error)
+  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 457, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":355
+    /* "pydbm/cnn/convolutional_neural_network.pyx":458
  *         i = 0
  *         for i in range(len(self.__layerable_cnn_list)):
  *             self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
  *             if ((epoch + 1) % self.__attenuate_epoch == 0):
  *                 self.__layerable_cnn_list[i].graph.weight_arr = self.__opt_params.constrain_weight(
  */
-    __pyx_t_1 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 355, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 458, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 355, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 458, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_6, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 355, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_6, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 458, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 355, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 458, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_6, __pyx_n_s_weight_arr, __pyx_t_1) < 0) __PYX_ERR(0, 355, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_6, __pyx_n_s_weight_arr, __pyx_t_1) < 0) __PYX_ERR(0, 458, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":356
+    /* "pydbm/cnn/convolutional_neural_network.pyx":459
  *         for i in range(len(self.__layerable_cnn_list)):
  *             self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)
  *             if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
  *                 self.__layerable_cnn_list[i].graph.weight_arr = self.__opt_params.constrain_weight(
  *                     self.__layerable_cnn_list[i].graph.weight_arr
  */
-    __pyx_t_6 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 356, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 459, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__att); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 356, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__att); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 459, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_9 = PyNumber_Remainder(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 356, __pyx_L1_error)
+    __pyx_t_9 = PyNumber_Remainder(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 459, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_t_9, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 356, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_t_9, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 459, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 356, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 459, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_10) {
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":357
+      /* "pydbm/cnn/convolutional_neural_network.pyx":460
  *             self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)
  *             if ((epoch + 1) % self.__attenuate_epoch == 0):
  *                 self.__layerable_cnn_list[i].graph.weight_arr = self.__opt_params.constrain_weight(             # <<<<<<<<<<<<<<
  *                     self.__layerable_cnn_list[i].graph.weight_arr
  *                 )
  */
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__opt); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 357, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__opt); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 460, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_constrain_weight); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 357, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_constrain_weight); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 460, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":358
+      /* "pydbm/cnn/convolutional_neural_network.pyx":461
  *             if ((epoch + 1) % self.__attenuate_epoch == 0):
  *                 self.__layerable_cnn_list[i].graph.weight_arr = self.__opt_params.constrain_weight(
  *                     self.__layerable_cnn_list[i].graph.weight_arr             # <<<<<<<<<<<<<<
  *                 )
  * 
  */
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 358, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 461, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_9, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 358, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_9, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 461, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 358, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 461, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_weight_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 358, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_weight_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 461, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       __pyx_t_9 = NULL;
@@ -7751,14 +9497,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         }
       }
       if (!__pyx_t_9) {
-        __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 357, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 460, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else {
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_6)) {
           PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_4};
-          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 357, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 460, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -7767,46 +9513,46 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
           PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_4};
-          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 357, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 460, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         } else
         #endif
         {
-          __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 357, __pyx_L1_error)
+          __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 460, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_9); __pyx_t_9 = NULL;
           __Pyx_GIVEREF(__pyx_t_4);
           PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_4);
           __pyx_t_4 = 0;
-          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 357, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 460, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         }
       }
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":357
+      /* "pydbm/cnn/convolutional_neural_network.pyx":460
  *             self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)
  *             if ((epoch + 1) % self.__attenuate_epoch == 0):
  *                 self.__layerable_cnn_list[i].graph.weight_arr = self.__opt_params.constrain_weight(             # <<<<<<<<<<<<<<
  *                     self.__layerable_cnn_list[i].graph.weight_arr
  *                 )
  */
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 357, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 460, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_6, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 357, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_6, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 460, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 357, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 460, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      if (__Pyx_PyObject_SetAttrStr(__pyx_t_6, __pyx_n_s_weight_arr, __pyx_t_1) < 0) __PYX_ERR(0, 357, __pyx_L1_error)
+      if (__Pyx_PyObject_SetAttrStr(__pyx_t_6, __pyx_n_s_weight_arr, __pyx_t_1) < 0) __PYX_ERR(0, 460, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":356
+      /* "pydbm/cnn/convolutional_neural_network.pyx":459
  *         for i in range(len(self.__layerable_cnn_list)):
  *             self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)
  *             if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
@@ -7816,69 +9562,69 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     }
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":361
+  /* "pydbm/cnn/convolutional_neural_network.pyx":464
  *                 )
  * 
  *         for i in range(len(self.__layerable_cnn_list)):             # <<<<<<<<<<<<<<
  *             self.__layerable_cnn_list[i].graph.bias_arr = params_list.pop(0)
  * 
  */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 361, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 464, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_2 = PyObject_Length(__pyx_t_6); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 361, __pyx_L1_error)
+  __pyx_t_2 = PyObject_Length(__pyx_t_6); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 464, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":362
+    /* "pydbm/cnn/convolutional_neural_network.pyx":465
  * 
  *         for i in range(len(self.__layerable_cnn_list)):
  *             self.__layerable_cnn_list[i].graph.bias_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
  * 
  *         for i in range(len(self.__layerable_cnn_list)):
  */
-    __pyx_t_6 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 362, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 465, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 362, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 465, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 362, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 465, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 362, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 465, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_bias_arr, __pyx_t_6) < 0) __PYX_ERR(0, 362, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_bias_arr, __pyx_t_6) < 0) __PYX_ERR(0, 465, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":364
+  /* "pydbm/cnn/convolutional_neural_network.pyx":467
  *             self.__layerable_cnn_list[i].graph.bias_arr = params_list.pop(0)
  * 
  *         for i in range(len(self.__layerable_cnn_list)):             # <<<<<<<<<<<<<<
  *             self.__layerable_cnn_list[i].reset_delta()
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 364, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 467, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 364, __pyx_L1_error)
+  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 467, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":365
+    /* "pydbm/cnn/convolutional_neural_network.pyx":468
  * 
  *         for i in range(len(self.__layerable_cnn_list)):
  *             self.__layerable_cnn_list[i].reset_delta()             # <<<<<<<<<<<<<<
  * 
  *     def get_layerable_cnn_list(self):
  */
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 365, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 468, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_6, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 365, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_6, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 468, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_reset_delta); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 365, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_reset_delta); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 468, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_t_7 = NULL;
@@ -7892,17 +9638,17 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
       }
     }
     if (__pyx_t_7) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 365, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else {
-      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 365, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 468, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":327
+  /* "pydbm/cnn/convolutional_neural_network.pyx":430
  *         return delta_arr
  * 
  *     def optimize(self, double learning_rate, int epoch):             # <<<<<<<<<<<<<<
@@ -7930,7 +9676,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   return __pyx_r;
 }
 
-/* "pydbm/cnn/convolutional_neural_network.pyx":367
+/* "pydbm/cnn/convolutional_neural_network.pyx":470
  *             self.__layerable_cnn_list[i].reset_delta()
  * 
  *     def get_layerable_cnn_list(self):             # <<<<<<<<<<<<<<
@@ -7939,27 +9685,27 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_13get_layerable_cnn_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_12get_layerable_cnn_list[] = " getter ";
-static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_13get_layerable_cnn_list = {"get_layerable_cnn_list", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_13get_layerable_cnn_list, METH_O, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_12get_layerable_cnn_list};
-static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_13get_layerable_cnn_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_15get_layerable_cnn_list(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_14get_layerable_cnn_list[] = " getter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_15get_layerable_cnn_list = {"get_layerable_cnn_list", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_15get_layerable_cnn_list, METH_O, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_14get_layerable_cnn_list};
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_15get_layerable_cnn_list(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_layerable_cnn_list (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_12get_layerable_cnn_list(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_14get_layerable_cnn_list(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_12get_layerable_cnn_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_14get_layerable_cnn_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_layerable_cnn_list", 0);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":369
+  /* "pydbm/cnn/convolutional_neural_network.pyx":472
  *     def get_layerable_cnn_list(self):
  *         ''' getter '''
  *         return self.__layerable_cnn_list             # <<<<<<<<<<<<<<
@@ -7967,13 +9713,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  *     def set_layerable_cnn_list(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 369, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 472, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":367
+  /* "pydbm/cnn/convolutional_neural_network.pyx":470
  *             self.__layerable_cnn_list[i].reset_delta()
  * 
  *     def get_layerable_cnn_list(self):             # <<<<<<<<<<<<<<
@@ -7992,7 +9738,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   return __pyx_r;
 }
 
-/* "pydbm/cnn/convolutional_neural_network.pyx":371
+/* "pydbm/cnn/convolutional_neural_network.pyx":474
  *         return self.__layerable_cnn_list
  * 
  *     def set_layerable_cnn_list(self, value):             # <<<<<<<<<<<<<<
@@ -8001,10 +9747,10 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_15set_layerable_cnn_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_14set_layerable_cnn_list[] = " setter ";
-static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_15set_layerable_cnn_list = {"set_layerable_cnn_list", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_15set_layerable_cnn_list, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_14set_layerable_cnn_list};
-static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_15set_layerable_cnn_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_17set_layerable_cnn_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_16set_layerable_cnn_list[] = " setter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_17set_layerable_cnn_list = {"set_layerable_cnn_list", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_17set_layerable_cnn_list, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_16set_layerable_cnn_list};
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_17set_layerable_cnn_list(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_value = 0;
   PyObject *__pyx_r = 0;
@@ -8033,11 +9779,11 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_layerable_cnn_list", 1, 2, 2, 1); __PYX_ERR(0, 371, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_layerable_cnn_list", 1, 2, 2, 1); __PYX_ERR(0, 474, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_layerable_cnn_list") < 0)) __PYX_ERR(0, 371, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_layerable_cnn_list") < 0)) __PYX_ERR(0, 474, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -8050,20 +9796,20 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_layerable_cnn_list", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 371, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_layerable_cnn_list", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 474, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork.set_layerable_cnn_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_14set_layerable_cnn_list(__pyx_self, __pyx_v_self, __pyx_v_value);
+  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_16set_layerable_cnn_list(__pyx_self, __pyx_v_self, __pyx_v_value);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_14set_layerable_cnn_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_16set_layerable_cnn_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   PyObject *__pyx_v_layerable_cnn = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -8075,7 +9821,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   int __pyx_t_6;
   __Pyx_RefNannySetupContext("set_layerable_cnn_list", 0);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":373
+  /* "pydbm/cnn/convolutional_neural_network.pyx":476
  *     def set_layerable_cnn_list(self, value):
  *         ''' setter '''
  *         for layerable_cnn in value:             # <<<<<<<<<<<<<<
@@ -8086,26 +9832,26 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     __pyx_t_1 = __pyx_v_value; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
     __pyx_t_3 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 373, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 476, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 373, __pyx_L1_error)
+    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 476, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_3)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 373, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 476, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 373, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 476, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 373, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 476, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 373, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 476, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -8115,7 +9861,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 373, __pyx_L1_error)
+          else __PYX_ERR(0, 476, __pyx_L1_error)
         }
         break;
       }
@@ -8124,34 +9870,34 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     __Pyx_XDECREF_SET(__pyx_v_layerable_cnn, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":374
+    /* "pydbm/cnn/convolutional_neural_network.pyx":477
  *         ''' setter '''
  *         for layerable_cnn in value:
  *             if isinstance(layerable_cnn, LayerableCNN) is False:             # <<<<<<<<<<<<<<
  *                 raise TypeError()
  * 
  */
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_LayerableCNN); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 374, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_LayerableCNN); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 477, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = PyObject_IsInstance(__pyx_v_layerable_cnn, __pyx_t_4); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 374, __pyx_L1_error)
+    __pyx_t_5 = PyObject_IsInstance(__pyx_v_layerable_cnn, __pyx_t_4); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 477, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_6 = ((__pyx_t_5 == 0) != 0);
     if (__pyx_t_6) {
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":375
+      /* "pydbm/cnn/convolutional_neural_network.pyx":478
  *         for layerable_cnn in value:
  *             if isinstance(layerable_cnn, LayerableCNN) is False:
  *                 raise TypeError()             # <<<<<<<<<<<<<<
  * 
  *         self.__layerable_cnn_list = value
  */
-      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 375, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 478, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_Raise(__pyx_t_4, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __PYX_ERR(0, 375, __pyx_L1_error)
+      __PYX_ERR(0, 478, __pyx_L1_error)
 
-      /* "pydbm/cnn/convolutional_neural_network.pyx":374
+      /* "pydbm/cnn/convolutional_neural_network.pyx":477
  *         ''' setter '''
  *         for layerable_cnn in value:
  *             if isinstance(layerable_cnn, LayerableCNN) is False:             # <<<<<<<<<<<<<<
@@ -8160,7 +9906,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
     }
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":373
+    /* "pydbm/cnn/convolutional_neural_network.pyx":476
  *     def set_layerable_cnn_list(self, value):
  *         ''' setter '''
  *         for layerable_cnn in value:             # <<<<<<<<<<<<<<
@@ -8170,16 +9916,16 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":377
+  /* "pydbm/cnn/convolutional_neural_network.pyx":480
  *                 raise TypeError()
  * 
  *         self.__layerable_cnn_list = value             # <<<<<<<<<<<<<<
  * 
  *     layerable_cnn_list = property(get_layerable_cnn_list, set_layerable_cnn_list)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay, __pyx_v_value) < 0) __PYX_ERR(0, 377, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__lay, __pyx_v_value) < 0) __PYX_ERR(0, 480, __pyx_L1_error)
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":371
+  /* "pydbm/cnn/convolutional_neural_network.pyx":474
  *         return self.__layerable_cnn_list
  * 
  *     def set_layerable_cnn_list(self, value):             # <<<<<<<<<<<<<<
@@ -8202,7 +9948,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   return __pyx_r;
 }
 
-/* "pydbm/cnn/convolutional_neural_network.pyx":381
+/* "pydbm/cnn/convolutional_neural_network.pyx":484
  *     layerable_cnn_list = property(get_layerable_cnn_list, set_layerable_cnn_list)
  * 
  *     def get_verificatable_result(self):             # <<<<<<<<<<<<<<
@@ -8211,21 +9957,21 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_17get_verificatable_result(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_16get_verificatable_result[] = " getter ";
-static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_17get_verificatable_result = {"get_verificatable_result", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_17get_verificatable_result, METH_O, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_16get_verificatable_result};
-static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_17get_verificatable_result(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_19get_verificatable_result(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_18get_verificatable_result[] = " getter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_19get_verificatable_result = {"get_verificatable_result", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_19get_verificatable_result, METH_O, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_18get_verificatable_result};
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_19get_verificatable_result(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_verificatable_result (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_16get_verificatable_result(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_18get_verificatable_result(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_16get_verificatable_result(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_18get_verificatable_result(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -8234,24 +9980,24 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("get_verificatable_result", 0);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":383
+  /* "pydbm/cnn/convolutional_neural_network.pyx":486
  *     def get_verificatable_result(self):
  *         ''' getter '''
  *         if isinstance(self.__verificatable_result, VerificatableResult):             # <<<<<<<<<<<<<<
  *             return self.__verificatable_result
  *         else:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__ver); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 383, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__ver); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 486, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 383, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 486, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 383, __pyx_L1_error)
+  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 486, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_4 = (__pyx_t_3 != 0);
   if (__pyx_t_4) {
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":384
+    /* "pydbm/cnn/convolutional_neural_network.pyx":487
  *         ''' getter '''
  *         if isinstance(self.__verificatable_result, VerificatableResult):
  *             return self.__verificatable_result             # <<<<<<<<<<<<<<
@@ -8259,13 +10005,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  *             raise TypeError()
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__ver); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 384, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__ver); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 487, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":383
+    /* "pydbm/cnn/convolutional_neural_network.pyx":486
  *     def get_verificatable_result(self):
  *         ''' getter '''
  *         if isinstance(self.__verificatable_result, VerificatableResult):             # <<<<<<<<<<<<<<
@@ -8274,7 +10020,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":386
+  /* "pydbm/cnn/convolutional_neural_network.pyx":489
  *             return self.__verificatable_result
  *         else:
  *             raise TypeError()             # <<<<<<<<<<<<<<
@@ -8282,14 +10028,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  *     def set_verificatable_result(self, value):
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 386, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 489, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 386, __pyx_L1_error)
+    __PYX_ERR(0, 489, __pyx_L1_error)
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":381
+  /* "pydbm/cnn/convolutional_neural_network.pyx":484
  *     layerable_cnn_list = property(get_layerable_cnn_list, set_layerable_cnn_list)
  * 
  *     def get_verificatable_result(self):             # <<<<<<<<<<<<<<
@@ -8309,7 +10055,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   return __pyx_r;
 }
 
-/* "pydbm/cnn/convolutional_neural_network.pyx":388
+/* "pydbm/cnn/convolutional_neural_network.pyx":491
  *             raise TypeError()
  * 
  *     def set_verificatable_result(self, value):             # <<<<<<<<<<<<<<
@@ -8318,10 +10064,10 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_19set_verificatable_result(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_18set_verificatable_result[] = " setter ";
-static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_19set_verificatable_result = {"set_verificatable_result", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_19set_verificatable_result, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_18set_verificatable_result};
-static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_19set_verificatable_result(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_21set_verificatable_result(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_20set_verificatable_result[] = " setter ";
+static PyMethodDef __pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_21set_verificatable_result = {"set_verificatable_result", (PyCFunction)__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_21set_verificatable_result, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_20set_verificatable_result};
+static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_21set_verificatable_result(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_value = 0;
   PyObject *__pyx_r = 0;
@@ -8350,11 +10096,11 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_verificatable_result", 1, 2, 2, 1); __PYX_ERR(0, 388, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_verificatable_result", 1, 2, 2, 1); __PYX_ERR(0, 491, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_verificatable_result") < 0)) __PYX_ERR(0, 388, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_verificatable_result") < 0)) __PYX_ERR(0, 491, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -8367,20 +10113,20 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_verificatable_result", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 388, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_verificatable_result", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 491, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork.set_verificatable_result", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_18set_verificatable_result(__pyx_self, __pyx_v_self, __pyx_v_value);
+  __pyx_r = __pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_20set_verificatable_result(__pyx_self, __pyx_v_self, __pyx_v_value);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_18set_verificatable_result(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_20set_verificatable_result(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -8388,30 +10134,30 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("set_verificatable_result", 0);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":390
+  /* "pydbm/cnn/convolutional_neural_network.pyx":493
  *     def set_verificatable_result(self, value):
  *         ''' setter '''
  *         if isinstance(value, VerificatableResult):             # <<<<<<<<<<<<<<
  *             self.__verificatable_result = value
  *         else:
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 390, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 493, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 390, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 493, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":391
+    /* "pydbm/cnn/convolutional_neural_network.pyx":494
  *         ''' setter '''
  *         if isinstance(value, VerificatableResult):
  *             self.__verificatable_result = value             # <<<<<<<<<<<<<<
  *         else:
  *             raise TypeError()
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__ver, __pyx_v_value) < 0) __PYX_ERR(0, 391, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__ver, __pyx_v_value) < 0) __PYX_ERR(0, 494, __pyx_L1_error)
 
-    /* "pydbm/cnn/convolutional_neural_network.pyx":390
+    /* "pydbm/cnn/convolutional_neural_network.pyx":493
  *     def set_verificatable_result(self, value):
  *         ''' setter '''
  *         if isinstance(value, VerificatableResult):             # <<<<<<<<<<<<<<
@@ -8421,7 +10167,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
     goto __pyx_L3;
   }
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":393
+  /* "pydbm/cnn/convolutional_neural_network.pyx":496
  *             self.__verificatable_result = value
  *         else:
  *             raise TypeError()             # <<<<<<<<<<<<<<
@@ -8429,15 +10175,15 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  *     verificatable_result = property(get_verificatable_result, set_verificatable_result)
  */
   /*else*/ {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 393, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 496, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 393, __pyx_L1_error)
+    __PYX_ERR(0, 496, __pyx_L1_error)
   }
   __pyx_L3:;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":388
+  /* "pydbm/cnn/convolutional_neural_network.pyx":491
  *             raise TypeError()
  * 
  *     def set_verificatable_result(self, value):             # <<<<<<<<<<<<<<
@@ -8627,7 +10373,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__15, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 235, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__21, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 235, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -8683,7 +10429,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  * 
  *             info.buf = PyArray_DATA(self)
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__16, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 239, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__22, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 239, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -8992,7 +10738,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__17, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 276, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__23, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 276, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -9881,7 +11627,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__18, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 823, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__24, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 823, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -9949,7 +11695,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  *             # One could encode it in the format string and have Cython
  *             # complain instead, BUT: < and > in format strings also imply
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__19, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 827, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__25, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 827, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -10058,7 +11804,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  */
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__20, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 847, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__26, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 847, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_Raise(__pyx_t_4, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -10738,7 +12484,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
  * 
  * cdef inline int import_umath() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__21, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1013, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__27, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1013, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -10867,7 +12613,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
  * 
  * cdef inline int import_ufunc() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__22, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1019, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__28, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1019, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -10993,7 +12739,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__23, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1025, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__29, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1025, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -11102,6 +12848,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ConvolutionalNeuralNetwork_get_v, __pyx_k_ConvolutionalNeuralNetwork_get_v, sizeof(__pyx_k_ConvolutionalNeuralNetwork_get_v), 0, 0, 1, 1},
   {&__pyx_n_s_ConvolutionalNeuralNetwork_infer, __pyx_k_ConvolutionalNeuralNetwork_infer, sizeof(__pyx_k_ConvolutionalNeuralNetwork_infer), 0, 0, 1, 1},
   {&__pyx_n_s_ConvolutionalNeuralNetwork_learn, __pyx_k_ConvolutionalNeuralNetwork_learn, sizeof(__pyx_k_ConvolutionalNeuralNetwork_learn), 0, 0, 1, 1},
+  {&__pyx_n_s_ConvolutionalNeuralNetwork_learn_2, __pyx_k_ConvolutionalNeuralNetwork_learn_2, sizeof(__pyx_k_ConvolutionalNeuralNetwork_learn_2), 0, 0, 1, 1},
   {&__pyx_n_s_ConvolutionalNeuralNetwork_optim, __pyx_k_ConvolutionalNeuralNetwork_optim, sizeof(__pyx_k_ConvolutionalNeuralNetwork_optim), 0, 0, 1, 1},
   {&__pyx_n_s_ConvolutionalNeuralNetwork_set_l, __pyx_k_ConvolutionalNeuralNetwork_set_l, sizeof(__pyx_k_ConvolutionalNeuralNetwork_set_l), 0, 0, 1, 1},
   {&__pyx_n_s_ConvolutionalNeuralNetwork_set_v, __pyx_k_ConvolutionalNeuralNetwork_set_v, sizeof(__pyx_k_ConvolutionalNeuralNetwork_set_v), 0, 0, 1, 1},
@@ -11109,6 +12856,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Delta_computation_raised_an_erro, __pyx_k_Delta_computation_raised_an_erro, sizeof(__pyx_k_Delta_computation_raised_an_erro), 0, 0, 1, 0},
   {&__pyx_kp_s_Eary_stopping, __pyx_k_Eary_stopping, sizeof(__pyx_k_Eary_stopping), 0, 0, 1, 0},
   {&__pyx_kp_s_Error_raised_in_CNN_layer, __pyx_k_Error_raised_in_CNN_layer, sizeof(__pyx_k_Error_raised_in_CNN_layer), 0, 0, 1, 0},
+  {&__pyx_n_s_FeatureGenerator, __pyx_k_FeatureGenerator, sizeof(__pyx_k_FeatureGenerator), 0, 0, 1, 1},
   {&__pyx_n_s_FloatingPointError, __pyx_k_FloatingPointError, sizeof(__pyx_k_FloatingPointError), 0, 0, 1, 1},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
@@ -11126,6 +12874,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Setup_CNN_layers_and_the_paramet, __pyx_k_Setup_CNN_layers_and_the_paramet, sizeof(__pyx_k_Setup_CNN_layers_and_the_paramet), 0, 0, 1, 0},
   {&__pyx_kp_s_The_row_of_target_arr_must_be_eq, __pyx_k_The_row_of_target_arr_must_be_eq, sizeof(__pyx_k_The_row_of_target_arr_must_be_eq), 0, 0, 1, 0},
   {&__pyx_kp_s_The_type_of_computable_loss_must, __pyx_k_The_type_of_computable_loss_must, sizeof(__pyx_k_The_type_of_computable_loss_must), 0, 0, 1, 0},
+  {&__pyx_kp_s_The_type_of_feature_generator_mu, __pyx_k_The_type_of_feature_generator_mu, sizeof(__pyx_k_The_type_of_feature_generator_mu), 0, 0, 1, 0},
   {&__pyx_kp_s_The_type_of_opt_params_must_be_O, __pyx_k_The_type_of_opt_params_must_be_O, sizeof(__pyx_k_The_type_of_opt_params_must_be_O), 0, 0, 1, 0},
   {&__pyx_kp_s_The_type_of_value_of_layerable_c, __pyx_k_The_type_of_value_of_layerable_c, sizeof(__pyx_k_The_type_of_value_of_layerable_c), 0, 0, 1, 0},
   {&__pyx_kp_s_The_type_of_verificatable_result, __pyx_k_The_type_of_verificatable_result, sizeof(__pyx_k_The_type_of_verificatable_result), 0, 0, 1, 0},
@@ -11133,7 +12882,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Underflow_occurred_when_the_para, __pyx_k_Underflow_occurred_when_the_para, sizeof(__pyx_k_Underflow_occurred_when_the_para), 0, 0, 1, 0},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_VerificatableResult, __pyx_k_VerificatableResult, sizeof(__pyx_k_VerificatableResult), 0, 0, 1, 1},
-  {&__pyx_kp_s__13, __pyx_k__13, sizeof(__pyx_k__13), 0, 0, 1, 0},
+  {&__pyx_kp_s__19, __pyx_k__19, sizeof(__pyx_k__19), 0, 0, 1, 0},
   {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
   {&__pyx_n_s_array, __pyx_k_array, sizeof(__pyx_k_array), 0, 0, 1, 1},
   {&__pyx_n_s_attenuate_epoch, __pyx_k_attenuate_epoch, sizeof(__pyx_k_attenuate_epoch), 0, 0, 1, 1},
@@ -11161,8 +12910,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_end, __pyx_k_end, sizeof(__pyx_k_end), 0, 0, 1, 0},
   {&__pyx_n_s_epoch, __pyx_k_epoch, sizeof(__pyx_k_epoch), 0, 0, 1, 1},
   {&__pyx_n_s_epochs, __pyx_k_epochs, sizeof(__pyx_k_epochs), 0, 0, 1, 1},
+  {&__pyx_n_s_feature_generator, __pyx_k_feature_generator, sizeof(__pyx_k_feature_generator), 0, 0, 1, 1},
   {&__pyx_n_s_forward_propagate, __pyx_k_forward_propagate, sizeof(__pyx_k_forward_propagate), 0, 0, 1, 1},
   {&__pyx_n_s_forward_propagation, __pyx_k_forward_propagation, sizeof(__pyx_k_forward_propagation), 0, 0, 1, 1},
+  {&__pyx_n_s_generate, __pyx_k_generate, sizeof(__pyx_k_generate), 0, 0, 1, 1},
   {&__pyx_n_s_getLogger, __pyx_k_getLogger, sizeof(__pyx_k_getLogger), 0, 0, 1, 1},
   {&__pyx_n_s_get_layerable_cnn_list, __pyx_k_get_layerable_cnn_list, sizeof(__pyx_k_get_layerable_cnn_list), 0, 0, 1, 1},
   {&__pyx_n_s_get_verificatable_result, __pyx_k_get_verificatable_result, sizeof(__pyx_k_get_verificatable_result), 0, 0, 1, 1},
@@ -11176,6 +12927,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_layerable_cnn, __pyx_k_layerable_cnn, sizeof(__pyx_k_layerable_cnn), 0, 0, 1, 1},
   {&__pyx_n_s_layerable_cnn_list, __pyx_k_layerable_cnn_list, sizeof(__pyx_k_layerable_cnn_list), 0, 0, 1, 1},
   {&__pyx_n_s_learn, __pyx_k_learn, sizeof(__pyx_k_learn), 0, 0, 1, 1},
+  {&__pyx_n_s_learn_generated, __pyx_k_learn_generated, sizeof(__pyx_k_learn_generated), 0, 0, 1, 1},
   {&__pyx_n_s_learning_attenuate_rate, __pyx_k_learning_attenuate_rate, sizeof(__pyx_k_learning_attenuate_rate), 0, 0, 1, 1},
   {&__pyx_n_s_learning_rate, __pyx_k_learning_rate, sizeof(__pyx_k_learning_rate), 0, 0, 1, 1},
   {&__pyx_n_s_logger, __pyx_k_logger, sizeof(__pyx_k_logger), 0, 0, 1, 1},
@@ -11204,6 +12956,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_pydbm, __pyx_k_pydbm, sizeof(__pyx_k_pydbm), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_k_pydbm_cnn_convolutional_neural_n, sizeof(__pyx_k_pydbm_cnn_convolutional_neural_n), 0, 0, 1, 1},
   {&__pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_k_pydbm_cnn_convolutional_neural_n_2, sizeof(__pyx_k_pydbm_cnn_convolutional_neural_n_2), 0, 0, 1, 0},
+  {&__pyx_n_s_pydbm_cnn_feature_generator, __pyx_k_pydbm_cnn_feature_generator, sizeof(__pyx_k_pydbm_cnn_feature_generator), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_cnn_layerable_cnn, __pyx_k_pydbm_cnn_layerable_cnn, sizeof(__pyx_k_pydbm_cnn_layerable_cnn), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_loss_interface_computable, __pyx_k_pydbm_loss_interface_computable, sizeof(__pyx_k_pydbm_loss_interface_computable), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_optimization_opt_params, __pyx_k_pydbm_optimization_opt_params, sizeof(__pyx_k_pydbm_optimization_opt_params), 0, 0, 1, 1},
@@ -11251,14 +13004,14 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_object = __Pyx_GetBuiltinName(__pyx_n_s_object); if (!__pyx_builtin_object) __PYX_ERR(0, 12, __pyx_L1_error)
-  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 379, __pyx_L1_error)
-  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 55, __pyx_L1_error)
-  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 130, __pyx_L1_error)
-  __pyx_builtin_round = __Pyx_GetBuiltinName(__pyx_n_s_round); if (!__pyx_builtin_round) __PYX_ERR(0, 139, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 140, __pyx_L1_error)
-  __pyx_builtin_FloatingPointError = __Pyx_GetBuiltinName(__pyx_n_s_FloatingPointError); if (!__pyx_builtin_FloatingPointError) __PYX_ERR(0, 183, __pyx_L1_error)
-  __pyx_builtin_KeyboardInterrupt = __Pyx_GetBuiltinName(__pyx_n_s_KeyboardInterrupt); if (!__pyx_builtin_KeyboardInterrupt) __PYX_ERR(0, 221, __pyx_L1_error)
+  __pyx_builtin_object = __Pyx_GetBuiltinName(__pyx_n_s_object); if (!__pyx_builtin_object) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 482, __pyx_L1_error)
+  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 56, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_builtin_round = __Pyx_GetBuiltinName(__pyx_n_s_round); if (!__pyx_builtin_round) __PYX_ERR(0, 140, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 141, __pyx_L1_error)
+  __pyx_builtin_FloatingPointError = __Pyx_GetBuiltinName(__pyx_n_s_FloatingPointError); if (!__pyx_builtin_FloatingPointError) __PYX_ERR(0, 184, __pyx_L1_error)
+  __pyx_builtin_KeyboardInterrupt = __Pyx_GetBuiltinName(__pyx_n_s_KeyboardInterrupt); if (!__pyx_builtin_KeyboardInterrupt) __PYX_ERR(0, 222, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 823, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 1013, __pyx_L1_error)
   return 0;
@@ -11270,148 +13023,214 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":55
+  /* "pydbm/cnn/convolutional_neural_network.pyx":56
  *         for layerable_cnn in layerable_cnn_list:
  *             if isinstance(layerable_cnn, LayerableCNN) is False:
  *                 raise TypeError("The type of value of `layerable_cnn` must be `LayerableCNN`.")             # <<<<<<<<<<<<<<
  *         self.__layerable_cnn_list = layerable_cnn_list
  * 
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_The_type_of_value_of_layerable_c); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_The_type_of_value_of_layerable_c); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 56, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":61
+  /* "pydbm/cnn/convolutional_neural_network.pyx":62
  *             self.__computable_loss = computable_loss
  *         else:
  *             raise TypeError("The type of `computable_loss` must be `ComputableLoss`.")             # <<<<<<<<<<<<<<
  * 
  *         if isinstance(opt_params, OptParams):
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_The_type_of_computable_loss_must); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_The_type_of_computable_loss_must); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":67
+  /* "pydbm/cnn/convolutional_neural_network.pyx":68
  *             self.__dropout_rate = self.__opt_params.dropout_rate
  *         else:
  *             raise TypeError("The type of `opt_params` must be `OptParams`.")             # <<<<<<<<<<<<<<
  * 
  *         if isinstance(verificatable_result, VerificatableResult):
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_The_type_of_opt_params_must_be_O); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_The_type_of_opt_params_must_be_O); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 68, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":72
+  /* "pydbm/cnn/convolutional_neural_network.pyx":73
  *             self.__verificatable_result = verificatable_result
  *         else:
  *             raise TypeError("The type of `verificatable_result` must be `VerificatableResult`.")             # <<<<<<<<<<<<<<
  * 
  *         self.__epochs = epochs
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_The_type_of_verificatable_result); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_The_type_of_verificatable_result); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":88
+  /* "pydbm/cnn/convolutional_neural_network.pyx":89
  *         self.__save_flag = save_flag
  * 
  *         logger = getLogger("pydbm")             # <<<<<<<<<<<<<<
  *         self.__logger = logger
  * 
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_n_s_pydbm); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_n_s_pydbm); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":91
+  /* "pydbm/cnn/convolutional_neural_network.pyx":92
  *         self.__logger = logger
  * 
  *         self.__logger.debug("Setup CNN layers and the parameters.")             # <<<<<<<<<<<<<<
  * 
  *     def learn(
  */
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_s_Setup_CNN_layers_and_the_paramet); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_s_Setup_CNN_layers_and_the_paramet); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":107
+  /* "pydbm/cnn/convolutional_neural_network.pyx":108
  * 
  *         '''
  *         self.__logger.debug("CNN starts learning.")             # <<<<<<<<<<<<<<
  * 
  *         cdef double learning_rate = self.__learning_rate
  */
-  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_CNN_starts_learning); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_CNN_starts_learning); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":130
+  /* "pydbm/cnn/convolutional_neural_network.pyx":131
  * 
  *         if row_t != 0 and row_t != row_o:
  *             raise ValueError("The row of `target_arr` must be equivalent to the row of `observed_arr`.")             # <<<<<<<<<<<<<<
  * 
  *         if row_t == 0:
  */
-  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_The_row_of_target_arr_must_be_eq); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_The_row_of_target_arr_must_be_eq); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":185
+  /* "pydbm/cnn/convolutional_neural_network.pyx":186
  *                 except FloatingPointError:
  *                     if epoch > int(self.__epochs * 0.7):
  *                         self.__logger.debug(             # <<<<<<<<<<<<<<
  *                             "Underflow occurred when the parameters are being updated. Because of early stopping, this error is catched and the parameter is not updated."
  *                         )
  */
-  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_s_Underflow_occurred_when_the_para); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 185, __pyx_L1_error)
+  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_s_Underflow_occurred_when_the_para); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 186, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":222
+  /* "pydbm/cnn/convolutional_neural_network.pyx":223
  * 
  *         except KeyboardInterrupt:
  *             self.__logger.debug("Interrupt.")             # <<<<<<<<<<<<<<
  * 
  *         if eary_stop_flag is True:
  */
-  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_s_Interrupt); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_s_Interrupt); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":225
+  /* "pydbm/cnn/convolutional_neural_network.pyx":226
  * 
  *         if eary_stop_flag is True:
  *             self.__logger.debug("Eary stopping.")             # <<<<<<<<<<<<<<
  *             eary_stop_flag = False
  * 
  */
-  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_s_Eary_stopping); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 225, __pyx_L1_error)
+  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_s_Eary_stopping); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":228
+  /* "pydbm/cnn/convolutional_neural_network.pyx":229
+ *             eary_stop_flag = False
+ * 
+ *         self.__logger.debug("end. ")             # <<<<<<<<<<<<<<
+ * 
+ *     def learn_generated(self, feature_generator):
+ */
+  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_s_end); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__12);
+  __Pyx_GIVEREF(__pyx_tuple__12);
+
+  /* "pydbm/cnn/convolutional_neural_network.pyx":240
+ *         '''
+ *         if isinstance(feature_generator, FeatureGenerator) is False:
+ *             raise TypeError("The type of `feature_generator` must be `FeatureGenerator`.")             # <<<<<<<<<<<<<<
+ * 
+ *         self.__logger.debug("CNN starts learning.")
+ */
+  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_kp_s_The_type_of_feature_generator_mu); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__13);
+  __Pyx_GIVEREF(__pyx_tuple__13);
+
+  /* "pydbm/cnn/convolutional_neural_network.pyx":242
+ *             raise TypeError("The type of `feature_generator` must be `FeatureGenerator`.")
+ * 
+ *         self.__logger.debug("CNN starts learning.")             # <<<<<<<<<<<<<<
+ * 
+ *         cdef double learning_rate = self.__learning_rate
+ */
+  __pyx_tuple__14 = PyTuple_Pack(1, __pyx_kp_s_CNN_starts_learning); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__14);
+  __Pyx_GIVEREF(__pyx_tuple__14);
+
+  /* "pydbm/cnn/convolutional_neural_network.pyx":293
+ *                 except FloatingPointError:
+ *                     if epoch > int(self.__epochs * 0.7):
+ *                         self.__logger.debug(             # <<<<<<<<<<<<<<
+ *                             "Underflow occurred when the parameters are being updated. Because of early stopping, this error is catched and the parameter is not updated."
+ *                         )
+ */
+  __pyx_tuple__15 = PyTuple_Pack(1, __pyx_kp_s_Underflow_occurred_when_the_para); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 293, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__15);
+  __Pyx_GIVEREF(__pyx_tuple__15);
+
+  /* "pydbm/cnn/convolutional_neural_network.pyx":325
+ * 
+ *         except KeyboardInterrupt:
+ *             self.__logger.debug("Interrupt.")             # <<<<<<<<<<<<<<
+ * 
+ *         if eary_stop_flag is True:
+ */
+  __pyx_tuple__16 = PyTuple_Pack(1, __pyx_kp_s_Interrupt); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 325, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__16);
+  __Pyx_GIVEREF(__pyx_tuple__16);
+
+  /* "pydbm/cnn/convolutional_neural_network.pyx":328
+ * 
+ *         if eary_stop_flag is True:
+ *             self.__logger.debug("Eary stopping.")             # <<<<<<<<<<<<<<
+ *             eary_stop_flag = False
+ * 
+ */
+  __pyx_tuple__17 = PyTuple_Pack(1, __pyx_kp_s_Eary_stopping); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 328, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__17);
+  __Pyx_GIVEREF(__pyx_tuple__17);
+
+  /* "pydbm/cnn/convolutional_neural_network.pyx":331
  *             eary_stop_flag = False
  * 
  *         self.__logger.debug("end. ")             # <<<<<<<<<<<<<<
  * 
  *     def inference(self, np.ndarray[DOUBLE_t, ndim=4] observed_arr):
  */
-  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_s_end); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 228, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__12);
-  __Pyx_GIVEREF(__pyx_tuple__12);
+  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_kp_s_end); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 331, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__18);
+  __Pyx_GIVEREF(__pyx_tuple__18);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":296
+  /* "pydbm/cnn/convolutional_neural_network.pyx":399
  *         '''
  *         cdef int i = 0
  *         layerable_cnn_list = self.__layerable_cnn_list[::-1]             # <<<<<<<<<<<<<<
  *         self.__logger.debug("-" * 100)
  *         for i in range(len(layerable_cnn_list)):
  */
-  __pyx_slice__14 = PySlice_New(Py_None, Py_None, __pyx_int_neg_1); if (unlikely(!__pyx_slice__14)) __PYX_ERR(0, 296, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__14);
-  __Pyx_GIVEREF(__pyx_slice__14);
+  __pyx_slice__20 = PySlice_New(Py_None, Py_None, __pyx_int_neg_1); if (unlikely(!__pyx_slice__20)) __PYX_ERR(0, 399, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__20);
+  __Pyx_GIVEREF(__pyx_slice__20);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":235
  *             if ((flags & pybuf.PyBUF_C_CONTIGUOUS == pybuf.PyBUF_C_CONTIGUOUS)
@@ -11420,9 +13239,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  */
-  __pyx_tuple__15 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_C_contiguous); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(1, 235, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__15);
-  __Pyx_GIVEREF(__pyx_tuple__15);
+  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_C_contiguous); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(1, 235, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__21);
+  __Pyx_GIVEREF(__pyx_tuple__21);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":239
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
@@ -11431,9 +13250,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             info.buf = PyArray_DATA(self)
  */
-  __pyx_tuple__16 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_Fortran_contiguou); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(1, 239, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__16);
-  __Pyx_GIVEREF(__pyx_tuple__16);
+  __pyx_tuple__22 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_Fortran_contiguou); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(1, 239, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__22);
+  __Pyx_GIVEREF(__pyx_tuple__22);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":276
  *                 if ((descr.byteorder == c'>' and little_endian) or
@@ -11442,9 +13261,9 @@ static int __Pyx_InitCachedConstants(void) {
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"
  */
-  __pyx_tuple__17 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(1, 276, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__17);
-  __Pyx_GIVEREF(__pyx_tuple__17);
+  __pyx_tuple__23 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(1, 276, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__23);
+  __Pyx_GIVEREF(__pyx_tuple__23);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":823
  * 
@@ -11453,9 +13272,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  */
-  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(1, 823, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__18);
-  __Pyx_GIVEREF(__pyx_tuple__18);
+  __pyx_tuple__24 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(1, 823, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__24);
+  __Pyx_GIVEREF(__pyx_tuple__24);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":827
  *         if ((child.byteorder == c'>' and little_endian) or
@@ -11464,9 +13283,9 @@ static int __Pyx_InitCachedConstants(void) {
  *             # One could encode it in the format string and have Cython
  *             # complain instead, BUT: < and > in format strings also imply
  */
-  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(1, 827, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__19);
-  __Pyx_GIVEREF(__pyx_tuple__19);
+  __pyx_tuple__25 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(1, 827, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__25);
+  __Pyx_GIVEREF(__pyx_tuple__25);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":847
  *             t = child.type_num
@@ -11475,9 +13294,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  */
-  __pyx_tuple__20 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor_2); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(1, 847, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__20);
-  __Pyx_GIVEREF(__pyx_tuple__20);
+  __pyx_tuple__26 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor_2); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(1, 847, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__26);
+  __Pyx_GIVEREF(__pyx_tuple__26);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":1013
  *         _import_array()
@@ -11486,9 +13305,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * cdef inline int import_umath() except -1:
  */
-  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(1, 1013, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__21);
-  __Pyx_GIVEREF(__pyx_tuple__21);
+  __pyx_tuple__27 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(1, 1013, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__27);
+  __Pyx_GIVEREF(__pyx_tuple__27);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":1019
  *         _import_umath()
@@ -11497,152 +13316,164 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * cdef inline int import_ufunc() except -1:
  */
-  __pyx_tuple__22 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(1, 1019, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__22);
-  __Pyx_GIVEREF(__pyx_tuple__22);
+  __pyx_tuple__28 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(1, 1019, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__28);
+  __Pyx_GIVEREF(__pyx_tuple__28);
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":1025
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__23 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(1, 1025, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__23);
-  __Pyx_GIVEREF(__pyx_tuple__23);
+  __pyx_tuple__29 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(1, 1025, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__29);
+  __Pyx_GIVEREF(__pyx_tuple__29);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":12
+  /* "pydbm/cnn/convolutional_neural_network.pyx":13
  * 
  * 
  * class ConvolutionalNeuralNetwork(object):             # <<<<<<<<<<<<<<
  *     '''
  *     Convolutional Neural Network.
  */
-  __pyx_tuple__24 = PyTuple_Pack(1, __pyx_builtin_object); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 12, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__24);
-  __Pyx_GIVEREF(__pyx_tuple__24);
+  __pyx_tuple__30 = PyTuple_Pack(1, __pyx_builtin_object); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__30);
+  __Pyx_GIVEREF(__pyx_tuple__30);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":17
+  /* "pydbm/cnn/convolutional_neural_network.pyx":18
  *     '''
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
  *         self,
  *         layerable_cnn_list,
  */
-  __pyx_tuple__25 = PyTuple_Pack(15, __pyx_n_s_self, __pyx_n_s_layerable_cnn_list, __pyx_n_s_epochs, __pyx_n_s_batch_size, __pyx_n_s_learning_rate, __pyx_n_s_learning_attenuate_rate, __pyx_n_s_attenuate_epoch, __pyx_n_s_computable_loss, __pyx_n_s_opt_params, __pyx_n_s_verificatable_result, __pyx_n_s_test_size_rate, __pyx_n_s_tol, __pyx_n_s_save_flag, __pyx_n_s_layerable_cnn, __pyx_n_s_logger); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 17, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__25);
-  __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(13, 0, 15, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_init, 17, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_tuple__31 = PyTuple_Pack(15, __pyx_n_s_self, __pyx_n_s_layerable_cnn_list, __pyx_n_s_epochs, __pyx_n_s_batch_size, __pyx_n_s_learning_rate, __pyx_n_s_learning_attenuate_rate, __pyx_n_s_attenuate_epoch, __pyx_n_s_computable_loss, __pyx_n_s_opt_params, __pyx_n_s_verificatable_result, __pyx_n_s_test_size_rate, __pyx_n_s_tol, __pyx_n_s_save_flag, __pyx_n_s_layerable_cnn, __pyx_n_s_logger); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 18, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__31);
+  __Pyx_GIVEREF(__pyx_tuple__31);
+  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(13, 0, 15, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_init, 18, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 18, __pyx_L1_error)
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":93
+  /* "pydbm/cnn/convolutional_neural_network.pyx":94
  *         self.__logger.debug("Setup CNN layers and the parameters.")
  * 
  *     def learn(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray[DOUBLE_t, ndim=4] observed_arr,
  */
-  __pyx_tuple__27 = PyTuple_Pack(27, __pyx_n_s_self, __pyx_n_s_observed_arr, __pyx_n_s_target_arr, __pyx_n_s_learning_rate, __pyx_n_s_epoch, __pyx_n_s_batch_index, __pyx_n_s_row_o, __pyx_n_s_row_t, __pyx_n_s_train_index, __pyx_n_s_test_index, __pyx_n_s_train_observed_arr, __pyx_n_s_train_target_arr, __pyx_n_s_test_observed_arr, __pyx_n_s_test_target_arr, __pyx_n_s_rand_index, __pyx_n_s_batch_observed_arr, __pyx_n_s_batch_target_arr, __pyx_n_s_loss, __pyx_n_s_test_loss, __pyx_n_s_pred_arr, __pyx_n_s_test_pred_arr_2, __pyx_n_s_delta_arr, __pyx_n_s_loss_list, __pyx_n_s_eary_stop_flag, __pyx_n_s_ver_pred_arr, __pyx_n_s_test_batch_observed_arr, __pyx_n_s_test_batch_target_arr); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 93, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__27);
-  __Pyx_GIVEREF(__pyx_tuple__27);
-  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(3, 0, 27, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_learn, 93, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 93, __pyx_L1_error)
-  __pyx_tuple__29 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 93, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__29);
-  __Pyx_GIVEREF(__pyx_tuple__29);
+  __pyx_tuple__33 = PyTuple_Pack(27, __pyx_n_s_self, __pyx_n_s_observed_arr, __pyx_n_s_target_arr, __pyx_n_s_learning_rate, __pyx_n_s_epoch, __pyx_n_s_batch_index, __pyx_n_s_row_o, __pyx_n_s_row_t, __pyx_n_s_train_index, __pyx_n_s_test_index, __pyx_n_s_train_observed_arr, __pyx_n_s_train_target_arr, __pyx_n_s_test_observed_arr, __pyx_n_s_test_target_arr, __pyx_n_s_rand_index, __pyx_n_s_batch_observed_arr, __pyx_n_s_batch_target_arr, __pyx_n_s_loss, __pyx_n_s_test_loss, __pyx_n_s_pred_arr, __pyx_n_s_test_pred_arr_2, __pyx_n_s_delta_arr, __pyx_n_s_loss_list, __pyx_n_s_eary_stop_flag, __pyx_n_s_ver_pred_arr, __pyx_n_s_test_batch_observed_arr, __pyx_n_s_test_batch_target_arr); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__33);
+  __Pyx_GIVEREF(__pyx_tuple__33);
+  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(3, 0, 27, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_learn, 94, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_tuple__35 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__35);
+  __Pyx_GIVEREF(__pyx_tuple__35);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":230
+  /* "pydbm/cnn/convolutional_neural_network.pyx":231
+ *         self.__logger.debug("end. ")
+ * 
+ *     def learn_generated(self, feature_generator):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Learn features generated by `FeatureGenerator`.
+ */
+  __pyx_tuple__36 = PyTuple_Pack(24, __pyx_n_s_self, __pyx_n_s_feature_generator, __pyx_n_s_learning_rate, __pyx_n_s_epoch, __pyx_n_s_batch_index, __pyx_n_s_train_index, __pyx_n_s_test_index, __pyx_n_s_train_observed_arr, __pyx_n_s_train_target_arr, __pyx_n_s_test_observed_arr, __pyx_n_s_test_target_arr, __pyx_n_s_rand_index, __pyx_n_s_batch_observed_arr, __pyx_n_s_batch_target_arr, __pyx_n_s_loss, __pyx_n_s_test_loss, __pyx_n_s_pred_arr, __pyx_n_s_test_pred_arr_2, __pyx_n_s_delta_arr, __pyx_n_s_loss_list, __pyx_n_s_eary_stop_flag, __pyx_n_s_test_batch_observed_arr, __pyx_n_s_test_batch_target_arr, __pyx_n_s_ver_pred_arr); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__36);
+  __Pyx_GIVEREF(__pyx_tuple__36);
+  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(2, 0, 24, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_learn_generated, 231, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(0, 231, __pyx_L1_error)
+
+  /* "pydbm/cnn/convolutional_neural_network.pyx":333
  *         self.__logger.debug("end. ")
  * 
  *     def inference(self, np.ndarray[DOUBLE_t, ndim=4] observed_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Inference the feature points to reconstruct the time-series.
  */
-  __pyx_tuple__30 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_observed_arr, __pyx_n_s_pred_arr); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 230, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__30);
-  __Pyx_GIVEREF(__pyx_tuple__30);
-  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_inference, 230, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 230, __pyx_L1_error)
+  __pyx_tuple__38 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_observed_arr, __pyx_n_s_pred_arr); if (unlikely(!__pyx_tuple__38)) __PYX_ERR(0, 333, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__38);
+  __Pyx_GIVEREF(__pyx_tuple__38);
+  __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__38, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_inference, 333, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) __PYX_ERR(0, 333, __pyx_L1_error)
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":247
+  /* "pydbm/cnn/convolutional_neural_network.pyx":350
  *         return pred_arr
  * 
  *     def forward_propagation(self, np.ndarray[DOUBLE_t, ndim=4] img_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Forward propagation in CNN.
  */
-  __pyx_tuple__32 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_img_arr, __pyx_n_s_i); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(0, 247, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__32);
-  __Pyx_GIVEREF(__pyx_tuple__32);
-  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_forward_propagation, 247, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(0, 247, __pyx_L1_error)
+  __pyx_tuple__40 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_img_arr, __pyx_n_s_i); if (unlikely(!__pyx_tuple__40)) __PYX_ERR(0, 350, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__40);
+  __Pyx_GIVEREF(__pyx_tuple__40);
+  __pyx_codeobj__41 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__40, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_forward_propagation, 350, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__41)) __PYX_ERR(0, 350, __pyx_L1_error)
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":285
+  /* "pydbm/cnn/convolutional_neural_network.pyx":388
  *         return img_arr
  * 
  *     def back_propagation(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Back propagation in CNN.
  */
-  __pyx_tuple__34 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_delta_arr, __pyx_n_s_i, __pyx_n_s_layerable_cnn_list); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 285, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__34);
-  __Pyx_GIVEREF(__pyx_tuple__34);
-  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_back_propagation, 285, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 285, __pyx_L1_error)
+  __pyx_tuple__42 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_delta_arr, __pyx_n_s_i, __pyx_n_s_layerable_cnn_list); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 388, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__42);
+  __Pyx_GIVEREF(__pyx_tuple__42);
+  __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__42, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_back_propagation, 388, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) __PYX_ERR(0, 388, __pyx_L1_error)
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":327
+  /* "pydbm/cnn/convolutional_neural_network.pyx":430
  *         return delta_arr
  * 
  *     def optimize(self, double learning_rate, int epoch):             # <<<<<<<<<<<<<<
  *         '''
  *         Back propagation.
  */
-  __pyx_tuple__36 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_learning_rate, __pyx_n_s_epoch, __pyx_n_s_params_list, __pyx_n_s_grads_list, __pyx_n_s_i, __pyx_n_s_params_dict); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 327, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__36);
-  __Pyx_GIVEREF(__pyx_tuple__36);
-  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(3, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_optimize, 327, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(0, 327, __pyx_L1_error)
+  __pyx_tuple__44 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_learning_rate, __pyx_n_s_epoch, __pyx_n_s_params_list, __pyx_n_s_grads_list, __pyx_n_s_i, __pyx_n_s_params_dict); if (unlikely(!__pyx_tuple__44)) __PYX_ERR(0, 430, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__44);
+  __Pyx_GIVEREF(__pyx_tuple__44);
+  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(3, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__44, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_optimize, 430, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 430, __pyx_L1_error)
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":367
+  /* "pydbm/cnn/convolutional_neural_network.pyx":470
  *             self.__layerable_cnn_list[i].reset_delta()
  * 
  *     def get_layerable_cnn_list(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__layerable_cnn_list
  */
-  __pyx_tuple__38 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__38)) __PYX_ERR(0, 367, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__38);
-  __Pyx_GIVEREF(__pyx_tuple__38);
-  __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__38, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_get_layerable_cnn_list, 367, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) __PYX_ERR(0, 367, __pyx_L1_error)
+  __pyx_tuple__46 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 470, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__46);
+  __Pyx_GIVEREF(__pyx_tuple__46);
+  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_get_layerable_cnn_list, 470, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 470, __pyx_L1_error)
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":371
+  /* "pydbm/cnn/convolutional_neural_network.pyx":474
  *         return self.__layerable_cnn_list
  * 
  *     def set_layerable_cnn_list(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         for layerable_cnn in value:
  */
-  __pyx_tuple__40 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_value, __pyx_n_s_layerable_cnn); if (unlikely(!__pyx_tuple__40)) __PYX_ERR(0, 371, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__40);
-  __Pyx_GIVEREF(__pyx_tuple__40);
-  __pyx_codeobj__41 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__40, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_set_layerable_cnn_list, 371, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__41)) __PYX_ERR(0, 371, __pyx_L1_error)
+  __pyx_tuple__48 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_value, __pyx_n_s_layerable_cnn); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(0, 474, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__48);
+  __Pyx_GIVEREF(__pyx_tuple__48);
+  __pyx_codeobj__49 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__48, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_set_layerable_cnn_list, 474, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__49)) __PYX_ERR(0, 474, __pyx_L1_error)
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":381
+  /* "pydbm/cnn/convolutional_neural_network.pyx":484
  *     layerable_cnn_list = property(get_layerable_cnn_list, set_layerable_cnn_list)
  * 
  *     def get_verificatable_result(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__verificatable_result, VerificatableResult):
  */
-  __pyx_tuple__42 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 381, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__42);
-  __Pyx_GIVEREF(__pyx_tuple__42);
-  __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__42, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_get_verificatable_result, 381, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) __PYX_ERR(0, 381, __pyx_L1_error)
+  __pyx_tuple__50 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__50)) __PYX_ERR(0, 484, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__50);
+  __Pyx_GIVEREF(__pyx_tuple__50);
+  __pyx_codeobj__51 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__50, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_get_verificatable_result, 484, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__51)) __PYX_ERR(0, 484, __pyx_L1_error)
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":388
+  /* "pydbm/cnn/convolutional_neural_network.pyx":491
  *             raise TypeError()
  * 
  *     def set_verificatable_result(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, VerificatableResult):
  */
-  __pyx_tuple__44 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__44)) __PYX_ERR(0, 388, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__44);
-  __Pyx_GIVEREF(__pyx_tuple__44);
-  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__44, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_set_verificatable_result, 388, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 388, __pyx_L1_error)
+  __pyx_tuple__52 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__52)) __PYX_ERR(0, 491, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__52);
+  __Pyx_GIVEREF(__pyx_tuple__52);
+  __pyx_codeobj__53 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__52, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_convolutional_neural_n_2, __pyx_n_s_set_verificatable_result, 491, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__53)) __PYX_ERR(0, 491, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -11829,7 +13660,7 @@ static int __pyx_pymod_exec_convolutional_neural_network(PyObject *__pyx_pyinit_
  * # -*- coding: utf-8 -*-
  * from logging import getLogger             # <<<<<<<<<<<<<<
  * from pydbm.cnn.layerable_cnn import LayerableCNN
- * from pydbm.optimization.opt_params import OptParams
+ * from pydbm.cnn.feature_generator import FeatureGenerator
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -11849,8 +13680,8 @@ static int __pyx_pymod_exec_convolutional_neural_network(PyObject *__pyx_pyinit_
  * # -*- coding: utf-8 -*-
  * from logging import getLogger
  * from pydbm.cnn.layerable_cnn import LayerableCNN             # <<<<<<<<<<<<<<
+ * from pydbm.cnn.feature_generator import FeatureGenerator
  * from pydbm.optimization.opt_params import OptParams
- * from pydbm.verification.interface.verificatable_result import VerificatableResult
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -11869,108 +13700,129 @@ static int __pyx_pymod_exec_convolutional_neural_network(PyObject *__pyx_pyinit_
   /* "pydbm/cnn/convolutional_neural_network.pyx":4
  * from logging import getLogger
  * from pydbm.cnn.layerable_cnn import LayerableCNN
- * from pydbm.optimization.opt_params import OptParams             # <<<<<<<<<<<<<<
+ * from pydbm.cnn.feature_generator import FeatureGenerator             # <<<<<<<<<<<<<<
+ * from pydbm.optimization.opt_params import OptParams
  * from pydbm.verification.interface.verificatable_result import VerificatableResult
- * from pydbm.loss.interface.computable_loss import ComputableLoss
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_INCREF(__pyx_n_s_OptParams);
-  __Pyx_GIVEREF(__pyx_n_s_OptParams);
-  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_OptParams);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_optimization_opt_params, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_INCREF(__pyx_n_s_FeatureGenerator);
+  __Pyx_GIVEREF(__pyx_n_s_FeatureGenerator);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_FeatureGenerator);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_cnn_feature_generator, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_OptParams); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_FeatureGenerator); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_OptParams, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_FeatureGenerator, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pydbm/cnn/convolutional_neural_network.pyx":5
  * from pydbm.cnn.layerable_cnn import LayerableCNN
+ * from pydbm.cnn.feature_generator import FeatureGenerator
+ * from pydbm.optimization.opt_params import OptParams             # <<<<<<<<<<<<<<
+ * from pydbm.verification.interface.verificatable_result import VerificatableResult
+ * from pydbm.loss.interface.computable_loss import ComputableLoss
+ */
+  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_INCREF(__pyx_n_s_OptParams);
+  __Pyx_GIVEREF(__pyx_n_s_OptParams);
+  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_OptParams);
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pydbm_optimization_opt_params, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_OptParams); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_OptParams, __pyx_t_2) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pydbm/cnn/convolutional_neural_network.pyx":6
+ * from pydbm.cnn.feature_generator import FeatureGenerator
  * from pydbm.optimization.opt_params import OptParams
  * from pydbm.verification.interface.verificatable_result import VerificatableResult             # <<<<<<<<<<<<<<
  * from pydbm.loss.interface.computable_loss import ComputableLoss
  * import numpy as np
  */
-  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_VerificatableResult);
   __Pyx_GIVEREF(__pyx_n_s_VerificatableResult);
-  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_VerificatableResult);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pydbm_verification_interface_ver, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_VerificatableResult);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_verification_interface_ver, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_VerificatableResult, __pyx_t_2) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_VerificatableResult, __pyx_t_1) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":6
+  /* "pydbm/cnn/convolutional_neural_network.pyx":7
  * from pydbm.optimization.opt_params import OptParams
  * from pydbm.verification.interface.verificatable_result import VerificatableResult
  * from pydbm.loss.interface.computable_loss import ComputableLoss             # <<<<<<<<<<<<<<
  * import numpy as np
  * cimport numpy as np
  */
-  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_ComputableLoss);
   __Pyx_GIVEREF(__pyx_n_s_ComputableLoss);
-  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_ComputableLoss);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_loss_interface_computable, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_ComputableLoss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_ComputableLoss);
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pydbm_loss_interface_computable, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ComputableLoss, __pyx_t_1) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_ComputableLoss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ComputableLoss, __pyx_t_2) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":7
+  /* "pydbm/cnn/convolutional_neural_network.pyx":8
  * from pydbm.verification.interface.verificatable_result import VerificatableResult
  * from pydbm.loss.interface.computable_loss import ComputableLoss
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
  * ctypedef np.float64_t DOUBLE_t
  */
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_2) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":12
+  /* "pydbm/cnn/convolutional_neural_network.pyx":13
  * 
  * 
  * class ConvolutionalNeuralNetwork(object):             # <<<<<<<<<<<<<<
  *     '''
  *     Convolutional Neural Network.
  */
-  __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_tuple__24); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_tuple__24, __pyx_n_s_ConvolutionalNeuralNetwork, __pyx_n_s_ConvolutionalNeuralNetwork, (PyObject *) NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_kp_s_Convolutional_Neural_Network); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CalculateMetaclass(NULL, __pyx_tuple__30); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_Py3MetaclassPrepare(__pyx_t_1, __pyx_tuple__30, __pyx_n_s_ConvolutionalNeuralNetwork, __pyx_n_s_ConvolutionalNeuralNetwork, (PyObject *) NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_kp_s_Convolutional_Neural_Network); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":28
+  /* "pydbm/cnn/convolutional_neural_network.pyx":29
  *         opt_params,
  *         verificatable_result,
  *         double test_size_rate=0.3,             # <<<<<<<<<<<<<<
  *         tol=1e-15,
  *         save_flag=False
  */
-  __pyx_t_3 = PyFloat_FromDouble(((double)0.3)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(((double)0.3)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":17
+  /* "pydbm/cnn/convolutional_neural_network.pyx":18
  *     '''
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
  *         self,
  *         layerable_cnn_list,
  */
-  __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3);
@@ -11981,120 +13833,132 @@ static int __pyx_pymod_exec_convolutional_neural_network(PyObject *__pyx_pyinit_
   __Pyx_GIVEREF(((PyObject *)Py_False));
   PyTuple_SET_ITEM(__pyx_t_4, 2, ((PyObject *)Py_False));
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_1__init__, 0, __pyx_n_s_ConvolutionalNeuralNetwork___ini, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_1__init__, 0, __pyx_n_s_ConvolutionalNeuralNetwork___ini, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_3, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_init, __pyx_t_3) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_init, __pyx_t_3) < 0) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":93
+  /* "pydbm/cnn/convolutional_neural_network.pyx":94
  *         self.__logger.debug("Setup CNN layers and the parameters.")
  * 
  *     def learn(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray[DOUBLE_t, ndim=4] observed_arr,
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_3learn, 0, __pyx_n_s_ConvolutionalNeuralNetwork_learn, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_3learn, 0, __pyx_n_s_ConvolutionalNeuralNetwork_learn, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__34)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_3, __pyx_tuple__29);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_learn, __pyx_t_3) < 0) __PYX_ERR(0, 93, __pyx_L1_error)
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_3, __pyx_tuple__35);
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_learn, __pyx_t_3) < 0) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":230
+  /* "pydbm/cnn/convolutional_neural_network.pyx":231
+ *         self.__logger.debug("end. ")
+ * 
+ *     def learn_generated(self, feature_generator):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Learn features generated by `FeatureGenerator`.
+ */
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_5learn_generated, 0, __pyx_n_s_ConvolutionalNeuralNetwork_learn_2, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__37)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_learn_generated, __pyx_t_3) < 0) __PYX_ERR(0, 231, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "pydbm/cnn/convolutional_neural_network.pyx":333
  *         self.__logger.debug("end. ")
  * 
  *     def inference(self, np.ndarray[DOUBLE_t, ndim=4] observed_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Inference the feature points to reconstruct the time-series.
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_5inference, 0, __pyx_n_s_ConvolutionalNeuralNetwork_infer, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 230, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_7inference, 0, __pyx_n_s_ConvolutionalNeuralNetwork_infer, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__39)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 333, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_inference, __pyx_t_3) < 0) __PYX_ERR(0, 230, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_inference, __pyx_t_3) < 0) __PYX_ERR(0, 333, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":247
+  /* "pydbm/cnn/convolutional_neural_network.pyx":350
  *         return pred_arr
  * 
  *     def forward_propagation(self, np.ndarray[DOUBLE_t, ndim=4] img_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Forward propagation in CNN.
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_7forward_propagation, 0, __pyx_n_s_ConvolutionalNeuralNetwork_forwa, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 247, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_9forward_propagation, 0, __pyx_n_s_ConvolutionalNeuralNetwork_forwa, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__41)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 350, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_forward_propagation, __pyx_t_3) < 0) __PYX_ERR(0, 247, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_forward_propagation, __pyx_t_3) < 0) __PYX_ERR(0, 350, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":285
+  /* "pydbm/cnn/convolutional_neural_network.pyx":388
  *         return img_arr
  * 
  *     def back_propagation(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Back propagation in CNN.
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_9back_propagation, 0, __pyx_n_s_ConvolutionalNeuralNetwork_back, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 285, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_11back_propagation, 0, __pyx_n_s_ConvolutionalNeuralNetwork_back, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__43)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 388, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_back_propagation, __pyx_t_3) < 0) __PYX_ERR(0, 285, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_back_propagation, __pyx_t_3) < 0) __PYX_ERR(0, 388, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":327
+  /* "pydbm/cnn/convolutional_neural_network.pyx":430
  *         return delta_arr
  * 
  *     def optimize(self, double learning_rate, int epoch):             # <<<<<<<<<<<<<<
  *         '''
  *         Back propagation.
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_11optimize, 0, __pyx_n_s_ConvolutionalNeuralNetwork_optim, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__37)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 327, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_13optimize, 0, __pyx_n_s_ConvolutionalNeuralNetwork_optim, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__45)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 430, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_optimize, __pyx_t_3) < 0) __PYX_ERR(0, 327, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_optimize, __pyx_t_3) < 0) __PYX_ERR(0, 430, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":367
+  /* "pydbm/cnn/convolutional_neural_network.pyx":470
  *             self.__layerable_cnn_list[i].reset_delta()
  * 
  *     def get_layerable_cnn_list(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__layerable_cnn_list
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_13get_layerable_cnn_list, 0, __pyx_n_s_ConvolutionalNeuralNetwork_get_l, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__39)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 367, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_15get_layerable_cnn_list, 0, __pyx_n_s_ConvolutionalNeuralNetwork_get_l, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__47)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 470, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_get_layerable_cnn_list, __pyx_t_3) < 0) __PYX_ERR(0, 367, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_get_layerable_cnn_list, __pyx_t_3) < 0) __PYX_ERR(0, 470, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":371
+  /* "pydbm/cnn/convolutional_neural_network.pyx":474
  *         return self.__layerable_cnn_list
  * 
  *     def set_layerable_cnn_list(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         for layerable_cnn in value:
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_15set_layerable_cnn_list, 0, __pyx_n_s_ConvolutionalNeuralNetwork_set_l, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__41)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 371, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_17set_layerable_cnn_list, 0, __pyx_n_s_ConvolutionalNeuralNetwork_set_l, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__49)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 474, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_set_layerable_cnn_list, __pyx_t_3) < 0) __PYX_ERR(0, 371, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_set_layerable_cnn_list, __pyx_t_3) < 0) __PYX_ERR(0, 474, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":379
+  /* "pydbm/cnn/convolutional_neural_network.pyx":482
  *         self.__layerable_cnn_list = value
  * 
  *     layerable_cnn_list = property(get_layerable_cnn_list, set_layerable_cnn_list)             # <<<<<<<<<<<<<<
  * 
  *     def get_verificatable_result(self):
  */
-  __pyx_t_3 = PyObject_GetItem(__pyx_t_1, __pyx_n_s_get_layerable_cnn_list);
+  __pyx_t_3 = PyObject_GetItem(__pyx_t_2, __pyx_n_s_get_layerable_cnn_list);
   if (unlikely(!__pyx_t_3)) {
     PyErr_Clear();
     __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_layerable_cnn_list);
   }
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 379, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 482, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyObject_GetItem(__pyx_t_1, __pyx_n_s_set_layerable_cnn_list);
+  __pyx_t_4 = PyObject_GetItem(__pyx_t_2, __pyx_n_s_set_layerable_cnn_list);
   if (unlikely(!__pyx_t_4)) {
     PyErr_Clear();
     __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_layerable_cnn_list);
   }
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 379, __pyx_L1_error)
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 482, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 379, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 482, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3);
@@ -12102,56 +13966,56 @@ static int __pyx_pymod_exec_convolutional_neural_network(PyObject *__pyx_pyinit_
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_4);
   __pyx_t_3 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 379, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 482, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_layerable_cnn_list, __pyx_t_4) < 0) __PYX_ERR(0, 379, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_layerable_cnn_list, __pyx_t_4) < 0) __PYX_ERR(0, 482, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":381
+  /* "pydbm/cnn/convolutional_neural_network.pyx":484
  *     layerable_cnn_list = property(get_layerable_cnn_list, set_layerable_cnn_list)
  * 
  *     def get_verificatable_result(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__verificatable_result, VerificatableResult):
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_17get_verificatable_result, 0, __pyx_n_s_ConvolutionalNeuralNetwork_get_v, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__43)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 381, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_19get_verificatable_result, 0, __pyx_n_s_ConvolutionalNeuralNetwork_get_v, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__51)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 484, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_get_verificatable_result, __pyx_t_4) < 0) __PYX_ERR(0, 381, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_get_verificatable_result, __pyx_t_4) < 0) __PYX_ERR(0, 484, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":388
+  /* "pydbm/cnn/convolutional_neural_network.pyx":491
  *             raise TypeError()
  * 
  *     def set_verificatable_result(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, VerificatableResult):
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_19set_verificatable_result, 0, __pyx_n_s_ConvolutionalNeuralNetwork_set_v, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__45)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 388, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28convolutional_neural_network_26ConvolutionalNeuralNetwork_21set_verificatable_result, 0, __pyx_n_s_ConvolutionalNeuralNetwork_set_v, NULL, __pyx_n_s_pydbm_cnn_convolutional_neural_n, __pyx_d, ((PyObject *)__pyx_codeobj__53)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 491, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_set_verificatable_result, __pyx_t_4) < 0) __PYX_ERR(0, 388, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_set_verificatable_result, __pyx_t_4) < 0) __PYX_ERR(0, 491, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":395
+  /* "pydbm/cnn/convolutional_neural_network.pyx":498
  *             raise TypeError()
  * 
  *     verificatable_result = property(get_verificatable_result, set_verificatable_result)             # <<<<<<<<<<<<<<
  */
-  __pyx_t_4 = PyObject_GetItem(__pyx_t_1, __pyx_n_s_get_verificatable_result);
+  __pyx_t_4 = PyObject_GetItem(__pyx_t_2, __pyx_n_s_get_verificatable_result);
   if (unlikely(!__pyx_t_4)) {
     PyErr_Clear();
     __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_verificatable_result);
   }
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 395, __pyx_L1_error)
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 498, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyObject_GetItem(__pyx_t_1, __pyx_n_s_set_verificatable_result);
+  __pyx_t_5 = PyObject_GetItem(__pyx_t_2, __pyx_n_s_set_verificatable_result);
   if (unlikely(!__pyx_t_5)) {
     PyErr_Clear();
     __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_verificatable_result);
   }
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 395, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 498, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 498, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_4);
@@ -12159,35 +14023,35 @@ static int __pyx_pymod_exec_convolutional_neural_network(PyObject *__pyx_pyinit_
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_5);
   __pyx_t_4 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_3, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_3, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 498, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_verificatable_result, __pyx_t_5) < 0) __PYX_ERR(0, 395, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_verificatable_result, __pyx_t_5) < 0) __PYX_ERR(0, 498, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/cnn/convolutional_neural_network.pyx":12
+  /* "pydbm/cnn/convolutional_neural_network.pyx":13
  * 
  * 
  * class ConvolutionalNeuralNetwork(object):             # <<<<<<<<<<<<<<
  *     '''
  *     Convolutional Neural Network.
  */
-  __pyx_t_5 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_ConvolutionalNeuralNetwork, __pyx_tuple__24, __pyx_t_1, NULL, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_Py3ClassCreate(__pyx_t_1, __pyx_n_s_ConvolutionalNeuralNetwork, __pyx_tuple__30, __pyx_t_2, NULL, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ConvolutionalNeuralNetwork, __pyx_t_5) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ConvolutionalNeuralNetwork, __pyx_t_5) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/cnn/convolutional_neural_network.pyx":1
  * # -*- coding: utf-8 -*-             # <<<<<<<<<<<<<<
  * from logging import getLogger
  * from pydbm.cnn.layerable_cnn import LayerableCNN
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "../../../../../usr/local/bin/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/Cython/Includes/numpy/__init__.pxd":1021
  *         raise ImportError("numpy.core.umath failed to import")
@@ -13753,6 +15617,66 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, 
     return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
 }
 
+/* RaiseTooManyValuesToUnpack */
+        static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected) {
+    PyErr_Format(PyExc_ValueError,
+                 "too many values to unpack (expected %" CYTHON_FORMAT_SSIZE_T "d)", expected);
+}
+
+/* RaiseNeedMoreValuesToUnpack */
+        static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index) {
+    PyErr_Format(PyExc_ValueError,
+                 "need more than %" CYTHON_FORMAT_SSIZE_T "d value%.1s to unpack",
+                 index, (index == 1) ? "" : "s");
+}
+
+/* IterFinish */
+        static CYTHON_INLINE int __Pyx_IterFinish(void) {
+#if CYTHON_FAST_THREAD_STATE
+    PyThreadState *tstate = __Pyx_PyThreadState_Current;
+    PyObject* exc_type = tstate->curexc_type;
+    if (unlikely(exc_type)) {
+        if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) {
+            PyObject *exc_value, *exc_tb;
+            exc_value = tstate->curexc_value;
+            exc_tb = tstate->curexc_traceback;
+            tstate->curexc_type = 0;
+            tstate->curexc_value = 0;
+            tstate->curexc_traceback = 0;
+            Py_DECREF(exc_type);
+            Py_XDECREF(exc_value);
+            Py_XDECREF(exc_tb);
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+    return 0;
+#else
+    if (unlikely(PyErr_Occurred())) {
+        if (likely(PyErr_ExceptionMatches(PyExc_StopIteration))) {
+            PyErr_Clear();
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+    return 0;
+#endif
+}
+
+/* UnpackItemEndCheck */
+        static int __Pyx_IternextUnpackEndCheck(PyObject *retval, Py_ssize_t expected) {
+    if (unlikely(retval)) {
+        Py_DECREF(retval);
+        __Pyx_RaiseTooManyValuesError(expected);
+        return -1;
+    } else {
+        return __Pyx_IterFinish();
+    }
+    return 0;
+}
+
 /* PyObjectCallMethod1 */
         static PyObject* __Pyx__PyObject_CallMethod1(PyObject* method, PyObject* arg) {
     PyObject *result = NULL;
@@ -13852,19 +15776,6 @@ static PyObject* __Pyx__PyList_PopIndex(PyObject* L, PyObject* py_ix, Py_ssize_t
     }
 }
 #endif
-
-/* RaiseTooManyValuesToUnpack */
-        static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected) {
-    PyErr_Format(PyExc_ValueError,
-                 "too many values to unpack (expected %" CYTHON_FORMAT_SSIZE_T "d)", expected);
-}
-
-/* RaiseNeedMoreValuesToUnpack */
-        static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index) {
-    PyErr_Format(PyExc_ValueError,
-                 "need more than %" CYTHON_FORMAT_SSIZE_T "d value%.1s to unpack",
-                 index, (index == 1) ? "" : "s");
-}
 
 /* RaiseNoneIterError */
         static CYTHON_INLINE void __Pyx_RaiseNoneNotIterableError(void) {

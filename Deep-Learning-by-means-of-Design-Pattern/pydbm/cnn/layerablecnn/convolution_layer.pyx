@@ -154,7 +154,6 @@ class ConvolutionLayer(LayerableCNN):
             kernel_height,
             kernel_width
         )
-
         if self.__delta_bias_arr is None:
             self.__delta_bias_arr = delta_bias_arr
         else:

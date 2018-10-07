@@ -164,7 +164,7 @@ class SpatioTemporalAutoEncoder(object):
         cdef double test_loss
         cdef np.ndarray[DOUBLE_t, ndim=5] pred_arr
         cdef np.ndarray[DOUBLE_t, ndim=5] test_pred_arr
-        cdef np.ndarray[DOUBLE_t, ndim=5] delta_arr
+        cdef np.ndarray[DOUBLE_t, ndim=4] delta_arr
         
         best_weight_params_list = []
         best_bias_params_list = []
@@ -193,12 +193,12 @@ class SpatioTemporalAutoEncoder(object):
                     pred_arr = self.inference(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
                     loss = self.__computable_loss.compute_loss(
-                        pred_arr,
-                        batch_target_arr
+                        pred_arr[:, -1],
+                        batch_target_arr[:, -1]
                     )
                     delta_arr = self.__computable_loss.compute_delta(
-                        pred_arr,
-                        batch_target_arr
+                        pred_arr[:, -1],
+                        batch_target_arr[:, -1]
                     )
                     delta_arr = self.back_propagation(delta_arr)
                     self.optimize(learning_rate, epoch)
@@ -312,7 +312,7 @@ class SpatioTemporalAutoEncoder(object):
         cdef double test_loss
         cdef np.ndarray[DOUBLE_t, ndim=5] pred_arr
         cdef np.ndarray[DOUBLE_t, ndim=5] test_pred_arr
-        cdef np.ndarray[DOUBLE_t, ndim=5] delta_arr
+        cdef np.ndarray[DOUBLE_t, ndim=4] delta_arr
 
         best_weight_params_list = []
         best_bias_params_list = []
@@ -338,12 +338,12 @@ class SpatioTemporalAutoEncoder(object):
                     pred_arr = self.inference(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
                     loss = self.__computable_loss.compute_loss(
-                        pred_arr,
-                        batch_target_arr
+                        pred_arr[:, -1],
+                        batch_target_arr[:, -1]
                     )
                     delta_arr = self.__computable_loss.compute_delta(
-                        pred_arr,
-                        batch_target_arr
+                        pred_arr[:, -1],
+                        batch_target_arr[:, -1]
                     )
                     delta_arr = self.back_propagation(delta_arr)
                     self.optimize(learning_rate, epoch)
@@ -450,7 +450,7 @@ class SpatioTemporalAutoEncoder(object):
             Propagated `np.ndarray`.
         '''
         cdef int i = 0
-        cdef np.ndarray[DOUBLE_t, ndim=4] test_arr = self.__layerable_cnn_list[i].convolve(img_arr[:, 0])
+        cdef np.ndarray[DOUBLE_t, ndim=4] test_arr = self.__layerable_cnn_list[0].convolve(img_arr[:, 0])
         cdef np.ndarray[DOUBLE_t, ndim=5] conv_arr = np.empty((
             img_arr.shape[0],
             img_arr.shape[1],
@@ -491,11 +491,11 @@ class SpatioTemporalAutoEncoder(object):
         ver_hidden_activity_arr = hidden_activity_arr.copy()
         delta_arr = self.__computable_loss.compute_delta(
             hidden_activity_arr[:, 0, :],
-            conv_arr.reshape((sample_n, seq_len, -1))
+            conv_arr.reshape((sample_n, seq_len, -1))[:, 0, :]
         )
         loss = self.__computable_loss.compute_loss(
             hidden_activity_arr[:, 0, :],
-            conv_arr.reshape((sample_n, seq_len, -1))
+            conv_arr.reshape((sample_n, seq_len, -1))[:, 0, :]
         )
         decoder_delta_arr, decoder_lstm_grads_list = self.__decoder.hidden_back_propagate(
             delta_arr
@@ -507,7 +507,6 @@ class SpatioTemporalAutoEncoder(object):
         [decoder_grads_list.append(d) for d in decoder_lstm_grads_list]
         encoder_grads_list = [None, None]
         [encoder_grads_list.append(d) for d in encoder_lstm_grads_list]
-
         self.__decoder.optimize(decoder_grads_list, self.__now_learning_rate, self.__now_epoch)
         self.__encoder.optimize(encoder_grads_list, self.__now_learning_rate, self.__now_epoch)
 
@@ -537,53 +536,32 @@ class SpatioTemporalAutoEncoder(object):
         
         conv_arr = hidden_activity_arr.reshape((sample_n, seq_len, channel, width, height))
 
-        self.__logger.debug("-" * 100)
-        self.__logger.debug("Propagated shape in Encoder/Decoder: " + str(i + 1))
-        self.__logger.debug((
+        layerable_cnn_list = self.__layerable_cnn_list[::-1]
+        test_arr, _ = layerable_cnn_list[0].deconvolve(conv_arr[:, -1])
+        cdef np.ndarray[DOUBLE_t, ndim=5] deconv_arr = np.empty((
             conv_arr.shape[0],
             conv_arr.shape[1],
-            conv_arr.shape[2],
-            conv_arr.shape[3]
+            test_arr.shape[1],
+            test_arr.shape[2],
+            test_arr.shape[3],
         ))
-        self.__logger.debug("-" * 100)
 
-        layerable_cnn_list = self.__layerable_cnn_list[::-1]
         for seq in range(conv_arr.shape[1]):
             for i in range(len(layerable_cnn_list)):
                 try:
-                    self.__logger.debug("Input shape in Deconvolution: " + str(i + 1))
-                    self.__logger.debug((
-                        conv_arr[:, seq].shape[0],
-                        conv_arr[:, seq].shape[1],
-                        conv_arr[:, seq].shape[2],
-                        conv_arr[:, seq].shape[3]
-                    ))
                     if i == 0:
-                        img_arr[:, seq], _ = layerable_cnn_list[i].deconvolve(conv_arr[:, seq])
+                        deconv_arr[:, seq], _ = layerable_cnn_list[i].deconvolve(conv_arr[:, seq])
                     else:
-                        img_arr[:, seq], _ = layerable_cnn_list[i].deconvolve(img_arr[:, seq])
-                        
+                        deconv_arr[:, seq], _ = layerable_cnn_list[i].deconvolve(deconv_arr[:, seq])
+
                 except:
                     self.__logger.debug("Error raised in Deconvolution layer " + str(i + 1))
                     raise
+        return deconv_arr
 
-        self.__logger.debug("-" * 100)
-        self.__logger.debug("Propagated shape in Deconvolution: " + str(i + 1))
-        self.__logger.debug((
-            img_arr.shape[0],
-            img_arr.shape[1],
-            img_arr.shape[2],
-            img_arr.shape[3]
-        ))
-        self.__logger.debug("-" * 100)
-
-        return img_arr
-
-    def back_propagation(self, np.ndarray[DOUBLE_t, ndim=5] delta_arr):
+    def back_propagation(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):
         '''
         Back propagation in CNN.
-        
-        Override.
         
         Args:
             Delta.
@@ -592,33 +570,25 @@ class SpatioTemporalAutoEncoder(object):
             Delta.
         '''
         cdef int i = 0
-        for seq in range(delta_arr.shape[1]):
-            for i in range(len(self.__layerable_cnn_list)):
-                try:
-                    delta_arr[:, seq] = self.__layerable_cnn_list[i].convolve(delta_arr[:, seq], no_bias_flag=True)
-                except:
-                    self.__logger.debug("Backward raised error in Convolution layer " + str(i + 1))
-                    raise
-        
         layerable_cnn_list = self.__layerable_cnn_list[::-1]
         self.__logger.debug("-" * 100)
-        for seq in range(delta_arr.shape[1]):
-            for i in range(len(layerable_cnn_list)):
-                try:
-                    self.__logger.debug("Input delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
-                    self.__logger.debug((
-                        delta_arr[:, seq].shape[0],
-                        delta_arr[:, seq].shape[1],
-                        delta_arr[:, seq].shape[2],
-                        delta_arr[:, seq].shape[3]
-                    ))
+        for i in range(len(layerable_cnn_list)):
+            try:
+                self.__logger.debug("Input delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
+                self.__logger.debug((
+                    delta_arr.shape[0],
+                    delta_arr.shape[1],
+                    delta_arr.shape[2],
+                    delta_arr.shape[3]
+                ))
 
-                    delta_arr[:, seq] = layerable_cnn_list[i].back_propagate(delta_arr[:, seq])
-                except:
-                    self.__logger.debug(
-                        "Delta computation raised an error in CNN layer " + str(len(layerable_cnn_list) - i)
-                    )
-                    raise
+                delta_arr = layerable_cnn_list[i].back_propagate(delta_arr)
+
+            except:
+                self.__logger.debug(
+                    "Delta computation raised an error in CNN layer " + str(len(layerable_cnn_list) - i)
+                )
+                raise
 
         self.__logger.debug("-" * 100)
         self.__logger.debug("Propagated delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
@@ -630,3 +600,73 @@ class SpatioTemporalAutoEncoder(object):
         ))
         self.__logger.debug("-" * 100)
         return delta_arr
+
+    def optimize(self, double learning_rate, int epoch):
+        '''
+        Back propagation.
+        
+        Args:
+            learning_rate:  Learning rate.
+            epoch:          Now epoch.
+            
+        '''
+        params_list = []
+        grads_list = []
+        for i in range(len(self.__layerable_cnn_list)):
+            params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
+            grads_list.append(self.__layerable_cnn_list[i].delta_weight_arr)
+
+        for i in range(len(self.__layerable_cnn_list)):
+            params_list.append(self.__layerable_cnn_list[i].graph.bias_arr)
+            grads_list.append(self.__layerable_cnn_list[i].delta_bias_arr)
+
+        params_list = self.__opt_params.optimize(
+            params_list,
+            grads_list,
+            learning_rate
+        )
+        
+        params_dict = {}
+        i = 0
+        for i in range(len(self.__layerable_cnn_list)):
+            self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)
+            if ((epoch + 1) % self.__attenuate_epoch == 0):
+                self.__layerable_cnn_list[i].graph.weight_arr = self.__opt_params.constrain_weight(
+                    self.__layerable_cnn_list[i].graph.weight_arr
+                )
+
+        for i in range(len(self.__layerable_cnn_list)):
+            self.__layerable_cnn_list[i].graph.bias_arr = params_list.pop(0)
+
+        for i in range(len(self.__layerable_cnn_list)):
+            self.__layerable_cnn_list[i].reset_delta()
+
+    def get_layerable_cnn_list(self):
+        ''' getter '''
+        return self.__layerable_cnn_list
+
+    def set_layerable_cnn_list(self, value):
+        ''' setter '''
+        for layerable_cnn in value:
+            if isinstance(layerable_cnn, LayerableCNN) is False:
+                raise TypeError()
+
+        self.__layerable_cnn_list = value
+
+    layerable_cnn_list = property(get_layerable_cnn_list, set_layerable_cnn_list)
+
+    def get_verificatable_result(self):
+        ''' getter '''
+        if isinstance(self.__verificatable_result, VerificatableResult):
+            return self.__verificatable_result
+        else:
+            raise TypeError()
+
+    def set_verificatable_result(self, value):
+        ''' setter '''
+        if isinstance(value, VerificatableResult):
+            self.__verificatable_result = value
+        else:
+            raise TypeError()
+    
+    verificatable_result = property(get_verificatable_result, set_verificatable_result)

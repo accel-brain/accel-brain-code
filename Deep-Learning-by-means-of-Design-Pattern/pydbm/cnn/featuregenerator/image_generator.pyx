@@ -23,7 +23,8 @@ class ImageGenerator(FeatureGenerator):
         test_image_dir,
         seq_len=None,
         gray_scale_flag=True,
-        wh_size_tuple=None
+        wh_size_tuple=None,
+        norm_mode="z_score"
     ):
         '''
         Init.
@@ -36,24 +37,25 @@ class ImageGenerator(FeatureGenerator):
             seq_len:                        The length of one sequence.
             gray_scale_flag:                Gray scale or not(RGB).
             wh_size_tuple:                  Tuple(`width`, `height`).
-
+            norm_mode:                      Normalization mode. `z_score` or `min_max`.
         '''
         self.__epochs = epochs
         self.__batch_size = batch_size
         
         file_name_list = os.listdir(training_image_dir)
         self.__training_file_path_list = [training_image_dir + file_name for file_name in file_name_list]
-        if seq_len is not None and len(self.__file_path_list) < seq_len:
+        if seq_len is not None and len(self.__training_file_path_list) < seq_len:
             raise ValueError("The `seq_len` must be more than the number of files which are stored in `training_image_dir`.")
 
         file_name_list = os.listdir(test_image_dir)
         self.__test_file_path_list = [test_image_dir + file_name for file_name in file_name_list]
-        if seq_len is not None and len(self.__file_path_list) < seq_len:
+        if seq_len is not None and len(self.__test_file_path_list) < seq_len:
             raise ValueError("The `seq_len` must be more than the number of files which are stored in `test_image_dir`.")
 
         self.__seq_len = seq_len
         self.__gray_scale_flag = gray_scale_flag
         self.__wh_size_tuple = wh_size_tuple
+        self.__norm_mode = norm_mode
 
         logger = getLogger("pydbm")
         self.__logger = logger
@@ -81,6 +83,7 @@ class ImageGenerator(FeatureGenerator):
                     for seq in range(self.__seq_len):
                         file_key = np.random.randint(low=0, high=len(self.__training_file_path_list) - self.__seq_len)
                         seq_training_data_arr = self.__read(self.__training_file_path_list[file_key])
+
                         file_key = np.random.randint(low=0, high=len(self.__test_file_path_list) - self.__seq_len)
                         seq_test_data_arr = self.__read(self.__test_file_path_list[file_key])
                         
@@ -93,6 +96,9 @@ class ImageGenerator(FeatureGenerator):
                             test_data_arr = np.r_[test_data_arr, seq_test_data_arr]
                         else:
                             test_data_arr = seq_test_data_arr
+
+                    training_data_arr = np.expand_dims(training_data_arr, axis=0)
+                    test_data_arr = np.expand_dims(test_data_arr, axis=0)
 
                 if _training_data_arr is not None:
                     _training_data_arr = np.r_[_training_data_arr, training_data_arr]
@@ -130,7 +136,11 @@ class ImageGenerator(FeatureGenerator):
         elif arr.ndim == 3:
             arr = arr.transpose((2, 0, 1))
             arr = np.expand_dims(arr, axis=0)
-        arr = (arr - arr.mean()) / arr.std()
+
+        if self.__norm_mode == "z_score":
+            arr = (arr - arr.mean()) / arr.std()
+        elif self.__norm_mode == "min_max":
+            arr = (arr - arr.min()) / (arr.max() - arr.min())
         return arr
 
     def set_readonly(self, value):

@@ -173,9 +173,11 @@ class LSTMModel(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=2] test_pred_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_arr
 
+        best_params_list = []
         try:
             self.__memory_tuple_list = []
             loss_list = []
+            min_loss = None
             eary_stop_flag = False
             for epoch in range(self.__epochs):
                 self.__opt_params.dropout_rate = self.__dropout_rate
@@ -205,6 +207,17 @@ class LSTMModel(ReconstructableModel):
                     self.optimize(grads_list, learning_rate, epoch)
                     self.graph.hidden_activity_arr = np.array([])
                     self.graph.rnn_activity_arr = np.array([])
+
+                    if min_loss is None or min_loss > loss:
+                        min_loss = loss
+                        best_params_list = [
+                            self.graph.weights_output_arr,
+                            self.graph.output_bias_arr,
+                            self.graph.weights_lstm_hidden_arr,
+                            self.graph.weights_lstm_observed_arr,
+                            self.graph.lstm_bias_arr
+                        ]
+                        self.__logger.debug("Best params are updated.")
 
                 except FloatingPointError:
                     if epoch > int(self.__epochs * 0.7):
@@ -244,6 +257,13 @@ class LSTMModel(ReconstructableModel):
         if eary_stop_flag is True:
             self.__logger.debug("Eary stopping.")
             eary_stop_flag = False
+
+        self.graph.weights_output_arr = best_params_list[0]
+        self.graph.output_bias_arr = best_params_list[1]
+        self.graph.weights_lstm_hidden_arr = best_params_list[2]
+        self.graph.weights_lstm_observed_arr = best_params_list[3]
+        self.graph.lstm_bias_arr = best_params_list[4]
+        self.__logger.debug("Best params are saved.")
 
         self.__logger.debug("end. ")
 

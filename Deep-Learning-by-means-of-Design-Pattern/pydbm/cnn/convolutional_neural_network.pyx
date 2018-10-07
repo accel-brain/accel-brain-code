@@ -152,10 +152,14 @@ class ConvolutionalNeuralNetwork(object):
         cdef np.ndarray[DOUBLE_t, ndim=4] pred_arr
         cdef np.ndarray[DOUBLE_t, ndim=4] test_pred_arr
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_arr
+        
+        best_weight_params_list = []
+        best_bias_params_list = []
 
         try:
             self.__memory_tuple_list = []
             loss_list = []
+            min_loss = None
             eary_stop_flag = False
             for epoch in range(self.__epochs):
                 self.__opt_params.dropout_rate = self.__dropout_rate
@@ -181,6 +185,16 @@ class ConvolutionalNeuralNetwork(object):
                     delta_arr = self.back_propagation(delta_arr)
                     self.optimize(learning_rate, epoch)
 
+                    if min_loss is None or min_loss > loss:
+                        min_loss = loss
+                        best_weight_params_list = []
+                        best_bias_params_list = []
+
+                        for i in range(len(self.__layerable_cnn_list)):
+                            best_weight_params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
+                            best_bias_params_list.append(self.__layerable_cnn_list[i].graph.bias_arr)
+                        self.__logger.debug("Best params are updated.")
+
                 except FloatingPointError:
                     if epoch > int(self.__epochs * 0.7):
                         self.__logger.debug(
@@ -197,7 +211,6 @@ class ConvolutionalNeuralNetwork(object):
                     test_batch_observed_arr = test_observed_arr[rand_index]
                     test_batch_target_arr = test_target_arr[rand_index]
 
-                    
                     test_pred_arr = self.forward_propagation(
                         test_batch_observed_arr
                     )
@@ -225,6 +238,12 @@ class ConvolutionalNeuralNetwork(object):
         if eary_stop_flag is True:
             self.__logger.debug("Eary stopping.")
             eary_stop_flag = False
+
+        if len(best_weight_params_list) and len(best_bias_params_list):
+            for i in range(len(self.__layerable_cnn_list)):
+                self.__layerable_cnn_list[i].graph.weight_arr = best_weight_params_list[i]
+                self.__layerable_cnn_list[i].graph.bias_arr = best_bias_params_list[i]
+            self.__logger.debug("Best params are saved.")
 
         self.__logger.debug("end. ")
 
@@ -262,9 +281,13 @@ class ConvolutionalNeuralNetwork(object):
         cdef np.ndarray[DOUBLE_t, ndim=4] test_pred_arr
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_arr
 
+        best_weight_params_list = []
+        best_bias_params_list = []
+
         try:
             self.__memory_tuple_list = []
             loss_list = []
+            min_loss = None
             eary_stop_flag = False
             epoch = 0
             for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr in feature_generator.generate():
@@ -287,6 +310,15 @@ class ConvolutionalNeuralNetwork(object):
                     )
                     delta_arr = self.back_propagation(delta_arr)
                     self.optimize(learning_rate, epoch)
+                    if min_loss is None or min_loss > loss:
+                        min_loss = loss
+                        best_weight_params_list = []
+                        best_bias_params_list = []
+
+                        for i in range(len(self.__layerable_cnn_list)):
+                            best_weight_params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
+                            best_bias_params_list.append(self.__layerable_cnn_list[i].graph.bias_arr)
+                        self.__logger.debug("Best params are updated.")
 
                 except FloatingPointError:
                     if epoch > int(self.__epochs * 0.7):
@@ -327,6 +359,12 @@ class ConvolutionalNeuralNetwork(object):
         if eary_stop_flag is True:
             self.__logger.debug("Eary stopping.")
             eary_stop_flag = False
+
+        if len(best_weight_params_list) and len(best_bias_params_list):
+            for i in range(len(self.__layerable_cnn_list)):
+                self.__layerable_cnn_list[i].graph.weight_arr = best_weight_params_list[i]
+                self.__layerable_cnn_list[i].graph.bias_arr = best_bias_params_list[i]
+            self.__logger.debug("Best params are saved.")
 
         self.__logger.debug("end. ")
 

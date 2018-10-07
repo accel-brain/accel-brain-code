@@ -32,7 +32,7 @@ def Main(params_dict):
 
     logger = getLogger("pydbm")
     handler = StreamHandler()
-    if params_dict["debug"] is True:
+    if params_dict["debug_mode"] is True:
         handler.setLevel(DEBUG)
         logger.setLevel(DEBUG)
     else:
@@ -247,6 +247,7 @@ def Main(params_dict):
             break
 
 if __name__ == "__main__":
+    import argparse
     parser = argparse.ArgumentParser(
         description='Spatio-Temporal Auto-Encoder.'
     )
@@ -317,6 +318,13 @@ if __name__ == "__main__":
         type=str,
         default="img/test/",
         help='Dir path of test image dataset.'
+    )
+    parser.add_argument(
+        '-d',
+        '--debug_mode',
+        type=bool,
+        default=False,
+        help="Debug mode or not."
     )
 
     args = parser.parse_args()

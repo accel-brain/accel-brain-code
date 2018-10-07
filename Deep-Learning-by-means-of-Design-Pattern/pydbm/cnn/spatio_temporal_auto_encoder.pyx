@@ -6,6 +6,8 @@ from pydbm.cnn.feature_generator import FeatureGenerator
 from pydbm.optimization.opt_params import OptParams
 from pydbm.verification.interface.verificatable_result import VerificatableResult
 from pydbm.loss.interface.computable_loss import ComputableLoss
+from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
+from pydbm.activation.interface.tanh_function import TanhFunction
 import numpy as np
 cimport numpy as np
 ctypedef np.float64_t DOUBLE_t
@@ -31,6 +33,7 @@ class SpatioTemporalAutoEncoder(object):
         verificatable_result,
         double test_size_rate=0.3,
         int fully_connected_dim=100,
+        fully_connected_activation=None,
         tol=1e-15,
         save_flag=False
     ):
@@ -51,6 +54,7 @@ class SpatioTemporalAutoEncoder(object):
 
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
             fully_connected_dim:            Dimension of fully-connected layer between Convolution layer and Encoder/Decoder.
+            fully_connected_activation:     is-a `ActivatingFunctionInterface`.
             computable_loss:                Loss function.
             opt_params:                     Optimization function.
             verificatable_result:           Verification function.
@@ -97,6 +101,13 @@ class SpatioTemporalAutoEncoder(object):
         self.__test_size_rate = test_size_rate
         self.__fully_connected_dim = fully_connected_dim
         self.__fully_connected_weight_arr = None
+        
+        if fully_connected_activation is not None:
+            if isinstance(fully_connected_activation, ActivatingFunctionInterface) is False:
+                raise TypeError()
+            self.__fully_connected_activation = fully_connected_activation
+        else:
+            self.__fully_connected_activation = TanhFunction()
 
         self.__tol = tol
 
@@ -242,6 +253,8 @@ class SpatioTemporalAutoEncoder(object):
 
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
+                            self.__logger.debug("-" * 100)
+                            self.__logger.debug("Convolutional Auto-Encoder's loss.")
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
                                 train_pred_arr=ver_pred_arr, 
@@ -249,6 +262,7 @@ class SpatioTemporalAutoEncoder(object):
                                 test_pred_arr=test_pred_arr,
                                 test_label_arr=test_batch_target_arr
                             )
+                            self.__logger.debug("-" * 100)
 
                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
                     eary_stop_flag = True
@@ -382,6 +396,8 @@ class SpatioTemporalAutoEncoder(object):
 
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
+                            self.__logger.debug("-" * 100)
+                            self.__logger.debug("Convolutional Auto-Encoder's loss.")
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
                                 train_pred_arr=ver_pred_arr, 
@@ -389,6 +405,10 @@ class SpatioTemporalAutoEncoder(object):
                                 test_pred_arr=test_pred_arr,
                                 test_label_arr=test_batch_target_arr
                             )
+                            self.__logger.debug("-" * 100)
+                            self.__logger.debug("-" * 100)
+                            self.__logger.debug("Encoder/Decoder's loss: " + str(self.__encoder_decoder_loss))
+                            self.__logger.debug("-" * 100)
 
                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
                     eary_stop_flag = True
@@ -500,7 +520,9 @@ class SpatioTemporalAutoEncoder(object):
             ) * 0.1
 
         for seq in range(conv_arr.shape[1]):
-            observed_arr[:, seq] = np.dot(conv_input_arr[:, seq], self.__fully_connected_weight_arr)
+            observed_arr[:, seq] = self.__fully_connected_activation.activate(
+                np.dot(conv_input_arr[:, seq], self.__fully_connected_weight_arr)
+            )
 
         encoded_arr = self.__encoder.inference(observed_arr)
         decoded_arr = self.__decoder.inference(
@@ -516,6 +538,9 @@ class SpatioTemporalAutoEncoder(object):
             hidden_activity_arr[:, 0, :],
             observed_arr[:, 0, :]
         )
+
+        self.__encoder_decoder_loss = loss
+
         decoder_delta_arr, decoder_lstm_grads_list = self.__decoder.hidden_back_propagate(
             delta_arr
         )

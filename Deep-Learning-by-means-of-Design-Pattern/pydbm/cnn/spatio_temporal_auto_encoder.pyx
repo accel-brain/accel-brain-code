@@ -30,6 +30,7 @@ class SpatioTemporalAutoEncoder(object):
         opt_params,
         verificatable_result,
         double test_size_rate=0.3,
+        int fully_connected_dim=100,
         tol=1e-15,
         save_flag=False
     ):
@@ -49,6 +50,7 @@ class SpatioTemporalAutoEncoder(object):
                                             this class constrains weight matrixes every `attenuate_epoch`.
 
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
+            fully_connected_dim:            Dimension of fully-connected layer between Convolution layer and Encoder/Decoder.
             computable_loss:                Loss function.
             opt_params:                     Optimization function.
             verificatable_result:           Verification function.
@@ -93,6 +95,9 @@ class SpatioTemporalAutoEncoder(object):
         self.__attenuate_epoch = attenuate_epoch
 
         self.__test_size_rate = test_size_rate
+        self.__fully_connected_dim = fully_connected_dim
+        self.__fully_connected_weight_arr = None
+
         self.__tol = tol
 
         self.__memory_tuple_list = []
@@ -483,7 +488,21 @@ class SpatioTemporalAutoEncoder(object):
         cdef np.ndarray[DOUBLE_t, ndim=3] encoder_delta_arr
         cdef np.ndarray[DOUBLE_t, ndim=3] decoder_delta_arr
 
-        encoded_arr = self.__encoder.inference(conv_arr.reshape((sample_n, seq_len, -1)))
+        cdef np.ndarray[DOUBLE_t, ndim=3] conv_input_arr = conv_arr.reshape((sample_n, seq_len, -1))
+        cdef np.ndarray[DOUBLE_t, ndim=3] observed_arr = np.empty((sample_n, seq_len, self.__fully_connected_dim))
+        
+        if self.__fully_connected_weight_arr is None:
+            self.__fully_connected_weight_arr = np.random.normal(
+                size=(
+                    conv_arr.reshape((sample_n, seq_len, -1)).shape[-1], 
+                    self.__fully_connected_dim
+                )
+            ) * 0.1
+
+        for seq in range(conv_arr.shape[1]):
+            observed_arr[:, seq] = np.dot(conv_input_arr[:, seq], self.__fully_connected_weight_arr)
+
+        encoded_arr = self.__encoder.inference(observed_arr)
         decoded_arr = self.__decoder.inference(
             self.__encoder.get_feature_points()[:, ::-1, :]
         )
@@ -491,11 +510,11 @@ class SpatioTemporalAutoEncoder(object):
         ver_hidden_activity_arr = hidden_activity_arr.copy()
         delta_arr = self.__computable_loss.compute_delta(
             hidden_activity_arr[:, 0, :],
-            conv_arr.reshape((sample_n, seq_len, -1))[:, 0, :]
+            observed_arr[:, 0, :]
         )
         loss = self.__computable_loss.compute_loss(
             hidden_activity_arr[:, 0, :],
-            conv_arr.reshape((sample_n, seq_len, -1))[:, 0, :]
+            observed_arr[:, 0, :]
         )
         decoder_delta_arr, decoder_lstm_grads_list = self.__decoder.hidden_back_propagate(
             delta_arr
@@ -534,7 +553,16 @@ class SpatioTemporalAutoEncoder(object):
         self.__decoder.graph.hidden_activity_arr = np.array([])
         self.__decoder.graph.rnn_activity_arr = np.array([])
         
-        conv_arr = hidden_activity_arr.reshape((sample_n, seq_len, channel, width, height))
+        cdef np.ndarray[DOUBLE_t, ndim=3] lstm_input_arr = np.empty((
+            sample_n, 
+            seq_len, 
+            conv_arr.reshape((sample_n, seq_len, -1)).shape[-1])
+        )
+
+        for seq in range(hidden_activity_arr.shape[1]):
+            lstm_input_arr[:, seq] = np.dot(hidden_activity_arr[:, seq], self.__fully_connected_weight_arr.T)
+
+        conv_arr = lstm_input_arr.reshape((sample_n, seq_len, channel, width, height))
 
         layerable_cnn_list = self.__layerable_cnn_list[::-1]
         test_arr, _ = layerable_cnn_list[0].deconvolve(conv_arr[:, -1])

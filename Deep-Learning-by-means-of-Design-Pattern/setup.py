@@ -27,7 +27,7 @@ def read_readme(file_name):
 setup(
     name='pydbm',
     version='1.3.7',
-    description='`pydbm` is Python library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Recurrent neural network Restricted Boltzmann Machine(RNN-RBM), LSTM Recurrent Temporal Restricted Boltzmann Machine(LSTM-RTRBM), and Shape Boltzmann Machine(Shape-BM).',
+    description='`pydbm` is Python library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Long Short-Term Memory Recurrent Temporal Restricted Boltzmann Machine(LSTM-RTRBM), and Shape Boltzmann Machine(Shape-BM). From the view points of functionally equivalents and structural expansions, this library also prototypes many variants such as Encoder/Decoder based on LSTM, Convolutional Auto-Encoder, and Spatio-temporal Auto-Encoder.',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',
     url='https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern',
@@ -43,7 +43,7 @@ setup(
         'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
         'Programming Language :: Python :: 3',
     ],
-    keywords='restricted boltzmann machine autoencoder auto-encoder rnn rbm rtrbm',
+    keywords='restricted boltzmann machine autoencoder auto-encoder rnn rbm rtrbm convolution deconvolution spatio-temporal encoder decoder LSTM',
     install_requires=['numpy', 'cython'],
     include_dirs=[ '.', np.get_include()],
     cmdclass={'build_ext': build_ext},

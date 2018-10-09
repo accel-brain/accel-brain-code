@@ -7,7 +7,7 @@ from pydbm.optimization.opt_params import OptParams
 from pydbm.verification.interface.verificatable_result import VerificatableResult
 from pydbm.loss.interface.computable_loss import ComputableLoss
 from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
-from pydbm.activation.interface.tanh_function import TanhFunction
+from pydbm.activation.tanh_function import TanhFunction
 import numpy as np
 cimport numpy as np
 ctypedef np.float64_t DOUBLE_t

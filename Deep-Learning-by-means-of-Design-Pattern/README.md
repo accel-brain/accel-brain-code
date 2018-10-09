@@ -286,9 +286,9 @@ This library can draw a distinction between **Stacked Auto-Encoder** and **Convo
 
 In this library, **Convolutional Auto-Encoder** is also based on **Encoder/Decoder** scheme. The *encoder* is to the *decoder* what the *Convolution* is to the *Deconvolution*. The Deconvolution also called transposed convolutions "work by swapping the forward and backward passes of a convolution." (Dumoulin, V., & Visin, F. 2016, p20.)
 
-### Structural expansion for Spatio-Temporal Auto-encoder.
+### Structural expansion for Spatio-Temporal Auto-Encoder.
 
-**Encoder/Decoder based on LSTM** and **Convolutional Auto-Encoder** have a functional reusability to extend the structures to **Spatio-Temporal Auto-encoder**, which can learn the regular patterns in the training videos. This model consists of spatial Auto-encoder and temporal Encoder/Decoder. The spatial Auto-encoder is a Convolutional Auto-Encoder for learning spatial structures of each video frame. The temporal Encoder/Decoder is an Encoder/Decoder based on LSTM scheme for learning temporal patterns of the encoded spatial structures. The spatial encoder and decoder have two convolutional and deconvolutional layers respectively, while the temporal encoder and decoder are to act as a twin LSTM models.
+**Encoder/Decoder based on LSTM** and **Convolutional Auto-Encoder** have a functional reusability to extend the structures to **Spatio-Temporal Auto-Encoder**, which can learn the regular patterns in the training videos. This model consists of spatial Auto-Encoder and temporal Encoder/Decoder. The spatial Auto-Encoder is a Convolutional Auto-Encoder for learning spatial structures of each video frame. The temporal Encoder/Decoder is an Encoder/Decoder based on LSTM scheme for learning temporal patterns of the encoded spatial structures. The spatial encoder and decoder have two convolutional and deconvolutional layers respectively, while the temporal encoder and decoder are to act as a twin LSTM models.
 
 <div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/spatio_temporal_auto_encoder_model.png" /></div>
 
@@ -523,6 +523,8 @@ dbm.learn(
     r_batch_size=-1  # if `r_batch_size` > 0, the function of `dbm.learn` is a kind of reccursive learning.
 )
 ```
+
+If you want to know how to minimize the reconstructed error, see my Jupyter notebook: [demo/demo_stacked_auto_encoder.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_stacked_auto_encoder.ipynb).
 
 ### Performance
 
@@ -1088,6 +1090,8 @@ You can check the reconstruction error rate. Call `get_reconstruct_error` method
 reconstruct_error_arr = dbm.get_reconstruction_error()
 ```
 
+If you want to know how to minimize the reconstructed error, see my Jupyter notebook: [demo/demo_sine_wave_prediction_by_LSTM_encoder_decoder.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_sine_wave_prediction_by_LSTM_encoder_decoder.ipynb).
+
 <a name="build_convolutional_auto_encoder"></a>
 ## Usecase: Build Convolutional Auto-Encoder.
 
@@ -1231,17 +1235,19 @@ result_arr = cnn.inference(test_img_arr[:100])
 
 The shape of `test_img_arr` and `result_arr` is equivalent to `img_arr`. 
 
-## Usecase: Build Spatio-Temporal Auto-encoder.
+If you want to know how to visualize the reconstructed images, see my Jupyter notebook: [demo/demo_convolutional_auto_encoder.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_convolutional_auto_encoder.ipynb).
+
+## Usecase: Build Spatio-Temporal Auto-Encoder.
 
 Setup logger for verbose output and import Python and Cython modules in the same manner as <a href="#build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model</a>.
 
-Import Python and Cython modules of the Spatio-Temporal Auto-encoder.
+Import Python and Cython modules of the Spatio-Temporal Auto-Encoder.
 
 ```python
 from pydbm.cnn.spatio_temporal_auto_encoder import SpatioTemporalAutoEncoder
 ```
 
-Build Convolutional Auto-encoder in the same manner as <a href="#build_convolutional_auto_encoder">Usecase: Build Convolutional Auto-Encoder.</a> and build Encoder/Decoder in the same manner as <a href="#build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model</a>.
+Build Convolutional Auto-Encoder in the same manner as <a href="#build_convolutional_auto_encoder">Usecase: Build Convolutional Auto-Encoder.</a> and build Encoder/Decoder in the same manner as <a href="#build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model</a>.
 
 Instantiate `SpatioTemporalAutoEncoder` and setup parameters.
 
@@ -1279,7 +1285,21 @@ cnn = SpatioTemporalAutoEncoder(
 )
 ```
 
-Execute learning and inferencing in the same manner as <a href="#build_convolutional_auto_encoder">Usecase: Build Convolutional Auto-Encoder.</a>
+Execute learning.
+
+```python
+cnn.learn(img_arr, img_arr)
+```
+
+`img_arr` is a `np.ndarray` of image data, which is a **rank-5** array-like or sparse matrix of shape: (`The number of samples`, `The length of one sequence`, `The number of channel`, `Height of image`, `Width of image`), as the first and second argument.
+
+After learning, the `cnn` provides a function of `inference` method.
+
+```python
+result_arr = cnn.inference(test_img_arr[:100])
+```
+
+If you want to know how to visualize the reconstructed video images, see my Jupyter notebook: [demo/demo_spatio_temporal_auto_encoder.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_spatio_temporal_auto_encoder.ipynb).
 
 ## References
 

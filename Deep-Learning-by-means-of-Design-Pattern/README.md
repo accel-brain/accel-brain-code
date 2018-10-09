@@ -286,6 +286,12 @@ This library can draw a distinction between **Stacked Auto-Encoder** and **Convo
 
 In this library, **Convolutional Auto-Encoder** is also based on **Encoder/Decoder** scheme. The *encoder* is to the *decoder* what the *Convolution* is to the *Deconvolution*. The Deconvolution also called transposed convolutions "work by swapping the forward and backward passes of a convolution." (Dumoulin, V., & Visin, F. 2016, p20.)
 
+### Structural expansion for Spatio-Temporal Auto-encoder.
+
+**Encoder/Decoder based on LSTM** and **Convolutional Auto-Encoder** have a functional reusability to extend the structures to **Spatio-Temporal Auto-encoder**, which can learn the regular patterns in the training videos. This model consists of spatial Auto-encoder and temporal Encoder/Decoder. The spatial Auto-encoder is a Convolutional Auto-Encoder for learning spatial structures of each video frame. The temporal Encoder/Decoder is an Encoder/Decoder based on LSTM scheme for learning temporal patterns of the encoded spatial structures. The spatial encoder and decoder have two convolutional and deconvolutional layers respectively, while the temporal encoder and decoder are to act as a twin LSTM models.
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/spatio_temporal_auto_encoder_model.png" /></div>
+
 ## Usecase: Building the deep boltzmann machine for feature extracting.
 
 Import Python and Cython modules based on Builder Pattern.
@@ -1082,6 +1088,7 @@ You can check the reconstruction error rate. Call `get_reconstruct_error` method
 reconstruct_error_arr = dbm.get_reconstruction_error()
 ```
 
+<a name="build_convolutional_auto_encoder"></a>
 ## Usecase: Build Convolutional Auto-Encoder.
 
 Setup logger for verbose output and import Python and Cython modules in the same manner as <a href="#build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model</a>.
@@ -1224,11 +1231,63 @@ result_arr = cnn.inference(test_img_arr[:100])
 
 The shape of `test_img_arr` and `result_arr` is equivalent to `img_arr`. 
 
+## Usecase: Build Spatio-Temporal Auto-encoder.
+
+Setup logger for verbose output and import Python and Cython modules in the same manner as <a href="#build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model</a>.
+
+Import Python and Cython modules of the Spatio-Temporal Auto-encoder.
+
+```python
+from pydbm.cnn.spatio_temporal_auto_encoder import SpatioTemporalAutoEncoder
+```
+
+Build Convolutional Auto-encoder in the same manner as <a href="#build_convolutional_auto_encoder">Usecase: Build Convolutional Auto-Encoder.</a> and build Encoder/Decoder in the same manner as <a href="#build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model</a>.
+
+Instantiate `SpatioTemporalAutoEncoder` and setup parameters.
+
+```python
+cnn = SpatioTemporalAutoEncoder(
+    # The `list` of `LayerableCNN`.
+    layerable_cnn_list=[
+        conv1, 
+        conv2
+    ],
+    # is-a `ReconstructableModel`.
+    encoder=encoder,
+    # is-a `ReconstructableModel`.
+    decoder=decoder,
+    # Epochs of Mini-batch.
+    epochs=100,
+    # Batch size of Mini-batch.
+    batch_size=20,
+    # Learning rate.
+    learning_rate=1e-05,
+    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+    learning_attenuate_rate=0.1,
+    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+    attenuate_epoch=25,
+    # Loss function.
+    computable_loss=MeanSquaredError(),
+    # Optimization function.
+    opt_params=Adam(),
+    # Verification function.
+    verificatable_result=VerificateFunctionApproximation(),
+    # Size of Test data set. If this value is `0`, the validation will not be executed.
+    test_size_rate=0.3,
+    # Tolerance for the optimization.
+    tol=1e-15
+)
+```
+
+Execute learning and inferencing in the same manner as <a href="#build_convolutional_auto_encoder">Usecase: Build Convolutional Auto-Encoder.</a>
+
 ## References
 
 - Ackley, D. H., Hinton, G. E., & Sejnowski, T. J. (1985). A learning algorithm for Boltzmann machines. Cognitive science, 9(1), 147-169.
+- Baccouche, M., Mamalet, F., Wolf, C., Garcia, C., & Baskurt, A. (2012, September). Spatio-Temporal Convolutional Sparse Auto-Encoder for Sequence Classification. In BMVC (pp. 1-12).
 - Boulanger-Lewandowski, N., Bengio, Y., & Vincent, P. (2012). Modeling temporal dependencies in high-dimensional sequences: Application to polyphonic music generation and transcription. arXiv preprint arXiv:1206.6392.
 - Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.
+- Chong, Y. S., & Tay, Y. H. (2017, June). Abnormal event detection in videos using spatiotemporal autoencoder. In International Symposium on Neural Networks (pp. 189-196). Springer, Cham.
 - Dumoulin, V., & Visin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
 - Eslami, S. A., Heess, N., Williams, C. K., & Winn, J. (2014). The shape boltzmann machine: a strong model of object shape. International Journal of Computer Vision, 107(2), 155-176.
 - He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 770-778).
@@ -1239,6 +1298,7 @@ The shape of `test_img_arr` and `result_arr` is equivalent to `img_arr`.
 - Lyu, Q., Wu, Z., & Zhu, J. (2015, October). Polyphonic music modelling with LSTM-RTRBM. In Proceedings of the 23rd ACM international conference on Multimedia (pp. 991-994). ACM.
 - Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., & Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.
 - Masci, J., Meier, U., Cireşan, D., & Schmidhuber, J. (2011, June). Stacked convolutional auto-encoders for hierarchical feature extraction. In International Conference on Artificial Neural Networks (pp. 52-59). Springer, Berlin, Heidelberg.
+- Patraucean, V., Handa, A., & Cipolla, R. (2015). Spatio-temporal video autoencoder with differentiable memory. arXiv preprint arXiv:1511.06309.
 - Salakhutdinov, R., & Hinton, G. E. (2009). Deep boltzmann machines. InInternational conference on artificial intelligence and statistics (pp. 448-455).
 - Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. (2014). Dropout: a simple way to prevent neural networks from overfitting. The Journal of Machine Learning Research, 15(1), 1929-1958.
 - Sutskever, I., Hinton, G. E., & Taylor, G. W. (2009). The recurrent temporal restricted boltzmann machine. In Advances in Neural Information Processing Systems (pp. 1601-1608).

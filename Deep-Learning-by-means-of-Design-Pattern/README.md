@@ -39,6 +39,11 @@ Installers for the latest released version are available at the Python package i
 - numpy: v1.13.3 or higher.
 - cython: v0.27.1 or higher.
 
+#### Options
+
+- Pillow(PIL): v5.0.0 or higher.
+    * Only if you want to use `ImageGenerator`.
+
 ## Description
 
 The function of `pydbm` is building and modeling **Restricted Boltzmann Machine**(RBM) and **Deep Boltzmann Machine**(DBM). The models are functionally equivalent to **stacked auto-encoder**. The basic function is the same as **dimensions reduction**(or **pre-training**). And this library enables you to build many functional extensions from RBM and DBM such as Recurrent Temporal Restricted Boltzmann Machine(RTRBM), Recurrent Neural Network Restricted Boltzmann Machine(RNN-RBM), Long Short-Term Memory Recurrent Temporal Restricted Boltzmann Machine(LSTM-RTRBM), and Shape Boltzmann Machine(Shape-BM).
@@ -1300,6 +1305,43 @@ result_arr = cnn.inference(test_img_arr[:100])
 ```
 
 If you want to know how to visualize the reconstructed video images, see my Jupyter notebook: [demo/demo_spatio_temporal_auto_encoder.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_spatio_temporal_auto_encoder.ipynb).
+
+## Usecase: Build and delegate image generator.
+
+`ConvolutionalAutoEncoder` and `SpatioTemporalAutoEncoder`, which are `ConvolutionalNeuralNetwork`s, provide a method `learn_generated` which can be delegated an `ImageGenerator`. `ImageGenerator` is an Iterates to reads batches of images from local directories for mini-batch training.
+
+```python
+# Image generator for Auto-Encoder or Encoder/Decoder scheme.
+from pydbm.cnn.featuregenerator.image_generator import ImageGenerator
+
+feature_generator = ImageGenerator(
+    # Epochs of Mini-batch.
+    epochs=100,
+    # Batch size of Mini-batch.
+    batch_size=20,
+    # Path of directory which stores image files for training.
+    training_image_dir="img/training/",
+    # Path of directory which stores image files for test.
+    test_image_dir="img/test/",
+    # The length of one sequence.
+    # If `None`, generated `np.ndarray` of images will be rank-4 matrices.
+    seq_len=10,
+    # Gray scale or not.
+    gray_scale_flag=True,
+    # Height and width of images. The shape is: Tuple(`width`, `height`).
+    wh_size_tuple=(94, 96),
+    # Normalization mode. `z_score` or `min_max`.
+    norm_mode="z_score"
+)
+```
+
+Delegate `feature_generator` to `cnn`.
+
+```python
+cnn.learn_generated(feature_generator)
+```
+
+Method `learn_generated` is functionally equivalent to method `learn`.
 
 ## References
 

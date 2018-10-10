@@ -475,25 +475,25 @@ class SpatioTemporalAutoEncoder(object):
             Propagated `np.ndarray`.
         '''
         cdef int i = 0
-        cdef np.ndarray[DOUBLE_t, ndim=4] test_arr = self.__layerable_cnn_list[0].convolve(img_arr[:, 0])
-        cdef np.ndarray[DOUBLE_t, ndim=5] conv_arr = np.empty((
-            img_arr.shape[0],
-            img_arr.shape[1],
-            test_arr.shape[1],
-            test_arr.shape[2],
-            test_arr.shape[3],
-        ))
+        cdef np.ndarray conv_arr = None
+        cdef np.ndarray[DOUBLE_t, ndim=4] conv_output_arr = None
         for seq in range(img_arr.shape[1]):
             for i in range(len(self.__layerable_cnn_list)):
                 try:
                     if i == 0:
-                        conv_arr[:, seq] = self.__layerable_cnn_list[i].convolve(img_arr[:, seq])
+                        conv_output_arr = self.__layerable_cnn_list[i].convolve(img_arr[:, seq])
                     else:
-                        conv_arr[:, seq] = self.__layerable_cnn_list[i].convolve(conv_arr[:, seq])
-                        
+                        conv_output_arr = self.__layerable_cnn_list[i].convolve(conv_output_arr)
                 except:
                     self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
                     raise
+
+            if conv_arr is None:
+                conv_arr = np.expand_dims(conv_output_arr, axis=0)
+            else:
+                conv_arr = np.r_[conv_arr, np.expand_dims(conv_output_arr, axis=0)]
+
+        conv_arr = conv_arr.transpose((1, 0, 2, 3, 4))
 
         cdef int sample_n = conv_arr.shape[0]
         cdef int seq_len = conv_arr.shape[1]
@@ -510,7 +510,7 @@ class SpatioTemporalAutoEncoder(object):
 
         cdef np.ndarray[DOUBLE_t, ndim=3] conv_input_arr = conv_arr.reshape((sample_n, seq_len, -1))
         cdef np.ndarray[DOUBLE_t, ndim=3] observed_arr = np.empty((sample_n, seq_len, self.__fully_connected_dim))
-        
+
         if self.__fully_connected_weight_arr is None:
             self.__fully_connected_weight_arr = np.random.normal(
                 size=(
@@ -587,29 +587,32 @@ class SpatioTemporalAutoEncoder(object):
         for seq in range(hidden_activity_arr.shape[1]):
             lstm_input_arr[:, seq] = np.dot(hidden_activity_arr[:, seq], self.__fully_connected_weight_arr.T)
 
-        conv_arr = lstm_input_arr.reshape((sample_n, seq_len, channel, width, height))
+        conv_arr = self.__fully_connected_activation.activate(
+            conv_arr + lstm_input_arr.reshape((sample_n, seq_len, channel, width, height))
+        )
 
         layerable_cnn_list = self.__layerable_cnn_list[::-1]
         test_arr, _ = layerable_cnn_list[0].deconvolve(conv_arr[:, -1])
-        cdef np.ndarray[DOUBLE_t, ndim=5] deconv_arr = np.empty((
-            conv_arr.shape[0],
-            conv_arr.shape[1],
-            test_arr.shape[1],
-            test_arr.shape[2],
-            test_arr.shape[3],
-        ))
 
+        cdef np.ndarray deconv_arr = None
+        cdef np.ndarray[DOUBLE_t, ndim=4] deconv_output_arr
         for seq in range(conv_arr.shape[1]):
             for i in range(len(layerable_cnn_list)):
                 try:
                     if i == 0:
-                        deconv_arr[:, seq], _ = layerable_cnn_list[i].deconvolve(conv_arr[:, seq])
+                        deconv_output_arr, _ = layerable_cnn_list[i].deconvolve(conv_arr[:, seq])
                     else:
-                        deconv_arr[:, seq], _ = layerable_cnn_list[i].deconvolve(deconv_arr[:, seq])
-
+                        deconv_output_arr, _ = layerable_cnn_list[i].deconvolve(deconv_output_arr)
                 except:
                     self.__logger.debug("Error raised in Deconvolution layer " + str(i + 1))
                     raise
+
+            if deconv_arr is None:
+                deconv_arr = np.expand_dims(deconv_output_arr, axis=0)
+            else:
+                deconv_arr = np.r_[deconv_arr, np.expand_dims(deconv_output_arr, axis=0)]
+
+        deconv_arr = deconv_arr.transpose((1, 0, 2, 3, 4))
         return deconv_arr
 
     def back_propagation(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):
@@ -623,6 +626,14 @@ class SpatioTemporalAutoEncoder(object):
             Delta.
         '''
         cdef int i = 0
+
+        for i in range(len(self.layerable_cnn_list)):
+            try:
+                delta_arr = self.layerable_cnn_list[i].convolve(delta_arr, no_bias_flag=True)
+            except:
+                self.__logger.debug("Backward raised error in Convolution layer " + str(i + 1))
+                raise
+
         layerable_cnn_list = self.__layerable_cnn_list[::-1]
         self.__logger.debug("-" * 100)
         for i in range(len(layerable_cnn_list)):

@@ -80,12 +80,17 @@ class ImageGenerator(FeatureGenerator):
                     test_data_arr = self.__read(self.__test_file_path_list[file_key])
                 else:
                     training_data_arr, test_data_arr = None, None
+                    training_file_key = np.random.randint(
+                        low=0,
+                        high=len(self.__training_file_path_list) - self.__seq_len
+                    )
+                    test_file_key = np.random.randint(
+                        low=0,
+                        high=len(self.__test_file_path_list) - self.__seq_len
+                    )
                     for seq in range(self.__seq_len):
-                        file_key = np.random.randint(low=0, high=len(self.__training_file_path_list) - self.__seq_len)
-                        seq_training_data_arr = self.__read(self.__training_file_path_list[file_key])
-
-                        file_key = np.random.randint(low=0, high=len(self.__test_file_path_list) - self.__seq_len)
-                        seq_test_data_arr = self.__read(self.__test_file_path_list[file_key])
+                        seq_training_data_arr = self.__read(self.__training_file_path_list[training_file_key+seq])
+                        seq_test_data_arr = self.__read(self.__test_file_path_list[test_file_key+seq])
                         
                         if training_data_arr is not None:
                             training_data_arr = np.r_[training_data_arr, seq_training_data_arr]

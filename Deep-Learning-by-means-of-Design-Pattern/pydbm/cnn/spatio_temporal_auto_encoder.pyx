@@ -587,9 +587,12 @@ class SpatioTemporalAutoEncoder(object):
         for seq in range(hidden_activity_arr.shape[1]):
             lstm_input_arr[:, seq] = np.dot(hidden_activity_arr[:, seq], self.__fully_connected_weight_arr.T)
 
-        conv_arr = self.__fully_connected_activation.activate(
-            conv_arr + lstm_input_arr.reshape((sample_n, seq_len, channel, width, height))
-        )
+        conv_arr = (conv_arr - conv_arr.min()) / (conv_arr.max() - conv_arr.min())
+        lstm_input_arr = (lstm_input_arr - lstm_input_arr.min()) / (lstm_input_arr.max() - lstm_input_arr.min())
+
+        conv_arr = conv_arr + lstm_input_arr.reshape((sample_n, seq_len, channel, width, height))
+        conv_arr = conv_arr - conv_arr.mean()
+        conv_arr = self.__fully_connected_activation.activate(conv_arr)
 
         layerable_cnn_list = self.__layerable_cnn_list[::-1]
         test_arr, _ = layerable_cnn_list[0].deconvolve(conv_arr[:, -1])

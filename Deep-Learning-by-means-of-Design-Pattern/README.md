@@ -122,7 +122,7 @@ and conditional distributions in other layers are as follows:
 
 The pre-training of DBN engages in a procedure of recursive learning in layer-by-layer. However, as you can see from the difference of graph structure, DBM is slightly different from DBN in the form of pre-training. For instance, if `r = 1`, the conditional distribution of visible layer is 
 
-<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/dbm_one_layer.png" />.</div>
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/conditional_distribution_of_visible_layer.png" />.</div>
 
 On the other hand, the conditional distribution in the intermediate layer is
 

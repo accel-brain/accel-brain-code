@@ -35,6 +35,7 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
         verificatable_result,
         double test_size_rate=0.3,
         tol=1e-15,
+        tld=10000.0,
         save_flag=False
     ):
         '''
@@ -57,6 +58,7 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
             opt_params:                     Optimization function.
             verificatable_result:           Verification function.
             tol:                            Tolerance for the optimization.
+            tld:                            Tolerance for deviation of loss.
             save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.
 
         '''
@@ -72,6 +74,7 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
             verificatable_result,
             test_size_rate,
             tol,
+            tld,
             save_flag
         )
 
@@ -139,27 +142,11 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
 
         for i in range(len(self.layerable_cnn_list)):
             try:
-                self.__logger.debug("Input shape in CNN layer: " + str(i + 1))
-                self.__logger.debug((
-                    img_arr.shape[0],
-                    img_arr.shape[1],
-                    img_arr.shape[2],
-                    img_arr.shape[3]
-                ))
                 img_arr = self.layerable_cnn_list[i].forward_propagate(img_arr)
             except:
                 self.__logger.debug("Error raised in CNN layer " + str(i + 1))
                 raise
 
-        self.__logger.debug("-" * 100)
-        self.__logger.debug("Propagated shape in CNN layer: " + str(i + 1))
-        self.__logger.debug((
-            img_arr.shape[0],
-            img_arr.shape[1],
-            img_arr.shape[2],
-            img_arr.shape[3]
-        ))
-        self.__logger.debug("-" * 100)
         if self.__learn_mode is True:
             img_arr = img_arr + _img_arr
             self.__logger.debug("Residual learning...")

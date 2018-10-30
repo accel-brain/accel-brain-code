@@ -40,6 +40,7 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         verificatable_result,
         double test_size_rate=0.3,
         tol=1e-15,
+        tld=100.0,
         save_flag=False
     ):
         '''
@@ -62,6 +63,7 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
             opt_params:                     Optimization function.
             verificatable_result:           Verification function.
             tol:                            Tolerance for the optimization.
+            tld:                            Tolerance for deviation of loss.
             save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.
 
         '''
@@ -77,6 +79,7 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
             verificatable_result,
             test_size_rate,
             tol,
+            tld,
             save_flag
         )
         for layerable_cnn in layerable_cnn_list:
@@ -92,6 +95,7 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
 
         self.__test_size_rate = test_size_rate
         self.__tol = tol
+        self.__tld = tld
 
         self.__memory_tuple_list = []
         
@@ -115,56 +119,21 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
             Propagated `np.ndarray`.
         '''
         cdef int i = 0
-        self.__logger.debug("-" * 100)
 
         for i in range(len(self.layerable_cnn_list)):
             try:
-                self.__logger.debug("Input shape in Convolution: " + str(i + 1))
-                self.__logger.debug((
-                    img_arr.shape[0],
-                    img_arr.shape[1],
-                    img_arr.shape[2],
-                    img_arr.shape[3]
-                ))
                 img_arr = self.layerable_cnn_list[i].convolve(img_arr)
             except:
                 self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
                 raise
 
-        self.__logger.debug("-" * 100)
-        self.__logger.debug("Propagated shape in Convolution: " + str(i + 1))
-        self.__logger.debug((
-            img_arr.shape[0],
-            img_arr.shape[1],
-            img_arr.shape[2],
-            img_arr.shape[3]
-        ))
-        self.__logger.debug("-" * 100)
-
         layerable_cnn_list = self.layerable_cnn_list[::-1]
         for i in range(len(layerable_cnn_list)):
             try:
-                self.__logger.debug("Input shape in Deconvolution: " + str(i + 1))
-                self.__logger.debug((
-                    img_arr.shape[0],
-                    img_arr.shape[1],
-                    img_arr.shape[2],
-                    img_arr.shape[3]
-                ))
                 img_arr, _ = layerable_cnn_list[i].deconvolve(img_arr)
             except:
                 self.__logger.debug("Error raised in Deconvolution layer " + str(i + 1))
                 raise
-
-        self.__logger.debug("-" * 100)
-        self.__logger.debug("Propagated shape in Deconvolution: " + str(i + 1))
-        self.__logger.debug((
-            img_arr.shape[0],
-            img_arr.shape[1],
-            img_arr.shape[2],
-            img_arr.shape[3]
-        ))
-        self.__logger.debug("-" * 100)
 
         return img_arr
 
@@ -190,17 +159,8 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
                 raise
         
         layerable_cnn_list = self.layerable_cnn_list[::-1]
-        self.__logger.debug("-" * 100)
         for i in range(len(layerable_cnn_list)):
             try:
-                self.__logger.debug("Input delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
-                self.__logger.debug((
-                    delta_arr.shape[0],
-                    delta_arr.shape[1],
-                    delta_arr.shape[2],
-                    delta_arr.shape[3]
-                ))
-
                 delta_arr = layerable_cnn_list[i].back_propagate(delta_arr)
             except:
                 self.__logger.debug(
@@ -208,13 +168,4 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
                 )
                 raise
 
-        self.__logger.debug("-" * 100)
-        self.__logger.debug("Propagated delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
-        self.__logger.debug((
-            delta_arr.shape[0],
-            delta_arr.shape[1],
-            delta_arr.shape[2],
-            delta_arr.shape[3]
-        ))
-        self.__logger.debug("-" * 100)
         return delta_arr

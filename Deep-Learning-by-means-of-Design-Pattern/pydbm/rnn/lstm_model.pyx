@@ -53,7 +53,8 @@ class LSTMModel(ReconstructableModel):
         computable_loss=None,
         opt_params=None,
         verificatable_result=None,
-        tol=1e-04
+        tol=1e-04,
+        tld=100.0
     ):
         '''
         Init for building LSTM networks.
@@ -79,6 +80,9 @@ class LSTMModel(ReconstructableModel):
                                             When the loss or score is not improving by at least tol 
                                             for two consecutive iterations, convergence is considered 
                                             to be reached and training stops.
+
+            tld:                            Tolerance for deviation of loss.
+
         '''
         self.graph = graph
 
@@ -109,6 +113,7 @@ class LSTMModel(ReconstructableModel):
 
         self.__test_size_rate = test_size_rate
         self.__tol = tol
+        self.__tld = tld
 
         self.__memory_tuple_list = []
 
@@ -196,6 +201,21 @@ class LSTMModel(ReconstructableModel):
                         pred_arr,
                         batch_target_arr[:, -1, :]
                     )
+                    remember_flag = False
+                    if len(loss_list) > 0:
+                        if abs(loss - (sum(loss_list)/len(loss_list))) > self.__tld:
+                            remember_flag = True
+
+                    if remember_flag is True:
+                        self.__remember_best_params(best_params_list)
+                        # Re-try.
+                        pred_arr = self.forward_propagation(batch_observed_arr)
+                        ver_pred_arr = pred_arr.copy()
+                        loss = self.__computable_loss.compute_loss(
+                            pred_arr,
+                            batch_target_arr[:, -1, :]
+                        )
+
                     delta_arr = self.__computable_loss.compute_delta(
                         pred_arr,
                         batch_target_arr[:, -1, :]
@@ -236,6 +256,22 @@ class LSTMModel(ReconstructableModel):
                     test_batch_target_arr = test_target_arr[rand_index]
 
                     test_pred_arr = self.forward_propagation(test_batch_observed_arr)
+
+                    test_loss = self.__computable_loss.compute_loss(
+                        test_pred_arr,
+                        test_batch_target_arr[:, -1, :]
+                    )
+
+                    remember_flag = False
+                    if len(loss_list) > 0:
+                        if abs(test_loss - (sum(loss_list)/len(loss_list))) > self.__tld:
+                            remember_flag = True
+
+                    if remember_flag is True:
+                        self.__remember_best_params(best_params_list)
+                        # Re-try.
+                        test_pred_arr = self.forward_propagation(test_batch_observed_arr)
+
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(
@@ -258,14 +294,24 @@ class LSTMModel(ReconstructableModel):
             self.__logger.debug("Eary stopping.")
             eary_stop_flag = False
 
-        self.graph.weights_output_arr = best_params_list[0]
-        self.graph.output_bias_arr = best_params_list[1]
-        self.graph.weights_lstm_hidden_arr = best_params_list[2]
-        self.graph.weights_lstm_observed_arr = best_params_list[3]
-        self.graph.lstm_bias_arr = best_params_list[4]
-        self.__logger.debug("Best params are saved.")
-
+        self.__remember_best_params(best_params_list)
         self.__logger.debug("end. ")
+
+    def __remember_best_params(self, best_params_list):
+        '''
+        Remember best parameters.
+        
+        Args:
+            best_params_list:    `list` of parameters.
+
+        '''
+        if len(best_params_list) > 0:
+            self.graph.weights_output_arr = best_params_list[0]
+            self.graph.output_bias_arr = best_params_list[1]
+            self.graph.weights_lstm_hidden_arr = best_params_list[2]
+            self.graph.weights_lstm_observed_arr = best_params_list[3]
+            self.graph.lstm_bias_arr = best_params_list[4]
+            self.__logger.debug("Best params are saved.")
 
     def forward_propagation(self, np.ndarray[DOUBLE_t, ndim=3] batch_observed_arr):
         '''

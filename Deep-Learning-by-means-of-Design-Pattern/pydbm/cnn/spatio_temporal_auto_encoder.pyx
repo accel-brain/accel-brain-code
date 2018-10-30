@@ -35,6 +35,7 @@ class SpatioTemporalAutoEncoder(object):
         int fully_connected_dim=100,
         fully_connected_activation=None,
         tol=1e-15,
+        tld=100.0,
         save_flag=False
     ):
         '''
@@ -59,6 +60,7 @@ class SpatioTemporalAutoEncoder(object):
             opt_params:                     Optimization function.
             verificatable_result:           Verification function.
             tol:                            Tolerance for the optimization.
+            tld:                            Tolerance for deviation of loss.
             save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.
 
         '''
@@ -110,10 +112,13 @@ class SpatioTemporalAutoEncoder(object):
             self.__fully_connected_activation = TanhFunction()
 
         self.__tol = tol
+        self.__tld = tld
 
         self.__memory_tuple_list = []
         
         self.__save_flag = save_flag
+        
+        self.__learn_flag = True
 
         logger = getLogger("pydbm")
         self.__logger = logger
@@ -188,6 +193,7 @@ class SpatioTemporalAutoEncoder(object):
         self.__decoder_best_params_list = []
         self.__temporal_min_loss = None
 
+        self.__learn_flag = True
         try:
             self.__memory_tuple_list = []
             loss_list = []
@@ -206,12 +212,29 @@ class SpatioTemporalAutoEncoder(object):
                 batch_target_arr = train_target_arr[rand_index]
 
                 try:
+                    self.__learn_flag = True
                     pred_arr = self.inference(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
                     loss = self.__computable_loss.compute_loss(
                         pred_arr[:, -1],
                         batch_target_arr[:, -1]
                     )
+
+                    remember_flag = False
+                    if len(loss_list) > 0:
+                        if abs(loss - (sum(loss_list)/len(loss_list))) > self.__tld:
+                            remember_flag = True
+
+                    if remember_flag is True:
+                        self.__remember_best_params(best_weight_params_list, best_bias_params_list)
+                        # Re-try.
+                        pred_arr = self.inference(batch_observed_arr)
+                        ver_pred_arr = pred_arr.copy()
+                        loss = self.__computable_loss.compute_loss(
+                            pred_arr[:, -1],
+                            batch_target_arr[:, -1]
+                        )
+                        
                     delta_arr = self.__computable_loss.compute_delta(
                         pred_arr[:, -1],
                         batch_target_arr[:, -1]
@@ -240,6 +263,7 @@ class SpatioTemporalAutoEncoder(object):
                         raise
 
                 if self.__test_size_rate > 0:
+                    self.__learn_flag = False
                     self.__opt_params.dropout_rate = 0.0
                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
                     test_batch_observed_arr = test_observed_arr[rand_index]
@@ -248,6 +272,24 @@ class SpatioTemporalAutoEncoder(object):
                     test_pred_arr = self.forward_propagation(
                         test_batch_observed_arr
                     )
+
+                    test_loss = self.__computable_loss.compute_loss(
+                        test_pred_arr[:, -1],
+                        test_batch_target_arr[:, -1]
+                    )
+
+                    remember_flag = False
+                    if len(loss_list) > 0:
+                        if abs(test_loss - (sum(loss_list)/len(loss_list))) > self.__tld:
+                            remember_flag = True
+
+                    if remember_flag is True:
+                        self.__remember_best_params(best_weight_params_list, best_bias_params_list)
+                        # Re-try.
+                        test_pred_arr = self.forward_propagation(
+                            test_batch_observed_arr
+                        )
+
                     if self.__save_flag is True:
                         np.save("test_pred_arr_" + str(epoch), test_pred_arr)
 
@@ -257,11 +299,14 @@ class SpatioTemporalAutoEncoder(object):
                             self.__logger.debug("Convolutional Auto-Encoder's loss.")
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=ver_pred_arr, 
-                                train_label_arr=batch_target_arr,
-                                test_pred_arr=test_pred_arr,
-                                test_label_arr=test_batch_target_arr
+                                train_pred_arr=ver_pred_arr[:, -1], 
+                                train_label_arr=batch_target_arr[:, -1],
+                                test_pred_arr=test_pred_arr[:, -1],
+                                test_label_arr=test_batch_target_arr[:, -1]
                             )
+                            self.__logger.debug("-" * 100)
+                            self.__logger.debug("Encoder/Decoder's loss: ")
+                            self.__logger.debug("Training: " + str(self.__encoder_decoder_loss) + " Test: " + str(self.__test_encoder_decoder_loss))
                             self.__logger.debug("-" * 100)
 
                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
@@ -276,27 +321,7 @@ class SpatioTemporalAutoEncoder(object):
             self.__logger.debug("Eary stopping.")
             eary_stop_flag = False
 
-        if len(best_weight_params_list) and len(best_bias_params_list):
-            for i in range(len(self.__layerable_cnn_list)):
-                self.__layerable_cnn_list[i].graph.weight_arr = best_weight_params_list[i]
-                self.__layerable_cnn_list[i].graph.bias_arr = best_bias_params_list[i]
-            self.__logger.debug("Convolutional Auto-Encoder's best params are saved.")
-
-        if len(self.__encoder_best_params_list) and len(self.__decoder_best_params_list):
-            self.__encoder.graph.weights_output_arr = self.__encoder_best_params_list[0]
-            self.__encoder.graph.output_bias_arr = self.__encoder_best_params_list[1]
-            self.__encoder.graph.weights_lstm_hidden_arr = self.__encoder_best_params_list[2]
-            self.__encoder.graph.weights_lstm_observed_arr = self.__encoder_best_params_list[3]
-            self.__encoder.graph.lstm_bias_arr = self.__encoder_best_params_list[4]
-
-            self.__decoder.graph.weights_output_arr = self.__decoder_best_params_list[0]
-            self.__decoder.graph.output_bias_arr = self.__decoder_best_params_list[1]
-            self.__decoder.graph.weights_lstm_hidden_arr = self.__decoder_best_params_list[2]
-            self.__decoder.graph.weights_lstm_observed_arr = self.__decoder_best_params_list[3]
-            self.__decoder.graph.lstm_bias_arr = self.__decoder_best_params_list[4]
-
-            self.__logger.debug("Encoder/Decoder's best params are saved.")
-
+        self.__remember_best_params(best_weight_params_list, best_bias_params_list)
         self.__logger.debug("end. ")
 
     def learn_generated(self, feature_generator):
@@ -339,6 +364,7 @@ class SpatioTemporalAutoEncoder(object):
         self.__decoder_best_params_list = []
         self.__temporal_min_loss = None
 
+        self.__learn_flag = True
         try:
             self.__memory_tuple_list = []
             loss_list = []
@@ -354,12 +380,30 @@ class SpatioTemporalAutoEncoder(object):
                 self.__now_epoch = epoch
                 self.__now_learning_rate = learning_rate
                 try:
+                    self.__learn_flag = True
                     pred_arr = self.inference(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
                     loss = self.__computable_loss.compute_loss(
                         pred_arr[:, -1],
                         batch_target_arr[:, -1]
                     )
+
+                    remember_flag = False
+                    if len(loss_list) > 0:
+                        if abs(loss - (sum(loss_list)/len(loss_list))) > self.__tld:
+                            remember_flag = True
+
+                    if remember_flag is True:
+                        self.__remember_best_params(best_weight_params_list, best_bias_params_list)
+                        # Re-try.
+                        self.__logger.debug("Re-try.")
+                        pred_arr = self.inference(batch_observed_arr)
+                        ver_pred_arr = pred_arr.copy()
+                        loss = self.__computable_loss.compute_loss(
+                            pred_arr[:, -1],
+                            batch_target_arr[:, -1]
+                        )
+
                     delta_arr = self.__computable_loss.compute_delta(
                         pred_arr[:, -1],
                         batch_target_arr[:, -1]
@@ -388,26 +432,45 @@ class SpatioTemporalAutoEncoder(object):
 
                 if self.__test_size_rate > 0:
                     self.__opt_params.dropout_rate = 0.0
+                    self.__learn_flag = False
                     test_pred_arr = self.forward_propagation(
                         test_batch_observed_arr
                     )
+                    test_loss = self.__computable_loss.compute_loss(
+                        test_pred_arr[:, -1],
+                        test_batch_target_arr[:, -1]
+                    )
+
+                    remember_flag = False
+                    if len(loss_list) > 0:
+                        if abs(test_loss - (sum(loss_list)/len(loss_list))) > self.__tld:
+                            remember_flag = True
+
+                    if remember_flag is True:
+                        self.__remember_best_params(best_weight_params_list, best_bias_params_list)
+                        # Re-try.
+                        self.__logger.debug("Re-try.")
+                        test_pred_arr = self.forward_propagation(
+                            test_batch_observed_arr
+                        )
+
                     if self.__save_flag is True:
                         np.save("test_pred_arr_" + str(epoch), test_pred_arr)
 
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
                             self.__logger.debug("-" * 100)
-                            self.__logger.debug("Convolutional Auto-Encoder's loss.")
+                            self.__logger.debug("Convolutional Auto-Encoder's loss:")
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=ver_pred_arr, 
-                                train_label_arr=batch_target_arr,
-                                test_pred_arr=test_pred_arr,
-                                test_label_arr=test_batch_target_arr
+                                train_pred_arr=ver_pred_arr[:, -1], 
+                                train_label_arr=batch_target_arr[:, -1],
+                                test_pred_arr=test_pred_arr[:, -1],
+                                test_label_arr=test_batch_target_arr[:, -1]
                             )
                             self.__logger.debug("-" * 100)
-                            self.__logger.debug("-" * 100)
-                            self.__logger.debug("Encoder/Decoder's loss: " + str(self.__encoder_decoder_loss))
+                            self.__logger.debug("Encoder/Decoder's loss: ")
+                            self.__logger.debug("Training: " + str(self.__encoder_decoder_loss) + " Test: " + str(self.__test_encoder_decoder_loss))
                             self.__logger.debug("-" * 100)
 
                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
@@ -422,12 +485,27 @@ class SpatioTemporalAutoEncoder(object):
             self.__logger.debug("Eary stopping.")
             eary_stop_flag = False
 
+        self.__remember_best_params(best_weight_params_list, best_bias_params_list)
+        self.__learn_flag = False
+        self.__logger.debug("end. ")
+
+    def __remember_best_params(self, best_weight_params_list, best_bias_params_list):
+        '''
+        Remember best parameters.
+        
+        Args:
+            best_weight_params_list:    `list` of weight parameters.
+            best_bias_params_list:      `list` of bias parameters.
+
+        '''
         if len(best_weight_params_list) and len(best_bias_params_list):
             for i in range(len(self.__layerable_cnn_list)):
                 self.__layerable_cnn_list[i].graph.weight_arr = best_weight_params_list[i]
                 self.__layerable_cnn_list[i].graph.bias_arr = best_bias_params_list[i]
             self.__logger.debug("Convolutional Auto-Encoder's best params are saved.")
-
+        else:
+            self.__logger.debug("Convolutional Auto-Encoder's best params are not saved.")
+            
         if len(self.__encoder_best_params_list) and len(self.__decoder_best_params_list):
             self.__encoder.graph.weights_output_arr = self.__encoder_best_params_list[0]
             self.__encoder.graph.output_bias_arr = self.__encoder_best_params_list[1]
@@ -442,8 +520,8 @@ class SpatioTemporalAutoEncoder(object):
             self.__decoder.graph.lstm_bias_arr = self.__decoder_best_params_list[4]
 
             self.__logger.debug("Encoder/Decoder's best params are saved.")
-
-        self.__logger.debug("end. ")
+        else:
+            self.__logger.debug("Encoder/Decoder's best params are not saved.")
 
     def inference(self, np.ndarray[DOUBLE_t, ndim=5] observed_arr):
         '''
@@ -539,39 +617,44 @@ class SpatioTemporalAutoEncoder(object):
             observed_arr[:, 0, :]
         )
 
-        self.__encoder_decoder_loss = loss
+        if self.__learn_flag is True:
+            self.__encoder_decoder_loss = loss
+        else:
+            self.__test_encoder_decoder_loss = loss
 
-        decoder_delta_arr, decoder_lstm_grads_list = self.__decoder.hidden_back_propagate(
-            delta_arr
-        )
-        encoder_delta_arr, encoder_lstm_grads_list = self.__encoder.hidden_back_propagate(
-            decoder_delta_arr[:, 0, :]
-        )
-        decoder_grads_list = [None, None]
-        [decoder_grads_list.append(d) for d in decoder_lstm_grads_list]
-        encoder_grads_list = [None, None]
-        [encoder_grads_list.append(d) for d in encoder_lstm_grads_list]
-        self.__decoder.optimize(decoder_grads_list, self.__now_learning_rate, self.__now_epoch)
-        self.__encoder.optimize(encoder_grads_list, self.__now_learning_rate, self.__now_epoch)
+        if self.__learn_flag is True:
+            self.__logger.debug("Encoder/Decoder's deltas are propagated.")
+            decoder_delta_arr, decoder_lstm_grads_list = self.__decoder.hidden_back_propagate(
+                delta_arr
+            )
+            encoder_delta_arr, encoder_lstm_grads_list = self.__encoder.hidden_back_propagate(
+                decoder_delta_arr[:, 0, :]
+            )
+            decoder_grads_list = [None, None]
+            [decoder_grads_list.append(d) for d in decoder_lstm_grads_list]
+            encoder_grads_list = [None, None]
+            [encoder_grads_list.append(d) for d in encoder_lstm_grads_list]
+            self.__decoder.optimize(decoder_grads_list, self.__now_learning_rate, self.__now_epoch)
+            self.__encoder.optimize(encoder_grads_list, self.__now_learning_rate, self.__now_epoch)
 
-        if self.__temporal_min_loss is None or self.__temporal_min_loss > loss:
-            self.__temporal_min_loss = loss
-            self.__encoder_best_params_list = [
-                self.__encoder.graph.weights_output_arr,
-                self.__encoder.graph.output_bias_arr,
-                self.__encoder.graph.weights_lstm_hidden_arr,
-                self.__encoder.graph.weights_lstm_observed_arr,
-                self.__encoder.graph.lstm_bias_arr
-            ]
-            self.__decoder_best_params_list = [
-                self.__decoder.graph.weights_output_arr,
-                self.__decoder.graph.output_bias_arr,
-                self.__decoder.graph.weights_lstm_hidden_arr,
-                self.__decoder.graph.weights_lstm_observed_arr,
-                self.__decoder.graph.lstm_bias_arr
-            ]
+            if self.__temporal_min_loss is None or self.__temporal_min_loss > self.__encoder_decoder_loss:
+                self.__temporal_min_loss = self.__encoder_decoder_loss
+                self.__encoder_best_params_list = [
+                    self.__encoder.graph.weights_output_arr,
+                    self.__encoder.graph.output_bias_arr,
+                    self.__encoder.graph.weights_lstm_hidden_arr,
+                    self.__encoder.graph.weights_lstm_observed_arr,
+                    self.__encoder.graph.lstm_bias_arr
+                ]
+                self.__decoder_best_params_list = [
+                    self.__decoder.graph.weights_output_arr,
+                    self.__decoder.graph.output_bias_arr,
+                    self.__decoder.graph.weights_lstm_hidden_arr,
+                    self.__decoder.graph.weights_lstm_observed_arr,
+                    self.__decoder.graph.lstm_bias_arr
+                ]
 
-            self.__logger.debug("Encoder/Decoder's best params are updated.")
+                self.__logger.debug("Encoder/Decoder's best params are updated.")
 
         self.__encoder.graph.hidden_activity_arr = np.array([])
         self.__encoder.graph.rnn_activity_arr = np.array([])
@@ -638,34 +721,15 @@ class SpatioTemporalAutoEncoder(object):
                 raise
 
         layerable_cnn_list = self.__layerable_cnn_list[::-1]
-        self.__logger.debug("-" * 100)
         for i in range(len(layerable_cnn_list)):
             try:
-                self.__logger.debug("Input delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
-                self.__logger.debug((
-                    delta_arr.shape[0],
-                    delta_arr.shape[1],
-                    delta_arr.shape[2],
-                    delta_arr.shape[3]
-                ))
-
                 delta_arr = layerable_cnn_list[i].back_propagate(delta_arr)
-
             except:
                 self.__logger.debug(
                     "Delta computation raised an error in CNN layer " + str(len(layerable_cnn_list) - i)
                 )
                 raise
 
-        self.__logger.debug("-" * 100)
-        self.__logger.debug("Propagated delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
-        self.__logger.debug((
-            delta_arr.shape[0],
-            delta_arr.shape[1],
-            delta_arr.shape[2],
-            delta_arr.shape[3]
-        ))
-        self.__logger.debug("-" * 100)
         return delta_arr
 
     def optimize(self, double learning_rate, int epoch):

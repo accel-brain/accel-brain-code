@@ -25,7 +25,8 @@ class EncoderDecoderController(object):
         double test_size_rate=0.3,
         computable_loss=None,
         verificatable_result=None,
-        tol=1e-04
+        tol=1e-04,
+        tld=100.0
     ):
         '''
         Init.
@@ -48,6 +49,8 @@ class EncoderDecoderController(object):
                                             When the loss or score is not improving by at least tol 
                                             for two consecutive iterations, convergence is considered 
                                             to be reached and training stops.
+
+            tld:                            Tolerance for deviation of loss.
 
         '''
         if isinstance(encoder, ReconstructableModel) is False:
@@ -74,6 +77,7 @@ class EncoderDecoderController(object):
         self.__verificatable_result = verificatable_result
 
         self.__tol = tol
+        self.__tld = tld
 
         logger = getLogger("pydbm")
         self.__logger = logger
@@ -140,10 +144,13 @@ class EncoderDecoderController(object):
         cdef np.ndarray[DOUBLE_t, ndim=3] encoder_delta_arr
         cdef np.ndarray[DOUBLE_t, ndim=3] decoder_delta_arr
 
+        encoder_best_params_list = []
+        decoder_best_params_list = []
         try:
             self.__memory_tuple_list = []
             eary_stop_flag = False
             loss_list = []
+            min_loss = None
             for epoch in range(self.__epochs):
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
                     learning_rate = learning_rate / self.__learning_attenuate_rate
@@ -158,14 +165,35 @@ class EncoderDecoderController(object):
                     )
                     hidden_activity_arr = self.__decoder.get_feature_points()[:, ::-1, :]
                     ver_hidden_activity_arr = hidden_activity_arr.copy()
-                    delta_arr = self.__computable_loss.compute_delta(
-                        hidden_activity_arr[:, 0, :],
-                        batch_target_arr[:, 0, :]
-                    )
                     loss = self.__computable_loss.compute_loss(
                         hidden_activity_arr[:, 0, :],
                         batch_target_arr[:, 0, :]
                     )
+                    
+                    remember_flag = False
+                    if len(loss_list) > 0:
+                        if abs(loss - (sum(loss_list)/len(loss_list))) > self.__tld:
+                            remember_flag = True
+
+                    if remember_flag is True:
+                        self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
+                        # Re-try.
+                        encoded_arr = self.__encoder.inference(batch_observed_arr)
+                        decoded_arr = self.__decoder.inference(
+                            self.__encoder.get_feature_points()[:, ::-1, :]
+                        )
+                        hidden_activity_arr = self.__decoder.get_feature_points()[:, ::-1, :]
+                        ver_hidden_activity_arr = hidden_activity_arr.copy()
+                        loss = self.__computable_loss.compute_loss(
+                            hidden_activity_arr[:, 0, :],
+                            batch_target_arr[:, 0, :]
+                        )
+
+                    delta_arr = self.__computable_loss.compute_delta(
+                        hidden_activity_arr[:, 0, :],
+                        batch_target_arr[:, 0, :]
+                    )
+
                     decoder_delta_arr, decoder_lstm_grads_list = self.__decoder.hidden_back_propagate(
                         delta_arr
                     )
@@ -179,6 +207,24 @@ class EncoderDecoderController(object):
 
                     self.__decoder.optimize(decoder_grads_list, learning_rate, epoch)
                     self.__encoder.optimize(encoder_grads_list, learning_rate, epoch)
+
+                    if min_loss is None or min_loss > loss:
+                        min_loss = loss
+                        encoder_best_params_list = [
+                            self.__encoder.graph.weights_output_arr,
+                            self.__encoder.graph.output_bias_arr,
+                            self.__encoder.graph.weights_lstm_hidden_arr,
+                            self.__encoder.graph.weights_lstm_observed_arr,
+                            self.__encoder.graph.lstm_bias_arr
+                        ]
+                        decoder_best_params_list = [
+                            self.__decoder.graph.weights_output_arr,
+                            self.__decoder.graph.output_bias_arr,
+                            self.__decoder.graph.weights_lstm_hidden_arr,
+                            self.__decoder.graph.weights_lstm_observed_arr,
+                            self.__decoder.graph.lstm_bias_arr
+                        ]
+                        self.__logger.debug("Best params are updated.")
 
                     self.__encoder.graph.hidden_activity_arr = np.array([])
                     self.__encoder.graph.rnn_activity_arr = np.array([])
@@ -208,6 +254,26 @@ class EncoderDecoderController(object):
                         self.__encoder.get_feature_points()[:, ::-1, :]
                     )
                     test_hidden_activity_arr = self.__decoder.get_feature_points()[:, ::-1, :]
+
+                    test_loss = self.__computable_loss.compute_loss(
+                        test_hidden_activity_arr[:, 0, :],
+                        test_batch_target_arr[:, 0, :]
+                    )
+
+                    remember_flag = False
+                    if len(loss_list) > 0:
+                        if abs(test_loss - (sum(loss_list)/len(loss_list))) > self.__tld:
+                            remember_flag = True
+
+                    if remember_flag is True:
+                        self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
+                        # Re-try.
+                        test_encoded_arr = self.__encoder.inference(test_batch_observed_arr)
+                        test_decoded_arr = self.__decoder.inference(
+                            self.__encoder.get_feature_points()[:, ::-1, :]
+                        )
+                        test_hidden_activity_arr = self.__decoder.get_feature_points()[:, ::-1, :]
+
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(
@@ -233,8 +299,34 @@ class EncoderDecoderController(object):
         if eary_stop_flag is True:
             self.__logger.debug("Early stopping.")
             eary_stop_flag = False
+        
+        self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
 
         self.__logger.debug("end. ")
+
+    def __remember_best_params(self, encoder_best_params_list, decoder_best_params_list):
+        '''
+        Remember best parameters.
+        
+        Args:
+            encoder_best_params_list:    `list` of encoder's parameters.
+            decoder_best_params_list:    `list` of decoder's parameters.
+
+        '''
+        if len(encoder_best_params_list) > 0 and len(decoder_best_params_list) > 0:
+            self.__encoder.graph.weights_output_arr = encoder_best_params_list[0]
+            self.__encoder.graph.output_bias_arr = encoder_best_params_list[1]
+            self.__encoder.graph.weights_lstm_hidden_arr = encoder_best_params_list[2]
+            self.__encoder.graph.weights_lstm_observed_arr = encoder_best_params_list[3]
+            self.__encoder.graph.lstm_bias_arr = encoder_best_params_list[4]
+
+            self.__decoder.graph.weights_output_arr = decoder_best_params_list[0]
+            self.__decoder.graph.output_bias_arr = decoder_best_params_list[1]
+            self.__decoder.graph.weights_lstm_hidden_arr = decoder_best_params_list[2]
+            self.__decoder.graph.weights_lstm_observed_arr = decoder_best_params_list[3]
+            self.__decoder.graph.lstm_bias_arr = decoder_best_params_list[4]
+
+            self.__logger.debug("Best params are saved.")
 
     def inference(
         self,

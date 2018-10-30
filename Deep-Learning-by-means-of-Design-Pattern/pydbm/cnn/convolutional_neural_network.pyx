@@ -28,6 +28,7 @@ class ConvolutionalNeuralNetwork(object):
         verificatable_result,
         double test_size_rate=0.3,
         tol=1e-15,
+        tld=100.0,
         save_flag=False
     ):
         '''
@@ -48,6 +49,7 @@ class ConvolutionalNeuralNetwork(object):
             opt_params:                     Optimization function.
             verificatable_result:           Verification function.
             tol:                            Tolerance for the optimization.
+            tld:                            Tolerance for deviation of loss.
             save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.
 
         '''
@@ -81,6 +83,7 @@ class ConvolutionalNeuralNetwork(object):
 
         self.__test_size_rate = test_size_rate
         self.__tol = tol
+        self.__tld = tld
 
         self.__memory_tuple_list = []
         
@@ -178,6 +181,22 @@ class ConvolutionalNeuralNetwork(object):
                         pred_arr,
                         batch_target_arr
                     )
+
+                    remember_flag = False
+                    if len(loss_list) > 0:
+                        if abs(loss - (sum(loss_list)/len(loss_list))) > self.__tld:
+                            remember_flag = True
+
+                    if remember_flag is True:
+                        self.__remember_best_params(best_weight_params_list, best_bias_params_list)
+                        # Re-try.
+                        pred_arr = self.inference(batch_observed_arr)
+                        ver_pred_arr = pred_arr.copy()
+                        loss = self.__computable_loss.compute_loss(
+                            pred_arr,
+                            batch_target_arr
+                        )
+
                     delta_arr = self.__computable_loss.compute_delta(
                         pred_arr,
                         batch_target_arr
@@ -214,6 +233,23 @@ class ConvolutionalNeuralNetwork(object):
                     test_pred_arr = self.forward_propagation(
                         test_batch_observed_arr
                     )
+                    test_loss = self.__computable_loss.compute_loss(
+                        test_pred_arr,
+                        test_batch_target_arr
+                    )
+
+                    remember_flag = False
+                    if len(loss_list) > 0:
+                        if abs(test_loss - (sum(loss_list)/len(loss_list))) > self.__tld:
+                            remember_flag = True
+
+                    if remember_flag is True:
+                        self.__remember_best_params(best_weight_params_list, best_bias_params_list)
+                        # Re-try
+                        test_pred_arr = self.forward_propagation(
+                            test_batch_observed_arr
+                        )
+
                     if self.__save_flag is True:
                         np.save("test_pred_arr_" + str(epoch), test_pred_arr)
 
@@ -239,12 +275,7 @@ class ConvolutionalNeuralNetwork(object):
             self.__logger.debug("Eary stopping.")
             eary_stop_flag = False
 
-        if len(best_weight_params_list) and len(best_bias_params_list):
-            for i in range(len(self.__layerable_cnn_list)):
-                self.__layerable_cnn_list[i].graph.weight_arr = best_weight_params_list[i]
-                self.__layerable_cnn_list[i].graph.bias_arr = best_bias_params_list[i]
-            self.__logger.debug("Best params are saved.")
-
+        self.__remember_best_params(best_weight_params_list, best_bias_params_list)
         self.__logger.debug("end. ")
 
     def learn_generated(self, feature_generator):
@@ -304,6 +335,22 @@ class ConvolutionalNeuralNetwork(object):
                         pred_arr,
                         batch_target_arr
                     )
+
+                    remember_flag = False
+                    if len(loss_list) > 0:
+                        if abs(loss - (sum(loss_list)/len(loss_list))) > self.__tld:
+                            remember_flag = True
+
+                    if remember_flag is True:
+                        self.__remember_best_params(best_weight_params_list, best_bias_params_list)
+                        # Re-try.
+                        pred_arr = self.inference(batch_observed_arr)
+                        ver_pred_arr = pred_arr.copy()
+                        loss = self.__computable_loss.compute_loss(
+                            pred_arr,
+                            batch_target_arr
+                        )
+
                     delta_arr = self.__computable_loss.compute_delta(
                         pred_arr,
                         batch_target_arr
@@ -335,6 +382,23 @@ class ConvolutionalNeuralNetwork(object):
                     test_pred_arr = self.forward_propagation(
                         test_batch_observed_arr
                     )
+                    test_loss = self.__computable_loss.compute_loss(
+                        test_pred_arr,
+                        test_batch_target_arr
+                    )
+
+                    remember_flag = False
+                    if len(loss_list) > 0:
+                        if abs(test_loss - (sum(loss_list)/len(loss_list))) > self.__tld:
+                            remember_flag = True
+
+                    if remember_flag is True:
+                        self.__remember_best_params(best_weight_params_list, best_bias_params_list)
+                        # Re-try
+                        test_pred_arr = self.forward_propagation(
+                            test_batch_observed_arr
+                        )
+
                     if self.__save_flag is True:
                         np.save("test_pred_arr_" + str(epoch), test_pred_arr)
 
@@ -360,13 +424,23 @@ class ConvolutionalNeuralNetwork(object):
             self.__logger.debug("Eary stopping.")
             eary_stop_flag = False
 
+        self.__remember_best_params(best_weight_params_list, best_bias_params_list)
+        self.__logger.debug("end. ")
+
+    def __remember_best_params(self, best_weight_params_list, best_bias_params_list):
+        '''
+        Remember best parameters.
+        
+        Args:
+            best_weight_params_list:    `list` of weight parameters.
+            best_bias_params_list:      `list` of bias parameters.
+
+        '''
         if len(best_weight_params_list) and len(best_bias_params_list):
             for i in range(len(self.__layerable_cnn_list)):
                 self.__layerable_cnn_list[i].graph.weight_arr = best_weight_params_list[i]
                 self.__layerable_cnn_list[i].graph.bias_arr = best_bias_params_list[i]
             self.__logger.debug("Best params are saved.")
-
-        self.__logger.debug("end. ")
 
     def inference(self, np.ndarray[DOUBLE_t, ndim=4] observed_arr):
         '''
@@ -396,30 +470,12 @@ class ConvolutionalNeuralNetwork(object):
             Propagated `np.ndarray`.
         '''
         cdef int i = 0
-        self.__logger.debug("-" * 100)
         for i in range(len(self.__layerable_cnn_list)):
             try:
-                self.__logger.debug("Input shape in CNN layer: " + str(i + 1))
-                self.__logger.debug((
-                    img_arr.shape[0],
-                    img_arr.shape[1],
-                    img_arr.shape[2],
-                    img_arr.shape[3]
-                ))
                 img_arr = self.__layerable_cnn_list[i].forward_propagate(img_arr)
             except:
                 self.__logger.debug("Error raised in CNN layer " + str(i + 1))
                 raise
-
-        self.__logger.debug("-" * 100)
-        self.__logger.debug("Propagated shape in CNN layer: " + str(i + 1))
-        self.__logger.debug((
-            img_arr.shape[0],
-            img_arr.shape[1],
-            img_arr.shape[2],
-            img_arr.shape[3]
-        ))
-        self.__logger.debug("-" * 100)
 
         return img_arr
 
@@ -435,34 +491,15 @@ class ConvolutionalNeuralNetwork(object):
         '''
         cdef int i = 0
         layerable_cnn_list = self.__layerable_cnn_list[::-1]
-        self.__logger.debug("-" * 100)
         for i in range(len(layerable_cnn_list)):
             try:
-                self.__logger.debug("Input delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
-                self.__logger.debug((
-                    delta_arr.shape[0],
-                    delta_arr.shape[1],
-                    delta_arr.shape[2],
-                    delta_arr.shape[3]
-                ))
-
                 delta_arr = layerable_cnn_list[i].back_propagate(delta_arr)
-
             except:
                 self.__logger.debug(
                     "Delta computation raised an error in CNN layer " + str(len(layerable_cnn_list) - i)
                 )
                 raise
 
-        self.__logger.debug("-" * 100)
-        self.__logger.debug("Propagated delta shape in CNN layer: " + str(len(layerable_cnn_list) - i))
-        self.__logger.debug((
-            delta_arr.shape[0],
-            delta_arr.shape[1],
-            delta_arr.shape[2],
-            delta_arr.shape[3]
-        ))
-        self.__logger.debug("-" * 100)
         return delta_arr
 
     def optimize(self, double learning_rate, int epoch):

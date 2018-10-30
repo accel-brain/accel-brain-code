@@ -760,7 +760,9 @@ struct __pyx_obj_5pydbm_3cnn_16featuregenerator_15image_generator___pyx_scope_st
   PyObject *__pyx_v_seq_test_data_arr;
   PyObject *__pyx_v_seq_training_data_arr;
   PyObject *__pyx_v_test_data_arr;
+  PyObject *__pyx_v_test_file_key;
   PyObject *__pyx_v_training_data_arr;
+  PyObject *__pyx_v_training_file_key;
   PyObject *__pyx_t_0;
   Py_ssize_t __pyx_t_1;
   PyObject *(*__pyx_t_2)(PyObject *);
@@ -1291,6 +1293,7 @@ static const char __pyx_k_get_epochs[] = "get_epochs";
 static const char __pyx_k_expand_dims[] = "expand_dims";
 static const char __pyx_k_set_readonly[] = "set_readonly";
 static const char __pyx_k_test_data_arr[] = "_test_data_arr";
+static const char __pyx_k_test_file_key[] = "test_file_key";
 static const char __pyx_k_wh_size_tuple[] = "wh_size_tuple";
 static const char __pyx_k_ImageGenerator[] = "ImageGenerator";
 static const char __pyx_k_file_name_list[] = "file_name_list";
@@ -1301,6 +1304,7 @@ static const char __pyx_k_test_data_arr_2[] = "test_data_arr";
 static const char __pyx_k_FeatureGenerator[] = "FeatureGenerator";
 static const char __pyx_k_seq_test_data_arr[] = "seq_test_data_arr";
 static const char __pyx_k_training_data_arr[] = "_training_data_arr";
+static const char __pyx_k_training_file_key[] = "training_file_key";
 static const char __pyx_k_Generate_test_data[] = "Generate test data: ";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_training_image_dir[] = "training_image_dir";
@@ -1427,10 +1431,12 @@ static PyObject *__pyx_n_s_std;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_test_data_arr;
 static PyObject *__pyx_n_s_test_data_arr_2;
+static PyObject *__pyx_n_s_test_file_key;
 static PyObject *__pyx_n_s_test_image_dir;
 static PyObject *__pyx_n_s_throw;
 static PyObject *__pyx_n_s_training_data_arr;
 static PyObject *__pyx_n_s_training_data_arr_2;
+static PyObject *__pyx_n_s_training_file_key;
 static PyObject *__pyx_n_s_training_image_dir;
 static PyObject *__pyx_n_s_transpose;
 static PyObject *__pyx_n_s_value;
@@ -2192,8 +2198,7 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   PyObject *__pyx_t_13 = NULL;
   PyObject *__pyx_t_14 = NULL;
   PyObject *(*__pyx_t_15)(PyObject *);
-  Py_ssize_t __pyx_t_16;
-  PyObject *__pyx_t_17 = NULL;
+  PyObject *__pyx_t_16 = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("generate", 0);
   switch (__pyx_generator->resume_label) {
@@ -2578,8 +2583,8 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
  *                     test_data_arr = self.__read(self.__test_file_path_list[file_key])
  *                 else:
  *                     training_data_arr, test_data_arr = None, None             # <<<<<<<<<<<<<<
- *                     for seq in range(self.__seq_len):
- *                         file_key = np.random.randint(low=0, high=len(self.__training_file_path_list) - self.__seq_len)
+ *                     training_file_key = np.random.randint(
+ *                         low=0,
  */
       /*else*/ {
         __pyx_t_14 = Py_None;
@@ -2598,279 +2603,333 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
         /* "pydbm/cnn/featuregenerator/image_generator.pyx":83
  *                 else:
  *                     training_data_arr, test_data_arr = None, None
- *                     for seq in range(self.__seq_len):             # <<<<<<<<<<<<<<
- *                         file_key = np.random.randint(low=0, high=len(self.__training_file_path_list) - self.__seq_len)
- *                         seq_training_data_arr = self.__read(self.__training_file_path_list[file_key])
+ *                     training_file_key = np.random.randint(             # <<<<<<<<<<<<<<
+ *                         low=0,
+ *                         high=len(self.__training_file_path_list) - self.__seq_len
  */
-        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__seq_len); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 83, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 83, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
-        __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 83, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_random); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 83, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
-        __Pyx_GIVEREF(__pyx_t_10);
-        PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_10);
-        __pyx_t_10 = 0;
-        __pyx_t_10 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_14, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 83, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_randint); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 83, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-        if (likely(PyList_CheckExact(__pyx_t_10)) || PyTuple_CheckExact(__pyx_t_10)) {
-          __pyx_t_14 = __pyx_t_10; __Pyx_INCREF(__pyx_t_14); __pyx_t_12 = 0;
+
+        /* "pydbm/cnn/featuregenerator/image_generator.pyx":84
+ *                     training_data_arr, test_data_arr = None, None
+ *                     training_file_key = np.random.randint(
+ *                         low=0,             # <<<<<<<<<<<<<<
+ *                         high=len(self.__training_file_path_list) - self.__seq_len
+ *                     )
+ */
+        __pyx_t_14 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 84, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_14);
+        if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_low, __pyx_int_0) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
+
+        /* "pydbm/cnn/featuregenerator/image_generator.pyx":85
+ *                     training_file_key = np.random.randint(
+ *                         low=0,
+ *                         high=len(self.__training_file_path_list) - self.__seq_len             # <<<<<<<<<<<<<<
+ *                     )
+ *                     test_file_key = np.random.randint(
+ */
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__training_file_p); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 85, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __pyx_t_12 = PyObject_Length(__pyx_t_5); if (unlikely(__pyx_t_12 == ((Py_ssize_t)-1))) __PYX_ERR(0, 85, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __pyx_t_5 = PyInt_FromSsize_t(__pyx_t_12); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 85, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__seq_len); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 85, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_13);
+        __pyx_t_11 = PyNumber_Subtract(__pyx_t_5, __pyx_t_13); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 85, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_11);
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+        if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_high, __pyx_t_11) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+
+        /* "pydbm/cnn/featuregenerator/image_generator.pyx":83
+ *                 else:
+ *                     training_data_arr, test_data_arr = None, None
+ *                     training_file_key = np.random.randint(             # <<<<<<<<<<<<<<
+ *                         low=0,
+ *                         high=len(self.__training_file_path_list) - self.__seq_len
+ */
+        __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_empty_tuple, __pyx_t_14); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 83, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_11);
+        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+        __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+        __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_training_file_key);
+        __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_training_file_key, __pyx_t_11);
+        __Pyx_GIVEREF(__pyx_t_11);
+        __pyx_t_11 = 0;
+
+        /* "pydbm/cnn/featuregenerator/image_generator.pyx":87
+ *                         high=len(self.__training_file_path_list) - self.__seq_len
+ *                     )
+ *                     test_file_key = np.random.randint(             # <<<<<<<<<<<<<<
+ *                         low=0,
+ *                         high=len(self.__test_file_path_list) - self.__seq_len
+ */
+        __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 87, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_11);
+        __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_random); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 87, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_14);
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_randint); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 87, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_11);
+        __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+
+        /* "pydbm/cnn/featuregenerator/image_generator.pyx":88
+ *                     )
+ *                     test_file_key = np.random.randint(
+ *                         low=0,             # <<<<<<<<<<<<<<
+ *                         high=len(self.__test_file_path_list) - self.__seq_len
+ *                     )
+ */
+        __pyx_t_14 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 88, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_14);
+        if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_low, __pyx_int_0) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
+
+        /* "pydbm/cnn/featuregenerator/image_generator.pyx":89
+ *                     test_file_key = np.random.randint(
+ *                         low=0,
+ *                         high=len(self.__test_file_path_list) - self.__seq_len             # <<<<<<<<<<<<<<
+ *                     )
+ *                     for seq in range(self.__seq_len):
+ */
+        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__test_file_path); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 89, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_10);
+        __pyx_t_12 = PyObject_Length(__pyx_t_10); if (unlikely(__pyx_t_12 == ((Py_ssize_t)-1))) __PYX_ERR(0, 89, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+        __pyx_t_10 = PyInt_FromSsize_t(__pyx_t_12); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 89, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_10);
+        __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__seq_len); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 89, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_13);
+        __pyx_t_5 = PyNumber_Subtract(__pyx_t_10, __pyx_t_13); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 89, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+        __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+        if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_high, __pyx_t_5) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+        /* "pydbm/cnn/featuregenerator/image_generator.pyx":87
+ *                         high=len(self.__training_file_path_list) - self.__seq_len
+ *                     )
+ *                     test_file_key = np.random.randint(             # <<<<<<<<<<<<<<
+ *                         low=0,
+ *                         high=len(self.__test_file_path_list) - self.__seq_len
+ */
+        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_empty_tuple, __pyx_t_14); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 87, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+        __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+        __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_test_file_key);
+        __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_test_file_key, __pyx_t_5);
+        __Pyx_GIVEREF(__pyx_t_5);
+        __pyx_t_5 = 0;
+
+        /* "pydbm/cnn/featuregenerator/image_generator.pyx":91
+ *                         high=len(self.__test_file_path_list) - self.__seq_len
+ *                     )
+ *                     for seq in range(self.__seq_len):             # <<<<<<<<<<<<<<
+ *                         seq_training_data_arr = self.__read(self.__training_file_path_list[training_file_key+seq])
+ *                         seq_test_data_arr = self.__read(self.__test_file_path_list[test_file_key+seq])
+ */
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__seq_len); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 91, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 91, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_14);
+        __Pyx_GIVEREF(__pyx_t_5);
+        PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_5);
+        __pyx_t_5 = 0;
+        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_14, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 91, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+        if (likely(PyList_CheckExact(__pyx_t_5)) || PyTuple_CheckExact(__pyx_t_5)) {
+          __pyx_t_14 = __pyx_t_5; __Pyx_INCREF(__pyx_t_14); __pyx_t_12 = 0;
           __pyx_t_15 = NULL;
         } else {
-          __pyx_t_12 = -1; __pyx_t_14 = PyObject_GetIter(__pyx_t_10); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 83, __pyx_L1_error)
+          __pyx_t_12 = -1; __pyx_t_14 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 91, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_14);
-          __pyx_t_15 = Py_TYPE(__pyx_t_14)->tp_iternext; if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 83, __pyx_L1_error)
+          __pyx_t_15 = Py_TYPE(__pyx_t_14)->tp_iternext; if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 91, __pyx_L1_error)
         }
-        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         for (;;) {
           if (likely(!__pyx_t_15)) {
             if (likely(PyList_CheckExact(__pyx_t_14))) {
               if (__pyx_t_12 >= PyList_GET_SIZE(__pyx_t_14)) break;
               #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-              __pyx_t_10 = PyList_GET_ITEM(__pyx_t_14, __pyx_t_12); __Pyx_INCREF(__pyx_t_10); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 83, __pyx_L1_error)
+              __pyx_t_5 = PyList_GET_ITEM(__pyx_t_14, __pyx_t_12); __Pyx_INCREF(__pyx_t_5); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 91, __pyx_L1_error)
               #else
-              __pyx_t_10 = PySequence_ITEM(__pyx_t_14, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 83, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_10);
+              __pyx_t_5 = PySequence_ITEM(__pyx_t_14, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 91, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_5);
               #endif
             } else {
               if (__pyx_t_12 >= PyTuple_GET_SIZE(__pyx_t_14)) break;
               #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-              __pyx_t_10 = PyTuple_GET_ITEM(__pyx_t_14, __pyx_t_12); __Pyx_INCREF(__pyx_t_10); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 83, __pyx_L1_error)
+              __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_14, __pyx_t_12); __Pyx_INCREF(__pyx_t_5); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 91, __pyx_L1_error)
               #else
-              __pyx_t_10 = PySequence_ITEM(__pyx_t_14, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 83, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_10);
+              __pyx_t_5 = PySequence_ITEM(__pyx_t_14, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 91, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_5);
               #endif
             }
           } else {
-            __pyx_t_10 = __pyx_t_15(__pyx_t_14);
-            if (unlikely(!__pyx_t_10)) {
+            __pyx_t_5 = __pyx_t_15(__pyx_t_14);
+            if (unlikely(!__pyx_t_5)) {
               PyObject* exc_type = PyErr_Occurred();
               if (exc_type) {
                 if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                else __PYX_ERR(0, 83, __pyx_L1_error)
+                else __PYX_ERR(0, 91, __pyx_L1_error)
               }
               break;
             }
-            __Pyx_GOTREF(__pyx_t_10);
+            __Pyx_GOTREF(__pyx_t_5);
           }
           __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_seq);
-          __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_seq, __pyx_t_10);
-          __Pyx_GIVEREF(__pyx_t_10);
-          __pyx_t_10 = 0;
+          __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_seq, __pyx_t_5);
+          __Pyx_GIVEREF(__pyx_t_5);
+          __pyx_t_5 = 0;
 
-          /* "pydbm/cnn/featuregenerator/image_generator.pyx":84
- *                     training_data_arr, test_data_arr = None, None
+          /* "pydbm/cnn/featuregenerator/image_generator.pyx":92
+ *                     )
  *                     for seq in range(self.__seq_len):
- *                         file_key = np.random.randint(low=0, high=len(self.__training_file_path_list) - self.__seq_len)             # <<<<<<<<<<<<<<
- *                         seq_training_data_arr = self.__read(self.__training_file_path_list[file_key])
+ *                         seq_training_data_arr = self.__read(self.__training_file_path_list[training_file_key+seq])             # <<<<<<<<<<<<<<
+ *                         seq_test_data_arr = self.__read(self.__test_file_path_list[test_file_key+seq])
  * 
  */
-          __pyx_t_10 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 84, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_10);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_random); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 84, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-          __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_randint); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 84, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_10);
-          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __pyx_t_5 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 84, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_low, __pyx_int_0) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
-          __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__training_file_p); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 84, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_16 = PyObject_Length(__pyx_t_13); if (unlikely(__pyx_t_16 == ((Py_ssize_t)-1))) __PYX_ERR(0, 84, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-          __pyx_t_13 = PyInt_FromSsize_t(__pyx_t_16); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 84, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__seq_len); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 84, __pyx_L1_error)
+          __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__read); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 92, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_17 = PyNumber_Subtract(__pyx_t_13, __pyx_t_11); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 84, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-          __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-          if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_high, __pyx_t_17) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_empty_tuple, __pyx_t_5); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 84, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_file_key);
-          __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_file_key, __pyx_t_17);
-          __Pyx_GIVEREF(__pyx_t_17);
-          __pyx_t_17 = 0;
-
-          /* "pydbm/cnn/featuregenerator/image_generator.pyx":85
- *                     for seq in range(self.__seq_len):
- *                         file_key = np.random.randint(low=0, high=len(self.__training_file_path_list) - self.__seq_len)
- *                         seq_training_data_arr = self.__read(self.__training_file_path_list[file_key])             # <<<<<<<<<<<<<<
- * 
- *                         file_key = np.random.randint(low=0, high=len(self.__test_file_path_list) - self.__seq_len)
- */
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__read); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 85, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__training_file_p); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 85, __pyx_L1_error)
+          __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__training_file_p); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 92, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_13);
+          __pyx_t_10 = PyNumber_Add(__pyx_cur_scope->__pyx_v_training_file_key, __pyx_cur_scope->__pyx_v_seq); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 92, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_10);
-          __pyx_t_11 = PyObject_GetItem(__pyx_t_10, __pyx_cur_scope->__pyx_v_file_key); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 85, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_11);
+          __pyx_t_16 = PyObject_GetItem(__pyx_t_13, __pyx_t_10); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 92, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_16);
+          __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
           __pyx_t_10 = NULL;
-          if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
-            __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_5);
+          if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_11))) {
+            __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_11);
             if (likely(__pyx_t_10)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_11);
               __Pyx_INCREF(__pyx_t_10);
               __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_5, function);
+              __Pyx_DECREF_SET(__pyx_t_11, function);
             }
           }
           if (!__pyx_t_10) {
-            __pyx_t_17 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_11); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 85, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-            __Pyx_GOTREF(__pyx_t_17);
+            __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_t_16); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 92, __pyx_L1_error)
+            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+            __Pyx_GOTREF(__pyx_t_5);
           } else {
             #if CYTHON_FAST_PYCALL
-            if (PyFunction_Check(__pyx_t_5)) {
-              PyObject *__pyx_temp[2] = {__pyx_t_10, __pyx_t_11};
-              __pyx_t_17 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 85, __pyx_L1_error)
+            if (PyFunction_Check(__pyx_t_11)) {
+              PyObject *__pyx_temp[2] = {__pyx_t_10, __pyx_t_16};
+              __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 92, __pyx_L1_error)
               __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
-              __Pyx_GOTREF(__pyx_t_17);
-              __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+              __Pyx_GOTREF(__pyx_t_5);
+              __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
             } else
             #endif
             #if CYTHON_FAST_PYCCALL
-            if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
-              PyObject *__pyx_temp[2] = {__pyx_t_10, __pyx_t_11};
-              __pyx_t_17 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 85, __pyx_L1_error)
+            if (__Pyx_PyFastCFunction_Check(__pyx_t_11)) {
+              PyObject *__pyx_temp[2] = {__pyx_t_10, __pyx_t_16};
+              __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 92, __pyx_L1_error)
               __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
-              __Pyx_GOTREF(__pyx_t_17);
-              __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+              __Pyx_GOTREF(__pyx_t_5);
+              __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
             } else
             #endif
             {
-              __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 85, __pyx_L1_error)
+              __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 92, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_13);
               __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_10); __pyx_t_10 = NULL;
-              __Pyx_GIVEREF(__pyx_t_11);
-              PyTuple_SET_ITEM(__pyx_t_13, 0+1, __pyx_t_11);
-              __pyx_t_11 = 0;
-              __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_13, NULL); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 85, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_17);
+              __Pyx_GIVEREF(__pyx_t_16);
+              PyTuple_SET_ITEM(__pyx_t_13, 0+1, __pyx_t_16);
+              __pyx_t_16 = 0;
+              __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_13, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 92, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_5);
               __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
             }
           }
-          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_seq_training_data_arr);
-          __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_seq_training_data_arr, __pyx_t_17);
-          __Pyx_GIVEREF(__pyx_t_17);
-          __pyx_t_17 = 0;
-
-          /* "pydbm/cnn/featuregenerator/image_generator.pyx":87
- *                         seq_training_data_arr = self.__read(self.__training_file_path_list[file_key])
- * 
- *                         file_key = np.random.randint(low=0, high=len(self.__test_file_path_list) - self.__seq_len)             # <<<<<<<<<<<<<<
- *                         seq_test_data_arr = self.__read(self.__test_file_path_list[file_key])
- * 
- */
-          __pyx_t_17 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 87, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_random); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 87, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_randint); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 87, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __pyx_t_5 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 87, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_low, __pyx_int_0) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
-          __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__test_file_path); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 87, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_16 = PyObject_Length(__pyx_t_13); if (unlikely(__pyx_t_16 == ((Py_ssize_t)-1))) __PYX_ERR(0, 87, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-          __pyx_t_13 = PyInt_FromSsize_t(__pyx_t_16); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 87, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__seq_len); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 87, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_10 = PyNumber_Subtract(__pyx_t_13, __pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 87, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_10);
-          __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-          if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_high, __pyx_t_10) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-          __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_empty_tuple, __pyx_t_5); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 87, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_10);
-          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __Pyx_GOTREF(__pyx_cur_scope->__pyx_v_file_key);
-          __Pyx_DECREF_SET(__pyx_cur_scope->__pyx_v_file_key, __pyx_t_10);
-          __Pyx_GIVEREF(__pyx_t_10);
-          __pyx_t_10 = 0;
+          __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_seq_training_data_arr);
+          __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_seq_training_data_arr, __pyx_t_5);
+          __Pyx_GIVEREF(__pyx_t_5);
+          __pyx_t_5 = 0;
 
-          /* "pydbm/cnn/featuregenerator/image_generator.pyx":88
- * 
- *                         file_key = np.random.randint(low=0, high=len(self.__test_file_path_list) - self.__seq_len)
- *                         seq_test_data_arr = self.__read(self.__test_file_path_list[file_key])             # <<<<<<<<<<<<<<
+          /* "pydbm/cnn/featuregenerator/image_generator.pyx":93
+ *                     for seq in range(self.__seq_len):
+ *                         seq_training_data_arr = self.__read(self.__training_file_path_list[training_file_key+seq])
+ *                         seq_test_data_arr = self.__read(self.__test_file_path_list[test_file_key+seq])             # <<<<<<<<<<<<<<
  * 
  *                         if training_data_arr is not None:
  */
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__read); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 88, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__test_file_path); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 88, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __pyx_t_11 = PyObject_GetItem(__pyx_t_17, __pyx_cur_scope->__pyx_v_file_key); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 88, __pyx_L1_error)
+          __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__read); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 93, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_11);
-          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          __pyx_t_17 = NULL;
-          if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
-            __pyx_t_17 = PyMethod_GET_SELF(__pyx_t_5);
-            if (likely(__pyx_t_17)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-              __Pyx_INCREF(__pyx_t_17);
+          __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__test_file_path); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 93, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_13);
+          __pyx_t_16 = PyNumber_Add(__pyx_cur_scope->__pyx_v_test_file_key, __pyx_cur_scope->__pyx_v_seq); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 93, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_16);
+          __pyx_t_10 = PyObject_GetItem(__pyx_t_13, __pyx_t_16); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 93, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_10);
+          __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+          __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+          __pyx_t_16 = NULL;
+          if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_11))) {
+            __pyx_t_16 = PyMethod_GET_SELF(__pyx_t_11);
+            if (likely(__pyx_t_16)) {
+              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_11);
+              __Pyx_INCREF(__pyx_t_16);
               __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_5, function);
+              __Pyx_DECREF_SET(__pyx_t_11, function);
             }
           }
-          if (!__pyx_t_17) {
-            __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 88, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-            __Pyx_GOTREF(__pyx_t_10);
+          if (!__pyx_t_16) {
+            __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 93, __pyx_L1_error)
+            __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+            __Pyx_GOTREF(__pyx_t_5);
           } else {
             #if CYTHON_FAST_PYCALL
-            if (PyFunction_Check(__pyx_t_5)) {
-              PyObject *__pyx_temp[2] = {__pyx_t_17, __pyx_t_11};
-              __pyx_t_10 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 88, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_GOTREF(__pyx_t_10);
-              __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+            if (PyFunction_Check(__pyx_t_11)) {
+              PyObject *__pyx_temp[2] = {__pyx_t_16, __pyx_t_10};
+              __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 93, __pyx_L1_error)
+              __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
+              __Pyx_GOTREF(__pyx_t_5);
+              __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
             } else
             #endif
             #if CYTHON_FAST_PYCCALL
-            if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
-              PyObject *__pyx_temp[2] = {__pyx_t_17, __pyx_t_11};
-              __pyx_t_10 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 88, __pyx_L1_error)
-              __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_GOTREF(__pyx_t_10);
-              __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+            if (__Pyx_PyFastCFunction_Check(__pyx_t_11)) {
+              PyObject *__pyx_temp[2] = {__pyx_t_16, __pyx_t_10};
+              __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 93, __pyx_L1_error)
+              __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
+              __Pyx_GOTREF(__pyx_t_5);
+              __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
             } else
             #endif
             {
-              __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 88, __pyx_L1_error)
+              __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 93, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_13);
-              __Pyx_GIVEREF(__pyx_t_17); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_17); __pyx_t_17 = NULL;
-              __Pyx_GIVEREF(__pyx_t_11);
-              PyTuple_SET_ITEM(__pyx_t_13, 0+1, __pyx_t_11);
-              __pyx_t_11 = 0;
-              __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_13, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 88, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_10);
+              __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_16); __pyx_t_16 = NULL;
+              __Pyx_GIVEREF(__pyx_t_10);
+              PyTuple_SET_ITEM(__pyx_t_13, 0+1, __pyx_t_10);
+              __pyx_t_10 = 0;
+              __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_13, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 93, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_5);
               __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
             }
           }
-          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+          __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_seq_test_data_arr);
-          __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_seq_test_data_arr, __pyx_t_10);
-          __Pyx_GIVEREF(__pyx_t_10);
-          __pyx_t_10 = 0;
+          __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_seq_test_data_arr, __pyx_t_5);
+          __Pyx_GIVEREF(__pyx_t_5);
+          __pyx_t_5 = 0;
 
-          /* "pydbm/cnn/featuregenerator/image_generator.pyx":90
- *                         seq_test_data_arr = self.__read(self.__test_file_path_list[file_key])
+          /* "pydbm/cnn/featuregenerator/image_generator.pyx":95
+ *                         seq_test_data_arr = self.__read(self.__test_file_path_list[test_file_key+seq])
  * 
  *                         if training_data_arr is not None:             # <<<<<<<<<<<<<<
  *                             training_data_arr = np.r_[training_data_arr, seq_training_data_arr]
@@ -2880,37 +2939,37 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
           __pyx_t_8 = (__pyx_t_9 != 0);
           if (__pyx_t_8) {
 
-            /* "pydbm/cnn/featuregenerator/image_generator.pyx":91
+            /* "pydbm/cnn/featuregenerator/image_generator.pyx":96
  * 
  *                         if training_data_arr is not None:
  *                             training_data_arr = np.r_[training_data_arr, seq_training_data_arr]             # <<<<<<<<<<<<<<
  *                         else:
  *                             training_data_arr = seq_training_data_arr
  */
-            __pyx_t_10 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 91, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_10);
-            __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_r); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 91, __pyx_L1_error)
+            __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_5);
-            __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-            __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 91, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_10);
+            __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_r); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 96, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_11);
+            __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+            __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_5);
             __Pyx_INCREF(__pyx_cur_scope->__pyx_v_training_data_arr);
             __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_training_data_arr);
-            PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_cur_scope->__pyx_v_training_data_arr);
+            PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_cur_scope->__pyx_v_training_data_arr);
             __Pyx_INCREF(__pyx_cur_scope->__pyx_v_seq_training_data_arr);
             __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_seq_training_data_arr);
-            PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_cur_scope->__pyx_v_seq_training_data_arr);
-            __pyx_t_13 = PyObject_GetItem(__pyx_t_5, __pyx_t_10); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 91, __pyx_L1_error)
+            PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_cur_scope->__pyx_v_seq_training_data_arr);
+            __pyx_t_13 = PyObject_GetItem(__pyx_t_11, __pyx_t_5); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 96, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_13);
+            __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-            __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
             __Pyx_GOTREF(__pyx_cur_scope->__pyx_v_training_data_arr);
             __Pyx_DECREF_SET(__pyx_cur_scope->__pyx_v_training_data_arr, __pyx_t_13);
             __Pyx_GIVEREF(__pyx_t_13);
             __pyx_t_13 = 0;
 
-            /* "pydbm/cnn/featuregenerator/image_generator.pyx":90
- *                         seq_test_data_arr = self.__read(self.__test_file_path_list[file_key])
+            /* "pydbm/cnn/featuregenerator/image_generator.pyx":95
+ *                         seq_test_data_arr = self.__read(self.__test_file_path_list[test_file_key+seq])
  * 
  *                         if training_data_arr is not None:             # <<<<<<<<<<<<<<
  *                             training_data_arr = np.r_[training_data_arr, seq_training_data_arr]
@@ -2919,7 +2978,7 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
             goto __pyx_L11;
           }
 
-          /* "pydbm/cnn/featuregenerator/image_generator.pyx":93
+          /* "pydbm/cnn/featuregenerator/image_generator.pyx":98
  *                             training_data_arr = np.r_[training_data_arr, seq_training_data_arr]
  *                         else:
  *                             training_data_arr = seq_training_data_arr             # <<<<<<<<<<<<<<
@@ -2934,7 +2993,7 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
           }
           __pyx_L11:;
 
-          /* "pydbm/cnn/featuregenerator/image_generator.pyx":95
+          /* "pydbm/cnn/featuregenerator/image_generator.pyx":100
  *                             training_data_arr = seq_training_data_arr
  * 
  *                         if test_data_arr is not None:             # <<<<<<<<<<<<<<
@@ -2945,19 +3004,19 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
           __pyx_t_9 = (__pyx_t_8 != 0);
           if (__pyx_t_9) {
 
-            /* "pydbm/cnn/featuregenerator/image_generator.pyx":96
+            /* "pydbm/cnn/featuregenerator/image_generator.pyx":101
  * 
  *                         if test_data_arr is not None:
  *                             test_data_arr = np.r_[test_data_arr, seq_test_data_arr]             # <<<<<<<<<<<<<<
  *                         else:
  *                             test_data_arr = seq_test_data_arr
  */
-            __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 96, __pyx_L1_error)
+            __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 101, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_13);
-            __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_r); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 96, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_10);
+            __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_r); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 101, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_5);
             __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-            __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 96, __pyx_L1_error)
+            __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 101, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_13);
             __Pyx_INCREF(__pyx_cur_scope->__pyx_v_test_data_arr);
             __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_test_data_arr);
@@ -2965,16 +3024,16 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
             __Pyx_INCREF(__pyx_cur_scope->__pyx_v_seq_test_data_arr);
             __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_seq_test_data_arr);
             PyTuple_SET_ITEM(__pyx_t_13, 1, __pyx_cur_scope->__pyx_v_seq_test_data_arr);
-            __pyx_t_5 = PyObject_GetItem(__pyx_t_10, __pyx_t_13); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_5);
-            __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+            __pyx_t_11 = PyObject_GetItem(__pyx_t_5, __pyx_t_13); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 101, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_11);
+            __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
             __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
             __Pyx_GOTREF(__pyx_cur_scope->__pyx_v_test_data_arr);
-            __Pyx_DECREF_SET(__pyx_cur_scope->__pyx_v_test_data_arr, __pyx_t_5);
-            __Pyx_GIVEREF(__pyx_t_5);
-            __pyx_t_5 = 0;
+            __Pyx_DECREF_SET(__pyx_cur_scope->__pyx_v_test_data_arr, __pyx_t_11);
+            __Pyx_GIVEREF(__pyx_t_11);
+            __pyx_t_11 = 0;
 
-            /* "pydbm/cnn/featuregenerator/image_generator.pyx":95
+            /* "pydbm/cnn/featuregenerator/image_generator.pyx":100
  *                             training_data_arr = seq_training_data_arr
  * 
  *                         if test_data_arr is not None:             # <<<<<<<<<<<<<<
@@ -2984,7 +3043,7 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
             goto __pyx_L12;
           }
 
-          /* "pydbm/cnn/featuregenerator/image_generator.pyx":98
+          /* "pydbm/cnn/featuregenerator/image_generator.pyx":103
  *                             test_data_arr = np.r_[test_data_arr, seq_test_data_arr]
  *                         else:
  *                             test_data_arr = seq_test_data_arr             # <<<<<<<<<<<<<<
@@ -2999,79 +3058,79 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
           }
           __pyx_L12:;
 
-          /* "pydbm/cnn/featuregenerator/image_generator.pyx":83
- *                 else:
- *                     training_data_arr, test_data_arr = None, None
+          /* "pydbm/cnn/featuregenerator/image_generator.pyx":91
+ *                         high=len(self.__test_file_path_list) - self.__seq_len
+ *                     )
  *                     for seq in range(self.__seq_len):             # <<<<<<<<<<<<<<
- *                         file_key = np.random.randint(low=0, high=len(self.__training_file_path_list) - self.__seq_len)
- *                         seq_training_data_arr = self.__read(self.__training_file_path_list[file_key])
+ *                         seq_training_data_arr = self.__read(self.__training_file_path_list[training_file_key+seq])
+ *                         seq_test_data_arr = self.__read(self.__test_file_path_list[test_file_key+seq])
  */
         }
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-        /* "pydbm/cnn/featuregenerator/image_generator.pyx":100
+        /* "pydbm/cnn/featuregenerator/image_generator.pyx":105
  *                             test_data_arr = seq_test_data_arr
  * 
  *                     training_data_arr = np.expand_dims(training_data_arr, axis=0)             # <<<<<<<<<<<<<<
  *                     test_data_arr = np.expand_dims(test_data_arr, axis=0)
  * 
  */
-        __pyx_t_14 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 100, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 105, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 100, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
+        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 105, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_11);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-        __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 100, __pyx_L1_error)
+        __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 105, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         __Pyx_INCREF(__pyx_cur_scope->__pyx_v_training_data_arr);
         __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_training_data_arr);
         PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_cur_scope->__pyx_v_training_data_arr);
-        __pyx_t_13 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 100, __pyx_L1_error)
+        __pyx_t_13 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 105, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
-        if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 100, __pyx_L1_error)
-        __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, __pyx_t_13); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 100, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_10);
-        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_14, __pyx_t_13); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 105, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         __Pyx_GOTREF(__pyx_cur_scope->__pyx_v_training_data_arr);
-        __Pyx_DECREF_SET(__pyx_cur_scope->__pyx_v_training_data_arr, __pyx_t_10);
-        __Pyx_GIVEREF(__pyx_t_10);
-        __pyx_t_10 = 0;
+        __Pyx_DECREF_SET(__pyx_cur_scope->__pyx_v_training_data_arr, __pyx_t_5);
+        __Pyx_GIVEREF(__pyx_t_5);
+        __pyx_t_5 = 0;
 
-        /* "pydbm/cnn/featuregenerator/image_generator.pyx":101
+        /* "pydbm/cnn/featuregenerator/image_generator.pyx":106
  * 
  *                     training_data_arr = np.expand_dims(training_data_arr, axis=0)
  *                     test_data_arr = np.expand_dims(test_data_arr, axis=0)             # <<<<<<<<<<<<<<
  * 
  *                 if _training_data_arr is not None:
  */
-        __pyx_t_10 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 101, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_10);
-        __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 101, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 106, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 106, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
-        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-        __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 101, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_10);
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 106, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
         __Pyx_INCREF(__pyx_cur_scope->__pyx_v_test_data_arr);
         __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_test_data_arr);
-        PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_cur_scope->__pyx_v_test_data_arr);
-        __pyx_t_14 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 101, __pyx_L1_error)
+        PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_cur_scope->__pyx_v_test_data_arr);
+        __pyx_t_14 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 106, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
-        if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
-        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_t_10, __pyx_t_14); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 101, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
+        if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
+        __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_t_5, __pyx_t_14); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 106, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_11);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
         __Pyx_GOTREF(__pyx_cur_scope->__pyx_v_test_data_arr);
-        __Pyx_DECREF_SET(__pyx_cur_scope->__pyx_v_test_data_arr, __pyx_t_5);
-        __Pyx_GIVEREF(__pyx_t_5);
-        __pyx_t_5 = 0;
+        __Pyx_DECREF_SET(__pyx_cur_scope->__pyx_v_test_data_arr, __pyx_t_11);
+        __Pyx_GIVEREF(__pyx_t_11);
+        __pyx_t_11 = 0;
       }
       __pyx_L8:;
 
-      /* "pydbm/cnn/featuregenerator/image_generator.pyx":103
+      /* "pydbm/cnn/featuregenerator/image_generator.pyx":108
  *                     test_data_arr = np.expand_dims(test_data_arr, axis=0)
  * 
  *                 if _training_data_arr is not None:             # <<<<<<<<<<<<<<
@@ -3082,36 +3141,36 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
       __pyx_t_8 = (__pyx_t_9 != 0);
       if (__pyx_t_8) {
 
-        /* "pydbm/cnn/featuregenerator/image_generator.pyx":104
+        /* "pydbm/cnn/featuregenerator/image_generator.pyx":109
  * 
  *                 if _training_data_arr is not None:
  *                     _training_data_arr = np.r_[_training_data_arr, training_data_arr]             # <<<<<<<<<<<<<<
  *                 else:
  *                     _training_data_arr = training_data_arr
  */
-        __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 104, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_r); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 104, __pyx_L1_error)
+        __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 109, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_11);
+        __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_r); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 109, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
-        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 104, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+        __pyx_t_11 = PyTuple_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 109, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_11);
         __Pyx_INCREF(__pyx_cur_scope->__pyx_v__training_data_arr);
         __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v__training_data_arr);
-        PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_cur_scope->__pyx_v__training_data_arr);
+        PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_cur_scope->__pyx_v__training_data_arr);
         __Pyx_INCREF(__pyx_cur_scope->__pyx_v_training_data_arr);
         __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_training_data_arr);
-        PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_cur_scope->__pyx_v_training_data_arr);
-        __pyx_t_10 = PyObject_GetItem(__pyx_t_14, __pyx_t_5); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 104, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_10);
+        PyTuple_SET_ITEM(__pyx_t_11, 1, __pyx_cur_scope->__pyx_v_training_data_arr);
+        __pyx_t_5 = PyObject_GetItem(__pyx_t_14, __pyx_t_11); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 109, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         __Pyx_GOTREF(__pyx_cur_scope->__pyx_v__training_data_arr);
-        __Pyx_DECREF_SET(__pyx_cur_scope->__pyx_v__training_data_arr, __pyx_t_10);
-        __Pyx_GIVEREF(__pyx_t_10);
-        __pyx_t_10 = 0;
+        __Pyx_DECREF_SET(__pyx_cur_scope->__pyx_v__training_data_arr, __pyx_t_5);
+        __Pyx_GIVEREF(__pyx_t_5);
+        __pyx_t_5 = 0;
 
-        /* "pydbm/cnn/featuregenerator/image_generator.pyx":103
+        /* "pydbm/cnn/featuregenerator/image_generator.pyx":108
  *                     test_data_arr = np.expand_dims(test_data_arr, axis=0)
  * 
  *                 if _training_data_arr is not None:             # <<<<<<<<<<<<<<
@@ -3121,7 +3180,7 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
         goto __pyx_L13;
       }
 
-      /* "pydbm/cnn/featuregenerator/image_generator.pyx":106
+      /* "pydbm/cnn/featuregenerator/image_generator.pyx":111
  *                     _training_data_arr = np.r_[_training_data_arr, training_data_arr]
  *                 else:
  *                     _training_data_arr = training_data_arr             # <<<<<<<<<<<<<<
@@ -3136,7 +3195,7 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
       }
       __pyx_L13:;
 
-      /* "pydbm/cnn/featuregenerator/image_generator.pyx":108
+      /* "pydbm/cnn/featuregenerator/image_generator.pyx":113
  *                     _training_data_arr = training_data_arr
  * 
  *                 if _test_data_arr is not None:             # <<<<<<<<<<<<<<
@@ -3147,36 +3206,36 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
       __pyx_t_9 = (__pyx_t_8 != 0);
       if (__pyx_t_9) {
 
-        /* "pydbm/cnn/featuregenerator/image_generator.pyx":109
+        /* "pydbm/cnn/featuregenerator/image_generator.pyx":114
  * 
  *                 if _test_data_arr is not None:
  *                     _test_data_arr = np.r_[_test_data_arr, test_data_arr]             # <<<<<<<<<<<<<<
  *                 else:
  *                     _test_data_arr = test_data_arr
  */
-        __pyx_t_10 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 109, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_10);
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_r); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 109, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-        __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 109, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_10);
+        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_r); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 114, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_11);
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
         __Pyx_INCREF(__pyx_cur_scope->__pyx_v__test_data_arr);
         __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v__test_data_arr);
-        PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_cur_scope->__pyx_v__test_data_arr);
+        PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_cur_scope->__pyx_v__test_data_arr);
         __Pyx_INCREF(__pyx_cur_scope->__pyx_v_test_data_arr);
         __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_test_data_arr);
-        PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_cur_scope->__pyx_v_test_data_arr);
-        __pyx_t_14 = PyObject_GetItem(__pyx_t_5, __pyx_t_10); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 109, __pyx_L1_error)
+        PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_cur_scope->__pyx_v_test_data_arr);
+        __pyx_t_14 = PyObject_GetItem(__pyx_t_11, __pyx_t_5); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 114, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
         __Pyx_GOTREF(__pyx_cur_scope->__pyx_v__test_data_arr);
         __Pyx_DECREF_SET(__pyx_cur_scope->__pyx_v__test_data_arr, __pyx_t_14);
         __Pyx_GIVEREF(__pyx_t_14);
         __pyx_t_14 = 0;
 
-        /* "pydbm/cnn/featuregenerator/image_generator.pyx":108
+        /* "pydbm/cnn/featuregenerator/image_generator.pyx":113
  *                     _training_data_arr = training_data_arr
  * 
  *                 if _test_data_arr is not None:             # <<<<<<<<<<<<<<
@@ -3186,7 +3245,7 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
         goto __pyx_L14;
       }
 
-      /* "pydbm/cnn/featuregenerator/image_generator.pyx":111
+      /* "pydbm/cnn/featuregenerator/image_generator.pyx":116
  *                     _test_data_arr = np.r_[_test_data_arr, test_data_arr]
  *                 else:
  *                     _test_data_arr = test_data_arr             # <<<<<<<<<<<<<<
@@ -3211,145 +3270,145 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":113
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":118
  *                     _test_data_arr = test_data_arr
  * 
  *             self.__logger.debug("Generate training data: " + str(_training_data_arr.shape))             # <<<<<<<<<<<<<<
  *             self.__logger.debug("Generate test data: " + str(_test_data_arr.shape))
  *             yield _training_data_arr, _training_data_arr, _test_data_arr, _test_data_arr
  */
-    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__logger); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 113, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__logger); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 118, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_debug); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 113, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_10);
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_debug); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v__training_data_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 113, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v__training_data_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 118, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_11 = PyTuple_New(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_11);
     __Pyx_GIVEREF(__pyx_t_14);
-    PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_14);
+    PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_14);
     __pyx_t_14 = 0;
-    __pyx_t_14 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_5, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 113, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_11, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 118, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyNumber_Add(__pyx_kp_s_Generate_training_data, __pyx_t_14); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+    __pyx_t_11 = PyNumber_Add(__pyx_kp_s_Generate_training_data, __pyx_t_14); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     __pyx_t_14 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_10))) {
-      __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_10);
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
+      __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_5);
       if (likely(__pyx_t_14)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
         __Pyx_INCREF(__pyx_t_14);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_10, function);
+        __Pyx_DECREF_SET(__pyx_t_5, function);
       }
     }
     if (!__pyx_t_14) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else {
       #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_10)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_14, __pyx_t_5};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_10, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
+      if (PyFunction_Check(__pyx_t_5)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_14, __pyx_t_11};
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_10)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_14, __pyx_t_5};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_10, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_14, __pyx_t_11};
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
       } else
       #endif
       {
-        __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 113, __pyx_L1_error)
+        __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 118, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_14); __pyx_t_14 = NULL;
-        __Pyx_GIVEREF(__pyx_t_5);
-        PyTuple_SET_ITEM(__pyx_t_13, 0+1, __pyx_t_5);
-        __pyx_t_5 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_13, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
+        __Pyx_GIVEREF(__pyx_t_11);
+        PyTuple_SET_ITEM(__pyx_t_13, 0+1, __pyx_t_11);
+        __pyx_t_11 = 0;
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_13, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
       }
     }
-    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":114
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":119
  * 
  *             self.__logger.debug("Generate training data: " + str(_training_data_arr.shape))
  *             self.__logger.debug("Generate test data: " + str(_test_data_arr.shape))             # <<<<<<<<<<<<<<
  *             yield _training_data_arr, _training_data_arr, _test_data_arr, _test_data_arr
  * 
  */
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__logger); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 114, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_debug); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 114, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_ImageGenerator__logger); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_debug); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 119, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v__test_data_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 114, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_GIVEREF(__pyx_t_10);
-    PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_10);
-    __pyx_t_10 = 0;
-    __pyx_t_10 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_5, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 114, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyNumber_Add(__pyx_kp_s_Generate_test_data, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v__test_data_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 119, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = NULL;
+    __pyx_t_11 = PyTuple_New(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_11);
+    __Pyx_GIVEREF(__pyx_t_5);
+    PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_5);
+    __pyx_t_5 = 0;
+    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_11, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+    __pyx_t_11 = PyNumber_Add(__pyx_kp_s_Generate_test_data, __pyx_t_5); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_11);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_13))) {
-      __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_13);
-      if (likely(__pyx_t_10)) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_13);
+      if (likely(__pyx_t_5)) {
         PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_13);
-        __Pyx_INCREF(__pyx_t_10);
+        __Pyx_INCREF(__pyx_t_5);
         __Pyx_INCREF(function);
         __Pyx_DECREF_SET(__pyx_t_13, function);
       }
     }
-    if (!__pyx_t_10) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (!__pyx_t_5) {
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_13)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_10, __pyx_t_5};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_13, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+        PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_11};
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_13, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_13)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_10, __pyx_t_5};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_13, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+        PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_11};
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_13, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
       } else
       #endif
       {
-        __pyx_t_14 = PyTuple_New(1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 114, __pyx_L1_error)
+        __pyx_t_14 = PyTuple_New(1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 119, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
-        __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_10); __pyx_t_10 = NULL;
-        __Pyx_GIVEREF(__pyx_t_5);
-        PyTuple_SET_ITEM(__pyx_t_14, 0+1, __pyx_t_5);
-        __pyx_t_5 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_t_14, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
+        __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_5); __pyx_t_5 = NULL;
+        __Pyx_GIVEREF(__pyx_t_11);
+        PyTuple_SET_ITEM(__pyx_t_14, 0+1, __pyx_t_11);
+        __pyx_t_11 = 0;
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_t_14, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
       }
@@ -3357,14 +3416,14 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":115
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":120
  *             self.__logger.debug("Generate training data: " + str(_training_data_arr.shape))
  *             self.__logger.debug("Generate test data: " + str(_test_data_arr.shape))
  *             yield _training_data_arr, _training_data_arr, _test_data_arr, _test_data_arr             # <<<<<<<<<<<<<<
  * 
  *     def __read(self, file_path):
  */
-    __pyx_t_1 = PyTuple_New(4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 120, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_cur_scope->__pyx_v__training_data_arr);
     __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v__training_data_arr);
@@ -3396,7 +3455,7 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
     __Pyx_XGOTREF(__pyx_t_2);
     __pyx_t_3 = __pyx_cur_scope->__pyx_t_1;
     __pyx_t_4 = __pyx_cur_scope->__pyx_t_2;
-    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 115, __pyx_L1_error)
+    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 120, __pyx_L1_error)
 
     /* "pydbm/cnn/featuregenerator/image_generator.pyx":72
  *         '''
@@ -3428,7 +3487,7 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   __Pyx_XDECREF(__pyx_t_11);
   __Pyx_XDECREF(__pyx_t_13);
   __Pyx_XDECREF(__pyx_t_14);
-  __Pyx_XDECREF(__pyx_t_17);
+  __Pyx_XDECREF(__pyx_t_16);
   __Pyx_AddTraceback("generate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_r); __pyx_r = 0;
@@ -3439,7 +3498,7 @@ static PyObject *__pyx_gb_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   return __pyx_r;
 }
 
-/* "pydbm/cnn/featuregenerator/image_generator.pyx":117
+/* "pydbm/cnn/featuregenerator/image_generator.pyx":122
  *             yield _training_data_arr, _training_data_arr, _test_data_arr, _test_data_arr
  * 
  *     def __read(self, file_path):             # <<<<<<<<<<<<<<
@@ -3480,11 +3539,11 @@ static PyObject *__pyx_pw_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_file_path)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__read", 1, 2, 2, 1); __PYX_ERR(0, 117, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__read", 1, 2, 2, 1); __PYX_ERR(0, 122, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__read") < 0)) __PYX_ERR(0, 117, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__read") < 0)) __PYX_ERR(0, 122, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3497,7 +3556,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__read", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 117, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__read", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 122, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.featuregenerator.image_generator.ImageGenerator.__read", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3524,16 +3583,16 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   PyObject *__pyx_t_7 = NULL;
   __Pyx_RefNannySetupContext("__read", 0);
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":127
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":132
  *             `np.ndarray` of image file.
  *         '''
  *         img = Image.open(file_path)             # <<<<<<<<<<<<<<
  *         if self.__wh_size_tuple is not None:
  *             img = img.resize(self.__wh_size_tuple)
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_Image); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_Image); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_open); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_open); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -3547,13 +3606,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_file_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_file_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_file_path};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -3561,19 +3620,19 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_file_path};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 127, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_INCREF(__pyx_v_file_path);
       __Pyx_GIVEREF(__pyx_v_file_path);
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_file_path);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -3582,30 +3641,30 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   __pyx_v_img = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":128
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":133
  *         '''
  *         img = Image.open(file_path)
  *         if self.__wh_size_tuple is not None:             # <<<<<<<<<<<<<<
  *             img = img.resize(self.__wh_size_tuple)
  *         if self.__gray_scale_flag is True:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ImageGenerator__wh_size_tuple); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ImageGenerator__wh_size_tuple); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_5 = (__pyx_t_1 != Py_None);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_6 = (__pyx_t_5 != 0);
   if (__pyx_t_6) {
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":129
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":134
  *         img = Image.open(file_path)
  *         if self.__wh_size_tuple is not None:
  *             img = img.resize(self.__wh_size_tuple)             # <<<<<<<<<<<<<<
  *         if self.__gray_scale_flag is True:
  *             img = img.convert("L")
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_img, __pyx_n_s_resize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 129, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_img, __pyx_n_s_resize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ImageGenerator__wh_size_tuple); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ImageGenerator__wh_size_tuple); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_2 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
@@ -3618,14 +3677,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
       }
     }
     if (!__pyx_t_2) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_3)) {
         PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_4};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -3634,20 +3693,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
         PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_4};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       } else
       #endif
       {
-        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 129, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 134, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_2); __pyx_t_2 = NULL;
         __Pyx_GIVEREF(__pyx_t_4);
         PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_4);
         __pyx_t_4 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       }
@@ -3656,7 +3715,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
     __Pyx_DECREF_SET(__pyx_v_img, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":128
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":133
  *         '''
  *         img = Image.open(file_path)
  *         if self.__wh_size_tuple is not None:             # <<<<<<<<<<<<<<
@@ -3665,36 +3724,36 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
  */
   }
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":130
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":135
  *         if self.__wh_size_tuple is not None:
  *             img = img.resize(self.__wh_size_tuple)
  *         if self.__gray_scale_flag is True:             # <<<<<<<<<<<<<<
  *             img = img.convert("L")
  *         arr = np.asarray(img)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ImageGenerator__gray_scale_flag); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ImageGenerator__gray_scale_flag); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_6 = (__pyx_t_1 == Py_True);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_5 = (__pyx_t_6 != 0);
   if (__pyx_t_5) {
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":131
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":136
  *             img = img.resize(self.__wh_size_tuple)
  *         if self.__gray_scale_flag is True:
  *             img = img.convert("L")             # <<<<<<<<<<<<<<
  *         arr = np.asarray(img)
  *         if arr.ndim == 2:
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_img, __pyx_n_s_convert); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_img, __pyx_n_s_convert); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 131, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 136, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF_SET(__pyx_v_img, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":130
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":135
  *         if self.__wh_size_tuple is not None:
  *             img = img.resize(self.__wh_size_tuple)
  *         if self.__gray_scale_flag is True:             # <<<<<<<<<<<<<<
@@ -3703,16 +3762,16 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
  */
   }
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":132
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":137
  *         if self.__gray_scale_flag is True:
  *             img = img.convert("L")
  *         arr = np.asarray(img)             # <<<<<<<<<<<<<<
  *         if arr.ndim == 2:
  *             arr = np.expand_dims(arr, axis=0)
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_asarray); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_asarray); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -3726,13 +3785,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
     }
   }
   if (!__pyx_t_1) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_v_img); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 132, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_v_img); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_7)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_v_img};
-      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 132, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 137, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else
@@ -3740,19 +3799,19 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_v_img};
-      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 132, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 137, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 137, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_1); __pyx_t_1 = NULL;
       __Pyx_INCREF(__pyx_v_img);
       __Pyx_GIVEREF(__pyx_v_img);
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_img);
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 132, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 137, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -3761,43 +3820,43 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   __pyx_v_arr = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":133
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":138
  *             img = img.convert("L")
  *         arr = np.asarray(img)
  *         if arr.ndim == 2:             # <<<<<<<<<<<<<<
  *             arr = np.expand_dims(arr, axis=0)
  *             arr = np.expand_dims(arr, axis=0)
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_arr, __pyx_n_s_ndim); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_arr, __pyx_n_s_ndim); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_7 = __Pyx_PyInt_EqObjC(__pyx_t_3, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_EqObjC(__pyx_t_3, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 138, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 138, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   if (__pyx_t_5) {
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":134
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":139
  *         arr = np.asarray(img)
  *         if arr.ndim == 2:
  *             arr = np.expand_dims(arr, axis=0)             # <<<<<<<<<<<<<<
  *             arr = np.expand_dims(arr, axis=0)
  *         elif arr.ndim == 3:
  */
-    __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 134, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 134, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 134, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_INCREF(__pyx_v_arr);
     __Pyx_GIVEREF(__pyx_v_arr);
     PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_v_arr);
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 134, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 134, __pyx_L1_error)
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -3805,27 +3864,27 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
     __Pyx_DECREF_SET(__pyx_v_arr, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":135
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":140
  *         if arr.ndim == 2:
  *             arr = np.expand_dims(arr, axis=0)
  *             arr = np.expand_dims(arr, axis=0)             # <<<<<<<<<<<<<<
  *         elif arr.ndim == 3:
  *             arr = arr.transpose((2, 0, 1))
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_v_arr);
     __Pyx_GIVEREF(__pyx_v_arr);
     PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_arr);
-    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 135, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 135, __pyx_L1_error)
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 135, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -3833,7 +3892,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
     __Pyx_DECREF_SET(__pyx_v_arr, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":133
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":138
  *             img = img.convert("L")
  *         arr = np.asarray(img)
  *         if arr.ndim == 2:             # <<<<<<<<<<<<<<
@@ -3843,58 +3902,58 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
     goto __pyx_L5;
   }
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":136
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":141
  *             arr = np.expand_dims(arr, axis=0)
  *             arr = np.expand_dims(arr, axis=0)
  *         elif arr.ndim == 3:             # <<<<<<<<<<<<<<
  *             arr = arr.transpose((2, 0, 1))
  *             arr = np.expand_dims(arr, axis=0)
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_arr, __pyx_n_s_ndim); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_arr, __pyx_n_s_ndim); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 141, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_7 = __Pyx_PyInt_EqObjC(__pyx_t_3, __pyx_int_3, 3, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_EqObjC(__pyx_t_3, __pyx_int_3, 3, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 141, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 141, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   if (__pyx_t_5) {
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":137
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":142
  *             arr = np.expand_dims(arr, axis=0)
  *         elif arr.ndim == 3:
  *             arr = arr.transpose((2, 0, 1))             # <<<<<<<<<<<<<<
  *             arr = np.expand_dims(arr, axis=0)
  * 
  */
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_arr, __pyx_n_s_transpose); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 137, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_arr, __pyx_n_s_transpose); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 142, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 137, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF_SET(__pyx_v_arr, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":138
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":143
  *         elif arr.ndim == 3:
  *             arr = arr.transpose((2, 0, 1))
  *             arr = np.expand_dims(arr, axis=0)             # <<<<<<<<<<<<<<
  * 
  *         if self.__norm_mode == "z_score":
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 138, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 143, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_v_arr);
     __Pyx_GIVEREF(__pyx_v_arr);
     PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_arr);
-    __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 138, __pyx_L1_error)
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 138, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 143, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3902,7 +3961,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
     __Pyx_DECREF_SET(__pyx_v_arr, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":136
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":141
  *             arr = np.expand_dims(arr, axis=0)
  *             arr = np.expand_dims(arr, axis=0)
  *         elif arr.ndim == 3:             # <<<<<<<<<<<<<<
@@ -3912,27 +3971,27 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   }
   __pyx_L5:;
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":140
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":145
  *             arr = np.expand_dims(arr, axis=0)
  * 
  *         if self.__norm_mode == "z_score":             # <<<<<<<<<<<<<<
  *             arr = (arr - arr.mean()) / arr.std()
  *         elif self.__norm_mode == "min_max":
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ImageGenerator__norm_mode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ImageGenerator__norm_mode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = (__Pyx_PyString_Equals(__pyx_t_4, __pyx_n_s_z_score, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __pyx_t_5 = (__Pyx_PyString_Equals(__pyx_t_4, __pyx_n_s_z_score, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 145, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (__pyx_t_5) {
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":141
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":146
  * 
  *         if self.__norm_mode == "z_score":
  *             arr = (arr - arr.mean()) / arr.std()             # <<<<<<<<<<<<<<
  *         elif self.__norm_mode == "min_max":
  *             arr = (arr - arr.min()) / (arr.max() - arr.min())
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_arr, __pyx_n_s_mean); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_arr, __pyx_n_s_mean); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -3945,17 +4004,17 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
       }
     }
     if (__pyx_t_3) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 146, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else {
-      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 146, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Subtract(__pyx_v_arr, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Subtract(__pyx_v_arr, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_arr, __pyx_n_s_std); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 141, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_arr, __pyx_n_s_std); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_7 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
@@ -3968,21 +4027,21 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
       }
     }
     if (__pyx_t_7) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 146, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else {
-      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 146, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyNumber_Divide(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 141, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyNumber_Divide(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF_SET(__pyx_v_arr, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":140
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":145
  *             arr = np.expand_dims(arr, axis=0)
  * 
  *         if self.__norm_mode == "z_score":             # <<<<<<<<<<<<<<
@@ -3992,27 +4051,27 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
     goto __pyx_L6;
   }
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":142
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":147
  *         if self.__norm_mode == "z_score":
  *             arr = (arr - arr.mean()) / arr.std()
  *         elif self.__norm_mode == "min_max":             # <<<<<<<<<<<<<<
  *             arr = (arr - arr.min()) / (arr.max() - arr.min())
  *         return arr
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ImageGenerator__norm_mode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ImageGenerator__norm_mode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_min_max, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 142, __pyx_L1_error)
+  __pyx_t_5 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_min_max, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_5) {
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":143
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":148
  *             arr = (arr - arr.mean()) / arr.std()
  *         elif self.__norm_mode == "min_max":
  *             arr = (arr - arr.min()) / (arr.max() - arr.min())             # <<<<<<<<<<<<<<
  *         return arr
  * 
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_arr, __pyx_n_s_min); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_arr, __pyx_n_s_min); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 148, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_1 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -4025,17 +4084,17 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
       }
     }
     if (__pyx_t_1) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
-      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyNumber_Subtract(__pyx_v_arr, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_4 = PyNumber_Subtract(__pyx_v_arr, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 148, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_arr, __pyx_n_s_max); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_arr, __pyx_n_s_max); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_7 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -4048,14 +4107,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
       }
     }
     if (__pyx_t_7) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else {
-      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_arr, __pyx_n_s_min); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_arr, __pyx_n_s_min); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 148, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_2 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
@@ -4068,25 +4127,25 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
       }
     }
     if (__pyx_t_2) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     } else {
-      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyNumber_Subtract(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_7 = PyNumber_Subtract(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 148, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_t_4, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_t_4, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF_SET(__pyx_v_arr, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/featuregenerator/image_generator.pyx":142
+    /* "pydbm/cnn/featuregenerator/image_generator.pyx":147
  *         if self.__norm_mode == "z_score":
  *             arr = (arr - arr.mean()) / arr.std()
  *         elif self.__norm_mode == "min_max":             # <<<<<<<<<<<<<<
@@ -4096,7 +4155,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   }
   __pyx_L6:;
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":144
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":149
  *         elif self.__norm_mode == "min_max":
  *             arr = (arr - arr.min()) / (arr.max() - arr.min())
  *         return arr             # <<<<<<<<<<<<<<
@@ -4108,7 +4167,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   __pyx_r = __pyx_v_arr;
   goto __pyx_L0;
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":117
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":122
  *             yield _training_data_arr, _training_data_arr, _test_data_arr, _test_data_arr
  * 
  *     def __read(self, file_path):             # <<<<<<<<<<<<<<
@@ -4133,7 +4192,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   return __pyx_r;
 }
 
-/* "pydbm/cnn/featuregenerator/image_generator.pyx":146
+/* "pydbm/cnn/featuregenerator/image_generator.pyx":151
  *         return arr
  * 
  *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
@@ -4174,11 +4233,11 @@ static PyObject *__pyx_pw_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_readonly", 1, 2, 2, 1); __PYX_ERR(0, 146, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_readonly", 1, 2, 2, 1); __PYX_ERR(0, 151, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_readonly") < 0)) __PYX_ERR(0, 146, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_readonly") < 0)) __PYX_ERR(0, 151, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -4191,7 +4250,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_readonly", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 146, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_readonly", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 151, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.featuregenerator.image_generator.ImageGenerator.set_readonly", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -4210,20 +4269,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("set_readonly", 0);
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":148
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":153
  *     def set_readonly(self, value):
  *         ''' setter '''
  *         raise TypeError("This property must be read-only.")             # <<<<<<<<<<<<<<
  * 
  *     def get_epochs(self):
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __PYX_ERR(0, 148, __pyx_L1_error)
+  __PYX_ERR(0, 153, __pyx_L1_error)
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":146
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":151
  *         return arr
  * 
  *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
@@ -4241,7 +4300,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   return __pyx_r;
 }
 
-/* "pydbm/cnn/featuregenerator/image_generator.pyx":150
+/* "pydbm/cnn/featuregenerator/image_generator.pyx":155
  *         raise TypeError("This property must be read-only.")
  * 
  *     def get_epochs(self):             # <<<<<<<<<<<<<<
@@ -4270,7 +4329,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_epochs", 0);
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":152
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":157
  *     def get_epochs(self):
  *         ''' getter '''
  *         return self.__epochs             # <<<<<<<<<<<<<<
@@ -4278,13 +4337,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
  *     def get_batch_size(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ImageGenerator__epochs); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ImageGenerator__epochs); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 157, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":150
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":155
  *         raise TypeError("This property must be read-only.")
  * 
  *     def get_epochs(self):             # <<<<<<<<<<<<<<
@@ -4303,7 +4362,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   return __pyx_r;
 }
 
-/* "pydbm/cnn/featuregenerator/image_generator.pyx":154
+/* "pydbm/cnn/featuregenerator/image_generator.pyx":159
  *         return self.__epochs
  * 
  *     def get_batch_size(self):             # <<<<<<<<<<<<<<
@@ -4332,7 +4391,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_batch_size", 0);
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":156
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":161
  *     def get_batch_size(self):
  *         ''' getter '''
  *         return self.__batch_size             # <<<<<<<<<<<<<<
@@ -4340,13 +4399,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_16featuregenerator_15image_generator_14Ima
  *     epochs = property(get_epochs, set_readonly)
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ImageGenerator__batch_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ImageGenerator__batch_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":154
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":159
  *         return self.__epochs
  * 
  *     def get_batch_size(self):             # <<<<<<<<<<<<<<
@@ -4395,7 +4454,9 @@ static void __pyx_tp_dealloc_5pydbm_3cnn_16featuregenerator_15image_generator___
   Py_CLEAR(p->__pyx_v_seq_test_data_arr);
   Py_CLEAR(p->__pyx_v_seq_training_data_arr);
   Py_CLEAR(p->__pyx_v_test_data_arr);
+  Py_CLEAR(p->__pyx_v_test_file_key);
   Py_CLEAR(p->__pyx_v_training_data_arr);
+  Py_CLEAR(p->__pyx_v_training_file_key);
   Py_CLEAR(p->__pyx_t_0);
   if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_5pydbm_3cnn_16featuregenerator_15image_generator___pyx_scope_struct__generate < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_5pydbm_3cnn_16featuregenerator_15image_generator___pyx_scope_struct__generate)))) {
     __pyx_freelist_5pydbm_3cnn_16featuregenerator_15image_generator___pyx_scope_struct__generate[__pyx_freecount_5pydbm_3cnn_16featuregenerator_15image_generator___pyx_scope_struct__generate++] = ((struct __pyx_obj_5pydbm_3cnn_16featuregenerator_15image_generator___pyx_scope_struct__generate *)o);
@@ -4437,8 +4498,14 @@ static int __pyx_tp_traverse_5pydbm_3cnn_16featuregenerator_15image_generator___
   if (p->__pyx_v_test_data_arr) {
     e = (*v)(p->__pyx_v_test_data_arr, a); if (e) return e;
   }
+  if (p->__pyx_v_test_file_key) {
+    e = (*v)(p->__pyx_v_test_file_key, a); if (e) return e;
+  }
   if (p->__pyx_v_training_data_arr) {
     e = (*v)(p->__pyx_v_training_data_arr, a); if (e) return e;
+  }
+  if (p->__pyx_v_training_file_key) {
+    e = (*v)(p->__pyx_v_training_file_key, a); if (e) return e;
   }
   if (p->__pyx_t_0) {
     e = (*v)(p->__pyx_t_0, a); if (e) return e;
@@ -4638,10 +4705,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_test_data_arr, __pyx_k_test_data_arr, sizeof(__pyx_k_test_data_arr), 0, 0, 1, 1},
   {&__pyx_n_s_test_data_arr_2, __pyx_k_test_data_arr_2, sizeof(__pyx_k_test_data_arr_2), 0, 0, 1, 1},
+  {&__pyx_n_s_test_file_key, __pyx_k_test_file_key, sizeof(__pyx_k_test_file_key), 0, 0, 1, 1},
   {&__pyx_n_s_test_image_dir, __pyx_k_test_image_dir, sizeof(__pyx_k_test_image_dir), 0, 0, 1, 1},
   {&__pyx_n_s_throw, __pyx_k_throw, sizeof(__pyx_k_throw), 0, 0, 1, 1},
   {&__pyx_n_s_training_data_arr, __pyx_k_training_data_arr, sizeof(__pyx_k_training_data_arr), 0, 0, 1, 1},
   {&__pyx_n_s_training_data_arr_2, __pyx_k_training_data_arr_2, sizeof(__pyx_k_training_data_arr_2), 0, 0, 1, 1},
+  {&__pyx_n_s_training_file_key, __pyx_k_training_file_key, sizeof(__pyx_k_training_file_key), 0, 0, 1, 1},
   {&__pyx_n_s_training_image_dir, __pyx_k_training_image_dir, sizeof(__pyx_k_training_image_dir), 0, 0, 1, 1},
   {&__pyx_n_s_transpose, __pyx_k_transpose, sizeof(__pyx_k_transpose), 0, 0, 1, 1},
   {&__pyx_n_s_value, __pyx_k_value, sizeof(__pyx_k_value), 0, 0, 1, 1},
@@ -4650,10 +4719,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 158, __pyx_L1_error)
+  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 163, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 48, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 72, __pyx_L1_error)
-  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 153, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -4696,39 +4765,39 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":131
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":136
  *             img = img.resize(self.__wh_size_tuple)
  *         if self.__gray_scale_flag is True:
  *             img = img.convert("L")             # <<<<<<<<<<<<<<
  *         arr = np.asarray(img)
  *         if arr.ndim == 2:
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_n_s_L); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_n_s_L); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":137
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":142
  *             arr = np.expand_dims(arr, axis=0)
  *         elif arr.ndim == 3:
  *             arr = arr.transpose((2, 0, 1))             # <<<<<<<<<<<<<<
  *             arr = np.expand_dims(arr, axis=0)
  * 
  */
-  __pyx_tuple__5 = PyTuple_Pack(3, __pyx_int_2, __pyx_int_0, __pyx_int_1); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 137, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(3, __pyx_int_2, __pyx_int_0, __pyx_int_1); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_tuple__5); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 137, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_tuple__5); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":148
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":153
  *     def set_readonly(self, value):
  *         ''' setter '''
  *         raise TypeError("This property must be read-only.")             # <<<<<<<<<<<<<<
  * 
  *     def get_epochs(self):
  */
-  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_This_property_must_be_read_only); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_This_property_must_be_read_only); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
 
@@ -4754,58 +4823,58 @@ static int __Pyx_InitCachedConstants(void) {
  *         '''
  *         Generate feature points.
  */
-  __pyx_tuple__11 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_epoch, __pyx_n_s_training_data_arr, __pyx_n_s_test_data_arr, __pyx_n_s_batch_size, __pyx_n_s_file_key, __pyx_n_s_training_data_arr_2, __pyx_n_s_test_data_arr_2, __pyx_n_s_seq, __pyx_n_s_seq_training_data_arr, __pyx_n_s_seq_test_data_arr); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_tuple__11 = PyTuple_Pack(13, __pyx_n_s_self, __pyx_n_s_epoch, __pyx_n_s_training_data_arr, __pyx_n_s_test_data_arr, __pyx_n_s_batch_size, __pyx_n_s_file_key, __pyx_n_s_training_data_arr_2, __pyx_n_s_test_data_arr_2, __pyx_n_s_training_file_key, __pyx_n_s_test_file_key, __pyx_n_s_seq, __pyx_n_s_seq_training_data_arr, __pyx_n_s_seq_test_data_arr); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
-  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(1, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_featuregenerator_image_2, __pyx_n_s_generate, 63, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(1, 0, 13, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_featuregenerator_image_2, __pyx_n_s_generate, 63, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 63, __pyx_L1_error)
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":117
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":122
  *             yield _training_data_arr, _training_data_arr, _test_data_arr, _test_data_arr
  * 
  *     def __read(self, file_path):             # <<<<<<<<<<<<<<
  *         '''
  *         Read image file.
  */
-  __pyx_tuple__13 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_file_path, __pyx_n_s_img, __pyx_n_s_arr); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __pyx_tuple__13 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_file_path, __pyx_n_s_img, __pyx_n_s_arr); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 122, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_featuregenerator_image_2, __pyx_n_s_read, 117, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_featuregenerator_image_2, __pyx_n_s_read, 122, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 122, __pyx_L1_error)
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":146
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":151
  *         return arr
  * 
  *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         raise TypeError("This property must be read-only.")
  */
-  __pyx_tuple__15 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_tuple__15 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_featuregenerator_image_2, __pyx_n_s_set_readonly, 146, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_featuregenerator_image_2, __pyx_n_s_set_readonly, 151, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 151, __pyx_L1_error)
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":150
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":155
  *         raise TypeError("This property must be read-only.")
  * 
  *     def get_epochs(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__epochs
  */
-  __pyx_tuple__17 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 150, __pyx_L1_error)
+  __pyx_tuple__17 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
-  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_featuregenerator_image_2, __pyx_n_s_get_epochs, 150, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 150, __pyx_L1_error)
+  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_featuregenerator_image_2, __pyx_n_s_get_epochs, 155, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 155, __pyx_L1_error)
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":154
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":159
  *         return self.__epochs
  * 
  *     def get_batch_size(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__batch_size
  */
-  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__19);
   __Pyx_GIVEREF(__pyx_tuple__19);
-  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_featuregenerator_image_2, __pyx_n_s_get_batch_size, 154, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_featuregenerator_image_2, __pyx_n_s_get_batch_size, 159, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5127,55 +5196,55 @@ static int __pyx_pymod_exec_image_generator(PyObject *__pyx_pyinit_module)
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_generate, __pyx_t_4) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":117
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":122
  *             yield _training_data_arr, _training_data_arr, _test_data_arr, _test_data_arr
  * 
  *     def __read(self, file_path):             # <<<<<<<<<<<<<<
  *         '''
  *         Read image file.
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_16featuregenerator_15image_generator_14ImageGenerator_6__read, 0, __pyx_n_s_ImageGenerator___read, NULL, __pyx_n_s_pydbm_cnn_featuregenerator_image, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_16featuregenerator_15image_generator_14ImageGenerator_6__read, 0, __pyx_n_s_ImageGenerator___read, NULL, __pyx_n_s_pydbm_cnn_featuregenerator_image, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 122, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ImageGenerator__read, __pyx_t_4) < 0) __PYX_ERR(0, 117, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_ImageGenerator__read, __pyx_t_4) < 0) __PYX_ERR(0, 122, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":146
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":151
  *         return arr
  * 
  *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         raise TypeError("This property must be read-only.")
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_16featuregenerator_15image_generator_14ImageGenerator_8set_readonly, 0, __pyx_n_s_ImageGenerator_set_readonly, NULL, __pyx_n_s_pydbm_cnn_featuregenerator_image, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_16featuregenerator_15image_generator_14ImageGenerator_8set_readonly, 0, __pyx_n_s_ImageGenerator_set_readonly, NULL, __pyx_n_s_pydbm_cnn_featuregenerator_image, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_readonly, __pyx_t_4) < 0) __PYX_ERR(0, 146, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_set_readonly, __pyx_t_4) < 0) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":150
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":155
  *         raise TypeError("This property must be read-only.")
  * 
  *     def get_epochs(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__epochs
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_16featuregenerator_15image_generator_14ImageGenerator_10get_epochs, 0, __pyx_n_s_ImageGenerator_get_epochs, NULL, __pyx_n_s_pydbm_cnn_featuregenerator_image, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 150, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_16featuregenerator_15image_generator_14ImageGenerator_10get_epochs, 0, __pyx_n_s_ImageGenerator_get_epochs, NULL, __pyx_n_s_pydbm_cnn_featuregenerator_image, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_epochs, __pyx_t_4) < 0) __PYX_ERR(0, 150, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_epochs, __pyx_t_4) < 0) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":154
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":159
  *         return self.__epochs
  * 
  *     def get_batch_size(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__batch_size
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_16featuregenerator_15image_generator_14ImageGenerator_12get_batch_size, 0, __pyx_n_s_ImageGenerator_get_batch_size, NULL, __pyx_n_s_pydbm_cnn_featuregenerator_image, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_16featuregenerator_15image_generator_14ImageGenerator_12get_batch_size, 0, __pyx_n_s_ImageGenerator_get_batch_size, NULL, __pyx_n_s_pydbm_cnn_featuregenerator_image, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_batch_size, __pyx_t_4) < 0) __PYX_ERR(0, 154, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_get_batch_size, __pyx_t_4) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":158
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":163
  *         return self.__batch_size
  * 
  *     epochs = property(get_epochs, set_readonly)             # <<<<<<<<<<<<<<
@@ -5186,16 +5255,16 @@ static int __pyx_pymod_exec_image_generator(PyObject *__pyx_pyinit_module)
     PyErr_Clear();
     __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_epochs);
   }
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 158, __pyx_L1_error)
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_readonly);
   if (unlikely(!__pyx_t_5)) {
     PyErr_Clear();
     __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_readonly);
   }
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 158, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 158, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4);
@@ -5203,13 +5272,13 @@ static int __pyx_pymod_exec_image_generator(PyObject *__pyx_pyinit_module)
   PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_5);
   __pyx_t_4 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 158, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_epochs, __pyx_t_5) < 0) __PYX_ERR(0, 158, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_epochs, __pyx_t_5) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/cnn/featuregenerator/image_generator.pyx":159
+  /* "pydbm/cnn/featuregenerator/image_generator.pyx":164
  * 
  *     epochs = property(get_epochs, set_readonly)
  *     batch_size = property(get_batch_size, set_readonly)             # <<<<<<<<<<<<<<
@@ -5219,16 +5288,16 @@ static int __pyx_pymod_exec_image_generator(PyObject *__pyx_pyinit_module)
     PyErr_Clear();
     __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_batch_size);
   }
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 159, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_readonly);
   if (unlikely(!__pyx_t_6)) {
     PyErr_Clear();
     __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_readonly);
   }
-  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 159, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_5);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5);
@@ -5236,10 +5305,10 @@ static int __pyx_pymod_exec_image_generator(PyObject *__pyx_pyinit_module)
   PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_6);
   __pyx_t_5 = 0;
   __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_4, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_4, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_batch_size, __pyx_t_6) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_batch_size, __pyx_t_6) < 0) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
   /* "pydbm/cnn/featuregenerator/image_generator.pyx":9

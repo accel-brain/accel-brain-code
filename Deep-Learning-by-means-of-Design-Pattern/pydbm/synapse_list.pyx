@@ -121,3 +121,28 @@ class Synapse(object):
         cdef int row = self.weights_arr.shape[0]
         cdef int col = self.weights_arr.shape[1]
         self.diff_weights_arr = np.zeros((row, col), dtype=float)
+
+    def save_pre_learned_params(self, file_path):
+        '''
+        Save pre-learned parameters.
+        
+        Args:
+            file_path:    File path.
+        '''
+        d = {}
+        for k, v in self.__dict__.items():
+            if isinstance(v, np.ndarray):
+                d.setdefault(k, v)
+        np.savez(file_path, **d)
+
+    def load_pre_learned_params(self, file_path):
+        '''
+        Load pre-learned parameters.
+        
+        Args:
+            file_path:    File path.
+        '''
+        pre_learned_dict = np.load(file_path)
+        for k, v in pre_learned_dict.items():
+            if isinstance(v, np.ndarray):
+                self.__dict__[k] = v

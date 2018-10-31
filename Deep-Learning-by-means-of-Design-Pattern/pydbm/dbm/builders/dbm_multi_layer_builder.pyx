@@ -5,6 +5,7 @@ from pydbm.dbm.interface.dbm_builder import DBMBuilder
 from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
 from pydbm.synapse.complete_bipartite_graph import CompleteBipartiteGraph
 from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
+import warnings
 
 
 class DBMMultiLayerBuilder(DBMBuilder):
@@ -42,6 +43,7 @@ class DBMMultiLayerBuilder(DBMBuilder):
 
     def __init__(
         self,
+        pre_learned_path_list=[],
         weights_arr_list=np.array([]),
         visible_bias_arr_list=np.array([]),
         hidden_bias_arr_list=np.array([])
@@ -55,9 +57,18 @@ class DBMMultiLayerBuilder(DBMBuilder):
         self.__graph_list = []
         self.__rbm_list = []
 
+        if len(weights_arr_list) > 0:
+            warnings.warn("`weights_arr_list` will be removed in future version. Use `pre_learned_path_list`.", FutureWarning)
+        if len(visible_bias_arr_list) > 0:
+            warnings.warn("`visible_bias_arr_list` will be removed in future version. Use `pre_learned_path_list`.", FutureWarning)
+        if len(hidden_bias_arr_list) > 0:
+            warnings.warn("`hidden_bias_arr_list` will be removed in future version. Use `pre_learned_path_list`.", FutureWarning)
+
         self.__weights_arr_list = weights_arr_list
         self.__visible_bias_arr_list = visible_bias_arr_list
         self.__hidden_bias_arr_list = hidden_bias_arr_list
+        
+        self.__pre_learned_path_list = pre_learned_path_list
 
     def visible_neuron_part(self, activating_function, int neuron_count):
         '''
@@ -107,8 +118,13 @@ class DBMMultiLayerBuilder(DBMBuilder):
         self.__approximate_interface_list = approximate_interface_list
 
         complete_bipartite_graph = CompleteBipartiteGraph()
-        
-        if len(self.__weights_arr_list):
+
+        if len(self.__pre_learned_path_list):
+            complete_bipartite_graph.load_pre_learned_params(self.__pre_learned_path_list[0])
+            complete_bipartite_graph.visible_activating_function = self.__visible_activating_function
+            complete_bipartite_graph.hidden_activating_function = self.__feature_activating_function_list[0]
+
+        elif len(self.__weights_arr_list):
             complete_bipartite_graph.create_node(
                 self.__visible_neuron_count,
                 self.__feature_point_count_list[0],
@@ -133,8 +149,13 @@ class DBMMultiLayerBuilder(DBMBuilder):
         cdef int i
         for i in range(1, len(self.__feature_point_count_list)):
             complete_bipartite_graph = CompleteBipartiteGraph()
-            
-            if len(self.__weights_arr_list):
+
+            if len(self.__pre_learned_path_list):
+                complete_bipartite_graph.load_pre_learned_params(self.__pre_learned_path_list[i])
+                complete_bipartite_graph.visible_activating_function = self.__feature_activating_function_list[i - 1]
+                complete_bipartite_graph.hidden_activating_function = self.__feature_activating_function_list[i]
+
+            elif len(self.__weights_arr_list):
                 complete_bipartite_graph.create_node(
                     self.__feature_point_count_list[i - 1],
                     self.__feature_point_count_list[i],
@@ -157,7 +178,12 @@ class DBMMultiLayerBuilder(DBMBuilder):
             self.__graph_list.append(complete_bipartite_graph)
 
         complete_bipartite_graph = CompleteBipartiteGraph()
-        
+
+        if len(self.__pre_learned_path_list):
+            complete_bipartite_graph.load_pre_learned_params(self.__pre_learned_path_list[-1])
+            complete_bipartite_graph.visible_activating_function = self.__feature_activating_function_list[-1]
+            complete_bipartite_graph.hidden_activating_function = self.__hidden_activating_function
+
         if len(self.__weights_arr_list):
             complete_bipartite_graph.create_node(
                 self.__feature_point_count_list[-1],

@@ -58,6 +58,8 @@ class ContrastiveDivergence(ApproximateInterface):
         else:
             raise TypeError()
 
+        self.__reconstruct_error_list = []
+
     def approximate_learn(
         self,
         graph,

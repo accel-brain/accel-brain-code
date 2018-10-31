@@ -244,3 +244,23 @@ class DeepBoltzmannMachine(object):
             The np.ndarray.
         '''
         return np.array(self.__rbm_list[layer_number].get_reconstruct_error_list())
+
+    def save_pre_learn_params(self, dir_path=None, file_name=None):
+        '''
+        Save pre-learned parameters.
+        
+        Args:
+            dir_path:   Path of dir. If `None`, the file is saved in the current directory.
+            file_name:  The naming rule of files. If `None`, this value is `dbm`.
+        '''
+        file_path = ""
+        if dir_path is not None:
+            file_path += dir_path + "/"
+        if file_name is not None:
+            file_path += file_name
+        else:
+            file_path += "dbm"
+        file_path += "_"
+        
+        for i in range(len(self.__rbm_list)):
+            self.__rbm_list[i].graph.save_pre_learned_params(file_path + str(i) + ".npz")

@@ -23,6 +23,16 @@ class RTRBMSimpleBuilder(RTRBMBuilder):
     # Learning rate.
     __learning_rate = 0.5
 
+    def __init__(self, pre_learned_path=None):
+        '''
+        Init.
+        
+        Args:
+            pre_learned_path:  File path that stores pre-learned parameters.
+
+        '''
+        self.__pre_learned_path = pre_learned_path
+
     def get_learning_rate(self):
         ''' getter '''
         if isinstance(self.__learning_rate, float) is False:
@@ -78,13 +88,16 @@ class RTRBMSimpleBuilder(RTRBMBuilder):
         self.__approximate_interface = approximate_interface
         self.__rt_graph = RecurrentTemporalGraph()
         self.__rt_graph.rnn_activating_function = self.__rnn_activating_function
-        self.__rt_graph.create_node(
-            self.__visible_neuron_count,
-            self.__hidden_neuron_count,
-            self.__visible_activating_function,
-            self.__hidden_activating_function
-        )
-
+        if self.__pre_learned_path is None:
+            self.__rt_graph.create_node(
+                self.__visible_neuron_count,
+                self.__hidden_neuron_count,
+                self.__visible_activating_function,
+                self.__hidden_activating_function
+            )
+        else:
+            self.__rt_graph.load_pre_learned_params(self.__pre_learned_path)
+            
     def get_result(self):
         '''
         Return builded restricted boltzmann machines.

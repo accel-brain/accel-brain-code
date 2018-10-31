@@ -50,6 +50,13 @@ class DBMMultiLayerBuilder(DBMBuilder):
     ):
         '''
         Initialize.
+        
+        Args:
+            pre_learned_path_list:  `list` of file path that stores pre-learned parameters.
+            weights_arr_list:       This will be removed in future version. Use `pre_learned_path_list`.
+            visible_bias_arr_list:  This will be removed in future version. Use `pre_learned_path_list`.
+            hidden_bias_arr_list:   This will be removed in future version. Use `pre_learned_path_list`.
+
         '''
         self.__visible_neuron_list = []
         self.__feature_point_neuron = []

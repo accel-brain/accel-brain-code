@@ -112,6 +112,8 @@ class LSTMRTRBMSimpleBuilder(RTRBMBuilder):
             )
         else:
             self.__lstm_graph.load_pre_learned_params(self.__pre_learned_path)
+            self.__lstm_graph.visible_activating_function = self.__visible_activating_function
+            self.__lstm_graph.hidden_activating_function = self.__hidden_activating_function
 
     def get_result(self):
         '''

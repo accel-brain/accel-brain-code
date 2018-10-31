@@ -98,6 +98,8 @@ class RNNRBMSimpleBuilder(RTRBMBuilder):
             )
         else:
             self.__rnn_graph.load_pre_learned_params(self.__pre_learned_path)
+            self.__rnn_graph.visible_activating_function = self.__visible_activating_function
+            self.__rnn_graph.hidden_activating_function = self.__hidden_activating_function
 
     def get_result(self):
         '''

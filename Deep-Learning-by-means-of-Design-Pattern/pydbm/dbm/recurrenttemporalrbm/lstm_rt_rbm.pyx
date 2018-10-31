@@ -23,7 +23,8 @@ class LSTMRTRBM(RecurrentTemporalRBM):
         hidden_activating_function,
         rnn_activating_function,
         opt_params,
-        learning_rate=1e-05
+        learning_rate=1e-05,
+        pre_learned_path=None
     ):
         '''
         Init.
@@ -35,12 +36,13 @@ class LSTMRTRBM(RecurrentTemporalRBM):
             hidden_activating_function:     The activation function in hidden layer.
             opt_params:                     is-a `OptParams`.
             learning_rate:                  Learning rate.
+            pre_learned_path:               File path that stores pre-learned parameters.
 
         '''
         if isinstance(opt_params, OptParams) is False:
             raise TypeError()
 
-        rtrbm_director = RTRBMDirector(RNNRBMSimpleBuilder())
+        rtrbm_director = RTRBMDirector(RNNRBMSimpleBuilder(pre_learned_path))
         rtrbm_director.rtrbm_construct(
             visible_num,
             hidden_num,

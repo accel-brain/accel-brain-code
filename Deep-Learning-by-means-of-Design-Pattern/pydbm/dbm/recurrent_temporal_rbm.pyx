@@ -33,7 +33,8 @@ class RecurrentTemporalRBM(object):
         hidden_activating_function,
         rnn_activating_function,
         opt_params,
-        learning_rate=1e-05
+        learning_rate=1e-05,
+        pre_learned_path=None
     ):
         '''
         Init.
@@ -45,12 +46,13 @@ class RecurrentTemporalRBM(object):
             hidden_activating_function:     The activation function in hidden layer.
             opt_params:                     is-a `OptParams`.
             learning_rate:                  Learning rate.
+            pre_learned_path:               File path that stores pre-learned parameters.
 
         '''
         if isinstance(opt_params, OptParams) is False:
             raise TypeError()
 
-        rtrbm_director = RTRBMDirector(RTRBMSimpleBuilder())
+        rtrbm_director = RTRBMDirector(RTRBMSimpleBuilder(pre_learned_path))
         rtrbm_director.rtrbm_construct(
             visible_num,
             hidden_num,
@@ -83,14 +85,15 @@ class RecurrentTemporalRBM(object):
             batch_size=batch_size
         )
 
-    def inference(self, test_arr, training_count=1, r_batch_size=-1):
+    def inference(self, test_arr, training_count=1, batch_size=None, r_batch_size=-1):
         '''
         Inferencing and recursive learning.
         
         Args:
             test_arr:           `np.ndarray` of test data points.
             training_count:     The number of training.
-            r_batch_size:       Batch size.
+            batch_size:         Batch size.
+            r_batch_size:       Batch size for recursive learning.
 
         Returns:
             `np.ndarray` of inferenced result.
@@ -99,7 +102,8 @@ class RecurrentTemporalRBM(object):
         inferenced_arr = self.rbm.inference(
             test_arr,
             training_count=training_count, 
-            r_batch_size=r_batch_size
+            r_batch_size=r_batch_size,
+            batch_size=batch_size
         )
         return inferenced_arr
 

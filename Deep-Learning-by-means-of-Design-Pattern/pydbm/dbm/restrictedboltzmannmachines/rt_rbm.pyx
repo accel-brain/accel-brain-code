@@ -46,7 +46,8 @@ class RTRBM(RestrictedBoltzmannMachine):
         np.ndarray[DOUBLE_t, ndim=3] observed_data_arr,
         int traning_count=-1,
         int r_batch_size=200,
-        int training_count=1000
+        int training_count=1000,
+        batch_size=None
     ):
         '''
         Inferencing.
@@ -67,10 +68,14 @@ class RTRBM(RestrictedBoltzmannMachine):
                                   but is refered only in inference and reconstruction. 
                                   If this value is more than `0`, 
                                   the inferencing is a kind of reccursive learning with the mini-batch training.
+            batch_size:           Batch size.
 
         Returns:
             The `np.ndarray` of feature points.
         '''
+        if batch_size is not None:
+            self.__batch_size = batch_size
+
         if traning_count != -1:
             training_count = traning_count
             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)

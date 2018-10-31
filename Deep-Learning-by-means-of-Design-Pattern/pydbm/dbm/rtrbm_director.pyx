@@ -16,6 +16,16 @@ class RTRBMDirector(object):
     # The restricted boltzmann machines.
     __rbm = None
     
+    def get_rbm(self):
+        ''' getter '''
+        return self.__rbm
+
+    def set_rbm(self, value):
+        ''' setter '''
+        self.__rbm = value
+    
+    rbm = property(get_rbm, set_rbm)
+    
     def __init__(self, rtrbm_builder):
         '''
         Initialize `Builder` in Builder Pattern.

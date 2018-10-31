@@ -835,9 +835,6 @@ static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
     PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
     const char* function_name);
 
-/* GetModuleGlobalName.proto */
-static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
-
 /* PyObjectSetAttrStr.proto */
 #if CYTHON_USE_TYPE_SLOTS
 #define __Pyx_PyObject_DelAttrStr(o,n) __Pyx_PyObject_SetAttrStr(o,n,NULL)
@@ -855,6 +852,9 @@ static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr
 #define __Pyx_PyObject_DelAttrStr(o,n)   PyObject_DelAttr(o,n)
 #define __Pyx_PyObject_SetAttrStr(o,n,v) PyObject_SetAttr(o,n,v)
 #endif
+
+/* GetModuleGlobalName.proto */
+static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
 
 /* PyFunctionFastCall.proto */
 #if CYTHON_FAST_PYCALL
@@ -1068,16 +1068,22 @@ int __pyx_module_is_main_pydbm__dbm__rtrbm_director = 0;
 
 /* Implementation of 'pydbm.dbm.rtrbm_director' */
 static PyObject *__pyx_builtin_object;
+static PyObject *__pyx_builtin_property;
 static PyObject *__pyx_builtin_TypeError;
 static const char __pyx_k_doc[] = "__doc__";
+static const char __pyx_k_rbm[] = "rbm";
 static const char __pyx_k_init[] = "__init__";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_self[] = "self";
 static const char __pyx_k_test[] = "__test__";
+static const char __pyx_k_value[] = "value";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_module[] = "__module__";
 static const char __pyx_k_object[] = "object";
+static const char __pyx_k_get_rbm[] = "get_rbm";
 static const char __pyx_k_prepare[] = "__prepare__";
+static const char __pyx_k_set_rbm[] = "set_rbm";
+static const char __pyx_k_property[] = "property";
 static const char __pyx_k_qualname[] = "__qualname__";
 static const char __pyx_k_TypeError[] = "TypeError";
 static const char __pyx_k_metaclass[] = "__metaclass__";
@@ -1097,6 +1103,8 @@ static const char __pyx_k_hidden_neuron_part[] = "hidden_neuron_part";
 static const char __pyx_k_visible_neuron_part[] = "visible_neuron_part";
 static const char __pyx_k_ApproximateInterface[] = "ApproximateInterface";
 static const char __pyx_k_RTRBMDirector___init[] = "RTRBMDirector.__init__";
+static const char __pyx_k_RTRBMDirector_get_rbm[] = "RTRBMDirector.get_rbm";
+static const char __pyx_k_RTRBMDirector_set_rbm[] = "RTRBMDirector.set_rbm";
 static const char __pyx_k_approximate_interface[] = "approximate_interface";
 static const char __pyx_k_rnn_activating_function[] = "rnn_activating_function";
 static const char __pyx_k_pydbm_dbm_rtrbm_director[] = "pydbm.dbm.rtrbm_director";
@@ -1117,12 +1125,15 @@ static PyObject *__pyx_n_s_RTRBMDirector;
 static PyObject *__pyx_n_s_RTRBMDirector___init;
 static PyObject *__pyx_n_s_RTRBMDirector__rbm;
 static PyObject *__pyx_n_s_RTRBMDirector__rtrbm_builder;
+static PyObject *__pyx_n_s_RTRBMDirector_get_rbm;
 static PyObject *__pyx_n_s_RTRBMDirector_rtrbm_construct;
+static PyObject *__pyx_n_s_RTRBMDirector_set_rbm;
 static PyObject *__pyx_kp_s_The_Director_in_Builder_Pattern;
 static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_n_s_approximate_interface;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_doc;
+static PyObject *__pyx_n_s_get_rbm;
 static PyObject *__pyx_n_s_get_result;
 static PyObject *__pyx_n_s_graph_part;
 static PyObject *__pyx_n_s_hidden_activating_function;
@@ -1136,33 +1147,210 @@ static PyObject *__pyx_n_s_metaclass;
 static PyObject *__pyx_n_s_module;
 static PyObject *__pyx_n_s_object;
 static PyObject *__pyx_n_s_prepare;
+static PyObject *__pyx_n_s_property;
 static PyObject *__pyx_n_s_pydbm_activation_interface_activ;
 static PyObject *__pyx_n_s_pydbm_approximation_interface_ap;
 static PyObject *__pyx_n_s_pydbm_dbm_interface_rt_rbm_build;
 static PyObject *__pyx_n_s_pydbm_dbm_rtrbm_director;
 static PyObject *__pyx_kp_s_pydbm_dbm_rtrbm_director_pyx;
 static PyObject *__pyx_n_s_qualname;
+static PyObject *__pyx_n_s_rbm;
 static PyObject *__pyx_n_s_rnn_activating_function;
 static PyObject *__pyx_n_s_rnn_neuron_part;
 static PyObject *__pyx_n_s_rtrbm_builder;
 static PyObject *__pyx_n_s_rtrbm_construct;
 static PyObject *__pyx_n_s_self;
+static PyObject *__pyx_n_s_set_rbm;
 static PyObject *__pyx_n_s_test;
+static PyObject *__pyx_n_s_value;
 static PyObject *__pyx_n_s_visible_activating_function;
 static PyObject *__pyx_n_s_visible_neuron_part;
 static PyObject *__pyx_n_s_visible_num;
-static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_rtrbm_builder); /* proto */
-static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_construct(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_visible_num, PyObject *__pyx_v_hidden_num, PyObject *__pyx_v_visible_activating_function, PyObject *__pyx_v_hidden_activating_function, PyObject *__pyx_v_rnn_activating_function, PyObject *__pyx_v_approximate_interface, PyObject *__pyx_v_learning_rate); /* proto */
+static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_get_rbm(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2set_rbm(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_4__init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_rtrbm_builder); /* proto */
+static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_6rtrbm_construct(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_visible_num, PyObject *__pyx_v_hidden_num, PyObject *__pyx_v_visible_activating_function, PyObject *__pyx_v_hidden_activating_function, PyObject *__pyx_v_rnn_activating_function, PyObject *__pyx_v_approximate_interface, PyObject *__pyx_v_learning_rate); /* proto */
 static PyObject *__pyx_float_1eneg_05;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_tuple__4;
 static PyObject *__pyx_tuple__6;
+static PyObject *__pyx_tuple__8;
+static PyObject *__pyx_tuple__10;
 static PyObject *__pyx_codeobj__3;
 static PyObject *__pyx_codeobj__5;
+static PyObject *__pyx_codeobj__7;
+static PyObject *__pyx_codeobj__9;
 
 /* "pydbm/dbm/rtrbm_director.pyx":19
  *     __rbm = None
+ * 
+ *     def get_rbm(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__rbm
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_1get_rbm(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_get_rbm[] = " getter ";
+static PyMethodDef __pyx_mdef_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_1get_rbm = {"get_rbm", (PyCFunction)__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_1get_rbm, METH_O, __pyx_doc_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_get_rbm};
+static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_1get_rbm(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_rbm (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_get_rbm(__pyx_self, ((PyObject *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_get_rbm(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("get_rbm", 0);
+
+  /* "pydbm/dbm/rtrbm_director.pyx":21
+ *     def get_rbm(self):
+ *         ''' getter '''
+ *         return self.__rbm             # <<<<<<<<<<<<<<
+ * 
+ *     def set_rbm(self, value):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rbm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pydbm/dbm/rtrbm_director.pyx":19
+ *     __rbm = None
+ * 
+ *     def get_rbm(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__rbm
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pydbm.dbm.rtrbm_director.RTRBMDirector.get_rbm", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/dbm/rtrbm_director.pyx":23
+ *         return self.__rbm
+ * 
+ *     def set_rbm(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__rbm = value
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_3set_rbm(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2set_rbm[] = " setter ";
+static PyMethodDef __pyx_mdef_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_3set_rbm = {"set_rbm", (PyCFunction)__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_3set_rbm, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2set_rbm};
+static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_3set_rbm(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_self = 0;
+  PyObject *__pyx_v_value = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_rbm (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_value,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("set_rbm", 1, 2, 2, 1); __PYX_ERR(0, 23, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_rbm") < 0)) __PYX_ERR(0, 23, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_self = values[0];
+    __pyx_v_value = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("set_rbm", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 23, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pydbm.dbm.rtrbm_director.RTRBMDirector.set_rbm", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2set_rbm(__pyx_self, __pyx_v_self, __pyx_v_value);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2set_rbm(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_rbm", 0);
+
+  /* "pydbm/dbm/rtrbm_director.pyx":25
+ *     def set_rbm(self, value):
+ *         ''' setter '''
+ *         self.__rbm = value             # <<<<<<<<<<<<<<
+ * 
+ *     rbm = property(get_rbm, set_rbm)
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rbm, __pyx_v_value) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
+
+  /* "pydbm/dbm/rtrbm_director.pyx":23
+ *         return self.__rbm
+ * 
+ *     def set_rbm(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__rbm = value
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("pydbm.dbm.rtrbm_director.RTRBMDirector.set_rbm", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/dbm/rtrbm_director.pyx":29
+ *     rbm = property(get_rbm, set_rbm)
  * 
  *     def __init__(self, rtrbm_builder):             # <<<<<<<<<<<<<<
  *         '''
@@ -1170,10 +1358,10 @@ static PyObject *__pyx_codeobj__5;
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector___init__[] = "\n        Initialize `Builder` in Builder Pattern.\n\n        Args:\n            rtrbm_builder     `Concreat Builder` in Builder Pattern\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_1__init__ = {"__init__", (PyCFunction)__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_1__init__, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector___init__};
-static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_5__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_4__init__[] = "\n        Initialize `Builder` in Builder Pattern.\n\n        Args:\n            rtrbm_builder     `Concreat Builder` in Builder Pattern\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_5__init__ = {"__init__", (PyCFunction)__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_5__init__, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_4__init__};
+static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_5__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_rtrbm_builder = 0;
   PyObject *__pyx_r = 0;
@@ -1202,11 +1390,11 @@ static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_1__init__
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_rtrbm_builder)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, 1); __PYX_ERR(0, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, 1); __PYX_ERR(0, 29, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 19, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 29, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1219,20 +1407,20 @@ static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_1__init__
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 19, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 29, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.dbm.rtrbm_director.RTRBMDirector.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector___init__(__pyx_self, __pyx_v_self, __pyx_v_rtrbm_builder);
+  __pyx_r = __pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_4__init__(__pyx_self, __pyx_v_self, __pyx_v_rtrbm_builder);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_rtrbm_builder) {
+static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_4__init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_rtrbm_builder) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1240,30 +1428,30 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector___init__(
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "pydbm/dbm/rtrbm_director.pyx":26
+  /* "pydbm/dbm/rtrbm_director.pyx":36
  *             rtrbm_builder     `Concreat Builder` in Builder Pattern
  *         '''
  *         if isinstance(rtrbm_builder, RTRBMBuilder):             # <<<<<<<<<<<<<<
  *             self.__rtrbm_builder = rtrbm_builder
  *         else:
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_RTRBMBuilder); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_RTRBMBuilder); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_rtrbm_builder, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_rtrbm_builder, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "pydbm/dbm/rtrbm_director.pyx":27
+    /* "pydbm/dbm/rtrbm_director.pyx":37
  *         '''
  *         if isinstance(rtrbm_builder, RTRBMBuilder):
  *             self.__rtrbm_builder = rtrbm_builder             # <<<<<<<<<<<<<<
  *         else:
  *             raise TypeError()
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rtrbm_builder, __pyx_v_rtrbm_builder) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rtrbm_builder, __pyx_v_rtrbm_builder) < 0) __PYX_ERR(0, 37, __pyx_L1_error)
 
-    /* "pydbm/dbm/rtrbm_director.pyx":26
+    /* "pydbm/dbm/rtrbm_director.pyx":36
  *             rtrbm_builder     `Concreat Builder` in Builder Pattern
  *         '''
  *         if isinstance(rtrbm_builder, RTRBMBuilder):             # <<<<<<<<<<<<<<
@@ -1273,7 +1461,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector___init__(
     goto __pyx_L3;
   }
 
-  /* "pydbm/dbm/rtrbm_director.pyx":29
+  /* "pydbm/dbm/rtrbm_director.pyx":39
  *             self.__rtrbm_builder = rtrbm_builder
  *         else:
  *             raise TypeError()             # <<<<<<<<<<<<<<
@@ -1281,25 +1469,25 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector___init__(
  *         self.__rbm = None
  */
   /*else*/ {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 29, __pyx_L1_error)
+    __PYX_ERR(0, 39, __pyx_L1_error)
   }
   __pyx_L3:;
 
-  /* "pydbm/dbm/rtrbm_director.pyx":31
+  /* "pydbm/dbm/rtrbm_director.pyx":41
  *             raise TypeError()
  * 
  *         self.__rbm = None             # <<<<<<<<<<<<<<
  * 
  *     def rtrbm_construct(
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rbm, Py_None) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rbm, Py_None) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
 
-  /* "pydbm/dbm/rtrbm_director.pyx":19
- *     __rbm = None
+  /* "pydbm/dbm/rtrbm_director.pyx":29
+ *     rbm = property(get_rbm, set_rbm)
  * 
  *     def __init__(self, rtrbm_builder):             # <<<<<<<<<<<<<<
  *         '''
@@ -1319,7 +1507,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector___init__(
   return __pyx_r;
 }
 
-/* "pydbm/dbm/rtrbm_director.pyx":33
+/* "pydbm/dbm/rtrbm_director.pyx":43
  *         self.__rbm = None
  * 
  *     def rtrbm_construct(             # <<<<<<<<<<<<<<
@@ -1328,10 +1516,10 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector___init__(
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_3rtrbm_construct(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_construct[] = "\n        Build deep boltzmann machine.\n\n        Args:\n            visible_num:                    The number of units in visible layer.\n            hidden_num:                     The number of units in hidden layer.\n            visible_activating_function:    The activation function in visible layer.\n            hidden_activating_function:     The activation function in hidden layer.\n            approximate_interface:          The function approximation.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_3rtrbm_construct = {"rtrbm_construct", (PyCFunction)__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_3rtrbm_construct, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_construct};
-static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_3rtrbm_construct(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_7rtrbm_construct(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_6rtrbm_construct[] = "\n        Build deep boltzmann machine.\n\n        Args:\n            visible_num:                    The number of units in visible layer.\n            hidden_num:                     The number of units in hidden layer.\n            visible_activating_function:    The activation function in visible layer.\n            hidden_activating_function:     The activation function in hidden layer.\n            approximate_interface:          The function approximation.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_7rtrbm_construct = {"rtrbm_construct", (PyCFunction)__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_7rtrbm_construct, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_6rtrbm_construct};
+static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_7rtrbm_construct(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_visible_num = 0;
   PyObject *__pyx_v_hidden_num = 0;
@@ -1379,37 +1567,37 @@ static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_3rtrbm_co
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_visible_num)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("rtrbm_construct", 0, 7, 8, 1); __PYX_ERR(0, 33, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("rtrbm_construct", 0, 7, 8, 1); __PYX_ERR(0, 43, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_hidden_num)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("rtrbm_construct", 0, 7, 8, 2); __PYX_ERR(0, 33, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("rtrbm_construct", 0, 7, 8, 2); __PYX_ERR(0, 43, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_visible_activating_function)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("rtrbm_construct", 0, 7, 8, 3); __PYX_ERR(0, 33, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("rtrbm_construct", 0, 7, 8, 3); __PYX_ERR(0, 43, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_hidden_activating_function)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("rtrbm_construct", 0, 7, 8, 4); __PYX_ERR(0, 33, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("rtrbm_construct", 0, 7, 8, 4); __PYX_ERR(0, 43, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_rnn_activating_function)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("rtrbm_construct", 0, 7, 8, 5); __PYX_ERR(0, 33, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("rtrbm_construct", 0, 7, 8, 5); __PYX_ERR(0, 43, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_approximate_interface)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("rtrbm_construct", 0, 7, 8, 6); __PYX_ERR(0, 33, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("rtrbm_construct", 0, 7, 8, 6); __PYX_ERR(0, 43, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  7:
@@ -1419,7 +1607,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_3rtrbm_co
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "rtrbm_construct") < 0)) __PYX_ERR(0, 33, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "rtrbm_construct") < 0)) __PYX_ERR(0, 43, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -1447,20 +1635,20 @@ static PyObject *__pyx_pw_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_3rtrbm_co
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("rtrbm_construct", 0, 7, 8, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 33, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("rtrbm_construct", 0, 7, 8, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 43, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.dbm.rtrbm_director.RTRBMDirector.rtrbm_construct", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_construct(__pyx_self, __pyx_v_self, __pyx_v_visible_num, __pyx_v_hidden_num, __pyx_v_visible_activating_function, __pyx_v_hidden_activating_function, __pyx_v_rnn_activating_function, __pyx_v_approximate_interface, __pyx_v_learning_rate);
+  __pyx_r = __pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_6rtrbm_construct(__pyx_self, __pyx_v_self, __pyx_v_visible_num, __pyx_v_hidden_num, __pyx_v_visible_activating_function, __pyx_v_hidden_activating_function, __pyx_v_rnn_activating_function, __pyx_v_approximate_interface, __pyx_v_learning_rate);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_construct(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_visible_num, PyObject *__pyx_v_hidden_num, PyObject *__pyx_v_visible_activating_function, PyObject *__pyx_v_hidden_activating_function, PyObject *__pyx_v_rnn_activating_function, PyObject *__pyx_v_approximate_interface, PyObject *__pyx_v_learning_rate) {
+static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_6rtrbm_construct(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_visible_num, PyObject *__pyx_v_hidden_num, PyObject *__pyx_v_visible_activating_function, PyObject *__pyx_v_hidden_activating_function, PyObject *__pyx_v_rnn_activating_function, PyObject *__pyx_v_approximate_interface, PyObject *__pyx_v_learning_rate) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1472,34 +1660,34 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
   PyObject *__pyx_t_7 = NULL;
   __Pyx_RefNannySetupContext("rtrbm_construct", 0);
 
-  /* "pydbm/dbm/rtrbm_director.pyx":53
+  /* "pydbm/dbm/rtrbm_director.pyx":63
  *             approximate_interface:          The function approximation.
  *         '''
  *         if isinstance(visible_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError()
  *         if isinstance(hidden_activating_function, ActivatingFunctionInterface) is False:
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_visible_activating_function, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_visible_activating_function, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
   if (__pyx_t_3) {
 
-    /* "pydbm/dbm/rtrbm_director.pyx":54
+    /* "pydbm/dbm/rtrbm_director.pyx":64
  *         '''
  *         if isinstance(visible_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError()             # <<<<<<<<<<<<<<
  *         if isinstance(hidden_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError()
  */
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 54, __pyx_L1_error)
+    __PYX_ERR(0, 64, __pyx_L1_error)
 
-    /* "pydbm/dbm/rtrbm_director.pyx":53
+    /* "pydbm/dbm/rtrbm_director.pyx":63
  *             approximate_interface:          The function approximation.
  *         '''
  *         if isinstance(visible_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
@@ -1508,34 +1696,34 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
  */
   }
 
-  /* "pydbm/dbm/rtrbm_director.pyx":55
+  /* "pydbm/dbm/rtrbm_director.pyx":65
  *         if isinstance(visible_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError()
  *         if isinstance(hidden_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError()
  *         if isinstance(rnn_activating_function, ActivatingFunctionInterface) is False:
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyObject_IsInstance(__pyx_v_hidden_activating_function, __pyx_t_1); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_3 = PyObject_IsInstance(__pyx_v_hidden_activating_function, __pyx_t_1); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_2 = ((__pyx_t_3 == 0) != 0);
   if (__pyx_t_2) {
 
-    /* "pydbm/dbm/rtrbm_director.pyx":56
+    /* "pydbm/dbm/rtrbm_director.pyx":66
  *             raise TypeError()
  *         if isinstance(hidden_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError()             # <<<<<<<<<<<<<<
  *         if isinstance(rnn_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError()
  */
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 56, __pyx_L1_error)
+    __PYX_ERR(0, 66, __pyx_L1_error)
 
-    /* "pydbm/dbm/rtrbm_director.pyx":55
+    /* "pydbm/dbm/rtrbm_director.pyx":65
  *         if isinstance(visible_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError()
  *         if isinstance(hidden_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
@@ -1544,34 +1732,34 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
  */
   }
 
-  /* "pydbm/dbm/rtrbm_director.pyx":57
+  /* "pydbm/dbm/rtrbm_director.pyx":67
  *         if isinstance(hidden_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError()
  *         if isinstance(rnn_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError()
  *         if isinstance(approximate_interface, ApproximateInterface) is False:
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_rnn_activating_function, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_rnn_activating_function, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
   if (__pyx_t_3) {
 
-    /* "pydbm/dbm/rtrbm_director.pyx":58
+    /* "pydbm/dbm/rtrbm_director.pyx":68
  *             raise TypeError()
  *         if isinstance(rnn_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError()             # <<<<<<<<<<<<<<
  *         if isinstance(approximate_interface, ApproximateInterface) is False:
  *             raise TypeError()
  */
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 58, __pyx_L1_error)
+    __PYX_ERR(0, 68, __pyx_L1_error)
 
-    /* "pydbm/dbm/rtrbm_director.pyx":57
+    /* "pydbm/dbm/rtrbm_director.pyx":67
  *         if isinstance(hidden_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError()
  *         if isinstance(rnn_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
@@ -1580,34 +1768,34 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
  */
   }
 
-  /* "pydbm/dbm/rtrbm_director.pyx":59
+  /* "pydbm/dbm/rtrbm_director.pyx":69
  *         if isinstance(rnn_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError()
  *         if isinstance(approximate_interface, ApproximateInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError()
  * 
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ApproximateInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ApproximateInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyObject_IsInstance(__pyx_v_approximate_interface, __pyx_t_1); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_3 = PyObject_IsInstance(__pyx_v_approximate_interface, __pyx_t_1); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 69, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_2 = ((__pyx_t_3 == 0) != 0);
   if (__pyx_t_2) {
 
-    /* "pydbm/dbm/rtrbm_director.pyx":60
+    /* "pydbm/dbm/rtrbm_director.pyx":70
  *             raise TypeError()
  *         if isinstance(approximate_interface, ApproximateInterface) is False:
  *             raise TypeError()             # <<<<<<<<<<<<<<
  * 
  *         # Learning rate.
  */
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 60, __pyx_L1_error)
+    __PYX_ERR(0, 70, __pyx_L1_error)
 
-    /* "pydbm/dbm/rtrbm_director.pyx":59
+    /* "pydbm/dbm/rtrbm_director.pyx":69
  *         if isinstance(rnn_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError()
  *         if isinstance(approximate_interface, ApproximateInterface) is False:             # <<<<<<<<<<<<<<
@@ -1616,32 +1804,32 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
  */
   }
 
-  /* "pydbm/dbm/rtrbm_director.pyx":63
+  /* "pydbm/dbm/rtrbm_director.pyx":73
  * 
  *         # Learning rate.
  *         self.__rtrbm_builder.learning_rate = learning_rate             # <<<<<<<<<<<<<<
  *         # Set units in visible layer.
  *         self.__rtrbm_builder.visible_neuron_part(
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rtrbm_builder); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rtrbm_builder); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_learning_rate, __pyx_v_learning_rate) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_learning_rate, __pyx_v_learning_rate) < 0) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/rtrbm_director.pyx":65
+  /* "pydbm/dbm/rtrbm_director.pyx":75
  *         self.__rtrbm_builder.learning_rate = learning_rate
  *         # Set units in visible layer.
  *         self.__rtrbm_builder.visible_neuron_part(             # <<<<<<<<<<<<<<
  *             visible_activating_function,
  *             visible_num
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rtrbm_builder); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rtrbm_builder); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_visible_neuron_part); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_visible_neuron_part); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/dbm/rtrbm_director.pyx":67
+  /* "pydbm/dbm/rtrbm_director.pyx":77
  *         self.__rtrbm_builder.visible_neuron_part(
  *             visible_activating_function,
  *             visible_num             # <<<<<<<<<<<<<<
@@ -1663,7 +1851,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_5)) {
     PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_visible_activating_function, __pyx_v_visible_num};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
@@ -1671,13 +1859,13 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
     PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_visible_activating_function, __pyx_v_visible_num};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
   #endif
   {
-    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 75, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_4) {
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -1688,27 +1876,27 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
     __Pyx_INCREF(__pyx_v_visible_num);
     __Pyx_GIVEREF(__pyx_v_visible_num);
     PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_v_visible_num);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/rtrbm_director.pyx":70
+  /* "pydbm/dbm/rtrbm_director.pyx":80
  *         )
  *         # Set units in hidden layer.
  *         self.__rtrbm_builder.hidden_neuron_part(             # <<<<<<<<<<<<<<
  *             hidden_activating_function,
  *             hidden_num
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rtrbm_builder); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 70, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rtrbm_builder); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_hidden_neuron_part); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 70, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_hidden_neuron_part); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/dbm/rtrbm_director.pyx":72
+  /* "pydbm/dbm/rtrbm_director.pyx":82
  *         self.__rtrbm_builder.hidden_neuron_part(
  *             hidden_activating_function,
  *             hidden_num             # <<<<<<<<<<<<<<
@@ -1730,7 +1918,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_7)) {
     PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_v_hidden_activating_function, __pyx_v_hidden_num};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
@@ -1738,13 +1926,13 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
     PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_v_hidden_activating_function, __pyx_v_hidden_num};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
   #endif
   {
-    __pyx_t_4 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 70, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -1755,23 +1943,23 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
     __Pyx_INCREF(__pyx_v_hidden_num);
     __Pyx_GIVEREF(__pyx_v_hidden_num);
     PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_6, __pyx_v_hidden_num);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/rtrbm_director.pyx":75
+  /* "pydbm/dbm/rtrbm_director.pyx":85
  *         )
  *         # Set units in RNN layer.
  *         self.__rtrbm_builder.rnn_neuron_part(rnn_activating_function)             # <<<<<<<<<<<<<<
  *         # Set graph and approximation function, delegating `SGD` which is-a `OptParams`.
  *         self.__rtrbm_builder.graph_part(approximate_interface)
  */
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rtrbm_builder); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 75, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rtrbm_builder); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_rnn_neuron_part); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 75, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_rnn_neuron_part); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -1785,13 +1973,13 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
     }
   }
   if (!__pyx_t_7) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_rnn_activating_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_rnn_activating_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_v_rnn_activating_function};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -1799,19 +1987,19 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_v_rnn_activating_function};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 75, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 85, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7); __pyx_t_7 = NULL;
       __Pyx_INCREF(__pyx_v_rnn_activating_function);
       __Pyx_GIVEREF(__pyx_v_rnn_activating_function);
       PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_v_rnn_activating_function);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
@@ -1819,16 +2007,16 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/rtrbm_director.pyx":77
+  /* "pydbm/dbm/rtrbm_director.pyx":87
  *         self.__rtrbm_builder.rnn_neuron_part(rnn_activating_function)
  *         # Set graph and approximation function, delegating `SGD` which is-a `OptParams`.
  *         self.__rtrbm_builder.graph_part(approximate_interface)             # <<<<<<<<<<<<<<
  *         # Building.
  *         self.__rbm = self.__rtrbm_builder.get_result()
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rtrbm_builder); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rtrbm_builder); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph_part); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph_part); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -1842,13 +2030,13 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_approximate_interface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_approximate_interface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_v_approximate_interface};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -1856,19 +2044,19 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_v_approximate_interface};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 77, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 87, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4); __pyx_t_4 = NULL;
       __Pyx_INCREF(__pyx_v_approximate_interface);
       __Pyx_GIVEREF(__pyx_v_approximate_interface);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_v_approximate_interface);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
@@ -1876,14 +2064,14 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/rtrbm_director.pyx":79
+  /* "pydbm/dbm/rtrbm_director.pyx":89
  *         self.__rtrbm_builder.graph_part(approximate_interface)
  *         # Building.
  *         self.__rbm = self.__rtrbm_builder.get_result()             # <<<<<<<<<<<<<<
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rtrbm_builder); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rtrbm_builder); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_get_result); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_get_result); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = NULL;
@@ -1897,17 +2085,17 @@ static PyObject *__pyx_pf_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_2rtrbm_co
     }
   }
   if (__pyx_t_5) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rbm, __pyx_t_1) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RTRBMDirector__rbm, __pyx_t_1) < 0) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/rtrbm_director.pyx":33
+  /* "pydbm/dbm/rtrbm_director.pyx":43
  *         self.__rbm = None
  * 
  *     def rtrbm_construct(             # <<<<<<<<<<<<<<
@@ -1975,12 +2163,15 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_RTRBMDirector___init, __pyx_k_RTRBMDirector___init, sizeof(__pyx_k_RTRBMDirector___init), 0, 0, 1, 1},
   {&__pyx_n_s_RTRBMDirector__rbm, __pyx_k_RTRBMDirector__rbm, sizeof(__pyx_k_RTRBMDirector__rbm), 0, 0, 1, 1},
   {&__pyx_n_s_RTRBMDirector__rtrbm_builder, __pyx_k_RTRBMDirector__rtrbm_builder, sizeof(__pyx_k_RTRBMDirector__rtrbm_builder), 0, 0, 1, 1},
+  {&__pyx_n_s_RTRBMDirector_get_rbm, __pyx_k_RTRBMDirector_get_rbm, sizeof(__pyx_k_RTRBMDirector_get_rbm), 0, 0, 1, 1},
   {&__pyx_n_s_RTRBMDirector_rtrbm_construct, __pyx_k_RTRBMDirector_rtrbm_construct, sizeof(__pyx_k_RTRBMDirector_rtrbm_construct), 0, 0, 1, 1},
+  {&__pyx_n_s_RTRBMDirector_set_rbm, __pyx_k_RTRBMDirector_set_rbm, sizeof(__pyx_k_RTRBMDirector_set_rbm), 0, 0, 1, 1},
   {&__pyx_kp_s_The_Director_in_Builder_Pattern, __pyx_k_The_Director_in_Builder_Pattern, sizeof(__pyx_k_The_Director_in_Builder_Pattern), 0, 0, 1, 0},
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_n_s_approximate_interface, __pyx_k_approximate_interface, sizeof(__pyx_k_approximate_interface), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
+  {&__pyx_n_s_get_rbm, __pyx_k_get_rbm, sizeof(__pyx_k_get_rbm), 0, 0, 1, 1},
   {&__pyx_n_s_get_result, __pyx_k_get_result, sizeof(__pyx_k_get_result), 0, 0, 1, 1},
   {&__pyx_n_s_graph_part, __pyx_k_graph_part, sizeof(__pyx_k_graph_part), 0, 0, 1, 1},
   {&__pyx_n_s_hidden_activating_function, __pyx_k_hidden_activating_function, sizeof(__pyx_k_hidden_activating_function), 0, 0, 1, 1},
@@ -1994,18 +2185,22 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_module, __pyx_k_module, sizeof(__pyx_k_module), 0, 0, 1, 1},
   {&__pyx_n_s_object, __pyx_k_object, sizeof(__pyx_k_object), 0, 0, 1, 1},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
+  {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_activation_interface_activ, __pyx_k_pydbm_activation_interface_activ, sizeof(__pyx_k_pydbm_activation_interface_activ), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_approximation_interface_ap, __pyx_k_pydbm_approximation_interface_ap, sizeof(__pyx_k_pydbm_approximation_interface_ap), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_dbm_interface_rt_rbm_build, __pyx_k_pydbm_dbm_interface_rt_rbm_build, sizeof(__pyx_k_pydbm_dbm_interface_rt_rbm_build), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_dbm_rtrbm_director, __pyx_k_pydbm_dbm_rtrbm_director, sizeof(__pyx_k_pydbm_dbm_rtrbm_director), 0, 0, 1, 1},
   {&__pyx_kp_s_pydbm_dbm_rtrbm_director_pyx, __pyx_k_pydbm_dbm_rtrbm_director_pyx, sizeof(__pyx_k_pydbm_dbm_rtrbm_director_pyx), 0, 0, 1, 0},
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
+  {&__pyx_n_s_rbm, __pyx_k_rbm, sizeof(__pyx_k_rbm), 0, 0, 1, 1},
   {&__pyx_n_s_rnn_activating_function, __pyx_k_rnn_activating_function, sizeof(__pyx_k_rnn_activating_function), 0, 0, 1, 1},
   {&__pyx_n_s_rnn_neuron_part, __pyx_k_rnn_neuron_part, sizeof(__pyx_k_rnn_neuron_part), 0, 0, 1, 1},
   {&__pyx_n_s_rtrbm_builder, __pyx_k_rtrbm_builder, sizeof(__pyx_k_rtrbm_builder), 0, 0, 1, 1},
   {&__pyx_n_s_rtrbm_construct, __pyx_k_rtrbm_construct, sizeof(__pyx_k_rtrbm_construct), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
+  {&__pyx_n_s_set_rbm, __pyx_k_set_rbm, sizeof(__pyx_k_set_rbm), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
+  {&__pyx_n_s_value, __pyx_k_value, sizeof(__pyx_k_value), 0, 0, 1, 1},
   {&__pyx_n_s_visible_activating_function, __pyx_k_visible_activating_function, sizeof(__pyx_k_visible_activating_function), 0, 0, 1, 1},
   {&__pyx_n_s_visible_neuron_part, __pyx_k_visible_neuron_part, sizeof(__pyx_k_visible_neuron_part), 0, 0, 1, 1},
   {&__pyx_n_s_visible_num, __pyx_k_visible_num, sizeof(__pyx_k_visible_num), 0, 0, 1, 1},
@@ -2013,7 +2208,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 };
 static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_object = __Pyx_GetBuiltinName(__pyx_n_s_object); if (!__pyx_builtin_object) __PYX_ERR(0, 7, __pyx_L1_error)
-  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 39, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -2037,29 +2233,53 @@ static int __Pyx_InitCachedConstants(void) {
   /* "pydbm/dbm/rtrbm_director.pyx":19
  *     __rbm = None
  * 
+ *     def get_rbm(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__rbm
+ */
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 19, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__2);
+  __Pyx_GIVEREF(__pyx_tuple__2);
+  __pyx_codeobj__3 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__2, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_rtrbm_director_pyx, __pyx_n_s_get_rbm, 19, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__3)) __PYX_ERR(0, 19, __pyx_L1_error)
+
+  /* "pydbm/dbm/rtrbm_director.pyx":23
+ *         return self.__rbm
+ * 
+ *     def set_rbm(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__rbm = value
+ */
+  __pyx_tuple__4 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__4);
+  __Pyx_GIVEREF(__pyx_tuple__4);
+  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__4, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_rtrbm_director_pyx, __pyx_n_s_set_rbm, 23, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) __PYX_ERR(0, 23, __pyx_L1_error)
+
+  /* "pydbm/dbm/rtrbm_director.pyx":29
+ *     rbm = property(get_rbm, set_rbm)
+ * 
  *     def __init__(self, rtrbm_builder):             # <<<<<<<<<<<<<<
  *         '''
  *         Initialize `Builder` in Builder Pattern.
  */
-  __pyx_tuple__2 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_rtrbm_builder); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 19, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__2);
-  __Pyx_GIVEREF(__pyx_tuple__2);
-  __pyx_codeobj__3 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__2, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_rtrbm_director_pyx, __pyx_n_s_init, 19, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__3)) __PYX_ERR(0, 19, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_rtrbm_builder); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__6);
+  __Pyx_GIVEREF(__pyx_tuple__6);
+  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_rtrbm_director_pyx, __pyx_n_s_init, 29, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 29, __pyx_L1_error)
 
-  /* "pydbm/dbm/rtrbm_director.pyx":33
+  /* "pydbm/dbm/rtrbm_director.pyx":43
  *         self.__rbm = None
  * 
  *     def rtrbm_construct(             # <<<<<<<<<<<<<<
  *         self,
  *         visible_num,
  */
-  __pyx_tuple__4 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_visible_num, __pyx_n_s_hidden_num, __pyx_n_s_visible_activating_function, __pyx_n_s_hidden_activating_function, __pyx_n_s_rnn_activating_function, __pyx_n_s_approximate_interface, __pyx_n_s_learning_rate); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 33, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__4);
-  __Pyx_GIVEREF(__pyx_tuple__4);
-  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(8, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__4, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_rtrbm_director_pyx, __pyx_n_s_rtrbm_construct, 33, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) __PYX_ERR(0, 33, __pyx_L1_error)
-  __pyx_tuple__6 = PyTuple_Pack(1, ((PyObject*)__pyx_float_1eneg_05)); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 33, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__6);
-  __Pyx_GIVEREF(__pyx_tuple__6);
+  __pyx_tuple__8 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_visible_num, __pyx_n_s_hidden_num, __pyx_n_s_visible_activating_function, __pyx_n_s_hidden_activating_function, __pyx_n_s_rnn_activating_function, __pyx_n_s_approximate_interface, __pyx_n_s_learning_rate); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__8);
+  __Pyx_GIVEREF(__pyx_tuple__8);
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(8, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_rtrbm_director_pyx, __pyx_n_s_rtrbm_construct, 43, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(1, ((PyObject*)__pyx_float_1eneg_05)); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__10);
+  __Pyx_GIVEREF(__pyx_tuple__10);
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -2127,6 +2347,8 @@ static int __pyx_pymod_exec_rtrbm_director(PyObject *__pyx_pyinit_module)
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannyDeclarations
   #if CYTHON_PEP489_MULTI_PHASE_INIT
   if (__pyx_m && __pyx_m == __pyx_pyinit_module) return 0;
@@ -2310,34 +2532,93 @@ static int __pyx_pymod_exec_rtrbm_director(PyObject *__pyx_pyinit_module)
  *     # The restricted boltzmann machines.
  *     __rbm = None             # <<<<<<<<<<<<<<
  * 
- *     def __init__(self, rtrbm_builder):
+ *     def get_rbm(self):
  */
   if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_RTRBMDirector__rbm, Py_None) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
 
   /* "pydbm/dbm/rtrbm_director.pyx":19
  *     __rbm = None
  * 
+ *     def get_rbm(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__rbm
+ */
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_1get_rbm, 0, __pyx_n_s_RTRBMDirector_get_rbm, NULL, __pyx_n_s_pydbm_dbm_rtrbm_director, __pyx_d, ((PyObject *)__pyx_codeobj__3)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 19, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_get_rbm, __pyx_t_3) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "pydbm/dbm/rtrbm_director.pyx":23
+ *         return self.__rbm
+ * 
+ *     def set_rbm(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         self.__rbm = value
+ */
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_3set_rbm, 0, __pyx_n_s_RTRBMDirector_set_rbm, NULL, __pyx_n_s_pydbm_dbm_rtrbm_director, __pyx_d, ((PyObject *)__pyx_codeobj__5)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_set_rbm, __pyx_t_3) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "pydbm/dbm/rtrbm_director.pyx":27
+ *         self.__rbm = value
+ * 
+ *     rbm = property(get_rbm, set_rbm)             # <<<<<<<<<<<<<<
+ * 
+ *     def __init__(self, rtrbm_builder):
+ */
+  __pyx_t_3 = PyObject_GetItem(__pyx_t_1, __pyx_n_s_get_rbm);
+  if (unlikely(!__pyx_t_3)) {
+    PyErr_Clear();
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_rbm);
+  }
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = PyObject_GetItem(__pyx_t_1, __pyx_n_s_set_rbm);
+  if (unlikely(!__pyx_t_4)) {
+    PyErr_Clear();
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_rbm);
+  }
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_GIVEREF(__pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_4);
+  __pyx_t_3 = 0;
+  __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_rbm, __pyx_t_4) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/dbm/rtrbm_director.pyx":29
+ *     rbm = property(get_rbm, set_rbm)
+ * 
  *     def __init__(self, rtrbm_builder):             # <<<<<<<<<<<<<<
  *         '''
  *         Initialize `Builder` in Builder Pattern.
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_1__init__, 0, __pyx_n_s_RTRBMDirector___init, NULL, __pyx_n_s_pydbm_dbm_rtrbm_director, __pyx_d, ((PyObject *)__pyx_codeobj__3)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 19, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_init, __pyx_t_3) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_5__init__, 0, __pyx_n_s_RTRBMDirector___init, NULL, __pyx_n_s_pydbm_dbm_rtrbm_director, __pyx_d, ((PyObject *)__pyx_codeobj__7)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/dbm/rtrbm_director.pyx":33
+  /* "pydbm/dbm/rtrbm_director.pyx":43
  *         self.__rbm = None
  * 
  *     def rtrbm_construct(             # <<<<<<<<<<<<<<
  *         self,
  *         visible_num,
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_3rtrbm_construct, 0, __pyx_n_s_RTRBMDirector_rtrbm_construct, NULL, __pyx_n_s_pydbm_dbm_rtrbm_director, __pyx_d, ((PyObject *)__pyx_codeobj__5)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 33, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_3, __pyx_tuple__6);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_rtrbm_construct, __pyx_t_3) < 0) __PYX_ERR(0, 33, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_14rtrbm_director_13RTRBMDirector_7rtrbm_construct, 0, __pyx_n_s_RTRBMDirector_rtrbm_construct, NULL, __pyx_n_s_pydbm_dbm_rtrbm_director, __pyx_d, ((PyObject *)__pyx_codeobj__9)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__10);
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_rtrbm_construct, __pyx_t_4) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "pydbm/dbm/rtrbm_director.pyx":7
  * 
@@ -2346,10 +2627,10 @@ static int __pyx_pymod_exec_rtrbm_director(PyObject *__pyx_pyinit_module)
  *     '''
  *     The `Director` in Builder Pattern.
  */
-  __pyx_t_3 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_RTRBMDirector, __pyx_tuple_, __pyx_t_1, NULL, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 7, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_RTRBMDirector, __pyx_t_3) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_RTRBMDirector, __pyx_tuple_, __pyx_t_1, NULL, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_RTRBMDirector, __pyx_t_4) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
@@ -2370,6 +2651,8 @@ static int __pyx_pymod_exec_rtrbm_director(PyObject *__pyx_pyinit_module)
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
   if (__pyx_m) {
     if (__pyx_d) {
       __Pyx_AddTraceback("init pydbm.dbm.rtrbm_director", 0, __pyx_lineno, __pyx_filename);

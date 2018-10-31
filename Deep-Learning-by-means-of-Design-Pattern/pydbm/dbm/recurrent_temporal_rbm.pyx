@@ -9,9 +9,7 @@ from pydbm.optimization.opt_params import OptParams
 
 class RecurrentTemporalRBM(object):
     '''
-    The `Client` in Builder Pattern,
-    
-    Build RTRBM.
+    The `Client` in Builder Pattern for building RTRBM.
     '''
 
     # Restricted Boltzmann Machine.

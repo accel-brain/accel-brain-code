@@ -1620,7 +1620,7 @@ static const char __pyx_k_RecurrentTemporalRBM_set_rbm[] = "RecurrentTemporalRBM
 static const char __pyx_k_pydbm_approximation_rt_rbm_cd[] = "pydbm.approximation.rt_rbm_cd";
 static const char __pyx_k_pydbm_optimization_opt_params[] = "pydbm.optimization.opt_params";
 static const char __pyx_k_RecurrentTemporalRBM_inference[] = "RecurrentTemporalRBM.inference";
-static const char __pyx_k_The_Client_in_Builder_Pattern_B[] = "\n    The `Client` in Builder Pattern,\n    \n    Build RTRBM.\n    ";
+static const char __pyx_k_The_Client_in_Builder_Pattern_f[] = "\n    The `Client` in Builder Pattern for building RTRBM.\n    ";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
@@ -1649,7 +1649,7 @@ static PyObject *__pyx_n_s_RecurrentTemporalRBM_learn;
 static PyObject *__pyx_n_s_RecurrentTemporalRBM_save_pre_le;
 static PyObject *__pyx_n_s_RecurrentTemporalRBM_set_rbm;
 static PyObject *__pyx_n_s_RuntimeError;
-static PyObject *__pyx_kp_s_The_Client_in_Builder_Pattern_B;
+static PyObject *__pyx_kp_s_The_Client_in_Builder_Pattern_f;
 static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_batch_size;
@@ -1743,7 +1743,7 @@ static PyObject *__pyx_codeobj__19;
 static PyObject *__pyx_codeobj__22;
 static PyObject *__pyx_codeobj__25;
 
-/* "pydbm/dbm/recurrent_temporal_rbm.pyx":20
+/* "pydbm/dbm/recurrent_temporal_rbm.pyx":18
  *     __rbm = None
  * 
  *     def get_rbm(self):             # <<<<<<<<<<<<<<
@@ -1772,7 +1772,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_rbm", 0);
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":22
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":20
  *     def get_rbm(self):
  *         ''' getter '''
  *         return self.__rbm             # <<<<<<<<<<<<<<
@@ -1780,13 +1780,13 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
  *     def set_rbm(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RecurrentTemporalRBM__rbm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RecurrentTemporalRBM__rbm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":20
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":18
  *     __rbm = None
  * 
  *     def get_rbm(self):             # <<<<<<<<<<<<<<
@@ -1805,7 +1805,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   return __pyx_r;
 }
 
-/* "pydbm/dbm/recurrent_temporal_rbm.pyx":24
+/* "pydbm/dbm/recurrent_temporal_rbm.pyx":22
  *         return self.__rbm
  * 
  *     def set_rbm(self, value):             # <<<<<<<<<<<<<<
@@ -1846,11 +1846,11 @@ static PyObject *__pyx_pw_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_rbm", 1, 2, 2, 1); __PYX_ERR(0, 24, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_rbm", 1, 2, 2, 1); __PYX_ERR(0, 22, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_rbm") < 0)) __PYX_ERR(0, 24, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_rbm") < 0)) __PYX_ERR(0, 22, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1863,7 +1863,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_rbm", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 24, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_rbm", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 22, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.dbm.recurrent_temporal_rbm.RecurrentTemporalRBM.set_rbm", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -1881,16 +1881,16 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_rbm", 0);
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":26
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":24
  *     def set_rbm(self, value):
  *         ''' setter '''
  *         self.__rbm = value             # <<<<<<<<<<<<<<
  * 
  *     rbm = property(get_rbm, set_rbm)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RecurrentTemporalRBM__rbm, __pyx_v_value) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RecurrentTemporalRBM__rbm, __pyx_v_value) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":24
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":22
  *         return self.__rbm
  * 
  *     def set_rbm(self, value):             # <<<<<<<<<<<<<<
@@ -1910,7 +1910,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   return __pyx_r;
 }
 
-/* "pydbm/dbm/recurrent_temporal_rbm.pyx":30
+/* "pydbm/dbm/recurrent_temporal_rbm.pyx":28
  *     rbm = property(get_rbm, set_rbm)
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
@@ -1970,37 +1970,37 @@ static PyObject *__pyx_pw_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_visible_num)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 7, 8, 1); __PYX_ERR(0, 30, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 7, 8, 1); __PYX_ERR(0, 28, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_hidden_num)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 7, 8, 2); __PYX_ERR(0, 30, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 7, 8, 2); __PYX_ERR(0, 28, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_visible_activating_function)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 7, 8, 3); __PYX_ERR(0, 30, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 7, 8, 3); __PYX_ERR(0, 28, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_hidden_activating_function)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 7, 8, 4); __PYX_ERR(0, 30, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 7, 8, 4); __PYX_ERR(0, 28, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_rnn_activating_function)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 7, 8, 5); __PYX_ERR(0, 30, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 7, 8, 5); __PYX_ERR(0, 28, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_opt_params)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 7, 8, 6); __PYX_ERR(0, 30, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 7, 8, 6); __PYX_ERR(0, 28, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  7:
@@ -2010,7 +2010,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 30, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 28, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2038,7 +2038,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 7, 8, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 30, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 7, 8, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 28, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.dbm.recurrent_temporal_rbm.RecurrentTemporalRBM.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2064,34 +2064,34 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   PyObject *__pyx_t_7 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":52
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":50
  * 
  *         '''
  *         if isinstance(opt_params, OptParams) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError()
  * 
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_OptParams); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_OptParams); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_opt_params, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_opt_params, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
   if (__pyx_t_3) {
 
-    /* "pydbm/dbm/recurrent_temporal_rbm.pyx":53
+    /* "pydbm/dbm/recurrent_temporal_rbm.pyx":51
  *         '''
  *         if isinstance(opt_params, OptParams) is False:
  *             raise TypeError()             # <<<<<<<<<<<<<<
  * 
  *         rtrbm_director = RTRBMDirector(RTRBMSimpleBuilder())
  */
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 53, __pyx_L1_error)
+    __PYX_ERR(0, 51, __pyx_L1_error)
 
-    /* "pydbm/dbm/recurrent_temporal_rbm.pyx":52
+    /* "pydbm/dbm/recurrent_temporal_rbm.pyx":50
  * 
  *         '''
  *         if isinstance(opt_params, OptParams) is False:             # <<<<<<<<<<<<<<
@@ -2100,16 +2100,16 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
  */
   }
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":55
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":53
  *             raise TypeError()
  * 
  *         rtrbm_director = RTRBMDirector(RTRBMSimpleBuilder())             # <<<<<<<<<<<<<<
  *         rtrbm_director.rtrbm_construct(
  *             visible_num,
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_RTRBMDirector); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_RTRBMDirector); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_RTRBMSimpleBuilder); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_RTRBMSimpleBuilder); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_7 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
@@ -2122,10 +2122,10 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
     }
   }
   if (__pyx_t_7) {
-    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 55, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 53, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   } else {
-    __pyx_t_5 = __Pyx_PyObject_CallNoArg(__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 55, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_CallNoArg(__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 53, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -2140,14 +2140,14 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
     }
   }
   if (!__pyx_t_6) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_5};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -2156,20 +2156,20 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_5};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     } else
     #endif
     {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 55, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 53, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
       __Pyx_GIVEREF(__pyx_t_5);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_5);
       __pyx_t_5 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
@@ -2178,57 +2178,57 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   __pyx_v_rtrbm_director = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":56
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":54
  * 
  *         rtrbm_director = RTRBMDirector(RTRBMSimpleBuilder())
  *         rtrbm_director.rtrbm_construct(             # <<<<<<<<<<<<<<
  *             visible_num,
  *             hidden_num,
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_rtrbm_director, __pyx_n_s_rtrbm_construct); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_rtrbm_director, __pyx_n_s_rtrbm_construct); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":62
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":60
  *             hidden_activating_function,
  *             rnn_activating_function,
  *             RTRBMCD(             # <<<<<<<<<<<<<<
  *                 opt_params=opt_params
  *             ),
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_RTRBMCD); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_RTRBMCD); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":63
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":61
  *             rnn_activating_function,
  *             RTRBMCD(
  *                 opt_params=opt_params             # <<<<<<<<<<<<<<
  *             ),
  *             learning_rate=learning_rate
  */
-  __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_opt_params, __pyx_v_opt_params) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_opt_params, __pyx_v_opt_params) < 0) __PYX_ERR(0, 61, __pyx_L1_error)
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":62
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":60
  *             hidden_activating_function,
  *             rnn_activating_function,
  *             RTRBMCD(             # <<<<<<<<<<<<<<
  *                 opt_params=opt_params
  *             ),
  */
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":56
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":54
  * 
  *         rtrbm_director = RTRBMDirector(RTRBMSimpleBuilder())
  *         rtrbm_director.rtrbm_construct(             # <<<<<<<<<<<<<<
  *             visible_num,
  *             hidden_num,
  */
-  __pyx_t_7 = PyTuple_New(6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 56, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_INCREF(__pyx_v_visible_num);
   __Pyx_GIVEREF(__pyx_v_visible_num);
@@ -2249,44 +2249,44 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   PyTuple_SET_ITEM(__pyx_t_7, 5, __pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":65
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":63
  *                 opt_params=opt_params
  *             ),
  *             learning_rate=learning_rate             # <<<<<<<<<<<<<<
  *         )
  *         self.rbm = rtrbm_director.rbm
  */
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_learning_rate, __pyx_v_learning_rate) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_learning_rate, __pyx_v_learning_rate) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":56
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":54
  * 
  *         rtrbm_director = RTRBMDirector(RTRBMSimpleBuilder())
  *         rtrbm_director.rtrbm_construct(             # <<<<<<<<<<<<<<
  *             visible_num,
  *             hidden_num,
  */
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 56, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":67
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":65
  *             learning_rate=learning_rate
  *         )
  *         self.rbm = rtrbm_director.rbm             # <<<<<<<<<<<<<<
  * 
  *     def learn(self, observed_arr, training_count=1000, batch_size=200):
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_rtrbm_director, __pyx_n_s_rbm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_rtrbm_director, __pyx_n_s_rbm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_rbm, __pyx_t_4) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_rbm, __pyx_t_4) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":30
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":28
  *     rbm = property(get_rbm, set_rbm)
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
@@ -2312,7 +2312,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   return __pyx_r;
 }
 
-/* "pydbm/dbm/recurrent_temporal_rbm.pyx":69
+/* "pydbm/dbm/recurrent_temporal_rbm.pyx":67
  *         self.rbm = rtrbm_director.rbm
  * 
  *     def learn(self, observed_arr, training_count=1000, batch_size=200):             # <<<<<<<<<<<<<<
@@ -2361,7 +2361,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_observed_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("learn", 0, 2, 4, 1); __PYX_ERR(0, 69, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("learn", 0, 2, 4, 1); __PYX_ERR(0, 67, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -2377,7 +2377,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "learn") < 0)) __PYX_ERR(0, 69, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "learn") < 0)) __PYX_ERR(0, 67, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2398,7 +2398,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("learn", 0, 2, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 69, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("learn", 0, 2, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 67, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.dbm.recurrent_temporal_rbm.RecurrentTemporalRBM.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2420,67 +2420,67 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("learn", 0);
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":79
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":77
  *         '''
  *         # Learning.
  *         self.rbm.learn(             # <<<<<<<<<<<<<<
  *             # The `np.ndarray` of observed data points.
  *             observed_arr,
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rbm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rbm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_learn); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_learn); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":81
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":79
  *         self.rbm.learn(
  *             # The `np.ndarray` of observed data points.
  *             observed_arr,             # <<<<<<<<<<<<<<
  *             # Training count.
  *             training_count=training_count,
  */
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_observed_arr);
   __Pyx_GIVEREF(__pyx_v_observed_arr);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_observed_arr);
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":83
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":81
  *             observed_arr,
  *             # Training count.
  *             training_count=training_count,             # <<<<<<<<<<<<<<
  *             # Batch size.
  *             batch_size=batch_size
  */
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_training_count, __pyx_v_training_count) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_training_count, __pyx_v_training_count) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":85
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":83
  *             training_count=training_count,
  *             # Batch size.
  *             batch_size=batch_size             # <<<<<<<<<<<<<<
  *         )
  * 
  */
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_batch_size, __pyx_v_batch_size) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_batch_size, __pyx_v_batch_size) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":79
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":77
  *         '''
  *         # Learning.
  *         self.rbm.learn(             # <<<<<<<<<<<<<<
  *             # The `np.ndarray` of observed data points.
  *             observed_arr,
  */
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":69
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":67
  *         self.rbm = rtrbm_director.rbm
  * 
  *     def learn(self, observed_arr, training_count=1000, batch_size=200):             # <<<<<<<<<<<<<<
@@ -2504,7 +2504,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   return __pyx_r;
 }
 
-/* "pydbm/dbm/recurrent_temporal_rbm.pyx":88
+/* "pydbm/dbm/recurrent_temporal_rbm.pyx":86
  *         )
  * 
  *     def inference(self, test_arr, training_count=1, r_batch_size=-1):             # <<<<<<<<<<<<<<
@@ -2553,7 +2553,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_test_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("inference", 0, 2, 4, 1); __PYX_ERR(0, 88, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("inference", 0, 2, 4, 1); __PYX_ERR(0, 86, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -2569,7 +2569,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "inference") < 0)) __PYX_ERR(0, 88, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "inference") < 0)) __PYX_ERR(0, 86, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2590,7 +2590,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("inference", 0, 2, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 88, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("inference", 0, 2, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 86, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.dbm.recurrent_temporal_rbm.RecurrentTemporalRBM.inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2613,60 +2613,60 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("inference", 0);
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":101
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":99
  *         '''
  *         # Execute recursive learning.
  *         inferenced_arr = self.rbm.inference(             # <<<<<<<<<<<<<<
  *             test_arr,
  *             training_count=training_count,
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rbm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rbm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_inference); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_inference); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":102
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":100
  *         # Execute recursive learning.
  *         inferenced_arr = self.rbm.inference(
  *             test_arr,             # <<<<<<<<<<<<<<
  *             training_count=training_count,
  *             r_batch_size=r_batch_size
  */
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_test_arr);
   __Pyx_GIVEREF(__pyx_v_test_arr);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_test_arr);
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":103
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":101
  *         inferenced_arr = self.rbm.inference(
  *             test_arr,
  *             training_count=training_count,             # <<<<<<<<<<<<<<
  *             r_batch_size=r_batch_size
  *         )
  */
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_training_count, __pyx_v_training_count) < 0) __PYX_ERR(0, 103, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_training_count, __pyx_v_training_count) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":104
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":102
  *             test_arr,
  *             training_count=training_count,
  *             r_batch_size=r_batch_size             # <<<<<<<<<<<<<<
  *         )
  *         return inferenced_arr
  */
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_r_batch_size, __pyx_v_r_batch_size) < 0) __PYX_ERR(0, 103, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_r_batch_size, __pyx_v_r_batch_size) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":101
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":99
  *         '''
  *         # Execute recursive learning.
  *         inferenced_arr = self.rbm.inference(             # <<<<<<<<<<<<<<
  *             test_arr,
  *             training_count=training_count,
  */
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -2674,7 +2674,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   __pyx_v_inferenced_arr = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":106
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":104
  *             r_batch_size=r_batch_size
  *         )
  *         return inferenced_arr             # <<<<<<<<<<<<<<
@@ -2686,7 +2686,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   __pyx_r = __pyx_v_inferenced_arr;
   goto __pyx_L0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":88
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":86
  *         )
  * 
  *     def inference(self, test_arr, training_count=1, r_batch_size=-1):             # <<<<<<<<<<<<<<
@@ -2709,7 +2709,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   return __pyx_r;
 }
 
-/* "pydbm/dbm/recurrent_temporal_rbm.pyx":108
+/* "pydbm/dbm/recurrent_temporal_rbm.pyx":106
  *         return inferenced_arr
  * 
  *     def save_pre_learn_params(self, file_path):             # <<<<<<<<<<<<<<
@@ -2750,11 +2750,11 @@ static PyObject *__pyx_pw_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_file_path)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("save_pre_learn_params", 1, 2, 2, 1); __PYX_ERR(0, 108, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("save_pre_learn_params", 1, 2, 2, 1); __PYX_ERR(0, 106, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "save_pre_learn_params") < 0)) __PYX_ERR(0, 108, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "save_pre_learn_params") < 0)) __PYX_ERR(0, 106, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2767,7 +2767,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("save_pre_learn_params", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 108, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("save_pre_learn_params", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 106, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.dbm.recurrent_temporal_rbm.RecurrentTemporalRBM.save_pre_learn_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2789,17 +2789,17 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("save_pre_learn_params", 0);
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":115
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":113
  *             file_path:  Stored file path.
  *         '''
  *         self.rbm.graph.save_pre_learned_params(file_path)             # <<<<<<<<<<<<<<
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rbm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_rbm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -2813,13 +2813,13 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_file_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_file_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_file_path};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -2827,19 +2827,19 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_file_path};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 115, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 113, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
       __Pyx_INCREF(__pyx_v_file_path);
       __Pyx_GIVEREF(__pyx_v_file_path);
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_file_path);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -2847,7 +2847,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTempor
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":108
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":106
  *         return inferenced_arr
  * 
  *     def save_pre_learn_params(self, file_path):             # <<<<<<<<<<<<<<
@@ -5507,7 +5507,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_RecurrentTemporalRBM_save_pre_le, __pyx_k_RecurrentTemporalRBM_save_pre_le, sizeof(__pyx_k_RecurrentTemporalRBM_save_pre_le), 0, 0, 1, 1},
   {&__pyx_n_s_RecurrentTemporalRBM_set_rbm, __pyx_k_RecurrentTemporalRBM_set_rbm, sizeof(__pyx_k_RecurrentTemporalRBM_set_rbm), 0, 0, 1, 1},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
-  {&__pyx_kp_s_The_Client_in_Builder_Pattern_B, __pyx_k_The_Client_in_Builder_Pattern_B, sizeof(__pyx_k_The_Client_in_Builder_Pattern_B), 0, 0, 1, 0},
+  {&__pyx_kp_s_The_Client_in_Builder_Pattern_f, __pyx_k_The_Client_in_Builder_Pattern_f, sizeof(__pyx_k_The_Client_in_Builder_Pattern_f), 0, 0, 1, 0},
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_batch_size, __pyx_k_batch_size, sizeof(__pyx_k_batch_size), 0, 0, 1, 1},
@@ -5566,8 +5566,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 };
 static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_object = __Pyx_GetBuiltinName(__pyx_n_s_object); if (!__pyx_builtin_object) __PYX_ERR(0, 10, __pyx_L1_error)
-  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 28, __pyx_L1_error)
-  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 51, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 235, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(1, 248, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 823, __pyx_L1_error)
@@ -5683,92 +5683,92 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * class RecurrentTemporalRBM(object):             # <<<<<<<<<<<<<<
  *     '''
- *     The `Client` in Builder Pattern,
+ *     The `Client` in Builder Pattern for building RTRBM.
  */
   __pyx_tuple__10 = PyTuple_Pack(1, __pyx_builtin_object); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":20
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":18
  *     __rbm = None
  * 
  *     def get_rbm(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__rbm
  */
-  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
-  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_recurrent_temporal_rbm_2, __pyx_n_s_get_rbm, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_recurrent_temporal_rbm_2, __pyx_n_s_get_rbm, 18, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 18, __pyx_L1_error)
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":24
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":22
  *         return self.__rbm
  * 
  *     def set_rbm(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         self.__rbm = value
  */
-  __pyx_tuple__13 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_tuple__13 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_recurrent_temporal_rbm_2, __pyx_n_s_set_rbm, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_recurrent_temporal_rbm_2, __pyx_n_s_set_rbm, 22, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 22, __pyx_L1_error)
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":30
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":28
  *     rbm = property(get_rbm, set_rbm)
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
  *         self,
  *         visible_num,
  */
-  __pyx_tuple__15 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_visible_num, __pyx_n_s_hidden_num, __pyx_n_s_visible_activating_function, __pyx_n_s_hidden_activating_function, __pyx_n_s_rnn_activating_function, __pyx_n_s_opt_params, __pyx_n_s_learning_rate, __pyx_n_s_rtrbm_director); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 30, __pyx_L1_error)
+  __pyx_tuple__15 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_visible_num, __pyx_n_s_hidden_num, __pyx_n_s_visible_activating_function, __pyx_n_s_hidden_activating_function, __pyx_n_s_rnn_activating_function, __pyx_n_s_opt_params, __pyx_n_s_learning_rate, __pyx_n_s_rtrbm_director); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 28, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(8, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_recurrent_temporal_rbm_2, __pyx_n_s_init, 30, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 30, __pyx_L1_error)
-  __pyx_tuple__17 = PyTuple_Pack(1, ((PyObject*)__pyx_float_1eneg_05)); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 30, __pyx_L1_error)
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(8, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_recurrent_temporal_rbm_2, __pyx_n_s_init, 28, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_tuple__17 = PyTuple_Pack(1, ((PyObject*)__pyx_float_1eneg_05)); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 28, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":69
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":67
  *         self.rbm = rtrbm_director.rbm
  * 
  *     def learn(self, observed_arr, training_count=1000, batch_size=200):             # <<<<<<<<<<<<<<
  *         '''
  *         Learning.
  */
-  __pyx_tuple__18 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_observed_arr, __pyx_n_s_training_count, __pyx_n_s_batch_size); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 69, __pyx_L1_error)
+  __pyx_tuple__18 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_observed_arr, __pyx_n_s_training_count, __pyx_n_s_batch_size); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_GIVEREF(__pyx_tuple__18);
-  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_recurrent_temporal_rbm_2, __pyx_n_s_learn, 69, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 69, __pyx_L1_error)
-  __pyx_tuple__20 = PyTuple_Pack(2, ((PyObject *)__pyx_int_1000), ((PyObject *)__pyx_int_200)); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 69, __pyx_L1_error)
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_recurrent_temporal_rbm_2, __pyx_n_s_learn, 67, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __pyx_tuple__20 = PyTuple_Pack(2, ((PyObject *)__pyx_int_1000), ((PyObject *)__pyx_int_200)); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__20);
   __Pyx_GIVEREF(__pyx_tuple__20);
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":88
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":86
  *         )
  * 
  *     def inference(self, test_arr, training_count=1, r_batch_size=-1):             # <<<<<<<<<<<<<<
  *         '''
  *         Inferencing and recursive learning.
  */
-  __pyx_tuple__21 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_test_arr, __pyx_n_s_training_count, __pyx_n_s_r_batch_size, __pyx_n_s_inferenced_arr); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_tuple__21 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_test_arr, __pyx_n_s_training_count, __pyx_n_s_r_batch_size, __pyx_n_s_inferenced_arr); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__21);
   __Pyx_GIVEREF(__pyx_tuple__21);
-  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(4, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_recurrent_temporal_rbm_2, __pyx_n_s_inference, 88, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 88, __pyx_L1_error)
-  __pyx_tuple__23 = PyTuple_Pack(2, ((PyObject *)__pyx_int_1), ((PyObject *)__pyx_int_neg_1)); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(4, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_recurrent_temporal_rbm_2, __pyx_n_s_inference, 86, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_tuple__23 = PyTuple_Pack(2, ((PyObject *)__pyx_int_1), ((PyObject *)__pyx_int_neg_1)); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__23);
   __Pyx_GIVEREF(__pyx_tuple__23);
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":108
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":106
  *         return inferenced_arr
  * 
  *     def save_pre_learn_params(self, file_path):             # <<<<<<<<<<<<<<
  *         '''
  *         Save pre-learned parameters.
  */
-  __pyx_tuple__24 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_file_path); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_tuple__24 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_file_path); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
-  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_recurrent_temporal_rbm_2, __pyx_n_s_save_pre_learn_params, 108, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_recurrent_temporal_rbm_2, __pyx_n_s_save_pre_learn_params, 106, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -6049,47 +6049,47 @@ static int __pyx_pymod_exec_recurrent_temporal_rbm(PyObject *__pyx_pyinit_module
  * 
  * class RecurrentTemporalRBM(object):             # <<<<<<<<<<<<<<
  *     '''
- *     The `Client` in Builder Pattern,
+ *     The `Client` in Builder Pattern for building RTRBM.
  */
   __pyx_t_1 = __Pyx_CalculateMetaclass(NULL, __pyx_tuple__10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_Py3MetaclassPrepare(__pyx_t_1, __pyx_tuple__10, __pyx_n_s_RecurrentTemporalRBM, __pyx_n_s_RecurrentTemporalRBM, (PyObject *) NULL, __pyx_n_s_pydbm_dbm_recurrent_temporal_rbm, __pyx_kp_s_The_Client_in_Builder_Pattern_B); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Py3MetaclassPrepare(__pyx_t_1, __pyx_tuple__10, __pyx_n_s_RecurrentTemporalRBM, __pyx_n_s_RecurrentTemporalRBM, (PyObject *) NULL, __pyx_n_s_pydbm_dbm_recurrent_temporal_rbm, __pyx_kp_s_The_Client_in_Builder_Pattern_f); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":18
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":16
  * 
  *     # Restricted Boltzmann Machine.
  *     __rbm = None             # <<<<<<<<<<<<<<
  * 
  *     def get_rbm(self):
  */
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_RecurrentTemporalRBM__rbm, Py_None) < 0) __PYX_ERR(0, 18, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_RecurrentTemporalRBM__rbm, Py_None) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":20
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":18
  *     __rbm = None
  * 
  *     def get_rbm(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__rbm
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTemporalRBM_1get_rbm, 0, __pyx_n_s_RecurrentTemporalRBM_get_rbm, NULL, __pyx_n_s_pydbm_dbm_recurrent_temporal_rbm, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTemporalRBM_1get_rbm, 0, __pyx_n_s_RecurrentTemporalRBM_get_rbm, NULL, __pyx_n_s_pydbm_dbm_recurrent_temporal_rbm, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_get_rbm, __pyx_t_3) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_get_rbm, __pyx_t_3) < 0) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":24
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":22
  *         return self.__rbm
  * 
  *     def set_rbm(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         self.__rbm = value
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTemporalRBM_3set_rbm, 0, __pyx_n_s_RecurrentTemporalRBM_set_rbm, NULL, __pyx_n_s_pydbm_dbm_recurrent_temporal_rbm, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTemporalRBM_3set_rbm, 0, __pyx_n_s_RecurrentTemporalRBM_set_rbm, NULL, __pyx_n_s_pydbm_dbm_recurrent_temporal_rbm, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_set_rbm, __pyx_t_3) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_set_rbm, __pyx_t_3) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":28
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":26
  *         self.__rbm = value
  * 
  *     rbm = property(get_rbm, set_rbm)             # <<<<<<<<<<<<<<
@@ -6101,16 +6101,16 @@ static int __pyx_pymod_exec_recurrent_temporal_rbm(PyObject *__pyx_pyinit_module
     PyErr_Clear();
     __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_rbm);
   }
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 28, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = PyObject_GetItem(__pyx_t_2, __pyx_n_s_set_rbm);
   if (unlikely(!__pyx_t_4)) {
     PyErr_Clear();
     __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_rbm);
   }
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 28, __pyx_L1_error)
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3);
@@ -6118,61 +6118,61 @@ static int __pyx_pymod_exec_recurrent_temporal_rbm(PyObject *__pyx_pyinit_module
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_4);
   __pyx_t_3 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_rbm, __pyx_t_4) < 0) __PYX_ERR(0, 28, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_rbm, __pyx_t_4) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":30
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":28
  *     rbm = property(get_rbm, set_rbm)
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
  *         self,
  *         visible_num,
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTemporalRBM_5__init__, 0, __pyx_n_s_RecurrentTemporalRBM___init, NULL, __pyx_n_s_pydbm_dbm_recurrent_temporal_rbm, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 30, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTemporalRBM_5__init__, 0, __pyx_n_s_RecurrentTemporalRBM___init, NULL, __pyx_n_s_pydbm_dbm_recurrent_temporal_rbm, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 28, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__17);
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 30, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 28, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":69
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":67
  *         self.rbm = rtrbm_director.rbm
  * 
  *     def learn(self, observed_arr, training_count=1000, batch_size=200):             # <<<<<<<<<<<<<<
  *         '''
  *         Learning.
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTemporalRBM_7learn, 0, __pyx_n_s_RecurrentTemporalRBM_learn, NULL, __pyx_n_s_pydbm_dbm_recurrent_temporal_rbm, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 69, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTemporalRBM_7learn, 0, __pyx_n_s_RecurrentTemporalRBM_learn, NULL, __pyx_n_s_pydbm_dbm_recurrent_temporal_rbm, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__20);
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_learn, __pyx_t_4) < 0) __PYX_ERR(0, 69, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_learn, __pyx_t_4) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":88
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":86
  *         )
  * 
  *     def inference(self, test_arr, training_count=1, r_batch_size=-1):             # <<<<<<<<<<<<<<
  *         '''
  *         Inferencing and recursive learning.
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTemporalRBM_9inference, 0, __pyx_n_s_RecurrentTemporalRBM_inference, NULL, __pyx_n_s_pydbm_dbm_recurrent_temporal_rbm, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTemporalRBM_9inference, 0, __pyx_n_s_RecurrentTemporalRBM_inference, NULL, __pyx_n_s_pydbm_dbm_recurrent_temporal_rbm, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__23);
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_inference, __pyx_t_4) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_inference, __pyx_t_4) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":108
+  /* "pydbm/dbm/recurrent_temporal_rbm.pyx":106
  *         return inferenced_arr
  * 
  *     def save_pre_learn_params(self, file_path):             # <<<<<<<<<<<<<<
  *         '''
  *         Save pre-learned parameters.
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTemporalRBM_11save_pre_learn_params, 0, __pyx_n_s_RecurrentTemporalRBM_save_pre_le, NULL, __pyx_n_s_pydbm_dbm_recurrent_temporal_rbm, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22recurrent_temporal_rbm_20RecurrentTemporalRBM_11save_pre_learn_params, 0, __pyx_n_s_RecurrentTemporalRBM_save_pre_le, NULL, __pyx_n_s_pydbm_dbm_recurrent_temporal_rbm, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_save_pre_learn_params, __pyx_t_4) < 0) __PYX_ERR(0, 108, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_save_pre_learn_params, __pyx_t_4) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "pydbm/dbm/recurrent_temporal_rbm.pyx":10
@@ -6180,7 +6180,7 @@ static int __pyx_pymod_exec_recurrent_temporal_rbm(PyObject *__pyx_pyinit_module
  * 
  * class RecurrentTemporalRBM(object):             # <<<<<<<<<<<<<<
  *     '''
- *     The `Client` in Builder Pattern,
+ *     The `Client` in Builder Pattern for building RTRBM.
  */
   __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_1, __pyx_n_s_RecurrentTemporalRBM, __pyx_tuple__10, __pyx_t_2, NULL, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);

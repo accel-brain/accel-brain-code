@@ -8,11 +8,11 @@ from pydbm.optimization.opt_params import OptParams
 from pydbm.dbm.recurrent_temporal_rbm import RecurrentTemporalRBM
 
 
-class RNNRBM(RecurrentTemporalRBM):
+class LSTMRTRBM(RecurrentTemporalRBM):
     '''
     The `Client` in Builder Pattern,
     
-    Build RNN-RBM.
+    Build LSTM-RTRBM.
     '''
 
     def __init__(

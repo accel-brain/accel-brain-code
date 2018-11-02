@@ -1660,7 +1660,7 @@ And call the method `load_pre_learned_params` to execute transfer learning or re
 synapse.load_pre_learned_params("/var/tmp/pre_learned.npz")
 ```
 
-The class `Synapse` has sub-classes: `CompleteBipartiteGraph`, `LSTMGraph`, `CNNGraph`, and so on. All computation graph makes it possible to do pre-learning and transfer learning.
+The class `Synapse` has sub-classes: `CompleteBipartiteGraph`, `LSTMGraph`, `CNNGraph`, and so on. All computation graphs make it possible to do pre-learning and transfer learning.
 
 ## References
 

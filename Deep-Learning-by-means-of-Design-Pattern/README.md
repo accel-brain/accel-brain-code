@@ -1029,9 +1029,10 @@ facade_encoder_decoder = FacadeEncoderDecoder(
 )
 ```
 
-If you want to not only use casually the model but also hack it, see <a href="#build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model.</a>.
+If you want to not only use casually the model but also hack it, see <a href="#usecase_build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model.</a>.
 
-<a name="build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model"></a>
+<div><a name="usecase_build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model"></a></div>
+
 ## Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model.
 
 Consider functionally reusability and possibility of flexible design, you should use not `FacadeEncoderDecoder` but `EncoderDecoderController` as follows.
@@ -1297,7 +1298,7 @@ If you want to know how to minimize the reconstructed error, see my Jupyter note
 <a name="build_convolutional_auto_encoder"></a>
 ## Usecase: Build Convolutional Auto-Encoder.
 
-Setup logger for verbose output and import Python and Cython modules in the same manner as <a href="#build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model</a>.
+Setup logger for verbose output and import Python and Cython modules in the same manner as <a href="#usecase_build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model</a>.
 
 ```python
 from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
@@ -1441,7 +1442,7 @@ If you want to know how to visualize the reconstructed images, see my Jupyter no
 
 ## Usecase: Build Spatio-Temporal Auto-Encoder.
 
-Setup logger for verbose output and import Python and Cython modules in the same manner as <a href="#build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model</a>.
+Setup logger for verbose output and import Python and Cython modules in the same manner as <a href="#usecase_build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model</a>.
 
 Import Python and Cython modules of the Spatio-Temporal Auto-Encoder.
 
@@ -1449,7 +1450,7 @@ Import Python and Cython modules of the Spatio-Temporal Auto-Encoder.
 from pydbm.cnn.spatio_temporal_auto_encoder import SpatioTemporalAutoEncoder
 ```
 
-Build Convolutional Auto-Encoder in the same manner as <a href="#build_convolutional_auto_encoder">Usecase: Build Convolutional Auto-Encoder.</a> and build Encoder/Decoder in the same manner as <a href="#build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model</a>.
+Build Convolutional Auto-Encoder in the same manner as <a href="#build_convolutional_auto_encoder">Usecase: Build Convolutional Auto-Encoder.</a> and build Encoder/Decoder in the same manner as <a href="#usecase_build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model</a>.
 
 Instantiate `SpatioTemporalAutoEncoder` and setup parameters.
 

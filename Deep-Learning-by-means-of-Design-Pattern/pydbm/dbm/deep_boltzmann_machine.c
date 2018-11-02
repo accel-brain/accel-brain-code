@@ -1773,7 +1773,6 @@ static const char __pyx_k_DeepBoltzmannMachine[] = "DeepBoltzmannMachine";
 static const char __pyx_k_approximate_learning[] = "approximate_learning";
 static const char __pyx_k_hidden_bias_arr_list[] = "hidden_bias_arr_list";
 static const char __pyx_k_visible_activity_arr[] = "visible_activity_arr";
-static const char __pyx_k_save_pre_learn_params[] = "save_pre_learn_params";
 static const char __pyx_k_visible_bias_arr_list[] = "visible_bias_arr_list";
 static const char __pyx_k_pydbm_dbm_dbm_director[] = "pydbm.dbm.dbm_director";
 static const char __pyx_k_approximate_inferencing[] = "approximate_inferencing";
@@ -1809,7 +1808,7 @@ static const char __pyx_k_DeepBoltzmannMachine_get_feature[] = "DeepBoltzmannMac
 static const char __pyx_k_DeepBoltzmannMachine_get_rbm_lis[] = "DeepBoltzmannMachine.get_rbm_list";
 static const char __pyx_k_DeepBoltzmannMachine_get_reconst[] = "DeepBoltzmannMachine.get_reconstruct_error_arr";
 static const char __pyx_k_DeepBoltzmannMachine_get_visible[] = "DeepBoltzmannMachine.get_visible_point";
-static const char __pyx_k_DeepBoltzmannMachine_save_pre_le[] = "DeepBoltzmannMachine.save_pre_learn_params";
+static const char __pyx_k_DeepBoltzmannMachine_save_pre_le[] = "DeepBoltzmannMachine.save_pre_learned_params";
 static const char __pyx_k_DeepBoltzmannMachine_set_rbm_lis[] = "DeepBoltzmannMachine.set_rbm_list";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
@@ -1928,7 +1927,6 @@ static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_r_batch_size;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_rbm_list;
-static PyObject *__pyx_n_s_save_pre_learn_params;
 static PyObject *__pyx_n_s_save_pre_learned_params;
 static PyObject *__pyx_n_s_self;
 static PyObject *__pyx_n_s_set_rbm_list;
@@ -1961,7 +1959,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMa
 static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_18get_hidden_bias_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_20get_weight_arr_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_22get_reconstruct_error_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, int __pyx_v_layer_number); /* proto */
-static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_24save_pre_learn_params(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_dir_path, PyObject *__pyx_v_file_name); /* proto */
+static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_24save_pre_learned_params(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_dir_path, PyObject *__pyx_v_file_name); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_int_neg_1;
@@ -4575,7 +4573,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMa
  *         '''
  *         return np.array(self.__rbm_list[layer_number].get_reconstruct_error_list())             # <<<<<<<<<<<<<<
  * 
- *     def save_pre_learn_params(self, dir_path=None, file_name=None):
+ *     def save_pre_learned_params(self, dir_path=None, file_name=None):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 246, __pyx_L1_error)
@@ -4685,22 +4683,22 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMa
 /* "pydbm/dbm/deep_boltzmann_machine.pyx":248
  *         return np.array(self.__rbm_list[layer_number].get_reconstruct_error_list())
  * 
- *     def save_pre_learn_params(self, dir_path=None, file_name=None):             # <<<<<<<<<<<<<<
+ *     def save_pre_learned_params(self, dir_path=None, file_name=None):             # <<<<<<<<<<<<<<
  *         '''
  *         Save pre-learned parameters.
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_25save_pre_learn_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_24save_pre_learn_params[] = "\n        Save pre-learned parameters.\n        \n        Args:\n            dir_path:   Path of dir. If `None`, the file is saved in the current directory.\n            file_name:  The naming rule of files. If `None`, this value is `dbm`.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_25save_pre_learn_params = {"save_pre_learn_params", (PyCFunction)__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_25save_pre_learn_params, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_24save_pre_learn_params};
-static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_25save_pre_learn_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_25save_pre_learned_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_24save_pre_learned_params[] = "\n        Save pre-learned parameters.\n        \n        Args:\n            dir_path:   Path of dir. If `None`, the file is saved in the current directory.\n            file_name:  The naming rule of files. If `None`, this value is `dbm`.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_25save_pre_learned_params = {"save_pre_learned_params", (PyCFunction)__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_25save_pre_learned_params, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_24save_pre_learned_params};
+static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_25save_pre_learned_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_dir_path = 0;
   PyObject *__pyx_v_file_name = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("save_pre_learn_params (wrapper)", 0);
+  __Pyx_RefNannySetupContext("save_pre_learned_params (wrapper)", 0);
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_dir_path,&__pyx_n_s_file_name,0};
     PyObject* values[3] = {0,0,0};
@@ -4738,7 +4736,7 @@ static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMa
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "save_pre_learn_params") < 0)) __PYX_ERR(0, 248, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "save_pre_learned_params") < 0)) __PYX_ERR(0, 248, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -4757,20 +4755,20 @@ static PyObject *__pyx_pw_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMa
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("save_pre_learn_params", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 248, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 248, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.dbm.deep_boltzmann_machine.DeepBoltzmannMachine.save_pre_learn_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.dbm.deep_boltzmann_machine.DeepBoltzmannMachine.save_pre_learned_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_24save_pre_learn_params(__pyx_self, __pyx_v_self, __pyx_v_dir_path, __pyx_v_file_name);
+  __pyx_r = __pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_24save_pre_learned_params(__pyx_self, __pyx_v_self, __pyx_v_dir_path, __pyx_v_file_name);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_24save_pre_learn_params(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_dir_path, PyObject *__pyx_v_file_name) {
+static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_24save_pre_learned_params(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_dir_path, PyObject *__pyx_v_file_name) {
   PyObject *__pyx_v_file_path = NULL;
   PyObject *__pyx_v_i = NULL;
   PyObject *__pyx_r = NULL;
@@ -4785,7 +4783,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMa
   PyObject *__pyx_t_8 = NULL;
   PyObject *__pyx_t_9 = NULL;
   PyObject *__pyx_t_10 = NULL;
-  __Pyx_RefNannySetupContext("save_pre_learn_params", 0);
+  __Pyx_RefNannySetupContext("save_pre_learned_params", 0);
 
   /* "pydbm/dbm/deep_boltzmann_machine.pyx":256
  *             file_name:  The naming rule of files. If `None`, this value is `dbm`.
@@ -5045,7 +5043,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMa
   /* "pydbm/dbm/deep_boltzmann_machine.pyx":248
  *         return np.array(self.__rbm_list[layer_number].get_reconstruct_error_list())
  * 
- *     def save_pre_learn_params(self, dir_path=None, file_name=None):             # <<<<<<<<<<<<<<
+ *     def save_pre_learned_params(self, dir_path=None, file_name=None):             # <<<<<<<<<<<<<<
  *         '''
  *         Save pre-learned parameters.
  */
@@ -5060,7 +5058,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMa
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
   __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_AddTraceback("pydbm.dbm.deep_boltzmann_machine.DeepBoltzmannMachine.save_pre_learn_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.dbm.deep_boltzmann_machine.DeepBoltzmannMachine.save_pre_learned_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_file_path);
@@ -7793,7 +7791,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_r_batch_size, __pyx_k_r_batch_size, sizeof(__pyx_k_r_batch_size), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_rbm_list, __pyx_k_rbm_list, sizeof(__pyx_k_rbm_list), 0, 0, 1, 1},
-  {&__pyx_n_s_save_pre_learn_params, __pyx_k_save_pre_learn_params, sizeof(__pyx_k_save_pre_learn_params), 0, 0, 1, 1},
   {&__pyx_n_s_save_pre_learned_params, __pyx_k_save_pre_learned_params, sizeof(__pyx_k_save_pre_learned_params), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
   {&__pyx_n_s_set_rbm_list, __pyx_k_set_rbm_list, sizeof(__pyx_k_set_rbm_list), 0, 0, 1, 1},
@@ -8147,14 +8144,14 @@ static int __Pyx_InitCachedConstants(void) {
   /* "pydbm/dbm/deep_boltzmann_machine.pyx":248
  *         return np.array(self.__rbm_list[layer_number].get_reconstruct_error_list())
  * 
- *     def save_pre_learn_params(self, dir_path=None, file_name=None):             # <<<<<<<<<<<<<<
+ *     def save_pre_learned_params(self, dir_path=None, file_name=None):             # <<<<<<<<<<<<<<
  *         '''
  *         Save pre-learned parameters.
  */
   __pyx_tuple__44 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_dir_path, __pyx_n_s_file_name, __pyx_n_s_file_path, __pyx_n_s_i); if (unlikely(!__pyx_tuple__44)) __PYX_ERR(0, 248, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__44);
   __Pyx_GIVEREF(__pyx_tuple__44);
-  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__44, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deep_boltzmann_machine_2, __pyx_n_s_save_pre_learn_params, 248, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 248, __pyx_L1_error)
+  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__44, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_deep_boltzmann_machine_2, __pyx_n_s_save_pre_learned_params, 248, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 248, __pyx_L1_error)
   __pyx_tuple__46 = PyTuple_Pack(2, ((PyObject *)Py_None), ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 248, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__46);
   __Pyx_GIVEREF(__pyx_tuple__46);
@@ -8766,14 +8763,14 @@ static int __pyx_pymod_exec_deep_boltzmann_machine(PyObject *__pyx_pyinit_module
   /* "pydbm/dbm/deep_boltzmann_machine.pyx":248
  *         return np.array(self.__rbm_list[layer_number].get_reconstruct_error_list())
  * 
- *     def save_pre_learn_params(self, dir_path=None, file_name=None):             # <<<<<<<<<<<<<<
+ *     def save_pre_learned_params(self, dir_path=None, file_name=None):             # <<<<<<<<<<<<<<
  *         '''
  *         Save pre-learned parameters.
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_25save_pre_learn_params, 0, __pyx_n_s_DeepBoltzmannMachine_save_pre_le, NULL, __pyx_n_s_pydbm_dbm_deep_boltzmann_machine, __pyx_d, ((PyObject *)__pyx_codeobj__45)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_22deep_boltzmann_machine_20DeepBoltzmannMachine_25save_pre_learned_params, 0, __pyx_n_s_DeepBoltzmannMachine_save_pre_le, NULL, __pyx_n_s_pydbm_dbm_deep_boltzmann_machine, __pyx_d, ((PyObject *)__pyx_codeobj__45)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_6, __pyx_tuple__46);
-  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_save_pre_learn_params, __pyx_t_6) < 0) __PYX_ERR(0, 248, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_save_pre_learned_params, __pyx_t_6) < 0) __PYX_ERR(0, 248, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
   /* "pydbm/dbm/deep_boltzmann_machine.pyx":12

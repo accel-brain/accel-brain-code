@@ -29,7 +29,8 @@ class ConvolutionalNeuralNetwork(object):
         double test_size_rate=0.3,
         tol=1e-15,
         tld=100.0,
-        save_flag=False
+        save_flag=False,
+        pre_learned_path_list=None
     ):
         '''
         Init.
@@ -51,11 +52,19 @@ class ConvolutionalNeuralNetwork(object):
             tol:                            Tolerance for the optimization.
             tld:                            Tolerance for deviation of loss.
             save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.
+            pre_learned_path_list:          `list` of file path that stores pre-learned parameters.
 
         '''
         for layerable_cnn in layerable_cnn_list:
             if isinstance(layerable_cnn, LayerableCNN) is False:
                 raise TypeError("The type of value of `layerable_cnn` must be `LayerableCNN`.")
+        
+        if pre_learned_path_list is not None:
+            if len(pre_learned_path_list) != len(layerable_cnn_list):
+                raise ValueError("The number of files that store pre-learned parameters must be same as the number of `layerable_cnn_list`.")
+            for i in range(len(pre_learned_path_list)):
+                layerable_cnn_list[i].graph.load_pre_learned_params(pre_learned_path_list[i])
+
         self.__layerable_cnn_list = layerable_cnn_list
 
         if isinstance(computable_loss, ComputableLoss):
@@ -541,6 +550,26 @@ class ConvolutionalNeuralNetwork(object):
 
         for i in range(len(self.__layerable_cnn_list)):
             self.__layerable_cnn_list[i].reset_delta()
+
+    def save_pre_learned_params(self, dir_path=None, file_name=None):
+        '''
+        Save pre-learned parameters.
+        
+        Args:
+            dir_path:   Path of dir. If `None`, the file is saved in the current directory.
+            file_name:  The naming rule of files. If `None`, this value is `cnn`.
+        '''
+        file_path = ""
+        if dir_path is not None:
+            file_path += dir_path + "/"
+        if file_name is not None:
+            file_path += file_name
+        else:
+            file_path += "cnn"
+        file_path += "_"
+        
+        for i in range(len(self.layerable_cnn_list)):
+            self.layerable_cnn_list[i].graph.save_pre_learned_params(file_path + str(i) + ".npz")
 
     def get_layerable_cnn_list(self):
         ''' getter '''

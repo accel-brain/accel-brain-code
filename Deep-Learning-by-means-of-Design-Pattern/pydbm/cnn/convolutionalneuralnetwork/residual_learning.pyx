@@ -36,7 +36,8 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
         double test_size_rate=0.3,
         tol=1e-15,
         tld=10000.0,
-        save_flag=False
+        save_flag=False,
+        pre_learned_path_list=None
     ):
         '''
         Init.
@@ -60,6 +61,7 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
             tol:                            Tolerance for the optimization.
             tld:                            Tolerance for deviation of loss.
             save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.
+            pre_learned_path_list:          `list` of file path that stores pre-learned parameters.
 
         '''
         super().__init__(
@@ -75,7 +77,8 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
             test_size_rate,
             tol,
             tld,
-            save_flag
+            save_flag,
+            pre_learned_path_list
         )
 
         logger = getLogger("pydbm")

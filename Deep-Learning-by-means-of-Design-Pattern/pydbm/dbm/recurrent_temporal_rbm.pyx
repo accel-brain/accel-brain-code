@@ -44,6 +44,7 @@ class RecurrentTemporalRBM(object):
             hidden_num:                     The number of units in hidden layer.
             visible_activating_function:    The activation function in visible layer.
             hidden_activating_function:     The activation function in hidden layer.
+            rnn_activating_function:        The activation function in RNN layer.
             opt_params:                     is-a `OptParams`.
             learning_rate:                  Learning rate.
             pre_learned_path:               File path that stores pre-learned parameters.

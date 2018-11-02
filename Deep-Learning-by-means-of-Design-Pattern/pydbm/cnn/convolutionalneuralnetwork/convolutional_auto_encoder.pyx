@@ -41,7 +41,8 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         double test_size_rate=0.3,
         tol=1e-15,
         tld=100.0,
-        save_flag=False
+        save_flag=False,
+        pre_learned_path_list=None
     ):
         '''
         Init.
@@ -65,6 +66,7 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
             tol:                            Tolerance for the optimization.
             tld:                            Tolerance for deviation of loss.
             save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.
+            pre_learned_path_list:          `list` of file path that stores pre-learned parameters.
 
         '''
         super().__init__(
@@ -80,12 +82,9 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
             test_size_rate,
             tol,
             tld,
-            save_flag
+            save_flag,
+            pre_learned_path_list
         )
-        for layerable_cnn in layerable_cnn_list:
-            if isinstance(layerable_cnn, ConvolutionLayer) is False:
-                raise TypeError("The type of value of `layerable_cnn_list` must be `ConvolutionLayer`.")
-
         self.__epochs = epochs
         self.__batch_size = batch_size
 

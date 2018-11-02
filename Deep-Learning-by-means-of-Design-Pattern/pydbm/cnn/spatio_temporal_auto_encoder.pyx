@@ -36,7 +36,8 @@ class SpatioTemporalAutoEncoder(object):
         fully_connected_activation=None,
         tol=1e-15,
         tld=100.0,
-        save_flag=False
+        save_flag=False,
+        pre_learned_dir=None
     ):
         '''
         Init.
@@ -62,18 +63,25 @@ class SpatioTemporalAutoEncoder(object):
             tol:                            Tolerance for the optimization.
             tld:                            Tolerance for deviation of loss.
             save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.
+            pre_learned_dir:                Path to directory that stores pre-learned parameters.
 
         '''
-        for layerable_cnn in layerable_cnn_list:
-            if isinstance(layerable_cnn, LayerableCNN) is False:
-                raise TypeError("The type of value of `layerable_cnn` must be `LayerableCNN`.")
-        self.__layerable_cnn_list = layerable_cnn_list
-
         if isinstance(encoder, ReconstructableModel) is False:
             raise TypeError()
         if isinstance(decoder, ReconstructableModel) is False:
             raise TypeError()
 
+        for layerable_cnn in layerable_cnn_list:
+            if isinstance(layerable_cnn, LayerableCNN) is False:
+                raise TypeError("The type of value of `layerable_cnn` must be `LayerableCNN`.")
+
+        if pre_learned_dir is not None:
+            for i in range(len(layerable_cnn_list)):
+                layerable_cnn_list[i].graph.save_pre_learned_params(pre_learned_dir + "spatio_cnn_" + str(i) + ".npz")
+            encoder.graph.load_pre_learned_params(pre_learned_dir + "temporal_encoder.npz")
+            decoder.graph.load_pre_learned_params(pre_learned_dir + "temporal_decoder.npz")
+
+        self.__layerable_cnn_list = layerable_cnn_list
         self.__encoder = encoder
         self.__decoder = decoder
 
@@ -771,6 +779,21 @@ class SpatioTemporalAutoEncoder(object):
 
         for i in range(len(self.__layerable_cnn_list)):
             self.__layerable_cnn_list[i].reset_delta()
+
+    def save_pre_learned_params(self, dir_path):
+        '''
+        Save pre-learned parameters.
+        
+        Args:
+            dir_path:   Path of dir. If `None`, the file is saved in the current directory.
+        '''
+        if dir_path[-1] != "/":
+            dir_path = dir_path + "/"
+
+        for i in range(len(self.layerable_cnn_list)):
+            self.layerable_cnn_list[i].graph.save_pre_learned_params(dir_path + "spatio_cnn_" + str(i) + ".npz")
+        self.__encoder.graph.save_pre_learned_params(dir_path + "temporal_encoder.npz")
+        self.__decoder.graph.save_pre_learned_params(dir_path + "temporal_decoder.npz")
 
     def get_layerable_cnn_list(self):
         ''' getter '''

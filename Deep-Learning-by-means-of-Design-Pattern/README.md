@@ -947,7 +947,6 @@ If you want to know how to minimize the reconstructed error, see my Jupyter note
 
 The object `facade_encoder_decoder` has the method `save_pre_learned_params`, to store the pre-learned parameters in compressed <a href="https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.lib.format.html#module-numpy.lib.format" target="_blank">NPY format</a> files.
 
-
 ```python
 facade_encoder_decoder.save_pre_learned_params(
     # File path that stores Encoder's parameters.
@@ -958,6 +957,8 @@ facade_encoder_decoder.save_pre_learned_params(
 ```
 
 ### Transfer learning in Encoder/Decoder based on LSTM.
+
+`__init__` method of `FacadeEncoderDecoder` can be given `encoder_pre_learned_file_path` and `decoder_pre_learned_file_path`, which are `str` of file path that stores Encoder/Decoder's pre-learned parameters.
 
 ```python
 facade_encoder_decoder2 = FacadeEncoderDecoder(
@@ -1031,8 +1032,7 @@ facade_encoder_decoder = FacadeEncoderDecoder(
 
 If you want to not only use casually the model but also hack it, see <a href="#usecase_build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model.</a>.
 
-<div><a name="usecase_build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model"></a></div>
-
+<a name="usecase_build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model"></a>
 ## Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model.
 
 Consider functionally reusability and possibility of flexible design, you should use not `FacadeEncoderDecoder` but `EncoderDecoderController` as follows.
@@ -1440,6 +1440,51 @@ The shape of `test_img_arr` and `result_arr` is equivalent to `img_arr`.
 
 If you want to know how to visualize the reconstructed images, see my Jupyter notebook: [demo/demo_convolutional_auto_encoder.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_convolutional_auto_encoder.ipynb).
 
+### Save pre-learned parameters.
+
+The object `cnn`, which is-a `ConvolutionalNeuralNetwork`, has the method `save_pre_learned_params`, to store the pre-learned parameters in compressed <a href="https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.lib.format.html#module-numpy.lib.format" target="_blank">NPY format</a> files.
+
+```python
+# Save pre-learned parameters.
+cnn.save_pre_learned_params(
+    # Path of dir. If `None`, the file is saved in the current directory.
+    dir_path="/var/tmp/",
+    # The naming rule of files. If `None`, this value is `cnn`.
+    file_name="demo_cnn"
+)
+```
+
+### Transfer learning in Convolutional Auto-Encoder.
+
+`__init__` of `ConvolutionalAutoEncoder`, which is-a `ConvolutionalNeuralNetwork`, can be given `pre_learned_path_list` which is a `list` of file paths that store pre-learned parameters.
+
+```python
+cnn2 = ConvolutionalAutoEncoder(
+    layerable_cnn_list=[
+        conv1, 
+        conv2
+    ],
+    epochs=100,
+    batch_size=batch_size,
+    learning_rate=1e-05,
+    learning_attenuate_rate=0.1,
+    attenuate_epoch=25,
+    computable_loss=MeanSquaredError(),
+    opt_params=Adam(),
+    verificatable_result=VerificateFunctionApproximation(),
+    test_size_rate=0.3,
+    tol=1e-15,
+    save_flag=True,
+    pre_learned_path_list=[
+        "pre-learned/demo_cnn_0.npz",
+        "pre-learned/demo_cnn_1.npz"
+    ]
+)
+
+# Execute learning.
+cnn2.learn(img_arr, img_arr)
+```
+
 ## Usecase: Build Spatio-Temporal Auto-Encoder.
 
 Setup logger for verbose output and import Python and Cython modules in the same manner as <a href="#usecase_build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model</a>.
@@ -1504,6 +1549,62 @@ result_arr = cnn.inference(test_img_arr[:100])
 
 If you want to know how to visualize the reconstructed video images, see my Jupyter notebook: [demo/demo_spatio_temporal_auto_encoder.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_spatio_temporal_auto_encoder.ipynb).
 
+### Save pre-learned parameters.
+
+The object `cnn`, which is-a `SpatioTemporalAutoEncoder`, has the method `save_pre_learned_params`, to store the pre-learned parameters in compressed <a href="https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.lib.format.html#module-numpy.lib.format" target="_blank">NPY format</a> files.
+
+```python
+cnn.save_pre_learned_params("/var/tmp/spae/")
+```
+
+#### Naming rule of saved files.
+
+- `spatio_cnn_X.npz`: Pre-learned parameters in `X` layer of Convolutional Auto-Encoder.
+- `temporal_encoder.npz`: Pre-learned parameters in the Temporal Encoder.
+- `temporal_decoder.npz`: Pre-learned parameters in the Temporal Decoder.
+
+### Transfer learning in Spatio-Temporal Auto-Encoder.
+
+`__init__` method of `SpatioTemporalAutoEncoder` can be given `pre_learned_dir`, which is-a `str` of directory path that stores pre-learned parameters of the Convolutional Auto-Encoder and the Encoder/Decoder based on LSTM.
+
+```python
+cnn2 = SpatioTemporalAutoEncoder(
+    # The `list` of `LayerableCNN`.
+    layerable_cnn_list=[
+        conv1, 
+        conv2
+    ],
+    # is-a `ReconstructableModel`.
+    encoder=encoder,
+    # is-a `ReconstructableModel`.
+    decoder=decoder,
+    # Epochs of Mini-batch.
+    epochs=100,
+    # Batch size of Mini-batch.
+    batch_size=20,
+    # Learning rate.
+    learning_rate=1e-05,
+    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+    learning_attenuate_rate=0.1,
+    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+    attenuate_epoch=25,
+    # Loss function.
+    computable_loss=MeanSquaredError(),
+    # Optimization function.
+    opt_params=Adam(),
+    # Verification function.
+    verificatable_result=VerificateFunctionApproximation(),
+    # Size of Test data set. If this value is `0`, the validation will not be executed.
+    test_size_rate=0.3,
+    # Tolerance for the optimization.
+    tol=1e-15,
+    # Path to directory that stores pre-learned parameters.
+    pre_learned_dir="/var/tmp/spae/"
+)
+
+cnn2.learn(img_arr, img_arr)
+```
+
 ## Usecase: Build and delegate image generator.
 
 `ConvolutionalAutoEncoder` and `SpatioTemporalAutoEncoder`, which are `ConvolutionalNeuralNetwork`s, provide a method `learn_generated` which can be delegated an `ImageGenerator`. `ImageGenerator` is an Iterates to reads batches of images from local directories for mini-batch training.
@@ -1540,6 +1641,26 @@ cnn.learn_generated(feature_generator)
 ```
 
 Method `learn_generated` is functionally equivalent to method `learn`.
+
+## Usecase: Save and load the pre-learned parameters in computation graphs.
+
+For file management of pre-learned parameters in the transfer learning problem setting, each computation graph, which is-a `Synapse`, provides two methods: `save_pre_learned_params` and `load_pre_learned_params`.
+
+```python
+# Save pre-learned parameters.
+synapse.save_pre_learned_params("/var/tmp/pre_learned.npz")
+```
+
+The function of this method is to store the pre-learned parameters in compressed <a href="https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.lib.format.html#module-numpy.lib.format" target="_blank">NPY format</a> files.
+
+And call the method `load_pre_learned_params` to execute transfer learning or re-learn.
+
+```python
+# Load pre-learned parameters.
+synapse.load_pre_learned_params("/var/tmp/pre_learned.npz")
+```
+
+The class `Synapse` has sub-classes: `CompleteBipartiteGraph`, `LSTMGraph`, `CNNGraph`, and so on. All computation graph makes it possible to do pre-learning and transfer learning.
 
 ## References
 

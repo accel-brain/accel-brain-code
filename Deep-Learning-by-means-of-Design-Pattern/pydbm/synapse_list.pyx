@@ -133,7 +133,7 @@ class Synapse(object):
         for k, v in self.__dict__.items():
             if isinstance(v, np.ndarray):
                 d.setdefault(k, v)
-        np.savez(file_path, **d)
+        np.savez_compressed(file_path, **d)
 
     def load_pre_learned_params(self, file_path):
         '''

@@ -126,7 +126,10 @@ class SpatioTemporalAutoEncoder(object):
         
         self.__save_flag = save_flag
         
-        self.__learn_flag = True
+        if pre_learned_dir is None:
+            self.__learn_flag = True
+        else:
+            self.__learn_flag = False
 
         logger = getLogger("pydbm")
         self.__logger = logger

@@ -245,7 +245,7 @@ class DeepBoltzmannMachine(object):
         '''
         return np.array(self.__rbm_list[layer_number].get_reconstruct_error_list())
 
-    def save_pre_learn_params(self, dir_path=None, file_name=None):
+    def save_pre_learned_params(self, dir_path=None, file_name=None):
         '''
         Save pre-learned parameters.
         

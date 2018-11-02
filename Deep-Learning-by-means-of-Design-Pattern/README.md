@@ -46,7 +46,7 @@ Installers for the latest released version are available at the Python package i
 
 ## Description
 
-The function of `pydbm` is building and modeling **Restricted Boltzmann Machine**(RBM) and **Deep Boltzmann Machine**(DBM). The models are functionally equivalent to **stacked auto-encoder**. The basic function is the same as **dimensions reduction**(or **pre-training**). And this library enables you to build many functional extensions from RBM and DBM such as Recurrent Temporal Restricted Boltzmann Machine(RTRBM), Recurrent Neural Network Restricted Boltzmann Machine(RNN-RBM), Long Short-Term Memory Recurrent Temporal Restricted Boltzmann Machine(LSTM-RTRBM), and Shape Boltzmann Machine(Shape-BM).
+The function of `pydbm` is building and modeling **Restricted Boltzmann Machine**(RBM) and **Deep Boltzmann Machine**(DBM). The models are functionally equivalent to **stacked auto-encoder**. The basic function is the same as **dimensions reduction**(or **pre-learning**). And this library enables you to build many functional extensions from RBM and DBM such as Recurrent Temporal Restricted Boltzmann Machine(RTRBM), Recurrent Neural Network Restricted Boltzmann Machine(RNN-RBM), Long Short-Term Memory Recurrent Temporal Restricted Boltzmann Machine(LSTM-RTRBM), and Shape Boltzmann Machine(Shape-BM).
 
 As more usecases, **RTRBM**, **RNN-RBM**, and **LSTM-RTRBM** can learn dependency structures in temporal patterns such as music, natural sentences, and n-gram. RTRBM is a probabilistic time-series model which can be viewed as a temporal stack of RBMs, where each RBM has a contextual hidden state that is received from the previous RBM and is used to modulate its hidden units bias. The RTRBM can be understood as a sequence of conditional RBMs whose parameters are the output of a deterministic RNN, with the constraint that the hidden units must describe the conditional distributions. This constraint can be lifted by combining a full RNN with distinct hidden units. In terms of this possibility, RNN-RBM and LSTM-RTRBM are structurally expanded model from RTRBM that allows more freedom to describe the temporal dependencies involved.
 
@@ -120,7 +120,7 @@ and conditional distributions in other layers are as follows:
 
 <div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/dbn_other_layers.png" /></div>
 
-The pre-training of DBN engages in a procedure of recursive learning in layer-by-layer. However, as you can see from the difference of graph structure, DBM is slightly different from DBN in the form of pre-training. For instance, if `r = 1`, the conditional distribution of visible layer is 
+The pre-learning of DBN engages in a procedure of recursive learning in layer-by-layer. However, as you can see from the difference of graph structure, DBM is slightly different from DBN in the form of pre-learning. For instance, if `r = 1`, the conditional distribution of visible layer is 
 
 <div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/conditional_distribution_of_visible_layer.png" />.</div>
 
@@ -312,7 +312,8 @@ In this library, **Convolutional Auto-Encoder** is also based on **Encoder/Decod
 
 [demo/demo_spatio_temporal_auto_encoder.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_spatio_temporal_auto_encoder.ipynb) is a jupyter notebook which demonstrates the video recognition and reconstruction of video images by the Spatio-Temporal Auto-Encoder.
 
-## Usecase: Building the deep boltzmann machine for feature extracting.
+<a name="usecase_building_the_deep_boltzmann_machine_for_feature_extracting"></a>
+## Usecase: Building the Deep Boltzmann Machine for feature extracting.
 
 Import Python and Cython modules based on Builder Pattern.
 
@@ -340,45 +341,54 @@ Import Python and Cython modules of optimizers, and instantiate the objects.
 
 ```python
 # Stochastic Gradient Descent(SGD) as optimizer.
-from pydbm.optimization.optparams.sgd import SGD as FirstSGD
-from pydbm.optimization.optparams.sgd import SGD as SecondSGD
+from pydbm.optimization.optparams.sgd import SGD
 
 # is-a `OptParams`.
-first_optimizer = FirstSGD()
-# is-a `OptParams`.
-second_optimizer = SecondSGD()
+opt_params = SGD(
+    # Momentum.
+    momentum=0.9
+)
 ```
 
 If you want to use not Stochastic Gradient Descent(SGD) but Adam optimizer, import `Adam` and instantiate it.
 
 ```python
 # Adam as a optimizer.
-from pydbm.optimization.optparams.adam import Adam as FirstAdam
-from pydbm.optimization.optparams.adam import Adam as SecondAdam
+from pydbm.optimization.optparams.adam import Adam
 
 # is-a `OptParams`.
-first_optimizer = FirstSGD()
-# is-a `OptParams`.
-second_optimizer = SecondSGD()
+opt_params = Adam(
+    # BETA 1.
+    beta_1=0.9,
+    # BETA 2.
+    beta_2=0.99
+)
 ```
 
 Setup parameters of regularization. For instance, the probability of dropout can be set as follows.
 
 ```python
-first_optimizer.dropout_rate = 0.5
-second_optimizer.dropout_rate = 0.5
+# Regularization for weights matrix
+# to repeat multiplying the weights matrix and `0.9`
+# until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
+opt_params.weight_limit = 0.5
+
+# Probability of dropout.
+opt_params.dropout_rate = 0.5
 ```
 
 Instantiate objects and call the method.
 
 ```python
 # Contrastive Divergence for visible layer and first hidden layer.
-first_cd = ContrastiveDivergence(opt_params=first_optimizer)
+first_cd = ContrastiveDivergence(opt_params=opt_params)
 # Contrastive Divergence for first hidden layer and second hidden layer.
-second_cd = ContrastiveDivergence(opt_params=second_optimizer)
+second_cd = ContrastiveDivergence(opt_params=opt_params)
 
 # DBM
 dbm = DeepBoltzmannMachine(
+    # `Concrete Builder` in Builder Pattern,
+    # which composes three restricted boltzmann machines for building a deep boltzmann machine.
     DBMMultiLayerBuilder(),
     # Dimention in visible layer, hidden layer, and second hidden layer.
     [train_arr.shape[1], 10, train_arr.shape[1]],
@@ -392,6 +402,7 @@ dbm = DeepBoltzmannMachine(
 
 # Execute learning.
 dbm.learn(
+    # `np.ndarray` of observed data points.
     train_arr,
      # If approximation is the Contrastive Divergence, this parameter is `k` in CD method.
     training_count=1,
@@ -410,47 +421,16 @@ And the feature points can be extracted by this method.
 feature_point_arr = dbm.get_feature_point(layer_number=1)
 ```
 
-## Usecase: Extracting all feature points for dimensions reduction(or pre-training)
+<a name="usecase_extracting_all_feature_points_for_dimensions_reduction_or_pre_learning"></a>
+## Usecase: Extracting all feature points for dimensions reduction(or pre-learning)
 
-Import Python and Cython modules.
+Import Python and Cython modules and instantiate the objects in the same manner as <a href="#usecase_building_the_deep_boltzmann_machine_for_feature_extracting">Usecase: Building the Deep Boltzmann Machine for feature extracting.</a>
+
+Import and instantiate not `DeepBoltzmannMachine` but `StackedAutoEncoder`, and call the method.
 
 ```python
 # `StackedAutoEncoder` is-a `DeepBoltzmannMachine`.
 from pydbm.dbm.deepboltzmannmachine.stacked_auto_encoder import StackedAutoEncoder
-# The `Concrete Builder` in Builder Pattern.
-from pydbm.dbm.builders.dbm_multi_layer_builder import DBMMultiLayerBuilder
-# Contrastive Divergence for function approximation.
-from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
-# Logistic Function as activation function.
-from pydbm.activation.logistic_function import LogisticFunction
-# Stochastic Gradient Descent(SGD) as optimizer.
-from pydbm.optimization.optparams.sgd import SGD as FirstSGD
-from pydbm.optimization.optparams.sgd import SGD as SecondSGD
-# The function of reconsturction error.
-from pydbm.loss.mean_squared_error import MeanSquaredError
-```
-
-Instantiate objects and call the method.
-
-```python
-# is-a `OptParams`.
-first_optimizer = FirstSGD()
-# is-a `OptParams`.
-second_optimizer = SecondSGD()
-
-# The probability of dropout.
-first_optimizer.dropout_rate = 0.5
-second_optimizer.dropout_rate = 0.5
-
-# Contrastive Divergence for visible layer and first hidden layer.
-first_cd = ContrastiveDivergence(opt_params=first_optimizer, computable_loss=MeanSquaredError())
-# Contrastive Divergence for first hidden layer and second hidden layer.
-second_cd = ContrastiveDivergence(opt_params=second_optimizer, computable_loss=MeanSquaredError())
-
-# Setting objects for activation function.
-activation_list = [LogisticFunction(), LogisticFunction(), LogisticFunction()]
-# Setting the object for function approximation.
-approximaion_list = [first_cd, second_cd]
 
 # is-a `DeepBoltzmannMachine`.
 dbm = StackedAutoEncoder(
@@ -489,19 +469,19 @@ reconstruct_error_arr = dbm.get_reconstruct_error_arr(layer_number=0)
 And the result of dimention reduction can be extracted by this property.
 
 ```python
-pre_trained_arr = dbm.feature_points_arr
+pre_learned_arr = dbm.feature_points_arr
 ```
 
-### Extract weights obtained by pre-training. 
+### Extract weights obtained by pre-learning. 
 
-If you want to get the pre-training weights, call `get_weight_arr_list` method.
+If you want to get the pre-learning weights, call `get_weight_arr_list` method.
 
 ```python
 weight_arr_list = dbm.get_weight_arr_list()
 ```
 `weight_arr_list` is the `list` of weights of each links in DBM. `weight_arr_list[0]` is 2-d `np.ndarray` of weights between visible layer and first hidden layer.
 
-### Extract biases obtained by pre-training.
+### Extract biases obtained by pre-learning.
 
 Call `get_visible_bias_arr_list` method and `get_hidden_bias_arr_list` method in the same way.
 
@@ -512,27 +492,38 @@ hidden_bias_arr_list = dbm.get_hidden_bias_arr_list()
 
 `visible_bias_arr_list` and `hidden_bias_arr_list` are the `list` of biases of each links in DBM.
 
+### Save pre-learned parameters.
+
+The object `dbm`, which is-a `DeepBoltzmannMachine`, has the method `save_pre_learned_params`, to store the pre-learned parameters in compressed <a href="https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.lib.format.html#module-numpy.lib.format" target="_blank">NPY format</a> files.
+
+```python
+# Save pre-learned parameters.
+dbm.save_pre_learned_params(
+    # Path of dir. If `None`, the file is saved in the current directory.
+    dir_path="/var/tmp/",
+    # The naming rule of files. If `None`, this value is `dbm`.
+    file_name="demo_dbm"
+)
+```
+
 ### Transfer learning in DBM.
 
-`DBMMultiLayerBuilder` can be given `weight_arr_list`, `visible_bias_arr_list`, and `hidden_bias_arr_list` obtained by pre-training.
+`DBMMultiLayerBuilder` can be given `pre_learned_path_list` which is a `list` of file paths that store pre-learned parameters.
 
 ```python
 dbm = StackedAutoEncoder(
     DBMMultiLayerBuilder(
-        # Setting pre-learned weights matrix.
-        weight_arr_list,
-        # Setting pre-learned bias in visible layer.
-        visible_bias_arr_list,
-        # Setting pre-learned bias in hidden layer.
-        hidden_bias_arr_list
+        # `list` of file path that stores pre-learned parameters.
+        pre_learned_path_list=[
+            "/var/tmp/demo_dbm_0.npz",
+            "/var/tmp/demo_dbm_1.npz"
+        ]
     ),
     [next_target_arr.shape[1], 10, next_target_arr.shape[1]],
     activation_list,
     approximaion_list,
     # Setting learning rate.
-    0.05,
-    # Setting dropout rate.
-    0.0
+    0.05
 )
 
 # Execute learning.
@@ -616,40 +607,42 @@ The observated data is the result of `np.random.normal(loc=0.5, scale=0.2, size=
  [ 0.11668085 0.07513545 0.091044  ...,  0.0719339  0.07976882 0.09121697]
 ```
 
+<a name="usecase_building_the_rtrbm_for_recursive_learning"></a>
 ## Usecase: Building the RTRBM for recursive learning.
 
 Import Python and Cython modules.
 
 ```python
-# `Builder` in `Builder Patter`.
-from pydbm.dbm.builders.rt_rbm_simple_builder import RTRBMSimpleBuilder
-# RNN and Contrastive Divergence for function approximation.
-from pydbm.approximation.rt_rbm_cd import RTRBMCD
 # Logistic Function as activation function.
 from pydbm.activation.logistic_function import LogisticFunction
 # Softmax Function as activation function.
 from pydbm.activation.softmax_function import SoftmaxFunction
 # Stochastic Gradient Descent(SGD) as optimizer.
 from pydbm.optimization.optparams.sgd import SGD
+# The `Client` in Builder Pattern for building RTRBM.
+from pydbm.dbm.recurrent_temporal_rbm import RecurrentTemporalRBM
 ```
 
 Instantiate objects and execute learning.
 
 ```python
-# `Builder` in `Builder Pattern` for RTRBM.
-rtrbm_builder = RTRBMSimpleBuilder()
-# Learning rate.
-rtrbm_builder.learning_rate = 1e-05
-# Set units in visible layer.
-rtrbm_builder.visible_neuron_part(LogisticFunction(), observed_arr.shape[-1])
-# Set units in hidden layer.
-rtrbm_builder.hidden_neuron_part(LogisticFunction(), 100)
-# Set units in RNN layer.
-rtrbm_builder.rnn_neuron_part(LogisticFunction())
-# Set graph and approximation function, delegating `SGD` which is-a `OptParams`.
-rtrbm_builder.graph_part(RTRBMCD(opt_params=SGD()))
-# Building.
-rbm = rtrbm_builder.get_result()
+# The `Client` in Builder Pattern for building RTRBM.
+rbm = RecurrentTemporalRBM(
+    # The number of units in visible layer.
+    visible_num=observed_arr.shape[-1],
+    # The number of units in hidden layer.
+    hidden_num=100,
+    # The activation function in visible layer.
+    visible_activating_function=LogisticFunction(),
+    # The activation function in hidden layer.
+    hidden_activating_function=LogisticFunction(),
+    # The activation function in RNN layer.
+    rnn_activating_function=LogisticFunction(),
+    # is-a `OptParams`.
+    opt_params=SGD(),
+    # Learning rate.
+    learning_rate=1e-05
+)
 ```
 
 The `rbm` has a `learn` method, to execute learning observed data points. This method can receive a `np.ndarray` of observed data points, which is a rank-3 array-like or sparse matrix of shape: (`The number of samples`, `The length of cycle`, `The number of features`), as the first argument.
@@ -687,81 +680,119 @@ feature_points_arr = rbm.get_feature_points()
 
 The shape of `feature_points_arr` is rank-2 array-like or sparse matrix: (`The number of samples`, `The number of units in hidden layers`). So this matrix also means time series data embedded as manifolds.
 
-## Usecase: Building the RNN-RBM for recursive learning.
+### Save pre-learned parameters.
 
-Import Python and Cython modules.
+The object `rbm`, which is-a `RecurrentTemporalRBM`, has the method `save_pre_learned_params`, to store the pre-learned parameters in a compressed <a href="https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.lib.format.html#module-numpy.lib.format" target="_blank">NPY format</a> file.
 
 ```python
-# `Builder` in `Builder Patter`.
-from pydbm.dbm.builders.rnn_rbm_simple_builder import RNNRBMSimpleBuilder
-# RNN and Contrastive Divergence for function approximation.
-from pydbm.approximation.rtrbmcd.rnn_rbm_cd import RNNRBMCD
-# Logistic Function as activation function.
-from pydbm.activation.logistic_function import LogisticFunction
-# Softmax Function as activation function.
-from pydbm.activation.softmax_function import SoftmaxFunction
-# Stochastic Gradient Descent(SGD) as optimizer.
-from pydbm.optimization.optparams.sgd import SGD
+rbm.save_pre_learned_params("/var/tmp/demo_rtrbm.npz")
+```
+
+### Transfer learning in RTRBM.
+
+`__init__` method of `RecurrentTemporalRBM` can be given `pre_learned_path_list` which is a `str` of file path that stores pre-learned parameters.
+
+```python
+# The `Client` in Builder Pattern for building RTRBM.
+rbm = RecurrentTemporalRBM(
+    # The number of units in visible layer.
+    visible_num=observed_arr.shape[-1],
+    # The number of units in hidden layer.
+    hidden_num=100,
+    # The activation function in visible layer.
+    visible_activating_function=LogisticFunction(),
+    # The activation function in hidden layer.
+    hidden_activating_function=LogisticFunction(),
+    # The activation function in RNN layer.
+    rnn_activating_function=LogisticFunction(),
+    # is-a `OptParams`.
+    opt_params=SGD(),
+    # Learning rate.
+    learning_rate=1e-05,
+    # File path that stores pre-learned parameters.
+    pre_learned_path="/var/tmp/demo_rtrbm.npz"
+)
+
+# Learning.
+rbm.learn(
+    # The `np.ndarray` of observed data points.
+    observed_arr,
+    # Training count.
+    training_count=1000, 
+    # Batch size.
+    batch_size=200
+)
+```
+
+## Usecase: Building the RNN-RBM for recursive learning.
+
+Import not `RecurrentTemporalRBM` but `RNNRBM`, which is-a `RecurrentTemporalRBM`.
+
+```python
+# The `Client` in Builder Pattern for building RNN-RBM.
+from pydbm.dbm.recurrenttemporalrbm.rnn_rbm import RNNRBM
 ```
 
 Instantiate objects.
 
 ```python
-# `Builder` in `Builder Pattern` for RNN-RBM.
-rnnrbm_builder = RNNRBMSimpleBuilder()
-# Learning rate.
-rnnrbm_builder.learning_rate = 1e-05
-# Set units in visible layer.
-rnnrbm_builder.visible_neuron_part(LogisticFunction(), observed_arr.shape[-1])
-# Set units in hidden layer.
-rnnrbm_builder.hidden_neuron_part(LogisticFunction(), 100)
-# Set units in RNN layer.
-rnnrbm_builder.rnn_neuron_part(LogisticFunction())
-# Set graph and approximation function, delegating `SGD` which is-a `OptParams`.
-rnnrbm_builder.graph_part(RNNRBMCD(opt_params=SGD()))
-# Building.
-rbm = rnnrbm_builder.get_result()
+# The `Client` in Builder Pattern for building RNN-RBM.
+rbm = RNNRBM(
+    # The number of units in visible layer.
+    visible_num=observed_arr.shape[-1],
+    # The number of units in hidden layer.
+    hidden_num=100,
+    # The activation function in visible layer.
+    visible_activating_function=LogisticFunction(),
+    # The activation function in hidden layer.
+    hidden_activating_function=LogisticFunction(),
+    # The activation function in RNN layer.
+    rnn_activating_function=LogisticFunction(),
+    # is-a `OptParams`.
+    opt_params=SGD(),
+    # Learning rate.
+    learning_rate=1e-05,
+    # File path that stores pre-learned parameters.
+    pre_learned_path="/var/tmp/demo_rtrbm.npz"
+)
 ```
 
-The function of learning and inferencing is equivalent to `rbm` of RTRBM.
+The function of learning, inferencing, saving pre-learned parameters, and transfer learning are equivalent to `rbm` of RTRBM. See <a href="#usecase_building_the_rtrbm_for_recursive_learning">Usecase: Building the RTRBM for recursive learning.</a>.
 
 ## Usecase: Building the LSTM-RTRBM for recursive learning.
 
-Import Python and Cython modules.
+Import not `RecurrentTemporalRBM` but `LSTMRTRBM`, which is-a `RecurrentTemporalRBM`.
 
 ```python
-# `Builder` in `Builder Patter`.
-from pydbm.dbm.builders.lstm_rt_rbm_simple_builder import LSTMRTRBMSimpleBuilder
-# LSTM and Contrastive Divergence for function approximation.
-from pydbm.approximation.rtrbmcd.lstm_rt_rbm_cd import LSTMRTRBMCD
-# Logistic Function as activation function.
-from pydbm.activation.logistic_function import LogisticFunction
-# Tanh Function as activation function.
-from pydbm.activation.tanh_function import TanhFunction
-# Stochastic Gradient Descent(SGD) as optimizer.
-from pydbm.optimization.optparams.sgd import SGD
+# The `Client` in Builder Pattern for building LSTM-RTRBM.
+from pydbm.dbm.recurrenttemporalrbm.lstm_rt_rbm import LSTMRTRBM
 ```
 
 Instantiate objects.
 
 ```python
-# `Builder` in `Builder Pattern` for LSTM-RTRBM.
-rnnrbm_builder = LSTMRTRBMSimpleBuilder()
-# Learning rate.
-rnnrbm_builder.learning_rate = 1e-05
-# Set units in visible layer.
-rnnrbm_builder.visible_neuron_part(LogisticFunction(), observed_arr.shape[-1])
-# Set units in hidden layer.
-rnnrbm_builder.hidden_neuron_part(LogisticFunction(), 100)
-# Set units in RNN layer.
-rnnrbm_builder.rnn_neuron_part(TanhFunction())
-# Set graph and approximation function, delegating `SGD` which is-a `OptParams`.
-rnnrbm_builder.graph_part(LSTMRTRBMCD(opt_params=SGD()))
-# Building.
-rbm = rnnrbm_builder.get_result()
+# The `Client` in Builder Pattern for building RNN-RBM.
+rbm = LSTMRTRBM(
+    # The number of units in visible layer.
+    visible_num=observed_arr.shape[-1],
+    # The number of units in hidden layer.
+    hidden_num=100,
+    # The activation function in visible layer.
+    visible_activating_function=LogisticFunction(),
+    # The activation function in hidden layer.
+    hidden_activating_function=LogisticFunction(),
+    # The activation function in RNN layer.
+    rnn_activating_function=LogisticFunction(),
+    # is-a `OptParams`.
+    opt_params=SGD(),
+    # Learning rate.
+    learning_rate=1e-05,
+    # File path that stores pre-learned parameters.
+    pre_learned_path="/var/tmp/demo_rtrbm.npz"
+)
 ```
 
-The function of learning and inferencing is equivalent to `rbm` of RTRBM.
+The function of learning, inferencing, saving pre-learned parameters, and transfer learning are equivalent to `rbm` of RTRBM. See <a href="#usecase_building_the_rtrbm_for_recursive_learning">Usecase: Building the RTRBM for recursive learning.</a>.
 
 ## Usecase: Image segmentation by Shape-BM.
 
@@ -850,9 +881,160 @@ Image.fromarray(np.uint8(inferenced_data_arr))
 
 <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_09.png" />
 
-<a name="build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model"></a>
+### Save pre-learned parameters and transfer learning in Shape Boltzmann Machine.
 
+In transfer learning problem setting, `ShapeBoltzmannMachine` is functionally equivalent to `StackedAutoEncoder`. See <a href="#usecase_extracting_all_feature_points_for_dimensions_reduction_or_pre_learning">Usecase: Extracting all feature points for dimensions reduction(or pre-learning)</a>.
+
+## Usecase: Casual use by facade for building Encoder/Decoder based on LSTM.
+
+Import `facade` module for building Encoder/Decoder based on LSTM.
+
+```python
+from pydbm.rnn.facade_encoder_decoder import FacadeEncoderDecoder
+```
+
+Instantiate object and call the method to learn observed data points.
+
+```python
+# `Facade` for casual user of Encoder/Decoder based on LSTM networks.
+facade_encoder_decoder = FacadeEncoderDecoder(
+    # The number of units in input layers.
+    input_neuron_count=observed_arr.shape[-1],
+    # The number of units in output layers.
+    output_neuron_count=observed_arr.shape[-1],
+    # Verbose mode or not. If `True`, this class sets the logger level as `DEBUG`.
+    verbose_flag=True
+)
+```
+
+Execute learning.
+
+```python
+facade_encoder_decoder.learn(
+    observed_arr=observed_arr,
+    target_arr=observed_arr
+)
+```
+
+This method can receive a `np.ndarray` of observed data points, which is a rank-3 array-like or sparse matrix of shape: (`The number of samples`, `The length of cycle`, `The number of features`), as the first and second argument. If the value of this second argument is not equivalent to the first argument and the shape is (`The number of samples`, `The number of features`), in other words, the rank is 2, the function of `encoder_decoder_controller` corresponds to a kind of Regression model.
+
+After learning, the `facade_encoder_decoder` provides a function of `inference` method. 
+
+```python
+# Execute recursive learning.
+inferenced_arr = facade_encoder_decoder.inference(test_arr)
+```
+
+The shape of `test_arr` and `inferenced_arr` are equivalent to `observed_arr`. Returned value `inferenced_arr` is generated by input parameter `test_arr` and can be considered as a decoded data points based on encoded `test_arr`.
+
+On the other hand, the `facade_encoder_decoder` also stores the feature points in hidden layers. To extract this embedded data, call the method as follows.
+
+```python
+feature_points_arr = facade_encoder_decoder.get_feature_points()
+```
+
+The shape of `feature_points_arr` is rank-2 array-like or sparse matrix: (`The number of samples`, `The number of units in hidden layers`). So this matrix also means time series data embedded as manifolds.
+
+You can check the reconstruction error rate. Call `get_reconstruct_error` method as follow.
+
+```python
+reconstruct_error_arr = facade_encoder_decoder.get_reconstruction_error()
+```
+
+If you want to know how to minimize the reconstructed error, see my Jupyter notebook: [demo/demo_sine_wave_prediction_by_LSTM_encoder_decoder.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_sine_wave_prediction_by_LSTM_encoder_decoder.ipynb).
+
+### Save pre-learned parameters.
+
+The object `facade_encoder_decoder` has the method `save_pre_learned_params`, to store the pre-learned parameters in compressed <a href="https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.lib.format.html#module-numpy.lib.format" target="_blank">NPY format</a> files.
+
+
+```python
+facade_encoder_decoder.save_pre_learned_params(
+    # File path that stores Encoder's parameters.
+    encoder_file_path="/var/tmp/encoder.npz",
+    # File path that stores Decoder's parameters.
+    decoder_file_path="/var/tmp/decoder.npz"
+)
+```
+
+### Transfer learning in Encoder/Decoder based on LSTM.
+
+```python
+facade_encoder_decoder2 = FacadeEncoderDecoder(
+    # The number of units in input layers.
+    input_neuron_count=observed_arr.shape[-1],
+    # The number of units in output layers.
+    output_neuron_count=observed_arr.shape[-1],
+    # File path that stored Encoder's pre-learned parameters.
+    encoder_pre_learned_file_path="/var/tmp/encoder.npz",
+    # File path that stored Decoder's pre-learned parameters.
+    decoder_pre_learned_file_path="/var/tmp/decoder.npz",
+    # Verbose mode or not. If `True`, this class sets the logger level as `DEBUG`.
+    verbose_flag=True
+)
+
+facade_encoder_decoder2.learn(
+    observed_arr=observed_arr,
+    target_arr=observed_arr
+)
+```
+
+### For more detail settings.
+
+`__init__` of `FacadeEncoderDecoder` can be given many parameters as follows.
+
+```python
+# `Facade` for casual user of Encoder/Decoder based on LSTM networks.
+facade_encoder_decoder = FacadeEncoderDecoder(
+    # The number of units in input layers.
+    input_neuron_count=observed_arr.shape[-1],
+    # The number of units in output layers.
+    output_neuron_count=observed_arr.shape[-1],
+    # The number of units in hidden layers.
+    hidden_neuron_count=200,
+    # Epochs of Mini-batch.
+    epochs=200,
+    # Batch size of Mini-batch.
+    batch_size=20,
+    # Learning rate.
+    learning_rate=1e-05,
+    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+    learning_attenuate_rate=0.1,
+    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+    attenuate_epoch=50,
+    # Activation function in hidden layers.
+    hidden_activating_function=LogisticFunction(),
+    # Activation function in output layers.
+    output_activating_function=LogisticFunction(),
+    # Loss function.
+    computable_loss=MeanSquaredError(),
+    # Optimizer which is-a `OptParams`.
+    opt_params=Adam(),
+    # Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
+    # If `0`, this class referes all past data in BPTT.
+    bptt_tau=8,
+    # Size of Test data set. If this value is `0`, the validation will not be executed.
+    test_size_rate=0.3,
+    # Tolerance for the optimization.
+    # When the loss or score is not improving by at least tol 
+    # for two consecutive iterations, convergence is considered 
+    # to be reached and training stops.
+    tol=0.0,
+    # Tolerance for deviation of loss.
+    tld=1.0,
+    # Verification function.
+    verificatable_result=VerificateFunctionApproximation(),
+    # Verbose mode or not. If `True`, this class sets the logger level as `DEBUG`.
+    verbose_flag=True
+)
+```
+
+If you want to not only use casually the model but also hack it, see <a href="#build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model.</a>.
+
+<a name="build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model"></a>
 ## Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model.
+
+Consider functionally reusability and possibility of flexible design, you should use not `FacadeEncoderDecoder` but `EncoderDecoderController` as follows.
 
 Setup logger for verbose output.
 
@@ -1107,7 +1289,7 @@ The shape of `feature_points_arr` is rank-2 array-like or sparse matrix: (`The n
 You can check the reconstruction error rate. Call `get_reconstruct_error` method as follow.
 
 ```python
-reconstruct_error_arr = dbm.get_reconstruction_error()
+reconstruct_error_arr = encoder_decoder_controller.get_reconstruction_error()
 ```
 
 If you want to know how to minimize the reconstructed error, see my Jupyter notebook: [demo/demo_sine_wave_prediction_by_LSTM_encoder_decoder.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_sine_wave_prediction_by_LSTM_encoder_decoder.ipynb).
@@ -1384,7 +1566,7 @@ Method `learn_generated` is functionally equivalent to method `learn`.
 ### More detail demos
 
 - [Webクローラ型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-web-crawling-ai/) (Japanese)
-    - Implemented by the `C++` version of this library, these 20001 bots are able to execute the dimensions reduction(or pre-training) for natural language processing to run as 20001 web-crawlers and 20001 web-scrapers.
+    - Implemented by the `C++` version of this library, these 20001 bots are able to execute the dimensions reduction(or pre-learning) for natural language processing to run as 20001 web-crawlers and 20001 web-scrapers.
 - [ハッカー倫理に準拠した人工知能のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/) (Japanese)
     - [プロトタイプの開発：深層強化学習のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/5/#i-2)
 

@@ -15,7 +15,7 @@ class GreedyQLearning(QLearning):
     
     # ε-greedy rate.
     __epsilon_greedy_rate = 0.75
-    
+
     def get_epsilon_greedy_rate(self):
         ''' getter '''
         if isinstance(self.__epsilon_greedy_rate, float) is True:

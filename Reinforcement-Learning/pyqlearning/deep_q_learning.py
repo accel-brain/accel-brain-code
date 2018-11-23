@@ -37,7 +37,7 @@ class DeepQLearning(metaclass=ABCMeta):
         '''
         while self.t <= limit:
             next_action_arr = self.extract_possible_actions(state_arr)
-            next_q_arr = self.__function_approximator.inference_q(state_arr, next_action_arr)
+            next_q_arr = self.__function_approximator.inference_q(next_action_arr)
             action_arr = self.select_action(next_q_arr)
             reward_value = self.observe_reward_value(state_arr, action_arr)
 
@@ -47,8 +47,8 @@ class DeepQLearning(metaclass=ABCMeta):
 
             # Max-Q-Value in next action time.
             next_next_action_arr = self.extract_possible_actions(action_arr)
-            next_action_arr = self.predict_next_action(action_arr, next_next_action_arr)
-            next_max_q = self.__function_approximator.inference_q(action_arr, next_action_arr).max()
+            next_action_arr = self.predict_next_action(next_next_action_arr)
+            next_max_q = self.__function_approximator.inference_q(next_action_arr).max()
 
             # Update Q-Value.
             self.update_q(
@@ -86,12 +86,11 @@ class DeepQLearning(metaclass=ABCMeta):
         raise NotImplementedError("This method must be implemented.")
 
     @abstractmethod
-    def select_action(self, state_arr, next_action_arr):
+    def select_action(self, next_action_arr):
         '''
         Select action by Q(state, action).
 
         Args:
-            state_arr:              `np.ndarray` of state.
             next_action_arr:        `np.ndarray` of actions.
                                     The shape is:(
                                         `batch size corresponded to each action key`, 
@@ -118,36 +117,34 @@ class DeepQLearning(metaclass=ABCMeta):
         '''
         raise NotImplementedError("This method must be implemented.")
 
-    def predict_next_action(self, state_arr, next_action_arr):
+    def predict_next_action(self, next_action_arr):
         '''
         Predict next action by Q-Learning.
 
         Args:
-            state_arr:          `np.ndarray` of state in `self.t+1`.
             next_action_arr:    `np.ndarray` of action.
 
         Returns:
             `np.ndarray` of action.
         '''
-        q_arr = self.__function_approximator.inference_q(state_arr, next_action_arr)
+        q_arr = self.__function_approximator.inference_q(next_action_arr)
         return next_action_arr[q_arr.argmax()]
 
-    def update_q(self, state_arr, action_arr, reward_value, next_max_q):
+    def update_q(self, action_arr, reward_value, next_max_q):
         '''
         Update Q.
         
         Args:
-            state_arr:      `np.ndarray` of state.
             action_arr:     `np.ndarray` of action.
             reward_value:   Reward value.
             next_max_q:     Maximum Q-Value in next time step.
         '''
         # Inference Q-Value.
-        q = self.__function_approximator.inference_q(state_arr, action_arr)
+        q = self.__function_approximator.inference_q(action_arr)
         # Update Q-Value.
         new_q = q + self.__q_learning.alpha_value * (reward_value + (self.__q_learning.gamma_value * next_max_q) - q)
         # Learn updated Q-Value.
-        self.__function_approximator.learn_q(state_arr, action_arr, new_q)
+        self.__function_approximator.learn_q(action_arr, new_q)
 
     def update_state(self, state_arr, action_arr):
         '''

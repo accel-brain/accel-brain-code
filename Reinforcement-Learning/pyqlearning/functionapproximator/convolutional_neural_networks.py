@@ -1,13 +1,18 @@
 # -*- coding: utf-8 -*-
-from abc import ABCMeta, abstractmethod
+import numpy as np
+from pyqlearning.function_approximator import FunctionApproximator
+from pydbm.cnn.convolutional_neural_network import ConvolutionalNeuralNetwork
+from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer
 
 
-class FunctionApproximator(metaclass=ABCMeta):
+class ConvolutionalNeuralNetworks(FunctionApproximator):
     '''
-    The interface of Function Approximators.
+    Convolutional Neural Networks as a Function Approximator.
     '''
+    
+    def __init__(self):
+        pass
 
-    @abstractmethod
     def learn_q(self, state_key_arr, action_key_arr, new_q):
         '''
         Infernce Q-Value.
@@ -17,9 +22,8 @@ class FunctionApproximator(metaclass=ABCMeta):
             action_key_arr:     `np.ndarray` of action.
             new_q:              Q-Value.
         '''
-        raise NotImplementedError("This method must be implemented.")
+        pass
 
-    @abstractmethod
     def inference_q(self, state_key_arr, next_action_arr):
         '''
         Infernce Q-Value.
@@ -31,4 +35,4 @@ class FunctionApproximator(metaclass=ABCMeta):
         Returns:
             `np.ndarray` of Q-Values.
         '''
-        raise NotImplementedError("This method must be implemented.")
+        pass

@@ -8,21 +8,21 @@ class AlternatedMultiAgent(MultiAgentQLearning):
     Multi-Agent which do alternated learn.
     '''
 
-    def learn(self, first_state_key, limit=1000, game_n=1):
+    def learn(self, initial_state_key, limit=1000, game_n=1):
         '''
         Multi-Agent Learning.
         
         Override.
         
         Args:
-            first_state_key:    first state.
+            initial_state_key:  Initial state.
             limit:              Limit of the number of learning.
             game_n:             The number of games.
             
         '''
         end_flag_list = [False] * len(self.q_learning_list)
         for game in range(game_n):
-            state_key = copy.copy(first_state_key)
+            state_key = copy.copy(initial_state_key)
             self.t = 1
             while self.t <= limit:
                 for i in range(len(self.q_learning_list)):

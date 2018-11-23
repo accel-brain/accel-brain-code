@@ -10,14 +10,14 @@ class CompletedMultiAgent(MultiAgentQLearning):
     Each agent can search optimal policy, observing accurate state of other agents.
     '''
 
-    def learn(self, first_state_key, limit=1000, game_n=1):
+    def learn(self, initial_state_key, limit=1000, game_n=1):
         '''
         Multi-Agent Learning.
 
         Override.
         
         Args:
-            first_state_key:    first state.
+            initial_state_key:  Initial state.
             limit:              Limit of the number of learning.
             game_n:             The number of games.
             
@@ -27,7 +27,7 @@ class CompletedMultiAgent(MultiAgentQLearning):
         action_key_list = [None] * len(self.q_learning_list)
         next_action_key_list = [None] * len(self.q_learning_list)
         for game in range(game_n):
-            state_key = first_state_key
+            state_key = initial_state_key
             self.t = 1
             while self.t <= limit:
                 for i in range(len(self.q_learning_list)):

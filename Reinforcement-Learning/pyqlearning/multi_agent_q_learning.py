@@ -73,12 +73,12 @@ class MultiAgentQLearning(metaclass=ABCMeta):
     t = property(get_t, set_t)
     
     @abstractmethod
-    def learn(self, first_state_key, limit=1000, game_n=1):
+    def learn(self, initial_state_key, limit=1000, game_n=1):
         '''
         Multi-Agent Learning.
 
         Args:
-            first_state_key:    first state.
+            initial_state_key:  first state.
             limit:              Limit of the number of learning.
             game_n:             The number of games.
         '''

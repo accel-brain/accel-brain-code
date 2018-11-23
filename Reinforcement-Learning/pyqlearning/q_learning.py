@@ -12,8 +12,8 @@ class QLearning(metaclass=ABCMeta):
     Attributes:
         alpha_value:        Learning rate.
         gamma_value:        Gammma value.
-        q_dict:             Q(state, action) 
-        r_dict:             R(state)
+        q_df:               Q(state, action) 
+        r_df:               R(state)
         t:                  time.
 
     '''
@@ -87,7 +87,7 @@ class QLearning(metaclass=ABCMeta):
 
     def extract_q_df(self, state_key, action_key):
         '''
-        Extract Q-Value from `self.q_dict`.
+        Extract Q-Value from `self.q_df`.
 
         Args:
             state_key:      The key of state.
@@ -113,7 +113,7 @@ class QLearning(metaclass=ABCMeta):
 
     def save_q_df(self, state_key, action_key, q_value):
         '''
-        Insert or update Q-Value in `self.q_dict`.
+        Insert or update Q-Value in `self.q_df`.
 
         Args:
             state_key:      State.
@@ -153,7 +153,7 @@ class QLearning(metaclass=ABCMeta):
 
     def extract_r_df(self, state_key, r_value, action_key=None):
         '''
-        Insert or update R-Value in `self.r_dict`.
+        Insert or update R-Value in `self.r_df`.
 
         Args:
             state_key:     The key of state.
@@ -182,7 +182,7 @@ class QLearning(metaclass=ABCMeta):
 
     def save_r_df(self, state_key, r_value, action_key=None):
         '''
-        Insert or update R-Value in `self.r_dict`.
+        Insert or update R-Value in `self.r_df`.
 
         Args:
             state_key:     The key of state.
@@ -232,6 +232,10 @@ class QLearning(metaclass=ABCMeta):
     def learn(self, state_key, limit=1000):
         '''
         Learning.
+        
+        Args:
+            state_key:      Initial state.
+            limit:          The number of learning.
         '''
         self.t = 1
         while self.t <= limit:

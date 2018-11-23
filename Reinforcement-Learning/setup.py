@@ -12,8 +12,8 @@ def read_readme(file_name):
 
 setup(
     name='pyqlearning',
-    version='1.1.6',
-    description='pyqlearning is Python library to implement Reinforcement Learning, especially for Q-Learning which can be optimized by Annealing models such as Simulated Annealing, Adaptive Simulated Annealing, and Quantum Monte Carlo Method.',
+    version='1.1.7',
+    description='pyqlearning is Python library to implement Deep Reinforcement Learning, especially for Q-Learning and Deep Q-Network which can be optimized by Annealing models such as Simulated Annealing, Adaptive Simulated Annealing, and Quantum Monte Carlo Method.',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',
     url='https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning',

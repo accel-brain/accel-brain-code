@@ -11,7 +11,7 @@ class DeepQNetwork(DeepQLearning):
     # ε-greedy rate.
     __epsilon_greedy_rate = 0.75
 
-    def select_action(self, next_action_arr):
+    def select_action(self, next_action_arr, next_q_arr):
         '''
         Select action by Q(state, action).
 
@@ -23,15 +23,19 @@ class DeepQNetwork(DeepQLearning):
                                         `feature points1`, 
                                         `feature points2`
                                     )
+            
+            next_q_arr:             `np.ndarray` of Q-Values.
+
         Retruns:
-            `np.ndarray` of action
+            Tuple(`np.ndarray` of action., Q-Value)
         '''
         epsilon_greedy_flag = bool(np.random.binomial(n=1, p=self.epsilon_greedy_rate))
         if epsilon_greedy_flag is False:
-            action_key = np.random.randint(low=0, high=next_action_arr.shape[0])
-            return next_action_arr[action_key]
+            key = np.random.randint(low=0, high=next_action_arr.shape[0])
         else:
-            return self.predict_next_action(next_action_arr)
+            key = next_q_arr.argmax()
+
+        return next_action_arr[key], next_q_arr[key]
 
     def get_epsilon_greedy_rate(self):
         ''' getter '''

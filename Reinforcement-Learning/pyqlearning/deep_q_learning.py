@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from abc import ABCMeta, abstractmethod
 import numpy as np
-from function_approximator import FunctionApproximator
+from pyqlearning.function_approximator import FunctionApproximator
 
 
 class DeepQLearning(metaclass=ABCMeta):
@@ -38,7 +38,7 @@ class DeepQLearning(metaclass=ABCMeta):
         while self.t <= limit:
             next_action_arr = self.extract_possible_actions(state_arr)
             next_q_arr = self.__function_approximator.inference_q(next_action_arr)
-            action_arr = self.select_action(next_q_arr)
+            action_arr, q = self.select_action(next_action_arr, next_q_arr)
             reward_value = self.observe_reward_value(state_arr, action_arr)
 
             # Check.
@@ -47,13 +47,11 @@ class DeepQLearning(metaclass=ABCMeta):
 
             # Max-Q-Value in next action time.
             next_next_action_arr = self.extract_possible_actions(action_arr)
-            next_action_arr = self.predict_next_action(next_next_action_arr)
-            next_max_q = self.__function_approximator.inference_q(next_action_arr).max()
+            next_max_q = self.__function_approximator.inference_q(next_next_action_arr).max()
 
             # Update Q-Value.
             self.update_q(
-                state_arr=state_arr,
-                action_arr=action_arr,
+                q=q,
                 reward_value=reward_value,
                 next_max_q=next_max_q
             )
@@ -63,6 +61,7 @@ class DeepQLearning(metaclass=ABCMeta):
 
             # Epsode.
             self.t += 1
+            end_flag = self.check_the_end_flag(state_arr)
             if end_flag is True:
                 break
 
@@ -86,7 +85,7 @@ class DeepQLearning(metaclass=ABCMeta):
         raise NotImplementedError("This method must be implemented.")
 
     @abstractmethod
-    def select_action(self, next_action_arr):
+    def select_action(self, next_action_arr, next_q_arr):
         '''
         Select action by Q(state, action).
 
@@ -98,8 +97,11 @@ class DeepQLearning(metaclass=ABCMeta):
                                         `feature points1`, 
                                         `feature points2`
                                     )
+            
+            next_q_arr:             `np.ndarray` of Q-Values.
+
         Retruns:
-            `np.ndarray` of action.
+            Tuple(`np.ndarray` of action., Q-Value)
         '''
         raise NotImplementedError("This method must be implemented.")
 
@@ -117,34 +119,19 @@ class DeepQLearning(metaclass=ABCMeta):
         '''
         raise NotImplementedError("This method must be implemented.")
 
-    def predict_next_action(self, next_action_arr):
-        '''
-        Predict next action by Q-Learning.
-
-        Args:
-            next_action_arr:    `np.ndarray` of action.
-
-        Returns:
-            `np.ndarray` of action.
-        '''
-        q_arr = self.__function_approximator.inference_q(next_action_arr)
-        return next_action_arr[q_arr.argmax()]
-
-    def update_q(self, action_arr, reward_value, next_max_q):
+    def update_q(self, q, reward_value, next_max_q):
         '''
         Update Q.
         
         Args:
-            action_arr:     `np.ndarray` of action.
+            q:              Q-Value.
             reward_value:   Reward value.
             next_max_q:     Maximum Q-Value in next time step.
         '''
-        # Inference Q-Value.
-        q = self.__function_approximator.inference_q(action_arr)
         # Update Q-Value.
-        new_q = q + self.__q_learning.alpha_value * (reward_value + (self.__q_learning.gamma_value * next_max_q) - q)
+        new_q = q + self.alpha_value * (reward_value + (self.gamma_value * next_max_q) - q)
         # Learn updated Q-Value.
-        self.__function_approximator.learn_q(action_arr, new_q)
+        self.__function_approximator.learn_q(q, new_q)
 
     def update_state(self, state_arr, action_arr):
         '''

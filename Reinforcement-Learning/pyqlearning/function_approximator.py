@@ -8,24 +8,22 @@ class FunctionApproximator(metaclass=ABCMeta):
     '''
 
     @abstractmethod
-    def learn_q(self, state_key_arr, action_key_arr, new_q):
+    def learn_q(self, q, new_q):
         '''
         Infernce Q-Value.
         
         Args:
-            state_key_arr:      `np.ndarray` of state.
-            action_key_arr:     `np.ndarray` of action.
-            new_q:              Q-Value.
+            q:                  Predicted Q-Value.
+            new_q:              Real Q-Value.
         '''
         raise NotImplementedError("This method must be implemented.")
 
     @abstractmethod
-    def inference_q(self, state_key_arr, next_action_arr):
+    def inference_q(self, next_action_arr):
         '''
         Infernce Q-Value.
         
         Args:
-            state_key_arr:      `np.ndarray` of state.
             next_action_arr:     `np.ndarray` of action.
         
         Returns:

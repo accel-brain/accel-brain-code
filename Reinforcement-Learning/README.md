@@ -108,7 +108,8 @@ Import python modules.
 ```python
 from pyqlearning.annealingmodel.costfunctionable.greedy_q_learning_cost import GreedyQLearningCost
 from pyqlearning.annealingmodel.simulated_annealing import SimulatedAnnealing
-from devsample.maze_greedy_q_learning import MazeGreedyQLearning
+# See demo/demo_maze_greedy_q_learning.py
+from demo.demo_maze_greedy_q_learning import MazeGreedyQLearning
 ```
 
 The class `GreedyQLearningCost` is implemented the interface `CostFunctionable` to be called by `AnnealingModel`. This cost function is defined by
@@ -336,7 +337,7 @@ The tutorial in [search_maze_by_q_learning.ipynb](https://github.com/chimera0/ac
 
 ### Batch program for Q-Learning.
 
-[demo_maze_greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_greedy_q_learning.py) is a simple maze solving algorithm. `MazeGreedyQLearning` in  [devsample/maze_greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/devsample/maze_greedy_q_learning.py) is a `Concrete Class` in `Template Method Pattern` to run the Q-Learning algorithm for this task. `GreedyQLearning` in [pyqlearning/qlearning/greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/pyqlearning/qlearning/greedy_q_learning.py) is also `Concreat Class` for the epsilon-greedy-method. The `Abstract Class` that defines the skeleton of Q-Learning algorithm in the operation and declares algorithm placeholders is [pyqlearning/q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/pyqlearning/q_learning.py).  So [demo_maze_greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_greedy_q_learning.py) is a kind of `Client` in `Template Method Pattern`. 
+[demo/demo_maze_greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/demo_maze_greedy_q_learning.py) is a simple maze solving algorithm. `MazeGreedyQLearning` in  [demo/demo_maze_greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/demo_maze_greedy_q_learning.py) is a `Concrete Class` in `Template Method Pattern` to run the Q-Learning algorithm for this task. `GreedyQLearning` in [pyqlearning/qlearning/greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/pyqlearning/qlearning/greedy_q_learning.py) is also `Concreat Class` for the epsilon-greedy-method. The `Abstract Class` that defines the skeleton of Q-Learning algorithm in the operation and declares algorithm placeholders is [pyqlearning/q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/pyqlearning/q_learning.py).  So [demo/demo_maze_greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/demo_maze_greedy_q_learning.py) is a kind of `Client` in `Template Method Pattern`. 
 
 This algorithm allow the *agent* to search the goal in maze by *reward value* in each point in map. 
 
@@ -362,7 +363,7 @@ The following is an example of map.
 
 In relation to reinforcement learning theory, the *state* of *agent* is 2D position coordinates and the *action* is to dicide the direction of movement. Within the wall, the *agent* is movable in a cross direction and can advance by one point at a time. After moving into a new position, the *agent* can obtain a *reward*. On greedy searching, this extrinsically motivated agent performs in order to obtain some *reward* as high as possible. Each *reward value* is plot in map.
 
-To see how *agent* can search and rearch the goal, run the batch program: [demo_maze_greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_greedy_q_learning.py)
+To see how *agent* can search and rearch the goal, run the batch program: [demo/demo_maze_greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/demo_maze_greedy_q_learning.py)
 
 ```bash
 python demo_maze_greedy_q_learning.py
@@ -370,7 +371,7 @@ python demo_maze_greedy_q_learning.py
 
 ### Batch program for Q-Learning, loosely coupled with Deep Boltzmann Machine.
 
-[demo_maze_deep_boltzmann_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_deep_boltzmann_q_learning.py) is a demonstration of how the *Q-Learning* can be to *deepen*. A so-called *Deep Q-Network* (DQN) is meant only as an example. In this demonstration, let me cite the *Q-Learning* , loosely coupled with **Deep Boltzmann Machine** (DBM). As API Documentation of [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library has pointed out, DBM is functionally equivalent to stacked auto-encoder. The main function I observe is the same as dimensions reduction(or pre-training). Then the function this DBM is dimensionality reduction of *reward value* matrix.
+[demo/demo_maze_deep_boltzmann_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/demo_maze_deep_boltzmann_q_learning.py) is a demonstration of how the *Q-Learning* can be to *deepen*. A so-called *Deep Q-Network* (DQN) is meant only as an example. In this demonstration, let me cite the *Q-Learning* , loosely coupled with **Deep Boltzmann Machine** (DBM). As API Documentation of [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library has pointed out, DBM is functionally equivalent to stacked auto-encoder. The main function I observe is the same as dimensions reduction(or pre-training). Then the function this DBM is dimensionality reduction of *reward value* matrix.
 
 Q-Learning, loosely coupled with Deep Boltzmann Machine (DBM), is a more effective way to solve maze. The pre-training by DBM allow Q-Learning *agent* to abstract feature of `reward value` matrix and to observe the map in a bird's-eye view. Then *agent* can reache the goal with a smaller number of trials.
 
@@ -378,7 +379,7 @@ To realize the power of DBM, I performed a simple experiment.
 
 ### Feature engineering
 
-For instance, a feature in each coordinate can be transformed and extracted by reward value as so-called *observed data points* in its adjoining points. More formally, see [search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb).
+For instance, a feature in each coordinate can be transformed and extracted by reward value as so-called *observed data points* in its adjoining points. More formally, see [demo/search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_q_learning.ipynb).
 
 Then the feature representation can be as calculated. After this pre-training, the DBM has extracted *feature points* below.
 
@@ -411,7 +412,7 @@ Then the feature representation can be as calculated. After this pre-training, t
  ['#' '#' '#' '#' '#' '#' '#' '#' '#' '#']]
 ```
 
-To see how *agent* can search and rearch the goal, install [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library and run the batch program: [demo_maze_deep_boltzmann_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo_maze_deep_boltzmann_q_learning.py)
+To see how *agent* can search and rearch the goal, install [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library and run the batch program: [demo/demo_maze_deep_boltzmann_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/demo_maze_deep_boltzmann_q_learning.py)
 
 ```bash
 python demo_maze_deep_boltzmann_q_learning.py

@@ -1,6 +1,6 @@
 # Reinforcement Learning Library: pyqlearning
 
-`pyqlearning` is Python library to implement Reinforcement Learning, especially for Q-Learning which can be optimized by Annealing models such as Simulated Annealing, Adaptive Simulated Annealing, and Quantum Monte Carlo Method.
+`pyqlearning` is Python library to implement Reinforcement Learning and Deep Reinforcement Learning, especially for Q-Learning and Deep Q-Network which can be optimized by Annealing models such as Simulated Annealing, Adaptive Simulated Annealing, and Quantum Monte Carlo Method.
 
 ## Installation
 
@@ -27,16 +27,35 @@ Installers for the latest released version are available at the Python package i
 - numpy: v1.13.3 or higher.
 - pandas: v0.22.0 or higher.
 
+#### Option
+
+- [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern)
+    * Only if you want to implement the *Deep* Reinforcement Learning.
+
 ## Documentation
 
 Full documentation is available on [https://code.accel-brain.com/Reinforcement-Learning/](https://code.accel-brain.com/Reinforcement-Learning/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
 
 ## Description
 
+`pyqlearning` is Python library to implement Reinforcement Learning and Deep Reinforcement Learning, especially for Q-Learning and Deep Q-Network which can be optimized by Annealing models such as Simulated Annealing, Adaptive Simulated Annealing, and Quantum Monte Carlo Method.
+
+<div align="center">
+    <table style="border: none;">
+        <tr>
+            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_recevied_weak_repeating_penalty.gif" /></a></td>
+            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_recevied_strong_repeating_penalty.gif" /></a></td>
+            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_demo.gif" /></a></td>
+        </tr>
+    </table>
+    <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank">Demonstration of the Maze solving</a> by Various Deep Reinforcement Learning variants.</p>
+</div>
+
+### The commonality/variability of Epsilon Greedy Q-Leanring and Boltzmann Q-Learning
+
 According to the Reinforcement Learning problem settings, Q-Learning is a kind of **Temporal Difference learning(TD Learning)** that can be considered as hybrid of **Monte Carlo** method and **Dynamic Programming** method. As Monte Carlo method, TD Learning algorithm can learn by experience without model of environment. And this learning algorithm is functional extension of bootstrap method as Dynamic Programming Method.
 
-In this library, Q-Learning can be distinguished into **Epsilon Greedy Q-Leanring** and **Boltzmann Q-Learning**. These algorithm is 
-functionally equivalent but their structures should be conceptually distinguished.
+In this library, Q-Learning can be distinguished into **Epsilon Greedy Q-Leanring** and **Boltzmann Q-Learning**. These algorithm is functionally equivalent but their structures should be conceptually distinguished.
 
 Epsilon Greedy Q-Leanring algorithm is a typical off-policy algorithm. In this paradigm, *stochastic* searching and *deterministic* searching can coexist by hyperparameter <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/epsilon.gif" /> that is probability that agent searches greedy. Greedy searching is *deterministic* in the sense that policy of agent follows the selection that maximizes the Q-Value.
 
@@ -50,13 +69,68 @@ where the temperature <img src="https://storage.googleapis.com/accel-brain-code/
 
 Considering many variable parts and functional extensions in the Q-learning paradigm from perspective of *commonality/variability analysis* in order to practice object-oriented design, this library provides abstract class that defines the skeleton of a Q-Learning algorithm in an operation, deferring some steps in concrete variant algorithms such as Epsilon Greedy Q-Leanring and Boltzmann Q-Learning to client subclasses. The abstract class in this library lets subclasses redefine certain steps of a Q-Learning algorithm without changing the algorithm's structure.
 
-## Tutorial: Simple Maze Solving by Q-Learning (Jupyter notebook)
+### Structural extension: Deep Reinforcement Learning
 
-[search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb) is a Jupyter notebook which demonstrates a simple maze solving algorithm based on Epsilon-Greedy Q-Learning or Q-Learning, loosely coupled with Deep Boltzmann Machine(DBM).
+The Reinforcement learning theory presents several issues from a perspective of deep learning theory. Firstly, deep learning applications have required large amounts of handlabelled training data. Reinforcement learning algorithms, on the other hand, must be able to learn from a scalar reward signal that is frequently sparse, noisy and delayed.
+
+The difference between the two theories is not only the type of data but also the timing to be observed. The delay between taking actions and receiving rewards, which can be thousands of timesteps long, seems particularly daunting when compared to the direct association between inputs and targets found in supervised learning.
+
+Another issue is that most deep learning algorithms assume the data samples to be independent, while in reinforcement learning one typically encounters sequences of highly correlated states. Furthermore, in Reinforcement learning the data distribution changes as the algorithm learns new behaviours, which can be problematic for deep learning methods that assume a fixed underlying distribution.
+
+#### Generalisation, or a function approximation
+
+This library considers problem setteing in which an agent interacts with an environment $\mathcal{E}$, in a sequence of actions, observations and rewards. At each time-step the agent selects an action at from the set of possible actions, $A = \{1, ..., K\}$. The state/action-value function is $Q(s, a)$.
+
+The goal of the agent is to interact with the $\mathcal{E}$ by selecting actions in a way that maximises future rewards. We can make the standard assumption that future rewards are discounted by a factor of $\gamma$ per time-step, and define the future discounted return at time $t$ as $R_t = \sum_{t'=t}^{T}\gamma^{t'-t}r_{t'}$, where $T$ is the time-step at which the agent will reach the goal. This library defines the optimal state/action-value function $Q^{\ast}(s, a)$ as the maximum expected return achievable by following any strategy, after seeing some state $s$ and then taking some action $a$, $Q^{\ast}(s, a) = \max \pi \mathbb{E}[R_t \mid s_t = s, a_t = a, \pi ]$, where $\pi$ is a policy mapping sequences to actions (or distributions over actions). 
+
+The optimal state/action-value function obeys an important identity known as the Bellman equation. This is based on the following *intuition*: if the optimal value $Q^{\ast}(s', a')$ of the sequence $s'$ at the next time-step was known for all possible actions $a'$, then the optimal strategy is to select the action $a'$ maximising the expected value of $r + \gamma Q^{\ast}(s', a')$, 
+
+$$Q^{\ast}(s', a') = \mathbb{E}_{s' \sim \mathcal{E}}[r + \gamma \max_{a'} Q^{\ast}(s', a')\mid s, a]$$.
+
+The basic idea behind many reinforcement learning algorithms is to estimate the state/action-value function, by using the Bellman equation as an iterative update,
+
+$$Q_{i+1}(s, a) = \mathbb{E}[r + \gamma \max_{a'}Q_i(s', a') \mid s, a]$$.
+
+Such *value iteration algorithms* converge to the optimal state/action-value function, $Q_i \rightarrow Q^{\ast}$ as $i \rightarrow \infty$. But increasing the complexity of states/actions is equivalent to increasing the number of combinations of states/actions. If the value function is continuous and granularities of states/actions are extremely fine, the combinatorial explosion will be encountered. In other words, this basic approach is totally impractical, because the state/action-value function is estimated separately for each sequence, without any **generalisation**. Instead, it is common to use a **function approximator** to estimate the state/action-value function,
+
+$$Q(s, a; \theta) \approx Q^{\ast}(s, a)$$
+
+So the Reduction of complexities is required.
+
+### Deep Q-Network
+
+In this problem setting, the function of nerual network or deep learning is a function approximation with weights $\theta$ as a Q-Network. A Q-Network can be trained by minimising a loss functions $L_i(\theta_i)$ that changes at each iteration $i$,
+
+$$L_i(\theta_i) = \mathbb{E}_{s, a \sim \rho(\cdot)}[y_i - Q(s, a, \theta_i)]^2$$
+
+where $y_i = \mathbb{E}_{s' \sim \mathcal{E}}[r + \gamma \max_{a'} Q(s', a', \theta_{i-1}) \mid s, a]$ is the target for iteration $i$ and $\rho(\cdot)$ is a so-called behaviour distribution. This is probability distribution over states and actions. The parameters from the previous iteration $\theta_{i−1}$ are held fixed when optimising the loss function $L_i(\theta_i)$. Differentiating the loss function with respect to the weights we arrive at the following gradient,
+
+$$\nabla_{\theta_i}L_i(\theta_i) = \mathbb{E}_{s, a \sim \rho(\cdot);s' \sim \mathcal{E}}\left[\left(r + \gamma \max_{a'} Q(s', a'; \theta_{i-1}) - Q(s, a; \theta_i)\right)\nabla_{\theta_i}Q(s, a; \theta)\right]$$.
+
+## Tutorial: Simple Maze Solving by Deep Q-Network (Jupyter notebook)
+
+[demo/search_maze_by_deep_q_network.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb) is a Jupyter notebook which demonstrates a simple maze solving algorithm based on Deep Q-Network, rigidly coupled with Deep Convolutional Neural Networks(Deep CNNs). The function of the Deep Learning is **generalisation** and CNNs is-a **function approximator**.
+
+<div align="center">
+    <table style="border: none;">
+        <tr>
+            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_recevied_weak_repeating_penalty.gif" /></a></td>
+            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_recevied_strong_repeating_penalty.gif" /></a></td>
+            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_demo.gif" /></a></td>
+        </tr>
+    </table>
+    <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank">Demonstration of the Maze solving</a> by Various Deep Reinforcement Learning variants.</p>
+</div>
+
+## Tutorial: Simple Maze Solving by Q-Learning and Deep Boltzmann Machines (Jupyter notebook)
+
+[demo/search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_q_learning.ipynb) is a Jupyter notebook which demonstrates a simple maze solving algorithm based on Epsilon-Greedy Q-Learning or Q-Learning, *loosely coupled with Deep Boltzmann Machine(DBM)*.
 
 In this demonstration, let me cite the Q-Learning, *loosely coupled with Deep Boltzmann Machine* (DBM). As API Documentation of [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library has pointed out, DBM is functionally equivalent to stacked auto-encoder. The main function I observe is the same as dimensions reduction(or pre-training). Then the function of this DBM is dimensionality reduction of reward value matrix.
 
-Q-Learning, loosely coupled with Deep Boltzmann Machine (DBM), is a more effective way to solve maze. The pre-training by DBM allow Q-Learning agent to abstract feature of reward value matrix and to observe the map in a bird's-eye view. Then agent can reach the goal with a smaller number of trials.
+It is not inevitable to functionally reuse CNN as a function approximator. In the above problem setting of **generalisation** and **Combination explosion**, **DBM as a stacked auto-encoder and CNN as a function approximator are functionally equivalent**. In the same problem setting, functional equivalents can be functionally replaced. And when the complexity of the feature space of the rewards is high like the modeling in above notebook: [demo/search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_q_learning.ipynb), DBM will be more useful.
+
+Q-Learning, *loosely coupled with Deep Boltzmann Machine (DBM)*, is a more effective way to solve maze. The pre-training by DBM allow Q-Learning agent to abstract feature of reward value matrix and to observe the map in a bird's-eye view. Then agent can reach the goal with a smaller number of trials.
 
 As shown in the below image, the state-action value function and parameters setting can be designed to correspond with the optimality of route.
 
@@ -64,21 +138,21 @@ As shown in the below image, the state-action value function and parameters sett
  <table style="border: none;">
   <tr>
    <td width="45%" align="center">
-    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/maze_map.png" /></a>
+    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_q_learning.ipynb" target="_top"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/maze_map.png" /></a>
     <p>Maze map</p>
    </td>
    <td width="45%" align="center">
-    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/feature_point.png" /></a>
+    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_q_learning.ipynb" target="_top"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/feature_point.png" /></a>
     <p>Feature Points in the maze map</p>
    </td>
   </tr>
   <tr>
    <td width="45%" align="center">
-    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/fail_searched.png" /></a>
+    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_q_learning.ipynb" target="_top"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/fail_searched.png" /></a>
     <p>The result of searching by Epsilon-Greedy Q-Learning</p>
    </td>
    <td width="45%" align="center">
-    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb" target="_top"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/maze_q_learning_result.png"  /></a>
+    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_q_learning.ipynb" target="_top"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/maze_q_learning_result.png"  /></a>
     <p>The result of searching by Q-Learning, loosely coupled with Deep Boltzmann Machine.</p>
    </td>
   </tr>
@@ -87,7 +161,7 @@ As shown in the below image, the state-action value function and parameters sett
 
 ## Tutorial: Complexity of Hyperparameters, or how can be hyperparameters decided?
 
-There are many hyperparameters that we have to set before the actual searching and learning process begins. Each parameter should be decided in relation to Reinforcement Learning theory and it cause side effects in training model. Because of this complexity of hyperparameters, so-called the hyperparameter tuning must become a burden of Data scientists and R & D engineers from the perspective of not only a theoretical point of view but also implementation level.
+There are many hyperparameters that we have to set before the actual searching and learning process begins. Each parameter should be decided in relation to Deep/Reinforcement Learning theory and it cause side effects in training model. Because of this complexity of hyperparameters, so-called the hyperparameter tuning must become a burden of Data scientists and R & D engineers from the perspective of not only a theoretical point of view but also implementation level.
 
 ### Combinatorial optimization problem and Simulated Annealing.
 
@@ -97,7 +171,7 @@ In this problem setting, this library provides an Annealing Model to search opti
 
 ### Functional comparison.
 
-[annealing_hand_written_digits.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/annealing_hand_written_digits.ipynb) is a Jupyter notebook which demonstrates a very simple classification problem: Recognizing hand-written digits, in which the aim is to assign each input vector to one of a finite number of discrete categories, to learn observed data points from already labeled data how to predict the class of unlabeled data. In the usecase of hand-written digits dataset, the task is to predict, given an image, which digit it represents.
+[demo/annealing_hand_written_digits.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/annealing_hand_written_digits.ipynb) is a Jupyter notebook which demonstrates a very simple classification problem: Recognizing hand-written digits, in which the aim is to assign each input vector to one of a finite number of discrete categories, to learn observed data points from already labeled data how to predict the class of unlabeled data. In the usecase of hand-written digits dataset, the task is to predict, given an image, which digit it represents.
 
 There are many structural extensions and functional equivalents of **Simulated Annealing**. For instance, **Adaptive Simulated Annealing**, also known as the very fast simulated reannealing, is a very efficient version of simulated annealing. And **Quantum Monte Carlo**, which is generally known a stochastic method to solve the Schrödinger equation, is one of the earliest types of solution in order to simulate the **Quantum Annealing** in classical computer. In summary, one of the function of this algorithm is to solve the ground state search problem which is known as logically equivalent to combinatorial optimization problem. Then this Jupyter notebook demonstrates functional comparison in the same problem setting.
 
@@ -229,7 +303,7 @@ annealing_model.var_arr = params_arr
 annealing_model.annealing()
 ```
 
-To extract result of searching, call the property like the case of using `SimulatedAnnealing`. If you want to know how to visualize the searching process, see my Jupyter notebook: [annealing_hand_written_digits.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/annealing_hand_written_digits.ipynb).
+To extract result of searching, call the property like the case of using `SimulatedAnnealing`. If you want to know how to visualize the searching process, see my Jupyter notebook: [demo/annealing_hand_written_digits.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/annealing_hand_written_digits.ipynb).
 
 ## Demonstration: Epsilon Greedy Q-Learning and Quantum Monte Carlo.
 
@@ -329,11 +403,11 @@ annealing_model = QuantumMonteCarlo(
 annealing_model.annealing()
 ```
 
-To extract result of searching, call the property like the case of using `SimulatedAnnealing`. If you want to know how to visualize the searching process, see my Jupyter notebook: [annealing_hand_written_digits.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/annealing_hand_written_digits.ipynb).
+To extract result of searching, call the property like the case of using `SimulatedAnnealing`. If you want to know how to visualize the searching process, see my Jupyter notebook: [demo/annealing_hand_written_digits.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/annealing_hand_written_digits.ipynb).
 
 ## Performance Experiment: Q-Learning VS Q-Learning, loosely coupled with Deep Boltzmann Machine.
 
-The tutorial in [search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/search_maze_by_q_learning.ipynb) exemplifies the function of Deep Boltzmann Machine(DBM). Here, I verify if that DBM impacts on the number of searches by Q-Learning in the maze problem setting.
+The tutorial in [demo/search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_q_learning.ipynb) exemplifies the function of Deep Boltzmann Machine(DBM). Here, I verify if that DBM impacts on the number of searches by Q-Learning in the maze problem setting.
 
 ### Batch program for Q-Learning.
 

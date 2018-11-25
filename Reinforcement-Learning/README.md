@@ -43,9 +43,9 @@ Full documentation is available on [https://code.accel-brain.com/Reinforcement-L
 <div align="center">
     <table style="border: none;">
         <tr>
-            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_recevied_weak_repeating_penalty.gif" /></a></td>
-            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_recevied_strong_repeating_penalty.gif" /></a></td>
-            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_demo.gif" /></a></td>
+            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_recevied_weak_repeating_penalty.gif?raw=true" /></a></td>
+            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_recevied_strong_repeating_penalty.gif?raw=true" /></a></td>
+            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_demo.gif?raw=true" /></a></td>
         </tr>
     </table>
     <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank">Demonstration of the Maze solving</a> by Various Deep Reinforcement Learning variants.</p>
@@ -114,9 +114,9 @@ $$\nabla_{\theta_i}L_i(\theta_i) = \mathbb{E}_{s, a \sim \rho(\cdot);s' \sim \ma
 <div align="center">
     <table style="border: none;">
         <tr>
-            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_recevied_weak_repeating_penalty.gif" /></a></td>
-            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_recevied_strong_repeating_penalty.gif" /></a></td>
-            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_demo.gif" /></a></td>
+            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_recevied_weak_repeating_penalty.gif?raw=true" /></a></td>
+            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_recevied_strong_repeating_penalty.gif?raw=true" /></a></td>
+            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_demo.gif?raw=true" /></a></td>
         </tr>
     </table>
     <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank">Demonstration of the Maze solving</a> by Various Deep Reinforcement Learning variants.</p>

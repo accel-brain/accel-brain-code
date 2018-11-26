@@ -43,12 +43,17 @@ Full documentation is available on [https://code.accel-brain.com/Reinforcement-L
 <div align="center">
     <table style="border: none;">
         <tr>
-            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_recevied_weak_repeating_penalty.gif?raw=true" /></a></td>
-            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_recevied_strong_repeating_penalty.gif?raw=true" /></a></td>
-            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_demo.gif?raw=true" /></a></td>
+            <td width="45%" align="center">
+            <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_crash_enemy_2-compressed.gif" /></a></p>
+            <p>Multi agent Deep Reinforcement Learning to solve the pursuit-evasion game. The player is caught by enemies.</p>
+            </td>
+            <td width="45%" align="center">
+            <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_goal_enemy_2-compressed.gif" /></a></p>
+            <p>
+            <p>Multi agent Deep Reinforcement Learning to solve the pursuit-evasion game. The player reaches the goal.</p>
+            </td>
         </tr>
     </table>
-    <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank">Demonstration of the Maze solving</a> by Various Deep Reinforcement Learning variants.</p>
 </div>
 
 ### The commonality/variability of Epsilon Greedy Q-Leanring and Boltzmann Q-Learning
@@ -114,12 +119,36 @@ $$\nabla_{\theta_i}L_i(\theta_i) = \mathbb{E}_{s, a \sim \rho(\cdot);s' \sim \ma
 <div align="center">
     <table style="border: none;">
         <tr>
-            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_recevied_weak_repeating_penalty.gif?raw=true" /></a></td>
-            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_recevied_strong_repeating_penalty.gif?raw=true" /></a></td>
-            <td width="33%" align="center"><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_agent_demo.gif?raw=true" /></a></td>
+            <td width="99%" align="center">
+            <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_single_agent_goal_compressed.gif" /></a></p>
+            <p>Deep Reinforcement Learning to solve the Maze.</p>
+            </td>
         </tr>
     </table>
-    <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank">Demonstration of the Maze solving</a> by Various Deep Reinforcement Learning variants.</p>
+</div>
+
+### The pursuit-evasion game
+
+Expanding the search problem of the maze makes it possible to describe the pursuit-evasion game that is a family of problems in mathematics and computer science in which one group attempts to track down members of another group in an environment.
+
+This problem can be re-described as the multi-agent control problem, which involves decomposing the global system state into an image like representation with information encoded in separate channels. This reformulation allows us to use convolutional neural networks to efficiently extract important features from the image-like state.
+
+Gupta, J. K. et al.(2017) proposed new algorithm which uses the image-like state representation of the multi-agent system as an input, and outputs the estimated Q-values for the agent in question. They described a number of implementation contributions that make training efficient and allow agents to learn directly from the behavior of other agents in the system.
+
+<div align="center">
+    <table style="border: none;">
+        <tr>
+            <td width="45%" align="center">
+            <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_crash_enemy_2-compressed.gif" /></a></p>
+            <p>Multi agent Deep Reinforcement Learning to solve the pursuit-evasion game. The player is caught by enemies.</p>
+            </td>
+            <td width="45%" align="center">
+            <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_goal_enemy_2-compressed.gif" /></a></p>
+            <p>
+            <p>Multi agent Deep Reinforcement Learning to solve the pursuit-evasion game. The player reaches the goal.</p>
+            </td>
+        </tr>
+    </table>
 </div>
 
 ## Tutorial: Simple Maze Solving by Q-Learning and Deep Boltzmann Machines (Jupyter notebook)
@@ -652,6 +681,11 @@ Under the assumption that the less number of searches the better, *Q-Learning*, 
 - Watkins, C. J. C. H. (1989). Learning from delayed rewards (Doctoral dissertation, University of Cambridge).
 - Watkins, C. J., & Dayan, P. (1992). Q-learning. Machine learning, 8(3-4), 279-292.
 - White, J. (2012). Bandit algorithms for website optimization. ” O’Reilly Media, Inc.”.
+
+### Deep Q-Network models.
+
+- Gupta, J. K., Egorov, M., & Kochenderfer, M. (2017, May). Cooperative multi-agent control using deep reinforcement learning. In International Conference on Autonomous Agents and Multiagent Systems (pp. 66-83). Springer, Cham.
+- Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. (2013). Playing atari with deep reinforcement learning. arXiv preprint arXiv:1312.5602.
 
 ### Annealing models.
 

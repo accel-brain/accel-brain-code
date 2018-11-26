@@ -137,13 +137,28 @@ is the target for iteration <img src="https://storage.googleapis.com/accel-brain
     <p>Deep Reinforcement Learning to solve the Maze.</p>
 </div>
 
+* Black squares represent a wall.
+* Light gray squares represent passages.
+* A dark gray square represents a start point.
+* A white squeare represents a goal point.
+
 ### The pursuit-evasion game
 
 Expanding the search problem of the maze makes it possible to describe the pursuit-evasion game that is a family of problems in mathematics and computer science in which one group attempts to track down members of another group in an environment.
 
 This problem can be re-described as the multi-agent control problem, which involves decomposing the global system state into an image like representation with information encoded in separate channels. This reformulation allows us to use convolutional neural networks to efficiently extract important features from the image-like state.
 
-Gupta, J. K. et al.(2017) proposed new algorithm which uses the image-like state representation of the multi-agent system as an input, and outputs the estimated Q-values for the agent in question. They described a number of implementation contributions that make training efficient and allow agents to learn directly from the behavior of other agents in the system.
+Egorov, M. (2016) and Gupta, J. K. et al.(2017) proposed new algorithm which uses the image-like state representation of the multi-agent system as an input, and outputs the estimated Q-values for the agent in question. They described a number of implementation contributions that make training efficient and allow agents to learn directly from the behavior of other agents in the system.
+
+<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/multi_agent_q_learning_and_channels_big.png" />
+<p><cite><a href="https://pdfs.semanticscholar.org/dd98/9d94613f439c05725bad958929357e365084.pdf" target="_blank">Egorov, M. (2016). Multi-agent deep reinforcement learning., p4.</a></cite></p>
+
+An important aspect of this data modeling is that by expressing each state of the multi-agent as channels, it is possible to enclose states of all the agents as **a target of convolution operation all at once**. By the affine transformation executed by the neural network, the state of the multi-agent can be calculated in principle.
+
+<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/multi_agent_q_learning_and_cnn_model_big.png" />
+<p><cite><a href="https://pdfs.semanticscholar.org/dd98/9d94613f439c05725bad958929357e365084.pdf" target="_blank">Egorov, M. (2016). Multi-agent deep reinforcement learning., p4.</a></cite></p>
+
+[demo/search_maze_by_deep_q_network.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb) also prototypes Multi Agent Deep Q-Network to solve the pursuit-evasion game based on the image-like state representation of the multi-agent.
 
 <div align="center">
     <table style="border: none;">
@@ -160,6 +175,12 @@ Gupta, J. K. et al.(2017) proposed new algorithm which uses the image-like state
         </tr>
     </table>
 </div>
+
+* Black squares represent a wall.
+* Light gray squares represent passages.
+* A dark gray square represents a start point.
+* Moving dark gray squares represent enemies.
+* A white squeare represents a goal point.
 
 ## Tutorial: Simple Maze Solving by Q-Learning and Deep Boltzmann Machines (Jupyter notebook)
 
@@ -694,6 +715,7 @@ Under the assumption that the less number of searches the better, *Q-Learning*, 
 
 ### Deep Q-Network models.
 
+- <a href="https://pdfs.semanticscholar.org/dd98/9d94613f439c05725bad958929357e365084.pdf" target="_blank">Egorov, M. (2016). Multi-agent deep reinforcement learning.</a>
 - Gupta, J. K., Egorov, M., & Kochenderfer, M. (2017, May). Cooperative multi-agent control using deep reinforcement learning. In International Conference on Autonomous Agents and Multiagent Systems (pp. 66-83). Springer, Cham.
 - Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. (2013). Playing atari with deep reinforcement learning. arXiv preprint arXiv:1312.5602.
 

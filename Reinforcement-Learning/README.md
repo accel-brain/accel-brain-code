@@ -84,47 +84,57 @@ Another issue is that most deep learning algorithms assume the data samples to b
 
 #### Generalisation, or a function approximation
 
-This library considers problem setteing in which an agent interacts with an environment $\mathcal{E}$, in a sequence of actions, observations and rewards. At each time-step the agent selects an action at from the set of possible actions, $A = \{1, ..., K\}$. The state/action-value function is $Q(s, a)$.
+This library considers problem setteing in which an agent interacts with an environment <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/mathcal_E.png" />, in a sequence of actions, observations and rewards. At each time-step the agent selects an action at from the set of possible actions, <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/A_1_K.png" />. The state/action-value function is <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/Q_s_a.png" />.
 
-The goal of the agent is to interact with the $\mathcal{E}$ by selecting actions in a way that maximises future rewards. We can make the standard assumption that future rewards are discounted by a factor of $\gamma$ per time-step, and define the future discounted return at time $t$ as $R_t = \sum_{t'=t}^{T}\gamma^{t'-t}r_{t'}$, where $T$ is the time-step at which the agent will reach the goal. This library defines the optimal state/action-value function $Q^{\ast}(s, a)$ as the maximum expected return achievable by following any strategy, after seeing some state $s$ and then taking some action $a$, $Q^{\ast}(s, a) = \max \pi \mathbb{E}[R_t \mid s_t = s, a_t = a, \pi ]$, where $\pi$ is a policy mapping sequences to actions (or distributions over actions). 
+The goal of the agent is to interact with the <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/mathcal_E.png" /> by selecting actions in a way that maximises future rewards. We can make the standard assumption that future rewards are discounted by a factor of $\gamma$ per time-step, and define the future discounted return at time <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/t.png" /> as 
 
-The optimal state/action-value function obeys an important identity known as the Bellman equation. This is based on the following *intuition*: if the optimal value $Q^{\ast}(s', a')$ of the sequence $s'$ at the next time-step was known for all possible actions $a'$, then the optimal strategy is to select the action $a'$ maximising the expected value of $r + \gamma Q^{\ast}(s', a')$, 
+<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/r_t_sum_t_t_T_gamma.png" />, 
 
-$$Q^{\ast}(s', a') = \mathbb{E}_{s' \sim \mathcal{E}}[r + \gamma \max_{a'} Q^{\ast}(s', a')\mid s, a]$$.
+where <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/Tt.png" /> is the time-step at which the agent will reach the goal. This library defines the optimal state/action-value function <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/Q_ast_s_a.png" /> as the maximum expected return achievable by following any strategy, after seeing some state <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/s.png" /> and then taking some action <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/a.png" />, 
+
+<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/Q_ast_s_a_max_pi_E.png" />, 
+
+where <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/pi.png" /> is a policy mapping sequences to actions (or distributions over actions). 
+
+The optimal state/action-value function obeys an important identity known as the Bellman equation. This is based on the following *intuition*: if the optimal value <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/Q_ast_s_d_a_d.png" /> of the sequence <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/s_d.png" /> at the next time-step was known for all possible actions <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/a_d.png" />, then the optimal strategy is to select the action <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/a_d.png" /> maximising the expected value of 
+
+<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/r_gamma_Q_ast_s_d_a_d.png" />, 
+
+<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/Q_ast_s_d_a_d_mathbb_E_s_d_sim_mathcal_E.png" />.
 
 The basic idea behind many reinforcement learning algorithms is to estimate the state/action-value function, by using the Bellman equation as an iterative update,
 
-$$Q_{i+1}(s, a) = \mathbb{E}[r + \gamma \max_{a'}Q_i(s', a') \mid s, a]$$.
+<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/Q_i_1_s_a_mathbb_E_r_gamma_max_a_d.png" />.
 
-Such *value iteration algorithms* converge to the optimal state/action-value function, $Q_i \rightarrow Q^{\ast}$ as $i \rightarrow \infty$. But increasing the complexity of states/actions is equivalent to increasing the number of combinations of states/actions. If the value function is continuous and granularities of states/actions are extremely fine, the combinatorial explosion will be encountered. In other words, this basic approach is totally impractical, because the state/action-value function is estimated separately for each sequence, without any **generalisation**. Instead, it is common to use a **function approximator** to estimate the state/action-value function,
+Such *value iteration algorithms* converge to the optimal state/action-value function, <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/Q_i_rightarrow_Q_ast.png" /> as <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/i_rightarrow_infty.png" />. 
 
-$$Q(s, a; \theta) \approx Q^{\ast}(s, a)$$
+But increasing the complexity of states/actions is equivalent to increasing the number of combinations of states/actions. If the value function is continuous and granularities of states/actions are extremely fine, the combinatorial explosion will be encountered. In other words, this basic approach is totally impractical, because the state/action-value function is estimated separately for each sequence, without any **generalisation**. Instead, it is common to use a **function approximator** to estimate the state/action-value function,
+
+<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/Q_s_a_theta_approx_Q_ast_s_a.png" />
 
 So the Reduction of complexities is required.
 
 ### Deep Q-Network
 
-In this problem setting, the function of nerual network or deep learning is a function approximation with weights $\theta$ as a Q-Network. A Q-Network can be trained by minimising a loss functions $L_i(\theta_i)$ that changes at each iteration $i$,
+In this problem setting, the function of nerual network or deep learning is a function approximation with weights <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/theta.png" /> as a Q-Network. A Q-Network can be trained by minimising a loss functions <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/L_i_theta_i.png" /> that changes at each iteration <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/i.png" />,
 
-$$L_i(\theta_i) = \mathbb{E}_{s, a \sim \rho(\cdot)}[y_i - Q(s, a, \theta_i)]^2$$
+<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/L_i_theta_i_mathbb_E_s_a_sim_rho_cdot.png" />
 
-where $y_i = \mathbb{E}_{s' \sim \mathcal{E}}[r + \gamma \max_{a'} Q(s', a', \theta_{i-1}) \mid s, a]$ is the target for iteration $i$ and $\rho(\cdot)$ is a so-called behaviour distribution. This is probability distribution over states and actions. The parameters from the previous iteration $\theta_{i−1}$ are held fixed when optimising the loss function $L_i(\theta_i)$. Differentiating the loss function with respect to the weights we arrive at the following gradient,
+where 
 
-$$\nabla_{\theta_i}L_i(\theta_i) = \mathbb{E}_{s, a \sim \rho(\cdot);s' \sim \mathcal{E}}\left[\left(r + \gamma \max_{a'} Q(s', a'; \theta_{i-1}) - Q(s, a; \theta_i)\right)\nabla_{\theta_i}Q(s, a; \theta)\right]$$.
+<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/y_i_mathbb_E_s_d_sim_mathcal_E_r_gamma_max_a_d.png" />
+
+is the target for iteration <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/i.png" /> and <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/rho_cdot.png" /> is a so-called behaviour distribution. This is probability distribution over states and actions. The parameters from the previous iteration <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/theta_i_1.png" /> are held fixed when optimising the loss function <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/L_i_theta_i.png" />. Differentiating the loss function with respect to the weights we arrive at the following gradient,
+
+<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/nabla_theta_i_L_i_theta_i_mathbb_E_s_a_sim_rho_cdot.png" />
 
 ## Tutorial: Simple Maze Solving by Deep Q-Network (Jupyter notebook)
 
 [demo/search_maze_by_deep_q_network.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb) is a Jupyter notebook which demonstrates a simple maze solving algorithm based on Deep Q-Network, rigidly coupled with Deep Convolutional Neural Networks(Deep CNNs). The function of the Deep Learning is **generalisation** and CNNs is-a **function approximator**.
 
 <div align="center">
-    <table style="border: none;">
-        <tr>
-            <td width="99%" align="center">
-            <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_single_agent_goal_compressed.gif" /></a></p>
-            <p>Deep Reinforcement Learning to solve the Maze.</p>
-            </td>
-        </tr>
-    </table>
+    <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_single_agent_goal_compressed.gif" /></a></p>
+    <p>Deep Reinforcement Learning to solve the Maze.</p>
 </div>
 
 ### The pursuit-evasion game

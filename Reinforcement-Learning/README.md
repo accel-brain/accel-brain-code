@@ -2,6 +2,22 @@
 
 `pyqlearning` is Python library to implement Reinforcement Learning and Deep Reinforcement Learning, especially for Q-Learning, Deep Q-Network, and Multi-agent Deep Q-Network which can be optimized by Annealing models such as Simulated Annealing, Adaptive Simulated Annealing, and Quantum Monte Carlo Method.
 
+<div align="center">
+    <table style="border: none;">
+        <tr>
+            <td width="45%" align="center">
+            <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_single_agent_goal_compressed.gif" /></a></p>
+            <p>Deep Reinforcement Learning to solve Maze.</p>
+            </td>
+            <td width="45%" align="center">
+            <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_goal_enemy_2-compressed.gif" /></a></p>
+            <p>
+            <p>Multi-agent Deep Reinforcement Learning to solve the pursuit-evasion game.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+
 ## Installation
 
 Install using pip:
@@ -38,23 +54,9 @@ Full documentation is available on [https://code.accel-brain.com/Reinforcement-L
 
 ## Description
 
-`pyqlearning` is Python library to implement Reinforcement Learning and Deep Reinforcement Learning, especially for Q-Learning and Deep Q-Network which can be optimized by Annealing models such as Simulated Annealing, Adaptive Simulated Annealing, and Quantum Monte Carlo Method.
+`pyqlearning` is Python library to implement Reinforcement Learning and Deep Reinforcement Learning, especially for Q-Learning, Deep Q-Network, and Multi-agent Deep Q-Network which can be optimized by Annealing models such as Simulated Annealing, Adaptive Simulated Annealing, and Quantum Monte Carlo Method.
 
-<div align="center">
-    <table style="border: none;">
-        <tr>
-            <td width="45%" align="center">
-            <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_crash_enemy_2-compressed.gif" /></a></p>
-            <p>Multi-agent Deep Reinforcement Learning to solve the pursuit-evasion game. The player is caught by enemies.</p>
-            </td>
-            <td width="45%" align="center">
-            <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_goal_enemy_2-compressed.gif" /></a></p>
-            <p>
-            <p>Multi-agent Deep Reinforcement Learning to solve the pursuit-evasion game. The player reaches the goal.</p>
-            </td>
-        </tr>
-    </table>
-</div>
+This library provides components **for designers**, not just for **end-users** of state-of-the-art black boxes. Reinforcement learning algorithms are highly variable because they must design single or multi agent behavior depending on their problem setup. Designers of algorithms and architectures are required to design according to the situation at each occasion. Nonetheless, commonality / variability analysis and object-oriented analysis are not impossible. I am convinced that a designer who can practice abstraction of concepts by introducing a distinction of concepts related to his own problem setting makes it possible to distinguish commonality and variability of various reinforcement learning algorithms.
 
 ### The commonality/variability of Epsilon Greedy Q-Leanring and Boltzmann Q-Learning
 

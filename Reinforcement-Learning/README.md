@@ -2,6 +2,8 @@
 
 `pyqlearning` is Python library to implement Reinforcement Learning and Deep Reinforcement Learning, especially for Q-Learning, Deep Q-Network, and Multi-agent Deep Q-Network which can be optimized by Annealing models such as Simulated Annealing, Adaptive Simulated Annealing, and Quantum Monte Carlo Method.
 
+This library makes it possible to design the information search algorithm such as the Game AI, web crawlers, or Robotics. But this library provides components for designers, not for end-users of state-of-the-art black boxes. Briefly speaking the philosophy of this library, *give end-user blackboxes and you feed him for a day; show him how to design algorithms and you feed him for a lifetime.* So algorithm is power.
+
 <div align="center">
     <table style="border: none;">
         <tr>
@@ -56,7 +58,7 @@ Full documentation is available on [https://code.accel-brain.com/Reinforcement-L
 
 `pyqlearning` is Python library to implement Reinforcement Learning and Deep Reinforcement Learning, especially for Q-Learning, Deep Q-Network, and Multi-agent Deep Q-Network which can be optimized by Annealing models such as Simulated Annealing, Adaptive Simulated Annealing, and Quantum Monte Carlo Method.
 
-This library provides components for designers, not just for end-users of state-of-the-art black boxes. Reinforcement learning algorithms are highly variable because they must design single or multi-agent behavior depending on their problem setup. Designers of algorithms and architectures are required to design according to the situation at each occasion. Commonization and commoditization for end users who want easy-to-use tools is not easy. Nonetheless, commonality / variability analysis and object-oriented analysis are not impossible. I am convinced that a designer who can practice abstraction of concepts by introducing a distinction of concepts related to his own problem setting makes it possible to distinguish commonality and variability of various reinforcement learning algorithms.
+This library provides components for designers, not for end-users of state-of-the-art black boxes. Reinforcement learning algorithms are highly variable because they must design single or multi-agent behavior depending on their problem setup. Designers of algorithms and architectures are required to design according to the situation at each occasion. Commonization and commoditization for end users who want easy-to-use tools is not easy. Nonetheless, commonality / variability analysis and object-oriented analysis are not impossible. I am convinced that a designer who can practice abstraction of concepts by introducing a distinction of concepts related to his own problem setting makes it possible to distinguish commonality and variability of various reinforcement learning algorithms.
 
 ### The commonality/variability of Epsilon Greedy Q-Leanring and Boltzmann Q-Learning
 

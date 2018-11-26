@@ -1,6 +1,6 @@
 # Reinforcement Learning Library: pyqlearning
 
-`pyqlearning` is Python library to implement Reinforcement Learning and Deep Reinforcement Learning, especially for Q-Learning and Deep Q-Network which can be optimized by Annealing models such as Simulated Annealing, Adaptive Simulated Annealing, and Quantum Monte Carlo Method.
+`pyqlearning` is Python library to implement Reinforcement Learning and Deep Reinforcement Learning, especially for Q-Learning, Deep Q-Network, and Multi-agent Deep Q-Network which can be optimized by Annealing models such as Simulated Annealing, Adaptive Simulated Annealing, and Quantum Monte Carlo Method.
 
 ## Installation
 
@@ -45,12 +45,12 @@ Full documentation is available on [https://code.accel-brain.com/Reinforcement-L
         <tr>
             <td width="45%" align="center">
             <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_crash_enemy_2-compressed.gif" /></a></p>
-            <p>Multi agent Deep Reinforcement Learning to solve the pursuit-evasion game. The player is caught by enemies.</p>
+            <p>Multi-agent Deep Reinforcement Learning to solve the pursuit-evasion game. The player is caught by enemies.</p>
             </td>
             <td width="45%" align="center">
             <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_goal_enemy_2-compressed.gif" /></a></p>
             <p>
-            <p>Multi agent Deep Reinforcement Learning to solve the pursuit-evasion game. The player reaches the goal.</p>
+            <p>Multi-agent Deep Reinforcement Learning to solve the pursuit-evasion game. The player reaches the goal.</p>
             </td>
         </tr>
     </table>
@@ -165,12 +165,12 @@ An important aspect of this data modeling is that by expressing each state of th
         <tr>
             <td width="45%" align="center">
             <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_crash_enemy_2-compressed.gif" /></a></p>
-            <p>Multi agent Deep Reinforcement Learning to solve the pursuit-evasion game. The player is caught by enemies.</p>
+            <p>Multi-agent Deep Reinforcement Learning to solve the pursuit-evasion game. The player is caught by enemies.</p>
             </td>
             <td width="45%" align="center">
             <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_goal_enemy_2-compressed.gif" /></a></p>
             <p>
-            <p>Multi agent Deep Reinforcement Learning to solve the pursuit-evasion game. The player reaches the goal.</p>
+            <p>Multi-agent Deep Reinforcement Learning to solve the pursuit-evasion game. The player reaches the goal.</p>
             </td>
         </tr>
     </table>

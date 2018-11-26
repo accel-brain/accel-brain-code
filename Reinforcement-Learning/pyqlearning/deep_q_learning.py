@@ -41,10 +41,6 @@ class DeepQLearning(metaclass=ABCMeta):
             action_arr, q = self.select_action(next_action_arr, next_q_arr)
             reward_value = self.observe_reward_value(state_arr, action_arr)
 
-            # Check.
-            if self.check_the_end_flag(state_arr) is True:
-                end_flag = True
-
             # Max-Q-Value in next action time.
             next_next_action_arr = self.extract_possible_actions(action_arr)
             next_max_q = self.__function_approximator.inference_q(next_next_action_arr).max()
@@ -61,6 +57,7 @@ class DeepQLearning(metaclass=ABCMeta):
 
             # Epsode.
             self.t += 1
+            # Check.
             end_flag = self.check_the_end_flag(state_arr)
             if end_flag is True:
                 break
@@ -129,7 +126,7 @@ class DeepQLearning(metaclass=ABCMeta):
             next_max_q:     Maximum Q-Value in next time step.
         '''
         # Update Q-Value.
-        new_q = q + self.alpha_value * (reward_value + (self.gamma_value * next_max_q) - q)
+        new_q = q + (self.alpha_value * (reward_value + (self.gamma_value * next_max_q) - q))
         # Learn updated Q-Value.
         self.__function_approximator.learn_q(q, new_q)
 

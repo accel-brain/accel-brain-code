@@ -35,6 +35,7 @@ class CNNFA(FunctionApproximator):
         verificatable_result=None,
         pre_learned_path_list=None,
         fc_w_arr=None,
+        fc_activation_function=None,
         verbose_mode=False
     ):
         logger = getLogger("pydbm")
@@ -89,7 +90,9 @@ class CNNFA(FunctionApproximator):
         self.__learning_rate = learning_rate
         self.__verbose_mode = verbose_mode
         self.__fc_w_arr = fc_w_arr
+        self.__fc_activation_function = fc_activation_function
         self.__q_shape = None
+        self.__q_logs_list = []
 
     def learn_q(self, q, new_q):
         '''
@@ -105,7 +108,6 @@ class CNNFA(FunctionApproximator):
         q_arr = np.array([q] * self.__batch_size).reshape(-1, 1)
         new_q_arr = np.array([new_q] * self.__batch_size).reshape(-1, 1)
         cost_arr = self.__computable_loss.compute_loss(q_arr, new_q_arr)
-        self.__logger.debug("Q-cost: " + str(cost_arr.mean()))
         delta_arr = self.__computable_loss.compute_delta(q_arr, new_q_arr)
         # This is a constant parameter and will be not updated.
         delta_arr = np.dot(delta_arr, self.__fc_w_arr.T)
@@ -114,6 +116,8 @@ class CNNFA(FunctionApproximator):
         delta_arr = delta_arr.reshape(self.__q_shape)
         delta_arr = self.__cnn.back_propagation(delta_arr)
         self.__cnn.optimize(self.__learning_rate, 1)
+        
+        self.__q_logs_list.append((q, new_q, cost_arr.mean()))
 
     def inference_q(self, next_action_arr):
         '''
@@ -133,4 +137,15 @@ class CNNFA(FunctionApproximator):
             self.__fc_w_arr = np.random.normal(size=(q_arr.shape[-1], 1)) * 0.01
 
         q_arr = np.dot(q_arr, self.__fc_w_arr)
+        q_arr = self.__fc_activation_function.activate(q_arr)
         return q_arr
+
+    def get_q_logs_list(self):
+        ''' getter '''
+        return self.__q_logs_list
+
+    def set_q_logs_list(self, value):
+        ''' setter '''
+        self.__q_logs_list = value
+    
+    q_logs_list = property(get_q_logs_list, set_q_logs_list)

@@ -47,7 +47,7 @@ Installers for the latest released version are available at the Python package i
 
 #### Option
 
-- [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern)
+- [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern): v1.3.8 or higher.
     * Only if you want to implement the *Deep* Reinforcement Learning.
 
 ## Documentation

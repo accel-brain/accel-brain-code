@@ -80,11 +80,11 @@ Considering many variable parts and functional extensions in the Q-learning para
 
 ### Structural extension: Deep Reinforcement Learning
 
-The Reinforcement learning theory presents several issues from a perspective of deep learning theory. Firstly, deep learning applications have required large amounts of handlabelled training data. Reinforcement learning algorithms, on the other hand, must be able to learn from a scalar reward signal that is frequently sparse, noisy and delayed.
+The Reinforcement learning theory presents several issues from a perspective of deep learning theory(Mnih, V., et al. 2013). Firstly, deep learning applications have required large amounts of hand-labelled training data. Reinforcement learning algorithms, on the other hand, must be able to learn from a scalar reward signal that is frequently sparse, noisy and delayed.
 
 The difference between the two theories is not only the type of data but also the timing to be observed. The delay between taking actions and receiving rewards, which can be thousands of timesteps long, seems particularly daunting when compared to the direct association between inputs and targets found in supervised learning.
 
-Another issue is that most deep learning algorithms assume the data samples to be independent, while in reinforcement learning one typically encounters sequences of highly correlated states. Furthermore, in Reinforcement learning the data distribution changes as the algorithm learns new behaviours, which can be problematic for deep learning methods that assume a fixed underlying distribution.
+Another issue is that deep learning algorithms assume the data samples to be independent, while in reinforcement learning one typically encounters sequences of highly correlated states. Furthermore, in Reinforcement learning, the data distribution changes as the algorithm learns new behaviours, presenting aspects of *recursive learning*, which can be problematic for deep learning methods that assume a fixed underlying distribution.
 
 #### Generalisation, or a function approximation
 
@@ -157,7 +157,7 @@ Egorov, M. (2016) and Gupta, J. K. et al.(2017) proposed new algorithm which use
 <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/multi_agent_q_learning_and_channels_big.png" />
 <p><cite><a href="https://pdfs.semanticscholar.org/dd98/9d94613f439c05725bad958929357e365084.pdf" target="_blank">Egorov, M. (2016). Multi-agent deep reinforcement learning., p4.</a></cite></p>
 
-An important aspect of this data modeling is that by expressing each state of the multi-agent as channels, it is possible to enclose states of all the agents as **a target of convolution operation all at once**. By the affine transformation executed by the neural network, the state of the multi-agent can be calculated in principle.
+An important aspect of this data modeling is that by expressing each state of the multi-agent as channels, it is possible to enclose states of all the agents as **a target of convolution operation all at once**. By the affine transformation executed by the neural network, combinations of an enormous number of states of multi-agent can be computed in principle with an allowable range of memory.
 
 <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/multi_agent_q_learning_and_cnn_model_big.png" />
 <p><cite><a href="https://pdfs.semanticscholar.org/dd98/9d94613f439c05725bad958929357e365084.pdf" target="_blank">Egorov, M. (2016). Multi-agent deep reinforcement learning., p4.</a></cite></p>

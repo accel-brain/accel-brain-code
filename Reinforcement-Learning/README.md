@@ -2,7 +2,7 @@
 
 `pyqlearning` is Python library to implement Reinforcement Learning and Deep Reinforcement Learning, especially for Q-Learning, Deep Q-Network, and Multi-agent Deep Q-Network which can be optimized by Annealing models such as Simulated Annealing, Adaptive Simulated Annealing, and Quantum Monte Carlo Method.
 
-This library makes it possible to design the information search algorithm such as the Game AI, web crawlers, or Robotics. But this library provides components for designers, not for end-users of state-of-the-art black boxes. Briefly speaking the philosophy of this library, *give end-user blackboxes and you feed him for a day; show him how to design algorithms and you feed him for a lifetime.* So algorithm is power.
+This library makes it possible to design the information search algorithm such as the Game AI, web crawlers, or Robotics. But this library provides components for designers, not for end-users of state-of-the-art black boxes. Briefly speaking the philosophy of this library, *give user hype-driven blackboxes and you feed him for a day; show him how to design algorithms and you feed him for a lifetime.* So algorithm is power.
 
 <div align="center">
     <table style="border: none;">
@@ -58,7 +58,7 @@ Full documentation is available on [https://code.accel-brain.com/Reinforcement-L
 
 `pyqlearning` is Python library to implement Reinforcement Learning and Deep Reinforcement Learning, especially for Q-Learning, Deep Q-Network, and Multi-agent Deep Q-Network which can be optimized by Annealing models such as Simulated Annealing, Adaptive Simulated Annealing, and Quantum Monte Carlo Method.
 
-This library provides components for designers, not for end-users of state-of-the-art black boxes. Reinforcement learning algorithms are highly variable because they must design single or multi-agent behavior depending on their problem setup. Designers of algorithms and architectures are required to design according to the situation at each occasion. Commonization and commoditization for end users who want easy-to-use tools is not easy. Nonetheless, commonality / variability analysis and object-oriented analysis are not impossible. I am convinced that a designer who can practice abstraction of concepts by introducing a distinction of concepts related to his own problem setting makes it possible to distinguish commonality and variability of various reinforcement learning algorithms.
+This library provides components for designers, not for end-users of state-of-the-art black boxes. Reinforcement learning algorithms are highly variable because they must design single or multi-agent behavior depending on their problem setup. Designers of algorithms and architectures are required to design according to the situation at each occasion. Commonization and commoditization for end users who want easy-to-use tools is not easy. Nonetheless, commonality / variability analysis and object-oriented analysis are not impossible. I am convinced that a designer who can *practice* *abstraction* of concepts by *drawing a distinction* of concepts related to his *own concrete problem settings* makes it possible to distinguish commonality and variability of various Reinforcement Learning algorithms.
 
 ### The commonality/variability of Epsilon Greedy Q-Leanring and Boltzmann Q-Learning
 
@@ -757,11 +757,15 @@ Hilgevoord, Jan and Uffink, Jos, "The Uncertainty Principle", The Stanford Encyc
 - [Webクローラ型人工知能によるパラドックス探索暴露機能の社会進化論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/) (Japanese)
     - [プロトタイプの開発：人工知能エージェント「キメラ・ネットワーク」](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/5/#i-8)
 - [深層強化学習のベイズ主義的な情報探索に駆動された自然言語処理の意味論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/) (Japanese)
+    - [プロトタイプの開発：Q学習の派生](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/2/#Q)
+    - [プロトタイプの開発：深層強化学習](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/3/#i-7)
     - [プロトタイプの開発：深層学習と強化学習による「排除された第三項」の推論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/4/#i-5)
 - [ハッカー倫理に準拠した人工知能のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/) (Japanese)
     - [プロトタイプの開発：深層強化学習のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/5/#i-2)    
 - [ヴァーチャルリアリティにおける動物的「身体」の物神崇拝的なユースケース](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/) (Japanese)
     - [プロトタイプの開発：「人工天使ヒューズ＝ヒストリア」](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/4/#i-6)
+- [「人工の理想」を背景とした「万物照応」のデータモデリング](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/) (Japanese)
+    - [プロトタイプの開発：「貨幣」を蒐集する強化学習エージェント](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/5/#i-6)
 
 ## Author
 

@@ -614,9 +614,13 @@ class SpatioTemporalAutoEncoder(object):
             )
 
         encoded_arr = self.__encoder.inference(observed_arr)
+        self.__encoded_features_arr = encoded_arr
+
         decoded_arr = self.__decoder.inference(
             self.__encoder.get_feature_points()[:, ::-1, :]
         )
+        self.__decoded_features_arr = decoded_arr
+
         hidden_activity_arr = self.__decoder.get_feature_points()[:, ::-1, :]
         ver_hidden_activity_arr = hidden_activity_arr.copy()
         delta_arr = self.__computable_loss.compute_delta(
@@ -687,6 +691,8 @@ class SpatioTemporalAutoEncoder(object):
         conv_arr = conv_arr + lstm_input_arr.reshape((sample_n, seq_len, channel, width, height))
         conv_arr = conv_arr - conv_arr.mean()
         conv_arr = self.__fully_connected_activation.activate(conv_arr)
+        
+        self.__spatio_temporal_features_arr = conv_arr
 
         layerable_cnn_list = self.__layerable_cnn_list[::-1]
         test_arr, _ = layerable_cnn_list[0].deconvolve(conv_arr[:, -1])
@@ -797,6 +803,23 @@ class SpatioTemporalAutoEncoder(object):
             self.layerable_cnn_list[i].graph.save_pre_learned_params(dir_path + "spatio_cnn_" + str(i) + ".npz")
         self.__encoder.graph.save_pre_learned_params(dir_path + "temporal_encoder.npz")
         self.__decoder.graph.save_pre_learned_params(dir_path + "temporal_decoder.npz")
+
+    def extract_features_points(self):
+        '''
+        Extract features points.
+
+        Returns:
+            Tuple(
+                Temporal encoded feature points,
+                Temporal decoded feature points,
+                Fully-connected Spatio encoded feature points and Temporal decoded feature points  
+            )
+        '''
+        return (
+            self.__encoded_features_arr,
+            self.__decoded_features_arr,
+            self.__spatio_temporal_features_arr
+        )
 
     def get_layerable_cnn_list(self):
         ''' getter '''

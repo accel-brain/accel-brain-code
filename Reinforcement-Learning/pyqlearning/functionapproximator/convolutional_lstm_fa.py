@@ -4,6 +4,9 @@ from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
 
 from pyqlearning.function_approximator import FunctionApproximator
 
+from pydbm.cnn.convolutional_neural_network import ConvolutionalNeuralNetwork
+from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer
+from pydbm.cnn.layerable_cnn import LayerableCNN
 from pydbm.cnn.feature_generator import FeatureGenerator
 from pydbm.optimization.opt_params import OptParams
 from pydbm.verification.interface.verificatable_result import VerificatableResult
@@ -19,9 +22,9 @@ from pydbm.optimization.optparams.adam import Adam
 from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
 
 
-class LSTMFA(FunctionApproximator):
+class ConvolutionalLSTMFA(FunctionApproximator):
     '''
-    LSTM Networks as a Function Approximator.
+    Convolutional LSTM Networks as a Function Approximator.
     '''
     
     __q_arr_list = []
@@ -29,6 +32,7 @@ class LSTMFA(FunctionApproximator):
     def __init__(
         self,
         batch_size,
+        layerable_cnn_list,
         lstm_model,
         seq_len=10,
         learning_rate=1e-05,
@@ -55,7 +59,7 @@ class LSTMFA(FunctionApproximator):
             self.__logger.setLevel(DEBUG)
         else:
             self.__logger.setLevel(ERROR)
-
+            
         self.__logger.addHandler(handler)
 
         if isinstance(lstm_model, LSTMModel) is False:
@@ -68,12 +72,33 @@ class LSTMFA(FunctionApproximator):
         if opt_params is None:
             opt_params = Adam()
 
+        cnn = ConvolutionalNeuralNetwork(
+            # The `list` of `ConvolutionLayer`.
+            layerable_cnn_list=layerable_cnn_list,
+            # The number of epochs in mini-batch training.
+            epochs=200,
+            # The batch size.
+            batch_size=batch_size,
+            # Learning rate.
+            learning_rate=learning_rate,
+            # Loss function.
+            computable_loss=computable_loss,
+            # Optimizer.
+            opt_params=opt_params,
+            # Verification.
+            verificatable_result=verificatable_result,
+            # Others.
+            learning_attenuate_rate=0.1,
+            attenuate_epoch=50
+        )
+        self.__cnn = cnn
         self.__lstm_model = lstm_model
         self.__seq_len = seq_len
         self.__batch_size = batch_size
         self.__computable_loss = computable_loss
         self.__learning_rate = learning_rate
         self.__verbose_mode = verbose_mode
+        self.__q_shape = None
         self.__q_logs_list = []
 
     def learn_q(self, q, new_q):
@@ -84,6 +109,9 @@ class LSTMFA(FunctionApproximator):
             q:                  Predicted Q-Value.
             new_q:              Real Q-Value.
         '''
+        if self.__q_shape is None:
+            raise ValueError("Before learning, You should execute `__inference_q`.")
+
         q_arr = np.array([q] * self.__batch_size).reshape(-1, 1)
         new_q_arr = np.array([new_q] * self.__batch_size).reshape(-1, 1)
         cost_arr = self.__computable_loss.compute_loss(q_arr, new_q_arr)
@@ -101,7 +129,11 @@ class LSTMFA(FunctionApproximator):
         lstm_grads_list = lstm_output_grads_list
         lstm_grads_list.extend(lstm_hidden_grads_list)
 
+        delta_arr = delta_arr[:, -1].reshape(self.__q_shape)
+        delta_arr = self.__cnn.back_propagation(delta_arr)
+
         self.__lstm_model.optimize(lstm_grads_list, self.__learning_rate, 1)
+        self.__cnn.optimize(self.__learning_rate, 1)
         self.__q_logs_list.append((q, new_q, cost_arr.mean()))
 
     def inference_q(self, next_action_arr):
@@ -114,7 +146,10 @@ class LSTMFA(FunctionApproximator):
         Returns:
             `np.ndarray` of Q-Values.
         '''
-        q_arr = next_action_arr.reshape((next_action_arr.shape[0], -1))
+        q_arr = self.__cnn.inference(next_action_arr)
+        self.__q_shape = q_arr.shape
+        q_arr = q_arr.reshape((q_arr.shape[0], -1))
+        
         self.__q_arr_list.append(q_arr)
         while len(self.__q_arr_list) > self.__seq_len:
             self.__q_arr_list = self.__q_arr_list[1:]

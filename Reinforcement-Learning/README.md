@@ -132,9 +132,42 @@ is the target for iteration <img src="https://storage.googleapis.com/accel-brain
 
 <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/nabla_theta_i_L_i_theta_i_mathbb_E_s_a_sim_rho_cdot.png" />
 
-## Tutorial: Simple Maze Solving by Deep Q-Network (Jupyter notebook)
+### Functional equivalent: LSTM
 
-[demo/search_maze_by_deep_q_network.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb) is a Jupyter notebook which demonstrates a simple maze solving algorithm based on Deep Q-Network, rigidly coupled with Deep Convolutional Neural Networks(Deep CNNs). The function of the Deep Learning is **generalisation** and CNNs is-a **function approximator**.
+It is not inevitable to functionally reuse CNN as a function approximator. In the above problem setting of generalisation and Combination explosion, for instance, Long Short-Term Memory(LSTM) networks, which is-a special Reccurent Neural Network(RNN) structure, and CNN as a function approximator are functionally equivalent. In the same problem setting, functional equivalents can be functionally replaced. Considering that the feature space of the rewards has the time-series nature, LSTM will be more useful.
+
+##### Structure of LSTM.
+
+Originally, Long Short-Term Memory(LSTM) networks as a special RNN structure has proven stable and
+powerful for modeling long-range dependencies. The Key point of structural expansion is its memory cell <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/c_t.png" /> which essentially acts as an accumulator of the state information. Every time observed data points are given as new information <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/g_t.png" /> and input to LSTM's input gate, its information will be accumulated to the cell if the input gate <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/i_t.png" /> is activated. The past state of cell <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/c_t-1.png" /> could be forgotten in this process if LSTM's forget gate <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/f_t.png" /> is on. Whether the latest cell output <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/c_t.png" /> will be propagated to the final state <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/h_t.png" /> is further controlled by the output gate <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/o_t.png" />.
+
+Omitting so-called peephole connection, it makes possible to combine the activations in LSTM gates into an affine transformation below.
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_affine.png" /></div>
+
+where <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/W_lstm.png" /> is a weight matrix which connects observed data points and hidden units in LSTM gates, and <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/u.png" /> is a weight matrix which connects hidden units as a remembered memory in LSTM gates. Furthermore, activation functions are as follows:
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_given.png" /></div>
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_input_gate.png" /></div>
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_forget_gate.png" /></div>
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_output_gate.png" /></div>
+
+and the acitivation of memory cell and hidden units are calculated as follows:
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_memory_cell.png" /></div>
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_hidden_activity.png" /></div>
+
+### Structural expansion: Loose coupling of CNN and LSTM.
+
+This library demonstrates a model of the function approximator which loosely coupled CNN and LSTM. Like CLDNN Architecture(Sainath, T. N, et al., 2015), this model uses CNNs to reduce the spectral variation of the input feature of rewards, and then passes this to LSTM layers to perform temporal modeling, and finally outputs this to DNN layers, which produces a feature representation of Q-Values that is more easily separable.
+
+## Tutorial: Maze Solving by Deep Q-Network (Jupyter notebook)
+
+[demo/search_maze_by_deep_q_network.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb) is a Jupyter notebook which demonstrates a maze solving algorithm based on Deep Q-Network, rigidly coupled with Deep Convolutional Neural Networks(Deep CNNs). The function of the Deep Learning is **generalisation** and CNNs is-a **function approximator**. In this notebook, several functional equivalents such as CNN, LSTM, and the model which loosely coupled CNN and LSTM can be compared from a functional point of view.
 
 <div align="center">
     <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_single_agent_goal_compressed-loop.gif" /></a></p>
@@ -185,43 +218,6 @@ An important aspect of this data modeling is that by expressing each state of th
 * A dark gray square represents a start point.
 * Moving dark gray squares represent enemies.
 * A white squeare represents a goal point.
-
-## Tutorial: Simple Maze Solving by Q-Learning and Deep Boltzmann Machines (Jupyter notebook)
-
-[demo/search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_q_learning.ipynb) is a Jupyter notebook which demonstrates a simple maze solving algorithm based on Epsilon-Greedy Q-Learning or Q-Learning, *loosely coupled with Deep Boltzmann Machine(DBM)*.
-
-In this demonstration, let me cite the Q-Learning, *loosely coupled with Deep Boltzmann Machine* (DBM). As API Documentation of [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library has pointed out, DBM is functionally equivalent to stacked auto-encoder. The main function I observe is the same as dimensions reduction(or pre-training). Then the function of this DBM is dimensionality reduction of reward value matrix.
-
-It is not inevitable to functionally reuse CNN as a function approximator. In the above problem setting of **generalisation** and **Combination explosion**, **DBM as a stacked auto-encoder and CNN as a function approximator are functionally equivalent**. In the same problem setting, functional equivalents can be functionally replaced. And when the complexity of the feature space of the rewards is high like the modeling in above notebook: [demo/search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_q_learning.ipynb), DBM will be more useful.
-
-Q-Learning, *loosely coupled with Deep Boltzmann Machine (DBM)*, is a more effective way to solve maze. The pre-training by DBM allow Q-Learning agent to abstract feature of reward value matrix and to observe the map in a bird's-eye view. Then agent can reach the goal with a smaller number of trials.
-
-As shown in the below image, the state-action value function and parameters setting can be designed to correspond with the optimality of route.
-
-<div align="center">
- <table style="border: none;">
-  <tr>
-   <td width="45%" align="center">
-    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_q_learning.ipynb" target="_top"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/maze_map.png" /></a>
-    <p>Maze map</p>
-   </td>
-   <td width="45%" align="center">
-    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_q_learning.ipynb" target="_top"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/feature_point.png" /></a>
-    <p>Feature Points in the maze map</p>
-   </td>
-  </tr>
-  <tr>
-   <td width="45%" align="center">
-    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_q_learning.ipynb" target="_top"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/fail_searched.png" /></a>
-    <p>The result of searching by Epsilon-Greedy Q-Learning</p>
-   </td>
-   <td width="45%" align="center">
-    <a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_q_learning.ipynb" target="_top"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/maze_q_learning_result.png"  /></a>
-    <p>The result of searching by Q-Learning, loosely coupled with Deep Boltzmann Machine.</p>
-   </td>
-  </tr>
- </table>
-</div>
 
 ## Tutorial: Complexity of Hyperparameters, or how can be hyperparameters decided?
 
@@ -469,239 +465,6 @@ annealing_model.annealing()
 
 To extract result of searching, call the property like the case of using `SimulatedAnnealing`. If you want to know how to visualize the searching process, see my Jupyter notebook: [demo/annealing_hand_written_digits.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/annealing_hand_written_digits.ipynb).
 
-## Performance Experiment: Q-Learning VS Q-Learning, loosely coupled with Deep Boltzmann Machine.
-
-The tutorial in [demo/search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_q_learning.ipynb) exemplifies the function of Deep Boltzmann Machine(DBM). Here, I verify if that DBM impacts on the number of searches by Q-Learning in the maze problem setting.
-
-### Batch program for Q-Learning.
-
-[demo/demo_maze_greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/demo_maze_greedy_q_learning.py) is a simple maze solving algorithm. `MazeGreedyQLearning` in  [demo/demo_maze_greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/demo_maze_greedy_q_learning.py) is a `Concrete Class` in `Template Method Pattern` to run the Q-Learning algorithm for this task. `GreedyQLearning` in [pyqlearning/qlearning/greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/pyqlearning/qlearning/greedy_q_learning.py) is also `Concreat Class` for the epsilon-greedy-method. The `Abstract Class` that defines the skeleton of Q-Learning algorithm in the operation and declares algorithm placeholders is [pyqlearning/q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/pyqlearning/q_learning.py).  So [demo/demo_maze_greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/demo_maze_greedy_q_learning.py) is a kind of `Client` in `Template Method Pattern`. 
-
-This algorithm allow the *agent* to search the goal in maze by *reward value* in each point in map. 
-
-The following is an example of map.
-
-```
-[['#' '#' '#' '#' '#' '#' '#' '#' '#' '#']
- ['#' 'S'  4   8   8   4   9   6   0  '#']
- ['#'  2  26   2   5   9   0   6   6  '#']
- ['#'  2  '@' 38   5   8   8   1   2  '#']
- ['#'  3   6   0  49   8   3   4   9  '#']
- ['#'  9   7   4   6  55   7   0   3  '#']
- ['#'  1   8   4   8   2  69   8   2  '#']
- ['#'  1   0   2   1   7   0  76   2  '#']
- ['#'  2   8   0   1   4   7   5  'G' '#']
- ['#' '#' '#' '#' '#' '#' '#' '#' '#' '#']]
-```
-
-- `#` is wall in maze.
-- `S` is a start point.
-- `G` is a goal.
-- `@` is the agent.
-
-In relation to reinforcement learning theory, the *state* of *agent* is 2D position coordinates and the *action* is to dicide the direction of movement. Within the wall, the *agent* is movable in a cross direction and can advance by one point at a time. After moving into a new position, the *agent* can obtain a *reward*. On greedy searching, this extrinsically motivated agent performs in order to obtain some *reward* as high as possible. Each *reward value* is plot in map.
-
-To see how *agent* can search and rearch the goal, run the batch program: [demo/demo_maze_greedy_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/demo_maze_greedy_q_learning.py)
-
-```bash
-python demo_maze_greedy_q_learning.py
-```
-
-### Batch program for Q-Learning, loosely coupled with Deep Boltzmann Machine.
-
-[demo/demo_maze_deep_boltzmann_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/demo_maze_deep_boltzmann_q_learning.py) is a demonstration of how the *Q-Learning* can be to *deepen*. A so-called *Deep Q-Network* (DQN) is meant only as an example. In this demonstration, let me cite the *Q-Learning* , loosely coupled with **Deep Boltzmann Machine** (DBM). As API Documentation of [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library has pointed out, DBM is functionally equivalent to stacked auto-encoder. The main function I observe is the same as dimensions reduction(or pre-training). Then the function this DBM is dimensionality reduction of *reward value* matrix.
-
-Q-Learning, loosely coupled with Deep Boltzmann Machine (DBM), is a more effective way to solve maze. The pre-training by DBM allow Q-Learning *agent* to abstract feature of `reward value` matrix and to observe the map in a bird's-eye view. Then *agent* can reache the goal with a smaller number of trials.
-
-To realize the power of DBM, I performed a simple experiment.
-
-### Feature engineering
-
-For instance, a feature in each coordinate can be transformed and extracted by reward value as so-called *observed data points* in its adjoining points. More formally, see [demo/search_maze_by_q_learning.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_q_learning.ipynb).
-
-Then the feature representation can be as calculated. After this pre-training, the DBM has extracted *feature points* below.
-
-```
-[['#' '#' '#' '#' '#' '#' '#' '#' '#' '#']
- ['#' 'S' 0.22186305563593528 0.22170599483791015 0.2216928599218454
-  0.22164807496640074 0.22170371283788584 0.22164021608623224
-  0.2218165339471332 '#']
- ['#' 0.22174745260072407 0.221880094307873 0.22174244728061343
-  0.2214709292493749 0.22174626768015263 0.2216756589222596
-  0.22181057818975275 0.22174525714311788 '#']
- ['#' 0.22177496678085065 0.2219122743656551 0.22187543599733664
-  0.22170745588799798 0.2215226084843615 0.22153827385193636
-  0.22168466277729898 0.22179391402965035 '#']
- ['#' 0.2215341770250964 0.22174315536140118 0.22143149966676515
-  0.22181685688674144 0.22178215385805333 0.2212249704384472
-  0.22149210148879617 0.22185413678274837 '#']
- ['#' 0.22162363223483128 0.22171313373253035 0.2217109987501002
-  0.22152432841656014 0.22175562457887335 0.22176040052504634
-  0.22137688854285298 0.22175365642579478 '#']
- ['#' 0.22149515807715153 0.22169199881701832 0.22169558478042856
-  0.2216904005450013 0.22145368271014734 0.2217144069625017
-  0.2214896100292738 0.221398594191006 '#']
- ['#' 0.22139837944992058 0.22130176116356184 0.2215414328019404
-  0.22146667964656613 0.22164354506366127 0.22148685616333666
-  0.22162822887193126 0.22140174437162474 '#']
- ['#' 0.22140060918518528 0.22155145714201702 0.22162929776464463
-  0.22147466752374162 0.22150300682310872 0.22162775291471243
-  0.2214233075299188 'G' '#']
- ['#' '#' '#' '#' '#' '#' '#' '#' '#' '#']]
-```
-
-To see how *agent* can search and rearch the goal, install [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library and run the batch program: [demo/demo_maze_deep_boltzmann_q_learning.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/demo_maze_deep_boltzmann_q_learning.py)
-
-```bash
-python demo_maze_deep_boltzmann_q_learning.py
-```
-
-### Case 1: for more greedy searches
-
-#### Map setting.
-- map size: `20` * `20`.
-- Start Point: (1, 1)
-- End Point: (18, 18)
-
-#### Reward value
-
-```python
-import numpy as np
-
-map_d = 20
-map_arr = np.random.rand(map_d, map_d)
-map_arr += np.diag(list(range(map_d)))
-```
-
-#### Hyperparameters
-
-- Alpha: `0.9`
-- Gamma: `0.9`
-- Greedy rate(epsilon): `0.75`
-    * More Greedy.
-
-#### Searching plan
-
-- number of trials: `1000`
-- Maximum Number of searches: `10000`
-
-#### Metrics (Number of searches)
-
-Tests show that the number of searches on the *Q-Learning* with pre-training is smaller than not with pre-training.
-
-<table>
-<thead>
-<tr>
-<th align="left">Number of searches</th>
-<th align="left">not pre-training</th>
-<th align="left">pre-training</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Max</td>
-<td align="left">8155</td>
-<td align="left">4373</td>
-</tr>
-<tr>
-<td align="left">mean</td>
-<td align="left">3753.80</td>
-<td align="left">1826.0</td>
-</tr>
-<tr>
-<td align="left">median</td>
-<td align="left">3142.0</td>
-<td align="left">1192.0</td>
-</tr>
-<tr>
-<td align="left">min</td>
-<td align="left">1791</td>
-<td align="left">229</td>
-</tr>
-<tr>
-<td align="left">var</td>
-<td align="left">3262099.36</td>
-<td align="left">2342445.78</td>
-</tr>
-<tr>
-<td align="left">std</td>
-<td align="left">1806.13</td>
-<td align="left">1530.56</td>
-</tr></tbody></table>
-
-### Case 2: for less greedy searches
-
-#### Map setting
-- map size: `20` * `20`.
-- Start Point: (1, 1)
-- End Point: (18, 18)
-
-#### Reward value
-
-```python
-import numpy as np
-
-map_d = 20
-map_arr = np.random.rand(map_d, map_d)
-map_arr += np.diag(list(range(map_d)))
-```
-
-#### Hyperparameters
-
-- Alpha: `0.9`
-- Gamma: `0.9`
-- Greedy rate(epsilon): `0.25`
-    * Less Greedy.
-
-#### Searching plan
-
-- number of trials: `1000`
-- Maximum Number of searches: `10000`
-
-#### Metrics (Number of searches)
-
-<table>
-<thead>
-<tr>
-<th align="left">Number of searches</th>
-<th align="left">not pre-training</th>
-<th align="left">pre-training</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">Max</td>
-<td align="left">10000</td>
-<td align="left">10000</td>
-</tr>
-<tr>
-<td align="left">mean</td>
-<td align="left">7136.0</td>
-<td align="left">3296.89</td>
-</tr>
-<tr>
-<td align="left">median</td>
-<td align="left">9305.0</td>
-<td align="left">1765.0</td>
-</tr>
-<tr>
-<td align="left">min</td>
-<td align="left">2401</td>
-<td align="left">195</td>
-</tr>
-<tr>
-<td align="left">var</td>
-<td align="left">9734021.11</td>
-<td align="left">10270136.10</td>
-</tr>
-<tr>
-<td align="left">std</td>
-<td align="left">3119.94</td>
-<td align="left">3204.71</td>
-</tr></tbody></table>
-
-Under the assumption that the less number of searches the better, *Q-Learning*, loosely coupled with *Deep Boltzmann Machine*, is a more effective way to solve maze in not greedy mode as well as greedy mode.
-
 ## References
 
 ### Q-Learning models.
@@ -722,6 +485,7 @@ Under the assumption that the less number of searches the better, *Q-Learning*, 
 - <a href="https://pdfs.semanticscholar.org/dd98/9d94613f439c05725bad958929357e365084.pdf" target="_blank">Egorov, M. (2016). Multi-agent deep reinforcement learning.</a>
 - Gupta, J. K., Egorov, M., & Kochenderfer, M. (2017, May). Cooperative multi-agent control using deep reinforcement learning. In International Conference on Autonomous Agents and Multiagent Systems (pp. 66-83). Springer, Cham.
 - Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. (2013). Playing atari with deep reinforcement learning. arXiv preprint arXiv:1312.5602.
+- Sainath, T. N., Vinyals, O., Senior, A., & Sak, H. (2015, April). Convolutional, long short-term memory, fully connected deep neural networks. In Acoustics, Speech and Signal Processing (ICASSP), 2015 IEEE International Conference on (pp. 4580-4584). IEEE.
 
 ### Annealing models.
 

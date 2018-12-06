@@ -15069,7 +15069,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  *         conv_arr = conv_arr + lstm_input_arr.reshape((sample_n, seq_len, channel, width, height))
  *         conv_arr = conv_arr - conv_arr.mean()             # <<<<<<<<<<<<<<
  *         conv_arr = self.__fully_connected_activation.activate(conv_arr)
- * 
+ *         9
  */
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_conv_arr), __pyx_n_s_mean); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 692, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
@@ -15102,7 +15102,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  *         conv_arr = conv_arr + lstm_input_arr.reshape((sample_n, seq_len, channel, width, height))
  *         conv_arr = conv_arr - conv_arr.mean()
  *         conv_arr = self.__fully_connected_activation.activate(conv_arr)             # <<<<<<<<<<<<<<
- * 
+ *         9
  *         self.__spatio_temporal_features_arr = conv_arr
  */
   __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__full_3); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 693, __pyx_L1_error)
@@ -15159,7 +15159,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
 
   /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":695
  *         conv_arr = self.__fully_connected_activation.activate(conv_arr)
- * 
+ *         9
  *         self.__spatio_temporal_features_arr = conv_arr             # <<<<<<<<<<<<<<
  * 
  *         layerable_cnn_list = self.__layerable_cnn_list[::-1]

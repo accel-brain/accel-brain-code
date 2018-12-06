@@ -691,7 +691,7 @@ class SpatioTemporalAutoEncoder(object):
         conv_arr = conv_arr + lstm_input_arr.reshape((sample_n, seq_len, channel, width, height))
         conv_arr = conv_arr - conv_arr.mean()
         conv_arr = self.__fully_connected_activation.activate(conv_arr)
-        
+        9
         self.__spatio_temporal_features_arr = conv_arr
 
         layerable_cnn_list = self.__layerable_cnn_list[::-1]

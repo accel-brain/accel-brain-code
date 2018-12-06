@@ -155,7 +155,6 @@ class ConvolutionalLSTMFA(FunctionApproximator):
             self.__q_arr_list = self.__q_arr_list[1:]
         while len(self.__q_arr_list) < self.__seq_len:
             self.__q_arr_list.append(self.__q_arr_list[-1])
-
         q_arr = np.array(self.__q_arr_list)
         q_arr = q_arr.transpose((1, 0, 2))
         q_arr = self.__lstm_model.inference(q_arr)

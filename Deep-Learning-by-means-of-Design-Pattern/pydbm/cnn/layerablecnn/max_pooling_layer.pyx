@@ -10,6 +10,11 @@ class MaxPoolingLayer(LayerableCNN):
     '''
     Max Pooling Layer.
     '''
+    
+    __pool_height = 3
+    __pool_width = 3
+    __stride = 1
+    __pad = 1
 
     def __init__(
         self,
@@ -68,8 +73,8 @@ class MaxPoolingLayer(LayerableCNN):
         cdef np.ndarray result_arr = np.max(reshaped_img_arr, axis=1)
         cdef np.ndarray[DOUBLE_t, ndim=4] _result_arr = result_arr.reshape(
             img_sample_n,
-            result_height,
-            result_width,
+            img_height,
+            img_width,
             img_channel
         )
         _result_arr = _result_arr.transpose(0, 3, 1, 2)

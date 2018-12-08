@@ -5,17 +5,11 @@ cimport numpy as np
 
 from pydbm.synapse_list import Synapse
 from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer
-from pydbm.cnn.layerablecnn.max_pooling_layer import MaxPoolingLayer
 
 from pydbm.synapse.cnn_graph import CNNGraph as GivenGraph
 from pydbm.synapse.cnn_graph import CNNGraph as InputGraph
 from pydbm.synapse.cnn_graph import CNNGraph as ForgotGraph
 from pydbm.synapse.cnn_graph import CNNGraph as OutputGraph
-
-from pydbm.synapse.cnn_graph import CNNGraph as GivenPoolingGraph
-from pydbm.synapse.cnn_graph import CNNGraph as InputPoolingGraph
-from pydbm.synapse.cnn_graph import CNNGraph as ForgotPoolingGraph
-from pydbm.synapse.cnn_graph import CNNGraph as OutputPoolingGraph
 
 
 from pydbm.activation.logistic_function import LogisticFunction
@@ -159,28 +153,6 @@ class ConvLSTMModel(ReconstructableModel):
         else:
             self.__given_conv = given_conv
 
-        self.__given_pooling = MaxPoolingLayer(
-            # Computation graph for first convolution layer.
-            GivenGraph(
-                # Identity function as activation function.
-                activation_function=IdentityFunction(),
-                # The number of `filter`.
-                filter_num=1,
-                # The number of channel.
-                channel=filter_num,
-                # The size of kernel.
-                kernel_size=kernel_size,
-                # The filter scale.
-                scale=scale,
-                # The nubmer of stride.
-                stride=stride,
-                # The number of zero-padding.
-                pad=pad
-            ),
-            pool_height=pool_height,
-            pool_width=pool_width
-        )
-
         if input_conv is None:
             self.__input_conv = ConvolutionLayer(
                 # Computation graph for first convolution layer.
@@ -203,28 +175,6 @@ class ConvLSTMModel(ReconstructableModel):
             )
         else:
             self.__input_conv = input_conv
-
-        self.__input_pooling = MaxPoolingLayer(
-            # Computation graph for first convolution layer.
-            GivenGraph(
-                # Identity function as activation function.
-                activation_function=IdentityFunction(),
-                # The number of `filter`.
-                filter_num=1,
-                # The number of channel.
-                channel=filter_num,
-                # The size of kernel.
-                kernel_size=kernel_size,
-                # The filter scale.
-                scale=scale,
-                # The nubmer of stride.
-                stride=stride,
-                # The number of zero-padding.
-                pad=pad
-            ),
-            pool_height=pool_height,
-            pool_width=pool_width
-        )
 
         if forgot_conv is None:
             self.__forgot_conv = ConvolutionLayer(
@@ -249,28 +199,6 @@ class ConvLSTMModel(ReconstructableModel):
         else:
             self.__forgot_conv = forgot_conv
 
-        self.__forgot_pooling = MaxPoolingLayer(
-            # Computation graph for first convolution layer.
-            GivenGraph(
-                # Identity function as activation function.
-                activation_function=IdentityFunction(),
-                # The number of `filter`.
-                filter_num=1,
-                # The number of channel.
-                channel=filter_num,
-                # The size of kernel.
-                kernel_size=kernel_size,
-                # The filter scale.
-                scale=scale,
-                # The nubmer of stride.
-                stride=stride,
-                # The number of zero-padding.
-                pad=pad
-            ),
-            pool_height=pool_height,
-            pool_width=pool_width
-        )
-
         if output_conv is None:
             self.__output_conv = ConvolutionLayer(
                 # Computation graph for first convolution layer.
@@ -293,28 +221,6 @@ class ConvLSTMModel(ReconstructableModel):
             )
         else:
             self.__output_conv = output_conv
-
-        self.__output_pooling = MaxPoolingLayer(
-            # Computation graph for first convolution layer.
-            GivenGraph(
-                # Identity function as activation function.
-                activation_function=IdentityFunction(),
-                # The number of `filter`.
-                filter_num=1,
-                # The number of channel.
-                channel=filter_num,
-                # The size of kernel.
-                kernel_size=kernel_size,
-                # The filter scale.
-                scale=scale,
-                # The nubmer of stride.
-                stride=stride,
-                # The number of zero-padding.
-                pad=pad
-            ),
-            pool_height=pool_height,
-            pool_width=pool_width
-        )
 
         if isinstance(computable_loss, ComputableLoss):
             self.__computable_loss = computable_loss
@@ -427,10 +333,20 @@ class ConvLSTMModel(ReconstructableModel):
                 try:
                     pred_arr = self.forward_propagation(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
-                    loss = self.__computable_loss.compute_loss(
-                        pred_arr,
-                        batch_target_arr[:, -1, :]
-                    )
+                    if pred_arr.ndim == batch_target_arr[:, -1].ndim:
+                        loss = self.__computable_loss.compute_loss(
+                            pred_arr,
+                            batch_target_arr[:, -1]
+                        )
+                    else:
+                        loss = self.__computable_loss.compute_loss(
+                            pred_arr,
+                            batch_target_arr[:, -1].reshape((
+                                batch_target_arr[:, -1].shape[0],
+                                -1
+                            ))
+                        )
+                        
                     remember_flag = False
                     if len(loss_list) > 0:
                         if abs(loss - (sum(loss_list)/len(loss_list))) > self.__tld:
@@ -441,15 +357,34 @@ class ConvLSTMModel(ReconstructableModel):
                         # Re-try.
                         pred_arr = self.forward_propagation(batch_observed_arr)
                         ver_pred_arr = pred_arr.copy()
-                        loss = self.__computable_loss.compute_loss(
+                        if pred_arr.ndim == batch_target_arr[:, -1].ndim:
+                            loss = self.__computable_loss.compute_loss(
+                                pred_arr,
+                                batch_target_arr[:, -1]
+                            )
+                        else:
+                            loss = self.__computable_loss.compute_loss(
+                                pred_arr,
+                                batch_target_arr[:, -1].reshape((
+                                    batch_target_arr[:, -1].shape[0],
+                                    -1
+                                ))
+                            )
+
+                    if pred_arr.ndim == batch_target_arr[:, -1].ndim:
+                        delta_arr = self.__computable_loss.compute_delta(
                             pred_arr,
-                            batch_target_arr[:, -1, :]
+                            batch_target_arr[:, -1]
+                        )
+                    else:
+                        delta_arr = self.__computable_loss.compute_delta(
+                            pred_arr,
+                            batch_target_arr[:, -1].reshape((
+                                test_batch_target_arr[:, -1].shape[0],
+                                -1
+                            ))
                         )
 
-                    delta_arr = self.__computable_loss.compute_delta(
-                        pred_arr,
-                        batch_target_arr[:, -1, :]
-                    )
                     delta_arr, grads_list = self.output_back_propagate(pred_arr, delta_arr)
                     _delta_arr = self.hidden_back_propagate(delta_arr)
                     self.optimize(grads_list, learning_rate, epoch)
@@ -490,10 +425,19 @@ class ConvLSTMModel(ReconstructableModel):
 
                     test_pred_arr = self.forward_propagation(test_batch_observed_arr)
 
-                    test_loss = self.__computable_loss.compute_loss(
-                        test_pred_arr,
-                        test_batch_target_arr[:, -1, :]
-                    )
+                    if test_pred_arr.ndim == test_batch_target_arr[:, -1].ndim:
+                        test_loss = self.__computable_loss.compute_loss(
+                            test_pred_arr,
+                            test_batch_target_arr[:, -1]
+                        )
+                    else:
+                        test_loss = self.__computable_loss.compute_loss(
+                            test_pred_arr,
+                            test_batch_target_arr[:, -1].reshape((
+                                test_batch_target_arr[:, -1].shape[0],
+                                -1
+                            ))
+                        )
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -507,12 +451,28 @@ class ConvLSTMModel(ReconstructableModel):
 
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
+                            if ver_pred_arr.ndim == batch_target_arr[:, -1]:
+                                train_label_arr = batch_target_arr[:, -1].reshape((
+                                    batch_target_arr[:, -1].shape[0],
+                                    -1
+                                ))
+                            else:
+                                train_label_arr = batch_target_arr[:, -1]
+
+                            if test_pred_arr.ndim == test_batch_target_arr[:, -1].ndim:
+                                test_label_arr = test_batch_target_arr[:, -1].reshape((
+                                    test_batch_target_arr[:, -1].shape[0],
+                                    -1
+                                ))
+                            else:
+                                test_label_arr = test_batch_target_arr[:, -1]
+
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
                                 train_pred_arr=ver_pred_arr, 
-                                train_label_arr=batch_target_arr[:, -1, :],
+                                train_label_arr=train_label_arr,
                                 test_pred_arr=test_pred_arr,
-                                test_label_arr=test_batch_target_arr[:, -1, :]
+                                test_label_arr=test_label_arr
                             )
 
                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
@@ -579,10 +539,20 @@ class ConvLSTMModel(ReconstructableModel):
                 try:
                     pred_arr = self.forward_propagation(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
-                    loss = self.__computable_loss.compute_loss(
-                        pred_arr,
-                        batch_target_arr[:, -1, :]
-                    )
+                    if pred_arr.ndim == batch_target_arr[:, -1].ndim:
+                        loss = self.__computable_loss.compute_loss(
+                            pred_arr,
+                            batch_target_arr[:, -1]
+                        )
+                    else:
+                        loss = self.__computable_loss.compute_loss(
+                            pred_arr,
+                            batch_target_arr[:, -1].reshape((
+                                batch_target_arr[:, -1].shape[0],
+                                -1
+                            ))
+                        )
+
                     remember_flag = False
                     if len(loss_list) > 0:
                         if abs(loss - (sum(loss_list)/len(loss_list))) > self.__tld:
@@ -593,17 +563,38 @@ class ConvLSTMModel(ReconstructableModel):
                         # Re-try.
                         pred_arr = self.forward_propagation(batch_observed_arr)
                         ver_pred_arr = pred_arr.copy()
-                        loss = self.__computable_loss.compute_loss(
-                            pred_arr,
-                            batch_target_arr[:, -1, :]
-                        )
 
-                    delta_arr = self.__computable_loss.compute_delta(
-                        pred_arr,
-                        batch_target_arr[:, -1, :]
-                    )
+                        if pred_arr.ndim == batch_target_arr[:, -1].ndim:
+                            loss = self.__computable_loss.compute_loss(
+                                pred_arr,
+                                batch_target_arr[:, -1]
+                            )
+                        else:
+                            loss = self.__computable_loss.compute_loss(
+                                pred_arr,
+                                batch_target_arr[:, -1].reshape((
+                                    batch_target_arr[:, -1].shape[0],
+                                    -1
+                                ))
+                            )
+
+                    if pred_arr.ndim == batch_target_arr[:, -1].ndim:
+                        delta_arr = self.__computable_loss.compute_delta(
+                            pred_arr,
+                            batch_target_arr[:, -1]
+                        )
+                    else:
+                        delta_arr = self.__computable_loss.compute_delta(
+                            pred_arr,
+                            batch_target_arr[:, -1].reshape((
+                                batch_target_arr[:, -1].shape[0],
+                                -1
+                            ))
+                        )
+                        
                     delta_arr, grads_list = self.output_back_propagate(pred_arr, delta_arr)
                     _delta_arr = self.hidden_back_propagate(delta_arr)
+
                     self.optimize(grads_list, learning_rate, epoch)
                     self.graph.hidden_activity_arr = np.array([])
                     self.graph.rnn_activity_arr = np.array([])
@@ -637,10 +628,20 @@ class ConvLSTMModel(ReconstructableModel):
                 if self.__test_size_rate > 0:
                     self.__opt_params.dropout_rate = 0.0
                     test_pred_arr = self.forward_propagation(test_batch_observed_arr)
-                    test_loss = self.__computable_loss.compute_loss(
-                        test_pred_arr,
-                        test_batch_target_arr[:, -1, :]
-                    )
+
+                    if test_pred_arr.ndim == test_batch_target_arr[:, -1].ndim:
+                        test_loss = self.__computable_loss.compute_loss(
+                            test_pred_arr,
+                            test_batch_target_arr[:, -1]
+                        )
+                    else:
+                        test_loss = self.__computable_loss.compute_loss(
+                            test_pred_arr,
+                            test_batch_target_arr[:, -1].reshape((
+                                test_batch_target_arr[:, -1].shape[0],
+                                -1
+                            ))
+                        )
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -654,12 +655,28 @@ class ConvLSTMModel(ReconstructableModel):
 
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
+                            if ver_pred_arr.ndim == batch_target_arr[:, -1].ndim:
+                                train_label_arr = batch_target_arr[:, -1]
+                            else:
+                                train_label_arr = batch_target_arr[:, -1].reshape((
+                                    batch_target_arr[:, -1].shape[0],
+                                    -1
+                                ))
+
+                            if test_pred_arr.ndim == test_batch_target_arr[:, -1].ndim:
+                                test_label_arr = test_batch_target_arr[:, -1]
+                            else:
+                                test_label_arr = test_batch_target_arr[:, -1].reshape((
+                                    test_batch_target_arr[:, -1].shape[0],
+                                    -1
+                                ))
+
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
                                 train_pred_arr=ver_pred_arr, 
-                                train_label_arr=batch_target_arr[:, -1, :],
+                                train_label_arr=train_label_arr,
                                 test_pred_arr=test_pred_arr,
-                                test_label_arr=test_batch_target_arr[:, -1, :]
+                                test_label_arr=test_label_arr
                             )
 
                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
@@ -708,7 +725,7 @@ class ConvLSTMModel(ReconstructableModel):
         Returns:
             Array like or sparse matrix as the predicted data points.
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=5] hidden_activity_arr = self.hidden_forward_propagate(
+        cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr = self.hidden_forward_propagate(
             batch_observed_arr
         )
         self.graph.hidden_activity_arr = hidden_activity_arr
@@ -742,15 +759,7 @@ class ConvLSTMModel(ReconstructableModel):
             self.__given_conv.graph.bias_arr,
             self.__input_conv.graph.bias_arr,
             self.__forgot_conv.graph.bias_arr,
-            self.__output_conv.graph.bias_arr,
-            self.__given_pooling.graph.weight_arr,
-            self.__input_pooling.graph.weight_arr,
-            self.__forgot_pooling.graph.weight_arr,
-            self.__output_pooling.graph.weight_arr,
-            self.__given_pooling.graph.bias_arr,
-            self.__input_pooling.graph.bias_arr,
-            self.__forgot_pooling.graph.bias_arr,
-            self.__output_pooling.graph.bias_arr
+            self.__output_conv.graph.bias_arr
         ]
         grads_list.extend([
             self.__given_conv.delta_weight_arr,
@@ -760,15 +769,7 @@ class ConvLSTMModel(ReconstructableModel):
             self.__given_conv.delta_bias_arr,
             self.__input_conv.delta_bias_arr,
             self.__forgot_conv.delta_bias_arr,
-            self.__output_conv.delta_bias_arr,
-            self.__given_pooling.delta_weight_arr,
-            self.__input_pooling.delta_weight_arr,
-            self.__forgot_pooling.delta_weight_arr,
-            self.__output_pooling.delta_weight_arr,
-            self.__given_pooling.delta_bias_arr,
-            self.__input_pooling.delta_bias_arr,
-            self.__forgot_pooling.delta_bias_arr,
-            self.__output_pooling.delta_bias_arr
+            self.__output_conv.delta_bias_arr
         ])
 
         params_list = self.__opt_params.optimize(
@@ -790,16 +791,6 @@ class ConvLSTMModel(ReconstructableModel):
         self.__forgot_conv.graph.bias_arr = params_list[8]
         self.__output_conv.graph.bias_arr = params_list[9]
 
-        self.__given_pooling.graph.weight_arr = params_list[10]
-        self.__input_pooling.graph.weight_arr = params_list[11]
-        self.__forgot_pooling.graph.weight_arr = params_list[12]
-        self.__output_pooling.graph.weight_arr = params_list[13]
-
-        self.__given_pooling.graph.bias_arr = params_list[14]
-        self.__input_pooling.graph.bias_arr = params_list[15]
-        self.__forgot_pooling.graph.bias_arr = params_list[16]
-        self.__output_pooling.graph.bias_arr = params_list[17]
-
         if ((epoch + 1) % self.__attenuate_epoch == 0):
             self.graph.weights_output_arr = self.__opt_params.constrain_weight(
                 self.graph.weights_output_arr
@@ -817,28 +808,10 @@ class ConvLSTMModel(ReconstructableModel):
                 self.__output_conv.graph.weight_arr
             )
 
-            self.__given_pooling.graph.weight_arr = self.__opt_params.constrain_weight(
-                self.__given_pooling.graph.weight_arr
-            )
-            self.__input_pooling.graph.weight_arr = self.__opt_params.constrain_weight(
-                self.__input_pooling.graph.weight_arr
-            )
-            self.__forgot_pooling.graph.weight_arr = self.__opt_params.constrain_weight(
-                self.__forgot_pooling.graph.weight_arr
-            )
-            self.__output_pooling.graph.weight_arr = self.__opt_params.constrain_weight(
-                self.__output_pooling.graph.weight_arr
-            )
-
         self.__given_conv.reset_delta()
         self.__input_conv.reset_delta()
         self.__forgot_conv.reset_delta()
         self.__output_conv.reset_delta()
-
-        self.__given_pooling.reset_delta()
-        self.__input_pooling.reset_delta()
-        self.__forgot_pooling.reset_delta()
-        self.__output_pooling.reset_delta()
 
     def inference(
         self,
@@ -870,28 +843,12 @@ class ConvLSTMModel(ReconstructableModel):
         cdef int height = observed_arr.shape[4]
 
         if hidden_activity_arr is None:
-            self.graph.hidden_activity_arr = np.zeros(
-                (
-                    sample_n,
-                    channel,
-                    width,
-                    height
-                ),
-                dtype=np.float64
-            )
+            self.graph.hidden_activity_arr = np.array([])
         else:
             self.graph.hidden_activity_arr = hidden_activity_arr
 
         if rnn_activity_arr is None:
-            self.graph.rnn_activity_arr = np.zeros(
-                (
-                    sample_n,
-                    channel,
-                    width,
-                    height
-                ),
-                dtype=np.float64
-            )
+            self.graph.rnn_activity_arr = np.array([])
         else:
             self.graph.rnn_activity_arr = rnn_activity_arr
 
@@ -927,17 +884,7 @@ class ConvLSTMModel(ReconstructableModel):
         cdef int width = observed_arr.shape[3]
         cdef int height = observed_arr.shape[4]
 
-        cdef np.ndarray[DOUBLE_t, ndim=5] pred_arr = np.zeros(
-            (
-                sample_n,
-                cycle_len,
-                channel,
-                width,
-                height
-            ),
-            dtype=np.float64
-        )
-
+        cdef np.ndarray[DOUBLE_t, ndim=3] pred_arr = None
         cdef int cycle
         for cycle in range(cycle_len):
             self.graph.hidden_activity_arr, self.graph.rnn_activity_arr = self.__lstm_forward(
@@ -945,11 +892,22 @@ class ConvLSTMModel(ReconstructableModel):
                 self.graph.hidden_activity_arr,
                 self.graph.rnn_activity_arr
             )
-            pred_arr[:, cycle, :, :, :] = self.graph.hidden_activity_arr
+            
+            if pred_arr is None:
+                pred_arr = np.zeros(
+                    (
+                        sample_n,
+                        cycle_len,
+                        self.graph.hidden_activity_arr.shape[-1]
+                    ),
+                    dtype=np.float64
+                )
+
+            pred_arr[:, cycle, :] = self.graph.hidden_activity_arr
 
         return pred_arr
 
-    def output_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=5] pred_arr):
+    def output_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=3] pred_arr):
         '''
         Forward propagation in output layer.
         
@@ -1005,11 +963,11 @@ class ConvLSTMModel(ReconstructableModel):
         '''
         cdef int sample_n = delta_output_arr.shape[0]
         cdef int cycle_len = len(self.__memory_tuple_list)
-        cdef int channel = self.__memory_tuple_list[-1][0].shape[2]
-        cdef int width = self.__memory_tuple_list[-1][0].shape[3]
-        cdef int height = self.__memory_tuple_list[-1][0].shape[4]
+        cdef int channel = self.__memory_tuple_list[-1][0].shape[1]
+        cdef int width = self.__memory_tuple_list[-1][0].shape[2]
+        cdef int height = self.__memory_tuple_list[-1][0].shape[3]
 
-        cdef np.ndarray[DOUBLE_t, ndim=4] delta_arr = np.empty(
+        cdef np.ndarray[DOUBLE_t, ndim=5] delta_arr = np.empty(
             (
                 sample_n,
                 cycle_len,
@@ -1020,8 +978,7 @@ class ConvLSTMModel(ReconstructableModel):
             dtype=np.float64
         )
 
-        cdef np.ndarray[DOUBLE_t, ndim=4] _delta_hidden_arr
-        cdef np.ndarray[DOUBLE_t, ndim=4] delta_observed_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_hidden_arr
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_hidden_arr
         cdef np.ndarray delta_rnn_arr = np.array([])
 
@@ -1031,14 +988,17 @@ class ConvLSTMModel(ReconstructableModel):
             if bp_count == 0:
                 _delta_hidden_arr = delta_output_arr
             else:
-                _delta_hidden_arr = delta_hidden_arr
+                _delta_hidden_arr = np.dot(
+                    delta_hidden_arr.reshape((delta_hidden_arr.shape[0], -1)),
+                    self.graph.weights_output_arr.T
+                )
 
             delta_hidden_arr, delta_rnn_arr = self.lstm_backward(
                 _delta_hidden_arr,
                 delta_rnn_arr,
                 cycle
             )
-            delta_arr[:, cycle, :, :] = delta_hidden_arr
+            delta_arr[:, cycle] = delta_hidden_arr
 
             if bp_count >= self.__bptt_tau:
                 break
@@ -1070,25 +1030,16 @@ class ConvLSTMModel(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=4] given_activity_arr = self.__given_conv.forward_propagate(
             observed_arr
         )
-        given_activity_arr = self.__given_pooling.forward_propagate(given_activity_arr)
 
         cdef np.ndarray[DOUBLE_t, ndim=4] input_gate_activity_arr = self.__input_conv.forward_propagate(
             observed_arr
         )
-        input_gate_activity_arr = self.__input_pooling.forward_propagate(input_gate_activity_arr)
 
         cdef np.ndarray[DOUBLE_t, ndim=4] forget_gate_activity_arr = self.__forgot_conv.forward_propagate(
             observed_arr
         )
-        forget_gate_activity_arr = self.__forgot_pooling.forward_propagate(
-            forget_gate_activity_arr
-        )
 
         cdef np.ndarray[DOUBLE_t, ndim=4] output_gate_activity_arr = self.__output_conv.forward_propagate(observed_arr)
-        
-        output_gate_activity_arr = self.__output_pooling.forward_propagate(
-            output_gate_activity_arr
-        )
 
         if rnn_activity_arr is None or rnn_activity_arr.shape[0] == 0:
             rnn_activity_arr = np.zeros_like(forget_gate_activity_arr)
@@ -1121,17 +1072,11 @@ class ConvLSTMModel(ReconstructableModel):
             axis=0
         )[0]
 
-        cdef int n = _hidden_activity_arr.shape[0]
-        cdef int c = _hidden_activity_arr.shape[1]
-        cdef int w = _hidden_activity_arr.shape[2]
-        cdef int h = _hidden_activity_arr.shape[3]
-
-        _hidden_activity_arr = self.__opt_params.dropout(
-            _hidden_activity_arr.reshape(
-                _hidden_activity_arr.shape[0],
-                -1
-            )
-        ).reshape((n, c, w, h))
+        cdef np.ndarray[DOUBLE_t, ndim=2] _hidden_activity_arr_ = _hidden_activity_arr.reshape(
+            _hidden_activity_arr.shape[0],
+            -1
+        )
+        _hidden_activity_arr_ = self.__opt_params.dropout(_hidden_activity_arr_)
 
         self.__memory_tuple_list.append((
             observed_arr, 
@@ -1142,17 +1087,14 @@ class ConvLSTMModel(ReconstructableModel):
             forget_gate_activity_arr, 
             output_gate_activity_arr, 
             _rnn_activity_arr,
-            _hidden_activity_arr
+            _hidden_activity_arr_
         ))
 
-        return (
-            np.expand_dims(np.max(_hidden_activity_arr, axis=1), axis=1), 
-            _rnn_activity_arr
-        )
+        return (_hidden_activity_arr_, _rnn_activity_arr)
 
     def lstm_backward(
         self,
-        np.ndarray[DOUBLE_t, ndim=4] delta_hidden_arr,
+        np.ndarray[DOUBLE_t, ndim=2] delta_hidden_arr,
         np.ndarray delta_rnn_arr,
         int cycle
     ):
@@ -1173,7 +1115,6 @@ class ConvLSTMModel(ReconstructableModel):
             )
         '''
         cdef np.ndarray[DOUBLE_t, ndim=4] observed_arr = self.__memory_tuple_list[cycle][0]
-        cdef np.ndarray[DOUBLE_t, ndim=4] pre_hidden_activity_arr = self.__memory_tuple_list[cycle][1]
         cdef np.ndarray[DOUBLE_t, ndim=4] pre_rnn_activity_arr = self.__memory_tuple_list[cycle][2]
         cdef np.ndarray[DOUBLE_t, ndim=4] given_activity_arr = self.__memory_tuple_list[cycle][3]
         cdef np.ndarray[DOUBLE_t, ndim=4] input_gate_activity_arr = self.__memory_tuple_list[cycle][4]
@@ -1181,17 +1122,38 @@ class ConvLSTMModel(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=4] output_gate_activity_arr = self.__memory_tuple_list[cycle][6]
         cdef np.ndarray[DOUBLE_t, ndim=4] rnn_activity_arr = self.__memory_tuple_list[cycle][7]
 
-        cdef np.ndarray[DOUBLE_t, ndim=4] _rnn_activity_arr = self.graph.hidden_activating_function.activate(rnn_activity_arr)
+        cdef np.ndarray[DOUBLE_t, ndim=4] _rnn_activity_arr = self.graph.hidden_activating_function.activate(
+            rnn_activity_arr
+        )
 
         if delta_rnn_arr.shape[0] == 0:
             delta_rnn_arr = np.zeros((delta_hidden_arr.shape[0], delta_hidden_arr.shape[1]))
 
+        cdef int out_sample_n = output_gate_activity_arr.shape[0]
+        cdef int out_channel = output_gate_activity_arr.shape[1]
+        cdef int out_height = output_gate_activity_arr.shape[2]
+        cdef int out_width = output_gate_activity_arr.shape[3]
+
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_top_arr = np.nanprod(
             np.array([
-                delta_rnn_arr,
+                delta_rnn_arr.reshape(
+                    (
+                        out_sample_n,
+                        out_channel,
+                        out_height,
+                        out_width
+                    )
+                ),
                 np.nansum(
                     np.array([
-                        delta_hidden_arr,
+                        delta_hidden_arr.reshape(
+                            (
+                                out_sample_n,
+                                out_channel,
+                                out_height,
+                                out_width
+                            )
+                        ),
                         output_gate_activity_arr,
                         self.graph.hidden_activating_function.derivative(rnn_activity_arr)
                     ]),
@@ -1206,7 +1168,14 @@ class ConvLSTMModel(ReconstructableModel):
         )
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_output_gate_arr = np.nanprod(
             np.array([
-                delta_hidden_arr,
+                delta_hidden_arr.reshape(
+                    (
+                        out_sample_n,
+                        out_channel,
+                        out_height,
+                        out_width
+                    )
+                ),
                 rnn_activity_arr,
                 self.graph.output_gate_activating_function.derivative(output_gate_activity_arr)]
             ),
@@ -1237,16 +1206,12 @@ class ConvLSTMModel(ReconstructableModel):
             axis=0
         )
         
-        delta_output_gate_arr = self.__output_pooling.back_propagate(delta_output_gate_arr)
         delta_output_gate_arr = self.__output_conv.back_propagate(delta_output_gate_arr)
 
-        delta_forget_gate_arr = self.__forgot_pooling.back_propagate(delta_forget_gate_arr)
         delta_forget_gate_arr = self.__forgot_conv.back_propagate(delta_forget_gate_arr)
 
-        delta_input_gate_arr = self.__input_pooling.back_propagate(delta_input_gate_arr)
         delta_input_gate_arr = self.__input_conv.back_propagate(delta_input_gate_arr)
 
-        delta_given_arr = self.__given_pooling.back_propagate(delta_given_arr)
         delta_given_arr = self.__given_conv.back_propagate(delta_given_arr)
 
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_pre_hidden_arr = np.nansum(

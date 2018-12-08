@@ -100,7 +100,7 @@ class MaxPoolingLayer(LayerableCNN):
         
         cdef int pool_shape = self.__pool_height * self.__pool_width
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_pool_arr = np.zeros((_delta_arr.size, pool_shape))
-        cdef np.ndarray[DOUBLE_t, ndim=1] flatten_arr = self.__max_index_arr.flatten()
+        cdef np.ndarray flatten_arr = self.__max_index_arr.flatten()
         delta_pool_arr[np.arange(self.__max_index_arr.size), flatten_arr] = _delta_arr.flatten()
         cdef int delta_row = _delta_arr.shape[0]
         cdef int delta_col = _delta_arr.shape[1]

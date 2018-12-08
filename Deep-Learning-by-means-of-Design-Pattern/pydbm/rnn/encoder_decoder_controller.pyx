@@ -3,6 +3,7 @@ from logging import getLogger
 import numpy as np
 cimport numpy as np
 from pydbm.rnn.interface.reconstructable_model import ReconstructableModel
+from pydbm.cnn.feature_generator import FeatureGenerator
 from pydbm.loss.interface.computable_loss import ComputableLoss
 from pydbm.verification.interface.verificatable_result import VerificatableResult
 ctypedef np.float64_t DOUBLE_t
@@ -160,14 +161,29 @@ class EncoderDecoderController(object):
                 batch_target_arr = train_target_arr[rand_index]
                 try:
                     encoded_arr = self.__encoder.inference(batch_observed_arr)
+                    if encoded_arr.ndim == batch_observed_arr[:, 0].ndim:
+                        _encoded_arr = encoded_arr
+                    else:
+                        _encoded_arr = encoded_arr.reshape(batch_observed_arr[:, 0].copy().shape)
+                        _encoded_arr = np.expand_dims(_encoded_arr, axis=1)
+
                     decoded_arr = self.__decoder.inference(
+                        _encoded_arr,
                         self.__encoder.get_feature_points()[:, ::-1, :]
                     )
-                    hidden_activity_arr = self.__decoder.get_feature_points()[:, ::-1, :]
-                    ver_hidden_activity_arr = hidden_activity_arr.copy()
+                    if decoded_arr.ndim == 2:
+                        _decoded_arr = decoded_arr
+                    else:
+                        _decoded_arr = decoded_arr.reshape((decoded_arr.shape[0], -1))
+
+                    ver_decoded_arr = _decoded_arr.copy()
+
                     loss = self.__computable_loss.compute_loss(
-                        hidden_activity_arr[:, 0, :],
-                        batch_target_arr[:, 0, :]
+                        decoded_arr[:, 0].reshape((decoded_arr[:, 0].shape[0], -1)),
+                        batch_target_arr.reshape((
+                            batch_target_arr.shape[0],
+                            -1
+                        ))
                     )
                     
                     remember_flag = False
@@ -179,31 +195,51 @@ class EncoderDecoderController(object):
                         self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
                         # Re-try.
                         encoded_arr = self.__encoder.inference(batch_observed_arr)
+                        if encoded_arr.ndim == batch_observed_arr.ndim:
+                            _encoded_arr = encoded_arr
+                        else:
+                            _encoded_arr = encoded_arr.reshape(batch_observed_arr[:, 0].copy().shape)
+                            _encoded_arr = np.expand_dims(_encoded_arr, axis=1)
+
                         decoded_arr = self.__decoder.inference(
+                            _encoded_arr,
                             self.__encoder.get_feature_points()[:, ::-1, :]
                         )
-                        hidden_activity_arr = self.__decoder.get_feature_points()[:, ::-1, :]
-                        ver_hidden_activity_arr = hidden_activity_arr.copy()
+                        if decoded_arr.ndim == 2:
+                            _decoded_arr = decoded_arr
+                        else:
+                            _decoded_arr = decoded_arr.reshape((decoded_arr.shape[0], -1))
+
+                        ver_decoded_arr = _decoded_arr.copy()
+
                         loss = self.__computable_loss.compute_loss(
-                            hidden_activity_arr[:, 0, :],
-                            batch_target_arr[:, 0, :]
+                            decoded_arr[:, 0].reshape((decoded_arr[:, 0].shape[0], -1)),
+                            batch_target_arr.reshape((
+                                batch_target_arr.shape[0],
+                                -1
+                            ))
                         )
 
                     delta_arr = self.__computable_loss.compute_delta(
-                        hidden_activity_arr[:, 0, :],
-                        batch_target_arr[:, 0, :]
+                        decoded_arr[:, 0].reshape((decoded_arr[:, 0].shape[0], -1)),
+                        batch_target_arr[:, 0].reshape((
+                            batch_target_arr.shape[0],
+                            -1
+                        ))
                     )
-
-                    decoder_delta_arr, decoder_lstm_grads_list = self.__decoder.hidden_back_propagate(
+                    decoder_delta_arr, decoder_grads_list = self.__decoder.back_propagation(
+                        decoded_arr.reshape((decoded_arr.shape[0], -1)),
                         delta_arr
                     )
-                    encoder_delta_arr, encoder_lstm_grads_list = self.__encoder.hidden_back_propagate(
-                        decoder_delta_arr[:, 0, :]
+                    encoder_delta_arr, encoder_grads_list = self.__encoder.back_propagation(
+                        encoded_arr,
+                        decoder_delta_arr[:, 0].reshape(
+                            (
+                                decoder_delta_arr[:, 0].shape[0],
+                                -1
+                            )
+                        )
                     )
-                    decoder_grads_list = [None, None]
-                    [decoder_grads_list.append(d) for d in decoder_lstm_grads_list]
-                    encoder_grads_list = [None, None]
-                    [encoder_grads_list.append(d) for d in encoder_lstm_grads_list]
 
                     self.__decoder.optimize(decoder_grads_list, learning_rate, epoch)
                     self.__encoder.optimize(encoder_grads_list, learning_rate, epoch)
@@ -250,14 +286,295 @@ class EncoderDecoderController(object):
                     test_batch_target_arr = test_target_arr[rand_index]
 
                     test_encoded_arr = self.__encoder.inference(test_batch_observed_arr)
+                    if test_encoded_arr.ndim == test_batch_observed_arr.ndim:
+                        _test_encoded_arr = test_encoded_arr
+                    else:
+                        _test_encoded_arr = test_encoded_arr.reshape(test_batch_observed_arr[:, -1].copy().shape)
+                        _test_encoded_arr = np.expand_dims(_test_encoded_arr, axis=1)
+
                     test_decoded_arr = self.__decoder.inference(
-                        self.__encoder.get_feature_points()[:, ::-1, :]
+                        _test_encoded_arr,
+                        self.__encoder.get_feature_points()[:, ::-1]
                     )
-                    test_hidden_activity_arr = self.__decoder.get_feature_points()[:, ::-1, :]
+                    if test_decoded_arr.ndim == 2:
+                        _test_decoded_arr = test_decoded_arr
+                    else:
+                        _test_decoded_arr = test_decoded_arr.reshape((test_decoded_arr.shape[0], -1))
 
                     test_loss = self.__computable_loss.compute_loss(
-                        test_hidden_activity_arr[:, 0, :],
-                        test_batch_target_arr[:, 0, :]
+                        _test_decoded_arr[:, 0].reshape((_test_decoded_arr[:, 0].shape[0], -1)),
+                        test_batch_target_arr.reshape((
+                            test_batch_target_arr.shape[0],
+                            -1
+                        ))
+                    )
+                        
+                    remember_flag = False
+                    if len(loss_list) > 0:
+                        if abs(test_loss - (sum(loss_list)/len(loss_list))) > self.__tld:
+                            remember_flag = True
+
+                    if remember_flag is True:
+                        self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
+                        # Re-try.
+                        test_encoded_arr = self.__encoder.inference(test_batch_observed_arr)
+                        if test_encoded_arr.ndim == test_batch_observed_arr.ndim:
+                            _test_encoded_arr = test_encoded_arr
+                        else:
+                            _test_encoded_arr = test_encoded_arr.reshape(test_batch_observed_arr[:, -1].copy().shape)
+                            _test_encoded_arr = np.expand_dims(_test_encoded_arr, axis=1)
+
+                        test_decoded_arr = self.__decoder.inference(
+                            _test_encoded_arr,
+                            self.__encoder.get_feature_points()[:, ::-1]
+                        )
+                        if test_decoded_arr.ndim == test_batch_observed_arr.ndim:
+                            _test_decoded_arr = test_decoded_arr
+                        else:
+                            _test_decoded_arr = test_decoded_arr.reshape(test_batch_observed_arr.copy().shape)
+
+                    if self.__verificatable_result is not None:
+                        if self.__test_size_rate > 0:
+                            if ver_decoded_arr.ndim == batch_target_arr[:, 0, :].ndim == 2:
+                                train_label_arr = batch_target_arr[:, 0, :]
+                            else:
+                                train_label_arr = batch_target_arr[:, 0, :].reshape((
+                                    batch_target_arr[:, 0, :].shape[0],
+                                    -1
+                                ))
+
+                            if _test_decoded_arr[:, 0].ndim == test_batch_target_arr[:, 0].ndim == 2:
+                                test_label_arr = test_batch_target_arr[:, 0]
+                            else:
+                                test_label_arr = test_batch_target_arr[:, 0].reshape((
+                                    test_batch_target_arr[:, 0].shape[0],
+                                    -1
+                                ))
+                                
+                            self.__verificatable_result.verificate(
+                                self.__computable_loss,
+                                train_pred_arr=ver_decoded_arr, 
+                                train_label_arr=train_label_arr,
+                                test_pred_arr=_test_decoded_arr,
+                                test_label_arr=test_label_arr
+                            )
+                    self.__encoder.graph.hidden_activity_arr = np.array([])
+                    self.__encoder.graph.rnn_activity_arr = np.array([])
+                    self.__decoder.graph.hidden_activity_arr = np.array([])
+                    self.__decoder.graph.rnn_activity_arr = np.array([])
+
+                if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
+                    eary_stop_flag = True
+                    break
+                loss_list.append(loss)
+
+        except KeyboardInterrupt:
+            self.__logger.debug("Interrupt.")
+
+        if eary_stop_flag is True:
+            self.__logger.debug("Early stopping.")
+            eary_stop_flag = False
+        
+        self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
+
+        self.__logger.debug("end. ")
+
+    def learn_generated(self, feature_generator):
+        '''
+        Learn features generated by `FeatureGenerator`.
+        
+        Args:
+            feature_generator:    is-a `FeatureGenerator`.
+
+        '''
+        if isinstance(feature_generator, FeatureGenerator) is False:
+            raise TypeError("The type of `feature_generator` must be `FeatureGenerator`.")
+
+        cdef double learning_rate = self.__learning_rate
+        cdef int epoch
+        cdef int batch_index
+
+        cdef np.ndarray train_index
+        cdef np.ndarray test_index
+        cdef np.ndarray train_observed_arr
+        cdef np.ndarray train_target_arr
+        cdef np.ndarray test_observed_arr
+        cdef np.ndarray test_target_arr
+
+        cdef np.ndarray rand_index
+        cdef np.ndarray batch_observed_arr
+        cdef np.ndarray batch_target_arr
+
+        cdef double loss
+        cdef double test_loss
+        cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr
+        cdef np.ndarray[DOUBLE_t, ndim=3] test_hidden_activity_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] encoded_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] test_encoded_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] decoded_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] test_decoded_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_arr
+        cdef np.ndarray encoder_delta_arr
+        cdef np.ndarray decoder_delta_arr
+
+        encoder_best_params_list = []
+        decoder_best_params_list = []
+        try:
+            self.__memory_tuple_list = []
+            eary_stop_flag = False
+            loss_list = []
+            min_loss = None
+            epoch = 0
+            for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr in feature_generator.generate():
+                epoch += 1
+
+                if ((epoch + 1) % self.__attenuate_epoch == 0):
+                    learning_rate = learning_rate / self.__learning_attenuate_rate
+
+                try:
+                    encoded_arr = self.__encoder.inference(batch_observed_arr)
+                    if encoded_arr.ndim == batch_observed_arr[:, 0].ndim:
+                        _encoded_arr = encoded_arr
+                    else:
+                        _encoded_arr = encoded_arr.reshape(batch_observed_arr[:, 0].copy().shape)
+                        _encoded_arr = np.expand_dims(_encoded_arr, axis=1)
+
+                    decoded_arr = self.__decoder.inference(
+                        _encoded_arr,
+                        self.__encoder.get_feature_points()[:, ::-1, :]
+                    )
+                    if decoded_arr.ndim == 2:
+                        _decoded_arr = decoded_arr
+                    else:
+                        _decoded_arr = decoded_arr.reshape((decoded_arr.shape[0], -1))
+
+                    ver_decoded_arr = _decoded_arr.copy()
+
+                    loss = self.__computable_loss.compute_loss(
+                        decoded_arr[:, 0].reshape((decoded_arr[:, 0].shape[0], -1)),
+                        batch_target_arr.reshape((
+                            batch_target_arr.shape[0],
+                            -1
+                        ))
+                    )
+
+                    remember_flag = False
+                    if len(loss_list) > 0:
+                        if abs(loss - (sum(loss_list)/len(loss_list))) > self.__tld:
+                            remember_flag = True
+
+                    if remember_flag is True:
+                        self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
+                        # Re-try.
+                        encoded_arr = self.__encoder.inference(batch_observed_arr)
+                        if encoded_arr.ndim == batch_observed_arr.ndim:
+                            _encoded_arr = encoded_arr
+                        else:
+                            _encoded_arr = encoded_arr.reshape(batch_observed_arr[:, 0].copy().shape)
+                            _encoded_arr = np.expand_dims(_encoded_arr, axis=1)
+
+                        decoded_arr = self.__decoder.inference(
+                            _encoded_arr,
+                            self.__encoder.get_feature_points()[:, ::-1, :]
+                        )
+                        if decoded_arr.ndim == 2:
+                            _decoded_arr = decoded_arr
+                        else:
+                            _decoded_arr = decoded_arr.reshape((decoded_arr.shape[0], -1))
+
+                        ver_decoded_arr = _decoded_arr.copy()
+
+                        loss = self.__computable_loss.compute_loss(
+                            decoded_arr[:, 0].reshape((decoded_arr[:, 0].shape[0], -1)),
+                            batch_target_arr.reshape((
+                                batch_target_arr.shape[0],
+                                -1
+                            ))
+                        )
+
+                    delta_arr = self.__computable_loss.compute_delta(
+                        decoded_arr[:, 0].reshape((decoded_arr[:, 0].shape[0], -1)),
+                        batch_target_arr[:, 0].reshape((
+                            batch_target_arr.shape[0],
+                            -1
+                        ))
+                    )
+                    decoder_delta_arr, decoder_grads_list = self.__decoder.back_propagation(
+                        decoded_arr.reshape((decoded_arr.shape[0], -1)),
+                        delta_arr
+                    )
+                    encoder_delta_arr, encoder_grads_list = self.__encoder.back_propagation(
+                        encoded_arr,
+                        decoder_delta_arr[:, 0].reshape(
+                            (
+                                decoder_delta_arr[:, 0].shape[0],
+                                -1
+                            )
+                        )
+                    )
+
+                    self.__decoder.optimize(decoder_grads_list, learning_rate, epoch)
+                    self.__encoder.optimize(encoder_grads_list, learning_rate, epoch)
+
+                    if min_loss is None or min_loss > loss:
+                        min_loss = loss
+                        encoder_best_params_list = [
+                            self.__encoder.graph.weights_output_arr,
+                            self.__encoder.graph.output_bias_arr,
+                            self.__encoder.graph.weights_lstm_hidden_arr,
+                            self.__encoder.graph.weights_lstm_observed_arr,
+                            self.__encoder.graph.lstm_bias_arr
+                        ]
+                        decoder_best_params_list = [
+                            self.__decoder.graph.weights_output_arr,
+                            self.__decoder.graph.output_bias_arr,
+                            self.__decoder.graph.weights_lstm_hidden_arr,
+                            self.__decoder.graph.weights_lstm_observed_arr,
+                            self.__decoder.graph.lstm_bias_arr
+                        ]
+                        self.__logger.debug("Best params are updated.")
+
+                    self.__encoder.graph.hidden_activity_arr = np.array([])
+                    self.__encoder.graph.rnn_activity_arr = np.array([])
+                    self.__decoder.graph.hidden_activity_arr = np.array([])
+                    self.__decoder.graph.rnn_activity_arr = np.array([])
+
+                except FloatingPointError:
+                    if epoch > int(self.__epochs * 0.7):
+                        self.__logger.debug(
+                            "Underflow occurred when the parameters are being updated. Because of early stopping, this error is catched and the parameter is not updated."
+                        )
+                        eary_stop_flag = True
+                        break
+                    else:
+                        self.__logger.debug(
+                            "Underflow occurred when the parameters are being updated."
+                        )
+                        raise
+
+                if self.__test_size_rate > 0:
+                    test_encoded_arr = self.__encoder.inference(test_batch_observed_arr)
+                    if test_encoded_arr.ndim == test_batch_observed_arr.ndim:
+                        _test_encoded_arr = test_encoded_arr
+                    else:
+                        _test_encoded_arr = test_encoded_arr.reshape(test_batch_observed_arr[:, -1].copy().shape)
+                        _test_encoded_arr = np.expand_dims(_test_encoded_arr, axis=1)
+
+                    test_decoded_arr = self.__decoder.inference(
+                        _test_encoded_arr,
+                        self.__encoder.get_feature_points()[:, ::-1]
+                    )
+                    if test_decoded_arr.ndim == 2:
+                        _test_decoded_arr = test_decoded_arr
+                    else:
+                        _test_decoded_arr = test_decoded_arr.reshape((test_decoded_arr.shape[0], -1))
+
+                    test_loss = self.__computable_loss.compute_loss(
+                        _test_decoded_arr[:, 0].reshape((_test_decoded_arr[:, 0].shape[0], -1)),
+                        test_batch_target_arr.reshape((
+                            test_batch_target_arr.shape[0],
+                            -1
+                        ))
                     )
 
                     remember_flag = False
@@ -269,20 +586,47 @@ class EncoderDecoderController(object):
                         self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
                         # Re-try.
                         test_encoded_arr = self.__encoder.inference(test_batch_observed_arr)
+                        if test_encoded_arr.ndim == test_batch_observed_arr.ndim:
+                            _test_encoded_arr = test_encoded_arr
+                        else:
+                            _test_encoded_arr = test_encoded_arr.reshape(test_batch_observed_arr[:, -1].copy().shape)
+                            _test_encoded_arr = np.expand_dims(_test_encoded_arr, axis=1)
+
                         test_decoded_arr = self.__decoder.inference(
-                            self.__encoder.get_feature_points()[:, ::-1, :]
+                            _test_encoded_arr,
+                            self.__encoder.get_feature_points()[:, ::-1]
                         )
-                        test_hidden_activity_arr = self.__decoder.get_feature_points()[:, ::-1, :]
+                        if test_decoded_arr.ndim == test_batch_observed_arr.ndim:
+                            _test_decoded_arr = test_decoded_arr
+                        else:
+                            _test_decoded_arr = test_decoded_arr.reshape(test_batch_observed_arr.copy().shape)
 
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
+                            if ver_decoded_arr.ndim == batch_target_arr[:, 0, :].ndim == 2:
+                                train_label_arr = batch_target_arr[:, 0, :]
+                            else:
+                                train_label_arr = batch_target_arr[:, 0, :].reshape((
+                                    batch_target_arr[:, 0, :].shape[0],
+                                    -1
+                                ))
+
+                            if _test_decoded_arr[:, 0].ndim == test_batch_target_arr[:, 0].ndim == 2:
+                                test_label_arr = test_batch_target_arr[:, 0]
+                            else:
+                                test_label_arr = test_batch_target_arr[:, 0].reshape((
+                                    test_batch_target_arr[:, 0].shape[0],
+                                    -1
+                                ))
+                                
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=ver_hidden_activity_arr[:, 0, :], 
-                                train_label_arr=batch_target_arr[:, 0, :],
-                                test_pred_arr=test_hidden_activity_arr[:, 0, :],
-                                test_label_arr=test_batch_target_arr[:, 0, :]
+                                train_pred_arr=ver_decoded_arr, 
+                                train_label_arr=train_label_arr,
+                                test_pred_arr=_test_decoded_arr,
+                                test_label_arr=test_label_arr
                             )
+
                     self.__encoder.graph.hidden_activity_arr = np.array([])
                     self.__encoder.graph.rnn_activity_arr = np.array([])
                     self.__decoder.graph.hidden_activity_arr = np.array([])
@@ -291,6 +635,7 @@ class EncoderDecoderController(object):
                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
                     eary_stop_flag = True
                     break
+
                 loss_list.append(loss)
 
         except KeyboardInterrupt:

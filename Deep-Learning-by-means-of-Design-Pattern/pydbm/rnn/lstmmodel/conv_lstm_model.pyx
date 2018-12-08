@@ -13,7 +13,6 @@ from pydbm.synapse.cnn_graph import CNNGraph as OutputGraph
 
 
 from pydbm.activation.logistic_function import LogisticFunction
-from pydbm.activation.identity_function import IdentityFunction
 
 from pydbm.cnn.feature_generator import FeatureGenerator
 from pydbm.verification.interface.verificatable_result import VerificatableResult
@@ -72,8 +71,6 @@ class ConvLSTMModel(ReconstructableModel):
         double scale=0.1,
         int stride=1,
         int pad=1,
-        int pool_width=3,
-        int pool_height=3,
         int bptt_tau=16,
         double test_size_rate=0.3,
         computable_loss=None,
@@ -113,7 +110,7 @@ class ConvLSTMModel(ReconstructableModel):
             scale:                          Scale of weights and bias vector in convolution layer in default settings.
             stride:                         The stride in default settings.
             pad:                            The pad in default settings.
-            
+
             bptt_tau:                       Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
                                             If `0`, this class referes all past data in BPTT.
 
@@ -385,8 +382,7 @@ class ConvLSTMModel(ReconstructableModel):
                             ))
                         )
 
-                    delta_arr, grads_list = self.output_back_propagate(pred_arr, delta_arr)
-                    _delta_arr = self.hidden_back_propagate(delta_arr)
+                    _delta_arr, grads_list = self.back_propagation(pred_arr, delta_arr)
                     self.optimize(grads_list, learning_rate, epoch)
                     self.graph.hidden_activity_arr = np.array([])
                     self.graph.rnn_activity_arr = np.array([])
@@ -591,10 +587,8 @@ class ConvLSTMModel(ReconstructableModel):
                                 -1
                             ))
                         )
-                        
-                    delta_arr, grads_list = self.output_back_propagate(pred_arr, delta_arr)
-                    _delta_arr = self.hidden_back_propagate(delta_arr)
 
+                    _delta_arr, grads_list = self.back_propagation(pred_arr, delta_arr)
                     self.optimize(grads_list, learning_rate, epoch)
                     self.graph.hidden_activity_arr = np.array([])
                     self.graph.rnn_activity_arr = np.array([])
@@ -734,6 +728,24 @@ class ConvLSTMModel(ReconstructableModel):
         )
         return pred_arr
 
+    def back_propagation(self, np.ndarray[DOUBLE_t, ndim=2] pred_arr, np.ndarray[DOUBLE_t, ndim=2] delta_arr):
+        r'''
+        Back propagation.
+
+        Args:
+            pred_arr:            `np.ndarray` of predicted data points.
+            delta_output_arr:    Delta.
+        
+        Returns:
+            Tuple(
+                `np.ndarray` of Delta, 
+                `list` of gradations
+            )
+        '''
+        delta_arr, grads_list = self.output_back_propagate(pred_arr, delta_arr)
+        _delta_arr = self.hidden_back_propagate(delta_arr)
+        return (_delta_arr, grads_list)
+
     def optimize(
         self,
         grads_list,
@@ -815,9 +827,9 @@ class ConvLSTMModel(ReconstructableModel):
 
     def inference(
         self,
-        np.ndarray[DOUBLE_t, ndim=5] observed_arr,
-        np.ndarray[DOUBLE_t, ndim=4] hidden_activity_arr=None,
-        np.ndarray[DOUBLE_t, ndim=4] rnn_activity_arr=None
+        np.ndarray observed_arr,
+        np.ndarray hidden_activity_arr=None,
+        np.ndarray rnn_activity_arr=None
     ):
         r'''
         Inference the feature points to reconstruct the time-series.
@@ -838,9 +850,6 @@ class ConvLSTMModel(ReconstructableModel):
         '''
         cdef int sample_n = observed_arr.shape[0]
         cdef int cycle_len = observed_arr.shape[1]
-        cdef int channel = observed_arr.shape[2]
-        cdef int width = observed_arr.shape[3]
-        cdef int height = observed_arr.shape[4]
 
         if hidden_activity_arr is None:
             self.graph.hidden_activity_arr = np.array([])
@@ -1207,11 +1216,8 @@ class ConvLSTMModel(ReconstructableModel):
         )
         
         delta_output_gate_arr = self.__output_conv.back_propagate(delta_output_gate_arr)
-
         delta_forget_gate_arr = self.__forgot_conv.back_propagate(delta_forget_gate_arr)
-
         delta_input_gate_arr = self.__input_conv.back_propagate(delta_input_gate_arr)
-
         delta_given_arr = self.__given_conv.back_propagate(delta_given_arr)
 
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_pre_hidden_arr = np.nansum(

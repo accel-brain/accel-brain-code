@@ -220,10 +220,7 @@ class LSTMModel(ReconstructableModel):
                         pred_arr,
                         batch_target_arr[:, -1, :]
                     )
-                    delta_arr, output_grads_list = self.output_back_propagate(pred_arr, delta_arr)
-                    _delta_arr, lstm_grads_list = self.hidden_back_propagate(delta_arr)
-                    grads_list = output_grads_list
-                    grads_list.extend(lstm_grads_list)
+                    delta_arr, grads_list = self.back_propagation(pred_arr, delta_arr)
                     self.optimize(grads_list, learning_rate, epoch)
                     self.graph.hidden_activity_arr = np.array([])
                     self.graph.rnn_activity_arr = np.array([])
@@ -331,6 +328,26 @@ class LSTMModel(ReconstructableModel):
             hidden_activity_arr
         )
         return pred_arr
+
+    def back_propagation(self, np.ndarray[DOUBLE_t, ndim=2] pred_arr, np.ndarray[DOUBLE_t, ndim=2] delta_arr):
+        r'''
+        Back propagation.
+
+        Args:
+            pred_arr:            `np.ndarray` of predicted data points.
+            delta_output_arr:    Delta.
+        
+        Returns:
+            Tuple(
+                `np.ndarray` of Delta, 
+                `list` of gradations
+            )
+        '''
+        delta_arr, output_grads_list = self.output_back_propagate(pred_arr, delta_arr)
+        _delta_arr, lstm_grads_list = self.hidden_back_propagate(delta_arr)
+        grads_list = output_grads_list
+        grads_list.extend(lstm_grads_list)
+        return (_delta_arr, grads_list)
 
     def optimize(
         self,

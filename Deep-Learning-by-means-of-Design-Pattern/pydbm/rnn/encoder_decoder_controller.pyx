@@ -723,8 +723,7 @@ class EncoderDecoderController(object):
         Returns:
             The array like or sparse matrix of reconstruction error. 
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=1] reconstruction_error_arr = self.__reconstruction_error_arr
-        return reconstruction_error_arr
+        return self.__reconstruction_error_arr
 
     def set_readonly(self, value):
         ''' setter '''

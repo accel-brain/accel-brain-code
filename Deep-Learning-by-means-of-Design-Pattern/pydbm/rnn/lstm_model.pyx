@@ -389,8 +389,8 @@ class LSTMModel(ReconstructableModel):
     def inference(
         self,
         np.ndarray[DOUBLE_t, ndim=3] observed_arr,
-        np.ndarray[DOUBLE_t, ndim=2] hidden_activity_arr=None,
-        np.ndarray[DOUBLE_t, ndim=2] rnn_activity_arr=None
+        np.ndarray hidden_activity_arr=None,
+        np.ndarray rnn_activity_arr=None
     ):
         r'''
         Inference the feature points to reconstruct the time-series.
@@ -452,7 +452,6 @@ class LSTMModel(ReconstructableModel):
         '''
         cdef int sample_n = observed_arr.shape[0]
         cdef int cycle_len = observed_arr.shape[1]
-        cdef int feature_n = observed_arr.shape[2]
         cdef int hidden_n = self.graph.weights_lstm_hidden_arr.shape[0]
 
         cdef np.ndarray[DOUBLE_t, ndim=3] pred_arr = np.zeros((sample_n, cycle_len, hidden_n), dtype=np.float64)

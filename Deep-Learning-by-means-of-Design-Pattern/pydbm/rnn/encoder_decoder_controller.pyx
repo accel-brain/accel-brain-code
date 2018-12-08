@@ -142,8 +142,8 @@ class EncoderDecoderController(object):
         cdef np.ndarray[DOUBLE_t, ndim=2] decoded_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] test_decoded_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_arr
-        cdef np.ndarray[DOUBLE_t, ndim=3] encoder_delta_arr
-        cdef np.ndarray[DOUBLE_t, ndim=3] decoder_delta_arr
+        cdef np.ndarray encoder_delta_arr
+        cdef np.ndarray decoder_delta_arr
 
         encoder_best_params_list = []
         decoder_best_params_list = []
@@ -161,11 +161,8 @@ class EncoderDecoderController(object):
                 batch_target_arr = train_target_arr[rand_index]
                 try:
                     encoded_arr = self.__encoder.inference(batch_observed_arr)
-                    if encoded_arr.ndim == batch_observed_arr[:, 0].ndim:
-                        _encoded_arr = encoded_arr
-                    else:
-                        _encoded_arr = encoded_arr.reshape(batch_observed_arr[:, 0].copy().shape)
-                        _encoded_arr = np.expand_dims(_encoded_arr, axis=1)
+                    _encoded_arr = encoded_arr.reshape(batch_observed_arr[:, 0].copy().shape)
+                    _encoded_arr = np.expand_dims(_encoded_arr, axis=1)
 
                     decoded_arr = self.__decoder.inference(
                         _encoded_arr,
@@ -195,11 +192,8 @@ class EncoderDecoderController(object):
                         self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
                         # Re-try.
                         encoded_arr = self.__encoder.inference(batch_observed_arr)
-                        if encoded_arr.ndim == batch_observed_arr.ndim:
-                            _encoded_arr = encoded_arr
-                        else:
-                            _encoded_arr = encoded_arr.reshape(batch_observed_arr[:, 0].copy().shape)
-                            _encoded_arr = np.expand_dims(_encoded_arr, axis=1)
+                        _encoded_arr = encoded_arr.reshape(batch_observed_arr[:, 0].copy().shape)
+                        _encoded_arr = np.expand_dims(_encoded_arr, axis=1)
 
                         decoded_arr = self.__decoder.inference(
                             _encoded_arr,
@@ -286,11 +280,8 @@ class EncoderDecoderController(object):
                     test_batch_target_arr = test_target_arr[rand_index]
 
                     test_encoded_arr = self.__encoder.inference(test_batch_observed_arr)
-                    if test_encoded_arr.ndim == test_batch_observed_arr.ndim:
-                        _test_encoded_arr = test_encoded_arr
-                    else:
-                        _test_encoded_arr = test_encoded_arr.reshape(test_batch_observed_arr[:, -1].copy().shape)
-                        _test_encoded_arr = np.expand_dims(_test_encoded_arr, axis=1)
+                    _test_encoded_arr = test_encoded_arr.reshape(test_batch_observed_arr[:, -1].copy().shape)
+                    _test_encoded_arr = np.expand_dims(_test_encoded_arr, axis=1)
 
                     test_decoded_arr = self.__decoder.inference(
                         _test_encoded_arr,
@@ -318,11 +309,8 @@ class EncoderDecoderController(object):
                         self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
                         # Re-try.
                         test_encoded_arr = self.__encoder.inference(test_batch_observed_arr)
-                        if test_encoded_arr.ndim == test_batch_observed_arr.ndim:
-                            _test_encoded_arr = test_encoded_arr
-                        else:
-                            _test_encoded_arr = test_encoded_arr.reshape(test_batch_observed_arr[:, -1].copy().shape)
-                            _test_encoded_arr = np.expand_dims(_test_encoded_arr, axis=1)
+                        _test_encoded_arr = test_encoded_arr.reshape(test_batch_observed_arr[:, -1].copy().shape)
+                        _test_encoded_arr = np.expand_dims(_test_encoded_arr, axis=1)
 
                         test_decoded_arr = self.__decoder.inference(
                             _test_encoded_arr,
@@ -433,11 +421,8 @@ class EncoderDecoderController(object):
 
                 try:
                     encoded_arr = self.__encoder.inference(batch_observed_arr)
-                    if encoded_arr.ndim == batch_observed_arr[:, 0].ndim:
-                        _encoded_arr = encoded_arr
-                    else:
-                        _encoded_arr = encoded_arr.reshape(batch_observed_arr[:, 0].copy().shape)
-                        _encoded_arr = np.expand_dims(_encoded_arr, axis=1)
+                    _encoded_arr = encoded_arr.reshape(batch_observed_arr[:, 0].copy().shape)
+                    _encoded_arr = np.expand_dims(_encoded_arr, axis=1)
 
                     decoded_arr = self.__decoder.inference(
                         _encoded_arr,
@@ -467,11 +452,8 @@ class EncoderDecoderController(object):
                         self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
                         # Re-try.
                         encoded_arr = self.__encoder.inference(batch_observed_arr)
-                        if encoded_arr.ndim == batch_observed_arr.ndim:
-                            _encoded_arr = encoded_arr
-                        else:
-                            _encoded_arr = encoded_arr.reshape(batch_observed_arr[:, 0].copy().shape)
-                            _encoded_arr = np.expand_dims(_encoded_arr, axis=1)
+                        _encoded_arr = encoded_arr.reshape(batch_observed_arr[:, 0].copy().shape)
+                        _encoded_arr = np.expand_dims(_encoded_arr, axis=1)
 
                         decoded_arr = self.__decoder.inference(
                             _encoded_arr,
@@ -554,11 +536,8 @@ class EncoderDecoderController(object):
 
                 if self.__test_size_rate > 0:
                     test_encoded_arr = self.__encoder.inference(test_batch_observed_arr)
-                    if test_encoded_arr.ndim == test_batch_observed_arr.ndim:
-                        _test_encoded_arr = test_encoded_arr
-                    else:
-                        _test_encoded_arr = test_encoded_arr.reshape(test_batch_observed_arr[:, -1].copy().shape)
-                        _test_encoded_arr = np.expand_dims(_test_encoded_arr, axis=1)
+                    _test_encoded_arr = test_encoded_arr.reshape(test_batch_observed_arr[:, -1].copy().shape)
+                    _test_encoded_arr = np.expand_dims(_test_encoded_arr, axis=1)
 
                     test_decoded_arr = self.__decoder.inference(
                         _test_encoded_arr,
@@ -586,11 +565,8 @@ class EncoderDecoderController(object):
                         self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
                         # Re-try.
                         test_encoded_arr = self.__encoder.inference(test_batch_observed_arr)
-                        if test_encoded_arr.ndim == test_batch_observed_arr.ndim:
-                            _test_encoded_arr = test_encoded_arr
-                        else:
-                            _test_encoded_arr = test_encoded_arr.reshape(test_batch_observed_arr[:, -1].copy().shape)
-                            _test_encoded_arr = np.expand_dims(_test_encoded_arr, axis=1)
+                        _test_encoded_arr = test_encoded_arr.reshape(test_batch_observed_arr[:, -1].copy().shape)
+                        _test_encoded_arr = np.expand_dims(_test_encoded_arr, axis=1)
 
                         test_decoded_arr = self.__decoder.inference(
                             _test_encoded_arr,
@@ -675,9 +651,9 @@ class EncoderDecoderController(object):
 
     def inference(
         self,
-        np.ndarray[DOUBLE_t, ndim=3] observed_arr,
-        np.ndarray[DOUBLE_t, ndim=2] hidden_activity_arr=None,
-        np.ndarray[DOUBLE_t, ndim=2] rnn_activity_arr=None
+        np.ndarray observed_arr,
+        np.ndarray hidden_activity_arr=None,
+        np.ndarray rnn_activity_arr=None
     ):
         r'''
         Inference the feature points to reconstruct the time-series.
@@ -696,41 +672,39 @@ class EncoderDecoderController(object):
                 Array like or sparse matrix of the state in RNN
             )
         '''
-        cdef int sample_n = observed_arr.shape[0]
-        cdef int hidden_n
-
         if hidden_activity_arr is not None:
             self.__encoder.graph.hidden_activity_arr = hidden_activity_arr
         else:
-            hidden_n = self.__encoder.graph.weights_lstm_hidden_arr.shape[0]
-            self.__encoder.graph.hidden_activity_arr = np.zeros((sample_n, hidden_n), dtype=np.float64)
+            self.__encoder.graph.hidden_activity_arr = np.array([])
 
         if rnn_activity_arr is not None:
             self.__encoder.graph.rnn_activity_arr = rnn_activity_arr
         else:
-            hidden_n = self.__encoder.graph.weights_lstm_hidden_arr.shape[0]
-            self.__encoder.graph.rnn_activity_arr = np.zeros((sample_n, hidden_n), dtype=np.float64)
+            self.__encoder.graph.rnn_activity_arr = np.array([])
 
-        hidden_n = self.__decoder.graph.weights_lstm_hidden_arr.shape[0]
-        self.__decoder.graph.hidden_activity_arr = np.zeros((sample_n, hidden_n), dtype=np.float64)
-        self.__decoder.graph.rnn_activity_arr = np.zeros((sample_n, hidden_n), dtype=np.float64)
+        encoded_arr = self.__encoder.inference(observed_arr)
+        _encoded_arr = encoded_arr.reshape(observed_arr[:, 0].copy().shape)
+        _encoded_arr = np.expand_dims(_encoded_arr, axis=1)
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] encoded_arr = self.__encoder.inference(
-            observed_arr
-        )
-        cdef np.ndarray[DOUBLE_t, ndim=2] decoded_arr = self.__decoder.inference(
+        decoded_arr = self.__decoder.inference(
+            _encoded_arr,
             self.__encoder.get_feature_points()[:, ::-1, :]
         )
-        cdef np.ndarray[DOUBLE_t, ndim=3] _hidden_activity_arr = self.__decoder.get_feature_points()[:, ::-1, :]
+        if decoded_arr.ndim == 2:
+            _decoded_arr = decoded_arr
+        else:
+            _decoded_arr = decoded_arr.reshape((decoded_arr.shape[0], -1))
 
-        self.__feature_points_arr = self.__encoder.graph.hidden_activity_arr
+        self.__feature_points_arr = _encoded_arr
 
         self.__reconstruction_error_arr = self.__computable_loss.compute_loss(
-            _hidden_activity_arr[:, 0, :],
-            observed_arr[:, 0, :],
-            axis=0
+            _decoded_arr[:, 0].reshape((decoded_arr[:, 0].shape[0], -1)),
+            observed_arr.reshape((
+                observed_arr.shape[0],
+                -1
+            ))
         )
-        return _hidden_activity_arr
+        return _decoded_arr
 
     def get_feature_points(self):
         '''
@@ -740,8 +714,7 @@ class EncoderDecoderController(object):
         Returns:
             The array like or sparse matrix of feature points.
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=2] feature_points_arr = self.__feature_points_arr[:, -1, :]
-        return feature_points_arr
+        return self.__feature_points_arr
 
     def get_reconstruction_error(self):
         '''

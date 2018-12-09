@@ -7,7 +7,6 @@ from pydbm.optimization.opt_params import OptParams
 from pydbm.verification.interface.verificatable_result import VerificatableResult
 from pydbm.loss.interface.computable_loss import ComputableLoss
 from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
-from pydbm.activation.tanh_function import TanhFunction
 import numpy as np
 cimport numpy as np
 ctypedef np.float64_t DOUBLE_t
@@ -117,7 +116,7 @@ class SpatioTemporalAutoEncoder(object):
                 raise TypeError()
             self.__fully_connected_activation = fully_connected_activation
         else:
-            self.__fully_connected_activation = TanhFunction()
+            self.__fully_connected_activation = None
 
         self.__tol = tol
         self.__tld = tld
@@ -582,7 +581,7 @@ class SpatioTemporalAutoEncoder(object):
             else:
                 conv_arr = np.r_[conv_arr, np.expand_dims(conv_output_arr, axis=0)]
 
-        conv_arr = conv_arr.transpose((1, 0, 2, 3, 4))
+        conv_arr = conv_arr.transpose((2, 0, 1, 3, 4))
 
         cdef int sample_n = conv_arr.shape[0]
         cdef int seq_len = conv_arr.shape[1]
@@ -594,43 +593,81 @@ class SpatioTemporalAutoEncoder(object):
         cdef np.ndarray[DOUBLE_t, ndim=2] encoded_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] decoded_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_arr
-        cdef np.ndarray[DOUBLE_t, ndim=3] encoder_delta_arr
-        cdef np.ndarray[DOUBLE_t, ndim=3] decoder_delta_arr
+        cdef np.ndarray encoder_delta_arr
+        cdef np.ndarray decoder_delta_arr
 
         cdef np.ndarray[DOUBLE_t, ndim=3] conv_input_arr = conv_arr.reshape((sample_n, seq_len, -1))
         cdef np.ndarray[DOUBLE_t, ndim=3] observed_arr = np.empty((sample_n, seq_len, self.__fully_connected_dim))
 
-        if self.__fully_connected_weight_arr is None:
-            self.__fully_connected_weight_arr = np.random.normal(
-                size=(
-                    conv_arr.reshape((sample_n, seq_len, -1)).shape[-1], 
-                    self.__fully_connected_dim
+        if self.__fully_connected_activation is not None:
+            if self.__fully_connected_weight_arr is None:
+                self.__fully_connected_weight_arr = np.random.normal(
+                    size=(
+                        conv_arr.reshape((sample_n, seq_len, -1)).shape[-1], 
+                        self.__fully_connected_dim
+                    )
+                ) * 0.1
+
+            for seq in range(conv_input_arr.shape[1]):
+                observed_arr[:, seq] = self.__fully_connected_activation.activate(
+                    np.dot(conv_input_arr[:, seq], self.__fully_connected_weight_arr)
                 )
-            ) * 0.1
 
-        for seq in range(conv_arr.shape[1]):
-            observed_arr[:, seq] = self.__fully_connected_activation.activate(
-                np.dot(conv_input_arr[:, seq], self.__fully_connected_weight_arr)
-            )
+            encoded_arr = self.__encoder.inference(observed_arr)
+            _encoded_arr = encoded_arr.reshape(conv_input_arr[:, 0].copy().shape)
+        else:
+            encoded_arr = self.__encoder.inference(conv_arr)
+            _encoded_arr = encoded_arr.reshape(conv_arr[:, 0].copy().shape)
 
-        encoded_arr = self.__encoder.inference(observed_arr)
-        self.__encoded_features_arr = encoded_arr
+        _encoded_arr = np.expand_dims(_encoded_arr, axis=1)
+
+        self.__encoded_features_arr = _encoded_arr
 
         decoded_arr = self.__decoder.inference(
+            _encoded_arr,
             self.__encoder.get_feature_points()[:, ::-1, :]
         )
-        self.__decoded_features_arr = decoded_arr
+        if decoded_arr.ndim == 2:
+            _decoded_arr = decoded_arr
+        else:
+            _decoded_arr = decoded_arr.reshape((decoded_arr.shape[0], -1))
 
-        hidden_activity_arr = self.__decoder.get_feature_points()[:, ::-1, :]
-        ver_hidden_activity_arr = hidden_activity_arr.copy()
-        delta_arr = self.__computable_loss.compute_delta(
-            hidden_activity_arr[:, 0, :],
-            observed_arr[:, 0, :]
-        )
-        loss = self.__computable_loss.compute_loss(
-            hidden_activity_arr[:, 0, :],
-            observed_arr[:, 0, :]
-        )
+        self.__decoded_features_arr = decoded_arr
+        ver_decoded_arr = _decoded_arr.copy()
+
+        if self.__fully_connected_activation is not None:
+            loss = self.__computable_loss.compute_loss(
+                decoded_arr[:, 0].reshape((decoded_arr[:, 0].shape[0], -1)),
+                conv_input_arr.reshape((
+                    conv_input_arr.shape[0],
+                    -1
+                ))
+            )
+        else:
+            loss = self.__computable_loss.compute_loss(
+                decoded_arr[:, 0].reshape((decoded_arr[:, 0].shape[0], -1)),
+                conv_arr[:, 0].reshape((
+                    conv_arr[:, 0].shape[0],
+                    -1
+                ))
+            )
+
+        if self.__fully_connected_activation is not None:
+            delta_arr = self.__computable_loss.compute_delta(
+                decoded_arr.reshape((decoded_arr.shape[0], -1)),
+                conv_input_arr.reshape((
+                    conv_input_arr.shape[0],
+                    -1
+                ))
+            )
+        else:
+            delta_arr = self.__computable_loss.compute_delta(
+                decoded_arr.reshape((decoded_arr.shape[0], -1)),
+                conv_arr.reshape((
+                    conv_arr.shape[0],
+                    -1
+                ))
+            )
 
         if self.__learn_flag is True:
             self.__encoder_decoder_loss = loss
@@ -639,16 +676,21 @@ class SpatioTemporalAutoEncoder(object):
 
         if self.__learn_flag is True:
             self.__logger.debug("Encoder/Decoder's deltas are propagated.")
-            decoder_delta_arr, decoder_lstm_grads_list = self.__decoder.hidden_back_propagate(
+            decoder_delta_arr, decoder_grads_list = self.__decoder.back_propagation(
+                decoded_arr.reshape((decoded_arr.shape[0], -1)),
                 delta_arr
             )
-            encoder_delta_arr, encoder_lstm_grads_list = self.__encoder.hidden_back_propagate(
-                decoder_delta_arr[:, 0, :]
+
+            encoder_delta_arr, encoder_grads_list = self.__encoder.back_propagation(
+                encoded_arr,
+                decoder_delta_arr[:, 0].reshape(
+                    (
+                        decoder_delta_arr[:, 0].shape[0],
+                        -1
+                    )
+                )
             )
-            decoder_grads_list = [None, None]
-            [decoder_grads_list.append(d) for d in decoder_lstm_grads_list]
-            encoder_grads_list = [None, None]
-            [encoder_grads_list.append(d) for d in encoder_lstm_grads_list]
+
             self.__decoder.optimize(decoder_grads_list, self.__now_learning_rate, self.__now_epoch)
             self.__encoder.optimize(encoder_grads_list, self.__now_learning_rate, self.__now_epoch)
 
@@ -675,23 +717,40 @@ class SpatioTemporalAutoEncoder(object):
         self.__encoder.graph.rnn_activity_arr = np.array([])
         self.__decoder.graph.hidden_activity_arr = np.array([])
         self.__decoder.graph.rnn_activity_arr = np.array([])
-        
-        cdef np.ndarray[DOUBLE_t, ndim=3] lstm_input_arr = np.empty((
-            sample_n, 
-            seq_len, 
-            conv_arr.reshape((sample_n, seq_len, -1)).shape[-1])
-        )
-
-        for seq in range(hidden_activity_arr.shape[1]):
-            lstm_input_arr[:, seq] = np.dot(hidden_activity_arr[:, seq], self.__fully_connected_weight_arr.T)
 
         conv_arr = (conv_arr - conv_arr.min()) / (conv_arr.max() - conv_arr.min())
-        lstm_input_arr = (lstm_input_arr - lstm_input_arr.min()) / (lstm_input_arr.max() - lstm_input_arr.min())
 
-        conv_arr = conv_arr + lstm_input_arr.reshape((sample_n, seq_len, channel, width, height))
+        cdef np.ndarray[DOUBLE_t, ndim=3] lstm_input_arr
+        if self.__fully_connected_activation is not None:
+            lstm_input_arr = np.empty(
+                (
+                    sample_n, 
+                    seq_len, 
+                    conv_arr.reshape((sample_n, seq_len, -1)).shape[-1]
+                )
+            )
+            _decoded_arr_ = decoded_arr.reshape((
+                decoded_arr.shape[0],
+                seq_len,
+                -1
+            ))
+            for seq in range(_decoded_arr_.shape[1]):
+                if _decoded_arr_[:, seq].shape[-1] != self.__fully_connected_weight_arr.T.shape[-1]:
+                    lstm_input_arr[:, seq] = np.dot(_decoded_arr_[:, seq], self.__fully_connected_weight_arr.T)
+                else:
+                    lstm_input_arr[:, seq] = _decoded_arr_[:, seq]
+
+            lstm_input_arr = (lstm_input_arr - lstm_input_arr.min()) / (lstm_input_arr.max() - lstm_input_arr.min())
+
+            conv_arr = conv_arr + lstm_input_arr.reshape((sample_n, seq_len, channel, width, height))
+            conv_arr = self.__fully_connected_activation.activate(conv_arr)
+        else:
+            if conv_arr.ndim == decoded_arr.ndim:
+                conv_arr = np.tanh(conv_arr + decoded_arr)
+            else:
+                conv_arr = np.tanh(conv_arr + decoded_arr.reshape(conv_arr.copy().shape))
+
         conv_arr = conv_arr - conv_arr.mean()
-        conv_arr = self.__fully_connected_activation.activate(conv_arr)
-        9
         self.__spatio_temporal_features_arr = conv_arr
 
         layerable_cnn_list = self.__layerable_cnn_list[::-1]

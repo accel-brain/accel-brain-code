@@ -52,6 +52,9 @@ class ConvLSTMModel(ReconstructableModel):
     
     # Latest loss
     __latest_loss = None
+    
+    # Latest length of sequneces.
+    __cycle_len = 1
 
     def __init__(
         self,
@@ -249,9 +252,11 @@ class ConvLSTMModel(ReconstructableModel):
         self.__tld = tld
 
         self.__memory_tuple_list = []
+        self.__cycle_len = 1
 
         logger = getLogger("pydbm")
         self.__logger = logger
+
 
     def learn(self, np.ndarray[DOUBLE_t, ndim=5] observed_arr, np.ndarray target_arr=np.array([])):
         '''
@@ -892,6 +897,8 @@ class ConvLSTMModel(ReconstructableModel):
         cdef int channel = observed_arr.shape[2]
         cdef int width = observed_arr.shape[3]
         cdef int height = observed_arr.shape[4]
+        
+        self.__cycle_len = cycle_len
 
         cdef np.ndarray[DOUBLE_t, ndim=3] pred_arr = None
         cdef int cycle
@@ -971,7 +978,7 @@ class ConvLSTMModel(ReconstructableModel):
             )
         '''
         cdef int sample_n = delta_output_arr.shape[0]
-        cdef int cycle_len = len(self.__memory_tuple_list)
+        cdef int cycle_len = self.__cycle_len
         cdef int channel = self.__memory_tuple_list[-1][0].shape[1]
         cdef int width = self.__memory_tuple_list[-1][0].shape[2]
         cdef int height = self.__memory_tuple_list[-1][0].shape[3]

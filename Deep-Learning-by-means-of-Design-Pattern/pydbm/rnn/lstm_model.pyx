@@ -388,7 +388,7 @@ class LSTMModel(ReconstructableModel):
 
     def inference(
         self,
-        np.ndarray[DOUBLE_t, ndim=3] observed_arr,
+        np.ndarray observed_arr,
         np.ndarray hidden_activity_arr=None,
         np.ndarray rnn_activity_arr=None
     ):
@@ -409,6 +409,15 @@ class LSTMModel(ReconstructableModel):
                 Array like or sparse matrix of the state in RNN
             )
         '''
+        if observed_arr.ndim != 3:
+            observed_arr = observed_arr.reshape(
+                (
+                    observed_arr.shape[0], 
+                    observed_arr.shape[1], 
+                    -1
+                )
+            )
+
         cdef int sample_n = observed_arr.shape[0]
         cdef int cycle_len = observed_arr.shape[1]
         cdef int feature_n = observed_arr.shape[2]

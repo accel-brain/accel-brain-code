@@ -550,6 +550,53 @@ class SpatioTemporalAutoEncoder(object):
         )
         return pred_arr
 
+    def temporal_inference(
+        self,
+        np.ndarray observed_arr,
+        np.ndarray hidden_activity_arr=None,
+        np.ndarray rnn_activity_arr=None
+    ):
+        r'''
+        Inference the feature points to reconstruct the time-series.
+
+        Override.
+
+        Args:
+            observed_arr:           Array like or sparse matrix as the observed data ponts.
+            hidden_activity_arr:    Array like or sparse matrix as the state in hidden layer.
+            rnn_activity_arr:       Array like or sparse matrix as the state in RNN.
+
+        Returns:
+            Tuple(
+                Array like or sparse matrix of reconstructed instances of time-series,
+                Array like or sparse matrix of the state in hidden layer,
+                Array like or sparse matrix of the state in RNN
+            )
+        '''
+        if hidden_activity_arr is not None:
+            self.__encoder.graph.hidden_activity_arr = hidden_activity_arr
+        else:
+            self.__encoder.graph.hidden_activity_arr = np.array([])
+
+        if rnn_activity_arr is not None:
+            self.__encoder.graph.rnn_activity_arr = rnn_activity_arr
+        else:
+            self.__encoder.graph.rnn_activity_arr = np.array([])
+
+        _ = self.__encoder.inference(observed_arr)
+        encoded_arr = self.__encoder.get_feature_points()[:, ::-1, :]
+        _ = self.__decoder.inference(
+            encoded_arr,
+        )
+        decoded_arr = self.__decoder.get_feature_points()[:, ::-1, :]
+        
+        self.__encoded_features_arr = encoded_arr
+        self.__temporal_reconstruction_error_arr = self.__computable_loss.compute_loss(
+            decoded_arr[:, -1],
+            observed_arr[:, -1]
+        )
+        return decoded_arr
+
     def forward_propagation(self, np.ndarray[DOUBLE_t, ndim=5] img_arr):
         '''
         Forward propagation in Convolutional Auto-Encoder.
@@ -589,10 +636,8 @@ class SpatioTemporalAutoEncoder(object):
         cdef int width = conv_arr.shape[3]
         cdef int height = conv_arr.shape[4]
 
-        cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] encoded_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] decoded_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_arr
+        cdef np.ndarray decoded_arr
+        cdef np.ndarray delta_arr
         cdef np.ndarray encoder_delta_arr
         cdef np.ndarray decoder_delta_arr
 
@@ -613,61 +658,16 @@ class SpatioTemporalAutoEncoder(object):
                     np.dot(conv_input_arr[:, seq], self.__fully_connected_weight_arr)
                 )
 
-            encoded_arr = self.__encoder.inference(observed_arr)
-            _encoded_arr = encoded_arr.reshape(conv_input_arr[:, 0].copy().shape)
+            decoded_arr = self.temporal_inference(observed_arr)
+            self.__decoded_features_arr = decoded_arr
+            ver_decoded_arr = decoded_arr.copy()
+            loss = self.__temporal_reconstruction_error_arr
+            delta_arr = self.__computable_loss.compute_delta(decoded_arr[:, 0], observed_arr[:, 0])
         else:
-            encoded_arr = self.__encoder.inference(conv_arr)
-            _encoded_arr = encoded_arr.reshape(conv_arr[:, 0].copy().shape)
-
-        _encoded_arr = np.expand_dims(_encoded_arr, axis=1)
-
-        self.__encoded_features_arr = _encoded_arr
-
-        decoded_arr = self.__decoder.inference(
-            _encoded_arr,
-            self.__encoder.get_feature_points()[:, ::-1, :]
-        )
-        if decoded_arr.ndim == 2:
-            _decoded_arr = decoded_arr
-        else:
-            _decoded_arr = decoded_arr.reshape((decoded_arr.shape[0], -1))
-
-        self.__decoded_features_arr = decoded_arr
-        ver_decoded_arr = _decoded_arr.copy()
-
-        if self.__fully_connected_activation is not None:
-            loss = self.__computable_loss.compute_loss(
-                decoded_arr[:, 0].reshape((decoded_arr[:, 0].shape[0], -1)),
-                conv_input_arr.reshape((
-                    conv_input_arr.shape[0],
-                    -1
-                ))
-            )
-        else:
-            loss = self.__computable_loss.compute_loss(
-                decoded_arr[:, 0].reshape((decoded_arr[:, 0].shape[0], -1)),
-                conv_arr[:, 0].reshape((
-                    conv_arr[:, 0].shape[0],
-                    -1
-                ))
-            )
-
-        if self.__fully_connected_activation is not None:
-            delta_arr = self.__computable_loss.compute_delta(
-                decoded_arr.reshape((decoded_arr.shape[0], -1)),
-                conv_input_arr.reshape((
-                    conv_input_arr.shape[0],
-                    -1
-                ))
-            )
-        else:
-            delta_arr = self.__computable_loss.compute_delta(
-                decoded_arr.reshape((decoded_arr.shape[0], -1)),
-                conv_arr.reshape((
-                    conv_arr.shape[0],
-                    -1
-                ))
-            )
+            decoded_arr = self.temporal_inference(conv_arr)
+            self.__decoded_features_arr = decoded_arr
+            loss = self.__temporal_reconstruction_error_arr
+            delta_arr = self.__computable_loss.compute_delta(decoded_arr[:, 0], conv_arr[:, 0])
 
         if self.__learn_flag is True:
             self.__encoder_decoder_loss = loss
@@ -676,36 +676,17 @@ class SpatioTemporalAutoEncoder(object):
 
         if self.__learn_flag is True:
             self.__logger.debug("Encoder/Decoder's deltas are propagated.")
-            decoder_delta_arr, decoder_grads_list = self.__decoder.back_propagation(
-                decoded_arr.reshape((decoded_arr.shape[0], -1)),
-                delta_arr
-            )
-
-            encoder_delta_arr, encoder_grads_list = self.__encoder.back_propagation(
-                encoded_arr,
-                decoder_delta_arr[:, 0].reshape(
-                    (
-                        decoder_delta_arr[:, 0].shape[0],
-                        -1
-                    )
-                )
-            )
-
-            self.__decoder.optimize(decoder_grads_list, self.__now_learning_rate, self.__now_epoch)
-            self.__encoder.optimize(encoder_grads_list, self.__now_learning_rate, self.__now_epoch)
+            decoder_grads_list, encoder_delta_arr, encoder_grads_list = self.temporal_back_propagation(delta_arr)
+            self.temporal_optimize(decoder_grads_list, encoder_grads_list, self.__now_learning_rate, self.__now_epoch)
 
             if self.__temporal_min_loss is None or self.__temporal_min_loss > self.__encoder_decoder_loss:
                 self.__temporal_min_loss = self.__encoder_decoder_loss
                 self.__encoder_best_params_list = [
-                    self.__encoder.graph.weights_output_arr,
-                    self.__encoder.graph.output_bias_arr,
                     self.__encoder.graph.weights_lstm_hidden_arr,
                     self.__encoder.graph.weights_lstm_observed_arr,
                     self.__encoder.graph.lstm_bias_arr
                 ]
                 self.__decoder_best_params_list = [
-                    self.__decoder.graph.weights_output_arr,
-                    self.__decoder.graph.output_bias_arr,
                     self.__decoder.graph.weights_lstm_hidden_arr,
                     self.__decoder.graph.weights_lstm_observed_arr,
                     self.__decoder.graph.lstm_bias_arr
@@ -729,16 +710,11 @@ class SpatioTemporalAutoEncoder(object):
                     conv_arr.reshape((sample_n, seq_len, -1)).shape[-1]
                 )
             )
-            _decoded_arr_ = decoded_arr.reshape((
-                decoded_arr.shape[0],
-                seq_len,
-                -1
-            ))
-            for seq in range(_decoded_arr_.shape[1]):
-                if _decoded_arr_[:, seq].shape[-1] != self.__fully_connected_weight_arr.T.shape[-1]:
-                    lstm_input_arr[:, seq] = np.dot(_decoded_arr_[:, seq], self.__fully_connected_weight_arr.T)
+            for seq in range(decoded_arr.shape[1]):
+                if decoded_arr[:, seq].shape[-1] != self.__fully_connected_weight_arr.T.shape[-1]:
+                    lstm_input_arr[:, seq] = np.dot(decoded_arr[:, seq], self.__fully_connected_weight_arr.T)
                 else:
-                    lstm_input_arr[:, seq] = _decoded_arr_[:, seq]
+                    lstm_input_arr[:, seq] = decoded_arr[:, seq]
 
             lstm_input_arr = (lstm_input_arr - lstm_input_arr.min()) / (lstm_input_arr.max() - lstm_input_arr.min())
 
@@ -847,6 +823,51 @@ class SpatioTemporalAutoEncoder(object):
 
         for i in range(len(self.__layerable_cnn_list)):
             self.__layerable_cnn_list[i].reset_delta()
+
+    def temporal_back_propagation(
+        self,
+        np.ndarray delta_arr
+    ):
+        r'''
+        Back propagation in temporal Encoder/Decoder.
+
+        Args:
+            pred_arr:            `np.ndarray` of predicted data points from decoder.
+            delta_output_arr:    Delta.
+        
+        Returns:
+            Tuple(
+                decoder's `list` of gradations,
+                encoder's `np.ndarray` of Delta, 
+                encoder's `list` of gradations,
+            )
+        '''
+        decoder_delta_arr, decoder_grads_list = self.__decoder.hidden_back_propagate(delta_arr)
+        decoder_grads_list.insert(0, None)
+        decoder_grads_list.insert(0, None)
+        encoder_delta_arr, encoder_grads_list = self.__encoder.hidden_back_propagate(decoder_delta_arr[:, -1])
+        encoder_grads_list.insert(0, None)
+        encoder_grads_list.insert(0, None)
+        return decoder_grads_list, encoder_delta_arr, encoder_grads_list
+
+    def temporal_optimize(
+        self,
+        decoder_grads_list,
+        encoder_grads_list,
+        double learning_rate,
+        int epoch
+    ):
+        '''
+        Back propagation in temporal Encoder/Decoder.
+        
+        Args:
+            decoder_grads_list:     decoder's `list` of graduations.
+            encoder_grads_list:     encoder's `list` of graduations.
+            learning_rate:          Learning rate.
+            epoch:                  Now epoch.
+        '''
+        self.__decoder.optimize(decoder_grads_list, learning_rate, epoch)
+        self.__encoder.optimize(encoder_grads_list, learning_rate, epoch)
 
     def save_pre_learned_params(self, dir_path):
         '''

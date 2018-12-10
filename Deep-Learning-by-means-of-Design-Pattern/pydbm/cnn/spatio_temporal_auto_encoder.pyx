@@ -517,17 +517,13 @@ class SpatioTemporalAutoEncoder(object):
             self.__logger.debug("Convolutional Auto-Encoder's best params are not saved.")
             
         if len(self.__encoder_best_params_list) and len(self.__decoder_best_params_list):
-            self.__encoder.graph.weights_output_arr = self.__encoder_best_params_list[0]
-            self.__encoder.graph.output_bias_arr = self.__encoder_best_params_list[1]
-            self.__encoder.graph.weights_lstm_hidden_arr = self.__encoder_best_params_list[2]
-            self.__encoder.graph.weights_lstm_observed_arr = self.__encoder_best_params_list[3]
-            self.__encoder.graph.lstm_bias_arr = self.__encoder_best_params_list[4]
+            self.__encoder.graph.weights_lstm_hidden_arr = self.__encoder_best_params_list[0]
+            self.__encoder.graph.weights_lstm_observed_arr = self.__encoder_best_params_list[1]
+            self.__encoder.graph.lstm_bias_arr = self.__encoder_best_params_list[2]
 
-            self.__decoder.graph.weights_output_arr = self.__decoder_best_params_list[0]
-            self.__decoder.graph.output_bias_arr = self.__decoder_best_params_list[1]
-            self.__decoder.graph.weights_lstm_hidden_arr = self.__decoder_best_params_list[2]
-            self.__decoder.graph.weights_lstm_observed_arr = self.__decoder_best_params_list[3]
-            self.__decoder.graph.lstm_bias_arr = self.__decoder_best_params_list[4]
+            self.__decoder.graph.weights_lstm_hidden_arr = self.__decoder_best_params_list[0]
+            self.__decoder.graph.weights_lstm_observed_arr = self.__decoder_best_params_list[1]
+            self.__decoder.graph.lstm_bias_arr = self.__decoder_best_params_list[2]
 
             self.__logger.debug("Encoder/Decoder's best params are saved.")
         else:

@@ -877,8 +877,23 @@ class SpatioTemporalAutoEncoder(object):
 
         for i in range(len(self.layerable_cnn_list)):
             self.layerable_cnn_list[i].graph.save_pre_learned_params(dir_path + "spatio_cnn_" + str(i) + ".npz")
-        self.__encoder.graph.save_pre_learned_params(dir_path + "temporal_encoder.npz")
-        self.__decoder.graph.save_pre_learned_params(dir_path + "temporal_decoder.npz")
+        self.__encoder.save_pre_learned_params(dir_path, "temporal_encoder")
+        self.__decoder.save_pre_learned_params(dir_path, "temporal_decoder")
+
+    def load_pre_learned_params(self, dir_path):
+        '''
+        Load pre-learned parameters.
+        
+        Args:
+            dir_path:   Path of dir. If `None`, the file is saved in the current directory.
+        '''
+        if dir_path[-1] != "/":
+            dir_path = dir_path + "/"
+
+        for i in range(len(self.layerable_cnn_list)):
+            self.layerable_cnn_list[i].graph.load_pre_learned_params(dir_path + "spatio_cnn_" + str(i) + ".npz")
+        self.__encoder.load_pre_learned_params(dir_path, "temporal_encoder")
+        self.__decoder.load_pre_learned_params(dir_path, "temporal_decoder")
 
     def extract_features_points(self):
         '''

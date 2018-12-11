@@ -74,3 +74,25 @@ class ReconstructableModel(metaclass=ABCMeta):
             )
         '''
         raise NotImplementedError()
+
+    @abstractmethod
+    def save_pre_learned_params(self, dir_name, file_name=None):
+        '''
+        Save pre-learned parameters.
+        
+        Args:
+            dir_name:   Path of dir. If `None`, the file is saved in the current directory.
+            file_name:  File name.
+        '''
+        raise NotImplementedError()
+
+    @abstractmethod
+    def load_pre_learned_params(self, dir_name, file_name=None):
+        '''
+        Load pre-learned parameters.
+        
+        Args:
+            dir_name:   Path of dir. If `None`, the file is saved in the current directory.
+            file_name:  File name.
+        '''
+        raise NotImplementedError()

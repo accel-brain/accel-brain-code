@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import numpy as np
 cimport numpy as np
 cimport cython
@@ -11,6 +12,7 @@ class Synapse(object):
     '''
     The object of synapse.
     '''
+    
     # The weights of links
     __weights_arr = np.array([])
 
@@ -112,6 +114,7 @@ class Synapse(object):
         else:
             self.weights_arr = init_weights_arr
         self.diff_weights_arr = np.zeros(self.weights_arr.shape, dtype=float)
+        self.stacked_graph_list = []
 
     def learn_weights(self):
         '''
@@ -125,6 +128,9 @@ class Synapse(object):
     def save_pre_learned_params(self, file_path):
         '''
         Save pre-learned parameters.
+
+        If you want to save pre-learned parameters simultaneously with stacked graphs,
+        call method `stack_graph` and setup the graphs before calling this method.
         
         Args:
             file_path:    File path.
@@ -138,6 +144,9 @@ class Synapse(object):
     def load_pre_learned_params(self, file_path):
         '''
         Load pre-learned parameters.
+
+        If you want to load pre-learned parameters simultaneously with stacked graphs,
+        call method `stack_graph` and setup the graphs before calling this method.
         
         Args:
             file_path:    File path.

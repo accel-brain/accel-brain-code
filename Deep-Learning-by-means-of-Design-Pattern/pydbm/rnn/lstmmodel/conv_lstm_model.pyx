@@ -34,6 +34,7 @@ class ConvLSTMModel(ReconstructableModel):
         ''' getter '''
         if isinstance(self.__graph, Synapse) is False:
             raise TypeError()
+
         return self.__graph
 
     def set_graph(self, value):
@@ -86,7 +87,8 @@ class ConvLSTMModel(ReconstructableModel):
         opt_params=None,
         verificatable_result=None,
         tol=1e-04,
-        tld=100.0
+        tld=100.0,
+        pre_learned_dir=None
     ):
         '''
         Init for building LSTM networks.
@@ -136,8 +138,13 @@ class ConvLSTMModel(ReconstructableModel):
 
             tld:                            Tolerance for deviation of loss.
 
+            pre_learned_dir:                Path to directory that stores pre-learned parameters.
+
         '''
         self.graph = graph
+        if pre_learned_dir is not None:
+            self.graph.load_pre_learned_params(pre_learned_dir + "conv_lstm_graph.npz")
+
         self.__height = height
         self.__width = width
         self.__channel = channel
@@ -162,6 +169,10 @@ class ConvLSTMModel(ReconstructableModel):
                     pad=pad
                 )
             )
+            if pre_learned_dir is not None:
+                self.__given_conv.graph.load_pre_learned_params(
+                    pre_learned_dir + "conv_lstm_given_graph.npz"
+                )
         else:
             self.__given_conv = given_conv
 
@@ -185,6 +196,10 @@ class ConvLSTMModel(ReconstructableModel):
                     pad=pad
                 )
             )
+            if pre_learned_dir is not None:
+                self.__input_conv.graph.load_pre_learned_params(
+                    pre_learned_dir + "conv_lstm_input_graph.npz"
+                )
         else:
             self.__input_conv = input_conv
 
@@ -208,6 +223,10 @@ class ConvLSTMModel(ReconstructableModel):
                     pad=pad
                 )
             )
+            if pre_learned_dir is not None:
+                self.__forgot_conv.graph.load_pre_learned_params(
+                    pre_learned_dir + "conv_lstm_forgot_graph.npz"
+                )
         else:
             self.__forgot_conv = forgot_conv
 
@@ -231,6 +250,10 @@ class ConvLSTMModel(ReconstructableModel):
                     pad=pad
                 )
             )
+            if pre_learned_dir is not None:
+                self.__output_conv.graph.load_pre_learned_params(
+                    pre_learned_dir + "conv_lstm_output_graph.npz"
+                )
         else:
             self.__output_conv = output_conv
 
@@ -1238,6 +1261,64 @@ class ConvLSTMModel(ReconstructableModel):
         )
 
         return (delta_pre_hidden_arr, delta_pre_rnn_arr)
+
+    def save_pre_learned_params(self, dir_name, file_name=None):
+        '''
+        Save pre-learned parameters.
+        
+        Args:
+            dir_name:   Path of dir. If `None`, the file is saved in the current directory.
+            file_name:  File name.
+        '''
+        if dir_name[-1] != "/":
+            dir_name = dir_name + "/"
+        if file_name is None:
+            file_name = "conv_lstm_graph"
+        elif ".npz" in file_name:
+            file_name = file_name.replace(".npz", "")
+
+        self.graph.save_pre_learned_params(dir_name + file_name + ".npz")
+        self.__given_conv.graph.save_pre_learned_params(
+            dir_name + "given_" + file_name + ".npz"
+        )
+        self.__input_conv.graph.save_pre_learned_params(
+            dir_name + "input_" + file_name + ".npz"
+        )
+        self.__forgot_conv.graph.save_pre_learned_params(
+            dir_name + "forgot_" + file_name + ".npz"
+        )
+        self.__output_conv.graph.save_pre_learned_params(
+            dir_name + "output_" + file_name + ".npz"
+        )
+
+    def load_pre_learned_params(self, dir_name, file_name=None):
+        '''
+        Load pre-learned parameters.
+        
+        Args:
+            dir_name:   Path of dir. If `None`, the file is saved in the current directory.
+            file_name:  File name.
+        '''
+        if dir_name[-1] != "/":
+            dir_name = dir_name + "/"
+        if file_name is None:
+            file_name = "conv_lstm_graph"
+        elif ".npz" in file_name:
+            file_name = file_name.replace(".npz", "")
+
+        self.graph.load_pre_learned_params(dir_name + file_name + ".npz")
+        self.__given_conv.graph.load_pre_learned_params(
+            dir_name + "given_" + file_name + ".npz"
+        )
+        self.__input_conv.graph.load_pre_learned_params(
+            dir_name + "input_" + file_name + ".npz"
+        )
+        self.__forgot_conv.graph.load_pre_learned_params(
+            dir_name + "forgot_" + file_name + ".npz"
+        )
+        self.__output_conv.graph.load_pre_learned_params(
+            dir_name + "output_" + file_name + ".npz"
+        )
 
     def get_verificatable_result(self):
         ''' getter '''

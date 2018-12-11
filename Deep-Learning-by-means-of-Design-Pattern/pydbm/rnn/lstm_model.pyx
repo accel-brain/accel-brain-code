@@ -794,3 +794,39 @@ class LSTMModel(ReconstructableModel):
             raise TypeError()
     
     verificatable_result = property(get_verificatable_result, set_verificatable_result)
+
+    def save_pre_learned_params(self, dir_name, file_name=None):
+        '''
+        Save pre-learned parameters.
+        
+        Args:
+            dir_name:   Path of dir. If `None`, the file is saved in the current directory.
+            file_name:  File name.
+        '''
+        if dir_name[-1] != "/":
+            dir_name = dir_name + "/"
+        if file_name is None:
+            file_name = "lstm_graph.npz"
+        else:
+            if ".npz" not in file_name:
+                file_name += ".npz"
+
+        self.graph.save_pre_learned_params(dir_name + file_name)
+
+    def load_pre_learned_params(self, dir_name, file_name=None):
+        '''
+        Load pre-learned parameters.
+        
+        Args:
+            dir_name:   Path of dir. If `None`, the file is saved in the current directory.
+            file_name:  File name.
+        '''
+        if dir_name[-1] != "/":
+            dir_name = dir_name + "/"
+        if file_name is None:
+            file_name = "lstm_graph.npz"
+        else:
+            if ".npz" not in file_name:
+                file_name += ".npz"
+
+        self.graph.load_pre_learned_params(dir_name + file_name)

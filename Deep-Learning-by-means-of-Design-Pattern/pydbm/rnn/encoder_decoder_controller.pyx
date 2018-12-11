@@ -563,3 +563,32 @@ class EncoderDecoderController(object):
             raise TypeError()
     
     verificatable_result = property(get_verificatable_result, set_verificatable_result)
+
+    def save_pre_learned_params(self, dir_path):
+        '''
+        Save pre-learned parameters.
+        
+        Args:
+            dir_path:   Path of dir. If `None`, the file is saved in the current directory.
+        '''
+        if dir_path[-1] != "/":
+            dir_path = dir_path + "/"
+
+        self.__encoder.save_pre_learned_params(dir_path, "encoder")
+        self.__decoder.save_pre_learned_params(dir_path, "decoder")
+
+    def load_pre_learned_params(self, dir_path):
+        '''
+        Load pre-learned parameters.
+
+        If you want to load pre-learned parameters simultaneously with stacked graphs,
+        call method `stack_graph` and setup the graphs before calling this method.
+        
+        Args:
+            dir_path:    Dir path.
+        '''
+        if dir_path[-1] != "/":
+            dir_path = dir_path + "/"
+
+        self.__encoder.load_pre_learned_params(dir_path, "encoder")
+        self.__decoder.load_pre_learned_params(dir_path, "decoder")

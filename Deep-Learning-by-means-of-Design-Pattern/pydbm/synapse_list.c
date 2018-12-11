@@ -956,7 +956,7 @@ typedef npy_double __pyx_t_5numpy_double_t;
  */
 typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 
-/* "pydbm/synapse_list.pyx":6
+/* "pydbm/synapse_list.pyx":7
  * cimport cython
  * import random
  * ctypedef np.float64_t DOUBLE_t             # <<<<<<<<<<<<<<
@@ -1620,6 +1620,7 @@ static const char __pyx_k_d[] = "d";
 static const char __pyx_k_k[] = "k";
 static const char __pyx_k_v[] = "v";
 static const char __pyx_k_np[] = "np";
+static const char __pyx_k_os[] = "os";
 static const char __pyx_k_col[] = "col";
 static const char __pyx_k_doc[] = "__doc__";
 static const char __pyx_k_loc[] = "loc";
@@ -1666,6 +1667,7 @@ static const char __pyx_k_pre_learned_dict[] = "pre_learned_dict";
 static const char __pyx_k_savez_compressed[] = "savez_compressed";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_pydbm_synapse_list[] = "pydbm.synapse_list";
+static const char __pyx_k_stacked_graph_list[] = "stacked_graph_list";
 static const char __pyx_k_Synapse_create_node[] = "Synapse.create_node";
 static const char __pyx_k_deeper_neuron_count[] = "deeper_neuron_count";
 static const char __pyx_k_Synapse__weights_arr[] = "_Synapse__weights_arr";
@@ -1775,6 +1777,7 @@ static PyObject *__pyx_n_s_numpy;
 static PyObject *__pyx_kp_s_numpy_core_multiarray_failed_to;
 static PyObject *__pyx_kp_s_numpy_core_umath_failed_to_impor;
 static PyObject *__pyx_n_s_object;
+static PyObject *__pyx_n_s_os;
 static PyObject *__pyx_n_s_pre_learned_dict;
 static PyObject *__pyx_n_s_prepare;
 static PyObject *__pyx_n_s_property;
@@ -1798,6 +1801,7 @@ static PyObject *__pyx_n_s_shallower_activating_function;
 static PyObject *__pyx_n_s_shallower_neuron_count;
 static PyObject *__pyx_n_s_shape;
 static PyObject *__pyx_n_s_size;
+static PyObject *__pyx_n_s_stacked_graph_list;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
 static PyObject *__pyx_n_s_v;
@@ -1864,7 +1868,7 @@ static PyObject *__pyx_codeobj__38;
 static PyObject *__pyx_codeobj__40;
 static PyObject *__pyx_codeobj__42;
 
-/* "pydbm/synapse_list.pyx":17
+/* "pydbm/synapse_list.pyx":19
  *     __weights_arr = np.array([])
  * 
  *     def get_weights_arr(self):             # <<<<<<<<<<<<<<
@@ -1895,34 +1899,34 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_get_weights_arr(CYTHON_
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("get_weights_arr", 0);
 
-  /* "pydbm/synapse_list.pyx":19
+  /* "pydbm/synapse_list.pyx":21
  *     def get_weights_arr(self):
  *         ''' getter '''
  *         if isinstance(self.__weights_arr, np.ndarray) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError("The type of __weights_arr must be `np.ndarray`.")
  *         return self.__weights_arr
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 19, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_t_1, __pyx_ptype_5numpy_ndarray); 
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
   if (__pyx_t_3) {
 
-    /* "pydbm/synapse_list.pyx":20
+    /* "pydbm/synapse_list.pyx":22
  *         ''' getter '''
  *         if isinstance(self.__weights_arr, np.ndarray) is False:
  *             raise TypeError("The type of __weights_arr must be `np.ndarray`.")             # <<<<<<<<<<<<<<
  *         return self.__weights_arr
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 20, __pyx_L1_error)
+    __PYX_ERR(0, 22, __pyx_L1_error)
 
-    /* "pydbm/synapse_list.pyx":19
+    /* "pydbm/synapse_list.pyx":21
  *     def get_weights_arr(self):
  *         ''' getter '''
  *         if isinstance(self.__weights_arr, np.ndarray) is False:             # <<<<<<<<<<<<<<
@@ -1931,7 +1935,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_get_weights_arr(CYTHON_
  */
   }
 
-  /* "pydbm/synapse_list.pyx":21
+  /* "pydbm/synapse_list.pyx":23
  *         if isinstance(self.__weights_arr, np.ndarray) is False:
  *             raise TypeError("The type of __weights_arr must be `np.ndarray`.")
  *         return self.__weights_arr             # <<<<<<<<<<<<<<
@@ -1939,13 +1943,13 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_get_weights_arr(CYTHON_
  *     def set_weights_arr(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/synapse_list.pyx":17
+  /* "pydbm/synapse_list.pyx":19
  *     __weights_arr = np.array([])
  * 
  *     def get_weights_arr(self):             # <<<<<<<<<<<<<<
@@ -1964,7 +1968,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_get_weights_arr(CYTHON_
   return __pyx_r;
 }
 
-/* "pydbm/synapse_list.pyx":23
+/* "pydbm/synapse_list.pyx":25
  *         return self.__weights_arr
  * 
  *     def set_weights_arr(self, value):             # <<<<<<<<<<<<<<
@@ -2005,11 +2009,11 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_3set_weights_arr(PyObje
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_weights_arr", 1, 2, 2, 1); __PYX_ERR(0, 23, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_weights_arr", 1, 2, 2, 1); __PYX_ERR(0, 25, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_weights_arr") < 0)) __PYX_ERR(0, 23, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_weights_arr") < 0)) __PYX_ERR(0, 25, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2022,7 +2026,7 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_3set_weights_arr(PyObje
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_weights_arr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 23, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_weights_arr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 25, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.synapse_list.Synapse.set_weights_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2043,7 +2047,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_2set_weights_arr(CYTHON
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("set_weights_arr", 0);
 
-  /* "pydbm/synapse_list.pyx":25
+  /* "pydbm/synapse_list.pyx":27
  *     def set_weights_arr(self, value):
  *         ''' setter '''
  *         if isinstance(value, np.ndarray) is False:             # <<<<<<<<<<<<<<
@@ -2054,20 +2058,20 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_2set_weights_arr(CYTHON
   __pyx_t_2 = ((__pyx_t_1 == 0) != 0);
   if (__pyx_t_2) {
 
-    /* "pydbm/synapse_list.pyx":26
+    /* "pydbm/synapse_list.pyx":28
  *         ''' setter '''
  *         if isinstance(value, np.ndarray) is False:
  *             raise TypeError("The type of __weights_arr must be `np.ndarray`.")             # <<<<<<<<<<<<<<
  *         self.__weights_arr = value
  * 
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 26, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 28, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 26, __pyx_L1_error)
+    __PYX_ERR(0, 28, __pyx_L1_error)
 
-    /* "pydbm/synapse_list.pyx":25
+    /* "pydbm/synapse_list.pyx":27
  *     def set_weights_arr(self, value):
  *         ''' setter '''
  *         if isinstance(value, np.ndarray) is False:             # <<<<<<<<<<<<<<
@@ -2076,16 +2080,16 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_2set_weights_arr(CYTHON
  */
   }
 
-  /* "pydbm/synapse_list.pyx":27
+  /* "pydbm/synapse_list.pyx":29
  *         if isinstance(value, np.ndarray) is False:
  *             raise TypeError("The type of __weights_arr must be `np.ndarray`.")
  *         self.__weights_arr = value             # <<<<<<<<<<<<<<
  * 
  *     weights_arr = property(get_weights_arr, set_weights_arr)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__weights_arr, __pyx_v_value) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__weights_arr, __pyx_v_value) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":23
+  /* "pydbm/synapse_list.pyx":25
  *         return self.__weights_arr
  * 
  *     def set_weights_arr(self, value):             # <<<<<<<<<<<<<<
@@ -2106,7 +2110,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_2set_weights_arr(CYTHON
   return __pyx_r;
 }
 
-/* "pydbm/synapse_list.pyx":34
+/* "pydbm/synapse_list.pyx":36
  *     __diff_weights_arr = np.array([])
  * 
  *     def get_diff_weights_arr(self):             # <<<<<<<<<<<<<<
@@ -2137,34 +2141,34 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_4get_diff_weights_arr(C
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("get_diff_weights_arr", 0);
 
-  /* "pydbm/synapse_list.pyx":36
+  /* "pydbm/synapse_list.pyx":38
  *     def get_diff_weights_arr(self):
  *         ''' getter '''
  *         if isinstance(self.__diff_weights_arr, np.ndarray) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError("The type of __diff_weights_arr must be `np.ndarray`.")
  *         return self.__diff_weights_arr
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__diff_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__diff_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_t_1, __pyx_ptype_5numpy_ndarray); 
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
   if (__pyx_t_3) {
 
-    /* "pydbm/synapse_list.pyx":37
+    /* "pydbm/synapse_list.pyx":39
  *         ''' getter '''
  *         if isinstance(self.__diff_weights_arr, np.ndarray) is False:
  *             raise TypeError("The type of __diff_weights_arr must be `np.ndarray`.")             # <<<<<<<<<<<<<<
  *         return self.__diff_weights_arr
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 37, __pyx_L1_error)
+    __PYX_ERR(0, 39, __pyx_L1_error)
 
-    /* "pydbm/synapse_list.pyx":36
+    /* "pydbm/synapse_list.pyx":38
  *     def get_diff_weights_arr(self):
  *         ''' getter '''
  *         if isinstance(self.__diff_weights_arr, np.ndarray) is False:             # <<<<<<<<<<<<<<
@@ -2173,7 +2177,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_4get_diff_weights_arr(C
  */
   }
 
-  /* "pydbm/synapse_list.pyx":38
+  /* "pydbm/synapse_list.pyx":40
  *         if isinstance(self.__diff_weights_arr, np.ndarray) is False:
  *             raise TypeError("The type of __diff_weights_arr must be `np.ndarray`.")
  *         return self.__diff_weights_arr             # <<<<<<<<<<<<<<
@@ -2181,13 +2185,13 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_4get_diff_weights_arr(C
  *     def set_diff_weights_arr(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__diff_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__diff_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/synapse_list.pyx":34
+  /* "pydbm/synapse_list.pyx":36
  *     __diff_weights_arr = np.array([])
  * 
  *     def get_diff_weights_arr(self):             # <<<<<<<<<<<<<<
@@ -2206,7 +2210,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_4get_diff_weights_arr(C
   return __pyx_r;
 }
 
-/* "pydbm/synapse_list.pyx":40
+/* "pydbm/synapse_list.pyx":42
  *         return self.__diff_weights_arr
  * 
  *     def set_diff_weights_arr(self, value):             # <<<<<<<<<<<<<<
@@ -2247,11 +2251,11 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_7set_diff_weights_arr(P
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_diff_weights_arr", 1, 2, 2, 1); __PYX_ERR(0, 40, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_diff_weights_arr", 1, 2, 2, 1); __PYX_ERR(0, 42, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_diff_weights_arr") < 0)) __PYX_ERR(0, 40, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_diff_weights_arr") < 0)) __PYX_ERR(0, 42, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2264,7 +2268,7 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_7set_diff_weights_arr(P
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_diff_weights_arr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 40, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_diff_weights_arr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 42, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.synapse_list.Synapse.set_diff_weights_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2285,7 +2289,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_6set_diff_weights_arr(C
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("set_diff_weights_arr", 0);
 
-  /* "pydbm/synapse_list.pyx":42
+  /* "pydbm/synapse_list.pyx":44
  *     def set_diff_weights_arr(self, value):
  *         ''' setter '''
  *         if isinstance(value, np.ndarray) is False:             # <<<<<<<<<<<<<<
@@ -2296,20 +2300,20 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_6set_diff_weights_arr(C
   __pyx_t_2 = ((__pyx_t_1 == 0) != 0);
   if (__pyx_t_2) {
 
-    /* "pydbm/synapse_list.pyx":43
+    /* "pydbm/synapse_list.pyx":45
  *         ''' setter '''
  *         if isinstance(value, np.ndarray) is False:
  *             raise TypeError("The type of __diff_weights_arr must be `np.ndarray`.")             # <<<<<<<<<<<<<<
  *         self.__diff_weights_arr = value
  * 
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 43, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 45, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 43, __pyx_L1_error)
+    __PYX_ERR(0, 45, __pyx_L1_error)
 
-    /* "pydbm/synapse_list.pyx":42
+    /* "pydbm/synapse_list.pyx":44
  *     def set_diff_weights_arr(self, value):
  *         ''' setter '''
  *         if isinstance(value, np.ndarray) is False:             # <<<<<<<<<<<<<<
@@ -2318,16 +2322,16 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_6set_diff_weights_arr(C
  */
   }
 
-  /* "pydbm/synapse_list.pyx":44
+  /* "pydbm/synapse_list.pyx":46
  *         if isinstance(value, np.ndarray) is False:
  *             raise TypeError("The type of __diff_weights_arr must be `np.ndarray`.")
  *         self.__diff_weights_arr = value             # <<<<<<<<<<<<<<
  * 
  *     diff_weights_arr = property(get_diff_weights_arr, set_diff_weights_arr)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__diff_weights_arr, __pyx_v_value) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__diff_weights_arr, __pyx_v_value) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":40
+  /* "pydbm/synapse_list.pyx":42
  *         return self.__diff_weights_arr
  * 
  *     def set_diff_weights_arr(self, value):             # <<<<<<<<<<<<<<
@@ -2348,7 +2352,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_6set_diff_weights_arr(C
   return __pyx_r;
 }
 
-/* "pydbm/synapse_list.pyx":51
+/* "pydbm/synapse_list.pyx":53
  *     __shallower_activating_function = None
  * 
  *     def get_shallower_activating_function(self):             # <<<<<<<<<<<<<<
@@ -2380,37 +2384,37 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_8get_shallower_activati
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("get_shallower_activating_function", 0);
 
-  /* "pydbm/synapse_list.pyx":53
+  /* "pydbm/synapse_list.pyx":55
  *     def get_shallower_activating_function(self):
  *         ''' getter '''
  *         if isinstance(self.__shallower_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError("The type of __shallower_activating_function must be `ActivatingFunctionInterface`.")
  *         return self.__shallower_activating_function
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__shallower_activating_f); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__shallower_activating_f); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 55, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_4 = ((__pyx_t_3 == 0) != 0);
   if (__pyx_t_4) {
 
-    /* "pydbm/synapse_list.pyx":54
+    /* "pydbm/synapse_list.pyx":56
  *         ''' getter '''
  *         if isinstance(self.__shallower_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __shallower_activating_function must be `ActivatingFunctionInterface`.")             # <<<<<<<<<<<<<<
  *         return self.__shallower_activating_function
  * 
  */
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 54, __pyx_L1_error)
+    __PYX_ERR(0, 56, __pyx_L1_error)
 
-    /* "pydbm/synapse_list.pyx":53
+    /* "pydbm/synapse_list.pyx":55
  *     def get_shallower_activating_function(self):
  *         ''' getter '''
  *         if isinstance(self.__shallower_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
@@ -2419,7 +2423,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_8get_shallower_activati
  */
   }
 
-  /* "pydbm/synapse_list.pyx":55
+  /* "pydbm/synapse_list.pyx":57
  *         if isinstance(self.__shallower_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __shallower_activating_function must be `ActivatingFunctionInterface`.")
  *         return self.__shallower_activating_function             # <<<<<<<<<<<<<<
@@ -2427,13 +2431,13 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_8get_shallower_activati
  *     def set_shallower_activating_function(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__shallower_activating_f); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__shallower_activating_f); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/synapse_list.pyx":51
+  /* "pydbm/synapse_list.pyx":53
  *     __shallower_activating_function = None
  * 
  *     def get_shallower_activating_function(self):             # <<<<<<<<<<<<<<
@@ -2453,7 +2457,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_8get_shallower_activati
   return __pyx_r;
 }
 
-/* "pydbm/synapse_list.pyx":57
+/* "pydbm/synapse_list.pyx":59
  *         return self.__shallower_activating_function
  * 
  *     def set_shallower_activating_function(self, value):             # <<<<<<<<<<<<<<
@@ -2494,11 +2498,11 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_11set_shallower_activat
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_shallower_activating_function", 1, 2, 2, 1); __PYX_ERR(0, 57, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_shallower_activating_function", 1, 2, 2, 1); __PYX_ERR(0, 59, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_shallower_activating_function") < 0)) __PYX_ERR(0, 57, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_shallower_activating_function") < 0)) __PYX_ERR(0, 59, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2511,7 +2515,7 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_11set_shallower_activat
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_shallower_activating_function", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 57, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_shallower_activating_function", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 59, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.synapse_list.Synapse.set_shallower_activating_function", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2532,34 +2536,34 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_10set_shallower_activat
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("set_shallower_activating_function", 0);
 
-  /* "pydbm/synapse_list.pyx":59
+  /* "pydbm/synapse_list.pyx":61
  *     def set_shallower_activating_function(self, value):
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError("The type of __shallower_activating_function must be `ActivatingFunctionInterface`.")
  * 
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
   if (__pyx_t_3) {
 
-    /* "pydbm/synapse_list.pyx":60
+    /* "pydbm/synapse_list.pyx":62
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __shallower_activating_function must be `ActivatingFunctionInterface`.")             # <<<<<<<<<<<<<<
  * 
  *         self.__shallower_activating_function = value
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 60, __pyx_L1_error)
+    __PYX_ERR(0, 62, __pyx_L1_error)
 
-    /* "pydbm/synapse_list.pyx":59
+    /* "pydbm/synapse_list.pyx":61
  *     def set_shallower_activating_function(self, value):
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
@@ -2568,16 +2572,16 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_10set_shallower_activat
  */
   }
 
-  /* "pydbm/synapse_list.pyx":62
+  /* "pydbm/synapse_list.pyx":64
  *             raise TypeError("The type of __shallower_activating_function must be `ActivatingFunctionInterface`.")
  * 
  *         self.__shallower_activating_function = value             # <<<<<<<<<<<<<<
  * 
  *     shallower_activating_function = property(get_shallower_activating_function, set_shallower_activating_function)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__shallower_activating_f, __pyx_v_value) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__shallower_activating_f, __pyx_v_value) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":57
+  /* "pydbm/synapse_list.pyx":59
  *         return self.__shallower_activating_function
  * 
  *     def set_shallower_activating_function(self, value):             # <<<<<<<<<<<<<<
@@ -2598,7 +2602,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_10set_shallower_activat
   return __pyx_r;
 }
 
-/* "pydbm/synapse_list.pyx":69
+/* "pydbm/synapse_list.pyx":71
  *     __deeper_activating_function = None
  * 
  *     def get_deeper_activating_function(self):             # <<<<<<<<<<<<<<
@@ -2630,37 +2634,37 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_12get_deeper_activating
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("get_deeper_activating_function", 0);
 
-  /* "pydbm/synapse_list.pyx":71
+  /* "pydbm/synapse_list.pyx":73
  *     def get_deeper_activating_function(self):
  *         ''' getter '''
  *         if isinstance(self.__deeper_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError("The type of __deeper_activating_function must be `ActivatingFunctionInterface`.")
  *         return self.__deeper_activating_function
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__deeper_activating_func); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__deeper_activating_func); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_4 = ((__pyx_t_3 == 0) != 0);
   if (__pyx_t_4) {
 
-    /* "pydbm/synapse_list.pyx":72
+    /* "pydbm/synapse_list.pyx":74
  *         ''' getter '''
  *         if isinstance(self.__deeper_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __deeper_activating_function must be `ActivatingFunctionInterface`.")             # <<<<<<<<<<<<<<
  *         return self.__deeper_activating_function
  * 
  */
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 72, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 74, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 72, __pyx_L1_error)
+    __PYX_ERR(0, 74, __pyx_L1_error)
 
-    /* "pydbm/synapse_list.pyx":71
+    /* "pydbm/synapse_list.pyx":73
  *     def get_deeper_activating_function(self):
  *         ''' getter '''
  *         if isinstance(self.__deeper_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
@@ -2669,7 +2673,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_12get_deeper_activating
  */
   }
 
-  /* "pydbm/synapse_list.pyx":73
+  /* "pydbm/synapse_list.pyx":75
  *         if isinstance(self.__deeper_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __deeper_activating_function must be `ActivatingFunctionInterface`.")
  *         return self.__deeper_activating_function             # <<<<<<<<<<<<<<
@@ -2677,13 +2681,13 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_12get_deeper_activating
  *     def set_deeper_activating_function(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__deeper_activating_func); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__deeper_activating_func); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/synapse_list.pyx":69
+  /* "pydbm/synapse_list.pyx":71
  *     __deeper_activating_function = None
  * 
  *     def get_deeper_activating_function(self):             # <<<<<<<<<<<<<<
@@ -2703,7 +2707,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_12get_deeper_activating
   return __pyx_r;
 }
 
-/* "pydbm/synapse_list.pyx":75
+/* "pydbm/synapse_list.pyx":77
  *         return self.__deeper_activating_function
  * 
  *     def set_deeper_activating_function(self, value):             # <<<<<<<<<<<<<<
@@ -2744,11 +2748,11 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_15set_deeper_activating
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_deeper_activating_function", 1, 2, 2, 1); __PYX_ERR(0, 75, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_deeper_activating_function", 1, 2, 2, 1); __PYX_ERR(0, 77, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_deeper_activating_function") < 0)) __PYX_ERR(0, 75, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_deeper_activating_function") < 0)) __PYX_ERR(0, 77, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2761,7 +2765,7 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_15set_deeper_activating
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_deeper_activating_function", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 75, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_deeper_activating_function", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 77, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.synapse_list.Synapse.set_deeper_activating_function", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2782,34 +2786,34 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_14set_deeper_activating
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("set_deeper_activating_function", 0);
 
-  /* "pydbm/synapse_list.pyx":77
+  /* "pydbm/synapse_list.pyx":79
  *     def set_deeper_activating_function(self, value):
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
  *             raise TypeError("The type of __deeper_activating_function must be `ActivatingFunctionInterface`.")
  *         self.__deeper_activating_function = value
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
   if (__pyx_t_3) {
 
-    /* "pydbm/synapse_list.pyx":78
+    /* "pydbm/synapse_list.pyx":80
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __deeper_activating_function must be `ActivatingFunctionInterface`.")             # <<<<<<<<<<<<<<
  *         self.__deeper_activating_function = value
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 78, __pyx_L1_error)
+    __PYX_ERR(0, 80, __pyx_L1_error)
 
-    /* "pydbm/synapse_list.pyx":77
+    /* "pydbm/synapse_list.pyx":79
  *     def set_deeper_activating_function(self, value):
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
@@ -2818,16 +2822,16 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_14set_deeper_activating
  */
   }
 
-  /* "pydbm/synapse_list.pyx":79
+  /* "pydbm/synapse_list.pyx":81
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __deeper_activating_function must be `ActivatingFunctionInterface`.")
  *         self.__deeper_activating_function = value             # <<<<<<<<<<<<<<
  * 
  *     deeper_activating_function = property(get_deeper_activating_function, set_deeper_activating_function)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__deeper_activating_func, __pyx_v_value) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Synapse__deeper_activating_func, __pyx_v_value) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":75
+  /* "pydbm/synapse_list.pyx":77
  *         return self.__deeper_activating_function
  * 
  *     def set_deeper_activating_function(self, value):             # <<<<<<<<<<<<<<
@@ -2848,7 +2852,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_14set_deeper_activating
   return __pyx_r;
 }
 
-/* "pydbm/synapse_list.pyx":83
+/* "pydbm/synapse_list.pyx":85
  *     deeper_activating_function = property(get_deeper_activating_function, set_deeper_activating_function)
  * 
  *     def create_node(             # <<<<<<<<<<<<<<
@@ -2863,12 +2867,12 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list___defaults__(CYTHON_UNUSED PyObj
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__defaults__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_weights_arr));
   __Pyx_GIVEREF(((PyObject *)__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_weights_arr));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_weights_arr));
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
@@ -2939,25 +2943,25 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_17create_node(PyObject 
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_shallower_neuron_count)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 1); __PYX_ERR(0, 83, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 1); __PYX_ERR(0, 85, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_deeper_neuron_count)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 2); __PYX_ERR(0, 83, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 2); __PYX_ERR(0, 85, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_shallower_activating_function)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 3); __PYX_ERR(0, 83, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 3); __PYX_ERR(0, 85, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_deeper_activating_function)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 4); __PYX_ERR(0, 83, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, 4); __PYX_ERR(0, 85, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
@@ -2967,7 +2971,7 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_17create_node(PyObject 
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "create_node") < 0)) __PYX_ERR(0, 83, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "create_node") < 0)) __PYX_ERR(0, 85, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2983,21 +2987,21 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_17create_node(PyObject 
       }
     }
     __pyx_v_self = values[0];
-    __pyx_v_shallower_neuron_count = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_shallower_neuron_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 85, __pyx_L3_error)
-    __pyx_v_deeper_neuron_count = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_deeper_neuron_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 86, __pyx_L3_error)
+    __pyx_v_shallower_neuron_count = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_shallower_neuron_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
+    __pyx_v_deeper_neuron_count = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_deeper_neuron_count == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 88, __pyx_L3_error)
     __pyx_v_shallower_activating_function = values[3];
     __pyx_v_deeper_activating_function = values[4];
     __pyx_v_weights_arr = ((PyArrayObject *)values[5]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 83, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("create_node", 0, 5, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 85, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.synapse_list.Synapse.create_node", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_weights_arr), __pyx_ptype_5numpy_ndarray, 1, "weights_arr", 0))) __PYX_ERR(0, 89, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_weights_arr), __pyx_ptype_5numpy_ndarray, 1, "weights_arr", 0))) __PYX_ERR(0, 91, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_12synapse_list_7Synapse_16create_node(__pyx_self, __pyx_v_self, __pyx_v_shallower_neuron_count, __pyx_v_deeper_neuron_count, __pyx_v_shallower_activating_function, __pyx_v_deeper_activating_function, __pyx_v_weights_arr);
 
   /* function exit code */
@@ -3021,64 +3025,64 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_16create_node(CYTHON_UN
   int __pyx_t_6;
   __Pyx_RefNannySetupContext("create_node", 0);
 
-  /* "pydbm/synapse_list.pyx":101
+  /* "pydbm/synapse_list.pyx":103
  *             weights_arr:                        The weights of links.
  *         '''
  *         self.shallower_activating_function = shallower_activating_function             # <<<<<<<<<<<<<<
  *         self.deeper_activating_function = deeper_activating_function
  * 
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_shallower_activating_function, __pyx_v_shallower_activating_function) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_shallower_activating_function, __pyx_v_shallower_activating_function) < 0) __PYX_ERR(0, 103, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":102
+  /* "pydbm/synapse_list.pyx":104
  *         '''
  *         self.shallower_activating_function = shallower_activating_function
  *         self.deeper_activating_function = deeper_activating_function             # <<<<<<<<<<<<<<
  * 
  *         cdef np.ndarray init_weights_arr = np.random.normal(
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_deeper_activating_function, __pyx_v_deeper_activating_function) < 0) __PYX_ERR(0, 102, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_deeper_activating_function, __pyx_v_deeper_activating_function) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":104
+  /* "pydbm/synapse_list.pyx":106
  *         self.deeper_activating_function = deeper_activating_function
  * 
  *         cdef np.ndarray init_weights_arr = np.random.normal(             # <<<<<<<<<<<<<<
  *             loc=0.5,
  *             scale=0.2,
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_normal); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_normal); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/synapse_list.pyx":105
+  /* "pydbm/synapse_list.pyx":107
  * 
  *         cdef np.ndarray init_weights_arr = np.random.normal(
  *             loc=0.5,             # <<<<<<<<<<<<<<
  *             scale=0.2,
  *             size=(shallower_neuron_count, deeper_neuron_count)
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_loc, __pyx_float_0_5) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_scale, __pyx_float_0_2) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_loc, __pyx_float_0_5) < 0) __PYX_ERR(0, 107, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_scale, __pyx_float_0_2) < 0) __PYX_ERR(0, 107, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":107
+  /* "pydbm/synapse_list.pyx":109
  *             loc=0.5,
  *             scale=0.2,
  *             size=(shallower_neuron_count, deeper_neuron_count)             # <<<<<<<<<<<<<<
  *         )
  * 
  */
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_shallower_neuron_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_shallower_neuron_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_deeper_neuron_count); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3);
@@ -3086,25 +3090,25 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_16create_node(CYTHON_UN
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_4);
   __pyx_t_3 = 0;
   __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_size, __pyx_t_5) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_size, __pyx_t_5) < 0) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/synapse_list.pyx":104
+  /* "pydbm/synapse_list.pyx":106
  *         self.deeper_activating_function = deeper_activating_function
  * 
  *         cdef np.ndarray init_weights_arr = np.random.normal(             # <<<<<<<<<<<<<<
  *             loc=0.5,
  *             scale=0.2,
  */
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 104, __pyx_L1_error)
+  if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 106, __pyx_L1_error)
   __pyx_v_init_weights_arr = ((PyArrayObject *)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "pydbm/synapse_list.pyx":110
+  /* "pydbm/synapse_list.pyx":112
  *         )
  * 
  *         if weights_arr.shape[0]:             # <<<<<<<<<<<<<<
@@ -3114,16 +3118,16 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_16create_node(CYTHON_UN
   __pyx_t_6 = ((__pyx_v_weights_arr->dimensions[0]) != 0);
   if (__pyx_t_6) {
 
-    /* "pydbm/synapse_list.pyx":111
+    /* "pydbm/synapse_list.pyx":113
  * 
  *         if weights_arr.shape[0]:
  *             self.weights_arr = weights_arr             # <<<<<<<<<<<<<<
  *         else:
  *             self.weights_arr = init_weights_arr
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_weights_arr, ((PyObject *)__pyx_v_weights_arr)) < 0) __PYX_ERR(0, 111, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_weights_arr, ((PyObject *)__pyx_v_weights_arr)) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
 
-    /* "pydbm/synapse_list.pyx":110
+    /* "pydbm/synapse_list.pyx":112
  *         )
  * 
  *         if weights_arr.shape[0]:             # <<<<<<<<<<<<<<
@@ -3133,52 +3137,64 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_16create_node(CYTHON_UN
     goto __pyx_L3;
   }
 
-  /* "pydbm/synapse_list.pyx":113
+  /* "pydbm/synapse_list.pyx":115
  *             self.weights_arr = weights_arr
  *         else:
  *             self.weights_arr = init_weights_arr             # <<<<<<<<<<<<<<
  *         self.diff_weights_arr = np.zeros(self.weights_arr.shape, dtype=float)
- * 
+ *         self.stacked_graph_list = []
  */
   /*else*/ {
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_weights_arr, ((PyObject *)__pyx_v_init_weights_arr)) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_weights_arr, ((PyObject *)__pyx_v_init_weights_arr)) < 0) __PYX_ERR(0, 115, __pyx_L1_error)
   }
   __pyx_L3:;
 
-  /* "pydbm/synapse_list.pyx":114
+  /* "pydbm/synapse_list.pyx":116
  *         else:
  *             self.weights_arr = init_weights_arr
  *         self.diff_weights_arr = np.zeros(self.weights_arr.shape, dtype=float)             # <<<<<<<<<<<<<<
+ *         self.stacked_graph_list = []
  * 
- *     def learn_weights(self):
  */
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, ((PyObject *)(&PyFloat_Type))) < 0) __PYX_ERR(0, 114, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, ((PyObject *)(&PyFloat_Type))) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_diff_weights_arr, __pyx_t_4) < 0) __PYX_ERR(0, 114, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_diff_weights_arr, __pyx_t_4) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/synapse_list.pyx":83
+  /* "pydbm/synapse_list.pyx":117
+ *             self.weights_arr = init_weights_arr
+ *         self.diff_weights_arr = np.zeros(self.weights_arr.shape, dtype=float)
+ *         self.stacked_graph_list = []             # <<<<<<<<<<<<<<
+ * 
+ *     def learn_weights(self):
+ */
+  __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_stacked_graph_list, __pyx_t_4) < 0) __PYX_ERR(0, 117, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/synapse_list.pyx":85
  *     deeper_activating_function = property(get_deeper_activating_function, set_deeper_activating_function)
  * 
  *     def create_node(             # <<<<<<<<<<<<<<
@@ -3204,8 +3220,8 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_16create_node(CYTHON_UN
   return __pyx_r;
 }
 
-/* "pydbm/synapse_list.pyx":116
- *         self.diff_weights_arr = np.zeros(self.weights_arr.shape, dtype=float)
+/* "pydbm/synapse_list.pyx":119
+ *         self.stacked_graph_list = []
  * 
  *     def learn_weights(self):             # <<<<<<<<<<<<<<
  *         '''
@@ -3239,79 +3255,79 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_18learn_weights(CYTHON_
   PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("learn_weights", 0);
 
-  /* "pydbm/synapse_list.pyx":120
+  /* "pydbm/synapse_list.pyx":123
  *         Update the weights of links.
  *         '''
  *         self.weights_arr = self.weights_arr + self.diff_weights_arr             # <<<<<<<<<<<<<<
  *         cdef int row = self.weights_arr.shape[0]
  *         cdef int col = self.weights_arr.shape[1]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 120, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_diff_weights_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 120, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_diff_weights_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 120, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_weights_arr, __pyx_t_3) < 0) __PYX_ERR(0, 120, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_weights_arr, __pyx_t_3) < 0) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse_list.pyx":121
+  /* "pydbm/synapse_list.pyx":124
  *         '''
  *         self.weights_arr = self.weights_arr + self.diff_weights_arr
  *         cdef int row = self.weights_arr.shape[0]             # <<<<<<<<<<<<<<
  *         cdef int col = self.weights_arr.shape[1]
  *         self.diff_weights_arr = np.zeros((row, col), dtype=float)
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 124, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_shape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_shape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 124, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 124, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 121, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 124, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_row = __pyx_t_4;
 
-  /* "pydbm/synapse_list.pyx":122
+  /* "pydbm/synapse_list.pyx":125
  *         self.weights_arr = self.weights_arr + self.diff_weights_arr
  *         cdef int row = self.weights_arr.shape[0]
  *         cdef int col = self.weights_arr.shape[1]             # <<<<<<<<<<<<<<
  *         self.diff_weights_arr = np.zeros((row, col), dtype=float)
  * 
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_weights_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 125, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_shape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_shape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 125, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 125, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 125, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_col = __pyx_t_4;
 
-  /* "pydbm/synapse_list.pyx":123
+  /* "pydbm/synapse_list.pyx":126
  *         cdef int row = self.weights_arr.shape[0]
  *         cdef int col = self.weights_arr.shape[1]
  *         self.diff_weights_arr = np.zeros((row, col), dtype=float)             # <<<<<<<<<<<<<<
  * 
  *     def save_pre_learned_params(self, file_path):
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_row); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_row); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_col); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_col); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3);
@@ -3319,24 +3335,24 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_18learn_weights(CYTHON_
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_1);
   __pyx_t_3 = 0;
   __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_5);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_5);
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_dtype, ((PyObject *)(&PyFloat_Type))) < 0) __PYX_ERR(0, 123, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 123, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_dtype, ((PyObject *)(&PyFloat_Type))) < 0) __PYX_ERR(0, 126, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_diff_weights_arr, __pyx_t_3) < 0) __PYX_ERR(0, 123, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_diff_weights_arr, __pyx_t_3) < 0) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse_list.pyx":116
- *         self.diff_weights_arr = np.zeros(self.weights_arr.shape, dtype=float)
+  /* "pydbm/synapse_list.pyx":119
+ *         self.stacked_graph_list = []
  * 
  *     def learn_weights(self):             # <<<<<<<<<<<<<<
  *         '''
@@ -3359,7 +3375,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_18learn_weights(CYTHON_
   return __pyx_r;
 }
 
-/* "pydbm/synapse_list.pyx":125
+/* "pydbm/synapse_list.pyx":128
  *         self.diff_weights_arr = np.zeros((row, col), dtype=float)
  * 
  *     def save_pre_learned_params(self, file_path):             # <<<<<<<<<<<<<<
@@ -3369,7 +3385,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_18learn_weights(CYTHON_
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_21save_pre_learned_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_12synapse_list_7Synapse_20save_pre_learned_params[] = "\n        Save pre-learned parameters.\n        \n        Args:\n            file_path:    File path.\n        ";
+static char __pyx_doc_5pydbm_12synapse_list_7Synapse_20save_pre_learned_params[] = "\n        Save pre-learned parameters.\n\n        If you want to save pre-learned parameters simultaneously with stacked graphs,\n        call method `stack_graph` and setup the graphs before calling this method.\n        \n        Args:\n            file_path:    File path.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_12synapse_list_7Synapse_21save_pre_learned_params = {"save_pre_learned_params", (PyCFunction)__pyx_pw_5pydbm_12synapse_list_7Synapse_21save_pre_learned_params, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_12synapse_list_7Synapse_20save_pre_learned_params};
 static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_21save_pre_learned_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
@@ -3400,11 +3416,11 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_21save_pre_learned_para
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_file_path)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 1, 2, 2, 1); __PYX_ERR(0, 125, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 1, 2, 2, 1); __PYX_ERR(0, 128, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "save_pre_learned_params") < 0)) __PYX_ERR(0, 125, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "save_pre_learned_params") < 0)) __PYX_ERR(0, 128, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3417,7 +3433,7 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_21save_pre_learned_para
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 125, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 128, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.synapse_list.Synapse.save_pre_learned_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3448,28 +3464,28 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
   int __pyx_t_10;
   __Pyx_RefNannySetupContext("save_pre_learned_params", 0);
 
-  /* "pydbm/synapse_list.pyx":132
+  /* "pydbm/synapse_list.pyx":138
  *             file_path:    File path.
  *         '''
  *         d = {}             # <<<<<<<<<<<<<<
  *         for k, v in self.__dict__.items():
  *             if isinstance(v, np.ndarray):
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_d = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/synapse_list.pyx":133
+  /* "pydbm/synapse_list.pyx":139
  *         '''
  *         d = {}
  *         for k, v in self.__dict__.items():             # <<<<<<<<<<<<<<
  *             if isinstance(v, np.ndarray):
  *                 d.setdefault(k, v)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_items); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_items); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -3483,10 +3499,10 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
     }
   }
   if (__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3494,9 +3510,9 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
     __pyx_t_3 = __pyx_t_1; __Pyx_INCREF(__pyx_t_3); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 133, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 133, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 139, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -3504,17 +3520,17 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
       if (likely(PyList_CheckExact(__pyx_t_3))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 133, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 139, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 133, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 139, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -3524,7 +3540,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 133, __pyx_L1_error)
+          else __PYX_ERR(0, 139, __pyx_L1_error)
         }
         break;
       }
@@ -3540,7 +3556,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 133, __pyx_L1_error)
+        __PYX_ERR(0, 139, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -3553,15 +3569,15 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
       __Pyx_INCREF(__pyx_t_2);
       __Pyx_INCREF(__pyx_t_6);
       #else
-      __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
+      __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 133, __pyx_L1_error)
+      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 139, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       #endif
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 133, __pyx_L1_error)
+      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 139, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
@@ -3569,7 +3585,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
       __Pyx_GOTREF(__pyx_t_2);
       index = 1; __pyx_t_6 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_6)) goto __pyx_L5_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_6);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 133, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 139, __pyx_L1_error)
       __pyx_t_8 = NULL;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       goto __pyx_L6_unpacking_done;
@@ -3577,7 +3593,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 133, __pyx_L1_error)
+      __PYX_ERR(0, 139, __pyx_L1_error)
       __pyx_L6_unpacking_done:;
     }
     __Pyx_XDECREF_SET(__pyx_v_k, __pyx_t_2);
@@ -3585,7 +3601,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
     __Pyx_XDECREF_SET(__pyx_v_v, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "pydbm/synapse_list.pyx":134
+    /* "pydbm/synapse_list.pyx":140
  *         d = {}
  *         for k, v in self.__dict__.items():
  *             if isinstance(v, np.ndarray):             # <<<<<<<<<<<<<<
@@ -3596,18 +3612,18 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
     __pyx_t_10 = (__pyx_t_9 != 0);
     if (__pyx_t_10) {
 
-      /* "pydbm/synapse_list.pyx":135
+      /* "pydbm/synapse_list.pyx":141
  *         for k, v in self.__dict__.items():
  *             if isinstance(v, np.ndarray):
  *                 d.setdefault(k, v)             # <<<<<<<<<<<<<<
  *         np.savez_compressed(file_path, **d)
  * 
  */
-      __pyx_t_1 = __Pyx_PyDict_SetDefault(__pyx_v_d, __pyx_v_k, __pyx_v_v, -1L); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyDict_SetDefault(__pyx_v_d, __pyx_v_k, __pyx_v_v, -1L); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pydbm/synapse_list.pyx":134
+      /* "pydbm/synapse_list.pyx":140
  *         d = {}
  *         for k, v in self.__dict__.items():
  *             if isinstance(v, np.ndarray):             # <<<<<<<<<<<<<<
@@ -3616,7 +3632,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
  */
     }
 
-    /* "pydbm/synapse_list.pyx":133
+    /* "pydbm/synapse_list.pyx":139
  *         '''
  *         d = {}
  *         for k, v in self.__dict__.items():             # <<<<<<<<<<<<<<
@@ -3626,30 +3642,30 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse_list.pyx":136
+  /* "pydbm/synapse_list.pyx":142
  *             if isinstance(v, np.ndarray):
  *                 d.setdefault(k, v)
  *         np.savez_compressed(file_path, **d)             # <<<<<<<<<<<<<<
  * 
  *     def load_pre_learned_params(self, file_path):
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_savez_compressed); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_savez_compressed); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_v_file_path);
   __Pyx_GIVEREF(__pyx_v_file_path);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_file_path);
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, __pyx_v_d); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, __pyx_v_d); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/synapse_list.pyx":125
+  /* "pydbm/synapse_list.pyx":128
  *         self.diff_weights_arr = np.zeros((row, col), dtype=float)
  * 
  *     def save_pre_learned_params(self, file_path):             # <<<<<<<<<<<<<<
@@ -3677,7 +3693,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
   return __pyx_r;
 }
 
-/* "pydbm/synapse_list.pyx":138
+/* "pydbm/synapse_list.pyx":144
  *         np.savez_compressed(file_path, **d)
  * 
  *     def load_pre_learned_params(self, file_path):             # <<<<<<<<<<<<<<
@@ -3687,7 +3703,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_23load_pre_learned_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_12synapse_list_7Synapse_22load_pre_learned_params[] = "\n        Load pre-learned parameters.\n        \n        Args:\n            file_path:    File path.\n        ";
+static char __pyx_doc_5pydbm_12synapse_list_7Synapse_22load_pre_learned_params[] = "\n        Load pre-learned parameters.\n\n        If you want to load pre-learned parameters simultaneously with stacked graphs,\n        call method `stack_graph` and setup the graphs before calling this method.\n        \n        Args:\n            file_path:    File path.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_12synapse_list_7Synapse_23load_pre_learned_params = {"load_pre_learned_params", (PyCFunction)__pyx_pw_5pydbm_12synapse_list_7Synapse_23load_pre_learned_params, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_12synapse_list_7Synapse_22load_pre_learned_params};
 static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_23load_pre_learned_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
@@ -3718,11 +3734,11 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_23load_pre_learned_para
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_file_path)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("load_pre_learned_params", 1, 2, 2, 1); __PYX_ERR(0, 138, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("load_pre_learned_params", 1, 2, 2, 1); __PYX_ERR(0, 144, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "load_pre_learned_params") < 0)) __PYX_ERR(0, 138, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "load_pre_learned_params") < 0)) __PYX_ERR(0, 144, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3735,7 +3751,7 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_23load_pre_learned_para
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("load_pre_learned_params", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 138, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("load_pre_learned_params", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 144, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.synapse_list.Synapse.load_pre_learned_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3766,16 +3782,16 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
   int __pyx_t_10;
   __Pyx_RefNannySetupContext("load_pre_learned_params", 0);
 
-  /* "pydbm/synapse_list.pyx":145
+  /* "pydbm/synapse_list.pyx":154
  *             file_path:    File path.
  *         '''
  *         pre_learned_dict = np.load(file_path)             # <<<<<<<<<<<<<<
  *         for k, v in pre_learned_dict.items():
  *             if isinstance(v, np.ndarray):
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 154, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_load); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 145, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_load); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 154, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -3789,13 +3805,13 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_file_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_file_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_file_path};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -3803,19 +3819,19 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_file_path};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 154, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_INCREF(__pyx_v_file_path);
       __Pyx_GIVEREF(__pyx_v_file_path);
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_file_path);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -3824,14 +3840,14 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
   __pyx_v_pre_learned_dict = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/synapse_list.pyx":146
+  /* "pydbm/synapse_list.pyx":155
  *         '''
  *         pre_learned_dict = np.load(file_path)
  *         for k, v in pre_learned_dict.items():             # <<<<<<<<<<<<<<
  *             if isinstance(v, np.ndarray):
  *                 self.__dict__[k] = v
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_pre_learned_dict, __pyx_n_s_items); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_pre_learned_dict, __pyx_n_s_items); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
@@ -3844,10 +3860,10 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
     }
   }
   if (__pyx_t_4) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3855,9 +3871,9 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
     __pyx_t_3 = __pyx_t_1; __Pyx_INCREF(__pyx_t_3); __pyx_t_5 = 0;
     __pyx_t_6 = NULL;
   } else {
-    __pyx_t_5 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
+    __pyx_t_5 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_6 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 146, __pyx_L1_error)
+    __pyx_t_6 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 155, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -3865,17 +3881,17 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
       if (likely(PyList_CheckExact(__pyx_t_3))) {
         if (__pyx_t_5 >= PyList_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 146, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 155, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_5 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 146, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 155, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -3885,7 +3901,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 146, __pyx_L1_error)
+          else __PYX_ERR(0, 155, __pyx_L1_error)
         }
         break;
       }
@@ -3901,7 +3917,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 146, __pyx_L1_error)
+        __PYX_ERR(0, 155, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -3914,15 +3930,15 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
       __Pyx_INCREF(__pyx_t_4);
       __Pyx_INCREF(__pyx_t_2);
       #else
-      __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 146, __pyx_L1_error)
+      __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 155, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_2 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
+      __pyx_t_2 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 155, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       #endif
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 146, __pyx_L1_error)
+      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 155, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
@@ -3930,7 +3946,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
       __Pyx_GOTREF(__pyx_t_4);
       index = 1; __pyx_t_2 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_2)) goto __pyx_L5_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_2);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 146, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 155, __pyx_L1_error)
       __pyx_t_8 = NULL;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       goto __pyx_L6_unpacking_done;
@@ -3938,7 +3954,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 146, __pyx_L1_error)
+      __PYX_ERR(0, 155, __pyx_L1_error)
       __pyx_L6_unpacking_done:;
     }
     __Pyx_XDECREF_SET(__pyx_v_k, __pyx_t_4);
@@ -3946,7 +3962,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
     __Pyx_XDECREF_SET(__pyx_v_v, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pydbm/synapse_list.pyx":147
+    /* "pydbm/synapse_list.pyx":156
  *         pre_learned_dict = np.load(file_path)
  *         for k, v in pre_learned_dict.items():
  *             if isinstance(v, np.ndarray):             # <<<<<<<<<<<<<<
@@ -3956,17 +3972,17 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
     __pyx_t_10 = (__pyx_t_9 != 0);
     if (__pyx_t_10) {
 
-      /* "pydbm/synapse_list.pyx":148
+      /* "pydbm/synapse_list.pyx":157
  *         for k, v in pre_learned_dict.items():
  *             if isinstance(v, np.ndarray):
  *                 self.__dict__[k] = v             # <<<<<<<<<<<<<<
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 157, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_v_k, __pyx_v_v) < 0)) __PYX_ERR(0, 148, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_v_k, __pyx_v_v) < 0)) __PYX_ERR(0, 157, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pydbm/synapse_list.pyx":147
+      /* "pydbm/synapse_list.pyx":156
  *         pre_learned_dict = np.load(file_path)
  *         for k, v in pre_learned_dict.items():
  *             if isinstance(v, np.ndarray):             # <<<<<<<<<<<<<<
@@ -3974,7 +3990,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
  */
     }
 
-    /* "pydbm/synapse_list.pyx":146
+    /* "pydbm/synapse_list.pyx":155
  *         '''
  *         pre_learned_dict = np.load(file_path)
  *         for k, v in pre_learned_dict.items():             # <<<<<<<<<<<<<<
@@ -3984,7 +4000,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse_list.pyx":138
+  /* "pydbm/synapse_list.pyx":144
  *         np.savez_compressed(file_path, **d)
  * 
  *     def load_pre_learned_params(self, file_path):             # <<<<<<<<<<<<<<
@@ -6696,6 +6712,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_numpy_core_multiarray_failed_to, __pyx_k_numpy_core_multiarray_failed_to, sizeof(__pyx_k_numpy_core_multiarray_failed_to), 0, 0, 1, 0},
   {&__pyx_kp_s_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 0, 1, 0},
   {&__pyx_n_s_object, __pyx_k_object, sizeof(__pyx_k_object), 0, 0, 1, 1},
+  {&__pyx_n_s_os, __pyx_k_os, sizeof(__pyx_k_os), 0, 0, 1, 1},
   {&__pyx_n_s_pre_learned_dict, __pyx_k_pre_learned_dict, sizeof(__pyx_k_pre_learned_dict), 0, 0, 1, 1},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
   {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
@@ -6719,6 +6736,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_shallower_neuron_count, __pyx_k_shallower_neuron_count, sizeof(__pyx_k_shallower_neuron_count), 0, 0, 1, 1},
   {&__pyx_n_s_shape, __pyx_k_shape, sizeof(__pyx_k_shape), 0, 0, 1, 1},
   {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
+  {&__pyx_n_s_stacked_graph_list, __pyx_k_stacked_graph_list, sizeof(__pyx_k_stacked_graph_list), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_kp_u_unknown_dtype_code_in_numpy_pxd, __pyx_k_unknown_dtype_code_in_numpy_pxd, sizeof(__pyx_k_unknown_dtype_code_in_numpy_pxd), 0, 1, 0, 0},
   {&__pyx_n_s_v, __pyx_k_v, sizeof(__pyx_k_v), 0, 0, 1, 1},
@@ -6728,9 +6746,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_object = __Pyx_GetBuiltinName(__pyx_n_s_object); if (!__pyx_builtin_object) __PYX_ERR(0, 10, __pyx_L1_error)
-  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 29, __pyx_L1_error)
-  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_builtin_object = __Pyx_GetBuiltinName(__pyx_n_s_object); if (!__pyx_builtin_object) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 31, __pyx_L1_error)
+  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 22, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 235, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(1, 248, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 823, __pyx_L1_error)
@@ -6744,91 +6762,91 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pydbm/synapse_list.pyx":20
+  /* "pydbm/synapse_list.pyx":22
  *         ''' getter '''
  *         if isinstance(self.__weights_arr, np.ndarray) is False:
  *             raise TypeError("The type of __weights_arr must be `np.ndarray`.")             # <<<<<<<<<<<<<<
  *         return self.__weights_arr
  * 
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_The_type_of___weights_arr_must_b); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_The_type_of___weights_arr_must_b); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "pydbm/synapse_list.pyx":26
+  /* "pydbm/synapse_list.pyx":28
  *         ''' setter '''
  *         if isinstance(value, np.ndarray) is False:
  *             raise TypeError("The type of __weights_arr must be `np.ndarray`.")             # <<<<<<<<<<<<<<
  *         self.__weights_arr = value
  * 
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___weights_arr_must_b); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___weights_arr_must_b); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 28, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "pydbm/synapse_list.pyx":37
+  /* "pydbm/synapse_list.pyx":39
  *         ''' getter '''
  *         if isinstance(self.__diff_weights_arr, np.ndarray) is False:
  *             raise TypeError("The type of __diff_weights_arr must be `np.ndarray`.")             # <<<<<<<<<<<<<<
  *         return self.__diff_weights_arr
  * 
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___diff_weights_arr_m); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 37, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___diff_weights_arr_m); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "pydbm/synapse_list.pyx":43
+  /* "pydbm/synapse_list.pyx":45
  *         ''' setter '''
  *         if isinstance(value, np.ndarray) is False:
  *             raise TypeError("The type of __diff_weights_arr must be `np.ndarray`.")             # <<<<<<<<<<<<<<
  *         self.__diff_weights_arr = value
  * 
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___diff_weights_arr_m); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___diff_weights_arr_m); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "pydbm/synapse_list.pyx":54
+  /* "pydbm/synapse_list.pyx":56
  *         ''' getter '''
  *         if isinstance(self.__shallower_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __shallower_activating_function must be `ActivatingFunctionInterface`.")             # <<<<<<<<<<<<<<
  *         return self.__shallower_activating_function
  * 
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___shallower_activati); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 54, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___shallower_activati); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 56, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "pydbm/synapse_list.pyx":60
+  /* "pydbm/synapse_list.pyx":62
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __shallower_activating_function must be `ActivatingFunctionInterface`.")             # <<<<<<<<<<<<<<
  * 
  *         self.__shallower_activating_function = value
  */
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___shallower_activati); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___shallower_activati); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "pydbm/synapse_list.pyx":72
+  /* "pydbm/synapse_list.pyx":74
  *         ''' getter '''
  *         if isinstance(self.__deeper_activating_function, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __deeper_activating_function must be `ActivatingFunctionInterface`.")             # <<<<<<<<<<<<<<
  *         return self.__deeper_activating_function
  * 
  */
-  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___deeper_activating); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___deeper_activating); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
 
-  /* "pydbm/synapse_list.pyx":78
+  /* "pydbm/synapse_list.pyx":80
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  *             raise TypeError("The type of __deeper_activating_function must be `ActivatingFunctionInterface`.")             # <<<<<<<<<<<<<<
  *         self.__deeper_activating_function = value
  * 
  */
-  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___deeper_activating); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_The_type_of___deeper_activating); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
 
@@ -6929,160 +6947,160 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
 
-  /* "pydbm/synapse_list.pyx":10
+  /* "pydbm/synapse_list.pyx":11
  * 
  * 
  * class Synapse(object):             # <<<<<<<<<<<<<<
  *     '''
  *     The object of synapse.
  */
-  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_builtin_object); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_builtin_object); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_GIVEREF(__pyx_tuple__18);
 
-  /* "pydbm/synapse_list.pyx":17
+  /* "pydbm/synapse_list.pyx":19
  *     __weights_arr = np.array([])
  * 
  *     def get_weights_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__weights_arr, np.ndarray) is False:
  */
-  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__19);
   __Pyx_GIVEREF(__pyx_tuple__19);
-  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_get_weights_arr, 17, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_get_weights_arr, 19, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 19, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":23
+  /* "pydbm/synapse_list.pyx":25
  *         return self.__weights_arr
  * 
  *     def set_weights_arr(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, np.ndarray) is False:
  */
-  __pyx_tuple__21 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_tuple__21 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__21);
   __Pyx_GIVEREF(__pyx_tuple__21);
-  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_set_weights_arr, 23, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_set_weights_arr, 25, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 25, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":34
+  /* "pydbm/synapse_list.pyx":36
  *     __diff_weights_arr = np.array([])
  * 
  *     def get_diff_weights_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__diff_weights_arr, np.ndarray) is False:
  */
-  __pyx_tuple__23 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __pyx_tuple__23 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__23);
   __Pyx_GIVEREF(__pyx_tuple__23);
-  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_get_diff_weights_arr, 34, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_get_diff_weights_arr, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 36, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":40
+  /* "pydbm/synapse_list.pyx":42
  *         return self.__diff_weights_arr
  * 
  *     def set_diff_weights_arr(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, np.ndarray) is False:
  */
-  __pyx_tuple__25 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_tuple__25 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_set_diff_weights_arr, 40, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_set_diff_weights_arr, 42, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 42, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":51
+  /* "pydbm/synapse_list.pyx":53
  *     __shallower_activating_function = None
  * 
  *     def get_shallower_activating_function(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__shallower_activating_function, ActivatingFunctionInterface) is False:
  */
-  __pyx_tuple__27 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_tuple__27 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__27);
   __Pyx_GIVEREF(__pyx_tuple__27);
-  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_get_shallower_activating_functio, 51, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_get_shallower_activating_functio, 53, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 53, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":57
+  /* "pydbm/synapse_list.pyx":59
  *         return self.__shallower_activating_function
  * 
  *     def set_shallower_activating_function(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  */
-  __pyx_tuple__29 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_tuple__29 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__29);
   __Pyx_GIVEREF(__pyx_tuple__29);
-  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_set_shallower_activating_functio, 57, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_set_shallower_activating_functio, 59, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 59, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":69
+  /* "pydbm/synapse_list.pyx":71
  *     __deeper_activating_function = None
  * 
  *     def get_deeper_activating_function(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__deeper_activating_function, ActivatingFunctionInterface) is False:
  */
-  __pyx_tuple__31 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 69, __pyx_L1_error)
+  __pyx_tuple__31 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__31);
   __Pyx_GIVEREF(__pyx_tuple__31);
-  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_get_deeper_activating_function, 69, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 69, __pyx_L1_error)
+  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_get_deeper_activating_function, 71, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 71, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":75
+  /* "pydbm/synapse_list.pyx":77
  *         return self.__deeper_activating_function
  * 
  *     def set_deeper_activating_function(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  */
-  __pyx_tuple__33 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 75, __pyx_L1_error)
+  __pyx_tuple__33 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__33);
   __Pyx_GIVEREF(__pyx_tuple__33);
-  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_set_deeper_activating_function, 75, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 75, __pyx_L1_error)
+  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_set_deeper_activating_function, 77, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 77, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":83
+  /* "pydbm/synapse_list.pyx":85
  *     deeper_activating_function = property(get_deeper_activating_function, set_deeper_activating_function)
  * 
  *     def create_node(             # <<<<<<<<<<<<<<
  *         self,
  *         int shallower_neuron_count,
  */
-  __pyx_tuple__35 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_shallower_neuron_count, __pyx_n_s_deeper_neuron_count, __pyx_n_s_shallower_activating_function, __pyx_n_s_deeper_activating_function, __pyx_n_s_weights_arr, __pyx_n_s_init_weights_arr); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_tuple__35 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_shallower_neuron_count, __pyx_n_s_deeper_neuron_count, __pyx_n_s_shallower_activating_function, __pyx_n_s_deeper_activating_function, __pyx_n_s_weights_arr, __pyx_n_s_init_weights_arr); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__35);
   __Pyx_GIVEREF(__pyx_tuple__35);
-  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(6, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_create_node, 83, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(6, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_create_node, 85, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 85, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":116
- *         self.diff_weights_arr = np.zeros(self.weights_arr.shape, dtype=float)
+  /* "pydbm/synapse_list.pyx":119
+ *         self.stacked_graph_list = []
  * 
  *     def learn_weights(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Update the weights of links.
  */
-  __pyx_tuple__37 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_row, __pyx_n_s_col); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __pyx_tuple__37 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_row, __pyx_n_s_col); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__37);
   __Pyx_GIVEREF(__pyx_tuple__37);
-  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_learn_weights, 116, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_learn_weights, 119, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 119, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":125
+  /* "pydbm/synapse_list.pyx":128
  *         self.diff_weights_arr = np.zeros((row, col), dtype=float)
  * 
  *     def save_pre_learned_params(self, file_path):             # <<<<<<<<<<<<<<
  *         '''
  *         Save pre-learned parameters.
  */
-  __pyx_tuple__39 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_file_path, __pyx_n_s_d, __pyx_n_s_k, __pyx_n_s_v); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 125, __pyx_L1_error)
+  __pyx_tuple__39 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_file_path, __pyx_n_s_d, __pyx_n_s_k, __pyx_n_s_v); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__39);
   __Pyx_GIVEREF(__pyx_tuple__39);
-  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_save_pre_learned_params, 125, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 125, __pyx_L1_error)
+  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_save_pre_learned_params, 128, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 128, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":138
+  /* "pydbm/synapse_list.pyx":144
  *         np.savez_compressed(file_path, **d)
  * 
  *     def load_pre_learned_params(self, file_path):             # <<<<<<<<<<<<<<
  *         '''
  *         Load pre-learned parameters.
  */
-  __pyx_tuple__41 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_file_path, __pyx_n_s_pre_learned_dict, __pyx_n_s_k, __pyx_n_s_v); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __pyx_tuple__41 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_file_path, __pyx_n_s_pre_learned_dict, __pyx_n_s_k, __pyx_n_s_v); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__41);
   __Pyx_GIVEREF(__pyx_tuple__41);
-  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_load_pre_learned_params, 138, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_load_pre_learned_params, 144, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -7265,73 +7283,85 @@ static int __pyx_pymod_exec_synapse_list(PyObject *__pyx_pyinit_module)
 
   /* "pydbm/synapse_list.pyx":2
  * # -*- coding: utf-8 -*-
+ * import os             # <<<<<<<<<<<<<<
+ * import numpy as np
+ * cimport numpy as np
+ */
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_os, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_os, __pyx_t_1) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pydbm/synapse_list.pyx":3
+ * # -*- coding: utf-8 -*-
+ * import os
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
  * cimport cython
  */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/synapse_list.pyx":5
+  /* "pydbm/synapse_list.pyx":6
  * cimport numpy as np
  * cimport cython
  * import random             # <<<<<<<<<<<<<<
  * ctypedef np.float64_t DOUBLE_t
  * from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
  */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_random, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_random, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_random, __pyx_t_1) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_random, __pyx_t_1) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/synapse_list.pyx":7
+  /* "pydbm/synapse_list.pyx":8
  * import random
  * ctypedef np.float64_t DOUBLE_t
  * from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_ActivatingFunctionInterface);
   __Pyx_GIVEREF(__pyx_n_s_ActivatingFunctionInterface);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_ActivatingFunctionInterface);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_activation_interface_activ, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_activation_interface_activ, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ActivatingFunctionInterface, __pyx_t_1) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ActivatingFunctionInterface, __pyx_t_1) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/synapse_list.pyx":10
+  /* "pydbm/synapse_list.pyx":11
  * 
  * 
  * class Synapse(object):             # <<<<<<<<<<<<<<
  *     '''
  *     The object of synapse.
  */
-  __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_tuple__18); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_tuple__18); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_tuple__18, __pyx_n_s_Synapse, __pyx_n_s_Synapse, (PyObject *) NULL, __pyx_n_s_pydbm_synapse_list, __pyx_kp_s_The_object_of_synapse); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_tuple__18, __pyx_n_s_Synapse, __pyx_n_s_Synapse, (PyObject *) NULL, __pyx_n_s_pydbm_synapse_list, __pyx_kp_s_The_object_of_synapse); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pydbm/synapse_list.pyx":15
- *     '''
+  /* "pydbm/synapse_list.pyx":17
+ * 
  *     # The weights of links
  *     __weights_arr = np.array([])             # <<<<<<<<<<<<<<
  * 
  *     def get_weights_arr(self):
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_6 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -7344,14 +7374,14 @@ static int __pyx_pymod_exec_synapse_list(PyObject *__pyx_pyinit_module)
     }
   }
   if (!__pyx_t_6) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 15, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 17, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_3);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_4};
-      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 15, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 17, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -7360,53 +7390,53 @@ static int __pyx_pymod_exec_synapse_list(PyObject *__pyx_pyinit_module)
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_4};
-      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 15, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 17, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     } else
     #endif
     {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 15, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 17, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
       __Pyx_GIVEREF(__pyx_t_4);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_4);
       __pyx_t_4 = 0;
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 15, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 17, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_Synapse__weights_arr, __pyx_t_3) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_Synapse__weights_arr, __pyx_t_3) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse_list.pyx":17
+  /* "pydbm/synapse_list.pyx":19
  *     __weights_arr = np.array([])
  * 
  *     def get_weights_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__weights_arr, np.ndarray) is False:
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_1get_weights_arr, 0, __pyx_n_s_Synapse_get_weights_arr, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_1get_weights_arr, 0, __pyx_n_s_Synapse_get_weights_arr, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_get_weights_arr, __pyx_t_3) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_get_weights_arr, __pyx_t_3) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse_list.pyx":23
+  /* "pydbm/synapse_list.pyx":25
  *         return self.__weights_arr
  * 
  *     def set_weights_arr(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, np.ndarray) is False:
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_3set_weights_arr, 0, __pyx_n_s_Synapse_set_weights_arr, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_3set_weights_arr, 0, __pyx_n_s_Synapse_set_weights_arr, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_set_weights_arr, __pyx_t_3) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_set_weights_arr, __pyx_t_3) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse_list.pyx":29
+  /* "pydbm/synapse_list.pyx":31
  *         self.__weights_arr = value
  * 
  *     weights_arr = property(get_weights_arr, set_weights_arr)             # <<<<<<<<<<<<<<
@@ -7418,16 +7448,16 @@ static int __pyx_pymod_exec_synapse_list(PyObject *__pyx_pyinit_module)
     PyErr_Clear();
     __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_weights_arr);
   }
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 29, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 31, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_5 = PyObject_GetItem(__pyx_t_1, __pyx_n_s_set_weights_arr);
   if (unlikely(!__pyx_t_5)) {
     PyErr_Clear();
     __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_weights_arr);
   }
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 29, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 31, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 31, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_3);
@@ -7435,25 +7465,25 @@ static int __pyx_pymod_exec_synapse_list(PyObject *__pyx_pyinit_module)
   PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_5);
   __pyx_t_3 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 31, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_weights_arr, __pyx_t_5) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_weights_arr, __pyx_t_5) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/synapse_list.pyx":32
+  /* "pydbm/synapse_list.pyx":34
  * 
  *     # The diff of weights.
  *     __diff_weights_arr = np.array([])             # <<<<<<<<<<<<<<
  * 
  *     def get_diff_weights_arr(self):
  */
-  __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 32, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 32, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = PyList_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 32, __pyx_L1_error)
+  __pyx_t_7 = PyList_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -7466,14 +7496,14 @@ static int __pyx_pymod_exec_synapse_list(PyObject *__pyx_pyinit_module)
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 32, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 34, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_5);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_7};
-      __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 32, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 34, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -7482,53 +7512,53 @@ static int __pyx_pymod_exec_synapse_list(PyObject *__pyx_pyinit_module)
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_7};
-      __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 32, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 34, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else
     #endif
     {
-      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 32, __pyx_L1_error)
+      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 34, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
       __Pyx_GIVEREF(__pyx_t_7);
       PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_7);
       __pyx_t_7 = 0;
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 32, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 34, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_Synapse__diff_weights_arr, __pyx_t_5) < 0) __PYX_ERR(0, 32, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_Synapse__diff_weights_arr, __pyx_t_5) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/synapse_list.pyx":34
+  /* "pydbm/synapse_list.pyx":36
  *     __diff_weights_arr = np.array([])
  * 
  *     def get_diff_weights_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__diff_weights_arr, np.ndarray) is False:
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_5get_diff_weights_arr, 0, __pyx_n_s_Synapse_get_diff_weights_arr, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_5get_diff_weights_arr, 0, __pyx_n_s_Synapse_get_diff_weights_arr, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_get_diff_weights_arr, __pyx_t_5) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_get_diff_weights_arr, __pyx_t_5) < 0) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/synapse_list.pyx":40
+  /* "pydbm/synapse_list.pyx":42
  *         return self.__diff_weights_arr
  * 
  *     def set_diff_weights_arr(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, np.ndarray) is False:
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_7set_diff_weights_arr, 0, __pyx_n_s_Synapse_set_diff_weights_arr, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_7set_diff_weights_arr, 0, __pyx_n_s_Synapse_set_diff_weights_arr, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_set_diff_weights_arr, __pyx_t_5) < 0) __PYX_ERR(0, 40, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_set_diff_weights_arr, __pyx_t_5) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/synapse_list.pyx":46
+  /* "pydbm/synapse_list.pyx":48
  *         self.__diff_weights_arr = value
  * 
  *     diff_weights_arr = property(get_diff_weights_arr, set_diff_weights_arr)             # <<<<<<<<<<<<<<
@@ -7540,16 +7570,16 @@ static int __pyx_pymod_exec_synapse_list(PyObject *__pyx_pyinit_module)
     PyErr_Clear();
     __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_diff_weights_arr);
   }
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 46, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_3 = PyObject_GetItem(__pyx_t_1, __pyx_n_s_set_diff_weights_arr);
   if (unlikely(!__pyx_t_3)) {
     PyErr_Clear();
     __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_diff_weights_arr);
   }
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 46, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_5);
   PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5);
@@ -7557,46 +7587,46 @@ static int __pyx_pymod_exec_synapse_list(PyObject *__pyx_pyinit_module)
   PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_3);
   __pyx_t_5 = 0;
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_diff_weights_arr, __pyx_t_3) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_diff_weights_arr, __pyx_t_3) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse_list.pyx":49
+  /* "pydbm/synapse_list.pyx":51
  * 
  *     # Activation function in shallower layer.
  *     __shallower_activating_function = None             # <<<<<<<<<<<<<<
  * 
  *     def get_shallower_activating_function(self):
  */
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_Synapse__shallower_activating_f, Py_None) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_Synapse__shallower_activating_f, Py_None) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":51
+  /* "pydbm/synapse_list.pyx":53
  *     __shallower_activating_function = None
  * 
  *     def get_shallower_activating_function(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__shallower_activating_function, ActivatingFunctionInterface) is False:
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_9get_shallower_activating_function, 0, __pyx_n_s_Synapse_get_shallower_activating, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_9get_shallower_activating_function, 0, __pyx_n_s_Synapse_get_shallower_activating, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_get_shallower_activating_functio, __pyx_t_3) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_get_shallower_activating_functio, __pyx_t_3) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse_list.pyx":57
+  /* "pydbm/synapse_list.pyx":59
  *         return self.__shallower_activating_function
  * 
  *     def set_shallower_activating_function(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_11set_shallower_activating_function, 0, __pyx_n_s_Synapse_set_shallower_activating, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_11set_shallower_activating_function, 0, __pyx_n_s_Synapse_set_shallower_activating, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_set_shallower_activating_functio, __pyx_t_3) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_set_shallower_activating_functio, __pyx_t_3) < 0) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse_list.pyx":64
+  /* "pydbm/synapse_list.pyx":66
  *         self.__shallower_activating_function = value
  * 
  *     shallower_activating_function = property(get_shallower_activating_function, set_shallower_activating_function)             # <<<<<<<<<<<<<<
@@ -7608,16 +7638,16 @@ static int __pyx_pymod_exec_synapse_list(PyObject *__pyx_pyinit_module)
     PyErr_Clear();
     __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_shallower_activating_functio);
   }
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 64, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_6 = PyObject_GetItem(__pyx_t_1, __pyx_n_s_set_shallower_activating_functio);
   if (unlikely(!__pyx_t_6)) {
     PyErr_Clear();
     __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_shallower_activating_functio);
   }
-  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 64, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 64, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3);
@@ -7625,46 +7655,46 @@ static int __pyx_pymod_exec_synapse_list(PyObject *__pyx_pyinit_module)
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_6);
   __pyx_t_3 = 0;
   __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 64, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_shallower_activating_function, __pyx_t_6) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_shallower_activating_function, __pyx_t_6) < 0) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/synapse_list.pyx":67
+  /* "pydbm/synapse_list.pyx":69
  * 
  *     # Activation function in deeper layer.
  *     __deeper_activating_function = None             # <<<<<<<<<<<<<<
  * 
  *     def get_deeper_activating_function(self):
  */
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_Synapse__deeper_activating_func, Py_None) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_Synapse__deeper_activating_func, Py_None) < 0) __PYX_ERR(0, 69, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":69
+  /* "pydbm/synapse_list.pyx":71
  *     __deeper_activating_function = None
  * 
  *     def get_deeper_activating_function(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__deeper_activating_function, ActivatingFunctionInterface) is False:
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_13get_deeper_activating_function, 0, __pyx_n_s_Synapse_get_deeper_activating_fu, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 69, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_13get_deeper_activating_function, 0, __pyx_n_s_Synapse_get_deeper_activating_fu, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_get_deeper_activating_function, __pyx_t_6) < 0) __PYX_ERR(0, 69, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_get_deeper_activating_function, __pyx_t_6) < 0) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/synapse_list.pyx":75
+  /* "pydbm/synapse_list.pyx":77
  *         return self.__deeper_activating_function
  * 
  *     def set_deeper_activating_function(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, ActivatingFunctionInterface) is False:
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_15set_deeper_activating_function, 0, __pyx_n_s_Synapse_set_deeper_activating_fu, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__34)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 75, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_15set_deeper_activating_function, 0, __pyx_n_s_Synapse_set_deeper_activating_fu, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__34)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_set_deeper_activating_function, __pyx_t_6) < 0) __PYX_ERR(0, 75, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_set_deeper_activating_function, __pyx_t_6) < 0) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/synapse_list.pyx":81
+  /* "pydbm/synapse_list.pyx":83
  *         self.__deeper_activating_function = value
  * 
  *     deeper_activating_function = property(get_deeper_activating_function, set_deeper_activating_function)             # <<<<<<<<<<<<<<
@@ -7676,16 +7706,16 @@ static int __pyx_pymod_exec_synapse_list(PyObject *__pyx_pyinit_module)
     PyErr_Clear();
     __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_deeper_activating_function);
   }
-  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 81, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_5 = PyObject_GetItem(__pyx_t_1, __pyx_n_s_set_deeper_activating_function);
   if (unlikely(!__pyx_t_5)) {
     PyErr_Clear();
     __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_deeper_activating_function);
   }
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 81, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_6);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_6);
@@ -7693,36 +7723,36 @@ static int __pyx_pymod_exec_synapse_list(PyObject *__pyx_pyinit_module)
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_5);
   __pyx_t_6 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_3, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_3, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_deeper_activating_function, __pyx_t_5) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_deeper_activating_function, __pyx_t_5) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/synapse_list.pyx":83
+  /* "pydbm/synapse_list.pyx":85
  *     deeper_activating_function = property(get_deeper_activating_function, set_deeper_activating_function)
  * 
  *     def create_node(             # <<<<<<<<<<<<<<
  *         self,
  *         int shallower_neuron_count,
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_17create_node, 0, __pyx_n_s_Synapse_create_node, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__36)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_17create_node, 0, __pyx_n_s_Synapse_create_node, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__36)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_5, sizeof(__pyx_defaults), 1)) __PYX_ERR(0, 83, __pyx_L1_error)
+  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_5, sizeof(__pyx_defaults), 1)) __PYX_ERR(0, 85, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":89
+  /* "pydbm/synapse_list.pyx":91
  *         shallower_activating_function,
  *         deeper_activating_function,
  *         np.ndarray weights_arr=np.array([])             # <<<<<<<<<<<<<<
  *     ):
  *         '''
  */
-  __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyList_New(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_6 = PyList_New(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
@@ -7735,14 +7765,14 @@ static int __pyx_pymod_exec_synapse_list(PyObject *__pyx_pyinit_module)
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 89, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_3);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_7)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_6};
-      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -7751,87 +7781,87 @@ static int __pyx_pymod_exec_synapse_list(PyObject *__pyx_pyinit_module)
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_6};
-      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else
     #endif
     {
-      __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 91, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_4); __pyx_t_4 = NULL;
       __Pyx_GIVEREF(__pyx_t_6);
       PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_6);
       __pyx_t_6 = 0;
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 89, __pyx_L1_error)
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_t_5)->__pyx_arg_weights_arr = ((PyArrayObject *)__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_3);
   __pyx_t_3 = 0;
   __Pyx_CyFunction_SetDefaultsGetter(__pyx_t_5, __pyx_pf_5pydbm_12synapse_list___defaults__);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_create_node, __pyx_t_5) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_create_node, __pyx_t_5) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/synapse_list.pyx":116
- *         self.diff_weights_arr = np.zeros(self.weights_arr.shape, dtype=float)
+  /* "pydbm/synapse_list.pyx":119
+ *         self.stacked_graph_list = []
  * 
  *     def learn_weights(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Update the weights of links.
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_19learn_weights, 0, __pyx_n_s_Synapse_learn_weights, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_19learn_weights, 0, __pyx_n_s_Synapse_learn_weights, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_learn_weights, __pyx_t_5) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_learn_weights, __pyx_t_5) < 0) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/synapse_list.pyx":125
+  /* "pydbm/synapse_list.pyx":128
  *         self.diff_weights_arr = np.zeros((row, col), dtype=float)
  * 
  *     def save_pre_learned_params(self, file_path):             # <<<<<<<<<<<<<<
  *         '''
  *         Save pre-learned parameters.
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_21save_pre_learned_params, 0, __pyx_n_s_Synapse_save_pre_learned_params, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 125, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_21save_pre_learned_params, 0, __pyx_n_s_Synapse_save_pre_learned_params, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_save_pre_learned_params, __pyx_t_5) < 0) __PYX_ERR(0, 125, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_save_pre_learned_params, __pyx_t_5) < 0) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/synapse_list.pyx":138
+  /* "pydbm/synapse_list.pyx":144
  *         np.savez_compressed(file_path, **d)
  * 
  *     def load_pre_learned_params(self, file_path):             # <<<<<<<<<<<<<<
  *         '''
  *         Load pre-learned parameters.
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_23load_pre_learned_params, 0, __pyx_n_s_Synapse_load_pre_learned_params, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__42)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_23load_pre_learned_params, 0, __pyx_n_s_Synapse_load_pre_learned_params, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__42)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_load_pre_learned_params, __pyx_t_5) < 0) __PYX_ERR(0, 138, __pyx_L1_error)
+  if (PyObject_SetItem(__pyx_t_1, __pyx_n_s_load_pre_learned_params, __pyx_t_5) < 0) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/synapse_list.pyx":10
+  /* "pydbm/synapse_list.pyx":11
  * 
  * 
  * class Synapse(object):             # <<<<<<<<<<<<<<
  *     '''
  *     The object of synapse.
  */
-  __pyx_t_5 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_Synapse, __pyx_tuple__18, __pyx_t_1, NULL, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_Synapse, __pyx_tuple__18, __pyx_t_1, NULL, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Synapse, __pyx_t_5) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Synapse, __pyx_t_5) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pydbm/synapse_list.pyx":1
  * # -*- coding: utf-8 -*-             # <<<<<<<<<<<<<<
+ * import os
  * import numpy as np
- * cimport numpy as np
  */
   __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);

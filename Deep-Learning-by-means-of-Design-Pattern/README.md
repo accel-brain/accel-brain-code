@@ -1042,7 +1042,7 @@ facade_encoder_decoder = FacadeEncoderDecoder(
 If you want to not only use casually the model but also hack it, see <a href="#usecase_build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model">Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model.</a>.
 
 <a name="usecase_build_encoder_decoder_based_on_LSTM_as_a_reconstruction_model"></a>
-## Usecase: Build Encoder/Decoder based on LSTM as a reconstruction model.
+## Usecase: Build Encoder/Decoder based on LSTM or ConvLSTM as a reconstruction model.
 
 Consider functionally reusability and possibility of flexible design, you should use not `FacadeEncoderDecoder` but `EncoderDecoderController` as follows.
 
@@ -1270,14 +1270,18 @@ encoder_decoder_controller = EncoderDecoderController(
 )
 ```
 
-Execute learning.
+If you want to use ConvLSTM as `encoder` and `decoder`, instantiate `ConvLSTMModel` which is-a `LSTMModel` and is-a `ReconstructableModel`. See my jupyter notebook for details: [demo/demo_conv_lstm.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_conv_lstm.ipynb).
+
+In any case, let's execute learning after instantiation is complete.
 
 ```python
 # Learning.
 encoder_decoder_controller.learn(observed_arr, observed_arr)
 ```
 
-This method can receive a `np.ndarray` of observed data points, which is a rank-3 array-like or sparse matrix of shape: (`The number of samples`, `The length of cycle`, `The number of features`), as the first and second argument. If the value of this second argument is not equivalent to the first argument and the shape is (`The number of samples`, `The number of features`), in other words, the rank is 2, the function of `encoder_decoder_controller` corresponds to a kind of Regression model.
+If you delegated `LSTMModel`s as `encoder` and `decoder`, this method can receive a `np.ndarray` of observed data points, which is a **rank-3 array-like or sparse matrix** of shape: (`The number of samples`, `The length of cycle`, `The number of features`), as the first and second argument. If the value of this second argument is not equivalent to the first argument and the shape is (`The number of samples`, `The number of features`), in other words, the rank is **2**, the function of `encoder_decoder_controller` corresponds to a kind of Regression model.
+
+On the other hand, if you delegated `ConvLSTMModel`s as `encoder` and `decoder`, the rank of matrix is **5**. The shape is:(`The number of samples`, `The length of cycle`, `Channel`, `Height of images`, `Width of images`).
 
 After learning, the `encoder_decoder_controller` provides a function of `inference` method. 
 
@@ -1294,7 +1298,7 @@ On the other hand, the `encoder_decoder_controller` also stores the feature poin
 feature_points_arr = encoder_decoder_controller.get_feature_points()
 ```
 
-The shape of `feature_points_arr` is rank-2 array-like or sparse matrix: (`The number of samples`, `The number of units in hidden layers`). So this matrix also means time series data embedded as manifolds.
+If `LSTMModel`s are delegated, the shape of `feature_points_arr` is **rank-2 array-like or sparse matrix**: (`The number of samples`, `The number of units in hidden layers`). On the other hand, if `ConvLSTMModel`s are delegated, the shape of `feature_points_arr` is **rank-4 array-like or sparse matrix**:(`The number of samples`, `Channel`, `Height of images`, `Width of images`). So the matrices also mean time series data embedded as manifolds in the hidden layers.
 
 You can check the reconstruction error rate. Call `get_reconstruct_error` method as follow.
 
@@ -1361,7 +1365,7 @@ conv1 = ConvolutionLayer1(
         activation_function=LogisticFunction(),
         # The number of `filter`.
         filter_num=20,
-        # The number of channel.
+        # Channel.
         channel=1,
         # The size of kernel.
         kernel_size=3,
@@ -1382,7 +1386,7 @@ conv2 = ConvolutionLayer2(
         activation_function=LogisticFunction(),
         # The number of `filter`.
         filter_num=1,
-        # The number of channel.
+        # Channel.
         channel=20,
         # The size of kernel.
         kernel_size=3,
@@ -1437,7 +1441,7 @@ Execute learning.
 cnn.learn(img_arr, img_arr)
 ```
 
-`img_arr` is a `np.ndarray` of image data, which is a rank-4 array-like or sparse matrix of shape: (`The number of samples`, `The number of channel`, `Height of image`, `Width of image`), as the first and second argument. If the value of this second argument is not equivalent to the first argument and the shape is (`The number of samples`, `The number of features`), in other words, the rank is 2, the function of `cnn` corresponds to a kind of Regression model.
+`img_arr` is a `np.ndarray` of image data, which is a rank-4 array-like or sparse matrix of shape: (`The number of samples`, `Channel`, `Height of image`, `Width of image`), as the first and second argument. If the value of this second argument is not equivalent to the first argument and the shape is (`The number of samples`, `The number of features`), in other words, the rank is 2, the function of `cnn` corresponds to a kind of Regression model.
 
 After learning, the `cnn` provides a function of `inference` method.
 
@@ -1548,7 +1552,7 @@ Execute learning.
 cnn.learn(img_arr, img_arr)
 ```
 
-`img_arr` is a `np.ndarray` of image data, which is a **rank-5** array-like or sparse matrix of shape: (`The number of samples`, `The length of one sequence`, `The number of channel`, `Height of image`, `Width of image`), as the first and second argument.
+`img_arr` is a `np.ndarray` of image data, which is a **rank-5** array-like or sparse matrix of shape: (`The number of samples`, `The length of one sequence`, `Channel`, `Height of image`, `Width of image`), as the first and second argument.
 
 After learning, the `cnn` provides a function of `inference` method.
 

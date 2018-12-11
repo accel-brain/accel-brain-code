@@ -25,6 +25,7 @@ class EncoderDecoderController(object):
         int attenuate_epoch,
         double test_size_rate=0.3,
         computable_loss=None,
+        dropout_rate=0.5,
         verificatable_result=None,
         tol=1e-04,
         tld=100.0
@@ -45,6 +46,7 @@ class EncoderDecoderController(object):
 
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
             computable_loss:                Loss function.
+            dropout_rate:                   The propability of dropout.
             verificatable_result:           Verification function.
             tol:                            Tolerance for the optimization.
                                             When the loss or score is not improving by at least tol 
@@ -75,6 +77,7 @@ class EncoderDecoderController(object):
         self.__attenuate_epoch = attenuate_epoch
         self.__test_size_rate = test_size_rate
 
+        self.__dropout_rate = dropout_rate
         self.__verificatable_result = verificatable_result
 
         self.__tol = tol
@@ -142,6 +145,7 @@ class EncoderDecoderController(object):
         encoder_best_params_list = []
         decoder_best_params_list = []
         try:
+            self.__change_dropout_rate(self.__dropout_rate)
             self.__memory_tuple_list = []
             eary_stop_flag = False
             loss_list = []
@@ -210,6 +214,7 @@ class EncoderDecoderController(object):
                     test_batch_observed_arr = test_observed_arr[rand_index]
                     test_batch_target_arr = test_target_arr[rand_index]
 
+                    self.__change_dropout_rate(0.0)
                     test_decoded_arr = self.inference(test_batch_observed_arr)
                     test_loss = self.__reconstruction_error_arr
 
@@ -223,6 +228,8 @@ class EncoderDecoderController(object):
                         # Re-try.
                         test_decoded_arr = self.inference(test_batch_observed_arr)
                         test_loss = self.__reconstruction_error_arr
+
+                    self.__change_dropout_rate(self.__dropout_rate)
 
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
@@ -251,7 +258,7 @@ class EncoderDecoderController(object):
             eary_stop_flag = False
         
         self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
-
+        self.__change_dropout_rate(0.0)
         self.__logger.debug("end. ")
 
     def learn_generated(self, feature_generator):
@@ -291,6 +298,7 @@ class EncoderDecoderController(object):
         encoder_best_params_list = []
         decoder_best_params_list = []
         try:
+            self.__change_dropout_rate(self.__dropout_rate)
             self.__memory_tuple_list = []
             eary_stop_flag = False
             loss_list = []
@@ -355,6 +363,7 @@ class EncoderDecoderController(object):
                         raise
 
                 if self.__test_size_rate > 0:
+                    self.__change_dropout_rate(0.0)
                     test_decoded_arr = self.inference(test_batch_observed_arr)
                     test_loss = self.__reconstruction_error_arr
 
@@ -368,6 +377,8 @@ class EncoderDecoderController(object):
                         # Re-try.
                         test_decoded_arr = self.inference(test_batch_observed_arr)
                         test_loss = self.__reconstruction_error_arr
+
+                    self.__change_dropout_rate(self.__dropout_rate)
 
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
@@ -398,6 +409,7 @@ class EncoderDecoderController(object):
             eary_stop_flag = False
         
         self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
+        self.__change_dropout_rate(0.0)
 
         self.__logger.debug("end. ")
 
@@ -512,7 +524,17 @@ class EncoderDecoderController(object):
         '''
         self.__decoder.optimize(decoder_grads_list, learning_rate, epoch)
         self.__encoder.optimize(encoder_grads_list, learning_rate, epoch)
-    
+
+    def __change_dropout_rate(self, dropout_rate):
+        '''
+        Change dropout rate in Encoder/Decoder.
+        
+        Args:
+            dropout_rate:   The probalibity of dropout.
+        '''
+        self.__decoder.opt_params.dropout_rate = dropout_rate
+        self.__encoder.opt_params.dropout_rate = dropout_rate
+
     def get_feature_points(self):
         '''
         Extract the activities in hidden layer and reset it, 

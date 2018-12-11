@@ -31,6 +31,9 @@ class LSTMModel(ReconstructableModel):
     
     graph = property(get_graph, set_graph)
     
+    # is-a `OptParams`.
+    __opt_params = None
+
     # Verification function.
     __verificatable_result = None
 
@@ -778,6 +781,22 @@ class LSTMModel(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_pre_hidden_arr = np.dot(delta_lstm_matrix, delta_weights_h_arr.T)
 
         return (delta_observed_arr, delta_pre_hidden_arr, delta_pre_rnn_arr, grad_list)
+
+    def get_opt_params(self):
+        ''' getter '''
+        if isinstance(self.__opt_params, OptParams):
+            return self.__opt_params
+        else:
+            raise TypeError()
+    
+    def set_opt_params(self, value):
+        ''' setter '''
+        if isinstance(value, OptParams):
+            self.__opt_params = value
+        else:
+            raise TypeError()
+
+    opt_params = property(get_opt_params, set_opt_params)
 
     def get_verificatable_result(self):
         ''' getter '''

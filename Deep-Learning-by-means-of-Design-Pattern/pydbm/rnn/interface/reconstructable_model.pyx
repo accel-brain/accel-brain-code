@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 cimport numpy as np
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta, abstractmethod, abstractproperty
 ctypedef np.float64_t DOUBLE_t
 
 
@@ -95,4 +95,9 @@ class ReconstructableModel(metaclass=ABCMeta):
             dir_name:   Path of dir. If `None`, the file is saved in the current directory.
             file_name:  File name.
         '''
+        raise NotImplementedError()
+
+    @abstractproperty
+    def opt_params(self):
+        ''' is-a OptParams '''
         raise NotImplementedError()

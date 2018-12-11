@@ -46,6 +46,9 @@ class ConvLSTMModel(ReconstructableModel):
     
     graph = property(get_graph, set_graph)
 
+    # is-a `OptParams`.
+    __opt_params = None
+
     # Verification function.
     __verificatable_result = None
 
@@ -1336,3 +1339,19 @@ class ConvLSTMModel(ReconstructableModel):
             raise TypeError()
     
     verificatable_result = property(get_verificatable_result, set_verificatable_result)
+
+    def get_opt_params(self):
+        ''' getter '''
+        if isinstance(self.__opt_params, OptParams):
+            return self.__opt_params
+        else:
+            raise TypeError()
+    
+    def set_opt_params(self, value):
+        ''' setter '''
+        if isinstance(value, OptParams):
+            self.__opt_params = value
+        else:
+            raise TypeError()
+
+    opt_params = property(get_opt_params, set_opt_params)

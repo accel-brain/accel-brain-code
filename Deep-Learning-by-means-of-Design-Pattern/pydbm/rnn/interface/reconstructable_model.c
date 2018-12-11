@@ -994,7 +994,7 @@ typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 
 /* "pydbm/rnn/interface/reconstructable_model.pyx":5
  * cimport numpy as np
- * from abc import ABCMeta, abstractmethod
+ * from abc import ABCMeta, abstractmethod, abstractproperty
  * ctypedef np.float64_t DOUBLE_t             # <<<<<<<<<<<<<<
  * 
  * 
@@ -1661,11 +1661,13 @@ static const char __pyx_k_file_name[] = "file_name";
 static const char __pyx_k_inference[] = "inference";
 static const char __pyx_k_metaclass[] = "__metaclass__";
 static const char __pyx_k_ValueError[] = "ValueError";
+static const char __pyx_k_opt_params[] = "opt_params";
 static const char __pyx_k_target_arr[] = "target_arr";
 static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_observed_arr[] = "observed_arr";
 static const char __pyx_k_abstractmethod[] = "abstractmethod";
+static const char __pyx_k_abstractproperty[] = "abstractproperty";
 static const char __pyx_k_delta_output_arr[] = "delta_output_arr";
 static const char __pyx_k_rnn_activity_arr[] = "rnn_activity_arr";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
@@ -1679,6 +1681,7 @@ static const char __pyx_k_save_pre_learned_params[] = "save_pre_learned_params";
 static const char __pyx_k_ReconstructableModel_learn[] = "ReconstructableModel.learn";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_ReconstructableModel_inference[] = "ReconstructableModel.inference";
+static const char __pyx_k_ReconstructableModel_opt_params[] = "ReconstructableModel.opt_params";
 static const char __pyx_k_The_interface_of_reconstructabl[] = "\n    The interface of reconstructable model.\n    ";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
@@ -1705,12 +1708,14 @@ static PyObject *__pyx_n_s_ReconstructableModel_hidden_back;
 static PyObject *__pyx_n_s_ReconstructableModel_inference;
 static PyObject *__pyx_n_s_ReconstructableModel_learn;
 static PyObject *__pyx_n_s_ReconstructableModel_load_pre_le;
+static PyObject *__pyx_n_s_ReconstructableModel_opt_params;
 static PyObject *__pyx_n_s_ReconstructableModel_save_pre_le;
 static PyObject *__pyx_n_s_RuntimeError;
 static PyObject *__pyx_kp_s_The_interface_of_reconstructabl;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_abc;
 static PyObject *__pyx_n_s_abstractmethod;
+static PyObject *__pyx_n_s_abstractproperty;
 static PyObject *__pyx_n_s_array;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_delta_output_arr;
@@ -1734,6 +1739,7 @@ static PyObject *__pyx_n_s_numpy;
 static PyObject *__pyx_kp_s_numpy_core_multiarray_failed_to;
 static PyObject *__pyx_kp_s_numpy_core_umath_failed_to_impor;
 static PyObject *__pyx_n_s_observed_arr;
+static PyObject *__pyx_n_s_opt_params;
 static PyObject *__pyx_n_s_prepare;
 static PyObject *__pyx_n_s_pydbm_rnn_interface_reconstructa;
 static PyObject *__pyx_kp_s_pydbm_rnn_interface_reconstructa_2;
@@ -1752,6 +1758,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20Recon
 static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_6hidden_back_propagate(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_delta_output_arr); /* proto */
 static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_8save_pre_learned_params(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_dir_name, CYTHON_UNUSED PyObject *__pyx_v_file_name); /* proto */
 static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_10load_pre_learned_params(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_dir_name, CYTHON_UNUSED PyObject *__pyx_v_file_name); /* proto */
+static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_12opt_params(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tuple_;
@@ -1772,12 +1779,14 @@ static PyObject *__pyx_tuple__19;
 static PyObject *__pyx_tuple__21;
 static PyObject *__pyx_tuple__22;
 static PyObject *__pyx_tuple__24;
+static PyObject *__pyx_tuple__25;
 static PyObject *__pyx_codeobj__11;
 static PyObject *__pyx_codeobj__13;
 static PyObject *__pyx_codeobj__16;
 static PyObject *__pyx_codeobj__18;
 static PyObject *__pyx_codeobj__20;
 static PyObject *__pyx_codeobj__23;
+static PyObject *__pyx_codeobj__26;
 
 /* "pydbm/rnn/interface/reconstructable_model.pyx":14
  * 
@@ -2590,6 +2599,8 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20Recon
  *             file_name:  File name.
  *         '''
  *         raise NotImplementedError()             # <<<<<<<<<<<<<<
+ * 
+ *     @abstractproperty
  */
   __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -2609,6 +2620,64 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20Recon
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_AddTraceback("pydbm.rnn.interface.reconstructable_model.ReconstructableModel.load_pre_learned_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/rnn/interface/reconstructable_model.pyx":101
+ * 
+ *     @abstractproperty
+ *     def opt_params(self):             # <<<<<<<<<<<<<<
+ *         ''' is-a OptParams '''
+ *         raise NotImplementedError()
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_13opt_params(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_12opt_params[] = " is-a OptParams ";
+static PyMethodDef __pyx_mdef_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_13opt_params = {"opt_params", (PyCFunction)__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_13opt_params, METH_O, __pyx_doc_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_12opt_params};
+static PyObject *__pyx_pw_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_13opt_params(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("opt_params (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_12opt_params(__pyx_self, ((PyObject *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_12opt_params(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("opt_params", 0);
+
+  /* "pydbm/rnn/interface/reconstructable_model.pyx":103
+ *     def opt_params(self):
+ *         ''' is-a OptParams '''
+ *         raise NotImplementedError()             # <<<<<<<<<<<<<<
+ */
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __PYX_ERR(0, 103, __pyx_L1_error)
+
+  /* "pydbm/rnn/interface/reconstructable_model.pyx":101
+ * 
+ *     @abstractproperty
+ *     def opt_params(self):             # <<<<<<<<<<<<<<
+ *         ''' is-a OptParams '''
+ *         raise NotImplementedError()
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pydbm.rnn.interface.reconstructable_model.ReconstructableModel.opt_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
@@ -5246,12 +5315,14 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ReconstructableModel_inference, __pyx_k_ReconstructableModel_inference, sizeof(__pyx_k_ReconstructableModel_inference), 0, 0, 1, 1},
   {&__pyx_n_s_ReconstructableModel_learn, __pyx_k_ReconstructableModel_learn, sizeof(__pyx_k_ReconstructableModel_learn), 0, 0, 1, 1},
   {&__pyx_n_s_ReconstructableModel_load_pre_le, __pyx_k_ReconstructableModel_load_pre_le, sizeof(__pyx_k_ReconstructableModel_load_pre_le), 0, 0, 1, 1},
+  {&__pyx_n_s_ReconstructableModel_opt_params, __pyx_k_ReconstructableModel_opt_params, sizeof(__pyx_k_ReconstructableModel_opt_params), 0, 0, 1, 1},
   {&__pyx_n_s_ReconstructableModel_save_pre_le, __pyx_k_ReconstructableModel_save_pre_le, sizeof(__pyx_k_ReconstructableModel_save_pre_le), 0, 0, 1, 1},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
   {&__pyx_kp_s_The_interface_of_reconstructabl, __pyx_k_The_interface_of_reconstructabl, sizeof(__pyx_k_The_interface_of_reconstructabl), 0, 0, 1, 0},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_abc, __pyx_k_abc, sizeof(__pyx_k_abc), 0, 0, 1, 1},
   {&__pyx_n_s_abstractmethod, __pyx_k_abstractmethod, sizeof(__pyx_k_abstractmethod), 0, 0, 1, 1},
+  {&__pyx_n_s_abstractproperty, __pyx_k_abstractproperty, sizeof(__pyx_k_abstractproperty), 0, 0, 1, 1},
   {&__pyx_n_s_array, __pyx_k_array, sizeof(__pyx_k_array), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_delta_output_arr, __pyx_k_delta_output_arr, sizeof(__pyx_k_delta_output_arr), 0, 0, 1, 1},
@@ -5275,6 +5346,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_numpy_core_multiarray_failed_to, __pyx_k_numpy_core_multiarray_failed_to, sizeof(__pyx_k_numpy_core_multiarray_failed_to), 0, 0, 1, 0},
   {&__pyx_kp_s_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 0, 1, 0},
   {&__pyx_n_s_observed_arr, __pyx_k_observed_arr, sizeof(__pyx_k_observed_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_opt_params, __pyx_k_opt_params, sizeof(__pyx_k_opt_params), 0, 0, 1, 1},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_rnn_interface_reconstructa, __pyx_k_pydbm_rnn_interface_reconstructa, sizeof(__pyx_k_pydbm_rnn_interface_reconstructa), 0, 0, 1, 1},
   {&__pyx_kp_s_pydbm_rnn_interface_reconstructa_2, __pyx_k_pydbm_rnn_interface_reconstructa_2, sizeof(__pyx_k_pydbm_rnn_interface_reconstructa_2), 0, 0, 1, 0},
@@ -5480,6 +5552,18 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__24 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
+
+  /* "pydbm/rnn/interface/reconstructable_model.pyx":101
+ * 
+ *     @abstractproperty
+ *     def opt_params(self):             # <<<<<<<<<<<<<<
+ *         ''' is-a OptParams '''
+ *         raise NotImplementedError()
+ */
+  __pyx_tuple__25 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__25);
+  __Pyx_GIVEREF(__pyx_tuple__25);
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_interface_reconstructa_2, __pyx_n_s_opt_params, 101, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5665,7 +5749,7 @@ static int __pyx_pymod_exec_reconstructable_model(PyObject *__pyx_pyinit_module)
  * # -*- coding: utf-8 -*-
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
- * from abc import ABCMeta, abstractmethod
+ * from abc import ABCMeta, abstractmethod, abstractproperty
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -5675,11 +5759,11 @@ static int __pyx_pymod_exec_reconstructable_model(PyObject *__pyx_pyinit_module)
   /* "pydbm/rnn/interface/reconstructable_model.pyx":4
  * import numpy as np
  * cimport numpy as np
- * from abc import ABCMeta, abstractmethod             # <<<<<<<<<<<<<<
+ * from abc import ABCMeta, abstractmethod, abstractproperty             # <<<<<<<<<<<<<<
  * ctypedef np.float64_t DOUBLE_t
  * 
  */
-  __pyx_t_1 = PyList_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_ABCMeta);
   __Pyx_GIVEREF(__pyx_n_s_ABCMeta);
@@ -5687,6 +5771,9 @@ static int __pyx_pymod_exec_reconstructable_model(PyObject *__pyx_pyinit_module)
   __Pyx_INCREF(__pyx_n_s_abstractmethod);
   __Pyx_GIVEREF(__pyx_n_s_abstractmethod);
   PyList_SET_ITEM(__pyx_t_1, 1, __pyx_n_s_abstractmethod);
+  __Pyx_INCREF(__pyx_n_s_abstractproperty);
+  __Pyx_GIVEREF(__pyx_n_s_abstractproperty);
+  PyList_SET_ITEM(__pyx_t_1, 2, __pyx_n_s_abstractproperty);
   __pyx_t_2 = __Pyx_Import(__pyx_n_s_abc, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -5697,6 +5784,10 @@ static int __pyx_pymod_exec_reconstructable_model(PyObject *__pyx_pyinit_module)
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_abstractmethod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_abstractmethod, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_abstractproperty); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_abstractproperty, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
@@ -6182,6 +6273,74 @@ static int __pyx_pymod_exec_reconstructable_model(PyObject *__pyx_pyinit_module)
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_load_pre_learned_params, __pyx_t_4) < 0) __PYX_ERR(0, 90, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/rnn/interface/reconstructable_model.pyx":100
+ *         raise NotImplementedError()
+ * 
+ *     @abstractproperty             # <<<<<<<<<<<<<<
+ *     def opt_params(self):
+ *         ''' is-a OptParams '''
+ */
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_abstractproperty); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+
+  /* "pydbm/rnn/interface/reconstructable_model.pyx":101
+ * 
+ *     @abstractproperty
+ *     def opt_params(self):             # <<<<<<<<<<<<<<
+ *         ''' is-a OptParams '''
+ *         raise NotImplementedError()
+ */
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9interface_21reconstructable_model_20ReconstructableModel_13opt_params, 0, __pyx_n_s_ReconstructableModel_opt_params, NULL, __pyx_n_s_pydbm_rnn_interface_reconstructa, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_7 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_5);
+    if (likely(__pyx_t_7)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_7);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_5, function);
+    }
+  }
+  if (!__pyx_t_7) {
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 100, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_GOTREF(__pyx_t_4);
+  } else {
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(__pyx_t_5)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_6};
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 100, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    } else
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_6};
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 100, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    } else
+    #endif
+    {
+      __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 100, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7); __pyx_t_7 = NULL;
+      __Pyx_GIVEREF(__pyx_t_6);
+      PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_t_6);
+      __pyx_t_6 = 0;
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_9, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 100, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    }
+  }
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (PyObject_SetItem(__pyx_t_3, __pyx_n_s_opt_params, __pyx_t_4) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "pydbm/rnn/interface/reconstructable_model.pyx":8

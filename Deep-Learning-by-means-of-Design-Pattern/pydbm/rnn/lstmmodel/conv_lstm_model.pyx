@@ -13,6 +13,7 @@ from pydbm.synapse.cnn_graph import CNNGraph as OutputGraph
 
 
 from pydbm.activation.logistic_function import LogisticFunction
+from pydbm.activation.tanh_function import TanhFunction
 
 from pydbm.cnn.feature_generator import FeatureGenerator
 from pydbm.verification.interface.verificatable_result import VerificatableResult
@@ -154,7 +155,7 @@ class ConvLSTMModel(ReconstructableModel):
                 # Computation graph for first convolution layer.
                 GivenGraph(
                     # Logistic function as activation function.
-                    activation_function=LogisticFunction(),
+                    activation_function=TanhFunction(),
                     # The number of `filter`.
                     filter_num=filter_num,
                     # The number of channel.
@@ -235,7 +236,7 @@ class ConvLSTMModel(ReconstructableModel):
                 # Computation graph for first convolution layer.
                 OutputGraph(
                     # Logistic function as activation function.
-                    activation_function=LogisticFunction(),
+                    activation_function=TanhFunction(),
                     # The number of `filter`.
                     filter_num=filter_num,
                     # The number of channel.

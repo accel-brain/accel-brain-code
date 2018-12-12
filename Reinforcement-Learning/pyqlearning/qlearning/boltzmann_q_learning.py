@@ -53,7 +53,7 @@ class BoltzmannQLearning(QLearning):
             next_action_list:       The possible action in `self.t+1`.
                                     If the length of this list is 0, all action should be possible.
 
-        Retruns:
+        Returns:
             The key of action.
 
         '''

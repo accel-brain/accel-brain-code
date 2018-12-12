@@ -293,7 +293,7 @@ class QLearning(metaclass=ABCMeta):
             next_action_list:       The possible action in `self.t+1`.
                                     If the length of this list is zero, all action should be possible.
 
-        Retruns:
+        Returns:
             The key of action.
 
         '''

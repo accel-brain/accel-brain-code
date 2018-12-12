@@ -72,12 +72,6 @@ class DeepQLearning(metaclass=ABCMeta):
         
         Returns:
             `np.ndarray` of actions.
-            The shape is:(
-                `batch size corresponded to each action key`, 
-                `channel that is 1`, 
-                `feature points1`, 
-                `feature points2`
-            )
         '''
         raise NotImplementedError("This method must be implemented.")
 
@@ -88,16 +82,9 @@ class DeepQLearning(metaclass=ABCMeta):
 
         Args:
             next_action_arr:        `np.ndarray` of actions.
-                                    The shape is:(
-                                        `batch size corresponded to each action key`, 
-                                        `channel that is 1`, 
-                                        `feature points1`, 
-                                        `feature points2`
-                                    )
-            
             next_q_arr:             `np.ndarray` of Q-Values.
 
-        Retruns:
+        Returns:
             Tuple(`np.ndarray` of action., Q-Value)
         '''
         raise NotImplementedError("This method must be implemented.")

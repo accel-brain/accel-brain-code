@@ -66,8 +66,8 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
             overlap_n:                   The number of overlapped pixels.
             filter_size:                 The 'filter' size.
         
-        Reference:
-            Eslami, S. A., Heess, N., Williams, C. K., & Winn, J. (2014). The shape boltzmann machine: a strong model of object shape. International Journal of Computer Vision, 107(2), 155-176.
+        References:
+            - Eslami, S. A., Heess, N., Williams, C. K., & Winn, J. (2014). The shape boltzmann machine: a strong model of object shape. International Journal of Computer Vision, 107(2), 155-176.
 
         '''
         self.__overlap_n = overlap_n

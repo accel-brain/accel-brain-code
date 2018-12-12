@@ -560,7 +560,7 @@ class SpatioTemporalAutoEncoder(object):
         np.ndarray hidden_activity_arr=None,
         np.ndarray rnn_activity_arr=None
     ):
-        r'''
+        '''
         Inference the feature points to reconstruct the time-series.
 
         Override.
@@ -571,11 +571,10 @@ class SpatioTemporalAutoEncoder(object):
             rnn_activity_arr:       Array like or sparse matrix as the state in RNN.
 
         Returns:
-            Tuple(
-                Array like or sparse matrix of reconstructed instances of time-series,
-                Array like or sparse matrix of the state in hidden layer,
-                Array like or sparse matrix of the state in RNN
-            )
+            Tuple data.
+            - Array like or sparse matrix of reconstructed instances of time-series,
+            - Array like or sparse matrix of the state in hidden layer,
+            - Array like or sparse matrix of the state in RNN.
         '''
         if hidden_activity_arr is not None:
             self.__encoder.graph.hidden_activity_arr = hidden_activity_arr
@@ -840,11 +839,10 @@ class SpatioTemporalAutoEncoder(object):
             delta_output_arr:    Delta.
         
         Returns:
-            Tuple(
-                decoder's `list` of gradations,
-                encoder's `np.ndarray` of Delta, 
-                encoder's `list` of gradations,
-            )
+            Tuple data.
+            - decoder's `list` of gradations,
+            - encoder's `np.ndarray` of Delta, 
+            - encoder's `list` of gradations.
         '''
         decoder_delta_arr, decoder_grads_list = self.__decoder.hidden_back_propagate(delta_arr)
         decoder_grads_list.insert(0, None)
@@ -919,11 +917,10 @@ class SpatioTemporalAutoEncoder(object):
         Extract features points.
 
         Returns:
-            Tuple(
-                Temporal encoded feature points,
-                Temporal decoded feature points,
-                Fully-connected Spatio encoded feature points and Temporal decoded feature points  
-            )
+            Tuple data.
+            - Temporal encoded feature points,
+            - Temporal decoded feature points,
+            - Fully-connected Spatio encoded feature points and Temporal decoded feature points  
         '''
         return (
             self.__encoded_features_arr,

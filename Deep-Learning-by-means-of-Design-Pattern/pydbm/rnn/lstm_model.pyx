@@ -341,10 +341,9 @@ class LSTMModel(ReconstructableModel):
             delta_output_arr:    Delta.
         
         Returns:
-            Tuple(
-                `np.ndarray` of Delta, 
-                `list` of gradations
-            )
+            Tuple data.
+            - `np.ndarray` of Delta, 
+            - `list` of gradations
         '''
         delta_arr, output_grads_list = self.output_back_propagate(pred_arr, delta_arr)
         _delta_arr, lstm_grads_list = self.hidden_back_propagate(delta_arr)
@@ -359,8 +358,8 @@ class LSTMModel(ReconstructableModel):
         int epoch
     ):
         '''
-        Back propagation.
-        
+        Optimization.
+
         Args:
             grads_list:     `list` of graduations.
             learning_rate:  Learning rate.
@@ -406,11 +405,10 @@ class LSTMModel(ReconstructableModel):
             rnn_activity_arr:       Array like or sparse matrix as the state in RNN.
 
         Returns:
-            Tuple(
-                Array like or sparse matrix of reconstructed instances of time-series,
-                Array like or sparse matrix of the state in hidden layer,
-                Array like or sparse matrix of the state in RNN
-            )
+            Tuple data.
+            - Array like or sparse matrix of reconstructed instances of time-series,
+            - Array like or sparse matrix of the state in hidden layer,
+            - Array like or sparse matrix of the state in RNN.
         '''
         if observed_arr.ndim != 3:
             observed_arr = observed_arr.reshape(
@@ -455,7 +453,7 @@ class LSTMModel(ReconstructableModel):
     def hidden_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=3] observed_arr):
         '''
         Forward propagation in LSTM gate.
-        
+
         Args:
             observed_arr:    `np.ndarray` of observed data points.
         
@@ -510,7 +508,7 @@ class LSTMModel(ReconstructableModel):
         return _pred_arr
 
     def output_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] pred_arr, np.ndarray[DOUBLE_t, ndim=2] delta_arr):
-        r'''
+        '''
         Back propagation in output layer.
 
         Args:
@@ -518,10 +516,9 @@ class LSTMModel(ReconstructableModel):
             delta_output_arr:    Delta.
         
         Returns:
-            Tuple(
-                `np.ndarray` of Delta, 
-                `list` of gradations
-            )
+            Tuple data.
+            - `np.ndarray` of Delta, 
+            - `list` of gradations.
         '''
         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = np.dot(delta_arr, self.graph.weights_output_arr.T)
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weights_arr = np.dot(pred_arr.T, _delta_arr).T
@@ -535,17 +532,16 @@ class LSTMModel(ReconstructableModel):
         return (_delta_arr, grads_list)
 
     def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] delta_output_arr):
-        r'''
+        '''
         Back propagation in hidden layer.
         
         Args:
             delta_output_arr:    Delta.
         
         Returns:
-            Tuple(
-                `np.ndarray` of Delta, 
-                `list` of gradations
-            )
+            Tuple data.
+            - `np.ndarray` of Delta, 
+            - `list` of gradations.
         '''
         cdef int sample_n = delta_output_arr.shape[0]
         cdef int cycle_len = len(self.__memory_tuple_list)
@@ -607,10 +603,9 @@ class LSTMModel(ReconstructableModel):
             rnn_activity_arr:       `np.ndarray` of activities in LSTM gate.
         
         Returns:
-            Tuple(
-                `np.ndarray` of activities in hidden layer,
-                `np.ndarray` of activities in LSTM gate.
-            )
+            Tuple data.
+            - `np.ndarray` of activities in hidden layer,
+            - `np.ndarray` of activities in LSTM gate.
         '''
         cdef int h_col = int(self.graph.weights_lstm_hidden_arr.shape[1] / 4)
         cdef np.ndarray[DOUBLE_t, ndim=2] lstm_matrix = np.dot(
@@ -680,7 +675,7 @@ class LSTMModel(ReconstructableModel):
         np.ndarray delta_rnn_arr,
         int cycle
     ):
-        r'''
+        '''
         Back propagation in LSTM gate.
         
         Args:
@@ -689,12 +684,11 @@ class LSTMModel(ReconstructableModel):
             cycle:              Now cycle or time.
 
         Returns:
-            Tuple(
-                Delta from hidden layer to input layer,
-                Delta in hidden layer at previous time,
-                Delta in LSTM gate at previous time,
-                `list` of gradations.
-            )
+            Tuple data.
+            - Delta from hidden layer to input layer,
+            - Delta in hidden layer at previous time,
+            - Delta in LSTM gate at previous time,
+            - `list` of gradations.
         '''
         cdef np.ndarray[DOUBLE_t, ndim=2] observed_arr = self.__memory_tuple_list[cycle][0]
         cdef np.ndarray[DOUBLE_t, ndim=2] pre_hidden_activity_arr = self.__memory_tuple_list[cycle][1]

@@ -167,7 +167,7 @@ class ConvolutionLayer(LayerableCNN):
         return delta_img_arr
 
     def deconvolve(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):
-        r'''
+        '''
         Deconvolution also called transposed convolutions
         "work by swapping the forward and backward passes of a convolution." (Dumoulin, V., & Visin, F. 2016, p20.)
 
@@ -175,13 +175,12 @@ class ConvolutionLayer(LayerableCNN):
             delta_arr:    4-rank array like or sparse matrix.
 
         Returns:
-            Tuple(
-                4-rank array like or sparse matrix.,
-                2-rank array like or sparse matrix.
-            )
+            Tuple data.
+            - 4-rank array like or sparse matrix.,
+            - 2-rank array like or sparse matrix.
 
         References:
-            Dumoulin, V., & V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
+            - Dumoulin, V., & V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
 
         '''
         cdef int sample_n = self.graph.weight_arr.shape[0]

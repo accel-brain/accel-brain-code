@@ -41,11 +41,10 @@ class ReconstructableModel(metaclass=ABCMeta):
             rnn_activity_arr:       Array like or sparse matrix as the state in RNN.
 
         Returns:
-            Tuple(
-                Array like or sparse matrix of reconstructed instances of time-series,
-                Array like or sparse matrix of the state in hidden layer,
-                Array like or sparse matrix of the state in RNN
-            )
+            Tuple data.
+            - Array like or sparse matrix of reconstructed instances of time-series,
+            - Array like or sparse matrix of the state in hidden layer,
+            - Array like or sparse matrix of the state in RNN.
         '''
         raise NotImplementedError()
 
@@ -68,10 +67,9 @@ class ReconstructableModel(metaclass=ABCMeta):
             delta_output_arr:    Delta.
         
         Returns:
-            Tuple(
-                `np.ndarray` of Delta, 
-                `list` of gradations
-            )
+            Tuple data.
+            - `np.ndarray` of Delta, 
+            - `list` of gradations.
         '''
         raise NotImplementedError()
 

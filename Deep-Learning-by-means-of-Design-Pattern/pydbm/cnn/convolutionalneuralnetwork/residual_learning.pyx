@@ -14,8 +14,8 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
     it would be easier to push the residual to zero than to fit an identity mapping 
     by a stack of nonlinear layers." (He, K. et al., 2016, p771.)
     
-    Reference:
-        He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 770-778).
+    References:
+        - He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 770-778).
 
     '''
 
@@ -103,8 +103,8 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
             target_arr:     `np.ndarray` of labeled data.
                             If `None`, the function of this cnn model is equivalent to Convolutional Auto-Encoder.
 
-        Reference:
-            He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 770-778).
+        References:
+            - He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 770-778).
         
         '''
         self.__learn_mode = True

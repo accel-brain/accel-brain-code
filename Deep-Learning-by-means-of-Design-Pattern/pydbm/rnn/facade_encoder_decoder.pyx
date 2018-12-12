@@ -310,7 +310,7 @@ class FacadeEncoderDecoder(object):
         self.__encoder_decoder_controller.learn(observed_arr, target_arr)
 
     def infernece(self, test_arr):
-        r'''
+        '''
         Inference the feature points to reconstruct the time-series.
 
         Args:
@@ -319,11 +319,10 @@ class FacadeEncoderDecoder(object):
             rnn_activity_arr:       Array like or sparse matrix as the state in RNN.
 
         Returns:
-            Tuple(
-                Array like or sparse matrix of reconstructed instances of time-series,
-                Array like or sparse matrix of the state in hidden layer,
-                Array like or sparse matrix of the state in RNN
-            )
+            Tuple data.
+            - Array like or sparse matrix of reconstructed instances of time-series,
+            - Array like or sparse matrix of the state in hidden layer,
+            - Array like or sparse matrix of the state in RNN.
         '''
         # Execute recursive learning.
         inferenced_arr = self.__encoder_decoder_controller.inference(test_arr)

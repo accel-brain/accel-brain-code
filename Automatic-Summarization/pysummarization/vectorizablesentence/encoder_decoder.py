@@ -29,6 +29,21 @@ from pydbm.rnn.encoder_decoder_controller import EncoderDecoderController
 class EncoderDecoder(VectorizableSentence):
     '''
     Vectorize sentences by Encoder/Decoder based on LSTM.
+
+    This library provides Encoder/Decoder based on LSTM, 
+    which is a reconstruction model and makes it possible to 
+    extract series features embedded in deeper layers. 
+    The LSTM encoder learns a fixed length vector of time-series 
+    observed data points and the LSTM decoder uses this representation 
+    to reconstruct the time-series using the current hidden state 
+    and the value inferenced at the previous time-step.
+
+    References:
+        - https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_sine_wave_prediction_by_LSTM_encoder_decoder.ipynb
+        - https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_anomaly_detection_by_enc_dec_ad.ipynb
+        - Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.
+        - Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., & Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.
+
     '''
     
     def __init__(self):
@@ -38,23 +53,15 @@ class EncoderDecoder(VectorizableSentence):
 
     def vectorize(self, sentence_list):
         '''
-        Tokenize token list.
-        
         Args:
-            sentence_list:   The list of tokenized sentences:
-                             [
-                                 [`token`, `token`, `token`, ...],
-                                 [`token`, `token`, `token`, ...],
-                                 [`token`, `token`, `token`, ...],
-                             ]
+            sentence_list:   The list of tokenized sentences.
+                             [[`token`, `token`, `token`, ...],
+                             [`token`, `token`, `token`, ...],
+                             [`token`, `token`, `token`, ...]]
         
         Returns:
-            `np.ndarray`:
-            [
-                vector of token,
-                vector of token,
-                vector of token
-            ]
+            `np.ndarray` of tokens.
+            [vector of token, vector of token, vector of token]
         '''
         test_observed_arr = self.__setup_dataset(sentence_list, self.__token_master_list)
         pred_arr = self.__controller.inference(test_observed_arr)

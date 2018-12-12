@@ -69,10 +69,9 @@ class AutoAbstractor(NlpBase):
             similarity_filter   The object of SimilarityFilter.
 
         Returns:
-            dict{
-                "summarize_result": The list of summarized sentences., 
-                "scoring_data":     The list of scores.
-            }
+            dict data.
+            - "summarize_result": The list of summarized sentences., 
+            - "scoring_data":     The list of scores.
         '''
         if isinstance(document, str) is False:
             raise TypeError("The type of document must be str.")

@@ -13,19 +13,13 @@ class VectorizableSentence(metaclass=ABCMeta):
         Tokenize token list.
         
         Args:
-            sentence_list:   The list of tokenized sentences:
-                             [
-                                 [`token`, `token`, `token`, ...],
-                                 [`token`, `token`, `token`, ...],
-                                 [`token`, `token`, `token`, ...],
-                             ]
+            sentence_list:   The list of tokenized sentences.
+                             [[`token`, `token`, `token`, ...],
+                             [`token`, `token`, `token`, ...],
+                             [`token`, `token`, `token`, ...]]
         
         Returns:
-            `np.ndarray`:
-            [
-                vector of token,
-                vector of token,
-                vector of token
-            ]
+            `np.ndarray` of tokens.
+            [vector of token, vector of token, vector of token]
         '''
         raise NotImplementedError("This method must be implemented.")

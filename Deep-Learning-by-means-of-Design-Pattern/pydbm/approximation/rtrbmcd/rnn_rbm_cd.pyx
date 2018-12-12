@@ -13,6 +13,15 @@ class RNNRBMCD(RTRBMCD):
 
     Conceptually, the positive phase is to the negative phase what waking is to sleeping.
 
+    The RTRBM can be understood as a sequence of conditional RBMs 
+    whose parameters are the output of a deterministic RNN, 
+    with the constraint that the hidden units must describe 
+    the conditional distributions and convey temporal information. 
+    This constraint can be lifted by combining a full RNN with distinct hidden units.
+
+    RNN-RBM (Boulanger-Lewandowski, N., et al. 2012), which is the more 
+    structural expansion of RTRBM, has also hidden units.
+
     Parameters:
         graph.weights_arr:                      $W$ (Connection between v^{(t)} and h^{(t)})
         graph.visible_bias_arr:                 $b_v$ (Bias in visible layer)
@@ -26,6 +35,13 @@ class RNNRBMCD(RTRBMCD):
         graph.rnn_hidden_bias_arr:              $b_{\hat{h}^{(t)}}$ (Bias of RNN hidden layers.)
 
         $$\hat{h}^{(t)} = \sig (W_2 v^{(t)} + W_3 \hat{h}^{(t-1)} + b_{\hat{h}})
+    
+    References:
+        - Boulanger-Lewandowski, N., Bengio, Y., & Vincent, P. (2012). Modeling temporal dependencies in high-dimensional sequences: Application to polyphonic music generation and transcription. arXiv preprint arXiv:1206.6392.
+        - Lyu, Q., Wu, Z., Zhu, J., & Meng, H. (2015, June). Modelling High-Dimensional Sequences with LSTM-RTRBM: Application to Polyphonic Music Generation. In IJCAI (pp. 4138-4139).
+        - Lyu, Q., Wu, Z., & Zhu, J. (2015, October). Polyphonic music modelling with LSTM-RTRBM. In Proceedings of the 23rd ACM international conference on Multimedia (pp. 991-994). ACM.
+        - Sutskever, I., Hinton, G. E., & Taylor, G. W. (2009). The recurrent temporal restricted boltzmann machine. In Advances in Neural Information Processing Systems (pp. 1601-1608).
+
     '''
 
     def rnn_learn(self, np.ndarray[DOUBLE_t, ndim=2] observed_data_arr):

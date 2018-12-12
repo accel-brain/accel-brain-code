@@ -7,6 +7,11 @@ from abc import ABCMeta, abstractmethod
 class OptParams(metaclass=ABCMeta):
     '''
     Abstract class of optimization functions.
+    
+    References:
+        - Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.
+        - Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. (2014). Dropout: a simple way to prevent neural networks from overfitting. The Journal of Machine Learning Research, 15(1), 1929-1958.
+        - Zaremba, W., Sutskever, I., & Vinyals, O. (2014). Recurrent neural network regularization. arXiv preprint arXiv:1409.2329.
     '''
     
     # Regularization for weights matrix

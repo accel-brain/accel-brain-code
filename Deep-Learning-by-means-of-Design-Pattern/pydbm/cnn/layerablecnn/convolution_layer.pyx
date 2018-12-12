@@ -9,6 +9,10 @@ ctypedef np.float64_t DOUBLE_t
 class ConvolutionLayer(LayerableCNN):
     '''
     Convolution Layer.
+    
+    References:
+        - Dumoulin, V., & V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
+
     '''
     # Computation graph which is-a `Synapse`.
     __graph = None

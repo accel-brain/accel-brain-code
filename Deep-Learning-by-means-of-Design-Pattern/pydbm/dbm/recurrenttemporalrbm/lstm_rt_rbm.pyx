@@ -10,9 +10,20 @@ from pydbm.dbm.recurrent_temporal_rbm import RecurrentTemporalRBM
 
 class LSTMRTRBM(RecurrentTemporalRBM):
     '''
-    The `Client` in Builder Pattern,
+    The `Client` in Builder Pattern, to build LSTM-RTRBM.
     
-    Build LSTM-RTRBM.
+    LSTM-RTRBM model integrates the ability of LSTM in 
+    memorizing and retrieving useful history information, 
+    together with the advantage of RBM in high dimensional 
+    data modelling(Lyu, Q., Wu, Z., Zhu, J., & Meng, H. 2015, June).
+    Like RTRBM, LSTM-RTRBM also has the recurrent hidden units.
+
+    References:
+        - Boulanger-Lewandowski, N., Bengio, Y., & Vincent, P. (2012). Modeling temporal dependencies in high-dimensional sequences: Application to polyphonic music generation and transcription. arXiv preprint arXiv:1206.6392.
+        - Lyu, Q., Wu, Z., Zhu, J., & Meng, H. (2015, June). Modelling High-Dimensional Sequences with LSTM-RTRBM: Application to Polyphonic Music Generation. In IJCAI (pp. 4138-4139).
+        - Lyu, Q., Wu, Z., & Zhu, J. (2015, October). Polyphonic music modelling with LSTM-RTRBM. In Proceedings of the 23rd ACM international conference on Multimedia (pp. 991-994). ACM.
+        - Sutskever, I., Hinton, G. E., & Taylor, G. W. (2009). The recurrent temporal restricted boltzmann machine. In Advances in Neural Information Processing Systems (pp. 1601-1608).
+
     '''
 
     def __init__(

@@ -13,6 +13,22 @@ class DBMMultiLayerBuilder(DBMBuilder):
     `Concrete Builder` in Builder Pattern.
 
     Compose three restricted boltzmann machines for building a deep boltzmann machine.
+
+    As is well known, DBM is composed of layers of RBMs 
+    stacked on top of each other(Salakhutdinov, R., & Hinton, G. E. 2009). 
+    This model is a structural expansion of Deep Belief Networks(DBN), 
+    which is known as one of the earliest models of Deep Learning
+    (Le Roux, N., & Bengio, Y. 2008). Like RBM, DBN places nodes in layers. 
+    However, only the uppermost layer is composed of undirected edges, 
+    and the other consists of directed edges.
+    
+    References:
+        - https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_stacked_auto_encoder.ipynb
+        - Ackley, D. H., Hinton, G. E., & Sejnowski, T. J. (1985). A learning algorithm for Boltzmann machines. Cognitive science, 9(1), 147-169.
+        - Hinton, G. E. (2002). Training products of experts by minimizing contrastive divergence. Neural computation, 14(8), 1771-1800.
+        - Le Roux, N., & Bengio, Y. (2008). Representational power of restricted Boltzmann machines and deep belief networks. Neural computation, 20(6), 1631-1649.
+        - Salakhutdinov, R., & Hinton, G. E. (2009). Deep boltzmann machines. InInternational conference on artificial intelligence and statistics (pp. 448-455).
+
     '''
     # The list of neurons in visible layer.
     __visible_neuron_list = []

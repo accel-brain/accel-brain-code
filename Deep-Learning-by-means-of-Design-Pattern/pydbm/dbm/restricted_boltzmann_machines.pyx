@@ -9,6 +9,18 @@ from pydbm.approximation.interface.approximate_interface import ApproximateInter
 class RestrictedBoltzmannMachine(object):
     '''
     Restricted Boltzmann Machine.
+    
+    According to graph theory, the structure of RBM corresponds to 
+    a complete bipartite graph which is a special kind of bipartite 
+    graph where every node in the visible layer is connected to every 
+    node in the hidden layer. Based on statistical mechanics and 
+    thermodynamics(Ackley, D. H., Hinton, G. E., & Sejnowski, T. J. 1985), 
+    the state of this structure can be reflected by the energy function.
+    
+    References:
+        - Ackley, D. H., Hinton, G. E., & Sejnowski, T. J. (1985). A learning algorithm for Boltzmann machines. Cognitive science, 9(1), 147-169.
+        - Hinton, G. E. (2002). Training products of experts by minimizing contrastive divergence. Neural computation, 14(8), 1771-1800.
+        - Le Roux, N., & Bengio, Y. (2008). Representational power of restricted Boltzmann machines and deep belief networks. Neural computation, 20(6), 1631-1649.
     '''
     # Complete bipartite graph.
     __graph = None

@@ -7,6 +7,9 @@ from pydbm.optimization.opt_params import OptParams
 class Adam(OptParams):
     '''
     Adam.
+
+    References:
+        - Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.
     '''
 
     def __init__(self, double beta_1=0.9, double beta_2=0.99):

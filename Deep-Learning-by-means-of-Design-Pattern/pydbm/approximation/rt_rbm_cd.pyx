@@ -16,6 +16,11 @@ class RTRBMCD(ApproximateInterface):
 
     Conceptually, the positive phase is to the negative phase what waking is to sleeping.
 
+    The RTRBM (Sutskever, I., et al. 2009) is a probabilistic 
+    time-series model which can be viewed as a temporal stack of RBMs, 
+    where each RBM has a contextual hidden state that is received 
+    from the previous RBM and is used to modulate its hidden units bias.
+
     Parameters:
         graph.weights_arr:                $W$ (Connection between v^{(t)} and h^{(t)})
         graph.visible_bias_arr:           $b_v$ (Bias in visible layer)
@@ -24,6 +29,13 @@ class RTRBMCD(ApproximateInterface):
         graph.rnn_visible_weights_arr:    $W''$ (Connection between h^{(t-1)} and b_v^{(t)})
         graph.hat_hidden_activity_arr:    $\hat{h}^{(t)}$ (RNN with hidden units)
         graph.pre_hidden_activity_arr:    $\hat{h}^{(t-1)}$
+    
+    References:
+        - Boulanger-Lewandowski, N., Bengio, Y., & Vincent, P. (2012). Modeling temporal dependencies in high-dimensional sequences: Application to polyphonic music generation and transcription. arXiv preprint arXiv:1206.6392.
+        - Lyu, Q., Wu, Z., Zhu, J., & Meng, H. (2015, June). Modelling High-Dimensional Sequences with LSTM-RTRBM: Application to Polyphonic Music Generation. In IJCAI (pp. 4138-4139).
+        - Lyu, Q., Wu, Z., & Zhu, J. (2015, October). Polyphonic music modelling with LSTM-RTRBM. In Proceedings of the 23rd ACM international conference on Multimedia (pp. 991-994). ACM.
+        - Sutskever, I., Hinton, G. E., & Taylor, G. W. (2009). The recurrent temporal restricted boltzmann machine. In Advances in Neural Information Processing Systems (pp. 1601-1608).
+
     '''
 
     # The list of the reconstruction error rate (MSE)

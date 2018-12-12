@@ -11,6 +11,18 @@ class RTRBMSimpleBuilder(RTRBMBuilder):
     `Concrete Builder` in Builder Pattern.
 
     Compose restricted boltzmann machines for building a RTRBM.
+
+    The RTRBM (Sutskever, I., et al. 2009) is a probabilistic 
+    time-series model which can be viewed as a temporal stack of RBMs, 
+    where each RBM has a contextual hidden state that is received 
+    from the previous RBM and is used to modulate its hidden units bias.
+    
+    References:
+        - Boulanger-Lewandowski, N., Bengio, Y., & Vincent, P. (2012). Modeling temporal dependencies in high-dimensional sequences: Application to polyphonic music generation and transcription. arXiv preprint arXiv:1206.6392.
+        - Lyu, Q., Wu, Z., Zhu, J., & Meng, H. (2015, June). Modelling High-Dimensional Sequences with LSTM-RTRBM: Application to Polyphonic Music Generation. In IJCAI (pp. 4138-4139).
+        - Lyu, Q., Wu, Z., & Zhu, J. (2015, October). Polyphonic music modelling with LSTM-RTRBM. In Proceedings of the 23rd ACM international conference on Multimedia (pp. 991-994). ACM.
+        - Sutskever, I., Hinton, G. E., & Taylor, G. W. (2009). The recurrent temporal restricted boltzmann machine. In Advances in Neural Information Processing Systems (pp. 1601-1608).
+
     '''
     # The list of neurons in visible layer.
     __visible_neuron_count = 10

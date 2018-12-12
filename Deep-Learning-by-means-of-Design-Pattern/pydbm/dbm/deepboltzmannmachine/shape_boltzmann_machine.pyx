@@ -11,6 +11,15 @@ ctypedef np.float64_t DOUBLE_t
 class ShapeBoltzmannMachine(DeepBoltzmannMachine):
     '''
     Shape Boltzmann Machine(Shape-BM).
+    
+    The concept of Shape Boltzmann Machine (Eslami, S. A., et al. 2014) 
+    provided inspiration to this library.
+    
+    The usecases of Shape-BM are image segmentation, object detection, inpainting and graphics. Shape-BM is the model for the task of modeling binary shape images, in that samples from the model look realistic and it can generalize to generate samples that differ from training examples.
+
+    References:
+        - Eslami, S. A., Heess, N., Williams, C. K., & Winn, J. (2014). The shape boltzmann machine: a strong model of object shape. International Journal of Computer Vision, 107(2), 155-176.
+
     '''
     def set_readonly(self, value):
         ''' setter '''

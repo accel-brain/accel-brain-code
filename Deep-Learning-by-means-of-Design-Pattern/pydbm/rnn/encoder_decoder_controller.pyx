@@ -12,6 +12,29 @@ ctypedef np.float64_t DOUBLE_t
 class EncoderDecoderController(object):
     '''
     Encoder/Decoder based on LSTM networks.
+    
+    This library provides Encoder/Decoder based on LSTM, 
+    which is a reconstruction model and makes it possible to extract 
+    series features embedded in deeper layers. The LSTM encoder learns 
+    a fixed length vector of time-series observed data points and the 
+    LSTM decoder uses this representation to reconstruct the time-series 
+    using the current hidden state and the value inferenced at the previous time-step.
+    
+    One interesting application example is the Encoder/Decoder for 
+    Anomaly Detection (EncDec-AD) paradigm (Malhotra, P., et al. 2016).
+    This reconstruction model learns to reconstruct normal time-series behavior, 
+    and thereafter uses reconstruction error to detect anomalies. 
+    Malhotra, P., et al. (2016) showed that EncDec-AD paradigm is robust 
+    and can detect anomalies from predictable, unpredictable, periodic, aperiodic, 
+    and quasi-periodic time-series. Further, they showed that the paradigm is able 
+    to detect anomalies from short time-series (length as small as 30) as well as 
+    long time-series (length as large as 500).
+
+    References:
+        - https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_sine_wave_prediction_by_LSTM_encoder_decoder.ipynb
+        - https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_anomaly_detection_by_enc_dec_ad.ipynb
+        - Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.
+        - Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., & Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.
     '''
     
     def __init__(

@@ -15,6 +15,25 @@ ctypedef np.float64_t DOUBLE_t
 class SpatioTemporalAutoEncoder(object):
     '''
     Spatio-Temporal Auto-Encoder.
+    
+    The Spatio-Temporal Auto-Encoder can learn the regular patterns 
+    in the training videos(Baccouche, M., et al., 2012, Patraucean, V., et al. 2015). 
+    
+    This model consists of spatial Auto-Encoder and temporal Encoder/Decoder. 
+    The spatial Auto-Encoder is a Convolutional Auto-Encoder for learning 
+    spatial structures of each video frame. The temporal Encoder/Decoder is 
+    an Encoder/Decoder based on LSTM scheme for learning temporal patterns of 
+    the encoded spatial structures. The spatial encoder and decoder have two 
+    convolutional and deconvolutional layers respectively, while the temporal 
+    encoder and decoder are to act as a twin LSTM models.
+    
+    References:
+        - https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_stacked_auto_encoder.ipynb
+        - Baccouche, M., Mamalet, F., Wolf, C., Garcia, C., & Baskurt, A. (2012, September). Spatio-Temporal Convolutional Sparse Auto-Encoder for Sequence Classification. In BMVC (pp. 1-12).
+        - Chong, Y. S., & Tay, Y. H. (2017, June). Abnormal event detection in videos using spatiotemporal autoencoder. In International Symposium on Neural Networks (pp. 189-196). Springer, Cham.
+        - Masci, J., Meier, U., Cireşan, D., & Schmidhuber, J. (2011, June). Stacked convolutional auto-encoders for hierarchical feature extraction. In International Conference on Artificial Neural Networks (pp. 52-59). Springer, Berlin, Heidelberg.
+        - Patraucean, V., Handa, A., & Cipolla, R. (2015). Spatio-temporal video autoencoder with differentiable memory. arXiv preprint arXiv:1511.06309.
+
     '''
     
     def __init__(

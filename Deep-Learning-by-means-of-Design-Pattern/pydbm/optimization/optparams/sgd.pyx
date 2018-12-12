@@ -8,6 +8,10 @@ from pydbm.optimization.opt_params import OptParams
 class SGD(OptParams):
     '''
     Stochastic Gradient Descent.
+
+    References:
+        - Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.
+
     '''
 
     def __init__(self, double momentum=0.9):

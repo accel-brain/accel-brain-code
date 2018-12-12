@@ -16,6 +16,19 @@ class ContrastiveDivergence(ApproximateInterface):
     Contrastive Divergence.
     
     Conceptually, the positive phase is to the negative phase what waking is to sleeping.
+    
+    In relation to RBM, Contrastive Divergence(CD) is a method for approximation of 
+    the gradients of the log-likelihood(Hinton, G. E. 2002).
+    
+    The procedure of this method is similar to Markov Chain Monte Carlo method(MCMC).
+    However, unlike MCMC, the visbile variables to be set first in visible layer is 
+    not randomly initialized but the observed data points in training dataset are set 
+    to the first visbile variables. And, like Gibbs sampler, drawing samples from hidden 
+    variables and visible variables is repeated k times. Empirically (and surprisingly), 
+    `k` is considered to be `1`.
+    
+    References:
+        - Hinton, G. E. (2002). Training products of experts by minimizing contrastive divergence. Neural computation, 14(8), 1771-1800.
     '''
 
     # The list of the reconstruction error rate.

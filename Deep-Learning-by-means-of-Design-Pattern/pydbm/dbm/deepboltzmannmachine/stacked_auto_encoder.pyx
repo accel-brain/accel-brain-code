@@ -9,6 +9,25 @@ ctypedef np.float64_t DOUBLE_t
 class StackedAutoEncoder(DeepBoltzmannMachine):
     '''
     Stacked Auto-Encoder.
+    
+    DBM is functionally equivalent to a Stacked Auto-Encoder, 
+    which is-a neural network that tries to reconstruct its input. 
+    To encode the observed data points, the function of DBM is as 
+    linear transformation of feature map. On the other hand, 
+    to decode this feature points, the function of DBM is as 
+    linear transformation of feature map.
+    
+    The reconstruction error should be calculated in relation to problem setting. 
+    This library provides a default method, which can be overridden, for error 
+    function that computes Mean Squared Error(MSE).
+
+    References:
+        - https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_stacked_auto_encoder.ipynb
+        - Ackley, D. H., Hinton, G. E., & Sejnowski, T. J. (1985). A learning algorithm for Boltzmann machines. Cognitive science, 9(1), 147-169.
+        - Hinton, G. E. (2002). Training products of experts by minimizing contrastive divergence. Neural computation, 14(8), 1771-1800.
+        - Le Roux, N., & Bengio, Y. (2008). Representational power of restricted Boltzmann machines and deep belief networks. Neural computation, 20(6), 1631-1649.
+        - Salakhutdinov, R., & Hinton, G. E. (2009). Deep boltzmann machines. InInternational conference on artificial intelligence and statistics (pp. 448-455).
+    
     '''
     def set_readonly(self, value):
         ''' setter '''

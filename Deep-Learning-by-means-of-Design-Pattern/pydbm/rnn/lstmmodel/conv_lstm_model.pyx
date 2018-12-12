@@ -26,7 +26,17 @@ ctypedef np.float64_t DOUBLE_t
 
 class ConvLSTMModel(ReconstructableModel):
     '''
-    Conv LSTM.
+    Convolutional LSTM(ConvLSTM).
+    
+    Convolutional LSTM(ConvLSTM)(Xingjian, S. H. I. et al., 2015), 
+    which is a model that structurally couples convolution operators 
+    to LSTM networks, can be utilized as components in constructing 
+    the Encoder/Decoder. The ConvLSTM is suitable for spatio-temporal data 
+    due to its inherent convolutional structure.
+    
+    References:
+        - https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_conv_lstm.ipynb
+        - Xingjian, S. H. I., Chen, Z., Wang, H., Yeung, D. Y., Wong, W. K., & Woo, W. C. (2015). Convolutional LSTM network: A machine learning approach for precipitation nowcasting. In Advances in neural information processing systems (pp. 802-810)
     '''
     # is-a `Synapse`.
     __graph = None

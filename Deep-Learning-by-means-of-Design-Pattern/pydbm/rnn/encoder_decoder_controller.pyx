@@ -480,10 +480,7 @@ class EncoderDecoderController(object):
         )
         return decoded_arr
 
-    def back_propagation(
-        self,
-        np.ndarray delta_arr
-    ):
+    def back_propagation(self, np.ndarray delta_arr):
         r'''
         Back propagation.
 

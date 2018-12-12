@@ -64,6 +64,9 @@ class ConvLSTMModel(ReconstructableModel):
     # Width and height of input images in the first layer.
     __width = None
     __height = None
+    
+    # Observed shape of hidden units.
+    __hidden_shape = None
 
     def __init__(
         self,
@@ -92,7 +95,8 @@ class ConvLSTMModel(ReconstructableModel):
         verificatable_result=None,
         tol=1e-04,
         tld=100.0,
-        pre_learned_dir=None
+        pre_learned_dir=None,
+        output_layer_flag=False
     ):
         '''
         Init for building LSTM networks.
@@ -143,6 +147,7 @@ class ConvLSTMModel(ReconstructableModel):
             tld:                            Tolerance for deviation of loss.
 
             pre_learned_dir:                Path to directory that stores pre-learned parameters.
+            output_layer_flag:              Setup and use output layer or not.
 
         '''
         self.graph = graph
@@ -151,7 +156,9 @@ class ConvLSTMModel(ReconstructableModel):
 
         self.__height = height
         self.__width = width
+        self.__filter_num = filter_num
         self.__channel = channel
+        self.__hidden_shape = None
 
         if given_conv is None:
             self.__given_conv = ConvolutionLayer(
@@ -292,6 +299,8 @@ class ConvLSTMModel(ReconstructableModel):
 
         self.__memory_tuple_list = []
         self.__cycle_len = 1
+        
+        self.__output_layer_flag = output_layer_flag
 
         logger = getLogger("pydbm")
         self.__logger = logger
@@ -356,6 +365,7 @@ class ConvLSTMModel(ReconstructableModel):
 
         best_params_list = []
         try:
+            self.__opt_params.dropout_rate = self.__dropout_rate
             self.__memory_tuple_list = []
             loss_list = []
             min_loss = None
@@ -488,6 +498,7 @@ class ConvLSTMModel(ReconstructableModel):
                         # Re-try.
                         test_pred_arr = self.forward_propagation(test_batch_observed_arr)
 
+                    self.__opt_params.dropout_rate = self.__dropout_rate
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
                             if ver_pred_arr.ndim == batch_target_arr[:, -1]:
@@ -527,6 +538,7 @@ class ConvLSTMModel(ReconstructableModel):
             eary_stop_flag = False
 
         self.__remember_best_params(best_params_list)
+        self.__opt_params.dropout_rate = 0.0
         self.__logger.debug("end. ")
 
     def learn_generated(self, feature_generator):
@@ -564,6 +576,7 @@ class ConvLSTMModel(ReconstructableModel):
         best_params_list = []
         try:
             self.__memory_tuple_list = []
+            self.__opt_params.dropout_rate = self.__dropout_rate
             loss_list = []
             min_loss = None
             eary_stop_flag = False
@@ -690,6 +703,7 @@ class ConvLSTMModel(ReconstructableModel):
                         # Re-try.
                         test_pred_arr = self.forward_propagation(test_batch_observed_arr)
 
+                    self.__opt_params.dropout_rate = self.__dropout_rate
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
                             if ver_pred_arr.ndim == batch_target_arr[:, -1].ndim:
@@ -729,6 +743,7 @@ class ConvLSTMModel(ReconstructableModel):
             eary_stop_flag = False
 
         self.__remember_best_params(best_params_list)
+        self.__opt_params.dropout_rate = 0.0
         self.__logger.debug("end. ")
 
     def __remember_best_params(self, best_params_list):
@@ -775,15 +790,20 @@ class ConvLSTMModel(ReconstructableModel):
             batch_observed_arr
         )
         self.graph.hidden_activity_arr = hidden_activity_arr
-        """
+
+        if self.__output_layer_flag is False:
+            return hidden_activity_arr
+
         cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.output_forward_propagate(
             hidden_activity_arr
         )
         return pred_arr
-        """
-        return hidden_activity_arr
 
-    def back_propagation(self, np.ndarray[DOUBLE_t, ndim=4] pred_arr, np.ndarray[DOUBLE_t, ndim=4] delta_arr):
+    def back_propagation(
+        self,
+        np.ndarray pred_arr,
+        np.ndarray delta_arr
+    ):
         r'''
         Back propagation.
 
@@ -797,14 +817,13 @@ class ConvLSTMModel(ReconstructableModel):
                 `list` of gradations
             )
         '''
-        """
-        delta_arr, grads_list = self.output_back_propagate(pred_arr, delta_arr)
-        """
+        if self.__output_layer_flag is True:
+            delta_arr, grads_list = self.output_back_propagate(pred_arr, delta_arr)
+        else:
+            grads_list = []
+
         _delta_arr = self.hidden_back_propagate(delta_arr)
-        """
         return (_delta_arr, grads_list)
-        """
-        return _delta_arr, []
 
     def optimize(
         self,
@@ -921,9 +940,7 @@ class ConvLSTMModel(ReconstructableModel):
         else:
             self.graph.rnn_activity_arr = rnn_activity_arr
 
-        self.__opt_params.dropout_rate = 0.0
         cdef np.ndarray pred_arr = self.forward_propagation(observed_arr)
-        self.__opt_params.dropout_rate = self.__dropout_rate
 
         return pred_arr
 
@@ -990,6 +1007,13 @@ class ConvLSTMModel(ReconstructableModel):
         Returns:
             `np.ndarray` of propagated data points.
         '''
+        hidden_shape = pred_arr[:, -1].copy().shape
+        self.__hidden_shape = (
+            self.__filter_num,
+            self.__channel,
+            hidden_shape[2],
+            hidden_shape[3]
+        )
         cdef np.ndarray hidden_pred_arr = pred_arr[:, -1].reshape((pred_arr[:, -1].shape[0], -1))
         cdef np.ndarray[DOUBLE_t, ndim=2] _pred_arr = self.graph.output_activating_function.activate(
             np.dot(hidden_pred_arr, self.graph.weights_output_arr) + self.graph.output_bias_arr
@@ -1018,8 +1042,13 @@ class ConvLSTMModel(ReconstructableModel):
             delta_weights_arr,
             delta_bias_arr
         ]
-        
-        return (_delta_arr, grads_list)
+        hidden_shape = (
+            self.__hidden_shape[0],
+            self.__hidden_shape[0],
+            self.__hidden_shape[2],
+            self.__hidden_shape[3]
+        )
+        return (_delta_arr.reshape(hidden_shape), grads_list)
 
     def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=4] delta_output_arr):
         r'''
@@ -1036,23 +1065,10 @@ class ConvLSTMModel(ReconstructableModel):
                 `list` of gradations
             )
         '''
-        cdef int sample_n = delta_output_arr.shape[0]
         # not BPTT.
         cdef int cycle_len = 1
-        cdef int channel = delta_output_arr.shape[1]
-        cdef int width = delta_output_arr.shape[2]
-        cdef int height = delta_output_arr.shape[3]
 
-        cdef np.ndarray[DOUBLE_t, ndim=5] delta_arr = np.empty(
-            (
-                sample_n,
-                cycle_len,
-                channel,
-                width,
-                height
-            ),
-            dtype=np.float64
-        )
+        cdef np.ndarray[DOUBLE_t, ndim=5] delta_arr = None
 
         cdef np.ndarray[DOUBLE_t, ndim=4] _delta_hidden_arr
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_hidden_arr
@@ -1071,6 +1087,17 @@ class ConvLSTMModel(ReconstructableModel):
                 delta_rnn_arr,
                 cycle
             )
+            if delta_arr is None:
+                delta_arr = np.empty(
+                    (
+                        delta_hidden_arr.shape[0],
+                        cycle_len,
+                        delta_hidden_arr.shape[1],
+                        delta_hidden_arr.shape[2],
+                        delta_hidden_arr.shape[3]
+                    ),
+                    dtype=np.float64
+                )
             delta_arr[:, cycle] = delta_hidden_arr
 
             if bp_count >= self.__bptt_tau:

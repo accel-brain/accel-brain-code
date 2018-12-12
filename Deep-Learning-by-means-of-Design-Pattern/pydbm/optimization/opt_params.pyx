@@ -92,7 +92,11 @@ class OptParams(metaclass=ABCMeta):
             
         if activity_arr.ndim > 1:
             col = activity_arr.shape[1]
-            dropout_rate_arr = np.random.binomial(n=1, p=1-self.dropout_rate, size=(row, col)).astype(int)
+            dropout_rate_arr = np.random.binomial(
+                n=1, 
+                p=1-self.dropout_rate, 
+                size=activity_arr.copy().shape
+            ).astype(int)
 
         activity_arr = np.nanprod(
             np.array([

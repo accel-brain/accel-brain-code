@@ -17,13 +17,6 @@ class DeepQNetwork(DeepQLearning):
 
         Args:
             next_action_arr:        `np.ndarray` of actions.
-                                    The shape is:(
-                                        `batch size corresponded to each action key`, 
-                                        `channel that is 1`, 
-                                        `feature points1`, 
-                                        `feature points2`
-                                    )
-            
             next_q_arr:             `np.ndarray` of Q-Values.
 
         Retruns:

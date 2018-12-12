@@ -7,11 +7,12 @@ class AbstractableDoc(metaclass=ABCMeta):
     Automatic abstraction and summarization.
     This is the filtering approach.
 
-    Reference.
+    This `interface` is designed the `Strategy Pattern`.
+
+    References:
         - Luhn, Hans Peter. "The automatic creation of literature abstracts."  IBM Journal of research and development 2.2 (1958): 159-165.
         - http://www.oreilly.co.jp/books/9784873116792/
 
-    This `interface` is designed the `Strategy Pattern`.
     '''
 
     @abstractmethod

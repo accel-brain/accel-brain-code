@@ -7,11 +7,11 @@ This library makes it possible to design the information search algorithm such a
 <div align="center">
     <table style="border: none;">
         <tr>
-            <td width="30%" align="center">
+            <td width="45%" align="center">
             <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_single_agent_goal_compressed-loop.gif" /></a></p>
             <p>Deep Reinforcement Learning (Deep Q-Network: DQN) to solve Maze.</p>
             </td>
-            <td width="30%" align="center">
+            <td width="45%" align="center">
             <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_goal_enemy_2-compressed.gif" width="30%" /></a></p>
             <p>Multi-agent Deep Reinforcement Learning to solve the pursuit-evasion game.</p>
             </td>

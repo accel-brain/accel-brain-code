@@ -43,7 +43,7 @@ class DeepQLearning(metaclass=ABCMeta):
     the algorithm’s structure.
 
     References:
-        - [Egorov, M. (2016). Multi-agent deep reinforcement learning.](https://pdfs.semanticscholar.org/dd98/9d94613f439c05725bad958929357e365084.pdf)
+        - Egorov, M. (2016). Multi-agent deep reinforcement learning.(URL: https://pdfs.semanticscholar.org/dd98/9d94613f439c05725bad958929357e365084.pdf)
         - Gupta, J. K., Egorov, M., & Kochenderfer, M. (2017, May). Cooperative multi-agent control using deep reinforcement learning. In International Conference on Autonomous Agents and Multiagent Systems (pp. 66-83). Springer, Cham.
         - Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. (2013). Playing atari with deep reinforcement learning. arXiv preprint arXiv:1312.5602.
     '''
@@ -68,11 +68,11 @@ class DeepQLearning(metaclass=ABCMeta):
 
     def learn(self, state_arr, limit=1000):
         '''
-        Learning.
+        Learning and searching the optimal solution.
         
         Args:
             state_arr:      `np.ndarray` of initial state.
-            limit:          The number of learning.
+            limit:          The maximum number of iterative updates based on value iteration algorithms.
         '''
         while self.t <= limit:
             next_action_arr = self.extract_possible_actions(state_arr)

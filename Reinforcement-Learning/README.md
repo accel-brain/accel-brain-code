@@ -7,13 +7,12 @@ This library makes it possible to design the information search algorithm such a
 <div align="center">
     <table style="border: none;">
         <tr>
-            <td width="45%" align="center">
+            <td width="30%" align="center">
             <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_single_agent_goal_compressed-loop.gif" /></a></p>
             <p>Deep Reinforcement Learning (Deep Q-Network: DQN) to solve Maze.</p>
             </td>
-            <td width="45%" align="center">
-            <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_goal_enemy_2-compressed.gif" /></a></p>
-            <p>
+            <td width="30%" align="center">
+            <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_goal_enemy_2-compressed.gif" width="30%" /></a></p>
             <p>Multi-agent Deep Reinforcement Learning to solve the pursuit-evasion game.</p>
             </td>
         </tr>
@@ -76,7 +75,15 @@ Boltzmann Q-Learning algorithm is based on Boltzmann action selection mechanism,
 
 where the temperature <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/t_gt_0.gif" /> controls exploration/exploitation tradeoff. For <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/t_to_0.gif" /> the agent always acts greedily and chooses the strategy corresponding to the maximum Q–value, so as to be pure *deterministic* exploitation, whereas for <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/t_to_infty.gif" /> the agent’s strategy is completely random, so as to be pure *stochastic* exploration.
 
+### Commonality/variability of Q-learning models
+
 Considering many variable parts and functional extensions in the Q-learning paradigm from perspective of *commonality/variability analysis* in order to practice object-oriented design, this library provides abstract class that defines the skeleton of a Q-Learning algorithm in an operation, deferring some steps in concrete variant algorithms such as Epsilon Greedy Q-Leanring and Boltzmann Q-Learning to client subclasses. The abstract class in this library lets subclasses redefine certain steps of a Q-Learning algorithm without changing the algorithm's structure.
+
+<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/class_diagram_pyqleanring_QLearning.png" />
+
+Typical concepts such as `State`, `Action`, `Reward`, and `Q-Value` in Q-learning models should be refered as viewpoints for distinguishing between *commonality* and *variability*. Among the functions related to these concepts, the class `QLearning` is responsible for more *common* attributes and behaviors. On the other hand, in relation to *your* concrete problem settings, more *variable* elements have to be implemented by subclasses such as `YourGreedyQLearning` or `YourBoltzmannQLearning`.
+
+For more detailed specification of this template method, refer to API documentation: [pyqlearning.q_learning module](https://code.accel-brain.com/Reinforcement-Learning/pyqlearning.html#module-pyqlearning.q_learning). If you want to know the samples of implemented code, see [demo/](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning/demo). 
 
 ### Structural extension: Deep Reinforcement Learning
 
@@ -165,7 +172,28 @@ and the acitivation of memory cell and hidden units are calculated as follows:
 
 This library demonstrates a model of the function approximator which loosely coupled CNN and LSTM. Like CLDNN Architecture(Sainath, T. N, et al., 2015), this model uses CNNs to reduce the spectral variation of the input feature of rewards, and then passes this to LSTM layers to perform temporal modeling, and finally outputs this to DNN layers, which produces a feature representation of Q-Values that is more easily separable.
 
-## Tutorial: Maze Solving by Deep Q-Network (Jupyter notebook)
+### Structural expansion for Convolutional LSTM(ConvLSTM).
+
+**Convolutional LSTM(ConvLSTM)**(Xingjian, S. H. I. et al., 2015), which is a model that structurally couples **convolution operators** to **LSTM** networks, can be utilized as components in constructing the the function approximator. The ConvLSTM is suitable for spatio-temporal data due to its inherent convolutional structure. 
+
+<div>
+<img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/model_of_conv_lstm.png" />
+<p><cite>Xingjian, S. H. I., Chen, Z., Wang, H., Yeung, D. Y., Wong, W. K., & Woo, W. C. (2015). Convolutional LSTM network: A machine learning approach for precipitation nowcasting. In Advances in neural information processing systems (pp. 802-810), p806.</cite></p>
+</div>
+
+### Commonality/variability of Deep Q-learning models
+
+Also considering many variable parts and functional extensions in the Deep Q-learning paradigm from perspective of *commonality/variability analysis* in order to practice object-oriented design, this library provides abstract class that defines the skeleton of a Deep Q-Learning algorithm in an operation, deferring some steps in concrete variant algorithms such as Deep Q-Network to client subclasses. The abstract class in this library lets subclasses redefine certain steps of a Deep Q-Learning algorithm without changing the algorithm's structure.
+
+And this library provides the interface to implement many variable function approximators, which defines a family of algorithms to solve generalisation problems, encapsulate each one, and make them interchangeable. Strategy lets the algorithms such as CNNs, LSTM, or ConvLSTM vary independently from the clients that use it. Capture the abstraction in an interface, bury implementation details in derived classes.
+
+<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/class_diagram_pyqlearning_DeepQLearning.png" />
+
+The viewpoints for distinguishing between *commonality* and *variability* should  relate to not only typical concepts such as `State`, `Action`, `Reward`, and `Q-Value` in Q-learning models but also concepts of function approximators based on the Deep Learning Theory. Among the functions related to these concepts, the class `DeepQLearning` and `DeepQNetwork` are responsible for more *common* attributes and behaviors. On the other hand, in relation to *your* concrete problem settings, more *variable* elements have to be implemented by subclasses `YourDeepQNetwork`. And `DeepQLearning` has a `FunctionApproximator` to learn and inference `Q-Value` but the concrete object as a `FunctionApproximator` is more *variable*. The designers have to decide what Deep Learning Algorithm to use.
+
+For more detailed specification of this template method, refer to API documentation: [pyqlearning.deep_q_learning module](https://code.accel-brain.com/Reinforcement-Learning/pyqlearning.html#pyqlearning.deep_q_learning.DeepQLearning) and [pyqlearning.function_approximator module](https://code.accel-brain.com/Reinforcement-Learning/pyqlearning.html#pyqlearning.function_approximator.FunctionApproximator). If you want to know the samples of implemented code, see [demo/](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning/demo) and the following tutorial. 
+
+## Tutorial: Maze Solving and the pursuit-evasion game by Deep Q-Network (Jupyter notebook)
 
 [demo/search_maze_by_deep_q_network.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb) is a Jupyter notebook which demonstrates a maze solving algorithm based on Deep Q-Network, rigidly coupled with Deep Convolutional Neural Networks(Deep CNNs). The function of the Deep Learning is **generalisation** and CNNs is-a **function approximator**. In this notebook, several functional equivalents such as CNN, LSTM, and the model which loosely coupled CNN and LSTM can be compared from a functional point of view.
 
@@ -212,6 +240,13 @@ An important aspect of this data modeling is that by expressing each state of th
         </tr>
     </table>
 </div>
+
+<!--
+            <td width="30%" align="center">
+            <p><a href="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_conv_lstm_not_fc_multi_agent_demo_goal_2_enemies_1--compressed.gif" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_conv_lstm_not_fc_multi_agent_demo_goal_2_enemies_1--compressed.gif" /></a></p>
+            <p>Multi-agent Deep Reinforcement Learning to solve the pursuit-evasion game, which uses the Convolutional LSTM(ConvLSTM) as function approximator</p>
+            </td>
+-->
 
 * Black squares represent a wall.
 * Light gray squares represent passages.
@@ -482,10 +517,14 @@ To extract result of searching, call the property like the case of using `Simula
 
 ### Deep Q-Network models.
 
+- Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.
 - <a href="https://pdfs.semanticscholar.org/dd98/9d94613f439c05725bad958929357e365084.pdf" target="_blank">Egorov, M. (2016). Multi-agent deep reinforcement learning.</a>
 - Gupta, J. K., Egorov, M., & Kochenderfer, M. (2017, May). Cooperative multi-agent control using deep reinforcement learning. In International Conference on Autonomous Agents and Multiagent Systems (pp. 66-83). Springer, Cham.
+- Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., & Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.
 - Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. (2013). Playing atari with deep reinforcement learning. arXiv preprint arXiv:1312.5602.
 - Sainath, T. N., Vinyals, O., Senior, A., & Sak, H. (2015, April). Convolutional, long short-term memory, fully connected deep neural networks. In Acoustics, Speech and Signal Processing (ICASSP), 2015 IEEE International Conference on (pp. 4580-4584). IEEE.
+- Xingjian, S. H. I., Chen, Z., Wang, H., Yeung, D. Y., Wong, W. K., & Woo, W. C. (2015). Convolutional LSTM network: A machine learning approach for precipitation nowcasting. In Advances in neural information processing systems (pp. 802-810).
+- Zaremba, W., Sutskever, I., & Vinyals, O. (2014). Recurrent neural network regularization. arXiv preprint arXiv:1409.2329.
 
 ### Annealing models.
 

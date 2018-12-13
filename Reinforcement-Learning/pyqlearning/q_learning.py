@@ -254,11 +254,11 @@ class QLearning(metaclass=ABCMeta):
 
     def learn(self, state_key, limit=1000):
         '''
-        Learning.
+        Learning and searching the optimal solution.
         
         Args:
             state_key:      Initial state.
-            limit:          The number of learning.
+            limit:          The maximum number of iterative updates based on value iteration algorithms.
         '''
         self.t = 1
         while self.t <= limit:

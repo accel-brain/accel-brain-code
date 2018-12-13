@@ -7,12 +7,6 @@ from pyqlearning.function_approximator import FunctionApproximator
 class DeepQLearning(metaclass=ABCMeta):
     '''
     Abstract base class to implement the Deep Q-Learning.
-
-    Attributes:
-        alpha_value:            Learning rate.
-        gamma_value:            Discounting rate.
-        function_approximator:  is-a `FunctionApproximator`.
-        t:                      time step.
     
     The Reinforcement learning theory presents several issues 
     from a perspective of deep learning theory(Mnih, V., et al. 2013).

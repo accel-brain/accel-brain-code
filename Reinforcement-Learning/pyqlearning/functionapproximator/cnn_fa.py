@@ -22,13 +22,22 @@ from pydbm.verification.verificate_function_approximation import VerificateFunct
 
 class CNNFA(FunctionApproximator):
     '''
-    Convolutional Neural Networks as a Function Approximator.
+    Convolutional Neural Networks(CNNs) as a Function Approximator.
+
+    CNNs are hierarchical models whose convolutional layers alternate with subsampling
+    layers, reminiscent of simple and complex cells in the primary visual cortex.
     
+    This class demonstrates that a CNNs can solve generalisation problems to learn 
+    successful control policies from observed data points in complex 
+    Reinforcement Learning environments. The network is trained with a variant of 
+    the Q-learning algorithm, with stochastic gradient descent to update the weights.
     
     The Deconvolution also called transposed convolutions “work by swapping the forward and backward passes of a convolution.” (Dumoulin, V., & Visin, F. 2016, p20.)
     
     References:
         - Dumoulin, V., & V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
+        - Masci, J., Meier, U., Cireşan, D., & Schmidhuber, J. (2011, June). Stacked convolutional auto-encoders for hierarchical feature extraction. In International Conference on Artificial Neural Networks (pp. 52-59). Springer, Berlin, Heidelberg.
+        - Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. (2013). Playing atari with deep reinforcement learning. arXiv preprint arXiv:1312.5602.
     '''
     
     def __init__(

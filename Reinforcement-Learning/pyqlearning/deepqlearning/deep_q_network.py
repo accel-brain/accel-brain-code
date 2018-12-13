@@ -7,9 +7,6 @@ class DeepQNetwork(DeepQLearning):
     '''
     Abstract base class to implement the Deep Q-Network(DQN).
 
-    Attributes:
-        epsilon_greedy_rate:    ε-greedy rate.
-
     The structure of Q-Learning is based on the Epsilon Greedy Q-Leanring algorithm,
     which is a typical off-policy algorithm.  In this paradigm, stochastic searching 
     and deterministic searching can coexist by hyperparameter `epsilon_greedy_rate` 

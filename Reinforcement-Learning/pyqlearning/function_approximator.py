@@ -23,14 +23,14 @@ class FunctionApproximator(metaclass=ABCMeta):
     This interface defines methods to controll functionally equivalents
     of CNN. `DeepQLearning` can be delegated an object that is-a this interface.
     More detail, this interface defines a family of algorithms of Deep Learning,
-    which can be implemented by using library: [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern), such as LSTM, 
-    Convolutional LSTM(Xingjian, S. H. I. et al., 2015), CLDNN Architecture(Sainath, T. N, et al., 2015)
+    such as LSTM, Convolutional LSTM(Xingjian, S. H. I. et al., 2015), CLDNN Architecture(Sainath, T. N, et al., 2015)
     encapsulate each one, and make them interchangeable. 
     Strategy lets the function approximation algorithm vary independently from the 
     clients that use it. Capture the abstraction in an interface, 
     bury implementation details in derived classes.
 
     References:
+        - https://code.accel-brain.com/Deep-Learning-by-means-of-Design-Pattern/README.html
         - https://code.accel-brain.com/Reinforcement-Learning/README.html#deep-q-network
         - [Egorov, M. (2016). Multi-agent deep reinforcement learning.](https://pdfs.semanticscholar.org/dd98/9d94613f439c05725bad958929357e365084.pdf)
         - Gupta, J. K., Egorov, M., & Kochenderfer, M. (2017, May). Cooperative multi-agent control using deep reinforcement learning. In International Conference on Autonomous Agents and Multiagent Systems (pp. 66-83). Springer, Cham.

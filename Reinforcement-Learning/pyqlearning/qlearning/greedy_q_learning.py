@@ -8,9 +8,6 @@ class GreedyQLearning(QLearning):
     '''
     ε-greedy Q-Learning.
 
-    Attributes:
-        epsilon_greedy_rate:    ε-greedy rate.
-
     Epsilon Greedy Q-Leanring algorithm is a typical off-policy algorithm. 
     In this paradigm, stochastic searching and deterministic searching can 
     coexist by hyperparameter `epsilon_greedy_rate` that is probability 

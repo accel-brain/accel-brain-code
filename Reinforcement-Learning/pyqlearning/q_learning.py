@@ -9,13 +9,6 @@ class QLearning(metaclass=ABCMeta):
     '''
     Abstract base class and `Template Method Pattern` of Q-Learning.
 
-    Attributes:
-        alpha_value:        Learning rate.
-        gamma_value:        Discounting rate.
-        q_df:               Q(state, action). 
-        r_df:               R(state) or R(state, action).
-        t:                  time step.
-
     According to the Reinforcement Learning problem settings, Q-Learning 
     is a kind of Temporal Difference learning(TD Learning) that can be 
     considered as hybrid of Monte Carlo method and Dynamic Programming method. 

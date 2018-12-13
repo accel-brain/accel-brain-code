@@ -5,6 +5,31 @@ from pyqlearning.annealingmodel.distance_computable import DistanceComputable
 
 
 class QuantumMonteCarlo(AnnealingModel):
+    '''
+    Quantum Monte Carlo.
+    
+    Generally, Quantum Monte Carlo is a stochastic method
+    to solve the Schrödinger equation. This algorithm is one of 
+    the earliest types of solution in order to simulate the Quantum Annealing 
+    in classical computer. In summary, one of the function of this algorithm 
+    is to solve the ground state search problem which is known as logically 
+    equivalent to combinatorial optimization problem.
+
+    References:
+        - Das, A., & Chakrabarti, B. K. (Eds.). (2005). Quantum annealing and related optimization methods (Vol. 679). Springer Science & Business Media.
+        - Facchi, P., & Pascazio, S. (2008). Quantum Zeno dynamics: mathematical and physical aspects. Journal of Physics A: Mathematical and Theoretical, 41(49), 493001.
+        - Heim, B., Rønnow, T. F., Isakov, S. V., & Troyer, M. (2015). Quantum versus classical annealing of Ising spin glasses. Science, 348(6231), 215-217.
+        - Heisenberg, W. (1925) Über quantentheoretische Umdeutung kinematischer und mechanischer Beziehungen. Z. Phys. 33, pp.879—893.
+        - Heisenberg, W. (1927). Über den anschaulichen Inhalt der quantentheoretischen Kinematik und Mechanik. Zeitschrift fur Physik, 43, 172-198.
+        - Heisenberg, W. (1984). The development of quantum mechanics. In Scientific Review Papers, Talks, and Books -Wissenschaftliche Übersichtsartikel, Vorträge und Bücher (pp. 226-237). Springer Berlin Heidelberg. Hilgevoord, Jan and Uffink, Jos, “The Uncertainty Principle”, The Stanford Encyclopedia of Philosophy (Winter 2016 Edition), Edward N. Zalta (ed.), URL = ＜https://plato.stanford.edu/archives/win2016/entries/qt-uncertainty/＞.
+        - Jarzynski, C. (1997). Nonequilibrium equality for free energy differences. Physical Review Letters, 78(14), 2690.
+        - Messiah, A. (1966). Quantum mechanics. 2 (1966). North-Holland Publishing Company.
+        - Schrödinger, E. (1926). Quantisierung als eigenwertproblem. Annalen der physik, 385(13), S.437-490.
+        - Somma, R. D., Batista, C. D., & Ortiz, G. (2007). Quantum approach to classical statistical mechanics. Physical review letters, 99(3), 030603.
+        - 鈴木正. (2008). 「組み合わせ最適化問題と量子アニーリング: 量子断熱発展の理論と性能評価」.,『物性研究』, 90(4): pp598-676. 参照箇所はpp619-624.
+        - 西森秀稔、大関真之(2018) 『量子アニーリングの基礎』須藤 彰三、岡 真 監修、共立出版、参照箇所はpp9-46.
+
+    '''
     
     __spin_arr = None
     

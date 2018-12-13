@@ -7,6 +7,19 @@ from pyqlearning.annealingmodel.cost_functionable import CostFunctionable
 class SimulatedAnnealing(AnnealingModel):
     '''
     Simulated Annealing.
+    
+    Simulated Annealing is a probabilistic single solution 
+    based search method inspired by the annealing process in metallurgy.
+    Annealing is a physical process referred to as tempering certain alloys of metal, 
+    glass, or crystal by heating above its melting point, holding its temperature, 
+    and then cooling it very slowly until it solidifies into a perfect crystalline structure. 
+    The simulation of this process is known as simulated annealing.
+
+    References:
+        - Bertsimas, D., & Tsitsiklis, J. (1993). Simulated annealing. Statistical science, 8(1), 10-15.
+        - Du, K. L., & Swamy, M. N. S. (2016). Search and optimization by metaheuristics. New York City: Springer.
+        - Mezard, M., & Montanari, A. (2009). Information, physics, and computation. Oxford University Press.
+        - Nallusamy, R., Duraiswamy, K., Dhanalaksmi, R., & Parthiban, P. (2009). Optimization of non-linear multiple traveling salesman problem using k-means clustering, shrink wrap algorithm and meta-heuristics. International Journal of Nonlinear Science, 8(4), 480-487.
     '''
     # Number of cycles.
     __cycles_num = 200

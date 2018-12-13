@@ -11,11 +11,41 @@ class QLearning(metaclass=ABCMeta):
 
     Attributes:
         alpha_value:        Learning rate.
-        gamma_value:        Gammma value.
-        q_df:               Q(state, action) 
-        r_df:               R(state)
-        t:                  time.
+        gamma_value:        Discounting rate.
+        q_df:               Q(state, action). 
+        r_df:               R(state) or R(state, action).
+        t:                  time step.
 
+    According to the Reinforcement Learning problem settings, Q-Learning 
+    is a kind of Temporal Difference learning(TD Learning) that can be 
+    considered as hybrid of Monte Carlo method and Dynamic Programming method. 
+    As Monte Carlo method, TD Learning algorithm can learn by experience 
+    without model of environment. And this learning algorithm is functional 
+    extension of bootstrap method as Dynamic Programming Method.
+
+    In this library, Q-Learning can be distinguished into Epsilon Greedy 
+    Q-Leanring and Boltzmann Q-Learning. These algorithm is functionally equivalent 
+    but their structures should be conceptually distinguished.
+
+    Considering many variable parts and functional extensions in the Q-learning paradigm 
+    from perspective of commonality/variability analysis in order to practice 
+    object-oriented design, this abstract class defines the skeleton of a Q-Learning 
+    algorithm in an operation, deferring some steps in concrete variant algorithms 
+    such as Epsilon Greedy Q-Leanring and Boltzmann Q-Learning to client subclasses.
+    This abstract class in this library lets subclasses redefine certain steps of 
+    a Q-Learning algorithm without changing the algorithm’s structure.
+
+    References:
+        - Agrawal, S., & Goyal, N. (2011). Analysis of Thompson sampling for the multi-armed bandit problem. arXiv preprint arXiv:1111.1797.
+        - Bubeck, S., & Cesa-Bianchi, N. (2012). Regret analysis of stochastic and nonstochastic multi-armed bandit problems. arXiv preprint arXiv:1204.5721.
+        - Chapelle, O., & Li, L. (2011). An empirical evaluation of thompson sampling. In Advances in neural information processing systems (pp. 2249-2257).
+        - Du, K. L., & Swamy, M. N. S. (2016). Search and optimization by metaheuristics (p. 434). New York City: Springer.
+        - Kaufmann, E., Cappe, O., & Garivier, A. (2012). On Bayesian upper confidence bounds for bandit problems. In International Conference on Artificial Intelligence and Statistics (pp. 592-600).
+        - Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. (2013). Playing atari with deep reinforcement learning. arXiv preprint arXiv:1312.5602.
+        - Richard Sutton and Andrew Barto (1998). Reinforcement Learning. MIT Press.
+        - Watkins, C. J. C. H. (1989). Learning from delayed rewards (Doctoral dissertation, University of Cambridge).
+        - Watkins, C. J., & Dayan, P. (1992). Q-learning. Machine learning, 8(3-4), 279-292.
+        - White, J. (2012). Bandit algorithms for website optimization. ” O’Reilly Media, Inc.”.
     '''
 
     # Learning rate.
@@ -310,7 +340,7 @@ class QLearning(metaclass=ABCMeta):
             state_key       The key of state in `self.t+1`.
 
         Returns:
-            The possible action in `self.t+1`.
+            `list` of the possible actions in `self.t+1`.
 
         '''
         raise NotImplementedError("This method must be implemented.")

@@ -23,6 +23,12 @@ from pydbm.verification.verificate_function_approximation import VerificateFunct
 class CNNFA(FunctionApproximator):
     '''
     Convolutional Neural Networks as a Function Approximator.
+    
+    
+    The Deconvolution also called transposed convolutions “work by swapping the forward and backward passes of a convolution.” (Dumoulin, V., & Visin, F. 2016, p20.)
+    
+    References:
+        - Dumoulin, V., & V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
     '''
     
     def __init__(

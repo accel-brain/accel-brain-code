@@ -11,6 +11,24 @@ class GreedyQLearning(QLearning):
     Attributes:
         epsilon_greedy_rate:    ε-greedy rate.
 
+    Epsilon Greedy Q-Leanring algorithm is a typical off-policy algorithm. 
+    In this paradigm, stochastic searching and deterministic searching can 
+    coexist by hyperparameter `epsilon_greedy_rate` that is probability 
+    that agent searches greedy. Greedy searching is deterministic in the sense 
+    that policy of agent follows the selection that maximizes the Q-Value.
+
+    References:
+        - Agrawal, S., & Goyal, N. (2011). Analysis of Thompson sampling for the multi-armed bandit problem. arXiv preprint arXiv:1111.1797.
+        - Bubeck, S., & Cesa-Bianchi, N. (2012). Regret analysis of stochastic and nonstochastic multi-armed bandit problems. arXiv preprint arXiv:1204.5721.
+        - Chapelle, O., & Li, L. (2011). An empirical evaluation of thompson sampling. In Advances in neural information processing systems (pp. 2249-2257).
+        - Du, K. L., & Swamy, M. N. S. (2016). Search and optimization by metaheuristics (p. 434). New York City: Springer.
+        - Kaufmann, E., Cappe, O., & Garivier, A. (2012). On Bayesian upper confidence bounds for bandit problems. In International Conference on Artificial Intelligence and Statistics (pp. 592-600).
+        - Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. (2013). Playing atari with deep reinforcement learning. arXiv preprint arXiv:1312.5602.
+        - Richard Sutton and Andrew Barto (1998). Reinforcement Learning. MIT Press.
+        - Watkins, C. J. C. H. (1989). Learning from delayed rewards (Doctoral dissertation, University of Cambridge).
+        - Watkins, C. J., & Dayan, P. (1992). Q-learning. Machine learning, 8(3-4), 279-292.
+        - White, J. (2012). Bandit algorithms for website optimization. ” O’Reilly Media, Inc.”.
+
     '''
     
     # ε-greedy rate.

@@ -7,6 +7,17 @@ from pyqlearning.annealingmodel.cost_functionable import CostFunctionable
 class AdaptiveSimulatedAnnealing(SimulatedAnnealing):
     '''
     Adaptive Simulated Annealing.
+    
+    Adaptive Simulated Annealing, also known as the 
+    very fast simulated reannealing, is a very efficient 
+    version of simulated annealing.
+    
+    References:
+        - Bertsimas, D., & Tsitsiklis, J. (1993). Simulated annealing. Statistical science, 8(1), 10-15.
+        - Du, K. L., & Swamy, M. N. S. (2016). Search and optimization by metaheuristics. New York City: Springer.
+        - Mezard, M., & Montanari, A. (2009). Information, physics, and computation. Oxford University Press.
+        - Nallusamy, R., Duraiswamy, K., Dhanalaksmi, R., & Parthiban, P. (2009). Optimization of non-linear multiple traveling salesman problem using k-means clustering, shrink wrap algorithm and meta-heuristics. International Journal of Nonlinear Science, 8(4), 480-487.
+
     '''
 
     # Now cycles.

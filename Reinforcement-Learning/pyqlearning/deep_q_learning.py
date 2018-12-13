@@ -7,6 +7,51 @@ from pyqlearning.function_approximator import FunctionApproximator
 class DeepQLearning(metaclass=ABCMeta):
     '''
     Abstract base class to implement the Deep Q-Learning.
+
+    Attributes:
+        alpha_value:            Learning rate.
+        gamma_value:            Discounting rate.
+        function_approximator:  is-a `FunctionApproximator`.
+        t:                      time step.
+    
+    The Reinforcement learning theory presents several issues 
+    from a perspective of deep learning theory(Mnih, V., et al. 2013).
+    Firstly, deep learning applications have required large amounts of 
+    hand-labelled training data. Reinforcement learning algorithms, 
+    on the other hand, must be able to learn from a scalar reward signal 
+    that is frequently sparse, noisy and delayed.
+
+    The difference between the two theories is not only the type of data 
+    but also the timing to be observed. The delay between taking actions and 
+    receiving rewards, which can be thousands of timesteps long, seems particularly 
+    daunting when compared to the direct association between inputs and targets found 
+    in supervised learning.
+
+    Another issue is that deep learning algorithms assume the data samples to be independent, 
+    while in reinforcement learning one typically encounters sequences of highly correlated 
+    states. Furthermore, in Reinforcement learning, the data distribution changes as the 
+    algorithm learns new behaviours, presenting aspects of recursive learning, which can be 
+    problematic for deep learning methods that assume a fixed underlying distribution.
+
+    Increasing the complexity of states/actions is equivalent to increasing the number of 
+    combinations of states/actions. If the value function is continuous and granularities of 
+    states/actions are extremely fine, the combinatorial explosion will be encountered. 
+    In other words, this basic approach is totally impractical, because the state/action-value 
+    function is estimated separately for each sequence, without any **generalisation**. Instead, 
+    it is common to use a **function approximator** to estimate the state/action-value function.
+
+    Considering many variable parts and functional extensions in the Deep Q-learning paradigm 
+    from perspective of commonality/variability analysis in order to practice 
+    object-oriented design, this abstract class defines the skeleton of a Deep Q-Learning 
+    algorithm in an operation, deferring some steps in concrete variant algorithms 
+    such as Epsilon Deep Q-Network to client subclasses. This abstract class in this library 
+    lets subclasses redefine certain steps of a Deep Q-Learning algorithm without changing 
+    the algorithm’s structure.
+
+    References:
+        - [Egorov, M. (2016). Multi-agent deep reinforcement learning.](https://pdfs.semanticscholar.org/dd98/9d94613f439c05725bad958929357e365084.pdf)
+        - Gupta, J. K., Egorov, M., & Kochenderfer, M. (2017, May). Cooperative multi-agent control using deep reinforcement learning. In International Conference on Autonomous Agents and Multiagent Systems (pp. 66-83). Springer, Cham.
+        - Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. (2013). Playing atari with deep reinforcement learning. arXiv preprint arXiv:1312.5602.
     '''
 
     # Learning rate.

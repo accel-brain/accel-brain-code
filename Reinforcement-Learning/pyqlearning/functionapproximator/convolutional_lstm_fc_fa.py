@@ -33,6 +33,7 @@ class ConvolutionalLSTMFCFA(FunctionApproximator):
     which produces a feature representation of Q-Values that is more easily separable.
     
     References:
+        - https://code.accel-brain.com/Deep-Learning-by-means-of-Design-Pattern/pydbm.cnn.html
         - Sainath, T. N., Vinyals, O., Senior, A., & Sak, H. (2015, April). Convolutional, long short-term memory, fully connected deep neural networks. In Acoustics, Speech and Signal Processing (ICASSP), 2015 IEEE International Conference on (pp. 4580-4584). IEEE.
     '''
     

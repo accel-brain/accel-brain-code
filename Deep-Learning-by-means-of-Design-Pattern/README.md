@@ -245,7 +245,7 @@ The Shape-BM is a DBM in three layer. The learning algorithm can be completed by
 
 where <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/sbm_params.png" />.
 
-### The commonality/variability analysis in order to practice object-oriented design.
+### The Commonality/Variability Analysis in order to practice object-oriented design.
 
 From perspective of *commonality/variability analysis* in order to practice object-oriented design, the concepts of RBM and DBM paradigms can be organized as follows:
 
@@ -268,6 +268,10 @@ The methodology of *equivalent-functionalism* enables us to introduce more funct
 According to the neural networks theory, and in relation to manifold hypothesis, it is well known that multilayer neural networks can learn features of observed data points and have the feature points in hidden layer. High-dimensional data can be converted to low-dimensional codes by training the model such as **Stacked Auto-Encoder** and **Encoder/Decoder** with a small central layer to reconstruct high-dimensional input vectors. This function of dimensionality reduction facilitates feature expressions to calculate similarity of each data point.
 
 This library provides **Encoder/Decoder based on LSTM**, which is a reconstruction model and makes it possible to extract series features embedded in deeper layers. The LSTM encoder learns a fixed length vector of time-series observed data points and the LSTM decoder uses this representation to reconstruct the time-series using the current hidden state and the value inferenced at the previous time-step.
+
+<img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/draw.io/pydbm_rnn_class_diagram.png" />
+
+As in the above class diagram, in this library, the class `EncoderDecoderController` can be composed of two `LSTMModel`s. `LSTMModel` is-a `ReconstructableModel`, which has a learning method and an inference method like the ordinary supervised learning model.
 
 An example is illustrated in this my jupyter notebook: [demo/demo_sine_wave_prediction_by_LSTM_encoder_decoder.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_sine_wave_prediction_by_LSTM_encoder_decoder.ipynb). This notebook demonstrates a simple sine wave prediction by Encoder/Decoder based on LSTM.
 
@@ -323,9 +327,23 @@ This library also makes it possible to build **Encoder/Decoder based on ConvLSTM
 <p>Chong, Y. S., & Tay, Y. H. (2017, June). Abnormal event detection in videos using spatiotemporal autoencoder. In International Symposium on Neural Networks (pp. 189-196). Springer, Cham., p.195.</p>
 </div>
 
+Because of the structural expansions, **ConvLSTM** and **Spatio-Temporal Auto-Encoder** can be consisted by `cnn` subpackage, which is responsible for convolution and deconvolution of spatial features, and `rnn` subpackage for controlling reconstruction of temporal features as in the following class diagram.
+
+<img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/draw.io/pydbm_cnn_class_diagram.png" />
+
+In `cnn` subpackage, the class `LayerableCNN` is an abstract class to implement CNN layers such as `ConvolutionLayer` and `MaxPoolingLayer`. `ConvolutionalAutoEncoder` and `SpatioTemporalAutoEncoder` have those CNN layers, especially `ConvolutionLayer` to convolve as forward propagation and to deconvolve as back propagation, and are common in the sense that each class has a learning method and an inference method. The difference is that only `SpatioTemporalAutoEncoder` is related to `ReconstructableModel` such as `LSTMModel` and `ConvLSTMModel` in `rnn` subpackage.
+
 #### Video recognition and reconstruction of video images.
 
 [demo/demo_spatio_temporal_auto_encoder.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_spatio_temporal_auto_encoder.ipynb) is a jupyter notebook which demonstrates the video recognition and reconstruction of video images by the Spatio-Temporal Auto-Encoder.
+
+### Composition and Correspondence in this library
+
+To summarize the information so far into one class diagram, the outline is as follows.
+
+<img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/draw.io/pydbm_all_subpackage_class_diagram.png" />
+
+Unlike `dbm` subpackage, `rnn` subpackage and `cnn` subpackage have an association with the interface `ComputableLoss`. The subclass are Loss functions such as Mean Square Error(MSE) and Cross Entropy. The *function* of loss functions for `dbm` is included in the *function* of energy functions optimized to minimize cost in the interface `ApproximateInterface`.
 
 <a name="usecase_building_the_deep_boltzmann_machine_for_feature_extracting"></a>
 ## Usecase: Building the Deep Boltzmann Machine for feature extracting.

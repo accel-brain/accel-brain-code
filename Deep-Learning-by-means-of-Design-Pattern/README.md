@@ -247,9 +247,15 @@ where <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by
 
 ### The commonality/variability analysis in order to practice object-oriented design.
 
-From perspective of *commonality/variability analysis* in order to practice object-oriented design, the concepts of RBM and DBM paradigms can be organized as follows.
+From perspective of *commonality/variability analysis* in order to practice object-oriented design, the concepts of RBM and DBM paradigms can be organized as follows:
 
-While each model is *common* in that it is constituted by stacked RBM, its approximation methods and activation functions are *variable* depending on the problem settings. Considering the *commonality*, it is useful to design based on `Builder Pattern`, which separates the construction of RBM object from its representation so that the same construction process can create different representations such as DBM, RTRBM, RNN-RBM, and Shape-BM. On the other hand, to deal with the *variability*, `Strategy Pattern`, which provides a way to define a family of algorithms such as approximation methods and activation functions, is useful design method, which is encapsulate each one as an object, and make them interchangeable from the point of view of functionally equivalent.
+<img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/draw.io/pydbm_dbm_class_diagram.png?1" />
+
+Pay attention to the interface of the above class diagram. While each model is *common* in that it is constituted by stacked RBM, its approximation methods and activation functions are *variable* depending on the problem settings.
+
+Considering the *commonality*, it is useful to design based on `Builder Pattern` represented by `DBMBuilder` or `RTRBMBuilder`, which separates the construction of RBM object `RestrictedBoltzmannMachine` from its representation by `DBMDirector` or `RTRBMDirector` so that the same construction process can create different representations such as DBM, RTRBM, RNN-RBM, and Shape-BM. Additionally, the models of all neural networks are *common* in that they possess like synapses by obtaining computation graphs without exception. So the class `Synapse` is contained in various models in a state where computation graphs of weight matrix and bias vector are held in the field.
+
+On the other hand, to deal with the *variability*, `Strategy Pattern`, which provides a way to define a family of algorithms such as approximation methods implemented by inheriting the interface `ApproximateInterface`, and also activation functions implemented by inheriting the interface `ActivatingFunctionInterface`, is useful design method, which is encapsulate each one as an object, and make them interchangeable from the point of view of functionally equivalent. `Template Method Pattern` is also useful design method to design the optimizer in this library because this design pattern makes it possible to define the skeleton of an algorithm in a parameter tuning, deferring some steps to client subclasses such as `Adam` or `SGD`. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm’s structure.
 
 ### Functionally equivalent: Encoder/Decoder based on LSTM.
 

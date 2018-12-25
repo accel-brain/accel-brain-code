@@ -478,10 +478,20 @@ class ConvolutionalNeuralNetwork(object):
         Returns:
             Propagated `np.ndarray`.
         '''
+        cdef np.ndarray[DOUBLE_t, ndim=2] hidden_activity_arr
         cdef int i = 0
         for i in range(len(self.__layerable_cnn_list)):
             try:
                 img_arr = self.__layerable_cnn_list[i].forward_propagate(img_arr)
+                if i + 1 < len(self.__layerable_cnn_list) and self.__opt_params.dropout_rate > 0:
+                    hidden_activity_arr = img_arr.reshape((img_arr.shape[0], -1))
+                    hidden_activity_arr = self.__opt_params.dropout(hidden_activity_arr)
+                    img_arr = hidden_activity_arr.reshape((
+                        img_arr.shape[0],
+                        img_arr.shape[1],
+                        img_arr.shape[2],
+                        img_arr.shape[3]
+                    ))
             except:
                 self.__logger.debug("Error raised in CNN layer " + str(i + 1))
                 raise
@@ -584,6 +594,22 @@ class ConvolutionalNeuralNetwork(object):
         self.__layerable_cnn_list = value
 
     layerable_cnn_list = property(get_layerable_cnn_list, set_layerable_cnn_list)
+
+    def get_opt_params(self):
+        ''' getter '''
+        if isinstance(self.__opt_params, OptParams):
+            return self.__opt_params
+        else:
+            raise TypeError()
+    
+    def set_opt_params(self, value):
+        ''' setter '''
+        if isinstance(value, OptParams):
+            self.__opt_params = value
+        else:
+            raise TypeError()
+
+    opt_params = property(get_opt_params, set_opt_params)
 
     def get_verificatable_result(self):
         ''' getter '''

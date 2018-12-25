@@ -154,4 +154,14 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
             img_arr = img_arr + _img_arr
             self.__logger.debug("Residual learning...")
 
+            if self.opt_params.dropout_rate > 0:
+                hidden_activity_arr = img_arr.reshape((img_arr.shape[0], -1))
+                hidden_activity_arr = self.opt_params.dropout(hidden_activity_arr)
+                img_arr = hidden_activity_arr.reshape((
+                    img_arr.shape[0],
+                    img_arr.shape[1],
+                    img_arr.shape[2],
+                    img_arr.shape[3]
+                ))
+
         return img_arr

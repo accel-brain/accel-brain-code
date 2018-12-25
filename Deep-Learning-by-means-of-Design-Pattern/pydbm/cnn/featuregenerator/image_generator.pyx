@@ -37,7 +37,10 @@ class ImageGenerator(FeatureGenerator):
             seq_len:                        The length of one sequence.
             gray_scale_flag:                Gray scale or not(RGB).
             wh_size_tuple:                  Tuple(`width`, `height`).
-            norm_mode:                      Normalization mode. `z_score` or `min_max`.
+            norm_mode:                      How to normalize pixel values of images.
+                                            - `z_score`: Z-Score normalization.
+                                            - `min_max`: Min-max normalization.
+                                            - `tanh`: Normalization by tanh function.
         '''
         self.__epochs = epochs
         self.__batch_size = batch_size
@@ -142,10 +145,16 @@ class ImageGenerator(FeatureGenerator):
             arr = arr.transpose((2, 0, 1))
             arr = np.expand_dims(arr, axis=0)
 
-        if self.__norm_mode == "z_score":
-            arr = (arr - arr.mean()) / arr.std()
-        elif self.__norm_mode == "min_max":
-            arr = (arr - arr.min()) / (arr.max() - arr.min())
+        if self.__norm_mode is not None:
+            if self.__norm_mode == "z_score":
+                arr = (arr - arr.mean()) / arr.std()
+            elif self.__norm_mode == "min_max":
+                arr = (arr - arr.min()) / (arr.max() - arr.min())
+            elif self.__norm_mode == "tanh":
+                arr = arr.astype(np.float64)
+                arr = arr - arr.mean()
+                arr = np.tanh(arr)
+
         return arr
 
     def set_readonly(self, value):

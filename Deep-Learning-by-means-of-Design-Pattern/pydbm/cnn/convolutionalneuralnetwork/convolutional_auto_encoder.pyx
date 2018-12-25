@@ -117,6 +117,7 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         Returns:
             Propagated `np.ndarray`.
         '''
+        cdef np.ndarray[DOUBLE_t, ndim=2] hidden_activity_arr
         cdef int i = 0
 
         for i in range(len(self.layerable_cnn_list)):
@@ -125,6 +126,16 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
             except:
                 self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
                 raise
+
+        if self.opt_params.dropout_rate > 0:
+            hidden_activity_arr = img_arr.reshape((img_arr.shape[0], -1))
+            hidden_activity_arr = self.opt_params.dropout(hidden_activity_arr)
+            img_arr = hidden_activity_arr.reshape((
+                img_arr.shape[0],
+                img_arr.shape[1],
+                img_arr.shape[2],
+                img_arr.shape[3]
+            ))
 
         layerable_cnn_list = self.layerable_cnn_list[::-1]
         for i in range(len(layerable_cnn_list)):

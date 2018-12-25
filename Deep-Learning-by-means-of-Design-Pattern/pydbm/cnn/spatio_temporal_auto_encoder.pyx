@@ -700,6 +700,7 @@ class SpatioTemporalAutoEncoder(object):
             self.__logger.debug("Encoder/Decoder's deltas are propagated.")
             decoder_grads_list, encoder_delta_arr, encoder_grads_list = self.temporal_back_propagation(delta_arr)
             self.temporal_optimize(decoder_grads_list, encoder_grads_list, self.__now_learning_rate, self.__now_epoch)
+            self.__encoder_delta_arr = encoder_delta_arr
 
             if self.__temporal_min_loss is None or self.__temporal_min_loss > self.__encoder_decoder_loss:
                 self.__temporal_min_loss = self.__encoder_decoder_loss
@@ -721,8 +722,6 @@ class SpatioTemporalAutoEncoder(object):
         self.__decoder.graph.hidden_activity_arr = np.array([])
         self.__decoder.graph.rnn_activity_arr = np.array([])
 
-        conv_arr = (conv_arr - conv_arr.min()) / (conv_arr.max() - conv_arr.min())
-
         cdef np.ndarray[DOUBLE_t, ndim=3] lstm_input_arr
         if self.__fully_connected_activation is not None:
             lstm_input_arr = np.empty(
@@ -734,11 +733,11 @@ class SpatioTemporalAutoEncoder(object):
             )
             for seq in range(decoded_arr.shape[1]):
                 if decoded_arr[:, seq].shape[-1] != self.__fully_connected_weight_arr.T.shape[-1]:
-                    lstm_input_arr[:, seq] = np.dot(decoded_arr[:, seq], self.__fully_connected_weight_arr.T)
+                    lstm_input_arr[:, seq] = self.__fully_connected_activation.derivative(
+                        np.dot(decoded_arr[:, seq], self.__fully_connected_weight_arr.T)
+                    )
                 else:
                     lstm_input_arr[:, seq] = decoded_arr[:, seq]
-
-            lstm_input_arr = (lstm_input_arr - lstm_input_arr.min()) / (lstm_input_arr.max() - lstm_input_arr.min())
 
             conv_arr = conv_arr + lstm_input_arr.reshape((sample_n, seq_len, channel, width, height))
             conv_arr = self.__fully_connected_activation.activate(conv_arr)

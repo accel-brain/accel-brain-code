@@ -79,6 +79,8 @@ class CNNFA(FunctionApproximator):
             verificatable_result = VerificateFunctionApproximation()
         if opt_params is None:
             opt_params = Adam()
+            opt_params.weight_limit = 0.5
+            opt_params.dropout_rate = 0.0
 
         cnn = ConvolutionalNeuralNetwork(
             # The `list` of `ConvolutionLayer`.

@@ -76,6 +76,8 @@ class ConvolutionalLSTMFA(FunctionApproximator):
             verificatable_result = VerificateFunctionApproximation()
         if opt_params is None:
             opt_params = Adam()
+            opt_params.weight_limit = 0.5
+            opt_params.dropout_rate = 0.0
 
         self.__conv_lstm_model = conv_lstm_model
         self.__seq_len = seq_len

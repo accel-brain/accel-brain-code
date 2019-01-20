@@ -550,8 +550,10 @@ Hilgevoord, Jan and Uffink, Jos, "The Uncertainty Principle", The Stanford Encyc
 
 ### More detail demos
 
-- [Webクローラ型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-web-crawling-ai/)
+- [Webクローラ型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-web-crawling-ai/) (Japanese)
     - 20001 bots are running as 20001 web-crawlers and 20001 web-scrapers.
+- [ロボアドバイザー型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-robo-adviser/) (Japanese)
+   - The 20001 bots can also simulate the portfolio optimization of securities such as stocks and circulation currency such as cryptocurrencies.
 
 ### Related PoC
 
@@ -568,6 +570,8 @@ Hilgevoord, Jan and Uffink, Jos, "The Uncertainty Principle", The Stanford Encyc
 - [ヴァーチャルリアリティにおける動物的「身体」の物神崇拝的なユースケース](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/) (Japanese)
     - [プロトタイプの開発：「人工天使ヒューズ＝ヒストリア」](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/4/#i-6)
 - [「人工の理想」を背景とした「万物照応」のデータモデリング](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/) (Japanese)
+    - [プロトタイプの開発：「言葉」を蒐集するWebクローラ型人工知能](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/4/#Web-2)
+    - [プロトタイプの開発：「謎」を蒐集する異常検知モデル](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/4/#i-8)
     - [プロトタイプの開発：「貨幣」を蒐集する強化学習エージェント](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/5/#i-6)
 
 ## Author

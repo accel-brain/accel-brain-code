@@ -34,13 +34,27 @@ class DeepQNetwork(DeepQLearning):
         Retruns:
             Tuple(`np.ndarray` of action., Q-Value)
         '''
+        key_arr = self.select_action_key(next_action_arr, next_q_arr)
+        return next_action_arr[key_arr], next_q_arr[key_arr]
+
+    def select_action_key(self, next_action_arr, next_q_arr):
+        '''
+        Select action by Q(state, action).
+
+        Args:
+            next_action_arr:        `np.ndarray` of actions.
+            next_q_arr:             `np.ndarray` of Q-Values.
+
+        Retruns:
+            `np.ndarray` of keys.
+        '''
         epsilon_greedy_flag = bool(np.random.binomial(n=1, p=self.epsilon_greedy_rate))
         if epsilon_greedy_flag is False:
             key = np.random.randint(low=0, high=next_action_arr.shape[0])
         else:
             key = next_q_arr.argmax()
 
-        return next_action_arr[key], next_q_arr[key]
+        return key
 
     def get_epsilon_greedy_rate(self):
         ''' getter '''

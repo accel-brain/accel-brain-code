@@ -75,25 +75,32 @@ class DeepQLearning(metaclass=ABCMeta):
             limit:          The maximum number of iterative updates based on value iteration algorithms.
         '''
         while self.t <= limit:
+            # Draw samples of next possible actions from any distribution.
             next_action_arr = self.extract_possible_actions(state_arr)
-            next_q_arr = self.__function_approximator.inference_q(next_action_arr)
-            action_arr, q = self.select_action(next_action_arr, next_q_arr)
-            reward_value = self.observe_reward_value(state_arr, action_arr)
+            # Inference Q-Values.
+            predicted_q_arr = self.__function_approximator.inference_q(next_action_arr)
+            # Set `np.ndarray` of rewards and next Q-Values.
+            reward_value_arr = np.empty((next_action_arr.shape[0], 1))
+            next_max_q_arr = np.empty((next_action_arr.shape[0], 1))
+            for i in range(reward_value_arr.shape[0]):
+                # Observe reward values.
+                reward_value_arr[i] = self.observe_reward_value(state_arr, next_action_arr[i])
+                # Inference the Max-Q-Value in next action time.
+                next_next_action_arr = self.extract_possible_actions(next_action_arr[i])
+                next_max_q_arr[i] = self.__function_approximator.inference_q(next_next_action_arr).max()
 
-            # Max-Q-Value in next action time.
-            next_next_action_arr = self.extract_possible_actions(action_arr)
-            next_max_q = self.__function_approximator.inference_q(next_next_action_arr).max()
-
-            # Update Q-Value.
-            self.update_q(
-                q=q,
-                reward_value=reward_value,
-                next_max_q=next_max_q
+            # Select action.
+            action_arr, predicted_q = self.select_action(next_action_arr, predicted_q_arr)
+            # Update real Q-Values.
+            real_q_arr = self.update_q(
+                predicted_q_arr,
+                reward_value_arr,
+                next_max_q_arr
             )
-
+            # Learn Q-Values.
+            self.learn_q(predicted_q_arr, real_q_arr)
             # Update State.
             state_arr = self.update_state(state_arr, action_arr)
-
             # Epsode.
             self.t += 1
             # Check.
@@ -142,19 +149,31 @@ class DeepQLearning(metaclass=ABCMeta):
         '''
         raise NotImplementedError("This method must be implemented.")
 
-    def update_q(self, q, reward_value, next_max_q):
+    def update_q(self, predicted_q_arr, reward_value_arr, next_max_q_arr):
         '''
         Update Q.
         
         Args:
-            q:              Q-Value.
-            reward_value:   Reward value.
-            next_max_q:     Maximum Q-Value in next time step.
+            predicted_q_arr:    `np.ndarray` of predicted Q-Values.
+            reward_value_arr:   `np.ndarray` of reward values.
+            next_max_q_arr:     `np.ndarray` of maximum Q-Values in next time step.
+        
+        Returns:
+            `np.ndarray` of real Q-Values.
         '''
         # Update Q-Value.
-        new_q = q + (self.alpha_value * (reward_value + (self.gamma_value * next_max_q) - q))
+        return predicted_q_arr + (self.alpha_value * (reward_value_arr + (self.gamma_value * next_max_q_arr) - predicted_q_arr))
+
+    def learn_q(self, predicted_q_arr, real_q_arr):
+        '''
+        Learn Q with the function approximator.
+
+        Args:
+            predicted_q_arr:    `np.ndarray` of predicted Q-Values.
+            real_q_arr:         `np.ndarray` of real Q-Values.
+        '''
         # Learn updated Q-Value.
-        self.__function_approximator.learn_q(q, new_q)
+        self.__function_approximator.learn_q(predicted_q_arr, real_q_arr)
 
     def update_state(self, state_arr, action_arr):
         '''

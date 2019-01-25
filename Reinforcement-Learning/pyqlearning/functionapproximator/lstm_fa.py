@@ -94,35 +94,29 @@ class LSTMFA(FunctionApproximator):
         self.__computable_loss = computable_loss
         self.__learning_rate = learning_rate
         self.__verbose_mode = verbose_mode
-        self.__q_logs_list = []
+        self.__loss_list = []
 
-    def learn_q(self, q, new_q):
+    def learn_q(self, predicted_q_arr, real_q_arr):
         '''
         Infernce Q-Value.
         
         Args:
-            q:                  Predicted Q-Value.
-            new_q:              Real Q-Value.
+            predicted_q_arr:    `np.ndarray` of predicted Q-Values.
+            real_q_arr:         `np.ndarray` of real Q-Values.
         '''
-        q_arr = np.array([q] * self.__batch_size).reshape(-1, 1)
-        new_q_arr = np.array([new_q] * self.__batch_size).reshape(-1, 1)
-        cost_arr = self.__computable_loss.compute_loss(q_arr, new_q_arr)
-        delta_arr = self.__computable_loss.compute_delta(q_arr, new_q_arr)
-        delta_arr = delta_arr / self.__batch_size
+        loss = self.__computable_loss.compute_loss(predicted_q_arr, real_q_arr)
+        delta_arr = self.__computable_loss.compute_delta(predicted_q_arr, real_q_arr)
         delta_arr, lstm_output_grads_list = self.__lstm_model.output_back_propagate(
-            q_arr,
+            predicted_q_arr,
             delta_arr
         )
-
         delta_arr, lstm_hidden_grads_list = self.__lstm_model.hidden_back_propagate(
             delta_arr
         )
-
         lstm_grads_list = lstm_output_grads_list
         lstm_grads_list.extend(lstm_hidden_grads_list)
-
         self.__lstm_model.optimize(lstm_grads_list, self.__learning_rate, 1)
-        self.__q_logs_list.append((q, new_q, cost_arr.mean()))
+        self.__loss_list.append(loss)
 
     def inference_q(self, next_action_arr):
         '''
@@ -144,14 +138,14 @@ class LSTMFA(FunctionApproximator):
         q_arr = np.array(self.__q_arr_list)
         q_arr = q_arr.transpose((1, 0, 2))
         q_arr = self.__lstm_model.inference(q_arr)
-        return q_arr[:, -1]
+        return q_arr[:, -1].reshape((q_arr.shape[0], 1))
 
-    def get_q_logs_list(self):
+    def get_loss_list(self):
         ''' getter '''
-        return self.__q_logs_list
+        return self.__loss_list
 
-    def set_q_logs_list(self, value):
+    def set_loss_list(self, value):
         ''' setter '''
-        self.__q_logs_list = value
+        self.__loss_list = value
     
-    q_logs_list = property(get_q_logs_list, set_q_logs_list)
+    loss_list = property(get_loss_list, set_loss_list)

@@ -109,32 +109,28 @@ class CNNFA(FunctionApproximator):
         self.__fc_w_arr = fc_w_arr
         self.__fc_activation_function = fc_activation_function
         self.__q_shape = None
-        self.__q_logs_list = []
+        self.__loss_list = []
 
-    def learn_q(self, q, new_q):
+    def learn_q(self, predicted_q_arr, real_q_arr):
         '''
         Infernce Q-Value.
         
         Args:
-            q:                  Predicted Q-Value.
-            new_q:              Real Q-Value.
+            predicted_q_arr:    `np.ndarray` of predicted Q-Values.
+            real_q_arr:         `np.ndarray` of real Q-Values.
         '''
         if self.__q_shape is None:
             raise ValueError("Before learning, You should execute `__inference_q`.")
 
-        q_arr = np.array([q] * self.__batch_size).reshape(-1, 1)
-        new_q_arr = np.array([new_q] * self.__batch_size).reshape(-1, 1)
-        cost_arr = self.__computable_loss.compute_loss(q_arr, new_q_arr)
-        delta_arr = self.__computable_loss.compute_delta(q_arr, new_q_arr)
+        loss = self.__computable_loss.compute_loss(predicted_q_arr, real_q_arr)
+        delta_arr = self.__computable_loss.compute_delta(predicted_q_arr, real_q_arr)
         # This is a constant parameter and will be not updated.
         delta_arr = np.dot(delta_arr, self.__fc_w_arr.T)
-        delta_arr = delta_arr / self.__batch_size
 
         delta_arr = delta_arr.reshape(self.__q_shape)
         delta_arr = self.__cnn.back_propagation(delta_arr)
         self.__cnn.optimize(self.__learning_rate, 1)
-        
-        self.__q_logs_list.append((q, new_q, cost_arr.mean()))
+        self.__loss_list.append(loss)
 
     def inference_q(self, next_action_arr):
         '''
@@ -149,20 +145,18 @@ class CNNFA(FunctionApproximator):
         q_arr = self.__cnn.inference(next_action_arr)
         self.__q_shape = q_arr.shape
         q_arr = q_arr.reshape((q_arr.shape[0], -1))
-        
         if self.__fc_w_arr is None:
             self.__fc_w_arr = np.random.normal(size=(q_arr.shape[-1], 1)) * 0.01
-
         q_arr = np.dot(q_arr, self.__fc_w_arr)
         q_arr = self.__fc_activation_function.activate(q_arr)
         return q_arr
 
-    def get_q_logs_list(self):
+    def get_loss_list(self):
         ''' getter '''
-        return self.__q_logs_list
+        return self.__loss_list
 
-    def set_q_logs_list(self, value):
+    def set_loss_list(self, value):
         ''' setter '''
-        self.__q_logs_list = value
+        self.__loss_list = value
     
-    q_logs_list = property(get_q_logs_list, set_q_logs_list)
+    loss_list = property(get_loss_list, set_loss_list)

@@ -41,13 +41,13 @@ class FunctionApproximator(metaclass=ABCMeta):
     '''
 
     @abstractmethod
-    def learn_q(self, q, new_q):
+    def learn_q(self, predicted_q_arr, real_q_arr):
         '''
         Infernce Q-Value.
         
         Args:
-            q:                  Predicted Q-Value.
-            new_q:              Real Q-Value.
+            predicted_q_arr:    `np.ndarray` of predicted Q-Values.
+            real_q_arr:         `np.ndarray` of real Q-Values.
         '''
         raise NotImplementedError("This method must be implemented.")
 

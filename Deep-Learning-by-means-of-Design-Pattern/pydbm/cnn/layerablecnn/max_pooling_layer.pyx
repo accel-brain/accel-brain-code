@@ -15,6 +15,9 @@ class MaxPoolingLayer(LayerableCNN):
     __pool_width = 3
     __stride = 1
     __pad = 1
+    
+    __delta_weight_arr = np.array([])
+    __delta_bias_arr = np.array([])
 
     def __init__(
         self,
@@ -73,9 +76,9 @@ class MaxPoolingLayer(LayerableCNN):
         cdef np.ndarray result_arr = np.max(reshaped_img_arr, axis=1)
         cdef np.ndarray[DOUBLE_t, ndim=4] _result_arr = result_arr.reshape(
             img_sample_n,
-            img_height,
-            img_width,
-            img_channel
+            result_height,
+            result_width,
+            -1
         )
         _result_arr = _result_arr.transpose(0, 3, 1, 2)
 
@@ -104,10 +107,16 @@ class MaxPoolingLayer(LayerableCNN):
         delta_pool_arr[np.arange(self.__max_index_arr.size), flatten_arr] = _delta_arr.flatten()
         cdef int delta_row = _delta_arr.shape[0]
         cdef int delta_col = _delta_arr.shape[1]
-        delta_pool_arr = delta_pool_arr.reshape((delta_row, delta_col) + (pool_shape, ))
+        _shape = (delta_row, delta_col) + (pool_shape, )
+        cdef np.ndarray[DOUBLE_t, ndim=4] _delta_pool_arr = delta_pool_arr.reshape(
+            _shape[0],
+            _shape[1],
+            _shape[2],
+            -1
+        )
 
-        delta_reshaped_pool_arr = delta_pool_arr.reshape(
-            delta_pool_arr.shape[0] * delta_pool_arr.shape[1] * delta_pool_arr.shape[2], 
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_reshaped_pool_arr = _delta_pool_arr.reshape(
+            _delta_pool_arr.shape[0] * _delta_pool_arr.shape[1] * _delta_pool_arr.shape[2], 
             -1
         )
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_img_arr = self.affine_to_img(

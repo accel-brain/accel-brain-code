@@ -70,7 +70,7 @@ class CNNFA(FunctionApproximator):
             self.__logger.setLevel(DEBUG)
         else:
             self.__logger.setLevel(ERROR)
-            
+
         self.__logger.addHandler(handler)
 
         if computable_loss is None:
@@ -150,6 +150,26 @@ class CNNFA(FunctionApproximator):
         q_arr = np.dot(q_arr, self.__fc_w_arr)
         q_arr = self.__fc_activation_function.activate(q_arr)
         return q_arr
+
+    def get_model(self):
+        '''
+        `object` of model as a function approximator,
+        which has `cnn` whose type is 
+        `pydbm.cnn.pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork`.
+        '''
+        class Model(object):
+            def __init__(self, cnn):
+                self.cnn = cnn
+
+        return Model(self.__cnn)
+
+    def set_model(self, value):
+        '''
+        `object` of model as a function approximator.
+        '''
+        raise TypeError("This property must be read-only.")
+
+    model = property(get_model, set_model)
 
     def get_loss_list(self):
         ''' getter '''

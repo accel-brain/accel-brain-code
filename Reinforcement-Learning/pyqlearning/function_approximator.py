@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta, abstractmethod, abstractproperty
 
 
 class FunctionApproximator(metaclass=ABCMeta):
@@ -39,6 +39,13 @@ class FunctionApproximator(metaclass=ABCMeta):
         - Xingjian, S. H. I., Chen, Z., Wang, H., Yeung, D. Y., Wong, W. K., & Woo, W. C. (2015). Convolutional LSTM network: A machine learning approach for precipitation nowcasting. In Advances in neural information processing systems (pp. 802-810).
 
     '''
+
+    @abstractproperty
+    def model(self):
+        '''
+        `object` of model as a function approximator.
+        '''
+        raise NotImplementedError("This property must be implemented.")
 
     @abstractmethod
     def learn_q(self, predicted_q_arr, real_q_arr):

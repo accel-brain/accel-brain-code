@@ -52,6 +52,8 @@ class DeepQLearning(metaclass=ABCMeta):
     __alpha_value = 0.1
     # Discount.
     __gamma_value = 0.5
+    # The logs of predicted and real Q-Values.
+    __q_logs_arr = np.array([])
 
     def __init__(self, function_approximator):
         '''
@@ -65,6 +67,7 @@ class DeepQLearning(metaclass=ABCMeta):
         else:
             raise TypeError()
         self.t = 1
+        self.__q_logs_arr = np.array([])
 
     def learn(self, state_arr, limit=1000):
         '''
@@ -97,6 +100,17 @@ class DeepQLearning(metaclass=ABCMeta):
                 reward_value_arr,
                 next_max_q_arr
             )
+
+            # Maximum of predicted and real Q-Values.
+            real_q = real_q_arr[np.where(predicted_q_arr == predicted_q)[0][0]]
+            if self.__q_logs_arr.shape[0] > 0:
+                self.__q_logs_arr = np.r_[
+                    self.__q_logs_arr,
+                    np.array([predicted_q, real_q]).reshape(1, 2)
+                ]
+            else:
+                self.__q_logs_arr = np.array([predicted_q, real_q]).reshape(1, 2)
+
             # Learn Q-Values.
             self.learn_q(predicted_q_arr, real_q_arr)
             # Update State.
@@ -259,3 +273,13 @@ class DeepQLearning(metaclass=ABCMeta):
         self.__gamma_value = value
 
     gamma_value = property(get_gamma_value, set_gamma_value)
+
+    def get_q_logs_arr(self):
+        ''' getter '''
+        return self.__q_logs_arr
+    
+    def set_q_logs_arr(self, values):
+        ''' setter '''
+        raise TypeError("The `q_logs_arr` must be read-only.")
+    
+    q_logs_arr = property(get_q_logs_arr, set_q_logs_arr)

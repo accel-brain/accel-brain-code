@@ -123,6 +123,26 @@ class ConvolutionalLSTMFA(FunctionApproximator):
         q_arr = self.__conv_lstm_model.inference(_next_action_arr)
         return q_arr[:, -1].reshape((q_arr.shape[0], 1))
 
+    def get_model(self):
+        '''
+        `object` of model as a function approximator,
+        which has `conv_lstm_model` whose type is 
+        `pydbm.rnn.lstmmodel.conv_lstm_model.ConvLSTMModel`.
+        '''
+        class Model(object):
+            def __init__(self, conv_lstm_model):
+                self.conv_lstm_model = conv_lstm_model
+
+        return Model(conv_lstm_model)
+
+    def set_model(self, value):
+        '''
+        Model as a function approximator.
+        '''
+        raise TypeError("This property must be read-only.")
+
+    model = property(get_model, set_model)
+
     def get_loss_list(self):
         ''' getter '''
         return self.__loss_list

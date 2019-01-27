@@ -193,6 +193,142 @@ The viewpoints for distinguishing between *commonality* and *variability* should
 
 For more detailed specification of this template method, refer to API documentation: [pyqlearning.deep_q_learning module](https://code.accel-brain.com/Reinforcement-Learning/pyqlearning.html#pyqlearning.deep_q_learning.DeepQLearning) and [pyqlearning.function_approximator module](https://code.accel-brain.com/Reinforcement-Learning/pyqlearning.html#pyqlearning.function_approximator.FunctionApproximator). If you want to know the samples of implemented code, see [demo/](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning/demo) and the following tutorial. 
 
+### Sample subclass
+
+[templates/your_deep_q_network.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/templates/your_deep_q_network.py) is a template subclass which is-a `DeepQNetwork`. The following code is an example of implementation.
+
+First of all, we should practice model selection in relatino to *your* problem settings. If the general Deep Q-Network can be expected to function as a *your* problem solution, CNNs can be selected as a function approximator model.
+
+Let's build the model as follows, while confirming the specifications of the [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern).
+
+```python
+# First convolution layer.
+from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer1
+# Second convolution layer.
+from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer2
+# Computation graph for first convolution layer.
+from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph1
+# Computation graph for second convolution layer.
+from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph2
+# Tanh Function as activation function.
+from pydbm.activation.tanh_function import TanhFunction
+# Mean squared error is-a `pydbm.optimization.opt_params.OptParams`.
+from pydbm.loss.mean_squared_error import MeanSquaredError
+# Adam optimizer which is-a `pydbm.optimization.opt_params.OptParams`.
+from pydbm.optimization.optparams.adam import Adam
+
+
+# First convolution layer.
+conv1 = ConvolutionLayer1(
+    # Computation graph for first convolution layer.
+    ConvGraph1(
+        # Logistic function as activation function.
+        activation_function=TanhFunction(),
+        # The number of `filter`.
+        filter_num=batch_size,
+        # The number of channel.
+        channel=channel,
+        # The size of kernel.
+        kernel_size=kernel_size,
+        # The filter scale.
+        scale=scale,
+        # The nubmer of stride.
+        stride=stride,
+        # The number of zero-padding.
+        pad=pad
+    )
+)
+
+# Second convolution layer.
+conv2 = ConvolutionLayer2(
+    # Computation graph for second convolution layer.
+    ConvGraph2(
+        # Logistic function as activation function.
+        activation_function=TanhFunction(),
+        # The number of `filter`.
+        filter_num=batch_size,
+        # The number of channel.
+        channel=batch_size,
+        # The size of kernel.
+        kernel_size=kernel_size,
+        # The filter scale.
+        scale=scale,
+        # The nubmer of stride.
+        stride=stride,
+        # The number of zero-padding.
+        pad=pad
+    )
+)
+
+# Stack.
+layerable_cnn_list=[
+    conv1, 
+    conv2
+]
+
+# is-a `pydbm.loss.interface.computable_loss.ComputableLoss`.
+computable_loss = MeanSquaredError()
+# is-a `pydbm.optimization.opt_params.OptParams`.
+opt_params = Adam()
+```
+
+Next, we construct a function approximator by delegating the above model. Because of the model selection, we should import `CNNFA` which is-a `FunctionApproximator`.
+
+```python
+# CNN as a Function Approximator.
+from pyqlearning.functionapproximator.cnn_fa import CNNFA
+
+# CNN as a function approximator.
+function_approximator = CNNFA(
+    # Batch size.
+    batch_size=batch_size,
+    # Stacked CNNs.
+    layerable_cnn_list=layerable_cnn_list,
+    # Learning rate.
+    learning_rate=learning_rate,
+    # is-a `pydbm.loss.interface.computable_loss.ComputableLoss`.
+    computable_loss=computable_loss,
+    # is-a `pydbm.optimization.opt_params.OptParams`.
+    opt_params=opt_params
+)
+```
+
+And, we delegate the function approximator to class `YourDeepQNetwork` and instantiate it.
+
+```python
+# Deep Q-Network to solive your problem.
+from _path.to.your_deep_q_network import YourDeepQNetwork
+# Instantiate your class.
+your_deep_q_network = YourDeepQNetwork(function_approximator=function_approximator)
+```
+
+Finally, we perform learning and inference based on the functionality of the implemented concrete class.
+
+```python
+# Learning.
+your_deep_q_network.learn(state_arr, limit=1000)
+# Inferencing.
+your_deep_q_network.inference(state_arr, limit=1000)
+```
+
+#### Storing pre-learned parameters and do transfer learning
+
+`function_approximator` has a `object` which has the selected model. `model.cnn` which has a method `save_pre_learned_params` to store pre-learned parameters.
+
+```python
+# Delegated model.
+model = your_deep_q_network.function_approximator.model
+# Save pre-learned parameters.
+model.cnn.save_pre_learned_params(
+    # Path of dir. If `None`, the file is saved in the current directory.
+    dir_path="/var/tmp/",
+    # The naming rule of files. If `None`, this value is `cnn`.
+    file_name="demo_cnn"
+)
+```
+
+`function_approximator.model` has different fields depending on the model selection. For more detailed specification of this function for pre-learned parameters and function of trasfer learning, refer to API documentation: [pyqlearning.function_approximator module](https://code.accel-brain.com/Reinforcement-Learning/pyqlearning.html#pyqlearning.function_approximator.FunctionApproximator) and [pydbm's documentation](https://code.accel-brain.com/Deep-Learning-by-means-of-Design-Pattern/README.html).
+
 ## Tutorial: Maze Solving and the pursuit-evasion game by Deep Q-Network (Jupyter notebook)
 
 [demo/search_maze_by_deep_q_network.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb) is a Jupyter notebook which demonstrates a maze solving algorithm based on Deep Q-Network, rigidly coupled with Deep Convolutional Neural Networks(Deep CNNs). The function of the Deep Learning is **generalisation** and CNNs is-a **function approximator**. In this notebook, several functional equivalents such as CNN, LSTM, and the model which loosely coupled CNN and LSTM can be compared from a functional point of view.

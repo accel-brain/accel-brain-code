@@ -50,8 +50,32 @@ class ConvolutionalLSTMFCFA(FunctionApproximator):
         opt_params=None,
         verificatable_result=None,
         pre_learned_path_list=None,
+        cnn=None,
         verbose_mode=False
     ):
+        '''
+        Init.
+
+        Args:
+            batch_size:                     Batch size in mini-batch.
+            layerable_cnn_list:             `list` of `LayerableCNN`.
+            lstm_model:                     is-a `LSTMMode`.
+            seq_len:                        The length of sequences.
+            learning_rate:                  Learning rate.
+            computable_loss:                is-a `ComputableLoss`.
+            opt_params:                     is-a `OptParams`.
+            verificatable_result:           is-a `VerificateFunctionApproximation`.
+            pre_learned_path_list:          `list` of file path that stored pre-learned parameters.
+                                            This parameters will be refered only when `cnn` is `None`.
+
+            cnn:                            is-a `ConvolutionalNeuralNetwork` as a model in this class.
+                                            If not `None`, `self.__cnn` will be overrided by this `cnn`.
+                                            If `None`, this class initialize `ConvolutionalNeuralNetwork`
+                                            by default hyper parameters.
+
+            verbose_mode:                   Verbose mode or not.
+
+        '''
         logger = getLogger("pydbm")
         handler = StreamHandler()
         if verbose_mode is True:
@@ -84,25 +108,28 @@ class ConvolutionalLSTMFCFA(FunctionApproximator):
             opt_params.weight_limit = 0.5
             opt_params.dropout_rate = 0.0
 
-        cnn = ConvolutionalNeuralNetwork(
-            # The `list` of `ConvolutionLayer`.
-            layerable_cnn_list=layerable_cnn_list,
-            # The number of epochs in mini-batch training.
-            epochs=200,
-            # The batch size.
-            batch_size=batch_size,
-            # Learning rate.
-            learning_rate=learning_rate,
-            # Loss function.
-            computable_loss=computable_loss,
-            # Optimizer.
-            opt_params=opt_params,
-            # Verification.
-            verificatable_result=verificatable_result,
-            # Others.
-            learning_attenuate_rate=0.1,
-            attenuate_epoch=50
-        )
+        if cnn is None:
+            cnn = ConvolutionalNeuralNetwork(
+                # The `list` of `ConvolutionLayer`.
+                layerable_cnn_list=layerable_cnn_list,
+                # The number of epochs in mini-batch training.
+                epochs=200,
+                # The batch size.
+                batch_size=batch_size,
+                # Learning rate.
+                learning_rate=learning_rate,
+                # Loss function.
+                computable_loss=computable_loss,
+                # Optimizer.
+                opt_params=opt_params,
+                # Verification.
+                verificatable_result=verificatable_result,
+                # Pre-learned parameters.
+                pre_learned_path_list=pre_learned_path_list,
+                # Others.
+                learning_attenuate_rate=0.1,
+                attenuate_epoch=50
+            )
         self.__cnn = cnn
         self.__lstm_model = lstm_model
         self.__seq_len = seq_len

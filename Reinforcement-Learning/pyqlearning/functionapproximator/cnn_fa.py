@@ -51,8 +51,32 @@ class CNNFA(FunctionApproximator):
         pre_learned_path_list=None,
         fc_w_arr=None,
         fc_activation_function=None,
+        cnn=None,
         verbose_mode=False
     ):
+        '''
+        Init.
+
+        Args:
+            batch_size:                     Batch size in mini-batch.
+            layerable_cnn_list:             `list` of `LayerableCNN`.
+            learning_rate:                  Learning rate.
+            computable_loss:                is-a `ComputableLoss`.
+            opt_params:                     is-a `OptParams`.
+            verificatable_result:           is-a `VerificateFunctionApproximation`.
+            pre_learned_path_list:          `list` of file path that stored pre-learned parameters.
+                                            This parameters will be refered only when `cnn` is `None`.
+
+            fc_w_arr:                       `np.ndarray` of weight matrix in output layer.
+            fc_activation_function:         is-a `ActivatingFunctionInterface`.
+            cnn:                            is-a `ConvolutionalNeuralNetwork` as a model in this class.
+                                            If not `None`, `self.__cnn` will be overrided by this `cnn`.
+                                            If `None`, this class initialize `ConvolutionalNeuralNetwork`
+                                            by default hyper parameters.
+
+            verbose_mode:                   Verbose mode or not.
+            
+        '''
         logger = getLogger("pydbm")
         handler = StreamHandler()
         if verbose_mode is True:
@@ -61,7 +85,7 @@ class CNNFA(FunctionApproximator):
         else:
             handler.setLevel(ERROR)
             logger.setLevel(ERROR)
-            
+
         logger.addHandler(handler)
 
         self.__logger = getLogger("pyqlearning")
@@ -82,25 +106,29 @@ class CNNFA(FunctionApproximator):
             opt_params.weight_limit = 0.5
             opt_params.dropout_rate = 0.0
 
-        cnn = ConvolutionalNeuralNetwork(
-            # The `list` of `ConvolutionLayer`.
-            layerable_cnn_list=layerable_cnn_list,
-            # The number of epochs in mini-batch training.
-            epochs=200,
-            # The batch size.
-            batch_size=batch_size,
-            # Learning rate.
-            learning_rate=learning_rate,
-            # Loss function.
-            computable_loss=computable_loss,
-            # Optimizer.
-            opt_params=opt_params,
-            # Verification.
-            verificatable_result=verificatable_result,
-            # Others.
-            learning_attenuate_rate=0.1,
-            attenuate_epoch=50
-        )
+        if cnn is None:
+            cnn = ConvolutionalNeuralNetwork(
+                # The `list` of `ConvolutionLayer`.
+                layerable_cnn_list=layerable_cnn_list,
+                # The number of epochs in mini-batch training.
+                epochs=200,
+                # The batch size.
+                batch_size=batch_size,
+                # Learning rate.
+                learning_rate=learning_rate,
+                # Loss function.
+                computable_loss=computable_loss,
+                # Optimizer.
+                opt_params=opt_params,
+                # Verification.
+                verificatable_result=verificatable_result,
+                # Pre-learned parameters.
+                pre_learned_path_list=pre_learned_path_list,
+                # Others.
+                learning_attenuate_rate=0.1,
+                attenuate_epoch=50
+            )
+
         self.__cnn = cnn
         self.__batch_size = batch_size
         self.__computable_loss = computable_loss

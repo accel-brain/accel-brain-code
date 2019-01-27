@@ -53,9 +53,21 @@ class LSTMFA(FunctionApproximator):
         computable_loss=None,
         opt_params=None,
         verificatable_result=None,
-        pre_learned_path_list=None,
         verbose_mode=False
     ):
+        '''
+        Init.
+
+        Args:
+            batch_size:                     Batch size in mini-batch.
+            lstm_model:                     is-a `LSTMMode`.
+            seq_len:                        The length of sequences.
+            learning_rate:                  Learning rate.
+            computable_loss:                is-a `ComputableLoss`.
+            opt_params:                     is-a `OptParams`.
+            verificatable_result:           is-a `VerificateFunctionApproximation`.
+            verbose_mode:                   Verbose mode or not.
+        '''
         logger = getLogger("pydbm")
         handler = StreamHandler()
         if verbose_mode is True:
@@ -78,7 +90,7 @@ class LSTMFA(FunctionApproximator):
 
         if isinstance(lstm_model, LSTMModel) is False:
             raise TypeError()
-        
+
         if computable_loss is None:
             computable_loss = MeanSquaredError()
         if verificatable_result is None:

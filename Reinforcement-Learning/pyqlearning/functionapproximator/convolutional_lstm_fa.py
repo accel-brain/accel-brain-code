@@ -44,9 +44,22 @@ class ConvolutionalLSTMFA(FunctionApproximator):
         computable_loss=None,
         opt_params=None,
         verificatable_result=None,
-        pre_learned_path_list=None,
         verbose_mode=False
     ):
+        '''
+        Init.
+
+        Args:
+            batch_size:                     Batch size in mini-batch.
+            conv_lstm_model:                is-a `ConvLSTMModel`.
+            seq_len:                        The length of sequences.
+            learning_rate:                  Learning rate.
+            computable_loss:                is-a `ComputableLoss`.
+            opt_params:                     is-a `OptParams`.
+            verificatable_result:           is-a `VerificateFunctionApproximation`.
+            verbose_mode:                   Verbose mode or not.
+
+        '''
         logger = getLogger("pydbm")
         handler = StreamHandler()
         if verbose_mode is True:
@@ -133,7 +146,7 @@ class ConvolutionalLSTMFA(FunctionApproximator):
             def __init__(self, conv_lstm_model):
                 self.conv_lstm_model = conv_lstm_model
 
-        return Model(conv_lstm_model)
+        return Model(self.__conv_lstm_model)
 
     def set_model(self, value):
         '''

@@ -308,7 +308,7 @@ Finally, we perform learning and inference based on the functionality of the imp
 # Learning.
 your_deep_q_network.learn(state_arr, limit=1000)
 # Inferencing.
-your_deep_q_network.inference(state_arr, limit=1000)
+result_arr = your_deep_q_network.inference(state_arr, limit=1000)
 ```
 
 #### Storing pre-learned parameters and do transfer learning

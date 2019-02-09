@@ -198,7 +198,7 @@ class LSTMModel(ReconstructableModel):
         cdef double test_loss
         cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] test_pred_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_arr
+        cdef np.ndarray delta_arr
 
         best_params_list = []
         try:

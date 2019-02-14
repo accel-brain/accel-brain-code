@@ -25,14 +25,14 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
     def __init__(
         self,
         layerable_cnn_list,
-        int epochs,
-        int batch_size,
-        double learning_rate,
-        double learning_attenuate_rate,
-        int attenuate_epoch,
         computable_loss,
         opt_params,
         verificatable_result,
+        int epochs=100,
+        int batch_size=100,
+        double learning_rate=1e-05,
+        double learning_attenuate_rate=0.1,
+        int attenuate_epoch=50,
         double test_size_rate=0.3,
         tol=1e-15,
         tld=10000.0,
@@ -46,6 +46,10 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
         
         Args:
             layerable_cnn_list:             The `list` of `LayerableCNN`.
+            computable_loss:                Loss function.
+            opt_params:                     Optimization function.
+            verificatable_result:           Verification function.
+
             epochs:                         Epochs of Mini-batch.
             bath_size:                      Batch size of Mini-batch.
             learning_rate:                  Learning rate.
@@ -55,9 +59,6 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
                                             this class constrains weight matrixes every `attenuate_epoch`.
 
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
-            computable_loss:                Loss function.
-            opt_params:                     Optimization function.
-            verificatable_result:           Verification function.
             tol:                            Tolerance for the optimization.
             tld:                            Tolerance for deviation of loss.
             save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.

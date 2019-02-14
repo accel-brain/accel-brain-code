@@ -126,14 +126,14 @@ class ContrastiveDivergence(ApproximateInterface):
         Inference with function approximation.
 
         Args:
-            graph:                Graph of neurons.
-            learning_rate:        Learning rate.
-            observed_data_arr:    observed data points.
-            training_count:       Training counts.
-            r_batch_size:         Batch size.
-                                  If this value is `0`, the inferencing is a recursive learning.
-                                  If this value is more than `0`, the inferencing is a mini-batch recursive learning.
-                                  If this value is '-1', the inferencing is not a recursive learning.
+            graph:                  Graph of neurons.
+            learning_rate:          Learning rate.
+            observed_data_arr:      observed data points.
+            training_count:         Training counts.
+            r_batch_size:           Batch size.
+                                    If this value is `0`, the inferencing is a recursive learning.
+                                    If this value is more than `0`, the inferencing is a mini-batch recursive learning.
+                                    If this value is '-1', the inferencing is not a recursive learning.
 
         Returns:
             Graph of neurons.
@@ -201,8 +201,6 @@ class ContrastiveDivergence(ApproximateInterface):
         loss = self.__computable_loss.compute_loss(observed_data_arr, self.__graph.visible_activity_arr).mean()
         self.__reconstruct_error_list.append(loss)
 
-        self.__graph.visible_activity_arr = self.__opt_params.dropout(self.__graph.visible_activity_arr)
-
         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
             np.dot(
                 self.__graph.visible_activity_arr, 
@@ -210,7 +208,7 @@ class ContrastiveDivergence(ApproximateInterface):
             ) + self.__graph.hidden_bias_arr
         )
 
-        self.__graph.hidden_activity_arr = self.__opt_params.dropout(self.__graph.hidden_activity_arr)
+        self.__graph.hidden_activity_arr = self.__opt_params.de_dropout(self.__graph.hidden_activity_arr)
 
         self.__graph.diff_weights_arr -= np.dot(
             self.__graph.visible_activity_arr.T,
@@ -247,7 +245,7 @@ class ContrastiveDivergence(ApproximateInterface):
         Sleeping, waking, and learning.
 
         Args:
-             observed_data_arr:      feature points.
+            observed_data_arr:      feature points.
         '''
         # Sleeping.
         self.__graph.hidden_activity_arr = observed_data_arr.copy()

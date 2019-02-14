@@ -18,14 +18,14 @@ class ConvolutionalNeuralNetwork(object):
     def __init__(
         self,
         layerable_cnn_list,
-        int epochs,
-        int batch_size,
-        double learning_rate,
-        double learning_attenuate_rate,
-        int attenuate_epoch,
         computable_loss,
         opt_params,
         verificatable_result,
+        int epochs=100,
+        int batch_size=100,
+        double learning_rate=1e-05,
+        double learning_attenuate_rate=0.1,
+        int attenuate_epoch=50,
         double test_size_rate=0.3,
         tol=1e-15,
         tld=100.0,
@@ -37,6 +37,10 @@ class ConvolutionalNeuralNetwork(object):
         
         Args:
             layerable_cnn_list:             The `list` of `LayerableCNN`.
+            computable_loss:                Loss function.
+            opt_params:                     Optimization function.
+            verificatable_result:           Verification function.
+
             epochs:                         Epochs of Mini-batch.
             bath_size:                      Batch size of Mini-batch.
             learning_rate:                  Learning rate.
@@ -46,9 +50,6 @@ class ConvolutionalNeuralNetwork(object):
                                             this class constrains weight matrixes every `attenuate_epoch`.
 
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
-            computable_loss:                Loss function.
-            opt_params:                     Optimization function.
-            verificatable_result:           Verification function.
             tol:                            Tolerance for the optimization.
             tld:                            Tolerance for deviation of loss.
             save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.
@@ -486,6 +487,16 @@ class ConvolutionalNeuralNetwork(object):
                 self.__logger.debug("Error raised in CNN layer " + str(i + 1))
                 raise
 
+        if self.opt_params.dropout_rate > 0:
+            hidden_activity_arr = img_arr.reshape((img_arr.shape[0], -1))
+            hidden_activity_arr = self.opt_params.dropout(hidden_activity_arr)
+            img_arr = hidden_activity_arr.reshape((
+                img_arr.shape[0],
+                img_arr.shape[1],
+                img_arr.shape[2],
+                img_arr.shape[3]
+            ))
+
         return img_arr
 
     def back_propagation(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):
@@ -498,8 +509,19 @@ class ConvolutionalNeuralNetwork(object):
         Returns.
             Delta.
         '''
+        if self.opt_params.dropout_rate > 0:
+            hidden_activity_arr = delta_arr.reshape((delta_arr.shape[0], -1))
+            hidden_activity_arr = self.opt_params.de_dropout(hidden_activity_arr)
+            delta_arr = hidden_activity_arr.reshape((
+                delta_arr.shape[0],
+                delta_arr.shape[1],
+                delta_arr.shape[2],
+                delta_arr.shape[3]
+            ))
+
         cdef int i = 0
         layerable_cnn_list = self.__layerable_cnn_list[::-1]
+
         for i in range(len(layerable_cnn_list)):
             try:
                 delta_arr = layerable_cnn_list[i].back_propagate(delta_arr)

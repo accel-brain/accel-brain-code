@@ -65,16 +65,16 @@ class LSTMModel(ReconstructableModel):
     def __init__(
         self,
         graph,
-        int epochs,
-        int batch_size,
-        double learning_rate,
-        double learning_attenuate_rate,
-        int attenuate_epoch,
+        computable_loss,
+        opt_params,
+        verificatable_result,
+        int epochs=100,
+        int batch_size=100,
+        double learning_rate=1e-05,
+        double learning_attenuate_rate=0.1,
+        int attenuate_epoch=50,
         int bptt_tau=16,
         double test_size_rate=0.3,
-        computable_loss=None,
-        opt_params=None,
-        verificatable_result=None,
         tol=1e-04,
         tld=100.0
     ):
@@ -83,8 +83,11 @@ class LSTMModel(ReconstructableModel):
 
         Args:
             graph:                          is-a `Synapse`.
-            epochs:                         Epochs of Mini-batch.
-            bath_size:                      Batch size of Mini-batch.
+            computable_loss:                Loss function.
+            opt_params:                     Optimization function.
+            verificatable_result:           Verification function.
+            epochs:                         Epochs of mini-batch.
+            bath_size:                      Batch size of mini-batch.
             learning_rate:                  Learning rate.
             learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
             attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
@@ -95,9 +98,6 @@ class LSTMModel(ReconstructableModel):
                                             If `0`, this class referes all past data in BPTT.
 
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
-            computable_loss:                Loss function.
-            opt_params:                     Optimization function.
-            verificatable_result:           Verification function.
             tol:                            Tolerance for the optimization.
                                             When the loss or score is not improving by at least tol 
                                             for two consecutive iterations, convergence is considered 
@@ -342,6 +342,17 @@ class LSTMModel(ReconstructableModel):
         Returns:
             Array like or sparse matrix as the predicted data points.
         '''
+        cdef np.ndarray[DOUBLE_t, ndim=2] arr
+        if self.__opt_params.dropout_rate > 0:
+            arr = self.__opt_params.dropout(
+                batch_observed_arr.reshape((batch_observed_arr.shape[0], -1))
+            )
+            batch_observed_arr = arr.reshape((
+                batch_observed_arr.shape[0], 
+                batch_observed_arr.shape[1], 
+                batch_observed_arr.shape[2]
+            ))
+
         cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr = self.hidden_forward_propagate(
             batch_observed_arr
         )
@@ -352,7 +363,7 @@ class LSTMModel(ReconstructableModel):
         return pred_arr
 
     def back_propagation(self, np.ndarray[DOUBLE_t, ndim=2] pred_arr, np.ndarray[DOUBLE_t, ndim=2] delta_arr):
-        r'''
+        '''
         Back propagation.
 
         Args:
@@ -366,6 +377,18 @@ class LSTMModel(ReconstructableModel):
         '''
         delta_arr, output_grads_list = self.output_back_propagate(pred_arr, delta_arr)
         _delta_arr, lstm_grads_list = self.hidden_back_propagate(delta_arr)
+
+        cdef np.ndarray[DOUBLE_t, ndim=2] arr
+        if self.__opt_params.dropout_rate > 0:
+            arr = self.__opt_params.dropout(
+                _delta_arr.reshape((_delta_arr.shape[0], -1))
+            )
+            _delta_arr = arr.reshape((
+                _delta_arr.shape[0], 
+                _delta_arr.shape[1], 
+                _delta_arr.shape[2]
+            ))
+
         grads_list = output_grads_list
         grads_list.extend(lstm_grads_list)
         return (_delta_arr, grads_list)
@@ -453,10 +476,7 @@ class LSTMModel(ReconstructableModel):
         else:
             self.graph.rnn_activity_arr = rnn_activity_arr
 
-        self.__opt_params.dropout_rate = 0.0
         cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.forward_propagation(observed_arr)
-        self.__opt_params.dropout_rate = self.__dropout_rate
-
         return pred_arr
 
     def get_feature_points(self):
@@ -672,8 +692,6 @@ class LSTMModel(ReconstructableModel):
             ]),
             axis=0
         )[0]
-
-        _hidden_activity_arr = self.__opt_params.dropout(_hidden_activity_arr)
 
         self.__memory_tuple_list.append((
             observed_arr, 

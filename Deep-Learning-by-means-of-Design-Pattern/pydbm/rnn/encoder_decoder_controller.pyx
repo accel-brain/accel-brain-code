@@ -41,15 +41,15 @@ class EncoderDecoderController(object):
         self,
         encoder,
         decoder,
-        int epochs,
-        int batch_size,
-        double learning_rate,
-        double learning_attenuate_rate,
-        int attenuate_epoch,
+        computable_loss,
+        verificatable_result,
+        int epochs=100,
+        int batch_size=100,
+        double learning_rate=1e-05,
+        double learning_attenuate_rate=0.1,
+        int attenuate_epoch=50,
         double test_size_rate=0.3,
-        computable_loss=None,
         dropout_rate=0.5,
-        verificatable_result=None,
         tol=1e-04,
         tld=100.0
     ):
@@ -59,8 +59,11 @@ class EncoderDecoderController(object):
         Args:
             encoder:                        is-a `ReconstructableModel`.
             decoder:                        is-a `ReconstructableModel`.
-            epochs:                         Epochs of Mini-batch.
-            bath_size:                      Batch size of Mini-batch.
+            computable_loss:                is-a `ComputableLoss`.
+            verificatable_result:           is-a `VerificatableResult`.
+
+            epochs:                         Epochs of mini-batch.
+            bath_size:                      Batch size of mini-batch.
             learning_rate:                  Learning rate.
             learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
             attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
@@ -68,9 +71,7 @@ class EncoderDecoderController(object):
                                             this class constrains weight matrixes every `attenuate_epoch`.
 
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
-            computable_loss:                Loss function.
             dropout_rate:                   The propability of dropout.
-            verificatable_result:           Verification function.
             tol:                            Tolerance for the optimization.
                                             When the loss or score is not improving by at least tol 
                                             for two consecutive iterations, convergence is considered 
@@ -117,9 +118,9 @@ class EncoderDecoderController(object):
         Override.
 
         Args:
-            observed_arr:    Array like or sparse matrix as the observed data ponts.
-            target_arr:      Array like or sparse matrix as the target data points.
-                             To learn as Auto-encoder, this value must be `None` or equivalent to `observed_arr`.
+            observed_arr:       Array like or sparse matrix as the observed data ponts.
+            target_arr:         Array like or sparse matrix as the target data points.
+                                To learn as Auto-encoder, this value must be `None` or equivalent to `observed_arr`.
         '''
         cdef double learning_rate = self.__learning_rate
         cdef int epoch

@@ -22,6 +22,9 @@ class OptParams(metaclass=ABCMeta):
     # Probability of dropout.
     __dropout_rate = 0.5
 
+    # `np.ndarray` of dropout values.
+    __dropout_rate_arr_list = []
+
     @abstractmethod
     def optimize(self, params_list, np.ndarray grads_arr, double learning_rate):
         '''
@@ -94,7 +97,7 @@ class OptParams(metaclass=ABCMeta):
 
         if activity_arr.ndim == 1:
             dropout_rate_arr = np.random.binomial(n=1, p=1-self.dropout_rate, size=(row, )).astype(int)
-            
+
         if activity_arr.ndim > 1:
             col = activity_arr.shape[1]
             dropout_rate_arr = np.random.binomial(
@@ -110,7 +113,29 @@ class OptParams(metaclass=ABCMeta):
             ]),
             axis=0
         )[0]
+
+        self.__dropout_rate_arr_list.insert(0, dropout_rate_arr)
         return activity_arr
+
+    def de_dropout(self, np.ndarray delta_arr):
+        '''
+        Dropout.
+        
+        Args:
+            activity_arr:    The state of delta.
+        
+        Returns:
+            The state of delta.
+        '''
+        cdef np.ndarray dropout_rate_arr = self.__dropout_rate_arr_list.pop(0)
+        delta_arr = np.nanprod(
+            np.array([
+                np.expand_dims(delta_arr, axis=0),
+                np.expand_dims(dropout_rate_arr, axis=0)
+            ]),
+            axis=0
+        )[0]
+        return delta_arr
 
     def get_weight_limit(self):
         ''' getter '''

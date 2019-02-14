@@ -378,8 +378,6 @@ class RTRBMCD(ApproximateInterface):
             ) + self.graph.visible_bias_arr
         )
 
-        self.graph.visible_activity_arr = self.__opt_params.dropout(self.graph.visible_activity_arr)
-
         self.graph.hidden_activity_arr = self.graph.hidden_activating_function.activate(
             np.dot(
                 self.graph.visible_activity_arr,
@@ -387,7 +385,7 @@ class RTRBMCD(ApproximateInterface):
             ) + self.graph.hidden_bias_arr
         )
 
-        self.graph.hidden_activity_arr = self.__opt_params.dropout(self.graph.hidden_activity_arr)
+        self.graph.hidden_activity_arr = self.__opt_params.de_dropout(self.graph.hidden_activity_arr)
 
         self.graph.diff_weights_arr -= np.dot(
             self.graph.visible_activity_arr.T,
@@ -402,7 +400,7 @@ class RTRBMCD(ApproximateInterface):
         Sleeping, waking, and inferencing.
 
         Args:
-             observed_data_arr:      feature points.
+            observed_data_arr:      feature points.
         '''
         self.graph.visible_activity_arr = observed_data_arr
         
@@ -431,14 +429,13 @@ class RTRBMCD(ApproximateInterface):
         )
 
         if self.r_batch_size != -1:
-            self.graph.visible_activity_arr = self.__opt_params.dropout(self.graph.visible_activity_arr)
             self.graph.hidden_activity_arr = self.graph.hidden_activating_function.activate(
                 np.dot(
                     self.graph.visible_activity_arr,
                     self.graph.weights_arr
                 ) + self.graph.hidden_bias_arr
             )
-            self.graph.hidden_activity_arr = self.__opt_params.dropout(self.graph.hidden_activity_arr)
+            self.graph.hidden_activity_arr = self.__opt_params.de_dropout(self.graph.hidden_activity_arr)
 
             self.graph.diff_weights_arr -= np.dot(
                 self.graph.visible_activity_arr.T, 

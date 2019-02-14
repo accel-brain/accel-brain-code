@@ -30,14 +30,14 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
     def __init__(
         self,
         layerable_cnn_list,
-        int epochs,
-        int batch_size,
-        double learning_rate,
-        double learning_attenuate_rate,
-        int attenuate_epoch,
         computable_loss,
         opt_params,
         verificatable_result,
+        int epochs=100,
+        int batch_size=100,
+        double learning_rate=1e-05,
+        double learning_attenuate_rate=0.1,
+        int attenuate_epoch=50,
         double test_size_rate=0.3,
         tol=1e-15,
         tld=100.0,
@@ -51,6 +51,10 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         
         Args:
             layerable_cnn_list:             The `list` of `ConvolutionLayer`.
+            computable_loss:                Loss function.
+            opt_params:                     Optimization function.
+            verificatable_result:           Verification function.
+
             epochs:                         Epochs of Mini-batch.
             bath_size:                      Batch size of Mini-batch.
             learning_rate:                  Learning rate.
@@ -60,9 +64,6 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
                                             this class constrains weight matrixes every `attenuate_epoch`.
 
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
-            computable_loss:                Loss function.
-            opt_params:                     Optimization function.
-            verificatable_result:           Verification function.
             tol:                            Tolerance for the optimization.
             tld:                            Tolerance for deviation of loss.
             save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.
@@ -70,23 +71,24 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
 
         '''
         super().__init__(
-            layerable_cnn_list,
-            epochs,
-            batch_size,
-            learning_rate,
-            learning_attenuate_rate,
-            attenuate_epoch,
-            computable_loss,
-            opt_params,
-            verificatable_result,
-            test_size_rate,
-            tol,
-            tld,
-            save_flag,
-            pre_learned_path_list
+            layerable_cnn_list=layerable_cnn_list,
+            computable_loss=computable_loss,
+            opt_params=opt_params,
+            verificatable_result=verificatable_result,
+            epochs=epochs,
+            batch_size=batch_size,
+            learning_rate=learning_rate,
+            learning_attenuate_rate=learning_attenuate_rate,
+            attenuate_epoch=attenuate_epoch,
+            test_size_rate=test_size_rate,
+            tol=tol,
+            tld=tld,
+            save_flag=save_flag,
+            pre_learned_path_list=pre_learned_path_list
         )
         self.__epochs = epochs
         self.__batch_size = batch_size
+        self.__opt_params = opt_params
 
         self.__learning_rate = learning_rate
         self.__learning_attenuate_rate = learning_attenuate_rate
@@ -127,9 +129,9 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
                 self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
                 raise
 
-        if self.opt_params.dropout_rate > 0:
+        if self.__opt_params.dropout_rate > 0:
             hidden_activity_arr = img_arr.reshape((img_arr.shape[0], -1))
-            hidden_activity_arr = self.opt_params.dropout(hidden_activity_arr)
+            hidden_activity_arr = self.__opt_params.dropout(hidden_activity_arr)
             img_arr = hidden_activity_arr.reshape((
                 img_arr.shape[0],
                 img_arr.shape[1],
@@ -159,15 +161,25 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         Returns.
             Delta.
         '''
-        cdef int i = 0
-        
+        cdef int i = 0        
         for i in range(len(self.layerable_cnn_list)):
             try:
                 delta_arr = self.layerable_cnn_list[i].convolve(delta_arr, no_bias_flag=True)
             except:
                 self.__logger.debug("Backward raised error in Convolution layer " + str(i + 1))
                 raise
-        
+
+        cdef np.ndarray[DOUBLE_t, ndim=2] hidden_activity_arr
+        if self.__opt_params.dropout_rate > 0:
+            hidden_activity_arr = delta_arr.reshape((delta_arr.shape[0], -1))
+            hidden_activity_arr = self.__opt_params.de_dropout(hidden_activity_arr)
+            delta_arr = hidden_activity_arr.reshape((
+                delta_arr.shape[0],
+                delta_arr.shape[1],
+                delta_arr.shape[2],
+                delta_arr.shape[3]
+            ))
+
         layerable_cnn_list = self.layerable_cnn_list[::-1]
         for i in range(len(layerable_cnn_list)):
             try:

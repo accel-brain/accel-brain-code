@@ -297,8 +297,6 @@ class ShapeBMCD(ApproximateInterface):
             self.__graph.visible_activity_arr
         )
 
-        self.__graph.visible_activity_arr = self.__opt_params.dropout(self.__graph.visible_activity_arr)
-
         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
             np.dot(
                 self.__graph.visible_activity_arr,
@@ -306,7 +304,7 @@ class ShapeBMCD(ApproximateInterface):
             ) + self.__graph.hidden_bias_arr
         )
 
-        self.__graph.hidden_activity_arr = self.__opt_params.dropout(self.__graph.hidden_activity_arr)
+        self.__graph.hidden_activity_arr = self.__opt_params.de_dropout(self.__graph.hidden_activity_arr)
 
         self.__graph.diff_weights_arr -= np.dot(
             self.__graph.visible_activity_arr.T,
@@ -376,14 +374,13 @@ class ShapeBMCD(ApproximateInterface):
             ) + self.__graph.visible_bias_arr
         )
 
-        self.__graph.visible_activity_arr = self.__opt_params.dropout(self.__graph.visible_activity_arr)
         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
             np.dot(
                 self.__graph.visible_activity_arr,
                 self.__graph.weights_arr
             ) + self.__graph.hidden_bias_arr
         )
-        self.__graph.hidden_activity_arr = self.__opt_params.dropout(self.__graph.hidden_activity_arr)
+        self.__graph.hidden_activity_arr = self.__opt_params.de_dropout(self.__graph.hidden_activity_arr)
 
         self.__graph.diff_weights_arr -= np.dot(
             self.__graph.visible_activity_arr.T,
@@ -420,7 +417,7 @@ class ShapeBMCD(ApproximateInterface):
         Sleeping, waking, and learning.
 
         Args:
-             observed_data_arr:      feature points.
+            observed_data_arr:      feature points.
         '''
         self.__graph.hidden_activity_arr = observed_data_arr.copy()
 

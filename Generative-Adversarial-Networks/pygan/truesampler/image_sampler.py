@@ -22,8 +22,8 @@ class ImageSampler(TrueSampler):
         Init.
 
         Args:
-            training_image_dir:             Dir path which stores image files for training.
-            test_image_dir:                 Dir path which stores image files for test.
+            batch_size:                     Batch size.
+            image_dir:                      Dir path which stores image files.
             seq_len:                        The length of one sequence.
             gray_scale_flag:                Gray scale or not(RGB).
             wh_size_tuple:                  Tuple(`width`, `height`).

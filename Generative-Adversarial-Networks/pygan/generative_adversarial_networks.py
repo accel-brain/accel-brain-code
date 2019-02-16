@@ -109,7 +109,7 @@ class GenerativeAdversarialNetworks(object):
         except KeyboardInterrupt:
             print("Keyboard Interrupt.")
 
-        self.__logs_tuple = (d_logs_list, d_grads_list)
+        self.__logs_tuple = (d_logs_list, g_logs_list)
         return generative_model, discriminative_model
 
     def extract_logs_tuple(self):

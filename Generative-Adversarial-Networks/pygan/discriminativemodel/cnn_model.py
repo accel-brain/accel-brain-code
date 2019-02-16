@@ -137,7 +137,6 @@ class CNNModel(DiscriminativeModel):
         
         Returns:
             `np.ndarray` of inferenced.
-            `0` is to `1` what `fake` is to `true`.
         '''
         return self.__cnn.inference(observed_arr)
 

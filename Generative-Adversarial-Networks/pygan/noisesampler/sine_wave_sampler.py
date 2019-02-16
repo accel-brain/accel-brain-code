@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from pygan.true_sampler import TrueSampler
-from pydbm.cnn.featuregenerator.image_generator import ImageGenerator
+from pygan.noise_sampler import NoiseSampler
 
 
-class SineWaveSampler(TrueSampler):
+class SineWaveSampler(NoiseSampler):
     '''
     Generate samples based on the noise prior by sine wave distribution.
     '''

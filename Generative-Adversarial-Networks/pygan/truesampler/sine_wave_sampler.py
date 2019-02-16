@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 from pygan.true_sampler import TrueSampler
-from pydbm.cnn.featuregenerator.image_generator import ImageGenerator
 
 
 class SineWaveSampler(TrueSampler):

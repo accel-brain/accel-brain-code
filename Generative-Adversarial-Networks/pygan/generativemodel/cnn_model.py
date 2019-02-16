@@ -20,7 +20,7 @@ from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph2
 # Loss function.
 from pydbm.loss.mean_squared_error import MeanSquaredError
 # Adam as a optimizer.
-from pydbm.optimization.optparams.adam import Adam
+from pydbm.optimization.optparams.sgd import SGD
 # Verification.
 from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
 
@@ -53,6 +53,7 @@ class CNNModel(GenerativeModel):
         learning_rate=1e-05,
         computable_loss=None,
         opt_params=None,
+        norm_mode="z_score",
         verificatable_result=None,
         pre_learned_path_list=None,
         cnn=None,
@@ -67,6 +68,11 @@ class CNNModel(GenerativeModel):
             learning_rate:                  Learning rate.
             computable_loss:                is-a `ComputableLoss`.
             opt_params:                     is-a `OptParams`.
+            norm_mode:                      How to normalize generated values.
+                                            - `z_score`: Z-Score normalization.
+                                            - `min_max`: Min-max normalization.
+                                            - `tanh`: Normalization by tanh function.
+
             verificatable_result:           is-a `VerificateFunctionApproximation`.
             pre_learned_path_list:          `list` of file path that stored pre-learned parameters.
                                             This parameters will be refered only when `cnn` is `None`.
@@ -77,7 +83,6 @@ class CNNModel(GenerativeModel):
                                             by default hyper parameters.
 
             verbose_mode:                   Verbose mode or not.
-
         '''
         logger = getLogger("pydbm")
         handler = StreamHandler()
@@ -94,7 +99,7 @@ class CNNModel(GenerativeModel):
         if verificatable_result is None:
             verificatable_result = VerificateFunctionApproximation()
         if opt_params is None:
-            opt_params = Adam()
+            opt_params = SGD()
             opt_params.weight_limit = 0.5
             opt_params.dropout_rate = 0.0
 
@@ -128,6 +133,7 @@ class CNNModel(GenerativeModel):
         self.__verbose_mode = verbose_mode
         self.__q_shape = None
         self.__loss_list = []
+        self.__norm_mode = norm_mode
 
     def draw(self):
         '''
@@ -137,7 +143,23 @@ class CNNModel(GenerativeModel):
             `np.ndarray` of samples.
         '''
         observed_arr = self.noise_sampler.generate()
-        return self.inference(observed_arr)
+        arr = self.inference(observed_arr)
+        if self.__norm_mode == "z_score":
+            for i in range(arr.shape[0]):
+                arr[i] = (arr[i] - arr[i].mean()) / arr[i].std()
+        elif self.__norm_mode == "min_max":
+            for i in range(arr.shape[0]):
+                arr[i] = (arr[i] - arr[i].min()) / (arr[i].max() - arr[i].min())
+        elif self.__norm_mode == "tanh":
+            arr = np.tanh(arr)
+
+        return np.expand_dims(
+            np.nansum(
+                arr,
+                axis=1
+            ) / arr.shape[1],
+            axis=1
+        )
 
     def inference(self, observed_arr):
         '''

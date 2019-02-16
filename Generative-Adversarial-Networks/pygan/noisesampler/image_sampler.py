@@ -62,14 +62,20 @@ class ImageSampler(NoiseSampler):
 
         self.__norm_mode = norm_mode
 
-    def draw(self):
+    def generate(self):
         '''
         Draws samples from the `true` distribution.
         
         Returns:
             `np.ndarray` of samples.
         '''
-        observed_arr = self.__feature_generator.generate()[0] + self.__add_noise_sampler
+        observed_arr = None
+        for result_tuple in self.__feature_generator.generate():
+            observed_arr = result_tuple[0]
+            break
+
+        observed_arr = observed_arr + self.__add_noise_sampler.generate()
+
         if self.__norm_mode == "z_score":
             for i in range(observed_arr.shape[0]):
                 observed_arr[i] = (observed_arr[i] - observed_arr[i].mean()) / observed_arr[i].std()

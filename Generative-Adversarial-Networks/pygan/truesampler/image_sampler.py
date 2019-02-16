@@ -51,4 +51,8 @@ class ImageSampler(TrueSampler):
         Returns:
             `np.ndarray` of samples.
         '''
-        return self.__feature_generator.generate()[0]
+        observed_arr = None
+        for result_tuple in self.__feature_generator.generate():
+            observed_arr = result_tuple[0]
+            break
+        return observed_arr

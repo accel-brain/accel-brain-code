@@ -43,20 +43,17 @@ class CNNModel(DiscriminativeModel):
         - Dumoulin, V., & V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
         - Masci, J., Meier, U., Cireşan, D., & Schmidhuber, J. (2011, June). Stacked convolutional auto-encoders for hierarchical feature extraction. In International Conference on Artificial Neural Networks (pp. 52-59). Springer, Berlin, Heidelberg.
         - Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. (2013). Playing atari with deep reinforcement learning. arXiv preprint arXiv:1312.5602.
-
     '''
 
     def __init__(
         self,
         batch_size,
         layerable_cnn_list,
-        cnn_output_graph=None,
         learning_rate=1e-05,
         computable_loss=None,
         opt_params=None,
         verificatable_result=None,
         pre_learned_path_list=None,
-        pre_learned_output_path=None,
         cnn=None,
         verbose_mode=False
     ):
@@ -66,15 +63,12 @@ class CNNModel(DiscriminativeModel):
         Args:
             batch_size:                     Batch size in mini-batch.
             layerable_cnn_list:             `list` of `LayerableCNN`.
-            cnn_output_graph:               Computation graph which is-a `CNNOutputGraph` to compute parameters in output layer.
             learning_rate:                  Learning rate.
             computable_loss:                is-a `ComputableLoss`.
             opt_params:                     is-a `OptParams`.
             verificatable_result:           is-a `VerificateFunctionApproximation`.
             pre_learned_path_list:          `list` of file path that stored pre-learned parameters.
                                             This parameters will be refered only when `cnn` is `None`.
-
-            pre_learned_output_path:        File path that stores pre-learned parameters.
 
             cnn:                            is-a `ConvolutionalNeuralNetwork` as a model in this class.
                                             If not `None`, `self.__cnn` will be overrided by this `cnn`.
@@ -125,7 +119,6 @@ class CNNModel(DiscriminativeModel):
                 learning_attenuate_rate=0.1,
                 attenuate_epoch=50
             )
-            cnn.setup_output_layer(cnn_output_graph, pre_learned_output_path)
 
         self.__cnn = cnn
         self.__batch_size = batch_size

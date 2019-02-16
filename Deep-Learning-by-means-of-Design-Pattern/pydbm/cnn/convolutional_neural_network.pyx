@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from logging import getLogger
+from pydbm.synapse.cnn_output_graph import CNNOutputGraph
 from pydbm.cnn.layerable_cnn import LayerableCNN
 from pydbm.cnn.feature_generator import FeatureGenerator
 from pydbm.optimization.opt_params import OptParams
@@ -14,7 +15,10 @@ class ConvolutionalNeuralNetwork(object):
     '''
     Convolutional Neural Network.
     '''
-    
+
+    # Computation graph which is-a `CNNOutputGraph` to compute parameters in output layer.
+    __cnn_output_graph = None
+
     def __init__(
         self,
         layerable_cnn_list,
@@ -53,8 +57,6 @@ class ConvolutionalNeuralNetwork(object):
             tol:                            Tolerance for the optimization.
             tld:                            Tolerance for deviation of loss.
             save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.
-            pre_learned_path_list:          `list` of file path that stores pre-learned parameters.
-
         '''
         for layerable_cnn in layerable_cnn_list:
             if isinstance(layerable_cnn, LayerableCNN) is False:
@@ -103,6 +105,25 @@ class ConvolutionalNeuralNetwork(object):
         self.__logger = logger
         
         self.__logger.debug("Setup CNN layers and the parameters.")
+
+    def setup_output_layer(
+        self,
+        cnn_output_graph,
+        pre_learned_path=None
+    ):
+        '''
+        Setup output layer.
+
+        Args:
+            cnn_output_graph:           Computation graph which is-a `CNNOutputGraph` to compute parameters in output layer.
+            pre_learned_path:           File path that stores pre-learned parameters.
+        '''
+        if isinstance(cnn_output_graph, CNNOutputGraph) is False:
+            raise TypeError("The type of `cnn_output_graph` must be `CNNOutputGraph`.")
+
+        self.__cnn_output_graph = cnn_output_graph
+        if self.__cnn_output_graph is not None and pre_learned_path is not None:
+            self.__cnn_output_graph.load_pre_learned_params(pre_learned_path)
 
     def learn(
         self,
@@ -464,7 +485,7 @@ class ConvolutionalNeuralNetwork(object):
         Returns:
             Predicted array like or sparse matrix.
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=4] pred_arr = self.forward_propagation(
+        cdef np.ndarray pred_arr = self.forward_propagation(
             observed_arr
         )
         return pred_arr
@@ -487,9 +508,9 @@ class ConvolutionalNeuralNetwork(object):
                 self.__logger.debug("Error raised in CNN layer " + str(i + 1))
                 raise
 
-        if self.opt_params.dropout_rate > 0:
+        if self.__opt_params.dropout_rate > 0:
             hidden_activity_arr = img_arr.reshape((img_arr.shape[0], -1))
-            hidden_activity_arr = self.opt_params.dropout(hidden_activity_arr)
+            hidden_activity_arr = self.__opt_params.dropout(hidden_activity_arr)
             img_arr = hidden_activity_arr.reshape((
                 img_arr.shape[0],
                 img_arr.shape[1],
@@ -497,9 +518,33 @@ class ConvolutionalNeuralNetwork(object):
                 img_arr.shape[3]
             ))
 
-        return img_arr
+        if self.__cnn_output_graph is not None:
+            return self.output_forward_propagate(img_arr)
+        else:
+            return img_arr
 
-    def back_propagation(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):
+    def output_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=4] pred_arr):
+        '''
+        Forward propagation in output layer.
+        
+        Args:
+            pred_arr:            `np.ndarray` of predicted data points.
+
+        Returns:
+            `np.ndarray` of propagated data points.
+        '''
+        cdef np.ndarray[DOUBLE_t, ndim=2] _pred_arr
+        if self.__cnn_output_graph is not None:
+            _pred_arr = self.__cnn_output_graph.activating_function.activate(
+                np.dot(pred_arr.reshape((pred_arr.shape[0], -1)), self.__cnn_output_graph.weight_arr) + self.__cnn_output_graph.bias_arr
+            )
+            self.__cnn_output_graph.hidden_arr = pred_arr
+            self.__cnn_output_graph.output_arr = _pred_arr
+            return _pred_arr
+        else:
+            return pred_arr
+
+    def back_propagation(self, np.ndarray delta_arr):
         '''
         Back propagation in CNN.
         
@@ -509,9 +554,28 @@ class ConvolutionalNeuralNetwork(object):
         Returns.
             Delta.
         '''
-        if self.opt_params.dropout_rate > 0:
+        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr
+        if self.__cnn_output_graph is not None:
+            if delta_arr.ndim != 2:
+                _delta_arr = delta_arr.reshape((delta_arr.shape[0], -1))
+            else:
+                _delta_arr = delta_arr
+
+            _delta_arr, output_grads_list = self.output_back_propagate(
+                self.__cnn_output_graph.output_arr, 
+                _delta_arr
+            )
+            delta_arr = _delta_arr.reshape((
+                self.__cnn_output_graph.hidden_arr.shape[0],
+                self.__cnn_output_graph.hidden_arr.shape[1],
+                self.__cnn_output_graph.hidden_arr.shape[2],
+                self.__cnn_output_graph.hidden_arr.shape[3]
+            ))
+            self.__cnn_output_graph.output_grads_list = output_grads_list
+
+        if self.__opt_params.dropout_rate > 0:
             hidden_activity_arr = delta_arr.reshape((delta_arr.shape[0], -1))
-            hidden_activity_arr = self.opt_params.de_dropout(hidden_activity_arr)
+            hidden_activity_arr = self.__opt_params.de_dropout(hidden_activity_arr)
             delta_arr = hidden_activity_arr.reshape((
                 delta_arr.shape[0],
                 delta_arr.shape[1],
@@ -533,6 +597,33 @@ class ConvolutionalNeuralNetwork(object):
 
         return delta_arr
 
+    def output_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] pred_arr, np.ndarray[DOUBLE_t, ndim=2] delta_arr):
+        '''
+        Back propagation in output layer.
+
+        Args:
+            pred_arr:            `np.ndarray` of predicted data points.
+            delta_output_arr:    Delta.
+        
+        Returns:
+            Tuple data.
+            - `np.ndarray` of Delta, 
+            - `list` of gradations.
+        '''
+        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = np.dot(
+            delta_arr,
+            self.__cnn_output_graph.weight_arr.T
+        )
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weights_arr = np.dot(pred_arr.T, _delta_arr).T
+        cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = np.sum(delta_arr, axis=0)
+
+        grads_list = [
+            delta_weights_arr,
+            delta_bias_arr
+        ]
+        
+        return (_delta_arr, grads_list)
+
     def optimize(self, double learning_rate, int epoch):
         '''
         Back propagation.
@@ -544,6 +635,13 @@ class ConvolutionalNeuralNetwork(object):
         '''
         params_list = []
         grads_list = []
+
+        if self.__cnn_output_graph is not None:
+            params_list.append(self.__cnn_output_graph.weight_arr)
+            params_list.append(self.__cnn_output_graph.bias_arr)
+            grads_list.append(self.__cnn_output_graph.output_grads_list[0])
+            grads_list.append(self.__cnn_output_graph.output_grads_list[1])
+
         for i in range(len(self.__layerable_cnn_list)):
             if self.__layerable_cnn_list[i].delta_weight_arr.shape[0] > 0:
                 params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
@@ -560,7 +658,10 @@ class ConvolutionalNeuralNetwork(object):
             learning_rate
         )
         
-        params_dict = {}
+        if self.__cnn_output_graph is not None:
+            self.__cnn_output_graph.weight_arr = params_list.pop(0)
+            self.__cnn_output_graph.bias_arr = params_list.pop(0)
+
         i = 0
         for i in range(len(self.__layerable_cnn_list)):
             if self.__layerable_cnn_list[i].delta_weight_arr.shape[0] > 0:
@@ -595,7 +696,10 @@ class ConvolutionalNeuralNetwork(object):
         else:
             file_path += "cnn"
         file_path += "_"
-        
+
+        if self.__cnn_output_graph is not None:
+            self.__cnn_output_graph.save_pre_learned_params(file_path + "_output_layer.npz")
+
         for i in range(len(self.layerable_cnn_list)):
             self.layerable_cnn_list[i].graph.save_pre_learned_params(file_path + str(i) + ".npz")
 

@@ -36,6 +36,9 @@ class EncoderDecoderController(object):
         - Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.
         - Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., & Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.
     '''
+
+    # is-a `ComputableLoss`.
+    __computable_loss = None
     
     def __init__(
         self,
@@ -633,3 +636,13 @@ class EncoderDecoderController(object):
 
         self.__encoder.load_pre_learned_params(dir_path, "encoder")
         self.__decoder.load_pre_learned_params(dir_path, "decoder")
+
+    def get_computable_loss(self):
+        ''' getter '''
+        return self.__computable_loss
+    
+    def set_computable_loss(self, value):
+        ''' setter '''
+        self.__computable_loss = value
+    
+    computable_loss = property(get_computable_loss, set_computable_loss)

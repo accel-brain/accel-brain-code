@@ -26,6 +26,8 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         - Masci, J., Meier, U., Cireşan, D., & Schmidhuber, J. (2011, June). Stacked convolutional auto-encoders for hierarchical feature extraction. In International Conference on Artificial Neural Networks (pp. 52-59). Springer, Berlin, Heidelberg.
 
     '''
+    # Feature points.
+    __feature_points_arr = None
 
     def __init__(
         self,
@@ -129,6 +131,8 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
                 self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
                 raise
 
+        self.__feature_points_arr = img_arr.copy()
+
         if self.opt_params.dropout_rate > 0:
             hidden_activity_arr = img_arr.reshape((img_arr.shape[0], -1))
             hidden_activity_arr = self.opt_params.dropout(hidden_activity_arr)
@@ -191,3 +195,13 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
                 raise
 
         return delta_arr
+
+    def extract_feature_points_arr(self):
+        '''
+        Extract feature points.
+
+        Returns:
+            `np.ndarray` of feature points in hidden layer
+            which means the encoded data.
+        '''
+        return self.__feature_points_arr

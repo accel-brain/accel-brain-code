@@ -103,7 +103,7 @@ class AdversarialAutoEncoders(GenerativeAdversarialNetworks):
         except KeyboardInterrupt:
             print("Keyboard Interrupt.")
 
-        self.__logs_tuple = (d_logs_list, g_logs_list)
+        self.__logs_tuple = (a_logs_list, d_logs_list, g_logs_list)
         return generative_model, discriminative_model
 
     def train_auto_encoder(self, generative_model, a_logs_list):
@@ -122,6 +122,7 @@ class AdversarialAutoEncoders(GenerativeAdversarialNetworks):
 
         Returns:
             The shape is:
+            - The logs of reconstruction error.
             - Probability inferenced by the `discriminator` (mean) in the `discriminator`'s update turn.
             - Probability inferenced by the `discriminator` (mean) in the `generator`'s update turn.
         '''

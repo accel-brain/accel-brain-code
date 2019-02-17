@@ -40,7 +40,7 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
     def __init__(
         self,
         batch_size=20,
-        learning_rate=1e-05,
+        learning_rate=1e-10,
         convolutional_auto_encoder=None,
         gray_scale_flag=True,
         norm_mode="z_score",

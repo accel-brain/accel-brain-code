@@ -15,6 +15,8 @@ class ConvolutionalNeuralNetwork(object):
     '''
     Convolutional Neural Network.
     '''
+    # is-a `ComputableLoss`.
+    __computable_loss = None
     # is-a `OptParams`.
     __opt_params = None
 
@@ -744,3 +746,13 @@ class ConvolutionalNeuralNetwork(object):
         self.__opt_params = value
     
     opt_params = property(get_opt_params, set_opt_params)
+
+    def get_computable_loss(self):
+        ''' getter '''
+        return self.__computable_loss
+    
+    def set_computable_loss(self, value):
+        ''' setter '''
+        self.__computable_loss = value
+
+    computable_loss = property(get_computable_loss, set_computable_loss)

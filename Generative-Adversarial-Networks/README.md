@@ -24,7 +24,7 @@ The source code is currently hosted on GitHub.
 
 Installers for the latest released version are available at the Python package index.
 
-- [pyqlearning : Python Package Index](https://pypi.python.org/pypi/pygan/)
+- [pygan : Python Package Index](https://pypi.python.org/pypi/pygan/)
 
 ### Dependencies
 

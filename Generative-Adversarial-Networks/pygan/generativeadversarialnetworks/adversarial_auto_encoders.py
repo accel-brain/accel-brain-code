@@ -17,6 +17,9 @@ class AdversarialAutoEncoders(GenerativeAdversarialNetworks):
     def __init__(self, gans_value_function=None):
         '''
         Init.
+
+        Args:
+            gans_value_function:        is-a `GANsValueFunction`.
         '''
         if gans_value_function is None:
             gans_value_function = MiniMax()

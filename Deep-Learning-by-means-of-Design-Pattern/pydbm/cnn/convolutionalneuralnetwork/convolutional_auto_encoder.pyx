@@ -88,7 +88,7 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         )
         self.__epochs = epochs
         self.__batch_size = batch_size
-        self.__opt_params = opt_params
+        self.opt_params = opt_params
 
         self.__learning_rate = learning_rate
         self.__learning_attenuate_rate = learning_attenuate_rate
@@ -129,9 +129,9 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
                 self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
                 raise
 
-        if self.__opt_params.dropout_rate > 0:
+        if self.opt_params.dropout_rate > 0:
             hidden_activity_arr = img_arr.reshape((img_arr.shape[0], -1))
-            hidden_activity_arr = self.__opt_params.dropout(hidden_activity_arr)
+            hidden_activity_arr = self.opt_params.dropout(hidden_activity_arr)
             img_arr = hidden_activity_arr.reshape((
                 img_arr.shape[0],
                 img_arr.shape[1],
@@ -170,9 +170,9 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
                 raise
 
         cdef np.ndarray[DOUBLE_t, ndim=2] hidden_activity_arr
-        if self.__opt_params.dropout_rate > 0:
+        if self.opt_params.dropout_rate > 0:
             hidden_activity_arr = delta_arr.reshape((delta_arr.shape[0], -1))
-            hidden_activity_arr = self.__opt_params.de_dropout(hidden_activity_arr)
+            hidden_activity_arr = self.opt_params.de_dropout(hidden_activity_arr)
             delta_arr = hidden_activity_arr.reshape((
                 delta_arr.shape[0],
                 delta_arr.shape[1],

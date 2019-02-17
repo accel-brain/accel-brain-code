@@ -44,7 +44,7 @@ class ImageGenerator(FeatureGenerator):
         '''
         self.__epochs = epochs
         self.__batch_size = batch_size
-        
+
         file_name_list = os.listdir(training_image_dir)
         self.__training_file_path_list = [training_image_dir + file_name for file_name in file_name_list]
         if seq_len is not None and len(self.__training_file_path_list) < seq_len:
@@ -120,6 +120,7 @@ class ImageGenerator(FeatureGenerator):
 
             self.__logger.debug("Generate training data: " + str(_training_data_arr.shape))
             self.__logger.debug("Generate test data: " + str(_test_data_arr.shape))
+            
             yield _training_data_arr, _training_data_arr, _test_data_arr, _test_data_arr
 
     def __read(self, file_path):

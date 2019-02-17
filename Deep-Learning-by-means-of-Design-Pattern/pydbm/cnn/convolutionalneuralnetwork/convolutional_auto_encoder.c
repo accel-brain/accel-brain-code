@@ -1783,7 +1783,6 @@ static const char __pyx_k_ConvolutionalAutoEncoder__epoch[] = "_ConvolutionalAut
 static const char __pyx_k_ConvolutionalAutoEncoder__learn[] = "_ConvolutionalAutoEncoder__learning_rate";
 static const char __pyx_k_ConvolutionalAutoEncoder__logge[] = "_ConvolutionalAutoEncoder__logger";
 static const char __pyx_k_ConvolutionalAutoEncoder__memor[] = "_ConvolutionalAutoEncoder__memory_tuple_list";
-static const char __pyx_k_ConvolutionalAutoEncoder__opt_p[] = "_ConvolutionalAutoEncoder__opt_params";
 static const char __pyx_k_Convolutional_Auto_Encoder_whic[] = "\n    Convolutional Auto-Encoder which is-a `ConvolutionalNeuralNetwork`.\n    \n    A stack of Convolutional Auto-Encoder (Masci, J., et al., 2011) \n    forms a convolutional neural network(CNN), which are among the most successful models \n    for supervised image classification.  Each Convolutional Auto-Encoder is trained \n    using conventional on-line gradient descent without additional regularization terms.\n    \n    In this library, Convolutional Auto-Encoder is also based on Encoder/Decoder scheme.\n    The encoder is to the decoder what the Convolution is to the Deconvolution.\n    The Deconvolution also called transposed convolutions \n    \"work by swapping the forward and backward passes of a convolution.\" (Dumoulin, V., & Visin, F. 2016, p20.)\n\n    References:\n        - Dumoulin, V., & V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.\n        - Masci, J., Meier, U., Cire\305\237an, D., & Schmidhuber, J. (2011, June). Stacked convolutional auto-encoders for hierarchical feature extraction. In International Conference on Artificial Neural Networks (pp. 52-59). Springer, Berlin, Heidelberg.\n\n    ";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
@@ -1817,7 +1816,6 @@ static PyObject *__pyx_n_s_ConvolutionalAutoEncoder__learn_2;
 static PyObject *__pyx_n_s_ConvolutionalAutoEncoder__learn_3;
 static PyObject *__pyx_n_s_ConvolutionalAutoEncoder__logge;
 static PyObject *__pyx_n_s_ConvolutionalAutoEncoder__memor;
-static PyObject *__pyx_n_s_ConvolutionalAutoEncoder__opt_p;
 static PyObject *__pyx_n_s_ConvolutionalAutoEncoder__save;
 static PyObject *__pyx_n_s_ConvolutionalAutoEncoder__test;
 static PyObject *__pyx_n_s_ConvolutionalAutoEncoder__tld;
@@ -2400,7 +2398,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
  *         )
  *         self.__epochs = epochs             # <<<<<<<<<<<<<<
  *         self.__batch_size = batch_size
- *         self.__opt_params = opt_params
+ *         self.opt_params = opt_params
  */
   __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_epochs); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -2411,7 +2409,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
  *         )
  *         self.__epochs = epochs
  *         self.__batch_size = batch_size             # <<<<<<<<<<<<<<
- *         self.__opt_params = opt_params
+ *         self.opt_params = opt_params
  * 
  */
   __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_batch_size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 90, __pyx_L1_error)
@@ -2422,14 +2420,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
   /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":91
  *         self.__epochs = epochs
  *         self.__batch_size = batch_size
- *         self.__opt_params = opt_params             # <<<<<<<<<<<<<<
+ *         self.opt_params = opt_params             # <<<<<<<<<<<<<<
  * 
  *         self.__learning_rate = learning_rate
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalAutoEncoder__opt_p, __pyx_v_opt_params) < 0) __PYX_ERR(0, 91, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_opt_params, __pyx_v_opt_params) < 0) __PYX_ERR(0, 91, __pyx_L1_error)
 
   /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":93
- *         self.__opt_params = opt_params
+ *         self.opt_params = opt_params
  * 
  *         self.__learning_rate = learning_rate             # <<<<<<<<<<<<<<
  *         self.__learning_attenuate_rate = learning_attenuate_rate
@@ -2940,7 +2938,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
  *                 self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
  *                 raise             # <<<<<<<<<<<<<<
  * 
- *         if self.__opt_params.dropout_rate > 0:
+ *         if self.opt_params.dropout_rate > 0:
  */
         __Pyx_GIVEREF(__pyx_t_1);
         __Pyx_GIVEREF(__pyx_t_8);
@@ -2970,11 +2968,11 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
   /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":132
  *                 raise
  * 
- *         if self.__opt_params.dropout_rate > 0:             # <<<<<<<<<<<<<<
+ *         if self.opt_params.dropout_rate > 0:             # <<<<<<<<<<<<<<
  *             hidden_activity_arr = img_arr.reshape((img_arr.shape[0], -1))
- *             hidden_activity_arr = self.__opt_params.dropout(hidden_activity_arr)
+ *             hidden_activity_arr = self.opt_params.dropout(hidden_activity_arr)
  */
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalAutoEncoder__opt_p); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_opt_params); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_dropout_rate); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
@@ -2987,9 +2985,9 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
 
     /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":133
  * 
- *         if self.__opt_params.dropout_rate > 0:
+ *         if self.opt_params.dropout_rate > 0:
  *             hidden_activity_arr = img_arr.reshape((img_arr.shape[0], -1))             # <<<<<<<<<<<<<<
- *             hidden_activity_arr = self.__opt_params.dropout(hidden_activity_arr)
+ *             hidden_activity_arr = self.opt_params.dropout(hidden_activity_arr)
  *             img_arr = hidden_activity_arr.reshape((
  */
     __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_img_arr), __pyx_n_s_reshape); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 133, __pyx_L1_error)
@@ -3074,13 +3072,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
     __pyx_t_10 = 0;
 
     /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":134
- *         if self.__opt_params.dropout_rate > 0:
+ *         if self.opt_params.dropout_rate > 0:
  *             hidden_activity_arr = img_arr.reshape((img_arr.shape[0], -1))
- *             hidden_activity_arr = self.__opt_params.dropout(hidden_activity_arr)             # <<<<<<<<<<<<<<
+ *             hidden_activity_arr = self.opt_params.dropout(hidden_activity_arr)             # <<<<<<<<<<<<<<
  *             img_arr = hidden_activity_arr.reshape((
  *                 img_arr.shape[0],
  */
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalAutoEncoder__opt_p); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 134, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_opt_params); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_dropout); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_17);
@@ -3153,7 +3151,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
 
     /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":135
  *             hidden_activity_arr = img_arr.reshape((img_arr.shape[0], -1))
- *             hidden_activity_arr = self.__opt_params.dropout(hidden_activity_arr)
+ *             hidden_activity_arr = self.opt_params.dropout(hidden_activity_arr)
  *             img_arr = hidden_activity_arr.reshape((             # <<<<<<<<<<<<<<
  *                 img_arr.shape[0],
  *                 img_arr.shape[1],
@@ -3162,7 +3160,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
     __Pyx_GOTREF(__pyx_t_17);
 
     /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":136
- *             hidden_activity_arr = self.__opt_params.dropout(hidden_activity_arr)
+ *             hidden_activity_arr = self.opt_params.dropout(hidden_activity_arr)
  *             img_arr = hidden_activity_arr.reshape((
  *                 img_arr.shape[0],             # <<<<<<<<<<<<<<
  *                 img_arr.shape[1],
@@ -3202,7 +3200,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
     __Pyx_GOTREF(__pyx_t_19);
 
     /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":136
- *             hidden_activity_arr = self.__opt_params.dropout(hidden_activity_arr)
+ *             hidden_activity_arr = self.opt_params.dropout(hidden_activity_arr)
  *             img_arr = hidden_activity_arr.reshape((
  *                 img_arr.shape[0],             # <<<<<<<<<<<<<<
  *                 img_arr.shape[1],
@@ -3271,7 +3269,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
 
     /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":135
  *             hidden_activity_arr = img_arr.reshape((img_arr.shape[0], -1))
- *             hidden_activity_arr = self.__opt_params.dropout(hidden_activity_arr)
+ *             hidden_activity_arr = self.opt_params.dropout(hidden_activity_arr)
  *             img_arr = hidden_activity_arr.reshape((             # <<<<<<<<<<<<<<
  *                 img_arr.shape[0],
  *                 img_arr.shape[1],
@@ -3302,9 +3300,9 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
     /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":132
  *                 raise
  * 
- *         if self.__opt_params.dropout_rate > 0:             # <<<<<<<<<<<<<<
+ *         if self.opt_params.dropout_rate > 0:             # <<<<<<<<<<<<<<
  *             hidden_activity_arr = img_arr.reshape((img_arr.shape[0], -1))
- *             hidden_activity_arr = self.__opt_params.dropout(hidden_activity_arr)
+ *             hidden_activity_arr = self.opt_params.dropout(hidden_activity_arr)
  */
   }
 
@@ -4016,11 +4014,11 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
   /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":173
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=2] hidden_activity_arr
- *         if self.__opt_params.dropout_rate > 0:             # <<<<<<<<<<<<<<
+ *         if self.opt_params.dropout_rate > 0:             # <<<<<<<<<<<<<<
  *             hidden_activity_arr = delta_arr.reshape((delta_arr.shape[0], -1))
- *             hidden_activity_arr = self.__opt_params.de_dropout(hidden_activity_arr)
+ *             hidden_activity_arr = self.opt_params.de_dropout(hidden_activity_arr)
  */
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalAutoEncoder__opt_p); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_opt_params); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 173, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_dropout_rate); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 173, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
@@ -4033,9 +4031,9 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
 
     /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":174
  *         cdef np.ndarray[DOUBLE_t, ndim=2] hidden_activity_arr
- *         if self.__opt_params.dropout_rate > 0:
+ *         if self.opt_params.dropout_rate > 0:
  *             hidden_activity_arr = delta_arr.reshape((delta_arr.shape[0], -1))             # <<<<<<<<<<<<<<
- *             hidden_activity_arr = self.__opt_params.de_dropout(hidden_activity_arr)
+ *             hidden_activity_arr = self.opt_params.de_dropout(hidden_activity_arr)
  *             delta_arr = hidden_activity_arr.reshape((
  */
     __pyx_t_9 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_delta_arr), __pyx_n_s_reshape); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 174, __pyx_L1_error)
@@ -4120,13 +4118,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
     __pyx_t_8 = 0;
 
     /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":175
- *         if self.__opt_params.dropout_rate > 0:
+ *         if self.opt_params.dropout_rate > 0:
  *             hidden_activity_arr = delta_arr.reshape((delta_arr.shape[0], -1))
- *             hidden_activity_arr = self.__opt_params.de_dropout(hidden_activity_arr)             # <<<<<<<<<<<<<<
+ *             hidden_activity_arr = self.opt_params.de_dropout(hidden_activity_arr)             # <<<<<<<<<<<<<<
  *             delta_arr = hidden_activity_arr.reshape((
  *                 delta_arr.shape[0],
  */
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalAutoEncoder__opt_p); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 175, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_opt_params); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 175, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_de_dropout); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 175, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_17);
@@ -4199,7 +4197,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
 
     /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":176
  *             hidden_activity_arr = delta_arr.reshape((delta_arr.shape[0], -1))
- *             hidden_activity_arr = self.__opt_params.de_dropout(hidden_activity_arr)
+ *             hidden_activity_arr = self.opt_params.de_dropout(hidden_activity_arr)
  *             delta_arr = hidden_activity_arr.reshape((             # <<<<<<<<<<<<<<
  *                 delta_arr.shape[0],
  *                 delta_arr.shape[1],
@@ -4208,7 +4206,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
     __Pyx_GOTREF(__pyx_t_17);
 
     /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":177
- *             hidden_activity_arr = self.__opt_params.de_dropout(hidden_activity_arr)
+ *             hidden_activity_arr = self.opt_params.de_dropout(hidden_activity_arr)
  *             delta_arr = hidden_activity_arr.reshape((
  *                 delta_arr.shape[0],             # <<<<<<<<<<<<<<
  *                 delta_arr.shape[1],
@@ -4248,7 +4246,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
     __Pyx_GOTREF(__pyx_t_19);
 
     /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":177
- *             hidden_activity_arr = self.__opt_params.de_dropout(hidden_activity_arr)
+ *             hidden_activity_arr = self.opt_params.de_dropout(hidden_activity_arr)
  *             delta_arr = hidden_activity_arr.reshape((
  *                 delta_arr.shape[0],             # <<<<<<<<<<<<<<
  *                 delta_arr.shape[1],
@@ -4317,7 +4315,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
 
     /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":176
  *             hidden_activity_arr = delta_arr.reshape((delta_arr.shape[0], -1))
- *             hidden_activity_arr = self.__opt_params.de_dropout(hidden_activity_arr)
+ *             hidden_activity_arr = self.opt_params.de_dropout(hidden_activity_arr)
  *             delta_arr = hidden_activity_arr.reshape((             # <<<<<<<<<<<<<<
  *                 delta_arr.shape[0],
  *                 delta_arr.shape[1],
@@ -4348,9 +4346,9 @@ static PyObject *__pyx_pf_5pydbm_3cnn_26convolutionalneuralnetwork_26convolution
     /* "pydbm/cnn/convolutionalneuralnetwork/convolutional_auto_encoder.pyx":173
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=2] hidden_activity_arr
- *         if self.__opt_params.dropout_rate > 0:             # <<<<<<<<<<<<<<
+ *         if self.opt_params.dropout_rate > 0:             # <<<<<<<<<<<<<<
  *             hidden_activity_arr = delta_arr.reshape((delta_arr.shape[0], -1))
- *             hidden_activity_arr = self.__opt_params.de_dropout(hidden_activity_arr)
+ *             hidden_activity_arr = self.opt_params.de_dropout(hidden_activity_arr)
  */
   }
 
@@ -7181,7 +7179,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ConvolutionalAutoEncoder__learn_3, __pyx_k_ConvolutionalAutoEncoder__learn_3, sizeof(__pyx_k_ConvolutionalAutoEncoder__learn_3), 0, 0, 1, 1},
   {&__pyx_n_s_ConvolutionalAutoEncoder__logge, __pyx_k_ConvolutionalAutoEncoder__logge, sizeof(__pyx_k_ConvolutionalAutoEncoder__logge), 0, 0, 1, 1},
   {&__pyx_n_s_ConvolutionalAutoEncoder__memor, __pyx_k_ConvolutionalAutoEncoder__memor, sizeof(__pyx_k_ConvolutionalAutoEncoder__memor), 0, 0, 1, 1},
-  {&__pyx_n_s_ConvolutionalAutoEncoder__opt_p, __pyx_k_ConvolutionalAutoEncoder__opt_p, sizeof(__pyx_k_ConvolutionalAutoEncoder__opt_p), 0, 0, 1, 1},
   {&__pyx_n_s_ConvolutionalAutoEncoder__save, __pyx_k_ConvolutionalAutoEncoder__save, sizeof(__pyx_k_ConvolutionalAutoEncoder__save), 0, 0, 1, 1},
   {&__pyx_n_s_ConvolutionalAutoEncoder__test, __pyx_k_ConvolutionalAutoEncoder__test, sizeof(__pyx_k_ConvolutionalAutoEncoder__test), 0, 0, 1, 1},
   {&__pyx_n_s_ConvolutionalAutoEncoder__tld, __pyx_k_ConvolutionalAutoEncoder__tld, sizeof(__pyx_k_ConvolutionalAutoEncoder__tld), 0, 0, 1, 1},

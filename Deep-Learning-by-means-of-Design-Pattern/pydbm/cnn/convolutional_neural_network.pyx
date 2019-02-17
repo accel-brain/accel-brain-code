@@ -15,6 +15,8 @@ class ConvolutionalNeuralNetwork(object):
     '''
     Convolutional Neural Network.
     '''
+    # is-a `OptParams`.
+    __opt_params = None
 
     # Computation graph which is-a `CNNOutputGraph` to compute parameters in output layer.
     __cnn_output_graph = None
@@ -732,3 +734,13 @@ class ConvolutionalNeuralNetwork(object):
             raise TypeError()
     
     verificatable_result = property(get_verificatable_result, set_verificatable_result)
+
+    def get_opt_params(self):
+        ''' getter '''
+        return self.__opt_params
+    
+    def set_opt_params(self, value):
+        ''' setter '''
+        self.__opt_params = value
+    
+    opt_params = property(get_opt_params, set_opt_params)

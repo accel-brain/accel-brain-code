@@ -29,5 +29,5 @@ class TfidfVectorizer(VectorizableToken):
         Returns:
             [vector of token, vector of token, vector of token, ...]
         '''
-        vector_list = [self.__collection.tf_idf(token, self.__collection) for token in list(set(token_list))]
+        vector_list = [self.__collection.tf_idf(token, self.__collection) for token in token_list]
         return vector_list

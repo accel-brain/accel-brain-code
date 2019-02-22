@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from pysummarization.tokenizable_doc import TokenizableDoc
-import MeCab
 
 
 class SimpleTokenizer(TokenizableDoc):

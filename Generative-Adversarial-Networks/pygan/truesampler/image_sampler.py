@@ -55,4 +55,14 @@ class ImageSampler(TrueSampler):
         for result_tuple in self.__feature_generator.generate():
             observed_arr = result_tuple[0]
             break
+
+        if self.__norm_mode == "z_score":
+            if observed_arr.std() != 0:
+                observed_arr = (observed_arr - observed_arr.mean()) / observed_arr.std()
+        elif self.__norm_mode == "min_max":
+            if (observed_arr.max() - observed_arr.min()) != 0:
+                observed_arr = (observed_arr - observed_arr.min()) / (observed_arr.max() - observed_arr.min())
+        elif self.__norm_mode == "tanh":
+            observed_arr = np.tanh(observed_arr)
+
         return observed_arr

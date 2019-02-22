@@ -85,13 +85,11 @@ class EncoderDecoderModel(GenerativeModel):
         arr = self.inference(observed_arr)
         if arr.shape[2] > 1:
             if self.__norm_mode == "z_score":
-                for i in range(arr.shape[0]):
-                    for seq in range(arr.shape[1]):
-                        arr[i, seq] = (arr[i, seq] - arr[i, seq].mean()) / arr[i, seq].std()
+                if arr.std() != 0:
+                    arr = (arr - arr.mean()) / arr.std()
             elif self.__norm_mode == "min_max":
-                for i in range(arr.shape[0]):
-                    for seq in range(arr.shape[1]):
-                        arr[i, seq] = (arr[i, seq] - arr[i, seq].min()) / (arr[i, seq].max() - arr[i, seq].min())
+                if (arr.max() - arr.min()) != 0:
+                    arr = (arr - arr.min()) / (arr.max() - arr.min())
             elif self.__norm_mode == "tanh":
                 arr = np.tanh(arr)
 

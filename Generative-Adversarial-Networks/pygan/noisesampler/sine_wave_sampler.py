@@ -12,6 +12,7 @@ class SineWaveSampler(NoiseSampler):
         self,
         batch_size,
         seq_len,
+        dim=1,
         amp=0.5,
         sampling_freq=8000,
         freq=440,
@@ -26,6 +27,7 @@ class SineWaveSampler(NoiseSampler):
         Args:
             batch_size:                     Batch size.
             seq_len:                        The length of sequences.
+            dim:                            The number of dimension of observed data points.
             amp:                            Amp.
             sample_freq:                    Sample frequency.
             freq:                           Frequency.
@@ -40,6 +42,7 @@ class SineWaveSampler(NoiseSampler):
         '''
         self.__batch_size = batch_size
         self.__seq_len = seq_len
+        self.__dim = dim
         self.__amp = amp
         self.__sampling_freq = sampling_freq
         self.__freq = freq
@@ -56,13 +59,21 @@ class SineWaveSampler(NoiseSampler):
         '''
         observed_arr = None
         for row in range(self.__batch_size):
-            arr = self.__generate_sin(
-                amp=self.__amp,
-                sampling_freq=self.__sampling_freq,
-                freq=self.__freq,
-                sec=self.__sec,
-                seq_len=self.__seq_len
-            )
+            arr = None
+            for d in range(self.__dim):
+                _arr = self.__generate_sin(
+                    amp=self.__amp,
+                    sampling_freq=self.__sampling_freq,
+                    freq=self.__freq,
+                    sec=self.__sec,
+                    seq_len=self.__seq_len
+                )
+                _arr = np.expand_dims(_arr, axis=0)
+                if arr is None:
+                    arr = _arr
+                else:
+                    arr = np.r_[arr, _arr]
+
             arr = np.expand_dims(arr, axis=0)
 
             if observed_arr is None:
@@ -70,7 +81,10 @@ class SineWaveSampler(NoiseSampler):
             else:
                 observed_arr = np.r_[observed_arr, arr]
 
-        observed_arr = np.expand_dims(observed_arr, axis=-1)
+        if self.__dim == 1:
+            observed_arr = np.expand_dims(observed_arr, axis=-1)
+        
+        observed_arr = observed_arr.transpose((0, 2, 1))
         gauss_noise = np.random.normal(loc=self.__mu, scale=self.__sigma, size=observed_arr.shape)
         return observed_arr + gauss_noise
 

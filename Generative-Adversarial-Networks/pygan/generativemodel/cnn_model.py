@@ -145,11 +145,9 @@ class CNNModel(GenerativeModel):
         observed_arr = self.noise_sampler.generate()
         arr = self.inference(observed_arr)
         if self.__norm_mode == "z_score":
-            for i in range(arr.shape[0]):
-                arr[i] = (arr[i] - arr[i].mean()) / arr[i].std()
+            arr = (arr - arr.mean()) / arr.std()
         elif self.__norm_mode == "min_max":
-            for i in range(arr.shape[0]):
-                arr[i] = (arr[i] - arr[i].min()) / (arr[i].max() - arr[i].min())
+            arr = (arr - arr.min()) / (arr.max() - arr.min())
         elif self.__norm_mode == "tanh":
             arr = np.tanh(arr)
 

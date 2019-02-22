@@ -12,6 +12,7 @@ class SineWaveSampler(TrueSampler):
         self,
         batch_size,
         seq_len,
+        dim=1,
         amp=0.5,
         sampling_freq=8000,
         freq=440,
@@ -26,6 +27,7 @@ class SineWaveSampler(TrueSampler):
         Args:
             batch_size:                     Batch size.
             seq_len:                        The length of sequences.
+            dim:                            The number of dimension of observed data points.
             amp:                            Amp.
             sample_freq:                    Sample frequency.
             freq:                           Frequency.
@@ -40,6 +42,7 @@ class SineWaveSampler(TrueSampler):
         '''
         self.__batch_size = batch_size
         self.__seq_len = seq_len
+        self.__dim = dim
         self.__amp = amp
         self.__sampling_freq = sampling_freq
         self.__freq = freq
@@ -56,13 +59,21 @@ class SineWaveSampler(TrueSampler):
         '''
         observed_arr = None
         for row in range(self.__batch_size):
-            arr = self.__generate_sin(
-                amp=self.__amp,
-                sampling_freq=self.__sampling_freq,
-                freq=self.__freq,
-                sec=self.__sec,
-                seq_len=self.__seq_len
-            )
+            arr = None
+            for d in range(self.__dim):
+                _arr = self.__generate_sin(
+                    amp=self.__amp,
+                    sampling_freq=self.__sampling_freq,
+                    freq=self.__freq,
+                    sec=self.__sec,
+                    seq_len=self.__seq_len
+                )
+                _arr = np.expand_dims(_arr, axis=0)
+                if arr is None:
+                    arr = _arr
+                else:
+                    arr = np.r_[arr, _arr]
+
             arr = np.expand_dims(arr, axis=0)
 
             if observed_arr is None:
@@ -70,9 +81,24 @@ class SineWaveSampler(TrueSampler):
             else:
                 observed_arr = np.r_[observed_arr, arr]
 
-        observed_arr = np.expand_dims(observed_arr, axis=-1)
+        if self.__dim == 1:
+            observed_arr = np.expand_dims(observed_arr, axis=-1)
+        
+        observed_arr = observed_arr.transpose((0, 2, 1))
         gauss_noise = np.random.normal(loc=self.__mu, scale=self.__sigma, size=observed_arr.shape)
-        return observed_arr + gauss_noise
+
+        observed_arr = observed_arr + gauss_noise
+
+        if self.__norm_mode == "z_score":
+            if observed_arr.std() != 0:
+                observed_arr = (observed_arr - observed_arr.mean()) / observed_arr.std()
+        elif self.__norm_mode == "min_max":
+            if (observed_arr.max() - observed_arr.min()) != 0:
+                observed_arr = (observed_arr - observed_arr.min()) / (observed_arr.max() - observed_arr.min())
+        elif self.__norm_mode == "tanh":
+            observed_arr = np.tanh(observed_arr)
+
+        return observed_arr
 
     def __generate_sin(self, amp=0.5, sampling_freq=8000, freq=440, sec=5, seq_len=100):
         sin_list = []

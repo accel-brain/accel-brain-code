@@ -121,11 +121,11 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         _ = self.inference(observed_arr)
         arr = self.__convolutional_auto_encoder.extract_feature_points_arr()
         if self.__norm_mode == "z_score":
-            for i in range(arr.shape[0]):
-                arr[i] = (arr[i] - arr[i].mean()) / arr[i].std()
+            if arr.std() != 0:
+                arr = (arr - arr.mean()) / arr.std()
         elif self.__norm_mode == "min_max":
-            for i in range(arr.shape[0]):
-                arr[i] = (arr[i] - arr[i].min()) / (arr[i].max() - arr[i].min())
+            if (arr.max() - arr.min()) > 0:
+                arr = (arr - arr.min()) / (arr.max() - arr.min())
         elif self.__norm_mode == "tanh":
             arr = np.tanh(arr)
 

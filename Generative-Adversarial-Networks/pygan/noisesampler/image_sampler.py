@@ -77,11 +77,11 @@ class ImageSampler(NoiseSampler):
         observed_arr = observed_arr + self.__add_noise_sampler.generate()
 
         if self.__norm_mode == "z_score":
-            for i in range(observed_arr.shape[0]):
-                observed_arr[i] = (observed_arr[i] - observed_arr[i].mean()) / observed_arr[i].std()
+            if observed_arr.std() != 0:
+                observed_arr = (observed_arr - observed_arr.mean()) / observed_arr.std()
         elif self.__norm_mode == "min_max":
-            for i in range(observed_arr.shape[0]):
-                observed_arr[i] = (observed_arr[i] - observed_arr[i].min()) / (observed_arr[i].max() - observed_arr[i].min())
+            if (observed_arr.max() - observed_arr.min()) != 0:
+                observed_arr = (observed_arr - observed_arr.min()) / (observed_arr.max() - observed_arr.min())
         elif self.__norm_mode == "tanh":
             observed_arr = np.tanh(observed_arr)
         

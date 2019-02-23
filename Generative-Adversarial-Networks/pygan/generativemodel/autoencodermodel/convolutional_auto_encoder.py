@@ -195,11 +195,13 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         error_arr = self.__convolutional_auto_encoder.computable_loss.compute_loss(
             observed_arr,
             inferenced_arr
-        )        
+        )
+
         delta_arr = self.__convolutional_auto_encoder.computable_loss.compute_delta(
             observed_arr,
             inferenced_arr
         )
+
         delta_arr = self.__convolutional_auto_encoder.back_propagation(delta_arr)
         self.__convolutional_auto_encoder.optimize(self.__learning_rate, 1)
 

@@ -43,6 +43,7 @@ class ImageSampler(TrueSampler):
             wh_size_tuple=wh_size_tuple,
             norm_mode=norm_mode
         )
+        self.__norm_mode = norm_mode
 
     def draw(self):
         '''

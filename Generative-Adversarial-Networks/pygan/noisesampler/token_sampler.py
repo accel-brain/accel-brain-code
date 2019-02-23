@@ -2,10 +2,10 @@
 import numpy as np
 from pygan.noise_sampler import NoiseSampler
 from pygan.noisesampler.gauss_sampler import GaussSampler
-from pysummarization.itertextgenerator.iter_sentence_generator import IterSentenceGenerator
+from pysummarization.iter_text_generator import IterTextGenerator
 
 
-class SentenceSampler(NoiseSampler):
+class TokenSampler(NoiseSampler):
     '''
     Sampler which draws samples from the noise prior of tokens.
     '''
@@ -37,7 +37,7 @@ class SentenceSampler(NoiseSampler):
 
             add_noise_sampler:      is-a `NoiseSampler` to add noise to image feature.
         '''
-        self.__iter_text_generator = IterSentenceGenerator(
+        self.__iter_text_generator = IterTextGenerator(
                 document=document,
                 nlp_base=nlp_base,
                 tokenizable_doc=tokenizable_doc,
@@ -48,9 +48,9 @@ class SentenceSampler(NoiseSampler):
         )
         if add_noise_sampler is None:
             if seq_len is None:
-                output_shape = (batch_size, 1, 1, self.__iter_text_generator.vector_dim)
+                output_shape = (batch_size, self.__iter_text_generator.vector_dim)
             else:
-                output_shape = (batch_size, 1, seq_len, self.__iter_text_generator.vector_dim)
+                output_shape = (batch_size, seq_len, self.__iter_text_generator.vector_dim)
 
             self.__add_noise_sampler = GaussSampler(
                 mu=0.0, 

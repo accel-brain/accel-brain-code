@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 from pygan.true_sampler import TrueSampler
-from pysummarization.iter_text_generator import IterTextGenerator
+from pysummarization.itertextgenerator.iter_sentence_generator import IterSentenceGenerator
 
 
 class SentenceSampler(TrueSampler):
@@ -15,7 +15,6 @@ class SentenceSampler(TrueSampler):
         nlp_base,
         tokenizable_doc,
         vectorizable_token,
-        computable_similarity,
         batch_size=20,
         seq_len=10,
         norm_mode="z_score"
@@ -27,7 +26,6 @@ class SentenceSampler(TrueSampler):
             document:               `str` of all sentence.
             tokenizable_doc:        is-a `TokenizableDoc`.
             vectorizable_token:     is-a `VectorizableToken`.
-            computable_similarity:  is-a `ComputableSimilarity`.
             batch_size:             Batch size.
             seq_len:                The length of sequence.
             norm_mode:              How to normalize pixel values of images.
@@ -35,12 +33,11 @@ class SentenceSampler(TrueSampler):
                                     - `min_max`: Min-max normalization.
                                     - `tanh`: Normalization by tanh function.
         '''
-        self.__iter_text_generator = IterTextGenerator(
+        self.__iter_text_generator = IterSentenceGenerator(
                 document=document,
                 nlp_base=nlp_base,
                 tokenizable_doc=tokenizable_doc,
                 vectorizable_token=vectorizable_token,
-                computable_similarity=computable_similarity,
                 epochs=1,
                 batch_size=batch_size,
                 seq_len=seq_len

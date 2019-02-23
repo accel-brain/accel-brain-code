@@ -7,7 +7,20 @@ from pydbm.loss.interface.computable_loss import ComputableLoss
 class MeanSquaredError(ComputableLoss):
     '''
     The mean squared error (MSE).
+
+    References:
+        - Pascanu, R., Mikolov, T., & Bengio, Y. (2012). Understanding the exploding gradient problem. CoRR, abs/1211.5063, 2.
+        - Pascanu, R., Mikolov, T., & Bengio, Y. (2013, February). On the difficulty of training recurrent neural networks. In International conference on machine learning (pp. 1310-1318).
     '''
+
+    def __init__(self, grad_clip_threshold=150.0):
+        '''
+        Init.
+
+        Args:
+            grad_clip_threshold:    Threshold of the gradient clipping.
+        '''
+        self.__grad_clip_threshold = grad_clip_threshold
 
     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):
         '''
@@ -22,7 +35,13 @@ class MeanSquaredError(ComputableLoss):
         Returns:
             Cost.
         '''
-        return np.square(labeled_arr - pred_arr).mean(axis=axis)
+        cdef int batch_size = labeled_arr.shape[0]
+        cdef np.ndarray diff_arr = (labeled_arr - pred_arr) / batch_size
+        v = np.linalg.norm(diff_arr)
+        if v > self.__grad_clip_threshold:
+            diff_arr = diff_arr * self.__grad_clip_threshold / v
+
+        return np.square(diff_arr).mean(axis=axis)
 
     def compute_delta(self, np.ndarray pred_arr, np.ndarray labeled_arr, delta_output=1):
         '''
@@ -36,5 +55,10 @@ class MeanSquaredError(ComputableLoss):
         Returns:
             Delta.
         '''
-        batch_size = labeled_arr.shape[0]
-        return (pred_arr - labeled_arr) / batch_size * delta_output
+        cdef int batch_size = labeled_arr.shape[0]
+        cdef np.ndarray delta_arr = (pred_arr - labeled_arr) / batch_size * delta_output
+        v = np.linalg.norm(delta_arr)
+        if v > self.__grad_clip_threshold:
+            delta_arr = delta_arr * self.__grad_clip_threshold / v
+
+        return delta_arr

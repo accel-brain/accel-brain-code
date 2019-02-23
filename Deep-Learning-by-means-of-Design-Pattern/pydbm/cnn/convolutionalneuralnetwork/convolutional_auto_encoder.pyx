@@ -147,6 +147,7 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         for i in range(len(layerable_cnn_list)):
             try:
                 img_arr, _ = layerable_cnn_list[i].deconvolve(img_arr)
+                img_arr = layerable_cnn_list[i].graph.activation_function.activate(img_arr)
             except:
                 self.__logger.debug("Error raised in Deconvolution layer " + str(i + 1))
                 raise

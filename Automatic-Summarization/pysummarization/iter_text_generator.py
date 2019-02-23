@@ -3,12 +3,11 @@ import numpy as np
 from pysummarization.nlp_base import NlpBase
 from pysummarization.tokenizable_doc import TokenizableDoc
 from pysummarization.vectorizable_token import VectorizableToken
-from pysummarization.computable_similarity import ComputableSimilarity
 
 
 class IterTextGenerator(object):
     '''
-    Iterator/Generator that generates vectors of sentence.
+    Iterator/Generator that generates vectors of tokens.
     '''
 
     def __init__(
@@ -17,7 +16,6 @@ class IterTextGenerator(object):
         nlp_base,
         tokenizable_doc,
         vectorizable_token,
-        computable_similarity,
         epochs=10,
         batch_size=20,
         seq_len=10
@@ -29,7 +27,6 @@ class IterTextGenerator(object):
             document:               `str` of all sentence.
             tokenizable_doc:        is-a `TokenizableDoc`.
             vectorizable_token:     is-a `VectorizableToken`.
-            computable_similarity:  is-a `ComputableSimilarity`.
             epochs:                 Epochs.
             batch_size:             Batch size.
             seq_len:                The length of sequence.
@@ -37,8 +34,6 @@ class IterTextGenerator(object):
         if isinstance(tokenizable_doc, TokenizableDoc) is False:
             raise TypeError()
         if isinstance(vectorizable_token, VectorizableToken) is False:
-            raise TypeError()
-        if isinstance(computable_similarity, ComputableSimilarity) is False:
             raise TypeError()
 
         token_list = tokenizable_doc.tokenize(document)
@@ -62,8 +57,6 @@ class IterTextGenerator(object):
         self.__epochs = epochs
         self.__batch_size = batch_size
         self.__seq_len = seq_len
-
-        self.__computable_similarity = computable_similarity
 
     def generate_uniform(self):
         '''
@@ -114,26 +107,6 @@ class IterTextGenerator(object):
                     token_arr[row, :] = self.__token_arr[key:key+self.__seq_len]
 
             yield vector_arr, token_arr
-
-    def convert_vector_into_token(self, vector_arr):
-        '''
-        Convert vectors into token, which is similar to the input vectors.
-
-        Args:
-            vector_arr:     `np.ndarray` of vector.
-        
-        Returns:
-            Tuple data.
-            - `np.ndarray` of vectors.
-            - `np.ndarray` of tokens.
-            - `list` of sentences.
-        '''
-        similarity_arr = self.__computable_similarity.compute(vector_arr, self.__sentence_vector_arr)
-        return (
-            self.__sentence_vector_arr[np.argmax(similarity_arr)],
-            self.__sentence_token_arr[np.argmax(similarity_arr)],
-            self.__sentence_list[np.argmax(similarity_arr)]
-        )
 
     def get_vector_dim(self):
         ''' getter '''

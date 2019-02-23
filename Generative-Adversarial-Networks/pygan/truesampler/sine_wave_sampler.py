@@ -42,6 +42,10 @@ class SineWaveSampler(TrueSampler):
         '''
         self.__batch_size = batch_size
         self.__seq_len = seq_len
+
+        if dim <= 1:
+            raise ValueError("`dim` must be more than `2`.")
+
         self.__dim = dim
         self.__amp = amp
         self.__sampling_freq = sampling_freq
@@ -49,6 +53,7 @@ class SineWaveSampler(TrueSampler):
         self.__sec = sec
         self.__mu = mu
         self.__sigma = sigma
+        self.__norm_mode = norm_mode
 
     def draw(self):
         '''
@@ -81,12 +86,8 @@ class SineWaveSampler(TrueSampler):
             else:
                 observed_arr = np.r_[observed_arr, arr]
 
-        if self.__dim == 1:
-            observed_arr = np.expand_dims(observed_arr, axis=-1)
-        
         observed_arr = observed_arr.transpose((0, 2, 1))
         gauss_noise = np.random.normal(loc=self.__mu, scale=self.__sigma, size=observed_arr.shape)
-
         observed_arr = observed_arr + gauss_noise
 
         if self.__norm_mode == "z_score":

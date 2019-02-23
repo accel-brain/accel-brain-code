@@ -42,6 +42,10 @@ class SineWaveSampler(NoiseSampler):
         '''
         self.__batch_size = batch_size
         self.__seq_len = seq_len
+
+        if dim <= 1:
+            raise ValueError("`dim` must be more than `2`.")
+
         self.__dim = dim
         self.__amp = amp
         self.__sampling_freq = sampling_freq
@@ -49,6 +53,7 @@ class SineWaveSampler(NoiseSampler):
         self.__sec = sec
         self.__mu = mu
         self.__sigma = sigma
+        self.__norm_mode = norm_mode
 
     def generate(self):
         '''
@@ -81,12 +86,19 @@ class SineWaveSampler(NoiseSampler):
             else:
                 observed_arr = np.r_[observed_arr, arr]
 
-        if self.__dim == 1:
-            observed_arr = np.expand_dims(observed_arr, axis=-1)
-        
         observed_arr = observed_arr.transpose((0, 2, 1))
         gauss_noise = np.random.normal(loc=self.__mu, scale=self.__sigma, size=observed_arr.shape)
-        return observed_arr + gauss_noise
+        observed_arr = observed_arr + gauss_noise
+        if self.__norm_mode == "z_score":
+            if observed_arr.std() != 0:
+                observed_arr = (observed_arr - observed_arr.mean()) / observed_arr.std()
+        elif self.__norm_mode == "min_max":
+            if (observed_arr.max() - observed_arr.min()) != 0:
+                observed_arr = (observed_arr - observed_arr.min()) / (observed_arr.max() - observed_arr.min())
+        elif self.__norm_mode == "tanh":
+            observed_arr = np.tanh(observed_arr)
+
+        return observed_arr
 
     def __generate_sin(self, amp=0.5, sampling_freq=8000, freq=440, sec=5, seq_len=100):
         sin_list = []

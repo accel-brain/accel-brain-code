@@ -149,15 +149,6 @@ class Convolutional1DAutoEncoder(Convolutional1DNeuralNetwork):
         '''
         cdef int i = 0
 
-        """
-        for i in range(len(self.layerable_cnn_list)):
-            try:
-                delta_arr = self.layerable_cnn_list[i].convolve(delta_arr, no_bias_flag=True)
-            except:
-                self.__logger.debug("Backward raised error in Convolution layer " + str(i + 1))
-                raise
-        """
-
         if self.opt_params.dropout_rate > 0:
             delta_arr = self.opt_params.de_dropout(delta_arr)
 

@@ -43,6 +43,8 @@ class Adam(OptParams):
         if len(params_list) != len(grads_list):
             raise ValueError("The row of `params_list` and `grads_list` must be equivalent.")
 
+        grads_list = self.clip_grads(grads_list)
+
         if len(self.__first_moment_list) == 0 or len(self.__first_moment_list) != len(params_list):
             self.__first_moment_list = [np.zeros_like(params_list[i]) for i in range(len(params_list))]
         if len(self.__second_moment_list) == 0 or len(self.__second_moment_list) != len(params_list):

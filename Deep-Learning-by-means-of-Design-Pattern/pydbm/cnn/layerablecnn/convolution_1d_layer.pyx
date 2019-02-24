@@ -88,8 +88,8 @@ class Convolution1DLayer(LayerableCNN):
         delta_arr = self.deconvolve(delta_arr)
         weight_arr = np.array([self.graph.weight_arr] * delta_arr.shape[0])
 
-        cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = delta_arr.sum(axis=0)
-        cdef np.ndarray[DOUBLE_t, ndim=1] delta_weight_arr = np.dot(weight_arr.T, delta_arr).sum(axis=1)
+        cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = delta_arr.mean(axis=0)
+        cdef np.ndarray[DOUBLE_t, ndim=1] delta_weight_arr = np.dot(weight_arr.T, delta_arr).mean(axis=1)
         if self.__delta_bias_arr is None:
             self.__delta_bias_arr = delta_bias_arr
         else:
@@ -128,36 +128,6 @@ class Convolution1DLayer(LayerableCNN):
         return self.__graph
 
     graph = property(get_graph, set_readonly)
-
-    def get_img_arr(self):
-        ''' getter '''
-        return self.__img_arr
-
-    def set_img_arr(self, value):
-        ''' setter '''
-        self.__img_arr = value
-
-    img_arr = property(get_img_arr, set_img_arr)
-
-    def get_reshaped_img_arr(self):
-        ''' getter '''
-        return self.__reshaped_img_arr
-
-    def set_reshaped_img_arr(self, value):
-        ''' setter '''
-        self.__reshaped_img_arr = value
-    
-    reshaped_img_arr = property(get_reshaped_img_arr, set_reshaped_img_arr)
-    
-    def get_reshaped_weight_arr(self):
-        ''' getter '''
-        return self.__reshaped_weight_arr
-
-    def set_reshaped_weight_arr(self, value):
-        ''' setter '''
-        self.__reshaped_weight_arr = value
-    
-    reshaped_weight_arr = property(get_reshaped_weight_arr, set_reshaped_weight_arr)
 
     def get_delta_weight_arr(self):
         ''' getter '''

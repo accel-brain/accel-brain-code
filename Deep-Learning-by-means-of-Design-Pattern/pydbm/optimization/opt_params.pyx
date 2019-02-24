@@ -10,6 +10,8 @@ class OptParams(metaclass=ABCMeta):
     
     References:
         - Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.
+        - Pascanu, R., Mikolov, T., & Bengio, Y. (2012). Understanding the exploding gradient problem. CoRR, abs/1211.5063, 2.
+        - Pascanu, R., Mikolov, T., & Bengio, Y. (2013, February). On the difficulty of training recurrent neural networks. In International conference on machine learning (pp. 1310-1318).
         - Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. (2014). Dropout: a simple way to prevent neural networks from overfitting. The Journal of Machine Learning Research, 15(1), 1929-1958.
         - Zaremba, W., Sutskever, I., & Vinyals, O. (2014). Recurrent neural network regularization. arXiv preprint arXiv:1409.2329.
     '''
@@ -27,6 +29,9 @@ class OptParams(metaclass=ABCMeta):
 
     # Inferencing mode or not.
     __inferencing_mode = False
+
+    # Threshold of the gradient clipping.
+    __grad_clip_threshold = 10.0
 
     @abstractmethod
     def optimize(self, params_list, np.ndarray grads_arr, double learning_rate):
@@ -149,6 +154,23 @@ class OptParams(metaclass=ABCMeta):
         )[0]
         return delta_arr
 
+    def clip_grads(self, grads_list):
+        '''
+        Clip gradients.
+
+        Args:
+            grads_list:      `list` of gradients.
+        
+        Returns:
+            `list` of gradients.
+        '''
+        for i in range(len(grads_list)):
+            v = np.linalg.norm(grads_list[i])
+            if v > self.grad_clip_threshold:
+                grads_list[i] = grads_list[i] * self.grad_clip_threshold / v
+
+        return grads_list
+
     def get_weight_limit(self):
         ''' getter '''
         return self.__weight_limit
@@ -184,3 +206,17 @@ class OptParams(metaclass=ABCMeta):
         self.__inferencing_mode = value
     
     inferencing_mode = property(get_inferencing_mode, set_inferencing_mode)
+
+    def get_grad_clip_threshold(self):
+        '''
+        getter for the threshold of the gradient clipping.
+        '''
+        return self.__grad_clip_threshold
+
+    def set_grad_clip_threshold(self, value):
+        '''
+        setter for the threshold of the gradient clipping.
+        '''
+        self.__grad_clip_threshold = value
+    
+    grad_clip_threshold = property(get_grad_clip_threshold, set_grad_clip_threshold)

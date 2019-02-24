@@ -86,7 +86,11 @@ class EncoderDecoder(VectorizableSentence):
         Init.
         
         Args:
-            sentence_list:                  The `list` of sentences.
+            sentence_list:                  The list of tokenized sentences.
+                                            [[`token`, `token`, `token`, ...],
+                                            [`token`, `token`, `token`, ...],
+                                            [`token`, `token`, `token`, ...]]
+
             token_master_list:              Unique `list` of tokens.
             hidden_neuron_count:            The number of units in hidden layer.
             epochs:                         Epochs of Mini-batch.

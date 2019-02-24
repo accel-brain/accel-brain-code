@@ -1078,7 +1078,7 @@ class ConvLSTMModel(ReconstructableModel):
 
         cdef np.ndarray[DOUBLE_t, ndim=4] _delta_hidden_arr
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_hidden_arr
-        cdef np.ndarray delta_rnn_arr = np.array([])
+        cdef np.ndarray delta_cec_arr = np.array([])
 
         cdef int bp_count = 0
         cdef int cycle
@@ -1088,9 +1088,9 @@ class ConvLSTMModel(ReconstructableModel):
             else:
                 _delta_hidden_arr = delta_hidden_arr
 
-            delta_hidden_arr, delta_rnn_arr = self.lstm_backward(
+            delta_hidden_arr, delta_cec_arr = self.lstm_backward(
                 _delta_hidden_arr,
-                delta_rnn_arr,
+                delta_cec_arr,
                 cycle
             )
             if delta_arr is None:
@@ -1196,7 +1196,7 @@ class ConvLSTMModel(ReconstructableModel):
     def lstm_backward(
         self,
         np.ndarray[DOUBLE_t, ndim=4] delta_hidden_arr,
-        np.ndarray delta_rnn_arr,
+        np.ndarray delta_cec_arr,
         int cycle
     ):
         '''
@@ -1204,7 +1204,7 @@ class ConvLSTMModel(ReconstructableModel):
         
         Args:
             delta_hidden_arr:   Delta from output layer to hidden layer.
-            delta_rnn_arr:      Delta in LSTM gate.
+            delta_cec_arr:      Delta in LSTM gate.
             cycle:              Now cycle or time.
 
         Returns:
@@ -1228,12 +1228,12 @@ class ConvLSTMModel(ReconstructableModel):
             cec_activity_arr
         )
 
-        if delta_rnn_arr.shape[0] == 0:
-            delta_rnn_arr = np.zeros_like(delta_hidden_arr)
+        if delta_cec_arr.shape[0] == 0:
+            delta_cec_arr = np.zeros_like(delta_hidden_arr)
 
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_top_arr = np.nanprod(
             np.array([
-                delta_rnn_arr,
+                delta_cec_arr,
                 np.nansum(
                     np.array([
                         delta_hidden_arr,

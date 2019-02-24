@@ -414,7 +414,10 @@ class LSTMModel(ReconstructableModel):
                 self.graph.output_bias_arr,
                 self.graph.weights_lstm_hidden_arr,
                 self.graph.weights_lstm_observed_arr,
-                self.graph.lstm_bias_arr
+                self.graph.lstm_bias_arr,
+                self.graph.weights_input_cec_arr,
+                self.graph.weights_forget_cec_arr,
+                self.graph.weights_output_cec_arr
             ],
             grads_list,
             learning_rate
@@ -424,11 +427,17 @@ class LSTMModel(ReconstructableModel):
         self.graph.weights_lstm_hidden_arr = params_list[2]
         self.graph.weights_lstm_observed_arr = params_list[3]
         self.graph.lstm_bias_arr = params_list[4]
+        self.graph.weights_input_cec_arr = params_list[5]
+        self.graph.weights_forget_cec_arr = params_list[6]
+        self.graph.weights_output_cec_arr = params_list[7]
 
         if ((epoch + 1) % self.__attenuate_epoch == 0):
             self.graph.weights_output_arr = self.__opt_params.constrain_weight(self.graph.weights_output_arr)
             self.graph.weights_lstm_hidden_arr = self.__opt_params.constrain_weight(self.graph.weights_lstm_hidden_arr)
             self.graph.weights_lstm_observed_arr = self.__opt_params.constrain_weight(self.graph.weights_lstm_observed_arr)
+            self.graph.weights_input_cec_arr = self.__opt_params.constrain_weight(self.graph.weights_input_cec_arr)
+            self.graph.weights_forget_cec_arr = self.__opt_params.constrain_weight(self.graph.weights_forget_cec_arr)
+            self.graph.weights_output_cec_arr = self.__opt_params.constrain_weight(self.graph.weights_output_cec_arr)
 
     def inference(
         self,
@@ -588,11 +597,11 @@ class LSTMModel(ReconstructableModel):
 
         cdef np.ndarray[DOUBLE_t, ndim=3] delta_arr = np.empty((sample_n, cycle_len, dim), dtype=np.float64)
 
-        grads_list = [0, 0, 0]
+        grads_list = [0, 0, 0, 0, 0, 0]
         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_hidden_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_observed_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_hidden_arr
-        cdef np.ndarray delta_rnn_arr = np.array([])
+        cdef np.ndarray delta_cec_arr = np.array([])
 
         cdef int bp_count = 0
         cdef int cycle
@@ -602,9 +611,9 @@ class LSTMModel(ReconstructableModel):
             else:
                 _delta_hidden_arr = delta_hidden_arr
 
-            delta_observed_arr, delta_hidden_arr, delta_rnn_arr, grad_list = self.lstm_backward(
+            delta_observed_arr, delta_hidden_arr, delta_cec_arr, grad_list = self.lstm_backward(
                 _delta_hidden_arr,
-                delta_rnn_arr,
+                delta_cec_arr,
                 cycle
             )
             delta_arr[:, cycle, :] = delta_observed_arr
@@ -655,15 +664,21 @@ class LSTMModel(ReconstructableModel):
             self.graph.weights_lstm_hidden_arr
         ) + self.graph.lstm_bias_arr
 
+        cdef np.ndarray[DOUBLE_t, ndim=2] no_cec_i_arr = lstm_matrix[:, h_col:h_col * 2]
+        cdef np.ndarray[DOUBLE_t, ndim=2] no_cec_f_arr = lstm_matrix[:, h_col * 2:h_col * 3]
+        cdef np.ndarray[DOUBLE_t, ndim=2] no_cec_o_arr = lstm_matrix[:, h_col * 3:]
+
         cdef np.ndarray[DOUBLE_t, ndim=2] given_activity_arr = lstm_matrix[:, :h_col]
         cdef np.ndarray[DOUBLE_t, ndim=2] input_gate_activity_arr = lstm_matrix[:, h_col:h_col * 2]
         cdef np.ndarray[DOUBLE_t, ndim=2] forget_gate_activity_arr = lstm_matrix[:, h_col * 2:h_col * 3]
         cdef np.ndarray[DOUBLE_t, ndim=2] output_gate_activity_arr = lstm_matrix[:, h_col * 3:]
 
+        input_gate_activity_arr += np.dot(cec_activity_arr, self.graph.weights_input_cec_arr)
+        forget_gate_activity_arr += np.dot(cec_activity_arr, self.graph.weights_forget_cec_arr)
+
         given_activity_arr = self.graph.observed_activating_function.activate(given_activity_arr)
         input_gate_activity_arr = self.graph.input_gate_activating_function.activate(input_gate_activity_arr)
         forget_gate_activity_arr = self.graph.forget_gate_activating_function.activate(forget_gate_activity_arr)
-        output_gate_activity_arr = self.graph.output_gate_activating_function.activate(output_gate_activity_arr)
 
         cdef np.ndarray[DOUBLE_t, ndim=2] _cec_activity_arr = np.nansum(
             np.array([
@@ -685,6 +700,9 @@ class LSTMModel(ReconstructableModel):
             axis=0
         )[0]
 
+        output_gate_activity_arr += np.dot(_cec_activity_arr, self.graph.weights_output_cec_arr)
+        output_gate_activity_arr = self.graph.output_gate_activating_function.activate(output_gate_activity_arr)
+
         cdef np.ndarray[DOUBLE_t, ndim=2] _hidden_activity_arr = np.nanprod(
             np.array([
                 np.expand_dims(output_gate_activity_arr, axis=0),
@@ -702,14 +720,17 @@ class LSTMModel(ReconstructableModel):
             forget_gate_activity_arr, 
             output_gate_activity_arr, 
             _cec_activity_arr,
-            _hidden_activity_arr
+            _hidden_activity_arr,
+            no_cec_i_arr,
+            no_cec_f_arr,
+            no_cec_o_arr
         ))
         return (_hidden_activity_arr, _cec_activity_arr)
 
     def lstm_backward(
         self,
         np.ndarray[DOUBLE_t, ndim=2] delta_hidden_arr,
-        np.ndarray delta_rnn_arr,
+        np.ndarray delta_cec_arr,
         int cycle
     ):
         '''
@@ -717,7 +738,7 @@ class LSTMModel(ReconstructableModel):
         
         Args:
             delta_hidden_arr:   Delta from output layer to hidden layer.
-            delta_rnn_arr:      Delta in LSTM gate.
+            delta_cec_arr:      Delta in LSTM gate.
             cycle:              Now cycle or time.
 
         Returns:
@@ -735,15 +756,19 @@ class LSTMModel(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=2] forget_gate_activity_arr = self.__memory_tuple_list[cycle][5]
         cdef np.ndarray[DOUBLE_t, ndim=2] output_gate_activity_arr = self.__memory_tuple_list[cycle][6]
         cdef np.ndarray[DOUBLE_t, ndim=2] cec_activity_arr = self.__memory_tuple_list[cycle][7]
+        cdef np.ndarray[DOUBLE_t, ndim=2] no_cec_i_arr = self.__memory_tuple_list[cycle][8]
+        cdef np.ndarray[DOUBLE_t, ndim=2] no_cec_f_arr = self.__memory_tuple_list[cycle][9]
+        cdef np.ndarray[DOUBLE_t, ndim=2] no_cec_o_arr = self.__memory_tuple_list[cycle][10]
+
 
         cdef np.ndarray[DOUBLE_t, ndim=2] _cec_activity_arr = self.graph.hidden_activating_function.activate(cec_activity_arr)
 
-        if delta_rnn_arr.shape[0] == 0:
-            delta_rnn_arr = np.zeros((delta_hidden_arr.shape[0], delta_hidden_arr.shape[1]))
+        if delta_cec_arr.shape[0] == 0:
+            delta_cec_arr = np.zeros((delta_hidden_arr.shape[0], delta_hidden_arr.shape[1]))
 
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_top_arr = np.nanprod(
             np.array([
-                delta_rnn_arr,
+                delta_cec_arr,
                 np.nansum(
                     np.array([
                         delta_hidden_arr,
@@ -792,6 +817,16 @@ class LSTMModel(ReconstructableModel):
             axis=0
         )
 
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weights_o_cec_arr = np.dot(
+            no_cec_o_arr.T, delta_output_gate_arr 
+        )
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weights_f_cec_arr = np.dot(
+            no_cec_f_arr.T, delta_forget_gate_arr 
+        )
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weights_i_cec_arr = np.dot(
+            no_cec_i_arr.T, delta_input_gate_arr 
+        )
+
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_lstm_matrix = np.hstack([
             delta_output_gate_arr,
             delta_forget_gate_arr,
@@ -806,7 +841,10 @@ class LSTMModel(ReconstructableModel):
         grad_list = [
             delta_weights_h_arr,
             delta_weights_x_arr,
-            delta_bias_arr
+            delta_bias_arr,
+            delta_weights_i_cec_arr,
+            delta_weights_f_cec_arr,
+            delta_weights_o_cec_arr
         ]
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_observed_arr = np.dot(delta_lstm_matrix, delta_weights_x_arr.T)
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_pre_hidden_arr = np.dot(delta_lstm_matrix, delta_weights_h_arr.T)

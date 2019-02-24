@@ -165,6 +165,63 @@ class LSTMGraph(RecurrentTemporalGraph):
     
     weights_lstm_hidden_arr = property(get_weights_lstm_hidden_arr, set_weights_lstm_hidden_arr)
 
+    # Weight matrix of the CEC for input gate.
+    __weights_input_cec_arr = np.array([])
+
+    def get_weights_input_cec_arr(self):
+        ''' getter '''
+        if isinstance(self.__weights_input_cec_arr, np.ndarray) is False:
+            raise TypeError("The type of __weights_input_cec_arr must be `np.ndarray`.")
+
+        return self.__weights_input_cec_arr
+
+    def set_weights_input_cec_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __weights_input_cec_arr must be `np.ndarray`.")
+
+        self.__weights_input_cec_arr = value
+    
+    weights_input_cec_arr = property(get_weights_input_cec_arr, set_weights_input_cec_arr)
+
+    # Weight matrix of the CEC for forget gate.
+    __weights_forget_cec_arr = np.array([])
+
+    def get_weights_forget_cec_arr(self):
+        ''' getter '''
+        if isinstance(self.__weights_forget_cec_arr, np.ndarray) is False:
+            raise TypeError("The type of __weights_forget_cec_arr must be `np.ndarray`.")
+
+        return self.__weights_forget_cec_arr
+
+    def set_weights_forget_cec_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __weights_forget_cec_arr must be `np.ndarray`.")
+
+        self.__weights_forget_cec_arr = value
+    
+    weights_forget_cec_arr = property(get_weights_forget_cec_arr, set_weights_forget_cec_arr)
+
+    # Weight matrix of the CEC for output gate.
+    __weights_output_cec_arr = np.array([])
+
+    def get_weights_output_cec_arr(self):
+        ''' getter '''
+        if isinstance(self.__weights_output_cec_arr, np.ndarray) is False:
+            raise TypeError("The type of __weights_output_cec_arr must be `np.ndarray`.")
+
+        return self.__weights_output_cec_arr
+
+    def set_weights_output_cec_arr(self, value):
+        ''' setter '''
+        if isinstance(value, np.ndarray) is False:
+            raise TypeError("The type of __weights_output_cec_arr must be `np.ndarray`.")
+
+        self.__weights_output_cec_arr = value
+    
+    weights_output_cec_arr = property(get_weights_output_cec_arr, set_weights_output_cec_arr)
+
 
     # Bias of neuron in output layer.
     __output_bias_arr = np.array([])
@@ -455,8 +512,10 @@ class LSTMGraph(RecurrentTemporalGraph):
 
         self.weights_lstm_observed_arr = np.random.normal(size=(input_neuron_count, hidden_neuron_count * 4)).astype(np.float16) * 0.1
         self.weights_lstm_hidden_arr = np.random.normal(size=(hidden_neuron_count, hidden_neuron_count * 4)).astype(np.float16) * 0.1
+        self.weights_input_cec_arr = np.random.normal(size=(hidden_neuron_count, hidden_neuron_count)).astype(np.float16) * 0.1
+        self.weights_forget_cec_arr = np.random.normal(size=(hidden_neuron_count, hidden_neuron_count)).astype(np.float16) * 0.1
+        self.weights_output_cec_arr = np.random.normal(size=(hidden_neuron_count, hidden_neuron_count)).astype(np.float16) * 0.1
         self.lstm_bias_arr = np.zeros(hidden_neuron_count * 4).astype(np.float16)
-
         self.weights_output_arr = np.random.normal(size=(hidden_neuron_count, output_neuron_count)).astype(np.float16) * 0.1
         self.output_bias_arr = np.zeros(output_neuron_count).astype(np.float16)
 

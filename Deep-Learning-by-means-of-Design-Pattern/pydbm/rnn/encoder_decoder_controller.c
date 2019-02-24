@@ -1887,7 +1887,7 @@ static const char __pyx_k_train_label_arr[] = "train_label_arr";
 static const char __pyx_k_FeatureGenerator[] = "FeatureGenerator";
 static const char __pyx_k_back_propagation[] = "back_propagation";
 static const char __pyx_k_batch_target_arr[] = "batch_target_arr";
-static const char __pyx_k_rnn_activity_arr[] = "rnn_activity_arr";
+static const char __pyx_k_cec_activity_arr[] = "cec_activity_arr";
 static const char __pyx_k_test_decoded_arr[] = "test_decoded_arr";
 static const char __pyx_k_train_target_arr[] = "train_target_arr";
 static const char __pyx_k_KeyboardInterrupt[] = "KeyboardInterrupt";
@@ -2055,6 +2055,7 @@ static PyObject *__pyx_n_s_batch_index;
 static PyObject *__pyx_n_s_batch_observed_arr;
 static PyObject *__pyx_n_s_batch_size;
 static PyObject *__pyx_n_s_batch_target_arr;
+static PyObject *__pyx_n_s_cec_activity_arr;
 static PyObject *__pyx_n_s_change_dropout_rate;
 static PyObject *__pyx_n_s_choice;
 static PyObject *__pyx_n_s_cline_in_traceback;
@@ -2138,7 +2139,6 @@ static PyObject *__pyx_n_s_remember_best_params;
 static PyObject *__pyx_n_s_remember_flag;
 static PyObject *__pyx_n_s_replace;
 static PyObject *__pyx_n_s_reshape;
-static PyObject *__pyx_n_s_rnn_activity_arr;
 static PyObject *__pyx_n_s_round;
 static PyObject *__pyx_n_s_row_o;
 static PyObject *__pyx_n_s_row_t;
@@ -2179,7 +2179,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller___defaults__(
 static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_2learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_arr, PyArrayObject *__pyx_v_target_arr); /* proto */
 static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_4learn_generated(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_feature_generator); /* proto */
 static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_6__remember_best_params(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_encoder_best_params_list, PyObject *__pyx_v_decoder_best_params_list); /* proto */
-static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_8inference(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_arr, PyArrayObject *__pyx_v_hidden_activity_arr, PyArrayObject *__pyx_v_rnn_activity_arr); /* proto */
+static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_8inference(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_arr, PyArrayObject *__pyx_v_hidden_activity_arr, PyArrayObject *__pyx_v_cec_activity_arr); /* proto */
 static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_10back_propagation(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_delta_arr); /* proto */
 static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_12optimize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_decoder_grads_list, PyObject *__pyx_v_encoder_grads_list, double __pyx_v_learning_rate, int __pyx_v_epoch); /* proto */
 static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_14__change_dropout_rate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_dropout_rate); /* proto */
@@ -4672,7 +4672,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
  *                         self.__logger.debug("Best params are updated.")
  * 
  *                     self.__encoder.graph.hidden_activity_arr = np.array([])             # <<<<<<<<<<<<<<
- *                     self.__encoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__encoder.graph.cec_activity_arr = np.array([])
  *                     self.__decoder.graph.hidden_activity_arr = np.array([])
  */
             __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 221, __pyx_L18_error)
@@ -4740,9 +4740,9 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
             /* "pydbm/rnn/encoder_decoder_controller.pyx":222
  * 
  *                     self.__encoder.graph.hidden_activity_arr = np.array([])
- *                     self.__encoder.graph.rnn_activity_arr = np.array([])             # <<<<<<<<<<<<<<
+ *                     self.__encoder.graph.cec_activity_arr = np.array([])             # <<<<<<<<<<<<<<
  *                     self.__decoder.graph.hidden_activity_arr = np.array([])
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])
  */
             __pyx_t_23 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 222, __pyx_L18_error)
             __Pyx_GOTREF(__pyx_t_23);
@@ -4802,15 +4802,15 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
             __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 222, __pyx_L18_error)
             __Pyx_GOTREF(__pyx_t_7);
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-            if (__Pyx_PyObject_SetAttrStr(__pyx_t_7, __pyx_n_s_rnn_activity_arr, __pyx_t_8) < 0) __PYX_ERR(0, 222, __pyx_L18_error)
+            if (__Pyx_PyObject_SetAttrStr(__pyx_t_7, __pyx_n_s_cec_activity_arr, __pyx_t_8) < 0) __PYX_ERR(0, 222, __pyx_L18_error)
             __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
             /* "pydbm/rnn/encoder_decoder_controller.pyx":223
  *                     self.__encoder.graph.hidden_activity_arr = np.array([])
- *                     self.__encoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__encoder.graph.cec_activity_arr = np.array([])
  *                     self.__decoder.graph.hidden_activity_arr = np.array([])             # <<<<<<<<<<<<<<
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])
  * 
  */
             __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 223, __pyx_L18_error)
@@ -4876,9 +4876,9 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
             __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
             /* "pydbm/rnn/encoder_decoder_controller.pyx":224
- *                     self.__encoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__encoder.graph.cec_activity_arr = np.array([])
  *                     self.__decoder.graph.hidden_activity_arr = np.array([])
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])             # <<<<<<<<<<<<<<
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])             # <<<<<<<<<<<<<<
  * 
  *                 except FloatingPointError:
  */
@@ -4940,7 +4940,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
             __pyx_t_23 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 224, __pyx_L18_error)
             __Pyx_GOTREF(__pyx_t_23);
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-            if (__Pyx_PyObject_SetAttrStr(__pyx_t_23, __pyx_n_s_rnn_activity_arr, __pyx_t_6) < 0) __PYX_ERR(0, 224, __pyx_L18_error)
+            if (__Pyx_PyObject_SetAttrStr(__pyx_t_23, __pyx_n_s_cec_activity_arr, __pyx_t_6) < 0) __PYX_ERR(0, 224, __pyx_L18_error)
             __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
             __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
 
@@ -4965,7 +4965,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
 
           /* "pydbm/rnn/encoder_decoder_controller.pyx":226
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])
  * 
  *                 except FloatingPointError:             # <<<<<<<<<<<<<<
  *                     if epoch > int(self.__epochs * 0.7):
@@ -5702,7 +5702,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
  *                                 test_label_arr=test_batch_target_arr[:, 0]
  *                             )
  *                     self.__encoder.graph.hidden_activity_arr = np.array([])             # <<<<<<<<<<<<<<
- *                     self.__encoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__encoder.graph.cec_activity_arr = np.array([])
  *                     self.__decoder.graph.hidden_activity_arr = np.array([])
  */
           __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 270, __pyx_L9_error)
@@ -5770,9 +5770,9 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           /* "pydbm/rnn/encoder_decoder_controller.pyx":271
  *                             )
  *                     self.__encoder.graph.hidden_activity_arr = np.array([])
- *                     self.__encoder.graph.rnn_activity_arr = np.array([])             # <<<<<<<<<<<<<<
+ *                     self.__encoder.graph.cec_activity_arr = np.array([])             # <<<<<<<<<<<<<<
  *                     self.__decoder.graph.hidden_activity_arr = np.array([])
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])
  */
           __pyx_t_23 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 271, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_23);
@@ -5832,15 +5832,15 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_graph); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 271, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_5);
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-          if (__Pyx_PyObject_SetAttrStr(__pyx_t_5, __pyx_n_s_rnn_activity_arr, __pyx_t_1) < 0) __PYX_ERR(0, 271, __pyx_L9_error)
+          if (__Pyx_PyObject_SetAttrStr(__pyx_t_5, __pyx_n_s_cec_activity_arr, __pyx_t_1) < 0) __PYX_ERR(0, 271, __pyx_L9_error)
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
           /* "pydbm/rnn/encoder_decoder_controller.pyx":272
  *                     self.__encoder.graph.hidden_activity_arr = np.array([])
- *                     self.__encoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__encoder.graph.cec_activity_arr = np.array([])
  *                     self.__decoder.graph.hidden_activity_arr = np.array([])             # <<<<<<<<<<<<<<
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])
  * 
  */
           __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 272, __pyx_L9_error)
@@ -5906,9 +5906,9 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
           /* "pydbm/rnn/encoder_decoder_controller.pyx":273
- *                     self.__encoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__encoder.graph.cec_activity_arr = np.array([])
  *                     self.__decoder.graph.hidden_activity_arr = np.array([])
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])             # <<<<<<<<<<<<<<
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])             # <<<<<<<<<<<<<<
  * 
  *                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
  */
@@ -5970,7 +5970,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           __pyx_t_23 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_graph); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 273, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_23);
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-          if (__Pyx_PyObject_SetAttrStr(__pyx_t_23, __pyx_n_s_rnn_activity_arr, __pyx_t_6) < 0) __PYX_ERR(0, 273, __pyx_L9_error)
+          if (__Pyx_PyObject_SetAttrStr(__pyx_t_23, __pyx_n_s_cec_activity_arr, __pyx_t_6) < 0) __PYX_ERR(0, 273, __pyx_L9_error)
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
 
@@ -5984,7 +5984,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
         }
 
         /* "pydbm/rnn/encoder_decoder_controller.pyx":275
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])
  * 
  *                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:             # <<<<<<<<<<<<<<
  *                     eary_stop_flag = True
@@ -6037,7 +6037,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           goto __pyx_L16_break;
 
           /* "pydbm/rnn/encoder_decoder_controller.pyx":275
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])
  * 
  *                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:             # <<<<<<<<<<<<<<
  *                     eary_stop_flag = True
@@ -7614,7 +7614,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
  *                         self.__logger.debug("Best params are updated.")
  * 
  *                     self.__encoder.graph.hidden_activity_arr = np.array([])             # <<<<<<<<<<<<<<
- *                     self.__encoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__encoder.graph.cec_activity_arr = np.array([])
  *                     self.__decoder.graph.hidden_activity_arr = np.array([])
  */
             __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 374, __pyx_L15_error)
@@ -7682,9 +7682,9 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
             /* "pydbm/rnn/encoder_decoder_controller.pyx":375
  * 
  *                     self.__encoder.graph.hidden_activity_arr = np.array([])
- *                     self.__encoder.graph.rnn_activity_arr = np.array([])             # <<<<<<<<<<<<<<
+ *                     self.__encoder.graph.cec_activity_arr = np.array([])             # <<<<<<<<<<<<<<
  *                     self.__decoder.graph.hidden_activity_arr = np.array([])
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])
  */
             __pyx_t_15 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 375, __pyx_L15_error)
             __Pyx_GOTREF(__pyx_t_15);
@@ -7744,15 +7744,15 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
             __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_graph); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 375, __pyx_L15_error)
             __Pyx_GOTREF(__pyx_t_14);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-            if (__Pyx_PyObject_SetAttrStr(__pyx_t_14, __pyx_n_s_rnn_activity_arr, __pyx_t_10) < 0) __PYX_ERR(0, 375, __pyx_L15_error)
+            if (__Pyx_PyObject_SetAttrStr(__pyx_t_14, __pyx_n_s_cec_activity_arr, __pyx_t_10) < 0) __PYX_ERR(0, 375, __pyx_L15_error)
             __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
             /* "pydbm/rnn/encoder_decoder_controller.pyx":376
  *                     self.__encoder.graph.hidden_activity_arr = np.array([])
- *                     self.__encoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__encoder.graph.cec_activity_arr = np.array([])
  *                     self.__decoder.graph.hidden_activity_arr = np.array([])             # <<<<<<<<<<<<<<
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])
  * 
  */
             __pyx_t_10 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 376, __pyx_L15_error)
@@ -7818,9 +7818,9 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
             /* "pydbm/rnn/encoder_decoder_controller.pyx":377
- *                     self.__encoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__encoder.graph.cec_activity_arr = np.array([])
  *                     self.__decoder.graph.hidden_activity_arr = np.array([])
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])             # <<<<<<<<<<<<<<
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])             # <<<<<<<<<<<<<<
  * 
  *                 except FloatingPointError:
  */
@@ -7882,7 +7882,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
             __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_graph); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 377, __pyx_L15_error)
             __Pyx_GOTREF(__pyx_t_15);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-            if (__Pyx_PyObject_SetAttrStr(__pyx_t_15, __pyx_n_s_rnn_activity_arr, __pyx_t_1) < 0) __PYX_ERR(0, 377, __pyx_L15_error)
+            if (__Pyx_PyObject_SetAttrStr(__pyx_t_15, __pyx_n_s_cec_activity_arr, __pyx_t_1) < 0) __PYX_ERR(0, 377, __pyx_L15_error)
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
 
@@ -7907,7 +7907,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
 
           /* "pydbm/rnn/encoder_decoder_controller.pyx":379
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])
  * 
  *                 except FloatingPointError:             # <<<<<<<<<<<<<<
  *                     if epoch > int(self.__epochs * 0.7):
@@ -8584,7 +8584,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
  *                             )
  * 
  *                     self.__encoder.graph.hidden_activity_arr = np.array([])             # <<<<<<<<<<<<<<
- *                     self.__encoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__encoder.graph.cec_activity_arr = np.array([])
  *                     self.__decoder.graph.hidden_activity_arr = np.array([])
  */
           __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 420, __pyx_L4_error)
@@ -8652,9 +8652,9 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           /* "pydbm/rnn/encoder_decoder_controller.pyx":421
  * 
  *                     self.__encoder.graph.hidden_activity_arr = np.array([])
- *                     self.__encoder.graph.rnn_activity_arr = np.array([])             # <<<<<<<<<<<<<<
+ *                     self.__encoder.graph.cec_activity_arr = np.array([])             # <<<<<<<<<<<<<<
  *                     self.__decoder.graph.hidden_activity_arr = np.array([])
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])
  */
           __pyx_t_15 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 421, __pyx_L4_error)
           __Pyx_GOTREF(__pyx_t_15);
@@ -8714,15 +8714,15 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_graph); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 421, __pyx_L4_error)
           __Pyx_GOTREF(__pyx_t_11);
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-          if (__Pyx_PyObject_SetAttrStr(__pyx_t_11, __pyx_n_s_rnn_activity_arr, __pyx_t_1) < 0) __PYX_ERR(0, 421, __pyx_L4_error)
+          if (__Pyx_PyObject_SetAttrStr(__pyx_t_11, __pyx_n_s_cec_activity_arr, __pyx_t_1) < 0) __PYX_ERR(0, 421, __pyx_L4_error)
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
           /* "pydbm/rnn/encoder_decoder_controller.pyx":422
  *                     self.__encoder.graph.hidden_activity_arr = np.array([])
- *                     self.__encoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__encoder.graph.cec_activity_arr = np.array([])
  *                     self.__decoder.graph.hidden_activity_arr = np.array([])             # <<<<<<<<<<<<<<
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])
  * 
  */
           __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 422, __pyx_L4_error)
@@ -8788,9 +8788,9 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
           /* "pydbm/rnn/encoder_decoder_controller.pyx":423
- *                     self.__encoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__encoder.graph.cec_activity_arr = np.array([])
  *                     self.__decoder.graph.hidden_activity_arr = np.array([])
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])             # <<<<<<<<<<<<<<
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])             # <<<<<<<<<<<<<<
  * 
  *                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
  */
@@ -8852,7 +8852,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_graph); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 423, __pyx_L4_error)
           __Pyx_GOTREF(__pyx_t_15);
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-          if (__Pyx_PyObject_SetAttrStr(__pyx_t_15, __pyx_n_s_rnn_activity_arr, __pyx_t_9) < 0) __PYX_ERR(0, 423, __pyx_L4_error)
+          if (__Pyx_PyObject_SetAttrStr(__pyx_t_15, __pyx_n_s_cec_activity_arr, __pyx_t_9) < 0) __PYX_ERR(0, 423, __pyx_L4_error)
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
           __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
 
@@ -8866,7 +8866,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
         }
 
         /* "pydbm/rnn/encoder_decoder_controller.pyx":425
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])
  * 
  *                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:             # <<<<<<<<<<<<<<
  *                     eary_stop_flag = True
@@ -8919,7 +8919,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           goto __pyx_L11_break;
 
           /* "pydbm/rnn/encoder_decoder_controller.pyx":425
- *                     self.__decoder.graph.rnn_activity_arr = np.array([])
+ *                     self.__decoder.graph.cec_activity_arr = np.array([])
  * 
  *                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:             # <<<<<<<<<<<<<<
  *                     eary_stop_flag = True
@@ -9483,25 +9483,25 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_9inference(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_8inference[] = "\n        Inference the feature points to reconstruct the time-series.\n\n        Override.\n\n        Args:\n            observed_arr:           Array like or sparse matrix as the observed data ponts.\n            hidden_activity_arr:    Array like or sparse matrix as the state in hidden layer.\n            rnn_activity_arr:       Array like or sparse matrix as the state in RNN.\n\n        Returns:\n            Tuple data.\n            - Array like or sparse matrix of reconstructed instances of time-series,\n            - Array like or sparse matrix of the state in hidden layer,\n            - Array like or sparse matrix of the state in RNN.\n        ";
+static char __pyx_doc_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_8inference[] = "\n        Inference the feature points to reconstruct the time-series.\n\n        Override.\n\n        Args:\n            observed_arr:           Array like or sparse matrix as the observed data ponts.\n            hidden_activity_arr:    Array like or sparse matrix as the state in hidden layer.\n            cec_activity_arr:       Array like or sparse matrix as the state in RNN.\n\n        Returns:\n            Tuple data.\n            - Array like or sparse matrix of reconstructed instances of time-series,\n            - Array like or sparse matrix of the state in hidden layer,\n            - Array like or sparse matrix of the state in RNN.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_9inference = {"inference", (PyCFunction)__pyx_pw_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_9inference, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_8inference};
 static PyObject *__pyx_pw_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_9inference(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyArrayObject *__pyx_v_observed_arr = 0;
   PyArrayObject *__pyx_v_hidden_activity_arr = 0;
-  PyArrayObject *__pyx_v_rnn_activity_arr = 0;
+  PyArrayObject *__pyx_v_cec_activity_arr = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("inference (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_observed_arr,&__pyx_n_s_hidden_activity_arr,&__pyx_n_s_rnn_activity_arr,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_observed_arr,&__pyx_n_s_hidden_activity_arr,&__pyx_n_s_cec_activity_arr,0};
     PyObject* values[4] = {0,0,0,0};
 
     /* "pydbm/rnn/encoder_decoder_controller.pyx":466
  *         self,
  *         np.ndarray observed_arr,
  *         np.ndarray hidden_activity_arr=None,             # <<<<<<<<<<<<<<
- *         np.ndarray rnn_activity_arr=None
+ *         np.ndarray cec_activity_arr=None
  *     ):
  */
     values[2] = (PyObject *)((PyArrayObject *)((PyObject *)Py_None));
@@ -9509,7 +9509,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
     /* "pydbm/rnn/encoder_decoder_controller.pyx":467
  *         np.ndarray observed_arr,
  *         np.ndarray hidden_activity_arr=None,
- *         np.ndarray rnn_activity_arr=None             # <<<<<<<<<<<<<<
+ *         np.ndarray cec_activity_arr=None             # <<<<<<<<<<<<<<
  *     ):
  *         '''
  */
@@ -9549,7 +9549,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
         CYTHON_FALLTHROUGH;
         case  3:
         if (kw_args > 0) {
-          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_rnn_activity_arr);
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_cec_activity_arr);
           if (value) { values[3] = value; kw_args--; }
         }
       }
@@ -9571,7 +9571,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
     __pyx_v_self = values[0];
     __pyx_v_observed_arr = ((PyArrayObject *)values[1]);
     __pyx_v_hidden_activity_arr = ((PyArrayObject *)values[2]);
-    __pyx_v_rnn_activity_arr = ((PyArrayObject *)values[3]);
+    __pyx_v_cec_activity_arr = ((PyArrayObject *)values[3]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
@@ -9583,8 +9583,8 @@ static PyObject *__pyx_pw_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_arr", 0))) __PYX_ERR(0, 465, __pyx_L1_error)
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_hidden_activity_arr), __pyx_ptype_5numpy_ndarray, 1, "hidden_activity_arr", 0))) __PYX_ERR(0, 466, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_rnn_activity_arr), __pyx_ptype_5numpy_ndarray, 1, "rnn_activity_arr", 0))) __PYX_ERR(0, 467, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_8inference(__pyx_self, __pyx_v_self, __pyx_v_observed_arr, __pyx_v_hidden_activity_arr, __pyx_v_rnn_activity_arr);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_cec_activity_arr), __pyx_ptype_5numpy_ndarray, 1, "cec_activity_arr", 0))) __PYX_ERR(0, 467, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_8inference(__pyx_self, __pyx_v_self, __pyx_v_observed_arr, __pyx_v_hidden_activity_arr, __pyx_v_cec_activity_arr);
 
   /* "pydbm/rnn/encoder_decoder_controller.pyx":463
  *             self.__logger.debug("Best params are saved.")
@@ -9603,7 +9603,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_8inference(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_arr, PyArrayObject *__pyx_v_hidden_activity_arr, PyArrayObject *__pyx_v_rnn_activity_arr) {
+static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDecoderController_8inference(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_arr, PyArrayObject *__pyx_v_hidden_activity_arr, PyArrayObject *__pyx_v_cec_activity_arr) {
   CYTHON_UNUSED PyObject *__pyx_v__ = NULL;
   PyObject *__pyx_v_encoded_arr = NULL;
   PyObject *__pyx_v_decoded_arr = NULL;
@@ -9661,7 +9661,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
  *         else:
  *             self.__encoder.graph.hidden_activity_arr = np.array([])             # <<<<<<<<<<<<<<
  * 
- *         if rnn_activity_arr is not None:
+ *         if cec_activity_arr is not None:
  */
   /*else*/ {
     __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 488, __pyx_L1_error)
@@ -9731,43 +9731,43 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
   /* "pydbm/rnn/encoder_decoder_controller.pyx":490
  *             self.__encoder.graph.hidden_activity_arr = np.array([])
  * 
- *         if rnn_activity_arr is not None:             # <<<<<<<<<<<<<<
- *             self.__encoder.graph.rnn_activity_arr = rnn_activity_arr
+ *         if cec_activity_arr is not None:             # <<<<<<<<<<<<<<
+ *             self.__encoder.graph.cec_activity_arr = cec_activity_arr
  *         else:
  */
-  __pyx_t_2 = (((PyObject *)__pyx_v_rnn_activity_arr) != Py_None);
+  __pyx_t_2 = (((PyObject *)__pyx_v_cec_activity_arr) != Py_None);
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
     /* "pydbm/rnn/encoder_decoder_controller.pyx":491
  * 
- *         if rnn_activity_arr is not None:
- *             self.__encoder.graph.rnn_activity_arr = rnn_activity_arr             # <<<<<<<<<<<<<<
+ *         if cec_activity_arr is not None:
+ *             self.__encoder.graph.cec_activity_arr = cec_activity_arr             # <<<<<<<<<<<<<<
  *         else:
- *             self.__encoder.graph.rnn_activity_arr = np.array([])
+ *             self.__encoder.graph.cec_activity_arr = np.array([])
  */
     __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_EncoderDecoderController__encod); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 491, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 491, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_rnn_activity_arr, ((PyObject *)__pyx_v_rnn_activity_arr)) < 0) __PYX_ERR(0, 491, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_cec_activity_arr, ((PyObject *)__pyx_v_cec_activity_arr)) < 0) __PYX_ERR(0, 491, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
     /* "pydbm/rnn/encoder_decoder_controller.pyx":490
  *             self.__encoder.graph.hidden_activity_arr = np.array([])
  * 
- *         if rnn_activity_arr is not None:             # <<<<<<<<<<<<<<
- *             self.__encoder.graph.rnn_activity_arr = rnn_activity_arr
+ *         if cec_activity_arr is not None:             # <<<<<<<<<<<<<<
+ *             self.__encoder.graph.cec_activity_arr = cec_activity_arr
  *         else:
  */
     goto __pyx_L4;
   }
 
   /* "pydbm/rnn/encoder_decoder_controller.pyx":493
- *             self.__encoder.graph.rnn_activity_arr = rnn_activity_arr
+ *             self.__encoder.graph.cec_activity_arr = cec_activity_arr
  *         else:
- *             self.__encoder.graph.rnn_activity_arr = np.array([])             # <<<<<<<<<<<<<<
+ *             self.__encoder.graph.cec_activity_arr = np.array([])             # <<<<<<<<<<<<<<
  * 
  *         _ = self.__encoder.inference(observed_arr)
  */
@@ -9830,14 +9830,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
     __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 493, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_6, __pyx_n_s_rnn_activity_arr, __pyx_t_4) < 0) __PYX_ERR(0, 493, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_6, __pyx_n_s_cec_activity_arr, __pyx_t_4) < 0) __PYX_ERR(0, 493, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
   __pyx_L4:;
 
   /* "pydbm/rnn/encoder_decoder_controller.pyx":495
- *             self.__encoder.graph.rnn_activity_arr = np.array([])
+ *             self.__encoder.graph.cec_activity_arr = np.array([])
  * 
  *         _ = self.__encoder.inference(observed_arr)             # <<<<<<<<<<<<<<
  *         encoded_arr = self.__encoder.get_feature_points()[:, ::-1, :]
@@ -14867,6 +14867,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_batch_observed_arr, __pyx_k_batch_observed_arr, sizeof(__pyx_k_batch_observed_arr), 0, 0, 1, 1},
   {&__pyx_n_s_batch_size, __pyx_k_batch_size, sizeof(__pyx_k_batch_size), 0, 0, 1, 1},
   {&__pyx_n_s_batch_target_arr, __pyx_k_batch_target_arr, sizeof(__pyx_k_batch_target_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_cec_activity_arr, __pyx_k_cec_activity_arr, sizeof(__pyx_k_cec_activity_arr), 0, 0, 1, 1},
   {&__pyx_n_s_change_dropout_rate, __pyx_k_change_dropout_rate, sizeof(__pyx_k_change_dropout_rate), 0, 0, 1, 1},
   {&__pyx_n_s_choice, __pyx_k_choice, sizeof(__pyx_k_choice), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
@@ -14950,7 +14951,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_remember_flag, __pyx_k_remember_flag, sizeof(__pyx_k_remember_flag), 0, 0, 1, 1},
   {&__pyx_n_s_replace, __pyx_k_replace, sizeof(__pyx_k_replace), 0, 0, 1, 1},
   {&__pyx_n_s_reshape, __pyx_k_reshape, sizeof(__pyx_k_reshape), 0, 0, 1, 1},
-  {&__pyx_n_s_rnn_activity_arr, __pyx_k_rnn_activity_arr, sizeof(__pyx_k_rnn_activity_arr), 0, 0, 1, 1},
   {&__pyx_n_s_round, __pyx_k_round, sizeof(__pyx_k_round), 0, 0, 1, 1},
   {&__pyx_n_s_row_o, __pyx_k_row_o, sizeof(__pyx_k_row_o), 0, 0, 1, 1},
   {&__pyx_n_s_row_t, __pyx_k_row_t, sizeof(__pyx_k_row_t), 0, 0, 1, 1},
@@ -15681,7 +15681,7 @@ static int __Pyx_InitCachedConstants(void) {
  *         self,
  *         np.ndarray observed_arr,
  */
-  __pyx_tuple__84 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_observed_arr, __pyx_n_s_hidden_activity_arr, __pyx_n_s_rnn_activity_arr, __pyx_n_s__83, __pyx_n_s_encoded_arr, __pyx_n_s_decoded_arr); if (unlikely(!__pyx_tuple__84)) __PYX_ERR(0, 463, __pyx_L1_error)
+  __pyx_tuple__84 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_observed_arr, __pyx_n_s_hidden_activity_arr, __pyx_n_s_cec_activity_arr, __pyx_n_s__83, __pyx_n_s_encoded_arr, __pyx_n_s_decoded_arr); if (unlikely(!__pyx_tuple__84)) __PYX_ERR(0, 463, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__84);
   __Pyx_GIVEREF(__pyx_tuple__84);
   __pyx_codeobj__85 = (PyObject*)__Pyx_PyCode_New(4, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__84, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_encoder_decoder_contro_2, __pyx_n_s_inference, 463, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__85)) __PYX_ERR(0, 463, __pyx_L1_error)

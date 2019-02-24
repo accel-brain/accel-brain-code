@@ -448,7 +448,7 @@ class ConvLSTMModel(ReconstructableModel):
                     _delta_arr, grads_list = self.back_propagation(pred_arr, delta_arr)
                     self.optimize(grads_list, learning_rate, epoch)
                     self.graph.hidden_activity_arr = np.array([])
-                    self.graph.rnn_activity_arr = np.array([])
+                    self.graph.cec_activity_arr = np.array([])
 
                     if min_loss is None or min_loss > loss:
                         min_loss = loss
@@ -657,7 +657,7 @@ class ConvLSTMModel(ReconstructableModel):
                     _delta_arr, grads_list = self.back_propagation(pred_arr, delta_arr)
                     self.optimize(grads_list, learning_rate, epoch)
                     self.graph.hidden_activity_arr = np.array([])
-                    self.graph.rnn_activity_arr = np.array([])
+                    self.graph.cec_activity_arr = np.array([])
 
                     if min_loss is None or min_loss > loss:
                         min_loss = loss
@@ -917,7 +917,7 @@ class ConvLSTMModel(ReconstructableModel):
         self,
         np.ndarray observed_arr,
         np.ndarray hidden_activity_arr=None,
-        np.ndarray rnn_activity_arr=None
+        np.ndarray cec_activity_arr=None
     ):
         r'''
         Inference the feature points to reconstruct the time-series.
@@ -927,7 +927,7 @@ class ConvLSTMModel(ReconstructableModel):
         Args:
             observed_arr:           Array like or sparse matrix as the observed data points.
             hidden_activity_arr:    Array like or sparse matrix as the state in hidden layer.
-            rnn_activity_arr:       Array like or sparse matrix as the state in RNN.
+            cec_activity_arr:       Array like or sparse matrix as the state in RNN.
 
         Returns:
             Tuple data.
@@ -943,10 +943,10 @@ class ConvLSTMModel(ReconstructableModel):
         else:
             self.graph.hidden_activity_arr = hidden_activity_arr
 
-        if rnn_activity_arr is None:
-            self.graph.rnn_activity_arr = np.array([])
+        if cec_activity_arr is None:
+            self.graph.cec_activity_arr = np.array([])
         else:
-            self.graph.rnn_activity_arr = rnn_activity_arr
+            self.graph.cec_activity_arr = cec_activity_arr
 
         cdef np.ndarray pred_arr = self.forward_propagation(observed_arr)
 
@@ -983,10 +983,10 @@ class ConvLSTMModel(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=5] pred_arr = None
         cdef int cycle
         for cycle in range(cycle_len):
-            self.graph.hidden_activity_arr, self.graph.rnn_activity_arr = self.__lstm_forward(
+            self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
                 observed_arr[:, cycle, :, :, :],
                 self.graph.hidden_activity_arr,
-                self.graph.rnn_activity_arr
+                self.graph.cec_activity_arr
             )
             
             if pred_arr is None:
@@ -1117,7 +1117,7 @@ class ConvLSTMModel(ReconstructableModel):
         self,
         np.ndarray[DOUBLE_t, ndim=4] observed_arr,
         np.ndarray hidden_activity_arr,
-        np.ndarray rnn_activity_arr
+        np.ndarray cec_activity_arr
     ):
         '''
         Forward propagate in LSTM gate.
@@ -1125,7 +1125,7 @@ class ConvLSTMModel(ReconstructableModel):
         Args:
             observed_arr:           `np.ndarray` of observed data points.
             hidden_activity_arr:    `np.ndarray` of activities in hidden layer.
-            rnn_activity_arr:       `np.ndarray` of activities in LSTM gate.
+            cec_activity_arr:       `np.ndarray` of activities in LSTM gate.
         
         Returns:
             Tuple data.
@@ -1146,10 +1146,10 @@ class ConvLSTMModel(ReconstructableModel):
 
         cdef np.ndarray[DOUBLE_t, ndim=4] output_gate_activity_arr = self.__output_conv.forward_propagate(observed_arr)
 
-        if rnn_activity_arr is None or rnn_activity_arr.shape[0] == 0:
-            rnn_activity_arr = np.zeros_like(forget_gate_activity_arr)
+        if cec_activity_arr is None or cec_activity_arr.shape[0] == 0:
+            cec_activity_arr = np.zeros_like(forget_gate_activity_arr)
 
-        cdef np.ndarray[DOUBLE_t, ndim=4] _rnn_activity_arr = np.nansum(
+        cdef np.ndarray[DOUBLE_t, ndim=4] _cec_activity_arr = np.nansum(
             np.array([
                 np.nanprod(
                     np.array([
@@ -1161,7 +1161,7 @@ class ConvLSTMModel(ReconstructableModel):
                 np.nanprod(
                     np.array([
                         np.expand_dims(forget_gate_activity_arr, axis=0),
-                        np.expand_dims(rnn_activity_arr, axis=0)
+                        np.expand_dims(cec_activity_arr, axis=0)
                     ]),
                     axis=0
                 )
@@ -1172,7 +1172,7 @@ class ConvLSTMModel(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=4] _hidden_activity_arr = np.nanprod(
             np.array([
                 np.expand_dims(output_gate_activity_arr, axis=0),
-                np.expand_dims(self.graph.hidden_activating_function.activate(_rnn_activity_arr), axis=0)
+                np.expand_dims(self.graph.hidden_activating_function.activate(_cec_activity_arr), axis=0)
             ]),
             axis=0
         )[0]
@@ -1182,16 +1182,16 @@ class ConvLSTMModel(ReconstructableModel):
         self.__memory_tuple_list.append((
             observed_arr, 
             hidden_activity_arr, 
-            rnn_activity_arr, 
+            cec_activity_arr, 
             given_activity_arr, 
             input_gate_activity_arr, 
             forget_gate_activity_arr, 
             output_gate_activity_arr, 
-            _rnn_activity_arr,
+            _cec_activity_arr,
             _hidden_activity_arr
         ))
 
-        return (_hidden_activity_arr, _rnn_activity_arr)
+        return (_hidden_activity_arr, _cec_activity_arr)
 
     def lstm_backward(
         self,
@@ -1215,17 +1215,17 @@ class ConvLSTMModel(ReconstructableModel):
             - `list` of gradations.
         '''
         cdef np.ndarray[DOUBLE_t, ndim=4] observed_arr = self.__memory_tuple_list[cycle][0]
-        cdef np.ndarray[DOUBLE_t, ndim=4] pre_rnn_activity_arr = self.__memory_tuple_list[cycle][2]
+        cdef np.ndarray[DOUBLE_t, ndim=4] pre_cec_activity_arr = self.__memory_tuple_list[cycle][2]
         cdef np.ndarray[DOUBLE_t, ndim=4] given_activity_arr = self.__memory_tuple_list[cycle][3]
         cdef np.ndarray[DOUBLE_t, ndim=4] input_gate_activity_arr = self.__memory_tuple_list[cycle][4]
         cdef np.ndarray[DOUBLE_t, ndim=4] forget_gate_activity_arr = self.__memory_tuple_list[cycle][5]
         cdef np.ndarray[DOUBLE_t, ndim=4] output_gate_activity_arr = self.__memory_tuple_list[cycle][6]
-        cdef np.ndarray[DOUBLE_t, ndim=4] rnn_activity_arr = self.__memory_tuple_list[cycle][7]
+        cdef np.ndarray[DOUBLE_t, ndim=4] cec_activity_arr = self.__memory_tuple_list[cycle][7]
 
         delta_hidden_arr = self.__opt_params.de_dropout(delta_hidden_arr)
 
-        cdef np.ndarray[DOUBLE_t, ndim=4] _rnn_activity_arr = self.graph.hidden_activating_function.activate(
-            rnn_activity_arr
+        cdef np.ndarray[DOUBLE_t, ndim=4] _cec_activity_arr = self.graph.hidden_activating_function.activate(
+            cec_activity_arr
         )
 
         if delta_rnn_arr.shape[0] == 0:
@@ -1238,7 +1238,7 @@ class ConvLSTMModel(ReconstructableModel):
                     np.array([
                         delta_hidden_arr,
                         output_gate_activity_arr,
-                        self.graph.hidden_activating_function.derivative(rnn_activity_arr)
+                        self.graph.hidden_activating_function.derivative(cec_activity_arr)
                     ]),
                     axis=0
                 )
@@ -1252,7 +1252,7 @@ class ConvLSTMModel(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_output_gate_arr = np.nanprod(
             np.array([
                 delta_hidden_arr,
-                rnn_activity_arr,
+                cec_activity_arr,
                 self.graph.output_gate_activating_function.derivative(output_gate_activity_arr)]
             ),
             axis=0

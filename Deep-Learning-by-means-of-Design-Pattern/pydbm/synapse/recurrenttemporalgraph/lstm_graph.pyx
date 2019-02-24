@@ -451,7 +451,7 @@ class LSTMGraph(RecurrentTemporalGraph):
         int output_neuron_count
     ):
         self.hidden_activity_arr = np.array([])
-        self.rnn_activity_arr = np.array([])
+        self.cec_activity_arr = np.array([])
 
         self.weights_lstm_observed_arr = np.random.normal(size=(input_neuron_count, hidden_neuron_count * 4)).astype(np.float16) * 0.1
         self.weights_lstm_hidden_arr = np.random.normal(size=(hidden_neuron_count, hidden_neuron_count * 4)).astype(np.float16) * 0.1

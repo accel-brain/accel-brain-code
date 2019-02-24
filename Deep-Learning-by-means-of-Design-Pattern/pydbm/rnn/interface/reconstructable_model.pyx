@@ -30,7 +30,7 @@ class ReconstructableModel(metaclass=ABCMeta):
         self,
         np.ndarray[DOUBLE_t, ndim=3] observed_arr,
         np.ndarray[DOUBLE_t, ndim=2] hidden_activity_arr=None,
-        np.ndarray[DOUBLE_t, ndim=2] rnn_activity_arr=None
+        np.ndarray[DOUBLE_t, ndim=2] cec_activity_arr=None
     ):
         '''
         Inference the feature points to reconstruct the time-series.
@@ -38,7 +38,7 @@ class ReconstructableModel(metaclass=ABCMeta):
         Args:
             observed_arr:           Array like or sparse matrix as the observed data points.
             hidden_activity_arr:    Array like or sparse matrix as the state in hidden layer.
-            rnn_activity_arr:       Array like or sparse matrix as the state in RNN.
+            cec_activity_arr:       Array like or sparse matrix as the state in RNN.
 
         Returns:
             Tuple data.

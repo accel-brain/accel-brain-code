@@ -340,7 +340,7 @@ class FacadeEncoderDecoder(object):
         Args:
             observed_arr:           Array like or sparse matrix as the observed data ponts.
             hidden_activity_arr:    Array like or sparse matrix as the state in hidden layer.
-            rnn_activity_arr:       Array like or sparse matrix as the state in RNN.
+            cec_activity_arr:       Array like or sparse matrix as the state in RNN.
 
         Returns:
             Tuple data.

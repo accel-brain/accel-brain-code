@@ -219,9 +219,9 @@ class EncoderDecoderController(object):
                         self.__logger.debug("Best params are updated.")
 
                     self.__encoder.graph.hidden_activity_arr = np.array([])
-                    self.__encoder.graph.rnn_activity_arr = np.array([])
+                    self.__encoder.graph.cec_activity_arr = np.array([])
                     self.__decoder.graph.hidden_activity_arr = np.array([])
-                    self.__decoder.graph.rnn_activity_arr = np.array([])
+                    self.__decoder.graph.cec_activity_arr = np.array([])
 
                 except FloatingPointError:
                     if epoch > int(self.__epochs * 0.7):
@@ -268,9 +268,9 @@ class EncoderDecoderController(object):
                                 test_label_arr=test_batch_target_arr[:, 0]
                             )
                     self.__encoder.graph.hidden_activity_arr = np.array([])
-                    self.__encoder.graph.rnn_activity_arr = np.array([])
+                    self.__encoder.graph.cec_activity_arr = np.array([])
                     self.__decoder.graph.hidden_activity_arr = np.array([])
-                    self.__decoder.graph.rnn_activity_arr = np.array([])
+                    self.__decoder.graph.cec_activity_arr = np.array([])
 
                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
                     eary_stop_flag = True
@@ -372,9 +372,9 @@ class EncoderDecoderController(object):
                         self.__logger.debug("Best params are updated.")
 
                     self.__encoder.graph.hidden_activity_arr = np.array([])
-                    self.__encoder.graph.rnn_activity_arr = np.array([])
+                    self.__encoder.graph.cec_activity_arr = np.array([])
                     self.__decoder.graph.hidden_activity_arr = np.array([])
-                    self.__decoder.graph.rnn_activity_arr = np.array([])
+                    self.__decoder.graph.cec_activity_arr = np.array([])
 
                 except FloatingPointError:
                     if epoch > int(self.__epochs * 0.7):
@@ -418,9 +418,9 @@ class EncoderDecoderController(object):
                             )
 
                     self.__encoder.graph.hidden_activity_arr = np.array([])
-                    self.__encoder.graph.rnn_activity_arr = np.array([])
+                    self.__encoder.graph.cec_activity_arr = np.array([])
                     self.__decoder.graph.hidden_activity_arr = np.array([])
-                    self.__decoder.graph.rnn_activity_arr = np.array([])
+                    self.__decoder.graph.cec_activity_arr = np.array([])
 
                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
                     eary_stop_flag = True
@@ -464,7 +464,7 @@ class EncoderDecoderController(object):
         self,
         np.ndarray observed_arr,
         np.ndarray hidden_activity_arr=None,
-        np.ndarray rnn_activity_arr=None
+        np.ndarray cec_activity_arr=None
     ):
         '''
         Inference the feature points to reconstruct the time-series.
@@ -474,7 +474,7 @@ class EncoderDecoderController(object):
         Args:
             observed_arr:           Array like or sparse matrix as the observed data ponts.
             hidden_activity_arr:    Array like or sparse matrix as the state in hidden layer.
-            rnn_activity_arr:       Array like or sparse matrix as the state in RNN.
+            cec_activity_arr:       Array like or sparse matrix as the state in RNN.
 
         Returns:
             Tuple data.
@@ -487,10 +487,10 @@ class EncoderDecoderController(object):
         else:
             self.__encoder.graph.hidden_activity_arr = np.array([])
 
-        if rnn_activity_arr is not None:
-            self.__encoder.graph.rnn_activity_arr = rnn_activity_arr
+        if cec_activity_arr is not None:
+            self.__encoder.graph.cec_activity_arr = cec_activity_arr
         else:
-            self.__encoder.graph.rnn_activity_arr = np.array([])
+            self.__encoder.graph.cec_activity_arr = np.array([])
 
         _ = self.__encoder.inference(observed_arr)
         encoded_arr = self.__encoder.get_feature_points()[:, ::-1, :]

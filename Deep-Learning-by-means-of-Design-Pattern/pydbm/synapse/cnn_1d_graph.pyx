@@ -5,9 +5,9 @@ cimport cython
 from pydbm.synapse_list import Synapse
 
 
-class CNNGraph(Synapse):
+class CNN1DGraph(Synapse):
     '''
-    Computation graph in CNN.
+    Computation graph in 1-D CNN.
     '''
     
     # Weight matrix (kernel)
@@ -52,11 +52,8 @@ class CNNGraph(Synapse):
     def __init__(
         self,
         activation_function,
-        int filter_num=30,
-        int channel=3,
-        int kernel_size=3,
-        int stride=1,
-        int pad=1,
+        batch_size,
+        kernel_size,
         double scale=0.01
     ):
         '''
@@ -64,32 +61,10 @@ class CNNGraph(Synapse):
         
         Args:
             activation_function:    Activation function.
-            filter_num:             The number of kernels(filters).
-            channel:                Channel of image files.
-            kernel_size:            Size of the kernels.
-            stride:                 Stride.
-            pad:                    Padding.
+            batch_size:             Batch size.
+            kernel_size:            Size of the kernel.
             scale:                  Scale of filters.
         '''
         self.__activation_function = activation_function
-        self.__weight_arr = np.random.normal(size=(filter_num, channel, kernel_size, kernel_size)) * scale
-        self.__bias_arr = np.zeros((filter_num, ))
-        
-        self.__stride = stride
-        self.__pad = pad
-
-    def set_readonly(self, value):
-        ''' setter '''
-        raise TypeError("This property must be read-only.")
-
-    def get_stride(self):
-        ''' getter '''
-        return self.__stride
-
-    stride = property(get_stride, set_readonly)
-
-    def get_pad(self):
-        ''' getter '''
-        return self.__pad
-
-    pad = property(get_pad, set_readonly)
+        self.__weight_arr = np.random.normal(size=kernel_size) * scale
+        self.__bias_arr = np.zeros((batch_size, ))

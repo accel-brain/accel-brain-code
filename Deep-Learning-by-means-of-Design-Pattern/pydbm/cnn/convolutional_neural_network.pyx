@@ -201,6 +201,7 @@ class ConvolutionalNeuralNetwork(object):
             eary_stop_flag = False
             for epoch in range(self.__epochs):
                 self.__opt_params.dropout_rate = self.__dropout_rate
+                self.__opt_params.inferencing_mode = False
 
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
                     learning_rate = learning_rate / self.__learning_attenuate_rate
@@ -260,7 +261,7 @@ class ConvolutionalNeuralNetwork(object):
                         raise
 
                 if self.__test_size_rate > 0:
-                    self.__opt_params.dropout_rate = 0.0
+                    self.__opt_params.inferencing_mode = True
                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
                     test_batch_observed_arr = test_observed_arr[rand_index]
                     test_batch_target_arr = test_target_arr[rand_index]
@@ -359,6 +360,7 @@ class ConvolutionalNeuralNetwork(object):
             for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr in feature_generator.generate():
                 epoch += 1
                 self.__opt_params.dropout_rate = self.__dropout_rate
+                self.__opt_params.inferencing_mode = False
 
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
                     learning_rate = learning_rate / self.__learning_attenuate_rate
@@ -413,7 +415,7 @@ class ConvolutionalNeuralNetwork(object):
                         raise
 
                 if self.__test_size_rate > 0:
-                    self.__opt_params.dropout_rate = 0.0
+                    self.__opt_params.inferencing_mode = True
                     test_pred_arr = self.forward_propagation(
                         test_batch_observed_arr
                     )

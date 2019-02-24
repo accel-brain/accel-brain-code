@@ -172,7 +172,7 @@ class EncoderDecoderController(object):
         encoder_best_params_list = []
         decoder_best_params_list = []
         try:
-            self.__change_dropout_rate(self.__dropout_rate)
+            self.__change_inferencing_mode(False)
             self.__memory_tuple_list = []
             eary_stop_flag = False
             loss_list = []
@@ -241,7 +241,7 @@ class EncoderDecoderController(object):
                     test_batch_observed_arr = test_observed_arr[rand_index]
                     test_batch_target_arr = test_target_arr[rand_index]
 
-                    self.__change_dropout_rate(0.0)
+                    self.__change_inferencing_mode(True)
                     test_decoded_arr = self.inference(test_batch_observed_arr)
                     test_loss = self.__reconstruction_error_arr
 
@@ -256,7 +256,7 @@ class EncoderDecoderController(object):
                         test_decoded_arr = self.inference(test_batch_observed_arr)
                         test_loss = self.__reconstruction_error_arr
 
-                    self.__change_dropout_rate(self.__dropout_rate)
+                    self.__change_inferencing_mode(False)
 
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
@@ -285,7 +285,7 @@ class EncoderDecoderController(object):
             eary_stop_flag = False
         
         self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
-        self.__change_dropout_rate(0.0)
+        self.__change_inferencing_mode(True)
         self.__logger.debug("end. ")
 
     def learn_generated(self, feature_generator):
@@ -325,7 +325,7 @@ class EncoderDecoderController(object):
         encoder_best_params_list = []
         decoder_best_params_list = []
         try:
-            self.__change_dropout_rate(self.__dropout_rate)
+            self.__change_inferencing_mode(False)
             self.__memory_tuple_list = []
             eary_stop_flag = False
             loss_list = []
@@ -390,7 +390,7 @@ class EncoderDecoderController(object):
                         raise
 
                 if self.__test_size_rate > 0:
-                    self.__change_dropout_rate(0.0)
+                    self.__change_inferencing_mode(True)
                     test_decoded_arr = self.inference(test_batch_observed_arr)
                     test_loss = self.__reconstruction_error_arr
 
@@ -405,7 +405,7 @@ class EncoderDecoderController(object):
                         test_decoded_arr = self.inference(test_batch_observed_arr)
                         test_loss = self.__reconstruction_error_arr
 
-                    self.__change_dropout_rate(self.__dropout_rate)
+                    self.__change_inferencing_mode(False)
 
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
@@ -436,7 +436,7 @@ class EncoderDecoderController(object):
             eary_stop_flag = False
         
         self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
-        self.__change_dropout_rate(0.0)
+        self.__change_inferencing_mode(True)
 
         self.__logger.debug("end. ")
 
@@ -547,15 +547,15 @@ class EncoderDecoderController(object):
         self.__decoder.optimize(decoder_grads_list, learning_rate, epoch)
         self.__encoder.optimize(encoder_grads_list, learning_rate, epoch)
 
-    def __change_dropout_rate(self, dropout_rate):
+    def __change_inferencing_mode(self, inferencing_mode):
         '''
         Change dropout rate in Encoder/Decoder.
         
         Args:
             dropout_rate:   The probalibity of dropout.
         '''
-        self.__decoder.opt_params.dropout_rate = dropout_rate
-        self.__encoder.opt_params.dropout_rate = dropout_rate
+        self.__decoder.opt_params.inferencing_mode = inferencing_mode
+        self.__encoder.opt_params.inferencing_mode = inferencing_mode
 
     def get_feature_points(self):
         '''

@@ -208,6 +208,7 @@ class LSTMModel(ReconstructableModel):
             eary_stop_flag = False
             for epoch in range(self.__epochs):
                 self.__opt_params.dropout_rate = self.__dropout_rate
+                self.__opt_params.inferencing_mode = False
 
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
                     learning_rate = learning_rate / self.__learning_attenuate_rate
@@ -269,7 +270,7 @@ class LSTMModel(ReconstructableModel):
                         raise
 
                 if self.__test_size_rate > 0:
-                    self.__opt_params.dropout_rate = 0.0
+                    self.__opt_params.inferencing_mode = True
                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
                     test_batch_observed_arr = test_observed_arr[rand_index]
                     test_batch_target_arr = test_target_arr[rand_index]
@@ -342,20 +343,21 @@ class LSTMModel(ReconstructableModel):
         Returns:
             Array like or sparse matrix as the predicted data points.
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=2] arr
-        if self.__opt_params.dropout_rate > 0:
-            arr = self.__opt_params.dropout(
-                batch_observed_arr.reshape((batch_observed_arr.shape[0], -1))
-            )
-            batch_observed_arr = arr.reshape((
-                batch_observed_arr.shape[0], 
-                batch_observed_arr.shape[1], 
-                batch_observed_arr.shape[2]
-            ))
-
         cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr = self.hidden_forward_propagate(
             batch_observed_arr
         )
+
+        cdef np.ndarray[DOUBLE_t, ndim=2] arr
+        if self.__opt_params.dropout_rate > 0:
+            arr = self.__opt_params.dropout(
+                hidden_activity_arr.reshape((hidden_activity_arr.shape[0], -1))
+            )
+            hidden_activity_arr = arr.reshape((
+                hidden_activity_arr.shape[0], 
+                hidden_activity_arr.shape[1], 
+                hidden_activity_arr.shape[2]
+            ))
+
         self.graph.hidden_activity_arr = hidden_activity_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.output_forward_propagate(
             hidden_activity_arr
@@ -377,11 +379,10 @@ class LSTMModel(ReconstructableModel):
         '''
         delta_arr, output_grads_list = self.output_back_propagate(pred_arr, delta_arr)
         _delta_arr, lstm_grads_list = self.hidden_back_propagate(delta_arr)
-
         cdef np.ndarray[DOUBLE_t, ndim=2] arr
         if self.__opt_params.dropout_rate > 0:
             arr = self.__opt_params.dropout(
-                _delta_arr.reshape((_delta_arr.shape[0], -1))
+                _delta_arr.reshape((delta_arr.shape[0], -1))
             )
             _delta_arr = arr.reshape((
                 _delta_arr.shape[0], 

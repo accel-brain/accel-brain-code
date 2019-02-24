@@ -225,13 +225,14 @@ class SpatioTemporalAutoEncoder(object):
 
         self.__learn_flag = True
         try:
-            self.__change_dropout_rate(self.__dropout_rate)
+            self.__change_inferencing_mode(False)
             self.__memory_tuple_list = []
             loss_list = []
             min_loss = None
             eary_stop_flag = False
             for epoch in range(self.__epochs):
                 self.__opt_params.dropout_rate = self.__dropout_rate
+                self.__opt_params.inferencing_mode = False
 
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
                     learning_rate = learning_rate / self.__learning_attenuate_rate
@@ -295,7 +296,7 @@ class SpatioTemporalAutoEncoder(object):
 
                 if self.__test_size_rate > 0:
                     self.__learn_flag = False
-                    self.__change_dropout_rate(0.0)
+                    self.__change_inferencing_mode(True)
                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
                     test_batch_observed_arr = test_observed_arr[rand_index]
                     test_batch_target_arr = test_target_arr[rand_index]
@@ -324,7 +325,7 @@ class SpatioTemporalAutoEncoder(object):
                     if self.__save_flag is True:
                         np.save("test_pred_arr_" + str(epoch), test_pred_arr)
 
-                    self.__change_dropout_rate(self.__dropout_rate)
+                    self.__change_inferencing_mode(False)
 
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
@@ -355,7 +356,7 @@ class SpatioTemporalAutoEncoder(object):
             eary_stop_flag = False
 
         self.__remember_best_params(best_weight_params_list, best_bias_params_list)
-        self.__change_dropout_rate(0.0)
+        self.__change_inferencing_mode(True)
         self.__logger.debug("end. ")
 
     def learn_generated(self, feature_generator):
@@ -400,7 +401,7 @@ class SpatioTemporalAutoEncoder(object):
 
         self.__learn_flag = True
         try:
-            self.__change_dropout_rate(self.__dropout_rate)
+            self.__change_inferencing_mode(False)
             self.__memory_tuple_list = []
             loss_list = []
             min_loss = None
@@ -409,6 +410,7 @@ class SpatioTemporalAutoEncoder(object):
             for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr in feature_generator.generate():
                 epoch += 1
                 self.__opt_params.dropout_rate = self.__dropout_rate
+                self.__opt_params.inferencing_mode = False
 
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
                     learning_rate = learning_rate / self.__learning_attenuate_rate
@@ -466,7 +468,7 @@ class SpatioTemporalAutoEncoder(object):
                         raise
 
                 if self.__test_size_rate > 0:
-                    self.__change_dropout_rate(0.0)
+                    self.__change_inferencing_mode(True)
                     self.__learn_flag = False
                     test_pred_arr = self.forward_propagation(
                         test_batch_observed_arr
@@ -492,7 +494,7 @@ class SpatioTemporalAutoEncoder(object):
                     if self.__save_flag is True:
                         np.save("test_pred_arr_" + str(epoch), test_pred_arr)
 
-                    self.__change_dropout_rate(self.__dropout_rate)
+                    self.__change_inferencing_mode(False)
 
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
@@ -523,7 +525,7 @@ class SpatioTemporalAutoEncoder(object):
             eary_stop_flag = False
 
         self.__remember_best_params(best_weight_params_list, best_bias_params_list)
-        self.__change_dropout_rate(0.0)
+        self.__change_inferencing_mode(True)
         self.__learn_flag = False
         self.__logger.debug("end. ")
 
@@ -890,16 +892,16 @@ class SpatioTemporalAutoEncoder(object):
         self.__decoder.optimize(decoder_grads_list, learning_rate, epoch)
         self.__encoder.optimize(encoder_grads_list, learning_rate, epoch)
 
-    def __change_dropout_rate(self, dropout_rate):
+    def __change_inferencing_mode(self, inferencing_mode):
         '''
         Change dropout rate in Encoder/Decoder.
         
         Args:
-            dropout_rate:   The probalibity of dropout.
+            inferencing_mode:   Inferencing mode or not.
         '''
-        self.__opt_params.dropout_rate = dropout_rate
-        self.__decoder.opt_params.dropout_rate = dropout_rate
-        self.__encoder.opt_params.dropout_rate = dropout_rate
+        self.__opt_params.inferencing_mode = inferencing_mode
+        self.__decoder.opt_params.inferencing_mode = inferencing_mode
+        self.__encoder.opt_params.inferencing_mode = inferencing_mode
 
     def save_pre_learned_params(self, dir_path):
         '''

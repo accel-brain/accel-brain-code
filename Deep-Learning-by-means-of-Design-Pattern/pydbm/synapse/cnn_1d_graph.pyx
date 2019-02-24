@@ -52,8 +52,8 @@ class CNN1DGraph(Synapse):
     def __init__(
         self,
         activation_function,
-        batch_size,
-        kernel_size,
+        int kernel_size,
+        int dimension,
         double scale=0.01
     ):
         '''
@@ -61,10 +61,10 @@ class CNN1DGraph(Synapse):
         
         Args:
             activation_function:    Activation function.
-            batch_size:             Batch size.
             kernel_size:            Size of the kernel.
+            dimension:              Dimension of feature points.
             scale:                  Scale of filters.
         '''
         self.__activation_function = activation_function
         self.__weight_arr = np.random.normal(size=kernel_size) * scale
-        self.__bias_arr = np.zeros((batch_size, ))
+        self.__bias_arr = np.zeros((dimension, ))

@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 from logging import getLogger
-from pydbm.cnn.convolutional_neural_network import ConvolutionalNeuralNetwork
-from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer
+from pydbm.cnn.convolutional_1d_neural_network import Convolutional1DNeuralNetwork
+from pydbm.cnn.layerablecnn.convolution_1d_layer import Convolution1DLayer as ConvolutionLayer
 import numpy as np
 cimport numpy as np
 ctypedef np.float64_t DOUBLE_t
 
 
-class Convolutional1DAutoEncoder(ConvolutionalNeuralNetwork):
+class Convolutional1DAutoEncoder(Convolutional1DNeuralNetwork):
     '''
-    1-D Convolutional Auto-Encoder which is-a `ConvolutionalNeuralNetwork`.
+    1-D Convolutional Auto-Encoder which is-a `Convolutional1DNeuralNetwork`.
 
     References:
         - Dumoulin, V., & V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
@@ -127,7 +127,7 @@ class Convolutional1DAutoEncoder(ConvolutionalNeuralNetwork):
         layerable_cnn_list = self.layerable_cnn_list[::-1]
         for i in range(len(layerable_cnn_list)):
             try:
-                observed_arr, _ = layerable_cnn_list[i].deconvolve(observed_arr)
+                observed_arr = layerable_cnn_list[i].deconvolve(observed_arr)
                 observed_arr = layerable_cnn_list[i].graph.activation_function.activate(observed_arr)
             except:
                 self.__logger.debug("Error raised in Deconvolution layer " + str(i + 1))

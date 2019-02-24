@@ -4181,7 +4181,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_31convolutional_1d_neural_network_28Convol
   __pyx_L8:;
 
   /* "pydbm/cnn/convolutional_1d_neural_network.pyx":191
- *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_arr
+ *         cdef np.ndarray[DOUBLE_t, ndim=2] delta_arr
  * 
  *         best_weight_params_list = []             # <<<<<<<<<<<<<<
  *         best_bias_params_list = []
@@ -4510,10 +4510,10 @@ static PyObject *__pyx_pf_5pydbm_3cnn_31convolutional_1d_neural_network_28Convol
             {
               __Pyx_BufFmt_StackElem __pyx_stack[1];
               __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer);
-              __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_22, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack);
+              __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_22, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
               if (unlikely(__pyx_t_18 < 0)) {
                 PyErr_Fetch(&__pyx_t_23, &__pyx_t_24, &__pyx_t_25);
-                if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_pred_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
+                if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_pred_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
                   Py_XDECREF(__pyx_t_23); Py_XDECREF(__pyx_t_24); Py_XDECREF(__pyx_t_25);
                   __Pyx_RaiseBufferFallbackError();
                 } else {
@@ -4521,7 +4521,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_31convolutional_1d_neural_network_28Convol
                 }
                 __pyx_t_23 = __pyx_t_24 = __pyx_t_25 = 0;
               }
-              __pyx_pybuffernd_pred_arr.diminfo[0].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_pred_arr.diminfo[0].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_pred_arr.diminfo[1].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_pred_arr.diminfo[1].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_pred_arr.diminfo[2].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_pred_arr.diminfo[2].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_pred_arr.diminfo[3].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_pred_arr.diminfo[3].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[3];
+              __pyx_pybuffernd_pred_arr.diminfo[0].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_pred_arr.diminfo[0].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_pred_arr.diminfo[1].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_pred_arr.diminfo[1].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[1];
               if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 211, __pyx_L18_error)
             }
             __pyx_t_22 = 0;
@@ -4839,10 +4839,10 @@ static PyObject *__pyx_pf_5pydbm_3cnn_31convolutional_1d_neural_network_28Convol
               {
                 __Pyx_BufFmt_StackElem __pyx_stack[1];
                 __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer);
-                __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_22, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack);
+                __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_22, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
                 if (unlikely(__pyx_t_18 < 0)) {
                   PyErr_Fetch(&__pyx_t_25, &__pyx_t_24, &__pyx_t_23);
-                  if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_pred_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
+                  if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_pred_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
                     Py_XDECREF(__pyx_t_25); Py_XDECREF(__pyx_t_24); Py_XDECREF(__pyx_t_23);
                     __Pyx_RaiseBufferFallbackError();
                   } else {
@@ -4850,7 +4850,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_31convolutional_1d_neural_network_28Convol
                   }
                   __pyx_t_25 = __pyx_t_24 = __pyx_t_23 = 0;
                 }
-                __pyx_pybuffernd_pred_arr.diminfo[0].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_pred_arr.diminfo[0].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_pred_arr.diminfo[1].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_pred_arr.diminfo[1].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_pred_arr.diminfo[2].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_pred_arr.diminfo[2].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_pred_arr.diminfo[3].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_pred_arr.diminfo[3].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[3];
+                __pyx_pybuffernd_pred_arr.diminfo[0].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_pred_arr.diminfo[0].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_pred_arr.diminfo[1].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_pred_arr.diminfo[1].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[1];
                 if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 226, __pyx_L18_error)
               }
               __pyx_t_22 = 0;
@@ -5051,10 +5051,10 @@ static PyObject *__pyx_pf_5pydbm_3cnn_31convolutional_1d_neural_network_28Convol
             {
               __Pyx_BufFmt_StackElem __pyx_stack[1];
               __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer);
-              __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_27, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack);
+              __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_27, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
               if (unlikely(__pyx_t_18 < 0)) {
                 PyErr_Fetch(&__pyx_t_23, &__pyx_t_24, &__pyx_t_25);
-                if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_delta_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
+                if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_delta_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
                   Py_XDECREF(__pyx_t_23); Py_XDECREF(__pyx_t_24); Py_XDECREF(__pyx_t_25);
                   __Pyx_RaiseBufferFallbackError();
                 } else {
@@ -5062,7 +5062,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_31convolutional_1d_neural_network_28Convol
                 }
                 __pyx_t_23 = __pyx_t_24 = __pyx_t_25 = 0;
               }
-              __pyx_pybuffernd_delta_arr.diminfo[0].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_arr.diminfo[0].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_arr.diminfo[1].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_arr.diminfo[1].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_arr.diminfo[2].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_arr.diminfo[2].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_arr.diminfo[3].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_arr.diminfo[3].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[3];
+              __pyx_pybuffernd_delta_arr.diminfo[0].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_arr.diminfo[0].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_arr.diminfo[1].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_arr.diminfo[1].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[1];
               if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 233, __pyx_L18_error)
             }
             __pyx_t_27 = 0;
@@ -5126,10 +5126,10 @@ static PyObject *__pyx_pf_5pydbm_3cnn_31convolutional_1d_neural_network_28Convol
             {
               __Pyx_BufFmt_StackElem __pyx_stack[1];
               __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer);
-              __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_27, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack);
+              __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_27, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
               if (unlikely(__pyx_t_18 < 0)) {
                 PyErr_Fetch(&__pyx_t_25, &__pyx_t_24, &__pyx_t_23);
-                if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_delta_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
+                if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_delta_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
                   Py_XDECREF(__pyx_t_25); Py_XDECREF(__pyx_t_24); Py_XDECREF(__pyx_t_23);
                   __Pyx_RaiseBufferFallbackError();
                 } else {
@@ -5137,7 +5137,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_31convolutional_1d_neural_network_28Convol
                 }
                 __pyx_t_25 = __pyx_t_24 = __pyx_t_23 = 0;
               }
-              __pyx_pybuffernd_delta_arr.diminfo[0].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_arr.diminfo[0].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_arr.diminfo[1].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_arr.diminfo[1].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_arr.diminfo[2].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_arr.diminfo[2].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_arr.diminfo[3].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_arr.diminfo[3].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[3];
+              __pyx_pybuffernd_delta_arr.diminfo[0].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_arr.diminfo[0].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_arr.diminfo[1].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_arr.diminfo[1].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[1];
               if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 237, __pyx_L18_error)
             }
             __pyx_t_27 = 0;
@@ -5662,10 +5662,10 @@ static PyObject *__pyx_pf_5pydbm_3cnn_31convolutional_1d_neural_network_28Convol
           {
             __Pyx_BufFmt_StackElem __pyx_stack[1];
             __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer);
-            __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_33, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack);
+            __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_33, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
             if (unlikely(__pyx_t_18 < 0)) {
               PyErr_Fetch(&__pyx_t_19, &__pyx_t_20, &__pyx_t_21);
-              if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_test_pred_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
+              if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_test_pred_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
                 Py_XDECREF(__pyx_t_19); Py_XDECREF(__pyx_t_20); Py_XDECREF(__pyx_t_21);
                 __Pyx_RaiseBufferFallbackError();
               } else {
@@ -5673,7 +5673,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_31convolutional_1d_neural_network_28Convol
               }
               __pyx_t_19 = __pyx_t_20 = __pyx_t_21 = 0;
             }
-            __pyx_pybuffernd_test_pred_arr.diminfo[0].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_test_pred_arr.diminfo[0].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_test_pred_arr.diminfo[1].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_test_pred_arr.diminfo[1].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_test_pred_arr.diminfo[2].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_test_pred_arr.diminfo[2].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_test_pred_arr.diminfo[3].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_test_pred_arr.diminfo[3].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[3];
+            __pyx_pybuffernd_test_pred_arr.diminfo[0].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_test_pred_arr.diminfo[0].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_test_pred_arr.diminfo[1].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_test_pred_arr.diminfo[1].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[1];
             if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 266, __pyx_L9_error)
           }
           __pyx_t_33 = 0;
@@ -5977,10 +5977,10 @@ static PyObject *__pyx_pf_5pydbm_3cnn_31convolutional_1d_neural_network_28Convol
             {
               __Pyx_BufFmt_StackElem __pyx_stack[1];
               __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer);
-              __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_33, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack);
+              __pyx_t_18 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_33, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack);
               if (unlikely(__pyx_t_18 < 0)) {
                 PyErr_Fetch(&__pyx_t_21, &__pyx_t_20, &__pyx_t_19);
-                if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_test_pred_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
+                if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_test_pred_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_31convolutional_1d_neural_network_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
                   Py_XDECREF(__pyx_t_21); Py_XDECREF(__pyx_t_20); Py_XDECREF(__pyx_t_19);
                   __Pyx_RaiseBufferFallbackError();
                 } else {
@@ -5988,7 +5988,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_31convolutional_1d_neural_network_28Convol
                 }
                 __pyx_t_21 = __pyx_t_20 = __pyx_t_19 = 0;
               }
-              __pyx_pybuffernd_test_pred_arr.diminfo[0].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_test_pred_arr.diminfo[0].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_test_pred_arr.diminfo[1].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_test_pred_arr.diminfo[1].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_test_pred_arr.diminfo[2].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_test_pred_arr.diminfo[2].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_test_pred_arr.diminfo[3].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_test_pred_arr.diminfo[3].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[3];
+              __pyx_pybuffernd_test_pred_arr.diminfo[0].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_test_pred_arr.diminfo[0].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_test_pred_arr.diminfo[1].strides = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_test_pred_arr.diminfo[1].shape = __pyx_pybuffernd_test_pred_arr.rcbuffer->pybuffer.shape[1];
               if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 282, __pyx_L9_error)
             }
             __pyx_t_33 = 0;

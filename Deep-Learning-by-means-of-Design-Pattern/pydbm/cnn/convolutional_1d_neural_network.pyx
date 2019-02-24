@@ -184,9 +184,9 @@ class Convolutional1DNeuralNetwork(object):
 
         cdef double loss
         cdef double test_loss
-        cdef np.ndarray[DOUBLE_t, ndim=4] pred_arr
-        cdef np.ndarray[DOUBLE_t, ndim=4] test_pred_arr
-        cdef np.ndarray[DOUBLE_t, ndim=4] delta_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] test_pred_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_arr
         
         best_weight_params_list = []
         best_bias_params_list = []

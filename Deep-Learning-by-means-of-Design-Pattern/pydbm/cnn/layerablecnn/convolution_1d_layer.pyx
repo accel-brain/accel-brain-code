@@ -89,7 +89,7 @@ class Convolution1DLayer(LayerableCNN):
         weight_arr = np.array([self.graph.weight_arr] * delta_arr.shape[0])
 
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = delta_arr.sum(axis=0)
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(weight_arr.T, delta_arr).sum(axis=1)
+        cdef np.ndarray[DOUBLE_t, ndim=1] delta_weight_arr = np.dot(weight_arr.T, delta_arr).sum(axis=1)
         if self.__delta_bias_arr is None:
             self.__delta_bias_arr = delta_bias_arr
         else:

@@ -3174,7 +3174,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_20convolution_1d_layer_18Co
  *         weight_arr = np.array([self.graph.weight_arr] * delta_arr.shape[0])
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = delta_arr.sum(axis=0)             # <<<<<<<<<<<<<<
- *         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(weight_arr.T, delta_arr).sum(axis=1)
+ *         cdef np.ndarray[DOUBLE_t, ndim=1] delta_weight_arr = np.dot(weight_arr.T, delta_arr).sum(axis=1)
  *         if self.__delta_bias_arr is None:
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_delta_arr), __pyx_n_s_sum); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
@@ -3203,7 +3203,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_20convolution_1d_layer_18Co
   /* "pydbm/cnn/layerablecnn/convolution_1d_layer.pyx":92
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = delta_arr.sum(axis=0)
- *         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(weight_arr.T, delta_arr).sum(axis=1)             # <<<<<<<<<<<<<<
+ *         cdef np.ndarray[DOUBLE_t, ndim=1] delta_weight_arr = np.dot(weight_arr.T, delta_arr).sum(axis=1)             # <<<<<<<<<<<<<<
  *         if self.__delta_bias_arr is None:
  *             self.__delta_bias_arr = delta_bias_arr
  */
@@ -3275,10 +3275,10 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_20convolution_1d_layer_18Co
   __pyx_t_12 = ((PyArrayObject *)__pyx_t_4);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_weight_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_12, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_12layerablecnn_20convolution_1d_layer_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_weight_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_12, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3cnn_12layerablecnn_20convolution_1d_layer_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_delta_weight_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_delta_weight_arr.rcbuffer->pybuffer.buf = NULL;
       __PYX_ERR(0, 92, __pyx_L1_error)
-    } else {__pyx_pybuffernd_delta_weight_arr.diminfo[0].strides = __pyx_pybuffernd_delta_weight_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_weight_arr.diminfo[0].shape = __pyx_pybuffernd_delta_weight_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_weight_arr.diminfo[1].strides = __pyx_pybuffernd_delta_weight_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_weight_arr.diminfo[1].shape = __pyx_pybuffernd_delta_weight_arr.rcbuffer->pybuffer.shape[1];
+    } else {__pyx_pybuffernd_delta_weight_arr.diminfo[0].strides = __pyx_pybuffernd_delta_weight_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_weight_arr.diminfo[0].shape = __pyx_pybuffernd_delta_weight_arr.rcbuffer->pybuffer.shape[0];
     }
   }
   __pyx_t_12 = 0;
@@ -3287,7 +3287,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_20convolution_1d_layer_18Co
 
   /* "pydbm/cnn/layerablecnn/convolution_1d_layer.pyx":93
  *         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = delta_arr.sum(axis=0)
- *         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(weight_arr.T, delta_arr).sum(axis=1)
+ *         cdef np.ndarray[DOUBLE_t, ndim=1] delta_weight_arr = np.dot(weight_arr.T, delta_arr).sum(axis=1)
  *         if self.__delta_bias_arr is None:             # <<<<<<<<<<<<<<
  *             self.__delta_bias_arr = delta_bias_arr
  *         else:
@@ -3300,7 +3300,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_20convolution_1d_layer_18Co
   if (__pyx_t_14) {
 
     /* "pydbm/cnn/layerablecnn/convolution_1d_layer.pyx":94
- *         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(weight_arr.T, delta_arr).sum(axis=1)
+ *         cdef np.ndarray[DOUBLE_t, ndim=1] delta_weight_arr = np.dot(weight_arr.T, delta_arr).sum(axis=1)
  *         if self.__delta_bias_arr is None:
  *             self.__delta_bias_arr = delta_bias_arr             # <<<<<<<<<<<<<<
  *         else:
@@ -3310,7 +3310,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_12layerablecnn_20convolution_1d_layer_18Co
 
     /* "pydbm/cnn/layerablecnn/convolution_1d_layer.pyx":93
  *         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = delta_arr.sum(axis=0)
- *         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(weight_arr.T, delta_arr).sum(axis=1)
+ *         cdef np.ndarray[DOUBLE_t, ndim=1] delta_weight_arr = np.dot(weight_arr.T, delta_arr).sum(axis=1)
  *         if self.__delta_bias_arr is None:             # <<<<<<<<<<<<<<
  *             self.__delta_bias_arr = delta_bias_arr
  *         else:

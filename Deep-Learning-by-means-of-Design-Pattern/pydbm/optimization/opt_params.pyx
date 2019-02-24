@@ -25,6 +25,9 @@ class OptParams(metaclass=ABCMeta):
     # `np.ndarray` of dropout values.
     __dropout_rate_arr_list = []
 
+    # Inferencing mode or not.
+    __inferencing_mode = False
+
     @abstractmethod
     def optimize(self, params_list, np.ndarray grads_arr, double learning_rate):
         '''
@@ -91,6 +94,9 @@ class OptParams(metaclass=ABCMeta):
         if self.dropout_rate == 0.0:
             return activity_arr
 
+        if self.inferencing_mode is True:
+            return activity_arr * (1.0 - self.dropout_rate)
+
         cdef int row = activity_arr.shape[0]
         cdef int col
         cdef np.ndarray dropout_rate_arr
@@ -127,6 +133,12 @@ class OptParams(metaclass=ABCMeta):
         Returns:
             The state of delta.
         '''
+        if self.dropout_rate == 0.0:
+            return delta_arr
+        
+        if self.inferencing_mode is True:
+            return delta_arr
+
         cdef np.ndarray dropout_rate_arr = self.__dropout_rate_arr_list.pop(0)
         delta_arr = np.nanprod(
             np.array([
@@ -162,3 +174,13 @@ class OptParams(metaclass=ABCMeta):
             raise TypeError()
 
     dropout_rate = property(get_dropout_rate, set_dropout_rate)
+
+    def get_inferencing_mode(self):
+        ''' getter '''
+        return self.__inferencing_mode
+    
+    def set_inferencing_mode(self, value):
+        ''' setter '''
+        self.__inferencing_mode = value
+    
+    inferencing_mode = property(get_inferencing_mode, set_inferencing_mode)

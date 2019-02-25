@@ -5,9 +5,9 @@ cimport cython
 from pydbm.synapse_list import Synapse
 
 
-class CNN1DGraph(Synapse):
+class NNGraph(Synapse):
     '''
-    Computation graph in 1-D CNN.
+    Computation graph in the perceptron or Neural Network.
     '''
     
     # Weight matrix (kernel)
@@ -52,8 +52,8 @@ class CNN1DGraph(Synapse):
     def __init__(
         self,
         activation_function,
-        int kernel_size,
-        int dimension,
+        int hidden_neuron_count,
+        int output_neuron_count,
         double scale=0.01
     ):
         '''
@@ -61,10 +61,12 @@ class CNN1DGraph(Synapse):
         
         Args:
             activation_function:    Activation function.
-            kernel_size:            Size of the kernel.
-            dimension:              Dimension of feature points.
+            hidden_neuron_count:    The number of hidden units.
+            output_neuron_count:    The number of output units.
             scale:                  Scale of filters.
         '''
         self.__activation_function = activation_function
-        self.__weight_arr = np.random.normal(size=kernel_size) * scale
-        self.__bias_arr = np.zeros((dimension, ))
+        self.__weight_arr = np.random.normal(
+            size=(hidden_neuron_count, output_neuron_count)
+         ) * scale
+        self.__bias_arr = np.zeros((output_neuron_count, ))

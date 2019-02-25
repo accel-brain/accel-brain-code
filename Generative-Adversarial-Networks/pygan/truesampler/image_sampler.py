@@ -57,6 +57,7 @@ class ImageSampler(TrueSampler):
             observed_arr = result_tuple[0]
             break
 
+        observed_arr = observed_arr.astype(float)
         if self.__norm_mode == "z_score":
             if observed_arr.std() != 0:
                 observed_arr = (observed_arr - observed_arr.mean()) / observed_arr.std()

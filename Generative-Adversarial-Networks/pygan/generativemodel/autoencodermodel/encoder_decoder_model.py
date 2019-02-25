@@ -44,7 +44,6 @@ class EncoderDecoderModel(AutoEncoderModel):
         encoder_decoder_controller,
         seq_len=10,
         learning_rate=1e-10,
-        norm_mode="z_score",
         verbose_mode=False
     ):
         logger = getLogger("pydbm")
@@ -65,7 +64,6 @@ class EncoderDecoderModel(AutoEncoderModel):
         self.__seq_len = seq_len
         self.__learning_rate = learning_rate
         self.__verbose_mode = verbose_mode
-        self.__norm_mode = norm_mode
 
     def draw(self):
         '''
@@ -77,16 +75,6 @@ class EncoderDecoderModel(AutoEncoderModel):
         observed_arr = self.noise_sampler.generate()
         _ = self.__encoder_decoder_controller.encoder.inference(observed_arr)
         arr = self.__encoder_decoder_controller.encoder.get_feature_points()
-        if arr.shape[2] > 1:
-            if self.__norm_mode == "z_score":
-                if arr.std() != 0:
-                    arr = (arr - arr.mean()) / arr.std()
-            elif self.__norm_mode == "min_max":
-                if (arr.max() - arr.min()) != 0:
-                    arr = (arr - arr.min()) / (arr.max() - arr.min())
-            elif self.__norm_mode == "tanh":
-                arr = np.tanh(arr)
-
         return arr
 
     def inference(self, observed_arr):

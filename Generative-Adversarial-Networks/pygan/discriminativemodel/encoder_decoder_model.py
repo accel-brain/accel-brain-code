@@ -79,20 +79,36 @@ class EncoderDecoderModel(DiscriminativeModel):
         '''
         return self.__encoder_decoder_controller.inference(observed_arr)
 
-    def learn(self, grad_arr):
+    def learn(self, grad_arr, fix_opt_flag=False):
         '''
         Update this Discriminator by ascending its stochastic gradient.
 
         Args:
-            grad_arr:   `np.ndarray` of gradients.
+            grad_arr:       `np.ndarray` of gradients.
+            fix_opt_flag:   If `False`, no optimization in this model will be done.        
+        
+        Returns:
+            `np.ndarray` of delta or gradients.
         
         '''
+        if grad_arr.ndim > 3:
+            grad_arr = grad_arr.reshape((
+                grad_arr.shape[0],
+                grad_arr.shape[1],
+                -1
+            ))
+            grad_arr = grad_arr[:, -1]
+        elif grad_arr.ndim == 3:
+            grad_arr = grad_arr[:, -1]
+
         decoder_grads_list, encoder_delta_arr, encoder_grads_list = self.__encoder_decoder_controller.back_propagation(
-            grad_arr[:, -1]
+            grad_arr
         )
-        self.__encoder_decoder_controller.optimize(
-            decoder_grads_list,
-            encoder_grads_list,
-            self.__learning_rate,
-            1
-        )
+        if fix_opt_flag is False:
+            self.__encoder_decoder_controller.optimize(
+                decoder_grads_list,
+                encoder_grads_list,
+                self.__learning_rate,
+                1
+            )
+        return encoder_delta_arr

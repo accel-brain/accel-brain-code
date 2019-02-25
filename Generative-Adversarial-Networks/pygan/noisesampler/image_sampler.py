@@ -75,7 +75,7 @@ class ImageSampler(NoiseSampler):
             break
 
         observed_arr = observed_arr + self.__add_noise_sampler.generate()
-
+        observed_arr = observed_arr.astype(float)
         if self.__norm_mode == "z_score":
             if observed_arr.std() != 0:
                 observed_arr = (observed_arr - observed_arr.mean()) / observed_arr.std()

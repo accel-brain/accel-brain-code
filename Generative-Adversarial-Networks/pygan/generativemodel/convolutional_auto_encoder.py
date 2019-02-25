@@ -4,7 +4,9 @@ from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
 
 from pygan.generative_model import GenerativeModel
 
-from pydbm.cnn.convolutional_neural_network import ConvolutionalNeuralNetwork
+from pydbm.cnn.convolutionalneuralnetwork.convolutional_auto_encoder import ConvolutionalAutoEncoder as CAE
+#from pydbm.cnn.convolutional_neural_network import ConvolutionalNeuralNetwork as CAE
+
 from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer
 from pydbm.cnn.layerable_cnn import LayerableCNN
 from pydbm.cnn.feature_generator import FeatureGenerator
@@ -17,6 +19,8 @@ from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as Convolu
 from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph1
 from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph2
 
+# Tanh Function as activation function.
+from pydbm.activation.tanh_function import TanhFunction
 # Loss function.
 from pydbm.loss.mean_squared_error import MeanSquaredError
 # Adam as a optimizer.
@@ -25,9 +29,9 @@ from pydbm.optimization.optparams.sgd import SGD
 from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
 
 
-class CNNModel(GenerativeModel):
+class ConvolutionalAutoEncoder(GenerativeModel):
     '''
-    Convolutional Neural Network as a Generator.
+    Convolutional Auto-Encoder(CAE) as a `GenerativeModel`.
 
     CNNs are hierarchical models whose convolutional layers alternate with subsampling
     layers, reminiscent of simple and complex cells in the primary visual cortex.
@@ -48,15 +52,10 @@ class CNNModel(GenerativeModel):
 
     def __init__(
         self,
-        batch_size,
-        layerable_cnn_list,
-        learning_rate=1e-05,
-        computable_loss=None,
-        opt_params=None,
-        norm_mode="z_score",
-        verificatable_result=None,
-        pre_learned_path_list=None,
-        cnn=None,
+        batch_size=20,
+        learning_rate=1e-10,
+        convolutional_auto_encoder=None,
+        gray_scale_flag=True,
         verbose_mode=False
     ):
         '''
@@ -64,23 +63,7 @@ class CNNModel(GenerativeModel):
 
         Args:
             batch_size:                     Batch size in mini-batch.
-            layerable_cnn_list:             `list` of `LayerableCNN`.
             learning_rate:                  Learning rate.
-            computable_loss:                is-a `ComputableLoss`.
-            opt_params:                     is-a `OptParams`.
-            norm_mode:                      How to normalize generated values.
-                                            - `z_score`: Z-Score normalization.
-                                            - `min_max`: Min-max normalization.
-                                            - `tanh`: Normalization by tanh function.
-
-            verificatable_result:           is-a `VerificateFunctionApproximation`.
-            pre_learned_path_list:          `list` of file path that stored pre-learned parameters.
-                                            This parameters will be refered only when `cnn` is `None`.
-
-            cnn:                            is-a `ConvolutionalNeuralNetwork` as a model in this class.
-                                            If not `None`, `self.__cnn` will be overrided by this `cnn`.
-                                            If `None`, this class initialize `ConvolutionalNeuralNetwork`
-                                            by default hyper parameters.
 
             verbose_mode:                   Verbose mode or not.
         '''
@@ -94,46 +77,58 @@ class CNNModel(GenerativeModel):
             logger.setLevel(ERROR)
 
         logger.addHandler(handler)
-        if computable_loss is None:
-            computable_loss = MeanSquaredError()
-        if verificatable_result is None:
-            verificatable_result = VerificateFunctionApproximation()
-        if opt_params is None:
-            opt_params = SGD()
-            opt_params.weight_limit = 0.5
-            opt_params.dropout_rate = 0.0
+        if convolutional_auto_encoder is None:
+            if gray_scale_flag is True:
+                channel = 1
+            else:
+                channel = 3
+            scale = 0.01
 
-        if cnn is None:
-            cnn = ConvolutionalNeuralNetwork(
-                # The `list` of `ConvolutionLayer`.
-                layerable_cnn_list=layerable_cnn_list,
-                # The number of epochs in mini-batch training.
-                epochs=200,
-                # The batch size.
-                batch_size=batch_size,
-                # Learning rate.
-                learning_rate=learning_rate,
-                # Loss function.
-                computable_loss=computable_loss,
-                # Optimizer.
-                opt_params=opt_params,
-                # Verification.
-                verificatable_result=verificatable_result,
-                # Pre-learned parameters.
-                pre_learned_path_list=pre_learned_path_list,
-                # Others.
-                learning_attenuate_rate=0.1,
-                attenuate_epoch=50
+            conv1 = ConvolutionLayer1(
+                ConvGraph1(
+                    activation_function=TanhFunction(),
+                    filter_num=batch_size,
+                    channel=channel,
+                    kernel_size=3,
+                    scale=scale,
+                    stride=1,
+                    pad=1
+                )
             )
 
-        self.__cnn = cnn
-        self.__batch_size = batch_size
-        self.__computable_loss = computable_loss
+            conv2 = ConvolutionLayer2(
+                ConvGraph2(
+                    activation_function=TanhFunction(),
+                    filter_num=batch_size,
+                    channel=batch_size,
+                    kernel_size=3,
+                    scale=scale,
+                    stride=1,
+                    pad=1
+                )
+            )
+
+            convolutional_auto_encoder = CAE(
+                layerable_cnn_list=[
+                    conv1, 
+                    conv2
+                ],
+                epochs=100,
+                batch_size=batch_size,
+                learning_rate=1e-05,
+                learning_attenuate_rate=0.1,
+                attenuate_epoch=25,
+                computable_loss=MeanSquaredError(),
+                opt_params=SGD(),
+                verificatable_result=VerificateFunctionApproximation(),
+                test_size_rate=0.3,
+                tol=1e-15,
+                save_flag=False
+            )
+        self.__convolutional_auto_encoder = convolutional_auto_encoder
         self.__learning_rate = learning_rate
         self.__verbose_mode = verbose_mode
-        self.__q_shape = None
-        self.__loss_list = []
-        self.__norm_mode = norm_mode
+        self.__logger = logger
 
     def draw(self):
         '''
@@ -143,21 +138,7 @@ class CNNModel(GenerativeModel):
             `np.ndarray` of samples.
         '''
         observed_arr = self.noise_sampler.generate()
-        arr = self.inference(observed_arr)
-        if self.__norm_mode == "z_score":
-            arr = (arr - arr.mean()) / arr.std()
-        elif self.__norm_mode == "min_max":
-            arr = (arr - arr.min()) / (arr.max() - arr.min())
-        elif self.__norm_mode == "tanh":
-            arr = np.tanh(arr)
-
-        return np.expand_dims(
-            np.nansum(
-                arr,
-                axis=1
-            ) / arr.shape[1],
-            axis=1
-        )
+        return self.inference(observed_arr)
 
     def inference(self, observed_arr):
         '''
@@ -170,7 +151,7 @@ class CNNModel(GenerativeModel):
             `np.ndarray` of inferenced.
             `0` is to `1` what `fake` is to `true`.
         '''
-        return self.__cnn.inference(observed_arr)
+        return self.__convolutional_auto_encoder.inference(observed_arr)
 
     def learn(self, grad_arr):
         '''
@@ -180,5 +161,15 @@ class CNNModel(GenerativeModel):
             grad_arr:   `np.ndarray` of gradients.
         
         '''
-        _ = self.__cnn.back_propagation(grad_arr)
-        self.__cnn.optimize(self.__learning_rate, 1)
+        delta_arr = grad_arr
+        layerable_cnn_list = self.__convolutional_auto_encoder.layerable_cnn_list[::-1]
+        for i in range(len(layerable_cnn_list)):
+            try:
+                grad_arr = layerable_cnn_list[i].back_propagate(grad_arr)
+            except:
+                self.__logger.debug(
+                    "Delta computation raised an error in CNN layer " + str(len(layerable_cnn_list) - i)
+                )
+                raise
+
+        self.__convolutional_auto_encoder.optimize(self.__learning_rate, 1)

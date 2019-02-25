@@ -22,12 +22,15 @@ class DiscriminativeModel(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    def learn(self, grad_arr):
+    def learn(self, grad_arr, fix_opt_flag=False):
         '''
         Update this Discriminator by ascending its stochastic gradient.
 
         Args:
-            grad_arr:   `np.ndarray` of gradients.
+            grad_arr:       `np.ndarray` of gradients.
+            fix_opt_flag:   If `False`, no optimization in this model will be done.        
         
+        Returns:
+            `np.ndarray` of delta or gradients.
         '''
         raise NotImplementedError()

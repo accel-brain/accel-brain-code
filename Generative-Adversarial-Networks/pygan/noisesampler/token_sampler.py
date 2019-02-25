@@ -46,20 +46,7 @@ class TokenSampler(NoiseSampler):
                 batch_size=batch_size,
                 seq_len=seq_len
         )
-        if add_noise_sampler is None:
-            if seq_len is None:
-                output_shape = (batch_size, self.__iter_text_generator.vector_dim)
-            else:
-                output_shape = (batch_size, seq_len, self.__iter_text_generator.vector_dim)
-
-            self.__add_noise_sampler = GaussSampler(
-                mu=0.0, 
-                sigma=1.0,
-                output_shape=output_shape
-            )
-        else:
-            self.__add_noise_sampler = add_noise_sampler
-
+        self.__add_noise_sampler = add_noise_sampler
         self.__norm_mode = norm_mode
 
     def generate(self):
@@ -76,7 +63,8 @@ class TokenSampler(NoiseSampler):
             token_arr = result_tuple[1]
             break
 
-        observed_arr = observed_arr + self.__add_noise_sampler.generate()
+        if self.__add_noise_sampler is not None:
+            observed_arr = observed_arr + self.__add_noise_sampler.generate()
 
         if self.__norm_mode == "z_score":
             if observed_arr.std() != 0:

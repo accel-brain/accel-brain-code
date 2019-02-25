@@ -133,11 +133,11 @@ class GenerativeAdversarialNetworks(object):
     ):
         generated_arr = generative_model.draw()
         generated_posterior_arr = discriminative_model.inference(generated_arr)
-
         grad_arr = self.__gans_value_function.compute_generator_reward(
             generated_posterior_arr
         )
-
+        grad_arr = discriminative_model.learn(grad_arr, fix_opt_flag=True)
+        grad_arr = grad_arr.reshape(generated_arr.shape)
         generative_model.learn(grad_arr)
 
         self.__logger.debug(

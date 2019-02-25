@@ -19,7 +19,7 @@ from pydbm.verification.verificate_function_approximation import VerificateFunct
 
 class ConvolutionalAutoEncoder(AutoEncoderModel):
     '''
-    Convolutional Auto-Encoder(CAE) as a `GenerativeModel`.
+    Convolutional Auto-Encoder(CAE) as a `AutoEncoderModel`.
 
     A stack of Convolutional Auto-Encoder (Masci, J., et al., 2011) 
     forms a convolutional neural network(CNN), which are among the most successful models 
@@ -43,7 +43,6 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         learning_rate=1e-10,
         convolutional_auto_encoder=None,
         gray_scale_flag=True,
-        norm_mode="z_score",
         verbose_mode=False
     ):
         logger = getLogger("pydbm")
@@ -108,7 +107,6 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         self.__convolutional_auto_encoder = convolutional_auto_encoder
         self.__learning_rate = learning_rate
         self.__verbose_mode = verbose_mode
-        self.__norm_mode = norm_mode
 
     def draw(self):
         '''
@@ -120,14 +118,6 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         observed_arr = self.noise_sampler.generate()
         _ = self.inference(observed_arr)
         arr = self.__convolutional_auto_encoder.extract_feature_points_arr()
-        if self.__norm_mode == "z_score":
-            if arr.std() != 0:
-                arr = (arr - arr.mean()) / arr.std()
-        elif self.__norm_mode == "min_max":
-            if (arr.max() - arr.min()) > 0:
-                arr = (arr - arr.min()) / (arr.max() - arr.min())
-        elif self.__norm_mode == "tanh":
-            arr = np.tanh(arr)
 
         return np.expand_dims(
             np.nansum(

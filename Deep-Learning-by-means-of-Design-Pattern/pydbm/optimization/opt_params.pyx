@@ -165,9 +165,10 @@ class OptParams(metaclass=ABCMeta):
             `list` of gradients.
         '''
         for i in range(len(grads_list)):
-            v = np.linalg.norm(grads_list[i])
-            if v > self.grad_clip_threshold:
-                grads_list[i] = grads_list[i] * self.grad_clip_threshold / v
+            if isinstance(grads_list[i], np.ndarray) is True:
+                v = np.linalg.norm(grads_list[i])
+                if v > self.grad_clip_threshold:
+                    grads_list[i] = grads_list[i] * self.grad_clip_threshold / v
 
         return grads_list
 

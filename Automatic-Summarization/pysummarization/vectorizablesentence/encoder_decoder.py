@@ -94,7 +94,7 @@ class EncoderDecoder(VectorizableSentence):
             token_master_list:              Unique `list` of tokens.
             hidden_neuron_count:            The number of units in hidden layer.
             epochs:                         Epochs of Mini-batch.
-            bath_size:                      Batch size of Mini-batch.
+            batch_size:                     Batch size of Mini-batch.
             learning_rate:                  Learning rate.
             learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
             attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 from pygan.true_sampler import TrueSampler
-from pysummarization.itertextgenerator.iter_sentence_generator import IterSentenceGenerator
+from pysummarization.iter_text_generator import IterTextGenerator
 
 
-class SentenceSampler(TrueSampler):
+class TokenTrueSampler(TrueSampler):
     '''
-    Sampler which draws samples from the `true` distribution of sentences.
+    Sampler which draws samples from the `true` distribution of tokens.
     '''
 
     def __init__(
@@ -33,7 +33,7 @@ class SentenceSampler(TrueSampler):
                                     - `min_max`: Min-max normalization.
                                     - `tanh`: Normalization by tanh function.
         '''
-        self.__iter_text_generator = IterSentenceGenerator(
+        self.__iter_text_generator = IterTextGenerator(
                 document=document,
                 nlp_base=nlp_base,
                 tokenizable_doc=tokenizable_doc,

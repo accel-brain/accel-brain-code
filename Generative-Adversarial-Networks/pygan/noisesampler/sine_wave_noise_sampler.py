@@ -3,7 +3,7 @@ import numpy as np
 from pygan.noise_sampler import NoiseSampler
 
 
-class SineWaveSampler(NoiseSampler):
+class SineWaveNoiseSampler(NoiseSampler):
     '''
     Generate samples based on the noise prior by sine wave distribution.
     '''

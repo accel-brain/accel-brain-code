@@ -3,7 +3,7 @@ import numpy as np
 from pygan.true_sampler import TrueSampler
 
 
-class GaussSampler(TrueSampler):
+class GaussTrueSampler(TrueSampler):
     '''
     Sampler which draws samples from the `true` Gauss distribution.
     '''

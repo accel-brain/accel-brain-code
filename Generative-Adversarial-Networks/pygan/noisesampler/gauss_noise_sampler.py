@@ -3,7 +3,7 @@ import numpy as np
 from pygan.noise_sampler import NoiseSampler
 
 
-class GaussSampler(NoiseSampler):
+class GaussNoiseSampler(NoiseSampler):
     '''
     Generate samples based on the noise prior by Gauss distribution.
     '''

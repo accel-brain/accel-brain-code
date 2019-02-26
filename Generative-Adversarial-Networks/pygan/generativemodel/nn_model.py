@@ -2,20 +2,16 @@
 import numpy as np
 from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
 
-from pygan.discriminative_model import DiscriminativeModel
+from pygan.generative_model import GenerativeModel
 
-from pydbm.cnn.convolutional_neural_network import ConvolutionalNeuralNetwork
-from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer
-from pydbm.cnn.layerable_cnn import LayerableCNN
-from pydbm.cnn.feature_generator import FeatureGenerator
+from pydbm.nn.neural_network import NeuralNetwork
+from pydbm.nn.nn_layer import NNLayer
 from pydbm.optimization.opt_params import OptParams
 from pydbm.verification.interface.verificatable_result import VerificatableResult
 from pydbm.loss.interface.computable_loss import ComputableLoss
 
-from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer1
-from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer2
-from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph1
-from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph2
+from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer
+from pydbm.synapse.nn_graph import NNGraph
 
 # Loss function.
 from pydbm.loss.mean_squared_error import MeanSquaredError
@@ -25,36 +21,21 @@ from pydbm.optimization.optparams.adam import Adam
 from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
 
 
-class CNNModel(DiscriminativeModel):
+class NNModel(GenerativeModel):
     '''
-    Convolutional Neural Network as a Discriminator.
-
-    CNNs are hierarchical models whose convolutional layers alternate with subsampling
-    layers, reminiscent of simple and complex cells in the primary visual cortex.
-    
-    This class demonstrates that a CNNs can solve generalisation problems to learn 
-    successful control policies from observed data points in complex 
-    Reinforcement Learning environments. The network is trained with a variant of 
-    the Q-learning algorithm, with stochastic gradient descent to update the weights.
-    
-    The Deconvolution also called transposed convolutions “work by swapping the forward and backward passes of a convolution.” (Dumoulin, V., & Visin, F. 2016, p20.)
-    
-    References:
-        - Dumoulin, V., & V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
-        - Masci, J., Meier, U., Cireşan, D., & Schmidhuber, J. (2011, June). Stacked convolutional auto-encoders for hierarchical feature extraction. In International Conference on Artificial Neural Networks (pp. 52-59). Springer, Berlin, Heidelberg.
-        - Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. (2013). Playing atari with deep reinforcement learning. arXiv preprint arXiv:1312.5602.
+    Neural Network as a Discriminator.
     '''
 
     def __init__(
         self,
         batch_size,
-        layerable_cnn_list,
+        nn_layer_list,
         learning_rate=1e-05,
         computable_loss=None,
         opt_params=None,
         verificatable_result=None,
         pre_learned_path_list=None,
-        cnn=None,
+        nn=None,
         verbose_mode=False
     ):
         '''
@@ -62,7 +43,7 @@ class CNNModel(DiscriminativeModel):
 
         Args:
             batch_size:                     Batch size in mini-batch.
-            layerable_cnn_list:             `list` of `LayerableCNN`.
+            nn_layer_list:                  `list` of `NNLayer`.
             learning_rate:                  Learning rate.
             computable_loss:                is-a `ComputableLoss`.
             opt_params:                     is-a `OptParams`.
@@ -70,9 +51,9 @@ class CNNModel(DiscriminativeModel):
             pre_learned_path_list:          `list` of file path that stored pre-learned parameters.
                                             This parameters will be refered only when `cnn` is `None`.
 
-            cnn:                            is-a `ConvolutionalNeuralNetwork` as a model in this class.
-                                            If not `None`, `self.__cnn` will be overrided by this `cnn`.
-                                            If `None`, this class initialize `ConvolutionalNeuralNetwork`
+            nn:                             is-a `NeuralNetwork` as a model in this class.
+                                            If not `None`, `self.__nn` will be overrided by this `nn`.
+                                            If `None`, this class initialize `NeuralNetwork`
                                             by default hyper parameters.
 
             verbose_mode:                   Verbose mode or not.
@@ -97,10 +78,10 @@ class CNNModel(DiscriminativeModel):
             opt_params.weight_limit = 0.5
             opt_params.dropout_rate = 0.0
 
-        if cnn is None:
-            cnn = ConvolutionalNeuralNetwork(
+        if nn is None:
+            nn = NeuralNetwork(
                 # The `list` of `ConvolutionLayer`.
-                layerable_cnn_list=layerable_cnn_list,
+                nn_layer_list=nn_layer_list,
                 # The number of epochs in mini-batch training.
                 epochs=200,
                 # The batch size.
@@ -120,13 +101,24 @@ class CNNModel(DiscriminativeModel):
                 attenuate_epoch=50
             )
 
-        self.__cnn = cnn
+        self.__nn = nn
         self.__batch_size = batch_size
         self.__computable_loss = computable_loss
         self.__learning_rate = learning_rate
         self.__verbose_mode = verbose_mode
         self.__q_shape = None
         self.__loss_list = []
+
+    def draw(self):
+        '''
+        Draws samples from the `fake` distribution.
+
+        Returns:
+            `np.ndarray` of samples.
+        '''
+        observed_arr = self.noise_sampler.generate()
+        arr = self.inference(observed_arr)
+        return arr
 
     def inference(self, observed_arr):
         '''
@@ -138,7 +130,11 @@ class CNNModel(DiscriminativeModel):
         Returns:
             `np.ndarray` of inferenced.
         '''
-        return self.__cnn.inference(observed_arr)
+        if observed_arr.ndim != 2:
+            observed_arr = observed_arr.reshape((observed_arr.shape[0], -1))
+        
+        pred_arr = self.__nn.inference(observed_arr)
+        return pred_arr
 
     def learn(self, grad_arr, fix_opt_flag=False):
         '''
@@ -146,14 +142,15 @@ class CNNModel(DiscriminativeModel):
 
         Args:
             grad_arr:       `np.ndarray` of gradients.
-            fix_opt_flag:   If `False`, no optimization in this model will be done.        
+            fix_opt_flag:   If `False`, no optimization in this model will be done.
         
         Returns:
             `np.ndarray` of delta or gradients.
-        
         '''
-        delta_arr = self.__cnn.back_propagation(grad_arr)
+        if grad_arr.ndim != 2:
+            grad_arr = grad_arr.reshape((grad_arr.shape[0], -1))
+        delta_arr = self.__nn.back_propagation(grad_arr)
         if fix_opt_flag is False:
-            self.__cnn.optimize(self.__learning_rate, 1)
-
+            self.__nn.optimize(self.__learning_rate, 1)
+        
         return delta_arr

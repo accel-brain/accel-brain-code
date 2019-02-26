@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from pygan.noise_sampler import NoiseSampler
-from pygan.noisesampler.gauss_sampler import GaussSampler
+from pygan.true_sampler import TrueSampler
 from pydbm.cnn.featuregenerator.image_generator import ImageGenerator
 
 
-class ImageSampler(NoiseSampler):
+class ImageTrueSampler(TrueSampler):
     '''
-    Sampler which draws samples from the noise prior of images.
+    Sampler which draws samples from the `true` distribution of images.
     '''
 
     def __init__(
@@ -17,15 +16,14 @@ class ImageSampler(NoiseSampler):
         seq_len=None,
         gray_scale_flag=True,
         wh_size_tuple=(100, 100),
-        norm_mode="z_score",
-        add_noise_sampler=None
+        norm_mode="z_score"
     ):
         '''
         Init.
 
         Args:
-            training_image_dir:             Dir path which stores image files for training.
-            test_image_dir:                 Dir path which stores image files for test.
+            batch_size:                     Batch size.
+            image_dir:                      Dir path which stores image files.
             seq_len:                        The length of one sequence.
             gray_scale_flag:                Gray scale or not(RGB).
             wh_size_tuple:                  Tuple(`width`, `height`).
@@ -34,7 +32,6 @@ class ImageSampler(NoiseSampler):
                                             - `min_max`: Min-max normalization.
                                             - `tanh`: Normalization by tanh function.
 
-            add_noise_sampler:              is-a `NoiseSampler` to add noise to image feature.
         '''
         self.__feature_generator = ImageGenerator(
             epochs=1,
@@ -46,23 +43,9 @@ class ImageSampler(NoiseSampler):
             wh_size_tuple=wh_size_tuple,
             norm_mode=norm_mode
         )
-        if add_noise_sampler is None:
-            if seq_len is None:
-                output_shape = (batch_size, wh_size_tuple[0], wh_size_tuple[1])
-            else:
-                output_shape = (batch_size, seq_len, wh_size_tuple[0], wh_size_tuple[1])
-
-            self.__add_noise_sampler = gauss_sampler(
-                mu=0.0, 
-                sigma=1.0,
-                output_shape=output_shape
-            )
-        else:
-            self.__add_noise_sampler = add_noise_sampler
-
         self.__norm_mode = norm_mode
 
-    def generate(self):
+    def draw(self):
         '''
         Draws samples from the `true` distribution.
         
@@ -74,7 +57,6 @@ class ImageSampler(NoiseSampler):
             observed_arr = result_tuple[0]
             break
 
-        observed_arr = observed_arr + self.__add_noise_sampler.generate()
         observed_arr = observed_arr.astype(float)
         if self.__norm_mode == "z_score":
             if observed_arr.std() != 0:
@@ -84,5 +66,5 @@ class ImageSampler(NoiseSampler):
                 observed_arr = (observed_arr - observed_arr.min()) / (observed_arr.max() - observed_arr.min())
         elif self.__norm_mode == "tanh":
             observed_arr = np.tanh(observed_arr)
-        
+
         return observed_arr

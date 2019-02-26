@@ -3,7 +3,7 @@ import numpy as np
 from pygan.true_sampler import TrueSampler
 
 
-class SineWaveSampler(TrueSampler):
+class SineWaveTrueSampler(TrueSampler):
     '''
     Sampler which draws samples from the `true` sine wave distribution.
     '''

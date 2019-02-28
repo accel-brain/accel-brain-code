@@ -43,7 +43,8 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         learning_rate=1e-10,
         convolutional_auto_encoder=None,
         gray_scale_flag=True,
-        verbose_mode=False
+        verbose_mode=False,
+        saved_img_dir=False
     ):
         logger = getLogger("pydbm")
         handler = StreamHandler()
@@ -107,6 +108,10 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         self.__convolutional_auto_encoder = convolutional_auto_encoder
         self.__learning_rate = learning_rate
         self.__verbose_mode = verbose_mode
+        self.__logger = logger
+        self.__batch_size = batch_size
+        self.__saved_img_dir = saved_img_dir
+        self.__saved_img_n = 0
 
     def draw(self):
         '''
@@ -118,12 +123,11 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         observed_arr = self.noise_sampler.generate()
         _ = self.inference(observed_arr)
         arr = self.__convolutional_auto_encoder.extract_feature_points_arr()
-
         return np.expand_dims(
             np.nansum(
                 arr,
                 axis=1
-            ) / arr.shape[1],
+            ),
             axis=1
         )
 
@@ -148,17 +152,8 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
             grad_arr:   `np.ndarray` of gradients.
         
         '''
-        delta_arr = grad_arr
-        if self.__convolutional_auto_encoder.opt_params.dropout_rate > 0:
-            hidden_activity_arr = delta_arr.reshape((delta_arr.shape[0], -1))
-            hidden_activity_arr = self.__convolutional_auto_encoder.opt_params.de_dropout(hidden_activity_arr)
-            delta_arr = hidden_activity_arr.reshape((
-                delta_arr.shape[0],
-                delta_arr.shape[1],
-                delta_arr.shape[2],
-                delta_arr.shape[3]
-            ))
-
+        grad_arr = np.vstack([grad_arr.transpose((1, 0, 2, 3))] * self.__batch_size).transpose((1, 0, 2, 3))
+        grad_arr = grad_arr / self.__batch_size
         layerable_cnn_list = self.__convolutional_auto_encoder.layerable_cnn_list[::-1]
         for i in range(len(layerable_cnn_list)):
             try:
@@ -194,5 +189,11 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
 
         delta_arr = self.__convolutional_auto_encoder.back_propagation(delta_arr)
         self.__convolutional_auto_encoder.optimize(self.__learning_rate, 1)
+
+        if self.__saved_img_dir is not None:
+            self.__logger.debug("Save CAE logs...")
+            file_path = self.__saved_img_dir + "cae_img_" + str(self.__saved_img_n)
+            np.savez_compressed(file_path, observed=observed_arr, inferenced=inferenced_arr)
+            self.__saved_img_n += 1
 
         return error_arr

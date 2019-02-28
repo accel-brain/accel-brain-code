@@ -140,16 +140,12 @@ class ConvolutionLayer(LayerableCNN):
         cdef int img_height = delta_arr.shape[2]
         cdef int img_width = delta_arr.shape[3]
 
+        cdef np.ndarray[DOUBLE_t, ndim=4] delta_img_arr = self.deconvolve(delta_arr)
         delta_arr = delta_arr.transpose(0, 2, 3, 1)
-
-        cdef np.ndarray[DOUBLE_t, ndim=4] delta_img_arr
-        cdef np.ndarray[DOUBLE_t, ndim=4] deconv_delta_arr
-        
-        cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr = self.__reshaped_img_arr
-        delta_img_arr, deconv_delta_arr = self.deconvolve(delta_arr)
-
-        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = deconv_delta_arr.reshape(-1, sample_n)
+        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = delta_arr.reshape(-1, sample_n)
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = _delta_arr.sum(axis=0)
+
+        cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr = self.__reshaped_img_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(reshaped_img_arr.T, _delta_arr)
         delta_weight_arr = delta_weight_arr.transpose(1, 0)
         cdef np.ndarray[DOUBLE_t, ndim=4] _delta_weight_arr = delta_weight_arr.reshape(
@@ -198,7 +194,6 @@ class ConvolutionLayer(LayerableCNN):
         cdef int img_width = delta_arr.shape[3]
 
         delta_arr = delta_arr.transpose(0, 2, 3, 1)
-
         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = delta_arr.reshape(-1, img_sample_n)
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_reshaped_img_arr = np.dot(_delta_arr, self.__reshaped_weight_arr.T)
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_img_arr = self.affine_to_img(
@@ -210,7 +205,7 @@ class ConvolutionLayer(LayerableCNN):
             self.__pad
         )
 
-        return delta_img_arr, delta_arr
+        return delta_img_arr
 
     def set_readonly(self, value):
         ''' setter '''

@@ -644,6 +644,9 @@ class SpatioTemporalAutoEncoder(object):
                         conv_output_arr = self.__layerable_cnn_list[i].convolve(img_arr[:, seq])
                     else:
                         conv_output_arr = self.__layerable_cnn_list[i].convolve(conv_output_arr)
+                    conv_output_arr = self.__layerable_cnn_list[i].graph.activation_function.activate(
+                        conv_output_arr
+                    )
                 except:
                     self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
                     raise
@@ -754,7 +757,7 @@ class SpatioTemporalAutoEncoder(object):
         self.__spatio_temporal_features_arr = conv_arr
 
         layerable_cnn_list = self.__layerable_cnn_list[::-1]
-        test_arr, _ = layerable_cnn_list[0].deconvolve(conv_arr[:, -1])
+        test_arr = layerable_cnn_list[0].deconvolve(conv_arr[:, -1])
 
         cdef np.ndarray deconv_arr = None
         cdef np.ndarray[DOUBLE_t, ndim=4] deconv_output_arr
@@ -762,9 +765,12 @@ class SpatioTemporalAutoEncoder(object):
             for i in range(len(layerable_cnn_list)):
                 try:
                     if i == 0:
-                        deconv_output_arr, _ = layerable_cnn_list[i].deconvolve(conv_arr[:, seq])
+                        deconv_output_arr = layerable_cnn_list[i].deconvolve(conv_arr[:, seq])
                     else:
-                        deconv_output_arr, _ = layerable_cnn_list[i].deconvolve(deconv_output_arr)
+                        deconv_output_arr = layerable_cnn_list[i].deconvolve(deconv_output_arr)
+                    deconv_output_arr = layerable_cnn_list[i].graph.activation_function.activate(
+                        deconv_output_arr
+                    )
                 except:
                     self.__logger.debug("Error raised in Deconvolution layer " + str(i + 1))
                     raise

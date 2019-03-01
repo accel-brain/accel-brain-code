@@ -26,6 +26,7 @@ class DeconvolutionModel(GenerativeModel):
         deconvolution_layer_list,
         opt_params,
         learning_rate=1e-05,
+        attenuate_epoch=25,
         norm_mode="z_score",
         verbose_mode=False
     ):
@@ -50,6 +51,7 @@ class DeconvolutionModel(GenerativeModel):
 
         self.__deconvolution_layer_list = deconvolution_layer_list
         self.__learning_rate = learning_rate
+        self.__attenuate_epoch = attenuate_epoch
         self.__opt_params = opt_params
         self.__norm_mode = norm_mode
         self.__logger = logger
@@ -77,8 +79,7 @@ class DeconvolutionModel(GenerativeModel):
         '''
         for i in range(len(self.__deconvolution_layer_list)):
             try:
-                observed_arr = self.__deconvolution_layer_list[i].deconvolve(observed_arr)
-                observed_arr = self.__deconvolution_layer_list[i].graph.activation_function.activate(observed_arr)
+                observed_arr = self.__deconvolution_layer_list[i].forward_propagate(observed_arr)
             except:
                 self.__logger.debug("Error raised in Deconvolution layer " + str(i + 1))
                 raise
@@ -89,6 +90,7 @@ class DeconvolutionModel(GenerativeModel):
             observed_arr = (observed_arr - observed_arr.mean()) / observed_arr.std()
         elif self.__norm_mode == "tanh":
             observed_arr = np.tanh(observed_arr)
+
         return observed_arr
 
     def learn(self, grad_arr, fix_opt_flag=False):
@@ -105,7 +107,7 @@ class DeconvolutionModel(GenerativeModel):
         deconvolution_layer_list = self.__deconvolution_layer_list[::-1]
         for i in range(len(deconvolution_layer_list)):
             try:
-                grad_arr = deconvolution_layer_list[i].convolve(grad_arr)
+                grad_arr = deconvolution_layer_list[i].back_propagate(grad_arr)
             except:
                 self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
                 raise
@@ -113,7 +115,7 @@ class DeconvolutionModel(GenerativeModel):
         if fix_opt_flag is False:
             self.__optimize(self.__learning_rate, 1)
         
-        return delta_arr
+        return grad_arr
 
     def __optimize(self, learning_rate, epoch):
         '''

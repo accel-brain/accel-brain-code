@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from abc import ABCMeta, abstractmethod, abstractproperty
-from PIL import Image
 import numpy as np
 cimport numpy as np
 ctypedef np.float64_t DOUBLE_t
@@ -121,7 +120,10 @@ class LayerableCNN(metaclass=ABCMeta):
     def affine_to_img(
         self,
         np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr,
-        np.ndarray[DOUBLE_t, ndim=4] img_arr, 
+        int img_sample_n,
+        int img_channel,
+        int img_height,
+        int img_width, 
         int kernel_height, 
         int kernel_width, 
         int stride, 
@@ -141,10 +143,8 @@ class LayerableCNN(metaclass=ABCMeta):
         Returns:
             2-rank image array.
         '''
-        cdef int img_sample_n = img_arr.shape[0]
-        cdef int img_channel = img_arr.shape[1]
-        cdef int img_height = img_arr.shape[2]
-        cdef int img_width = img_arr.shape[3]
+        img_height = stride * (img_height - 1) + kernel_height - (2 * pad)
+        img_width = stride * (img_width - 1) + kernel_width - (2 * pad)
         cdef int result_height = int((img_height + 2 * pad - kernel_height) // stride) + 1
         cdef int result_width = int((img_width + 2 * pad - kernel_width) // stride) + 1
         cdef np.ndarray[DOUBLE_t, ndim=6] _reshaped_img_arr = reshaped_img_arr.reshape(
@@ -179,22 +179,6 @@ class LayerableCNN(metaclass=ABCMeta):
                 result_arr[:, :, height:max_height:stride, width:max_width:stride] += _reshaped_img_arr[:, :, height, width, :, :]
 
         return result_arr[:, :, pad:img_height + pad, pad:img_width + pad]
-
-    def resize_array(self, np.ndarray[DOUBLE_t, ndim=2] img_arr, target_shape):
-        '''
-        Resize 2-rank `np.ndarray`.
-        
-        Args:
-            img_arr:        `np.ndarray`.
-            target_shape:   Target shape.
-        
-        Returns:
-            Resized `np.ndarray`.
-        '''
-        img = Image.fromarray(img_arr)
-        img = img.resize(target_shape)
-        cdef np.ndarray resized_img_arr = np.asarray(img)
-        return resized_img_arr
 
     def reset_delta(self):
         '''

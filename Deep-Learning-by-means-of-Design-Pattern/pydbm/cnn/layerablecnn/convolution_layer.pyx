@@ -24,6 +24,8 @@ class ConvolutionLayer(LayerableCNN):
     __img_height = None
     # Width of image.
     __img_width = None
+    # Reshaped image matrix.
+    __reshaped_img_arr = None
 
     def __init__(self, graph):
         '''
@@ -42,6 +44,7 @@ class ConvolutionLayer(LayerableCNN):
         
         self.__delta_weight_arr = None
         self.__delta_bias_arr = None
+        self.__reshaped_img_arr = None
 
     def forward_propagate(self, np.ndarray[DOUBLE_t, ndim=4] img_arr):
         '''
@@ -144,7 +147,6 @@ class ConvolutionLayer(LayerableCNN):
         delta_arr = delta_arr.transpose(0, 2, 3, 1)
         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = delta_arr.reshape(-1, sample_n)
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = _delta_arr.sum(axis=0)
-
         cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr = self.__reshaped_img_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(reshaped_img_arr.T, _delta_arr)
         delta_weight_arr = delta_weight_arr.transpose(1, 0)
@@ -195,16 +197,20 @@ class ConvolutionLayer(LayerableCNN):
 
         delta_arr = delta_arr.transpose(0, 2, 3, 1)
         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = delta_arr.reshape(-1, img_sample_n)
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_reshaped_img_arr = np.dot(_delta_arr, self.__reshaped_weight_arr.T)
+        cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_weight_arr = self.graph.weight_arr.reshape(sample_n, -1).T
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_reshaped_img_arr = np.dot(_delta_arr, reshaped_weight_arr.T)
+
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_img_arr = self.affine_to_img(
             delta_reshaped_img_arr,
-            self.__img_arr, 
+            img_sample_n,
+            channel,
+            img_height,
+            img_width, 
             kernel_height, 
             kernel_width, 
             self.__stride, 
             self.__pad
         )
-
         return delta_img_arr
 
     def set_readonly(self, value):

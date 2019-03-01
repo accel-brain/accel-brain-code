@@ -119,9 +119,18 @@ class MaxPoolingLayer(LayerableCNN):
             _delta_pool_arr.shape[0] * _delta_pool_arr.shape[1] * _delta_pool_arr.shape[2], 
             -1
         )
+
+        cdef int img_sample_n = delta_arr.shape[0]
+        cdef int channel = self.graph.weight_arr.shape[1]
+        cdef int img_height = delta_arr.shape[2]
+        cdef int img_width = delta_arr.shape[3]
+
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_img_arr = self.affine_to_img(
             delta_reshaped_pool_arr,
-            self.__img_arr,
+            img_sample_n,
+            channel,
+            img_height,
+            img_width, 
             self.__pool_height,
             self.__pool_width,
             self.__stride,

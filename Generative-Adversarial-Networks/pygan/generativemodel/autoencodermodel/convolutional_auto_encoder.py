@@ -6,12 +6,16 @@ from pygan.generativemodel.auto_encoder_model import AutoEncoderModel
 from pydbm.cnn.convolutionalneuralnetwork.convolutional_auto_encoder import ConvolutionalAutoEncoder as CAE
 from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer1
 from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer2
+from pydbm.cnn.layerablecnn.convolutionlayer.deconvolution_layer import DeconvolutionLayer
+from pydbm.synapse.cnn_graph import CNNGraph as DeCNNGraph
+
 from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph1
 from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph2
 from pydbm.activation.tanh_function import TanhFunction
 from pydbm.activation.logistic_function import LogisticFunction
 from pydbm.loss.mean_squared_error import MeanSquaredError
-from pydbm.optimization.optparams.sgd import SGD
+from pydbm.optimization.optparams.adam import Adam
+from pydbm.optimization.opt_params import OptParams
 from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
 
 
@@ -39,7 +43,9 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         self,
         batch_size=20,
         learning_rate=1e-10,
+        opt_params=None,
         convolutional_auto_encoder=None,
+        deconvolution_layer_list=None,
         gray_scale_flag=True,
         verbose_mode=False
     ):
@@ -50,6 +56,7 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
             batch_size:                     Batch size in mini-batch.
             learning_rate:                  Learning rate.
             convolutional_auto_encoder:     is-a `pydbm.cnn.convolutionalneuralnetwork.convolutional_auto_encoder.ConvolutionalAutoEncoder`.
+            deconvolution_layer_list:       `list` of `DeconvolutionLayer`.
             gray_scale_flag:                Gray scale or not. If `True`, the channel will be `1`. If `False`, the channel will be `3`.
             verbose_mode:                   Verbose mode or not.
         '''
@@ -64,13 +71,20 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
 
         logger.addHandler(handler)
 
-        if convolutional_auto_encoder is None:
-            if gray_scale_flag is True:
-                channel = 1
-            else:
-                channel = 3
-            scale = 0.01
+        if gray_scale_flag is True:
+            channel = 1
+        else:
+            channel = 3
 
+        if opt_params is None:
+            opt_params = Adam()
+            opt_params.dropout_rate = 0.0
+
+        if isinstance(opt_params, OptParams) is False:
+            raise TypeError()
+
+        scale = 0.01
+        if convolutional_auto_encoder is None:
             conv1 = ConvolutionLayer1(
                 ConvGraph1(
                     activation_function=TanhFunction(),
@@ -106,18 +120,35 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
                 learning_attenuate_rate=0.1,
                 attenuate_epoch=25,
                 computable_loss=MeanSquaredError(),
-                opt_params=SGD(),
+                opt_params=opt_params,
                 verificatable_result=VerificateFunctionApproximation(),
                 test_size_rate=0.3,
                 tol=1e-15,
                 save_flag=False
             )
+
+        if deconvolution_layer_list is None:
+            deconvolution_layer_list = [DeconvolutionLayer(
+                DeCNNGraph(
+                    activation_function=TanhFunction(),
+                    filter_num=batch_size,
+                    channel=channel,
+                    kernel_size=3,
+                    scale=scale,
+                    stride=1,
+                    pad=1
+                )
+            )]
+
         self.__convolutional_auto_encoder = convolutional_auto_encoder
+        self.__deconvolution_layer_list = deconvolution_layer_list
+        self.__opt_params = opt_params
         self.__learning_rate = learning_rate
         self.__verbose_mode = verbose_mode
         self.__logger = logger
         self.__batch_size = batch_size
         self.__saved_img_n = 0
+        self.__attenuate_epoch = 50
 
     def draw(self):
         '''
@@ -128,14 +159,15 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         '''
         observed_arr = self.noise_sampler.generate()
         _ = self.inference(observed_arr)
-        arr = self.__convolutional_auto_encoder.extract_feature_points_arr()
-        return np.expand_dims(
-            np.nansum(
-                arr,
-                axis=1
-            ),
-            axis=1
-        )
+        feature_arr = self.__convolutional_auto_encoder.extract_feature_points_arr()
+        for i in range(len(self.__deconvolution_layer_list)):
+            try:
+                feature_arr = self.__deconvolution_layer_list[i].forward_propagate(feature_arr)
+            except:
+                self.__logger.debug("Error raised in Deconvolution layer " + str(i + 1))
+                raise
+
+        return feature_arr
 
     def inference(self, observed_arr):
         '''
@@ -157,8 +189,16 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
             grad_arr:   `np.ndarray` of gradients.
         
         '''
-        grad_arr = np.vstack([grad_arr.transpose((1, 0, 2, 3))] * self.__batch_size).transpose((1, 0, 2, 3))
-        grad_arr = grad_arr / self.__batch_size
+        deconvolution_layer_list = self.__deconvolution_layer_list[::-1]
+        for i in range(len(deconvolution_layer_list)):
+            try:
+                grad_arr = deconvolution_layer_list[i].back_propagate(grad_arr)
+            except:
+                self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
+                raise
+
+        self.__optimize_deconvolution_layer(self.__learning_rate, 1)
+
         layerable_cnn_list = self.__convolutional_auto_encoder.layerable_cnn_list[::-1]
         for i in range(len(layerable_cnn_list)):
             try:
@@ -170,6 +210,52 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
                 raise
 
         self.__convolutional_auto_encoder.optimize(self.__learning_rate, 1)
+
+    def __optimize_deconvolution_layer(self, learning_rate, epoch):
+        '''
+        Back propagation for Deconvolution layer.
+        
+        Args:
+            learning_rate:  Learning rate.
+            epoch:          Now epoch.
+            
+        '''
+        params_list = []
+        grads_list = []
+
+        for i in range(len(self.__deconvolution_layer_list)):
+            if self.__deconvolution_layer_list[i].delta_weight_arr.shape[0] > 0:
+                params_list.append(self.__deconvolution_layer_list[i].graph.weight_arr)
+                grads_list.append(self.__deconvolution_layer_list[i].delta_weight_arr)
+
+        for i in range(len(self.__deconvolution_layer_list)):
+            if self.__deconvolution_layer_list[i].delta_bias_arr.shape[0] > 0:
+                params_list.append(self.__deconvolution_layer_list[i].graph.bias_arr)
+                grads_list.append(self.__deconvolution_layer_list[i].delta_bias_arr)
+
+        params_list = self.__opt_params.optimize(
+            params_list,
+            grads_list,
+            learning_rate
+        )
+
+        i = 0
+        for i in range(len(self.__deconvolution_layer_list)):
+            if self.__deconvolution_layer_list[i].delta_weight_arr.shape[0] > 0:
+                self.__deconvolution_layer_list[i].graph.weight_arr = params_list.pop(0)
+                if ((epoch + 1) % self.__attenuate_epoch == 0):
+                    self.__deconvolution_layer_list[i].graph.weight_arr = self.__opt_params.constrain_weight(
+                        self.__deconvolution_layer_list[i].graph.weight_arr
+                    )
+
+        for i in range(len(self.__deconvolution_layer_list)):
+            if self.__deconvolution_layer_list[i].delta_bias_arr.shape[0] > 0:
+                self.__deconvolution_layer_list[i].graph.bias_arr = params_list.pop(0)
+
+        for i in range(len(self.__deconvolution_layer_list)):
+            if self.__deconvolution_layer_list[i].delta_weight_arr.shape[0] > 0:
+                if self.__deconvolution_layer_list[i].delta_bias_arr.shape[0] > 0:
+                    self.__deconvolution_layer_list[i].reset_delta()
 
     def update(self):
         '''

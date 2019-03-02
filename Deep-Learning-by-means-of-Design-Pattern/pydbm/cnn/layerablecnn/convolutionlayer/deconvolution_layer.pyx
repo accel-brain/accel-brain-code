@@ -31,6 +31,20 @@ class DeconvolutionLayer(ConvolutionLayer):
             4-rank array like or sparse matrix.
         '''
         cdef np.ndarray[DOUBLE_t, ndim=4] result_arr = self.deconvolve(img_arr)
+        cdef np.ndarray[DOUBLE_t, ndim=2] _result_arr = result_arr.reshape((
+            result_arr.shape[0],
+            -1
+        ))
+        _result_arr += self.graph.bias_arr.reshape((
+            self.graph.bias_arr.shape[0],
+            1
+        ))
+        result_arr = _result_arr.reshape((
+            result_arr.shape[0],
+            result_arr.shape[1],
+            result_arr.shape[2],
+            result_arr.shape[3]
+        ))
 
         cdef int kernel_height = self.graph.weight_arr.shape[2]
         cdef int kernel_width = self.graph.weight_arr.shape[3]
@@ -70,7 +84,7 @@ class DeconvolutionLayer(ConvolutionLayer):
         cdef int img_height = delta_arr.shape[2]
         cdef int img_width = delta_arr.shape[3]
 
-        cdef np.ndarray[DOUBLE_t, ndim=4] delta_img_arr = self.convolve(delta_arr)
+        cdef np.ndarray[DOUBLE_t, ndim=4] delta_img_arr = self.convolve(delta_arr, no_bias_flag=True)
         delta_arr = delta_arr.transpose(0, 2, 3, 1)
         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = delta_arr.reshape(-1, sample_n)
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = _delta_arr.sum(axis=0)

@@ -61,6 +61,7 @@ class ConvolutionalNeuralNetwork(object):
             tol:                            Tolerance for the optimization.
             tld:                            Tolerance for deviation of loss.
             save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.
+            pre_learned_path_list:          `list` of pre-learned parameters.
         '''
         for layerable_cnn in layerable_cnn_list:
             if isinstance(layerable_cnn, LayerableCNN) is False:

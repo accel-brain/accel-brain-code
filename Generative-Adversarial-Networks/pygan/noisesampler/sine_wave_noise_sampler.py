@@ -89,6 +89,9 @@ class SineWaveNoiseSampler(NoiseSampler):
         observed_arr = observed_arr.transpose((0, 2, 1))
         gauss_noise = np.random.normal(loc=self.__mu, scale=self.__sigma, size=observed_arr.shape)
         observed_arr = observed_arr + gauss_noise
+        if self.noise_sampler is not None:
+            observed_arr += self.noise_sampler.generate()
+
         if self.__norm_mode == "z_score":
             if observed_arr.std() != 0:
                 observed_arr = (observed_arr - observed_arr.mean()) / observed_arr.std()

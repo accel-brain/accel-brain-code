@@ -18,8 +18,7 @@ class SentenceNoiseSampler(NoiseSampler):
         vectorizable_token,
         batch_size=20,
         seq_len=10,
-        norm_mode="z_score",
-        add_noise_sampler=None
+        norm_mode="z_score"
     ):
         '''
         Init.
@@ -34,8 +33,6 @@ class SentenceNoiseSampler(NoiseSampler):
                                     - `z_score`: Z-Score normalization.
                                     - `min_max`: Min-max normalization.
                                     - `tanh`: Normalization by tanh function.
-
-            add_noise_sampler:      is-a `NoiseSampler` to add noise to image feature.
         '''
         self.__iter_text_generator = IterSentenceGenerator(
                 document=document,
@@ -46,7 +43,6 @@ class SentenceNoiseSampler(NoiseSampler):
                 batch_size=batch_size,
                 seq_len=seq_len
         )
-        self.__add_noise_sampler = add_noise_sampler
         self.__norm_mode = norm_mode
 
     def generate(self):
@@ -63,8 +59,8 @@ class SentenceNoiseSampler(NoiseSampler):
             token_arr = result_tuple[1]
             break
 
-        if self.__add_noise_sampler is not None:
-            observed_arr = observed_arr + self.__add_noise_sampler.generate()
+        if self.noise_sampler is not None:
+            observed_arr += self.noise_sampler.generate()
 
         if self.__norm_mode == "z_score":
             if observed_arr.std() != 0:

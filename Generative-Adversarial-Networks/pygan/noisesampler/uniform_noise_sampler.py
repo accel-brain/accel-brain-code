@@ -35,4 +35,7 @@ class UniformNoiseSampler(NoiseSampler):
         Returns:
             `np.ndarray` of samples.
         '''
-        return np.random.uniform(low=self.__low, high=self.__high, size=self.__output_shape)
+        generated_arr = np.random.uniform(low=self.__low, high=self.__high, size=self.__output_shape)
+        if self.noise_sampler is not None:
+            generated_arr += self.noise_sampler.generate()
+        return generated_arr

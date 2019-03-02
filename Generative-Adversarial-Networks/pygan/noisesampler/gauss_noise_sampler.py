@@ -33,4 +33,8 @@ class GaussNoiseSampler(NoiseSampler):
         Returns:
             `np.ndarray` of samples.
         '''
-        return np.random.normal(loc=self.__mu, scale=self.__sigma, size=self.__output_shape)
+        generated_arr = np.random.normal(loc=self.__mu, scale=self.__sigma, size=self.__output_shape)
+        if self.noise_sampler is not None:
+            generated_arr += self.noise_sampler.generate()
+        
+        return generated_arr

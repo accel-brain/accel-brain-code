@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from pygan.noise_sampler import NoiseSampler
-from pygan.noisesampler.gauss_sampler import GaussSampler
+from pygan.noisesampler.image_noise_sampler import ImageNoiseSampler
 from pydbm.cnn.featuregenerator.image_generator import ImageGenerator
+from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer
+from pydbm.synapse.cnn_graph import CNNGraph
+from pydbm.activation.tanh_function import TanhFunction
 
 
-class ImageNoiseSampler(NoiseSampler):
+class ConvolveImageNoiseSampler(ImageNoiseSampler):
     '''
-    Sampler which draws samples from the noise prior of images.
+    Sampler which draws samples from the noise prior of images
+    and has convolution operator to convolve sampled image data.
+
+    This sampler will not learn as CNNs model
+    but *condition* input noise.
     '''
 
     def __init__(
@@ -34,17 +40,31 @@ class ImageNoiseSampler(NoiseSampler):
                                             - `tanh`: Normalization by tanh function.
 
         '''
-        self.__feature_generator = ImageGenerator(
-            epochs=1,
+        super().__init__(
             batch_size=batch_size,
-            training_image_dir=image_dir,
-            test_image_dir=image_dir,
+            image_dir=image_dir,
             seq_len=seq_len,
             gray_scale_flag=gray_scale_flag,
             wh_size_tuple=wh_size_tuple,
             norm_mode=norm_mode
         )
-        self.__norm_mode = norm_mode
+
+        if gray_scale_flag is True:
+            channel = 1
+        else:
+            channel = 3
+
+        self.__conv_layer = ConvolutionLayer(
+            CNNGraph(
+                activation_function=TanhFunction(),
+                filter_num=batch_size,
+                channel=channel,
+                kernel_size=3,
+                scale=0.1,
+                stride=1,
+                pad=1
+            )
+        )
 
     def generate(self):
         '''
@@ -53,22 +73,15 @@ class ImageNoiseSampler(NoiseSampler):
         Returns:
             `np.ndarray` of samples.
         '''
-        observed_arr = None
-        for result_tuple in self.__feature_generator.generate():
-            observed_arr = result_tuple[0]
-            break
+        observed_arr = super().generate()
+        return self.__conv_layer.convolve(observed_arr)
 
-        if self.noise_sampler is not None:
-            observed_arr += self.noise_sampler.generate()
-
-        observed_arr = observed_arr.astype(float)
-        if self.__norm_mode == "z_score":
-            if observed_arr.std() != 0:
-                observed_arr = (observed_arr - observed_arr.mean()) / observed_arr.std()
-        elif self.__norm_mode == "min_max":
-            if (observed_arr.max() - observed_arr.min()) != 0:
-                observed_arr = (observed_arr - observed_arr.min()) / (observed_arr.max() - observed_arr.min())
-        elif self.__norm_mode == "tanh":
-            observed_arr = np.tanh(observed_arr)
-        
-        return observed_arr
+    def get_conv_layer(self):
+        ''' getter '''
+        return self.__conv_layer
+    
+    def set_conv_layer(self, value):
+        ''' setter '''
+        self.__conv_layer = value
+    
+    conv_layer = property(get_conv_layer, set_conv_layer)

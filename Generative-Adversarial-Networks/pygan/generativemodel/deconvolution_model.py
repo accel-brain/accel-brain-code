@@ -4,9 +4,12 @@ from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
 from pygan.generative_model import GenerativeModel
 
 from pydbm.cnn.convolutionalneuralnetwork.convolutional_auto_encoder import ConvolutionalAutoEncoder as CAE
-from pydbm.cnn.layerablecnn.convolutionlayer.deconvolution_layer import DeconvolutionLayer
 from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph1
 from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph2
+
+from pydbm.cnn.layerablecnn.convolutionlayer.deconvolution_layer import DeconvolutionLayer
+from pydbm.synapse.cnn_graph import CNNGraph as DeCNNGraph
+
 from pydbm.activation.relu_function import ReLuFunction
 from pydbm.activation.tanh_function import TanhFunction
 from pydbm.activation.logistic_function import LogisticFunction

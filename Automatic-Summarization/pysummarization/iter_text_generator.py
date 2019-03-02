@@ -12,7 +12,7 @@ class IterTextGenerator(object):
 
     def __init__(
         self,
-        document,
+        token_list,
         nlp_base,
         tokenizable_doc,
         vectorizable_token,
@@ -24,7 +24,7 @@ class IterTextGenerator(object):
         Init.
 
         Args:
-            document:               `str` of all sentence.
+            token_list:             `list` of all token.
             tokenizable_doc:        is-a `TokenizableDoc`.
             vectorizable_token:     is-a `VectorizableToken`.
             epochs:                 Epochs.
@@ -36,16 +36,13 @@ class IterTextGenerator(object):
         if isinstance(vectorizable_token, VectorizableToken) is False:
             raise TypeError()
 
-        token_list = tokenizable_doc.tokenize(document)
-        vector_list = []
+        vector_list = vectorizable_token.vectorize(
+            token_list
+        )
         max_len = 0
-        for i in range(len(token_list)):
-            vec_list = vectorizable_token.vectorize(
-                token_list[i]
-            )
-            vector_list.append(vec_list)
-            if max_len < len(vec_list):
-                max_len = len(vec_list)
+        for i in range(len(vector_list)):
+            if max_len < len(vector_list):
+                max_len = len(vector_list)
         
         for i in range(len(vector_list)):
             while max_len > len(vector_list[i]):

@@ -79,14 +79,13 @@ class EncoderDecoderModel(AutoEncoderModel):
 
     def inference(self, observed_arr):
         '''
-        Draws samples from the `true` distribution.
+        Draws samples from the `fake` distribution.
 
         Args:
             observed_arr:     `np.ndarray` of observed data points.
         
         Returns:
             `np.ndarray` of inferenced.
-            `0` is to `1` what `fake` is to `true`.
         '''
         return self.__encoder_decoder_controller.inference(observed_arr)
 
@@ -140,3 +139,13 @@ class EncoderDecoderModel(AutoEncoderModel):
         )
 
         return error_arr
+
+    def get_encoder_decoder_controller(self):
+        ''' getter '''
+        return self.__encoder_decoder_controller
+    
+    def set_encoder_decoder_controller(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+    
+    encoder_decoder_controller = property(get_encoder_decoder_controller, set_encoder_decoder_controller)

@@ -34,7 +34,6 @@ class NNModel(DiscriminativeModel):
         computable_loss=None,
         opt_params=None,
         verificatable_result=None,
-        pre_learned_path_list=None,
         nn=None,
         verbose_mode=False
     ):
@@ -46,10 +45,13 @@ class NNModel(DiscriminativeModel):
             nn_layer_list:                  `list` of `NNLayer`.
             learning_rate:                  Learning rate.
             computable_loss:                is-a `ComputableLoss`.
+                                            This parameters will be refered only when `nn` is `None`.
+
             opt_params:                     is-a `OptParams`.
+                                            This parameters will be refered only when `nn` is `None`.
+
             verificatable_result:           is-a `VerificateFunctionApproximation`.
-            pre_learned_path_list:          `list` of file path that stored pre-learned parameters.
-                                            This parameters will be refered only when `cnn` is `None`.
+                                            This parameters will be refered only when `nn` is `None`.
 
             nn:                             is-a `NeuralNetwork` as a model in this class.
                                             If not `None`, `self.__nn` will be overrided by this `nn`.
@@ -69,16 +71,28 @@ class NNModel(DiscriminativeModel):
             logger.setLevel(ERROR)
 
         logger.addHandler(handler)
-        if computable_loss is None:
-            computable_loss = MeanSquaredError()
-        if verificatable_result is None:
-            verificatable_result = VerificateFunctionApproximation()
-        if opt_params is None:
-            opt_params = Adam()
-            opt_params.weight_limit = 0.5
-            opt_params.dropout_rate = 0.0
 
         if nn is None:
+            if computable_loss is None:
+                computable_loss = MeanSquaredError()
+            
+            if isinstance(computable_loss, ComputableLoss) is False:
+                raise TypeError()
+
+            if verificatable_result is None:
+                verificatable_result = VerificateFunctionApproximation()
+            
+            if isinstance(verificatable_result, VerificatableResult) is False:
+                raise TypeError()
+
+            if opt_params is None:
+                opt_params = Adam()
+                opt_params.weight_limit = 0.5
+                opt_params.dropout_rate = 0.0
+
+            if isinstance(opt_params, OptParams) is False:
+                raise TypeError()
+
             nn = NeuralNetwork(
                 # The `list` of `ConvolutionLayer`.
                 nn_layer_list=nn_layer_list,
@@ -95,7 +109,7 @@ class NNModel(DiscriminativeModel):
                 # Verification.
                 verificatable_result=verificatable_result,
                 # Pre-learned parameters.
-                pre_learned_path_list=pre_learned_path_list,
+                pre_learned_path_list=None,
                 # Others.
                 learning_attenuate_rate=0.1,
                 attenuate_epoch=50
@@ -103,7 +117,6 @@ class NNModel(DiscriminativeModel):
 
         self.__nn = nn
         self.__batch_size = batch_size
-        self.__computable_loss = computable_loss
         self.__learning_rate = learning_rate
         self.__verbose_mode = verbose_mode
         self.__q_shape = None
@@ -140,3 +153,13 @@ class NNModel(DiscriminativeModel):
         if fix_opt_flag is False:
             self.__nn.optimize(self.__learning_rate, 1)
         return delta_arr
+
+    def get_nn(self):
+        ''' getter '''
+        return self.__nn
+    
+    def set_nn(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+    
+    nn = property(get_nn, set_nn)

@@ -8,11 +8,9 @@ from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as Convolu
 from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer2
 from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph1
 from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph2
-from pydbm.activation.relu_function import ReLuFunction
 from pydbm.activation.tanh_function import TanhFunction
 from pydbm.activation.logistic_function import LogisticFunction
 from pydbm.loss.mean_squared_error import MeanSquaredError
-from pydbm.optimization.optparams.adam import Adam
 from pydbm.optimization.optparams.sgd import SGD
 from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
 
@@ -43,9 +41,18 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         learning_rate=1e-10,
         convolutional_auto_encoder=None,
         gray_scale_flag=True,
-        verbose_mode=False,
-        saved_img_dir=False
+        verbose_mode=False
     ):
+        '''
+        Init.
+
+        Args:
+            batch_size:                     Batch size in mini-batch.
+            learning_rate:                  Learning rate.
+            convolutional_auto_encoder:     is-a `pydbm.cnn.convolutionalneuralnetwork.convolutional_auto_encoder.ConvolutionalAutoEncoder`.
+            gray_scale_flag:                Gray scale or not. If `True`, the channel will be `1`. If `False`, the channel will be `3`.
+            verbose_mode:                   Verbose mode or not.
+        '''
         logger = getLogger("pydbm")
         handler = StreamHandler()
         if verbose_mode is True:
@@ -110,7 +117,6 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         self.__verbose_mode = verbose_mode
         self.__logger = logger
         self.__batch_size = batch_size
-        self.__saved_img_dir = saved_img_dir
         self.__saved_img_n = 0
 
     def draw(self):
@@ -133,14 +139,13 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
 
     def inference(self, observed_arr):
         '''
-        Draws samples from the `true` distribution.
+        Draws samples from the `fake` distribution.
 
         Args:
             observed_arr:     `np.ndarray` of observed data points.
         
         Returns:
             `np.ndarray` of inferenced.
-            `0` is to `1` what `fake` is to `true`.
         '''
         return self.__convolutional_auto_encoder.inference(observed_arr)
 
@@ -190,10 +195,14 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         delta_arr = self.__convolutional_auto_encoder.back_propagation(delta_arr)
         self.__convolutional_auto_encoder.optimize(self.__learning_rate, 1)
 
-        if self.__saved_img_dir is not None:
-            self.__logger.debug("Save CAE logs...")
-            file_path = self.__saved_img_dir + "cae_img_" + str(self.__saved_img_n)
-            np.savez_compressed(file_path, observed=observed_arr, inferenced=inferenced_arr)
-            self.__saved_img_n += 1
-
         return error_arr
+
+    def get_convolutional_auto_encoder(self):
+        ''' getter '''
+        return self.__convolutional_auto_encoder
+    
+    def set_convolutional_auto_encoder(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+    
+    convolutional_auto_encoder = property(get_convolutional_auto_encoder, set_convolutional_auto_encoder)

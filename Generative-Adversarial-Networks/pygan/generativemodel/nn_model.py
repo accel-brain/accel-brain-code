@@ -23,7 +23,7 @@ from pydbm.verification.verificate_function_approximation import VerificateFunct
 
 class NNModel(GenerativeModel):
     '''
-    Neural Network as a Discriminator.
+    Neural Network as a `GenerativeModel`.
     '''
 
     def __init__(
@@ -122,7 +122,7 @@ class NNModel(GenerativeModel):
 
     def inference(self, observed_arr):
         '''
-        Draws samples from the `true` distribution.
+        Draws samples from the `fake` distribution.
 
         Args:
             observed_arr:     `np.ndarray` of observed data points.
@@ -154,3 +154,13 @@ class NNModel(GenerativeModel):
             self.__nn.optimize(self.__learning_rate, 1)
         
         return delta_arr
+
+    def get_nn(self):
+        ''' getter '''
+        return self.__nn
+    
+    def set_nn(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+    
+    nn = property(get_nn, set_nn)

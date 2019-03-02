@@ -12,31 +12,48 @@ from pydbm.activation.tanh_function import TanhFunction
 from pydbm.activation.logistic_function import LogisticFunction
 from pydbm.loss.mean_squared_error import MeanSquaredError
 from pydbm.optimization.optparams.adam import Adam
-from pydbm.optimization.optparams.sgd import SGD
+from pydbm.optimization.opt_params import OptParams
 from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
 
 
 class DeconvolutionModel(GenerativeModel):
     '''
+    So-called Deconvolutional Neural Network as a `GenerativeModel`.
 
+    Deconvolution also called transposed convolutions
+    "work by swapping the forward and backward passes of a convolution." (Dumoulin, V., & Visin, F. 2016, p20.)
+    
+    References:
+        - Dumoulin, V., & V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
     '''
 
     def __init__(
         self,
         deconvolution_layer_list,
-        opt_params,
+        opt_params=None,
         learning_rate=1e-05,
-        attenuate_epoch=25,
-        norm_mode="z_score",
         verbose_mode=False
     ):
         '''
         Init.
 
+        Args:
+            deconvolution_layer_list:   `list` of `DeconvolutionLayer`.
+            opt_params:                 is-a `OptParams`. If `None`, this value will be `Adam`.
+            learning_rate:              Learning rate.
+            verbose_mode:               Verbose mode or not.
+
         '''
         for deconvolution_layer in deconvolution_layer_list:
             if isinstance(deconvolution_layer, DeconvolutionLayer) is False:
                 raise TypeError()
+
+        if opt_params is None:
+            opt_params = Adam()
+            opt_params.dropout_rate = 0.0
+        
+        if isinstance(opt_params, OptParams) is False:
+            raise TypeError()
 
         logger = getLogger("pydbm")
         handler = StreamHandler()
@@ -51,9 +68,8 @@ class DeconvolutionModel(GenerativeModel):
 
         self.__deconvolution_layer_list = deconvolution_layer_list
         self.__learning_rate = learning_rate
-        self.__attenuate_epoch = attenuate_epoch
+        self.__attenuate_epoch = 50
         self.__opt_params = opt_params
-        self.__norm_mode = norm_mode
         self.__logger = logger
     
     def draw(self):
@@ -68,14 +84,13 @@ class DeconvolutionModel(GenerativeModel):
 
     def inference(self, observed_arr):
         '''
-        Draws samples from the `true` distribution.
+        Draws samples from the `fake` distribution.
 
         Args:
             observed_arr:     `np.ndarray` of observed data points.
         
         Returns:
             `np.ndarray` of inferenced.
-            `0` is to `1` what `fake` is to `true`.
         '''
         for i in range(len(self.__deconvolution_layer_list)):
             try:
@@ -83,13 +98,6 @@ class DeconvolutionModel(GenerativeModel):
             except:
                 self.__logger.debug("Error raised in Deconvolution layer " + str(i + 1))
                 raise
-
-        if self.__norm_mode == "min_max":
-            observed_arr = (observed_arr - observed_arr.min()) / (observed_arr.max() - observed_arr.min())
-        elif self.__norm_mode == "z_score":
-            observed_arr = (observed_arr - observed_arr.mean()) / observed_arr.std()
-        elif self.__norm_mode == "tanh":
-            observed_arr = np.tanh(observed_arr)
 
         return observed_arr
 
@@ -162,3 +170,13 @@ class DeconvolutionModel(GenerativeModel):
             if self.__deconvolution_layer_list[i].delta_weight_arr.shape[0] > 0:
                 if self.__deconvolution_layer_list[i].delta_bias_arr.shape[0] > 0:
                     self.__deconvolution_layer_list[i].reset_delta()
+
+    def get_deconvolution_layer_list(self):
+        ''' getter '''
+        return self.__deconvolution_layer_list
+    
+    def set_deconvolution_layer_list(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+
+    deconvolution_layer_list = property(get_deconvolution_layer_list, set_deconvolution_layer_list)

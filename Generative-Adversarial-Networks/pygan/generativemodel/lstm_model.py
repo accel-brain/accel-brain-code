@@ -64,7 +64,7 @@ class LSTMModel(GenerativeModel):
             batch_size:                     Batch size.
             input_neuron_count:             The number of input units.
             hidden_neuron_count:            The number of hidden units.
-            hidden_activating_function:     
+            hidden_activating_function:     is-a `ActivatingFunctionInterface` in hidden layer.
             seq_len:                        The length of sequences.
             learning_rate:                  Learning rate.
             verbose_mode:                   Verbose mode or not.
@@ -158,14 +158,13 @@ class LSTMModel(GenerativeModel):
 
     def inference(self, observed_arr):
         '''
-        Draws samples from the `true` distribution.
+        Draws samples from the `fake` distribution.
 
         Args:
             observed_arr:     `np.ndarray` of observed data points.
         
         Returns:
             `np.ndarray` of inferenced.
-            `0` is to `1` what `fake` is to `true`.
         '''
         _ = self.__lstm_model.inference(observed_arr)
         return self.__lstm_model.get_feature_points()
@@ -197,3 +196,13 @@ class LSTMModel(GenerativeModel):
             self.__learning_rate,
             1
         )
+
+    def get_lstm_model(self):
+        ''' getter '''
+        return self.__lstm_model
+    
+    def set_lstm_model(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+    
+    lstm_model = property(get_lstm_model, set_lstm_model)

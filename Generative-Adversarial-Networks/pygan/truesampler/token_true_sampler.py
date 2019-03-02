@@ -11,7 +11,7 @@ class TokenTrueSampler(TrueSampler):
 
     def __init__(
         self,
-        document,
+        token_list,
         nlp_base,
         tokenizable_doc,
         vectorizable_token,
@@ -23,7 +23,7 @@ class TokenTrueSampler(TrueSampler):
         Init.
 
         Args:
-            document:               `str` of all sentence.
+            token_list:             `list` of all token.
             tokenizable_doc:        is-a `TokenizableDoc`.
             vectorizable_token:     is-a `VectorizableToken`.
             batch_size:             Batch size.
@@ -34,7 +34,7 @@ class TokenTrueSampler(TrueSampler):
                                     - `tanh`: Normalization by tanh function.
         '''
         self.__iter_text_generator = IterTextGenerator(
-                document=document,
+                token_list=token_list,
                 nlp_base=nlp_base,
                 tokenizable_doc=tokenizable_doc,
                 vectorizable_token=vectorizable_token,

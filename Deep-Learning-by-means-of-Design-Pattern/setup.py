@@ -3,16 +3,35 @@ from setuptools import setup, find_packages
 from setuptools import Extension
 import numpy as np
 import os
-from Cython.Distutils import build_ext
-from Cython.Build import cythonize
+
+try:
+    from Cython.Distutils import build_ext
+    from Cython.Build import cythonize
+    cython_flag = True
+except ImportError:
+    cython_flag = False
+
+
+if cython_flag is True:
+    file_format = ".pyx"
+    cmdclass = {"build_ext": build_ext}
+else:
+    file_format = ".c"
+    cmdclass = {}
 
 
 pyx_list = []
 for dirpath, dirs, files in os.walk('.'):
     for f in files:
-        if ".pyx" in f and "checkpoint" not in f:
+        if file_format in f and "checkpoint" not in f:
             pyx_path = os.path.join(dirpath, f)
             pyx_list.append(Extension("*", [pyx_path]))
+
+
+if cython_flag is True:
+    ext_modules = cythonize(pyx_list, include_path=[np.get_include()])
+else:
+    ext_modules = pyx_list
 
 
 def read_readme(file_name):

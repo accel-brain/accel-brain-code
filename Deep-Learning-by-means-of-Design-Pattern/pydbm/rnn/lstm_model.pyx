@@ -73,6 +73,7 @@ class LSTMModel(ReconstructableModel):
         double learning_rate=1e-05,
         double learning_attenuate_rate=0.1,
         int attenuate_epoch=50,
+        int seq_len=0,
         int bptt_tau=16,
         double test_size_rate=0.3,
         tol=1e-04,
@@ -87,13 +88,21 @@ class LSTMModel(ReconstructableModel):
             opt_params:                     Optimization function.
             verificatable_result:           Verification function.
             epochs:                         Epochs of mini-batch.
-            bath_size:                      Batch size of mini-batch.
+            batch_size:                     Batch size of mini-batch.
             learning_rate:                  Learning rate.
             learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
             attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
                                             Additionally, in relation to regularization,
                                             this class constrains weight matrixes every `attenuate_epoch`.
-            
+
+            seq_len:                        The length of sequences.
+                                            If `0`, this model will reference all series elements included 
+                                            in observed data points.
+                                            If not `0`, only first sequence will be observed by this model 
+                                            and will be feedfowarded as feature points.
+                                            This parameter enables you to build this class as `Decoder` in
+                                            Sequence-to-Sequence(Seq2seq) scheme.
+
             bptt_tau:                       Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
                                             If `0`, this class referes all past data in BPTT.
 
@@ -131,6 +140,7 @@ class LSTMModel(ReconstructableModel):
         self.__learning_attenuate_rate = learning_attenuate_rate
         self.__attenuate_epoch = attenuate_epoch
 
+        self.__seq_len = seq_len
         self.__bptt_tau = bptt_tau
 
         self.__test_size_rate = test_size_rate
@@ -150,9 +160,12 @@ class LSTMModel(ReconstructableModel):
         Override.
 
         Args:
-            observed_arr:    Array like or sparse matrix as the observed data points.
-            target_arr:      Array like or sparse matrix as the target data points.
-                             To learn as Auto-encoder, this value must be `None` or equivalent to `observed_arr`.
+            observed_arr:   Array like or sparse matrix as the observed data points.
+                            The shape is: (batch size, the length of sequences, feature points)
+
+            target_arr:     Array like or sparse matrix as the target data points.
+                            To learn as Auto-encoder, this value must be `None` or equivalent to `observed_arr`.
+                            The shape is: (batch size, labeled data)
         '''
         self.__logger.debug("pydbm.rnn.lstm_model.learn is started. ")
 
@@ -378,7 +391,7 @@ class LSTMModel(ReconstructableModel):
             - `list` of gradations
         '''
         delta_arr, output_grads_list = self.output_back_propagate(pred_arr, delta_arr)
-        _delta_arr, lstm_grads_list = self.hidden_back_propagate(delta_arr)
+        _delta_arr, delta_hidden_arr, lstm_grads_list = self.hidden_back_propagate(delta_arr)
         cdef np.ndarray[DOUBLE_t, ndim=2] arr
         if self.__opt_params.dropout_rate > 0:
             arr = self.__opt_params.dropout(
@@ -446,7 +459,7 @@ class LSTMModel(ReconstructableModel):
         np.ndarray hidden_activity_arr=None,
         np.ndarray cec_activity_arr=None
     ):
-        r'''
+        '''
         Inference the feature points to reconstruct the time-series.
 
         Override.
@@ -510,7 +523,15 @@ class LSTMModel(ReconstructableModel):
             Predicted data points.
         '''
         cdef int sample_n = observed_arr.shape[0]
-        cdef int cycle_len = observed_arr.shape[1]
+        cdef int cycle_len
+        if self.__seq_len == 0:
+            cycle_len = observed_arr.shape[1]
+        else:
+            cycle_len = self.__seq_len
+
+            if cycle_len > observed_arr.shape[1]:
+                raise ValueError("The length of sequences is too large.")
+
         cdef int hidden_n = self.graph.weights_lstm_hidden_arr.shape[0]
 
         cdef np.ndarray[DOUBLE_t, ndim=3] pred_arr = np.zeros((sample_n, cycle_len, hidden_n), dtype=np.float64)
@@ -524,19 +545,36 @@ class LSTMModel(ReconstructableModel):
         cdef int cycle
         for cycle in range(cycle_len):
             if self.graph.hidden_activity_arr.ndim == 2:
-                self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
-                    observed_arr[:, cycle, :],
-                    self.graph.hidden_activity_arr,
-                    self.graph.cec_activity_arr
-                )
+                if self.__seq_len == 0 or cycle == 0:
+                    self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
+                        observed_arr[:, cycle, :],
+                        self.graph.hidden_activity_arr,
+                        self.graph.cec_activity_arr
+                    )
+                else:
+                    self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
+                        # pred_arr[:, cycle-1, :] = self.graph.hidden_activity_arr
+                        pred_arr[:, cycle-1, :],
+                        self.graph.hidden_activity_arr,
+                        self.graph.cec_activity_arr
+                    )
+
             elif self.graph.hidden_activity_arr.ndim == 3:
-                self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
-                    observed_arr[:, cycle, :],
-                    self.graph.hidden_activity_arr[:, cycle, :],
-                    self.graph.cec_activity_arr
-                )
+                if self.__seq_len == 0 or cycle == 0:
+                    self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
+                        observed_arr[:, cycle, :],
+                        self.graph.hidden_activity_arr[:, cycle, :],
+                        self.graph.cec_activity_arr
+                    )
+                else:
+                    self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
+                        pred_arr[:, cycle-1, :],
+                        self.graph.hidden_activity_arr[:, cycle, :],
+                        self.graph.cec_activity_arr
+                    )
             else:
                 raise ValueError("The shape of hidden activity array is invalid.")
+            
             pred_arr[:, cycle, :] = self.graph.hidden_activity_arr
 
         return pred_arr
@@ -589,7 +627,8 @@ class LSTMModel(ReconstructableModel):
         
         Returns:
             Tuple data.
-            - `np.ndarray` of Delta, 
+            - `np.ndarray` of Delta in observed data points,
+            - `np.ndarray` of Delta in hidden units, 
             - `list` of gradations.
         '''
         cdef int sample_n = delta_output_arr.shape[0]
@@ -635,7 +674,7 @@ class LSTMModel(ReconstructableModel):
             bp_count += 1
 
         self.__memory_tuple_list = []
-        return (delta_arr, grads_list)
+        return (delta_arr, delta_hidden_arr, grads_list)
 
     def __lstm_forward(
         self,

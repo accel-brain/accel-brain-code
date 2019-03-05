@@ -2,6 +2,7 @@
 from logging import getLogger
 import numpy as np
 cimport numpy as np
+ctypedef np.float64_t DOUBLE_t
 
 from pydbm.synapse_list import Synapse
 from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer
@@ -21,7 +22,6 @@ from pydbm.loss.interface.computable_loss import ComputableLoss
 from pydbm.optimization.opt_params import OptParams
 from pydbm.rnn.interface.reconstructable_model import ReconstructableModel
 
-ctypedef np.float64_t DOUBLE_t
 
 
 class ConvLSTMModel(ReconstructableModel):
@@ -98,6 +98,7 @@ class ConvLSTMModel(ReconstructableModel):
         double scale=0.1,
         int stride=1,
         int pad=1,
+        int seq_len=0,
         int bptt_tau=16,
         double test_size_rate=0.3,
         computable_loss=None,
@@ -141,6 +142,14 @@ class ConvLSTMModel(ReconstructableModel):
             scale:                          Scale of weights and bias vector in convolution layer in default settings.
             stride:                         The stride in default settings.
             pad:                            The pad in default settings.
+
+            seq_len:                        The length of sequences.
+                                            If `0`, this model will reference all series elements included 
+                                            in observed data points.
+                                            If not `0`, only first sequence will be observed by this model 
+                                            and will be feedfowarded as feature points.
+                                            This parameter enables you to build this class as `Decoder` in
+                                            Sequence-to-Sequence(Seq2seq) scheme.
 
             bptt_tau:                       Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
                                             If `0`, this class referes all past data in BPTT.
@@ -301,6 +310,7 @@ class ConvLSTMModel(ReconstructableModel):
         self.__learning_attenuate_rate = learning_attenuate_rate
         self.__attenuate_epoch = attenuate_epoch
 
+        self.__seq_len = seq_len
         self.__bptt_tau = bptt_tau
 
         self.__test_size_rate = test_size_rate
@@ -793,13 +803,13 @@ class ConvLSTMModel(ReconstructableModel):
             Array like or sparse matrix as the predicted data points.
         '''
         if batch_observed_arr.ndim == 3 and self.__height is not None and self.__width is not None:
-             batch_observed_arr = batch_observed_arr.reshape((
-                 batch_observed_arr.shape[0],
-                 batch_observed_arr.shape[1],
-                 self.__channel,
-                 self.__height,
-                 self.__width
-             ))
+            batch_observed_arr = batch_observed_arr.reshape((
+                batch_observed_arr.shape[0],
+                batch_observed_arr.shape[1],
+                self.__channel,
+                self.__height,
+                self.__width
+            ))
 
         cdef np.ndarray[DOUBLE_t, ndim=5] hidden_activity_arr = self.hidden_forward_propagate(
             batch_observed_arr
@@ -978,22 +988,37 @@ class ConvLSTMModel(ReconstructableModel):
             Predicted data points.
         '''
         cdef int sample_n = observed_arr.shape[0]
-        cdef int cycle_len = observed_arr.shape[1]
+        cdef int cycle_len
+        if self.__seq_len == 0:
+            cycle_len = observed_arr.shape[1]
+        else:
+            cycle_len = self.__seq_len
+
+            if cycle_len > observed_arr.shape[1]:
+                raise ValueError("The length of sequences is too large.")
+
         cdef int channel = observed_arr.shape[2]
         cdef int width = observed_arr.shape[3]
         cdef int height = observed_arr.shape[4]
-        
+
         self.__cycle_len = cycle_len
 
         cdef np.ndarray[DOUBLE_t, ndim=5] pred_arr = None
         cdef int cycle
         for cycle in range(cycle_len):
-            self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
-                observed_arr[:, cycle, :, :, :],
-                self.graph.hidden_activity_arr,
-                self.graph.cec_activity_arr
-            )
-            
+            if self.__seq_len == 0 or cycle == 0:
+                self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
+                    observed_arr[:, cycle, :, :, :],
+                    self.graph.hidden_activity_arr,
+                    self.graph.cec_activity_arr
+                )
+            else:
+                self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
+                    pred_arr[:, cycle-1, :, :, :],
+                    self.graph.hidden_activity_arr,
+                    self.graph.cec_activity_arr
+                )
+
             if pred_arr is None:
                 pred_arr = np.zeros(
                     (
@@ -1073,7 +1098,8 @@ class ConvLSTMModel(ReconstructableModel):
         
         Returns:
             Tuple data.
-            - `np.ndarray` of Delta, 
+            - `np.ndarray` of Delta in observed data points, 
+            - `np.ndarray` of Delta in hidden units, 
             - `list` of gradations
         '''
         # not BPTT.
@@ -1116,7 +1142,7 @@ class ConvLSTMModel(ReconstructableModel):
             bp_count += 1
 
         self.__memory_tuple_list = []
-        return delta_arr, []
+        return delta_arr, delta_hidden_arr, []
 
     def __lstm_forward(
         self,

@@ -27,8 +27,20 @@ class THotVectorizer(VectorizableToken):
         Returns:
             [vector of token, vector of token, vector of token, ...]
         '''
-        vector_list = [self.__t_hot(token).tolist() for token in token_list]
-        return vector_list
+        return [self.__t_hot(token).tolist() for token in token_list]
+
+    def convert_tokens_into_matrix(self, token_list):
+        '''
+        Create matrix of sentences.
+
+        Args:
+            token_list:     The list of tokens.
+        
+        Returns:
+            2-D `np.ndarray` of sentences.
+            Each row means one hot vectors of one sentence.
+        '''
+        return np.array(self.vectorize(token_list)).astype(np.float32)
 
     def tokenize(self, vector_list):
         '''

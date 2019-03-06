@@ -60,11 +60,12 @@ class ReSeq2Seq(AbstractableSemantics):
     had viewed the original video" (Zhang, K. et al., 2018, p7).
 
     But the model in this library and Zhang, K. et al.(2018) are different in some respects
-    from the relation with the specification of [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern).
+    from the relation with the specification of the Deep Learning library: [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern).
     First, Encoder/Decoder based on LSTM is not designed as a hierarchical structure. 
     Second, it is possible to introduce regularization techniques which are not discussed in 
-    Zhang, K. et al.(2018). Third, the regression loss function for  matching summaries is 
-    simplified in terms of calculation efficiency in this library.
+    Zhang, K. et al.(2018) such as the dropout, the gradient clipping, and limitation of weights.
+    Third, the regression loss function for matching summaries is simplified in terms of 
+    calculation efficiency in this library.
 
     References:
         - Zhang, K., Grauman, K., & Sha, F. (2018). Retrospective Encoders for Video Summarization. In Proceedings of the European Conference on Computer Vision (ECCV) (pp. 383-399).

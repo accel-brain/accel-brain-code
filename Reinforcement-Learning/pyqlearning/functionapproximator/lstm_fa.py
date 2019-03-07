@@ -123,7 +123,7 @@ class LSTMFA(FunctionApproximator):
             np.expand_dims(delta_arr, axis=1)
         )
         delta_arr, _, lstm_hidden_grads_list = self.__lstm_model.hidden_back_propagate(
-            np.expand_dims(delta_arr, axis=1)
+            delta_arr[:, -1]
         )
         lstm_grads_list = lstm_output_grads_list
         lstm_grads_list.extend(lstm_hidden_grads_list)

@@ -66,6 +66,8 @@ class LSTMModel(GenerativeModel):
             hidden_neuron_count:            The number of hidden units.
             hidden_activating_function:     is-a `ActivatingFunctionInterface` in hidden layer.
             seq_len:                        The length of sequences.
+                                            This means refereed maxinum step `t` in feedforward.
+
             learning_rate:                  Learning rate.
             verbose_mode:                   Verbose mode or not.
         '''

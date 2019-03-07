@@ -83,7 +83,6 @@ class ReSeq2Seq(AbstractableSemantics):
         retrospective_encoder=None,
         input_neuron_count=20,
         hidden_neuron_count=20,
-        output_neuron_count=20,
         weight_limit=0.5,
         dropout_rate=0.5,
         pre_learning_epochs=1000,
@@ -110,7 +109,6 @@ class ReSeq2Seq(AbstractableSemantics):
             retrospective_encoder:          is-a `LSTMModel` as a retrospective encoder(or re-encoder).
             input_neuron_count:             The number of units in input layers.
             hidden_neuron_count:            The number of units in hidden layers.
-            output_neuron_count:            The number of units in output layers.
             weight_limit:                   Regularization for weights matrix to repeat multiplying 
                                             the weights matrix and `0.9` until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
 
@@ -164,7 +162,6 @@ class ReSeq2Seq(AbstractableSemantics):
             encoder_decoder_controller = self.__build_encoder_decoder_controller(
                 input_neuron_count=input_neuron_count,
                 hidden_neuron_count=hidden_neuron_count,
-                output_neuron_count=output_neuron_count,
                 weight_limit=weight_limit,
                 dropout_rate=dropout_rate,
                 epochs=pre_learning_epochs,
@@ -184,7 +181,6 @@ class ReSeq2Seq(AbstractableSemantics):
             retrospective_encoder = self.__build_retrospective_encoder(
                 input_neuron_count=input_neuron_count,
                 hidden_neuron_count=hidden_neuron_count,
-                output_neuron_count=output_neuron_count,
                 weight_limit=weight_limit,
                 dropout_rate=dropout_rate,
                 batch_size=batch_size,
@@ -216,7 +212,6 @@ class ReSeq2Seq(AbstractableSemantics):
         self,
         input_neuron_count=20,
         hidden_neuron_count=20,
-        output_neuron_count=20,
         weight_limit=0.5,
         dropout_rate=0.5,
         epochs=1000,
@@ -244,7 +239,7 @@ class ReSeq2Seq(AbstractableSemantics):
         encoder_graph.create_rnn_cells(
             input_neuron_count=input_neuron_count,
             hidden_neuron_count=hidden_neuron_count,
-            output_neuron_count=output_neuron_count
+            output_neuron_count=1
         )
         encoder_opt_params = EncoderAdam()
         encoder_opt_params.weight_limit = weight_limit
@@ -290,9 +285,9 @@ class ReSeq2Seq(AbstractableSemantics):
         # Initialization strategy.
         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
         decoder_graph.create_rnn_cells(
-            input_neuron_count=input_neuron_count,
+            input_neuron_count=hidden_neuron_count,
             hidden_neuron_count=hidden_neuron_count,
-            output_neuron_count=output_neuron_count
+            output_neuron_count=input_neuron_count
         )
         decoder_opt_params = DecoderAdam()
         decoder_opt_params.weight_limit = weight_limit
@@ -311,8 +306,9 @@ class ReSeq2Seq(AbstractableSemantics):
             learning_attenuate_rate=0.1,
             # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
             attenuate_epoch=50,
-            # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
+            # The length of sequences.
             seq_len=seq_len,
+            # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
             bptt_tau=bptt_tau,
             # Size of Test data set. If this value is `0`, the validation will not be executed.
             test_size_rate=0.3,
@@ -345,7 +341,6 @@ class ReSeq2Seq(AbstractableSemantics):
         self,
         input_neuron_count=20,
         hidden_neuron_count=20,
-        output_neuron_count=20,
         weight_limit=0.5,
         dropout_rate=0.5,
         batch_size=20,
@@ -368,7 +363,7 @@ class ReSeq2Seq(AbstractableSemantics):
         encoder_graph.create_rnn_cells(
             input_neuron_count=input_neuron_count,
             hidden_neuron_count=hidden_neuron_count,
-            output_neuron_count=output_neuron_count
+            output_neuron_count=1
         )
         encoder_opt_params = EncoderAdam()
         encoder_opt_params.weight_limit = weight_limit

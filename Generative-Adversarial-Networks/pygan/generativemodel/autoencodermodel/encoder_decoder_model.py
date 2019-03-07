@@ -97,7 +97,7 @@ class EncoderDecoderModel(AutoEncoderModel):
             grad_arr:   `np.ndarray` of gradients.
         
         '''
-        encoder_delta_arr, encoder_grads_list = self.__encoder_decoder_controller.encoder.hidden_back_propagate(
+        encoder_delta_arr, _, encoder_grads_list = self.__encoder_decoder_controller.encoder.hidden_back_propagate(
             grad_arr[:, -1]
         )
         encoder_grads_list.insert(0, None)

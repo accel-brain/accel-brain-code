@@ -292,3 +292,13 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         raise TypeError("This property must be read-only.")
     
     convolutional_auto_encoder = property(get_convolutional_auto_encoder, set_convolutional_auto_encoder)
+
+    def get_deconvolution_layer_list(self):
+        ''' getter '''
+        return self.__deconvolution_layer_list
+    
+    def set_deconvolution_layer_list(self, value):
+        ''' setter '''
+        self.__deconvolution_layer_list = value
+    
+    deconvolution_layer_list = property(get_deconvolution_layer_list, set_deconvolution_layer_list)

@@ -187,7 +187,7 @@ class LSTMModel(GenerativeModel):
         elif grad_arr.ndim == 3:
             grad_arr = grad_arr[:, -1]
 
-        delta_arr, grads_list = self.__lstm_model.hidden_back_propagate(grad_arr)
+        delta_arr, _, grads_list = self.__lstm_model.hidden_back_propagate(grad_arr)
         grads_list.insert(0, None)
         grads_list.insert(0, None)
 

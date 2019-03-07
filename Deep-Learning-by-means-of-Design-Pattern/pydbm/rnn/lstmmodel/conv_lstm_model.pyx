@@ -994,9 +994,6 @@ class ConvLSTMModel(ReconstructableModel):
         else:
             cycle_len = self.__seq_len
 
-            if cycle_len > observed_arr.shape[1]:
-                raise ValueError("The length of sequences is too large.")
-
         cdef int channel = observed_arr.shape[2]
         cdef int width = observed_arr.shape[3]
         cdef int height = observed_arr.shape[4]

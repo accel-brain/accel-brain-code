@@ -45,7 +45,6 @@ class AttentionEncoderDecoder(EncoderDecoderController):
         decoder,
         computable_loss,
         verificatable_result,
-        join_output_mode=False,
         int epochs=100,
         int batch_size=100,
         double learning_rate=1e-05,
@@ -64,10 +63,6 @@ class AttentionEncoderDecoder(EncoderDecoderController):
             decoder:                        is-a `AttentionLSTMModel`.
             computable_loss:                is-a `ComputableLoss`.
             verificatable_result:           is-a `VerificatableResult`.
-            join_output_mode:               If `True`, this controller class structurally couples `encoder` and `decoder`
-                                            by using the output layers of each model as a joining point.
-                                            If `False`, this controller class uses the hidden layers of each model. 
-
             epochs:                         Epochs of mini-batch.
             bath_size:                      Batch size of mini-batch.
             learning_rate:                  Learning rate.
@@ -100,7 +95,6 @@ class AttentionEncoderDecoder(EncoderDecoderController):
             decoder=decoder,
             computable_loss=computable_loss,
             verificatable_result=verificatable_result,
-            join_output_mode=join_output_mode,
             epochs=epochs,
             batch_size=batch_size,
             learning_rate=learning_rate,
@@ -131,8 +125,8 @@ class AttentionEncoderDecoder(EncoderDecoderController):
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_observed_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_observed_arr
 
-        delta_hidden_arr, delta_observed_arr = self.decoder.context_backward(delta_arr)
+        delta_hidden_arr, delta_observed_arr = self.decoder.context_backward(delta_arr[:, -1])
         _delta_hidden_arr, _delta_observed_arr = self.decoder.weight_backward(delta_observed_arr)
         delta_arr = delta_hidden_arr + _delta_hidden_arr
 
-        return super().back_propagation(delta_arr)
+        return super().back_propagation(delta_arr[:, 0])

@@ -96,6 +96,7 @@ class LSTMModel(ReconstructableModel):
                                             this class constrains weight matrixes every `attenuate_epoch`.
 
             seq_len:                        The length of sequences.
+                                            This means refereed maxinum step `t` in feedforward.
                                             If `0`, this model will reference all series elements included 
                                             in observed data points.
                                             If not `0`, only first sequence will be observed by this model 
@@ -209,8 +210,8 @@ class LSTMModel(ReconstructableModel):
 
         cdef double loss
         cdef double test_loss
-        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] test_pred_arr
+        cdef np.ndarray[DOUBLE_t, ndim=3] pred_arr
+        cdef np.ndarray[DOUBLE_t, ndim=3] test_pred_arr
         cdef np.ndarray delta_arr
 
         best_params_list = []
@@ -235,7 +236,7 @@ class LSTMModel(ReconstructableModel):
                     ver_pred_arr = pred_arr.copy()
                     loss = self.__computable_loss.compute_loss(
                         pred_arr,
-                        batch_target_arr[:, -1, :]
+                        batch_target_arr
                     )
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -249,12 +250,12 @@ class LSTMModel(ReconstructableModel):
                         ver_pred_arr = pred_arr.copy()
                         loss = self.__computable_loss.compute_loss(
                             pred_arr,
-                            batch_target_arr[:, -1, :]
+                            batch_target_arr
                         )
 
                     delta_arr = self.__computable_loss.compute_delta(
                         pred_arr,
-                        batch_target_arr[:, -1, :]
+                        batch_target_arr
                     )
                     delta_arr, grads_list = self.back_propagation(pred_arr, delta_arr)
                     self.optimize(grads_list, learning_rate, epoch)
@@ -292,7 +293,7 @@ class LSTMModel(ReconstructableModel):
 
                     test_loss = self.__computable_loss.compute_loss(
                         test_pred_arr,
-                        test_batch_target_arr[:, -1, :]
+                        test_batch_target_arr
                     )
 
                     remember_flag = False
@@ -310,9 +311,9 @@ class LSTMModel(ReconstructableModel):
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
                                 train_pred_arr=ver_pred_arr, 
-                                train_label_arr=batch_target_arr[:, -1, :],
+                                train_label_arr=batch_target_arr,
                                 test_pred_arr=test_pred_arr,
-                                test_label_arr=test_batch_target_arr[:, -1, :]
+                                test_label_arr=test_batch_target_arr
                             )
 
                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
@@ -372,12 +373,16 @@ class LSTMModel(ReconstructableModel):
             ))
 
         self.graph.hidden_activity_arr = hidden_activity_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.output_forward_propagate(
+        cdef np.ndarray[DOUBLE_t, ndim=3] pred_arr = self.output_forward_propagate(
             hidden_activity_arr
         )
         return pred_arr
 
-    def back_propagation(self, np.ndarray[DOUBLE_t, ndim=2] pred_arr, np.ndarray[DOUBLE_t, ndim=2] delta_arr):
+    def back_propagation(
+        self,
+        np.ndarray[DOUBLE_t, ndim=3] pred_arr,
+        np.ndarray[DOUBLE_t, ndim=3] delta_arr
+    ):
         '''
         Back propagation.
 
@@ -391,7 +396,7 @@ class LSTMModel(ReconstructableModel):
             - `list` of gradations
         '''
         delta_arr, output_grads_list = self.output_back_propagate(pred_arr, delta_arr)
-        _delta_arr, delta_hidden_arr, lstm_grads_list = self.hidden_back_propagate(delta_arr)
+        _delta_arr, delta_hidden_arr, lstm_grads_list = self.hidden_back_propagate(delta_arr[:, -1])
         cdef np.ndarray[DOUBLE_t, ndim=2] arr
         if self.__opt_params.dropout_rate > 0:
             arr = self.__opt_params.dropout(
@@ -499,7 +504,7 @@ class LSTMModel(ReconstructableModel):
         else:
             self.graph.cec_activity_arr = cec_activity_arr
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.forward_propagation(observed_arr)
+        cdef np.ndarray[DOUBLE_t, ndim=3] pred_arr = self.forward_propagation(observed_arr)
         return pred_arr
 
     def get_feature_points(self):
@@ -529,9 +534,6 @@ class LSTMModel(ReconstructableModel):
         else:
             cycle_len = self.__seq_len
 
-            if cycle_len > observed_arr.shape[1]:
-                raise ValueError("The length of sequences is too large.")
-
         cdef int hidden_n = self.graph.weights_lstm_hidden_arr.shape[0]
 
         cdef np.ndarray[DOUBLE_t, ndim=3] pred_arr = np.zeros((sample_n, cycle_len, hidden_n), dtype=np.float64)
@@ -553,7 +555,6 @@ class LSTMModel(ReconstructableModel):
                     )
                 else:
                     self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
-                        # pred_arr[:, cycle-1, :] = self.graph.hidden_activity_arr
                         pred_arr[:, cycle-1, :],
                         self.graph.hidden_activity_arr,
                         self.graph.cec_activity_arr
@@ -589,12 +590,22 @@ class LSTMModel(ReconstructableModel):
         Returns:
             `np.ndarray` of propagated data points.
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=2] _pred_arr = self.graph.output_activating_function.activate(
-            np.dot(pred_arr[:, -1, :], self.graph.weights_output_arr) + self.graph.output_bias_arr
-        )
+        cdef np.ndarray[DOUBLE_t, ndim=3] _pred_arr = self.graph.output_activating_function.activate(
+            np.dot(
+                pred_arr.reshape((
+                    pred_arr.shape[0] * pred_arr.shape[1],
+                    -1
+                )), 
+                self.graph.weights_output_arr
+            ) + self.graph.output_bias_arr
+        ).reshape((
+            pred_arr.shape[0],
+            pred_arr.shape[1],
+            -1
+        ))
         return _pred_arr
 
-    def output_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] pred_arr, np.ndarray[DOUBLE_t, ndim=2] delta_arr):
+    def output_back_propagate(self, np.ndarray[DOUBLE_t, ndim=3] pred_arr, np.ndarray[DOUBLE_t, ndim=3] delta_arr):
         '''
         Back propagation in output layer.
 
@@ -607,16 +618,38 @@ class LSTMModel(ReconstructableModel):
             - `np.ndarray` of Delta, 
             - `list` of gradations.
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = np.dot(delta_arr, self.graph.weights_output_arr.T)
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weights_arr = np.dot(pred_arr.T, _delta_arr).T
-        cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = np.sum(delta_arr, axis=0)
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_2d_arr = delta_arr.reshape((
+            delta_arr.shape[0] * delta_arr.shape[1],
+            -1
+        ))
+
+        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = np.dot(
+            delta_2d_arr,
+            self.graph.weights_output_arr.T
+        )
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weights_arr = np.dot(
+            pred_arr.reshape((
+                pred_arr.shape[0] * pred_arr.shape[1],
+                -1
+            )).T, 
+            _delta_arr
+        ).T
+        cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = np.sum(
+            delta_2d_arr, 
+            axis=0
+        )
 
         grads_list = [
             delta_weights_arr,
             delta_bias_arr
         ]
-        
-        return (_delta_arr, grads_list)
+
+        delta_arr = _delta_arr.reshape((
+            delta_arr.shape[0],
+            delta_arr.shape[1],
+            -1
+        ))
+        return (delta_arr, grads_list)
 
     def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] delta_output_arr):
         '''
@@ -799,7 +832,6 @@ class LSTMModel(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=2] no_cec_i_arr = self.__memory_tuple_list[cycle][8]
         cdef np.ndarray[DOUBLE_t, ndim=2] no_cec_f_arr = self.__memory_tuple_list[cycle][9]
         cdef np.ndarray[DOUBLE_t, ndim=2] no_cec_o_arr = self.__memory_tuple_list[cycle][10]
-
 
         cdef np.ndarray[DOUBLE_t, ndim=2] _cec_activity_arr = self.graph.hidden_activating_function.activate(cec_activity_arr)
 

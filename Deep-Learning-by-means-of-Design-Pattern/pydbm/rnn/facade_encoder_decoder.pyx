@@ -85,6 +85,7 @@ class FacadeEncoderDecoder(object):
         output_activating_function=None,
         computable_loss=None,
         opt_params=None,
+        seq_len=8,
         bptt_tau=8,
         test_size_rate=0.3,
         tol=0.0,
@@ -114,6 +115,16 @@ class FacadeEncoderDecoder(object):
 
             computable_loss:                Loss function.
             opt_params:                     Optimizer.
+
+            seq_len:                        The length of sequences.
+                                            This means refereed maxinum step `t` in feedforward.
+                                            If `0`, this model will reference all series elements included 
+                                            in observed data points.
+                                            If not `0`, only first sequence will be observed by this model 
+                                            and will be feedfowarded as feature points.
+                                            This parameter enables you to build this class as `Decoder` in
+                                            Sequence-to-Sequence(Seq2seq) scheme.
+
             bptt_tau:                       Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
                                             If `0`, this class referes all past data in BPTT.
 
@@ -253,8 +264,8 @@ class FacadeEncoderDecoder(object):
         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
         decoder_graph.create_rnn_cells(
             input_neuron_count=hidden_neuron_count,
-            hidden_neuron_count=input_neuron_count,
-            output_neuron_count=hidden_neuron_count
+            hidden_neuron_count=hidden_neuron_count,
+            output_neuron_count=input_neuron_count
         )
 
         if decoder_pre_learned_file_path is not None:
@@ -273,6 +284,9 @@ class FacadeEncoderDecoder(object):
             learning_attenuate_rate=learning_attenuate_rate,
             # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
             attenuate_epoch=attenuate_epoch,
+            # The length of sequences.
+            # This means refereed maxinum step `t` in feedforward.
+            seq_len=seq_len,
             # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
             bptt_tau=bptt_tau,
             # Size of Test data set. If this value is `0`, the validation will not be executed.

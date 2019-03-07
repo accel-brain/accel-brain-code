@@ -119,11 +119,11 @@ class LSTMFA(FunctionApproximator):
         loss = self.__computable_loss.compute_loss(predicted_q_arr, real_q_arr)
         delta_arr = self.__computable_loss.compute_delta(predicted_q_arr, real_q_arr)
         delta_arr, lstm_output_grads_list = self.__lstm_model.output_back_propagate(
-            predicted_q_arr,
-            delta_arr
+            np.expand_dims(predicted_q_arr, axis=1),
+            np.expand_dims(delta_arr, axis=1)
         )
-        delta_arr, lstm_hidden_grads_list = self.__lstm_model.hidden_back_propagate(
-            delta_arr
+        delta_arr, _, lstm_hidden_grads_list = self.__lstm_model.hidden_back_propagate(
+            np.expand_dims(delta_arr, axis=1)
         )
         lstm_grads_list = lstm_output_grads_list
         lstm_grads_list.extend(lstm_hidden_grads_list)

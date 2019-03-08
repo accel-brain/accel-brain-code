@@ -13,7 +13,7 @@ class MeanSquaredError(ComputableLoss):
         - Pascanu, R., Mikolov, T., & Bengio, Y. (2013, February). On the difficulty of training recurrent neural networks. In International conference on machine learning (pp. 1310-1318).
     '''
 
-    def __init__(self, grad_clip_threshold=150.0):
+    def __init__(self, grad_clip_threshold=1e+05):
         '''
         Init.
 

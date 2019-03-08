@@ -132,13 +132,13 @@ class EncoderDecoderController(object):
 
         cdef np.ndarray train_index
         cdef np.ndarray test_index
-        cdef np.ndarray[DOUBLE_t, ndim=3] train_observed_arr
+        cdef np.ndarray train_observed_arr
         cdef np.ndarray train_target_arr
-        cdef np.ndarray[DOUBLE_t, ndim=3] test_observed_arr
+        cdef np.ndarray test_observed_arr
         cdef np.ndarray test_target_arr
 
         cdef np.ndarray rand_index
-        cdef np.ndarray[DOUBLE_t, ndim=3] batch_observed_arr
+        cdef np.ndarray batch_observed_arr
         cdef np.ndarray batch_target_arr
 
         if row_t != 0 and row_t != row_o:
@@ -317,7 +317,7 @@ class EncoderDecoderController(object):
 
         cdef double loss
         cdef double test_loss
-        cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr
+        cdef np.ndarray hidden_activity_arr
         cdef np.ndarray decoded_arr
         cdef np.ndarray test_decoded_arr
         cdef np.ndarray delta_arr
@@ -499,13 +499,7 @@ class EncoderDecoderController(object):
         _ = self.__encoder.inference(observed_arr)
         encoded_arr = self.__encoder.get_feature_points()
         self.__feature_points_arr = encoded_arr
-        decoded_arr = self.__decoder.inference(
-            encoded_arr[:, -1].reshape((
-                encoded_arr.shape[0],
-                1,
-                encoded_arr.shape[2]
-            ))
-        )
+        decoded_arr = self.__decoder.inference(np.expand_dims(encoded_arr[:, -1], axis=1))
         decoded_arr = decoded_arr[:, ::-1]
         self.__reconstruction_error_arr = self.__computable_loss.compute_loss(
             decoded_arr,

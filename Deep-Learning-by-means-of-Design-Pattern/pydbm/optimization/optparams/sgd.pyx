@@ -43,8 +43,6 @@ class SGD(OptParams):
         if len(params_list) != len(grads_list):
             raise ValueError("The row of `params_list` and `grads_list` must be equivalent.")
 
-        grads_list = self.clip_grads(grads_list)
-
         if self.__momentum > 0:
             if len(self.__variation_list) == 0 or len(self.__variation_list) != len(params_list):
                 self.__variation_list  = [None] * len(params_list)

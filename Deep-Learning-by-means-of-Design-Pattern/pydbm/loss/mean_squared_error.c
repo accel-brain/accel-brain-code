@@ -1686,7 +1686,7 @@ static PyObject *__pyx_pf_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_2
 static PyObject *__pyx_pf_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_4compute_delta(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_pred_arr, PyArrayObject *__pyx_v_labeled_arr, PyObject *__pyx_v_delta_output); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
-static PyObject *__pyx_float_150_0;
+static PyObject *__pyx_float_1e_05;
 static PyObject *__pyx_int_1;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
@@ -1711,7 +1711,7 @@ static PyObject *__pyx_codeobj__17;
 /* "pydbm/loss/mean_squared_error.pyx":16
  *     '''
  * 
- *     def __init__(self, grad_clip_threshold=150.0):             # <<<<<<<<<<<<<<
+ *     def __init__(self, grad_clip_threshold=1e+05):             # <<<<<<<<<<<<<<
  *         '''
  *         Init.
  */
@@ -1729,7 +1729,7 @@ static PyObject *__pyx_pw_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_1
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_grad_clip_threshold,0};
     PyObject* values[2] = {0,0};
-    values[1] = ((PyObject *)((PyObject*)__pyx_float_150_0));
+    values[1] = ((PyObject *)((PyObject*)__pyx_float_1e_05));
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
@@ -1800,7 +1800,7 @@ static PyObject *__pyx_pf_5pydbm_4loss_18mean_squared_error_16MeanSquaredError__
   /* "pydbm/loss/mean_squared_error.pyx":16
  *     '''
  * 
- *     def __init__(self, grad_clip_threshold=150.0):             # <<<<<<<<<<<<<<
+ *     def __init__(self, grad_clip_threshold=1e+05):             # <<<<<<<<<<<<<<
  *         '''
  *         Init.
  */
@@ -5109,7 +5109,7 @@ static int __Pyx_InitCachedConstants(void) {
   /* "pydbm/loss/mean_squared_error.pyx":16
  *     '''
  * 
- *     def __init__(self, grad_clip_threshold=150.0):             # <<<<<<<<<<<<<<
+ *     def __init__(self, grad_clip_threshold=1e+05):             # <<<<<<<<<<<<<<
  *         '''
  *         Init.
  */
@@ -5117,7 +5117,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
   __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_loss_mean_squared_error_py, __pyx_n_s_init, 16, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 16, __pyx_L1_error)
-  __pyx_tuple__12 = PyTuple_Pack(1, ((PyObject*)__pyx_float_150_0)); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __pyx_tuple__12 = PyTuple_Pack(1, ((PyObject*)__pyx_float_1e_05)); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
 
@@ -5159,7 +5159,7 @@ static int __Pyx_InitCachedConstants(void) {
 
 static int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
-  __pyx_float_150_0 = PyFloat_FromDouble(150.0); if (unlikely(!__pyx_float_150_0)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_float_1e_05 = PyFloat_FromDouble(1e+05); if (unlikely(!__pyx_float_1e_05)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -5475,7 +5475,7 @@ if (!__Pyx_RefNanny) {
   /* "pydbm/loss/mean_squared_error.pyx":16
  *     '''
  * 
- *     def __init__(self, grad_clip_threshold=150.0):             # <<<<<<<<<<<<<<
+ *     def __init__(self, grad_clip_threshold=1e+05):             # <<<<<<<<<<<<<<
  *         '''
  *         Init.
  */

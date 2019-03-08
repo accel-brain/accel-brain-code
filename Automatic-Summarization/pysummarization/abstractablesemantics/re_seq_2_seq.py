@@ -583,7 +583,6 @@ class ReSeq2Seq(AbstractableSemantics):
         encoded_arr = self.__encoder_decoder_controller.get_feature_points()
         _ = self.__retrospective_encoder.inference(decoded_arr)
         re_encoded_arr = self.__retrospective_encoder.get_feature_points()
-
         self.__inferenced_tuple = (observed_arr, encoded_arr, decoded_arr, re_encoded_arr)
         return re_encoded_arr
 
@@ -620,8 +619,15 @@ class ReSeq2Seq(AbstractableSemantics):
         re_encoder_grads_list.insert(0, None)
         re_encoder_grads_list.insert(0, None)
 
+        observed_arr, encoded_arr, decoded_arr, re_encoded_arr = self.__inferenced_tuple
+        delta_arr = self.__encoder_decoder_controller.computable_loss.compute_delta(
+            decoded_arr, 
+            observed_arr
+        )
+        delta_arr[:, -1] += re_encoder_delta_arr[:, -1]
+
         decoder_grads_list, encoder_delta_arr, encoder_grads_list = self.__encoder_decoder_controller.back_propagation(
-            re_encoder_delta_arr[:, -1]
+            delta_arr
         )
         return re_encoder_grads_list, decoder_grads_list, encoder_delta_arr, encoder_grads_list
 

@@ -21,12 +21,17 @@ class CrossEntropy(ComputableLoss):
 
         Returns:
             Cost.
-        '''
+        '''        
         cdef np.ndarray _labeled_arr
 
         if pred_arr.ndim == 1:
             pred_arr = pred_arr.reshape(1, pred_arr.size)
             labeled_arr = labeled_arr.reshape(1, labeled_arr.size)
+
+        if pred_arr.ndim > 2:
+            pred_arr = pred_arr.reshape((pred_arr.shape[0], -1))
+        if labeled_arr.ndim > 2:
+            labeled_arr = labeled_arr.reshape((labeled_arr.shape[0], -1))
 
         if labeled_arr.size == pred_arr.size:
             _labeled_arr = labeled_arr.argmax(axis=1)
@@ -52,13 +57,25 @@ class CrossEntropy(ComputableLoss):
         '''
         cdef np.ndarray _labeled_arr
 
-        if labeled_arr.size == pred_arr.size:
+        if pred_arr.ndim > 2:
+            _pred_arr = pred_arr.reshape((pred_arr.shape[0], -1))
+        else:
+            _pred_arr = pred_arr
+
+        if labeled_arr.ndim > 2:
+            labeled_arr = labeled_arr.reshape((labeled_arr.shape[0], -1))
+
+        if labeled_arr.size == _pred_arr.size:
             _labeled_arr = labeled_arr.argmax(axis=1)
         else:
             _labeled_arr = labeled_arr
 
-        batch_size = pred_arr.shape[0]
-        pred_arr[np.arange(batch_size), _labeled_arr] -= 1
-        pred_arr *= delta_output
-        pred_arr = pred_arr / batch_size
+        batch_size = _pred_arr.shape[0]
+        _pred_arr[np.arange(batch_size), _labeled_arr] -= 1
+        _pred_arr *= delta_output
+        _pred_arr = _pred_arr / batch_size
+
+        if pred_arr.ndim != _pred_arr.ndim:
+            _pred_arr = _pred_arr.reshape(*pred_arr.copy().shape)
+
         return pred_arr

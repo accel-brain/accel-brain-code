@@ -11,6 +11,8 @@ from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as ReEncod
 
 # Loss function.
 from pydbm.loss.mean_squared_error import MeanSquaredError
+from pydbm.loss.cross_entropy import CrossEntropy
+
 # Adam as a Loss function.
 from pydbm.optimization.optparams.adam import Adam as EncoderAdam
 from pydbm.optimization.optparams.adam import Adam as DecoderAdam
@@ -26,6 +28,8 @@ from pydbm.rnn.lstm_model import LSTMModel as ReEncoder
 from pydbm.activation.logistic_function import LogisticFunction
 # Tanh Function as activation function.
 from pydbm.activation.tanh_function import TanhFunction
+# Softmax Function as activation function.
+from pydbm.activation.softmax_function import SoftmaxFunction
 # Encoder/Decoder
 from pydbm.rnn.encoder_decoder_controller import EncoderDecoderController
 
@@ -91,7 +95,7 @@ class ReSeq2Seq(AbstractableSemantics):
         learning_rate=1e-05,
         learning_attenuate_rate=0.1,
         attenuate_epoch=50,
-        grad_clip_threshold=150.0,
+        grad_clip_threshold=1e+10,
         seq_len=8,
         bptt_tau=8,
         test_size_rate=0.3,
@@ -227,12 +231,12 @@ class ReSeq2Seq(AbstractableSemantics):
         encoder_graph = EncoderGraph()
 
         # Activation function in LSTM.
-        encoder_graph.observed_activating_function = TanhFunction()
+        encoder_graph.observed_activating_function = LogisticFunction()
         encoder_graph.input_gate_activating_function = LogisticFunction()
         encoder_graph.forget_gate_activating_function = LogisticFunction()
         encoder_graph.output_gate_activating_function = LogisticFunction()
-        encoder_graph.hidden_activating_function = TanhFunction()
-        encoder_graph.output_activating_function = TanhFunction()
+        encoder_graph.hidden_activating_function = LogisticFunction()
+        encoder_graph.output_activating_function = LogisticFunction()
 
         # Initialization strategy.
         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
@@ -263,7 +267,7 @@ class ReSeq2Seq(AbstractableSemantics):
             # Size of Test data set. If this value is `0`, the validation will not be executed.
             test_size_rate=0.3,
             # Loss function.
-            computable_loss=MeanSquaredError(),
+            computable_loss=CrossEntropy(),
             # Optimizer.
             opt_params=encoder_opt_params,
             # Verification function.
@@ -275,12 +279,12 @@ class ReSeq2Seq(AbstractableSemantics):
         decoder_graph = DecoderGraph()
 
         # Activation function in LSTM.
-        decoder_graph.observed_activating_function = TanhFunction()
+        decoder_graph.observed_activating_function = LogisticFunction()
         decoder_graph.input_gate_activating_function = LogisticFunction()
         decoder_graph.forget_gate_activating_function = LogisticFunction()
         decoder_graph.output_gate_activating_function = LogisticFunction()
-        decoder_graph.hidden_activating_function = TanhFunction()
-        decoder_graph.output_activating_function = TanhFunction()
+        decoder_graph.hidden_activating_function = LogisticFunction()
+        decoder_graph.output_activating_function = SoftmaxFunction()
 
         # Initialization strategy.
         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
@@ -313,7 +317,7 @@ class ReSeq2Seq(AbstractableSemantics):
             # Size of Test data set. If this value is `0`, the validation will not be executed.
             test_size_rate=0.3,
             # Loss function.
-            computable_loss=MeanSquaredError(),
+            computable_loss=CrossEntropy(),
             # Optimizer.
             opt_params=decoder_opt_params,
             # Verification function.
@@ -330,7 +334,7 @@ class ReSeq2Seq(AbstractableSemantics):
             learning_attenuate_rate=learning_attenuate_rate,
             attenuate_epoch=attenuate_epoch,
             test_size_rate=test_size_rate,
-            computable_loss=MeanSquaredError(),
+            computable_loss=CrossEntropy(),
             verificatable_result=VerificateFunctionApproximation(),
             tol=0.0
         )
@@ -355,8 +359,8 @@ class ReSeq2Seq(AbstractableSemantics):
         encoder_graph.input_gate_activating_function = LogisticFunction()
         encoder_graph.forget_gate_activating_function = LogisticFunction()
         encoder_graph.output_gate_activating_function = LogisticFunction()
-        encoder_graph.hidden_activating_function = TanhFunction()
-        encoder_graph.output_activating_function = TanhFunction()
+        encoder_graph.hidden_activating_function = LogisticFunction()
+        encoder_graph.output_activating_function = LogisticFunction()
 
         # Initialization strategy.
         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.

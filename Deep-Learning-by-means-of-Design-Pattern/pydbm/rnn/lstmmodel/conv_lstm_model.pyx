@@ -3,19 +3,14 @@ from logging import getLogger
 import numpy as np
 cimport numpy as np
 ctypedef np.float64_t DOUBLE_t
-
 from pydbm.synapse_list import Synapse
 from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer
-
 from pydbm.synapse.cnn_graph import CNNGraph as GivenGraph
 from pydbm.synapse.cnn_graph import CNNGraph as InputGraph
 from pydbm.synapse.cnn_graph import CNNGraph as ForgotGraph
 from pydbm.synapse.cnn_graph import CNNGraph as OutputGraph
-
-
 from pydbm.activation.logistic_function import LogisticFunction
 from pydbm.activation.tanh_function import TanhFunction
-
 from pydbm.cnn.feature_generator import FeatureGenerator
 from pydbm.verification.interface.verificatable_result import VerificatableResult
 from pydbm.loss.interface.computable_loss import ComputableLoss
@@ -71,10 +66,6 @@ class ConvLSTMModel(ReconstructableModel):
     # Latest length of sequneces.
     __cycle_len = 1
     
-    # Width and height of input images in the first layer.
-    __width = None
-    __height = None
-    
     # Observed shape of hidden units.
     __hidden_shape = None
 
@@ -92,10 +83,6 @@ class ConvLSTMModel(ReconstructableModel):
         output_conv=None,
         int filter_num=20,
         int channel=3,
-        width=None,
-        height=None,
-        output_width=None,
-        output_height=None,
         int kernel_size=3,
         double scale=0.1,
         int stride=1,
@@ -173,10 +160,6 @@ class ConvLSTMModel(ReconstructableModel):
         if pre_learned_dir is not None:
             self.graph.load_pre_learned_params(pre_learned_dir + "conv_lstm_graph.npz")
 
-        self.__height = height
-        self.__width = width
-        self.__output_width = output_width
-        self.__output_height = output_height
         self.__filter_num = filter_num
         self.__channel = channel
         self.__hidden_shape = None
@@ -465,8 +448,6 @@ class ConvLSTMModel(ReconstructableModel):
                     if min_loss is None or min_loss > loss:
                         min_loss = loss
                         best_params_list = [
-                            self.graph.weights_output_arr,
-                            self.graph.output_bias_arr,
                             self.__given_conv.graph.weight_arr,
                             self.__input_conv.graph.weight_arr,
                             self.__forgot_conv.graph.weight_arr,
@@ -677,8 +658,6 @@ class ConvLSTMModel(ReconstructableModel):
                     if min_loss is None or min_loss > loss:
                         min_loss = loss
                         best_params_list = [
-                            self.graph.weights_output_arr,
-                            self.graph.output_bias_arr,
                             self.__given_conv.graph.weight_arr,
                             self.__input_conv.graph.weight_arr,
                             self.__forgot_conv.graph.weight_arr,
@@ -780,16 +759,14 @@ class ConvLSTMModel(ReconstructableModel):
 
         '''
         if len(best_params_list) > 0:
-            self.graph.weights_output_arr = best_params_list[0]
-            self.graph.output_bias_arr = best_params_list[1]
-            self.__given_conv.graph.weight_arr = best_params_list[2]
-            self.__input_conv.graph.weight_arr = best_params_list[3]
-            self.__forgot_conv.graph.weight_arr = best_params_list[4]
-            self.__output_conv.graph.weight_arr = best_params_list[5]
-            self.__given_conv.graph.bias_arr = best_params_list[6]
-            self.__input_conv.graph.bias_arr = best_params_list[7]
-            self.__forgot_conv.graph.bias_arr = best_params_list[8]
-            self.__output_conv.graph.bias_arr = best_params_list[9]
+            self.__given_conv.graph.weight_arr = best_params_list[0]
+            self.__input_conv.graph.weight_arr = best_params_list[1]
+            self.__forgot_conv.graph.weight_arr = best_params_list[2]
+            self.__output_conv.graph.weight_arr = best_params_list[3]
+            self.__given_conv.graph.bias_arr = best_params_list[4]
+            self.__input_conv.graph.bias_arr = best_params_list[5]
+            self.__forgot_conv.graph.bias_arr = best_params_list[6]
+            self.__output_conv.graph.bias_arr = best_params_list[7]
             self.__logger.debug("Best params are saved.")
 
     def forward_propagation(self, np.ndarray batch_observed_arr):
@@ -802,14 +779,6 @@ class ConvLSTMModel(ReconstructableModel):
         Returns:
             Array like or sparse matrix as the predicted data points.
         '''
-        if batch_observed_arr.ndim == 3 and self.__height is not None and self.__width is not None:
-            batch_observed_arr = batch_observed_arr.reshape((
-                batch_observed_arr.shape[0],
-                batch_observed_arr.shape[1],
-                self.__channel,
-                self.__height,
-                self.__width
-            ))
         cdef np.ndarray[DOUBLE_t, ndim=5] hidden_activity_arr = self.hidden_forward_propagate(
             batch_observed_arr
         )
@@ -897,16 +866,6 @@ class ConvLSTMModel(ReconstructableModel):
             self.__forgot_conv.graph.bias_arr,
             self.__output_conv.graph.bias_arr
         ]
-        try:
-            _ = self.graph.delta_bias_arr
-            self_graph_flag = True
-        except AttributeError:
-            self_graph_flag = False
-
-        if self_graph_flag is True:
-            params_list.insert(0, self.graph.output_bias_arr)
-            params_list.insert(0, self.graph.weights_output_arr)
-
         grads_list = [
             self.__given_conv.delta_weight_arr,
             self.__input_conv.delta_weight_arr,
@@ -917,20 +876,11 @@ class ConvLSTMModel(ReconstructableModel):
             self.__forgot_conv.delta_bias_arr,
             self.__output_conv.delta_bias_arr
         ]
-        if self_graph_flag is True:
-            grads_list.insert(0, self.graph.delta_bias_arr)
-            grads_list.insert(0, self.graph.delta_weight_arr)
-
         params_list = self.__opt_params.optimize(
             params_list,
             grads_list,
             learning_rate
         )
-
-        if self_graph_flag is True:
-            self.graph.weights_output_arr = params_list.pop(0)
-            self.graph.output_bias_arr = params_list.pop(0)
-
         self.__given_conv.graph.weight_arr = params_list.pop(0)
         self.__input_conv.graph.weight_arr = params_list.pop(0)
         self.__forgot_conv.graph.weight_arr = params_list.pop(0)
@@ -942,10 +892,6 @@ class ConvLSTMModel(ReconstructableModel):
         self.__output_conv.graph.bias_arr = params_list.pop(0)
 
         if ((epoch + 1) % self.__attenuate_epoch == 0):
-            if self_graph_flag is True:
-                self.graph.weights_output_arr = self.__opt_params.constrain_weight(
-                    self.graph.weights_output_arr
-                )
             self.__given_conv.graph.weight_arr = self.__opt_params.constrain_weight(
                 self.__given_conv.graph.weight_arr
             )
@@ -959,8 +905,6 @@ class ConvLSTMModel(ReconstructableModel):
                 self.__output_conv.graph.weight_arr
             )
 
-        if self_graph_flag is True:
-            self.graph.reset_delta()
         self.__given_conv.reset_delta()
         self.__input_conv.reset_delta()
         self.__forgot_conv.reset_delta()
@@ -1079,30 +1023,6 @@ class ConvLSTMModel(ReconstructableModel):
         Returns:
             `np.ndarray` of propagated data points.
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=2] hidden_arr = pred_arr.reshape((
-            pred_arr.shape[0] * pred_arr.shape[1] * pred_arr.shape[2],
-            -1
-        ))
-        cdef np.ndarray[DOUBLE_t, ndim=2] _pred_arr = self.graph.output_activating_function.activate(
-            np.dot(hidden_arr, self.graph.weights_output_arr) + self.graph.output_bias_arr
-        )
-        if self.__output_width is None:
-            output_width = int(np.sqrt(_pred_arr.shape[1]))
-        else:
-            output_width = self.__output_width
-
-        if self.__output_height is None:
-            output_height = int(np.sqrt(_pred_arr.shape[1]))
-        else:
-            output_height = self.__output_height
-
-        pred_arr = _pred_arr.reshape((
-            pred_arr.shape[0],
-            pred_arr.shape[1],
-            pred_arr.shape[2],
-            output_width,
-            output_height
-        ))
         return pred_arr
 
     def output_back_propagate(
@@ -1122,30 +1042,7 @@ class ConvLSTMModel(ReconstructableModel):
             - `np.ndarray` of Delta, 
             - `list` of gradations.
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = delta_arr.reshape((
-            delta_arr.shape[0] * delta_arr.shape[1] * delta_arr.shape[2],
-            -1
-        ))
-        _delta_arr = np.dot(_delta_arr, self.graph.weights_output_arr.T)
-        cdef np.ndarray[DOUBLE_t, ndim=2] _pred_arr = pred_arr.reshape((
-            pred_arr.shape[0] * pred_arr.shape[1] * pred_arr.shape[2],
-            -1
-        )) 
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weights_arr = np.dot(_pred_arr.T, _delta_arr).T
-        cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = np.sum(_delta_arr, axis=0)
-
-        grads_list = [
-            delta_weights_arr,
-            delta_bias_arr
-        ]
-        delta_arr = _delta_arr.reshape((
-            delta_arr.shape[0],
-            delta_arr.shape[1],
-            delta_arr.shape[2],
-            delta_arr.shape[3],
-            delta_arr.shape[4]
-        ))
-        return (delta_arr, grads_list)
+        return (delta_arr, [])
 
     def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=4] delta_output_arr):
         '''
@@ -1477,3 +1374,43 @@ class ConvLSTMModel(ReconstructableModel):
             raise TypeError()
 
     opt_params = property(get_opt_params, set_opt_params)
+
+    def get_given_conv(self):
+        ''' getter '''
+        return self.__given_conv
+    
+    def set_given_conv(self, value):
+        ''' setter '''
+        self.__given_conv = value
+    
+    given_conv = property(get_given_conv, set_given_conv)
+
+    def get_input_conv(self):
+        ''' getter '''
+        return self.__input_conv
+    
+    def set_input_conv(self, value):
+        ''' setter '''
+        self.__input_conv = value
+    
+    input_conv = property(get_input_conv, set_input_conv)
+
+    def get_forgot_conv(self):
+        ''' getter '''
+        return self.__forgot_conv
+    
+    def set_forgot_conv(self, value):
+        ''' setter '''
+        self.__forgot_conv = value
+    
+    forgot_conv = property(get_forgot_conv, set_forgot_conv)
+
+    def get_output_conv(self):
+        ''' getter '''
+        return self.__output_conv
+    
+    def set_output_conv(self, value):
+        ''' setter '''
+        self.__output_conv = value
+    
+    output_conv = property(get_output_conv, set_output_conv)

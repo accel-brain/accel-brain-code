@@ -5,7 +5,7 @@ from pysummarization.vectorizable_token import VectorizableToken
 
 class THotVectorizer(VectorizableToken):
     '''
-    Vectorize token.
+    Vectorize token by t-hot Vectorizer.
     '''    
 
     def __init__(self, token_list):
@@ -65,3 +65,13 @@ class THotVectorizer(VectorizableToken):
         arr[key] = 1
         arr = arr.astype(np.float32)
         return arr
+
+    def get_token_arr(self):
+        ''' getter '''
+        return self.__token_arr
+    
+    def set_token_arr(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+    
+    token_arr = property(get_token_arr, set_token_arr)

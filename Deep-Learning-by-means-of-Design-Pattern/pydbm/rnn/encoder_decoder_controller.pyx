@@ -184,7 +184,7 @@ class EncoderDecoderController(object):
                 batch_target_arr = train_target_arr[rand_index]
                 try:
                     decoded_arr = self.inference(batch_observed_arr)
-                    loss = self.__reconstruction_error_arr
+                    loss = self.__reconstruction_error_arr.mean()
                     
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -195,7 +195,7 @@ class EncoderDecoderController(object):
                         self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
                         # Re-try.
                         decoded_arr = self.inference(batch_observed_arr)
-                        loss = self.__reconstruction_error_arr
+                        loss = self.__reconstruction_error_arr.mean()
 
                     delta_arr = self.__computable_loss.compute_delta(
                         decoded_arr, 
@@ -244,7 +244,7 @@ class EncoderDecoderController(object):
 
                     self.__change_inferencing_mode(True)
                     test_decoded_arr = self.inference(test_batch_observed_arr)
-                    test_loss = self.__reconstruction_error_arr
+                    test_loss = self.__reconstruction_error_arr.mean()
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -255,7 +255,7 @@ class EncoderDecoderController(object):
                         self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
                         # Re-try.
                         test_decoded_arr = self.inference(test_batch_observed_arr)
-                        test_loss = self.__reconstruction_error_arr
+                        test_loss = self.__reconstruction_error_arr.mean()
 
                     self.__change_inferencing_mode(False)
 
@@ -340,7 +340,7 @@ class EncoderDecoderController(object):
 
                 try:
                     decoded_arr = self.inference(batch_observed_arr)
-                    loss = self.__reconstruction_error_arr
+                    loss = self.__reconstruction_error_arr.mean()
                     
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -351,7 +351,7 @@ class EncoderDecoderController(object):
                         self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
                         # Re-try.
                         decoded_arr = self.inference(batch_observed_arr)
-                        loss = self.__reconstruction_error_arr
+                        loss = self.__reconstruction_error_arr.mean()
 
                     delta_arr = self.__computable_loss.compute_delta(
                         decoded_arr, 
@@ -396,7 +396,7 @@ class EncoderDecoderController(object):
                 if self.__test_size_rate > 0:
                     self.__change_inferencing_mode(True)
                     test_decoded_arr = self.inference(test_batch_observed_arr)
-                    test_loss = self.__reconstruction_error_arr
+                    test_loss = self.__reconstruction_error_arr.mean()
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -407,7 +407,7 @@ class EncoderDecoderController(object):
                         self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
                         # Re-try.
                         test_decoded_arr = self.inference(test_batch_observed_arr)
-                        test_loss = self.__reconstruction_error_arr
+                        test_loss = self.__reconstruction_error_arr.mean()
 
                     self.__change_inferencing_mode(False)
 
@@ -501,7 +501,7 @@ class EncoderDecoderController(object):
         self.__feature_points_arr = encoded_arr
         decoded_arr = self.__decoder.inference(np.expand_dims(encoded_arr[:, -1], axis=1))
         decoded_arr = decoded_arr[:, ::-1]
-        self.__reconstruction_error_arr = self.__computable_loss.compute_loss(
+        self.__reconstruction_error_arr = self.__computable_loss.compute_delta(
             decoded_arr,
             observed_arr
         )

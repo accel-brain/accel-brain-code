@@ -3,6 +3,7 @@ from logging import getLogger
 import numpy as np
 
 from pysummarization.abstractable_semantics import AbstractableSemantics
+from pysummarization.vectorizable_token import VectorizableToken
 
 # LSTM Graph which is-a `Synapse`.
 from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as EncoderGraph
@@ -11,7 +12,6 @@ from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as ReEncod
 
 # Loss function.
 from pydbm.loss.mean_squared_error import MeanSquaredError
-from pydbm.loss.cross_entropy import CrossEntropy
 
 # Adam as a Loss function.
 from pydbm.optimization.optparams.adam import Adam as EncoderAdam
@@ -99,7 +99,7 @@ class ReSeq2Seq(AbstractableSemantics):
         seq_len=8,
         bptt_tau=8,
         test_size_rate=0.3,
-        tol=1e-04,
+        tol=0.0,
         tld=100.0
     ):
         '''
@@ -175,7 +175,9 @@ class ReSeq2Seq(AbstractableSemantics):
                 learning_attenuate_rate=learning_attenuate_rate,
                 seq_len=seq_len,
                 bptt_tau=bptt_tau,
-                test_size_rate=test_size_rate
+                test_size_rate=test_size_rate,
+                tol=tol,
+                tld=tld
             )
         else:
             if isinstance(encoder_decoder_controller, EncoderDecoderController) is False:
@@ -225,12 +227,12 @@ class ReSeq2Seq(AbstractableSemantics):
         learning_attenuate_rate=0.1,
         seq_len=8,
         bptt_tau=8,
-        test_size_rate=0.3
+        test_size_rate=0.3,
+        tol=1e-10,
+        tld=100.0
     ):
-        # Init.
         encoder_graph = EncoderGraph()
 
-        # Activation function in LSTM.
         encoder_graph.observed_activating_function = LogisticFunction()
         encoder_graph.input_gate_activating_function = LogisticFunction()
         encoder_graph.forget_gate_activating_function = LogisticFunction()
@@ -238,8 +240,6 @@ class ReSeq2Seq(AbstractableSemantics):
         encoder_graph.hidden_activating_function = LogisticFunction()
         encoder_graph.output_activating_function = LogisticFunction()
 
-        # Initialization strategy.
-        # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
         encoder_graph.create_rnn_cells(
             input_neuron_count=input_neuron_count,
             hidden_neuron_count=hidden_neuron_count,
@@ -250,35 +250,23 @@ class ReSeq2Seq(AbstractableSemantics):
         encoder_opt_params.dropout_rate = dropout_rate
 
         encoder = Encoder(
-            # Delegate `graph` to `LSTMModel`.
             graph=encoder_graph,
-            # The number of epochs in mini-batch training.
             epochs=100,
-            # The batch size.
             batch_size=batch_size,
-            # Learning rate.
             learning_rate=learning_rate,
-            # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
             learning_attenuate_rate=0.1,
-            # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
             attenuate_epoch=50,
-            # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
             bptt_tau=8,
-            # Size of Test data set. If this value is `0`, the validation will not be executed.
             test_size_rate=0.3,
-            # Loss function.
-            computable_loss=CrossEntropy(),
-            # Optimizer.
+            computable_loss=MeanSquaredError(),
             opt_params=encoder_opt_params,
-            # Verification function.
             verificatable_result=VerificateFunctionApproximation(),
-            tol=0.0
+            tol=tol,
+            tld=tld
         )
 
-        # Init.
         decoder_graph = DecoderGraph()
 
-        # Activation function in LSTM.
         decoder_graph.observed_activating_function = LogisticFunction()
         decoder_graph.input_gate_activating_function = LogisticFunction()
         decoder_graph.forget_gate_activating_function = LogisticFunction()
@@ -286,8 +274,6 @@ class ReSeq2Seq(AbstractableSemantics):
         decoder_graph.hidden_activating_function = LogisticFunction()
         decoder_graph.output_activating_function = SoftmaxFunction()
 
-        # Initialization strategy.
-        # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
         decoder_graph.create_rnn_cells(
             input_neuron_count=hidden_neuron_count,
             hidden_neuron_count=hidden_neuron_count,
@@ -298,31 +284,18 @@ class ReSeq2Seq(AbstractableSemantics):
         decoder_opt_params.dropout_rate = dropout_rate
 
         decoder = Decoder(
-            # Delegate `graph` to `LSTMModel`.
             graph=decoder_graph,
-            # The number of epochs in mini-batch training.
             epochs=100,
-            # The batch size.
             batch_size=batch_size,
-            # Learning rate.
             learning_rate=learning_rate,
-            # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
             learning_attenuate_rate=0.1,
-            # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
             attenuate_epoch=50,
-            # The length of sequences.
             seq_len=seq_len,
-            # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
             bptt_tau=bptt_tau,
-            # Size of Test data set. If this value is `0`, the validation will not be executed.
             test_size_rate=0.3,
-            # Loss function.
-            computable_loss=CrossEntropy(),
-            # Optimizer.
+            computable_loss=MeanSquaredError(),
             opt_params=decoder_opt_params,
-            # Verification function.
-            verificatable_result=VerificateFunctionApproximation(),
-            tol=0.0
+            verificatable_result=VerificateFunctionApproximation()
         )
 
         encoder_decoder_controller = EncoderDecoderController(
@@ -334,9 +307,10 @@ class ReSeq2Seq(AbstractableSemantics):
             learning_attenuate_rate=learning_attenuate_rate,
             attenuate_epoch=attenuate_epoch,
             test_size_rate=test_size_rate,
-            computable_loss=CrossEntropy(),
+            computable_loss=MeanSquaredError(),
             verificatable_result=VerificateFunctionApproximation(),
-            tol=0.0
+            tol=tol,
+            tld=tld
         )
 
         return encoder_decoder_controller
@@ -351,10 +325,8 @@ class ReSeq2Seq(AbstractableSemantics):
         learning_rate=1e-05,
         bptt_tau=8
     ):
-        # Init.
         encoder_graph = ReEncoderGraph()
 
-        # Activation function in LSTM.
         encoder_graph.observed_activating_function = TanhFunction()
         encoder_graph.input_gate_activating_function = LogisticFunction()
         encoder_graph.forget_gate_activating_function = LogisticFunction()
@@ -362,8 +334,6 @@ class ReSeq2Seq(AbstractableSemantics):
         encoder_graph.hidden_activating_function = LogisticFunction()
         encoder_graph.output_activating_function = LogisticFunction()
 
-        # Initialization strategy.
-        # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
         encoder_graph.create_rnn_cells(
             input_neuron_count=input_neuron_count,
             hidden_neuron_count=hidden_neuron_count,
@@ -374,29 +344,17 @@ class ReSeq2Seq(AbstractableSemantics):
         encoder_opt_params.dropout_rate = dropout_rate
 
         encoder = ReEncoder(
-            # Delegate `graph` to `LSTMModel`.
             graph=encoder_graph,
-            # The number of epochs in mini-batch training.
             epochs=100,
-            # The batch size.
             batch_size=batch_size,
-            # Learning rate.
             learning_rate=learning_rate,
-            # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
             learning_attenuate_rate=0.1,
-            # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
             attenuate_epoch=50,
-            # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
             bptt_tau=bptt_tau,
-            # Size of Test data set. If this value is `0`, the validation will not be executed.
             test_size_rate=0.3,
-            # Loss function.
             computable_loss=MeanSquaredError(),
-            # Optimizer.
             opt_params=encoder_opt_params,
-            # Verification function.
-            verificatable_result=VerificateFunctionApproximation(),
-            tol=0.0
+            verificatable_result=VerificateFunctionApproximation()
         )
 
         return encoder
@@ -590,19 +548,46 @@ class ReSeq2Seq(AbstractableSemantics):
         self.__inferenced_tuple = (observed_arr, encoded_arr, decoded_arr, re_encoded_arr)
         return re_encoded_arr
 
-    def summarize(self, test_arr):
+    def summarize(self, test_arr, vectorizable_token, sentence_list, limit=5):
         '''
         Summarize input document.
 
         Args:
-            test_arr:   `np.ndarray` of input document.
+            test_arr:               `np.ndarray` of observed data points..
+            vectorizable_token:     is-a `VectorizableToken`.
+            sentence_list:          `list` of all sentences.
+            limit:                  The number of selected abstract sentence.
         
         Returns:
             `np.ndarray` of scores.
         '''
+        if isinstance(vectorizable_token, VectorizableToken) is False:
+            raise TypeError()
+
         _ = self.inference(test_arr)
-        _, loss_arr, _ = self.__compute_retrospective_loss()
-        return loss_arr
+        _, score_arr, _ = self.__compute_retrospective_loss()
+
+        score_list = score_arr.tolist()
+
+        abstract_list = []
+        for i in range(limit):
+            key = score_arr.argmin()
+            score = score_list.pop(key)
+            score_arr = np.array(score_list)
+
+            seq_arr = test_arr[key]
+            token_arr = vectorizable_token.tokenize(seq_arr.tolist())
+            s = " ".join(token_arr.tolist())
+
+            for sentence in sentence_list:
+                if s in sentence:
+                    abstract_list.append(sentence)
+                    abstract_list = list(set(abstract_list))
+
+            if len(abstract_list) >= limit:
+                break
+
+        return abstract_list
 
     def back_propagation(self, delta_arr):
         '''

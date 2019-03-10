@@ -106,27 +106,3 @@ class AttentionEncoderDecoder(EncoderDecoderController):
             tld=tld
         )
 
-    def back_propagation(self, np.ndarray delta_arr):
-        '''
-        Back propagation.
-
-        Args:
-            pred_arr:            `np.ndarray` of predicted data points from decoder.
-            delta_output_arr:    Delta.
-        
-        Returns:
-            Tuple data.
-            - decoder's `list` of gradations,
-            - encoder's `np.ndarray` of Delta, 
-            - encoder's `list` of gradations.
-        '''
-        cdef np.ndarray[DOUBLE_t, ndim=3] delta_hidden_arr
-        cdef np.ndarray[DOUBLE_t, ndim=3] _delta_hidden_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_observed_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_observed_arr
-
-        delta_hidden_arr, delta_observed_arr = self.decoder.context_backward(delta_arr[:, -1])
-        _delta_hidden_arr, _delta_observed_arr = self.decoder.weight_backward(delta_observed_arr)
-        delta_arr = delta_hidden_arr + _delta_hidden_arr
-
-        return super().back_propagation(delta_arr[:, 0])

@@ -176,33 +176,30 @@ class AttentionLSTMModel(LSTMModel):
             - `np.ndarray` of Delta, 
             - `list` of gradations.
         '''
+        delta_arr = self.graph.output_activating_function.derivative(delta_arr)
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_2d_arr = delta_arr.reshape((
             delta_arr.shape[0] * delta_arr.shape[1],
             -1
         ))
-
-        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = np.dot(
-            delta_2d_arr,
-            self.graph.attention_output_weight_arr.T
-        )
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weights_arr = np.dot(
-            pred_arr.reshape((
-                pred_arr.shape[0] * pred_arr.shape[1],
-                -1
-            )).T, 
-            _delta_arr
-        ).T
+        cdef np.ndarray[DOUBLE_t, ndim=2] pred_2d_arr = pred_arr.reshape((
+            pred_arr.shape[0] * pred_arr.shape[1],
+            -1
+        ))
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = np.sum(
             delta_2d_arr, 
             axis=0
         )
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weights_arr = np.dot(
+            pred_2d_arr.T,
+            delta_2d_arr
+        ).T
 
         grads_list = [
             delta_weights_arr,
             delta_bias_arr
         ]
 
-        delta_arr = _delta_arr.reshape((
+        delta_arr = delta_2d_arr.reshape((
             delta_arr.shape[0],
             delta_arr.shape[1],
             -1
@@ -244,17 +241,6 @@ class AttentionLSTMModel(LSTMModel):
         cdef np.ndarray[DOUBLE_t, ndim=3] delta_attention_hidden_arr = delta_arr[:, :, hidden_n:]
         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_pure_hidden_arr
 
-        cdef np.ndarray[DOUBLE_t, ndim=2] arr
-        if self.opt_params.dropout_rate > 0:
-            arr = self.opt_params.de_dropout(
-                delta_pure_hidden_arr.reshape((delta_pure_hidden_arr.shape[0], -1))
-            )
-            delta_pure_hidden_arr = arr.reshape((
-                delta_pure_hidden_arr.shape[0], 
-                delta_pure_hidden_arr.shape[1], 
-                delta_pure_hidden_arr.shape[2]
-            ))
-
         cdef np.ndarray[DOUBLE_t, ndim=3] delta_context_weight_arr = np.empty((
             sample_n,
             cycle_len,
@@ -268,7 +254,6 @@ class AttentionLSTMModel(LSTMModel):
                 bp_arr = delta_pure_hidden_arr[:, -1]
             else:
                 bp_arr = _delta_observed_arr
-
             delta_hidden_arr, delta_observed_arr = self.context_backward(bp_arr)
             _delta_hidden_arr, _delta_observed_arr = self.weight_backward(delta_observed_arr)
             delta_hidden_arr = delta_hidden_arr + _delta_hidden_arr
@@ -286,6 +271,18 @@ class AttentionLSTMModel(LSTMModel):
 
         grads_list = output_grads_list
         grads_list.extend(lstm_grads_list)
+
+        cdef np.ndarray[DOUBLE_t, ndim=2] arr
+        if self.opt_params.dropout_rate > 0:
+            arr = self.opt_params.de_dropout(
+                delta_context_hidden_arr.reshape((delta_context_hidden_arr.shape[0], -1))
+            )
+            delta_context_hidden_arr = arr.reshape((
+                delta_context_hidden_arr.shape[0], 
+                delta_context_hidden_arr.shape[1], 
+                delta_context_hidden_arr.shape[2]
+            ))
+
         return (delta_context_hidden_arr, grads_list)
 
     def weight_forward(
@@ -335,8 +332,8 @@ class AttentionLSTMModel(LSTMModel):
             seq_len,
             1
         )).repeat(feature_n, axis=2)
-        cdef np.ndarray[DOUBLE_t, ndim=3] delta_hidden_arr = _delta_arr * hidden_activity_arr
         cdef np.ndarray[DOUBLE_t, ndim=3] delta_observed_arr = _delta_arr * observed_arr
+        cdef np.ndarray[DOUBLE_t, ndim=3] delta_hidden_arr = _delta_arr * hidden_activity_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_observed_arr = np.sum(
             delta_observed_arr,
             axis=1
@@ -351,7 +348,6 @@ class AttentionLSTMModel(LSTMModel):
         cdef int batch_size = observed_arr.shape[0]
         cdef int seq_len = observed_arr.shape[1]
         cdef int feature_n = observed_arr.shape[2]
-
         cdef np.ndarray[DOUBLE_t, ndim=3] _hidden_activity_arr = hidden_activity_arr.reshape((
             batch_size, 
             seq_len, 
@@ -367,7 +363,7 @@ class AttentionLSTMModel(LSTMModel):
 
     def context_backward(
         self,
-        np.ndarray[DOUBLE_t, ndim=2] delta_arr
+        np.ndarray delta_arr
     ):
         cdef np.ndarray[DOUBLE_t, ndim=3] observed_arr = self.__context_tuple[0]
         cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr = self.__context_tuple[1]

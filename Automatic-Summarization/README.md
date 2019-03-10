@@ -4,7 +4,7 @@
 
 ## Description
 
-The function of this library is automatic summarization using a kind of natural language processing. This library enable you to create a summary with the major points of the original document or web-scraped text that filtered by text clustering. And this library applies [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) to implement **Encoder/Decoder based on LSTM** and **LSTM-RTRBM**, improving the accuracy of summarization.
+The function of this library is automatic summarization using a kind of natural language processing and neural network language model. This library enable you to create a summary with the major points of the original document or web-scraped text that filtered by text clustering. And this library applies [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) to implement **Encoder/Decoder based on LSTM** and **LSTM-RTRBM**, improving the accuracy of summarization by **Sequence-to-Sequence**(**Seq2Seq**) learning.
 
 ## Documentation
 
@@ -43,8 +43,8 @@ Installers for the latest released version are available at the Python package i
     * Relevant only for PDF files.
 - pyquery:v1.2.17 or higher.
     * Relevant only for web scraiping.
-- pydbm: v1.3.2 or higher.
-    * Only when using **Encoder/Decoder based on LSTM** and **LSTM-RTRBM**.
+- pydbm: v1.4.3 or higher.
+    * Only when using **Encoder/Decoder based on LSTM**, **Re-Seq2Seq**, **EncDec-AD**, and **LSTM-RTRBM**.
 
 ## Usecase: Summarize an English string argument.
 
@@ -504,6 +504,256 @@ The result is as follows.
  ある用語の 定義 を与える表現の中にその用語自体が本質的に登場していること [1]
 ```
 
+## Usecase: Summarization with Neural Network Language Model.
+
+### retrospective sequence-to-sequence learning(re-seq2seq).
+
+The concept of the re-seq2seq(Zhang, K. et al., 2018) provided inspiration to this library. This model is a new sequence learning model mainly in the field of Video Summarizations. "The key idea behind re-seq2seq is to measure how well the machine-generated summary is similar to the original video in an abstract semantic space" (Zhang, K. et al., 2018, p3).
+
+The encoder of a seq2seq model observes the original video and output feature points which represents the semantic meaning of the observed data points. Then the feature points is observed by the decoder of this model. Additionally, in the re-seq2seq model, the outputs of the decoder is propagated to a retrospective encoder, which infers feature points to represent the semantic meaning of the summary. "If the summary preserves the important and relevant information in the original video, then we should expect that the  two embeddings are similar (e.g. in Euclidean distance)" (Zhang, K. et al., 2018, p3).
+
+<div>
+<img src="https://storage.googleapis.com/accel-brain-code/Automatic-Summarization/img/re-seq-2-seq-semantics.png">
+<p>Zhang, K., Grauman, K., & Sha, F. (2018). Retrospective Encoders for Video Summarization. In Proceedings of the European Conference on Computer Vision (ECCV) (pp. 383-399), p2.</p>
+</div>
+
+This library refers to this intuitive insight above to apply the model to text summarizations. Like videos, semantic feature representation based on representation learning of manifolds is also possible in text summarizations.
+
+The intuition in the design of their loss function is also suggestive. "The intuition behind our modeling is that the outputs should convey the same amount of information as the inputs. For summarization, this is precisely the goal: a good summary should be such that after viewing the summary, users would get about the same amount of information as if they had viewed the original video" (Zhang, K. et al., 2018, p7).
+
+But the model in this library and Zhang, K. et al.(2018) are different in some respects from the relation with the specification of the Deep Learning library: [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern). First, Encoder/Decoder based on LSTM is not designed as a hierarchical structure. Second, it is possible to introduce regularization techniques which are not discussed in Zhang, K. et al.(2018) such as the dropout, the gradient clipping, and limitation of weights. Third, the regression loss function for matching summaries is simplified in terms of calculation efficiency in this library.
+
+#### Building retrospective sequence-to-sequence learning(re-seq2seq).
+
+Import Python modules.
+
+```python
+from pysummarization.abstractablesemantics.re_seq_2_seq import ReSeq2Seq
+```
+
+Import a tokenizer and a vectorizer.
+
+
+```python
+from pysummarization.nlp_base import NlpBase
+from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
+from pysummarization.vectorizabletoken.t_hot_vectorizer import THotVectorizer
+
+# `str` of your document.
+document = "Your document."
+
+nlp_base = NlpBase()
+nlp_base.delimiter_list = [".", "\n"]
+tokenizable_doc = SimpleTokenizer()
+sentence_list = nlp_base.listup_sentence(document)
+token_list = tokenizable_doc.tokenize(document)
+token_arr = np.array(token_list)
+```
+
+Setup the vectorizer.
+
+```python
+vectorizable_token = THotVectorizer(token_list=token_arr.tolist())
+vector_list = vectorizable_token.vectorize(token_list=token_arr.tolist())
+vector_arr = np.array(vector_list)
+```
+
+The `ReSeq2Seq` has a `learn` method, to execute learning observed data points. This method can receive a `np.ndarray` of observed data points, which is a rank-3 array-like or sparse matrix of shape: (`The number of samples`, `The length of cycle`, `The number of features`). For example, the `np.ndarray` set as follows. 
+
+```python
+# The length of sequences.
+seq_len = 5
+
+observed_list = []
+for i in range(seq_len, vector_arr.shape[0]):
+    observed_list.append(vector_arr[i-seq_len:i])
+observed_arr = np.array(observed_list)
+```
+
+Instantiate `ReSeq2Seq` and input hyperparameters.
+
+```python
+abstractable_semantics = ReSeq2Seq(
+    # A margin parameter for the mismatched pairs penalty.
+    margin_param=0.01,
+    # Tradeoff parameter for loss function.
+    retrospective_lambda=0.5,
+    # Tradeoff parameter for loss function.
+    retrospective_eta=0.5,
+    # is-a `EncoderDecoderController`.
+    # If `None`, this class will build the model with default parameters.
+    encoder_decoder_controller=None,
+    # is-a `LSTMModel` as a retrospective encoder(or re-encoder).
+    # If `None`, this class will build the model with default parameters.
+    retrospective_encoder=None,
+    # The default parameter. The number of units in input layers.
+    input_neuron_count=observed_arr.shape[-1],
+    # The default parameter. The number of units in hidden layers.
+    hidden_neuron_count=observed_arr.shape[-1],
+    # The default parameter. Regularization for weights matrix to repeat multiplying
+    # the weights matrix and `0.9` until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
+    weight_limit=0.5,
+    # The default parameter. Probability of dropout.
+    dropout_rate=0.0,
+    # The default parameter.
+    # The epochs in mini-batch pre-learning Encoder/Decoder.
+    # If this value is `0`, no pre-learning will be executed
+    # in this class's method `learn`. In this case, you should 
+    # do pre-learning before calling `learn`.
+    pre_learning_epochs=50,
+    # The default parameter. 
+    # The epochs in mini-batch training Encoder/Decoder and retrospective encoder.
+    epochs=500,
+    # The default parameter. Batch size.
+    batch_size=20,
+    # The default parameter. Learning rate.
+    learning_rate=1e-05,
+    # The default parameter. 
+    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+    learning_attenuate_rate=0.1,
+    # The default parameter. 
+    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+    # Additionally, in relation to regularization,
+    # this class constrains weight matrixes every `attenuate_epoch`.
+    attenuate_epoch=50,
+    # The default parameter. Threshold of the gradient clipping.
+    grad_clip_threshold=1e+10,
+    # The default parameter. 
+    # The length of sequneces in Decoder with Attention model.
+    seq_len=seq_len,
+    # The default parameter.
+    # Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
+    # If `0`, this class referes all past data in BPTT.
+    bptt_tau=seq_len,
+    # Size of Test data set. If this value is `0`, the validation will not be executed.
+    test_size_rate=0.3,
+    # Tolerance for the optimization.
+    # When the loss or score is not improving by at least tol 
+    # for two consecutive iterations, convergence is considered 
+    # to be reached and training stops.
+    tol=1e-10,
+    # Tolerance for deviation of loss.
+    tld=1e-10
+)
+```
+
+Execute `learn` method.
+
+```python
+abstractable_semantics.learn(
+    observed_arr=observed_arr, 
+    target_arr=observed_arr
+)
+```
+
+Execute `summarize` method to extract summaries.
+
+```python
+abstract_list = abstractable_semantics.summarize(
+    # `np.ndarray` of observed data points.
+    observed_arr,
+    # is-a `VectorizableToken`.
+    vectorizable_token,
+    # A `list` that contains `str`s of all sentences.
+    sentence_list,
+    # The number of extracted sentences.
+    limit=5
+)
+```
+
+The `abstract_list` is a `list` that contains `str`s of sentences.
+
+### Functional equivalent: LSTM-based Encoder/Decoder scheme for Anomaly Detection  (re-seq2seq).
+
+This library applies the Encoder-Decoder scheme for Anomaly Detection (EncDec-AD) to text summarizations by intuition. In this scheme, LSTM-based Encoder/Decoder or so-called the sequence-to-sequence(Seq2Seq) model learns to reconstruct normal time-series behavior, and thereafter uses reconstruction error to detect anomalies.
+
+Malhotra, P., et al. (2016) showed that EncDecAD paradigm is robust and can detect anomalies from predictable, unpredictable, periodic, aperiodic, and quasi-periodic time-series. Further, they showed that the paradigm is able to detect anomalies from short time-series (length as small as 30) as well as long time-series (length as large as 500).
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/encoder_decoder.png" />
+<p>Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078., p2.</p>
+</div>
+
+This library refers to the intuitive insight in relation to the use case of reconstruction error to detect anomalies above to apply the model to text summarization. As exemplified by Seq2Seq paradigm, document and sentence which contain tokens of text can be considered as time-series features. The anomalies data detected by EncDec-AD should have to express something about the text.
+
+From the above analogy, this library introduces two conflicting intuitions. On the one hand, the anomalies data may catch observer's eye from the viewpoints of rarity or amount of information as the indicator of natural language processing like TF-IDF shows. On the other hand, the anomalies data may be ignorable noise as mere outlier.
+
+In any case, this library deduces the function and potential of EncDec-AD in text summarization is to draw the distinction of normal and anomaly texts and is to filter the one from the other.
+
+Note that the model in this library and Malhotra, P., et al. (2016) are different in some respects
+from the relation with the specification of the Deep Learning library: [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern). First, weight matrix of encoder and decoder is not shered. Second, it is possible to introduce regularization techniques which are not discussed in Malhotra, P., et al. (2016) such as the dropout, the gradient clipping, and limitation of weights. Third, the loss function for reconstruction error is not limited to the L2 norm.
+
+#### Building LSTM-based Encoder/Decoder scheme for Anomaly Detection  (re-seq2seq).
+
+Import Python modules.
+
+```python
+from pysummarization.abstractablesemantics.enc_dec_ad import EncDecAD
+abstractable_semantics = EncDecAD(
+    # is-a `EncoderDecoderController`.
+    # If `None`, this class will build the model with default parameters.
+    encoder_decoder_controller=None,
+    # The default parameter. The number of units in input layers.
+    input_neuron_count=observed_arr.shape[-1],
+    # The default parameter. The number of units in hidden layers.
+    hidden_neuron_count=observed_arr.shape[-1],
+    # The default parameter. Regularization for weights matrix to repeat multiplying
+    # the weights matrix and `0.9` until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
+    weight_limit=0.5,
+    # The default parameter. Probability of dropout.
+    dropout_rate=0.0,
+    # The default parameter. 
+    # The epochs in mini-batch training Encoder/Decoder and retrospective encoder.
+    epochs=500,
+    # The default parameter. Batch size.
+    batch_size=20,
+    # The default parameter. Learning rate.
+    learning_rate=1e-05,
+    # The default parameter. 
+    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+    learning_attenuate_rate=0.1,
+    # The default parameter.
+    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+    # Additionally, in relation to regularization,
+    # this class constrains weight matrixes every `attenuate_epoch`.
+    attenuate_epoch=50,
+    # The default parameter. The length of sequneces in Decoder with Attention model.
+    seq_len=seq_len,
+    # The default parameter. 
+    # Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
+    # If `0`, this class referes all past data in BPTT.
+    bptt_tau=seq_len,
+    # The default parameter. 
+    # Size of Test data set. If this value is `0`, the validation will not be executed.
+    test_size_rate=0.3
+)
+```
+
+Execute `learn` method.
+
+```python
+abstractable_semantics.learn(
+    observed_arr=observed_arr, 
+    target_arr=observed_arr
+)
+```
+
+Execute `summarize` method to extract summaries.
+
+```python
+abstract_list = abstractable_semantics.summarize(
+    # `np.ndarray` of observed data points.
+    observed_arr,
+    # is-a `VectorizableToken`.
+    vectorizable_token,
+    # A `list` that contains `str`s of all sentences.
+    sentence_list,
+    # The number of extracted sentences.
+    limit=5
+)
+```
+
+The `abstract_list` is a `list` that contains `str`s of sentences.
+
 # References
 
 - Boulanger-Lewandowski, N., Bengio, Y., & Vincent, P. (2012). Modeling temporal dependencies in high-dimensional sequences: Application to polyphonic music generation and transcription. arXiv preprint arXiv:1206.6392.
@@ -511,8 +761,10 @@ The result is as follows.
 - Luhn, Hans Peter. "The automatic creation of literature abstracts." IBM Journal of research and development 2.2 (1958): 159-165.
 - Lyu, Q., Wu, Z., Zhu, J., & Meng, H. (2015, June). Modelling High-Dimensional Sequences with LSTM-RTRBM: Application to Polyphonic Music Generation. In IJCAI (pp. 4138-4139).
 - Lyu, Q., Wu, Z., & Zhu, J. (2015, October). Polyphonic music modelling with LSTM-RTRBM. In Proceedings of the 23rd ACM international conference on Multimedia (pp. 991-994). ACM.
+- Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., & Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.
 - Matthew A. Russell　著、佐藤 敏紀、瀬戸口 光宏、原川 浩一　監訳、長尾 高弘　訳『入門 ソーシャルデータ 第2版――ソーシャルウェブのデータマイニング』 2014年06月 発行
 - Sutskever, I., Hinton, G. E., & Taylor, G. W. (2009). The recurrent temporal restricted boltzmann machine. In Advances in Neural Information Processing Systems (pp. 1601-1608).
+- Zhang, K., Grauman, K., & Sha, F. (2018). Retrospective Encoders for Video Summarization. In Proceedings of the European Conference on Computer Vision (ECCV) (pp. 383-399).
 
 ## More detail demos
 

@@ -14,6 +14,17 @@ ctypedef np.float64_t DOUBLE_t
 class AttentionLSTMModel(LSTMModel):
     '''
     Attention model of Long short term memory(LSTM) networks.
+
+    The function of this class is to behave as decoder of Encoder/Decoder.
+    This decoder model has a mechanism of attention so as to decides parts of the source
+    sequences to pay attention to. This mechanism enalbes the encoder to reduce the burden 
+    of having to encode all information in the source sequence into a fixed-length context vector. 
+    With this new approach the information can be spread throughout the sequence of annotations, 
+    which can be selectively retrieved by the decoder accordingly.
+
+    References:
+        - Bahdanau, D., Cho, K., & Bengio, Y. (2014). Neural machine translation by jointly learning to align and translate. arXiv preprint arXiv:1409.0473.
+        - Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., ... & Polosukhin, I. (2017). Attention is all you need. In Advances in Neural Information Processing Systems (pp. 5998-6008).
     '''
 
     def __init__(

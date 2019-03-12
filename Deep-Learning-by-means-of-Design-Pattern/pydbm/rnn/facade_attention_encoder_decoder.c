@@ -4,12 +4,12 @@
 {
     "distutils": {
         "depends": [],
-        "name": "pydbm.rnn.facade_encoder_decoder",
+        "name": "pydbm.rnn.facade_attention_encoder_decoder",
         "sources": [
-            "./pydbm/rnn/facade_encoder_decoder.pyx"
+            "./pydbm/rnn/facade_attention_encoder_decoder.pyx"
         ]
     },
-    "module_name": "pydbm.rnn.facade_encoder_decoder"
+    "module_name": "pydbm.rnn.facade_attention_encoder_decoder"
 }
 END: Cython Metadata */
 
@@ -572,8 +572,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__pydbm__rnn__facade_encoder_decoder
-#define __PYX_HAVE_API__pydbm__rnn__facade_encoder_decoder
+#define __PYX_HAVE__pydbm__rnn__facade_attention_encoder_decoder
+#define __PYX_HAVE_API__pydbm__rnn__facade_attention_encoder_decoder
 /* Early includes */
 #include <string.h>
 #include <stdio.h>
@@ -804,7 +804,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pydbm/rnn/facade_encoder_decoder.pyx",
+  "pydbm/rnn/facade_attention_encoder_decoder.pyx",
   "__init__.pxd",
   "type.pxd",
 };
@@ -1572,12 +1572,12 @@ static PyTypeObject *__pyx_ptype_5numpy_ndarray = 0;
 static PyTypeObject *__pyx_ptype_5numpy_ufunc = 0;
 static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *, char *, char *, int *); /*proto*/
 
-/* Module declarations from 'pydbm.rnn.facade_encoder_decoder' */
-#define __Pyx_MODULE_NAME "pydbm.rnn.facade_encoder_decoder"
-extern int __pyx_module_is_main_pydbm__rnn__facade_encoder_decoder;
-int __pyx_module_is_main_pydbm__rnn__facade_encoder_decoder = 0;
+/* Module declarations from 'pydbm.rnn.facade_attention_encoder_decoder' */
+#define __Pyx_MODULE_NAME "pydbm.rnn.facade_attention_encoder_decoder"
+extern int __pyx_module_is_main_pydbm__rnn__facade_attention_encoder_decoder;
+int __pyx_module_is_main_pydbm__rnn__facade_attention_encoder_decoder = 0;
 
-/* Implementation of 'pydbm.rnn.facade_encoder_decoder' */
+/* Implementation of 'pydbm.rnn.facade_attention_encoder_decoder' */
 static PyObject *__pyx_builtin_object;
 static PyObject *__pyx_builtin_TypeError;
 static PyObject *__pyx_builtin_ValueError;
@@ -1655,6 +1655,8 @@ static const char __pyx_k_create_rnn_cells[] = "create_rnn_cells";
 static const char __pyx_k_VerificateSoftmax[] = "VerificateSoftmax";
 static const char __pyx_k_decoder_file_path[] = "decoder_file_path";
 static const char __pyx_k_encoder_file_path[] = "encoder_file_path";
+static const char __pyx_k_AttentionLSTMGraph[] = "AttentionLSTMGraph";
+static const char __pyx_k_AttentionLSTMModel[] = "AttentionLSTMModel";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_decoder_opt_params[] = "decoder_opt_params";
 static const char __pyx_k_encoder_opt_params[] = "encoder_opt_params";
@@ -1663,7 +1665,6 @@ static const char __pyx_k_input_neuron_count[] = "input_neuron_count";
 static const char __pyx_k_VerificatableResult[] = "VerificatableResult";
 static const char __pyx_k_hidden_neuron_count[] = "hidden_neuron_count";
 static const char __pyx_k_output_neuron_count[] = "output_neuron_count";
-static const char __pyx_k_FacadeEncoderDecoder[] = "FacadeEncoderDecoder";
 static const char __pyx_k_pydbm_rnn_lstm_model[] = "pydbm.rnn.lstm_model";
 static const char __pyx_k_verificatable_result[] = "verificatable_result";
 static const char __pyx_k_learning_attenuate_rate[] = "learning_attenuate_rate";
@@ -1671,33 +1672,33 @@ static const char __pyx_k_load_pre_learned_params[] = "load_pre_learned_params";
 static const char __pyx_k_save_pre_learned_params[] = "save_pre_learned_params";
 static const char __pyx_k_EncoderDecoderController[] = "EncoderDecoderController";
 static const char __pyx_k_get_reconstruction_error[] = "get_reconstruction_error";
-static const char __pyx_k_FacadeEncoderDecoder_learn[] = "FacadeEncoderDecoder.learn";
 static const char __pyx_k_encoder_decoder_controller[] = "encoder_decoder_controller";
 static const char __pyx_k_hidden_activating_function[] = "hidden_activating_function";
 static const char __pyx_k_output_activating_function[] = "output_activating_function";
 static const char __pyx_k_ActivatingFunctionInterface[] = "ActivatingFunctionInterface";
-static const char __pyx_k_FacadeEncoderDecoder___init[] = "FacadeEncoderDecoder.__init__";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_observed_activating_function[] = "observed_activating_function";
+static const char __pyx_k_FacadeAttentionEncoderDecoder[] = "_FacadeAttentionEncoderDecoder__encoder_decoder_controller";
 static const char __pyx_k_decoder_pre_learned_file_path[] = "decoder_pre_learned_file_path";
 static const char __pyx_k_encoder_pre_learned_file_path[] = "encoder_pre_learned_file_path";
 static const char __pyx_k_pydbm_loss_mean_squared_error[] = "pydbm.loss.mean_squared_error";
 static const char __pyx_k_pydbm_optimization_opt_params[] = "pydbm.optimization.opt_params";
-static const char __pyx_k_FacadeEncoderDecoder_infernece[] = "FacadeEncoderDecoder.infernece";
 static const char __pyx_k_input_gate_activating_function[] = "input_gate_activating_function";
 static const char __pyx_k_pydbm_activation_relu_function[] = "pydbm.activation.relu_function";
 static const char __pyx_k_pydbm_activation_tanh_function[] = "pydbm.activation.tanh_function";
-static const char __pyx_k_FacadeEncoderDecoder__encoder_d[] = "_FacadeEncoderDecoder__encoder_decoder_controller";
-static const char __pyx_k_Facade_for_casual_user_of_Encod[] = "\n    `Facade` for casual user of Encoder/Decoder based on LSTM networks.\n\n    This library provides Encoder/Decoder based on LSTM, \n    which is a reconstruction model and makes it possible to extract \n    series features embedded in deeper layers. The LSTM encoder learns \n    a fixed length vector of time-series observed data points and the \n    LSTM decoder uses this representation to reconstruct the time-series \n    using the current hidden state and the value inferenced at the previous time-step.\n    \n    One interesting application example is the Encoder/Decoder for \n    Anomaly Detection (EncDec-AD) paradigm (Malhotra, P., et al. 2016).\n    This reconstruction model learns to reconstruct normal time-series behavior, \n    and thereafter uses reconstruction error to detect anomalies. \n    Malhotra, P., et al. (2016) showed that EncDec-AD paradigm is robust \n    and can detect anomalies from predictable, unpredictable, periodic, aperiodic, \n    and quasi-periodic time-series. Further, they showed that the paradigm is able \n    to detect anomalies from short time-series (length as small as 30) as well as \n    long time-series (length as large as 500).\n\n    References:\n        - https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_sine_wave_prediction_by_LSTM_encoder_decoder.ipynb\n        - https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_anomaly_detection_by_enc_dec_ad.ipynb\n        - Cho, K., Van Merri\303\253nboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.\n        - Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., & Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.\n\n    ";
+static const char __pyx_k_FacadeAttentionEncoderDecoder_2[] = "FacadeAttentionEncoderDecoder";
+static const char __pyx_k_FacadeAttentionEncoderDecoder_3[] = "FacadeAttentionEncoderDecoder.__init__";
+static const char __pyx_k_Facade_for_casual_user_of_Encod[] = "\n    `Facade` for casual user of Encoder/Decoder based on LSTM networks with an Attention mechanism.\n\n    This library provides Encoder/Decoder based on LSTM with an Attention mechanism, \n    which is a reconstruction model and makes it possible to extract \n    series features embedded in deeper layers. The LSTM encoder learns \n    a fixed length vector of time-series observed data points and the \n    LSTM decoder uses this representation to reconstruct the time-series \n    using the current hidden state and the value inferenced at the previous time-step.\n    \n    One interesting application example is the Encoder/Decoder for \n    Anomaly Detection (EncDec-AD) paradigm (Malhotra, P., et al. 2016).\n    This reconstruction model learns to reconstruct normal time-series behavior, \n    and thereafter uses reconstruction error to detect anomalies. \n    Malhotra, P., et al. (2016) showed that EncDec-AD paradigm is robust \n    and can detect anomalies from predictable, unpredictable, periodic, aperiodic, \n    and quasi-periodic time-series. Further, they showed that the paradigm is able \n    to detect anomalies from short time-series (length as small as 30) as well as \n    long time-series (length as large as 500).\n\n    References:\n        - Bahdanau, D., Cho, K., & Bengio, Y. (2014). Neural machine translation by jointly learning to align and translate. arXiv preprint arXiv:1409.0473.\n        - Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., ... & Polosukhin, I. (2017). Attention is all you need. In Advances in Neural Information Processing Systems (pp. 5998-6008).\n    ";
 static const char __pyx_k_VerificateFunctionApproximation[] = "VerificateFunctionApproximation";
 static const char __pyx_k_forget_gate_activating_function[] = "forget_gate_activating_function";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_output_gate_activating_function[] = "output_gate_activating_function";
 static const char __pyx_k_pydbm_loss_interface_computable[] = "pydbm.loss.interface.computable_loss";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
-static const char __pyx_k_FacadeEncoderDecoder_get_feature[] = "FacadeEncoderDecoder.get_feature_points";
-static const char __pyx_k_FacadeEncoderDecoder_get_reconst[] = "FacadeEncoderDecoder.get_reconstruction_error";
-static const char __pyx_k_FacadeEncoderDecoder_save_pre_le[] = "FacadeEncoderDecoder.save_pre_learned_params";
+static const char __pyx_k_FacadeAttentionEncoderDecoder_ge[] = "FacadeAttentionEncoderDecoder.get_feature_points";
+static const char __pyx_k_FacadeAttentionEncoderDecoder_in[] = "FacadeAttentionEncoderDecoder.infernece";
+static const char __pyx_k_FacadeAttentionEncoderDecoder_le[] = "FacadeAttentionEncoderDecoder.learn";
+static const char __pyx_k_FacadeAttentionEncoderDecoder_sa[] = "FacadeAttentionEncoderDecoder.save_pre_learned_params";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
@@ -1706,15 +1707,20 @@ static const char __pyx_k_pydbm_activation_interface_activ[] = "pydbm.activation
 static const char __pyx_k_pydbm_activation_logistic_functi[] = "pydbm.activation.logistic_function";
 static const char __pyx_k_pydbm_optimization_optparams_ada[] = "pydbm.optimization.optparams.adam";
 static const char __pyx_k_pydbm_rnn_encoder_decoder_contro[] = "pydbm.rnn.encoder_decoder_controller";
-static const char __pyx_k_pydbm_rnn_facade_encoder_decoder[] = "pydbm.rnn.facade_encoder_decoder";
+static const char __pyx_k_pydbm_rnn_facade_attention_encod[] = "pydbm.rnn.facade_attention_encoder_decoder";
+static const char __pyx_k_pydbm_rnn_lstmmodel_attention_ls[] = "pydbm.rnn.lstmmodel.attention_lstm_model";
 static const char __pyx_k_pydbm_synapse_recurrenttemporalg[] = "pydbm.synapse.recurrenttemporalgraph.lstm_graph";
 static const char __pyx_k_pydbm_verification_interface_ver[] = "pydbm.verification.interface.verificatable_result";
 static const char __pyx_k_pydbm_verification_verificate_fu[] = "pydbm.verification.verificate_function_approximation";
 static const char __pyx_k_pydbm_verification_verificate_so[] = "pydbm.verification.verificate_softmax";
+static const char __pyx_k_FacadeAttentionEncoderDecoder_ge_2[] = "FacadeAttentionEncoderDecoder.get_reconstruction_error";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
-static const char __pyx_k_pydbm_rnn_facade_encoder_decoder_2[] = "pydbm/rnn/facade_encoder_decoder.pyx";
+static const char __pyx_k_pydbm_rnn_facade_attention_encod_2[] = "pydbm/rnn/facade_attention_encoder_decoder.pyx";
+static const char __pyx_k_pydbm_synapse_recurrenttemporalg_2[] = "pydbm.synapse.recurrenttemporalgraph.lstmgraph.attention_lstm_graph";
 static PyObject *__pyx_n_s_ActivatingFunctionInterface;
 static PyObject *__pyx_n_s_Adam;
+static PyObject *__pyx_n_s_AttentionLSTMGraph;
+static PyObject *__pyx_n_s_AttentionLSTMModel;
 static PyObject *__pyx_n_s_ComputableLoss;
 static PyObject *__pyx_n_s_DEBUG;
 static PyObject *__pyx_n_s_Decoder;
@@ -1723,14 +1729,14 @@ static PyObject *__pyx_n_s_ERROR;
 static PyObject *__pyx_n_s_Encoder;
 static PyObject *__pyx_n_s_EncoderDecoderController;
 static PyObject *__pyx_n_s_EncoderGraph;
-static PyObject *__pyx_n_s_FacadeEncoderDecoder;
-static PyObject *__pyx_n_s_FacadeEncoderDecoder___init;
-static PyObject *__pyx_n_s_FacadeEncoderDecoder__encoder_d;
-static PyObject *__pyx_n_s_FacadeEncoderDecoder_get_feature;
-static PyObject *__pyx_n_s_FacadeEncoderDecoder_get_reconst;
-static PyObject *__pyx_n_s_FacadeEncoderDecoder_infernece;
-static PyObject *__pyx_n_s_FacadeEncoderDecoder_learn;
-static PyObject *__pyx_n_s_FacadeEncoderDecoder_save_pre_le;
+static PyObject *__pyx_n_s_FacadeAttentionEncoderDecoder;
+static PyObject *__pyx_n_s_FacadeAttentionEncoderDecoder_2;
+static PyObject *__pyx_n_s_FacadeAttentionEncoderDecoder_3;
+static PyObject *__pyx_n_s_FacadeAttentionEncoderDecoder_ge;
+static PyObject *__pyx_n_s_FacadeAttentionEncoderDecoder_ge_2;
+static PyObject *__pyx_n_s_FacadeAttentionEncoderDecoder_in;
+static PyObject *__pyx_n_s_FacadeAttentionEncoderDecoder_le;
+static PyObject *__pyx_n_s_FacadeAttentionEncoderDecoder_sa;
 static PyObject *__pyx_kp_s_Facade_for_casual_user_of_Encod;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
@@ -1820,10 +1826,12 @@ static PyObject *__pyx_n_s_pydbm_loss_mean_squared_error;
 static PyObject *__pyx_n_s_pydbm_optimization_opt_params;
 static PyObject *__pyx_n_s_pydbm_optimization_optparams_ada;
 static PyObject *__pyx_n_s_pydbm_rnn_encoder_decoder_contro;
-static PyObject *__pyx_n_s_pydbm_rnn_facade_encoder_decoder;
-static PyObject *__pyx_kp_s_pydbm_rnn_facade_encoder_decoder_2;
+static PyObject *__pyx_n_s_pydbm_rnn_facade_attention_encod;
+static PyObject *__pyx_kp_s_pydbm_rnn_facade_attention_encod_2;
 static PyObject *__pyx_n_s_pydbm_rnn_lstm_model;
+static PyObject *__pyx_n_s_pydbm_rnn_lstmmodel_attention_ls;
 static PyObject *__pyx_n_s_pydbm_synapse_recurrenttemporalg;
+static PyObject *__pyx_n_s_pydbm_synapse_recurrenttemporalg_2;
 static PyObject *__pyx_n_s_pydbm_verification_interface_ver;
 static PyObject *__pyx_n_s_pydbm_verification_verificate_fu;
 static PyObject *__pyx_n_s_pydbm_verification_verificate_so;
@@ -1842,12 +1850,12 @@ static PyObject *__pyx_n_s_tol;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
 static PyObject *__pyx_n_s_verbose_flag;
 static PyObject *__pyx_n_s_verificatable_result;
-static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_input_neuron_count, PyObject *__pyx_v_hidden_neuron_count, PyObject *__pyx_v_epochs, PyObject *__pyx_v_batch_size, PyObject *__pyx_v_learning_rate, PyObject *__pyx_v_learning_attenuate_rate, PyObject *__pyx_v_attenuate_epoch, PyObject *__pyx_v_hidden_activating_function, PyObject *__pyx_v_output_activating_function, PyObject *__pyx_v_computable_loss, PyObject *__pyx_v_opt_params, PyObject *__pyx_v_seq_len, PyObject *__pyx_v_bptt_tau, PyObject *__pyx_v_test_size_rate, PyObject *__pyx_v_tol, PyObject *__pyx_v_tld, PyObject *__pyx_v_verificatable_result, PyObject *__pyx_v_encoder_pre_learned_file_path, PyObject *__pyx_v_decoder_pre_learned_file_path, PyObject *__pyx_v_verbose_flag); /* proto */
-static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_2learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_observed_arr, PyObject *__pyx_v_target_arr); /* proto */
-static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_4infernece(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_test_arr); /* proto */
-static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_6get_feature_points(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_8get_reconstruction_error(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_10save_pre_learned_params(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_encoder_file_path, PyObject *__pyx_v_decoder_file_path); /* proto */
+static PyObject *__pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_input_neuron_count, PyObject *__pyx_v_hidden_neuron_count, PyObject *__pyx_v_epochs, PyObject *__pyx_v_batch_size, PyObject *__pyx_v_learning_rate, PyObject *__pyx_v_learning_attenuate_rate, PyObject *__pyx_v_attenuate_epoch, PyObject *__pyx_v_hidden_activating_function, PyObject *__pyx_v_output_activating_function, PyObject *__pyx_v_computable_loss, PyObject *__pyx_v_opt_params, PyObject *__pyx_v_seq_len, PyObject *__pyx_v_bptt_tau, PyObject *__pyx_v_test_size_rate, PyObject *__pyx_v_tol, PyObject *__pyx_v_tld, PyObject *__pyx_v_verificatable_result, PyObject *__pyx_v_encoder_pre_learned_file_path, PyObject *__pyx_v_decoder_pre_learned_file_path, PyObject *__pyx_v_verbose_flag); /* proto */
+static PyObject *__pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_2learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_observed_arr, PyObject *__pyx_v_target_arr); /* proto */
+static PyObject *__pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_4infernece(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_test_arr); /* proto */
+static PyObject *__pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_6get_feature_points(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_8get_reconstruction_error(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_10save_pre_learned_params(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_encoder_file_path, PyObject *__pyx_v_decoder_file_path); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_float_0_0;
@@ -1886,7 +1894,7 @@ static PyObject *__pyx_codeobj__22;
 static PyObject *__pyx_codeobj__24;
 /* Late includes */
 
-/* "pydbm/rnn/facade_encoder_decoder.pyx":74
+/* "pydbm/rnn/facade_attention_encoder_decoder.pyx":71
  *     '''
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
@@ -1895,10 +1903,10 @@ static PyObject *__pyx_codeobj__24;
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder___init__[] = "\n        Init.\n        \n        Args:\n            input_neuron_count:             The number of units in input layers.\n            hidden_neuron_count:            The number of units in hidden layers.\n            epochs:                         Epochs of Mini-batch.\n            bath_size:                      Batch size of Mini-batch.\n            learning_rate:                  Learning rate.\n            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.\n            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.\n                                            Additionally, in relation to regularization,\n                                            this class constrains weight matrixes every `attenuate_epoch`.\n\n            hidden_activating_function:     Activation function in hidden layers.\n            output_activating_function:     Activation function in output layers.\n\n            computable_loss:                Loss function.\n            opt_params:                     Optimizer.\n\n            seq_len:                        The length of sequences.\n                                            This means refereed maxinum step `t` in feedforward.\n                                            If `0`, this model will reference all series elements included \n                                            in observed data points.\n                                            If not `0`, only first sequence will be observed by this model \n                                            and will be feedfowarded as feature points.\n                                            This parameter enables you to build this class as `Decoder` in\n                                            Sequence-to-Sequence(Seq2seq) scheme.\n\n            bptt_tau:                       Refereed maxinum step `t` in Backpropagation Through Time(BP""TT).\n                                            If `0`, this class referes all past data in BPTT.\n\n            test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.\n\n            verificatable_result:           Verification function.\n            encoder_pre_learned_file_path:  File path that stored Encoder's pre-learned parameters.\n            decoder_pre_learned_file_path:  File path that stored Decoder's pre-learned parameters.\n            tol:                            Tolerance for the optimization.\n                                            When the loss or score is not improving by at least tol \n                                            for two consecutive iterations, convergence is considered \n                                            to be reached and training stops.\n\n            tld:                            Tolerance for deviation of loss.\n\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_1__init__ = {"__init__", (PyCFunction)__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_1__init__, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder___init__};
-static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder___init__[] = "\n        Init.\n        \n        Args:\n            input_neuron_count:             The number of units in input layers.\n            hidden_neuron_count:            The number of units in hidden layers.\n            epochs:                         Epochs of Mini-batch.\n            bath_size:                      Batch size of Mini-batch.\n            learning_rate:                  Learning rate.\n            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.\n            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.\n                                            Additionally, in relation to regularization,\n                                            this class constrains weight matrixes every `attenuate_epoch`.\n\n            hidden_activating_function:     Activation function in hidden layers.\n            output_activating_function:     Activation function in output layers.\n\n            computable_loss:                Loss function.\n            opt_params:                     Optimizer.\n\n            seq_len:                        The length of sequences.\n                                            This means refereed maxinum step `t` in feedforward.\n                                            If `0`, this model will reference all series elements included \n                                            in observed data points.\n                                            If not `0`, only first sequence will be observed by this model \n                                            and will be feedfowarded as feature points.\n                                            This parameter enables you to build this class as `Decoder` in\n                                            Sequence-to-Sequence(Seq2seq) scheme.\n\n            bptt_tau:                       Refereed maxinum step `t` in Backpropagation Through Time(BP""TT).\n                                            If `0`, this class referes all past data in BPTT.\n\n            test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.\n\n            verificatable_result:           Verification function.\n            encoder_pre_learned_file_path:  File path that stored Encoder's pre-learned parameters.\n            decoder_pre_learned_file_path:  File path that stored Decoder's pre-learned parameters.\n            tol:                            Tolerance for the optimization.\n                                            When the loss or score is not improving by at least tol \n                                            for two consecutive iterations, convergence is considered \n                                            to be reached and training stops.\n\n            tld:                            Tolerance for deviation of loss.\n\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_1__init__ = {"__init__", (PyCFunction)__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_1__init__, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder___init__};
+static PyObject *__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_input_neuron_count = 0;
   PyObject *__pyx_v_hidden_neuron_count = 0;
@@ -1933,7 +1941,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     values[6] = ((PyObject *)((PyObject*)__pyx_float_0_1));
     values[7] = ((PyObject *)((PyObject *)__pyx_int_50));
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":83
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":80
  *         learning_attenuate_rate=0.1,
  *         attenuate_epoch=50,
  *         hidden_activating_function=None,             # <<<<<<<<<<<<<<
@@ -1942,7 +1950,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
     values[8] = ((PyObject *)((PyObject *)Py_None));
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":84
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":81
  *         attenuate_epoch=50,
  *         hidden_activating_function=None,
  *         output_activating_function=None,             # <<<<<<<<<<<<<<
@@ -1951,7 +1959,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
     values[9] = ((PyObject *)((PyObject *)Py_None));
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":85
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":82
  *         hidden_activating_function=None,
  *         output_activating_function=None,
  *         computable_loss=None,             # <<<<<<<<<<<<<<
@@ -1960,7 +1968,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
     values[10] = ((PyObject *)((PyObject *)Py_None));
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":86
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":83
  *         output_activating_function=None,
  *         computable_loss=None,
  *         opt_params=None,             # <<<<<<<<<<<<<<
@@ -1974,7 +1982,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     values[15] = ((PyObject *)((PyObject*)__pyx_float_0_0));
     values[16] = ((PyObject *)((PyObject*)__pyx_float_1_0));
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":92
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":89
  *         tol=0.0,
  *         tld=1.0,
  *         verificatable_result=None,             # <<<<<<<<<<<<<<
@@ -1983,7 +1991,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
     values[17] = ((PyObject *)((PyObject *)Py_None));
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":93
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":90
  *         tld=1.0,
  *         verificatable_result=None,
  *         encoder_pre_learned_file_path=None,             # <<<<<<<<<<<<<<
@@ -1992,7 +2000,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
     values[18] = ((PyObject *)((PyObject *)Py_None));
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":94
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":91
  *         verificatable_result=None,
  *         encoder_pre_learned_file_path=None,
  *         decoder_pre_learned_file_path=None,             # <<<<<<<<<<<<<<
@@ -2001,7 +2009,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
     values[19] = ((PyObject *)((PyObject *)Py_None));
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":95
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":92
  *         encoder_pre_learned_file_path=None,
  *         decoder_pre_learned_file_path=None,
  *         verbose_flag=False             # <<<<<<<<<<<<<<
@@ -2067,7 +2075,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_input_neuron_count)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 21, 1); __PYX_ERR(0, 74, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 21, 1); __PYX_ERR(0, 71, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -2185,7 +2193,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 74, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 71, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2257,15 +2265,15 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 21, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 74, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 21, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 71, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.rnn.facade_encoder_decoder.FacadeEncoderDecoder.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.rnn.facade_attention_encoder_decoder.FacadeAttentionEncoderDecoder.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder___init__(__pyx_self, __pyx_v_self, __pyx_v_input_neuron_count, __pyx_v_hidden_neuron_count, __pyx_v_epochs, __pyx_v_batch_size, __pyx_v_learning_rate, __pyx_v_learning_attenuate_rate, __pyx_v_attenuate_epoch, __pyx_v_hidden_activating_function, __pyx_v_output_activating_function, __pyx_v_computable_loss, __pyx_v_opt_params, __pyx_v_seq_len, __pyx_v_bptt_tau, __pyx_v_test_size_rate, __pyx_v_tol, __pyx_v_tld, __pyx_v_verificatable_result, __pyx_v_encoder_pre_learned_file_path, __pyx_v_decoder_pre_learned_file_path, __pyx_v_verbose_flag);
+  __pyx_r = __pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder___init__(__pyx_self, __pyx_v_self, __pyx_v_input_neuron_count, __pyx_v_hidden_neuron_count, __pyx_v_epochs, __pyx_v_batch_size, __pyx_v_learning_rate, __pyx_v_learning_attenuate_rate, __pyx_v_attenuate_epoch, __pyx_v_hidden_activating_function, __pyx_v_output_activating_function, __pyx_v_computable_loss, __pyx_v_opt_params, __pyx_v_seq_len, __pyx_v_bptt_tau, __pyx_v_test_size_rate, __pyx_v_tol, __pyx_v_tld, __pyx_v_verificatable_result, __pyx_v_encoder_pre_learned_file_path, __pyx_v_decoder_pre_learned_file_path, __pyx_v_verbose_flag);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":74
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":71
  *     '''
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
@@ -2278,7 +2286,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_input_neuron_count, PyObject *__pyx_v_hidden_neuron_count, PyObject *__pyx_v_epochs, PyObject *__pyx_v_batch_size, PyObject *__pyx_v_learning_rate, PyObject *__pyx_v_learning_attenuate_rate, PyObject *__pyx_v_attenuate_epoch, PyObject *__pyx_v_hidden_activating_function, PyObject *__pyx_v_output_activating_function, PyObject *__pyx_v_computable_loss, PyObject *__pyx_v_opt_params, PyObject *__pyx_v_seq_len, PyObject *__pyx_v_bptt_tau, PyObject *__pyx_v_test_size_rate, PyObject *__pyx_v_tol, PyObject *__pyx_v_tld, PyObject *__pyx_v_verificatable_result, PyObject *__pyx_v_encoder_pre_learned_file_path, PyObject *__pyx_v_decoder_pre_learned_file_path, PyObject *__pyx_v_verbose_flag) {
+static PyObject *__pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_input_neuron_count, PyObject *__pyx_v_hidden_neuron_count, PyObject *__pyx_v_epochs, PyObject *__pyx_v_batch_size, PyObject *__pyx_v_learning_rate, PyObject *__pyx_v_learning_attenuate_rate, PyObject *__pyx_v_attenuate_epoch, PyObject *__pyx_v_hidden_activating_function, PyObject *__pyx_v_output_activating_function, PyObject *__pyx_v_computable_loss, PyObject *__pyx_v_opt_params, PyObject *__pyx_v_seq_len, PyObject *__pyx_v_bptt_tau, PyObject *__pyx_v_test_size_rate, PyObject *__pyx_v_tol, PyObject *__pyx_v_tld, PyObject *__pyx_v_verificatable_result, PyObject *__pyx_v_encoder_pre_learned_file_path, PyObject *__pyx_v_decoder_pre_learned_file_path, PyObject *__pyx_v_verbose_flag) {
   PyObject *__pyx_v_logger = NULL;
   PyObject *__pyx_v_handler = NULL;
   PyObject *__pyx_v_encoder_opt_params = NULL;
@@ -2301,29 +2309,29 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __Pyx_INCREF(__pyx_v_computable_loss);
   __Pyx_INCREF(__pyx_v_verificatable_result);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":142
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":139
  * 
  *         '''
  *         logger = getLogger("pydbm")             # <<<<<<<<<<<<<<
  *         handler = StreamHandler()
  *         if verbose_flag is True:
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_getLogger); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_getLogger); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_logger = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":143
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":140
  *         '''
  *         logger = getLogger("pydbm")
  *         handler = StreamHandler()             # <<<<<<<<<<<<<<
  *         if verbose_flag is True:
  *             handler.setLevel(DEBUG)
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_StreamHandler); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_StreamHandler); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -2336,17 +2344,17 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_handler = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":144
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":141
  *         logger = getLogger("pydbm")
  *         handler = StreamHandler()
  *         if verbose_flag is True:             # <<<<<<<<<<<<<<
@@ -2357,16 +2365,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __pyx_t_5 = (__pyx_t_4 != 0);
   if (__pyx_t_5) {
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":145
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":142
  *         handler = StreamHandler()
  *         if verbose_flag is True:
  *             handler.setLevel(DEBUG)             # <<<<<<<<<<<<<<
  *             logger.setLevel(DEBUG)
  *         else:
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_handler, __pyx_n_s_setLevel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_handler, __pyx_n_s_setLevel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_DEBUG); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 145, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_DEBUG); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_6 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -2379,14 +2387,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       }
     }
     if (!__pyx_t_6) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_3};
-        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -2395,20 +2403,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_3};
-        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       } else
       #endif
       {
-        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 145, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 142, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
         __Pyx_GIVEREF(__pyx_t_3);
         PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_3);
         __pyx_t_3 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       }
@@ -2416,16 +2424,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":146
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":143
  *         if verbose_flag is True:
  *             handler.setLevel(DEBUG)
  *             logger.setLevel(DEBUG)             # <<<<<<<<<<<<<<
  *         else:
  *             handler.setLevel(ERROR)
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_logger, __pyx_n_s_setLevel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_logger, __pyx_n_s_setLevel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_DEBUG); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 146, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_DEBUG); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 143, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -2438,14 +2446,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       }
     }
     if (!__pyx_t_3) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_7};
-        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -2454,20 +2462,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_7};
-        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       } else
       #endif
       {
-        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 146, __pyx_L1_error)
+        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 143, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3); __pyx_t_3 = NULL;
         __Pyx_GIVEREF(__pyx_t_7);
         PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_7);
         __pyx_t_7 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       }
@@ -2475,7 +2483,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":144
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":141
  *         logger = getLogger("pydbm")
  *         handler = StreamHandler()
  *         if verbose_flag is True:             # <<<<<<<<<<<<<<
@@ -2485,7 +2493,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     goto __pyx_L3;
   }
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":148
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":145
  *             logger.setLevel(DEBUG)
  *         else:
  *             handler.setLevel(ERROR)             # <<<<<<<<<<<<<<
@@ -2493,9 +2501,9 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  *         logger.addHandler(handler)
  */
   /*else*/ {
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_handler, __pyx_n_s_setLevel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_handler, __pyx_n_s_setLevel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_ERROR); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 148, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_ERROR); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 145, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_7 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -2508,14 +2516,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       }
     }
     if (!__pyx_t_7) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_6};
-        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -2524,20 +2532,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_6};
-        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       } else
       #endif
       {
-        __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 145, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_7); __pyx_t_7 = NULL;
         __Pyx_GIVEREF(__pyx_t_6);
         PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_6);
         __pyx_t_6 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       }
@@ -2545,16 +2553,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":149
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":146
  *         else:
  *             handler.setLevel(ERROR)
  *             logger.setLevel(ERROR)             # <<<<<<<<<<<<<<
  *         logger.addHandler(handler)
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_logger, __pyx_n_s_setLevel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_logger, __pyx_n_s_setLevel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_ERROR); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_ERROR); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_6 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -2567,14 +2575,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       }
     }
     if (!__pyx_t_6) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 149, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_3};
-        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 149, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -2583,20 +2591,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_3};
-        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 149, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       } else
       #endif
       {
-        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 149, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 146, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
         __Pyx_GIVEREF(__pyx_t_3);
         PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_3);
         __pyx_t_3 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 149, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       }
@@ -2606,14 +2614,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   }
   __pyx_L3:;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":150
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":147
  *             handler.setLevel(ERROR)
  *             logger.setLevel(ERROR)
  *         logger.addHandler(handler)             # <<<<<<<<<<<<<<
  * 
  *         if computable_loss is None:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_logger, __pyx_n_s_addHandler); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 150, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_logger, __pyx_n_s_addHandler); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_7 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -2626,13 +2634,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     }
   }
   if (!__pyx_t_7) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_handler); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_handler); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_1)) {
       PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_v_handler};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else
@@ -2640,19 +2648,19 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
       PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_v_handler};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else
     #endif
     {
-      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 150, __pyx_L1_error)
+      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_7); __pyx_t_7 = NULL;
       __Pyx_INCREF(__pyx_v_handler);
       __Pyx_GIVEREF(__pyx_v_handler);
       PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_v_handler);
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
@@ -2660,7 +2668,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":152
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":149
  *         logger.addHandler(handler)
  * 
  *         if computable_loss is None:             # <<<<<<<<<<<<<<
@@ -2671,14 +2679,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __pyx_t_4 = (__pyx_t_5 != 0);
   if (__pyx_t_4) {
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":153
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":150
  * 
  *         if computable_loss is None:
  *             computable_loss = MeanSquaredError()             # <<<<<<<<<<<<<<
  *         else:
  *             if isinstance(computable_loss, ComputableLoss) is False:
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_MeanSquaredError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 153, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_MeanSquaredError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 150, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -2691,17 +2699,17 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       }
     }
     if (__pyx_t_3) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 153, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else {
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 153, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF_SET(__pyx_v_computable_loss, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":152
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":149
  *         logger.addHandler(handler)
  * 
  *         if computable_loss is None:             # <<<<<<<<<<<<<<
@@ -2711,7 +2719,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     goto __pyx_L4;
   }
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":155
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":152
  *             computable_loss = MeanSquaredError()
  *         else:
  *             if isinstance(computable_loss, ComputableLoss) is False:             # <<<<<<<<<<<<<<
@@ -2719,27 +2727,27 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  * 
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ComputableLoss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 155, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ComputableLoss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 152, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = PyObject_IsInstance(__pyx_v_computable_loss, __pyx_t_2); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(0, 155, __pyx_L1_error)
+    __pyx_t_4 = PyObject_IsInstance(__pyx_v_computable_loss, __pyx_t_2); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(0, 152, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_5 = ((__pyx_t_4 == 0) != 0);
     if (unlikely(__pyx_t_5)) {
 
-      /* "pydbm/rnn/facade_encoder_decoder.pyx":156
+      /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":153
  *         else:
  *             if isinstance(computable_loss, ComputableLoss) is False:
  *                 raise TypeError()             # <<<<<<<<<<<<<<
  * 
  *         if opt_params is None:
  */
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 156, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 153, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_Raise(__pyx_t_2, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __PYX_ERR(0, 156, __pyx_L1_error)
+      __PYX_ERR(0, 153, __pyx_L1_error)
 
-      /* "pydbm/rnn/facade_encoder_decoder.pyx":155
+      /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":152
  *             computable_loss = MeanSquaredError()
  *         else:
  *             if isinstance(computable_loss, ComputableLoss) is False:             # <<<<<<<<<<<<<<
@@ -2750,7 +2758,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   }
   __pyx_L4:;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":158
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":155
  *                 raise TypeError()
  * 
  *         if opt_params is None:             # <<<<<<<<<<<<<<
@@ -2761,14 +2769,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __pyx_t_4 = (__pyx_t_5 != 0);
   if (__pyx_t_4) {
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":159
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":156
  * 
  *         if opt_params is None:
  *             encoder_opt_params = Adam()             # <<<<<<<<<<<<<<
  *             decoder_opt_params = Adam()
  *         else:
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_Adam); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 159, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_Adam); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -2781,24 +2789,24 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       }
     }
     if (__pyx_t_3) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 159, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 156, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else {
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 159, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 156, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_v_encoder_opt_params = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":160
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":157
  *         if opt_params is None:
  *             encoder_opt_params = Adam()
  *             decoder_opt_params = Adam()             # <<<<<<<<<<<<<<
  *         else:
  *             if isinstance(opt_params, OptParams) is False:
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_Adam); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_Adam); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -2811,17 +2819,17 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       }
     }
     if (__pyx_t_3) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 160, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 157, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else {
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 160, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 157, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_v_decoder_opt_params = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":158
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":155
  *                 raise TypeError()
  * 
  *         if opt_params is None:             # <<<<<<<<<<<<<<
@@ -2831,7 +2839,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     goto __pyx_L6;
   }
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":162
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":159
  *             decoder_opt_params = Adam()
  *         else:
  *             if isinstance(opt_params, OptParams) is False:             # <<<<<<<<<<<<<<
@@ -2839,27 +2847,27 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  * 
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_OptParams); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_OptParams); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 159, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = PyObject_IsInstance(__pyx_v_opt_params, __pyx_t_2); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_4 = PyObject_IsInstance(__pyx_v_opt_params, __pyx_t_2); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(0, 159, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_5 = ((__pyx_t_4 == 0) != 0);
     if (unlikely(__pyx_t_5)) {
 
-      /* "pydbm/rnn/facade_encoder_decoder.pyx":163
+      /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":160
  *         else:
  *             if isinstance(opt_params, OptParams) is False:
  *                 raise TypeError()             # <<<<<<<<<<<<<<
  * 
  *             encoder_opt_params = opt_params
  */
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 160, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_Raise(__pyx_t_2, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __PYX_ERR(0, 163, __pyx_L1_error)
+      __PYX_ERR(0, 160, __pyx_L1_error)
 
-      /* "pydbm/rnn/facade_encoder_decoder.pyx":162
+      /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":159
  *             decoder_opt_params = Adam()
  *         else:
  *             if isinstance(opt_params, OptParams) is False:             # <<<<<<<<<<<<<<
@@ -2868,7 +2876,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
     }
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":165
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":162
  *                 raise TypeError()
  * 
  *             encoder_opt_params = opt_params             # <<<<<<<<<<<<<<
@@ -2878,14 +2886,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     __Pyx_INCREF(__pyx_v_opt_params);
     __pyx_v_encoder_opt_params = __pyx_v_opt_params;
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":166
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":163
  * 
  *             encoder_opt_params = opt_params
  *             decoder_opt_params = copy(opt_params)             # <<<<<<<<<<<<<<
  * 
  *         if verificatable_result is None:
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_copy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 166, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_copy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -2898,13 +2906,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       }
     }
     if (!__pyx_t_3) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_opt_params); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_opt_params); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_opt_params};
-        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_2);
       } else
@@ -2912,19 +2920,19 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_opt_params};
-        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_2);
       } else
       #endif
       {
-        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 166, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 163, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_3); __pyx_t_3 = NULL;
         __Pyx_INCREF(__pyx_v_opt_params);
         __Pyx_GIVEREF(__pyx_v_opt_params);
         PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_v_opt_params);
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       }
@@ -2935,7 +2943,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   }
   __pyx_L6:;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":168
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":165
  *             decoder_opt_params = copy(opt_params)
  * 
  *         if verificatable_result is None:             # <<<<<<<<<<<<<<
@@ -2946,14 +2954,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __pyx_t_4 = (__pyx_t_5 != 0);
   if (__pyx_t_4) {
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":169
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":166
  * 
  *         if verificatable_result is None:
  *             verificatable_result = VerificateFunctionApproximation()             # <<<<<<<<<<<<<<
  *         else:
  *             if isinstance(verificatable_result, VerificatableResult) is False:
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificateFunctionApproximation); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 169, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificateFunctionApproximation); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 166, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_7 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -2966,17 +2974,17 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       }
     }
     if (__pyx_t_7) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 169, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else {
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 169, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF_SET(__pyx_v_verificatable_result, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":168
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":165
  *             decoder_opt_params = copy(opt_params)
  * 
  *         if verificatable_result is None:             # <<<<<<<<<<<<<<
@@ -2986,7 +2994,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     goto __pyx_L8;
   }
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":171
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":168
  *             verificatable_result = VerificateFunctionApproximation()
  *         else:
  *             if isinstance(verificatable_result, VerificatableResult) is False:             # <<<<<<<<<<<<<<
@@ -2994,27 +3002,27 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  * 
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 171, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 168, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = PyObject_IsInstance(__pyx_v_verificatable_result, __pyx_t_2); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(0, 171, __pyx_L1_error)
+    __pyx_t_4 = PyObject_IsInstance(__pyx_v_verificatable_result, __pyx_t_2); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(0, 168, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_5 = ((__pyx_t_4 == 0) != 0);
     if (unlikely(__pyx_t_5)) {
 
-      /* "pydbm/rnn/facade_encoder_decoder.pyx":172
+      /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":169
  *         else:
  *             if isinstance(verificatable_result, VerificatableResult) is False:
  *                 raise TypeError()             # <<<<<<<<<<<<<<
  * 
  *         # Init.
  */
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 172, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 169, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_Raise(__pyx_t_2, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __PYX_ERR(0, 172, __pyx_L1_error)
+      __PYX_ERR(0, 169, __pyx_L1_error)
 
-      /* "pydbm/rnn/facade_encoder_decoder.pyx":171
+      /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":168
  *             verificatable_result = VerificateFunctionApproximation()
  *         else:
  *             if isinstance(verificatable_result, VerificatableResult) is False:             # <<<<<<<<<<<<<<
@@ -3025,14 +3033,44 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   }
   __pyx_L8:;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":175
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":172
  * 
  *         # Init.
  *         encoder_graph = EncoderGraph()             # <<<<<<<<<<<<<<
  * 
  *         # Activation function in LSTM.
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_EncoderGraph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 175, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_EncoderGraph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 172, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_7 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_7)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_7);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_1, function);
+    }
+  }
+  if (__pyx_t_7) {
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 172, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  } else {
+    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 172, __pyx_L1_error)
+  }
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_encoder_graph = __pyx_t_2;
+  __pyx_t_2 = 0;
+
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":175
+ * 
+ *         # Activation function in LSTM.
+ *         encoder_graph.observed_activating_function = TanhFunction()             # <<<<<<<<<<<<<<
+ *         encoder_graph.input_gate_activating_function = LogisticFunction()
+ *         encoder_graph.forget_gate_activating_function = LogisticFunction()
+ */
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_TanhFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 175, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_7 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -3052,17 +3090,77 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   }
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_encoder_graph = __pyx_t_2;
-  __pyx_t_2 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_observed_activating_function, __pyx_t_2) < 0) __PYX_ERR(0, 175, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":178
- * 
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":176
  *         # Activation function in LSTM.
- *         encoder_graph.observed_activating_function = TanhFunction()             # <<<<<<<<<<<<<<
+ *         encoder_graph.observed_activating_function = TanhFunction()
+ *         encoder_graph.input_gate_activating_function = LogisticFunction()             # <<<<<<<<<<<<<<
+ *         encoder_graph.forget_gate_activating_function = LogisticFunction()
+ *         encoder_graph.output_gate_activating_function = LogisticFunction()
+ */
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_7 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_7)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_7);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_1, function);
+    }
+  }
+  if (__pyx_t_7) {
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 176, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  } else {
+    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 176, __pyx_L1_error)
+  }
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_input_gate_activating_function, __pyx_t_2) < 0) __PYX_ERR(0, 176, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":177
+ *         encoder_graph.observed_activating_function = TanhFunction()
+ *         encoder_graph.input_gate_activating_function = LogisticFunction()
+ *         encoder_graph.forget_gate_activating_function = LogisticFunction()             # <<<<<<<<<<<<<<
+ *         encoder_graph.output_gate_activating_function = LogisticFunction()
+ *         if hidden_activating_function is None:
+ */
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_7 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_7)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_7);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_1, function);
+    }
+  }
+  if (__pyx_t_7) {
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 177, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  } else {
+    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 177, __pyx_L1_error)
+  }
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_forget_gate_activating_function, __pyx_t_2) < 0) __PYX_ERR(0, 177, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":178
  *         encoder_graph.input_gate_activating_function = LogisticFunction()
  *         encoder_graph.forget_gate_activating_function = LogisticFunction()
+ *         encoder_graph.output_gate_activating_function = LogisticFunction()             # <<<<<<<<<<<<<<
+ *         if hidden_activating_function is None:
+ *             encoder_graph.hidden_activating_function = TanhFunction()
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_TanhFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 178, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_7 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -3082,100 +3180,10 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   }
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_observed_activating_function, __pyx_t_2) < 0) __PYX_ERR(0, 178, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_output_gate_activating_function, __pyx_t_2) < 0) __PYX_ERR(0, 178, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":179
- *         # Activation function in LSTM.
- *         encoder_graph.observed_activating_function = TanhFunction()
- *         encoder_graph.input_gate_activating_function = LogisticFunction()             # <<<<<<<<<<<<<<
- *         encoder_graph.forget_gate_activating_function = LogisticFunction()
- *         encoder_graph.output_gate_activating_function = LogisticFunction()
- */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 179, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_7)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_7);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_1, function);
-    }
-  }
-  if (__pyx_t_7) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 179, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  } else {
-    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 179, __pyx_L1_error)
-  }
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_input_gate_activating_function, __pyx_t_2) < 0) __PYX_ERR(0, 179, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":180
- *         encoder_graph.observed_activating_function = TanhFunction()
- *         encoder_graph.input_gate_activating_function = LogisticFunction()
- *         encoder_graph.forget_gate_activating_function = LogisticFunction()             # <<<<<<<<<<<<<<
- *         encoder_graph.output_gate_activating_function = LogisticFunction()
- *         if hidden_activating_function is None:
- */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_7)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_7);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_1, function);
-    }
-  }
-  if (__pyx_t_7) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 180, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  } else {
-    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 180, __pyx_L1_error)
-  }
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_forget_gate_activating_function, __pyx_t_2) < 0) __PYX_ERR(0, 180, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":181
- *         encoder_graph.input_gate_activating_function = LogisticFunction()
- *         encoder_graph.forget_gate_activating_function = LogisticFunction()
- *         encoder_graph.output_gate_activating_function = LogisticFunction()             # <<<<<<<<<<<<<<
- *         if hidden_activating_function is None:
- *             encoder_graph.hidden_activating_function = TanhFunction()
- */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_7)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_7);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_1, function);
-    }
-  }
-  if (__pyx_t_7) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 181, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  } else {
-    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 181, __pyx_L1_error)
-  }
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_output_gate_activating_function, __pyx_t_2) < 0) __PYX_ERR(0, 181, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":182
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":179
  *         encoder_graph.forget_gate_activating_function = LogisticFunction()
  *         encoder_graph.output_gate_activating_function = LogisticFunction()
  *         if hidden_activating_function is None:             # <<<<<<<<<<<<<<
@@ -3186,14 +3194,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __pyx_t_4 = (__pyx_t_5 != 0);
   if (__pyx_t_4) {
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":183
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":180
  *         encoder_graph.output_gate_activating_function = LogisticFunction()
  *         if hidden_activating_function is None:
  *             encoder_graph.hidden_activating_function = TanhFunction()             # <<<<<<<<<<<<<<
  *         else:
  *             if isinstance(hidden_activating_function, ActivatingFunctionInterface) is False:
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_TanhFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 183, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_TanhFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_7 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -3206,17 +3214,17 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       }
     }
     if (__pyx_t_7) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 183, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 180, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else {
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 183, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 180, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_hidden_activating_function, __pyx_t_2) < 0) __PYX_ERR(0, 183, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_hidden_activating_function, __pyx_t_2) < 0) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":182
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":179
  *         encoder_graph.forget_gate_activating_function = LogisticFunction()
  *         encoder_graph.output_gate_activating_function = LogisticFunction()
  *         if hidden_activating_function is None:             # <<<<<<<<<<<<<<
@@ -3226,7 +3234,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     goto __pyx_L10;
   }
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":185
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":182
  *             encoder_graph.hidden_activating_function = TanhFunction()
  *         else:
  *             if isinstance(hidden_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
@@ -3234,27 +3242,27 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  * 
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 185, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 182, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = PyObject_IsInstance(__pyx_v_hidden_activating_function, __pyx_t_2); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(0, 185, __pyx_L1_error)
+    __pyx_t_4 = PyObject_IsInstance(__pyx_v_hidden_activating_function, __pyx_t_2); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(0, 182, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_5 = ((__pyx_t_4 == 0) != 0);
     if (unlikely(__pyx_t_5)) {
 
-      /* "pydbm/rnn/facade_encoder_decoder.pyx":186
+      /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":183
  *         else:
  *             if isinstance(hidden_activating_function, ActivatingFunctionInterface) is False:
  *                 raise TypeError()             # <<<<<<<<<<<<<<
  * 
  *             encoder_graph.hidden_activating_function = hidden_activating_function
  */
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 186, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 183, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_Raise(__pyx_t_2, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __PYX_ERR(0, 186, __pyx_L1_error)
+      __PYX_ERR(0, 183, __pyx_L1_error)
 
-      /* "pydbm/rnn/facade_encoder_decoder.pyx":185
+      /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":182
  *             encoder_graph.hidden_activating_function = TanhFunction()
  *         else:
  *             if isinstance(hidden_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
@@ -3263,18 +3271,18 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
     }
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":188
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":185
  *                 raise TypeError()
  * 
  *             encoder_graph.hidden_activating_function = hidden_activating_function             # <<<<<<<<<<<<<<
  *         if output_activating_function is None:
  *             encoder_graph.output_activating_function = LogisticFunction()
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_hidden_activating_function, __pyx_v_hidden_activating_function) < 0) __PYX_ERR(0, 188, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_hidden_activating_function, __pyx_v_hidden_activating_function) < 0) __PYX_ERR(0, 185, __pyx_L1_error)
   }
   __pyx_L10:;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":189
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":186
  * 
  *             encoder_graph.hidden_activating_function = hidden_activating_function
  *         if output_activating_function is None:             # <<<<<<<<<<<<<<
@@ -3285,14 +3293,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __pyx_t_4 = (__pyx_t_5 != 0);
   if (__pyx_t_4) {
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":190
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":187
  *             encoder_graph.hidden_activating_function = hidden_activating_function
  *         if output_activating_function is None:
  *             encoder_graph.output_activating_function = LogisticFunction()             # <<<<<<<<<<<<<<
  *         else:
  *             if isinstance(output_activating_function, ActivatingFunctionInterface) is False:
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 187, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_7 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -3305,17 +3313,17 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       }
     }
     if (__pyx_t_7) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 190, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 187, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else {
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 190, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 187, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_output_activating_function, __pyx_t_2) < 0) __PYX_ERR(0, 190, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_output_activating_function, __pyx_t_2) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":189
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":186
  * 
  *             encoder_graph.hidden_activating_function = hidden_activating_function
  *         if output_activating_function is None:             # <<<<<<<<<<<<<<
@@ -3325,7 +3333,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     goto __pyx_L12;
   }
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":192
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":189
  *             encoder_graph.output_activating_function = LogisticFunction()
  *         else:
  *             if isinstance(output_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
@@ -3333,27 +3341,27 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  * 
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 192, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 189, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = PyObject_IsInstance(__pyx_v_output_activating_function, __pyx_t_2); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(0, 192, __pyx_L1_error)
+    __pyx_t_4 = PyObject_IsInstance(__pyx_v_output_activating_function, __pyx_t_2); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(0, 189, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_5 = ((__pyx_t_4 == 0) != 0);
     if (unlikely(__pyx_t_5)) {
 
-      /* "pydbm/rnn/facade_encoder_decoder.pyx":193
+      /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":190
  *         else:
  *             if isinstance(output_activating_function, ActivatingFunctionInterface) is False:
  *                 raise TypeError()             # <<<<<<<<<<<<<<
  * 
  *             encoder_graph.output_activating_function = output_activating_function
  */
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 193, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 190, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_Raise(__pyx_t_2, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __PYX_ERR(0, 193, __pyx_L1_error)
+      __PYX_ERR(0, 190, __pyx_L1_error)
 
-      /* "pydbm/rnn/facade_encoder_decoder.pyx":192
+      /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":189
  *             encoder_graph.output_activating_function = LogisticFunction()
  *         else:
  *             if isinstance(output_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
@@ -3362,62 +3370,62 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
     }
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":195
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":192
  *                 raise TypeError()
  * 
  *             encoder_graph.output_activating_function = output_activating_function             # <<<<<<<<<<<<<<
  * 
  *         # Initialization strategy.
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_output_activating_function, __pyx_v_output_activating_function) < 0) __PYX_ERR(0, 195, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_output_activating_function, __pyx_v_output_activating_function) < 0) __PYX_ERR(0, 192, __pyx_L1_error)
   }
   __pyx_L12:;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":199
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":196
  *         # Initialization strategy.
  *         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
  *         encoder_graph.create_rnn_cells(             # <<<<<<<<<<<<<<
  *             input_neuron_count=input_neuron_count,
  *             hidden_neuron_count=hidden_neuron_count,
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_create_rnn_cells); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_create_rnn_cells); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 196, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":200
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":197
  *         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
  *         encoder_graph.create_rnn_cells(
  *             input_neuron_count=input_neuron_count,             # <<<<<<<<<<<<<<
  *             hidden_neuron_count=hidden_neuron_count,
  *             output_neuron_count=1
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_input_neuron_count, __pyx_v_input_neuron_count) < 0) __PYX_ERR(0, 200, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_input_neuron_count, __pyx_v_input_neuron_count) < 0) __PYX_ERR(0, 197, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":201
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":198
  *         encoder_graph.create_rnn_cells(
  *             input_neuron_count=input_neuron_count,
  *             hidden_neuron_count=hidden_neuron_count,             # <<<<<<<<<<<<<<
  *             output_neuron_count=1
  *         )
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_hidden_neuron_count, __pyx_v_hidden_neuron_count) < 0) __PYX_ERR(0, 200, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_output_neuron_count, __pyx_int_1) < 0) __PYX_ERR(0, 200, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_hidden_neuron_count, __pyx_v_hidden_neuron_count) < 0) __PYX_ERR(0, 197, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_output_neuron_count, __pyx_int_1) < 0) __PYX_ERR(0, 197, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":199
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":196
  *         # Initialization strategy.
  *         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
  *         encoder_graph.create_rnn_cells(             # <<<<<<<<<<<<<<
  *             input_neuron_count=input_neuron_count,
  *             hidden_neuron_count=hidden_neuron_count,
  */
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 196, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":205
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":202
  *         )
  * 
  *         if encoder_pre_learned_file_path is not None:             # <<<<<<<<<<<<<<
@@ -3428,14 +3436,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __pyx_t_4 = (__pyx_t_5 != 0);
   if (__pyx_t_4) {
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":206
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":203
  * 
  *         if encoder_pre_learned_file_path is not None:
  *             encoder_graph.load_pre_learned_params(encoder_pre_learned_file_path)             # <<<<<<<<<<<<<<
  * 
  *         encoder = Encoder(
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 206, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_encoder_graph, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 203, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_2 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -3448,13 +3456,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       }
     }
     if (!__pyx_t_2) {
-      __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_encoder_pre_learned_file_path); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 206, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_encoder_pre_learned_file_path); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 203, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_encoder_pre_learned_file_path};
-        __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 206, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 203, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_7);
       } else
@@ -3462,19 +3470,19 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_encoder_pre_learned_file_path};
-        __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 206, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 203, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_7);
       } else
       #endif
       {
-        __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 206, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 203, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2); __pyx_t_2 = NULL;
         __Pyx_INCREF(__pyx_v_encoder_pre_learned_file_path);
         __Pyx_GIVEREF(__pyx_v_encoder_pre_learned_file_path);
         PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_v_encoder_pre_learned_file_path);
-        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 206, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 203, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       }
@@ -3482,7 +3490,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":205
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":202
  *         )
  * 
  *         if encoder_pre_learned_file_path is not None:             # <<<<<<<<<<<<<<
@@ -3491,148 +3499,178 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
   }
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":208
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":205
  *             encoder_graph.load_pre_learned_params(encoder_pre_learned_file_path)
  * 
  *         encoder = Encoder(             # <<<<<<<<<<<<<<
  *             # Delegate `graph` to `LSTMModel`.
  *             graph=encoder_graph,
  */
-  __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_Encoder); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 208, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_Encoder); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":210
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":207
  *         encoder = Encoder(
  *             # Delegate `graph` to `LSTMModel`.
  *             graph=encoder_graph,             # <<<<<<<<<<<<<<
  *             # The number of epochs in mini-batch training.
  *             epochs=epochs,
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 210, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 207, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_graph, __pyx_v_encoder_graph) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_graph, __pyx_v_encoder_graph) < 0) __PYX_ERR(0, 207, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":212
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":209
  *             graph=encoder_graph,
  *             # The number of epochs in mini-batch training.
  *             epochs=epochs,             # <<<<<<<<<<<<<<
  *             # The batch size.
  *             batch_size=batch_size,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_epochs, __pyx_v_epochs) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_epochs, __pyx_v_epochs) < 0) __PYX_ERR(0, 207, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":214
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":211
  *             epochs=epochs,
  *             # The batch size.
  *             batch_size=batch_size,             # <<<<<<<<<<<<<<
  *             # Learning rate.
  *             learning_rate=learning_rate,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_batch_size, __pyx_v_batch_size) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_batch_size, __pyx_v_batch_size) < 0) __PYX_ERR(0, 207, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":216
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":213
  *             batch_size=batch_size,
  *             # Learning rate.
  *             learning_rate=learning_rate,             # <<<<<<<<<<<<<<
  *             # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
  *             learning_attenuate_rate=learning_attenuate_rate,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_learning_rate, __pyx_v_learning_rate) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_learning_rate, __pyx_v_learning_rate) < 0) __PYX_ERR(0, 207, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":218
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":215
  *             learning_rate=learning_rate,
  *             # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
  *             learning_attenuate_rate=learning_attenuate_rate,             # <<<<<<<<<<<<<<
  *             # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
  *             attenuate_epoch=attenuate_epoch,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_learning_attenuate_rate, __pyx_v_learning_attenuate_rate) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_learning_attenuate_rate, __pyx_v_learning_attenuate_rate) < 0) __PYX_ERR(0, 207, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":220
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":217
  *             learning_attenuate_rate=learning_attenuate_rate,
  *             # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
  *             attenuate_epoch=attenuate_epoch,             # <<<<<<<<<<<<<<
  *             # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
  *             bptt_tau=bptt_tau,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_attenuate_epoch, __pyx_v_attenuate_epoch) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_attenuate_epoch, __pyx_v_attenuate_epoch) < 0) __PYX_ERR(0, 207, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":222
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":219
  *             attenuate_epoch=attenuate_epoch,
  *             # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
  *             bptt_tau=bptt_tau,             # <<<<<<<<<<<<<<
  *             # Size of Test data set. If this value is `0`, the validation will not be executed.
  *             test_size_rate=test_size_rate,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_bptt_tau, __pyx_v_bptt_tau) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_bptt_tau, __pyx_v_bptt_tau) < 0) __PYX_ERR(0, 207, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":224
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":221
  *             bptt_tau=bptt_tau,
  *             # Size of Test data set. If this value is `0`, the validation will not be executed.
  *             test_size_rate=test_size_rate,             # <<<<<<<<<<<<<<
  *             # Loss function.
  *             computable_loss=computable_loss,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_test_size_rate, __pyx_v_test_size_rate) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_test_size_rate, __pyx_v_test_size_rate) < 0) __PYX_ERR(0, 207, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":226
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":223
  *             test_size_rate=test_size_rate,
  *             # Loss function.
  *             computable_loss=computable_loss,             # <<<<<<<<<<<<<<
  *             # Optimizer.
  *             opt_params=encoder_opt_params,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_computable_loss, __pyx_v_computable_loss) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_computable_loss, __pyx_v_computable_loss) < 0) __PYX_ERR(0, 207, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":228
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":225
  *             computable_loss=computable_loss,
  *             # Optimizer.
  *             opt_params=encoder_opt_params,             # <<<<<<<<<<<<<<
  *             # Verification function.
  *             verificatable_result=verificatable_result,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_opt_params, __pyx_v_encoder_opt_params) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_opt_params, __pyx_v_encoder_opt_params) < 0) __PYX_ERR(0, 207, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":230
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":227
  *             opt_params=encoder_opt_params,
  *             # Verification function.
  *             verificatable_result=verificatable_result,             # <<<<<<<<<<<<<<
  *             # Tolerance for the optimization.
  *             # When the loss or score is not improving by at least tol
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_verificatable_result, __pyx_v_verificatable_result) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_verificatable_result, __pyx_v_verificatable_result) < 0) __PYX_ERR(0, 207, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":235
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":232
  *             # for two consecutive iterations, convergence is considered
  *             # to be reached and training stops.
  *             tol=tol             # <<<<<<<<<<<<<<
  *         )
  * 
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_tol, __pyx_v_tol) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_tol, __pyx_v_tol) < 0) __PYX_ERR(0, 207, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":208
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":205
  *             encoder_graph.load_pre_learned_params(encoder_pre_learned_file_path)
  * 
  *         encoder = Encoder(             # <<<<<<<<<<<<<<
  *             # Delegate `graph` to `LSTMModel`.
  *             graph=encoder_graph,
  */
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 208, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_encoder = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":239
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":236
  * 
  *         # Init.
  *         decoder_graph = DecoderGraph()             # <<<<<<<<<<<<<<
  * 
  *         # Activation function in LSTM.
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_DecoderGraph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_DecoderGraph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 236, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_7 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_7)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_7);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_1, function);
+    }
+  }
+  if (__pyx_t_7) {
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 236, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  } else {
+    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 236, __pyx_L1_error)
+  }
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_decoder_graph = __pyx_t_3;
+  __pyx_t_3 = 0;
+
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":239
+ * 
+ *         # Activation function in LSTM.
+ *         decoder_graph.observed_activating_function = TanhFunction()             # <<<<<<<<<<<<<<
+ *         decoder_graph.input_gate_activating_function = LogisticFunction()
+ *         decoder_graph.forget_gate_activating_function = LogisticFunction()
+ */
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_TanhFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 239, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_7 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -3652,17 +3690,77 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   }
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_decoder_graph = __pyx_t_3;
-  __pyx_t_3 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_observed_activating_function, __pyx_t_3) < 0) __PYX_ERR(0, 239, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":242
- * 
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":240
  *         # Activation function in LSTM.
- *         decoder_graph.observed_activating_function = TanhFunction()             # <<<<<<<<<<<<<<
+ *         decoder_graph.observed_activating_function = TanhFunction()
+ *         decoder_graph.input_gate_activating_function = LogisticFunction()             # <<<<<<<<<<<<<<
+ *         decoder_graph.forget_gate_activating_function = LogisticFunction()
+ *         decoder_graph.output_gate_activating_function = LogisticFunction()
+ */
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_7 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_7)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_7);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_1, function);
+    }
+  }
+  if (__pyx_t_7) {
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 240, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  } else {
+    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 240, __pyx_L1_error)
+  }
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_input_gate_activating_function, __pyx_t_3) < 0) __PYX_ERR(0, 240, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":241
+ *         decoder_graph.observed_activating_function = TanhFunction()
+ *         decoder_graph.input_gate_activating_function = LogisticFunction()
+ *         decoder_graph.forget_gate_activating_function = LogisticFunction()             # <<<<<<<<<<<<<<
+ *         decoder_graph.output_gate_activating_function = LogisticFunction()
+ *         if hidden_activating_function is None:
+ */
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 241, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_7 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_7)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_7);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_1, function);
+    }
+  }
+  if (__pyx_t_7) {
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 241, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  } else {
+    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 241, __pyx_L1_error)
+  }
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_forget_gate_activating_function, __pyx_t_3) < 0) __PYX_ERR(0, 241, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":242
  *         decoder_graph.input_gate_activating_function = LogisticFunction()
  *         decoder_graph.forget_gate_activating_function = LogisticFunction()
+ *         decoder_graph.output_gate_activating_function = LogisticFunction()             # <<<<<<<<<<<<<<
+ *         if hidden_activating_function is None:
+ *             decoder_graph.hidden_activating_function = TanhFunction()
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_TanhFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 242, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_7 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -3682,100 +3780,10 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   }
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_observed_activating_function, __pyx_t_3) < 0) __PYX_ERR(0, 242, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_output_gate_activating_function, __pyx_t_3) < 0) __PYX_ERR(0, 242, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":243
- *         # Activation function in LSTM.
- *         decoder_graph.observed_activating_function = TanhFunction()
- *         decoder_graph.input_gate_activating_function = LogisticFunction()             # <<<<<<<<<<<<<<
- *         decoder_graph.forget_gate_activating_function = LogisticFunction()
- *         decoder_graph.output_gate_activating_function = LogisticFunction()
- */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 243, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_7)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_7);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_1, function);
-    }
-  }
-  if (__pyx_t_7) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 243, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  } else {
-    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 243, __pyx_L1_error)
-  }
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_input_gate_activating_function, __pyx_t_3) < 0) __PYX_ERR(0, 243, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":244
- *         decoder_graph.observed_activating_function = TanhFunction()
- *         decoder_graph.input_gate_activating_function = LogisticFunction()
- *         decoder_graph.forget_gate_activating_function = LogisticFunction()             # <<<<<<<<<<<<<<
- *         decoder_graph.output_gate_activating_function = LogisticFunction()
- *         if hidden_activating_function is None:
- */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 244, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_7)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_7);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_1, function);
-    }
-  }
-  if (__pyx_t_7) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 244, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  } else {
-    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 244, __pyx_L1_error)
-  }
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_forget_gate_activating_function, __pyx_t_3) < 0) __PYX_ERR(0, 244, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":245
- *         decoder_graph.input_gate_activating_function = LogisticFunction()
- *         decoder_graph.forget_gate_activating_function = LogisticFunction()
- *         decoder_graph.output_gate_activating_function = LogisticFunction()             # <<<<<<<<<<<<<<
- *         if hidden_activating_function is None:
- *             decoder_graph.hidden_activating_function = TanhFunction()
- */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 245, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_7)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_7);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_1, function);
-    }
-  }
-  if (__pyx_t_7) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 245, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  } else {
-    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 245, __pyx_L1_error)
-  }
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_output_gate_activating_function, __pyx_t_3) < 0) __PYX_ERR(0, 245, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":246
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":243
  *         decoder_graph.forget_gate_activating_function = LogisticFunction()
  *         decoder_graph.output_gate_activating_function = LogisticFunction()
  *         if hidden_activating_function is None:             # <<<<<<<<<<<<<<
@@ -3786,14 +3794,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __pyx_t_5 = (__pyx_t_4 != 0);
   if (__pyx_t_5) {
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":247
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":244
  *         decoder_graph.output_gate_activating_function = LogisticFunction()
  *         if hidden_activating_function is None:
  *             decoder_graph.hidden_activating_function = TanhFunction()             # <<<<<<<<<<<<<<
  *         else:
  *             if isinstance(hidden_activating_function, ActivatingFunctionInterface) is False:
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_TanhFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_TanhFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 244, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_7 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -3806,17 +3814,17 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       }
     }
     if (__pyx_t_7) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 247, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 244, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else {
-      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 247, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 244, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_hidden_activating_function, __pyx_t_3) < 0) __PYX_ERR(0, 247, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_hidden_activating_function, __pyx_t_3) < 0) __PYX_ERR(0, 244, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":246
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":243
  *         decoder_graph.forget_gate_activating_function = LogisticFunction()
  *         decoder_graph.output_gate_activating_function = LogisticFunction()
  *         if hidden_activating_function is None:             # <<<<<<<<<<<<<<
@@ -3826,7 +3834,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     goto __pyx_L15;
   }
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":249
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":246
  *             decoder_graph.hidden_activating_function = TanhFunction()
  *         else:
  *             if isinstance(hidden_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
@@ -3834,27 +3842,27 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  * 
  */
   /*else*/ {
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 246, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = PyObject_IsInstance(__pyx_v_hidden_activating_function, __pyx_t_3); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_5 = PyObject_IsInstance(__pyx_v_hidden_activating_function, __pyx_t_3); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 246, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_4 = ((__pyx_t_5 == 0) != 0);
     if (unlikely(__pyx_t_4)) {
 
-      /* "pydbm/rnn/facade_encoder_decoder.pyx":250
+      /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":247
  *         else:
  *             if isinstance(hidden_activating_function, ActivatingFunctionInterface) is False:
  *                 raise TypeError()             # <<<<<<<<<<<<<<
  * 
  *             decoder_graph.hidden_activating_function = hidden_activating_function
  */
-      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 250, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 247, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __PYX_ERR(0, 250, __pyx_L1_error)
+      __PYX_ERR(0, 247, __pyx_L1_error)
 
-      /* "pydbm/rnn/facade_encoder_decoder.pyx":249
+      /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":246
  *             decoder_graph.hidden_activating_function = TanhFunction()
  *         else:
  *             if isinstance(hidden_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
@@ -3863,18 +3871,18 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
     }
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":252
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":249
  *                 raise TypeError()
  * 
  *             decoder_graph.hidden_activating_function = hidden_activating_function             # <<<<<<<<<<<<<<
  *         if output_activating_function is None:
  *             decoder_graph.output_activating_function = LogisticFunction()
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_hidden_activating_function, __pyx_v_hidden_activating_function) < 0) __PYX_ERR(0, 252, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_hidden_activating_function, __pyx_v_hidden_activating_function) < 0) __PYX_ERR(0, 249, __pyx_L1_error)
   }
   __pyx_L15:;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":253
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":250
  * 
  *             decoder_graph.hidden_activating_function = hidden_activating_function
  *         if output_activating_function is None:             # <<<<<<<<<<<<<<
@@ -3885,14 +3893,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __pyx_t_5 = (__pyx_t_4 != 0);
   if (__pyx_t_5) {
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":254
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":251
  *             decoder_graph.hidden_activating_function = hidden_activating_function
  *         if output_activating_function is None:
  *             decoder_graph.output_activating_function = LogisticFunction()             # <<<<<<<<<<<<<<
  *         else:
  *             if isinstance(output_activating_function, ActivatingFunctionInterface) is False:
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 254, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LogisticFunction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 251, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_7 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -3905,17 +3913,17 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       }
     }
     if (__pyx_t_7) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 254, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 251, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else {
-      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 254, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 251, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_output_activating_function, __pyx_t_3) < 0) __PYX_ERR(0, 254, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_output_activating_function, __pyx_t_3) < 0) __PYX_ERR(0, 251, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":253
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":250
  * 
  *             decoder_graph.hidden_activating_function = hidden_activating_function
  *         if output_activating_function is None:             # <<<<<<<<<<<<<<
@@ -3925,7 +3933,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     goto __pyx_L17;
   }
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":256
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":253
  *             decoder_graph.output_activating_function = LogisticFunction()
  *         else:
  *             if isinstance(output_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
@@ -3933,27 +3941,27 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  * 
  */
   /*else*/ {
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 256, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = PyObject_IsInstance(__pyx_v_output_activating_function, __pyx_t_3); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 256, __pyx_L1_error)
+    __pyx_t_5 = PyObject_IsInstance(__pyx_v_output_activating_function, __pyx_t_3); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_4 = ((__pyx_t_5 == 0) != 0);
     if (unlikely(__pyx_t_4)) {
 
-      /* "pydbm/rnn/facade_encoder_decoder.pyx":257
+      /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":254
  *         else:
  *             if isinstance(output_activating_function, ActivatingFunctionInterface) is False:
  *                 raise TypeError()             # <<<<<<<<<<<<<<
  * 
  *             decoder_graph.output_activating_function = output_activating_function
  */
-      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 257, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 254, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __PYX_ERR(0, 257, __pyx_L1_error)
+      __PYX_ERR(0, 254, __pyx_L1_error)
 
-      /* "pydbm/rnn/facade_encoder_decoder.pyx":256
+      /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":253
  *             decoder_graph.output_activating_function = LogisticFunction()
  *         else:
  *             if isinstance(output_activating_function, ActivatingFunctionInterface) is False:             # <<<<<<<<<<<<<<
@@ -3962,70 +3970,70 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
     }
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":259
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":256
  *                 raise TypeError()
  * 
  *             decoder_graph.output_activating_function = output_activating_function             # <<<<<<<<<<<<<<
  * 
  *         # Initialization strategy.
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_output_activating_function, __pyx_v_output_activating_function) < 0) __PYX_ERR(0, 259, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_output_activating_function, __pyx_v_output_activating_function) < 0) __PYX_ERR(0, 256, __pyx_L1_error)
   }
   __pyx_L17:;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":263
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":260
  *         # Initialization strategy.
  *         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
  *         decoder_graph.create_rnn_cells(             # <<<<<<<<<<<<<<
  *             input_neuron_count=hidden_neuron_count,
  *             hidden_neuron_count=hidden_neuron_count,
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_create_rnn_cells); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 263, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_create_rnn_cells); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":264
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":261
  *         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
  *         decoder_graph.create_rnn_cells(
  *             input_neuron_count=hidden_neuron_count,             # <<<<<<<<<<<<<<
  *             hidden_neuron_count=hidden_neuron_count,
  *             output_neuron_count=input_neuron_count
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 264, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_input_neuron_count, __pyx_v_hidden_neuron_count) < 0) __PYX_ERR(0, 264, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_input_neuron_count, __pyx_v_hidden_neuron_count) < 0) __PYX_ERR(0, 261, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":265
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":262
  *         decoder_graph.create_rnn_cells(
  *             input_neuron_count=hidden_neuron_count,
  *             hidden_neuron_count=hidden_neuron_count,             # <<<<<<<<<<<<<<
  *             output_neuron_count=input_neuron_count
  *         )
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_hidden_neuron_count, __pyx_v_hidden_neuron_count) < 0) __PYX_ERR(0, 264, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_hidden_neuron_count, __pyx_v_hidden_neuron_count) < 0) __PYX_ERR(0, 261, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":266
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":263
  *             input_neuron_count=hidden_neuron_count,
  *             hidden_neuron_count=hidden_neuron_count,
  *             output_neuron_count=input_neuron_count             # <<<<<<<<<<<<<<
  *         )
  * 
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_output_neuron_count, __pyx_v_input_neuron_count) < 0) __PYX_ERR(0, 264, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_output_neuron_count, __pyx_v_input_neuron_count) < 0) __PYX_ERR(0, 261, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":263
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":260
  *         # Initialization strategy.
  *         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
  *         decoder_graph.create_rnn_cells(             # <<<<<<<<<<<<<<
  *             input_neuron_count=hidden_neuron_count,
  *             hidden_neuron_count=hidden_neuron_count,
  */
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 263, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":269
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":266
  *         )
  * 
  *         if decoder_pre_learned_file_path is not None:             # <<<<<<<<<<<<<<
@@ -4036,14 +4044,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __pyx_t_5 = (__pyx_t_4 != 0);
   if (__pyx_t_5) {
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":270
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":267
  * 
  *         if decoder_pre_learned_file_path is not None:
  *             decoder_graph.load_pre_learned_params(decoder_pre_learned_file_path)             # <<<<<<<<<<<<<<
  * 
  *         decoder = Decoder(
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 270, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_decoder_graph, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 267, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -4056,13 +4064,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       }
     }
     if (!__pyx_t_3) {
-      __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_decoder_pre_learned_file_path); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 270, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_decoder_pre_learned_file_path); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 267, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_decoder_pre_learned_file_path};
-        __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 270, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 267, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_7);
       } else
@@ -4070,19 +4078,19 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_decoder_pre_learned_file_path};
-        __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 270, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 267, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_7);
       } else
       #endif
       {
-        __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 270, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 267, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
         __Pyx_INCREF(__pyx_v_decoder_pre_learned_file_path);
         __Pyx_GIVEREF(__pyx_v_decoder_pre_learned_file_path);
         PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_v_decoder_pre_learned_file_path);
-        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 270, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 267, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       }
@@ -4090,7 +4098,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "pydbm/rnn/facade_encoder_decoder.pyx":269
+    /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":266
  *         )
  * 
  *         if decoder_pre_learned_file_path is not None:             # <<<<<<<<<<<<<<
@@ -4099,293 +4107,293 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
   }
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":272
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":269
  *             decoder_graph.load_pre_learned_params(decoder_pre_learned_file_path)
  * 
  *         decoder = Decoder(             # <<<<<<<<<<<<<<
  *             # Delegate `graph` to `LSTMModel`.
  *             graph=decoder_graph,
  */
-  __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_Decoder); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 272, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_Decoder); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 269, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":274
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":271
  *         decoder = Decoder(
  *             # Delegate `graph` to `LSTMModel`.
  *             graph=decoder_graph,             # <<<<<<<<<<<<<<
  *             # The number of epochs in mini-batch training.
  *             epochs=epochs,
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_graph, __pyx_v_decoder_graph) < 0) __PYX_ERR(0, 274, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_graph, __pyx_v_decoder_graph) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":276
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":273
  *             graph=decoder_graph,
  *             # The number of epochs in mini-batch training.
  *             epochs=epochs,             # <<<<<<<<<<<<<<
  *             # The batch size.
  *             batch_size=batch_size,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_epochs, __pyx_v_epochs) < 0) __PYX_ERR(0, 274, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_epochs, __pyx_v_epochs) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":278
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":275
  *             epochs=epochs,
  *             # The batch size.
  *             batch_size=batch_size,             # <<<<<<<<<<<<<<
  *             # Learning rate.
  *             learning_rate=learning_rate,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_batch_size, __pyx_v_batch_size) < 0) __PYX_ERR(0, 274, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_batch_size, __pyx_v_batch_size) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":280
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":277
  *             batch_size=batch_size,
  *             # Learning rate.
  *             learning_rate=learning_rate,             # <<<<<<<<<<<<<<
  *             # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
  *             learning_attenuate_rate=learning_attenuate_rate,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_learning_rate, __pyx_v_learning_rate) < 0) __PYX_ERR(0, 274, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_learning_rate, __pyx_v_learning_rate) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":282
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":279
  *             learning_rate=learning_rate,
  *             # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
  *             learning_attenuate_rate=learning_attenuate_rate,             # <<<<<<<<<<<<<<
  *             # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
  *             attenuate_epoch=attenuate_epoch,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_learning_attenuate_rate, __pyx_v_learning_attenuate_rate) < 0) __PYX_ERR(0, 274, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_learning_attenuate_rate, __pyx_v_learning_attenuate_rate) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":284
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":281
  *             learning_attenuate_rate=learning_attenuate_rate,
  *             # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
  *             attenuate_epoch=attenuate_epoch,             # <<<<<<<<<<<<<<
  *             # The length of sequences.
  *             # This means refereed maxinum step `t` in feedforward.
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_attenuate_epoch, __pyx_v_attenuate_epoch) < 0) __PYX_ERR(0, 274, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_attenuate_epoch, __pyx_v_attenuate_epoch) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":287
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":284
  *             # The length of sequences.
  *             # This means refereed maxinum step `t` in feedforward.
  *             seq_len=seq_len,             # <<<<<<<<<<<<<<
  *             # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
  *             bptt_tau=bptt_tau,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_seq_len, __pyx_v_seq_len) < 0) __PYX_ERR(0, 274, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_seq_len, __pyx_v_seq_len) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":289
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":286
  *             seq_len=seq_len,
  *             # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
  *             bptt_tau=bptt_tau,             # <<<<<<<<<<<<<<
  *             # Size of Test data set. If this value is `0`, the validation will not be executed.
  *             test_size_rate=test_size_rate,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_bptt_tau, __pyx_v_bptt_tau) < 0) __PYX_ERR(0, 274, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_bptt_tau, __pyx_v_bptt_tau) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":291
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":288
  *             bptt_tau=bptt_tau,
  *             # Size of Test data set. If this value is `0`, the validation will not be executed.
  *             test_size_rate=test_size_rate,             # <<<<<<<<<<<<<<
  *             # Loss function.
  *             computable_loss=computable_loss,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_test_size_rate, __pyx_v_test_size_rate) < 0) __PYX_ERR(0, 274, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_test_size_rate, __pyx_v_test_size_rate) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":293
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":290
  *             test_size_rate=test_size_rate,
  *             # Loss function.
  *             computable_loss=computable_loss,             # <<<<<<<<<<<<<<
  *             # Optimizer.
  *             opt_params=decoder_opt_params,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_computable_loss, __pyx_v_computable_loss) < 0) __PYX_ERR(0, 274, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_computable_loss, __pyx_v_computable_loss) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":295
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":292
  *             computable_loss=computable_loss,
  *             # Optimizer.
  *             opt_params=decoder_opt_params,             # <<<<<<<<<<<<<<
  *             # Verification function.
  *             verificatable_result=verificatable_result,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_opt_params, __pyx_v_decoder_opt_params) < 0) __PYX_ERR(0, 274, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_opt_params, __pyx_v_decoder_opt_params) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":297
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":294
  *             opt_params=decoder_opt_params,
  *             # Verification function.
  *             verificatable_result=verificatable_result,             # <<<<<<<<<<<<<<
  *             # Tolerance for the optimization.
  *             # When the loss or score is not improving by at least tol
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_verificatable_result, __pyx_v_verificatable_result) < 0) __PYX_ERR(0, 274, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_verificatable_result, __pyx_v_verificatable_result) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":302
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":299
  *             # for two consecutive iterations, convergence is considered
  *             # to be reached and training stops.
  *             tol=tol             # <<<<<<<<<<<<<<
  *         )
  * 
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_tol, __pyx_v_tol) < 0) __PYX_ERR(0, 274, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_tol, __pyx_v_tol) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":272
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":269
  *             decoder_graph.load_pre_learned_params(decoder_pre_learned_file_path)
  * 
  *         decoder = Decoder(             # <<<<<<<<<<<<<<
  *             # Delegate `graph` to `LSTMModel`.
  *             graph=decoder_graph,
  */
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 272, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 269, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_decoder = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":305
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":302
  *         )
  * 
  *         encoder_decoder_controller = EncoderDecoderController(             # <<<<<<<<<<<<<<
  *             # is-a LSTM model.
  *             encoder=encoder,
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_EncoderDecoderController); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 305, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_EncoderDecoderController); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 302, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":307
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":304
  *         encoder_decoder_controller = EncoderDecoderController(
  *             # is-a LSTM model.
  *             encoder=encoder,             # <<<<<<<<<<<<<<
  *             # is-a LSTM model.
  *             decoder=decoder,
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 307, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_encoder, __pyx_v_encoder) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_encoder, __pyx_v_encoder) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":309
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":306
  *             encoder=encoder,
  *             # is-a LSTM model.
  *             decoder=decoder,             # <<<<<<<<<<<<<<
  *             # The number of epochs in mini-batch training.
  *             epochs=epochs,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_decoder, __pyx_v_decoder) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_decoder, __pyx_v_decoder) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":311
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":308
  *             decoder=decoder,
  *             # The number of epochs in mini-batch training.
  *             epochs=epochs,             # <<<<<<<<<<<<<<
  *             # The batch size.
  *             batch_size=batch_size,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_epochs, __pyx_v_epochs) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_epochs, __pyx_v_epochs) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":313
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":310
  *             epochs=epochs,
  *             # The batch size.
  *             batch_size=batch_size,             # <<<<<<<<<<<<<<
  *             # Learning rate.
  *             learning_rate=learning_rate,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_batch_size, __pyx_v_batch_size) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_batch_size, __pyx_v_batch_size) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":315
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":312
  *             batch_size=batch_size,
  *             # Learning rate.
  *             learning_rate=learning_rate,             # <<<<<<<<<<<<<<
  *             # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
  *             learning_attenuate_rate=learning_attenuate_rate,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_learning_rate, __pyx_v_learning_rate) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_learning_rate, __pyx_v_learning_rate) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":317
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":314
  *             learning_rate=learning_rate,
  *             # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
  *             learning_attenuate_rate=learning_attenuate_rate,             # <<<<<<<<<<<<<<
  *             # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
  *             attenuate_epoch=attenuate_epoch,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_learning_attenuate_rate, __pyx_v_learning_attenuate_rate) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_learning_attenuate_rate, __pyx_v_learning_attenuate_rate) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":319
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":316
  *             learning_attenuate_rate=learning_attenuate_rate,
  *             # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
  *             attenuate_epoch=attenuate_epoch,             # <<<<<<<<<<<<<<
  *             # Size of Test data set. If this value is `0`, the validation will not be executed.
  *             test_size_rate=test_size_rate,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_attenuate_epoch, __pyx_v_attenuate_epoch) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_attenuate_epoch, __pyx_v_attenuate_epoch) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":321
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":318
  *             attenuate_epoch=attenuate_epoch,
  *             # Size of Test data set. If this value is `0`, the validation will not be executed.
  *             test_size_rate=test_size_rate,             # <<<<<<<<<<<<<<
  *             # Loss function.
  *             computable_loss=computable_loss,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_test_size_rate, __pyx_v_test_size_rate) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_test_size_rate, __pyx_v_test_size_rate) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":323
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":320
  *             test_size_rate=test_size_rate,
  *             # Loss function.
  *             computable_loss=computable_loss,             # <<<<<<<<<<<<<<
  *             # Verification function.
  *             verificatable_result=verificatable_result,
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_computable_loss, __pyx_v_computable_loss) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_computable_loss, __pyx_v_computable_loss) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":325
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":322
  *             computable_loss=computable_loss,
  *             # Verification function.
  *             verificatable_result=verificatable_result,             # <<<<<<<<<<<<<<
  *             # Tolerance for the optimization.
  *             # When the loss or score is not improving by at least tol
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_verificatable_result, __pyx_v_verificatable_result) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_verificatable_result, __pyx_v_verificatable_result) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":330
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":327
  *             # for two consecutive iterations, convergence is considered
  *             # to be reached and training stops.
  *             tol=tol,             # <<<<<<<<<<<<<<
  *             tld=tld
  *         )
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_tol, __pyx_v_tol) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_tol, __pyx_v_tol) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":331
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":328
  *             # to be reached and training stops.
  *             tol=tol,
  *             tld=tld             # <<<<<<<<<<<<<<
  *         )
  *         self.__encoder_decoder_controller = encoder_decoder_controller
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_tld, __pyx_v_tld) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_tld, __pyx_v_tld) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":305
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":302
  *         )
  * 
  *         encoder_decoder_controller = EncoderDecoderController(             # <<<<<<<<<<<<<<
  *             # is-a LSTM model.
  *             encoder=encoder,
  */
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 305, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 302, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_encoder_decoder_controller = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":333
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":330
  *             tld=tld
  *         )
  *         self.__encoder_decoder_controller = encoder_decoder_controller             # <<<<<<<<<<<<<<
  * 
  *     def learn(self, observed_arr, target_arr):
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_FacadeEncoderDecoder__encoder_d, __pyx_v_encoder_decoder_controller) < 0) __PYX_ERR(0, 333, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_FacadeAttentionEncoderDecoder, __pyx_v_encoder_decoder_controller) < 0) __PYX_ERR(0, 330, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":74
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":71
  *     '''
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
@@ -4402,7 +4410,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("pydbm.rnn.facade_encoder_decoder.FacadeEncoderDecoder.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.rnn.facade_attention_encoder_decoder.FacadeAttentionEncoderDecoder.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_logger);
@@ -4421,7 +4429,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   return __pyx_r;
 }
 
-/* "pydbm/rnn/facade_encoder_decoder.pyx":335
+/* "pydbm/rnn/facade_attention_encoder_decoder.pyx":332
  *         self.__encoder_decoder_controller = encoder_decoder_controller
  * 
  *     def learn(self, observed_arr, target_arr):             # <<<<<<<<<<<<<<
@@ -4430,10 +4438,10 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_3learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_2learn[] = "\n        Learn the observed data points\n        for vector representation of the input time-series.\n\n        Args:\n            observed_arr:    Array like or sparse matrix as the observed data ponts.\n            target_arr:      Array like or sparse matrix as the target data points.\n                             To learn as Auto-encoder, this value must be `None` or equivalent to `observed_arr`.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_3learn = {"learn", (PyCFunction)__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_3learn, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_2learn};
-static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_3learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_3learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_2learn[] = "\n        Learn the observed data points\n        for vector representation of the input time-series.\n\n        Args:\n            observed_arr:    Array like or sparse matrix as the observed data ponts.\n            target_arr:      Array like or sparse matrix as the target data points.\n                             To learn as Auto-encoder, this value must be `None` or equivalent to `observed_arr`.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_3learn = {"learn", (PyCFunction)__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_3learn, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_2learn};
+static PyObject *__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_3learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_observed_arr = 0;
   PyObject *__pyx_v_target_arr = 0;
@@ -4465,17 +4473,17 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_observed_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("learn", 1, 3, 3, 1); __PYX_ERR(0, 335, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("learn", 1, 3, 3, 1); __PYX_ERR(0, 332, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_target_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("learn", 1, 3, 3, 2); __PYX_ERR(0, 335, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("learn", 1, 3, 3, 2); __PYX_ERR(0, 332, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "learn") < 0)) __PYX_ERR(0, 335, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "learn") < 0)) __PYX_ERR(0, 332, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -4490,20 +4498,20 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("learn", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 335, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("learn", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 332, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.rnn.facade_encoder_decoder.FacadeEncoderDecoder.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.rnn.facade_attention_encoder_decoder.FacadeAttentionEncoderDecoder.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_2learn(__pyx_self, __pyx_v_self, __pyx_v_observed_arr, __pyx_v_target_arr);
+  __pyx_r = __pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_2learn(__pyx_self, __pyx_v_self, __pyx_v_observed_arr, __pyx_v_target_arr);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_2learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_observed_arr, PyObject *__pyx_v_target_arr) {
+static PyObject *__pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_2learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_observed_arr, PyObject *__pyx_v_target_arr) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4513,16 +4521,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("learn", 0);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":346
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":343
  *         '''
  *         # Learning.
  *         self.__encoder_decoder_controller.learn(observed_arr, target_arr)             # <<<<<<<<<<<<<<
  * 
  *     def infernece(self, test_arr):
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_FacadeEncoderDecoder__encoder_d); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 346, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_FacadeAttentionEncoderDecoder); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 343, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_learn); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 346, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_learn); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 343, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -4540,7 +4548,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_v_observed_arr, __pyx_v_target_arr};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_4, 2+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 346, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_4, 2+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 343, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
@@ -4548,13 +4556,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_v_observed_arr, __pyx_v_target_arr};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_4, 2+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 346, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_4, 2+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 343, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
   #endif
   {
-    __pyx_t_5 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 346, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 343, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     if (__pyx_t_2) {
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -4565,14 +4573,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     __Pyx_INCREF(__pyx_v_target_arr);
     __Pyx_GIVEREF(__pyx_v_target_arr);
     PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_4, __pyx_v_target_arr);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 346, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 343, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":335
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":332
  *         self.__encoder_decoder_controller = encoder_decoder_controller
  * 
  *     def learn(self, observed_arr, target_arr):             # <<<<<<<<<<<<<<
@@ -4588,7 +4596,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("pydbm.rnn.facade_encoder_decoder.FacadeEncoderDecoder.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.rnn.facade_attention_encoder_decoder.FacadeAttentionEncoderDecoder.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4596,7 +4604,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   return __pyx_r;
 }
 
-/* "pydbm/rnn/facade_encoder_decoder.pyx":348
+/* "pydbm/rnn/facade_attention_encoder_decoder.pyx":345
  *         self.__encoder_decoder_controller.learn(observed_arr, target_arr)
  * 
  *     def infernece(self, test_arr):             # <<<<<<<<<<<<<<
@@ -4605,10 +4613,10 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_5infernece(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_4infernece[] = "\n        Inference the feature points to reconstruct the time-series.\n\n        Args:\n            observed_arr:           Array like or sparse matrix as the observed data ponts.\n            hidden_activity_arr:    Array like or sparse matrix as the state in hidden layer.\n            cec_activity_arr:       Array like or sparse matrix as the state in RNN.\n\n        Returns:\n            Tuple data.\n            - Array like or sparse matrix of reconstructed instances of time-series,\n            - Array like or sparse matrix of the state in hidden layer,\n            - Array like or sparse matrix of the state in RNN.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_5infernece = {"infernece", (PyCFunction)__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_5infernece, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_4infernece};
-static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_5infernece(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_5infernece(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_4infernece[] = "\n        Inference the feature points to reconstruct the time-series.\n\n        Args:\n            observed_arr:           Array like or sparse matrix as the observed data ponts.\n            hidden_activity_arr:    Array like or sparse matrix as the state in hidden layer.\n            cec_activity_arr:       Array like or sparse matrix as the state in RNN.\n\n        Returns:\n            Tuple data.\n            - Array like or sparse matrix of reconstructed instances of time-series,\n            - Array like or sparse matrix of the state in hidden layer,\n            - Array like or sparse matrix of the state in RNN.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_5infernece = {"infernece", (PyCFunction)__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_5infernece, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_4infernece};
+static PyObject *__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_5infernece(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_test_arr = 0;
   PyObject *__pyx_r = 0;
@@ -4637,11 +4645,11 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_test_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("infernece", 1, 2, 2, 1); __PYX_ERR(0, 348, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("infernece", 1, 2, 2, 1); __PYX_ERR(0, 345, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "infernece") < 0)) __PYX_ERR(0, 348, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "infernece") < 0)) __PYX_ERR(0, 345, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -4654,20 +4662,20 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("infernece", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 348, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("infernece", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 345, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.rnn.facade_encoder_decoder.FacadeEncoderDecoder.infernece", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.rnn.facade_attention_encoder_decoder.FacadeAttentionEncoderDecoder.infernece", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_4infernece(__pyx_self, __pyx_v_self, __pyx_v_test_arr);
+  __pyx_r = __pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_4infernece(__pyx_self, __pyx_v_self, __pyx_v_test_arr);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_4infernece(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_test_arr) {
+static PyObject *__pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_4infernece(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_test_arr) {
   PyObject *__pyx_v_inferenced_arr = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -4677,16 +4685,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("infernece", 0);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":364
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":361
  *         '''
  *         # Execute recursive learning.
  *         inferenced_arr = self.__encoder_decoder_controller.inference(test_arr)             # <<<<<<<<<<<<<<
  *         return inferenced_arr
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_FacadeEncoderDecoder__encoder_d); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 364, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_FacadeAttentionEncoderDecoder); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 361, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_inference); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 364, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_inference); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 361, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -4700,13 +4708,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_test_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_test_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 361, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_test_arr};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 364, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 361, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -4714,19 +4722,19 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_test_arr};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 364, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 361, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 364, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 361, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_INCREF(__pyx_v_test_arr);
       __Pyx_GIVEREF(__pyx_v_test_arr);
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_test_arr);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 364, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 361, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -4735,7 +4743,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __pyx_v_inferenced_arr = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":365
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":362
  *         # Execute recursive learning.
  *         inferenced_arr = self.__encoder_decoder_controller.inference(test_arr)
  *         return inferenced_arr             # <<<<<<<<<<<<<<
@@ -4747,7 +4755,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __pyx_r = __pyx_v_inferenced_arr;
   goto __pyx_L0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":348
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":345
  *         self.__encoder_decoder_controller.learn(observed_arr, target_arr)
  * 
  *     def infernece(self, test_arr):             # <<<<<<<<<<<<<<
@@ -4761,7 +4769,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pydbm.rnn.facade_encoder_decoder.FacadeEncoderDecoder.infernece", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.rnn.facade_attention_encoder_decoder.FacadeAttentionEncoderDecoder.infernece", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_inferenced_arr);
@@ -4770,7 +4778,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   return __pyx_r;
 }
 
-/* "pydbm/rnn/facade_encoder_decoder.pyx":367
+/* "pydbm/rnn/facade_attention_encoder_decoder.pyx":364
  *         return inferenced_arr
  * 
  *     def get_feature_points(self):             # <<<<<<<<<<<<<<
@@ -4779,21 +4787,21 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_7get_feature_points(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_6get_feature_points[] = "\n        Extract the activities in hidden layer and reset it, \n        considering this method will be called per one cycle in instances of time-series.\n\n        Returns:\n            The array like or sparse matrix of feature points.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_7get_feature_points = {"get_feature_points", (PyCFunction)__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_7get_feature_points, METH_O, __pyx_doc_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_6get_feature_points};
-static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_7get_feature_points(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_7get_feature_points(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_6get_feature_points[] = "\n        Extract the activities in hidden layer and reset it, \n        considering this method will be called per one cycle in instances of time-series.\n\n        Returns:\n            The array like or sparse matrix of feature points.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_7get_feature_points = {"get_feature_points", (PyCFunction)__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_7get_feature_points, METH_O, __pyx_doc_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_6get_feature_points};
+static PyObject *__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_7get_feature_points(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_feature_points (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_6get_feature_points(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_6get_feature_points(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_6get_feature_points(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_6get_feature_points(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4801,7 +4809,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("get_feature_points", 0);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":375
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":372
  *             The array like or sparse matrix of feature points.
  *         '''
  *         return self.__encoder_decoder_controller.get_feature_points()             # <<<<<<<<<<<<<<
@@ -4809,9 +4817,9 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  *     def get_reconstruction_error(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_FacadeEncoderDecoder__encoder_d); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 375, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_FacadeAttentionEncoderDecoder); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 372, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_get_feature_points); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 375, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_get_feature_points); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 372, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -4825,10 +4833,10 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     }
   }
   if (__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 375, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 372, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 375, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 372, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -4836,7 +4844,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":367
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":364
  *         return inferenced_arr
  * 
  *     def get_feature_points(self):             # <<<<<<<<<<<<<<
@@ -4849,7 +4857,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("pydbm.rnn.facade_encoder_decoder.FacadeEncoderDecoder.get_feature_points", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.rnn.facade_attention_encoder_decoder.FacadeAttentionEncoderDecoder.get_feature_points", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4857,7 +4865,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   return __pyx_r;
 }
 
-/* "pydbm/rnn/facade_encoder_decoder.pyx":377
+/* "pydbm/rnn/facade_attention_encoder_decoder.pyx":374
  *         return self.__encoder_decoder_controller.get_feature_points()
  * 
  *     def get_reconstruction_error(self):             # <<<<<<<<<<<<<<
@@ -4866,21 +4874,21 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_9get_reconstruction_error(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_8get_reconstruction_error[] = "\n        Extract the reconstructed error in inferencing.\n        \n        Returns:\n            The array like or sparse matrix of reconstruction error. \n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_9get_reconstruction_error = {"get_reconstruction_error", (PyCFunction)__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_9get_reconstruction_error, METH_O, __pyx_doc_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_8get_reconstruction_error};
-static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_9get_reconstruction_error(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_9get_reconstruction_error(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_8get_reconstruction_error[] = "\n        Extract the reconstructed error in inferencing.\n        \n        Returns:\n            The array like or sparse matrix of reconstruction error. \n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_9get_reconstruction_error = {"get_reconstruction_error", (PyCFunction)__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_9get_reconstruction_error, METH_O, __pyx_doc_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_8get_reconstruction_error};
+static PyObject *__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_9get_reconstruction_error(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_reconstruction_error (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_8get_reconstruction_error(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_8get_reconstruction_error(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_8get_reconstruction_error(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_8get_reconstruction_error(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4888,7 +4896,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("get_reconstruction_error", 0);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":384
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":381
  *             The array like or sparse matrix of reconstruction error.
  *         '''
  *         return self.__encoder_decoder_controller.get_reconstruction_error()             # <<<<<<<<<<<<<<
@@ -4896,9 +4904,9 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  *     def save_pre_learned_params(self, encoder_file_path, decoder_file_path):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_FacadeEncoderDecoder__encoder_d); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 384, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_FacadeAttentionEncoderDecoder); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 381, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_get_reconstruction_error); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 384, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_get_reconstruction_error); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 381, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -4912,10 +4920,10 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     }
   }
   if (__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 384, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 381, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 384, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 381, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -4923,7 +4931,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":377
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":374
  *         return self.__encoder_decoder_controller.get_feature_points()
  * 
  *     def get_reconstruction_error(self):             # <<<<<<<<<<<<<<
@@ -4936,7 +4944,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("pydbm.rnn.facade_encoder_decoder.FacadeEncoderDecoder.get_reconstruction_error", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.rnn.facade_attention_encoder_decoder.FacadeAttentionEncoderDecoder.get_reconstruction_error", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4944,7 +4952,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   return __pyx_r;
 }
 
-/* "pydbm/rnn/facade_encoder_decoder.pyx":386
+/* "pydbm/rnn/facade_attention_encoder_decoder.pyx":383
  *         return self.__encoder_decoder_controller.get_reconstruction_error()
  * 
  *     def save_pre_learned_params(self, encoder_file_path, decoder_file_path):             # <<<<<<<<<<<<<<
@@ -4953,10 +4961,10 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_11save_pre_learned_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_10save_pre_learned_params[] = "\n        Save pre-learned parameters.\n        \n        Args:\n            encoder_file_path:      File path.\n            decoder_file_path:      File path.\n\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_11save_pre_learned_params = {"save_pre_learned_params", (PyCFunction)__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_11save_pre_learned_params, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_10save_pre_learned_params};
-static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_11save_pre_learned_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_11save_pre_learned_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_10save_pre_learned_params[] = "\n        Save pre-learned parameters.\n        \n        Args:\n            encoder_file_path:      File path.\n            decoder_file_path:      File path.\n\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_11save_pre_learned_params = {"save_pre_learned_params", (PyCFunction)__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_11save_pre_learned_params, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_10save_pre_learned_params};
+static PyObject *__pyx_pw_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_11save_pre_learned_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_encoder_file_path = 0;
   PyObject *__pyx_v_decoder_file_path = 0;
@@ -4988,17 +4996,17 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_encoder_file_path)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 1, 3, 3, 1); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 1, 3, 3, 1); __PYX_ERR(0, 383, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_decoder_file_path)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 1, 3, 3, 2); __PYX_ERR(0, 386, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 1, 3, 3, 2); __PYX_ERR(0, 383, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "save_pre_learned_params") < 0)) __PYX_ERR(0, 386, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "save_pre_learned_params") < 0)) __PYX_ERR(0, 383, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -5013,20 +5021,20 @@ static PyObject *__pyx_pw_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 386, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 383, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.rnn.facade_encoder_decoder.FacadeEncoderDecoder.save_pre_learned_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.rnn.facade_attention_encoder_decoder.FacadeAttentionEncoderDecoder.save_pre_learned_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_10save_pre_learned_params(__pyx_self, __pyx_v_self, __pyx_v_encoder_file_path, __pyx_v_decoder_file_path);
+  __pyx_r = __pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_10save_pre_learned_params(__pyx_self, __pyx_v_self, __pyx_v_encoder_file_path, __pyx_v_decoder_file_path);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_10save_pre_learned_params(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_encoder_file_path, PyObject *__pyx_v_decoder_file_path) {
+static PyObject *__pyx_pf_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_10save_pre_learned_params(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_encoder_file_path, PyObject *__pyx_v_decoder_file_path) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5035,21 +5043,21 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("save_pre_learned_params", 0);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":395
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":392
  * 
  *         '''
  *         self.__encoder_decoder_controller.encoder.graph.save_pre_learned_params(encoder_file_path)             # <<<<<<<<<<<<<<
  *         self.__encoder_decoder_controller.decoder.graph.save_pre_learned_params(decoder_file_path)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_FacadeEncoderDecoder__encoder_d); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_FacadeAttentionEncoderDecoder); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 392, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_encoder); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_encoder); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 392, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 392, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 392, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -5063,13 +5071,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_encoder_file_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 395, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_encoder_file_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 392, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_encoder_file_path};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 395, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 392, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -5077,19 +5085,19 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_encoder_file_path};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 395, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 392, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 395, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 392, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_INCREF(__pyx_v_encoder_file_path);
       __Pyx_GIVEREF(__pyx_v_encoder_file_path);
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_encoder_file_path);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 395, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 392, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -5097,20 +5105,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":396
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":393
  *         '''
  *         self.__encoder_decoder_controller.encoder.graph.save_pre_learned_params(encoder_file_path)
  *         self.__encoder_decoder_controller.decoder.graph.save_pre_learned_params(decoder_file_path)             # <<<<<<<<<<<<<<
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_FacadeEncoderDecoder__encoder_d); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 396, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_FacadeAttentionEncoderDecoder); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 393, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_decoder); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 396, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_decoder); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 393, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 396, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 393, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 396, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 393, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -5124,13 +5132,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_decoder_file_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 396, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_decoder_file_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 393, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_decoder_file_path};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 396, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 393, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -5138,19 +5146,19 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_decoder_file_path};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 396, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 393, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 396, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 393, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
       __Pyx_INCREF(__pyx_v_decoder_file_path);
       __Pyx_GIVEREF(__pyx_v_decoder_file_path);
       PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_v_decoder_file_path);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 396, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 393, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
@@ -5158,7 +5166,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":386
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":383
  *         return self.__encoder_decoder_controller.get_reconstruction_error()
  * 
  *     def save_pre_learned_params(self, encoder_file_path, decoder_file_path):             # <<<<<<<<<<<<<<
@@ -5174,7 +5182,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDe
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pydbm.rnn.facade_encoder_decoder.FacadeEncoderDecoder.save_pre_learned_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.rnn.facade_attention_encoder_decoder.FacadeAttentionEncoderDecoder.save_pre_learned_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7651,17 +7659,17 @@ static PyMethodDef __pyx_methods[] = {
 #if PY_MAJOR_VERSION >= 3
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 static PyObject* __pyx_pymod_create(PyObject *spec, PyModuleDef *def); /*proto*/
-static int __pyx_pymod_exec_facade_encoder_decoder(PyObject* module); /*proto*/
+static int __pyx_pymod_exec_facade_attention_encoder_decoder(PyObject* module); /*proto*/
 static PyModuleDef_Slot __pyx_moduledef_slots[] = {
   {Py_mod_create, (void*)__pyx_pymod_create},
-  {Py_mod_exec, (void*)__pyx_pymod_exec_facade_encoder_decoder},
+  {Py_mod_exec, (void*)__pyx_pymod_exec_facade_attention_encoder_decoder},
   {0, NULL}
 };
 #endif
 
 static struct PyModuleDef __pyx_moduledef = {
     PyModuleDef_HEAD_INIT,
-    "facade_encoder_decoder",
+    "facade_attention_encoder_decoder",
     0, /* m_doc */
   #if CYTHON_PEP489_MULTI_PHASE_INIT
     0, /* m_size */
@@ -7683,6 +7691,8 @@ static struct PyModuleDef __pyx_moduledef = {
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ActivatingFunctionInterface, __pyx_k_ActivatingFunctionInterface, sizeof(__pyx_k_ActivatingFunctionInterface), 0, 0, 1, 1},
   {&__pyx_n_s_Adam, __pyx_k_Adam, sizeof(__pyx_k_Adam), 0, 0, 1, 1},
+  {&__pyx_n_s_AttentionLSTMGraph, __pyx_k_AttentionLSTMGraph, sizeof(__pyx_k_AttentionLSTMGraph), 0, 0, 1, 1},
+  {&__pyx_n_s_AttentionLSTMModel, __pyx_k_AttentionLSTMModel, sizeof(__pyx_k_AttentionLSTMModel), 0, 0, 1, 1},
   {&__pyx_n_s_ComputableLoss, __pyx_k_ComputableLoss, sizeof(__pyx_k_ComputableLoss), 0, 0, 1, 1},
   {&__pyx_n_s_DEBUG, __pyx_k_DEBUG, sizeof(__pyx_k_DEBUG), 0, 0, 1, 1},
   {&__pyx_n_s_Decoder, __pyx_k_Decoder, sizeof(__pyx_k_Decoder), 0, 0, 1, 1},
@@ -7691,14 +7701,14 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_Encoder, __pyx_k_Encoder, sizeof(__pyx_k_Encoder), 0, 0, 1, 1},
   {&__pyx_n_s_EncoderDecoderController, __pyx_k_EncoderDecoderController, sizeof(__pyx_k_EncoderDecoderController), 0, 0, 1, 1},
   {&__pyx_n_s_EncoderGraph, __pyx_k_EncoderGraph, sizeof(__pyx_k_EncoderGraph), 0, 0, 1, 1},
-  {&__pyx_n_s_FacadeEncoderDecoder, __pyx_k_FacadeEncoderDecoder, sizeof(__pyx_k_FacadeEncoderDecoder), 0, 0, 1, 1},
-  {&__pyx_n_s_FacadeEncoderDecoder___init, __pyx_k_FacadeEncoderDecoder___init, sizeof(__pyx_k_FacadeEncoderDecoder___init), 0, 0, 1, 1},
-  {&__pyx_n_s_FacadeEncoderDecoder__encoder_d, __pyx_k_FacadeEncoderDecoder__encoder_d, sizeof(__pyx_k_FacadeEncoderDecoder__encoder_d), 0, 0, 1, 1},
-  {&__pyx_n_s_FacadeEncoderDecoder_get_feature, __pyx_k_FacadeEncoderDecoder_get_feature, sizeof(__pyx_k_FacadeEncoderDecoder_get_feature), 0, 0, 1, 1},
-  {&__pyx_n_s_FacadeEncoderDecoder_get_reconst, __pyx_k_FacadeEncoderDecoder_get_reconst, sizeof(__pyx_k_FacadeEncoderDecoder_get_reconst), 0, 0, 1, 1},
-  {&__pyx_n_s_FacadeEncoderDecoder_infernece, __pyx_k_FacadeEncoderDecoder_infernece, sizeof(__pyx_k_FacadeEncoderDecoder_infernece), 0, 0, 1, 1},
-  {&__pyx_n_s_FacadeEncoderDecoder_learn, __pyx_k_FacadeEncoderDecoder_learn, sizeof(__pyx_k_FacadeEncoderDecoder_learn), 0, 0, 1, 1},
-  {&__pyx_n_s_FacadeEncoderDecoder_save_pre_le, __pyx_k_FacadeEncoderDecoder_save_pre_le, sizeof(__pyx_k_FacadeEncoderDecoder_save_pre_le), 0, 0, 1, 1},
+  {&__pyx_n_s_FacadeAttentionEncoderDecoder, __pyx_k_FacadeAttentionEncoderDecoder, sizeof(__pyx_k_FacadeAttentionEncoderDecoder), 0, 0, 1, 1},
+  {&__pyx_n_s_FacadeAttentionEncoderDecoder_2, __pyx_k_FacadeAttentionEncoderDecoder_2, sizeof(__pyx_k_FacadeAttentionEncoderDecoder_2), 0, 0, 1, 1},
+  {&__pyx_n_s_FacadeAttentionEncoderDecoder_3, __pyx_k_FacadeAttentionEncoderDecoder_3, sizeof(__pyx_k_FacadeAttentionEncoderDecoder_3), 0, 0, 1, 1},
+  {&__pyx_n_s_FacadeAttentionEncoderDecoder_ge, __pyx_k_FacadeAttentionEncoderDecoder_ge, sizeof(__pyx_k_FacadeAttentionEncoderDecoder_ge), 0, 0, 1, 1},
+  {&__pyx_n_s_FacadeAttentionEncoderDecoder_ge_2, __pyx_k_FacadeAttentionEncoderDecoder_ge_2, sizeof(__pyx_k_FacadeAttentionEncoderDecoder_ge_2), 0, 0, 1, 1},
+  {&__pyx_n_s_FacadeAttentionEncoderDecoder_in, __pyx_k_FacadeAttentionEncoderDecoder_in, sizeof(__pyx_k_FacadeAttentionEncoderDecoder_in), 0, 0, 1, 1},
+  {&__pyx_n_s_FacadeAttentionEncoderDecoder_le, __pyx_k_FacadeAttentionEncoderDecoder_le, sizeof(__pyx_k_FacadeAttentionEncoderDecoder_le), 0, 0, 1, 1},
+  {&__pyx_n_s_FacadeAttentionEncoderDecoder_sa, __pyx_k_FacadeAttentionEncoderDecoder_sa, sizeof(__pyx_k_FacadeAttentionEncoderDecoder_sa), 0, 0, 1, 1},
   {&__pyx_kp_s_Facade_for_casual_user_of_Encod, __pyx_k_Facade_for_casual_user_of_Encod, sizeof(__pyx_k_Facade_for_casual_user_of_Encod), 0, 0, 1, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
@@ -7788,10 +7798,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_pydbm_optimization_opt_params, __pyx_k_pydbm_optimization_opt_params, sizeof(__pyx_k_pydbm_optimization_opt_params), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_optimization_optparams_ada, __pyx_k_pydbm_optimization_optparams_ada, sizeof(__pyx_k_pydbm_optimization_optparams_ada), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_rnn_encoder_decoder_contro, __pyx_k_pydbm_rnn_encoder_decoder_contro, sizeof(__pyx_k_pydbm_rnn_encoder_decoder_contro), 0, 0, 1, 1},
-  {&__pyx_n_s_pydbm_rnn_facade_encoder_decoder, __pyx_k_pydbm_rnn_facade_encoder_decoder, sizeof(__pyx_k_pydbm_rnn_facade_encoder_decoder), 0, 0, 1, 1},
-  {&__pyx_kp_s_pydbm_rnn_facade_encoder_decoder_2, __pyx_k_pydbm_rnn_facade_encoder_decoder_2, sizeof(__pyx_k_pydbm_rnn_facade_encoder_decoder_2), 0, 0, 1, 0},
+  {&__pyx_n_s_pydbm_rnn_facade_attention_encod, __pyx_k_pydbm_rnn_facade_attention_encod, sizeof(__pyx_k_pydbm_rnn_facade_attention_encod), 0, 0, 1, 1},
+  {&__pyx_kp_s_pydbm_rnn_facade_attention_encod_2, __pyx_k_pydbm_rnn_facade_attention_encod_2, sizeof(__pyx_k_pydbm_rnn_facade_attention_encod_2), 0, 0, 1, 0},
   {&__pyx_n_s_pydbm_rnn_lstm_model, __pyx_k_pydbm_rnn_lstm_model, sizeof(__pyx_k_pydbm_rnn_lstm_model), 0, 0, 1, 1},
+  {&__pyx_n_s_pydbm_rnn_lstmmodel_attention_ls, __pyx_k_pydbm_rnn_lstmmodel_attention_ls, sizeof(__pyx_k_pydbm_rnn_lstmmodel_attention_ls), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_k_pydbm_synapse_recurrenttemporalg, sizeof(__pyx_k_pydbm_synapse_recurrenttemporalg), 0, 0, 1, 1},
+  {&__pyx_n_s_pydbm_synapse_recurrenttemporalg_2, __pyx_k_pydbm_synapse_recurrenttemporalg_2, sizeof(__pyx_k_pydbm_synapse_recurrenttemporalg_2), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_verification_interface_ver, __pyx_k_pydbm_verification_interface_ver, sizeof(__pyx_k_pydbm_verification_interface_ver), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_verification_verificate_fu, __pyx_k_pydbm_verification_verificate_fu, sizeof(__pyx_k_pydbm_verification_verificate_fu), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_verification_verificate_so, __pyx_k_pydbm_verification_verificate_so, sizeof(__pyx_k_pydbm_verification_verificate_so), 0, 0, 1, 1},
@@ -7814,7 +7826,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 };
 static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_object = __Pyx_GetBuiltinName(__pyx_n_s_object); if (!__pyx_builtin_object) __PYX_ERR(0, 45, __pyx_L1_error)
-  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 153, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 229, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(1, 242, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 810, __pyx_L1_error)
@@ -7828,14 +7840,14 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":142
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":139
  * 
  *         '''
  *         logger = getLogger("pydbm")             # <<<<<<<<<<<<<<
  *         handler = StreamHandler()
  *         if verbose_flag is True:
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_n_s_pydbm); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 142, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_n_s_pydbm); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
@@ -7936,91 +7948,91 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":45
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":45
  * 
  * 
- * class FacadeEncoderDecoder(object):             # <<<<<<<<<<<<<<
+ * class FacadeAttentionEncoderDecoder(object):             # <<<<<<<<<<<<<<
  *     '''
- *     `Facade` for casual user of Encoder/Decoder based on LSTM networks.
+ *     `Facade` for casual user of Encoder/Decoder based on LSTM networks with an Attention mechanism.
  */
   __pyx_tuple__11 = PyTuple_Pack(1, __pyx_builtin_object); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":74
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":71
  *     '''
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
  *         self,
  *         input_neuron_count,
  */
-  __pyx_tuple__12 = PyTuple_Pack(30, __pyx_n_s_self, __pyx_n_s_input_neuron_count, __pyx_n_s_hidden_neuron_count, __pyx_n_s_epochs, __pyx_n_s_batch_size, __pyx_n_s_learning_rate, __pyx_n_s_learning_attenuate_rate, __pyx_n_s_attenuate_epoch, __pyx_n_s_hidden_activating_function, __pyx_n_s_output_activating_function, __pyx_n_s_computable_loss, __pyx_n_s_opt_params, __pyx_n_s_seq_len, __pyx_n_s_bptt_tau, __pyx_n_s_test_size_rate, __pyx_n_s_tol, __pyx_n_s_tld, __pyx_n_s_verificatable_result, __pyx_n_s_encoder_pre_learned_file_path, __pyx_n_s_decoder_pre_learned_file_path, __pyx_n_s_verbose_flag, __pyx_n_s_logger, __pyx_n_s_handler, __pyx_n_s_encoder_opt_params, __pyx_n_s_decoder_opt_params, __pyx_n_s_encoder_graph, __pyx_n_s_encoder, __pyx_n_s_decoder_graph, __pyx_n_s_decoder, __pyx_n_s_encoder_decoder_controller); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __pyx_tuple__12 = PyTuple_Pack(30, __pyx_n_s_self, __pyx_n_s_input_neuron_count, __pyx_n_s_hidden_neuron_count, __pyx_n_s_epochs, __pyx_n_s_batch_size, __pyx_n_s_learning_rate, __pyx_n_s_learning_attenuate_rate, __pyx_n_s_attenuate_epoch, __pyx_n_s_hidden_activating_function, __pyx_n_s_output_activating_function, __pyx_n_s_computable_loss, __pyx_n_s_opt_params, __pyx_n_s_seq_len, __pyx_n_s_bptt_tau, __pyx_n_s_test_size_rate, __pyx_n_s_tol, __pyx_n_s_tld, __pyx_n_s_verificatable_result, __pyx_n_s_encoder_pre_learned_file_path, __pyx_n_s_decoder_pre_learned_file_path, __pyx_n_s_verbose_flag, __pyx_n_s_logger, __pyx_n_s_handler, __pyx_n_s_encoder_opt_params, __pyx_n_s_decoder_opt_params, __pyx_n_s_encoder_graph, __pyx_n_s_encoder, __pyx_n_s_decoder_graph, __pyx_n_s_decoder, __pyx_n_s_encoder_decoder_controller); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
-  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(21, 0, 30, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_facade_encoder_decoder_2, __pyx_n_s_init, 74, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 74, __pyx_L1_error)
-  __pyx_tuple__14 = PyTuple_Pack(19, ((PyObject *)__pyx_int_200), ((PyObject *)__pyx_int_200), ((PyObject *)__pyx_int_20), ((PyObject*)__pyx_float_1eneg_05), ((PyObject*)__pyx_float_0_1), ((PyObject *)__pyx_int_50), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)__pyx_int_8), ((PyObject *)__pyx_int_8), ((PyObject*)__pyx_float_0_3), ((PyObject*)__pyx_float_0_0), ((PyObject*)__pyx_float_1_0), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_False)); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(21, 0, 30, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_facade_attention_encod_2, __pyx_n_s_init, 71, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_tuple__14 = PyTuple_Pack(19, ((PyObject *)__pyx_int_200), ((PyObject *)__pyx_int_200), ((PyObject *)__pyx_int_20), ((PyObject*)__pyx_float_1eneg_05), ((PyObject*)__pyx_float_0_1), ((PyObject *)__pyx_int_50), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)__pyx_int_8), ((PyObject *)__pyx_int_8), ((PyObject*)__pyx_float_0_3), ((PyObject*)__pyx_float_0_0), ((PyObject*)__pyx_float_1_0), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_False)); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__14);
   __Pyx_GIVEREF(__pyx_tuple__14);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":335
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":332
  *         self.__encoder_decoder_controller = encoder_decoder_controller
  * 
  *     def learn(self, observed_arr, target_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Learn the observed data points
  */
-  __pyx_tuple__15 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_observed_arr, __pyx_n_s_target_arr); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 335, __pyx_L1_error)
+  __pyx_tuple__15 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_observed_arr, __pyx_n_s_target_arr); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 332, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_facade_encoder_decoder_2, __pyx_n_s_learn, 335, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 335, __pyx_L1_error)
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_facade_attention_encod_2, __pyx_n_s_learn, 332, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 332, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":348
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":345
  *         self.__encoder_decoder_controller.learn(observed_arr, target_arr)
  * 
  *     def infernece(self, test_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Inference the feature points to reconstruct the time-series.
  */
-  __pyx_tuple__17 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_test_arr, __pyx_n_s_inferenced_arr); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 348, __pyx_L1_error)
+  __pyx_tuple__17 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_test_arr, __pyx_n_s_inferenced_arr); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
-  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_facade_encoder_decoder_2, __pyx_n_s_infernece, 348, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 348, __pyx_L1_error)
+  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_facade_attention_encod_2, __pyx_n_s_infernece, 345, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 345, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":367
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":364
  *         return inferenced_arr
  * 
  *     def get_feature_points(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Extract the activities in hidden layer and reset it,
  */
-  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 367, __pyx_L1_error)
+  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 364, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__19);
   __Pyx_GIVEREF(__pyx_tuple__19);
-  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_facade_encoder_decoder_2, __pyx_n_s_get_feature_points, 367, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 367, __pyx_L1_error)
+  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_facade_attention_encod_2, __pyx_n_s_get_feature_points, 364, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 364, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":377
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":374
  *         return self.__encoder_decoder_controller.get_feature_points()
  * 
  *     def get_reconstruction_error(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Extract the reconstructed error in inferencing.
  */
-  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 377, __pyx_L1_error)
+  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 374, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__21);
   __Pyx_GIVEREF(__pyx_tuple__21);
-  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_facade_encoder_decoder_2, __pyx_n_s_get_reconstruction_error, 377, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 377, __pyx_L1_error)
+  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_facade_attention_encod_2, __pyx_n_s_get_reconstruction_error, 374, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 374, __pyx_L1_error)
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":386
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":383
  *         return self.__encoder_decoder_controller.get_reconstruction_error()
  * 
  *     def save_pre_learned_params(self, encoder_file_path, decoder_file_path):             # <<<<<<<<<<<<<<
  *         '''
  *         Save pre-learned parameters.
  */
-  __pyx_tuple__23 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_encoder_file_path, __pyx_n_s_decoder_file_path); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 386, __pyx_L1_error)
+  __pyx_tuple__23 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_encoder_file_path, __pyx_n_s_decoder_file_path); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 383, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__23);
   __Pyx_GIVEREF(__pyx_tuple__23);
-  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_facade_encoder_decoder_2, __pyx_n_s_save_pre_learned_params, 386, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 386, __pyx_L1_error)
+  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_facade_attention_encod_2, __pyx_n_s_save_pre_learned_params, 383, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 383, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -8150,11 +8162,11 @@ static int __Pyx_modinit_function_import_code(void) {
 
 
 #if PY_MAJOR_VERSION < 3
-__Pyx_PyMODINIT_FUNC initfacade_encoder_decoder(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC initfacade_encoder_decoder(void)
+__Pyx_PyMODINIT_FUNC initfacade_attention_encoder_decoder(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC initfacade_attention_encoder_decoder(void)
 #else
-__Pyx_PyMODINIT_FUNC PyInit_facade_encoder_decoder(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC PyInit_facade_encoder_decoder(void)
+__Pyx_PyMODINIT_FUNC PyInit_facade_attention_encoder_decoder(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC PyInit_facade_attention_encoder_decoder(void)
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 {
   return PyModuleDef_Init(&__pyx_moduledef);
@@ -8194,7 +8206,7 @@ bad:
 }
 
 
-static int __pyx_pymod_exec_facade_encoder_decoder(PyObject *__pyx_pyinit_module)
+static int __pyx_pymod_exec_facade_attention_encoder_decoder(PyObject *__pyx_pyinit_module)
 #endif
 #endif
 {
@@ -8216,7 +8228,7 @@ if (!__Pyx_RefNanny) {
       Py_FatalError("failed to import 'refnanny' module");
 }
 #endif
-  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_facade_encoder_decoder(void)", 0);
+  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_facade_attention_encoder_decoder(void)", 0);
   if (__Pyx_check_binary_version() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -8252,7 +8264,7 @@ if (!__Pyx_RefNanny) {
   Py_INCREF(__pyx_m);
   #else
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("facade_encoder_decoder", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("facade_attention_encoder_decoder", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
@@ -8271,14 +8283,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_pydbm__rnn__facade_encoder_decoder) {
+  if (__pyx_module_is_main_pydbm__rnn__facade_attention_encoder_decoder) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "pydbm.rnn.facade_encoder_decoder")) {
-      if (unlikely(PyDict_SetItemString(modules, "pydbm.rnn.facade_encoder_decoder", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "pydbm.rnn.facade_attention_encoder_decoder")) {
+      if (unlikely(PyDict_SetItemString(modules, "pydbm.rnn.facade_attention_encoder_decoder", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -8299,7 +8311,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":2
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":2
  * # -*- coding: utf-8 -*-
  * from logging import getLogger             # <<<<<<<<<<<<<<
  * import numpy as np
@@ -8319,7 +8331,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":3
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":3
  * # -*- coding: utf-8 -*-
  * from logging import getLogger
  * import numpy as np             # <<<<<<<<<<<<<<
@@ -8331,7 +8343,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_2) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":5
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":5
  * import numpy as np
  * cimport numpy as np
  * from copy import copy             # <<<<<<<<<<<<<<
@@ -8352,7 +8364,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":8
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":8
  * 
  * # The interfaces for type-hinting.
  * from pydbm.optimization.opt_params import OptParams             # <<<<<<<<<<<<<<
@@ -8373,7 +8385,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":9
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":9
  * # The interfaces for type-hinting.
  * from pydbm.optimization.opt_params import OptParams
  * from pydbm.loss.interface.computable_loss import ComputableLoss             # <<<<<<<<<<<<<<
@@ -8394,7 +8406,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":10
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":10
  * from pydbm.optimization.opt_params import OptParams
  * from pydbm.loss.interface.computable_loss import ComputableLoss
  * from pydbm.verification.interface.verificatable_result import VerificatableResult             # <<<<<<<<<<<<<<
@@ -8415,7 +8427,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":11
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":11
  * from pydbm.loss.interface.computable_loss import ComputableLoss
  * from pydbm.verification.interface.verificatable_result import VerificatableResult
  * from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface             # <<<<<<<<<<<<<<
@@ -8436,7 +8448,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":15
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":15
  * 
  * # Adam as a optimizer.
  * from pydbm.optimization.optparams.adam import Adam             # <<<<<<<<<<<<<<
@@ -8457,7 +8469,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":17
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":17
  * from pydbm.optimization.optparams.adam import Adam
  * # Logistic Function as activation function.
  * from pydbm.activation.logistic_function import LogisticFunction             # <<<<<<<<<<<<<<
@@ -8478,7 +8490,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":19
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":19
  * from pydbm.activation.logistic_function import LogisticFunction
  * # Tanh Function as activation function.
  * from pydbm.activation.tanh_function import TanhFunction             # <<<<<<<<<<<<<<
@@ -8499,7 +8511,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":21
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":21
  * from pydbm.activation.tanh_function import TanhFunction
  * # ReLu Function as activation function.
  * from pydbm.activation.relu_function import ReLuFunction             # <<<<<<<<<<<<<<
@@ -8520,7 +8532,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":24
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":24
  * 
  * # The function of reconsturction error.
  * from pydbm.loss.mean_squared_error import MeanSquaredError             # <<<<<<<<<<<<<<
@@ -8541,7 +8553,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":27
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":27
  * 
  * # Verification.
  * from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation             # <<<<<<<<<<<<<<
@@ -8562,7 +8574,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":28
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":28
  * # Verification.
  * from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
  * from pydbm.verification.verificate_softmax import VerificateSoftmax             # <<<<<<<<<<<<<<
@@ -8583,11 +8595,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":31
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":31
  * 
  * # LSTM Graph which is-a `Synapse`.
  * from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as EncoderGraph             # <<<<<<<<<<<<<<
- * from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as DecoderGraph
+ * from pydbm.synapse.recurrenttemporalgraph.lstmgraph.attention_lstm_graph import AttentionLSTMGraph as DecoderGraph
  * 
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 31, __pyx_L1_error)
@@ -8604,32 +8616,32 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":32
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":32
  * # LSTM Graph which is-a `Synapse`.
  * from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as EncoderGraph
- * from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as DecoderGraph             # <<<<<<<<<<<<<<
+ * from pydbm.synapse.recurrenttemporalgraph.lstmgraph.attention_lstm_graph import AttentionLSTMGraph as DecoderGraph             # <<<<<<<<<<<<<<
  * 
  * # LSTM model.
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_INCREF(__pyx_n_s_LSTMGraph);
-  __Pyx_GIVEREF(__pyx_n_s_LSTMGraph);
-  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_LSTMGraph);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_synapse_recurrenttemporalg, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L1_error)
+  __Pyx_INCREF(__pyx_n_s_AttentionLSTMGraph);
+  __Pyx_GIVEREF(__pyx_n_s_AttentionLSTMGraph);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_AttentionLSTMGraph);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_synapse_recurrenttemporalg_2, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_LSTMGraph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_AttentionLSTMGraph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_DecoderGraph, __pyx_t_1) < 0) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":35
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":35
  * 
  * # LSTM model.
  * from pydbm.rnn.lstm_model import LSTMModel as Encoder             # <<<<<<<<<<<<<<
- * from pydbm.rnn.lstm_model import LSTMModel as Decoder
+ * from pydbm.rnn.lstmmodel.attention_lstm_model import AttentionLSTMModel as Decoder
  * 
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 35, __pyx_L1_error)
@@ -8646,28 +8658,28 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":36
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":36
  * # LSTM model.
  * from pydbm.rnn.lstm_model import LSTMModel as Encoder
- * from pydbm.rnn.lstm_model import LSTMModel as Decoder             # <<<<<<<<<<<<<<
+ * from pydbm.rnn.lstmmodel.attention_lstm_model import AttentionLSTMModel as Decoder             # <<<<<<<<<<<<<<
  * 
  * # Encoder/Decoder
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_INCREF(__pyx_n_s_LSTMModel);
-  __Pyx_GIVEREF(__pyx_n_s_LSTMModel);
-  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_LSTMModel);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_rnn_lstm_model, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __Pyx_INCREF(__pyx_n_s_AttentionLSTMModel);
+  __Pyx_GIVEREF(__pyx_n_s_AttentionLSTMModel);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_AttentionLSTMModel);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_rnn_lstmmodel_attention_ls, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_LSTMModel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_AttentionLSTMModel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_Decoder, __pyx_t_1) < 0) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":39
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":39
  * 
  * # Encoder/Decoder
  * from pydbm.rnn.encoder_decoder_controller import EncoderDecoderController             # <<<<<<<<<<<<<<
@@ -8688,7 +8700,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":42
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":42
  * 
  * # not logging but logger.
  * from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR             # <<<<<<<<<<<<<<
@@ -8737,106 +8749,106 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":45
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":45
  * 
  * 
- * class FacadeEncoderDecoder(object):             # <<<<<<<<<<<<<<
+ * class FacadeAttentionEncoderDecoder(object):             # <<<<<<<<<<<<<<
  *     '''
- *     `Facade` for casual user of Encoder/Decoder based on LSTM networks.
+ *     `Facade` for casual user of Encoder/Decoder based on LSTM networks with an Attention mechanism.
  */
   __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_tuple__11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_tuple__11, __pyx_n_s_FacadeEncoderDecoder, __pyx_n_s_FacadeEncoderDecoder, (PyObject *) NULL, __pyx_n_s_pydbm_rnn_facade_encoder_decoder, __pyx_kp_s_Facade_for_casual_user_of_Encod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_tuple__11, __pyx_n_s_FacadeAttentionEncoderDecoder_2, __pyx_n_s_FacadeAttentionEncoderDecoder_2, (PyObject *) NULL, __pyx_n_s_pydbm_rnn_facade_attention_encod, __pyx_kp_s_Facade_for_casual_user_of_Encod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":74
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":71
  *     '''
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
  *         self,
  *         input_neuron_count,
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_1__init__, 0, __pyx_n_s_FacadeEncoderDecoder___init, NULL, __pyx_n_s_pydbm_rnn_facade_encoder_decoder, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_1__init__, 0, __pyx_n_s_FacadeAttentionEncoderDecoder_3, NULL, __pyx_n_s_pydbm_rnn_facade_attention_encod, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_3, __pyx_tuple__14);
-  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_init, __pyx_t_3) < 0) __PYX_ERR(0, 74, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_init, __pyx_t_3) < 0) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":335
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":332
  *         self.__encoder_decoder_controller = encoder_decoder_controller
  * 
  *     def learn(self, observed_arr, target_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Learn the observed data points
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_3learn, 0, __pyx_n_s_FacadeEncoderDecoder_learn, NULL, __pyx_n_s_pydbm_rnn_facade_encoder_decoder, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 335, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_3learn, 0, __pyx_n_s_FacadeAttentionEncoderDecoder_le, NULL, __pyx_n_s_pydbm_rnn_facade_attention_encod, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 332, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_learn, __pyx_t_3) < 0) __PYX_ERR(0, 335, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_learn, __pyx_t_3) < 0) __PYX_ERR(0, 332, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":348
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":345
  *         self.__encoder_decoder_controller.learn(observed_arr, target_arr)
  * 
  *     def infernece(self, test_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Inference the feature points to reconstruct the time-series.
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_5infernece, 0, __pyx_n_s_FacadeEncoderDecoder_infernece, NULL, __pyx_n_s_pydbm_rnn_facade_encoder_decoder, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 348, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_5infernece, 0, __pyx_n_s_FacadeAttentionEncoderDecoder_in, NULL, __pyx_n_s_pydbm_rnn_facade_attention_encod, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_infernece, __pyx_t_3) < 0) __PYX_ERR(0, 348, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_infernece, __pyx_t_3) < 0) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":367
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":364
  *         return inferenced_arr
  * 
  *     def get_feature_points(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Extract the activities in hidden layer and reset it,
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_7get_feature_points, 0, __pyx_n_s_FacadeEncoderDecoder_get_feature, NULL, __pyx_n_s_pydbm_rnn_facade_encoder_decoder, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 367, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_7get_feature_points, 0, __pyx_n_s_FacadeAttentionEncoderDecoder_ge, NULL, __pyx_n_s_pydbm_rnn_facade_attention_encod, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 364, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_get_feature_points, __pyx_t_3) < 0) __PYX_ERR(0, 367, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_get_feature_points, __pyx_t_3) < 0) __PYX_ERR(0, 364, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":377
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":374
  *         return self.__encoder_decoder_controller.get_feature_points()
  * 
  *     def get_reconstruction_error(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Extract the reconstructed error in inferencing.
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_9get_reconstruction_error, 0, __pyx_n_s_FacadeEncoderDecoder_get_reconst, NULL, __pyx_n_s_pydbm_rnn_facade_encoder_decoder, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 377, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_9get_reconstruction_error, 0, __pyx_n_s_FacadeAttentionEncoderDecoder_ge_2, NULL, __pyx_n_s_pydbm_rnn_facade_attention_encod, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 374, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_get_reconstruction_error, __pyx_t_3) < 0) __PYX_ERR(0, 377, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_get_reconstruction_error, __pyx_t_3) < 0) __PYX_ERR(0, 374, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":386
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":383
  *         return self.__encoder_decoder_controller.get_reconstruction_error()
  * 
  *     def save_pre_learned_params(self, encoder_file_path, decoder_file_path):             # <<<<<<<<<<<<<<
  *         '''
  *         Save pre-learned parameters.
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_22facade_encoder_decoder_20FacadeEncoderDecoder_11save_pre_learned_params, 0, __pyx_n_s_FacadeEncoderDecoder_save_pre_le, NULL, __pyx_n_s_pydbm_rnn_facade_encoder_decoder, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 386, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_32facade_attention_encoder_decoder_29FacadeAttentionEncoderDecoder_11save_pre_learned_params, 0, __pyx_n_s_FacadeAttentionEncoderDecoder_sa, NULL, __pyx_n_s_pydbm_rnn_facade_attention_encod, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 383, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_save_pre_learned_params, __pyx_t_3) < 0) __PYX_ERR(0, 386, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_save_pre_learned_params, __pyx_t_3) < 0) __PYX_ERR(0, 383, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":45
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":45
  * 
  * 
- * class FacadeEncoderDecoder(object):             # <<<<<<<<<<<<<<
+ * class FacadeAttentionEncoderDecoder(object):             # <<<<<<<<<<<<<<
  *     '''
- *     `Facade` for casual user of Encoder/Decoder based on LSTM networks.
+ *     `Facade` for casual user of Encoder/Decoder based on LSTM networks with an Attention mechanism.
  */
-  __pyx_t_3 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_FacadeEncoderDecoder, __pyx_tuple__11, __pyx_t_1, NULL, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_FacadeAttentionEncoderDecoder_2, __pyx_tuple__11, __pyx_t_1, NULL, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_FacadeEncoderDecoder, __pyx_t_3) < 0) __PYX_ERR(0, 45, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_FacadeAttentionEncoderDecoder_2, __pyx_t_3) < 0) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/facade_encoder_decoder.pyx":1
+  /* "pydbm/rnn/facade_attention_encoder_decoder.pyx":1
  * # -*- coding: utf-8 -*-             # <<<<<<<<<<<<<<
  * from logging import getLogger
  * import numpy as np
@@ -8863,11 +8875,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_3);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pydbm.rnn.facade_encoder_decoder", 0, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pydbm.rnn.facade_attention_encoder_decoder", 0, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pydbm.rnn.facade_encoder_decoder");
+    PyErr_SetString(PyExc_ImportError, "init pydbm.rnn.facade_attention_encoder_decoder");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

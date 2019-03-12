@@ -74,7 +74,6 @@ class FacadeEncoderDecoder(object):
     def __init__(
         self,
         input_neuron_count,
-        output_neuron_count,
         hidden_neuron_count=200,
         epochs=200,
         batch_size=20,
@@ -100,7 +99,6 @@ class FacadeEncoderDecoder(object):
         
         Args:
             input_neuron_count:             The number of units in input layers.
-            output_neuron_count:            The number of units in output layers.
             hidden_neuron_count:            The number of units in hidden layers.
             epochs:                         Epochs of Mini-batch.
             bath_size:                      Batch size of Mini-batch.
@@ -201,7 +199,7 @@ class FacadeEncoderDecoder(object):
         encoder_graph.create_rnn_cells(
             input_neuron_count=input_neuron_count,
             hidden_neuron_count=hidden_neuron_count,
-            output_neuron_count=output_neuron_count
+            output_neuron_count=1
         )
         
         if encoder_pre_learned_file_path is not None:

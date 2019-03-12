@@ -5,11 +5,11 @@
 See also ...
 
 - [Automatic Summarization Library: pysummarization](https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization)
-   * if you want to implement the Sequence-to-Sequence(Seq2Seq) model for the automatic summarization by using `pydbm` to build the Encoder/Decoder controllers.
+   * If you want to implement the Sequence-to-Sequence(Seq2Seq) model for the automatic summarization by using `pydbm` to build the Encoder/Decoder controllers.
 - [Reinforcement Learning Library: pyqlearning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning)
-    * if you want to implement the Deep Reinforcement Learning, especially for Deep Q-Network and Multi-agent Deep Q-Network by using `pydbm` as a Function Approximator.
+    * If you want to implement the Deep Reinforcement Learning, especially for Deep Q-Network and Multi-agent Deep Q-Network by using `pydbm` as a Function Approximator.
 - [Generative Adversarial Networks Library: pygan](https://github.com/chimera0/accel-brain-code/tree/master/Generative-Adversarial-Networks)
-    * if you want to implement Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs) by using `pydbm` as components for Generative models based on the Statistical machine learning problems.
+    * If you want to implement Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs) by using `pydbm` as components for Generative models based on the Statistical machine learning problems.
 
 ## Documentation
 

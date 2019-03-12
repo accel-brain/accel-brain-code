@@ -935,6 +935,12 @@ Import `facade` module for building Encoder/Decoder based on LSTM.
 from pydbm.rnn.facade_encoder_decoder import FacadeEncoderDecoder
 ```
 
+If you want to use an Attention mechanism, import `FacadeAttentionEncoderDecoder` instead.
+
+```python
+from pydbm.rnn.facade_attention_encoder_decoder import FacadeAttentionEncoderDecoder as FacadeEncoderDecoder
+```
+
 Instantiate object and call the method to learn observed data points.
 
 ```python
@@ -942,8 +948,6 @@ Instantiate object and call the method to learn observed data points.
 facade_encoder_decoder = FacadeEncoderDecoder(
     # The number of units in input layers.
     input_neuron_count=observed_arr.shape[-1],
-    # The number of units in output layers.
-    output_neuron_count=observed_arr.shape[-1],
     # Verbose mode or not. If `True`, this class sets the logger level as `DEBUG`.
     verbose_flag=True
 )
@@ -1031,8 +1035,6 @@ facade_encoder_decoder2.learn(
 facade_encoder_decoder = FacadeEncoderDecoder(
     # The number of units in input layers.
     input_neuron_count=observed_arr.shape[-1],
-    # The number of units in output layers.
-    output_neuron_count=observed_arr.shape[-1],
     # The number of units in hidden layers.
     hidden_neuron_count=200,
     # Epochs of Mini-batch.
@@ -1099,6 +1101,12 @@ from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as Encoder
 from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as DecoderGraph
 ```
 
+If you want to introduce the graph of decoder for building an Attention mechanism as the decoder, import `AttentionLSTMGraph` instead.
+
+```python
+from pydbm.synapse.recurrenttemporalgraph.lstmgraph.attention_lstm_graph import AttentionLSTMGraph as DecoderGraph
+```
+
 Import Python and Cython modules of activation functions.
 
 ```python
@@ -1155,6 +1163,12 @@ from pydbm.rnn.lstm_model import LSTMModel as Decoder
 from pydbm.rnn.encoder_decoder_controller import EncoderDecoderController
 ```
 
+If you want to build an Attention mechanism as the decoder, import `AttentionLSTMModel` instead.
+
+```python
+from pydbm.rnn.lstmmodel.attention_lstm_model import AttentionLSTMModel as Decoder
+```
+
 Instantiate `Encoder`.
 
 ```python
@@ -1174,7 +1188,7 @@ encoder_graph.output_activating_function = LogisticFunction()
 encoder_graph.create_rnn_cells(
     input_neuron_count=observed_arr.shape[-1],
     hidden_neuron_count=200,
-    output_neuron_count=target_arr.shape[-1]
+    output_neuron_count=1
 )
 
 # Optimizer for Encoder.
@@ -1185,16 +1199,6 @@ encoder_opt_params.dropout_rate = 0.5
 encoder = Encoder(
     # Delegate `graph` to `LSTMModel`.
     graph=encoder_graph,
-    # The number of epochs in mini-batch training.
-    epochs=100,
-    # The batch size.
-    batch_size=100,
-    # Learning rate.
-    learning_rate=1e-05,
-    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
-    learning_attenuate_rate=0.1,
-    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
-    attenuate_epoch=50,
     # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
     bptt_tau=8,
     # Size of Test data set. If this value is `0`, the validation will not be executed.
@@ -1231,8 +1235,8 @@ decoder_graph.output_activating_function = LogisticFunction()
 # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
 decoder_graph.create_rnn_cells(
     input_neuron_count=200,
-    hidden_neuron_count=observed_arr.shape[-1],
-    output_neuron_count=200
+    hidden_neuron_count=200,
+    output_neuron_count=observed_arr.shape[-1]
 )
 
 # Optimizer for Decoder.
@@ -1243,20 +1247,10 @@ decoder_opt_params.dropout_rate = 0.5
 decoder = Decoder(
     # Delegate `graph` to `LSTMModel`.
     graph=decoder_graph,
-    # The number of epochs in mini-batch training.
-    epochs=100,
-    # The batch size.
-    batch_size=100,
-    # Learning rate.
-    learning_rate=1e-05,
-    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
-    learning_attenuate_rate=0.1,
-    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
-    attenuate_epoch=50,
+    # The length of sequences.
+    seq_len=8,
     # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
     bptt_tau=8,
-    # Size of Test data set. If this value is `0`, the validation will not be executed.
-    test_size_rate=0.3,
     # Loss function.
     computable_loss=MeanSquaredError(),
     # Optimizer.
@@ -1331,7 +1325,7 @@ On the other hand, the `encoder_decoder_controller` also stores the feature poin
 feature_points_arr = encoder_decoder_controller.get_feature_points()
 ```
 
-If `LSTMModel`s are delegated, the shape of `feature_points_arr` is **rank-2 array-like or sparse matrix**: (`The number of samples`, `The number of units in hidden layers`). On the other hand, if `ConvLSTMModel`s are delegated, the shape of `feature_points_arr` is **rank-4 array-like or sparse matrix**:(`The number of samples`, `Channel`, `Height of images`, `Width of images`). So the matrices also mean time series data embedded as manifolds in the hidden layers.
+If `LSTMModel`s are delegated, the shape of `feature_points_arr` is **rank-3 array-like or sparse matrix**: (`The number of samples`, `The length of cycle`, `The number of units in hidden layers`). On the other hand, if `ConvLSTMModel`s are delegated, the shape of `feature_points_arr` is **rank-5 array-like or sparse matrix**:(`The number of samples`, `The length of cycle`, `Channel`, `Height of images`, `Width of images`). So the matrices also mean time series data embedded as manifolds in the hidden layers.
 
 You can check the reconstruction error rate. Call `get_reconstruct_error` method as follow.
 
@@ -1418,7 +1412,7 @@ conv2 = ConvolutionLayer2(
         # Computation graph for second convolution layer.
         activation_function=LogisticFunction(),
         # The number of `filter`.
-        filter_num=1,
+        filter_num=20,
         # Channel.
         channel=20,
         # The size of kernel.

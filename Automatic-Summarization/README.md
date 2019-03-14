@@ -4,7 +4,7 @@
 
 ## Description
 
-The function of this library is automatic summarization using a kind of natural language processing and neural network language model. This library enable you to create a summary with the major points of the original document or web-scraped text that filtered by text clustering. And this library applies [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) to implement **Encoder/Decoder based on LSTM** and **LSTM-RTRBM**, improving the accuracy of summarization by **Sequence-to-Sequence**(**Seq2Seq**) learning.
+The function of this library is automatic summarization using a kind of natural language processing and neural network language model. This library enable you to create a summary with the major points of the original document or web-scraped text that filtered by text clustering. And this library applies [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) to implement **Encoder/Decoder based on LSTM** (with an Attention mechanism) improving the accuracy of summarization by **Sequence-to-Sequence**(**Seq2Seq**) learning.
 
 ## Documentation
 
@@ -44,7 +44,7 @@ Installers for the latest released version are available at the Python package i
 - pyquery:v1.2.17 or higher.
     * Relevant only for web scraiping.
 - pydbm: v1.4.3 or higher.
-    * Only when using **Encoder/Decoder based on LSTM**, **Re-Seq2Seq**, **EncDec-AD**, and **LSTM-RTRBM**.
+    * Only when using **Encoder/Decoder based on LSTM**, **Re-Seq2Seq**, and **EncDec-AD**.
 
 ## Usecase: Summarize an English string argument.
 
@@ -333,10 +333,6 @@ python demo/demo_similarity_filtering_japanese_web_page.py {URL} {SimilarityFilt
    * `Jaccard`
    * `Simpson`
    * `TfIdfCosine`
-   * `EncoderDecoderCosine`
-   * `EncoderDecoderClustering`
-   * `LSTMRTRBMCosine`
-   * `LSTMRTRBMClustering`
 - {SimilarityLimit}: The cut-off threshold.
 
 For instance, command line argument is as follows:
@@ -614,8 +610,6 @@ The `abstract_list` is a `list` that contains `str`s of sentences.
 - Boulanger-Lewandowski, N., Bengio, Y., & Vincent, P. (2012). Modeling temporal dependencies in high-dimensional sequences: Application to polyphonic music generation and transcription. arXiv preprint arXiv:1206.6392.
 - Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.
 - Luhn, Hans Peter. "The automatic creation of literature abstracts." IBM Journal of research and development 2.2 (1958): 159-165.
-- Lyu, Q., Wu, Z., Zhu, J., & Meng, H. (2015, June). Modelling High-Dimensional Sequences with LSTM-RTRBM: Application to Polyphonic Music Generation. In IJCAI (pp. 4138-4139).
-- Lyu, Q., Wu, Z., & Zhu, J. (2015, October). Polyphonic music modelling with LSTM-RTRBM. In Proceedings of the 23rd ACM international conference on Multimedia (pp. 991-994). ACM.
 - Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., & Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.
 - Matthew A. Russell　著、佐藤 敏紀、瀬戸口 光宏、原川 浩一　監訳、長尾 高弘　訳『入門 ソーシャルデータ 第2版――ソーシャルウェブのデータマイニング』 2014年06月 発行
 - Sutskever, I., Hinton, G. E., & Taylor, G. W. (2009). The recurrent temporal restricted boltzmann machine. In Advances in Neural Information Processing Systems (pp. 1601-1608).

@@ -19,6 +19,9 @@ class LogisticFunction(ActivatingFunctionInterface):
     def __init__(self, memory_len=50):
         '''
         Init.
+
+        Args:
+            memory_len:     The number of memos of activities for derivative in backward.
         '''
         self.__activity_arr_list = []
         self.__memory_len = memory_len

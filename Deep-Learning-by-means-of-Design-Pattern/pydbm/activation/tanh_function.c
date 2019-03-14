@@ -1778,7 +1778,7 @@ static PyObject *__pyx_codeobj__16;
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_10activation_13tanh_function_12TanhFunction_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_10activation_13tanh_function_12TanhFunction___init__[] = "\n        Init.\n        ";
+static char __pyx_doc_5pydbm_10activation_13tanh_function_12TanhFunction___init__[] = "\n        Init.\n\n        Args:\n            memory_len:     The number of memos of activities for derivative in backward.\n\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_10activation_13tanh_function_12TanhFunction_1__init__ = {"__init__", (PyCFunction)__pyx_pw_5pydbm_10activation_13tanh_function_12TanhFunction_1__init__, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_10activation_13tanh_function_12TanhFunction___init__};
 static PyObject *__pyx_pw_5pydbm_10activation_13tanh_function_12TanhFunction_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
@@ -1849,26 +1849,26 @@ static PyObject *__pyx_pf_5pydbm_10activation_13tanh_function_12TanhFunction___i
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "pydbm/activation/tanh_function.pyx":20
- *         Init.
+  /* "pydbm/activation/tanh_function.pyx":24
+ * 
  *         '''
  *         self.__activity_arr_list = []             # <<<<<<<<<<<<<<
  *         self.__memory_len = memory_len
  * 
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__activity_arr_list, __pyx_t_1) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__activity_arr_list, __pyx_t_1) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/activation/tanh_function.pyx":21
+  /* "pydbm/activation/tanh_function.pyx":25
  *         '''
  *         self.__activity_arr_list = []
  *         self.__memory_len = memory_len             # <<<<<<<<<<<<<<
  * 
  *     def activate(self, np.ndarray x):
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__memory_len, __pyx_v_memory_len) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__memory_len, __pyx_v_memory_len) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
 
   /* "pydbm/activation/tanh_function.pyx":16
  *     __memory_len = 50
@@ -1891,7 +1891,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_13tanh_function_12TanhFunction___i
   return __pyx_r;
 }
 
-/* "pydbm/activation/tanh_function.pyx":23
+/* "pydbm/activation/tanh_function.pyx":27
  *         self.__memory_len = memory_len
  * 
  *     def activate(self, np.ndarray x):             # <<<<<<<<<<<<<<
@@ -1932,11 +1932,11 @@ static PyObject *__pyx_pw_5pydbm_10activation_13tanh_function_12TanhFunction_3ac
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_x)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("activate", 1, 2, 2, 1); __PYX_ERR(0, 23, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("activate", 1, 2, 2, 1); __PYX_ERR(0, 27, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "activate") < 0)) __PYX_ERR(0, 23, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "activate") < 0)) __PYX_ERR(0, 27, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1949,13 +1949,13 @@ static PyObject *__pyx_pw_5pydbm_10activation_13tanh_function_12TanhFunction_3ac
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("activate", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 23, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("activate", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 27, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.activation.tanh_function.TanhFunction.activate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_x), __pyx_ptype_5numpy_ndarray, 1, "x", 0))) __PYX_ERR(0, 23, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_x), __pyx_ptype_5numpy_ndarray, 1, "x", 0))) __PYX_ERR(0, 27, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_10activation_13tanh_function_12TanhFunction_2activate(__pyx_self, __pyx_v_self, __pyx_v_x);
 
   /* function exit code */
@@ -1980,16 +1980,16 @@ static PyObject *__pyx_pf_5pydbm_10activation_13tanh_function_12TanhFunction_2ac
   int __pyx_t_7;
   __Pyx_RefNannySetupContext("activate", 0);
 
-  /* "pydbm/activation/tanh_function.pyx":33
+  /* "pydbm/activation/tanh_function.pyx":37
  *             The result.
  *         '''
  *         activity_arr = np.tanh(x)             # <<<<<<<<<<<<<<
  *         self.__activity_arr_list.append(activity_arr)
  *         if len(self.__activity_arr_list) > self.__memory_len:
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 33, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_tanh); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 33, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_tanh); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -2003,13 +2003,13 @@ static PyObject *__pyx_pf_5pydbm_10activation_13tanh_function_12TanhFunction_2ac
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_x)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_x)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, ((PyObject *)__pyx_v_x)};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -2017,19 +2017,19 @@ static PyObject *__pyx_pf_5pydbm_10activation_13tanh_function_12TanhFunction_2ac
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, ((PyObject *)__pyx_v_x)};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 33, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 37, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_x));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_x));
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, ((PyObject *)__pyx_v_x));
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -2038,69 +2038,69 @@ static PyObject *__pyx_pf_5pydbm_10activation_13tanh_function_12TanhFunction_2ac
   __pyx_v_activity_arr = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/activation/tanh_function.pyx":34
+  /* "pydbm/activation/tanh_function.pyx":38
  *         '''
  *         activity_arr = np.tanh(x)
  *         self.__activity_arr_list.append(activity_arr)             # <<<<<<<<<<<<<<
  *         if len(self.__activity_arr_list) > self.__memory_len:
  *             self.__activity_arr_list = self.__activity_arr_list[len(self.__activity_arr_list) - self.__memory_len:]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__activity_arr_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__activity_arr_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_v_activity_arr); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 34, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_v_activity_arr); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/activation/tanh_function.pyx":35
+  /* "pydbm/activation/tanh_function.pyx":39
  *         activity_arr = np.tanh(x)
  *         self.__activity_arr_list.append(activity_arr)
  *         if len(self.__activity_arr_list) > self.__memory_len:             # <<<<<<<<<<<<<<
  *             self.__activity_arr_list = self.__activity_arr_list[len(self.__activity_arr_list) - self.__memory_len:]
  *         return activity_arr
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__activity_arr_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__activity_arr_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_t_6 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__memory_len); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__memory_len); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_t_4 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (__pyx_t_7) {
 
-    /* "pydbm/activation/tanh_function.pyx":36
+    /* "pydbm/activation/tanh_function.pyx":40
  *         self.__activity_arr_list.append(activity_arr)
  *         if len(self.__activity_arr_list) > self.__memory_len:
  *             self.__activity_arr_list = self.__activity_arr_list[len(self.__activity_arr_list) - self.__memory_len:]             # <<<<<<<<<<<<<<
  *         return activity_arr
  * 
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__activity_arr_list); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 36, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__activity_arr_list); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 40, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__activity_arr_list); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 36, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__activity_arr_list); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 40, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_6 = PyObject_Length(__pyx_t_3); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 36, __pyx_L1_error)
+    __pyx_t_6 = PyObject_Length(__pyx_t_3); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 40, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = PyInt_FromSsize_t(__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 36, __pyx_L1_error)
+    __pyx_t_3 = PyInt_FromSsize_t(__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 40, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__memory_len); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__memory_len); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = PyNumber_Subtract(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 36, __pyx_L1_error)
+    __pyx_t_2 = PyNumber_Subtract(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 40, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_t_4, 0, 0, &__pyx_t_2, NULL, NULL, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_t_4, 0, 0, &__pyx_t_2, NULL, NULL, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__activity_arr_list, __pyx_t_1) < 0) __PYX_ERR(0, 36, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__activity_arr_list, __pyx_t_1) < 0) __PYX_ERR(0, 40, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pydbm/activation/tanh_function.pyx":35
+    /* "pydbm/activation/tanh_function.pyx":39
  *         activity_arr = np.tanh(x)
  *         self.__activity_arr_list.append(activity_arr)
  *         if len(self.__activity_arr_list) > self.__memory_len:             # <<<<<<<<<<<<<<
@@ -2109,7 +2109,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_13tanh_function_12TanhFunction_2ac
  */
   }
 
-  /* "pydbm/activation/tanh_function.pyx":37
+  /* "pydbm/activation/tanh_function.pyx":41
  *         if len(self.__activity_arr_list) > self.__memory_len:
  *             self.__activity_arr_list = self.__activity_arr_list[len(self.__activity_arr_list) - self.__memory_len:]
  *         return activity_arr             # <<<<<<<<<<<<<<
@@ -2121,7 +2121,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_13tanh_function_12TanhFunction_2ac
   __pyx_r = __pyx_v_activity_arr;
   goto __pyx_L0;
 
-  /* "pydbm/activation/tanh_function.pyx":23
+  /* "pydbm/activation/tanh_function.pyx":27
  *         self.__memory_len = memory_len
  * 
  *     def activate(self, np.ndarray x):             # <<<<<<<<<<<<<<
@@ -2144,7 +2144,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_13tanh_function_12TanhFunction_2ac
   return __pyx_r;
 }
 
-/* "pydbm/activation/tanh_function.pyx":39
+/* "pydbm/activation/tanh_function.pyx":43
  *         return activity_arr
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
@@ -2185,11 +2185,11 @@ static PyObject *__pyx_pw_5pydbm_10activation_13tanh_function_12TanhFunction_5de
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, 1); __PYX_ERR(0, 39, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, 1); __PYX_ERR(0, 43, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "derivative") < 0)) __PYX_ERR(0, 39, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "derivative") < 0)) __PYX_ERR(0, 43, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2202,13 +2202,13 @@ static PyObject *__pyx_pw_5pydbm_10activation_13tanh_function_12TanhFunction_5de
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 39, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 43, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.activation.tanh_function.TanhFunction.derivative", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y), __pyx_ptype_5numpy_ndarray, 1, "y", 0))) __PYX_ERR(0, 39, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y), __pyx_ptype_5numpy_ndarray, 1, "y", 0))) __PYX_ERR(0, 43, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_10activation_13tanh_function_12TanhFunction_4derivative(__pyx_self, __pyx_v_self, __pyx_v_y);
 
   /* function exit code */
@@ -2228,39 +2228,39 @@ static PyObject *__pyx_pf_5pydbm_10activation_13tanh_function_12TanhFunction_4de
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("derivative", 0);
 
-  /* "pydbm/activation/tanh_function.pyx":49
+  /* "pydbm/activation/tanh_function.pyx":53
  *             The result.
  *         '''
  *         activity_arr = self.__activity_arr_list.pop(-1)             # <<<<<<<<<<<<<<
  *         return y * (1 - activity_arr ** 2)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__activity_arr_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_TanhFunction__activity_arr_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_PopIndex(__pyx_t_1, __pyx_int_neg_1, -1L, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_PopIndex(__pyx_t_1, __pyx_int_neg_1, -1L, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_activity_arr = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pydbm/activation/tanh_function.pyx":50
+  /* "pydbm/activation/tanh_function.pyx":54
  *         '''
  *         activity_arr = self.__activity_arr_list.pop(-1)
  *         return y * (1 - activity_arr ** 2)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyNumber_Power(__pyx_v_activity_arr, __pyx_int_2, Py_None); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Power(__pyx_v_activity_arr, __pyx_int_2, Py_None); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyInt_SubtractCObj(__pyx_int_1, __pyx_t_2, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_SubtractCObj(__pyx_int_1, __pyx_t_2, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyNumber_Multiply(((PyObject *)__pyx_v_y), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(((PyObject *)__pyx_v_y), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/activation/tanh_function.pyx":39
+  /* "pydbm/activation/tanh_function.pyx":43
  *         return activity_arr
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
@@ -4953,29 +4953,29 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
 
-  /* "pydbm/activation/tanh_function.pyx":23
+  /* "pydbm/activation/tanh_function.pyx":27
  *         self.__memory_len = memory_len
  * 
  *     def activate(self, np.ndarray x):             # <<<<<<<<<<<<<<
  *         '''
  *         Return the result from this activation function.
  */
-  __pyx_tuple__13 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_x, __pyx_n_s_activity_arr); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_tuple__13 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_x, __pyx_n_s_activity_arr); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 27, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_tanh_function_p, __pyx_n_s_activate, 23, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_tanh_function_p, __pyx_n_s_activate, 27, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 27, __pyx_L1_error)
 
-  /* "pydbm/activation/tanh_function.pyx":39
+  /* "pydbm/activation/tanh_function.pyx":43
  *         return activity_arr
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
  *         Return of derivative with respect to this activation function.
  */
-  __pyx_tuple__15 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_y, __pyx_n_s_activity_arr); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __pyx_tuple__15 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_y, __pyx_n_s_activity_arr); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_tanh_function_p, __pyx_n_s_derivative, 39, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_tanh_function_p, __pyx_n_s_derivative, 43, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5322,28 +5322,28 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/activation/tanh_function.pyx":23
+  /* "pydbm/activation/tanh_function.pyx":27
  *         self.__memory_len = memory_len
  * 
  *     def activate(self, np.ndarray x):             # <<<<<<<<<<<<<<
  *         '''
  *         Return the result from this activation function.
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_13tanh_function_12TanhFunction_3activate, 0, __pyx_n_s_TanhFunction_activate, NULL, __pyx_n_s_pydbm_activation_tanh_function, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_13tanh_function_12TanhFunction_3activate, 0, __pyx_n_s_TanhFunction_activate, NULL, __pyx_n_s_pydbm_activation_tanh_function, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 27, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_activate, __pyx_t_4) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_activate, __pyx_t_4) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/activation/tanh_function.pyx":39
+  /* "pydbm/activation/tanh_function.pyx":43
  *         return activity_arr
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
  *         Return of derivative with respect to this activation function.
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_13tanh_function_12TanhFunction_5derivative, 0, __pyx_n_s_TanhFunction_derivative, NULL, __pyx_n_s_pydbm_activation_tanh_function, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_13tanh_function_12TanhFunction_5derivative, 0, __pyx_n_s_TanhFunction_derivative, NULL, __pyx_n_s_pydbm_activation_tanh_function, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_derivative, __pyx_t_4) < 0) __PYX_ERR(0, 39, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_derivative, __pyx_t_4) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "pydbm/activation/tanh_function.pyx":8

@@ -22,7 +22,6 @@ class EncoderDecoderCosine(SimilarityFilter):
         learning_rate=1e-05,
         learning_attenuate_rate=0.1,
         attenuate_epoch=50,
-        bptt_tau=8,
         weight_limit=0.5,
         dropout_rate=0.5,
         test_size_rate=0.3,
@@ -43,7 +42,6 @@ class EncoderDecoderCosine(SimilarityFilter):
                                             Additionally, in relation to regularization,
                                             this class constrains weight matrixes every `attenuate_epoch`.
 
-            bptt_tau:                       Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
             weight_limit:                   Regularization for weights matrix
                                             to repeat multiplying the weights matrix and `0.9`
                                             until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
@@ -92,7 +90,6 @@ class EncoderDecoderCosine(SimilarityFilter):
             learning_rate=learning_rate,
             learning_attenuate_rate=learning_attenuate_rate,
             attenuate_epoch=attenuate_epoch,
-            bptt_tau=bptt_tau,
             weight_limit=weight_limit,
             dropout_rate=dropout_rate,
             test_size_rate=test_size_rate

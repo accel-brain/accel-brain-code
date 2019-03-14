@@ -249,155 +249,6 @@ from pysummarization.similarityfilter.tfidf_cosine import TfIdfCosine
 similarity_filter = TfIdfCosine()
 ```
 
-### Functional equivalent: Combination of Encoder/Decoder based on LSTM and Cosine similarity
-
-According to the neural networks theory, and in relation to manifold hypothesis, it is well known that multilayer neural networks can learn features of observed data points and have the feature points in hidden layer. High-dimensional data can be converted to low-dimensional codes by training the model such as **Stacked Auto-Encoder** and **Encoder/Decoder** with a small central layer to reconstruct high-dimensional input vectors. This function of dimensionality reduction facilitates feature expressions to calculate similarity of each data point.
-
-This library provides **Encoder/Decoder based on LSTM**, which makes it possible to extract series features of natural sentences embedded in deeper layers. *Intuitively* speaking, similarities of the series feature points correspond to similarities of the observed data points. You can extracted the result of dimensionality reduction and cosine similarity of the manifolds, which is embedded in hidden layer of Encoder/Decoder based on LSTM, by coding as follows.
-
-```python
-from pysummarization.similarityfilter.encoder_decoder_cosine import EncoderDecoderCosine
-
-# Instantiation and learn natural sentences.
-similarity_filter = EncoderDecoderCosine(
-    # String of natural sentences.
-    document,
-    # The number of hidden units.
-    hidden_neuron_count=200,
-    # Epochs of Mini-batch.
-    epochs=100,
-    # Batch size of Mini-batch.
-    batch_size=100,
-    # Learning rate.
-    learning_rate=1e-05,
-    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
-    learning_attenuate_rate=0.1,
-    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
-    attenuate_epoch=50,
-    # Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
-    bptt_tau=8,
-    # Regularization for weights matrix
-    # to repeat multiplying the weights matrix and `0.9`
-    # until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
-    weight_limit=0.5,
-    # The probability of dropout.
-    dropout_rate=0.5,
-    # Size of Test data set. If this value is `0`, the validation will not be executed.
-    test_size_rate=0.3,
-    # Debug mode or not.
-    debug_mode=True
-)
-```
-
-`document` is a `str` of all natural sentences, which are subject to automatic summarization by `AutoAbstractor`. When instantiated, `EncoderDecoderCosine` converts the datasets to t-hot vectors of each token, of which the shape is (`The number of sentences`, `The mean number of token`, `The dimention of t-hot`), and starts learning. If `debug_mode` is `True`, the progress of learning is printed by the logger.
-
-Refer to [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library for details related to Encoder/Decoder.
-
-### Functional equivalent: Combination of LSTM-RTRBM and Cosine similarity
-
-The methodology of *equivalent-functionalism* enables us to introduce more functional equivalents and compare problem solutions structured with different algorithms and models in common problem setting. For example, in dimension reduction problem for temporal or sequencial patterns, the function of **LSTM-RTRBM** is equivalent to **Encoder/Decoder** based on **LSTM**.
-
-LSTM-RTRBM model integrates the ability of LSTM in memorizing and retrieving useful history information, together with the advantage of RBM in high dimensional data modelling. LSTM-RTRBM is a probabilistic time-series model which can be viewed as a temporal stack of RBMs, where each RBM has a contextual hidden state that is received from the previous RBM and is used to modulate its hidden units bias. This model can learn dependency structures in temporal patterns such as music, natural sentences, and n-gram.
-
-This library provides LSTM-RTRBM, which makes it possible to extract series features points of natural sentences. You can also extracted the result of dimensionality reduction and cosine similarity of the manifolds, which is embedded in hidden layer of LSTM-RTRBM, by coding as follows.
-
-```python
-from pysummarization.similarityfilter.lstm_rtrbm_cosine import LSTMRTRBMCosine
-
-similarity_filter = LSTMRTRBMCosine(
-    # String of natural sentences.
-    document,
-    # The number of hidden units.
-    hidden_neuron_count=1000,
-    # Batch size of Mini-batch.
-    batch_size=10,
-    # Learning rate.
-    learning_rate=1e-03,
-    # The length of one sequence.
-    seq_len=5,
-    # Debug mode or not.
-    debug_mode=True
-)
-```
-
-Refer to [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library for details related to LSTM-RTRBM.
-
-### Functional equivalent: Data clustering
-
-It is not inevitable to grasp the concept of similarity as cosine similairty. This library makes it possible to adopt k-means clustering to find similar sentences from the feature points which is generated by Encoder/Decoder based on LSTM or LSTM-RTRBM.
-
-The similarity is observed by checking whether each sentence belonging to the same cluster, and if so, the similarity is `1.0`, if not, the value is `0.0`. The data clustering algorithm is based on K-Means method, learning data which is embedded in hidden layer of LSTM or LSTM-RTRBM.
-
-In this library, if two arbitrarily selected sentences belong to the same cluster, the sentences is considered as the mutually similar, tautological, pleonastic, or redundant sentences.
-
-#### Adopt K-Means and Encoder/Decoder
-
-```python
-from pysummarization.similarityfilter.encoder_decoder_clustering import EncoderDecoderClustering
-
-
-# Instantiation and learn natural sentences.
-similarity_filter = EncoderDecoderClustering(
-    # String of natural sentences.
-    document,
-    # The number of hidden units.
-    hidden_neuron_count=200,
-    # Epochs of Mini-batch.
-    epochs=100,
-    # Batch size of Mini-batch.
-    batch_size=100,
-    # Learning rate.
-    learning_rate=1e-05,
-    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
-    learning_attenuate_rate=0.1,
-    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
-    attenuate_epoch=50,
-    # Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
-    bptt_tau=8,
-    # Regularization for weights matrix
-    # to repeat multiplying the weights matrix and `0.9`
-    # until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
-    weight_limit=0.5,
-    # The probability of dropout.
-    dropout_rate=0.5,
-    # Size of Test data set. If this value is `0`, the validation will not be executed.
-    test_size_rate=0.3,
-    # The number of clusters.
-    cluster_num=20,
-    # Maximum number of iterations.
-    max_iter=100,
-    # Debug mode or not.
-    debug_mode=True
-)
-
-```
-
-#### Adopt K-Means and LSTM-RTRBM
-
-```python
-from pysummarization.similarityfilter.lstm_rtrbm_clustering import LSTMRTRBMClustering
-
-
-similarity_filter = LSTMRTRBMClustering(
-    # String of natural sentences.
-    document,
-    # The number of hidden units.
-    hidden_neuron_count=1000,
-    # Batch size.
-    batch_size=100,
-    # Learning rate.
-    learning_rate=1e-03,
-    # The length of one sequence observed by LSTM-RTRBM.
-    seq_len=5,
-    # The number of clusters.
-    cluster_num=cluster_num,
-    # Maximum number of iterations.
-    max_iter=100,
-    # Debug mode or not.
-    debug_mode=True
-)
-```
-
 ### Calculating similarity
 
 If you want to calculate similarity between two sentences, call `calculate` method as follow.
@@ -505,6 +356,10 @@ The result is as follows.
 ```
 
 ## Usecase: Summarization with Neural Network Language Model.
+
+According to the neural networks theory, and in relation to manifold hypothesis, it is well known that multilayer neural networks can learn features of observed data points and have the feature points in hidden layer. High-dimensional data can be converted to low-dimensional codes by training the model such as **Stacked Auto-Encoder** and **Encoder/Decoder** with a small central layer to reconstruct high-dimensional input vectors. This function of dimensionality reduction facilitates feature expressions to calculate similarity of each data point.
+
+This library provides **Encoder/Decoder based on LSTM**, which makes it possible to extract series features of natural sentences embedded in deeper layers by **sequence-to-sequence learning**. *Intuitively* speaking, similarities of the series feature points correspond to similarities of the observed data points. If we believe this hypothesis, the following models become in principle possible.
 
 ### retrospective sequence-to-sequence learning(re-seq2seq).
 

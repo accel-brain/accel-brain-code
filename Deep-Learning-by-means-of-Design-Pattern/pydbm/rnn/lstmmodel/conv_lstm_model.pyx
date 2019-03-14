@@ -1208,9 +1208,7 @@ class ConvLSTMModel(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=4] forget_gate_activity_arr = self.__memory_tuple_list[cycle][5]
         cdef np.ndarray[DOUBLE_t, ndim=4] output_gate_activity_arr = self.__memory_tuple_list[cycle][6]
         cdef np.ndarray[DOUBLE_t, ndim=4] cec_activity_arr = self.__memory_tuple_list[cycle][7]
-        cdef np.ndarray[DOUBLE_t, ndim=4] _cec_activity_arr = self.graph.hidden_activating_function.activate(
-            cec_activity_arr
-        )
+
         if delta_cec_arr.shape[0] == 0:
             delta_cec_arr = np.zeros_like(delta_hidden_arr)
         
@@ -1239,15 +1237,15 @@ class ConvLSTMModel(ReconstructableModel):
             np.array([
                 delta_hidden_arr,
                 cec_activity_arr,
-                self.graph.output_gate_activating_function.derivative(output_gate_activity_arr)]
-            ),
+                output_gate_activity_arr
+            ]),
             axis=0
         )
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_forget_gate_arr = np.nanprod(
             np.array([
                 delta_top_arr,
                 delta_pre_rnn_arr,
-                self.graph.forget_gate_activating_function.derivative(forget_gate_activity_arr)
+                forget_gate_activity_arr
             ]),
             axis=0
         )
@@ -1255,7 +1253,7 @@ class ConvLSTMModel(ReconstructableModel):
             np.array([
                 delta_top_arr,
                 given_activity_arr,
-                self.graph.input_gate_activating_function.derivative(input_gate_activity_arr)
+                input_gate_activity_arr
             ]),
             axis=0
         )
@@ -1263,7 +1261,7 @@ class ConvLSTMModel(ReconstructableModel):
             np.array([
                 delta_top_arr,
                 input_gate_activity_arr,
-                self.graph.observed_activating_function.derivative(given_activity_arr)
+                given_activity_arr
             ]),
             axis=0
         )

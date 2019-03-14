@@ -21,3 +21,16 @@ class ActivatingFunctionInterface(metaclass=ABCMeta):
             The result.
         '''
         raise NotImplementedError()
+
+    @abstractmethod
+    def derivative(self, np.ndarray y):
+        '''
+        Return of derivative result from this activation function.
+
+        Args:
+            y:   The result of activation.
+
+        Returns:
+            The result.
+        '''
+        raise NotImplementedError()

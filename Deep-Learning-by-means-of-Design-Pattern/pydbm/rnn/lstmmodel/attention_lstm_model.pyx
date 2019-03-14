@@ -187,7 +187,14 @@ class AttentionLSTMModel(LSTMModel):
             - `np.ndarray` of Delta, 
             - `list` of gradations.
         '''
-        delta_arr = self.graph.output_activating_function.derivative(delta_arr)
+        cdef int batch_size = delta_arr.shape[0]
+        cdef int seq_len = delta_arr.shape[1]
+        delta_arr = self.graph.output_activating_function.derivative(
+            delta_arr.reshape((
+                batch_size * seq_len,
+                -1
+            ))
+        ).reshape((batch_size, seq_len, -1))
 
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_2d_arr = delta_arr.reshape((
             delta_arr.shape[0] * delta_arr.shape[1],

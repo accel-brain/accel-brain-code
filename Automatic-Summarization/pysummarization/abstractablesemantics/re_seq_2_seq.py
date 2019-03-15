@@ -417,7 +417,7 @@ class ReSeq2Seq(AbstractableSemantics):
                 batch_target_arr = train_target_arr[rand_index]
                 try:
                     _ = self.inference(batch_observed_arr)
-                    delta_arr, _, loss = self.__compute_retrospective_loss()
+                    delta_arr, _, loss = self.compute_retrospective_loss()
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -432,7 +432,7 @@ class ReSeq2Seq(AbstractableSemantics):
                         )
                         # Re-try.
                         _ = self.inference(batch_observed_arr)
-                        delta_arr, _, loss = self.__compute_retrospective_loss()
+                        delta_arr, _, loss = self.compute_retrospective_loss()
 
                     re_encoder_grads_list, decoder_grads_list, encoder_delta_arr, encoder_grads_list = self.back_propagation(delta_arr)
                     self.optimize(
@@ -490,7 +490,7 @@ class ReSeq2Seq(AbstractableSemantics):
 
                     self.__change_inferencing_mode(True)
                     _ = self.inference(test_batch_observed_arr)
-                    _, _, test_loss = self.__compute_retrospective_loss()
+                    _, _, test_loss = self.compute_retrospective_loss()
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -505,7 +505,7 @@ class ReSeq2Seq(AbstractableSemantics):
                         )
                         # Re-try.
                         _ = self.inference(test_batch_observed_arr)
-                        _, _, test_loss = self.__compute_retrospective_loss()
+                        _, _, test_loss = self.compute_retrospective_loss()
 
                     self.__change_inferencing_mode(False)
 
@@ -570,7 +570,7 @@ class ReSeq2Seq(AbstractableSemantics):
 
                 try:
                     _ = self.inference(batch_observed_arr)
-                    delta_arr, _, loss = self.__compute_retrospective_loss()
+                    delta_arr, _, loss = self.compute_retrospective_loss()
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -585,7 +585,7 @@ class ReSeq2Seq(AbstractableSemantics):
                         )
                         # Re-try.
                         _ = self.inference(batch_observed_arr)
-                        delta_arr, _, loss = self.__compute_retrospective_loss()
+                        delta_arr, _, loss = self.compute_retrospective_loss()
 
                     re_encoder_grads_list, decoder_grads_list, encoder_delta_arr, encoder_grads_list = self.back_propagation(delta_arr)
                     self.optimize(
@@ -639,7 +639,7 @@ class ReSeq2Seq(AbstractableSemantics):
                 if self.__test_size_rate > 0:
                     self.__change_inferencing_mode(True)
                     _ = self.inference(test_batch_observed_arr)
-                    _, _, test_loss = self.__compute_retrospective_loss()
+                    _, _, test_loss = self.compute_retrospective_loss()
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -654,7 +654,7 @@ class ReSeq2Seq(AbstractableSemantics):
                         )
                         # Re-try.
                         _ = self.inference(test_batch_observed_arr)
-                        _, _, test_loss = self.__compute_retrospective_loss()
+                        _, _, test_loss = self.compute_retrospective_loss()
 
                     self.__change_inferencing_mode(False)
                     self.__verificate_retrospective_loss(loss, test_loss)
@@ -712,21 +712,21 @@ class ReSeq2Seq(AbstractableSemantics):
             limit:                  The number of selected abstract sentence.
         
         Returns:
-            `np.ndarray` of scores.
+            `list` of `str` of abstract sentences.
         '''
         if isinstance(vectorizable_token, VectorizableToken) is False:
             raise TypeError()
 
         _ = self.inference(test_arr)
-        _, score_arr, _ = self.__compute_retrospective_loss()
+        _, loss_arr, _ = self.compute_retrospective_loss()
 
-        score_list = score_arr.tolist()
+        loss_list = loss_arr.tolist()
 
         abstract_list = []
         for i in range(limit):
-            key = score_arr.argmin()
-            score = score_list.pop(key)
-            score_arr = np.array(score_list)
+            key = loss_arr.argmin()
+            _ = loss_list.pop(key)
+            loss_arr = np.array(loss_list)
 
             seq_arr = test_arr[key]
             token_arr = vectorizable_token.tokenize(seq_arr.tolist())
@@ -799,7 +799,17 @@ class ReSeq2Seq(AbstractableSemantics):
             epoch
         )
 
-    def __compute_retrospective_loss(self):
+    def compute_retrospective_loss(self):
+        '''
+        Compute retrospective loss.
+
+        Returns:
+            The tuple data.
+            - `np.ndarray` of delta.
+            - `np.ndarray` of losses of each batch.
+            - float of loss of all batch.
+
+        '''
         observed_arr, encoded_arr, decoded_arr, re_encoded_arr = self.__inferenced_tuple
         batch_size = observed_arr.shape[0]
         if self.__input_neuron_count == self.__hidden_neuron_count:

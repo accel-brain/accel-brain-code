@@ -128,6 +128,8 @@ class LSTMModel(GenerativeModel):
                 learning_attenuate_rate=0.1,
                 # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
                 attenuate_epoch=50,
+                # The length of sequences.
+                seq_len=seq_len,
                 # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
                 bptt_tau=seq_len,
                 # Size of Test data set. If this value is `0`, the validation will not be executed.

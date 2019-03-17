@@ -948,6 +948,11 @@ Instantiate object and call the method to learn observed data points.
 facade_encoder_decoder = FacadeEncoderDecoder(
     # The number of units in input layers.
     input_neuron_count=observed_arr.shape[-1],
+    # The length of sequences.
+    # This means refereed maxinum step `t` in feedforward.
+    seq_len=observed_arr.shape[1],
+    # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
+    bptt_tau=observed_arr.shape[1],
     # Verbose mode or not. If `True`, this class sets the logger level as `DEBUG`.
     verbose_flag=True
 )
@@ -1010,8 +1015,11 @@ facade_encoder_decoder.save_pre_learned_params(
 facade_encoder_decoder2 = FacadeEncoderDecoder(
     # The number of units in input layers.
     input_neuron_count=observed_arr.shape[-1],
-    # The number of units in output layers.
-    output_neuron_count=observed_arr.shape[-1],
+    # The length of sequences.
+    # This means refereed maxinum step `t` in feedforward.
+    seq_len=observed_arr.shape[1],
+    # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
+    bptt_tau=observed_arr.shape[1],
     # File path that stored Encoder's pre-learned parameters.
     encoder_pre_learned_file_path="/var/tmp/encoder.npz",
     # File path that stored Decoder's pre-learned parameters.
@@ -1055,6 +1063,9 @@ facade_encoder_decoder = FacadeEncoderDecoder(
     computable_loss=MeanSquaredError(),
     # Optimizer which is-a `OptParams`.
     opt_params=Adam(),
+    # The length of sequences.
+    # This means refereed maxinum step `t` in feedforward.
+    seq_len=8,
     # Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
     # If `0`, this class referes all past data in BPTT.
     bptt_tau=8,

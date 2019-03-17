@@ -854,24 +854,24 @@ plot(decoded_arr)
 <tbody>
 <tr>
 <td>
-<img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/decoded/after1600train/input_sample1.png">
+<img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/decoded/after1500train/input_sample1.png">
 </td>
 <td>
-<img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/decoded/after1600train/input_sample2.png">
+<img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/decoded/after1500train/input_sample2.png">
 </td>
 <td>
-<img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/decoded/after1600train/input_sample3.png">
+<img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/decoded/after1500train/input_sample3.png">
 </td>
 </tr>
 <tr>
 <td>
-<img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/decoded/after1600train/decoded_sample1.png">
+<img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/decoded/after1500train/decoded_sample1.png">
 </td>
 <td>
-<img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/decoded/after1600train/decoded_sample2.png">
+<img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/decoded/after1500train/decoded_sample2.png">
 </td>
 <td>
-<img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/decoded/after1600train/decoded_sample3.png">
+<img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/decoded/after1500train/decoded_sample3.png">
 </td>
 </tr>
 </tbody>

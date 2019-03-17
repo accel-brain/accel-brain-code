@@ -160,7 +160,7 @@ class GenerativeAdversarialNetworks(object):
         Returns:
             Tuple data. The shape is...
             - Generator which draws samples from the `fake` distribution.
-            - `list` of Probabilities inferenced by the `discriminator` (mean) in the `generator`'s update turn.
+            - `list` of probabilities inferenced by the `discriminator` (mean) in the `generator`'s update turn.
 
         '''
         generated_arr = generative_model.draw()
@@ -189,6 +189,6 @@ class GenerativeAdversarialNetworks(object):
         Returns:
             The shape is:
             - `list` of probabilities inferenced by the `discriminator` (mean) in the `discriminator`'s update turn.
-            - `list` of Probabilities inferenced by the `discriminator` (mean) in the `generator`'s update turn.
+            - `list` of probabilities inferenced by the `discriminator` (mean) in the `generator`'s update turn.
         '''
         return self.__logs_tuple

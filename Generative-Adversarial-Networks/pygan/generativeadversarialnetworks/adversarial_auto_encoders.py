@@ -141,6 +141,6 @@ class AdversarialAutoEncoders(GenerativeAdversarialNetworks):
             The shape is:
             - `list` of the reconstruction errors.
             - `list` of probabilities inferenced by the `discriminator` (mean) in the `discriminator`'s update turn.
-            - `list` of Probabilities inferenced by the `discriminator` (mean) in the `generator`'s update turn.
+            - `list` of probabilities inferenced by the `discriminator` (mean) in the `generator`'s update turn.
         '''
         return self.__logs_tuple

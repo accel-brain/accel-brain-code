@@ -12,7 +12,7 @@ def read_readme(file_name):
 
 setup(
     name='pygan',
-    version='0.0.4',
+    version='1.0.0',
     description='pygan is Python library to implement Generative Adversarial Networks and Adversarial Auto-Encoders.',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',
@@ -21,7 +21,7 @@ setup(
     author_email='ai-brain-lab@accel-brain.com',
     license='GPL2',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Information Technology',
         'Intended Audience :: Science/Research',
         'Framework :: Robot Framework',

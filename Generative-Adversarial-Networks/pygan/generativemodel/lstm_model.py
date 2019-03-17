@@ -62,9 +62,17 @@ class LSTMModel(GenerativeModel):
         Args:
             lstm_model:                     is-a `lstm_model`.
             batch_size:                     Batch size.
+                                            This parameters will be refered only when `lstm_model` is `None`.
+
             input_neuron_count:             The number of input units.
+                                            This parameters will be refered only when `lstm_model` is `None`.
+
             hidden_neuron_count:            The number of hidden units.
+                                            This parameters will be refered only when `lstm_model` is `None`.
+
             hidden_activating_function:     is-a `ActivatingFunctionInterface` in hidden layer.
+                                            This parameters will be refered only when `lstm_model` is `None`.
+
             seq_len:                        The length of sequences.
                                             This means refereed maxinum step `t` in feedforward.
 

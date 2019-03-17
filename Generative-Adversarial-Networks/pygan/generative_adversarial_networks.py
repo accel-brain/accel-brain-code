@@ -105,6 +105,22 @@ class GenerativeAdversarialNetworks(object):
         discriminative_model,
         d_logs_list
     ):
+        '''
+        Train the discriminator.
+
+        Args:
+            k_step:                 The number of learning of the discriminative_model.
+            true_sampler:           Sampler which draws samples from the `true` distribution.
+            generative_model:       Generator which draws samples from the `fake` distribution.
+            discriminative_model:   Discriminator which discriminates `true` from `fake`.
+            d_logs_list:            `list` of probabilities inferenced by the `discriminator` (mean) in the `discriminator`'s update turn.
+
+        Returns:
+            Tuple data. The shape is...
+            - Discriminator which discriminates `true` from `fake`.
+            - `list` of probabilities inferenced by the `discriminator` (mean) in the `discriminator`'s update turn.
+
+        '''
         for k in range(k_step):
             true_arr = true_sampler.draw()
             generated_arr = generative_model.draw()
@@ -133,6 +149,20 @@ class GenerativeAdversarialNetworks(object):
         discriminative_model,
         g_logs_list
     ):
+        '''
+        Train the generator.
+
+        Args:
+            generative_model:       Generator which draws samples from the `fake` distribution.
+            discriminative_model:   Discriminator which discriminates `true` from `fake`.
+            g_logs_list:            `list` of Probabilities inferenced by the `discriminator` (mean) in the `generator`'s update turn.
+
+        Returns:
+            Tuple data. The shape is...
+            - Generator which draws samples from the `fake` distribution.
+            - `list` of Probabilities inferenced by the `discriminator` (mean) in the `generator`'s update turn.
+
+        '''
         generated_arr = generative_model.draw()
         generated_posterior_arr = discriminative_model.inference(generated_arr)
         grad_arr = self.__gans_value_function.compute_generator_reward(
@@ -158,7 +188,7 @@ class GenerativeAdversarialNetworks(object):
 
         Returns:
             The shape is:
-            - Probability inferenced by the `discriminator` (mean) in the `discriminator`'s update turn.
-            - Probability inferenced by the `discriminator` (mean) in the `generator`'s update turn.
+            - `list` of probabilities inferenced by the `discriminator` (mean) in the `discriminator`'s update turn.
+            - `list` of Probabilities inferenced by the `discriminator` (mean) in the `generator`'s update turn.
         '''
         return self.__logs_tuple

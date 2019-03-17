@@ -64,6 +64,8 @@ class GenerativeAdversarialNetworks(object):
         try:
             for n in range(iter_n):
                 self.__logger.debug("-" * 100)
+                self.__logger.debug("Iterations: (" + str(n+1) + "/" + str(iter_n) + ")")
+                self.__logger.debug("-" * 100)
                 self.__logger.debug(
                     "The `discriminator`'s turn."
                 )

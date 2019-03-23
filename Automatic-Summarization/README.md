@@ -625,8 +625,15 @@ The `abstract_list` is a `list` that contains `str`s of sentences.
 ## Related PoC
 
 - [Webクローラ型人工知能によるパラドックス探索暴露機能の社会進化論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/) (Japanese)
-    - [プロトタイプの開発：文書自動要約技術](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/4/#i-12)
-    - [プロトタイプの開発：人工知能エージェント「キメラ・ネットワーク」](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/5/#i-8)
+    - [World-Wide Webの社会構造とWebクローラ型人工知能の意味論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/sozialstruktur-des-world-wide-web-und-semantik-der-kunstlichen-intelligenz-des-web-crawlers/)
+    - [意味論の意味論、観察の観察](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/semantik-der-semantik-und-beobachtung-der-beobachtung/)
+- [深層強化学習のベイズ主義的な情報探索に駆動された自然言語処理の意味論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/) (Japanese)
+    - [平均場近似推論の統計力学、自己符号化器としての深層ボルツマンマシン](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/tiefe-boltzmann-maschine-als-selbstkodierer/)
+    - [正則化問題における敵対的生成ネットワーク(GANs)と敵対的自己符号化器(AAEs)のネットワーク構造](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/regularisierungsproblem-und-gan/)
+    - [ニューラルネットワーク言語モデルの自然言語処理と再帰的ニューラルネットワークのネットワーク構造](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/naturliche-sprachverarbeitung-des-neuronalen-netzwerkmodells-und-der-netzwerkstruktur-eines-rekursiven-neuronalen-netzwerks/)
+    - [自然言語処理のパラドックス、パラドックスの自然言語処理](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/naturliche-sprachverarbeitung-von-paradoxien-und-paradoxien-durch-naturliche-sprachverarbeitung/)
+- [「人工の理想」を背景とした「万物照応」のデータモデリング](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/) (Japanese)
+    - [遊歩者の機能的等価物としてのWebクローラ、探索のアルゴリズムとアルゴリズムの探索](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/web-crawler-als-funktionelles-aquivalent-des-flaneurs/)
 
 ## Author
 

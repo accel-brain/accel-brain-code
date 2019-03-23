@@ -694,21 +694,19 @@ Hilgevoord, Jan and Uffink, Jos, "The Uncertainty Principle", The Stanford Encyc
 ### Related PoC
 
 - [量子力学、統計力学、熱力学における天才物理学者たちの神学的な形象について](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/) (Japanese)
-    - [プロトタイプの開発：アニーリング](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/2/#i-12)
+    - [熱力学の前史、マクスウェル＝ボルツマン分布におけるエントロピーの歴史的意味論](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/historische-semantik-der-entropie-in-der-maxwell-boltzmann-verteilung/)
+    - [メディアとしての統計力学と形式としてのアンサンブル、そのギブス的類推](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/statistische-mechanik-als-medium-und-ensemble-als-form/)
+    - [「マクスウェルの悪魔」、力学の基礎法則としての神](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/maxwell-damon/)
 - [Webクローラ型人工知能によるパラドックス探索暴露機能の社会進化論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/) (Japanese)
-    - [プロトタイプの開発：人工知能エージェント「キメラ・ネットワーク」](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/5/#i-8)
+    - [World-Wide Webの社会構造とWebクローラ型人工知能の意味論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/sozialstruktur-des-world-wide-web-und-semantik-der-kunstlichen-intelligenz-des-web-crawlers/)
+    - [意味論の意味論、観察の観察](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/semantik-der-semantik-und-beobachtung-der-beobachtung/)
 - [深層強化学習のベイズ主義的な情報探索に駆動された自然言語処理の意味論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/) (Japanese)
-    - [プロトタイプの開発：Q学習の派生](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/2/#Q)
-    - [プロトタイプの開発：深層強化学習](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/3/#i-7)
-    - [プロトタイプの開発：深層学習と強化学習による「排除された第三項」の推論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/4/#i-5)
+    - [バンディットアルゴリズムの機能的拡張としての強化学習アルゴリズム](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/verstarkungslernalgorithmus-als-funktionale-erweiterung-des-banditenalgorithmus/)
+    - [深層強化学習の統計的機械学習、強化学習の関数近似器としての深層学習](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/deep-learning-als-funktionsapproximator-fur-verstarktes-lernen/)
 - [ハッカー倫理に準拠した人工知能のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/) (Japanese)
-    - [プロトタイプの開発：深層強化学習のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/5/#i-2)    
-- [ヴァーチャルリアリティにおける動物的「身体」の物神崇拝的なユースケース](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/) (Japanese)
-    - [プロトタイプの開発：「人工天使ヒューズ＝ヒストリア」](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/4/#i-6)
+    - [アーキテクチャ中心設計の社会構造とアーキテクチャの意味論](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/sozialstruktur-des-architekturzentrum-designs-und-architektur-der-semantik/)
 - [「人工の理想」を背景とした「万物照応」のデータモデリング](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/) (Japanese)
-    - [プロトタイプの開発：「言葉」を蒐集するWebクローラ型人工知能](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/4/#Web-2)
-    - [プロトタイプの開発：「謎」を蒐集する異常検知モデル](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/4/#i-8)
-    - [プロトタイプの開発：「貨幣」を蒐集する強化学習エージェント](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/5/#i-6)
+    - [ギャンブラーの機能的等価物としての強化学習エージェント、投資における冷静沈着な精神の現在性](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/agent-in-reignforcement-lernen-als-funktionelle-aquivalente-von-spielern/)
 
 ## Author
 

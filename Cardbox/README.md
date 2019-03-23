@@ -27,13 +27,9 @@ This prototype has been loosely coupled with an autocompletion function. Then th
 ### Related PoC
 
 - [「時間」感覚の等価機能主義的な社会システム理論](https://accel-brain.com/aquivalenzfunktionalismus-und-sozialsystemtheorie-von-sinn-fur-zeit/) (Japanese)
-    - [プロトタイプの開発：カードボックスの機能的等価物としてのカードボックス](https://accel-brain.com/aquivalenzfunktionalismus-und-sozialsystemtheorie-von-sinn-fur-zeit/4/#i-6)
+    - [時間感覚の記述、社会学的啓蒙の社会構造と普遍理論の意味論](https://accel-brain.com/aquivalenzfunktionalismus-und-sozialsystemtheorie-von-sinn-fur-zeit/sozialstruktur-sozialer-aufklarung-und-semantik-zur-universelle-theorie/)
 - [「記憶」想起の人間学的唯物論的なメディア美学](https://accel-brain.com/erinnerung-von-anthropologischen-materialismus-in-medienasthetik/) (Japanese)
-    - [プロトタイプの開発：カードボックスのタグ機能](https://accel-brain.com/erinnerung-von-anthropologischen-materialismus-in-medienasthetik/5/#i-10)
-- [深層強化学習のベイズ主義的な情報探索に駆動された自然言語処理の意味論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/) (Japanese)
-    - [プロトタイプの開発：深層学習と強化学習による「排除された第三項」の推論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/4/#i-5)
-- [ヴァーチャルリアリティにおける動物的「身体」の物神崇拝的なユースケース](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/) (Japanese)
-    - [プロトタイプの開発：「人工天使ヒューズ＝ヒストリア」](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/4/#i-6)
+    - [メディア美学としての『パサージュ論』、コペルニクス的に転回された記憶の想起](https://accel-brain.com/erinnerung-von-anthropologischen-materialismus-in-medienasthetik/das-passagen-werk-als-medienasthetik/)
 
 ## Version
 - 1.0.1

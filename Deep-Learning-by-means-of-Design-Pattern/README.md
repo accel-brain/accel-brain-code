@@ -1759,18 +1759,25 @@ The class `Synapse` has sub-classes: `CompleteBipartiteGraph`, `LSTMGraph`, `CNN
 
 ### Related PoC
 
+- [量子力学、統計力学、熱力学における天才物理学者たちの神学的な形象について](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/) (Japanese)
+    - [熱力学の前史、マクスウェル＝ボルツマン分布におけるエントロピーの歴史的意味論](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/historische-semantik-der-entropie-in-der-maxwell-boltzmann-verteilung/)
+    - [メディアとしての統計力学と形式としてのアンサンブル、そのギブス的類推](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/statistische-mechanik-als-medium-und-ensemble-als-form/)
+    - [「マクスウェルの悪魔」、力学の基礎法則としての神](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/maxwell-damon/)
 - [Webクローラ型人工知能によるパラドックス探索暴露機能の社会進化論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/) (Japanese)
-    - [プロトタイプの開発：人工知能エージェント「キメラ・ネットワーク」](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/5/#i-8)
+    - [World-Wide Webの社会構造とWebクローラ型人工知能の意味論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/sozialstruktur-des-world-wide-web-und-semantik-der-kunstlichen-intelligenz-des-web-crawlers/)
+    - [意味論の意味論、観察の観察](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/semantik-der-semantik-und-beobachtung-der-beobachtung/)
 - [深層強化学習のベイズ主義的な情報探索に駆動された自然言語処理の意味論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/) (Japanese)
-    - [プロトタイプの開発：深層学習と強化学習による「排除された第三項」の推論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/4/#i-5)
+    - [平均場近似推論の統計力学、自己符号化器としての深層ボルツマンマシン](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/tiefe-boltzmann-maschine-als-selbstkodierer/)
+    - [深層学習の計算コスト削減、MobileNetの設計思想](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/berechnungskostenreduzierung-des-lern-und-designkonzeptes-von-mobilenet/)
+    - [正則化問題における敵対的生成ネットワーク(GANs)と敵対的自己符号化器(AAEs)のネットワーク構造](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/regularisierungsproblem-und-gan/)
+    - [ニューラルネットワーク言語モデルの自然言語処理と再帰的ニューラルネットワークのネットワーク構造](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/naturliche-sprachverarbeitung-des-neuronalen-netzwerkmodells-und-der-netzwerkstruktur-eines-rekursiven-neuronalen-netzwerks/)
 - [ハッカー倫理に準拠した人工知能のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/) (Japanese)
-    - [プロトタイプの開発：深層強化学習のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/5/#i-2)
-- [ヴァーチャルリアリティにおける動物的「身体」の物神崇拝的なユースケース](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/) (Japanese)
-    - [プロトタイプの開発：「人工天使ヒューズ＝ヒストリア」](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/4/#i-6)
+    - [アーキテクチャ中心設計の社会構造とアーキテクチャの意味論](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/sozialstruktur-des-architekturzentrum-designs-und-architektur-der-semantik/)
+    - [近代社会の社会構造とハッカー倫理の意味論](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/sozialstruktur-der-modernen-gesellschaft-und-semantik-der-hackerethik/)
+    - [ラショナル統一プロセス(RUP)の社会構造とアーキテクチャ設計の意味論](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/sozialstruktur-des-rational-unified-process-und-semantik-des-architekturentwurfs/)
+    - [オブジェクト指向のオブジェクト指向](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/objektorientiert-uber-objektorientiert/)
 - [「人工の理想」を背景とした「万物照応」のデータモデリング](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/) (Japanese)
-    - [プロトタイプの開発：「言葉」を蒐集するWebクローラ型人工知能](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/4/#Web-2)
-    - [プロトタイプの開発：「謎」を蒐集する異常検知モデル](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/4/#i-8)
-    - [プロトタイプの開発：「貨幣」を蒐集する強化学習エージェント](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/5/#i-6)
+    - [探偵の機能的等価物としての異常検知モデル、謎解きの推論アルゴリズム](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/anomalieerkennungsmodell-als-funktionelles-aquivalent-eines-detektivs/)
 
 ## Author
 

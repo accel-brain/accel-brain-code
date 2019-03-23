@@ -177,8 +177,11 @@ autocompletion_.pre_training(
 
 ## Related PoC
 
+- [深層強化学習のベイズ主義的な情報探索に駆動された自然言語処理の意味論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/) (Japanese)
+    - [バンディットアルゴリズムの機能的拡張としての強化学習アルゴリズム](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/verstarkungslernalgorithmus-als-funktionale-erweiterung-des-banditenalgorithmus/)
+    - [深層強化学習の統計的機械学習、強化学習の関数近似器としての深層学習](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/deep-learning-als-funktionsapproximator-fur-verstarktes-lernen/)
 - [「人工の理想」を背景とした「万物照応」のデータモデリング](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise) (Japanese)
-    - [プロトタイプの開発：オートコンプリート機能](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/2/#i-5)
+    - [「万物照応」のデータモデリング](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/datenmodellierung-fur-korrespondenz/)
 
 ## Version
 

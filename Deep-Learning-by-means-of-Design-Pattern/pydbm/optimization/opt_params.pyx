@@ -154,24 +154,6 @@ class OptParams(metaclass=ABCMeta):
         )[0]
         return delta_arr
 
-    def clip_grads(self, grads_list):
-        '''
-        Clip gradients.
-
-        Args:
-            grads_list:      `list` of gradients.
-        
-        Returns:
-            `list` of gradients.
-        '''
-        for i in range(len(grads_list)):
-            if isinstance(grads_list[i], np.ndarray) is True:
-                v = np.linalg.norm(grads_list[i])
-                if v > self.grad_clip_threshold:
-                    grads_list[i] = grads_list[i] * self.grad_clip_threshold / v
-
-        return grads_list
-
     def get_weight_limit(self):
         ''' getter '''
         return self.__weight_limit

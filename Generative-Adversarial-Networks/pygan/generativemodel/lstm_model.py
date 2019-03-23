@@ -62,10 +62,20 @@ class LSTMModel(GenerativeModel):
         Args:
             lstm_model:                     is-a `lstm_model`.
             batch_size:                     Batch size.
+                                            This parameters will be refered only when `lstm_model` is `None`.
+
             input_neuron_count:             The number of input units.
+                                            This parameters will be refered only when `lstm_model` is `None`.
+
             hidden_neuron_count:            The number of hidden units.
+                                            This parameters will be refered only when `lstm_model` is `None`.
+
             hidden_activating_function:     is-a `ActivatingFunctionInterface` in hidden layer.
+                                            This parameters will be refered only when `lstm_model` is `None`.
+
             seq_len:                        The length of sequences.
+                                            This means refereed maxinum step `t` in feedforward.
+
             learning_rate:                  Learning rate.
             verbose_mode:                   Verbose mode or not.
         '''
@@ -126,6 +136,8 @@ class LSTMModel(GenerativeModel):
                 learning_attenuate_rate=0.1,
                 # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
                 attenuate_epoch=50,
+                # The length of sequences.
+                seq_len=seq_len,
                 # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
                 bptt_tau=seq_len,
                 # Size of Test data set. If this value is `0`, the validation will not be executed.
@@ -187,7 +199,7 @@ class LSTMModel(GenerativeModel):
         elif grad_arr.ndim == 3:
             grad_arr = grad_arr[:, -1]
 
-        delta_arr, grads_list = self.__lstm_model.hidden_back_propagate(grad_arr)
+        delta_arr, _, grads_list = self.__lstm_model.hidden_back_propagate(grad_arr)
         grads_list.insert(0, None)
         grads_list.insert(0, None)
 

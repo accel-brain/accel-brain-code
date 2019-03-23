@@ -39,7 +39,7 @@ The source code is currently hosted on GitHub.
 ### Related PoC
 
 - [仏教の社会構造とマインドフルネス瞑想の意味論](https://accel-brain.com/social-structure-of-buddhism-and-semantics-of-mindfulness-meditation/) (Japanese)
-    - [プロトタイプの開発：バイノーラルビート](https://accel-brain.com/social-structure-of-buddhism-and-semantics-of-mindfulness-meditation/3/#i-6)
+    - [マインドフルネス瞑想の機能的等価物に対する観察、およびその盲点](https://accel-brain.com/social-structure-of-buddhism-and-semantics-of-mindfulness-meditation/funktionelle-aquivalente-der-achtsamkeitsmeditation/)
 
 ## Version
 

@@ -11,16 +11,20 @@ class ReLuFunction(ActivatingFunctionInterface):
     '''
     ReLu Function.
     '''
-    
-    def __init__(self, normalize_flag=False):
+
+    # The length of memories.
+    __memory_len = 50
+
+    def __init__(self, memory_len=50):
         '''
         Init.
-        
+
         Args:
-            normalize_flag:     Z-Score normalize or not.
+            memory_len:     The number of memos of activities for derivative in backward.
 
         '''
-        self.__normalize_flag = normalize_flag
+        self.__mask_arr_list = []
+        self.__memory_len = memory_len
 
     def activate(self, np.ndarray x):
         '''
@@ -32,14 +36,9 @@ class ReLuFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
-        cdef double x_mean
-        cdef double x_std
-
-        if self.__normalize_flag is True:
-            x_mean = x.mean()
-            x_std = x.std()
-            if x_std != 0:
-                x = (x - x_mean) / x_std
+        self.__mask_arr_list.append((x <= 0))
+        if len(self.__mask_arr_list) > self.__memory_len:
+            self.__mask_arr_list = self.__mask_arr_list[len(self.__mask_arr_list) - self.__memory_len:]
 
         x = np.maximum(0, x).astype(np.float64)
         return x
@@ -54,4 +53,6 @@ class ReLuFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
-        return (y > 0).astype(int).astype(np.float64)
+        mask_arr = self.__mask_arr_list.pop(-1)
+        y[mask_arr] = 0
+        return y

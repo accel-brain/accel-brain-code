@@ -47,13 +47,13 @@ class CNNModel(DiscriminativeModel):
             cnn_output_graph:               is-a `CNNOutputGraph`.
             learning_rate:                  Learning rate.
             computable_loss:                is-a `ComputableLoss`.
-                                            This parameters will be refered only when `nn` is `None`.
+                                            This parameters will be refered only when `cnn` is `None`.
 
             opt_params:                     is-a `OptParams`.
-                                            This parameters will be refered only when `nn` is `None`.
+                                            This parameters will be refered only when `cnn` is `None`.
 
             verificatable_result:           is-a `VerificateFunctionApproximation`.
-                                            This parameters will be refered only when `nn` is `None`.
+                                            This parameters will be refered only when `cnn` is `None`.
 
             cnn:                            is-a `ConvolutionalNeuralNetwork` as a model in this class.
                                             If not `None`, `self.__cnn` will be overrided by this `cnn`.

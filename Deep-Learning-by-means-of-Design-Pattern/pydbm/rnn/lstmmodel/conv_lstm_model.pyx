@@ -2,26 +2,21 @@
 from logging import getLogger
 import numpy as np
 cimport numpy as np
-
+ctypedef np.float64_t DOUBLE_t
 from pydbm.synapse_list import Synapse
 from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer
-
 from pydbm.synapse.cnn_graph import CNNGraph as GivenGraph
 from pydbm.synapse.cnn_graph import CNNGraph as InputGraph
 from pydbm.synapse.cnn_graph import CNNGraph as ForgotGraph
 from pydbm.synapse.cnn_graph import CNNGraph as OutputGraph
-
-
 from pydbm.activation.logistic_function import LogisticFunction
 from pydbm.activation.tanh_function import TanhFunction
-
 from pydbm.cnn.feature_generator import FeatureGenerator
 from pydbm.verification.interface.verificatable_result import VerificatableResult
 from pydbm.loss.interface.computable_loss import ComputableLoss
 from pydbm.optimization.opt_params import OptParams
 from pydbm.rnn.interface.reconstructable_model import ReconstructableModel
 
-ctypedef np.float64_t DOUBLE_t
 
 
 class ConvLSTMModel(ReconstructableModel):
@@ -71,10 +66,6 @@ class ConvLSTMModel(ReconstructableModel):
     # Latest length of sequneces.
     __cycle_len = 1
     
-    # Width and height of input images in the first layer.
-    __width = None
-    __height = None
-    
     # Observed shape of hidden units.
     __hidden_shape = None
 
@@ -92,12 +83,11 @@ class ConvLSTMModel(ReconstructableModel):
         output_conv=None,
         int filter_num=20,
         int channel=3,
-        width=None,
-        height=None,
         int kernel_size=3,
         double scale=0.1,
         int stride=1,
         int pad=1,
+        int seq_len=0,
         int bptt_tau=16,
         double test_size_rate=0.3,
         computable_loss=None,
@@ -105,8 +95,7 @@ class ConvLSTMModel(ReconstructableModel):
         verificatable_result=None,
         tol=1e-04,
         tld=100.0,
-        pre_learned_dir=None,
-        output_layer_flag=False
+        pre_learned_dir=None
     ):
         '''
         Init for building LSTM networks.
@@ -142,6 +131,14 @@ class ConvLSTMModel(ReconstructableModel):
             stride:                         The stride in default settings.
             pad:                            The pad in default settings.
 
+            seq_len:                        The length of sequences.
+                                            If `0`, this model will reference all series elements included 
+                                            in observed data points.
+                                            If not `0`, only first sequence will be observed by this model 
+                                            and will be feedfowarded as feature points.
+                                            This parameter enables you to build this class as `Decoder` in
+                                            Sequence-to-Sequence(Seq2seq) scheme.
+
             bptt_tau:                       Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
                                             If `0`, this class referes all past data in BPTT.
 
@@ -157,15 +154,12 @@ class ConvLSTMModel(ReconstructableModel):
             tld:                            Tolerance for deviation of loss.
 
             pre_learned_dir:                Path to directory that stores pre-learned parameters.
-            output_layer_flag:              Setup and use output layer or not.
 
         '''
         self.graph = graph
         if pre_learned_dir is not None:
             self.graph.load_pre_learned_params(pre_learned_dir + "conv_lstm_graph.npz")
 
-        self.__height = height
-        self.__width = width
         self.__filter_num = filter_num
         self.__channel = channel
         self.__hidden_shape = None
@@ -301,6 +295,7 @@ class ConvLSTMModel(ReconstructableModel):
         self.__learning_attenuate_rate = learning_attenuate_rate
         self.__attenuate_epoch = attenuate_epoch
 
+        self.__seq_len = seq_len
         self.__bptt_tau = bptt_tau
 
         self.__test_size_rate = test_size_rate
@@ -309,8 +304,6 @@ class ConvLSTMModel(ReconstructableModel):
 
         self.__memory_tuple_list = []
         self.__cycle_len = 1
-        
-        self.__output_layer_flag = output_layer_flag
 
         logger = getLogger("pydbm")
         self.__logger = logger
@@ -369,9 +362,9 @@ class ConvLSTMModel(ReconstructableModel):
 
         cdef double loss
         cdef double test_loss
-        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] test_pred_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_arr
+        cdef np.ndarray pred_arr
+        cdef np.ndarray test_pred_arr
+        cdef np.ndarray delta_arr
 
         best_params_list = []
         try:
@@ -455,8 +448,6 @@ class ConvLSTMModel(ReconstructableModel):
                     if min_loss is None or min_loss > loss:
                         min_loss = loss
                         best_params_list = [
-                            self.graph.weights_output_arr,
-                            self.graph.output_bias_arr,
                             self.__given_conv.graph.weight_arr,
                             self.__input_conv.graph.weight_arr,
                             self.__forgot_conv.graph.weight_arr,
@@ -667,8 +658,6 @@ class ConvLSTMModel(ReconstructableModel):
                     if min_loss is None or min_loss > loss:
                         min_loss = loss
                         best_params_list = [
-                            self.graph.weights_output_arr,
-                            self.graph.output_bias_arr,
                             self.__given_conv.graph.weight_arr,
                             self.__input_conv.graph.weight_arr,
                             self.__forgot_conv.graph.weight_arr,
@@ -770,16 +759,14 @@ class ConvLSTMModel(ReconstructableModel):
 
         '''
         if len(best_params_list) > 0:
-            self.graph.weights_output_arr = best_params_list[0]
-            self.graph.output_bias_arr = best_params_list[1]
-            self.__given_conv.graph.weight_arr = best_params_list[2]
-            self.__input_conv.graph.weight_arr = best_params_list[3]
-            self.__forgot_conv.graph.weight_arr = best_params_list[4]
-            self.__output_conv.graph.weight_arr = best_params_list[5]
-            self.__given_conv.graph.bias_arr = best_params_list[6]
-            self.__input_conv.graph.bias_arr = best_params_list[7]
-            self.__forgot_conv.graph.bias_arr = best_params_list[8]
-            self.__output_conv.graph.bias_arr = best_params_list[9]
+            self.__given_conv.graph.weight_arr = best_params_list[0]
+            self.__input_conv.graph.weight_arr = best_params_list[1]
+            self.__forgot_conv.graph.weight_arr = best_params_list[2]
+            self.__output_conv.graph.weight_arr = best_params_list[3]
+            self.__given_conv.graph.bias_arr = best_params_list[4]
+            self.__input_conv.graph.bias_arr = best_params_list[5]
+            self.__forgot_conv.graph.bias_arr = best_params_list[6]
+            self.__output_conv.graph.bias_arr = best_params_list[7]
             self.__logger.debug("Best params are saved.")
 
     def forward_propagation(self, np.ndarray batch_observed_arr):
@@ -792,24 +779,27 @@ class ConvLSTMModel(ReconstructableModel):
         Returns:
             Array like or sparse matrix as the predicted data points.
         '''
-        if batch_observed_arr.ndim == 3 and self.__height is not None and self.__width is not None:
-             batch_observed_arr = batch_observed_arr.reshape((
-                 batch_observed_arr.shape[0],
-                 batch_observed_arr.shape[1],
-                 self.__channel,
-                 self.__height,
-                 self.__width
-             ))
-
         cdef np.ndarray[DOUBLE_t, ndim=5] hidden_activity_arr = self.hidden_forward_propagate(
             batch_observed_arr
         )
+        cdef np.ndarray[DOUBLE_t, ndim=2] arr
+        if self.__opt_params.dropout_rate > 0:
+            arr = hidden_activity_arr.reshape((
+                hidden_activity_arr.shape[0],
+                -1
+            ))
+            arr = self.__opt_params.dropout(arr)
+            hidden_activity_arr = arr.reshape((
+                hidden_activity_arr.shape[0],
+                hidden_activity_arr.shape[1],
+                hidden_activity_arr.shape[2],
+                hidden_activity_arr.shape[3],
+                hidden_activity_arr.shape[4]
+            ))
+
         self.graph.hidden_activity_arr = hidden_activity_arr
 
-        if self.__output_layer_flag is False:
-            return hidden_activity_arr
-
-        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr = self.output_forward_propagate(
+        cdef np.ndarray[DOUBLE_t, ndim=5] pred_arr = self.output_forward_propagate(
             hidden_activity_arr
         )
         return pred_arr
@@ -819,7 +809,7 @@ class ConvLSTMModel(ReconstructableModel):
         np.ndarray pred_arr,
         np.ndarray delta_arr
     ):
-        r'''
+        '''
         Back propagation.
 
         Args:
@@ -831,13 +821,25 @@ class ConvLSTMModel(ReconstructableModel):
             - `np.ndarray` of Delta, 
             - `list` of gradations.
         '''
-        if self.__output_layer_flag is True:
-            delta_arr, grads_list = self.output_back_propagate(pred_arr, delta_arr)
-        else:
-            grads_list = []
+        delta_arr, grads_list = self.output_back_propagate(pred_arr, delta_arr)
 
-        _delta_arr = self.hidden_back_propagate(delta_arr)
-        return (_delta_arr, grads_list)
+        cdef np.ndarray[DOUBLE_t, ndim=2] arr
+        if self.__opt_params.dropout_rate > 0:
+            arr = delta_arr.reshape((
+                delta_arr.shape[0],
+                -1
+            ))
+            arr = self.__opt_params.de_dropout(arr)
+            delta_arr = arr.reshape((
+                delta_arr.shape[0],
+                delta_arr.shape[1],
+                delta_arr.shape[2],
+                delta_arr.shape[3],
+                delta_arr.shape[4]
+            ))
+
+        delta_arr, delta_hidden_arr, _ = self.hidden_back_propagate(delta_arr[:, -1])
+        return (delta_arr, grads_list)
 
     def optimize(
         self,
@@ -855,8 +857,6 @@ class ConvLSTMModel(ReconstructableModel):
             
         '''
         params_list = [
-            self.graph.weights_output_arr,
-            self.graph.output_bias_arr,
             self.__given_conv.graph.weight_arr,
             self.__input_conv.graph.weight_arr,
             self.__forgot_conv.graph.weight_arr,
@@ -866,7 +866,7 @@ class ConvLSTMModel(ReconstructableModel):
             self.__forgot_conv.graph.bias_arr,
             self.__output_conv.graph.bias_arr
         ]
-        grads_list.extend([
+        grads_list = [
             self.__given_conv.delta_weight_arr,
             self.__input_conv.delta_weight_arr,
             self.__forgot_conv.delta_weight_arr,
@@ -875,31 +875,23 @@ class ConvLSTMModel(ReconstructableModel):
             self.__input_conv.delta_bias_arr,
             self.__forgot_conv.delta_bias_arr,
             self.__output_conv.delta_bias_arr
-        ])
-
+        ]
         params_list = self.__opt_params.optimize(
             params_list,
             grads_list,
             learning_rate
         )
+        self.__given_conv.graph.weight_arr = params_list.pop(0)
+        self.__input_conv.graph.weight_arr = params_list.pop(0)
+        self.__forgot_conv.graph.weight_arr = params_list.pop(0)
+        self.__output_conv.graph.weight_arr = params_list.pop(0)
 
-        self.graph.weights_output_arr = params_list[0]
-        self.graph.output_bias_arr = params_list[1]
-
-        self.__given_conv.graph.weight_arr = params_list[2]
-        self.__input_conv.graph.weight_arr = params_list[3]
-        self.__forgot_conv.graph.weight_arr = params_list[4]
-        self.__output_conv.graph.weight_arr = params_list[5]
-
-        self.__given_conv.graph.bias_arr = params_list[6]
-        self.__input_conv.graph.bias_arr = params_list[7]
-        self.__forgot_conv.graph.bias_arr = params_list[8]
-        self.__output_conv.graph.bias_arr = params_list[9]
+        self.__given_conv.graph.bias_arr = params_list.pop(0)
+        self.__input_conv.graph.bias_arr = params_list.pop(0)
+        self.__forgot_conv.graph.bias_arr = params_list.pop(0)
+        self.__output_conv.graph.bias_arr = params_list.pop(0)
 
         if ((epoch + 1) % self.__attenuate_epoch == 0):
-            self.graph.weights_output_arr = self.__opt_params.constrain_weight(
-                self.graph.weights_output_arr
-            )
             self.__given_conv.graph.weight_arr = self.__opt_params.constrain_weight(
                 self.__given_conv.graph.weight_arr
             )
@@ -924,7 +916,7 @@ class ConvLSTMModel(ReconstructableModel):
         np.ndarray hidden_activity_arr=None,
         np.ndarray cec_activity_arr=None
     ):
-        r'''
+        '''
         Inference the feature points to reconstruct the time-series.
 
         Override.
@@ -954,7 +946,6 @@ class ConvLSTMModel(ReconstructableModel):
             self.graph.cec_activity_arr = cec_activity_arr
 
         cdef np.ndarray pred_arr = self.forward_propagation(observed_arr)
-
         return pred_arr
 
     def get_feature_points(self):
@@ -978,22 +969,34 @@ class ConvLSTMModel(ReconstructableModel):
             Predicted data points.
         '''
         cdef int sample_n = observed_arr.shape[0]
-        cdef int cycle_len = observed_arr.shape[1]
+        cdef int cycle_len
+        if self.__seq_len == 0:
+            cycle_len = observed_arr.shape[1]
+        else:
+            cycle_len = self.__seq_len
+
         cdef int channel = observed_arr.shape[2]
         cdef int width = observed_arr.shape[3]
         cdef int height = observed_arr.shape[4]
-        
+
         self.__cycle_len = cycle_len
 
         cdef np.ndarray[DOUBLE_t, ndim=5] pred_arr = None
         cdef int cycle
         for cycle in range(cycle_len):
-            self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
-                observed_arr[:, cycle, :, :, :],
-                self.graph.hidden_activity_arr,
-                self.graph.cec_activity_arr
-            )
-            
+            if self.__seq_len == 0 or cycle == 0:
+                self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
+                    observed_arr[:, cycle, :, :, :],
+                    self.graph.hidden_activity_arr,
+                    self.graph.cec_activity_arr
+                )
+            else:
+                self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
+                    pred_arr[:, cycle-1, :, :, :],
+                    self.graph.hidden_activity_arr,
+                    self.graph.cec_activity_arr
+                )
+
             if pred_arr is None:
                 pred_arr = np.zeros(
                     (
@@ -1020,20 +1023,13 @@ class ConvLSTMModel(ReconstructableModel):
         Returns:
             `np.ndarray` of propagated data points.
         '''
-        hidden_shape = pred_arr[:, -1].copy().shape
-        self.__hidden_shape = (
-            self.__filter_num,
-            self.__channel,
-            hidden_shape[2],
-            hidden_shape[3]
-        )
-        cdef np.ndarray hidden_pred_arr = pred_arr[:, -1].reshape((pred_arr[:, -1].shape[0], -1))
-        cdef np.ndarray[DOUBLE_t, ndim=2] _pred_arr = self.graph.output_activating_function.activate(
-            np.dot(hidden_pred_arr, self.graph.weights_output_arr) + self.graph.output_bias_arr
-        )
-        return _pred_arr
+        return pred_arr
 
-    def output_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] pred_arr, np.ndarray[DOUBLE_t, ndim=2] delta_arr):
+    def output_back_propagate(
+        self, 
+        np.ndarray[DOUBLE_t, ndim=5] pred_arr, 
+        np.ndarray[DOUBLE_t, ndim=5] delta_arr
+    ):
         '''
         Back propagation in output layer.
 
@@ -1046,47 +1042,35 @@ class ConvLSTMModel(ReconstructableModel):
             - `np.ndarray` of Delta, 
             - `list` of gradations.
         '''
-        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = np.dot(delta_arr, self.graph.weights_output_arr.T)
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weights_arr = np.dot(pred_arr.T, _delta_arr).T
-        cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = np.sum(delta_arr, axis=0)
-
-        grads_list = [
-            delta_weights_arr,
-            delta_bias_arr
-        ]
-        hidden_shape = (
-            self.__hidden_shape[0],
-            self.__hidden_shape[0],
-            self.__hidden_shape[2],
-            self.__hidden_shape[3]
-        )
-        return (_delta_arr.reshape(hidden_shape), grads_list)
+        return (delta_arr, [])
 
     def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=4] delta_output_arr):
         '''
         Back propagation in hidden layer.
-        
-        @TODO(chimera0): BPTT.
         
         Args:
             delta_output_arr:    Delta.
         
         Returns:
             Tuple data.
-            - `np.ndarray` of Delta, 
+            - `np.ndarray` of Delta in observed data points, 
+            - `np.ndarray` of Delta in hidden units, 
             - `list` of gradations
         '''
-        # not BPTT.
-        cdef int cycle_len = 1
+        cdef int cycle_len
+        if self.__seq_len == 0:
+            cycle_len = self.__cycle_len
+        else:
+            cycle_len = self.__seq_len
 
         cdef np.ndarray[DOUBLE_t, ndim=5] delta_arr = None
-
         cdef np.ndarray[DOUBLE_t, ndim=4] _delta_hidden_arr
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_hidden_arr
         cdef np.ndarray delta_cec_arr = np.array([])
 
         cdef int bp_count = 0
         cdef int cycle
+
         for cycle in reversed(range(cycle_len)):
             if bp_count == 0:
                 _delta_hidden_arr = delta_output_arr
@@ -1116,7 +1100,7 @@ class ConvLSTMModel(ReconstructableModel):
             bp_count += 1
 
         self.__memory_tuple_list = []
-        return delta_arr, []
+        return delta_arr, delta_hidden_arr, []
 
     def __lstm_forward(
         self,
@@ -1182,8 +1166,6 @@ class ConvLSTMModel(ReconstructableModel):
             axis=0
         )[0]
 
-        _hidden_activity_arr = self.__opt_params.dropout(_hidden_activity_arr)
-
         self.__memory_tuple_list.append((
             observed_arr, 
             hidden_activity_arr, 
@@ -1227,14 +1209,11 @@ class ConvLSTMModel(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=4] output_gate_activity_arr = self.__memory_tuple_list[cycle][6]
         cdef np.ndarray[DOUBLE_t, ndim=4] cec_activity_arr = self.__memory_tuple_list[cycle][7]
 
-        delta_hidden_arr = self.__opt_params.de_dropout(delta_hidden_arr)
-
-        cdef np.ndarray[DOUBLE_t, ndim=4] _cec_activity_arr = self.graph.hidden_activating_function.activate(
-            cec_activity_arr
-        )
-
         if delta_cec_arr.shape[0] == 0:
             delta_cec_arr = np.zeros_like(delta_hidden_arr)
+        
+        if delta_hidden_arr.shape[1] != output_gate_activity_arr.shape[1]:
+            delta_hidden_arr = delta_hidden_arr.repeat(output_gate_activity_arr.shape[1], axis=1)
 
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_top_arr = np.nanprod(
             np.array([
@@ -1258,15 +1237,15 @@ class ConvLSTMModel(ReconstructableModel):
             np.array([
                 delta_hidden_arr,
                 cec_activity_arr,
-                self.graph.output_gate_activating_function.derivative(output_gate_activity_arr)]
-            ),
+                output_gate_activity_arr
+            ]),
             axis=0
         )
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_forget_gate_arr = np.nanprod(
             np.array([
                 delta_top_arr,
                 delta_pre_rnn_arr,
-                self.graph.forget_gate_activating_function.derivative(forget_gate_activity_arr)
+                forget_gate_activity_arr
             ]),
             axis=0
         )
@@ -1274,7 +1253,7 @@ class ConvLSTMModel(ReconstructableModel):
             np.array([
                 delta_top_arr,
                 given_activity_arr,
-                self.graph.input_gate_activating_function.derivative(input_gate_activity_arr)
+                input_gate_activity_arr
             ]),
             axis=0
         )
@@ -1282,7 +1261,7 @@ class ConvLSTMModel(ReconstructableModel):
             np.array([
                 delta_top_arr,
                 input_gate_activity_arr,
-                self.graph.observed_activating_function.derivative(given_activity_arr)
+                given_activity_arr
             ]),
             axis=0
         )
@@ -1393,3 +1372,43 @@ class ConvLSTMModel(ReconstructableModel):
             raise TypeError()
 
     opt_params = property(get_opt_params, set_opt_params)
+
+    def get_given_conv(self):
+        ''' getter '''
+        return self.__given_conv
+    
+    def set_given_conv(self, value):
+        ''' setter '''
+        self.__given_conv = value
+    
+    given_conv = property(get_given_conv, set_given_conv)
+
+    def get_input_conv(self):
+        ''' getter '''
+        return self.__input_conv
+    
+    def set_input_conv(self, value):
+        ''' setter '''
+        self.__input_conv = value
+    
+    input_conv = property(get_input_conv, set_input_conv)
+
+    def get_forgot_conv(self):
+        ''' getter '''
+        return self.__forgot_conv
+    
+    def set_forgot_conv(self, value):
+        ''' setter '''
+        self.__forgot_conv = value
+    
+    forgot_conv = property(get_forgot_conv, set_forgot_conv)
+
+    def get_output_conv(self):
+        ''' getter '''
+        return self.__output_conv
+    
+    def set_output_conv(self, value):
+        ''' setter '''
+        self.__output_conv = value
+    
+    output_conv = property(get_output_conv, set_output_conv)

@@ -63,7 +63,7 @@ class EncoderDecoder(VectorizableSentence):
             `np.ndarray` of tokens.
             [vector of token, vector of token, vector of token]
         '''
-        test_observed_arr = self.__setup_dataset(sentence_list, self.__token_master_list)
+        test_observed_arr, _ = self.__setup_dataset(sentence_list, self.__token_master_list, self.__sentence_mean_len)
         pred_arr = self.__controller.inference(test_observed_arr)
         return self.__controller.get_feature_points()
 
@@ -77,7 +77,6 @@ class EncoderDecoder(VectorizableSentence):
         learning_rate=1e-05,
         learning_attenuate_rate=0.1,
         attenuate_epoch=50,
-        bptt_tau=8,
         weight_limit=0.5,
         dropout_rate=0.5,
         test_size_rate=0.3
@@ -101,7 +100,6 @@ class EncoderDecoder(VectorizableSentence):
                                             Additionally, in relation to regularization,
                                             this class constrains weight matrixes every `attenuate_epoch`.
 
-            bptt_tau:                       Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
             weight_limit:                   Regularization for weights matrix
                                             to repeat multiplying the weights matrix and `0.9`
                                             until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
@@ -109,8 +107,8 @@ class EncoderDecoder(VectorizableSentence):
             dropout_rate:                   The probability of dropout.
             test_size_rate:                 Size of Test data set. If this value is `0`, the 
         '''
-        observed_arr = self.__setup_dataset(sentence_list, token_master_list)
-        
+        observed_arr, sentence_mean_len = self.__setup_dataset(sentence_list, token_master_list)
+        self.__sentence_mean_len = sentence_mean_len 
         self.__logger.debug("Shape of observed data points:")
         self.__logger.debug(observed_arr.shape)
 
@@ -130,7 +128,7 @@ class EncoderDecoder(VectorizableSentence):
         encoder_graph.create_rnn_cells(
             input_neuron_count=observed_arr.shape[-1],
             hidden_neuron_count=hidden_neuron_count,
-            output_neuron_count=observed_arr.shape[-1]
+            output_neuron_count=1
         )
 
         # Init.
@@ -148,8 +146,8 @@ class EncoderDecoder(VectorizableSentence):
         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
         decoder_graph.create_rnn_cells(
             input_neuron_count=hidden_neuron_count,
-            hidden_neuron_count=observed_arr.shape[-1],
-            output_neuron_count=hidden_neuron_count
+            hidden_neuron_count=hidden_neuron_count,
+            output_neuron_count=observed_arr.shape[-1]
         )
 
         encoder_opt_params = EncoderAdam()
@@ -170,7 +168,7 @@ class EncoderDecoder(VectorizableSentence):
             # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
             attenuate_epoch=attenuate_epoch,
             # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
-            bptt_tau=bptt_tau,
+            bptt_tau=observed_arr.shape[1],
             # Size of Test data set. If this value is `0`, the validation will not be executed.
             test_size_rate=test_size_rate,
             # Loss function.
@@ -199,8 +197,10 @@ class EncoderDecoder(VectorizableSentence):
             learning_attenuate_rate=learning_attenuate_rate,
             # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
             attenuate_epoch=attenuate_epoch,
+            # The length of sequences.
+            seq_len=observed_arr.shape[1],
             # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
-            bptt_tau=bptt_tau,
+            bptt_tau=observed_arr.shape[1],
             # Size of Test data set. If this value is `0`, the validation will not be executed.
             test_size_rate=test_size_rate,
             # Loss function.
@@ -232,11 +232,12 @@ class EncoderDecoder(VectorizableSentence):
         self.__controller = encoder_decoder_controller
         self.__token_master_list = token_master_list
 
-    def __setup_dataset(self, sentence_list, token_master_list):
-        sentence_len_list = [0] * len(sentence_list)
-        for i in range(len(sentence_list)):
-            sentence_len_list[i] = len(sentence_list[i])
-        sentence_mean_len = int(sum(sentence_len_list) / len(sentence_len_list))
+    def __setup_dataset(self, sentence_list, token_master_list, sentence_mean_len=None):
+        if sentence_mean_len is None:
+            sentence_len_list = [0] * len(sentence_list)
+            for i in range(len(sentence_list)):
+                sentence_len_list[i] = len(sentence_list[i])
+            sentence_mean_len = int(sum(sentence_len_list) / len(sentence_len_list))
 
         observed_list = [None] * len(sentence_list)
         for i in range(len(sentence_list)):
@@ -253,7 +254,7 @@ class EncoderDecoder(VectorizableSentence):
                     arr_list[j] = arr
             observed_list[i] = arr_list
         observed_arr = np.array(observed_list)
-        return observed_arr
+        return observed_arr, sentence_mean_len
 
     def get_controller(self):
         ''' getter '''

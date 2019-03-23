@@ -10,10 +10,6 @@ from pysummarization.similarityfilter.tfidf_cosine import TfIdfCosine
 from pysummarization.similarityfilter.dice import Dice
 from pysummarization.similarityfilter.jaccard import Jaccard
 from pysummarization.similarityfilter.simpson import Simpson
-from pysummarization.similarityfilter.encoder_decoder_cosine import EncoderDecoderCosine
-from pysummarization.similarityfilter.encoder_decoder_clustering import EncoderDecoderClustering
-from pysummarization.similarityfilter.lstm_rtrbm_clustering import LSTMRTRBMClustering
-from pysummarization.similarityfilter.lstm_rtrbm_cosine import LSTMRTRBMCosine
 
 
 
@@ -31,81 +27,7 @@ def Main(url, similarity_mode="TfIdfCosine", similarity_limit=0.75):
     # Execute Web-scraping.
     document = web_scrape.scrape(url)
 
-    if similarity_mode == "EncoderDecoderCosine":
-        # The object of `Similarity Filter`.
-        # The similarity observed by this object is so-called cosine similarity of manifolds,
-        # which is embedded in hidden layer of Encoder/Decoder based on LSTM.
-        similarity_filter = EncoderDecoderCosine(
-            document,
-            hidden_neuron_count=200,
-            epochs=100,
-            batch_size=100,
-            learning_rate=1e-05,
-            learning_attenuate_rate=0.1,
-            attenuate_epoch=50,
-            bptt_tau=8,
-            weight_limit=0.5,
-            dropout_rate=0.5,
-            test_size_rate=0.3,
-            debug_mode=True
-        )
-
-    elif similarity_mode == "EncoderDecoderClustering":
-        # The object of `Similarity Filter`.
-        # The similarity is observed by checking whether each sentence belonging to the same cluster, 
-        # and if so, the similarity is `1.0`, if not, the value is `0.0`.
-        # The data clustering algorithm is based on K-Means method, 
-        # learning data which is embedded in hidden layer of LSTM.
-        similarity_filter = EncoderDecoderClustering(
-            document,
-            hidden_neuron_count=200,
-            epochs=100,
-            batch_size=100,
-            learning_rate=1e-05,
-            learning_attenuate_rate=0.1,
-            attenuate_epoch=50,
-            bptt_tau=8,
-            weight_limit=0.5,
-            dropout_rate=0.5,
-            test_size_rate=0.3,
-            cluster_num=10,
-            max_iter=100,
-            debug_mode=True
-        )
-        
-    elif similarity_mode == "LSTMRTRBMCosine":
-        # The object of `Similarity Filter`.
-        # The similarity observed by this object is so-called cosine similarity of manifolds,
-        # which is embedded in hidden layer of LSTM-RTRBM.
-        similarity_filter = LSTMRTRBMCosine(
-            document,
-            training_count=1,
-            hidden_neuron_count=100,
-            batch_size=100,
-            learning_rate=1e-03,
-            seq_len=5,
-            debug_mode=True
-        )
-
-    elif similarity_mode == "LSTMRTRBMClustering":
-        # The object of `Similarity Filter`.
-        # The similarity is observed by checking whether each sentence belonging to the same cluster, 
-        # and if so, the similarity is `1.0`, if not, the value is `0.0`.
-        # The data clustering algorithm is based on K-Means method, 
-        # learning data which is embedded in hidden layer of LSTM-RTRBM.
-        similarity_filter = LSTMRTRBMClustering(
-            document,
-            tokenizable_doc=None,
-            hidden_neuron_count=1000,
-            batch_size=100,
-            learning_rate=1e-03,
-            seq_len=5,
-            cluster_num=10,
-            max_iter=100,
-            debug_mode=True
-        )
-
-    elif similarity_mode == "TfIdfCosine":
+    if similarity_mode == "TfIdfCosine":
         # The object of `Similarity Filter`. 
         # The similarity observed by this object is so-called cosine similarity of Tf-Idf vectors.
         similarity_filter = TfIdfCosine()

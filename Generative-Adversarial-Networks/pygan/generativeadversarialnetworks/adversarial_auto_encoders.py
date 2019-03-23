@@ -67,6 +67,8 @@ class AdversarialAutoEncoders(GenerativeAdversarialNetworks):
         try:
             for n in range(iter_n):
                 self.__logger.debug("-" * 100)
+                self.__logger.debug("Iterations: (" + str(n+1) + "/" + str(iter_n) + ")")
+                self.__logger.debug("-" * 100)
                 self.__logger.debug(
                     "The `auto_encoder`'s turn."
                 )
@@ -110,6 +112,18 @@ class AdversarialAutoEncoders(GenerativeAdversarialNetworks):
         return generative_model, discriminative_model
 
     def train_auto_encoder(self, generative_model, a_logs_list):
+        '''
+        Train the generative model as the Auto-Encoder.
+
+        Args:
+            generative_model:   Generator which draws samples from the `fake` distribution.
+            a_logs_list:        `list` of the reconstruction errors.
+        
+        Returns:
+            The tuple data. The shape is...
+            - Generator which draws samples from the `fake` distribution.
+            - `list` of the reconstruction errors.
+        '''
         error_arr = generative_model.update()
         if error_arr.ndim > 1:
             error_arr = error_arr.mean()
@@ -125,8 +139,8 @@ class AdversarialAutoEncoders(GenerativeAdversarialNetworks):
 
         Returns:
             The shape is:
-            - The logs of reconstruction error.
-            - Probability inferenced by the `discriminator` (mean) in the `discriminator`'s update turn.
-            - Probability inferenced by the `discriminator` (mean) in the `generator`'s update turn.
+            - `list` of the reconstruction errors.
+            - `list` of probabilities inferenced by the `discriminator` (mean) in the `discriminator`'s update turn.
+            - `list` of probabilities inferenced by the `discriminator` (mean) in the `generator`'s update turn.
         '''
         return self.__logs_tuple

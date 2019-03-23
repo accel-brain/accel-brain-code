@@ -129,7 +129,7 @@ class EncoderDecoder(VectorizableToken):
         encoder_graph.create_rnn_cells(
             input_neuron_count=observed_arr.shape[-1],
             hidden_neuron_count=hidden_neuron_count,
-            output_neuron_count=observed_arr.shape[-1]
+            output_neuron_count=1
         )
 
         # Init.
@@ -147,8 +147,8 @@ class EncoderDecoder(VectorizableToken):
         # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
         decoder_graph.create_rnn_cells(
             input_neuron_count=hidden_neuron_count,
-            hidden_neuron_count=observed_arr.shape[-1],
-            output_neuron_count=hidden_neuron_count
+            hidden_neuron_count=hidden_neuron_count,
+            output_neuron_count=observed_arr.shape[-1]
         )
 
         encoder_opt_params = EncoderAdam()
@@ -198,6 +198,8 @@ class EncoderDecoder(VectorizableToken):
             learning_attenuate_rate=learning_attenuate_rate,
             # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
             attenuate_epoch=attenuate_epoch,
+            # The length of sequences.
+            seq_len=observed_arr.shape[1],
             # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
             bptt_tau=bptt_tau,
             # Size of Test data set. If this value is `0`, the validation will not be executed.

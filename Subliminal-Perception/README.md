@@ -118,7 +118,7 @@ After loading [js/Link2Keyword.js](https://github.com/chimera0/accel-brain-code/
 ### Related PoC
 
 - [ヴァーチャルリアリティにおける動物的「身体」の物神崇拝的なユースケース](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/) (Japanese)
-    - [プロトタイプの開発：閾下知覚のメディア](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/2/#i-5)
+    - [心理学会の社会構造と「閾下知覚」の意味論](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/sozialstruktur-der-psychologischen-gesellschaft-und-semantik-der-wahrnehmung-unter-der-schwelle/)
 
 ## Version
 - 1.0.1

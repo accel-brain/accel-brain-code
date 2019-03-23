@@ -871,10 +871,10 @@ class SpatioTemporalAutoEncoder(object):
             - encoder's `np.ndarray` of Delta, 
             - encoder's `list` of gradations.
         '''
-        decoder_delta_arr, decoder_grads_list = self.__decoder.hidden_back_propagate(delta_arr)
+        decoder_delta_arr, delta_hidden_arr, decoder_grads_list = self.__decoder.hidden_back_propagate(delta_arr)
         decoder_grads_list.insert(0, None)
         decoder_grads_list.insert(0, None)
-        encoder_delta_arr, encoder_grads_list = self.__encoder.hidden_back_propagate(decoder_delta_arr[:, -1])
+        encoder_delta_arr, delta_hidden_arr, encoder_grads_list = self.__encoder.hidden_back_propagate(delta_hidden_arr)
         encoder_grads_list.insert(0, None)
         encoder_grads_list.insert(0, None)
         return decoder_grads_list, encoder_delta_arr, encoder_grads_list

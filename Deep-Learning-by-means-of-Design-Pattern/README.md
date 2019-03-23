@@ -1,13 +1,15 @@
 # Deep Learning Library: pydbm
 
-`pydbm` is Python library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Long Short-Term Memory Recurrent Temporal Restricted Boltzmann Machine(LSTM-RTRBM), and Shape Boltzmann Machine(Shape-BM). From the view points of functionally equivalents and structural expansions, this library also prototypes many variants such as Encoder/Decoder based on LSTM, Convolutional Auto-Encoder, and Spatio-temporal Auto-Encoder.
+`pydbm` is Python library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Long Short-Term Memory Recurrent Temporal Restricted Boltzmann Machine(LSTM-RTRBM), and Shape Boltzmann Machine(Shape-BM). From the view points of functionally equivalents and structural expansions, this library also prototypes many variants such as Encoder/Decoder based on LSTM with an Attention mechanism, Convolutional Auto-Encoder, ConvLSTM, and Spatio-temporal Auto-Encoder.
 
 See also ...
 
+- [Automatic Summarization Library: pysummarization](https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization)
+   * If you want to implement the Sequence-to-Sequence(Seq2Seq) model for the automatic summarization by using `pydbm` to build the Encoder/Decoder controllers.
 - [Reinforcement Learning Library: pyqlearning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning)
-    * if you want to implement the Deep Reinforcement Learning, especially for Deep Q-Network and Multi-agent Deep Q-Network by using `pydbm` as a Function Approximator.
+    * If you want to implement the Deep Reinforcement Learning, especially for Deep Q-Network and Multi-agent Deep Q-Network by using `pydbm` as a Function Approximator.
 - [Generative Adversarial Networks Library: pygan](https://github.com/chimera0/accel-brain-code/tree/master/Generative-Adversarial-Networks)
-    * if you want to implement Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs) by using `pydbm` as components for Generative models based on the Statistical machine learning problems.
+    * If you want to implement Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs) by using `pydbm` as components for Generative models based on the Statistical machine learning problems.
 
 ## Documentation
 
@@ -933,6 +935,12 @@ Import `facade` module for building Encoder/Decoder based on LSTM.
 from pydbm.rnn.facade_encoder_decoder import FacadeEncoderDecoder
 ```
 
+If you want to use an Attention mechanism, import `FacadeAttentionEncoderDecoder` instead.
+
+```python
+from pydbm.rnn.facade_attention_encoder_decoder import FacadeAttentionEncoderDecoder as FacadeEncoderDecoder
+```
+
 Instantiate object and call the method to learn observed data points.
 
 ```python
@@ -940,8 +948,11 @@ Instantiate object and call the method to learn observed data points.
 facade_encoder_decoder = FacadeEncoderDecoder(
     # The number of units in input layers.
     input_neuron_count=observed_arr.shape[-1],
-    # The number of units in output layers.
-    output_neuron_count=observed_arr.shape[-1],
+    # The length of sequences.
+    # This means refereed maxinum step `t` in feedforward.
+    seq_len=observed_arr.shape[1],
+    # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
+    bptt_tau=observed_arr.shape[1],
     # Verbose mode or not. If `True`, this class sets the logger level as `DEBUG`.
     verbose_flag=True
 )
@@ -1004,8 +1015,11 @@ facade_encoder_decoder.save_pre_learned_params(
 facade_encoder_decoder2 = FacadeEncoderDecoder(
     # The number of units in input layers.
     input_neuron_count=observed_arr.shape[-1],
-    # The number of units in output layers.
-    output_neuron_count=observed_arr.shape[-1],
+    # The length of sequences.
+    # This means refereed maxinum step `t` in feedforward.
+    seq_len=observed_arr.shape[1],
+    # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
+    bptt_tau=observed_arr.shape[1],
     # File path that stored Encoder's pre-learned parameters.
     encoder_pre_learned_file_path="/var/tmp/encoder.npz",
     # File path that stored Decoder's pre-learned parameters.
@@ -1029,8 +1043,6 @@ facade_encoder_decoder2.learn(
 facade_encoder_decoder = FacadeEncoderDecoder(
     # The number of units in input layers.
     input_neuron_count=observed_arr.shape[-1],
-    # The number of units in output layers.
-    output_neuron_count=observed_arr.shape[-1],
     # The number of units in hidden layers.
     hidden_neuron_count=200,
     # Epochs of Mini-batch.
@@ -1051,6 +1063,9 @@ facade_encoder_decoder = FacadeEncoderDecoder(
     computable_loss=MeanSquaredError(),
     # Optimizer which is-a `OptParams`.
     opt_params=Adam(),
+    # The length of sequences.
+    # This means refereed maxinum step `t` in feedforward.
+    seq_len=8,
     # Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
     # If `0`, this class referes all past data in BPTT.
     bptt_tau=8,
@@ -1095,6 +1110,12 @@ Import Python and Cython modules for computation graphs.
 # LSTM Graph which is-a `Synapse`.
 from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as EncoderGraph
 from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as DecoderGraph
+```
+
+If you want to introduce the graph of decoder for building an Attention mechanism as the decoder, import `AttentionLSTMGraph` instead.
+
+```python
+from pydbm.synapse.recurrenttemporalgraph.lstmgraph.attention_lstm_graph import AttentionLSTMGraph as DecoderGraph
 ```
 
 Import Python and Cython modules of activation functions.
@@ -1153,6 +1174,12 @@ from pydbm.rnn.lstm_model import LSTMModel as Decoder
 from pydbm.rnn.encoder_decoder_controller import EncoderDecoderController
 ```
 
+If you want to build an Attention mechanism as the decoder, import `AttentionLSTMModel` instead.
+
+```python
+from pydbm.rnn.lstmmodel.attention_lstm_model import AttentionLSTMModel as Decoder
+```
+
 Instantiate `Encoder`.
 
 ```python
@@ -1172,7 +1199,7 @@ encoder_graph.output_activating_function = LogisticFunction()
 encoder_graph.create_rnn_cells(
     input_neuron_count=observed_arr.shape[-1],
     hidden_neuron_count=200,
-    output_neuron_count=target_arr.shape[-1]
+    output_neuron_count=1
 )
 
 # Optimizer for Encoder.
@@ -1183,16 +1210,6 @@ encoder_opt_params.dropout_rate = 0.5
 encoder = Encoder(
     # Delegate `graph` to `LSTMModel`.
     graph=encoder_graph,
-    # The number of epochs in mini-batch training.
-    epochs=100,
-    # The batch size.
-    batch_size=100,
-    # Learning rate.
-    learning_rate=1e-05,
-    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
-    learning_attenuate_rate=0.1,
-    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
-    attenuate_epoch=50,
     # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
     bptt_tau=8,
     # Size of Test data set. If this value is `0`, the validation will not be executed.
@@ -1229,8 +1246,8 @@ decoder_graph.output_activating_function = LogisticFunction()
 # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
 decoder_graph.create_rnn_cells(
     input_neuron_count=200,
-    hidden_neuron_count=observed_arr.shape[-1],
-    output_neuron_count=200
+    hidden_neuron_count=200,
+    output_neuron_count=observed_arr.shape[-1]
 )
 
 # Optimizer for Decoder.
@@ -1241,20 +1258,10 @@ decoder_opt_params.dropout_rate = 0.5
 decoder = Decoder(
     # Delegate `graph` to `LSTMModel`.
     graph=decoder_graph,
-    # The number of epochs in mini-batch training.
-    epochs=100,
-    # The batch size.
-    batch_size=100,
-    # Learning rate.
-    learning_rate=1e-05,
-    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
-    learning_attenuate_rate=0.1,
-    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
-    attenuate_epoch=50,
+    # The length of sequences.
+    seq_len=8,
     # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
     bptt_tau=8,
-    # Size of Test data set. If this value is `0`, the validation will not be executed.
-    test_size_rate=0.3,
     # Loss function.
     computable_loss=MeanSquaredError(),
     # Optimizer.
@@ -1329,7 +1336,7 @@ On the other hand, the `encoder_decoder_controller` also stores the feature poin
 feature_points_arr = encoder_decoder_controller.get_feature_points()
 ```
 
-If `LSTMModel`s are delegated, the shape of `feature_points_arr` is **rank-2 array-like or sparse matrix**: (`The number of samples`, `The number of units in hidden layers`). On the other hand, if `ConvLSTMModel`s are delegated, the shape of `feature_points_arr` is **rank-4 array-like or sparse matrix**:(`The number of samples`, `Channel`, `Height of images`, `Width of images`). So the matrices also mean time series data embedded as manifolds in the hidden layers.
+If `LSTMModel`s are delegated, the shape of `feature_points_arr` is **rank-3 array-like or sparse matrix**: (`The number of samples`, `The length of cycle`, `The number of units in hidden layers`). On the other hand, if `ConvLSTMModel`s are delegated, the shape of `feature_points_arr` is **rank-5 array-like or sparse matrix**:(`The number of samples`, `The length of cycle`, `Channel`, `Height of images`, `Width of images`). So the matrices also mean time series data embedded as manifolds in the hidden layers.
 
 You can check the reconstruction error rate. Call `get_reconstruct_error` method as follow.
 
@@ -1416,7 +1423,7 @@ conv2 = ConvolutionLayer2(
         # Computation graph for second convolution layer.
         activation_function=LogisticFunction(),
         # The number of `filter`.
-        filter_num=1,
+        filter_num=20,
         # Channel.
         channel=20,
         # The size of kernel.
@@ -1720,11 +1727,13 @@ The class `Synapse` has sub-classes: `CompleteBipartiteGraph`, `LSTMGraph`, `CNN
 - Salakhutdinov, R., & Hinton, G. E. (2009). Deep boltzmann machines. InInternational conference on artificial intelligence and statistics (pp. 448-455).
 - Sutskever, I., Hinton, G. E., & Taylor, G. W. (2009). The recurrent temporal restricted boltzmann machine. In Advances in Neural Information Processing Systems (pp. 1601-1608).
 
-### Encoder/Decoder schemes
+### Encoder/Decoder schemes with an Attention mechanism
 
+- Bahdanau, D., Cho, K., & Bengio, Y. (2014). Neural machine translation by jointly learning to align and translate. arXiv preprint arXiv:1409.0473.
 - Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.
 - Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., & Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.
 - Xingjian, S. H. I., Chen, Z., Wang, H., Yeung, D. Y., Wong, W. K., & Woo, W. C. (2015). Convolutional LSTM network: A machine learning approach for precipitation nowcasting. In Advances in neural information processing systems (pp. 802-810).
+- Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., ... & Polosukhin, I. (2017). Attention is all you need. In Advances in Neural Information Processing Systems (pp. 5998-6008).
 
 ### Auto-Encoders
 
@@ -1750,18 +1759,25 @@ The class `Synapse` has sub-classes: `CompleteBipartiteGraph`, `LSTMGraph`, `CNN
 
 ### Related PoC
 
+- [量子力学、統計力学、熱力学における天才物理学者たちの神学的な形象について](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/) (Japanese)
+    - [熱力学の前史、マクスウェル＝ボルツマン分布におけるエントロピーの歴史的意味論](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/historische-semantik-der-entropie-in-der-maxwell-boltzmann-verteilung/)
+    - [メディアとしての統計力学と形式としてのアンサンブル、そのギブス的類推](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/statistische-mechanik-als-medium-und-ensemble-als-form/)
+    - [「マクスウェルの悪魔」、力学の基礎法則としての神](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/maxwell-damon/)
 - [Webクローラ型人工知能によるパラドックス探索暴露機能の社会進化論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/) (Japanese)
-    - [プロトタイプの開発：人工知能エージェント「キメラ・ネットワーク」](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/5/#i-8)
+    - [World-Wide Webの社会構造とWebクローラ型人工知能の意味論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/sozialstruktur-des-world-wide-web-und-semantik-der-kunstlichen-intelligenz-des-web-crawlers/)
+    - [意味論の意味論、観察の観察](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/semantik-der-semantik-und-beobachtung-der-beobachtung/)
 - [深層強化学習のベイズ主義的な情報探索に駆動された自然言語処理の意味論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/) (Japanese)
-    - [プロトタイプの開発：深層学習と強化学習による「排除された第三項」の推論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/4/#i-5)
+    - [平均場近似推論の統計力学、自己符号化器としての深層ボルツマンマシン](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/tiefe-boltzmann-maschine-als-selbstkodierer/)
+    - [深層学習の計算コスト削減、MobileNetの設計思想](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/berechnungskostenreduzierung-des-lern-und-designkonzeptes-von-mobilenet/)
+    - [正則化問題における敵対的生成ネットワーク(GANs)と敵対的自己符号化器(AAEs)のネットワーク構造](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/regularisierungsproblem-und-gan/)
+    - [ニューラルネットワーク言語モデルの自然言語処理と再帰的ニューラルネットワークのネットワーク構造](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/naturliche-sprachverarbeitung-des-neuronalen-netzwerkmodells-und-der-netzwerkstruktur-eines-rekursiven-neuronalen-netzwerks/)
 - [ハッカー倫理に準拠した人工知能のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/) (Japanese)
-    - [プロトタイプの開発：深層強化学習のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/5/#i-2)
-- [ヴァーチャルリアリティにおける動物的「身体」の物神崇拝的なユースケース](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/) (Japanese)
-    - [プロトタイプの開発：「人工天使ヒューズ＝ヒストリア」](https://accel-brain.com/cyborg-fetischismus-in-sammlung-von-animalisch-korper-in-virtual-reality/4/#i-6)
+    - [アーキテクチャ中心設計の社会構造とアーキテクチャの意味論](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/sozialstruktur-des-architekturzentrum-designs-und-architektur-der-semantik/)
+    - [近代社会の社会構造とハッカー倫理の意味論](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/sozialstruktur-der-modernen-gesellschaft-und-semantik-der-hackerethik/)
+    - [ラショナル統一プロセス(RUP)の社会構造とアーキテクチャ設計の意味論](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/sozialstruktur-des-rational-unified-process-und-semantik-des-architekturentwurfs/)
+    - [オブジェクト指向のオブジェクト指向](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/objektorientiert-uber-objektorientiert/)
 - [「人工の理想」を背景とした「万物照応」のデータモデリング](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/) (Japanese)
-    - [プロトタイプの開発：「言葉」を蒐集するWebクローラ型人工知能](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/4/#Web-2)
-    - [プロトタイプの開発：「謎」を蒐集する異常検知モデル](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/4/#i-8)
-    - [プロトタイプの開発：「貨幣」を蒐集する強化学習エージェント](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/5/#i-6)
+    - [探偵の機能的等価物としての異常検知モデル、謎解きの推論アルゴリズム](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/anomalieerkennungsmodell-als-funktionelles-aquivalent-eines-detektivs/)
 
 ## Author
 

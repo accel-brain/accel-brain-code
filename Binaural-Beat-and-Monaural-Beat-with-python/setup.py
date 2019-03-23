@@ -1,17 +1,21 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
 
-def read_rst(file_name):
+
+def read_readme(file_name):
     from os import path
-    with open(path.join(path.dirname(__file__), file_name)) as f:
-        rst = f.read()
-    return rst
+    this_directory = path.abspath(path.dirname(__file__))
+    with open(path.join(this_directory, file_name), encoding='utf-8') as f:
+        long_description = f.read()
+
+    return long_description
+
 
 setup(
     name='AccelBrainBeat',
     version='1.0.6',
     description='AccelBrainBeat is a Python library for creating the binaural beats or monaural beats. You can play these beats and generate wav files. The frequencys can be optionally selected.',
-    long_description=read_rst("README.rst"),
+    long_description=read_readme("README.md"),
     url='https://github.com/chimera0/accel-brain-code/tree/master/Binaural-Beat-and-Monaural-Beat-with-python',
     author='chimera0',
     author_email='ai-brain-lab@accel-brain.com',

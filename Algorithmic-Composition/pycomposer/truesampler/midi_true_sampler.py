@@ -71,6 +71,6 @@ class MidiTrueSampler(TrueSampler):
     def __convert_into_feature(self, df):
         arr = np.zeros(12)
         for i in range(df.shape[0]):
-            arr[df.pitch.values[i] % 12] = df.velocity.values[i]
+            arr[df.pitch.values[i] % 12] = 1
 
         return arr.reshape(1, -1).astype(float)

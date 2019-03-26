@@ -10,8 +10,7 @@ class MidiNoiseSampler(NoiseSampler):
 
     def __init__(
         self, 
-        batch_size=20,
-        pitch_binomial_prob=0.5
+        batch_size=20
     ):
         '''
         Init.
@@ -21,7 +20,6 @@ class MidiNoiseSampler(NoiseSampler):
             velocity_high:          Higher boundary of the output interval of Uniform noise for velocity.
         '''
         self.__batch_size = batch_size
-        self.__pitch_binomial_prob = pitch_binomial_prob
 
     def generate(self):
         '''

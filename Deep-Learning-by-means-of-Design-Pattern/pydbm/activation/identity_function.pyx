@@ -20,6 +20,9 @@ class IdentityFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
+        if self.batch_norm is not None:
+            x = self.batch_norm.forward_propagation(x)
+
         return x
 
     def derivative(self, np.ndarray y):
@@ -32,4 +35,7 @@ class IdentityFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
+        if self.batch_norm is not None:
+            y = self.batch_norm.back_propagation(y)
+
         return y

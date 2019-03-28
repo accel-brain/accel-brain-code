@@ -1666,14 +1666,17 @@ static const char __pyx_k_mask_arr[] = "mask_arr";
 static const char __pyx_k_qualname[] = "__qualname__";
 static const char __pyx_k_metaclass[] = "__metaclass__";
 static const char __pyx_k_ValueError[] = "ValueError";
+static const char __pyx_k_batch_norm[] = "batch_norm";
 static const char __pyx_k_derivative[] = "derivative";
 static const char __pyx_k_memory_len[] = "memory_len";
 static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_ReLuFunction[] = "ReLuFunction";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_ReLu_Function[] = "\n    ReLu Function.\n    ";
+static const char __pyx_k_back_propagation[] = "back_propagation";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_ReLuFunction___init[] = "ReLuFunction.__init__";
+static const char __pyx_k_forward_propagation[] = "forward_propagation";
 static const char __pyx_k_ReLuFunction_activate[] = "ReLuFunction.activate";
 static const char __pyx_k_ReLuFunction_derivative[] = "ReLuFunction.derivative";
 static const char __pyx_k_ReLuFunction__memory_len[] = "_ReLuFunction__memory_len";
@@ -1707,10 +1710,13 @@ static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_activate;
 static PyObject *__pyx_n_s_append;
 static PyObject *__pyx_n_s_astype;
+static PyObject *__pyx_n_s_back_propagation;
+static PyObject *__pyx_n_s_batch_norm;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_derivative;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_float64;
+static PyObject *__pyx_n_s_forward_propagation;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_init;
 static PyObject *__pyx_n_s_main;
@@ -1974,6 +1980,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_13relu_function_12ReLuFunction_2ac
   PyObject *__pyx_t_7 = NULL;
   int __pyx_t_8;
   PyObject *__pyx_t_9 = NULL;
+  int __pyx_t_10;
   __Pyx_RefNannySetupContext("activate", 0);
   __Pyx_INCREF((PyObject *)__pyx_v_x);
 
@@ -2054,8 +2061,8 @@ static PyObject *__pyx_pf_5pydbm_10activation_13relu_function_12ReLuFunction_2ac
  *             self.__mask_arr_list = self.__mask_arr_list[len(self.__mask_arr_list) - self.__memory_len:]
  * 
  *         x = np.maximum(0, x).astype(np.float64)             # <<<<<<<<<<<<<<
- *         return x
- * 
+ *         if self.batch_norm is not None:
+ *             x = self.batch_norm.forward_propagation(x)
  */
   __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
@@ -2168,6 +2175,88 @@ static PyObject *__pyx_pf_5pydbm_10activation_13relu_function_12ReLuFunction_2ac
   /* "pydbm/activation/relu_function.pyx":44
  * 
  *         x = np.maximum(0, x).astype(np.float64)
+ *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             x = self.batch_norm.forward_propagation(x)
+ * 
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 44, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_6 = (__pyx_t_2 != Py_None);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_10 = (__pyx_t_6 != 0);
+  if (__pyx_t_10) {
+
+    /* "pydbm/activation/relu_function.pyx":45
+ *         x = np.maximum(0, x).astype(np.float64)
+ *         if self.batch_norm is not None:
+ *             x = self.batch_norm.forward_propagation(x)             # <<<<<<<<<<<<<<
+ * 
+ *         return x
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_forward_propagation); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 45, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
+      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_5);
+      if (likely(__pyx_t_1)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+        __Pyx_INCREF(__pyx_t_1);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_5, function);
+      }
+    }
+    if (!__pyx_t_1) {
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_5, ((PyObject *)__pyx_v_x)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 45, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+    } else {
+      #if CYTHON_FAST_PYCALL
+      if (PyFunction_Check(__pyx_t_5)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_1, ((PyObject *)__pyx_v_x)};
+        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 45, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_GOTREF(__pyx_t_2);
+      } else
+      #endif
+      #if CYTHON_FAST_PYCCALL
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_1, ((PyObject *)__pyx_v_x)};
+        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 45, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_GOTREF(__pyx_t_2);
+      } else
+      #endif
+      {
+        __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 45, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_1); __pyx_t_1 = NULL;
+        __Pyx_INCREF(((PyObject *)__pyx_v_x));
+        __Pyx_GIVEREF(((PyObject *)__pyx_v_x));
+        PyTuple_SET_ITEM(__pyx_t_9, 0+1, ((PyObject *)__pyx_v_x));
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_9, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 45, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      }
+    }
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 45, __pyx_L1_error)
+    __Pyx_DECREF_SET(__pyx_v_x, ((PyArrayObject *)__pyx_t_2));
+    __pyx_t_2 = 0;
+
+    /* "pydbm/activation/relu_function.pyx":44
+ * 
+ *         x = np.maximum(0, x).astype(np.float64)
+ *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             x = self.batch_norm.forward_propagation(x)
+ * 
+ */
+  }
+
+  /* "pydbm/activation/relu_function.pyx":47
+ *             x = self.batch_norm.forward_propagation(x)
+ * 
  *         return x             # <<<<<<<<<<<<<<
  * 
  *     def derivative(self, np.ndarray y):
@@ -2201,7 +2290,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_13relu_function_12ReLuFunction_2ac
   return __pyx_r;
 }
 
-/* "pydbm/activation/relu_function.pyx":46
+/* "pydbm/activation/relu_function.pyx":49
  *         return x
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
@@ -2242,11 +2331,11 @@ static PyObject *__pyx_pw_5pydbm_10activation_13relu_function_12ReLuFunction_5de
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, 1); __PYX_ERR(0, 46, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, 1); __PYX_ERR(0, 49, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "derivative") < 0)) __PYX_ERR(0, 46, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "derivative") < 0)) __PYX_ERR(0, 49, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2259,13 +2348,13 @@ static PyObject *__pyx_pw_5pydbm_10activation_13relu_function_12ReLuFunction_5de
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 46, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 49, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.activation.relu_function.ReLuFunction.derivative", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y), __pyx_ptype_5numpy_ndarray, 1, "y", 0))) __PYX_ERR(0, 46, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y), __pyx_ptype_5numpy_ndarray, 1, "y", 0))) __PYX_ERR(0, 49, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_10activation_13relu_function_12ReLuFunction_4derivative(__pyx_self, __pyx_v_self, __pyx_v_y);
 
   /* function exit code */
@@ -2282,33 +2371,120 @@ static PyObject *__pyx_pf_5pydbm_10activation_13relu_function_12ReLuFunction_4de
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("derivative", 0);
+  __Pyx_INCREF((PyObject *)__pyx_v_y);
 
-  /* "pydbm/activation/relu_function.pyx":56
+  /* "pydbm/activation/relu_function.pyx":59
  *             The result.
  *         '''
+ *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             y = self.batch_norm.back_propagation(y)
+ * 
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = (__pyx_t_1 != Py_None);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_3 = (__pyx_t_2 != 0);
+  if (__pyx_t_3) {
+
+    /* "pydbm/activation/relu_function.pyx":60
+ *         '''
+ *         if self.batch_norm is not None:
+ *             y = self.batch_norm.back_propagation(y)             # <<<<<<<<<<<<<<
+ * 
+ *         mask_arr = self.__mask_arr_list.pop(-1)
+ */
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 60, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_back_propagation); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 60, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
+      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_5);
+      if (likely(__pyx_t_4)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+        __Pyx_INCREF(__pyx_t_4);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_5, function);
+      }
+    }
+    if (!__pyx_t_4) {
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, ((PyObject *)__pyx_v_y)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+    } else {
+      #if CYTHON_FAST_PYCALL
+      if (PyFunction_Check(__pyx_t_5)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_4, ((PyObject *)__pyx_v_y)};
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __Pyx_GOTREF(__pyx_t_1);
+      } else
+      #endif
+      #if CYTHON_FAST_PYCCALL
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_4, ((PyObject *)__pyx_v_y)};
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __Pyx_GOTREF(__pyx_t_1);
+      } else
+      #endif
+      {
+        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
+        __Pyx_INCREF(((PyObject *)__pyx_v_y));
+        __Pyx_GIVEREF(((PyObject *)__pyx_v_y));
+        PyTuple_SET_ITEM(__pyx_t_6, 0+1, ((PyObject *)__pyx_v_y));
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      }
+    }
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 60, __pyx_L1_error)
+    __Pyx_DECREF_SET(__pyx_v_y, ((PyArrayObject *)__pyx_t_1));
+    __pyx_t_1 = 0;
+
+    /* "pydbm/activation/relu_function.pyx":59
+ *             The result.
+ *         '''
+ *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             y = self.batch_norm.back_propagation(y)
+ * 
+ */
+  }
+
+  /* "pydbm/activation/relu_function.pyx":62
+ *             y = self.batch_norm.back_propagation(y)
+ * 
  *         mask_arr = self.__mask_arr_list.pop(-1)             # <<<<<<<<<<<<<<
  *         y[mask_arr] = 0
  *         return y
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ReLuFunction__mask_arr_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ReLuFunction__mask_arr_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_PopIndex(__pyx_t_1, __pyx_int_neg_1, -1L, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_5 = __Pyx_PyObject_PopIndex(__pyx_t_1, __pyx_int_neg_1, -1L, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_mask_arr = __pyx_t_2;
-  __pyx_t_2 = 0;
+  __pyx_v_mask_arr = __pyx_t_5;
+  __pyx_t_5 = 0;
 
-  /* "pydbm/activation/relu_function.pyx":57
- *         '''
+  /* "pydbm/activation/relu_function.pyx":63
+ * 
  *         mask_arr = self.__mask_arr_list.pop(-1)
  *         y[mask_arr] = 0             # <<<<<<<<<<<<<<
  *         return y
  */
-  if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_y), __pyx_v_mask_arr, __pyx_int_0) < 0)) __PYX_ERR(0, 57, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_y), __pyx_v_mask_arr, __pyx_int_0) < 0)) __PYX_ERR(0, 63, __pyx_L1_error)
 
-  /* "pydbm/activation/relu_function.pyx":58
+  /* "pydbm/activation/relu_function.pyx":64
  *         mask_arr = self.__mask_arr_list.pop(-1)
  *         y[mask_arr] = 0
  *         return y             # <<<<<<<<<<<<<<
@@ -2318,7 +2494,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_13relu_function_12ReLuFunction_4de
   __pyx_r = ((PyObject *)__pyx_v_y);
   goto __pyx_L0;
 
-  /* "pydbm/activation/relu_function.pyx":46
+  /* "pydbm/activation/relu_function.pyx":49
  *         return x
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
@@ -2329,11 +2505,14 @@ static PyObject *__pyx_pf_5pydbm_10activation_13relu_function_12ReLuFunction_4de
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
   __Pyx_AddTraceback("pydbm.activation.relu_function.ReLuFunction.derivative", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_mask_arr);
+  __Pyx_XDECREF((PyObject *)__pyx_v_y);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -4855,10 +5034,13 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_activate, __pyx_k_activate, sizeof(__pyx_k_activate), 0, 0, 1, 1},
   {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
   {&__pyx_n_s_astype, __pyx_k_astype, sizeof(__pyx_k_astype), 0, 0, 1, 1},
+  {&__pyx_n_s_back_propagation, __pyx_k_back_propagation, sizeof(__pyx_k_back_propagation), 0, 0, 1, 1},
+  {&__pyx_n_s_batch_norm, __pyx_k_batch_norm, sizeof(__pyx_k_batch_norm), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_derivative, __pyx_k_derivative, sizeof(__pyx_k_derivative), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_float64, __pyx_k_float64, sizeof(__pyx_k_float64), 0, 0, 1, 1},
+  {&__pyx_n_s_forward_propagation, __pyx_k_forward_propagation, sizeof(__pyx_k_forward_propagation), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_init, __pyx_k_init, sizeof(__pyx_k_init), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
@@ -5025,17 +5207,17 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__13);
   __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_relu_function_p, __pyx_n_s_activate, 29, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 29, __pyx_L1_error)
 
-  /* "pydbm/activation/relu_function.pyx":46
+  /* "pydbm/activation/relu_function.pyx":49
  *         return x
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
  *         Return of derivative result from this activation function.
  */
-  __pyx_tuple__15 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_y, __pyx_n_s_mask_arr); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_tuple__15 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_y, __pyx_n_s_mask_arr); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_relu_function_p, __pyx_n_s_derivative, 46, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_relu_function_p, __pyx_n_s_derivative, 49, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5394,16 +5576,16 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_activate, __pyx_t_4) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/activation/relu_function.pyx":46
+  /* "pydbm/activation/relu_function.pyx":49
  *         return x
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
  *         Return of derivative result from this activation function.
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_13relu_function_12ReLuFunction_5derivative, 0, __pyx_n_s_ReLuFunction_derivative, NULL, __pyx_n_s_pydbm_activation_relu_function, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_13relu_function_12ReLuFunction_5derivative, 0, __pyx_n_s_ReLuFunction_derivative, NULL, __pyx_n_s_pydbm_activation_relu_function, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_derivative, __pyx_t_4) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_derivative, __pyx_t_4) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "pydbm/activation/relu_function.pyx":10

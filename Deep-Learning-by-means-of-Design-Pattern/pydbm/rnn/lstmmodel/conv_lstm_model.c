@@ -1431,6 +1431,9 @@ static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
 static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg);
 static PyObject* __Pyx__PyObject_CallMethod1(PyObject* method, PyObject* arg);
 
+/* append.proto */
+static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x);
+
 /* pop_index.proto */
 static PyObject* __Pyx__PyObject_PopNewIndex(PyObject* L, PyObject* py_ix);
 static PyObject* __Pyx__PyObject_PopIndex(PyObject* L, PyObject* py_ix);
@@ -1453,9 +1456,6 @@ static PyObject* __Pyx__PyList_PopIndex(PyObject* L, PyObject* py_ix, Py_ssize_t
     (unlikely(py_ix == Py_None)) ? __Pyx__PyObject_PopNewIndex(L, to_py_func(ix)) :\
         __Pyx__PyObject_PopIndex(L, py_ix))
 #endif
-
-/* append.proto */
-static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x);
 
 /* IncludeStringH.proto */
 #include <string.h>
@@ -1890,6 +1890,7 @@ static const char __pyx_k_reshape[] = "reshape";
 static const char __pyx_k_seq_len[] = "seq_len";
 static const char __pyx_k_CNNGraph[] = "CNNGraph";
 static const char __pyx_k_activate[] = "activate";
+static const char __pyx_k_beta_arr[] = "beta_arr";
 static const char __pyx_k_bias_arr[] = "bias_arr";
 static const char __pyx_k_bp_count[] = "bp_count";
 static const char __pyx_k_bptt_tau[] = "bptt_tau";
@@ -1908,6 +1909,7 @@ static const char __pyx_k_TypeError[] = "TypeError";
 static const char __pyx_k_cycle_len[] = "cycle_len";
 static const char __pyx_k_delta_arr[] = "delta_arr";
 static const char __pyx_k_file_name[] = "file_name";
+static const char __pyx_k_gamma_arr[] = "gamma_arr";
 static const char __pyx_k_getLogger[] = "getLogger";
 static const char __pyx_k_get_graph[] = "get_graph";
 static const char __pyx_k_inference[] = "inference";
@@ -1918,6 +1920,7 @@ static const char __pyx_k_test_loss[] = "test_loss";
 static const char __pyx_k_GivenGraph[] = "GivenGraph";
 static const char __pyx_k_InputGraph[] = "InputGraph";
 static const char __pyx_k_ValueError[] = "ValueError";
+static const char __pyx_k_batch_norm[] = "batch_norm";
 static const char __pyx_k_batch_size[] = "batch_size";
 static const char __pyx_k_de_dropout[] = "de_dropout";
 static const char __pyx_k_derivative[] = "derivative";
@@ -1962,6 +1965,7 @@ static const char __pyx_k_remember_flag[] = "remember_flag";
 static const char __pyx_k_test_pred_arr[] = "test_pred_arr";
 static const char __pyx_k_ComputableLoss[] = "ComputableLoss";
 static const char __pyx_k_back_propagate[] = "back_propagate";
+static const char __pyx_k_delta_beta_arr[] = "delta_beta_arr";
 static const char __pyx_k_delta_bias_arr[] = "delta_bias_arr";
 static const char __pyx_k_eary_stop_flag[] = "eary_stop_flag";
 static const char __pyx_k_get_given_conv[] = "get_given_conv";
@@ -1976,6 +1980,7 @@ static const char __pyx_k_train_pred_arr[] = "train_pred_arr";
 static const char __pyx_k_attenuate_epoch[] = "attenuate_epoch";
 static const char __pyx_k_computable_loss[] = "computable_loss";
 static const char __pyx_k_conv_lstm_graph[] = "conv_lstm_graph";
+static const char __pyx_k_delta_gamma_arr[] = "delta_gamma_arr";
 static const char __pyx_k_delta_given_arr[] = "delta_given_arr";
 static const char __pyx_k_get_forgot_conv[] = "get_forgot_conv";
 static const char __pyx_k_get_output_conv[] = "get_output_conv";
@@ -2236,10 +2241,12 @@ static PyObject *__pyx_n_s_axis;
 static PyObject *__pyx_n_s_back_propagate;
 static PyObject *__pyx_n_s_back_propagation;
 static PyObject *__pyx_n_s_batch_index;
+static PyObject *__pyx_n_s_batch_norm;
 static PyObject *__pyx_n_s_batch_observed_arr;
 static PyObject *__pyx_n_s_batch_size;
 static PyObject *__pyx_n_s_batch_target_arr;
 static PyObject *__pyx_n_s_best_params_list;
+static PyObject *__pyx_n_s_beta_arr;
 static PyObject *__pyx_n_s_bias_arr;
 static PyObject *__pyx_n_s_bp_count;
 static PyObject *__pyx_n_s_bptt_tau;
@@ -2265,9 +2272,11 @@ static PyObject *__pyx_n_s_de_dropout;
 static PyObject *__pyx_n_s_debug;
 static PyObject *__pyx_n_s_delta_arr;
 static PyObject *__pyx_n_s_delta_arr_2;
+static PyObject *__pyx_n_s_delta_beta_arr;
 static PyObject *__pyx_n_s_delta_bias_arr;
 static PyObject *__pyx_n_s_delta_cec_arr;
 static PyObject *__pyx_n_s_delta_forget_gate_arr;
+static PyObject *__pyx_n_s_delta_gamma_arr;
 static PyObject *__pyx_n_s_delta_given_arr;
 static PyObject *__pyx_n_s_delta_hidden_arr;
 static PyObject *__pyx_n_s_delta_hidden_arr_2;
@@ -2299,6 +2308,7 @@ static PyObject *__pyx_n_s_forgot;
 static PyObject *__pyx_n_s_forgot_conv;
 static PyObject *__pyx_n_s_forward_propagate;
 static PyObject *__pyx_n_s_forward_propagation;
+static PyObject *__pyx_n_s_gamma_arr;
 static PyObject *__pyx_n_s_generate;
 static PyObject *__pyx_n_s_getLogger;
 static PyObject *__pyx_n_s_get_feature_points;
@@ -15140,6 +15150,8 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   PyObject *__pyx_t_9 = NULL;
   int __pyx_t_10;
   int __pyx_t_11;
+  int __pyx_t_12;
+  int __pyx_t_13;
   __Pyx_RefNannySetupContext("optimize", 0);
   __Pyx_INCREF(__pyx_v_grads_list);
 
@@ -15403,7 +15415,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *             self.__forgot_conv.delta_bias_arr,
  *             self.__output_conv.delta_bias_arr             # <<<<<<<<<<<<<<
  *         ]
- *         params_list = self.__opt_params.optimize(
+ * 
  */
   __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 877, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
@@ -15447,30 +15459,670 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_DECREF_SET(__pyx_v_grads_list, __pyx_t_9);
   __pyx_t_9 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":879
- *             self.__output_conv.delta_bias_arr
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":880
  *         ]
+ * 
+ *         if self.__given_conv.graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             params_list.append(
+ *                 self.__given_conv.graph.activation_function.batch_norm.beta_arr
+ */
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 880, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 880, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 880, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 880, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_10 = (__pyx_t_1 != Py_None);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_11 = (__pyx_t_10 != 0);
+  if (__pyx_t_11) {
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":882
+ *         if self.__given_conv.graph.activation_function.batch_norm is not None:
+ *             params_list.append(
+ *                 self.__given_conv.graph.activation_function.batch_norm.beta_arr             # <<<<<<<<<<<<<<
+ *             )
+ *             grads_list.append(
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 882, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 882, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 882, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 882, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_beta_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 882, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":881
+ * 
+ *         if self.__given_conv.graph.activation_function.batch_norm is not None:
+ *             params_list.append(             # <<<<<<<<<<<<<<
+ *                 self.__given_conv.graph.activation_function.batch_norm.beta_arr
+ *             )
+ */
+    __pyx_t_12 = __Pyx_PyObject_Append(__pyx_v_params_list, __pyx_t_1); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 881, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":885
+ *             )
+ *             grads_list.append(
+ *                 self.__given_conv.graph.activation_function.batch_norm.delta_beta_arr             # <<<<<<<<<<<<<<
+ *             )
+ *             params_list.append(
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 885, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 885, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 885, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 885, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_delta_beta_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 885, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":884
+ *                 self.__given_conv.graph.activation_function.batch_norm.beta_arr
+ *             )
+ *             grads_list.append(             # <<<<<<<<<<<<<<
+ *                 self.__given_conv.graph.activation_function.batch_norm.delta_beta_arr
+ *             )
+ */
+    __pyx_t_12 = __Pyx_PyObject_Append(__pyx_v_grads_list, __pyx_t_1); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 884, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":888
+ *             )
+ *             params_list.append(
+ *                 self.__given_conv.graph.activation_function.batch_norm.gamma_arr             # <<<<<<<<<<<<<<
+ *             )
+ *             grads_list.append(
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 888, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 888, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 888, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 888, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_gamma_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 888, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":887
+ *                 self.__given_conv.graph.activation_function.batch_norm.delta_beta_arr
+ *             )
+ *             params_list.append(             # <<<<<<<<<<<<<<
+ *                 self.__given_conv.graph.activation_function.batch_norm.gamma_arr
+ *             )
+ */
+    __pyx_t_12 = __Pyx_PyObject_Append(__pyx_v_params_list, __pyx_t_1); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 887, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":891
+ *             )
+ *             grads_list.append(
+ *                 self.__given_conv.graph.activation_function.batch_norm.delta_gamma_arr             # <<<<<<<<<<<<<<
+ *             )
+ *         if self.__input_conv.graph.activation_function.batch_norm is not None:
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 891, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 891, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 891, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 891, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_delta_gamma_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 891, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":890
+ *                 self.__given_conv.graph.activation_function.batch_norm.gamma_arr
+ *             )
+ *             grads_list.append(             # <<<<<<<<<<<<<<
+ *                 self.__given_conv.graph.activation_function.batch_norm.delta_gamma_arr
+ *             )
+ */
+    __pyx_t_12 = __Pyx_PyObject_Append(__pyx_v_grads_list, __pyx_t_1); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 890, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":880
+ *         ]
+ * 
+ *         if self.__given_conv.graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             params_list.append(
+ *                 self.__given_conv.graph.activation_function.batch_norm.beta_arr
+ */
+  }
+
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":893
+ *                 self.__given_conv.graph.activation_function.batch_norm.delta_gamma_arr
+ *             )
+ *         if self.__input_conv.graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             params_list.append(
+ *                 self.__input_conv.graph.activation_function.batch_norm.beta_arr
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 893, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 893, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 893, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 893, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_11 = (__pyx_t_9 != Py_None);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_10 = (__pyx_t_11 != 0);
+  if (__pyx_t_10) {
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":895
+ *         if self.__input_conv.graph.activation_function.batch_norm is not None:
+ *             params_list.append(
+ *                 self.__input_conv.graph.activation_function.batch_norm.beta_arr             # <<<<<<<<<<<<<<
+ *             )
+ *             grads_list.append(
+ */
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 895, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 895, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 895, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 895, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_beta_arr); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 895, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":894
+ *             )
+ *         if self.__input_conv.graph.activation_function.batch_norm is not None:
+ *             params_list.append(             # <<<<<<<<<<<<<<
+ *                 self.__input_conv.graph.activation_function.batch_norm.beta_arr
+ *             )
+ */
+    __pyx_t_12 = __Pyx_PyObject_Append(__pyx_v_params_list, __pyx_t_9); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 894, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":898
+ *             )
+ *             grads_list.append(
+ *                 self.__input_conv.graph.activation_function.batch_norm.delta_beta_arr             # <<<<<<<<<<<<<<
+ *             )
+ *             params_list.append(
+ */
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 898, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 898, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 898, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 898, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_delta_beta_arr); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 898, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":897
+ *                 self.__input_conv.graph.activation_function.batch_norm.beta_arr
+ *             )
+ *             grads_list.append(             # <<<<<<<<<<<<<<
+ *                 self.__input_conv.graph.activation_function.batch_norm.delta_beta_arr
+ *             )
+ */
+    __pyx_t_12 = __Pyx_PyObject_Append(__pyx_v_grads_list, __pyx_t_9); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 897, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":901
+ *             )
+ *             params_list.append(
+ *                 self.__input_conv.graph.activation_function.batch_norm.gamma_arr             # <<<<<<<<<<<<<<
+ *             )
+ *             grads_list.append(
+ */
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 901, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 901, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 901, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 901, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_gamma_arr); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 901, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":900
+ *                 self.__input_conv.graph.activation_function.batch_norm.delta_beta_arr
+ *             )
+ *             params_list.append(             # <<<<<<<<<<<<<<
+ *                 self.__input_conv.graph.activation_function.batch_norm.gamma_arr
+ *             )
+ */
+    __pyx_t_12 = __Pyx_PyObject_Append(__pyx_v_params_list, __pyx_t_9); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 900, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":904
+ *             )
+ *             grads_list.append(
+ *                 self.__input_conv.graph.activation_function.batch_norm.delta_gamma_arr             # <<<<<<<<<<<<<<
+ *             )
+ *         if self.__forgot_conv.graph.activation_function.batch_norm is not None:
+ */
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 904, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 904, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 904, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 904, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_delta_gamma_arr); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 904, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":903
+ *                 self.__input_conv.graph.activation_function.batch_norm.gamma_arr
+ *             )
+ *             grads_list.append(             # <<<<<<<<<<<<<<
+ *                 self.__input_conv.graph.activation_function.batch_norm.delta_gamma_arr
+ *             )
+ */
+    __pyx_t_12 = __Pyx_PyObject_Append(__pyx_v_grads_list, __pyx_t_9); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 903, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":893
+ *                 self.__given_conv.graph.activation_function.batch_norm.delta_gamma_arr
+ *             )
+ *         if self.__input_conv.graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             params_list.append(
+ *                 self.__input_conv.graph.activation_function.batch_norm.beta_arr
+ */
+  }
+
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":906
+ *                 self.__input_conv.graph.activation_function.batch_norm.delta_gamma_arr
+ *             )
+ *         if self.__forgot_conv.graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             params_list.append(
+ *                 self.__forgot_conv.graph.activation_function.batch_norm.beta_arr
+ */
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 906, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 906, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 906, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 906, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_10 = (__pyx_t_1 != Py_None);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_11 = (__pyx_t_10 != 0);
+  if (__pyx_t_11) {
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":908
+ *         if self.__forgot_conv.graph.activation_function.batch_norm is not None:
+ *             params_list.append(
+ *                 self.__forgot_conv.graph.activation_function.batch_norm.beta_arr             # <<<<<<<<<<<<<<
+ *             )
+ *             grads_list.append(
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 908, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 908, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 908, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 908, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_beta_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 908, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":907
+ *             )
+ *         if self.__forgot_conv.graph.activation_function.batch_norm is not None:
+ *             params_list.append(             # <<<<<<<<<<<<<<
+ *                 self.__forgot_conv.graph.activation_function.batch_norm.beta_arr
+ *             )
+ */
+    __pyx_t_12 = __Pyx_PyObject_Append(__pyx_v_params_list, __pyx_t_1); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 907, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":911
+ *             )
+ *             grads_list.append(
+ *                 self.__forgot_conv.graph.activation_function.batch_norm.delta_beta_arr             # <<<<<<<<<<<<<<
+ *             )
+ *             params_list.append(
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 911, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 911, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 911, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 911, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_delta_beta_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 911, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":910
+ *                 self.__forgot_conv.graph.activation_function.batch_norm.beta_arr
+ *             )
+ *             grads_list.append(             # <<<<<<<<<<<<<<
+ *                 self.__forgot_conv.graph.activation_function.batch_norm.delta_beta_arr
+ *             )
+ */
+    __pyx_t_12 = __Pyx_PyObject_Append(__pyx_v_grads_list, __pyx_t_1); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 910, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":914
+ *             )
+ *             params_list.append(
+ *                 self.__forgot_conv.graph.activation_function.batch_norm.gamma_arr             # <<<<<<<<<<<<<<
+ *             )
+ *             grads_list.append(
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 914, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 914, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 914, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 914, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_gamma_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 914, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":913
+ *                 self.__forgot_conv.graph.activation_function.batch_norm.delta_beta_arr
+ *             )
+ *             params_list.append(             # <<<<<<<<<<<<<<
+ *                 self.__forgot_conv.graph.activation_function.batch_norm.gamma_arr
+ *             )
+ */
+    __pyx_t_12 = __Pyx_PyObject_Append(__pyx_v_params_list, __pyx_t_1); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 913, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":917
+ *             )
+ *             grads_list.append(
+ *                 self.__forgot_conv.graph.activation_function.batch_norm.delta_gamma_arr             # <<<<<<<<<<<<<<
+ *             )
+ *         if self.__output_conv.graph.activation_function.batch_norm is not None:
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 917, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 917, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 917, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 917, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_delta_gamma_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 917, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":916
+ *                 self.__forgot_conv.graph.activation_function.batch_norm.gamma_arr
+ *             )
+ *             grads_list.append(             # <<<<<<<<<<<<<<
+ *                 self.__forgot_conv.graph.activation_function.batch_norm.delta_gamma_arr
+ *             )
+ */
+    __pyx_t_12 = __Pyx_PyObject_Append(__pyx_v_grads_list, __pyx_t_1); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 916, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":906
+ *                 self.__input_conv.graph.activation_function.batch_norm.delta_gamma_arr
+ *             )
+ *         if self.__forgot_conv.graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             params_list.append(
+ *                 self.__forgot_conv.graph.activation_function.batch_norm.beta_arr
+ */
+  }
+
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":919
+ *                 self.__forgot_conv.graph.activation_function.batch_norm.delta_gamma_arr
+ *             )
+ *         if self.__output_conv.graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             params_list.append(
+ *                 self.__output_conv.graph.activation_function.batch_norm.beta_arr
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 919, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 919, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 919, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 919, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_11 = (__pyx_t_9 != Py_None);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_10 = (__pyx_t_11 != 0);
+  if (__pyx_t_10) {
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":921
+ *         if self.__output_conv.graph.activation_function.batch_norm is not None:
+ *             params_list.append(
+ *                 self.__output_conv.graph.activation_function.batch_norm.beta_arr             # <<<<<<<<<<<<<<
+ *             )
+ *             grads_list.append(
+ */
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 921, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 921, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 921, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 921, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_beta_arr); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 921, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":920
+ *             )
+ *         if self.__output_conv.graph.activation_function.batch_norm is not None:
+ *             params_list.append(             # <<<<<<<<<<<<<<
+ *                 self.__output_conv.graph.activation_function.batch_norm.beta_arr
+ *             )
+ */
+    __pyx_t_12 = __Pyx_PyObject_Append(__pyx_v_params_list, __pyx_t_9); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 920, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":924
+ *             )
+ *             grads_list.append(
+ *                 self.__output_conv.graph.activation_function.batch_norm.delta_beta_arr             # <<<<<<<<<<<<<<
+ *             )
+ *             params_list.append(
+ */
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 924, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 924, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 924, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 924, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_delta_beta_arr); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 924, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":923
+ *                 self.__output_conv.graph.activation_function.batch_norm.beta_arr
+ *             )
+ *             grads_list.append(             # <<<<<<<<<<<<<<
+ *                 self.__output_conv.graph.activation_function.batch_norm.delta_beta_arr
+ *             )
+ */
+    __pyx_t_12 = __Pyx_PyObject_Append(__pyx_v_grads_list, __pyx_t_9); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 923, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":927
+ *             )
+ *             params_list.append(
+ *                 self.__output_conv.graph.activation_function.batch_norm.gamma_arr             # <<<<<<<<<<<<<<
+ *             )
+ *             grads_list.append(
+ */
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 927, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 927, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 927, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 927, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_gamma_arr); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 927, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":926
+ *                 self.__output_conv.graph.activation_function.batch_norm.delta_beta_arr
+ *             )
+ *             params_list.append(             # <<<<<<<<<<<<<<
+ *                 self.__output_conv.graph.activation_function.batch_norm.gamma_arr
+ *             )
+ */
+    __pyx_t_12 = __Pyx_PyObject_Append(__pyx_v_params_list, __pyx_t_9); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 926, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":930
+ *             )
+ *             grads_list.append(
+ *                 self.__output_conv.graph.activation_function.batch_norm.delta_gamma_arr             # <<<<<<<<<<<<<<
+ *             )
+ * 
+ */
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 930, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 930, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 930, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 930, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_delta_gamma_arr); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 930, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":929
+ *                 self.__output_conv.graph.activation_function.batch_norm.gamma_arr
+ *             )
+ *             grads_list.append(             # <<<<<<<<<<<<<<
+ *                 self.__output_conv.graph.activation_function.batch_norm.delta_gamma_arr
+ *             )
+ */
+    __pyx_t_12 = __Pyx_PyObject_Append(__pyx_v_grads_list, __pyx_t_9); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 929, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":919
+ *                 self.__forgot_conv.graph.activation_function.batch_norm.delta_gamma_arr
+ *             )
+ *         if self.__output_conv.graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             params_list.append(
+ *                 self.__output_conv.graph.activation_function.batch_norm.beta_arr
+ */
+  }
+
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":933
+ *             )
+ * 
  *         params_list = self.__opt_params.optimize(             # <<<<<<<<<<<<<<
  *             params_list,
  *             grads_list,
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__opt_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 879, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__opt_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 933, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_optimize); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 879, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_optimize); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 933, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":882
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":936
  *             params_list,
  *             grads_list,
  *             learning_rate             # <<<<<<<<<<<<<<
  *         )
  *         self.__given_conv.graph.weight_arr = params_list.pop(0)
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 882, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 936, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = NULL;
-  __pyx_t_10 = 0;
+  __pyx_t_13 = 0;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
     __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
     if (likely(__pyx_t_3)) {
@@ -15478,13 +16130,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_2, function);
-      __pyx_t_10 = 1;
+      __pyx_t_13 = 1;
     }
   }
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[4] = {__pyx_t_3, __pyx_v_params_list, __pyx_v_grads_list, __pyx_t_1};
-    __pyx_t_9 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 3+__pyx_t_10); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 879, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_13, 3+__pyx_t_13); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 933, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -15493,28 +16145,28 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[4] = {__pyx_t_3, __pyx_v_params_list, __pyx_v_grads_list, __pyx_t_1};
-    __pyx_t_9 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 3+__pyx_t_10); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 879, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_13, 3+__pyx_t_13); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 933, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else
   #endif
   {
-    __pyx_t_4 = PyTuple_New(3+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 879, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(3+__pyx_t_13); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 933, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     if (__pyx_t_3) {
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
     }
     __Pyx_INCREF(__pyx_v_params_list);
     __Pyx_GIVEREF(__pyx_v_params_list);
-    PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_10, __pyx_v_params_list);
+    PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_13, __pyx_v_params_list);
     __Pyx_INCREF(__pyx_v_grads_list);
     __Pyx_GIVEREF(__pyx_v_grads_list);
-    PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_10, __pyx_v_grads_list);
+    PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_13, __pyx_v_grads_list);
     __Pyx_GIVEREF(__pyx_t_1);
-    PyTuple_SET_ITEM(__pyx_t_4, 2+__pyx_t_10, __pyx_t_1);
+    PyTuple_SET_ITEM(__pyx_t_4, 2+__pyx_t_13, __pyx_t_1);
     __pyx_t_1 = 0;
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 879, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 933, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -15522,198 +16174,518 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_DECREF_SET(__pyx_v_params_list, __pyx_t_9);
   __pyx_t_9 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":884
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":938
  *             learning_rate
  *         )
  *         self.__given_conv.graph.weight_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
  *         self.__input_conv.graph.weight_arr = params_list.pop(0)
  *         self.__forgot_conv.graph.weight_arr = params_list.pop(0)
  */
-  __pyx_t_9 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 884, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 938, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 884, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 938, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 884, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 938, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_weight_arr, __pyx_t_9) < 0) __PYX_ERR(0, 884, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_weight_arr, __pyx_t_9) < 0) __PYX_ERR(0, 938, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":885
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":939
  *         )
  *         self.__given_conv.graph.weight_arr = params_list.pop(0)
  *         self.__input_conv.graph.weight_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
  *         self.__forgot_conv.graph.weight_arr = params_list.pop(0)
  *         self.__output_conv.graph.weight_arr = params_list.pop(0)
  */
-  __pyx_t_4 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 885, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 939, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 885, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 939, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 885, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 939, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_weight_arr, __pyx_t_4) < 0) __PYX_ERR(0, 885, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_weight_arr, __pyx_t_4) < 0) __PYX_ERR(0, 939, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":886
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":940
  *         self.__given_conv.graph.weight_arr = params_list.pop(0)
  *         self.__input_conv.graph.weight_arr = params_list.pop(0)
  *         self.__forgot_conv.graph.weight_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
  *         self.__output_conv.graph.weight_arr = params_list.pop(0)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 886, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 940, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 886, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 940, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 886, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 940, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_9, __pyx_n_s_weight_arr, __pyx_t_2) < 0) __PYX_ERR(0, 886, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_9, __pyx_n_s_weight_arr, __pyx_t_2) < 0) __PYX_ERR(0, 940, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":887
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":941
  *         self.__input_conv.graph.weight_arr = params_list.pop(0)
  *         self.__forgot_conv.graph.weight_arr = params_list.pop(0)
  *         self.__output_conv.graph.weight_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
  * 
  *         self.__given_conv.graph.bias_arr = params_list.pop(0)
  */
-  __pyx_t_9 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 887, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 941, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 887, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 941, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 887, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 941, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_weight_arr, __pyx_t_9) < 0) __PYX_ERR(0, 887, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_weight_arr, __pyx_t_9) < 0) __PYX_ERR(0, 941, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":889
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":943
  *         self.__output_conv.graph.weight_arr = params_list.pop(0)
  * 
  *         self.__given_conv.graph.bias_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
  *         self.__input_conv.graph.bias_arr = params_list.pop(0)
  *         self.__forgot_conv.graph.bias_arr = params_list.pop(0)
  */
-  __pyx_t_4 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 889, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 943, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 889, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 943, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 889, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 943, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_bias_arr, __pyx_t_4) < 0) __PYX_ERR(0, 889, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_bias_arr, __pyx_t_4) < 0) __PYX_ERR(0, 943, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":890
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":944
  * 
  *         self.__given_conv.graph.bias_arr = params_list.pop(0)
  *         self.__input_conv.graph.bias_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
  *         self.__forgot_conv.graph.bias_arr = params_list.pop(0)
  *         self.__output_conv.graph.bias_arr = params_list.pop(0)
  */
-  __pyx_t_2 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 890, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 944, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 890, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 944, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 890, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 944, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_9, __pyx_n_s_bias_arr, __pyx_t_2) < 0) __PYX_ERR(0, 890, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_9, __pyx_n_s_bias_arr, __pyx_t_2) < 0) __PYX_ERR(0, 944, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":891
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":945
  *         self.__given_conv.graph.bias_arr = params_list.pop(0)
  *         self.__input_conv.graph.bias_arr = params_list.pop(0)
  *         self.__forgot_conv.graph.bias_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
  *         self.__output_conv.graph.bias_arr = params_list.pop(0)
  * 
  */
-  __pyx_t_9 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 891, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 945, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 891, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 945, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 891, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 945, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_bias_arr, __pyx_t_9) < 0) __PYX_ERR(0, 891, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_bias_arr, __pyx_t_9) < 0) __PYX_ERR(0, 945, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":892
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":946
  *         self.__input_conv.graph.bias_arr = params_list.pop(0)
  *         self.__forgot_conv.graph.bias_arr = params_list.pop(0)
  *         self.__output_conv.graph.bias_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
  * 
- *         if ((epoch + 1) % self.__attenuate_epoch == 0):
+ *         if self.__given_conv.graph.activation_function.batch_norm is not None:
  */
-  __pyx_t_4 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 892, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 946, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 892, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 946, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 892, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 946, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_bias_arr, __pyx_t_4) < 0) __PYX_ERR(0, 892, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_bias_arr, __pyx_t_4) < 0) __PYX_ERR(0, 946, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":894
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":948
  *         self.__output_conv.graph.bias_arr = params_list.pop(0)
+ * 
+ *         if self.__given_conv.graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             self.__given_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__given_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 948, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 948, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 948, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 948, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_10 = (__pyx_t_4 != Py_None);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_11 = (__pyx_t_10 != 0);
+  if (__pyx_t_11) {
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":949
+ * 
+ *         if self.__given_conv.graph.activation_function.batch_norm is not None:
+ *             self.__given_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
+ *             self.__given_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ *         if self.__input_conv.graph.activation_function.batch_norm is not None:
+ */
+    __pyx_t_4 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 949, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 949, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 949, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 949, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 949, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_9, __pyx_n_s_beta_arr, __pyx_t_4) < 0) __PYX_ERR(0, 949, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":950
+ *         if self.__given_conv.graph.activation_function.batch_norm is not None:
+ *             self.__given_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__given_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
+ *         if self.__input_conv.graph.activation_function.batch_norm is not None:
+ *             self.__input_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ */
+    __pyx_t_9 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 950, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 950, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 950, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 950, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 950, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_gamma_arr, __pyx_t_9) < 0) __PYX_ERR(0, 950, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":948
+ *         self.__output_conv.graph.bias_arr = params_list.pop(0)
+ * 
+ *         if self.__given_conv.graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             self.__given_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__given_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ */
+  }
+
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":951
+ *             self.__given_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__given_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ *         if self.__input_conv.graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             self.__input_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__input_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 951, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 951, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 951, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 951, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_11 = (__pyx_t_9 != Py_None);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_10 = (__pyx_t_11 != 0);
+  if (__pyx_t_10) {
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":952
+ *             self.__given_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ *         if self.__input_conv.graph.activation_function.batch_norm is not None:
+ *             self.__input_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
+ *             self.__input_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ *         if self.__forgot_conv.graph.activation_function.batch_norm is not None:
+ */
+    __pyx_t_9 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 952, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 952, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 952, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 952, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 952, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_beta_arr, __pyx_t_9) < 0) __PYX_ERR(0, 952, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":953
+ *         if self.__input_conv.graph.activation_function.batch_norm is not None:
+ *             self.__input_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__input_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
+ *         if self.__forgot_conv.graph.activation_function.batch_norm is not None:
+ *             self.__forgot_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ */
+    __pyx_t_4 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 953, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 953, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 953, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 953, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 953, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_gamma_arr, __pyx_t_4) < 0) __PYX_ERR(0, 953, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":951
+ *             self.__given_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__given_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ *         if self.__input_conv.graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             self.__input_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__input_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ */
+  }
+
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":954
+ *             self.__input_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__input_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ *         if self.__forgot_conv.graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             self.__forgot_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__forgot_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 954, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 954, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 954, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 954, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_10 = (__pyx_t_4 != Py_None);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_11 = (__pyx_t_10 != 0);
+  if (__pyx_t_11) {
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":955
+ *             self.__input_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ *         if self.__forgot_conv.graph.activation_function.batch_norm is not None:
+ *             self.__forgot_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
+ *             self.__forgot_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ *         if self.__output_conv.graph.activation_function.batch_norm is not None:
+ */
+    __pyx_t_4 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 955, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 955, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 955, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 955, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 955, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_9, __pyx_n_s_beta_arr, __pyx_t_4) < 0) __PYX_ERR(0, 955, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":956
+ *         if self.__forgot_conv.graph.activation_function.batch_norm is not None:
+ *             self.__forgot_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__forgot_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
+ *         if self.__output_conv.graph.activation_function.batch_norm is not None:
+ *             self.__output_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ */
+    __pyx_t_9 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 956, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 956, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 956, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 956, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 956, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_gamma_arr, __pyx_t_9) < 0) __PYX_ERR(0, 956, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":954
+ *             self.__input_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__input_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ *         if self.__forgot_conv.graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             self.__forgot_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__forgot_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ */
+  }
+
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":957
+ *             self.__forgot_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__forgot_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ *         if self.__output_conv.graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             self.__output_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__output_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 957, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 957, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 957, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 957, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_11 = (__pyx_t_9 != Py_None);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_10 = (__pyx_t_11 != 0);
+  if (__pyx_t_10) {
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":958
+ *             self.__forgot_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ *         if self.__output_conv.graph.activation_function.batch_norm is not None:
+ *             self.__output_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
+ *             self.__output_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ * 
+ */
+    __pyx_t_9 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 958, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 958, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 958, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 958, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 958, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_beta_arr, __pyx_t_9) < 0) __PYX_ERR(0, 958, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":959
+ *         if self.__output_conv.graph.activation_function.batch_norm is not None:
+ *             self.__output_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__output_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
+ * 
+ *         if ((epoch + 1) % self.__attenuate_epoch == 0):
+ */
+    __pyx_t_4 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 959, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 959, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 959, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 959, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 959, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_gamma_arr, __pyx_t_4) < 0) __PYX_ERR(0, 959, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":957
+ *             self.__forgot_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__forgot_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ *         if self.__output_conv.graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             self.__output_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ *             self.__output_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ */
+  }
+
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":961
+ *             self.__output_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
  * 
  *         if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
  *             self.__given_conv.graph.weight_arr = self.__opt_params.constrain_weight(
  *                 self.__given_conv.graph.weight_arr
  */
-  __pyx_t_2 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 894, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 961, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__attenuate_epoch); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 894, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__attenuate_epoch); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 961, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_9 = PyNumber_Remainder(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 894, __pyx_L1_error)
+  __pyx_t_9 = PyNumber_Remainder(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 961, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyInt_EqObjC(__pyx_t_9, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 894, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_EqObjC(__pyx_t_9, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 961, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 894, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 961, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__pyx_t_11) {
+  if (__pyx_t_10) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":895
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":962
  * 
  *         if ((epoch + 1) % self.__attenuate_epoch == 0):
  *             self.__given_conv.graph.weight_arr = self.__opt_params.constrain_weight(             # <<<<<<<<<<<<<<
  *                 self.__given_conv.graph.weight_arr
  *             )
  */
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__opt_params); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 895, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__opt_params); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 962, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_constrain_weight); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 895, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_constrain_weight); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 962, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":896
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":963
  *         if ((epoch + 1) % self.__attenuate_epoch == 0):
  *             self.__given_conv.graph.weight_arr = self.__opt_params.constrain_weight(
  *                 self.__given_conv.graph.weight_arr             # <<<<<<<<<<<<<<
  *             )
  *             self.__input_conv.graph.weight_arr = self.__opt_params.constrain_weight(
  */
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 896, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 963, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 896, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 963, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_weight_arr); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 896, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_weight_arr); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 963, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_1 = NULL;
@@ -15727,14 +16699,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       }
     }
     if (!__pyx_t_1) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 895, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 962, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       __Pyx_GOTREF(__pyx_t_4);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_9};
-        __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 895, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 962, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -15743,68 +16715,68 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_9};
-        __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 895, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 962, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       } else
       #endif
       {
-        __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 895, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 962, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1); __pyx_t_1 = NULL;
         __Pyx_GIVEREF(__pyx_t_9);
         PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_9);
         __pyx_t_9 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 895, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 962, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":895
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":962
  * 
  *         if ((epoch + 1) % self.__attenuate_epoch == 0):
  *             self.__given_conv.graph.weight_arr = self.__opt_params.constrain_weight(             # <<<<<<<<<<<<<<
  *                 self.__given_conv.graph.weight_arr
  *             )
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 895, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 962, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 895, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 962, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_3, __pyx_n_s_weight_arr, __pyx_t_4) < 0) __PYX_ERR(0, 895, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_3, __pyx_n_s_weight_arr, __pyx_t_4) < 0) __PYX_ERR(0, 962, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":898
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":965
  *                 self.__given_conv.graph.weight_arr
  *             )
  *             self.__input_conv.graph.weight_arr = self.__opt_params.constrain_weight(             # <<<<<<<<<<<<<<
  *                 self.__input_conv.graph.weight_arr
  *             )
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__opt_params); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 898, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__opt_params); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 965, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_constrain_weight); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 898, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_constrain_weight); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 965, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":899
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":966
  *             )
  *             self.__input_conv.graph.weight_arr = self.__opt_params.constrain_weight(
  *                 self.__input_conv.graph.weight_arr             # <<<<<<<<<<<<<<
  *             )
  *             self.__forgot_conv.graph.weight_arr = self.__opt_params.constrain_weight(
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 899, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 966, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 899, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 966, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_weight_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 899, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_weight_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 966, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __pyx_t_9 = NULL;
@@ -15818,14 +16790,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       }
     }
     if (!__pyx_t_9) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 898, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 965, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_4};
-        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 898, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 965, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -15834,68 +16806,68 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_4};
-        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 898, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 965, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       } else
       #endif
       {
-        __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 898, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 965, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_9); __pyx_t_9 = NULL;
         __Pyx_GIVEREF(__pyx_t_4);
         PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_4);
         __pyx_t_4 = 0;
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 898, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 965, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":898
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":965
  *                 self.__given_conv.graph.weight_arr
  *             )
  *             self.__input_conv.graph.weight_arr = self.__opt_params.constrain_weight(             # <<<<<<<<<<<<<<
  *                 self.__input_conv.graph.weight_arr
  *             )
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 898, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 965, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 898, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 965, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_weight_arr, __pyx_t_3) < 0) __PYX_ERR(0, 898, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_weight_arr, __pyx_t_3) < 0) __PYX_ERR(0, 965, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":901
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":968
  *                 self.__input_conv.graph.weight_arr
  *             )
  *             self.__forgot_conv.graph.weight_arr = self.__opt_params.constrain_weight(             # <<<<<<<<<<<<<<
  *                 self.__forgot_conv.graph.weight_arr
  *             )
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__opt_params); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 901, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__opt_params); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 968, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_constrain_weight); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 901, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_constrain_weight); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 968, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":902
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":969
  *             )
  *             self.__forgot_conv.graph.weight_arr = self.__opt_params.constrain_weight(
  *                 self.__forgot_conv.graph.weight_arr             # <<<<<<<<<<<<<<
  *             )
  *             self.__output_conv.graph.weight_arr = self.__opt_params.constrain_weight(
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 902, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 969, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 902, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 969, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_weight_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 902, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_weight_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 969, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_4 = NULL;
@@ -15909,14 +16881,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       }
     }
     if (!__pyx_t_4) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 901, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 968, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_3};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 901, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 968, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -15925,68 +16897,68 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_3};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 901, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 968, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       } else
       #endif
       {
-        __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 901, __pyx_L1_error)
+        __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 968, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_4); __pyx_t_4 = NULL;
         __Pyx_GIVEREF(__pyx_t_3);
         PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_t_3);
         __pyx_t_3 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 901, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 968, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":901
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":968
  *                 self.__input_conv.graph.weight_arr
  *             )
  *             self.__forgot_conv.graph.weight_arr = self.__opt_params.constrain_weight(             # <<<<<<<<<<<<<<
  *                 self.__forgot_conv.graph.weight_arr
  *             )
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 901, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 968, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 901, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 968, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_9, __pyx_n_s_weight_arr, __pyx_t_1) < 0) __PYX_ERR(0, 901, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_9, __pyx_n_s_weight_arr, __pyx_t_1) < 0) __PYX_ERR(0, 968, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":904
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":971
  *                 self.__forgot_conv.graph.weight_arr
  *             )
  *             self.__output_conv.graph.weight_arr = self.__opt_params.constrain_weight(             # <<<<<<<<<<<<<<
  *                 self.__output_conv.graph.weight_arr
  *             )
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__opt_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 904, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__opt_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 971, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_constrain_weight); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 904, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_constrain_weight); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 971, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":905
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":972
  *             )
  *             self.__output_conv.graph.weight_arr = self.__opt_params.constrain_weight(
  *                 self.__output_conv.graph.weight_arr             # <<<<<<<<<<<<<<
  *             )
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 905, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 972, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 905, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_graph); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 972, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_weight_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 905, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_weight_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 972, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -16000,14 +16972,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       }
     }
     if (!__pyx_t_3) {
-      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 904, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 971, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_9);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_1};
-        __pyx_t_9 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 904, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 971, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -16016,44 +16988,44 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_1};
-        __pyx_t_9 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 904, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 971, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       } else
       #endif
       {
-        __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 904, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 971, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
         __Pyx_GIVEREF(__pyx_t_1);
         PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_1);
         __pyx_t_1 = 0;
-        __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 904, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 971, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":904
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":971
  *                 self.__forgot_conv.graph.weight_arr
  *             )
  *             self.__output_conv.graph.weight_arr = self.__opt_params.constrain_weight(             # <<<<<<<<<<<<<<
  *                 self.__output_conv.graph.weight_arr
  *             )
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 904, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 971, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 904, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 971, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_weight_arr, __pyx_t_9) < 0) __PYX_ERR(0, 904, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_weight_arr, __pyx_t_9) < 0) __PYX_ERR(0, 971, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":894
- *         self.__output_conv.graph.bias_arr = params_list.pop(0)
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":961
+ *             self.__output_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
  * 
  *         if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
  *             self.__given_conv.graph.weight_arr = self.__opt_params.constrain_weight(
@@ -16061,16 +17033,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":908
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":975
  *             )
  * 
  *         self.__given_conv.reset_delta()             # <<<<<<<<<<<<<<
  *         self.__input_conv.reset_delta()
  *         self.__forgot_conv.reset_delta()
  */
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 908, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 975, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_reset_delta); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 908, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_reset_delta); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 975, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __pyx_t_9 = NULL;
@@ -16084,25 +17056,25 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (__pyx_t_9) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 908, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 975, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   } else {
-    __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 908, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 975, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":909
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":976
  * 
  *         self.__given_conv.reset_delta()
  *         self.__input_conv.reset_delta()             # <<<<<<<<<<<<<<
  *         self.__forgot_conv.reset_delta()
  *         self.__output_conv.reset_delta()
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 909, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 976, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_reset_delta); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 909, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_reset_delta); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 976, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -16116,25 +17088,25 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (__pyx_t_2) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 909, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 976, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
-    __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 909, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 976, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":910
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":977
  *         self.__given_conv.reset_delta()
  *         self.__input_conv.reset_delta()
  *         self.__forgot_conv.reset_delta()             # <<<<<<<<<<<<<<
  *         self.__output_conv.reset_delta()
  * 
  */
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 910, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 977, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_reset_delta); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 910, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_reset_delta); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 977, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __pyx_t_9 = NULL;
@@ -16148,25 +17120,25 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (__pyx_t_9) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 910, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 977, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   } else {
-    __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 910, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 977, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":911
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":978
  *         self.__input_conv.reset_delta()
  *         self.__forgot_conv.reset_delta()
  *         self.__output_conv.reset_delta()             # <<<<<<<<<<<<<<
  * 
  *     def inference(
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 911, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 978, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_reset_delta); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 911, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_reset_delta); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 978, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -16180,10 +17152,10 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (__pyx_t_2) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 911, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 978, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
-    __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 911, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 978, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -16220,7 +17192,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":913
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":980
  *         self.__output_conv.reset_delta()
  * 
  *     def inference(             # <<<<<<<<<<<<<<
@@ -16244,7 +17216,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_observed_arr,&__pyx_n_s_hidden_activity_arr,&__pyx_n_s_cec_activity_arr,0};
     PyObject* values[4] = {0,0,0,0};
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":916
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":983
  *         self,
  *         np.ndarray observed_arr,
  *         np.ndarray hidden_activity_arr=None,             # <<<<<<<<<<<<<<
@@ -16253,7 +17225,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
     values[2] = (PyObject *)((PyArrayObject *)((PyObject *)Py_None));
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":917
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":984
  *         np.ndarray observed_arr,
  *         np.ndarray hidden_activity_arr=None,
  *         np.ndarray cec_activity_arr=None             # <<<<<<<<<<<<<<
@@ -16285,7 +17257,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_observed_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("inference", 0, 2, 4, 1); __PYX_ERR(0, 913, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("inference", 0, 2, 4, 1); __PYX_ERR(0, 980, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -16301,7 +17273,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "inference") < 0)) __PYX_ERR(0, 913, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "inference") < 0)) __PYX_ERR(0, 980, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -16322,18 +17294,18 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("inference", 0, 2, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 913, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("inference", 0, 2, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 980, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.rnn.lstmmodel.conv_lstm_model.ConvLSTMModel.inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_arr", 0))) __PYX_ERR(0, 915, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_hidden_activity_arr), __pyx_ptype_5numpy_ndarray, 1, "hidden_activity_arr", 0))) __PYX_ERR(0, 916, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_cec_activity_arr), __pyx_ptype_5numpy_ndarray, 1, "cec_activity_arr", 0))) __PYX_ERR(0, 917, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_arr", 0))) __PYX_ERR(0, 982, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_hidden_activity_arr), __pyx_ptype_5numpy_ndarray, 1, "hidden_activity_arr", 0))) __PYX_ERR(0, 983, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_cec_activity_arr), __pyx_ptype_5numpy_ndarray, 1, "cec_activity_arr", 0))) __PYX_ERR(0, 984, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_18inference(__pyx_self, __pyx_v_self, __pyx_v_observed_arr, __pyx_v_hidden_activity_arr, __pyx_v_cec_activity_arr);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":913
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":980
  *         self.__output_conv.reset_delta()
  * 
  *     def inference(             # <<<<<<<<<<<<<<
@@ -16365,7 +17337,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   PyObject *__pyx_t_7 = NULL;
   __Pyx_RefNannySetupContext("inference", 0);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":935
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1002
  *             - Array like or sparse matrix of the state in RNN.
  *         '''
  *         cdef int sample_n = observed_arr.shape[0]             # <<<<<<<<<<<<<<
@@ -16374,7 +17346,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
   __pyx_v_sample_n = (__pyx_v_observed_arr->dimensions[0]);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":936
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1003
  *         '''
  *         cdef int sample_n = observed_arr.shape[0]
  *         cdef int cycle_len = observed_arr.shape[1]             # <<<<<<<<<<<<<<
@@ -16383,7 +17355,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
   __pyx_v_cycle_len = (__pyx_v_observed_arr->dimensions[1]);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":938
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1005
  *         cdef int cycle_len = observed_arr.shape[1]
  * 
  *         if hidden_activity_arr is None:             # <<<<<<<<<<<<<<
@@ -16394,19 +17366,19 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":939
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1006
  * 
  *         if hidden_activity_arr is None:
  *             self.graph.hidden_activity_arr = np.array([])             # <<<<<<<<<<<<<<
  *         else:
  *             self.graph.hidden_activity_arr = hidden_activity_arr
  */
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 939, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1006, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 939, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1006, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 939, __pyx_L1_error)
+    __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1006, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_6 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -16419,14 +17391,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       }
     }
     if (!__pyx_t_6) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 939, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1006, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_5)) {
         PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_4};
-        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 939, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1006, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -16435,32 +17407,32 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
         PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_4};
-        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 939, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1006, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       } else
       #endif
       {
-        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 939, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1006, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
         __Pyx_GIVEREF(__pyx_t_4);
         PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_4);
         __pyx_t_4 = 0;
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 939, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1006, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 939, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1006, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_5, __pyx_n_s_hidden_activity_arr, __pyx_t_3) < 0) __PYX_ERR(0, 939, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_5, __pyx_n_s_hidden_activity_arr, __pyx_t_3) < 0) __PYX_ERR(0, 1006, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":938
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1005
  *         cdef int cycle_len = observed_arr.shape[1]
  * 
  *         if hidden_activity_arr is None:             # <<<<<<<<<<<<<<
@@ -16470,7 +17442,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     goto __pyx_L3;
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":941
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1008
  *             self.graph.hidden_activity_arr = np.array([])
  *         else:
  *             self.graph.hidden_activity_arr = hidden_activity_arr             # <<<<<<<<<<<<<<
@@ -16478,14 +17450,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *         if cec_activity_arr is None:
  */
   /*else*/ {
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 941, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1008, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_5, __pyx_n_s_hidden_activity_arr, ((PyObject *)__pyx_v_hidden_activity_arr)) < 0) __PYX_ERR(0, 941, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_5, __pyx_n_s_hidden_activity_arr, ((PyObject *)__pyx_v_hidden_activity_arr)) < 0) __PYX_ERR(0, 1008, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __pyx_L3:;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":943
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1010
  *             self.graph.hidden_activity_arr = hidden_activity_arr
  * 
  *         if cec_activity_arr is None:             # <<<<<<<<<<<<<<
@@ -16496,19 +17468,19 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":944
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1011
  * 
  *         if cec_activity_arr is None:
  *             self.graph.cec_activity_arr = np.array([])             # <<<<<<<<<<<<<<
  *         else:
  *             self.graph.cec_activity_arr = cec_activity_arr
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 944, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1011, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_array); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 944, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_array); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1011, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 944, __pyx_L1_error)
+    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1011, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
@@ -16521,14 +17493,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       }
     }
     if (!__pyx_t_4) {
-      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 944, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1011, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_5);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_7)) {
         PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_3};
-        __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 944, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1011, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -16537,32 +17509,32 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
         PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_3};
-        __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 944, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1011, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       } else
       #endif
       {
-        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 944, __pyx_L1_error)
+        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1011, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
         __Pyx_GIVEREF(__pyx_t_3);
         PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_3);
         __pyx_t_3 = 0;
-        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 944, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1011, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 944, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1011, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_7, __pyx_n_s_cec_activity_arr, __pyx_t_5) < 0) __PYX_ERR(0, 944, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_7, __pyx_n_s_cec_activity_arr, __pyx_t_5) < 0) __PYX_ERR(0, 1011, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":943
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1010
  *             self.graph.hidden_activity_arr = hidden_activity_arr
  * 
  *         if cec_activity_arr is None:             # <<<<<<<<<<<<<<
@@ -16572,7 +17544,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     goto __pyx_L4;
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":946
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1013
  *             self.graph.cec_activity_arr = np.array([])
  *         else:
  *             self.graph.cec_activity_arr = cec_activity_arr             # <<<<<<<<<<<<<<
@@ -16580,21 +17552,21 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *         cdef np.ndarray pred_arr = self.forward_propagation(observed_arr)
  */
   /*else*/ {
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 946, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1013, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_7, __pyx_n_s_cec_activity_arr, ((PyObject *)__pyx_v_cec_activity_arr)) < 0) __PYX_ERR(0, 946, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_7, __pyx_n_s_cec_activity_arr, ((PyObject *)__pyx_v_cec_activity_arr)) < 0) __PYX_ERR(0, 1013, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __pyx_L4:;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":948
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1015
  *             self.graph.cec_activity_arr = cec_activity_arr
  * 
  *         cdef np.ndarray pred_arr = self.forward_propagation(observed_arr)             # <<<<<<<<<<<<<<
  *         return pred_arr
  * 
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_forward_propagation); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 948, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_forward_propagation); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1015, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -16607,13 +17579,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_6) {
-    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_5, ((PyObject *)__pyx_v_observed_arr)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 948, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_5, ((PyObject *)__pyx_v_observed_arr)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1015, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, ((PyObject *)__pyx_v_observed_arr)};
-      __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 948, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1015, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_7);
     } else
@@ -16621,29 +17593,29 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, ((PyObject *)__pyx_v_observed_arr)};
-      __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 948, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1015, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_7);
     } else
     #endif
     {
-      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 948, __pyx_L1_error)
+      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1015, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_6); __pyx_t_6 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_observed_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_observed_arr));
       PyTuple_SET_ITEM(__pyx_t_3, 0+1, ((PyObject *)__pyx_v_observed_arr));
-      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_3, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 948, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_3, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1015, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 948, __pyx_L1_error)
+  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1015, __pyx_L1_error)
   __pyx_v_pred_arr = ((PyArrayObject *)__pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":949
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1016
  * 
  *         cdef np.ndarray pred_arr = self.forward_propagation(observed_arr)
  *         return pred_arr             # <<<<<<<<<<<<<<
@@ -16655,7 +17627,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_r = ((PyObject *)__pyx_v_pred_arr);
   goto __pyx_L0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":913
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":980
  *         self.__output_conv.reset_delta()
  * 
  *     def inference(             # <<<<<<<<<<<<<<
@@ -16679,7 +17651,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":951
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1018
  *         return pred_arr
  * 
  *     def get_feature_points(self):             # <<<<<<<<<<<<<<
@@ -16709,7 +17681,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("get_feature_points", 0);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":959
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1026
  *             The `list` of array like or sparse matrix of feature points or virtual visible observed data points.
  *         '''
  *         return self.graph.hidden_activity_arr             # <<<<<<<<<<<<<<
@@ -16717,16 +17689,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *     def hidden_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=5] observed_arr):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 959, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1026, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 959, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1026, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":951
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1018
  *         return pred_arr
  * 
  *     def get_feature_points(self):             # <<<<<<<<<<<<<<
@@ -16746,7 +17718,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":961
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1028
  *         return self.graph.hidden_activity_arr
  * 
  *     def hidden_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=5] observed_arr):             # <<<<<<<<<<<<<<
@@ -16787,11 +17759,11 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_observed_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("hidden_forward_propagate", 1, 2, 2, 1); __PYX_ERR(0, 961, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("hidden_forward_propagate", 1, 2, 2, 1); __PYX_ERR(0, 1028, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "hidden_forward_propagate") < 0)) __PYX_ERR(0, 961, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "hidden_forward_propagate") < 0)) __PYX_ERR(0, 1028, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -16804,13 +17776,13 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("hidden_forward_propagate", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 961, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("hidden_forward_propagate", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1028, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.rnn.lstmmodel.conv_lstm_model.ConvLSTMModel.hidden_forward_propagate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_arr", 0))) __PYX_ERR(0, 961, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_arr", 0))) __PYX_ERR(0, 1028, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_22hidden_forward_propagate(__pyx_self, __pyx_v_self, __pyx_v_observed_arr);
 
   /* function exit code */
@@ -16865,11 +17837,11 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_pybuffernd_observed_arr.rcbuffer = &__pyx_pybuffer_observed_arr;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 5, 0, __pyx_stack) == -1)) __PYX_ERR(0, 961, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 5, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1028, __pyx_L1_error)
   }
   __pyx_pybuffernd_observed_arr.diminfo[0].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_observed_arr.diminfo[0].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_observed_arr.diminfo[1].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_observed_arr.diminfo[1].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_observed_arr.diminfo[2].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_observed_arr.diminfo[2].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_observed_arr.diminfo[3].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_observed_arr.diminfo[3].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[3]; __pyx_pybuffernd_observed_arr.diminfo[4].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[4]; __pyx_pybuffernd_observed_arr.diminfo[4].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[4];
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":971
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1038
  *             Predicted data points.
  *         '''
  *         cdef int sample_n = observed_arr.shape[0]             # <<<<<<<<<<<<<<
@@ -16878,23 +17850,23 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
   __pyx_v_sample_n = (__pyx_v_observed_arr->dimensions[0]);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":973
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1040
  *         cdef int sample_n = observed_arr.shape[0]
  *         cdef int cycle_len
  *         if self.__seq_len == 0:             # <<<<<<<<<<<<<<
  *             cycle_len = observed_arr.shape[1]
  *         else:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__seq_len); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 973, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__seq_len); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1040, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_t_1, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 973, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_t_1, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1040, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 973, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 1040, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":974
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1041
  *         cdef int cycle_len
  *         if self.__seq_len == 0:
  *             cycle_len = observed_arr.shape[1]             # <<<<<<<<<<<<<<
@@ -16903,7 +17875,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
     __pyx_v_cycle_len = (__pyx_v_observed_arr->dimensions[1]);
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":973
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1040
  *         cdef int sample_n = observed_arr.shape[0]
  *         cdef int cycle_len
  *         if self.__seq_len == 0:             # <<<<<<<<<<<<<<
@@ -16913,7 +17885,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     goto __pyx_L3;
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":976
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1043
  *             cycle_len = observed_arr.shape[1]
  *         else:
  *             cycle_len = self.__seq_len             # <<<<<<<<<<<<<<
@@ -16921,15 +17893,15 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *         cdef int channel = observed_arr.shape[2]
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__seq_len); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 976, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__seq_len); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1043, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 976, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1043, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_v_cycle_len = __pyx_t_4;
   }
   __pyx_L3:;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":978
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1045
  *             cycle_len = self.__seq_len
  * 
  *         cdef int channel = observed_arr.shape[2]             # <<<<<<<<<<<<<<
@@ -16938,7 +17910,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
   __pyx_v_channel = (__pyx_v_observed_arr->dimensions[2]);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":979
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1046
  * 
  *         cdef int channel = observed_arr.shape[2]
  *         cdef int width = observed_arr.shape[3]             # <<<<<<<<<<<<<<
@@ -16947,7 +17919,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
   __pyx_v_width = (__pyx_v_observed_arr->dimensions[3]);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":980
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1047
  *         cdef int channel = observed_arr.shape[2]
  *         cdef int width = observed_arr.shape[3]
  *         cdef int height = observed_arr.shape[4]             # <<<<<<<<<<<<<<
@@ -16956,19 +17928,19 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
   __pyx_v_height = (__pyx_v_observed_arr->dimensions[4]);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":982
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1049
  *         cdef int height = observed_arr.shape[4]
  * 
  *         self.__cycle_len = cycle_len             # <<<<<<<<<<<<<<
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=5] pred_arr = None
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_cycle_len); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 982, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_cycle_len); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1049, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__cycle_len, __pyx_t_2) < 0) __PYX_ERR(0, 982, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__cycle_len, __pyx_t_2) < 0) __PYX_ERR(0, 1049, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":984
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1051
  *         self.__cycle_len = cycle_len
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=5] pred_arr = None             # <<<<<<<<<<<<<<
@@ -16980,7 +17952,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 5, 0, __pyx_stack) == -1)) {
       __pyx_v_pred_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 984, __pyx_L1_error)
+      __PYX_ERR(0, 1051, __pyx_L1_error)
     } else {__pyx_pybuffernd_pred_arr.diminfo[0].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_pred_arr.diminfo[0].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_pred_arr.diminfo[1].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_pred_arr.diminfo[1].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_pred_arr.diminfo[2].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_pred_arr.diminfo[2].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_pred_arr.diminfo[3].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_pred_arr.diminfo[3].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[3]; __pyx_pybuffernd_pred_arr.diminfo[4].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[4]; __pyx_pybuffernd_pred_arr.diminfo[4].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[4];
     }
   }
@@ -16988,7 +17960,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_INCREF(Py_None);
   __pyx_v_pred_arr = ((PyArrayObject *)Py_None);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":986
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1053
  *         cdef np.ndarray[DOUBLE_t, ndim=5] pred_arr = None
  *         cdef int cycle
  *         for cycle in range(cycle_len):             # <<<<<<<<<<<<<<
@@ -17000,19 +17972,19 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
     __pyx_v_cycle = __pyx_t_7;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":987
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1054
  *         cdef int cycle
  *         for cycle in range(cycle_len):
  *             if self.__seq_len == 0 or cycle == 0:             # <<<<<<<<<<<<<<
  *                 self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
  *                     observed_arr[:, cycle, :, :, :],
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__seq_len); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 987, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__seq_len); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1054, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_t_2, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 987, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_t_2, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1054, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 987, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 1054, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (!__pyx_t_8) {
     } else {
@@ -17024,26 +17996,26 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     __pyx_L7_bool_binop_done:;
     if (__pyx_t_3) {
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":988
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1055
  *         for cycle in range(cycle_len):
  *             if self.__seq_len == 0 or cycle == 0:
  *                 self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(             # <<<<<<<<<<<<<<
  *                     observed_arr[:, cycle, :, :, :],
  *                     self.graph.hidden_activity_arr,
  */
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__lstm_forward); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 988, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__lstm_forward); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1055, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":989
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1056
  *             if self.__seq_len == 0 or cycle == 0:
  *                 self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
  *                     observed_arr[:, cycle, :, :, :],             # <<<<<<<<<<<<<<
  *                     self.graph.hidden_activity_arr,
  *                     self.graph.cec_activity_arr
  */
-      __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_cycle); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 989, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_cycle); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1056, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_10 = PyTuple_New(5); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 989, __pyx_L1_error)
+      __pyx_t_10 = PyTuple_New(5); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 1056, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_INCREF(__pyx_slice__114);
       __Pyx_GIVEREF(__pyx_slice__114);
@@ -17060,33 +18032,33 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       __Pyx_GIVEREF(__pyx_slice__117);
       PyTuple_SET_ITEM(__pyx_t_10, 4, __pyx_slice__117);
       __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_observed_arr), __pyx_t_10); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 989, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_observed_arr), __pyx_t_10); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1056, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":990
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1057
  *                 self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
  *                     observed_arr[:, cycle, :, :, :],
  *                     self.graph.hidden_activity_arr,             # <<<<<<<<<<<<<<
  *                     self.graph.cec_activity_arr
  *                 )
  */
-      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 990, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 1057, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
-      __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 990, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1057, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":991
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1058
  *                     observed_arr[:, cycle, :, :, :],
  *                     self.graph.hidden_activity_arr,
  *                     self.graph.cec_activity_arr             # <<<<<<<<<<<<<<
  *                 )
  *             else:
  */
-      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 991, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 1058, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
-      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_cec_activity_arr); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 991, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_cec_activity_arr); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1058, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       __pyx_t_10 = NULL;
@@ -17104,7 +18076,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[4] = {__pyx_t_10, __pyx_t_9, __pyx_t_11, __pyx_t_12};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_13, 3+__pyx_t_13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 988, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_13, 3+__pyx_t_13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1055, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -17115,7 +18087,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[4] = {__pyx_t_10, __pyx_t_9, __pyx_t_11, __pyx_t_12};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_13, 3+__pyx_t_13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 988, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_13, 3+__pyx_t_13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1055, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -17124,7 +18096,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       } else
       #endif
       {
-        __pyx_t_14 = PyTuple_New(3+__pyx_t_13); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 988, __pyx_L1_error)
+        __pyx_t_14 = PyTuple_New(3+__pyx_t_13); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1055, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         if (__pyx_t_10) {
           __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_10); __pyx_t_10 = NULL;
@@ -17138,7 +18110,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         __pyx_t_9 = 0;
         __pyx_t_11 = 0;
         __pyx_t_12 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_14, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 988, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_14, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1055, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
       }
@@ -17149,7 +18121,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         if (unlikely(size != 2)) {
           if (size > 2) __Pyx_RaiseTooManyValuesError(2);
           else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-          __PYX_ERR(0, 988, __pyx_L1_error)
+          __PYX_ERR(0, 1055, __pyx_L1_error)
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
         if (likely(PyTuple_CheckExact(sequence))) {
@@ -17162,15 +18134,15 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         __Pyx_INCREF(__pyx_t_2);
         __Pyx_INCREF(__pyx_t_14);
         #else
-        __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 988, __pyx_L1_error)
+        __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1055, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_14 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 988, __pyx_L1_error)
+        __pyx_t_14 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1055, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         #endif
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       } else {
         Py_ssize_t index = -1;
-        __pyx_t_12 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 988, __pyx_L1_error)
+        __pyx_t_12 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1055, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __pyx_t_15 = Py_TYPE(__pyx_t_12)->tp_iternext;
@@ -17178,7 +18150,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         __Pyx_GOTREF(__pyx_t_2);
         index = 1; __pyx_t_14 = __pyx_t_15(__pyx_t_12); if (unlikely(!__pyx_t_14)) goto __pyx_L9_unpacking_failed;
         __Pyx_GOTREF(__pyx_t_14);
-        if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_12), 2) < 0) __PYX_ERR(0, 988, __pyx_L1_error)
+        if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_12), 2) < 0) __PYX_ERR(0, 1055, __pyx_L1_error)
         __pyx_t_15 = NULL;
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         goto __pyx_L10_unpacking_done;
@@ -17186,29 +18158,29 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __pyx_t_15 = NULL;
         if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-        __PYX_ERR(0, 988, __pyx_L1_error)
+        __PYX_ERR(0, 1055, __pyx_L1_error)
         __pyx_L10_unpacking_done:;
       }
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":988
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1055
  *         for cycle in range(cycle_len):
  *             if self.__seq_len == 0 or cycle == 0:
  *                 self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(             # <<<<<<<<<<<<<<
  *                     observed_arr[:, cycle, :, :, :],
  *                     self.graph.hidden_activity_arr,
  */
-      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 988, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1055, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      if (__Pyx_PyObject_SetAttrStr(__pyx_t_12, __pyx_n_s_hidden_activity_arr, __pyx_t_2) < 0) __PYX_ERR(0, 988, __pyx_L1_error)
+      if (__Pyx_PyObject_SetAttrStr(__pyx_t_12, __pyx_n_s_hidden_activity_arr, __pyx_t_2) < 0) __PYX_ERR(0, 1055, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 988, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1055, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      if (__Pyx_PyObject_SetAttrStr(__pyx_t_12, __pyx_n_s_cec_activity_arr, __pyx_t_14) < 0) __PYX_ERR(0, 988, __pyx_L1_error)
+      if (__Pyx_PyObject_SetAttrStr(__pyx_t_12, __pyx_n_s_cec_activity_arr, __pyx_t_14) < 0) __PYX_ERR(0, 1055, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":987
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1054
  *         cdef int cycle
  *         for cycle in range(cycle_len):
  *             if self.__seq_len == 0 or cycle == 0:             # <<<<<<<<<<<<<<
@@ -17218,7 +18190,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       goto __pyx_L6;
     }
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":994
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1061
  *                 )
  *             else:
  *                 self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(             # <<<<<<<<<<<<<<
@@ -17226,19 +18198,19 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *                     self.graph.hidden_activity_arr,
  */
     /*else*/ {
-      __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__lstm_forward); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 994, __pyx_L1_error)
+      __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__lstm_forward); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1061, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":995
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1062
  *             else:
  *                 self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
  *                     pred_arr[:, cycle-1, :, :, :],             # <<<<<<<<<<<<<<
  *                     self.graph.hidden_activity_arr,
  *                     self.graph.cec_activity_arr
  */
-      __pyx_t_2 = __Pyx_PyInt_From_long((__pyx_v_cycle - 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 995, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyInt_From_long((__pyx_v_cycle - 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1062, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_12 = PyTuple_New(5); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 995, __pyx_L1_error)
+      __pyx_t_12 = PyTuple_New(5); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1062, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_INCREF(__pyx_slice__118);
       __Pyx_GIVEREF(__pyx_slice__118);
@@ -17255,33 +18227,33 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       __Pyx_GIVEREF(__pyx_slice__121);
       PyTuple_SET_ITEM(__pyx_t_12, 4, __pyx_slice__121);
       __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_pred_arr), __pyx_t_12); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 995, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_pred_arr), __pyx_t_12); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1062, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":996
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1063
  *                 self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
  *                     pred_arr[:, cycle-1, :, :, :],
  *                     self.graph.hidden_activity_arr,             # <<<<<<<<<<<<<<
  *                     self.graph.cec_activity_arr
  *                 )
  */
-      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 996, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1063, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 996, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1063, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":997
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1064
  *                     pred_arr[:, cycle-1, :, :, :],
  *                     self.graph.hidden_activity_arr,
  *                     self.graph.cec_activity_arr             # <<<<<<<<<<<<<<
  *                 )
  * 
  */
-      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 997, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1064, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_cec_activity_arr); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 997, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_cec_activity_arr); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1064, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       __pyx_t_12 = NULL;
@@ -17299,7 +18271,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_14)) {
         PyObject *__pyx_temp[4] = {__pyx_t_12, __pyx_t_2, __pyx_t_11, __pyx_t_9};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_13, 3+__pyx_t_13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 994, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_13, 3+__pyx_t_13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1061, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -17310,7 +18282,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_14)) {
         PyObject *__pyx_temp[4] = {__pyx_t_12, __pyx_t_2, __pyx_t_11, __pyx_t_9};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_13, 3+__pyx_t_13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 994, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_14, __pyx_temp+1-__pyx_t_13, 3+__pyx_t_13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1061, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -17319,7 +18291,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       } else
       #endif
       {
-        __pyx_t_10 = PyTuple_New(3+__pyx_t_13); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 994, __pyx_L1_error)
+        __pyx_t_10 = PyTuple_New(3+__pyx_t_13); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 1061, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         if (__pyx_t_12) {
           __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_12); __pyx_t_12 = NULL;
@@ -17333,7 +18305,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         __pyx_t_2 = 0;
         __pyx_t_11 = 0;
         __pyx_t_9 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_10, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 994, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_10, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1061, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       }
@@ -17344,7 +18316,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         if (unlikely(size != 2)) {
           if (size > 2) __Pyx_RaiseTooManyValuesError(2);
           else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-          __PYX_ERR(0, 994, __pyx_L1_error)
+          __PYX_ERR(0, 1061, __pyx_L1_error)
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
         if (likely(PyTuple_CheckExact(sequence))) {
@@ -17357,15 +18329,15 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         __Pyx_INCREF(__pyx_t_14);
         __Pyx_INCREF(__pyx_t_10);
         #else
-        __pyx_t_14 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 994, __pyx_L1_error)
+        __pyx_t_14 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1061, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
-        __pyx_t_10 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 994, __pyx_L1_error)
+        __pyx_t_10 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 1061, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         #endif
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       } else {
         Py_ssize_t index = -1;
-        __pyx_t_9 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 994, __pyx_L1_error)
+        __pyx_t_9 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1061, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __pyx_t_15 = Py_TYPE(__pyx_t_9)->tp_iternext;
@@ -17373,7 +18345,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         __Pyx_GOTREF(__pyx_t_14);
         index = 1; __pyx_t_10 = __pyx_t_15(__pyx_t_9); if (unlikely(!__pyx_t_10)) goto __pyx_L11_unpacking_failed;
         __Pyx_GOTREF(__pyx_t_10);
-        if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_9), 2) < 0) __PYX_ERR(0, 994, __pyx_L1_error)
+        if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_9), 2) < 0) __PYX_ERR(0, 1061, __pyx_L1_error)
         __pyx_t_15 = NULL;
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         goto __pyx_L12_unpacking_done;
@@ -17381,31 +18353,31 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         __pyx_t_15 = NULL;
         if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-        __PYX_ERR(0, 994, __pyx_L1_error)
+        __PYX_ERR(0, 1061, __pyx_L1_error)
         __pyx_L12_unpacking_done:;
       }
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":994
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1061
  *                 )
  *             else:
  *                 self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(             # <<<<<<<<<<<<<<
  *                     pred_arr[:, cycle-1, :, :, :],
  *                     self.graph.hidden_activity_arr,
  */
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 994, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1061, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      if (__Pyx_PyObject_SetAttrStr(__pyx_t_9, __pyx_n_s_hidden_activity_arr, __pyx_t_14) < 0) __PYX_ERR(0, 994, __pyx_L1_error)
+      if (__Pyx_PyObject_SetAttrStr(__pyx_t_9, __pyx_n_s_hidden_activity_arr, __pyx_t_14) < 0) __PYX_ERR(0, 1061, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 994, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1061, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      if (__Pyx_PyObject_SetAttrStr(__pyx_t_9, __pyx_n_s_cec_activity_arr, __pyx_t_10) < 0) __PYX_ERR(0, 994, __pyx_L1_error)
+      if (__Pyx_PyObject_SetAttrStr(__pyx_t_9, __pyx_n_s_cec_activity_arr, __pyx_t_10) < 0) __PYX_ERR(0, 1061, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     }
     __pyx_L6:;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1000
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1067
  *                 )
  * 
  *             if pred_arr is None:             # <<<<<<<<<<<<<<
@@ -17416,113 +18388,113 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     __pyx_t_8 = (__pyx_t_3 != 0);
     if (__pyx_t_8) {
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1001
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1068
  * 
  *             if pred_arr is None:
  *                 pred_arr = np.zeros(             # <<<<<<<<<<<<<<
  *                     (
  *                         self.graph.hidden_activity_arr.shape[0],
  */
-      __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1001, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1068, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 1001, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 1068, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1003
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1070
  *                 pred_arr = np.zeros(
  *                     (
  *                         self.graph.hidden_activity_arr.shape[0],             # <<<<<<<<<<<<<<
  *                         cycle_len,
  *                         self.graph.hidden_activity_arr.shape[1],
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1003, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1070, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1003, __pyx_L1_error)
+      __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1070, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1003, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1070, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-      __pyx_t_14 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1003, __pyx_L1_error)
+      __pyx_t_14 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1070, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1004
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1071
  *                     (
  *                         self.graph.hidden_activity_arr.shape[0],
  *                         cycle_len,             # <<<<<<<<<<<<<<
  *                         self.graph.hidden_activity_arr.shape[1],
  *                         self.graph.hidden_activity_arr.shape[2],
  */
-      __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_cycle_len); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1004, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_cycle_len); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1071, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1005
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1072
  *                         self.graph.hidden_activity_arr.shape[0],
  *                         cycle_len,
  *                         self.graph.hidden_activity_arr.shape[1],             # <<<<<<<<<<<<<<
  *                         self.graph.hidden_activity_arr.shape[2],
  *                         self.graph.hidden_activity_arr.shape[3]
  */
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1005, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1072, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1005, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1072, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_shape); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1005, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_shape); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1072, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-      __pyx_t_11 = __Pyx_GetItemInt(__pyx_t_9, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1005, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_GetItemInt(__pyx_t_9, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1072, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1006
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1073
  *                         cycle_len,
  *                         self.graph.hidden_activity_arr.shape[1],
  *                         self.graph.hidden_activity_arr.shape[2],             # <<<<<<<<<<<<<<
  *                         self.graph.hidden_activity_arr.shape[3]
  *                     ),
  */
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1006, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1073, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1006, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1073, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_shape); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1006, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_shape); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1073, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_9, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1006, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_9, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1073, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1007
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1074
  *                         self.graph.hidden_activity_arr.shape[1],
  *                         self.graph.hidden_activity_arr.shape[2],
  *                         self.graph.hidden_activity_arr.shape[3]             # <<<<<<<<<<<<<<
  *                     ),
  *                     dtype=np.float64
  */
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1007, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1074, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1007, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1074, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_shape); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1007, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_shape); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1074, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      __pyx_t_12 = __Pyx_GetItemInt(__pyx_t_9, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1007, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_GetItemInt(__pyx_t_9, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1074, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1003
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1070
  *                 pred_arr = np.zeros(
  *                     (
  *                         self.graph.hidden_activity_arr.shape[0],             # <<<<<<<<<<<<<<
  *                         cycle_len,
  *                         self.graph.hidden_activity_arr.shape[1],
  */
-      __pyx_t_9 = PyTuple_New(5); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1003, __pyx_L1_error)
+      __pyx_t_9 = PyTuple_New(5); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1070, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_GIVEREF(__pyx_t_14);
       PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_14);
@@ -17540,49 +18512,49 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       __pyx_t_2 = 0;
       __pyx_t_12 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1001
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1068
  * 
  *             if pred_arr is None:
  *                 pred_arr = np.zeros(             # <<<<<<<<<<<<<<
  *                     (
  *                         self.graph.hidden_activity_arr.shape[0],
  */
-      __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1001, __pyx_L1_error)
+      __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1068, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_GIVEREF(__pyx_t_9);
       PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_9);
       __pyx_t_9 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1009
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1076
  *                         self.graph.hidden_activity_arr.shape[3]
  *                     ),
  *                     dtype=np.float64             # <<<<<<<<<<<<<<
  *                 )
  * 
  */
-      __pyx_t_9 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1009, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1076, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1009, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1076, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_float64); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1009, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_float64); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1076, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_dtype, __pyx_t_11) < 0) __PYX_ERR(0, 1009, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_dtype, __pyx_t_11) < 0) __PYX_ERR(0, 1076, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1001
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1068
  * 
  *             if pred_arr is None:
  *                 pred_arr = np.zeros(             # <<<<<<<<<<<<<<
  *                     (
  *                         self.graph.hidden_activity_arr.shape[0],
  */
-      __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_12, __pyx_t_9); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1001, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_12, __pyx_t_9); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1068, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1001, __pyx_L1_error)
+      if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1068, __pyx_L1_error)
       __pyx_t_5 = ((PyArrayObject *)__pyx_t_11);
       {
         __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -17599,13 +18571,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
           __pyx_t_16 = __pyx_t_17 = __pyx_t_18 = 0;
         }
         __pyx_pybuffernd_pred_arr.diminfo[0].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_pred_arr.diminfo[0].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_pred_arr.diminfo[1].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_pred_arr.diminfo[1].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_pred_arr.diminfo[2].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_pred_arr.diminfo[2].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_pred_arr.diminfo[3].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_pred_arr.diminfo[3].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[3]; __pyx_pybuffernd_pred_arr.diminfo[4].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[4]; __pyx_pybuffernd_pred_arr.diminfo[4].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[4];
-        if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 1001, __pyx_L1_error)
+        if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 1068, __pyx_L1_error)
       }
       __pyx_t_5 = 0;
       __Pyx_DECREF_SET(__pyx_v_pred_arr, ((PyArrayObject *)__pyx_t_11));
       __pyx_t_11 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1000
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1067
  *                 )
  * 
  *             if pred_arr is None:             # <<<<<<<<<<<<<<
@@ -17614,21 +18586,21 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
     }
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1012
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1079
  *                 )
  * 
  *             pred_arr[:, cycle] = self.graph.hidden_activity_arr             # <<<<<<<<<<<<<<
  * 
  *         return pred_arr
  */
-    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1012, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1079, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1012, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1079, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_11 = __Pyx_PyInt_From_int(__pyx_v_cycle); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1012, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyInt_From_int(__pyx_v_cycle); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1079, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1012, __pyx_L1_error)
+    __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1079, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_INCREF(__pyx_slice__122);
     __Pyx_GIVEREF(__pyx_slice__122);
@@ -17636,12 +18608,12 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     __Pyx_GIVEREF(__pyx_t_11);
     PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_t_11);
     __pyx_t_11 = 0;
-    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_pred_arr), __pyx_t_12, __pyx_t_9) < 0)) __PYX_ERR(0, 1012, __pyx_L1_error)
+    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_pred_arr), __pyx_t_12, __pyx_t_9) < 0)) __PYX_ERR(0, 1079, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1014
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1081
  *             pred_arr[:, cycle] = self.graph.hidden_activity_arr
  * 
  *         return pred_arr             # <<<<<<<<<<<<<<
@@ -17653,7 +18625,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_r = ((PyObject *)__pyx_v_pred_arr);
   goto __pyx_L0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":961
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1028
  *         return self.graph.hidden_activity_arr
  * 
  *     def hidden_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=5] observed_arr):             # <<<<<<<<<<<<<<
@@ -17690,7 +18662,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1016
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1083
  *         return pred_arr
  * 
  *     def output_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=5] pred_arr):             # <<<<<<<<<<<<<<
@@ -17731,11 +18703,11 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pred_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("output_forward_propagate", 1, 2, 2, 1); __PYX_ERR(0, 1016, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("output_forward_propagate", 1, 2, 2, 1); __PYX_ERR(0, 1083, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "output_forward_propagate") < 0)) __PYX_ERR(0, 1016, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "output_forward_propagate") < 0)) __PYX_ERR(0, 1083, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -17748,13 +18720,13 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("output_forward_propagate", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1016, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("output_forward_propagate", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1083, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.rnn.lstmmodel.conv_lstm_model.ConvLSTMModel.output_forward_propagate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_pred_arr), __pyx_ptype_5numpy_ndarray, 1, "pred_arr", 0))) __PYX_ERR(0, 1016, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_pred_arr), __pyx_ptype_5numpy_ndarray, 1, "pred_arr", 0))) __PYX_ERR(0, 1083, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_24output_forward_propagate(__pyx_self, __pyx_v_self, __pyx_v_pred_arr);
 
   /* function exit code */
@@ -17778,11 +18750,11 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_pybuffernd_pred_arr.rcbuffer = &__pyx_pybuffer_pred_arr;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_pred_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 5, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1016, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_pred_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 5, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1083, __pyx_L1_error)
   }
   __pyx_pybuffernd_pred_arr.diminfo[0].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_pred_arr.diminfo[0].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_pred_arr.diminfo[1].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_pred_arr.diminfo[1].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_pred_arr.diminfo[2].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_pred_arr.diminfo[2].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_pred_arr.diminfo[3].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_pred_arr.diminfo[3].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[3]; __pyx_pybuffernd_pred_arr.diminfo[4].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[4]; __pyx_pybuffernd_pred_arr.diminfo[4].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[4];
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1026
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1093
  *             `np.ndarray` of propagated data points.
  *         '''
  *         return pred_arr             # <<<<<<<<<<<<<<
@@ -17794,7 +18766,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_r = ((PyObject *)__pyx_v_pred_arr);
   goto __pyx_L0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1016
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1083
  *         return pred_arr
  * 
  *     def output_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=5] pred_arr):             # <<<<<<<<<<<<<<
@@ -17821,7 +18793,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1028
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1095
  *         return pred_arr
  * 
  *     def output_back_propagate(             # <<<<<<<<<<<<<<
@@ -17865,17 +18837,17 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pred_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("output_back_propagate", 1, 3, 3, 1); __PYX_ERR(0, 1028, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("output_back_propagate", 1, 3, 3, 1); __PYX_ERR(0, 1095, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_delta_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("output_back_propagate", 1, 3, 3, 2); __PYX_ERR(0, 1028, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("output_back_propagate", 1, 3, 3, 2); __PYX_ERR(0, 1095, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "output_back_propagate") < 0)) __PYX_ERR(0, 1028, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "output_back_propagate") < 0)) __PYX_ERR(0, 1095, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -17890,14 +18862,14 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("output_back_propagate", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1028, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("output_back_propagate", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1095, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.rnn.lstmmodel.conv_lstm_model.ConvLSTMModel.output_back_propagate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_pred_arr), __pyx_ptype_5numpy_ndarray, 1, "pred_arr", 0))) __PYX_ERR(0, 1030, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_delta_arr), __pyx_ptype_5numpy_ndarray, 1, "delta_arr", 0))) __PYX_ERR(0, 1031, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_pred_arr), __pyx_ptype_5numpy_ndarray, 1, "pred_arr", 0))) __PYX_ERR(0, 1097, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_delta_arr), __pyx_ptype_5numpy_ndarray, 1, "delta_arr", 0))) __PYX_ERR(0, 1098, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_26output_back_propagate(__pyx_self, __pyx_v_self, __pyx_v_pred_arr, __pyx_v_delta_arr);
 
   /* function exit code */
@@ -17929,16 +18901,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_pybuffernd_delta_arr.rcbuffer = &__pyx_pybuffer_delta_arr;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_pred_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 5, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1028, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pred_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_pred_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 5, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1095, __pyx_L1_error)
   }
   __pyx_pybuffernd_pred_arr.diminfo[0].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_pred_arr.diminfo[0].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_pred_arr.diminfo[1].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_pred_arr.diminfo[1].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_pred_arr.diminfo[2].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_pred_arr.diminfo[2].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_pred_arr.diminfo[3].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_pred_arr.diminfo[3].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[3]; __pyx_pybuffernd_pred_arr.diminfo[4].strides = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.strides[4]; __pyx_pybuffernd_pred_arr.diminfo[4].shape = __pyx_pybuffernd_pred_arr.rcbuffer->pybuffer.shape[4];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_delta_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 5, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1028, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_delta_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 5, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1095, __pyx_L1_error)
   }
   __pyx_pybuffernd_delta_arr.diminfo[0].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_arr.diminfo[0].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_arr.diminfo[1].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_arr.diminfo[1].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_arr.diminfo[2].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_arr.diminfo[2].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_arr.diminfo[3].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_arr.diminfo[3].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[3]; __pyx_pybuffernd_delta_arr.diminfo[4].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[4]; __pyx_pybuffernd_delta_arr.diminfo[4].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[4];
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1045
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1112
  *             - `list` of gradations.
  *         '''
  *         return (delta_arr, [])             # <<<<<<<<<<<<<<
@@ -17946,9 +18918,9 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *     def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=4] delta_output_arr):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1045, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1045, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(((PyObject *)__pyx_v_delta_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_arr));
@@ -17960,7 +18932,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1028
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1095
  *         return pred_arr
  * 
  *     def output_back_propagate(             # <<<<<<<<<<<<<<
@@ -17991,7 +18963,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1047
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1114
  *         return (delta_arr, [])
  * 
  *     def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=4] delta_output_arr):             # <<<<<<<<<<<<<<
@@ -18032,11 +19004,11 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_delta_output_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("hidden_back_propagate", 1, 2, 2, 1); __PYX_ERR(0, 1047, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("hidden_back_propagate", 1, 2, 2, 1); __PYX_ERR(0, 1114, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "hidden_back_propagate") < 0)) __PYX_ERR(0, 1047, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "hidden_back_propagate") < 0)) __PYX_ERR(0, 1114, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -18049,13 +19021,13 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("hidden_back_propagate", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1047, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("hidden_back_propagate", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1114, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.rnn.lstmmodel.conv_lstm_model.ConvLSTMModel.hidden_back_propagate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_delta_output_arr), __pyx_ptype_5numpy_ndarray, 1, "delta_output_arr", 0))) __PYX_ERR(0, 1047, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_delta_output_arr), __pyx_ptype_5numpy_ndarray, 1, "delta_output_arr", 0))) __PYX_ERR(0, 1114, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_28hidden_back_propagate(__pyx_self, __pyx_v_self, __pyx_v_delta_output_arr);
 
   /* function exit code */
@@ -18121,40 +19093,40 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_pybuffernd_delta_output_arr.rcbuffer = &__pyx_pybuffer_delta_output_arr;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_delta_output_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1047, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_delta_output_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1114, __pyx_L1_error)
   }
   __pyx_pybuffernd_delta_output_arr.diminfo[0].strides = __pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_output_arr.diminfo[0].shape = __pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_output_arr.diminfo[1].strides = __pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_output_arr.diminfo[1].shape = __pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_output_arr.diminfo[2].strides = __pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_output_arr.diminfo[2].shape = __pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_output_arr.diminfo[3].strides = __pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_output_arr.diminfo[3].shape = __pyx_pybuffernd_delta_output_arr.rcbuffer->pybuffer.shape[3];
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1061
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1128
  *         '''
  *         cdef int cycle_len
  *         if self.__seq_len == 0:             # <<<<<<<<<<<<<<
  *             cycle_len = self.__cycle_len
  *         else:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__seq_len); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1061, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__seq_len); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_t_1, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1061, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_t_1, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 1061, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 1128, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1062
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1129
  *         cdef int cycle_len
  *         if self.__seq_len == 0:
  *             cycle_len = self.__cycle_len             # <<<<<<<<<<<<<<
  *         else:
  *             cycle_len = self.__seq_len
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__cycle_len); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1062, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__cycle_len); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1129, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1062, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1129, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_v_cycle_len = __pyx_t_4;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1061
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1128
  *         '''
  *         cdef int cycle_len
  *         if self.__seq_len == 0:             # <<<<<<<<<<<<<<
@@ -18164,7 +19136,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     goto __pyx_L3;
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1064
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1131
  *             cycle_len = self.__cycle_len
  *         else:
  *             cycle_len = self.__seq_len             # <<<<<<<<<<<<<<
@@ -18172,15 +19144,15 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *         cdef np.ndarray[DOUBLE_t, ndim=5] delta_arr = None
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__seq_len); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1064, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__seq_len); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1131, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1064, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1131, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_v_cycle_len = __pyx_t_4;
   }
   __pyx_L3:;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1066
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1133
  *             cycle_len = self.__seq_len
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=5] delta_arr = None             # <<<<<<<<<<<<<<
@@ -18192,7 +19164,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 5, 0, __pyx_stack) == -1)) {
       __pyx_v_delta_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1066, __pyx_L1_error)
+      __PYX_ERR(0, 1133, __pyx_L1_error)
     } else {__pyx_pybuffernd_delta_arr.diminfo[0].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_arr.diminfo[0].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_arr.diminfo[1].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_arr.diminfo[1].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_arr.diminfo[2].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_arr.diminfo[2].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_arr.diminfo[3].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_arr.diminfo[3].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[3]; __pyx_pybuffernd_delta_arr.diminfo[4].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[4]; __pyx_pybuffernd_delta_arr.diminfo[4].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[4];
     }
   }
@@ -18200,19 +19172,19 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_INCREF(Py_None);
   __pyx_v_delta_arr = ((PyArrayObject *)Py_None);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1069
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1136
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _delta_hidden_arr
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_hidden_arr
  *         cdef np.ndarray delta_cec_arr = np.array([])             # <<<<<<<<<<<<<<
  * 
  *         cdef int bp_count = 0
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1069, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1069, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1069, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_7 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
@@ -18225,14 +19197,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_7) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1069, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1136, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_1};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1069, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1136, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -18241,30 +19213,30 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_1};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1069, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1136, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else
     #endif
     {
-      __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1069, __pyx_L1_error)
+      __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1136, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7); __pyx_t_7 = NULL;
       __Pyx_GIVEREF(__pyx_t_1);
       PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_1);
       __pyx_t_1 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_8, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1069, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_8, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1136, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1069, __pyx_L1_error)
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1136, __pyx_L1_error)
   __pyx_v_delta_cec_arr = ((PyArrayObject *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1071
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1138
  *         cdef np.ndarray delta_cec_arr = np.array([])
  * 
  *         cdef int bp_count = 0             # <<<<<<<<<<<<<<
@@ -18273,7 +19245,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
   __pyx_v_bp_count = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1074
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1141
  *         cdef int cycle
  * 
  *         for cycle in reversed(range(cycle_len)):             # <<<<<<<<<<<<<<
@@ -18283,7 +19255,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   for (__pyx_t_4 = __pyx_v_cycle_len-1; __pyx_t_4 >= 0; __pyx_t_4-=1) {
     __pyx_v_cycle = __pyx_t_4;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1075
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1142
  * 
  *         for cycle in reversed(range(cycle_len)):
  *             if bp_count == 0:             # <<<<<<<<<<<<<<
@@ -18293,7 +19265,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     __pyx_t_3 = ((__pyx_v_bp_count == 0) != 0);
     if (__pyx_t_3) {
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1076
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1143
  *         for cycle in reversed(range(cycle_len)):
  *             if bp_count == 0:
  *                 _delta_hidden_arr = delta_output_arr             # <<<<<<<<<<<<<<
@@ -18315,12 +19287,12 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
           __pyx_t_10 = __pyx_t_11 = __pyx_t_12 = 0;
         }
         __pyx_pybuffernd__delta_hidden_arr.diminfo[0].strides = __pyx_pybuffernd__delta_hidden_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd__delta_hidden_arr.diminfo[0].shape = __pyx_pybuffernd__delta_hidden_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd__delta_hidden_arr.diminfo[1].strides = __pyx_pybuffernd__delta_hidden_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd__delta_hidden_arr.diminfo[1].shape = __pyx_pybuffernd__delta_hidden_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd__delta_hidden_arr.diminfo[2].strides = __pyx_pybuffernd__delta_hidden_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd__delta_hidden_arr.diminfo[2].shape = __pyx_pybuffernd__delta_hidden_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd__delta_hidden_arr.diminfo[3].strides = __pyx_pybuffernd__delta_hidden_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd__delta_hidden_arr.diminfo[3].shape = __pyx_pybuffernd__delta_hidden_arr.rcbuffer->pybuffer.shape[3];
-        if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 1076, __pyx_L1_error)
+        if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 1143, __pyx_L1_error)
       }
       __Pyx_INCREF(((PyObject *)__pyx_v_delta_output_arr));
       __Pyx_XDECREF_SET(__pyx_v__delta_hidden_arr, ((PyArrayObject *)__pyx_v_delta_output_arr));
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1075
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1142
  * 
  *         for cycle in reversed(range(cycle_len)):
  *             if bp_count == 0:             # <<<<<<<<<<<<<<
@@ -18330,7 +19302,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       goto __pyx_L6;
     }
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1078
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1145
  *                 _delta_hidden_arr = delta_output_arr
  *             else:
  *                 _delta_hidden_arr = delta_hidden_arr             # <<<<<<<<<<<<<<
@@ -18353,31 +19325,31 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
           __pyx_t_12 = __pyx_t_11 = __pyx_t_10 = 0;
         }
         __pyx_pybuffernd__delta_hidden_arr.diminfo[0].strides = __pyx_pybuffernd__delta_hidden_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd__delta_hidden_arr.diminfo[0].shape = __pyx_pybuffernd__delta_hidden_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd__delta_hidden_arr.diminfo[1].strides = __pyx_pybuffernd__delta_hidden_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd__delta_hidden_arr.diminfo[1].shape = __pyx_pybuffernd__delta_hidden_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd__delta_hidden_arr.diminfo[2].strides = __pyx_pybuffernd__delta_hidden_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd__delta_hidden_arr.diminfo[2].shape = __pyx_pybuffernd__delta_hidden_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd__delta_hidden_arr.diminfo[3].strides = __pyx_pybuffernd__delta_hidden_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd__delta_hidden_arr.diminfo[3].shape = __pyx_pybuffernd__delta_hidden_arr.rcbuffer->pybuffer.shape[3];
-        if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 1078, __pyx_L1_error)
+        if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 1145, __pyx_L1_error)
       }
       __Pyx_INCREF(((PyObject *)__pyx_v_delta_hidden_arr));
       __Pyx_XDECREF_SET(__pyx_v__delta_hidden_arr, ((PyArrayObject *)__pyx_v_delta_hidden_arr));
     }
     __pyx_L6:;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1080
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1147
  *                 _delta_hidden_arr = delta_hidden_arr
  * 
  *             delta_hidden_arr, delta_cec_arr = self.lstm_backward(             # <<<<<<<<<<<<<<
  *                 _delta_hidden_arr,
  *                 delta_cec_arr,
  */
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_lstm_backward); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1080, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_lstm_backward); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1147, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1083
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1150
  *                 _delta_hidden_arr,
  *                 delta_cec_arr,
  *                 cycle             # <<<<<<<<<<<<<<
  *             )
  *             if delta_arr is None:
  */
-    __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_cycle); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1083, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_cycle); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1150, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_1 = NULL;
     __pyx_t_9 = 0;
@@ -18394,7 +19366,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[4] = {__pyx_t_1, ((PyObject *)__pyx_v__delta_hidden_arr), ((PyObject *)__pyx_v_delta_cec_arr), __pyx_t_8};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_9, 3+__pyx_t_9); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1080, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_9, 3+__pyx_t_9); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1147, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -18403,14 +19375,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[4] = {__pyx_t_1, ((PyObject *)__pyx_v__delta_hidden_arr), ((PyObject *)__pyx_v_delta_cec_arr), __pyx_t_8};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_9, 3+__pyx_t_9); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1080, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_9, 3+__pyx_t_9); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1147, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     } else
     #endif
     {
-      __pyx_t_7 = PyTuple_New(3+__pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1080, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(3+__pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1147, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       if (__pyx_t_1) {
         __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_1); __pyx_t_1 = NULL;
@@ -18424,7 +19396,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       __Pyx_GIVEREF(__pyx_t_8);
       PyTuple_SET_ITEM(__pyx_t_7, 2+__pyx_t_9, __pyx_t_8);
       __pyx_t_8 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1080, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1147, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
@@ -18435,7 +19407,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 1080, __pyx_L1_error)
+        __PYX_ERR(0, 1147, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -18448,15 +19420,15 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       __Pyx_INCREF(__pyx_t_6);
       __Pyx_INCREF(__pyx_t_7);
       #else
-      __pyx_t_6 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1080, __pyx_L1_error)
+      __pyx_t_6 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1147, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_7 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1080, __pyx_L1_error)
+      __pyx_t_7 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1147, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       #endif
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_8 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1080, __pyx_L1_error)
+      __pyx_t_8 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1147, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_t_13 = Py_TYPE(__pyx_t_8)->tp_iternext;
@@ -18464,7 +19436,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       __Pyx_GOTREF(__pyx_t_6);
       index = 1; __pyx_t_7 = __pyx_t_13(__pyx_t_8); if (unlikely(!__pyx_t_7)) goto __pyx_L7_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_7);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_8), 2) < 0) __PYX_ERR(0, 1080, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_8), 2) < 0) __PYX_ERR(0, 1147, __pyx_L1_error)
       __pyx_t_13 = NULL;
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       goto __pyx_L8_unpacking_done;
@@ -18472,19 +19444,19 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __pyx_t_13 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 1080, __pyx_L1_error)
+      __PYX_ERR(0, 1147, __pyx_L1_error)
       __pyx_L8_unpacking_done:;
     }
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1080
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1147
  *                 _delta_hidden_arr = delta_hidden_arr
  * 
  *             delta_hidden_arr, delta_cec_arr = self.lstm_backward(             # <<<<<<<<<<<<<<
  *                 _delta_hidden_arr,
  *                 delta_cec_arr,
  */
-    if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1080, __pyx_L1_error)
-    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1080, __pyx_L1_error)
+    if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1147, __pyx_L1_error)
+    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1147, __pyx_L1_error)
     __pyx_t_14 = ((PyArrayObject *)__pyx_t_6);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -18501,7 +19473,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         __pyx_t_10 = __pyx_t_11 = __pyx_t_12 = 0;
       }
       __pyx_pybuffernd_delta_hidden_arr.diminfo[0].strides = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_hidden_arr.diminfo[0].shape = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_hidden_arr.diminfo[1].strides = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_hidden_arr.diminfo[1].shape = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_hidden_arr.diminfo[2].strides = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_hidden_arr.diminfo[2].shape = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_hidden_arr.diminfo[3].strides = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_hidden_arr.diminfo[3].shape = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.shape[3];
-      if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 1080, __pyx_L1_error)
+      if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 1147, __pyx_L1_error)
     }
     __pyx_t_14 = 0;
     __Pyx_XDECREF_SET(__pyx_v_delta_hidden_arr, ((PyArrayObject *)__pyx_t_6));
@@ -18509,7 +19481,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     __Pyx_DECREF_SET(__pyx_v_delta_cec_arr, ((PyArrayObject *)__pyx_t_7));
     __pyx_t_7 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1085
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1152
  *                 cycle
  *             )
  *             if delta_arr is None:             # <<<<<<<<<<<<<<
@@ -18520,77 +19492,77 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     __pyx_t_15 = (__pyx_t_3 != 0);
     if (__pyx_t_15) {
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1086
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1153
  *             )
  *             if delta_arr is None:
  *                 delta_arr = np.empty(             # <<<<<<<<<<<<<<
  *                     (
  *                         delta_hidden_arr.shape[0],
  */
-      __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1086, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1153, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_empty); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1086, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_empty); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1153, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1088
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1155
  *                 delta_arr = np.empty(
  *                     (
  *                         delta_hidden_arr.shape[0],             # <<<<<<<<<<<<<<
  *                         cycle_len,
  *                         delta_hidden_arr.shape[1],
  */
-      __pyx_t_2 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_hidden_arr->dimensions[0])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1088, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_hidden_arr->dimensions[0])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1155, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1089
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1156
  *                     (
  *                         delta_hidden_arr.shape[0],
  *                         cycle_len,             # <<<<<<<<<<<<<<
  *                         delta_hidden_arr.shape[1],
  *                         delta_hidden_arr.shape[2],
  */
-      __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_cycle_len); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1089, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_cycle_len); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1156, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1090
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1157
  *                         delta_hidden_arr.shape[0],
  *                         cycle_len,
  *                         delta_hidden_arr.shape[1],             # <<<<<<<<<<<<<<
  *                         delta_hidden_arr.shape[2],
  *                         delta_hidden_arr.shape[3]
  */
-      __pyx_t_8 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_hidden_arr->dimensions[1])); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1090, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_hidden_arr->dimensions[1])); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1157, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1091
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1158
  *                         cycle_len,
  *                         delta_hidden_arr.shape[1],
  *                         delta_hidden_arr.shape[2],             # <<<<<<<<<<<<<<
  *                         delta_hidden_arr.shape[3]
  *                     ),
  */
-      __pyx_t_1 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_hidden_arr->dimensions[2])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1091, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_hidden_arr->dimensions[2])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1158, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1092
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1159
  *                         delta_hidden_arr.shape[1],
  *                         delta_hidden_arr.shape[2],
  *                         delta_hidden_arr.shape[3]             # <<<<<<<<<<<<<<
  *                     ),
  *                     dtype=np.float64
  */
-      __pyx_t_16 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_hidden_arr->dimensions[3])); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1092, __pyx_L1_error)
+      __pyx_t_16 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_delta_hidden_arr->dimensions[3])); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1159, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1088
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1155
  *                 delta_arr = np.empty(
  *                     (
  *                         delta_hidden_arr.shape[0],             # <<<<<<<<<<<<<<
  *                         cycle_len,
  *                         delta_hidden_arr.shape[1],
  */
-      __pyx_t_17 = PyTuple_New(5); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1088, __pyx_L1_error)
+      __pyx_t_17 = PyTuple_New(5); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1155, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_17);
       __Pyx_GIVEREF(__pyx_t_2);
       PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_2);
@@ -18608,49 +19580,49 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       __pyx_t_1 = 0;
       __pyx_t_16 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1086
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1153
  *             )
  *             if delta_arr is None:
  *                 delta_arr = np.empty(             # <<<<<<<<<<<<<<
  *                     (
  *                         delta_hidden_arr.shape[0],
  */
-      __pyx_t_16 = PyTuple_New(1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1086, __pyx_L1_error)
+      __pyx_t_16 = PyTuple_New(1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1153, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
       __Pyx_GIVEREF(__pyx_t_17);
       PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_17);
       __pyx_t_17 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1094
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1161
  *                         delta_hidden_arr.shape[3]
  *                     ),
  *                     dtype=np.float64             # <<<<<<<<<<<<<<
  *                 )
  *             delta_arr[:, cycle] = delta_hidden_arr
  */
-      __pyx_t_17 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1094, __pyx_L1_error)
+      __pyx_t_17 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1161, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_17);
-      __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1094, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1161, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float64); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1094, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float64); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1161, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (PyDict_SetItem(__pyx_t_17, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(0, 1094, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_17, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(0, 1161, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1086
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1153
  *             )
  *             if delta_arr is None:
  *                 delta_arr = np.empty(             # <<<<<<<<<<<<<<
  *                     (
  *                         delta_hidden_arr.shape[0],
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_16, __pyx_t_17); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1086, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_16, __pyx_t_17); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1153, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-      if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1086, __pyx_L1_error)
+      if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1153, __pyx_L1_error)
       __pyx_t_5 = ((PyArrayObject *)__pyx_t_8);
       {
         __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -18667,13 +19639,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
           __pyx_t_12 = __pyx_t_11 = __pyx_t_10 = 0;
         }
         __pyx_pybuffernd_delta_arr.diminfo[0].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_arr.diminfo[0].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_arr.diminfo[1].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_arr.diminfo[1].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_arr.diminfo[2].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_arr.diminfo[2].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_arr.diminfo[3].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_arr.diminfo[3].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[3]; __pyx_pybuffernd_delta_arr.diminfo[4].strides = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.strides[4]; __pyx_pybuffernd_delta_arr.diminfo[4].shape = __pyx_pybuffernd_delta_arr.rcbuffer->pybuffer.shape[4];
-        if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 1086, __pyx_L1_error)
+        if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 1153, __pyx_L1_error)
       }
       __pyx_t_5 = 0;
       __Pyx_DECREF_SET(__pyx_v_delta_arr, ((PyArrayObject *)__pyx_t_8));
       __pyx_t_8 = 0;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1085
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1152
  *                 cycle
  *             )
  *             if delta_arr is None:             # <<<<<<<<<<<<<<
@@ -18682,16 +19654,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
     }
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1096
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1163
  *                     dtype=np.float64
  *                 )
  *             delta_arr[:, cycle] = delta_hidden_arr             # <<<<<<<<<<<<<<
  * 
  *             if bp_count >= self.__bptt_tau:
  */
-    __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_cycle); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1096, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_cycle); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_17 = PyTuple_New(2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1096, __pyx_L1_error)
+    __pyx_t_17 = PyTuple_New(2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_17);
     __Pyx_INCREF(__pyx_slice__123);
     __Pyx_GIVEREF(__pyx_slice__123);
@@ -18699,28 +19671,28 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     __Pyx_GIVEREF(__pyx_t_8);
     PyTuple_SET_ITEM(__pyx_t_17, 1, __pyx_t_8);
     __pyx_t_8 = 0;
-    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_delta_arr), __pyx_t_17, ((PyObject *)__pyx_v_delta_hidden_arr)) < 0)) __PYX_ERR(0, 1096, __pyx_L1_error)
+    if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_delta_arr), __pyx_t_17, ((PyObject *)__pyx_v_delta_hidden_arr)) < 0)) __PYX_ERR(0, 1163, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1098
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1165
  *             delta_arr[:, cycle] = delta_hidden_arr
  * 
  *             if bp_count >= self.__bptt_tau:             # <<<<<<<<<<<<<<
  *                 break
  *             bp_count += 1
  */
-    __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_bp_count); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1098, __pyx_L1_error)
+    __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_bp_count); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1165, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_17);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__bptt_tau); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1098, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__bptt_tau); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1165, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_16 = PyObject_RichCompare(__pyx_t_17, __pyx_t_8, Py_GE); __Pyx_XGOTREF(__pyx_t_16); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1098, __pyx_L1_error)
+    __pyx_t_16 = PyObject_RichCompare(__pyx_t_17, __pyx_t_8, Py_GE); __Pyx_XGOTREF(__pyx_t_16); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1165, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_15 = __Pyx_PyObject_IsTrue(__pyx_t_16); if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 1098, __pyx_L1_error)
+    __pyx_t_15 = __Pyx_PyObject_IsTrue(__pyx_t_16); if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 1165, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
     if (__pyx_t_15) {
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1099
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1166
  * 
  *             if bp_count >= self.__bptt_tau:
  *                 break             # <<<<<<<<<<<<<<
@@ -18729,7 +19701,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
       goto __pyx_L5_break;
 
-      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1098
+      /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1165
  *             delta_arr[:, cycle] = delta_hidden_arr
  * 
  *             if bp_count >= self.__bptt_tau:             # <<<<<<<<<<<<<<
@@ -18738,7 +19710,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
     }
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1100
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1167
  *             if bp_count >= self.__bptt_tau:
  *                 break
  *             bp_count += 1             # <<<<<<<<<<<<<<
@@ -18749,19 +19721,19 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   __pyx_L5_break:;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1102
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1169
  *             bp_count += 1
  * 
  *         self.__memory_tuple_list = []             # <<<<<<<<<<<<<<
  *         return delta_arr, delta_hidden_arr, []
  * 
  */
-  __pyx_t_16 = PyList_New(0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1102, __pyx_L1_error)
+  __pyx_t_16 = PyList_New(0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis, __pyx_t_16) < 0) __PYX_ERR(0, 1102, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis, __pyx_t_16) < 0) __PYX_ERR(0, 1169, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1103
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1170
  * 
  *         self.__memory_tuple_list = []
  *         return delta_arr, delta_hidden_arr, []             # <<<<<<<<<<<<<<
@@ -18769,9 +19741,9 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *     def __lstm_forward(
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_16 = PyList_New(0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1103, __pyx_L1_error)
+  __pyx_t_16 = PyList_New(0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1170, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
-  __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1103, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1170, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_INCREF(((PyObject *)__pyx_v_delta_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_arr));
@@ -18786,7 +19758,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_t_8 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1047
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1114
  *         return (delta_arr, [])
  * 
  *     def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=4] delta_output_arr):             # <<<<<<<<<<<<<<
@@ -18830,7 +19802,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1105
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1172
  *         return delta_arr, delta_hidden_arr, []
  * 
  *     def __lstm_forward(             # <<<<<<<<<<<<<<
@@ -18877,23 +19849,23 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_observed_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__lstm_forward", 1, 4, 4, 1); __PYX_ERR(0, 1105, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__lstm_forward", 1, 4, 4, 1); __PYX_ERR(0, 1172, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_hidden_activity_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__lstm_forward", 1, 4, 4, 2); __PYX_ERR(0, 1105, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__lstm_forward", 1, 4, 4, 2); __PYX_ERR(0, 1172, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_cec_activity_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__lstm_forward", 1, 4, 4, 3); __PYX_ERR(0, 1105, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__lstm_forward", 1, 4, 4, 3); __PYX_ERR(0, 1172, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__lstm_forward") < 0)) __PYX_ERR(0, 1105, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__lstm_forward") < 0)) __PYX_ERR(0, 1172, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -18910,15 +19882,15 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__lstm_forward", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1105, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__lstm_forward", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1172, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.rnn.lstmmodel.conv_lstm_model.ConvLSTMModel.__lstm_forward", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_arr", 0))) __PYX_ERR(0, 1107, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_hidden_activity_arr), __pyx_ptype_5numpy_ndarray, 1, "hidden_activity_arr", 0))) __PYX_ERR(0, 1108, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_cec_activity_arr), __pyx_ptype_5numpy_ndarray, 1, "cec_activity_arr", 0))) __PYX_ERR(0, 1109, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_observed_arr), __pyx_ptype_5numpy_ndarray, 1, "observed_arr", 0))) __PYX_ERR(0, 1174, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_hidden_activity_arr), __pyx_ptype_5numpy_ndarray, 1, "hidden_activity_arr", 0))) __PYX_ERR(0, 1175, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_cec_activity_arr), __pyx_ptype_5numpy_ndarray, 1, "cec_activity_arr", 0))) __PYX_ERR(0, 1176, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_30__lstm_forward(__pyx_self, __pyx_v_self, __pyx_v_observed_arr, __pyx_v_hidden_activity_arr, __pyx_v_cec_activity_arr);
 
   /* function exit code */
@@ -19007,24 +19979,24 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_pybuffernd_observed_arr.rcbuffer = &__pyx_pybuffer_observed_arr;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1105, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_observed_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1172, __pyx_L1_error)
   }
   __pyx_pybuffernd_observed_arr.diminfo[0].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_observed_arr.diminfo[0].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_observed_arr.diminfo[1].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_observed_arr.diminfo[1].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_observed_arr.diminfo[2].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_observed_arr.diminfo[2].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_observed_arr.diminfo[3].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_observed_arr.diminfo[3].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[3];
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1124
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1191
  *             - `np.ndarray` of activities in LSTM gate.
  *         '''
  *         cdef np.ndarray[DOUBLE_t, ndim=4] given_activity_arr = self.__given_conv.forward_propagate(             # <<<<<<<<<<<<<<
  *             observed_arr
  *         )
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1124, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_forward_propagate); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1124, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_forward_propagate); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1125
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1192
  *         '''
  *         cdef np.ndarray[DOUBLE_t, ndim=4] given_activity_arr = self.__given_conv.forward_propagate(
  *             observed_arr             # <<<<<<<<<<<<<<
@@ -19042,13 +20014,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_observed_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1124, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_observed_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1191, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, ((PyObject *)__pyx_v_observed_arr)};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1124, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1191, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -19056,39 +20028,39 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, ((PyObject *)__pyx_v_observed_arr)};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1124, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1191, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1124, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1191, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_observed_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_observed_arr));
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, ((PyObject *)__pyx_v_observed_arr));
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1124, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1191, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1124
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1191
  *             - `np.ndarray` of activities in LSTM gate.
  *         '''
  *         cdef np.ndarray[DOUBLE_t, ndim=4] given_activity_arr = self.__given_conv.forward_propagate(             # <<<<<<<<<<<<<<
  *             observed_arr
  *         )
  */
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1124, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1191, __pyx_L1_error)
   __pyx_t_5 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_given_activity_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1124, __pyx_L1_error)
+      __PYX_ERR(0, 1191, __pyx_L1_error)
     } else {__pyx_pybuffernd_given_activity_arr.diminfo[0].strides = __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_given_activity_arr.diminfo[0].shape = __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_given_activity_arr.diminfo[1].strides = __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_given_activity_arr.diminfo[1].shape = __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_given_activity_arr.diminfo[2].strides = __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_given_activity_arr.diminfo[2].shape = __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_given_activity_arr.diminfo[3].strides = __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_given_activity_arr.diminfo[3].shape = __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -19096,20 +20068,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_given_activity_arr = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1128
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1195
  *         )
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] input_gate_activity_arr = self.__input_conv.forward_propagate(             # <<<<<<<<<<<<<<
  *             observed_arr
  *         )
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1128, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_forward_propagate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1128, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_forward_propagate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1129
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1196
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] input_gate_activity_arr = self.__input_conv.forward_propagate(
  *             observed_arr             # <<<<<<<<<<<<<<
@@ -19127,13 +20099,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, ((PyObject *)__pyx_v_observed_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1128, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, ((PyObject *)__pyx_v_observed_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1195, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, ((PyObject *)__pyx_v_observed_arr)};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1128, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1195, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -19141,39 +20113,39 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, ((PyObject *)__pyx_v_observed_arr)};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1128, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1195, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1128, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1195, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_observed_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_observed_arr));
       PyTuple_SET_ITEM(__pyx_t_2, 0+1, ((PyObject *)__pyx_v_observed_arr));
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1128, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1195, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1128
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1195
  *         )
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] input_gate_activity_arr = self.__input_conv.forward_propagate(             # <<<<<<<<<<<<<<
  *             observed_arr
  *         )
  */
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1128, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1195, __pyx_L1_error)
   __pyx_t_6 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_6, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_input_gate_activity_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1128, __pyx_L1_error)
+      __PYX_ERR(0, 1195, __pyx_L1_error)
     } else {__pyx_pybuffernd_input_gate_activity_arr.diminfo[0].strides = __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_gate_activity_arr.diminfo[0].shape = __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_gate_activity_arr.diminfo[1].strides = __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_gate_activity_arr.diminfo[1].shape = __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_input_gate_activity_arr.diminfo[2].strides = __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_input_gate_activity_arr.diminfo[2].shape = __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_input_gate_activity_arr.diminfo[3].strides = __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_input_gate_activity_arr.diminfo[3].shape = __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -19181,20 +20153,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_input_gate_activity_arr = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1132
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1199
  *         )
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] forget_gate_activity_arr = self.__forgot_conv.forward_propagate(             # <<<<<<<<<<<<<<
  *             observed_arr
  *         )
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1132, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1199, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_forward_propagate); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1132, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_forward_propagate); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1199, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1133
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1200
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] forget_gate_activity_arr = self.__forgot_conv.forward_propagate(
  *             observed_arr             # <<<<<<<<<<<<<<
@@ -19212,13 +20184,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_observed_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1132, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_observed_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1199, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, ((PyObject *)__pyx_v_observed_arr)};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1132, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1199, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -19226,39 +20198,39 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, ((PyObject *)__pyx_v_observed_arr)};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1132, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1199, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1132, __pyx_L1_error)
+      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1199, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_4); __pyx_t_4 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_observed_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_observed_arr));
       PyTuple_SET_ITEM(__pyx_t_3, 0+1, ((PyObject *)__pyx_v_observed_arr));
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1132, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1199, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1132
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1199
  *         )
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] forget_gate_activity_arr = self.__forgot_conv.forward_propagate(             # <<<<<<<<<<<<<<
  *             observed_arr
  *         )
  */
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1132, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1199, __pyx_L1_error)
   __pyx_t_7 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_7, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_forget_gate_activity_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1132, __pyx_L1_error)
+      __PYX_ERR(0, 1199, __pyx_L1_error)
     } else {__pyx_pybuffernd_forget_gate_activity_arr.diminfo[0].strides = __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_forget_gate_activity_arr.diminfo[0].shape = __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_forget_gate_activity_arr.diminfo[1].strides = __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_forget_gate_activity_arr.diminfo[1].shape = __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_forget_gate_activity_arr.diminfo[2].strides = __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_forget_gate_activity_arr.diminfo[2].shape = __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_forget_gate_activity_arr.diminfo[3].strides = __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_forget_gate_activity_arr.diminfo[3].shape = __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -19266,16 +20238,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_forget_gate_activity_arr = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1136
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1203
  *         )
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] output_gate_activity_arr = self.__output_conv.forward_propagate(observed_arr)             # <<<<<<<<<<<<<<
  * 
  *         if cec_activity_arr is None or cec_activity_arr.shape[0] == 0:
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1136, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1203, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_forward_propagate); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1136, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_forward_propagate); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1203, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -19289,13 +20261,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_observed_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1136, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_observed_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1203, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, ((PyObject *)__pyx_v_observed_arr)};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1136, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1203, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -19303,31 +20275,31 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, ((PyObject *)__pyx_v_observed_arr)};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1136, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1203, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1136, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1203, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_observed_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_observed_arr));
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, ((PyObject *)__pyx_v_observed_arr));
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1136, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1203, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1136, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1203, __pyx_L1_error)
   __pyx_t_8 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_8, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_output_gate_activity_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1136, __pyx_L1_error)
+      __PYX_ERR(0, 1203, __pyx_L1_error)
     } else {__pyx_pybuffernd_output_gate_activity_arr.diminfo[0].strides = __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output_gate_activity_arr.diminfo[0].shape = __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output_gate_activity_arr.diminfo[1].strides = __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output_gate_activity_arr.diminfo[1].shape = __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_output_gate_activity_arr.diminfo[2].strides = __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_output_gate_activity_arr.diminfo[2].shape = __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_output_gate_activity_arr.diminfo[3].strides = __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_output_gate_activity_arr.diminfo[3].shape = __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -19335,7 +20307,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_output_gate_activity_arr = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1138
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1205
  *         cdef np.ndarray[DOUBLE_t, ndim=4] output_gate_activity_arr = self.__output_conv.forward_propagate(observed_arr)
  * 
  *         if cec_activity_arr is None or cec_activity_arr.shape[0] == 0:             # <<<<<<<<<<<<<<
@@ -19354,16 +20326,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_9) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1139
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1206
  * 
  *         if cec_activity_arr is None or cec_activity_arr.shape[0] == 0:
  *             cec_activity_arr = np.zeros_like(forget_gate_activity_arr)             # <<<<<<<<<<<<<<
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _cec_activity_arr = np.nansum(
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1139, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1206, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros_like); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1139, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros_like); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1206, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -19377,13 +20349,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       }
     }
     if (!__pyx_t_3) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, ((PyObject *)__pyx_v_forget_gate_activity_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1139, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, ((PyObject *)__pyx_v_forget_gate_activity_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1206, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[2] = {__pyx_t_3, ((PyObject *)__pyx_v_forget_gate_activity_arr)};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1139, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1206, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else
@@ -19391,29 +20363,29 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[2] = {__pyx_t_3, ((PyObject *)__pyx_v_forget_gate_activity_arr)};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1139, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1206, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else
       #endif
       {
-        __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1139, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1206, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
         __Pyx_INCREF(((PyObject *)__pyx_v_forget_gate_activity_arr));
         __Pyx_GIVEREF(((PyObject *)__pyx_v_forget_gate_activity_arr));
         PyTuple_SET_ITEM(__pyx_t_2, 0+1, ((PyObject *)__pyx_v_forget_gate_activity_arr));
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1139, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1206, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1139, __pyx_L1_error)
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1206, __pyx_L1_error)
     __Pyx_DECREF_SET(__pyx_v_cec_activity_arr, ((PyArrayObject *)__pyx_t_1));
     __pyx_t_1 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1138
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1205
  *         cdef np.ndarray[DOUBLE_t, ndim=4] output_gate_activity_arr = self.__output_conv.forward_propagate(observed_arr)
  * 
  *         if cec_activity_arr is None or cec_activity_arr.shape[0] == 0:             # <<<<<<<<<<<<<<
@@ -19422,118 +20394,118 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1141
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1208
  *             cec_activity_arr = np.zeros_like(forget_gate_activity_arr)
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _cec_activity_arr = np.nansum(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 np.nanprod(
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1141, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1208, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nansum); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1141, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nansum); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1208, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1142
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1209
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _cec_activity_arr = np.nansum(
  *             np.array([             # <<<<<<<<<<<<<<
  *                 np.nanprod(
  *                     np.array([
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1142, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1209, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1142, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1209, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1143
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1210
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _cec_activity_arr = np.nansum(
  *             np.array([
  *                 np.nanprod(             # <<<<<<<<<<<<<<
  *                     np.array([
  *                         np.expand_dims(given_activity_arr, axis=0),
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1143, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1143, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1144
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1211
  *             np.array([
  *                 np.nanprod(
  *                     np.array([             # <<<<<<<<<<<<<<
  *                         np.expand_dims(given_activity_arr, axis=0),
  *                         np.expand_dims(input_gate_activity_arr, axis=0)
  */
-  __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1144, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_array); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1144, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_array); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1145
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1212
  *                 np.nanprod(
  *                     np.array([
  *                         np.expand_dims(given_activity_arr, axis=0),             # <<<<<<<<<<<<<<
  *                         np.expand_dims(input_gate_activity_arr, axis=0)
  *                     ]),
  */
-  __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1145, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1145, __pyx_L1_error)
+  __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-  __pyx_t_13 = PyTuple_New(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1145, __pyx_L1_error)
+  __pyx_t_13 = PyTuple_New(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
   __Pyx_INCREF(((PyObject *)__pyx_v_given_activity_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_given_activity_arr));
   PyTuple_SET_ITEM(__pyx_t_13, 0, ((PyObject *)__pyx_v_given_activity_arr));
-  __pyx_t_16 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1145, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
-  if (PyDict_SetItem(__pyx_t_16, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1145, __pyx_L1_error)
-  __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_15, __pyx_t_13, __pyx_t_16); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1145, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_16, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1212, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_15, __pyx_t_13, __pyx_t_16); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1146
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1213
  *                     np.array([
  *                         np.expand_dims(given_activity_arr, axis=0),
  *                         np.expand_dims(input_gate_activity_arr, axis=0)             # <<<<<<<<<<<<<<
  *                     ]),
  *                     axis=0
  */
-  __pyx_t_16 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1146, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
-  __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1146, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-  __pyx_t_16 = PyTuple_New(1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1146, __pyx_L1_error)
+  __pyx_t_16 = PyTuple_New(1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
   __Pyx_INCREF(((PyObject *)__pyx_v_input_gate_activity_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_input_gate_activity_arr));
   PyTuple_SET_ITEM(__pyx_t_16, 0, ((PyObject *)__pyx_v_input_gate_activity_arr));
-  __pyx_t_15 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1146, __pyx_L1_error)
+  __pyx_t_15 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
-  if (PyDict_SetItem(__pyx_t_15, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1146, __pyx_L1_error)
-  __pyx_t_18 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_t_16, __pyx_t_15); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1146, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_15, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1213, __pyx_L1_error)
+  __pyx_t_18 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_t_16, __pyx_t_15); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1144
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1211
  *             np.array([
  *                 np.nanprod(
  *                     np.array([             # <<<<<<<<<<<<<<
  *                         np.expand_dims(given_activity_arr, axis=0),
  *                         np.expand_dims(input_gate_activity_arr, axis=0)
  */
-  __pyx_t_15 = PyList_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1144, __pyx_L1_error)
+  __pyx_t_15 = PyList_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
   __Pyx_GIVEREF(__pyx_t_17);
   PyList_SET_ITEM(__pyx_t_15, 0, __pyx_t_17);
@@ -19552,14 +20524,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_18) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_14, __pyx_t_15); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1144, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_14, __pyx_t_15); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1211, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_14)) {
       PyObject *__pyx_temp[2] = {__pyx_t_18, __pyx_t_15};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_14, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1144, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_14, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1211, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
@@ -19568,149 +20540,149 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_14)) {
       PyObject *__pyx_temp[2] = {__pyx_t_18, __pyx_t_15};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_14, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1144, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_14, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1211, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
     } else
     #endif
     {
-      __pyx_t_17 = PyTuple_New(1+1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1144, __pyx_L1_error)
+      __pyx_t_17 = PyTuple_New(1+1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1211, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_17);
       __Pyx_GIVEREF(__pyx_t_18); PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_18); __pyx_t_18 = NULL;
       __Pyx_GIVEREF(__pyx_t_15);
       PyTuple_SET_ITEM(__pyx_t_17, 0+1, __pyx_t_15);
       __pyx_t_15 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_17, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1144, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_17, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1211, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1143
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1210
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _cec_activity_arr = np.nansum(
  *             np.array([
  *                 np.nanprod(             # <<<<<<<<<<<<<<
  *                     np.array([
  *                         np.expand_dims(given_activity_arr, axis=0),
  */
-  __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1143, __pyx_L1_error)
+  __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1148
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1215
  *                         np.expand_dims(input_gate_activity_arr, axis=0)
  *                     ]),
  *                     axis=0             # <<<<<<<<<<<<<<
  *                 ),
  *                 np.nanprod(
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1148, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1215, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1148, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1215, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1143
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1210
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _cec_activity_arr = np.nansum(
  *             np.array([
  *                 np.nanprod(             # <<<<<<<<<<<<<<
  *                     np.array([
  *                         np.expand_dims(given_activity_arr, axis=0),
  */
-  __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_14, __pyx_t_2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1143, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_14, __pyx_t_2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1150
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1217
  *                     axis=0
  *                 ),
  *                 np.nanprod(             # <<<<<<<<<<<<<<
  *                     np.array([
  *                         np.expand_dims(forget_gate_activity_arr, axis=0),
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1150, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1150, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1151
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1218
  *                 ),
  *                 np.nanprod(
  *                     np.array([             # <<<<<<<<<<<<<<
  *                         np.expand_dims(forget_gate_activity_arr, axis=0),
  *                         np.expand_dims(cec_activity_arr, axis=0)
  */
-  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1151, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1218, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_array); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1151, __pyx_L1_error)
+  __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_array); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1218, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1152
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1219
  *                 np.nanprod(
  *                     np.array([
  *                         np.expand_dims(forget_gate_activity_arr, axis=0),             # <<<<<<<<<<<<<<
  *                         np.expand_dims(cec_activity_arr, axis=0)
  *                     ]),
  */
-  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1152, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_18 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1152, __pyx_L1_error)
+  __pyx_t_18 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-  __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1152, __pyx_L1_error)
+  __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_INCREF(((PyObject *)__pyx_v_forget_gate_activity_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_forget_gate_activity_arr));
   PyTuple_SET_ITEM(__pyx_t_12, 0, ((PyObject *)__pyx_v_forget_gate_activity_arr));
-  __pyx_t_16 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1152, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
-  if (PyDict_SetItem(__pyx_t_16, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1152, __pyx_L1_error)
-  __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_18, __pyx_t_12, __pyx_t_16); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1152, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_16, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1219, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_18, __pyx_t_12, __pyx_t_16); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
   __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1153
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1220
  *                     np.array([
  *                         np.expand_dims(forget_gate_activity_arr, axis=0),
  *                         np.expand_dims(cec_activity_arr, axis=0)             # <<<<<<<<<<<<<<
  *                     ]),
  *                     axis=0
  */
-  __pyx_t_16 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1153, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1153, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-  __pyx_t_16 = PyTuple_New(1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1153, __pyx_L1_error)
+  __pyx_t_16 = PyTuple_New(1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 1220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
   __Pyx_INCREF(((PyObject *)__pyx_v_cec_activity_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_cec_activity_arr));
   PyTuple_SET_ITEM(__pyx_t_16, 0, ((PyObject *)__pyx_v_cec_activity_arr));
-  __pyx_t_18 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1153, __pyx_L1_error)
+  __pyx_t_18 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
-  if (PyDict_SetItem(__pyx_t_18, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1153, __pyx_L1_error)
-  __pyx_t_19 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_16, __pyx_t_18); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1153, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_18, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1220, __pyx_L1_error)
+  __pyx_t_19 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_16, __pyx_t_18); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_19);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
   __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1151
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1218
  *                 ),
  *                 np.nanprod(
  *                     np.array([             # <<<<<<<<<<<<<<
  *                         np.expand_dims(forget_gate_activity_arr, axis=0),
  *                         np.expand_dims(cec_activity_arr, axis=0)
  */
-  __pyx_t_18 = PyList_New(2); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1151, __pyx_L1_error)
+  __pyx_t_18 = PyList_New(2); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1218, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
   __Pyx_GIVEREF(__pyx_t_13);
   PyList_SET_ITEM(__pyx_t_18, 0, __pyx_t_13);
@@ -19729,14 +20701,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_19) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_15, __pyx_t_18); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1151, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_15, __pyx_t_18); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1218, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_15)) {
       PyObject *__pyx_temp[2] = {__pyx_t_19, __pyx_t_18};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_15, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1151, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_15, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1218, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
@@ -19745,71 +20717,71 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_15)) {
       PyObject *__pyx_temp[2] = {__pyx_t_19, __pyx_t_18};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_15, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1151, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_15, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1218, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
     } else
     #endif
     {
-      __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1151, __pyx_L1_error)
+      __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1218, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_GIVEREF(__pyx_t_19); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_19); __pyx_t_19 = NULL;
       __Pyx_GIVEREF(__pyx_t_18);
       PyTuple_SET_ITEM(__pyx_t_13, 0+1, __pyx_t_18);
       __pyx_t_18 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_15, __pyx_t_13, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1151, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_15, __pyx_t_13, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1218, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1150
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1217
  *                     axis=0
  *                 ),
  *                 np.nanprod(             # <<<<<<<<<<<<<<
  *                     np.array([
  *                         np.expand_dims(forget_gate_activity_arr, axis=0),
  */
-  __pyx_t_15 = PyTuple_New(1); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1150, __pyx_L1_error)
+  __pyx_t_15 = PyTuple_New(1); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1155
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1222
  *                         np.expand_dims(cec_activity_arr, axis=0)
  *                     ]),
  *                     axis=0             # <<<<<<<<<<<<<<
  *                 )
  *             ]),
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1155, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1222, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1155, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1222, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1150
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1217
  *                     axis=0
  *                 ),
  *                 np.nanprod(             # <<<<<<<<<<<<<<
  *                     np.array([
  *                         np.expand_dims(forget_gate_activity_arr, axis=0),
  */
-  __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_15, __pyx_t_2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1150, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_15, __pyx_t_2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1142
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1209
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _cec_activity_arr = np.nansum(
  *             np.array([             # <<<<<<<<<<<<<<
  *                 np.nanprod(
  *                     np.array([
  */
-  __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1142, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1209, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_17);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_t_17);
@@ -19828,14 +20800,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_13) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1142, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1209, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_13, __pyx_t_2};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1142, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1209, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -19844,80 +20816,80 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_13, __pyx_t_2};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1142, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1209, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     } else
     #endif
     {
-      __pyx_t_17 = PyTuple_New(1+1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1142, __pyx_L1_error)
+      __pyx_t_17 = PyTuple_New(1+1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1209, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_17);
       __Pyx_GIVEREF(__pyx_t_13); PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_13); __pyx_t_13 = NULL;
       __Pyx_GIVEREF(__pyx_t_2);
       PyTuple_SET_ITEM(__pyx_t_17, 0+1, __pyx_t_2);
       __pyx_t_2 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_17, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1142, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_17, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1209, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1141
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1208
  *             cec_activity_arr = np.zeros_like(forget_gate_activity_arr)
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _cec_activity_arr = np.nansum(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 np.nanprod(
  */
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1141, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1208, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1158
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1225
  *                 )
  *             ]),
  *             axis=0             # <<<<<<<<<<<<<<
  *         )[0]
  * 
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1158, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1225, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1158, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1225, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1141
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1208
  *             cec_activity_arr = np.zeros_like(forget_gate_activity_arr)
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _cec_activity_arr = np.nansum(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 np.nanprod(
  */
-  __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1141, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1208, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1159
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1226
  *             ]),
  *             axis=0
  *         )[0]             # <<<<<<<<<<<<<<
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _hidden_activity_arr = np.nanprod(
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_17, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1159, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_17, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1159, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1226, __pyx_L1_error)
   __pyx_t_20 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd__cec_activity_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_20, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v__cec_activity_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd__cec_activity_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1141, __pyx_L1_error)
+      __PYX_ERR(0, 1208, __pyx_L1_error)
     } else {__pyx_pybuffernd__cec_activity_arr.diminfo[0].strides = __pyx_pybuffernd__cec_activity_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd__cec_activity_arr.diminfo[0].shape = __pyx_pybuffernd__cec_activity_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd__cec_activity_arr.diminfo[1].strides = __pyx_pybuffernd__cec_activity_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd__cec_activity_arr.diminfo[1].shape = __pyx_pybuffernd__cec_activity_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd__cec_activity_arr.diminfo[2].strides = __pyx_pybuffernd__cec_activity_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd__cec_activity_arr.diminfo[2].shape = __pyx_pybuffernd__cec_activity_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd__cec_activity_arr.diminfo[3].strides = __pyx_pybuffernd__cec_activity_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd__cec_activity_arr.diminfo[3].shape = __pyx_pybuffernd__cec_activity_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -19925,76 +20897,76 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v__cec_activity_arr = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1161
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1228
  *         )[0]
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _hidden_activity_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 np.expand_dims(output_gate_activity_arr, axis=0),
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1161, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1161, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1162
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1229
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _hidden_activity_arr = np.nanprod(
  *             np.array([             # <<<<<<<<<<<<<<
  *                 np.expand_dims(output_gate_activity_arr, axis=0),
  *                 np.expand_dims(self.graph.hidden_activating_function.activate(_cec_activity_arr), axis=0)
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1162, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1162, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1163
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1230
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _hidden_activity_arr = np.nanprod(
  *             np.array([
  *                 np.expand_dims(output_gate_activity_arr, axis=0),             # <<<<<<<<<<<<<<
  *                 np.expand_dims(self.graph.hidden_activating_function.activate(_cec_activity_arr), axis=0)
  *             ]),
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1163, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1163, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1163, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(((PyObject *)__pyx_v_output_gate_activity_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_output_gate_activity_arr));
   PyTuple_SET_ITEM(__pyx_t_3, 0, ((PyObject *)__pyx_v_output_gate_activity_arr));
-  __pyx_t_13 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1163, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1163, __pyx_L1_error)
-  __pyx_t_15 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_13); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1163, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1230, __pyx_L1_error)
+  __pyx_t_15 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_13); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1164
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1231
  *             np.array([
  *                 np.expand_dims(output_gate_activity_arr, axis=0),
  *                 np.expand_dims(self.graph.hidden_activating_function.activate(_cec_activity_arr), axis=0)             # <<<<<<<<<<<<<<
  *             ]),
  *             axis=0
  */
-  __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1164, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1231, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1164, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_expand_dims); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1231, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1164, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1231, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_hidden_activating_function); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1164, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_hidden_activating_function); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 1231, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_activate); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1164, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_activate); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1231, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   __pyx_t_14 = NULL;
@@ -20008,13 +20980,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_14) {
-    __pyx_t_13 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v__cec_activity_arr)); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1164, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v__cec_activity_arr)); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1231, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_14, ((PyObject *)__pyx_v__cec_activity_arr)};
-      __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1164, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1231, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
       __Pyx_GOTREF(__pyx_t_13);
     } else
@@ -20022,46 +20994,46 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_14, ((PyObject *)__pyx_v__cec_activity_arr)};
-      __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1164, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1231, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
       __Pyx_GOTREF(__pyx_t_13);
     } else
     #endif
     {
-      __pyx_t_18 = PyTuple_New(1+1); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1164, __pyx_L1_error)
+      __pyx_t_18 = PyTuple_New(1+1); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1231, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_18);
       __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_18, 0, __pyx_t_14); __pyx_t_14 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v__cec_activity_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v__cec_activity_arr));
       PyTuple_SET_ITEM(__pyx_t_18, 0+1, ((PyObject *)__pyx_v__cec_activity_arr));
-      __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_18, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1164, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_18, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1231, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1164, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1231, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_13);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_13);
   __pyx_t_13 = 0;
-  __pyx_t_13 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1164, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1231, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1164, __pyx_L1_error)
-  __pyx_t_18 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_2, __pyx_t_13); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1164, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1231, __pyx_L1_error)
+  __pyx_t_18 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_2, __pyx_t_13); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1231, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1162
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1229
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _hidden_activity_arr = np.nanprod(
  *             np.array([             # <<<<<<<<<<<<<<
  *                 np.expand_dims(output_gate_activity_arr, axis=0),
  *                 np.expand_dims(self.graph.hidden_activating_function.activate(_cec_activity_arr), axis=0)
  */
-  __pyx_t_13 = PyList_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1162, __pyx_L1_error)
+  __pyx_t_13 = PyList_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 1229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
   __Pyx_GIVEREF(__pyx_t_15);
   PyList_SET_ITEM(__pyx_t_13, 0, __pyx_t_15);
@@ -20080,14 +21052,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_18) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1162, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1229, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_18, __pyx_t_13};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1162, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1229, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
@@ -20096,80 +21068,80 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_18, __pyx_t_13};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1162, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1229, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     } else
     #endif
     {
-      __pyx_t_15 = PyTuple_New(1+1); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1162, __pyx_L1_error)
+      __pyx_t_15 = PyTuple_New(1+1); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1229, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_15);
       __Pyx_GIVEREF(__pyx_t_18); PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_t_18); __pyx_t_18 = NULL;
       __Pyx_GIVEREF(__pyx_t_13);
       PyTuple_SET_ITEM(__pyx_t_15, 0+1, __pyx_t_13);
       __pyx_t_13 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_15, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1162, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_15, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1229, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1161
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1228
  *         )[0]
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _hidden_activity_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 np.expand_dims(output_gate_activity_arr, axis=0),
  */
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1161, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1166
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1233
  *                 np.expand_dims(self.graph.hidden_activating_function.activate(_cec_activity_arr), axis=0)
  *             ]),
  *             axis=0             # <<<<<<<<<<<<<<
  *         )[0]
  * 
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1166, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1233, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1166, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1233, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1161
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1228
  *         )[0]
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] _hidden_activity_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 np.expand_dims(output_gate_activity_arr, axis=0),
  */
-  __pyx_t_15 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1161, __pyx_L1_error)
+  __pyx_t_15 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1167
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1234
  *             ]),
  *             axis=0
  *         )[0]             # <<<<<<<<<<<<<<
  * 
  *         self.__memory_tuple_list.append((
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_15, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1167, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_15, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1234, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1167, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1234, __pyx_L1_error)
   __pyx_t_21 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd__hidden_activity_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_21, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v__hidden_activity_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd__hidden_activity_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1161, __pyx_L1_error)
+      __PYX_ERR(0, 1228, __pyx_L1_error)
     } else {__pyx_pybuffernd__hidden_activity_arr.diminfo[0].strides = __pyx_pybuffernd__hidden_activity_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd__hidden_activity_arr.diminfo[0].shape = __pyx_pybuffernd__hidden_activity_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd__hidden_activity_arr.diminfo[1].strides = __pyx_pybuffernd__hidden_activity_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd__hidden_activity_arr.diminfo[1].shape = __pyx_pybuffernd__hidden_activity_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd__hidden_activity_arr.diminfo[2].strides = __pyx_pybuffernd__hidden_activity_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd__hidden_activity_arr.diminfo[2].shape = __pyx_pybuffernd__hidden_activity_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd__hidden_activity_arr.diminfo[3].strides = __pyx_pybuffernd__hidden_activity_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd__hidden_activity_arr.diminfo[3].shape = __pyx_pybuffernd__hidden_activity_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -20177,24 +21149,24 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v__hidden_activity_arr = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1169
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1236
  *         )[0]
  * 
  *         self.__memory_tuple_list.append((             # <<<<<<<<<<<<<<
  *             observed_arr,
  *             hidden_activity_arr,
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1169, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1170
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1237
  * 
  *         self.__memory_tuple_list.append((
  *             observed_arr,             # <<<<<<<<<<<<<<
  *             hidden_activity_arr,
  *             cec_activity_arr,
  */
-  __pyx_t_15 = PyTuple_New(9); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1170, __pyx_L1_error)
+  __pyx_t_15 = PyTuple_New(9); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1237, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
   __Pyx_INCREF(((PyObject *)__pyx_v_observed_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_observed_arr));
@@ -20224,18 +21196,18 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_GIVEREF(((PyObject *)__pyx_v__hidden_activity_arr));
   PyTuple_SET_ITEM(__pyx_t_15, 8, ((PyObject *)__pyx_v__hidden_activity_arr));
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1169
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1236
  *         )[0]
  * 
  *         self.__memory_tuple_list.append((             # <<<<<<<<<<<<<<
  *             observed_arr,
  *             hidden_activity_arr,
  */
-  __pyx_t_22 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_15); if (unlikely(__pyx_t_22 == ((int)-1))) __PYX_ERR(0, 1169, __pyx_L1_error)
+  __pyx_t_22 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_15); if (unlikely(__pyx_t_22 == ((int)-1))) __PYX_ERR(0, 1236, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1181
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1248
  *         ))
  * 
  *         return (_hidden_activity_arr, _cec_activity_arr)             # <<<<<<<<<<<<<<
@@ -20243,7 +21215,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *     def lstm_backward(
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_15 = PyTuple_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1181, __pyx_L1_error)
+  __pyx_t_15 = PyTuple_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1248, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
   __Pyx_INCREF(((PyObject *)__pyx_v__hidden_activity_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v__hidden_activity_arr));
@@ -20255,7 +21227,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_t_15 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1105
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1172
  *         return delta_arr, delta_hidden_arr, []
  * 
  *     def __lstm_forward(             # <<<<<<<<<<<<<<
@@ -20313,7 +21285,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1183
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1250
  *         return (_hidden_activity_arr, _cec_activity_arr)
  * 
  *     def lstm_backward(             # <<<<<<<<<<<<<<
@@ -20360,23 +21332,23 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_delta_hidden_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("lstm_backward", 1, 4, 4, 1); __PYX_ERR(0, 1183, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("lstm_backward", 1, 4, 4, 1); __PYX_ERR(0, 1250, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_delta_cec_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("lstm_backward", 1, 4, 4, 2); __PYX_ERR(0, 1183, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("lstm_backward", 1, 4, 4, 2); __PYX_ERR(0, 1250, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_cycle)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("lstm_backward", 1, 4, 4, 3); __PYX_ERR(0, 1183, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("lstm_backward", 1, 4, 4, 3); __PYX_ERR(0, 1250, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "lstm_backward") < 0)) __PYX_ERR(0, 1183, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "lstm_backward") < 0)) __PYX_ERR(0, 1250, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -20389,18 +21361,18 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     __pyx_v_self = values[0];
     __pyx_v_delta_hidden_arr = ((PyArrayObject *)values[1]);
     __pyx_v_delta_cec_arr = ((PyArrayObject *)values[2]);
-    __pyx_v_cycle = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_cycle == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1187, __pyx_L3_error)
+    __pyx_v_cycle = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_cycle == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1254, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("lstm_backward", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1183, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("lstm_backward", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1250, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.rnn.lstmmodel.conv_lstm_model.ConvLSTMModel.lstm_backward", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_delta_hidden_arr), __pyx_ptype_5numpy_ndarray, 1, "delta_hidden_arr", 0))) __PYX_ERR(0, 1185, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_delta_cec_arr), __pyx_ptype_5numpy_ndarray, 1, "delta_cec_arr", 0))) __PYX_ERR(0, 1186, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_delta_hidden_arr), __pyx_ptype_5numpy_ndarray, 1, "delta_hidden_arr", 0))) __PYX_ERR(0, 1252, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_delta_cec_arr), __pyx_ptype_5numpy_ndarray, 1, "delta_cec_arr", 0))) __PYX_ERR(0, 1253, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_32lstm_backward(__pyx_self, __pyx_v_self, __pyx_v_delta_hidden_arr, __pyx_v_delta_cec_arr, __pyx_v_cycle);
 
   /* function exit code */
@@ -20554,32 +21526,32 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_pybuffernd_delta_hidden_arr.rcbuffer = &__pyx_pybuffer_delta_hidden_arr;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_delta_hidden_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1183, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer, (PyObject*)__pyx_v_delta_hidden_arr, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) __PYX_ERR(0, 1250, __pyx_L1_error)
   }
   __pyx_pybuffernd_delta_hidden_arr.diminfo[0].strides = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_hidden_arr.diminfo[0].shape = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_hidden_arr.diminfo[1].strides = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_hidden_arr.diminfo[1].shape = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_hidden_arr.diminfo[2].strides = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_hidden_arr.diminfo[2].shape = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_hidden_arr.diminfo[3].strides = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_hidden_arr.diminfo[3].shape = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.shape[3];
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1204
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1271
  *             - `list` of gradations.
  *         '''
  *         cdef np.ndarray[DOUBLE_t, ndim=4] observed_arr = self.__memory_tuple_list[cycle][0]             # <<<<<<<<<<<<<<
  *         cdef np.ndarray[DOUBLE_t, ndim=4] pre_cec_activity_arr = self.__memory_tuple_list[cycle][2]
  *         cdef np.ndarray[DOUBLE_t, ndim=4] given_activity_arr = self.__memory_tuple_list[cycle][3]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1204, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1271, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_cycle, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1204, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_cycle, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1271, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1204, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1271, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1204, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1271, __pyx_L1_error)
   __pyx_t_3 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_observed_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_3, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_observed_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1204, __pyx_L1_error)
+      __PYX_ERR(0, 1271, __pyx_L1_error)
     } else {__pyx_pybuffernd_observed_arr.diminfo[0].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_observed_arr.diminfo[0].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_observed_arr.diminfo[1].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_observed_arr.diminfo[1].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_observed_arr.diminfo[2].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_observed_arr.diminfo[2].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_observed_arr.diminfo[3].strides = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_observed_arr.diminfo[3].shape = __pyx_pybuffernd_observed_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -20587,28 +21559,28 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_observed_arr = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1205
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1272
  *         '''
  *         cdef np.ndarray[DOUBLE_t, ndim=4] observed_arr = self.__memory_tuple_list[cycle][0]
  *         cdef np.ndarray[DOUBLE_t, ndim=4] pre_cec_activity_arr = self.__memory_tuple_list[cycle][2]             # <<<<<<<<<<<<<<
  *         cdef np.ndarray[DOUBLE_t, ndim=4] given_activity_arr = self.__memory_tuple_list[cycle][3]
  *         cdef np.ndarray[DOUBLE_t, ndim=4] input_gate_activity_arr = self.__memory_tuple_list[cycle][4]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1205, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1272, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_cycle, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1205, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_cycle, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1272, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1205, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1272, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1205, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1272, __pyx_L1_error)
   __pyx_t_4 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pre_cec_activity_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_4, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_pre_cec_activity_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_pre_cec_activity_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1205, __pyx_L1_error)
+      __PYX_ERR(0, 1272, __pyx_L1_error)
     } else {__pyx_pybuffernd_pre_cec_activity_arr.diminfo[0].strides = __pyx_pybuffernd_pre_cec_activity_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_pre_cec_activity_arr.diminfo[0].shape = __pyx_pybuffernd_pre_cec_activity_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_pre_cec_activity_arr.diminfo[1].strides = __pyx_pybuffernd_pre_cec_activity_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_pre_cec_activity_arr.diminfo[1].shape = __pyx_pybuffernd_pre_cec_activity_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_pre_cec_activity_arr.diminfo[2].strides = __pyx_pybuffernd_pre_cec_activity_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_pre_cec_activity_arr.diminfo[2].shape = __pyx_pybuffernd_pre_cec_activity_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_pre_cec_activity_arr.diminfo[3].strides = __pyx_pybuffernd_pre_cec_activity_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_pre_cec_activity_arr.diminfo[3].shape = __pyx_pybuffernd_pre_cec_activity_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -20616,28 +21588,28 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_pre_cec_activity_arr = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1206
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1273
  *         cdef np.ndarray[DOUBLE_t, ndim=4] observed_arr = self.__memory_tuple_list[cycle][0]
  *         cdef np.ndarray[DOUBLE_t, ndim=4] pre_cec_activity_arr = self.__memory_tuple_list[cycle][2]
  *         cdef np.ndarray[DOUBLE_t, ndim=4] given_activity_arr = self.__memory_tuple_list[cycle][3]             # <<<<<<<<<<<<<<
  *         cdef np.ndarray[DOUBLE_t, ndim=4] input_gate_activity_arr = self.__memory_tuple_list[cycle][4]
  *         cdef np.ndarray[DOUBLE_t, ndim=4] forget_gate_activity_arr = self.__memory_tuple_list[cycle][5]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1206, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1273, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_cycle, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1206, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_cycle, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1273, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1206, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1273, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1206, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1273, __pyx_L1_error)
   __pyx_t_5 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_given_activity_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1206, __pyx_L1_error)
+      __PYX_ERR(0, 1273, __pyx_L1_error)
     } else {__pyx_pybuffernd_given_activity_arr.diminfo[0].strides = __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_given_activity_arr.diminfo[0].shape = __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_given_activity_arr.diminfo[1].strides = __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_given_activity_arr.diminfo[1].shape = __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_given_activity_arr.diminfo[2].strides = __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_given_activity_arr.diminfo[2].shape = __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_given_activity_arr.diminfo[3].strides = __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_given_activity_arr.diminfo[3].shape = __pyx_pybuffernd_given_activity_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -20645,28 +21617,28 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_given_activity_arr = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1207
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1274
  *         cdef np.ndarray[DOUBLE_t, ndim=4] pre_cec_activity_arr = self.__memory_tuple_list[cycle][2]
  *         cdef np.ndarray[DOUBLE_t, ndim=4] given_activity_arr = self.__memory_tuple_list[cycle][3]
  *         cdef np.ndarray[DOUBLE_t, ndim=4] input_gate_activity_arr = self.__memory_tuple_list[cycle][4]             # <<<<<<<<<<<<<<
  *         cdef np.ndarray[DOUBLE_t, ndim=4] forget_gate_activity_arr = self.__memory_tuple_list[cycle][5]
  *         cdef np.ndarray[DOUBLE_t, ndim=4] output_gate_activity_arr = self.__memory_tuple_list[cycle][6]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1207, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1274, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_cycle, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1207, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_cycle, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1274, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1207, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1274, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1207, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1274, __pyx_L1_error)
   __pyx_t_6 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_6, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_input_gate_activity_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1207, __pyx_L1_error)
+      __PYX_ERR(0, 1274, __pyx_L1_error)
     } else {__pyx_pybuffernd_input_gate_activity_arr.diminfo[0].strides = __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_input_gate_activity_arr.diminfo[0].shape = __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_input_gate_activity_arr.diminfo[1].strides = __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_input_gate_activity_arr.diminfo[1].shape = __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_input_gate_activity_arr.diminfo[2].strides = __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_input_gate_activity_arr.diminfo[2].shape = __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_input_gate_activity_arr.diminfo[3].strides = __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_input_gate_activity_arr.diminfo[3].shape = __pyx_pybuffernd_input_gate_activity_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -20674,28 +21646,28 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_input_gate_activity_arr = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1208
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1275
  *         cdef np.ndarray[DOUBLE_t, ndim=4] given_activity_arr = self.__memory_tuple_list[cycle][3]
  *         cdef np.ndarray[DOUBLE_t, ndim=4] input_gate_activity_arr = self.__memory_tuple_list[cycle][4]
  *         cdef np.ndarray[DOUBLE_t, ndim=4] forget_gate_activity_arr = self.__memory_tuple_list[cycle][5]             # <<<<<<<<<<<<<<
  *         cdef np.ndarray[DOUBLE_t, ndim=4] output_gate_activity_arr = self.__memory_tuple_list[cycle][6]
  *         cdef np.ndarray[DOUBLE_t, ndim=4] cec_activity_arr = self.__memory_tuple_list[cycle][7]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1208, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_cycle, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1208, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_cycle, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1208, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1208, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1275, __pyx_L1_error)
   __pyx_t_7 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_7, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_forget_gate_activity_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1208, __pyx_L1_error)
+      __PYX_ERR(0, 1275, __pyx_L1_error)
     } else {__pyx_pybuffernd_forget_gate_activity_arr.diminfo[0].strides = __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_forget_gate_activity_arr.diminfo[0].shape = __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_forget_gate_activity_arr.diminfo[1].strides = __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_forget_gate_activity_arr.diminfo[1].shape = __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_forget_gate_activity_arr.diminfo[2].strides = __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_forget_gate_activity_arr.diminfo[2].shape = __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_forget_gate_activity_arr.diminfo[3].strides = __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_forget_gate_activity_arr.diminfo[3].shape = __pyx_pybuffernd_forget_gate_activity_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -20703,28 +21675,28 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_forget_gate_activity_arr = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1209
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1276
  *         cdef np.ndarray[DOUBLE_t, ndim=4] input_gate_activity_arr = self.__memory_tuple_list[cycle][4]
  *         cdef np.ndarray[DOUBLE_t, ndim=4] forget_gate_activity_arr = self.__memory_tuple_list[cycle][5]
  *         cdef np.ndarray[DOUBLE_t, ndim=4] output_gate_activity_arr = self.__memory_tuple_list[cycle][6]             # <<<<<<<<<<<<<<
  *         cdef np.ndarray[DOUBLE_t, ndim=4] cec_activity_arr = self.__memory_tuple_list[cycle][7]
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1209, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_cycle, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1209, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_cycle, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1209, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1209, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1276, __pyx_L1_error)
   __pyx_t_8 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_8, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_output_gate_activity_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1209, __pyx_L1_error)
+      __PYX_ERR(0, 1276, __pyx_L1_error)
     } else {__pyx_pybuffernd_output_gate_activity_arr.diminfo[0].strides = __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_output_gate_activity_arr.diminfo[0].shape = __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_output_gate_activity_arr.diminfo[1].strides = __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_output_gate_activity_arr.diminfo[1].shape = __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_output_gate_activity_arr.diminfo[2].strides = __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_output_gate_activity_arr.diminfo[2].shape = __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_output_gate_activity_arr.diminfo[3].strides = __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_output_gate_activity_arr.diminfo[3].shape = __pyx_pybuffernd_output_gate_activity_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -20732,28 +21704,28 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_output_gate_activity_arr = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1210
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1277
  *         cdef np.ndarray[DOUBLE_t, ndim=4] forget_gate_activity_arr = self.__memory_tuple_list[cycle][5]
  *         cdef np.ndarray[DOUBLE_t, ndim=4] output_gate_activity_arr = self.__memory_tuple_list[cycle][6]
  *         cdef np.ndarray[DOUBLE_t, ndim=4] cec_activity_arr = self.__memory_tuple_list[cycle][7]             # <<<<<<<<<<<<<<
  * 
  *         if delta_cec_arr.shape[0] == 0:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1210, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__memory_tuple_lis); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_cycle, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1210, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_cycle, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1210, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1210, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1277, __pyx_L1_error)
   __pyx_t_9 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_cec_activity_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_9, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_cec_activity_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_cec_activity_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1210, __pyx_L1_error)
+      __PYX_ERR(0, 1277, __pyx_L1_error)
     } else {__pyx_pybuffernd_cec_activity_arr.diminfo[0].strides = __pyx_pybuffernd_cec_activity_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_cec_activity_arr.diminfo[0].shape = __pyx_pybuffernd_cec_activity_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_cec_activity_arr.diminfo[1].strides = __pyx_pybuffernd_cec_activity_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_cec_activity_arr.diminfo[1].shape = __pyx_pybuffernd_cec_activity_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_cec_activity_arr.diminfo[2].strides = __pyx_pybuffernd_cec_activity_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_cec_activity_arr.diminfo[2].shape = __pyx_pybuffernd_cec_activity_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_cec_activity_arr.diminfo[3].strides = __pyx_pybuffernd_cec_activity_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_cec_activity_arr.diminfo[3].shape = __pyx_pybuffernd_cec_activity_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -20761,7 +21733,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_cec_activity_arr = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1212
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1279
  *         cdef np.ndarray[DOUBLE_t, ndim=4] cec_activity_arr = self.__memory_tuple_list[cycle][7]
  * 
  *         if delta_cec_arr.shape[0] == 0:             # <<<<<<<<<<<<<<
@@ -20771,16 +21743,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_t_10 = (((__pyx_v_delta_cec_arr->dimensions[0]) == 0) != 0);
   if (__pyx_t_10) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1213
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1280
  * 
  *         if delta_cec_arr.shape[0] == 0:
  *             delta_cec_arr = np.zeros_like(delta_hidden_arr)             # <<<<<<<<<<<<<<
  * 
  *         if delta_hidden_arr.shape[1] != output_gate_activity_arr.shape[1]:
  */
-    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1213, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1280, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros_like); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1213, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros_like); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1280, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_2 = NULL;
@@ -20794,13 +21766,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       }
     }
     if (!__pyx_t_2) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_11, ((PyObject *)__pyx_v_delta_hidden_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1213, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_11, ((PyObject *)__pyx_v_delta_hidden_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1280, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_11)) {
         PyObject *__pyx_temp[2] = {__pyx_t_2, ((PyObject *)__pyx_v_delta_hidden_arr)};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1213, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1280, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else
@@ -20808,29 +21780,29 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_11)) {
         PyObject *__pyx_temp[2] = {__pyx_t_2, ((PyObject *)__pyx_v_delta_hidden_arr)};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1213, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1280, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else
       #endif
       {
-        __pyx_t_12 = PyTuple_New(1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1213, __pyx_L1_error)
+        __pyx_t_12 = PyTuple_New(1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1280, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_2); __pyx_t_2 = NULL;
         __Pyx_INCREF(((PyObject *)__pyx_v_delta_hidden_arr));
         __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_hidden_arr));
         PyTuple_SET_ITEM(__pyx_t_12, 0+1, ((PyObject *)__pyx_v_delta_hidden_arr));
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1213, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1280, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1213, __pyx_L1_error)
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1280, __pyx_L1_error)
     __Pyx_DECREF_SET(__pyx_v_delta_cec_arr, ((PyArrayObject *)__pyx_t_1));
     __pyx_t_1 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1212
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1279
  *         cdef np.ndarray[DOUBLE_t, ndim=4] cec_activity_arr = self.__memory_tuple_list[cycle][7]
  * 
  *         if delta_cec_arr.shape[0] == 0:             # <<<<<<<<<<<<<<
@@ -20839,7 +21811,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1215
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1282
  *             delta_cec_arr = np.zeros_like(delta_hidden_arr)
  * 
  *         if delta_hidden_arr.shape[1] != output_gate_activity_arr.shape[1]:             # <<<<<<<<<<<<<<
@@ -20849,31 +21821,31 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_t_10 = (((__pyx_v_delta_hidden_arr->dimensions[1]) != (__pyx_v_output_gate_activity_arr->dimensions[1])) != 0);
   if (__pyx_t_10) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1216
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1283
  * 
  *         if delta_hidden_arr.shape[1] != output_gate_activity_arr.shape[1]:
  *             delta_hidden_arr = delta_hidden_arr.repeat(output_gate_activity_arr.shape[1], axis=1)             # <<<<<<<<<<<<<<
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_top_arr = np.nanprod(
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_delta_hidden_arr), __pyx_n_s_repeat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1216, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_delta_hidden_arr), __pyx_n_s_repeat); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1283, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_11 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_output_gate_activity_arr->dimensions[1])); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1216, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_output_gate_activity_arr->dimensions[1])); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1283, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1216, __pyx_L1_error)
+    __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1283, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_GIVEREF(__pyx_t_11);
     PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_11);
     __pyx_t_11 = 0;
-    __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1216, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1283, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 1216, __pyx_L1_error)
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, __pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1216, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 1283, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, __pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1283, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1216, __pyx_L1_error)
+    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1283, __pyx_L1_error)
     __pyx_t_13 = ((PyArrayObject *)__pyx_t_2);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -20890,13 +21862,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         __pyx_t_15 = __pyx_t_16 = __pyx_t_17 = 0;
       }
       __pyx_pybuffernd_delta_hidden_arr.diminfo[0].strides = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_hidden_arr.diminfo[0].shape = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_hidden_arr.diminfo[1].strides = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_hidden_arr.diminfo[1].shape = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_hidden_arr.diminfo[2].strides = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_hidden_arr.diminfo[2].shape = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_hidden_arr.diminfo[3].strides = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_hidden_arr.diminfo[3].shape = __pyx_pybuffernd_delta_hidden_arr.rcbuffer->pybuffer.shape[3];
-      if (unlikely(__pyx_t_14 < 0)) __PYX_ERR(0, 1216, __pyx_L1_error)
+      if (unlikely(__pyx_t_14 < 0)) __PYX_ERR(0, 1283, __pyx_L1_error)
     }
     __pyx_t_13 = 0;
     __Pyx_DECREF_SET(__pyx_v_delta_hidden_arr, ((PyArrayObject *)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1215
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1282
  *             delta_cec_arr = np.zeros_like(delta_hidden_arr)
  * 
  *         if delta_hidden_arr.shape[1] != output_gate_activity_arr.shape[1]:             # <<<<<<<<<<<<<<
@@ -20905,71 +21877,71 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1218
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1285
  *             delta_hidden_arr = delta_hidden_arr.repeat(output_gate_activity_arr.shape[1], axis=1)
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_top_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_cec_arr,
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1218, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1285, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1218, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1285, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1219
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1286
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_top_arr = np.nanprod(
  *             np.array([             # <<<<<<<<<<<<<<
  *                 delta_cec_arr,
  *                 np.nansum(
  */
-  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1219, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1286, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1219, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1286, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1221
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1288
  *             np.array([
  *                 delta_cec_arr,
  *                 np.nansum(             # <<<<<<<<<<<<<<
  *                     np.array([
  *                         delta_hidden_arr,
  */
-  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1221, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1288, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_18 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_nansum); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1221, __pyx_L1_error)
+  __pyx_t_18 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_nansum); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1288, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1222
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1289
  *                 delta_cec_arr,
  *                 np.nansum(
  *                     np.array([             # <<<<<<<<<<<<<<
  *                         delta_hidden_arr,
  *                         output_gate_activity_arr,
  */
-  __pyx_t_19 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1222, __pyx_L1_error)
+  __pyx_t_19 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1289, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_19);
-  __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_t_19, __pyx_n_s_array); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1222, __pyx_L1_error)
+  __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_t_19, __pyx_n_s_array); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1289, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_20);
   __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1225
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1292
  *                         delta_hidden_arr,
  *                         output_gate_activity_arr,
  *                         self.graph.hidden_activating_function.derivative(cec_activity_arr)             # <<<<<<<<<<<<<<
  *                     ]),
  *                     axis=0
  */
-  __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 1225, __pyx_L1_error)
+  __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 1292, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_21);
-  __pyx_t_22 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_hidden_activating_function); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 1225, __pyx_L1_error)
+  __pyx_t_22 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_hidden_activating_function); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 1292, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_22);
   __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-  __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_t_22, __pyx_n_s_derivative); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 1225, __pyx_L1_error)
+  __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_t_22, __pyx_n_s_derivative); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 1292, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_21);
   __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
   __pyx_t_22 = NULL;
@@ -20983,13 +21955,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_22) {
-    __pyx_t_19 = __Pyx_PyObject_CallOneArg(__pyx_t_21, ((PyObject *)__pyx_v_cec_activity_arr)); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1225, __pyx_L1_error)
+    __pyx_t_19 = __Pyx_PyObject_CallOneArg(__pyx_t_21, ((PyObject *)__pyx_v_cec_activity_arr)); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1292, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_19);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_21)) {
       PyObject *__pyx_temp[2] = {__pyx_t_22, ((PyObject *)__pyx_v_cec_activity_arr)};
-      __pyx_t_19 = __Pyx_PyFunction_FastCall(__pyx_t_21, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1225, __pyx_L1_error)
+      __pyx_t_19 = __Pyx_PyFunction_FastCall(__pyx_t_21, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1292, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
       __Pyx_GOTREF(__pyx_t_19);
     } else
@@ -20997,33 +21969,33 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_21)) {
       PyObject *__pyx_temp[2] = {__pyx_t_22, ((PyObject *)__pyx_v_cec_activity_arr)};
-      __pyx_t_19 = __Pyx_PyCFunction_FastCall(__pyx_t_21, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1225, __pyx_L1_error)
+      __pyx_t_19 = __Pyx_PyCFunction_FastCall(__pyx_t_21, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1292, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
       __Pyx_GOTREF(__pyx_t_19);
     } else
     #endif
     {
-      __pyx_t_23 = PyTuple_New(1+1); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1225, __pyx_L1_error)
+      __pyx_t_23 = PyTuple_New(1+1); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1292, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_23);
       __Pyx_GIVEREF(__pyx_t_22); PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_22); __pyx_t_22 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_cec_activity_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_cec_activity_arr));
       PyTuple_SET_ITEM(__pyx_t_23, 0+1, ((PyObject *)__pyx_v_cec_activity_arr));
-      __pyx_t_19 = __Pyx_PyObject_Call(__pyx_t_21, __pyx_t_23, NULL); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1225, __pyx_L1_error)
+      __pyx_t_19 = __Pyx_PyObject_Call(__pyx_t_21, __pyx_t_23, NULL); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 1292, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_19);
       __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1222
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1289
  *                 delta_cec_arr,
  *                 np.nansum(
  *                     np.array([             # <<<<<<<<<<<<<<
  *                         delta_hidden_arr,
  *                         output_gate_activity_arr,
  */
-  __pyx_t_21 = PyList_New(3); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 1222, __pyx_L1_error)
+  __pyx_t_21 = PyList_New(3); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 1289, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_21);
   __Pyx_INCREF(((PyObject *)__pyx_v_delta_hidden_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_hidden_arr));
@@ -21045,14 +22017,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_19) {
-    __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_20, __pyx_t_21); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1222, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_20, __pyx_t_21); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1289, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
     __Pyx_GOTREF(__pyx_t_12);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_20)) {
       PyObject *__pyx_temp[2] = {__pyx_t_19, __pyx_t_21};
-      __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_20, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1222, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_20, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1289, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
@@ -21061,71 +22033,71 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_20)) {
       PyObject *__pyx_temp[2] = {__pyx_t_19, __pyx_t_21};
-      __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_20, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1222, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_20, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1289, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
     } else
     #endif
     {
-      __pyx_t_23 = PyTuple_New(1+1); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1222, __pyx_L1_error)
+      __pyx_t_23 = PyTuple_New(1+1); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1289, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_23);
       __Pyx_GIVEREF(__pyx_t_19); PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_19); __pyx_t_19 = NULL;
       __Pyx_GIVEREF(__pyx_t_21);
       PyTuple_SET_ITEM(__pyx_t_23, 0+1, __pyx_t_21);
       __pyx_t_21 = 0;
-      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_20, __pyx_t_23, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1222, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_20, __pyx_t_23, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1289, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1221
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1288
  *             np.array([
  *                 delta_cec_arr,
  *                 np.nansum(             # <<<<<<<<<<<<<<
  *                     np.array([
  *                         delta_hidden_arr,
  */
-  __pyx_t_20 = PyTuple_New(1); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1221, __pyx_L1_error)
+  __pyx_t_20 = PyTuple_New(1); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1288, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_20);
   __Pyx_GIVEREF(__pyx_t_12);
   PyTuple_SET_ITEM(__pyx_t_20, 0, __pyx_t_12);
   __pyx_t_12 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1227
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1294
  *                         self.graph.hidden_activating_function.derivative(cec_activity_arr)
  *                     ]),
  *                     axis=0             # <<<<<<<<<<<<<<
  *                 )
  *             ]),
  */
-  __pyx_t_12 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1227, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1294, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1227, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1294, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1221
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1288
  *             np.array([
  *                 delta_cec_arr,
  *                 np.nansum(             # <<<<<<<<<<<<<<
  *                     np.array([
  *                         delta_hidden_arr,
  */
-  __pyx_t_23 = __Pyx_PyObject_Call(__pyx_t_18, __pyx_t_20, __pyx_t_12); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1221, __pyx_L1_error)
+  __pyx_t_23 = __Pyx_PyObject_Call(__pyx_t_18, __pyx_t_20, __pyx_t_12); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1288, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_23);
   __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
   __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1219
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1286
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_top_arr = np.nanprod(
  *             np.array([             # <<<<<<<<<<<<<<
  *                 delta_cec_arr,
  *                 np.nansum(
  */
-  __pyx_t_12 = PyList_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1219, __pyx_L1_error)
+  __pyx_t_12 = PyList_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1286, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_INCREF(((PyObject *)__pyx_v_delta_cec_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_cec_arr));
@@ -21144,14 +22116,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_23) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_12); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1219, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_12); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1286, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_1)) {
       PyObject *__pyx_temp[2] = {__pyx_t_23, __pyx_t_12};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1219, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1286, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
@@ -21160,69 +22132,69 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
       PyObject *__pyx_temp[2] = {__pyx_t_23, __pyx_t_12};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1219, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1286, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     } else
     #endif
     {
-      __pyx_t_20 = PyTuple_New(1+1); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1219, __pyx_L1_error)
+      __pyx_t_20 = PyTuple_New(1+1); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1286, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_20);
       __Pyx_GIVEREF(__pyx_t_23); PyTuple_SET_ITEM(__pyx_t_20, 0, __pyx_t_23); __pyx_t_23 = NULL;
       __Pyx_GIVEREF(__pyx_t_12);
       PyTuple_SET_ITEM(__pyx_t_20, 0+1, __pyx_t_12);
       __pyx_t_12 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_20, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1219, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_20, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1286, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1218
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1285
  *             delta_hidden_arr = delta_hidden_arr.repeat(output_gate_activity_arr.shape[1], axis=1)
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_top_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_cec_arr,
  */
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1218, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1285, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1230
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1297
  *                 )
  *             ]),
  *             axis=0             # <<<<<<<<<<<<<<
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_pre_rnn_arr = np.nanprod(
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1230, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1297, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1230, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1297, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1218
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1285
  *             delta_hidden_arr = delta_hidden_arr.repeat(output_gate_activity_arr.shape[1], axis=1)
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_top_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_cec_arr,
  */
-  __pyx_t_20 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1218, __pyx_L1_error)
+  __pyx_t_20 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1285, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_20);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_20) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_20, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1218, __pyx_L1_error)
+  if (!(likely(((__pyx_t_20) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_20, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1285, __pyx_L1_error)
   __pyx_t_24 = ((PyArrayObject *)__pyx_t_20);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_top_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_24, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_delta_top_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_delta_top_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1218, __pyx_L1_error)
+      __PYX_ERR(0, 1285, __pyx_L1_error)
     } else {__pyx_pybuffernd_delta_top_arr.diminfo[0].strides = __pyx_pybuffernd_delta_top_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_top_arr.diminfo[0].shape = __pyx_pybuffernd_delta_top_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_top_arr.diminfo[1].strides = __pyx_pybuffernd_delta_top_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_top_arr.diminfo[1].shape = __pyx_pybuffernd_delta_top_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_top_arr.diminfo[2].strides = __pyx_pybuffernd_delta_top_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_top_arr.diminfo[2].shape = __pyx_pybuffernd_delta_top_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_top_arr.diminfo[3].strides = __pyx_pybuffernd_delta_top_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_top_arr.diminfo[3].shape = __pyx_pybuffernd_delta_top_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -21230,32 +22202,32 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_delta_top_arr = ((PyArrayObject *)__pyx_t_20);
   __pyx_t_20 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1232
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1299
  *             axis=0
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_pre_rnn_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([delta_top_arr, forget_gate_activity_arr]),
  *             axis=0
  */
-  __pyx_t_20 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1232, __pyx_L1_error)
+  __pyx_t_20 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1299, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_20);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_20, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1232, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_20, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1299, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1233
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1300
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_pre_rnn_arr = np.nanprod(
  *             np.array([delta_top_arr, forget_gate_activity_arr]),             # <<<<<<<<<<<<<<
  *             axis=0
  *         )
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1233, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1300, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1233, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1300, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyList_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1233, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1300, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_delta_top_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_top_arr));
@@ -21274,14 +22246,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_12) {
-    __pyx_t_20 = __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_t_1); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1233, __pyx_L1_error)
+    __pyx_t_20 = __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_t_1); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1300, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_20);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_11)) {
       PyObject *__pyx_temp[2] = {__pyx_t_12, __pyx_t_1};
-      __pyx_t_20 = __Pyx_PyFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1233, __pyx_L1_error)
+      __pyx_t_20 = __Pyx_PyFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1300, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
       __Pyx_GOTREF(__pyx_t_20);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21290,69 +22262,69 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_11)) {
       PyObject *__pyx_temp[2] = {__pyx_t_12, __pyx_t_1};
-      __pyx_t_20 = __Pyx_PyCFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1233, __pyx_L1_error)
+      __pyx_t_20 = __Pyx_PyCFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1300, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
       __Pyx_GOTREF(__pyx_t_20);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else
     #endif
     {
-      __pyx_t_23 = PyTuple_New(1+1); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1233, __pyx_L1_error)
+      __pyx_t_23 = PyTuple_New(1+1); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1300, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_23);
       __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_12); __pyx_t_12 = NULL;
       __Pyx_GIVEREF(__pyx_t_1);
       PyTuple_SET_ITEM(__pyx_t_23, 0+1, __pyx_t_1);
       __pyx_t_1 = 0;
-      __pyx_t_20 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_23, NULL); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1233, __pyx_L1_error)
+      __pyx_t_20 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_23, NULL); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1300, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_20);
       __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1232
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1299
  *             axis=0
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_pre_rnn_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([delta_top_arr, forget_gate_activity_arr]),
  *             axis=0
  */
-  __pyx_t_11 = PyTuple_New(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1232, __pyx_L1_error)
+  __pyx_t_11 = PyTuple_New(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1299, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_GIVEREF(__pyx_t_20);
   PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_20);
   __pyx_t_20 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1234
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1301
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_pre_rnn_arr = np.nanprod(
  *             np.array([delta_top_arr, forget_gate_activity_arr]),
  *             axis=0             # <<<<<<<<<<<<<<
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_output_gate_arr = np.nanprod(
  */
-  __pyx_t_20 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1234, __pyx_L1_error)
+  __pyx_t_20 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1301, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_20);
-  if (PyDict_SetItem(__pyx_t_20, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1234, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_20, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1301, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1232
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1299
  *             axis=0
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_pre_rnn_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([delta_top_arr, forget_gate_activity_arr]),
  *             axis=0
  */
-  __pyx_t_23 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_11, __pyx_t_20); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1232, __pyx_L1_error)
+  __pyx_t_23 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_11, __pyx_t_20); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1299, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_23);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-  if (!(likely(((__pyx_t_23) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_23, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1232, __pyx_L1_error)
+  if (!(likely(((__pyx_t_23) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_23, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1299, __pyx_L1_error)
   __pyx_t_25 = ((PyArrayObject *)__pyx_t_23);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_pre_rnn_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_25, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_delta_pre_rnn_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_delta_pre_rnn_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1232, __pyx_L1_error)
+      __PYX_ERR(0, 1299, __pyx_L1_error)
     } else {__pyx_pybuffernd_delta_pre_rnn_arr.diminfo[0].strides = __pyx_pybuffernd_delta_pre_rnn_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_pre_rnn_arr.diminfo[0].shape = __pyx_pybuffernd_delta_pre_rnn_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_pre_rnn_arr.diminfo[1].strides = __pyx_pybuffernd_delta_pre_rnn_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_pre_rnn_arr.diminfo[1].shape = __pyx_pybuffernd_delta_pre_rnn_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_pre_rnn_arr.diminfo[2].strides = __pyx_pybuffernd_delta_pre_rnn_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_pre_rnn_arr.diminfo[2].shape = __pyx_pybuffernd_delta_pre_rnn_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_pre_rnn_arr.diminfo[3].strides = __pyx_pybuffernd_delta_pre_rnn_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_pre_rnn_arr.diminfo[3].shape = __pyx_pybuffernd_delta_pre_rnn_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -21360,40 +22332,40 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_delta_pre_rnn_arr = ((PyArrayObject *)__pyx_t_23);
   __pyx_t_23 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1236
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1303
  *             axis=0
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_output_gate_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_hidden_arr,
  */
-  __pyx_t_23 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1236, __pyx_L1_error)
+  __pyx_t_23 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1303, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_23);
-  __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_t_23, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1236, __pyx_L1_error)
+  __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_t_23, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1303, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_20);
   __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1237
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1304
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_output_gate_arr = np.nanprod(
  *             np.array([             # <<<<<<<<<<<<<<
  *                 delta_hidden_arr,
  *                 cec_activity_arr,
  */
-  __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1237, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_array); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1237, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_array); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1240
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1307
  *                 delta_hidden_arr,
  *                 cec_activity_arr,
  *                 output_gate_activity_arr             # <<<<<<<<<<<<<<
  *             ]),
  *             axis=0
  */
-  __pyx_t_11 = PyList_New(3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1237, __pyx_L1_error)
+  __pyx_t_11 = PyList_New(3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_INCREF(((PyObject *)__pyx_v_delta_hidden_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_hidden_arr));
@@ -21415,14 +22387,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_1) {
-    __pyx_t_23 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_11); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1237, __pyx_L1_error)
+    __pyx_t_23 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_11); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1304, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __Pyx_GOTREF(__pyx_t_23);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_11};
-      __pyx_t_23 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1237, __pyx_L1_error)
+      __pyx_t_23 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1304, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_23);
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -21431,69 +22403,69 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_11};
-      __pyx_t_23 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1237, __pyx_L1_error)
+      __pyx_t_23 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1304, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_23);
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     } else
     #endif
     {
-      __pyx_t_12 = PyTuple_New(1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1237, __pyx_L1_error)
+      __pyx_t_12 = PyTuple_New(1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1304, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_1); __pyx_t_1 = NULL;
       __Pyx_GIVEREF(__pyx_t_11);
       PyTuple_SET_ITEM(__pyx_t_12, 0+1, __pyx_t_11);
       __pyx_t_11 = 0;
-      __pyx_t_23 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_12, NULL); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1237, __pyx_L1_error)
+      __pyx_t_23 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_12, NULL); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1304, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_23);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1236
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1303
  *             axis=0
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_output_gate_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_hidden_arr,
  */
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1236, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1303, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_23);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_23);
   __pyx_t_23 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1242
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1309
  *                 output_gate_activity_arr
  *             ]),
  *             axis=0             # <<<<<<<<<<<<<<
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_forget_gate_arr = np.nanprod(
  */
-  __pyx_t_23 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1242, __pyx_L1_error)
+  __pyx_t_23 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1309, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_23);
-  if (PyDict_SetItem(__pyx_t_23, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1242, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_23, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1309, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1236
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1303
  *             axis=0
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_output_gate_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_hidden_arr,
  */
-  __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_20, __pyx_t_2, __pyx_t_23); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1236, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_20, __pyx_t_2, __pyx_t_23); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1303, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-  if (!(likely(((__pyx_t_12) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_12, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1236, __pyx_L1_error)
+  if (!(likely(((__pyx_t_12) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_12, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1303, __pyx_L1_error)
   __pyx_t_26 = ((PyArrayObject *)__pyx_t_12);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_26, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_delta_output_gate_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1236, __pyx_L1_error)
+      __PYX_ERR(0, 1303, __pyx_L1_error)
     } else {__pyx_pybuffernd_delta_output_gate_arr.diminfo[0].strides = __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_output_gate_arr.diminfo[0].shape = __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_output_gate_arr.diminfo[1].strides = __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_output_gate_arr.diminfo[1].shape = __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_output_gate_arr.diminfo[2].strides = __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_output_gate_arr.diminfo[2].shape = __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_output_gate_arr.diminfo[3].strides = __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_output_gate_arr.diminfo[3].shape = __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -21501,40 +22473,40 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_delta_output_gate_arr = ((PyArrayObject *)__pyx_t_12);
   __pyx_t_12 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1244
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1311
  *             axis=0
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_forget_gate_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_top_arr,
  */
-  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1244, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1311, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_23 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1244, __pyx_L1_error)
+  __pyx_t_23 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1311, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_23);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1245
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1312
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_forget_gate_arr = np.nanprod(
  *             np.array([             # <<<<<<<<<<<<<<
  *                 delta_top_arr,
  *                 delta_pre_rnn_arr,
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1245, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1312, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1245, __pyx_L1_error)
+  __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1312, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_20);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1248
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1315
  *                 delta_top_arr,
  *                 delta_pre_rnn_arr,
  *                 forget_gate_activity_arr             # <<<<<<<<<<<<<<
  *             ]),
  *             axis=0
  */
-  __pyx_t_2 = PyList_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1245, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1312, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(((PyObject *)__pyx_v_delta_top_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_top_arr));
@@ -21556,14 +22528,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_11) {
-    __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_20, __pyx_t_2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1245, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_20, __pyx_t_2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1312, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_12);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_20)) {
       PyObject *__pyx_temp[2] = {__pyx_t_11, __pyx_t_2};
-      __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_20, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1245, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_20, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1312, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -21572,69 +22544,69 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_20)) {
       PyObject *__pyx_temp[2] = {__pyx_t_11, __pyx_t_2};
-      __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_20, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1245, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_20, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1312, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     } else
     #endif
     {
-      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1245, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1312, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_11); __pyx_t_11 = NULL;
       __Pyx_GIVEREF(__pyx_t_2);
       PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_2);
       __pyx_t_2 = 0;
-      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_20, __pyx_t_1, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1245, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_20, __pyx_t_1, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1312, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1244
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1311
  *             axis=0
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_forget_gate_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_top_arr,
  */
-  __pyx_t_20 = PyTuple_New(1); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1244, __pyx_L1_error)
+  __pyx_t_20 = PyTuple_New(1); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1311, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_20);
   __Pyx_GIVEREF(__pyx_t_12);
   PyTuple_SET_ITEM(__pyx_t_20, 0, __pyx_t_12);
   __pyx_t_12 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1250
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1317
  *                 forget_gate_activity_arr
  *             ]),
  *             axis=0             # <<<<<<<<<<<<<<
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_input_gate_arr = np.nanprod(
  */
-  __pyx_t_12 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1250, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1317, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1250, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1317, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1244
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1311
  *             axis=0
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_forget_gate_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_top_arr,
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_23, __pyx_t_20, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1244, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_23, __pyx_t_20, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1311, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
   __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1244, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1311, __pyx_L1_error)
   __pyx_t_27 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_27, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_delta_forget_gate_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1244, __pyx_L1_error)
+      __PYX_ERR(0, 1311, __pyx_L1_error)
     } else {__pyx_pybuffernd_delta_forget_gate_arr.diminfo[0].strides = __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_forget_gate_arr.diminfo[0].shape = __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_forget_gate_arr.diminfo[1].strides = __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_forget_gate_arr.diminfo[1].shape = __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_forget_gate_arr.diminfo[2].strides = __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_forget_gate_arr.diminfo[2].shape = __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_forget_gate_arr.diminfo[3].strides = __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_forget_gate_arr.diminfo[3].shape = __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -21642,40 +22614,40 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_delta_forget_gate_arr = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1252
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1319
  *             axis=0
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_input_gate_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_top_arr,
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1252, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1319, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1252, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1319, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1253
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1320
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_input_gate_arr = np.nanprod(
  *             np.array([             # <<<<<<<<<<<<<<
  *                 delta_top_arr,
  *                 given_activity_arr,
  */
-  __pyx_t_20 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1253, __pyx_L1_error)
+  __pyx_t_20 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1320, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_20);
-  __pyx_t_23 = __Pyx_PyObject_GetAttrStr(__pyx_t_20, __pyx_n_s_array); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1253, __pyx_L1_error)
+  __pyx_t_23 = __Pyx_PyObject_GetAttrStr(__pyx_t_20, __pyx_n_s_array); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1320, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_23);
   __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1256
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1323
  *                 delta_top_arr,
  *                 given_activity_arr,
  *                 input_gate_activity_arr             # <<<<<<<<<<<<<<
  *             ]),
  *             axis=0
  */
-  __pyx_t_20 = PyList_New(3); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1253, __pyx_L1_error)
+  __pyx_t_20 = PyList_New(3); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1320, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_20);
   __Pyx_INCREF(((PyObject *)__pyx_v_delta_top_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_top_arr));
@@ -21697,14 +22669,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_23, __pyx_t_20); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1253, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_23, __pyx_t_20); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1320, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_23)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_20};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_23, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1253, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_23, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1320, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
@@ -21713,69 +22685,69 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_23)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_20};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_23, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1253, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_23, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1320, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
     } else
     #endif
     {
-      __pyx_t_11 = PyTuple_New(1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1253, __pyx_L1_error)
+      __pyx_t_11 = PyTuple_New(1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1320, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_GIVEREF(__pyx_t_20);
       PyTuple_SET_ITEM(__pyx_t_11, 0+1, __pyx_t_20);
       __pyx_t_20 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_23, __pyx_t_11, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1253, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_23, __pyx_t_11, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1320, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1252
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1319
  *             axis=0
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_input_gate_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_top_arr,
  */
-  __pyx_t_23 = PyTuple_New(1); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1252, __pyx_L1_error)
+  __pyx_t_23 = PyTuple_New(1); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1319, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_23);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1258
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1325
  *                 input_gate_activity_arr
  *             ]),
  *             axis=0             # <<<<<<<<<<<<<<
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_given_arr = np.nanprod(
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1258, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1325, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1258, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1325, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1252
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1319
  *             axis=0
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_input_gate_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_top_arr,
  */
-  __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_23, __pyx_t_1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1252, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_23, __pyx_t_1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1319, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1252, __pyx_L1_error)
+  if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1319, __pyx_L1_error)
   __pyx_t_28 = ((PyArrayObject *)__pyx_t_11);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_28, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_delta_input_gate_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1252, __pyx_L1_error)
+      __PYX_ERR(0, 1319, __pyx_L1_error)
     } else {__pyx_pybuffernd_delta_input_gate_arr.diminfo[0].strides = __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_input_gate_arr.diminfo[0].shape = __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_input_gate_arr.diminfo[1].strides = __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_input_gate_arr.diminfo[1].shape = __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_input_gate_arr.diminfo[2].strides = __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_input_gate_arr.diminfo[2].shape = __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_input_gate_arr.diminfo[3].strides = __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_input_gate_arr.diminfo[3].shape = __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -21783,40 +22755,40 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_delta_input_gate_arr = ((PyArrayObject *)__pyx_t_11);
   __pyx_t_11 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1260
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1327
  *             axis=0
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_given_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_top_arr,
  */
-  __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1260, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1327, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1260, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_nanprod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1327, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1261
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1328
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_given_arr = np.nanprod(
  *             np.array([             # <<<<<<<<<<<<<<
  *                 delta_top_arr,
  *                 input_gate_activity_arr,
  */
-  __pyx_t_23 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1261, __pyx_L1_error)
+  __pyx_t_23 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1328, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_23);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_23, __pyx_n_s_array); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1261, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_23, __pyx_n_s_array); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1328, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1264
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1331
  *                 delta_top_arr,
  *                 input_gate_activity_arr,
  *                 given_activity_arr             # <<<<<<<<<<<<<<
  *             ]),
  *             axis=0
  */
-  __pyx_t_23 = PyList_New(3); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1261, __pyx_L1_error)
+  __pyx_t_23 = PyList_New(3); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 1328, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_23);
   __Pyx_INCREF(((PyObject *)__pyx_v_delta_top_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_top_arr));
@@ -21838,14 +22810,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_20) {
-    __pyx_t_11 = __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_23); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1261, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_23); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1328, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
     __Pyx_GOTREF(__pyx_t_11);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_12)) {
       PyObject *__pyx_temp[2] = {__pyx_t_20, __pyx_t_23};
-      __pyx_t_11 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1261, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1328, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_20); __pyx_t_20 = 0;
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
@@ -21854,69 +22826,69 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
       PyObject *__pyx_temp[2] = {__pyx_t_20, __pyx_t_23};
-      __pyx_t_11 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1261, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1328, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_20); __pyx_t_20 = 0;
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
     } else
     #endif
     {
-      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1261, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1328, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_GIVEREF(__pyx_t_20); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_20); __pyx_t_20 = NULL;
       __Pyx_GIVEREF(__pyx_t_23);
       PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_23);
       __pyx_t_23 = 0;
-      __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_2, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1261, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_2, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1328, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1260
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1327
  *             axis=0
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_given_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_top_arr,
  */
-  __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1260, __pyx_L1_error)
+  __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1327, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_GIVEREF(__pyx_t_11);
   PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_11);
   __pyx_t_11 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1266
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1333
  *                 given_activity_arr
  *             ]),
  *             axis=0             # <<<<<<<<<<<<<<
  *         )
  * 
  */
-  __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1266, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1333, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1266, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1333, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1260
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1327
  *             axis=0
  *         )
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_given_arr = np.nanprod(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_top_arr,
  */
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, __pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1260, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, __pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1327, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1260, __pyx_L1_error)
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1327, __pyx_L1_error)
   __pyx_t_29 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_29, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_delta_given_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1260, __pyx_L1_error)
+      __PYX_ERR(0, 1327, __pyx_L1_error)
     } else {__pyx_pybuffernd_delta_given_arr.diminfo[0].strides = __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_given_arr.diminfo[0].shape = __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_given_arr.diminfo[1].strides = __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_given_arr.diminfo[1].shape = __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_given_arr.diminfo[2].strides = __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_given_arr.diminfo[2].shape = __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_given_arr.diminfo[3].strides = __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_given_arr.diminfo[3].shape = __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -21924,16 +22896,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_delta_given_arr = ((PyArrayObject *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1269
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1336
  *         )
  * 
  *         delta_output_gate_arr = self.__output_conv.back_propagate(delta_output_gate_arr)             # <<<<<<<<<<<<<<
  *         delta_forget_gate_arr = self.__forgot_conv.back_propagate(delta_forget_gate_arr)
  *         delta_input_gate_arr = self.__input_conv.back_propagate(delta_input_gate_arr)
  */
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1269, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1336, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_back_propagate); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1269, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_back_propagate); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1336, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __pyx_t_11 = NULL;
@@ -21947,13 +22919,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_11) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_12, ((PyObject *)__pyx_v_delta_output_gate_arr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1269, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_12, ((PyObject *)__pyx_v_delta_output_gate_arr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1336, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_12)) {
       PyObject *__pyx_temp[2] = {__pyx_t_11, ((PyObject *)__pyx_v_delta_output_gate_arr)};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1269, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1336, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else
@@ -21961,25 +22933,25 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
       PyObject *__pyx_temp[2] = {__pyx_t_11, ((PyObject *)__pyx_v_delta_output_gate_arr)};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1269, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1336, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else
     #endif
     {
-      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1269, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1336, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_11); __pyx_t_11 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_delta_output_gate_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_output_gate_arr));
       PyTuple_SET_ITEM(__pyx_t_1, 0+1, ((PyObject *)__pyx_v_delta_output_gate_arr));
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1269, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1336, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1269, __pyx_L1_error)
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1336, __pyx_L1_error)
   __pyx_t_26 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -21996,22 +22968,22 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       __pyx_t_17 = __pyx_t_16 = __pyx_t_15 = 0;
     }
     __pyx_pybuffernd_delta_output_gate_arr.diminfo[0].strides = __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_output_gate_arr.diminfo[0].shape = __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_output_gate_arr.diminfo[1].strides = __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_output_gate_arr.diminfo[1].shape = __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_output_gate_arr.diminfo[2].strides = __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_output_gate_arr.diminfo[2].shape = __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_output_gate_arr.diminfo[3].strides = __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_output_gate_arr.diminfo[3].shape = __pyx_pybuffernd_delta_output_gate_arr.rcbuffer->pybuffer.shape[3];
-    if (unlikely(__pyx_t_14 < 0)) __PYX_ERR(0, 1269, __pyx_L1_error)
+    if (unlikely(__pyx_t_14 < 0)) __PYX_ERR(0, 1336, __pyx_L1_error)
   }
   __pyx_t_26 = 0;
   __Pyx_DECREF_SET(__pyx_v_delta_output_gate_arr, ((PyArrayObject *)__pyx_t_2));
   __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1270
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1337
  * 
  *         delta_output_gate_arr = self.__output_conv.back_propagate(delta_output_gate_arr)
  *         delta_forget_gate_arr = self.__forgot_conv.back_propagate(delta_forget_gate_arr)             # <<<<<<<<<<<<<<
  *         delta_input_gate_arr = self.__input_conv.back_propagate(delta_input_gate_arr)
  *         delta_given_arr = self.__given_conv.back_propagate(delta_given_arr)
  */
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1270, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1337, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_back_propagate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1270, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_back_propagate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1337, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __pyx_t_12 = NULL;
@@ -22025,13 +22997,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_12) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, ((PyObject *)__pyx_v_delta_forget_gate_arr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1270, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, ((PyObject *)__pyx_v_delta_forget_gate_arr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1337, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_1)) {
       PyObject *__pyx_temp[2] = {__pyx_t_12, ((PyObject *)__pyx_v_delta_forget_gate_arr)};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1270, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1337, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else
@@ -22039,25 +23011,25 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
       PyObject *__pyx_temp[2] = {__pyx_t_12, ((PyObject *)__pyx_v_delta_forget_gate_arr)};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1270, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1337, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else
     #endif
     {
-      __pyx_t_11 = PyTuple_New(1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1270, __pyx_L1_error)
+      __pyx_t_11 = PyTuple_New(1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1337, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_12); __pyx_t_12 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_delta_forget_gate_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_forget_gate_arr));
       PyTuple_SET_ITEM(__pyx_t_11, 0+1, ((PyObject *)__pyx_v_delta_forget_gate_arr));
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_11, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1270, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_11, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1337, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1270, __pyx_L1_error)
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1337, __pyx_L1_error)
   __pyx_t_27 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -22074,22 +23046,22 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       __pyx_t_15 = __pyx_t_16 = __pyx_t_17 = 0;
     }
     __pyx_pybuffernd_delta_forget_gate_arr.diminfo[0].strides = __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_forget_gate_arr.diminfo[0].shape = __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_forget_gate_arr.diminfo[1].strides = __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_forget_gate_arr.diminfo[1].shape = __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_forget_gate_arr.diminfo[2].strides = __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_forget_gate_arr.diminfo[2].shape = __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_forget_gate_arr.diminfo[3].strides = __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_forget_gate_arr.diminfo[3].shape = __pyx_pybuffernd_delta_forget_gate_arr.rcbuffer->pybuffer.shape[3];
-    if (unlikely(__pyx_t_14 < 0)) __PYX_ERR(0, 1270, __pyx_L1_error)
+    if (unlikely(__pyx_t_14 < 0)) __PYX_ERR(0, 1337, __pyx_L1_error)
   }
   __pyx_t_27 = 0;
   __Pyx_DECREF_SET(__pyx_v_delta_forget_gate_arr, ((PyArrayObject *)__pyx_t_2));
   __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1271
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1338
  *         delta_output_gate_arr = self.__output_conv.back_propagate(delta_output_gate_arr)
  *         delta_forget_gate_arr = self.__forgot_conv.back_propagate(delta_forget_gate_arr)
  *         delta_input_gate_arr = self.__input_conv.back_propagate(delta_input_gate_arr)             # <<<<<<<<<<<<<<
  *         delta_given_arr = self.__given_conv.back_propagate(delta_given_arr)
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1271, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1338, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_back_propagate); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1271, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_back_propagate); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1338, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -22103,13 +23075,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_1) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_11, ((PyObject *)__pyx_v_delta_input_gate_arr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1271, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_11, ((PyObject *)__pyx_v_delta_input_gate_arr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1338, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_11)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, ((PyObject *)__pyx_v_delta_input_gate_arr)};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1271, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1338, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else
@@ -22117,25 +23089,25 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_11)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, ((PyObject *)__pyx_v_delta_input_gate_arr)};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1271, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1338, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else
     #endif
     {
-      __pyx_t_12 = PyTuple_New(1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1271, __pyx_L1_error)
+      __pyx_t_12 = PyTuple_New(1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1338, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_1); __pyx_t_1 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_delta_input_gate_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_input_gate_arr));
       PyTuple_SET_ITEM(__pyx_t_12, 0+1, ((PyObject *)__pyx_v_delta_input_gate_arr));
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_12, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1271, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_12, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1338, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1271, __pyx_L1_error)
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1338, __pyx_L1_error)
   __pyx_t_28 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -22152,22 +23124,22 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       __pyx_t_17 = __pyx_t_16 = __pyx_t_15 = 0;
     }
     __pyx_pybuffernd_delta_input_gate_arr.diminfo[0].strides = __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_input_gate_arr.diminfo[0].shape = __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_input_gate_arr.diminfo[1].strides = __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_input_gate_arr.diminfo[1].shape = __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_input_gate_arr.diminfo[2].strides = __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_input_gate_arr.diminfo[2].shape = __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_input_gate_arr.diminfo[3].strides = __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_input_gate_arr.diminfo[3].shape = __pyx_pybuffernd_delta_input_gate_arr.rcbuffer->pybuffer.shape[3];
-    if (unlikely(__pyx_t_14 < 0)) __PYX_ERR(0, 1271, __pyx_L1_error)
+    if (unlikely(__pyx_t_14 < 0)) __PYX_ERR(0, 1338, __pyx_L1_error)
   }
   __pyx_t_28 = 0;
   __Pyx_DECREF_SET(__pyx_v_delta_input_gate_arr, ((PyArrayObject *)__pyx_t_2));
   __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1272
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1339
  *         delta_forget_gate_arr = self.__forgot_conv.back_propagate(delta_forget_gate_arr)
  *         delta_input_gate_arr = self.__input_conv.back_propagate(delta_input_gate_arr)
  *         delta_given_arr = self.__given_conv.back_propagate(delta_given_arr)             # <<<<<<<<<<<<<<
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_pre_hidden_arr = np.nansum(
  */
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1272, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1339, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_back_propagate); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1272, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_back_propagate); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1339, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __pyx_t_11 = NULL;
@@ -22181,13 +23153,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_11) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_12, ((PyObject *)__pyx_v_delta_given_arr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1272, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_12, ((PyObject *)__pyx_v_delta_given_arr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1339, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_12)) {
       PyObject *__pyx_temp[2] = {__pyx_t_11, ((PyObject *)__pyx_v_delta_given_arr)};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1272, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_12, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1339, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else
@@ -22195,25 +23167,25 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_12)) {
       PyObject *__pyx_temp[2] = {__pyx_t_11, ((PyObject *)__pyx_v_delta_given_arr)};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1272, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_12, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1339, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else
     #endif
     {
-      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1272, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1339, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_11); __pyx_t_11 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_delta_given_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_given_arr));
       PyTuple_SET_ITEM(__pyx_t_1, 0+1, ((PyObject *)__pyx_v_delta_given_arr));
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1272, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1339, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1272, __pyx_L1_error)
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1339, __pyx_L1_error)
   __pyx_t_29 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -22230,46 +23202,46 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
       __pyx_t_15 = __pyx_t_16 = __pyx_t_17 = 0;
     }
     __pyx_pybuffernd_delta_given_arr.diminfo[0].strides = __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_given_arr.diminfo[0].shape = __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_given_arr.diminfo[1].strides = __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_given_arr.diminfo[1].shape = __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_given_arr.diminfo[2].strides = __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_given_arr.diminfo[2].shape = __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_given_arr.diminfo[3].strides = __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_given_arr.diminfo[3].shape = __pyx_pybuffernd_delta_given_arr.rcbuffer->pybuffer.shape[3];
-    if (unlikely(__pyx_t_14 < 0)) __PYX_ERR(0, 1272, __pyx_L1_error)
+    if (unlikely(__pyx_t_14 < 0)) __PYX_ERR(0, 1339, __pyx_L1_error)
   }
   __pyx_t_29 = 0;
   __Pyx_DECREF_SET(__pyx_v_delta_given_arr, ((PyArrayObject *)__pyx_t_2));
   __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1274
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1341
  *         delta_given_arr = self.__given_conv.back_propagate(delta_given_arr)
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_pre_hidden_arr = np.nansum(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_output_gate_arr,
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1274, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1341, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_nansum); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1274, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_nansum); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 1341, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1275
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1342
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_pre_hidden_arr = np.nansum(
  *             np.array([             # <<<<<<<<<<<<<<
  *                 delta_output_gate_arr,
  *                 delta_forget_gate_arr,
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1275, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1342, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1275, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1342, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1279
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1346
  *                 delta_forget_gate_arr,
  *                 delta_input_gate_arr,
  *                 delta_given_arr             # <<<<<<<<<<<<<<
  *             ]),
  *             axis=0
  */
-  __pyx_t_1 = PyList_New(4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1275, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1342, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_delta_output_gate_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_output_gate_arr));
@@ -22294,14 +23266,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_23) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1275, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1342, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_11)) {
       PyObject *__pyx_temp[2] = {__pyx_t_23, __pyx_t_1};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1275, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1342, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -22310,69 +23282,69 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_11)) {
       PyObject *__pyx_temp[2] = {__pyx_t_23, __pyx_t_1};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1275, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1342, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else
     #endif
     {
-      __pyx_t_20 = PyTuple_New(1+1); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1275, __pyx_L1_error)
+      __pyx_t_20 = PyTuple_New(1+1); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1342, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_20);
       __Pyx_GIVEREF(__pyx_t_23); PyTuple_SET_ITEM(__pyx_t_20, 0, __pyx_t_23); __pyx_t_23 = NULL;
       __Pyx_GIVEREF(__pyx_t_1);
       PyTuple_SET_ITEM(__pyx_t_20, 0+1, __pyx_t_1);
       __pyx_t_1 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_20, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1275, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_20, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1342, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1274
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1341
  *         delta_given_arr = self.__given_conv.back_propagate(delta_given_arr)
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_pre_hidden_arr = np.nansum(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_output_gate_arr,
  */
-  __pyx_t_11 = PyTuple_New(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1274, __pyx_L1_error)
+  __pyx_t_11 = PyTuple_New(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1341, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1281
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1348
  *                 delta_given_arr
  *             ]),
  *             axis=0             # <<<<<<<<<<<<<<
  *         )
  * 
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1281, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1348, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1281, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 1348, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1274
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1341
  *         delta_given_arr = self.__given_conv.back_propagate(delta_given_arr)
  * 
  *         cdef np.ndarray[DOUBLE_t, ndim=4] delta_pre_hidden_arr = np.nansum(             # <<<<<<<<<<<<<<
  *             np.array([
  *                 delta_output_gate_arr,
  */
-  __pyx_t_20 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_11, __pyx_t_2); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1274, __pyx_L1_error)
+  __pyx_t_20 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_11, __pyx_t_2); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1341, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_20);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_20) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_20, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1274, __pyx_L1_error)
+  if (!(likely(((__pyx_t_20) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_20, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 1341, __pyx_L1_error)
   __pyx_t_30 = ((PyArrayObject *)__pyx_t_20);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_pre_hidden_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_30, &__Pyx_TypeInfo_nn___pyx_t_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_DOUBLE_t, PyBUF_FORMAT| PyBUF_STRIDES, 4, 0, __pyx_stack) == -1)) {
       __pyx_v_delta_pre_hidden_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_delta_pre_hidden_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 1274, __pyx_L1_error)
+      __PYX_ERR(0, 1341, __pyx_L1_error)
     } else {__pyx_pybuffernd_delta_pre_hidden_arr.diminfo[0].strides = __pyx_pybuffernd_delta_pre_hidden_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_pre_hidden_arr.diminfo[0].shape = __pyx_pybuffernd_delta_pre_hidden_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_delta_pre_hidden_arr.diminfo[1].strides = __pyx_pybuffernd_delta_pre_hidden_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_delta_pre_hidden_arr.diminfo[1].shape = __pyx_pybuffernd_delta_pre_hidden_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_delta_pre_hidden_arr.diminfo[2].strides = __pyx_pybuffernd_delta_pre_hidden_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_delta_pre_hidden_arr.diminfo[2].shape = __pyx_pybuffernd_delta_pre_hidden_arr.rcbuffer->pybuffer.shape[2]; __pyx_pybuffernd_delta_pre_hidden_arr.diminfo[3].strides = __pyx_pybuffernd_delta_pre_hidden_arr.rcbuffer->pybuffer.strides[3]; __pyx_pybuffernd_delta_pre_hidden_arr.diminfo[3].shape = __pyx_pybuffernd_delta_pre_hidden_arr.rcbuffer->pybuffer.shape[3];
     }
   }
@@ -22380,7 +23352,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_v_delta_pre_hidden_arr = ((PyArrayObject *)__pyx_t_20);
   __pyx_t_20 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1284
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1351
  *         )
  * 
  *         return (delta_pre_hidden_arr, delta_pre_rnn_arr)             # <<<<<<<<<<<<<<
@@ -22388,7 +23360,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *     def save_pre_learned_params(self, dir_name, file_name=None):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_20 = PyTuple_New(2); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1284, __pyx_L1_error)
+  __pyx_t_20 = PyTuple_New(2); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 1351, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_20);
   __Pyx_INCREF(((PyObject *)__pyx_v_delta_pre_hidden_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_pre_hidden_arr));
@@ -22400,7 +23372,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_t_20 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1183
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1250
  *         return (_hidden_activity_arr, _cec_activity_arr)
  * 
  *     def lstm_backward(             # <<<<<<<<<<<<<<
@@ -22481,7 +23453,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1286
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1353
  *         return (delta_pre_hidden_arr, delta_pre_rnn_arr)
  * 
  *     def save_pre_learned_params(self, dir_name, file_name=None):             # <<<<<<<<<<<<<<
@@ -22526,7 +23498,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_dir_name)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 0, 2, 3, 1); __PYX_ERR(0, 1286, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 0, 2, 3, 1); __PYX_ERR(0, 1353, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -22536,7 +23508,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "save_pre_learned_params") < 0)) __PYX_ERR(0, 1286, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "save_pre_learned_params") < 0)) __PYX_ERR(0, 1353, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -22554,7 +23526,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1286, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1353, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.rnn.lstmmodel.conv_lstm_model.ConvLSTMModel.save_pre_learned_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -22581,32 +23553,32 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_INCREF(__pyx_v_dir_name);
   __Pyx_INCREF(__pyx_v_file_name);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1294
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1361
  *             file_name:  File name.
  *         '''
  *         if dir_name[-1] != "/":             # <<<<<<<<<<<<<<
  *             dir_name = dir_name + "/"
  *         if file_name is None:
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_dir_name, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1294, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_dir_name, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1361, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_kp_s__124, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 1294, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_kp_s__124, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 1361, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1295
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1362
  *         '''
  *         if dir_name[-1] != "/":
  *             dir_name = dir_name + "/"             # <<<<<<<<<<<<<<
  *         if file_name is None:
  *             file_name = "conv_lstm_graph"
  */
-    __pyx_t_1 = PyNumber_Add(__pyx_v_dir_name, __pyx_kp_s__124); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1295, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Add(__pyx_v_dir_name, __pyx_kp_s__124); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1362, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF_SET(__pyx_v_dir_name, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1294
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1361
  *             file_name:  File name.
  *         '''
  *         if dir_name[-1] != "/":             # <<<<<<<<<<<<<<
@@ -22615,7 +23587,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1296
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1363
  *         if dir_name[-1] != "/":
  *             dir_name = dir_name + "/"
  *         if file_name is None:             # <<<<<<<<<<<<<<
@@ -22626,7 +23598,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1297
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1364
  *             dir_name = dir_name + "/"
  *         if file_name is None:
  *             file_name = "conv_lstm_graph"             # <<<<<<<<<<<<<<
@@ -22636,7 +23608,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     __Pyx_INCREF(__pyx_n_s_conv_lstm_graph);
     __Pyx_DECREF_SET(__pyx_v_file_name, __pyx_n_s_conv_lstm_graph);
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1296
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1363
  *         if dir_name[-1] != "/":
  *             dir_name = dir_name + "/"
  *         if file_name is None:             # <<<<<<<<<<<<<<
@@ -22646,33 +23618,33 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     goto __pyx_L4;
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1298
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1365
  *         if file_name is None:
  *             file_name = "conv_lstm_graph"
  *         elif ".npz" in file_name:             # <<<<<<<<<<<<<<
  *             file_name = file_name.replace(".npz", "")
  * 
  */
-  __pyx_t_3 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s_npz, __pyx_v_file_name, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 1298, __pyx_L1_error)
+  __pyx_t_3 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s_npz, __pyx_v_file_name, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 1365, __pyx_L1_error)
   __pyx_t_2 = (__pyx_t_3 != 0);
   if (__pyx_t_2) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1299
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1366
  *             file_name = "conv_lstm_graph"
  *         elif ".npz" in file_name:
  *             file_name = file_name.replace(".npz", "")             # <<<<<<<<<<<<<<
  * 
  *         self.graph.save_pre_learned_params(dir_name + file_name + ".npz")
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_file_name, __pyx_n_s_replace); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1299, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_file_name, __pyx_n_s_replace); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1366, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__126, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1299, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__126, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1366, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF_SET(__pyx_v_file_name, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1298
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1365
  *         if file_name is None:
  *             file_name = "conv_lstm_graph"
  *         elif ".npz" in file_name:             # <<<<<<<<<<<<<<
@@ -22682,21 +23654,21 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   __pyx_L4:;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1301
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1368
  *             file_name = file_name.replace(".npz", "")
  * 
  *         self.graph.save_pre_learned_params(dir_name + file_name + ".npz")             # <<<<<<<<<<<<<<
  *         self.__given_conv.graph.save_pre_learned_params(
  *             dir_name + "given_" + file_name + ".npz"
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1301, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1368, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1301, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1368, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Add(__pyx_v_dir_name, __pyx_v_file_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1301, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_v_dir_name, __pyx_v_file_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1368, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = PyNumber_Add(__pyx_t_1, __pyx_kp_s_npz); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1301, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Add(__pyx_t_1, __pyx_kp_s_npz); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1368, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -22710,14 +23682,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_1) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1301, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1368, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_4);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_6};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1301, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1368, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -22726,20 +23698,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_6};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1301, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1368, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else
     #endif
     {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1301, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1368, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_1); __pyx_t_1 = NULL;
       __Pyx_GIVEREF(__pyx_t_6);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_6);
       __pyx_t_6 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1301, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1368, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
@@ -22747,35 +23719,35 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1302
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1369
  * 
  *         self.graph.save_pre_learned_params(dir_name + file_name + ".npz")
  *         self.__given_conv.graph.save_pre_learned_params(             # <<<<<<<<<<<<<<
  *             dir_name + "given_" + file_name + ".npz"
  *         )
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1302, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1369, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1302, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1369, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1302, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1369, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1303
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1370
  *         self.graph.save_pre_learned_params(dir_name + file_name + ".npz")
  *         self.__given_conv.graph.save_pre_learned_params(
  *             dir_name + "given_" + file_name + ".npz"             # <<<<<<<<<<<<<<
  *         )
  *         self.__input_conv.graph.save_pre_learned_params(
  */
-  __pyx_t_7 = PyNumber_Add(__pyx_v_dir_name, __pyx_n_s_given); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1303, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Add(__pyx_v_dir_name, __pyx_n_s_given); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1370, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = PyNumber_Add(__pyx_t_7, __pyx_v_file_name); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1303, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Add(__pyx_t_7, __pyx_v_file_name); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1370, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = PyNumber_Add(__pyx_t_6, __pyx_kp_s_npz); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1303, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Add(__pyx_t_6, __pyx_kp_s_npz); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1370, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -22789,14 +23761,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_6) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1302, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1369, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_4);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_7};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1302, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1369, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -22805,20 +23777,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_7};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1302, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1369, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else
     #endif
     {
-      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1302, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1369, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_6); __pyx_t_6 = NULL;
       __Pyx_GIVEREF(__pyx_t_7);
       PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_7);
       __pyx_t_7 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_1, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1302, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_1, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1369, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
@@ -22826,35 +23798,35 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1305
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1372
  *             dir_name + "given_" + file_name + ".npz"
  *         )
  *         self.__input_conv.graph.save_pre_learned_params(             # <<<<<<<<<<<<<<
  *             dir_name + "input_" + file_name + ".npz"
  *         )
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1305, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1372, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1305, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1372, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1305, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1372, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1306
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1373
  *         )
  *         self.__input_conv.graph.save_pre_learned_params(
  *             dir_name + "input_" + file_name + ".npz"             # <<<<<<<<<<<<<<
  *         )
  *         self.__forgot_conv.graph.save_pre_learned_params(
  */
-  __pyx_t_1 = PyNumber_Add(__pyx_v_dir_name, __pyx_n_s_input); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1306, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_v_dir_name, __pyx_n_s_input); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1373, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = PyNumber_Add(__pyx_t_1, __pyx_v_file_name); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1306, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Add(__pyx_t_1, __pyx_v_file_name); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1373, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Add(__pyx_t_7, __pyx_kp_s_npz); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1306, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_t_7, __pyx_kp_s_npz); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1373, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -22868,14 +23840,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_7) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1305, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1372, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_4);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_1};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1305, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1372, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -22884,20 +23856,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_1};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1305, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1372, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else
     #endif
     {
-      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1305, __pyx_L1_error)
+      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1372, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_7); __pyx_t_7 = NULL;
       __Pyx_GIVEREF(__pyx_t_1);
       PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_1);
       __pyx_t_1 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1305, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1372, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
@@ -22905,35 +23877,35 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1308
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1375
  *             dir_name + "input_" + file_name + ".npz"
  *         )
  *         self.__forgot_conv.graph.save_pre_learned_params(             # <<<<<<<<<<<<<<
  *             dir_name + "forgot_" + file_name + ".npz"
  *         )
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1308, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1375, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1308, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1375, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1308, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1375, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1309
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1376
  *         )
  *         self.__forgot_conv.graph.save_pre_learned_params(
  *             dir_name + "forgot_" + file_name + ".npz"             # <<<<<<<<<<<<<<
  *         )
  *         self.__output_conv.graph.save_pre_learned_params(
  */
-  __pyx_t_6 = PyNumber_Add(__pyx_v_dir_name, __pyx_n_s_forgot); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1309, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Add(__pyx_v_dir_name, __pyx_n_s_forgot); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1376, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_1 = PyNumber_Add(__pyx_t_6, __pyx_v_file_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1309, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_t_6, __pyx_v_file_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1376, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyNumber_Add(__pyx_t_1, __pyx_kp_s_npz); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1309, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Add(__pyx_t_1, __pyx_kp_s_npz); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1376, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -22947,14 +23919,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_1) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1308, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1375, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_4);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_6};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1308, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1375, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -22963,20 +23935,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_6};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1308, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1375, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else
     #endif
     {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1308, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1375, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_1); __pyx_t_1 = NULL;
       __Pyx_GIVEREF(__pyx_t_6);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_6);
       __pyx_t_6 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1308, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1375, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
@@ -22984,35 +23956,35 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1311
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1378
  *             dir_name + "forgot_" + file_name + ".npz"
  *         )
  *         self.__output_conv.graph.save_pre_learned_params(             # <<<<<<<<<<<<<<
  *             dir_name + "output_" + file_name + ".npz"
  *         )
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1311, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1378, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1311, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1378, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1311, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1378, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1312
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1379
  *         )
  *         self.__output_conv.graph.save_pre_learned_params(
  *             dir_name + "output_" + file_name + ".npz"             # <<<<<<<<<<<<<<
  *         )
  * 
  */
-  __pyx_t_7 = PyNumber_Add(__pyx_v_dir_name, __pyx_n_s_output); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1312, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Add(__pyx_v_dir_name, __pyx_n_s_output); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1379, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = PyNumber_Add(__pyx_t_7, __pyx_v_file_name); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1312, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Add(__pyx_t_7, __pyx_v_file_name); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1379, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = PyNumber_Add(__pyx_t_6, __pyx_kp_s_npz); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1312, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Add(__pyx_t_6, __pyx_kp_s_npz); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1379, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -23026,14 +23998,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_6) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1311, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1378, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_4);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_7};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1311, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1378, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -23042,20 +24014,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_7};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1311, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1378, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else
     #endif
     {
-      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1311, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1378, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_6); __pyx_t_6 = NULL;
       __Pyx_GIVEREF(__pyx_t_7);
       PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_7);
       __pyx_t_7 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_1, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1311, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_1, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1378, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
@@ -23063,7 +24035,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1286
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1353
  *         return (delta_pre_hidden_arr, delta_pre_rnn_arr)
  * 
  *     def save_pre_learned_params(self, dir_name, file_name=None):             # <<<<<<<<<<<<<<
@@ -23090,7 +24062,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1315
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1382
  *         )
  * 
  *     def load_pre_learned_params(self, dir_name, file_name=None):             # <<<<<<<<<<<<<<
@@ -23135,7 +24107,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_dir_name)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("load_pre_learned_params", 0, 2, 3, 1); __PYX_ERR(0, 1315, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("load_pre_learned_params", 0, 2, 3, 1); __PYX_ERR(0, 1382, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -23145,7 +24117,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "load_pre_learned_params") < 0)) __PYX_ERR(0, 1315, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "load_pre_learned_params") < 0)) __PYX_ERR(0, 1382, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -23163,7 +24135,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("load_pre_learned_params", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1315, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("load_pre_learned_params", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1382, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.rnn.lstmmodel.conv_lstm_model.ConvLSTMModel.load_pre_learned_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -23190,32 +24162,32 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_INCREF(__pyx_v_dir_name);
   __Pyx_INCREF(__pyx_v_file_name);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1323
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1390
  *             file_name:  File name.
  *         '''
  *         if dir_name[-1] != "/":             # <<<<<<<<<<<<<<
  *             dir_name = dir_name + "/"
  *         if file_name is None:
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_dir_name, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1323, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_dir_name, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1390, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_kp_s__124, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 1323, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_kp_s__124, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 1390, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1324
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1391
  *         '''
  *         if dir_name[-1] != "/":
  *             dir_name = dir_name + "/"             # <<<<<<<<<<<<<<
  *         if file_name is None:
  *             file_name = "conv_lstm_graph"
  */
-    __pyx_t_1 = PyNumber_Add(__pyx_v_dir_name, __pyx_kp_s__124); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1324, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Add(__pyx_v_dir_name, __pyx_kp_s__124); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1391, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF_SET(__pyx_v_dir_name, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1323
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1390
  *             file_name:  File name.
  *         '''
  *         if dir_name[-1] != "/":             # <<<<<<<<<<<<<<
@@ -23224,7 +24196,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1325
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1392
  *         if dir_name[-1] != "/":
  *             dir_name = dir_name + "/"
  *         if file_name is None:             # <<<<<<<<<<<<<<
@@ -23235,7 +24207,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1326
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1393
  *             dir_name = dir_name + "/"
  *         if file_name is None:
  *             file_name = "conv_lstm_graph"             # <<<<<<<<<<<<<<
@@ -23245,7 +24217,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     __Pyx_INCREF(__pyx_n_s_conv_lstm_graph);
     __Pyx_DECREF_SET(__pyx_v_file_name, __pyx_n_s_conv_lstm_graph);
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1325
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1392
  *         if dir_name[-1] != "/":
  *             dir_name = dir_name + "/"
  *         if file_name is None:             # <<<<<<<<<<<<<<
@@ -23255,33 +24227,33 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     goto __pyx_L4;
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1327
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1394
  *         if file_name is None:
  *             file_name = "conv_lstm_graph"
  *         elif ".npz" in file_name:             # <<<<<<<<<<<<<<
  *             file_name = file_name.replace(".npz", "")
  * 
  */
-  __pyx_t_3 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s_npz, __pyx_v_file_name, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 1327, __pyx_L1_error)
+  __pyx_t_3 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s_npz, __pyx_v_file_name, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 1394, __pyx_L1_error)
   __pyx_t_2 = (__pyx_t_3 != 0);
   if (__pyx_t_2) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1328
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1395
  *             file_name = "conv_lstm_graph"
  *         elif ".npz" in file_name:
  *             file_name = file_name.replace(".npz", "")             # <<<<<<<<<<<<<<
  * 
  *         self.graph.load_pre_learned_params(dir_name + file_name + ".npz")
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_file_name, __pyx_n_s_replace); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1328, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_file_name, __pyx_n_s_replace); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1395, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__127, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1328, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__127, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1395, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF_SET(__pyx_v_file_name, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1327
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1394
  *         if file_name is None:
  *             file_name = "conv_lstm_graph"
  *         elif ".npz" in file_name:             # <<<<<<<<<<<<<<
@@ -23291,21 +24263,21 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   __pyx_L4:;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1330
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1397
  *             file_name = file_name.replace(".npz", "")
  * 
  *         self.graph.load_pre_learned_params(dir_name + file_name + ".npz")             # <<<<<<<<<<<<<<
  *         self.__given_conv.graph.load_pre_learned_params(
  *             dir_name + "given_" + file_name + ".npz"
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1330, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1330, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Add(__pyx_v_dir_name, __pyx_v_file_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1330, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_v_dir_name, __pyx_v_file_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = PyNumber_Add(__pyx_t_1, __pyx_kp_s_npz); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1330, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Add(__pyx_t_1, __pyx_kp_s_npz); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -23319,14 +24291,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_1) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1330, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1397, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_4);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_6};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1330, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1397, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -23335,20 +24307,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_6};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1330, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1397, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else
     #endif
     {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1330, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1397, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_1); __pyx_t_1 = NULL;
       __Pyx_GIVEREF(__pyx_t_6);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_6);
       __pyx_t_6 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1330, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1397, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
@@ -23356,35 +24328,35 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1331
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1398
  * 
  *         self.graph.load_pre_learned_params(dir_name + file_name + ".npz")
  *         self.__given_conv.graph.load_pre_learned_params(             # <<<<<<<<<<<<<<
  *             dir_name + "given_" + file_name + ".npz"
  *         )
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1331, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1398, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1331, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1398, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1331, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1398, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1332
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1399
  *         self.graph.load_pre_learned_params(dir_name + file_name + ".npz")
  *         self.__given_conv.graph.load_pre_learned_params(
  *             dir_name + "given_" + file_name + ".npz"             # <<<<<<<<<<<<<<
  *         )
  *         self.__input_conv.graph.load_pre_learned_params(
  */
-  __pyx_t_7 = PyNumber_Add(__pyx_v_dir_name, __pyx_n_s_given); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1332, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Add(__pyx_v_dir_name, __pyx_n_s_given); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1399, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = PyNumber_Add(__pyx_t_7, __pyx_v_file_name); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1332, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Add(__pyx_t_7, __pyx_v_file_name); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1399, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = PyNumber_Add(__pyx_t_6, __pyx_kp_s_npz); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1332, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Add(__pyx_t_6, __pyx_kp_s_npz); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1399, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -23398,14 +24370,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_6) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1331, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1398, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_4);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_7};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1331, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1398, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -23414,20 +24386,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_7};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1331, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1398, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else
     #endif
     {
-      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1331, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1398, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_6); __pyx_t_6 = NULL;
       __Pyx_GIVEREF(__pyx_t_7);
       PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_7);
       __pyx_t_7 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_1, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1331, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_1, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1398, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
@@ -23435,35 +24407,35 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1334
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1401
  *             dir_name + "given_" + file_name + ".npz"
  *         )
  *         self.__input_conv.graph.load_pre_learned_params(             # <<<<<<<<<<<<<<
  *             dir_name + "input_" + file_name + ".npz"
  *         )
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1334, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1401, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1334, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1401, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1334, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1401, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1335
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1402
  *         )
  *         self.__input_conv.graph.load_pre_learned_params(
  *             dir_name + "input_" + file_name + ".npz"             # <<<<<<<<<<<<<<
  *         )
  *         self.__forgot_conv.graph.load_pre_learned_params(
  */
-  __pyx_t_1 = PyNumber_Add(__pyx_v_dir_name, __pyx_n_s_input); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1335, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_v_dir_name, __pyx_n_s_input); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1402, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = PyNumber_Add(__pyx_t_1, __pyx_v_file_name); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1335, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Add(__pyx_t_1, __pyx_v_file_name); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1402, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Add(__pyx_t_7, __pyx_kp_s_npz); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1335, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_t_7, __pyx_kp_s_npz); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1402, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -23477,14 +24449,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_7) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1334, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1401, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_4);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_1};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1334, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1401, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -23493,20 +24465,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_1};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1334, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1401, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else
     #endif
     {
-      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1334, __pyx_L1_error)
+      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1401, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_7); __pyx_t_7 = NULL;
       __Pyx_GIVEREF(__pyx_t_1);
       PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_1);
       __pyx_t_1 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1334, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1401, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
@@ -23514,35 +24486,35 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1337
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1404
  *             dir_name + "input_" + file_name + ".npz"
  *         )
  *         self.__forgot_conv.graph.load_pre_learned_params(             # <<<<<<<<<<<<<<
  *             dir_name + "forgot_" + file_name + ".npz"
  *         )
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1337, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1404, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1337, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1404, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1337, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1404, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1338
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1405
  *         )
  *         self.__forgot_conv.graph.load_pre_learned_params(
  *             dir_name + "forgot_" + file_name + ".npz"             # <<<<<<<<<<<<<<
  *         )
  *         self.__output_conv.graph.load_pre_learned_params(
  */
-  __pyx_t_6 = PyNumber_Add(__pyx_v_dir_name, __pyx_n_s_forgot); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1338, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Add(__pyx_v_dir_name, __pyx_n_s_forgot); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1405, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_1 = PyNumber_Add(__pyx_t_6, __pyx_v_file_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1338, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_t_6, __pyx_v_file_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1405, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyNumber_Add(__pyx_t_1, __pyx_kp_s_npz); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1338, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Add(__pyx_t_1, __pyx_kp_s_npz); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1405, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -23556,14 +24528,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_1) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1337, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1404, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_4);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_6};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1337, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1404, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -23572,20 +24544,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_6};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1337, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1404, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else
     #endif
     {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1337, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1404, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_1); __pyx_t_1 = NULL;
       __Pyx_GIVEREF(__pyx_t_6);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_6);
       __pyx_t_6 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1337, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1404, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
@@ -23593,35 +24565,35 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1340
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1407
  *             dir_name + "forgot_" + file_name + ".npz"
  *         )
  *         self.__output_conv.graph.load_pre_learned_params(             # <<<<<<<<<<<<<<
  *             dir_name + "output_" + file_name + ".npz"
  *         )
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1340, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1407, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1340, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1407, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1340, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1407, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1341
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1408
  *         )
  *         self.__output_conv.graph.load_pre_learned_params(
  *             dir_name + "output_" + file_name + ".npz"             # <<<<<<<<<<<<<<
  *         )
  * 
  */
-  __pyx_t_7 = PyNumber_Add(__pyx_v_dir_name, __pyx_n_s_output); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1341, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Add(__pyx_v_dir_name, __pyx_n_s_output); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1408, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = PyNumber_Add(__pyx_t_7, __pyx_v_file_name); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1341, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Add(__pyx_t_7, __pyx_v_file_name); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1408, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = PyNumber_Add(__pyx_t_6, __pyx_kp_s_npz); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1341, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Add(__pyx_t_6, __pyx_kp_s_npz); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1408, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -23635,14 +24607,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     }
   }
   if (!__pyx_t_6) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1340, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1407, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_4);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_7};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1340, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1407, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -23651,20 +24623,20 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_7};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1340, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1407, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else
     #endif
     {
-      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1340, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1407, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_6); __pyx_t_6 = NULL;
       __Pyx_GIVEREF(__pyx_t_7);
       PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_7);
       __pyx_t_7 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_1, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1340, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_1, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1407, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
@@ -23672,7 +24644,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1315
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1382
  *         )
  * 
  *     def load_pre_learned_params(self, dir_name, file_name=None):             # <<<<<<<<<<<<<<
@@ -23699,7 +24671,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1344
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1411
  *         )
  * 
  *     def get_verificatable_result(self):             # <<<<<<<<<<<<<<
@@ -23731,24 +24703,24 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("get_verificatable_result", 0);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1346
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1413
  *     def get_verificatable_result(self):
  *         ''' getter '''
  *         if isinstance(self.__verificatable_result, VerificatableResult):             # <<<<<<<<<<<<<<
  *             return self.__verificatable_result
  *         else:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__verificatable_re); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1346, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__verificatable_re); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1413, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1346, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1413, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 1346, __pyx_L1_error)
+  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 1413, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_4 = (__pyx_t_3 != 0);
   if (likely(__pyx_t_4)) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1347
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1414
  *         ''' getter '''
  *         if isinstance(self.__verificatable_result, VerificatableResult):
  *             return self.__verificatable_result             # <<<<<<<<<<<<<<
@@ -23756,13 +24728,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *             raise TypeError()
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__verificatable_re); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1347, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__verificatable_re); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1414, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1346
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1413
  *     def get_verificatable_result(self):
  *         ''' getter '''
  *         if isinstance(self.__verificatable_result, VerificatableResult):             # <<<<<<<<<<<<<<
@@ -23771,7 +24743,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1349
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1416
  *             return self.__verificatable_result
  *         else:
  *             raise TypeError()             # <<<<<<<<<<<<<<
@@ -23779,14 +24751,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *     def set_verificatable_result(self, value):
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1349, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1416, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 1349, __pyx_L1_error)
+    __PYX_ERR(0, 1416, __pyx_L1_error)
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1344
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1411
  *         )
  * 
  *     def get_verificatable_result(self):             # <<<<<<<<<<<<<<
@@ -23806,7 +24778,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1351
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1418
  *             raise TypeError()
  * 
  *     def set_verificatable_result(self, value):             # <<<<<<<<<<<<<<
@@ -23847,11 +24819,11 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_verificatable_result", 1, 2, 2, 1); __PYX_ERR(0, 1351, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_verificatable_result", 1, 2, 2, 1); __PYX_ERR(0, 1418, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_verificatable_result") < 0)) __PYX_ERR(0, 1351, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_verificatable_result") < 0)) __PYX_ERR(0, 1418, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -23864,7 +24836,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_verificatable_result", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1351, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_verificatable_result", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1418, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.rnn.lstmmodel.conv_lstm_model.ConvLSTMModel.set_verificatable_result", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -23885,30 +24857,30 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("set_verificatable_result", 0);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1353
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1420
  *     def set_verificatable_result(self, value):
  *         ''' setter '''
  *         if isinstance(value, VerificatableResult):             # <<<<<<<<<<<<<<
  *             self.__verificatable_result = value
  *         else:
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1353, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1420, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 1353, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 1420, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (likely(__pyx_t_3)) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1354
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1421
  *         ''' setter '''
  *         if isinstance(value, VerificatableResult):
  *             self.__verificatable_result = value             # <<<<<<<<<<<<<<
  *         else:
  *             raise TypeError()
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__verificatable_re, __pyx_v_value) < 0) __PYX_ERR(0, 1354, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__verificatable_re, __pyx_v_value) < 0) __PYX_ERR(0, 1421, __pyx_L1_error)
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1353
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1420
  *     def set_verificatable_result(self, value):
  *         ''' setter '''
  *         if isinstance(value, VerificatableResult):             # <<<<<<<<<<<<<<
@@ -23918,7 +24890,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     goto __pyx_L3;
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1356
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1423
  *             self.__verificatable_result = value
  *         else:
  *             raise TypeError()             # <<<<<<<<<<<<<<
@@ -23926,15 +24898,15 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *     verificatable_result = property(get_verificatable_result, set_verificatable_result)
  */
   /*else*/ {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1356, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1423, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 1356, __pyx_L1_error)
+    __PYX_ERR(0, 1423, __pyx_L1_error)
   }
   __pyx_L3:;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1351
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1418
  *             raise TypeError()
  * 
  *     def set_verificatable_result(self, value):             # <<<<<<<<<<<<<<
@@ -23955,7 +24927,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1360
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1427
  *     verificatable_result = property(get_verificatable_result, set_verificatable_result)
  * 
  *     def get_opt_params(self):             # <<<<<<<<<<<<<<
@@ -23987,24 +24959,24 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("get_opt_params", 0);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1362
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1429
  *     def get_opt_params(self):
  *         ''' getter '''
  *         if isinstance(self.__opt_params, OptParams):             # <<<<<<<<<<<<<<
  *             return self.__opt_params
  *         else:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__opt_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1362, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__opt_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1429, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_OptParams); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1362, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_OptParams); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1429, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 1362, __pyx_L1_error)
+  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 1429, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_4 = (__pyx_t_3 != 0);
   if (likely(__pyx_t_4)) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1363
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1430
  *         ''' getter '''
  *         if isinstance(self.__opt_params, OptParams):
  *             return self.__opt_params             # <<<<<<<<<<<<<<
@@ -24012,13 +24984,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *             raise TypeError()
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__opt_params); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1363, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__opt_params); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1430, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1362
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1429
  *     def get_opt_params(self):
  *         ''' getter '''
  *         if isinstance(self.__opt_params, OptParams):             # <<<<<<<<<<<<<<
@@ -24027,7 +24999,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  */
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1365
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1432
  *             return self.__opt_params
  *         else:
  *             raise TypeError()             # <<<<<<<<<<<<<<
@@ -24035,14 +25007,14 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *     def set_opt_params(self, value):
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1365, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1432, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 1365, __pyx_L1_error)
+    __PYX_ERR(0, 1432, __pyx_L1_error)
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1360
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1427
  *     verificatable_result = property(get_verificatable_result, set_verificatable_result)
  * 
  *     def get_opt_params(self):             # <<<<<<<<<<<<<<
@@ -24062,7 +25034,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1367
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1434
  *             raise TypeError()
  * 
  *     def set_opt_params(self, value):             # <<<<<<<<<<<<<<
@@ -24103,11 +25075,11 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_opt_params", 1, 2, 2, 1); __PYX_ERR(0, 1367, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_opt_params", 1, 2, 2, 1); __PYX_ERR(0, 1434, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_opt_params") < 0)) __PYX_ERR(0, 1367, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_opt_params") < 0)) __PYX_ERR(0, 1434, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -24120,7 +25092,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_opt_params", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1367, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_opt_params", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1434, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.rnn.lstmmodel.conv_lstm_model.ConvLSTMModel.set_opt_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -24141,30 +25113,30 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("set_opt_params", 0);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1369
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1436
  *     def set_opt_params(self, value):
  *         ''' setter '''
  *         if isinstance(value, OptParams):             # <<<<<<<<<<<<<<
  *             self.__opt_params = value
  *         else:
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_OptParams); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1369, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_OptParams); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1436, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 1369, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 1436, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (likely(__pyx_t_3)) {
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1370
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1437
  *         ''' setter '''
  *         if isinstance(value, OptParams):
  *             self.__opt_params = value             # <<<<<<<<<<<<<<
  *         else:
  *             raise TypeError()
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__opt_params, __pyx_v_value) < 0) __PYX_ERR(0, 1370, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__opt_params, __pyx_v_value) < 0) __PYX_ERR(0, 1437, __pyx_L1_error)
 
-    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1369
+    /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1436
  *     def set_opt_params(self, value):
  *         ''' setter '''
  *         if isinstance(value, OptParams):             # <<<<<<<<<<<<<<
@@ -24174,7 +25146,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
     goto __pyx_L3;
   }
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1372
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1439
  *             self.__opt_params = value
  *         else:
  *             raise TypeError()             # <<<<<<<<<<<<<<
@@ -24182,15 +25154,15 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *     opt_params = property(get_opt_params, set_opt_params)
  */
   /*else*/ {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1372, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1439, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 1372, __pyx_L1_error)
+    __PYX_ERR(0, 1439, __pyx_L1_error)
   }
   __pyx_L3:;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1367
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1434
  *             raise TypeError()
  * 
  *     def set_opt_params(self, value):             # <<<<<<<<<<<<<<
@@ -24211,7 +25183,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1376
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1443
  *     opt_params = property(get_opt_params, set_opt_params)
  * 
  *     def get_given_conv(self):             # <<<<<<<<<<<<<<
@@ -24240,7 +25212,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_given_conv", 0);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1378
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1445
  *     def get_given_conv(self):
  *         ''' getter '''
  *         return self.__given_conv             # <<<<<<<<<<<<<<
@@ -24248,13 +25220,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *     def set_given_conv(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1378, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1445, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1376
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1443
  *     opt_params = property(get_opt_params, set_opt_params)
  * 
  *     def get_given_conv(self):             # <<<<<<<<<<<<<<
@@ -24273,7 +25245,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1380
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1447
  *         return self.__given_conv
  * 
  *     def set_given_conv(self, value):             # <<<<<<<<<<<<<<
@@ -24314,11 +25286,11 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_given_conv", 1, 2, 2, 1); __PYX_ERR(0, 1380, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_given_conv", 1, 2, 2, 1); __PYX_ERR(0, 1447, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_given_conv") < 0)) __PYX_ERR(0, 1380, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_given_conv") < 0)) __PYX_ERR(0, 1447, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -24331,7 +25303,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_given_conv", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1380, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_given_conv", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1447, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.rnn.lstmmodel.conv_lstm_model.ConvLSTMModel.set_given_conv", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -24349,16 +25321,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_given_conv", 0);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1382
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1449
  *     def set_given_conv(self, value):
  *         ''' setter '''
  *         self.__given_conv = value             # <<<<<<<<<<<<<<
  * 
  *     given_conv = property(get_given_conv, set_given_conv)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv, __pyx_v_value) < 0) __PYX_ERR(0, 1382, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__given_conv, __pyx_v_value) < 0) __PYX_ERR(0, 1449, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1380
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1447
  *         return self.__given_conv
  * 
  *     def set_given_conv(self, value):             # <<<<<<<<<<<<<<
@@ -24378,7 +25350,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1386
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1453
  *     given_conv = property(get_given_conv, set_given_conv)
  * 
  *     def get_input_conv(self):             # <<<<<<<<<<<<<<
@@ -24407,7 +25379,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_input_conv", 0);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1388
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1455
  *     def get_input_conv(self):
  *         ''' getter '''
  *         return self.__input_conv             # <<<<<<<<<<<<<<
@@ -24415,13 +25387,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *     def set_input_conv(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1388, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1455, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1386
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1453
  *     given_conv = property(get_given_conv, set_given_conv)
  * 
  *     def get_input_conv(self):             # <<<<<<<<<<<<<<
@@ -24440,7 +25412,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1390
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1457
  *         return self.__input_conv
  * 
  *     def set_input_conv(self, value):             # <<<<<<<<<<<<<<
@@ -24481,11 +25453,11 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_input_conv", 1, 2, 2, 1); __PYX_ERR(0, 1390, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_input_conv", 1, 2, 2, 1); __PYX_ERR(0, 1457, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_input_conv") < 0)) __PYX_ERR(0, 1390, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_input_conv") < 0)) __PYX_ERR(0, 1457, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -24498,7 +25470,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_input_conv", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1390, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_input_conv", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1457, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.rnn.lstmmodel.conv_lstm_model.ConvLSTMModel.set_input_conv", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -24516,16 +25488,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_input_conv", 0);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1392
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1459
  *     def set_input_conv(self, value):
  *         ''' setter '''
  *         self.__input_conv = value             # <<<<<<<<<<<<<<
  * 
  *     input_conv = property(get_input_conv, set_input_conv)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv, __pyx_v_value) < 0) __PYX_ERR(0, 1392, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__input_conv, __pyx_v_value) < 0) __PYX_ERR(0, 1459, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1390
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1457
  *         return self.__input_conv
  * 
  *     def set_input_conv(self, value):             # <<<<<<<<<<<<<<
@@ -24545,7 +25517,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1396
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1463
  *     input_conv = property(get_input_conv, set_input_conv)
  * 
  *     def get_forgot_conv(self):             # <<<<<<<<<<<<<<
@@ -24574,7 +25546,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_forgot_conv", 0);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1398
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1465
  *     def get_forgot_conv(self):
  *         ''' getter '''
  *         return self.__forgot_conv             # <<<<<<<<<<<<<<
@@ -24582,13 +25554,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *     def set_forgot_conv(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1398, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1465, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1396
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1463
  *     input_conv = property(get_input_conv, set_input_conv)
  * 
  *     def get_forgot_conv(self):             # <<<<<<<<<<<<<<
@@ -24607,7 +25579,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1400
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1467
  *         return self.__forgot_conv
  * 
  *     def set_forgot_conv(self, value):             # <<<<<<<<<<<<<<
@@ -24648,11 +25620,11 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_forgot_conv", 1, 2, 2, 1); __PYX_ERR(0, 1400, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_forgot_conv", 1, 2, 2, 1); __PYX_ERR(0, 1467, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_forgot_conv") < 0)) __PYX_ERR(0, 1400, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_forgot_conv") < 0)) __PYX_ERR(0, 1467, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -24665,7 +25637,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_forgot_conv", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1400, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_forgot_conv", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1467, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.rnn.lstmmodel.conv_lstm_model.ConvLSTMModel.set_forgot_conv", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -24683,16 +25655,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_forgot_conv", 0);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1402
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1469
  *     def set_forgot_conv(self, value):
  *         ''' setter '''
  *         self.__forgot_conv = value             # <<<<<<<<<<<<<<
  * 
  *     forgot_conv = property(get_forgot_conv, set_forgot_conv)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv, __pyx_v_value) < 0) __PYX_ERR(0, 1402, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__forgot_conv, __pyx_v_value) < 0) __PYX_ERR(0, 1469, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1400
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1467
  *         return self.__forgot_conv
  * 
  *     def set_forgot_conv(self, value):             # <<<<<<<<<<<<<<
@@ -24712,7 +25684,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1406
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1473
  *     forgot_conv = property(get_forgot_conv, set_forgot_conv)
  * 
  *     def get_output_conv(self):             # <<<<<<<<<<<<<<
@@ -24741,7 +25713,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_output_conv", 0);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1408
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1475
  *     def get_output_conv(self):
  *         ''' getter '''
  *         return self.__output_conv             # <<<<<<<<<<<<<<
@@ -24749,13 +25721,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *     def set_output_conv(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1408, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1475, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1406
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1473
  *     forgot_conv = property(get_forgot_conv, set_forgot_conv)
  * 
  *     def get_output_conv(self):             # <<<<<<<<<<<<<<
@@ -24774,7 +25746,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   return __pyx_r;
 }
 
-/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1410
+/* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1477
  *         return self.__output_conv
  * 
  *     def set_output_conv(self, value):             # <<<<<<<<<<<<<<
@@ -24815,11 +25787,11 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_output_conv", 1, 2, 2, 1); __PYX_ERR(0, 1410, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_output_conv", 1, 2, 2, 1); __PYX_ERR(0, 1477, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_output_conv") < 0)) __PYX_ERR(0, 1410, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_output_conv") < 0)) __PYX_ERR(0, 1477, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -24832,7 +25804,7 @@ static PyObject *__pyx_pw_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_output_conv", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1410, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_output_conv", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1477, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.rnn.lstmmodel.conv_lstm_model.ConvLSTMModel.set_output_conv", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -24850,16 +25822,16 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_output_conv", 0);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1412
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1479
  *     def set_output_conv(self, value):
  *         ''' setter '''
  *         self.__output_conv = value             # <<<<<<<<<<<<<<
  * 
  *     output_conv = property(get_output_conv, set_output_conv)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv, __pyx_v_value) < 0) __PYX_ERR(0, 1412, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__output_conv, __pyx_v_value) < 0) __PYX_ERR(0, 1479, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1410
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1477
  *         return self.__output_conv
  * 
  *     def set_output_conv(self, value):             # <<<<<<<<<<<<<<
@@ -27483,10 +28455,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_back_propagate, __pyx_k_back_propagate, sizeof(__pyx_k_back_propagate), 0, 0, 1, 1},
   {&__pyx_n_s_back_propagation, __pyx_k_back_propagation, sizeof(__pyx_k_back_propagation), 0, 0, 1, 1},
   {&__pyx_n_s_batch_index, __pyx_k_batch_index, sizeof(__pyx_k_batch_index), 0, 0, 1, 1},
+  {&__pyx_n_s_batch_norm, __pyx_k_batch_norm, sizeof(__pyx_k_batch_norm), 0, 0, 1, 1},
   {&__pyx_n_s_batch_observed_arr, __pyx_k_batch_observed_arr, sizeof(__pyx_k_batch_observed_arr), 0, 0, 1, 1},
   {&__pyx_n_s_batch_size, __pyx_k_batch_size, sizeof(__pyx_k_batch_size), 0, 0, 1, 1},
   {&__pyx_n_s_batch_target_arr, __pyx_k_batch_target_arr, sizeof(__pyx_k_batch_target_arr), 0, 0, 1, 1},
   {&__pyx_n_s_best_params_list, __pyx_k_best_params_list, sizeof(__pyx_k_best_params_list), 0, 0, 1, 1},
+  {&__pyx_n_s_beta_arr, __pyx_k_beta_arr, sizeof(__pyx_k_beta_arr), 0, 0, 1, 1},
   {&__pyx_n_s_bias_arr, __pyx_k_bias_arr, sizeof(__pyx_k_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_bp_count, __pyx_k_bp_count, sizeof(__pyx_k_bp_count), 0, 0, 1, 1},
   {&__pyx_n_s_bptt_tau, __pyx_k_bptt_tau, sizeof(__pyx_k_bptt_tau), 0, 0, 1, 1},
@@ -27512,9 +28486,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_debug, __pyx_k_debug, sizeof(__pyx_k_debug), 0, 0, 1, 1},
   {&__pyx_n_s_delta_arr, __pyx_k_delta_arr, sizeof(__pyx_k_delta_arr), 0, 0, 1, 1},
   {&__pyx_n_s_delta_arr_2, __pyx_k_delta_arr_2, sizeof(__pyx_k_delta_arr_2), 0, 0, 1, 1},
+  {&__pyx_n_s_delta_beta_arr, __pyx_k_delta_beta_arr, sizeof(__pyx_k_delta_beta_arr), 0, 0, 1, 1},
   {&__pyx_n_s_delta_bias_arr, __pyx_k_delta_bias_arr, sizeof(__pyx_k_delta_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_delta_cec_arr, __pyx_k_delta_cec_arr, sizeof(__pyx_k_delta_cec_arr), 0, 0, 1, 1},
   {&__pyx_n_s_delta_forget_gate_arr, __pyx_k_delta_forget_gate_arr, sizeof(__pyx_k_delta_forget_gate_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_delta_gamma_arr, __pyx_k_delta_gamma_arr, sizeof(__pyx_k_delta_gamma_arr), 0, 0, 1, 1},
   {&__pyx_n_s_delta_given_arr, __pyx_k_delta_given_arr, sizeof(__pyx_k_delta_given_arr), 0, 0, 1, 1},
   {&__pyx_n_s_delta_hidden_arr, __pyx_k_delta_hidden_arr, sizeof(__pyx_k_delta_hidden_arr), 0, 0, 1, 1},
   {&__pyx_n_s_delta_hidden_arr_2, __pyx_k_delta_hidden_arr_2, sizeof(__pyx_k_delta_hidden_arr_2), 0, 0, 1, 1},
@@ -27546,6 +28522,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_forgot_conv, __pyx_k_forgot_conv, sizeof(__pyx_k_forgot_conv), 0, 0, 1, 1},
   {&__pyx_n_s_forward_propagate, __pyx_k_forward_propagate, sizeof(__pyx_k_forward_propagate), 0, 0, 1, 1},
   {&__pyx_n_s_forward_propagation, __pyx_k_forward_propagation, sizeof(__pyx_k_forward_propagation), 0, 0, 1, 1},
+  {&__pyx_n_s_gamma_arr, __pyx_k_gamma_arr, sizeof(__pyx_k_gamma_arr), 0, 0, 1, 1},
   {&__pyx_n_s_generate, __pyx_k_generate, sizeof(__pyx_k_generate), 0, 0, 1, 1},
   {&__pyx_n_s_getLogger, __pyx_k_getLogger, sizeof(__pyx_k_getLogger), 0, 0, 1, 1},
   {&__pyx_n_s_get_feature_points, __pyx_k_get_feature_points, sizeof(__pyx_k_get_feature_points), 0, 0, 1, 1},
@@ -27698,7 +28675,7 @@ static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_sum = __Pyx_GetBuiltinName(__pyx_n_s_sum); if (!__pyx_builtin_sum) __PYX_ERR(0, 407, __pyx_L1_error)
   __pyx_builtin_FloatingPointError = __Pyx_GetBuiltinName(__pyx_n_s_FloatingPointError); if (!__pyx_builtin_FloatingPointError) __PYX_ERR(0, 462, __pyx_L1_error)
   __pyx_builtin_KeyboardInterrupt = __Pyx_GetBuiltinName(__pyx_n_s_KeyboardInterrupt); if (!__pyx_builtin_KeyboardInterrupt) __PYX_ERR(0, 537, __pyx_L1_error)
-  __pyx_builtin_reversed = __Pyx_GetBuiltinName(__pyx_n_s_reversed); if (!__pyx_builtin_reversed) __PYX_ERR(0, 1074, __pyx_L1_error)
+  __pyx_builtin_reversed = __Pyx_GetBuiltinName(__pyx_n_s_reversed); if (!__pyx_builtin_reversed) __PYX_ERR(0, 1141, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 810, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 1000, __pyx_L1_error)
   return 0;
@@ -28561,87 +29538,87 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__113);
   __Pyx_GIVEREF(__pyx_tuple__113);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":989
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1056
  *             if self.__seq_len == 0 or cycle == 0:
  *                 self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
  *                     observed_arr[:, cycle, :, :, :],             # <<<<<<<<<<<<<<
  *                     self.graph.hidden_activity_arr,
  *                     self.graph.cec_activity_arr
  */
-  __pyx_slice__114 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__114)) __PYX_ERR(0, 989, __pyx_L1_error)
+  __pyx_slice__114 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__114)) __PYX_ERR(0, 1056, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__114);
   __Pyx_GIVEREF(__pyx_slice__114);
-  __pyx_slice__115 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__115)) __PYX_ERR(0, 989, __pyx_L1_error)
+  __pyx_slice__115 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__115)) __PYX_ERR(0, 1056, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__115);
   __Pyx_GIVEREF(__pyx_slice__115);
-  __pyx_slice__116 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__116)) __PYX_ERR(0, 989, __pyx_L1_error)
+  __pyx_slice__116 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__116)) __PYX_ERR(0, 1056, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__116);
   __Pyx_GIVEREF(__pyx_slice__116);
-  __pyx_slice__117 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__117)) __PYX_ERR(0, 989, __pyx_L1_error)
+  __pyx_slice__117 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__117)) __PYX_ERR(0, 1056, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__117);
   __Pyx_GIVEREF(__pyx_slice__117);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":995
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1062
  *             else:
  *                 self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
  *                     pred_arr[:, cycle-1, :, :, :],             # <<<<<<<<<<<<<<
  *                     self.graph.hidden_activity_arr,
  *                     self.graph.cec_activity_arr
  */
-  __pyx_slice__118 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__118)) __PYX_ERR(0, 995, __pyx_L1_error)
+  __pyx_slice__118 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__118)) __PYX_ERR(0, 1062, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__118);
   __Pyx_GIVEREF(__pyx_slice__118);
-  __pyx_slice__119 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__119)) __PYX_ERR(0, 995, __pyx_L1_error)
+  __pyx_slice__119 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__119)) __PYX_ERR(0, 1062, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__119);
   __Pyx_GIVEREF(__pyx_slice__119);
-  __pyx_slice__120 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__120)) __PYX_ERR(0, 995, __pyx_L1_error)
+  __pyx_slice__120 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__120)) __PYX_ERR(0, 1062, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__120);
   __Pyx_GIVEREF(__pyx_slice__120);
-  __pyx_slice__121 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__121)) __PYX_ERR(0, 995, __pyx_L1_error)
+  __pyx_slice__121 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__121)) __PYX_ERR(0, 1062, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__121);
   __Pyx_GIVEREF(__pyx_slice__121);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1012
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1079
  *                 )
  * 
  *             pred_arr[:, cycle] = self.graph.hidden_activity_arr             # <<<<<<<<<<<<<<
  * 
  *         return pred_arr
  */
-  __pyx_slice__122 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__122)) __PYX_ERR(0, 1012, __pyx_L1_error)
+  __pyx_slice__122 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__122)) __PYX_ERR(0, 1079, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__122);
   __Pyx_GIVEREF(__pyx_slice__122);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1096
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1163
  *                     dtype=np.float64
  *                 )
  *             delta_arr[:, cycle] = delta_hidden_arr             # <<<<<<<<<<<<<<
  * 
  *             if bp_count >= self.__bptt_tau:
  */
-  __pyx_slice__123 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__123)) __PYX_ERR(0, 1096, __pyx_L1_error)
+  __pyx_slice__123 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__123)) __PYX_ERR(0, 1163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__123);
   __Pyx_GIVEREF(__pyx_slice__123);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1299
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1366
  *             file_name = "conv_lstm_graph"
  *         elif ".npz" in file_name:
  *             file_name = file_name.replace(".npz", "")             # <<<<<<<<<<<<<<
  * 
  *         self.graph.save_pre_learned_params(dir_name + file_name + ".npz")
  */
-  __pyx_tuple__126 = PyTuple_Pack(2, __pyx_kp_s_npz, __pyx_kp_s__125); if (unlikely(!__pyx_tuple__126)) __PYX_ERR(0, 1299, __pyx_L1_error)
+  __pyx_tuple__126 = PyTuple_Pack(2, __pyx_kp_s_npz, __pyx_kp_s__125); if (unlikely(!__pyx_tuple__126)) __PYX_ERR(0, 1366, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__126);
   __Pyx_GIVEREF(__pyx_tuple__126);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1328
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1395
  *             file_name = "conv_lstm_graph"
  *         elif ".npz" in file_name:
  *             file_name = file_name.replace(".npz", "")             # <<<<<<<<<<<<<<
  * 
  *         self.graph.load_pre_learned_params(dir_name + file_name + ".npz")
  */
-  __pyx_tuple__127 = PyTuple_Pack(2, __pyx_kp_s_npz, __pyx_kp_s__125); if (unlikely(!__pyx_tuple__127)) __PYX_ERR(0, 1328, __pyx_L1_error)
+  __pyx_tuple__127 = PyTuple_Pack(2, __pyx_kp_s_npz, __pyx_kp_s__125); if (unlikely(!__pyx_tuple__127)) __PYX_ERR(0, 1395, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__127);
   __Pyx_GIVEREF(__pyx_tuple__127);
 
@@ -28850,278 +29827,278 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__154);
   __pyx_codeobj__155 = (PyObject*)__Pyx_PyCode_New(4, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__154, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_optimize, 844, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__155)) __PYX_ERR(0, 844, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":913
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":980
  *         self.__output_conv.reset_delta()
  * 
  *     def inference(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray observed_arr,
  */
-  __pyx_tuple__156 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_observed_arr, __pyx_n_s_hidden_activity_arr, __pyx_n_s_cec_activity_arr, __pyx_n_s_sample_n, __pyx_n_s_cycle_len, __pyx_n_s_pred_arr); if (unlikely(!__pyx_tuple__156)) __PYX_ERR(0, 913, __pyx_L1_error)
+  __pyx_tuple__156 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_observed_arr, __pyx_n_s_hidden_activity_arr, __pyx_n_s_cec_activity_arr, __pyx_n_s_sample_n, __pyx_n_s_cycle_len, __pyx_n_s_pred_arr); if (unlikely(!__pyx_tuple__156)) __PYX_ERR(0, 980, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__156);
   __Pyx_GIVEREF(__pyx_tuple__156);
-  __pyx_codeobj__157 = (PyObject*)__Pyx_PyCode_New(4, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__156, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_inference, 913, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__157)) __PYX_ERR(0, 913, __pyx_L1_error)
-  __pyx_tuple__158 = PyTuple_Pack(2, ((PyObject *)Py_None), ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__158)) __PYX_ERR(0, 913, __pyx_L1_error)
+  __pyx_codeobj__157 = (PyObject*)__Pyx_PyCode_New(4, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__156, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_inference, 980, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__157)) __PYX_ERR(0, 980, __pyx_L1_error)
+  __pyx_tuple__158 = PyTuple_Pack(2, ((PyObject *)Py_None), ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__158)) __PYX_ERR(0, 980, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__158);
   __Pyx_GIVEREF(__pyx_tuple__158);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":951
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1018
  *         return pred_arr
  * 
  *     def get_feature_points(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Extract the activities in hidden layer and reset it,
  */
-  __pyx_tuple__159 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__159)) __PYX_ERR(0, 951, __pyx_L1_error)
+  __pyx_tuple__159 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__159)) __PYX_ERR(0, 1018, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__159);
   __Pyx_GIVEREF(__pyx_tuple__159);
-  __pyx_codeobj__160 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__159, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_get_feature_points, 951, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__160)) __PYX_ERR(0, 951, __pyx_L1_error)
+  __pyx_codeobj__160 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__159, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_get_feature_points, 1018, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__160)) __PYX_ERR(0, 1018, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":961
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1028
  *         return self.graph.hidden_activity_arr
  * 
  *     def hidden_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=5] observed_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Forward propagation in LSTM gate.
  */
-  __pyx_tuple__161 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_observed_arr, __pyx_n_s_sample_n, __pyx_n_s_cycle_len, __pyx_n_s_channel, __pyx_n_s_width, __pyx_n_s_height, __pyx_n_s_pred_arr, __pyx_n_s_cycle); if (unlikely(!__pyx_tuple__161)) __PYX_ERR(0, 961, __pyx_L1_error)
+  __pyx_tuple__161 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_observed_arr, __pyx_n_s_sample_n, __pyx_n_s_cycle_len, __pyx_n_s_channel, __pyx_n_s_width, __pyx_n_s_height, __pyx_n_s_pred_arr, __pyx_n_s_cycle); if (unlikely(!__pyx_tuple__161)) __PYX_ERR(0, 1028, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__161);
   __Pyx_GIVEREF(__pyx_tuple__161);
-  __pyx_codeobj__162 = (PyObject*)__Pyx_PyCode_New(2, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__161, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_hidden_forward_propagate, 961, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__162)) __PYX_ERR(0, 961, __pyx_L1_error)
+  __pyx_codeobj__162 = (PyObject*)__Pyx_PyCode_New(2, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__161, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_hidden_forward_propagate, 1028, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__162)) __PYX_ERR(0, 1028, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1016
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1083
  *         return pred_arr
  * 
  *     def output_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=5] pred_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Forward propagation in output layer.
  */
-  __pyx_tuple__163 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_pred_arr); if (unlikely(!__pyx_tuple__163)) __PYX_ERR(0, 1016, __pyx_L1_error)
+  __pyx_tuple__163 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_pred_arr); if (unlikely(!__pyx_tuple__163)) __PYX_ERR(0, 1083, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__163);
   __Pyx_GIVEREF(__pyx_tuple__163);
-  __pyx_codeobj__164 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__163, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_output_forward_propagate, 1016, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__164)) __PYX_ERR(0, 1016, __pyx_L1_error)
+  __pyx_codeobj__164 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__163, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_output_forward_propagate, 1083, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__164)) __PYX_ERR(0, 1083, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1028
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1095
  *         return pred_arr
  * 
  *     def output_back_propagate(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray[DOUBLE_t, ndim=5] pred_arr,
  */
-  __pyx_tuple__165 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_pred_arr, __pyx_n_s_delta_arr); if (unlikely(!__pyx_tuple__165)) __PYX_ERR(0, 1028, __pyx_L1_error)
+  __pyx_tuple__165 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_pred_arr, __pyx_n_s_delta_arr); if (unlikely(!__pyx_tuple__165)) __PYX_ERR(0, 1095, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__165);
   __Pyx_GIVEREF(__pyx_tuple__165);
-  __pyx_codeobj__166 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__165, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_output_back_propagate, 1028, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__166)) __PYX_ERR(0, 1028, __pyx_L1_error)
+  __pyx_codeobj__166 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__165, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_output_back_propagate, 1095, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__166)) __PYX_ERR(0, 1095, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1047
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1114
  *         return (delta_arr, [])
  * 
  *     def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=4] delta_output_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Back propagation in hidden layer.
  */
-  __pyx_tuple__167 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_delta_output_arr, __pyx_n_s_cycle_len, __pyx_n_s_delta_arr, __pyx_n_s_delta_hidden_arr_2, __pyx_n_s_delta_hidden_arr, __pyx_n_s_delta_cec_arr, __pyx_n_s_bp_count, __pyx_n_s_cycle); if (unlikely(!__pyx_tuple__167)) __PYX_ERR(0, 1047, __pyx_L1_error)
+  __pyx_tuple__167 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_delta_output_arr, __pyx_n_s_cycle_len, __pyx_n_s_delta_arr, __pyx_n_s_delta_hidden_arr_2, __pyx_n_s_delta_hidden_arr, __pyx_n_s_delta_cec_arr, __pyx_n_s_bp_count, __pyx_n_s_cycle); if (unlikely(!__pyx_tuple__167)) __PYX_ERR(0, 1114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__167);
   __Pyx_GIVEREF(__pyx_tuple__167);
-  __pyx_codeobj__168 = (PyObject*)__Pyx_PyCode_New(2, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__167, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_hidden_back_propagate, 1047, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__168)) __PYX_ERR(0, 1047, __pyx_L1_error)
+  __pyx_codeobj__168 = (PyObject*)__Pyx_PyCode_New(2, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__167, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_hidden_back_propagate, 1114, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__168)) __PYX_ERR(0, 1114, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1105
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1172
  *         return delta_arr, delta_hidden_arr, []
  * 
  *     def __lstm_forward(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray[DOUBLE_t, ndim=4] observed_arr,
  */
-  __pyx_tuple__169 = PyTuple_Pack(10, __pyx_n_s_self, __pyx_n_s_observed_arr, __pyx_n_s_hidden_activity_arr, __pyx_n_s_cec_activity_arr, __pyx_n_s_given_activity_arr, __pyx_n_s_input_gate_activity_arr, __pyx_n_s_forget_gate_activity_arr, __pyx_n_s_output_gate_activity_arr, __pyx_n_s_cec_activity_arr_2, __pyx_n_s_hidden_activity_arr_2); if (unlikely(!__pyx_tuple__169)) __PYX_ERR(0, 1105, __pyx_L1_error)
+  __pyx_tuple__169 = PyTuple_Pack(10, __pyx_n_s_self, __pyx_n_s_observed_arr, __pyx_n_s_hidden_activity_arr, __pyx_n_s_cec_activity_arr, __pyx_n_s_given_activity_arr, __pyx_n_s_input_gate_activity_arr, __pyx_n_s_forget_gate_activity_arr, __pyx_n_s_output_gate_activity_arr, __pyx_n_s_cec_activity_arr_2, __pyx_n_s_hidden_activity_arr_2); if (unlikely(!__pyx_tuple__169)) __PYX_ERR(0, 1172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__169);
   __Pyx_GIVEREF(__pyx_tuple__169);
-  __pyx_codeobj__170 = (PyObject*)__Pyx_PyCode_New(4, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__169, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_lstm_forward, 1105, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__170)) __PYX_ERR(0, 1105, __pyx_L1_error)
+  __pyx_codeobj__170 = (PyObject*)__Pyx_PyCode_New(4, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__169, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_lstm_forward, 1172, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__170)) __PYX_ERR(0, 1172, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1183
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1250
  *         return (_hidden_activity_arr, _cec_activity_arr)
  * 
  *     def lstm_backward(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray[DOUBLE_t, ndim=4] delta_hidden_arr,
  */
-  __pyx_tuple__171 = PyTuple_Pack(18, __pyx_n_s_self, __pyx_n_s_delta_hidden_arr, __pyx_n_s_delta_cec_arr, __pyx_n_s_cycle, __pyx_n_s_observed_arr, __pyx_n_s_pre_cec_activity_arr, __pyx_n_s_given_activity_arr, __pyx_n_s_input_gate_activity_arr, __pyx_n_s_forget_gate_activity_arr, __pyx_n_s_output_gate_activity_arr, __pyx_n_s_cec_activity_arr, __pyx_n_s_delta_top_arr, __pyx_n_s_delta_pre_rnn_arr, __pyx_n_s_delta_output_gate_arr, __pyx_n_s_delta_forget_gate_arr, __pyx_n_s_delta_input_gate_arr, __pyx_n_s_delta_given_arr, __pyx_n_s_delta_pre_hidden_arr); if (unlikely(!__pyx_tuple__171)) __PYX_ERR(0, 1183, __pyx_L1_error)
+  __pyx_tuple__171 = PyTuple_Pack(18, __pyx_n_s_self, __pyx_n_s_delta_hidden_arr, __pyx_n_s_delta_cec_arr, __pyx_n_s_cycle, __pyx_n_s_observed_arr, __pyx_n_s_pre_cec_activity_arr, __pyx_n_s_given_activity_arr, __pyx_n_s_input_gate_activity_arr, __pyx_n_s_forget_gate_activity_arr, __pyx_n_s_output_gate_activity_arr, __pyx_n_s_cec_activity_arr, __pyx_n_s_delta_top_arr, __pyx_n_s_delta_pre_rnn_arr, __pyx_n_s_delta_output_gate_arr, __pyx_n_s_delta_forget_gate_arr, __pyx_n_s_delta_input_gate_arr, __pyx_n_s_delta_given_arr, __pyx_n_s_delta_pre_hidden_arr); if (unlikely(!__pyx_tuple__171)) __PYX_ERR(0, 1250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__171);
   __Pyx_GIVEREF(__pyx_tuple__171);
-  __pyx_codeobj__172 = (PyObject*)__Pyx_PyCode_New(4, 0, 18, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__171, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_lstm_backward, 1183, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__172)) __PYX_ERR(0, 1183, __pyx_L1_error)
+  __pyx_codeobj__172 = (PyObject*)__Pyx_PyCode_New(4, 0, 18, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__171, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_lstm_backward, 1250, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__172)) __PYX_ERR(0, 1250, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1286
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1353
  *         return (delta_pre_hidden_arr, delta_pre_rnn_arr)
  * 
  *     def save_pre_learned_params(self, dir_name, file_name=None):             # <<<<<<<<<<<<<<
  *         '''
  *         Save pre-learned parameters.
  */
-  __pyx_tuple__173 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_dir_name, __pyx_n_s_file_name); if (unlikely(!__pyx_tuple__173)) __PYX_ERR(0, 1286, __pyx_L1_error)
+  __pyx_tuple__173 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_dir_name, __pyx_n_s_file_name); if (unlikely(!__pyx_tuple__173)) __PYX_ERR(0, 1353, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__173);
   __Pyx_GIVEREF(__pyx_tuple__173);
-  __pyx_codeobj__174 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__173, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_save_pre_learned_params, 1286, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__174)) __PYX_ERR(0, 1286, __pyx_L1_error)
-  __pyx_tuple__175 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__175)) __PYX_ERR(0, 1286, __pyx_L1_error)
+  __pyx_codeobj__174 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__173, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_save_pre_learned_params, 1353, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__174)) __PYX_ERR(0, 1353, __pyx_L1_error)
+  __pyx_tuple__175 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__175)) __PYX_ERR(0, 1353, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__175);
   __Pyx_GIVEREF(__pyx_tuple__175);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1315
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1382
  *         )
  * 
  *     def load_pre_learned_params(self, dir_name, file_name=None):             # <<<<<<<<<<<<<<
  *         '''
  *         Load pre-learned parameters.
  */
-  __pyx_tuple__176 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_dir_name, __pyx_n_s_file_name); if (unlikely(!__pyx_tuple__176)) __PYX_ERR(0, 1315, __pyx_L1_error)
+  __pyx_tuple__176 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_dir_name, __pyx_n_s_file_name); if (unlikely(!__pyx_tuple__176)) __PYX_ERR(0, 1382, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__176);
   __Pyx_GIVEREF(__pyx_tuple__176);
-  __pyx_codeobj__177 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__176, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_load_pre_learned_params, 1315, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__177)) __PYX_ERR(0, 1315, __pyx_L1_error)
-  __pyx_tuple__178 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__178)) __PYX_ERR(0, 1315, __pyx_L1_error)
+  __pyx_codeobj__177 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__176, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_load_pre_learned_params, 1382, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__177)) __PYX_ERR(0, 1382, __pyx_L1_error)
+  __pyx_tuple__178 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__178)) __PYX_ERR(0, 1382, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__178);
   __Pyx_GIVEREF(__pyx_tuple__178);
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1344
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1411
  *         )
  * 
  *     def get_verificatable_result(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__verificatable_result, VerificatableResult):
  */
-  __pyx_tuple__179 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__179)) __PYX_ERR(0, 1344, __pyx_L1_error)
+  __pyx_tuple__179 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__179)) __PYX_ERR(0, 1411, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__179);
   __Pyx_GIVEREF(__pyx_tuple__179);
-  __pyx_codeobj__180 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__179, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_get_verificatable_result, 1344, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__180)) __PYX_ERR(0, 1344, __pyx_L1_error)
+  __pyx_codeobj__180 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__179, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_get_verificatable_result, 1411, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__180)) __PYX_ERR(0, 1411, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1351
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1418
  *             raise TypeError()
  * 
  *     def set_verificatable_result(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, VerificatableResult):
  */
-  __pyx_tuple__181 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__181)) __PYX_ERR(0, 1351, __pyx_L1_error)
+  __pyx_tuple__181 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__181)) __PYX_ERR(0, 1418, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__181);
   __Pyx_GIVEREF(__pyx_tuple__181);
-  __pyx_codeobj__182 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__181, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_set_verificatable_result, 1351, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__182)) __PYX_ERR(0, 1351, __pyx_L1_error)
+  __pyx_codeobj__182 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__181, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_set_verificatable_result, 1418, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__182)) __PYX_ERR(0, 1418, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1360
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1427
  *     verificatable_result = property(get_verificatable_result, set_verificatable_result)
  * 
  *     def get_opt_params(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__opt_params, OptParams):
  */
-  __pyx_tuple__183 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__183)) __PYX_ERR(0, 1360, __pyx_L1_error)
+  __pyx_tuple__183 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__183)) __PYX_ERR(0, 1427, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__183);
   __Pyx_GIVEREF(__pyx_tuple__183);
-  __pyx_codeobj__184 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__183, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_get_opt_params, 1360, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__184)) __PYX_ERR(0, 1360, __pyx_L1_error)
+  __pyx_codeobj__184 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__183, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_get_opt_params, 1427, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__184)) __PYX_ERR(0, 1427, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1367
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1434
  *             raise TypeError()
  * 
  *     def set_opt_params(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, OptParams):
  */
-  __pyx_tuple__185 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__185)) __PYX_ERR(0, 1367, __pyx_L1_error)
+  __pyx_tuple__185 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__185)) __PYX_ERR(0, 1434, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__185);
   __Pyx_GIVEREF(__pyx_tuple__185);
-  __pyx_codeobj__186 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__185, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_set_opt_params, 1367, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__186)) __PYX_ERR(0, 1367, __pyx_L1_error)
+  __pyx_codeobj__186 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__185, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_set_opt_params, 1434, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__186)) __PYX_ERR(0, 1434, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1376
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1443
  *     opt_params = property(get_opt_params, set_opt_params)
  * 
  *     def get_given_conv(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__given_conv
  */
-  __pyx_tuple__187 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__187)) __PYX_ERR(0, 1376, __pyx_L1_error)
+  __pyx_tuple__187 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__187)) __PYX_ERR(0, 1443, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__187);
   __Pyx_GIVEREF(__pyx_tuple__187);
-  __pyx_codeobj__188 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__187, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_get_given_conv, 1376, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__188)) __PYX_ERR(0, 1376, __pyx_L1_error)
+  __pyx_codeobj__188 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__187, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_get_given_conv, 1443, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__188)) __PYX_ERR(0, 1443, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1380
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1447
  *         return self.__given_conv
  * 
  *     def set_given_conv(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         self.__given_conv = value
  */
-  __pyx_tuple__189 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__189)) __PYX_ERR(0, 1380, __pyx_L1_error)
+  __pyx_tuple__189 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__189)) __PYX_ERR(0, 1447, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__189);
   __Pyx_GIVEREF(__pyx_tuple__189);
-  __pyx_codeobj__190 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__189, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_set_given_conv, 1380, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__190)) __PYX_ERR(0, 1380, __pyx_L1_error)
+  __pyx_codeobj__190 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__189, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_set_given_conv, 1447, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__190)) __PYX_ERR(0, 1447, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1386
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1453
  *     given_conv = property(get_given_conv, set_given_conv)
  * 
  *     def get_input_conv(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__input_conv
  */
-  __pyx_tuple__191 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__191)) __PYX_ERR(0, 1386, __pyx_L1_error)
+  __pyx_tuple__191 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__191)) __PYX_ERR(0, 1453, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__191);
   __Pyx_GIVEREF(__pyx_tuple__191);
-  __pyx_codeobj__192 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__191, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_get_input_conv, 1386, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__192)) __PYX_ERR(0, 1386, __pyx_L1_error)
+  __pyx_codeobj__192 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__191, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_get_input_conv, 1453, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__192)) __PYX_ERR(0, 1453, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1390
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1457
  *         return self.__input_conv
  * 
  *     def set_input_conv(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         self.__input_conv = value
  */
-  __pyx_tuple__193 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__193)) __PYX_ERR(0, 1390, __pyx_L1_error)
+  __pyx_tuple__193 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__193)) __PYX_ERR(0, 1457, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__193);
   __Pyx_GIVEREF(__pyx_tuple__193);
-  __pyx_codeobj__194 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__193, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_set_input_conv, 1390, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__194)) __PYX_ERR(0, 1390, __pyx_L1_error)
+  __pyx_codeobj__194 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__193, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_set_input_conv, 1457, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__194)) __PYX_ERR(0, 1457, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1396
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1463
  *     input_conv = property(get_input_conv, set_input_conv)
  * 
  *     def get_forgot_conv(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__forgot_conv
  */
-  __pyx_tuple__195 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__195)) __PYX_ERR(0, 1396, __pyx_L1_error)
+  __pyx_tuple__195 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__195)) __PYX_ERR(0, 1463, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__195);
   __Pyx_GIVEREF(__pyx_tuple__195);
-  __pyx_codeobj__196 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__195, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_get_forgot_conv, 1396, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__196)) __PYX_ERR(0, 1396, __pyx_L1_error)
+  __pyx_codeobj__196 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__195, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_get_forgot_conv, 1463, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__196)) __PYX_ERR(0, 1463, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1400
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1467
  *         return self.__forgot_conv
  * 
  *     def set_forgot_conv(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         self.__forgot_conv = value
  */
-  __pyx_tuple__197 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__197)) __PYX_ERR(0, 1400, __pyx_L1_error)
+  __pyx_tuple__197 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__197)) __PYX_ERR(0, 1467, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__197);
   __Pyx_GIVEREF(__pyx_tuple__197);
-  __pyx_codeobj__198 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__197, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_set_forgot_conv, 1400, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__198)) __PYX_ERR(0, 1400, __pyx_L1_error)
+  __pyx_codeobj__198 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__197, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_set_forgot_conv, 1467, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__198)) __PYX_ERR(0, 1467, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1406
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1473
  *     forgot_conv = property(get_forgot_conv, set_forgot_conv)
  * 
  *     def get_output_conv(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__output_conv
  */
-  __pyx_tuple__199 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__199)) __PYX_ERR(0, 1406, __pyx_L1_error)
+  __pyx_tuple__199 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__199)) __PYX_ERR(0, 1473, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__199);
   __Pyx_GIVEREF(__pyx_tuple__199);
-  __pyx_codeobj__200 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__199, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_get_output_conv, 1406, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__200)) __PYX_ERR(0, 1406, __pyx_L1_error)
+  __pyx_codeobj__200 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__199, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_get_output_conv, 1473, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__200)) __PYX_ERR(0, 1473, __pyx_L1_error)
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1410
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1477
  *         return self.__output_conv
  * 
  *     def set_output_conv(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         self.__output_conv = value
  */
-  __pyx_tuple__201 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__201)) __PYX_ERR(0, 1410, __pyx_L1_error)
+  __pyx_tuple__201 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__201)) __PYX_ERR(0, 1477, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__201);
   __Pyx_GIVEREF(__pyx_tuple__201);
-  __pyx_codeobj__202 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__201, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_set_output_conv, 1410, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__202)) __PYX_ERR(0, 1410, __pyx_L1_error)
+  __pyx_codeobj__202 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__201, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_rnn_lstmmodel_conv_lstm_mo_2, __pyx_n_s_set_output_conv, 1477, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__202)) __PYX_ERR(0, 1477, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -30177,154 +31154,154 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_optimize, __pyx_t_17) < 0) __PYX_ERR(0, 844, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":913
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":980
  *         self.__output_conv.reset_delta()
  * 
  *     def inference(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray observed_arr,
  */
-  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_19inference, 0, __pyx_n_s_ConvLSTMModel_inference, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__157)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 913, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_19inference, 0, __pyx_n_s_ConvLSTMModel_inference, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__157)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 980, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_17, __pyx_tuple__158);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_inference, __pyx_t_17) < 0) __PYX_ERR(0, 913, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_inference, __pyx_t_17) < 0) __PYX_ERR(0, 980, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":951
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1018
  *         return pred_arr
  * 
  *     def get_feature_points(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Extract the activities in hidden layer and reset it,
  */
-  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_21get_feature_points, 0, __pyx_n_s_ConvLSTMModel_get_feature_points, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__160)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 951, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_21get_feature_points, 0, __pyx_n_s_ConvLSTMModel_get_feature_points, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__160)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1018, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_feature_points, __pyx_t_17) < 0) __PYX_ERR(0, 951, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_feature_points, __pyx_t_17) < 0) __PYX_ERR(0, 1018, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":961
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1028
  *         return self.graph.hidden_activity_arr
  * 
  *     def hidden_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=5] observed_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Forward propagation in LSTM gate.
  */
-  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_23hidden_forward_propagate, 0, __pyx_n_s_ConvLSTMModel_hidden_forward_pro, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__162)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 961, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_23hidden_forward_propagate, 0, __pyx_n_s_ConvLSTMModel_hidden_forward_pro, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__162)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1028, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_hidden_forward_propagate, __pyx_t_17) < 0) __PYX_ERR(0, 961, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_hidden_forward_propagate, __pyx_t_17) < 0) __PYX_ERR(0, 1028, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1016
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1083
  *         return pred_arr
  * 
  *     def output_forward_propagate(self, np.ndarray[DOUBLE_t, ndim=5] pred_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Forward propagation in output layer.
  */
-  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_25output_forward_propagate, 0, __pyx_n_s_ConvLSTMModel_output_forward_pro, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__164)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1016, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_25output_forward_propagate, 0, __pyx_n_s_ConvLSTMModel_output_forward_pro, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__164)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1083, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_output_forward_propagate, __pyx_t_17) < 0) __PYX_ERR(0, 1016, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_output_forward_propagate, __pyx_t_17) < 0) __PYX_ERR(0, 1083, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1028
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1095
  *         return pred_arr
  * 
  *     def output_back_propagate(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray[DOUBLE_t, ndim=5] pred_arr,
  */
-  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_27output_back_propagate, 0, __pyx_n_s_ConvLSTMModel_output_back_propag, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__166)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1028, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_27output_back_propagate, 0, __pyx_n_s_ConvLSTMModel_output_back_propag, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__166)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1095, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_output_back_propagate, __pyx_t_17) < 0) __PYX_ERR(0, 1028, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_output_back_propagate, __pyx_t_17) < 0) __PYX_ERR(0, 1095, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1047
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1114
  *         return (delta_arr, [])
  * 
  *     def hidden_back_propagate(self, np.ndarray[DOUBLE_t, ndim=4] delta_output_arr):             # <<<<<<<<<<<<<<
  *         '''
  *         Back propagation in hidden layer.
  */
-  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_29hidden_back_propagate, 0, __pyx_n_s_ConvLSTMModel_hidden_back_propag, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__168)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1047, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_29hidden_back_propagate, 0, __pyx_n_s_ConvLSTMModel_hidden_back_propag, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__168)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_hidden_back_propagate, __pyx_t_17) < 0) __PYX_ERR(0, 1047, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_hidden_back_propagate, __pyx_t_17) < 0) __PYX_ERR(0, 1114, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1105
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1172
  *         return delta_arr, delta_hidden_arr, []
  * 
  *     def __lstm_forward(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray[DOUBLE_t, ndim=4] observed_arr,
  */
-  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_31__lstm_forward, 0, __pyx_n_s_ConvLSTMModel___lstm_forward, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__170)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1105, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_31__lstm_forward, 0, __pyx_n_s_ConvLSTMModel___lstm_forward, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__170)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_ConvLSTMModel__lstm_forward, __pyx_t_17) < 0) __PYX_ERR(0, 1105, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_ConvLSTMModel__lstm_forward, __pyx_t_17) < 0) __PYX_ERR(0, 1172, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1183
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1250
  *         return (_hidden_activity_arr, _cec_activity_arr)
  * 
  *     def lstm_backward(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray[DOUBLE_t, ndim=4] delta_hidden_arr,
  */
-  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_33lstm_backward, 0, __pyx_n_s_ConvLSTMModel_lstm_backward, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__172)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1183, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_33lstm_backward, 0, __pyx_n_s_ConvLSTMModel_lstm_backward, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__172)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_lstm_backward, __pyx_t_17) < 0) __PYX_ERR(0, 1183, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_lstm_backward, __pyx_t_17) < 0) __PYX_ERR(0, 1250, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1286
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1353
  *         return (delta_pre_hidden_arr, delta_pre_rnn_arr)
  * 
  *     def save_pre_learned_params(self, dir_name, file_name=None):             # <<<<<<<<<<<<<<
  *         '''
  *         Save pre-learned parameters.
  */
-  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_35save_pre_learned_params, 0, __pyx_n_s_ConvLSTMModel_save_pre_learned_p, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__174)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1286, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_35save_pre_learned_params, 0, __pyx_n_s_ConvLSTMModel_save_pre_learned_p, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__174)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1353, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_17, __pyx_tuple__175);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_save_pre_learned_params, __pyx_t_17) < 0) __PYX_ERR(0, 1286, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_save_pre_learned_params, __pyx_t_17) < 0) __PYX_ERR(0, 1353, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1315
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1382
  *         )
  * 
  *     def load_pre_learned_params(self, dir_name, file_name=None):             # <<<<<<<<<<<<<<
  *         '''
  *         Load pre-learned parameters.
  */
-  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_37load_pre_learned_params, 0, __pyx_n_s_ConvLSTMModel_load_pre_learned_p, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__177)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1315, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_37load_pre_learned_params, 0, __pyx_n_s_ConvLSTMModel_load_pre_learned_p, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__177)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1382, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_17, __pyx_tuple__178);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_load_pre_learned_params, __pyx_t_17) < 0) __PYX_ERR(0, 1315, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_load_pre_learned_params, __pyx_t_17) < 0) __PYX_ERR(0, 1382, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1344
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1411
  *         )
  * 
  *     def get_verificatable_result(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__verificatable_result, VerificatableResult):
  */
-  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_39get_verificatable_result, 0, __pyx_n_s_ConvLSTMModel_get_verificatable, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__180)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1344, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_39get_verificatable_result, 0, __pyx_n_s_ConvLSTMModel_get_verificatable, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__180)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1411, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_verificatable_result, __pyx_t_17) < 0) __PYX_ERR(0, 1344, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_verificatable_result, __pyx_t_17) < 0) __PYX_ERR(0, 1411, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1351
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1418
  *             raise TypeError()
  * 
  *     def set_verificatable_result(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, VerificatableResult):
  */
-  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_41set_verificatable_result, 0, __pyx_n_s_ConvLSTMModel_set_verificatable, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__182)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1351, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_41set_verificatable_result, 0, __pyx_n_s_ConvLSTMModel_set_verificatable, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__182)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1418, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_verificatable_result, __pyx_t_17) < 0) __PYX_ERR(0, 1351, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_verificatable_result, __pyx_t_17) < 0) __PYX_ERR(0, 1418, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1358
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1425
  *             raise TypeError()
  * 
  *     verificatable_result = property(get_verificatable_result, set_verificatable_result)             # <<<<<<<<<<<<<<
@@ -30336,16 +31313,16 @@ if (!__Pyx_RefNanny) {
     PyErr_Clear();
     __pyx_t_17 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_verificatable_result);
   }
-  if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1358, __pyx_L1_error)
+  if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1425, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
   __pyx_t_15 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_verificatable_result);
   if (unlikely(!__pyx_t_15)) {
     PyErr_Clear();
     __pyx_t_15 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_verificatable_result);
   }
-  if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1358, __pyx_L1_error)
+  if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1425, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
-  __pyx_t_18 = PyTuple_New(2); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1358, __pyx_L1_error)
+  __pyx_t_18 = PyTuple_New(2); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1425, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
   __Pyx_GIVEREF(__pyx_t_17);
   PyTuple_SET_ITEM(__pyx_t_18, 0, __pyx_t_17);
@@ -30353,37 +31330,37 @@ if (!__Pyx_RefNanny) {
   PyTuple_SET_ITEM(__pyx_t_18, 1, __pyx_t_15);
   __pyx_t_17 = 0;
   __pyx_t_15 = 0;
-  __pyx_t_15 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_18, NULL); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1358, __pyx_L1_error)
+  __pyx_t_15 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_18, NULL); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1425, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
   __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_verificatable_result, __pyx_t_15) < 0) __PYX_ERR(0, 1358, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_verificatable_result, __pyx_t_15) < 0) __PYX_ERR(0, 1425, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1360
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1427
  *     verificatable_result = property(get_verificatable_result, set_verificatable_result)
  * 
  *     def get_opt_params(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__opt_params, OptParams):
  */
-  __pyx_t_15 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_43get_opt_params, 0, __pyx_n_s_ConvLSTMModel_get_opt_params, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__184)); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1360, __pyx_L1_error)
+  __pyx_t_15 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_43get_opt_params, 0, __pyx_n_s_ConvLSTMModel_get_opt_params, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__184)); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1427, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_opt_params, __pyx_t_15) < 0) __PYX_ERR(0, 1360, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_opt_params, __pyx_t_15) < 0) __PYX_ERR(0, 1427, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1367
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1434
  *             raise TypeError()
  * 
  *     def set_opt_params(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, OptParams):
  */
-  __pyx_t_15 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_45set_opt_params, 0, __pyx_n_s_ConvLSTMModel_set_opt_params, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__186)); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1367, __pyx_L1_error)
+  __pyx_t_15 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_45set_opt_params, 0, __pyx_n_s_ConvLSTMModel_set_opt_params, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__186)); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1434, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_opt_params, __pyx_t_15) < 0) __PYX_ERR(0, 1367, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_opt_params, __pyx_t_15) < 0) __PYX_ERR(0, 1434, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1374
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1441
  *             raise TypeError()
  * 
  *     opt_params = property(get_opt_params, set_opt_params)             # <<<<<<<<<<<<<<
@@ -30395,16 +31372,16 @@ if (!__Pyx_RefNanny) {
     PyErr_Clear();
     __pyx_t_15 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_opt_params);
   }
-  if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1374, __pyx_L1_error)
+  if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1441, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
   __pyx_t_18 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_opt_params);
   if (unlikely(!__pyx_t_18)) {
     PyErr_Clear();
     __pyx_t_18 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_opt_params);
   }
-  if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1374, __pyx_L1_error)
+  if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1441, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
-  __pyx_t_17 = PyTuple_New(2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1374, __pyx_L1_error)
+  __pyx_t_17 = PyTuple_New(2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1441, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
   __Pyx_GIVEREF(__pyx_t_15);
   PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_15);
@@ -30412,37 +31389,37 @@ if (!__Pyx_RefNanny) {
   PyTuple_SET_ITEM(__pyx_t_17, 1, __pyx_t_18);
   __pyx_t_15 = 0;
   __pyx_t_18 = 0;
-  __pyx_t_18 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_17, NULL); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1374, __pyx_L1_error)
+  __pyx_t_18 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_17, NULL); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1441, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_opt_params, __pyx_t_18) < 0) __PYX_ERR(0, 1374, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_opt_params, __pyx_t_18) < 0) __PYX_ERR(0, 1441, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1376
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1443
  *     opt_params = property(get_opt_params, set_opt_params)
  * 
  *     def get_given_conv(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__given_conv
  */
-  __pyx_t_18 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_47get_given_conv, 0, __pyx_n_s_ConvLSTMModel_get_given_conv, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__188)); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1376, __pyx_L1_error)
+  __pyx_t_18 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_47get_given_conv, 0, __pyx_n_s_ConvLSTMModel_get_given_conv, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__188)); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1443, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_given_conv, __pyx_t_18) < 0) __PYX_ERR(0, 1376, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_given_conv, __pyx_t_18) < 0) __PYX_ERR(0, 1443, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1380
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1447
  *         return self.__given_conv
  * 
  *     def set_given_conv(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         self.__given_conv = value
  */
-  __pyx_t_18 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_49set_given_conv, 0, __pyx_n_s_ConvLSTMModel_set_given_conv, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__190)); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1380, __pyx_L1_error)
+  __pyx_t_18 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_49set_given_conv, 0, __pyx_n_s_ConvLSTMModel_set_given_conv, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__190)); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1447, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_given_conv, __pyx_t_18) < 0) __PYX_ERR(0, 1380, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_given_conv, __pyx_t_18) < 0) __PYX_ERR(0, 1447, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1384
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1451
  *         self.__given_conv = value
  * 
  *     given_conv = property(get_given_conv, set_given_conv)             # <<<<<<<<<<<<<<
@@ -30454,16 +31431,16 @@ if (!__Pyx_RefNanny) {
     PyErr_Clear();
     __pyx_t_18 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_given_conv);
   }
-  if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1384, __pyx_L1_error)
+  if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
   __pyx_t_17 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_given_conv);
   if (unlikely(!__pyx_t_17)) {
     PyErr_Clear();
     __pyx_t_17 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_given_conv);
   }
-  if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1384, __pyx_L1_error)
+  if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  __pyx_t_15 = PyTuple_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1384, __pyx_L1_error)
+  __pyx_t_15 = PyTuple_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
   __Pyx_GIVEREF(__pyx_t_18);
   PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_t_18);
@@ -30471,37 +31448,37 @@ if (!__Pyx_RefNanny) {
   PyTuple_SET_ITEM(__pyx_t_15, 1, __pyx_t_17);
   __pyx_t_18 = 0;
   __pyx_t_17 = 0;
-  __pyx_t_17 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_15, NULL); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1384, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_15, NULL); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_given_conv, __pyx_t_17) < 0) __PYX_ERR(0, 1384, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_given_conv, __pyx_t_17) < 0) __PYX_ERR(0, 1451, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1386
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1453
  *     given_conv = property(get_given_conv, set_given_conv)
  * 
  *     def get_input_conv(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__input_conv
  */
-  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_51get_input_conv, 0, __pyx_n_s_ConvLSTMModel_get_input_conv, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__192)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1386, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_51get_input_conv, 0, __pyx_n_s_ConvLSTMModel_get_input_conv, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__192)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1453, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_input_conv, __pyx_t_17) < 0) __PYX_ERR(0, 1386, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_input_conv, __pyx_t_17) < 0) __PYX_ERR(0, 1453, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1390
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1457
  *         return self.__input_conv
  * 
  *     def set_input_conv(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         self.__input_conv = value
  */
-  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_53set_input_conv, 0, __pyx_n_s_ConvLSTMModel_set_input_conv, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__194)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1390, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_53set_input_conv, 0, __pyx_n_s_ConvLSTMModel_set_input_conv, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__194)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1457, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_input_conv, __pyx_t_17) < 0) __PYX_ERR(0, 1390, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_input_conv, __pyx_t_17) < 0) __PYX_ERR(0, 1457, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1394
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1461
  *         self.__input_conv = value
  * 
  *     input_conv = property(get_input_conv, set_input_conv)             # <<<<<<<<<<<<<<
@@ -30513,16 +31490,16 @@ if (!__Pyx_RefNanny) {
     PyErr_Clear();
     __pyx_t_17 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_input_conv);
   }
-  if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1394, __pyx_L1_error)
+  if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1461, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
   __pyx_t_15 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_input_conv);
   if (unlikely(!__pyx_t_15)) {
     PyErr_Clear();
     __pyx_t_15 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_input_conv);
   }
-  if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1394, __pyx_L1_error)
+  if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1461, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
-  __pyx_t_18 = PyTuple_New(2); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1394, __pyx_L1_error)
+  __pyx_t_18 = PyTuple_New(2); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1461, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
   __Pyx_GIVEREF(__pyx_t_17);
   PyTuple_SET_ITEM(__pyx_t_18, 0, __pyx_t_17);
@@ -30530,37 +31507,37 @@ if (!__Pyx_RefNanny) {
   PyTuple_SET_ITEM(__pyx_t_18, 1, __pyx_t_15);
   __pyx_t_17 = 0;
   __pyx_t_15 = 0;
-  __pyx_t_15 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_18, NULL); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1394, __pyx_L1_error)
+  __pyx_t_15 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_18, NULL); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1461, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
   __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_input_conv, __pyx_t_15) < 0) __PYX_ERR(0, 1394, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_input_conv, __pyx_t_15) < 0) __PYX_ERR(0, 1461, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1396
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1463
  *     input_conv = property(get_input_conv, set_input_conv)
  * 
  *     def get_forgot_conv(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__forgot_conv
  */
-  __pyx_t_15 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_55get_forgot_conv, 0, __pyx_n_s_ConvLSTMModel_get_forgot_conv, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__196)); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1396, __pyx_L1_error)
+  __pyx_t_15 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_55get_forgot_conv, 0, __pyx_n_s_ConvLSTMModel_get_forgot_conv, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__196)); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1463, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_forgot_conv, __pyx_t_15) < 0) __PYX_ERR(0, 1396, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_forgot_conv, __pyx_t_15) < 0) __PYX_ERR(0, 1463, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1400
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1467
  *         return self.__forgot_conv
  * 
  *     def set_forgot_conv(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         self.__forgot_conv = value
  */
-  __pyx_t_15 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_57set_forgot_conv, 0, __pyx_n_s_ConvLSTMModel_set_forgot_conv, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__198)); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1400, __pyx_L1_error)
+  __pyx_t_15 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_57set_forgot_conv, 0, __pyx_n_s_ConvLSTMModel_set_forgot_conv, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__198)); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1467, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_forgot_conv, __pyx_t_15) < 0) __PYX_ERR(0, 1400, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_forgot_conv, __pyx_t_15) < 0) __PYX_ERR(0, 1467, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1404
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1471
  *         self.__forgot_conv = value
  * 
  *     forgot_conv = property(get_forgot_conv, set_forgot_conv)             # <<<<<<<<<<<<<<
@@ -30572,16 +31549,16 @@ if (!__Pyx_RefNanny) {
     PyErr_Clear();
     __pyx_t_15 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_forgot_conv);
   }
-  if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1404, __pyx_L1_error)
+  if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1471, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
   __pyx_t_18 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_forgot_conv);
   if (unlikely(!__pyx_t_18)) {
     PyErr_Clear();
     __pyx_t_18 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_forgot_conv);
   }
-  if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1404, __pyx_L1_error)
+  if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1471, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
-  __pyx_t_17 = PyTuple_New(2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1404, __pyx_L1_error)
+  __pyx_t_17 = PyTuple_New(2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1471, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
   __Pyx_GIVEREF(__pyx_t_15);
   PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_15);
@@ -30589,37 +31566,37 @@ if (!__Pyx_RefNanny) {
   PyTuple_SET_ITEM(__pyx_t_17, 1, __pyx_t_18);
   __pyx_t_15 = 0;
   __pyx_t_18 = 0;
-  __pyx_t_18 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_17, NULL); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1404, __pyx_L1_error)
+  __pyx_t_18 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_17, NULL); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1471, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_forgot_conv, __pyx_t_18) < 0) __PYX_ERR(0, 1404, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_forgot_conv, __pyx_t_18) < 0) __PYX_ERR(0, 1471, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1406
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1473
  *     forgot_conv = property(get_forgot_conv, set_forgot_conv)
  * 
  *     def get_output_conv(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__output_conv
  */
-  __pyx_t_18 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_59get_output_conv, 0, __pyx_n_s_ConvLSTMModel_get_output_conv, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__200)); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1406, __pyx_L1_error)
+  __pyx_t_18 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_59get_output_conv, 0, __pyx_n_s_ConvLSTMModel_get_output_conv, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__200)); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1473, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_output_conv, __pyx_t_18) < 0) __PYX_ERR(0, 1406, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_output_conv, __pyx_t_18) < 0) __PYX_ERR(0, 1473, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1410
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1477
  *         return self.__output_conv
  * 
  *     def set_output_conv(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         self.__output_conv = value
  */
-  __pyx_t_18 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_61set_output_conv, 0, __pyx_n_s_ConvLSTMModel_set_output_conv, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__202)); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1410, __pyx_L1_error)
+  __pyx_t_18 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMModel_61set_output_conv, 0, __pyx_n_s_ConvLSTMModel_set_output_conv, NULL, __pyx_n_s_pydbm_rnn_lstmmodel_conv_lstm_mo, __pyx_d, ((PyObject *)__pyx_codeobj__202)); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1477, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_output_conv, __pyx_t_18) < 0) __PYX_ERR(0, 1410, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_output_conv, __pyx_t_18) < 0) __PYX_ERR(0, 1477, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
-  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1414
+  /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":1481
  *         self.__output_conv = value
  * 
  *     output_conv = property(get_output_conv, set_output_conv)             # <<<<<<<<<<<<<<
@@ -30629,16 +31606,16 @@ if (!__Pyx_RefNanny) {
     PyErr_Clear();
     __pyx_t_18 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_output_conv);
   }
-  if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1414, __pyx_L1_error)
+  if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 1481, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
   __pyx_t_17 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_output_conv);
   if (unlikely(!__pyx_t_17)) {
     PyErr_Clear();
     __pyx_t_17 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_output_conv);
   }
-  if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1414, __pyx_L1_error)
+  if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1481, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  __pyx_t_15 = PyTuple_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1414, __pyx_L1_error)
+  __pyx_t_15 = PyTuple_New(2); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 1481, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
   __Pyx_GIVEREF(__pyx_t_18);
   PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_t_18);
@@ -30646,10 +31623,10 @@ if (!__Pyx_RefNanny) {
   PyTuple_SET_ITEM(__pyx_t_15, 1, __pyx_t_17);
   __pyx_t_18 = 0;
   __pyx_t_17 = 0;
-  __pyx_t_17 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_15, NULL); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1414, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_15, NULL); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 1481, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_output_conv, __pyx_t_17) < 0) __PYX_ERR(0, 1414, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_output_conv, __pyx_t_17) < 0) __PYX_ERR(0, 1481, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
   /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":22
@@ -32459,6 +33436,19 @@ static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name
     return result;
 }
 
+/* append */
+          static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x) {
+    if (likely(PyList_CheckExact(L))) {
+        if (unlikely(__Pyx_PyList_Append(L, x) < 0)) return -1;
+    } else {
+        PyObject* retval = __Pyx_PyObject_CallMethod1(L, __pyx_n_s_append, x);
+        if (unlikely(!retval))
+            return -1;
+        Py_DECREF(retval);
+    }
+    return 0;
+}
+
 /* pop_index */
           static PyObject* __Pyx__PyObject_PopNewIndex(PyObject* L, PyObject* py_ix) {
     PyObject *r;
@@ -32493,19 +33483,6 @@ static PyObject* __Pyx__PyList_PopIndex(PyObject* L, PyObject* py_ix, Py_ssize_t
     }
 }
 #endif
-
-/* append */
-          static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x) {
-    if (likely(PyList_CheckExact(L))) {
-        if (unlikely(__Pyx_PyList_Append(L, x) < 0)) return -1;
-    } else {
-        PyObject* retval = __Pyx_PyObject_CallMethod1(L, __pyx_n_s_append, x);
-        if (unlikely(!retval))
-            return -1;
-        Py_DECREF(retval);
-    }
-    return 0;
-}
 
 /* BytesEquals */
           static CYTHON_INLINE int __Pyx_PyBytes_Equals(PyObject* s1, PyObject* s2, int equals) {

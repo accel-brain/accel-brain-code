@@ -121,6 +121,10 @@ class LogisticFunction(ActivatingFunctionInterface):
         self.__activity_arr_list.append(activity_arr)
         if len(self.__activity_arr_list) > self.__memory_len:
             self.__activity_arr_list = self.__activity_arr_list[len(self.__activity_arr_list) - self.__memory_len:]
+
+        if self.batch_norm is not None:
+            activity_arr = self.batch_norm.forward_propagation(activity_arr)
+
         return activity_arr
 
     def derivative(self, np.ndarray y):
@@ -133,5 +137,8 @@ class LogisticFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
+        if self.batch_norm is not None:
+            y = self.batch_norm.back_propagation(y)
+
         activity_arr = self.__activity_arr_list.pop(-1)
         return y * (activity_arr * (1 - activity_arr))

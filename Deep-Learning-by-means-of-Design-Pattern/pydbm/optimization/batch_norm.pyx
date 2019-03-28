@@ -26,6 +26,12 @@ class BatchNorm(object):
     test_mode = property(get_test_mode, set_test_mode)
 
     # `np.ndarray` of delta of beta.
+    __beta_arr = None
+
+    # `np.ndarray` of delta of gamma.
+    __gamma_arr = None
+
+    # `np.ndarray` of delta of beta.
     __delta_beta_arr = None
 
     # `np.ndarray` of delta of gamma.
@@ -33,8 +39,6 @@ class BatchNorm(object):
 
     def __init__(
         self, 
-        beta_arr, 
-        gamma_arr, 
         momentum=0.89, 
         init_test_mean_arr=None,
         init_test_var_arr=None
@@ -43,16 +47,15 @@ class BatchNorm(object):
         Init.
 
         Args:
-            beta_arr:               `np.ndarray` of Beta.
-            gamma_arr:              `np.ndarray` of Gamma.
             momentum:               Momentum.
             init_test_mean_arr:     `np.ndarray` of means in inferencing and test mode.
             init_test_var_arr:      `np.ndarray` of variances in inferencing and test mode
         '''
         self.test_mode = False
-        self.__beta_arr = beta_arr
-        self.__gamma_arr = gamma_arr
         self.__momentum = momentum
+
+        self.__beta_arr = None
+        self.__gamma_arr = None
 
         self.__init_test_mean_arr = init_test_mean_arr
         self.__init_test_var_arr = init_test_var_arr
@@ -123,6 +126,11 @@ class BatchNorm(object):
         self.__test_mean_arr = test_mean_arr
         self.__test_var_arr = test_var_arr
 
+        if self.__beta_arr is None:
+            self.__beta_arr = np.zeros_like(z_scored_arr)
+        if self.__gamma_arr is None:
+            self.__gamma_arr = np.ones_like(z_scored_arr)
+
         return (self.__gamma_arr * z_scored_arr + self.__beta_arr).reshape(observed_shape)
 
     def back_propagation(self, np.ndarray delta_arr):
@@ -148,8 +156,8 @@ class BatchNorm(object):
         else:
             _delta_arr = delta_arr.reshape((batch_size, 1, -1))
 
-        cdef np.ndarray[DOUBLE_t, ndim=1] delta_beta_arr = delta_arr.reshape((batch_size, -1)).sum(axis=0)
-        cdef np.ndarray[DOUBLE_t, ndim=1] delta_gamma_arr = (self.__z_scored_arr.reshape((batch_size, -1)) * delta_arr.reshape((batch_size, -1))).sum(axis=0)
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_beta_arr = delta_arr.reshape((batch_size, -1))
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_gamma_arr = self.__z_scored_arr.reshape((batch_size, -1)) * delta_arr.reshape((batch_size, -1))
         self.__delta_beta_arr = delta_beta_arr
         self.__delta_gamma_arr = delta_gamma_arr
 
@@ -160,7 +168,7 @@ class BatchNorm(object):
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_mean_arr
 
         for seq in reversed(range(seq_len)):
-            delta_z_score_arr = self.__gamma_arr * _delta_arr[:, seq]
+            delta_z_score_arr = self.__gamma_arr[:, seq] * _delta_arr[:, seq]
             delta_mean_diff_arr = delta_z_score_arr / self.__std_arr[seq]
             delta_std_arr = -np.sum((delta_z_score_arr * self.__mean_diff_arr[:, seq]) / (np.power(self.__std_arr[seq], 2)), axis=0)
             delta_var_arr = (1/2) * delta_std_arr / self.__std_arr[seq]
@@ -170,6 +178,26 @@ class BatchNorm(object):
 
         delta_arr = _delta_arr.reshape(delta_shape)
         return delta_arr
+
+    def get_beta_arr(self):
+        ''' getter '''
+        return self.__beta_arr
+
+    def set_beta_arr(self, value):
+        ''' setter '''
+        self.__beta_arr = value
+
+    beta_arr = property(get_beta_arr, set_beta_arr)
+
+    def get_gamma_arr(self):
+        ''' getter '''
+        return self.__gamma_arr
+
+    def set_gamma_arr(self, value):
+        ''' setter '''
+        self.__gamma_arr = value
+
+    gamma_arr = property(get_gamma_arr, set_gamma_arr)
 
     def get_delta_beta_arr(self):
         ''' getter '''

@@ -1603,12 +1603,15 @@ static const char __pyx_k_activate[] = "activate";
 static const char __pyx_k_qualname[] = "__qualname__";
 static const char __pyx_k_metaclass[] = "__metaclass__";
 static const char __pyx_k_ValueError[] = "ValueError";
+static const char __pyx_k_batch_norm[] = "batch_norm";
 static const char __pyx_k_derivative[] = "derivative";
 static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_SoftmaxFunction[] = "SoftmaxFunction";
 static const char __pyx_k_Softmax_function[] = "\n    Softmax function.\n    ";
+static const char __pyx_k_back_propagation[] = "back_propagation";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
+static const char __pyx_k_forward_propagation[] = "forward_propagation";
 static const char __pyx_k_SoftmaxFunction_activate[] = "SoftmaxFunction.activate";
 static const char __pyx_k_SoftmaxFunction_derivative[] = "SoftmaxFunction.derivative";
 static const char __pyx_k_ActivatingFunctionInterface[] = "ActivatingFunctionInterface";
@@ -1636,11 +1639,14 @@ static PyObject *__pyx_kp_s_Softmax_function;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_activate;
 static PyObject *__pyx_n_s_axis;
+static PyObject *__pyx_n_s_back_propagation;
+static PyObject *__pyx_n_s_batch_norm;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_derivative;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_exp;
 static PyObject *__pyx_n_s_exp_x;
+static PyObject *__pyx_n_s_forward_propagation;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_max;
@@ -1665,8 +1671,8 @@ static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
 static PyObject *__pyx_n_s_x;
 static PyObject *__pyx_n_s_y;
-static PyObject *__pyx_pf_5pydbm_10activation_16softmax_function_15SoftmaxFunction_activate(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyArrayObject *__pyx_v_x); /* proto */
-static PyObject *__pyx_pf_5pydbm_10activation_16softmax_function_15SoftmaxFunction_2derivative(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyArrayObject *__pyx_v_y); /* proto */
+static PyObject *__pyx_pf_5pydbm_10activation_16softmax_function_15SoftmaxFunction_activate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_x); /* proto */
+static PyObject *__pyx_pf_5pydbm_10activation_16softmax_function_15SoftmaxFunction_2derivative(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_y); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_int_0;
@@ -1698,7 +1704,7 @@ static PyObject *__pyx_pw_5pydbm_10activation_16softmax_function_15SoftmaxFuncti
 static char __pyx_doc_5pydbm_10activation_16softmax_function_15SoftmaxFunction_activate[] = "\n        Return the result from this activation function.\n\n        Args:\n            x   Parameter.\n\n        Returns:\n            The result.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_10activation_16softmax_function_15SoftmaxFunction_1activate = {"activate", (PyCFunction)__pyx_pw_5pydbm_10activation_16softmax_function_15SoftmaxFunction_1activate, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_10activation_16softmax_function_15SoftmaxFunction_activate};
 static PyObject *__pyx_pw_5pydbm_10activation_16softmax_function_15SoftmaxFunction_1activate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  CYTHON_UNUSED PyObject *__pyx_v_self = 0;
+  PyObject *__pyx_v_self = 0;
   PyArrayObject *__pyx_v_x = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -1761,7 +1767,7 @@ static PyObject *__pyx_pw_5pydbm_10activation_16softmax_function_15SoftmaxFuncti
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_10activation_16softmax_function_15SoftmaxFunction_activate(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyArrayObject *__pyx_v_x) {
+static PyObject *__pyx_pf_5pydbm_10activation_16softmax_function_15SoftmaxFunction_activate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_x) {
   PyArrayObject *__pyx_v_exp_x = 0;
   PyArrayObject *__pyx_v_prob = 0;
   PyObject *__pyx_r = NULL;
@@ -1772,6 +1778,8 @@ static PyObject *__pyx_pf_5pydbm_10activation_16softmax_function_15SoftmaxFuncti
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
+  int __pyx_t_7;
+  int __pyx_t_8;
   __Pyx_RefNannySetupContext("activate", 0);
 
   /* "pydbm/activation/softmax_function.pyx":25
@@ -1779,7 +1787,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_16softmax_function_15SoftmaxFuncti
  *         cdef np.ndarray prob
  *         exp_x = np.exp(x - np.max(x))             # <<<<<<<<<<<<<<
  *         prob = exp_x / exp_x.sum(axis=0)
- *         return prob
+ * 
  */
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -1891,8 +1899,8 @@ static PyObject *__pyx_pf_5pydbm_10activation_16softmax_function_15SoftmaxFuncti
  *         cdef np.ndarray prob
  *         exp_x = np.exp(x - np.max(x))
  *         prob = exp_x / exp_x.sum(axis=0)             # <<<<<<<<<<<<<<
- *         return prob
  * 
+ *         if self.batch_norm is not None:
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_exp_x), __pyx_n_s_sum); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -1910,9 +1918,91 @@ static PyObject *__pyx_pf_5pydbm_10activation_16softmax_function_15SoftmaxFuncti
   __pyx_v_prob = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "pydbm/activation/softmax_function.pyx":27
- *         exp_x = np.exp(x - np.max(x))
+  /* "pydbm/activation/softmax_function.pyx":28
  *         prob = exp_x / exp_x.sum(axis=0)
+ * 
+ *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             prob = self.batch_norm.forward_propagation(prob)
+ * 
+ */
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_7 = (__pyx_t_3 != Py_None);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_8 = (__pyx_t_7 != 0);
+  if (__pyx_t_8) {
+
+    /* "pydbm/activation/softmax_function.pyx":29
+ * 
+ *         if self.batch_norm is not None:
+ *             prob = self.batch_norm.forward_propagation(prob)             # <<<<<<<<<<<<<<
+ * 
+ *         return prob
+ */
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 29, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_forward_propagation); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_6 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
+      __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_1);
+      if (likely(__pyx_t_6)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+        __Pyx_INCREF(__pyx_t_6);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_1, function);
+      }
+    }
+    if (!__pyx_t_6) {
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, ((PyObject *)__pyx_v_prob)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 29, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+    } else {
+      #if CYTHON_FAST_PYCALL
+      if (PyFunction_Check(__pyx_t_1)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_6, ((PyObject *)__pyx_v_prob)};
+        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 29, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __Pyx_GOTREF(__pyx_t_3);
+      } else
+      #endif
+      #if CYTHON_FAST_PYCCALL
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_6, ((PyObject *)__pyx_v_prob)};
+        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 29, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __Pyx_GOTREF(__pyx_t_3);
+      } else
+      #endif
+      {
+        __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 29, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_6); __pyx_t_6 = NULL;
+        __Pyx_INCREF(((PyObject *)__pyx_v_prob));
+        __Pyx_GIVEREF(((PyObject *)__pyx_v_prob));
+        PyTuple_SET_ITEM(__pyx_t_5, 0+1, ((PyObject *)__pyx_v_prob));
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 29, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      }
+    }
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 29, __pyx_L1_error)
+    __Pyx_DECREF_SET(__pyx_v_prob, ((PyArrayObject *)__pyx_t_3));
+    __pyx_t_3 = 0;
+
+    /* "pydbm/activation/softmax_function.pyx":28
+ *         prob = exp_x / exp_x.sum(axis=0)
+ * 
+ *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             prob = self.batch_norm.forward_propagation(prob)
+ * 
+ */
+  }
+
+  /* "pydbm/activation/softmax_function.pyx":31
+ *             prob = self.batch_norm.forward_propagation(prob)
+ * 
  *         return prob             # <<<<<<<<<<<<<<
  * 
  *     def derivative(self, np.ndarray y):
@@ -1948,7 +2038,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_16softmax_function_15SoftmaxFuncti
   return __pyx_r;
 }
 
-/* "pydbm/activation/softmax_function.pyx":29
+/* "pydbm/activation/softmax_function.pyx":33
  *         return prob
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
@@ -1961,7 +2051,7 @@ static PyObject *__pyx_pw_5pydbm_10activation_16softmax_function_15SoftmaxFuncti
 static char __pyx_doc_5pydbm_10activation_16softmax_function_15SoftmaxFunction_2derivative[] = "\n        Return of derivative with respect to this activation function.\n\n        Args:\n            y:   The result of activation.\n\n        Returns:\n            The result.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_10activation_16softmax_function_15SoftmaxFunction_3derivative = {"derivative", (PyCFunction)__pyx_pw_5pydbm_10activation_16softmax_function_15SoftmaxFunction_3derivative, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_10activation_16softmax_function_15SoftmaxFunction_2derivative};
 static PyObject *__pyx_pw_5pydbm_10activation_16softmax_function_15SoftmaxFunction_3derivative(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  CYTHON_UNUSED PyObject *__pyx_v_self = 0;
+  PyObject *__pyx_v_self = 0;
   PyArrayObject *__pyx_v_y = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -1989,11 +2079,11 @@ static PyObject *__pyx_pw_5pydbm_10activation_16softmax_function_15SoftmaxFuncti
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, 1); __PYX_ERR(0, 29, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, 1); __PYX_ERR(0, 33, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "derivative") < 0)) __PYX_ERR(0, 29, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "derivative") < 0)) __PYX_ERR(0, 33, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2006,13 +2096,13 @@ static PyObject *__pyx_pw_5pydbm_10activation_16softmax_function_15SoftmaxFuncti
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 29, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 33, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.activation.softmax_function.SoftmaxFunction.derivative", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y), __pyx_ptype_5numpy_ndarray, 1, "y", 0))) __PYX_ERR(0, 29, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y), __pyx_ptype_5numpy_ndarray, 1, "y", 0))) __PYX_ERR(0, 33, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_10activation_16softmax_function_15SoftmaxFunction_2derivative(__pyx_self, __pyx_v_self, __pyx_v_y);
 
   /* function exit code */
@@ -2024,14 +2114,103 @@ static PyObject *__pyx_pw_5pydbm_10activation_16softmax_function_15SoftmaxFuncti
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_10activation_16softmax_function_15SoftmaxFunction_2derivative(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyArrayObject *__pyx_v_y) {
+static PyObject *__pyx_pf_5pydbm_10activation_16softmax_function_15SoftmaxFunction_2derivative(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_y) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("derivative", 0);
+  __Pyx_INCREF((PyObject *)__pyx_v_y);
 
-  /* "pydbm/activation/softmax_function.pyx":39
+  /* "pydbm/activation/softmax_function.pyx":43
  *             The result.
  *         '''
+ *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             y = self.batch_norm.back_propagation(y)
+ * 
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = (__pyx_t_1 != Py_None);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_3 = (__pyx_t_2 != 0);
+  if (__pyx_t_3) {
+
+    /* "pydbm/activation/softmax_function.pyx":44
+ *         '''
+ *         if self.batch_norm is not None:
+ *             y = self.batch_norm.back_propagation(y)             # <<<<<<<<<<<<<<
+ * 
+ *         return y
+ */
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 44, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_back_propagation); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 44, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
+      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_5);
+      if (likely(__pyx_t_4)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+        __Pyx_INCREF(__pyx_t_4);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_5, function);
+      }
+    }
+    if (!__pyx_t_4) {
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, ((PyObject *)__pyx_v_y)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+    } else {
+      #if CYTHON_FAST_PYCALL
+      if (PyFunction_Check(__pyx_t_5)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_4, ((PyObject *)__pyx_v_y)};
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __Pyx_GOTREF(__pyx_t_1);
+      } else
+      #endif
+      #if CYTHON_FAST_PYCCALL
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_4, ((PyObject *)__pyx_v_y)};
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __Pyx_GOTREF(__pyx_t_1);
+      } else
+      #endif
+      {
+        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 44, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
+        __Pyx_INCREF(((PyObject *)__pyx_v_y));
+        __Pyx_GIVEREF(((PyObject *)__pyx_v_y));
+        PyTuple_SET_ITEM(__pyx_t_6, 0+1, ((PyObject *)__pyx_v_y));
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      }
+    }
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 44, __pyx_L1_error)
+    __Pyx_DECREF_SET(__pyx_v_y, ((PyArrayObject *)__pyx_t_1));
+    __pyx_t_1 = 0;
+
+    /* "pydbm/activation/softmax_function.pyx":43
+ *             The result.
+ *         '''
+ *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             y = self.batch_norm.back_propagation(y)
+ * 
+ */
+  }
+
+  /* "pydbm/activation/softmax_function.pyx":46
+ *             y = self.batch_norm.back_propagation(y)
+ * 
  *         return y             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
@@ -2039,7 +2218,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_16softmax_function_15SoftmaxFuncti
   __pyx_r = ((PyObject *)__pyx_v_y);
   goto __pyx_L0;
 
-  /* "pydbm/activation/softmax_function.pyx":29
+  /* "pydbm/activation/softmax_function.pyx":33
  *         return prob
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
@@ -2048,7 +2227,15 @@ static PyObject *__pyx_pf_5pydbm_10activation_16softmax_function_15SoftmaxFuncti
  */
 
   /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_AddTraceback("pydbm.activation.softmax_function.SoftmaxFunction.derivative", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
   __pyx_L0:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_y);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -4566,11 +4753,14 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_activate, __pyx_k_activate, sizeof(__pyx_k_activate), 0, 0, 1, 1},
   {&__pyx_n_s_axis, __pyx_k_axis, sizeof(__pyx_k_axis), 0, 0, 1, 1},
+  {&__pyx_n_s_back_propagation, __pyx_k_back_propagation, sizeof(__pyx_k_back_propagation), 0, 0, 1, 1},
+  {&__pyx_n_s_batch_norm, __pyx_k_batch_norm, sizeof(__pyx_k_batch_norm), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_derivative, __pyx_k_derivative, sizeof(__pyx_k_derivative), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_exp, __pyx_k_exp, sizeof(__pyx_k_exp), 0, 0, 1, 1},
   {&__pyx_n_s_exp_x, __pyx_k_exp_x, sizeof(__pyx_k_exp_x), 0, 0, 1, 1},
+  {&__pyx_n_s_forward_propagation, __pyx_k_forward_propagation, sizeof(__pyx_k_forward_propagation), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_max, __pyx_k_max, sizeof(__pyx_k_max), 0, 0, 1, 1},
@@ -4720,17 +4910,17 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__10);
   __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_softmax_functio_2, __pyx_n_s_activate, 13, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 13, __pyx_L1_error)
 
-  /* "pydbm/activation/softmax_function.pyx":29
+  /* "pydbm/activation/softmax_function.pyx":33
  *         return prob
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
  *         Return of derivative with respect to this activation function.
  */
-  __pyx_tuple__12 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_y); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_tuple__12 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_y); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
-  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_softmax_functio_2, __pyx_n_s_derivative, 29, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_softmax_functio_2, __pyx_n_s_derivative, 33, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5064,16 +5254,16 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_activate, __pyx_t_4) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/activation/softmax_function.pyx":29
+  /* "pydbm/activation/softmax_function.pyx":33
  *         return prob
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
  *         Return of derivative with respect to this activation function.
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_16softmax_function_15SoftmaxFunction_3derivative, 0, __pyx_n_s_SoftmaxFunction_derivative, NULL, __pyx_n_s_pydbm_activation_softmax_functio, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_16softmax_function_15SoftmaxFunction_3derivative, 0, __pyx_n_s_SoftmaxFunction_derivative, NULL, __pyx_n_s_pydbm_activation_softmax_functio, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_derivative, __pyx_t_4) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_derivative, __pyx_t_4) < 0) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "pydbm/activation/softmax_function.pyx":8

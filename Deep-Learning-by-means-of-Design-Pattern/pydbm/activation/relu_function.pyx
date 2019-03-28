@@ -41,6 +41,9 @@ class ReLuFunction(ActivatingFunctionInterface):
             self.__mask_arr_list = self.__mask_arr_list[len(self.__mask_arr_list) - self.__memory_len:]
 
         x = np.maximum(0, x).astype(np.float64)
+        if self.batch_norm is not None:
+            x = self.batch_norm.forward_propagation(x)
+
         return x
 
     def derivative(self, np.ndarray y):
@@ -53,6 +56,9 @@ class ReLuFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
+        if self.batch_norm is not None:
+            y = self.batch_norm.back_propagation(y)
+
         mask_arr = self.__mask_arr_list.pop(-1)
         y[mask_arr] = 0
         return y

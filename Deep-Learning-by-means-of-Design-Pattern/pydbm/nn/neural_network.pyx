@@ -383,13 +383,27 @@ class NeuralNetwork(object):
                 params_list.append(self.__nn_layer_list[i].graph.bias_arr)
                 grads_list.append(self.__nn_layer_list[i].delta_bias_arr)
 
+        for i in range(len(self.__nn_layer_list)):
+            if self.__nn_layer_list[i].graph.activation_function.batch_norm is not None:
+                params_list.append(
+                    self.__nn_layer_list[i].graph.activation_function.batch_norm.beta_arr
+                )
+                grads_list.append(
+                    self.__nn_layer_list[i].graph.activation_function.batch_norm.delta_beta_arr
+                )
+                params_list.append(
+                    self.__nn_layer_list[i].graph.activation_function.batch_norm.gamma_arr
+                )
+                grads_list.append(
+                    self.__nn_layer_list[i].graph.activation_function.batch_norm.delta_gamma_arr
+                )
+
         params_list = self.__opt_params.optimize(
             params_list,
             grads_list,
             learning_rate
         )
-
-        i = 0
+        
         for i in range(len(self.__nn_layer_list)):
             if self.__nn_layer_list[i].delta_weight_arr.shape[0] > 0:
                 self.__nn_layer_list[i].graph.weight_arr = params_list.pop(0)
@@ -401,6 +415,11 @@ class NeuralNetwork(object):
         for i in range(len(self.__nn_layer_list)):
             if self.__nn_layer_list[i].delta_bias_arr.shape[0] > 0:
                 self.__nn_layer_list[i].graph.bias_arr = params_list.pop(0)
+
+        for i in range(len(self.__nn_layer_list)):
+            if self.__nn_layer_list[i].graph.activation_function.batch_norm is not None:
+                self.__nn_layer_list[i].graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+                self.__nn_layer_list[i].graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
 
         for i in range(len(self.__nn_layer_list)):
             if self.__nn_layer_list[i].delta_weight_arr.shape[0] > 0:

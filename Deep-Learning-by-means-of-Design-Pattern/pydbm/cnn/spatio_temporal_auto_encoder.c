@@ -1885,6 +1885,7 @@ static const char __pyx_k_reshape[] = "reshape";
 static const char __pyx_k_seq_len[] = "seq_len";
 static const char __pyx_k_Training[] = "Training: ";
 static const char __pyx_k_activate[] = "activate";
+static const char __pyx_k_beta_arr[] = "beta_arr";
 static const char __pyx_k_bias_arr[] = "bias_arr";
 static const char __pyx_k_conv_arr[] = "conv_arr";
 static const char __pyx_k_convolve[] = "convolve";
@@ -1901,6 +1902,7 @@ static const char __pyx_k_Interrupt[] = "Interrupt.";
 static const char __pyx_k_OptParams[] = "OptParams";
 static const char __pyx_k_TypeError[] = "TypeError";
 static const char __pyx_k_delta_arr[] = "delta_arr";
+static const char __pyx_k_gamma_arr[] = "gamma_arr";
 static const char __pyx_k_getLogger[] = "getLogger";
 static const char __pyx_k_inference[] = "inference";
 static const char __pyx_k_loss_list[] = "loss_list";
@@ -1909,6 +1911,7 @@ static const char __pyx_k_save_flag[] = "save_flag";
 static const char __pyx_k_test_loss[] = "test_loss";
 static const char __pyx_k_transpose[] = "transpose";
 static const char __pyx_k_ValueError[] = "ValueError";
+static const char __pyx_k_batch_norm[] = "batch_norm";
 static const char __pyx_k_batch_size[] = "batch_size";
 static const char __pyx_k_deconv_arr[] = "deconv_arr";
 static const char __pyx_k_deconvolve[] = "deconvolve";
@@ -1947,6 +1950,7 @@ static const char __pyx_k_test_pred_arr[] = "test_pred_arr_";
 static const char __pyx_k_ComputableLoss[] = "ComputableLoss";
 static const char __pyx_k_back_propagate[] = "back_propagate";
 static const char __pyx_k_conv_input_arr[] = "conv_input_arr";
+static const char __pyx_k_delta_beta_arr[] = "delta_beta_arr";
 static const char __pyx_k_delta_bias_arr[] = "delta_bias_arr";
 static const char __pyx_k_eary_stop_flag[] = "eary_stop_flag";
 static const char __pyx_k_lstm_input_arr[] = "lstm_input_arr";
@@ -1956,6 +1960,7 @@ static const char __pyx_k_train_pred_arr[] = "train_pred_arr";
 static const char __pyx_k_attenuate_epoch[] = "attenuate_epoch";
 static const char __pyx_k_computable_loss[] = "computable_loss";
 static const char __pyx_k_conv_output_arr[] = "conv_output_arr";
+static const char __pyx_k_delta_gamma_arr[] = "delta_gamma_arr";
 static const char __pyx_k_learn_generated[] = "learn_generated";
 static const char __pyx_k_pre_learned_dir[] = "pre_learned_dir";
 static const char __pyx_k_test_pred_arr_2[] = "test_pred_arr";
@@ -2229,11 +2234,13 @@ static PyObject *__pyx_kp_s_b;
 static PyObject *__pyx_n_s_back_propagate;
 static PyObject *__pyx_n_s_back_propagation;
 static PyObject *__pyx_n_s_batch_index;
+static PyObject *__pyx_n_s_batch_norm;
 static PyObject *__pyx_n_s_batch_observed_arr;
 static PyObject *__pyx_n_s_batch_size;
 static PyObject *__pyx_n_s_batch_target_arr;
 static PyObject *__pyx_n_s_best_bias_params_list;
 static PyObject *__pyx_n_s_best_weight_params_list;
+static PyObject *__pyx_n_s_beta_arr;
 static PyObject *__pyx_n_s_bias_arr;
 static PyObject *__pyx_n_s_change_inferencing_mode;
 static PyObject *__pyx_n_s_channel;
@@ -2257,7 +2264,9 @@ static PyObject *__pyx_n_s_deconv_arr;
 static PyObject *__pyx_n_s_deconv_output_arr;
 static PyObject *__pyx_n_s_deconvolve;
 static PyObject *__pyx_n_s_delta_arr;
+static PyObject *__pyx_n_s_delta_beta_arr;
 static PyObject *__pyx_n_s_delta_bias_arr;
+static PyObject *__pyx_n_s_delta_gamma_arr;
 static PyObject *__pyx_n_s_delta_hidden_arr;
 static PyObject *__pyx_n_s_delta_weight_arr;
 static PyObject *__pyx_n_s_derivative;
@@ -2280,6 +2289,7 @@ static PyObject *__pyx_n_s_feature_generator;
 static PyObject *__pyx_n_s_forward_propagation;
 static PyObject *__pyx_n_s_fully_connected_activation;
 static PyObject *__pyx_n_s_fully_connected_dim;
+static PyObject *__pyx_n_s_gamma_arr;
 static PyObject *__pyx_n_s_generate;
 static PyObject *__pyx_n_s_getLogger;
 static PyObject *__pyx_n_s_get_feature_points;
@@ -16800,11 +16810,12 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   Py_ssize_t __pyx_t_4;
   PyObject *__pyx_t_5 = NULL;
   int __pyx_t_6;
-  PyObject *__pyx_t_7 = NULL;
-  PyObject *__pyx_t_8 = NULL;
-  int __pyx_t_9;
+  int __pyx_t_7;
+  int __pyx_t_8;
+  PyObject *__pyx_t_9 = NULL;
   PyObject *__pyx_t_10 = NULL;
   int __pyx_t_11;
+  PyObject *__pyx_t_12 = NULL;
   __Pyx_RefNannySetupContext("optimize", 0);
 
   /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":826
@@ -16927,7 +16938,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  *             params_list.append(self.__layerable_cnn_list[i].graph.bias_arr)
  *             grads_list.append(self.__layerable_cnn_list[i].delta_bias_arr)             # <<<<<<<<<<<<<<
  * 
- *         params_list = self.__opt_params.optimize(
+ *         for i in range(len(self.__layerable_cnn_list)):
  */
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 834, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
@@ -16944,91 +16955,282 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":836
  *             grads_list.append(self.__layerable_cnn_list[i].delta_bias_arr)
  * 
+ *         for i in range(len(self.__layerable_cnn_list)):             # <<<<<<<<<<<<<<
+ *             if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:
+ *                 params_list.append(
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 836, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 836, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_3 = __pyx_t_2;
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v_i = __pyx_t_4;
+
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":837
+ * 
+ *         for i in range(len(self.__layerable_cnn_list)):
+ *             if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *                 params_list.append(
+ *                     self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 837, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 837, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 837, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 837, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 837, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_7 = (__pyx_t_1 != Py_None);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_8 = (__pyx_t_7 != 0);
+    if (__pyx_t_8) {
+
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":839
+ *             if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:
+ *                 params_list.append(
+ *                     self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr             # <<<<<<<<<<<<<<
+ *                 )
+ *                 grads_list.append(
+ */
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 839, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 839, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 839, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 839, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 839, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_beta_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 839, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":838
+ *         for i in range(len(self.__layerable_cnn_list)):
+ *             if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:
+ *                 params_list.append(             # <<<<<<<<<<<<<<
+ *                     self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr
+ *                 )
+ */
+      __pyx_t_6 = __Pyx_PyObject_Append(__pyx_v_params_list, __pyx_t_5); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 838, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":842
+ *                 )
+ *                 grads_list.append(
+ *                     self.__layerable_cnn_list[i].graph.activation_function.batch_norm.delta_beta_arr             # <<<<<<<<<<<<<<
+ *                 )
+ *                 params_list.append(
+ */
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 842, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_5, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 842, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_graph); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 842, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 842, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 842, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_delta_beta_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 842, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":841
+ *                     self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr
+ *                 )
+ *                 grads_list.append(             # <<<<<<<<<<<<<<
+ *                     self.__layerable_cnn_list[i].graph.activation_function.batch_norm.delta_beta_arr
+ *                 )
+ */
+      __pyx_t_6 = __Pyx_PyList_Append(__pyx_v_grads_list, __pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 841, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":845
+ *                 )
+ *                 params_list.append(
+ *                     self.__layerable_cnn_list[i].graph.activation_function.batch_norm.gamma_arr             # <<<<<<<<<<<<<<
+ *                 )
+ *                 grads_list.append(
+ */
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 845, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 845, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 845, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 845, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 845, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_gamma_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 845, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":844
+ *                     self.__layerable_cnn_list[i].graph.activation_function.batch_norm.delta_beta_arr
+ *                 )
+ *                 params_list.append(             # <<<<<<<<<<<<<<
+ *                     self.__layerable_cnn_list[i].graph.activation_function.batch_norm.gamma_arr
+ *                 )
+ */
+      __pyx_t_6 = __Pyx_PyObject_Append(__pyx_v_params_list, __pyx_t_5); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 844, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":848
+ *                 )
+ *                 grads_list.append(
+ *                     self.__layerable_cnn_list[i].graph.activation_function.batch_norm.delta_gamma_arr             # <<<<<<<<<<<<<<
+ *                 )
+ * 
+ */
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 848, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_5, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 848, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_graph); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 848, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 848, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 848, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_delta_gamma_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 848, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":847
+ *                     self.__layerable_cnn_list[i].graph.activation_function.batch_norm.gamma_arr
+ *                 )
+ *                 grads_list.append(             # <<<<<<<<<<<<<<
+ *                     self.__layerable_cnn_list[i].graph.activation_function.batch_norm.delta_gamma_arr
+ *                 )
+ */
+      __pyx_t_6 = __Pyx_PyList_Append(__pyx_v_grads_list, __pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 847, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":837
+ * 
+ *         for i in range(len(self.__layerable_cnn_list)):
+ *             if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *                 params_list.append(
+ *                     self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr
+ */
+    }
+  }
+
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":851
+ *                 )
+ * 
  *         params_list = self.__opt_params.optimize(             # <<<<<<<<<<<<<<
  *             params_list,
  *             grads_list,
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__opt); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 836, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__opt); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 851, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_optimize); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 836, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_optimize); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 851, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":839
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":854
  *             params_list,
  *             grads_list,
  *             learning_rate             # <<<<<<<<<<<<<<
  *         )
  * 
  */
-  __pyx_t_5 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 839, __pyx_L1_error)
+  __pyx_t_5 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 854, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_8 = NULL;
-  __pyx_t_9 = 0;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
-    __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_7);
-    if (likely(__pyx_t_8)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
-      __Pyx_INCREF(__pyx_t_8);
+  __pyx_t_10 = NULL;
+  __pyx_t_11 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_9))) {
+    __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_9);
+    if (likely(__pyx_t_10)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
+      __Pyx_INCREF(__pyx_t_10);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_7, function);
-      __pyx_t_9 = 1;
+      __Pyx_DECREF_SET(__pyx_t_9, function);
+      __pyx_t_11 = 1;
     }
   }
   #if CYTHON_FAST_PYCALL
-  if (PyFunction_Check(__pyx_t_7)) {
-    PyObject *__pyx_temp[4] = {__pyx_t_8, __pyx_v_params_list, __pyx_v_grads_list, __pyx_t_5};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_9, 3+__pyx_t_9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 836, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+  if (PyFunction_Check(__pyx_t_9)) {
+    PyObject *__pyx_temp[4] = {__pyx_t_10, __pyx_v_params_list, __pyx_v_grads_list, __pyx_t_5};
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_9, __pyx_temp+1-__pyx_t_11, 3+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 851, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
-  if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
-    PyObject *__pyx_temp[4] = {__pyx_t_8, __pyx_v_params_list, __pyx_v_grads_list, __pyx_t_5};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_9, 3+__pyx_t_9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 836, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_9)) {
+    PyObject *__pyx_temp[4] = {__pyx_t_10, __pyx_v_params_list, __pyx_v_grads_list, __pyx_t_5};
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_9, __pyx_temp+1-__pyx_t_11, 3+__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 851, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   } else
   #endif
   {
-    __pyx_t_10 = PyTuple_New(3+__pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 836, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_10);
-    if (__pyx_t_8) {
-      __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_8); __pyx_t_8 = NULL;
+    __pyx_t_12 = PyTuple_New(3+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 851, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    if (__pyx_t_10) {
+      __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_10); __pyx_t_10 = NULL;
     }
     __Pyx_INCREF(__pyx_v_params_list);
     __Pyx_GIVEREF(__pyx_v_params_list);
-    PyTuple_SET_ITEM(__pyx_t_10, 0+__pyx_t_9, __pyx_v_params_list);
+    PyTuple_SET_ITEM(__pyx_t_12, 0+__pyx_t_11, __pyx_v_params_list);
     __Pyx_INCREF(__pyx_v_grads_list);
     __Pyx_GIVEREF(__pyx_v_grads_list);
-    PyTuple_SET_ITEM(__pyx_t_10, 1+__pyx_t_9, __pyx_v_grads_list);
+    PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_11, __pyx_v_grads_list);
     __Pyx_GIVEREF(__pyx_t_5);
-    PyTuple_SET_ITEM(__pyx_t_10, 2+__pyx_t_9, __pyx_t_5);
+    PyTuple_SET_ITEM(__pyx_t_12, 2+__pyx_t_11, __pyx_t_5);
     __pyx_t_5 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_10, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 836, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 851, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   }
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __Pyx_DECREF_SET(__pyx_v_params_list, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":842
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":857
  *         )
  * 
  *         params_dict = {}             # <<<<<<<<<<<<<<
  *         i = 0
  *         for i in range(len(self.__layerable_cnn_list)):
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 842, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 857, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_params_dict = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":843
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":858
  * 
  *         params_dict = {}
  *         i = 0             # <<<<<<<<<<<<<<
@@ -17037,162 +17239,162 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  */
   __pyx_v_i = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":844
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":859
  *         params_dict = {}
  *         i = 0
  *         for i in range(len(self.__layerable_cnn_list)):             # <<<<<<<<<<<<<<
  *             self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)
  *             if ((epoch + 1) % self.__attenuate_epoch == 0):
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 844, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 859, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 844, __pyx_L1_error)
+  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 859, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = __pyx_t_2;
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_i = __pyx_t_4;
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":845
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":860
  *         i = 0
  *         for i in range(len(self.__layerable_cnn_list)):
  *             self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
  *             if ((epoch + 1) % self.__attenuate_epoch == 0):
  *                 self.__layerable_cnn_list[i].graph.weight_arr = self.__opt_params.constrain_weight(
  */
-    __pyx_t_1 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 845, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 860, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 845, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_10 = __Pyx_GetItemInt(__pyx_t_7, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 845, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_graph); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 845, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_7, __pyx_n_s_weight_arr, __pyx_t_1) < 0) __PYX_ERR(0, 845, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 860, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_12 = __Pyx_GetItemInt(__pyx_t_9, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 860, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 860, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_9, __pyx_n_s_weight_arr, __pyx_t_1) < 0) __PYX_ERR(0, 860, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":846
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":861
  *         for i in range(len(self.__layerable_cnn_list)):
  *             self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)
  *             if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
  *                 self.__layerable_cnn_list[i].graph.weight_arr = self.__opt_params.constrain_weight(
  *                     self.__layerable_cnn_list[i].graph.weight_arr
  */
-    __pyx_t_7 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 846, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__atte); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 846, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 861, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__atte); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 861, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_10 = PyNumber_Remainder(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 846, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_12 = PyNumber_Remainder(__pyx_t_9, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 861, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_12);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_t_10, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 846, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_t_12, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 861, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 846, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 861, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (__pyx_t_11) {
+    if (__pyx_t_8) {
 
-      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":847
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":862
  *             self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)
  *             if ((epoch + 1) % self.__attenuate_epoch == 0):
  *                 self.__layerable_cnn_list[i].graph.weight_arr = self.__opt_params.constrain_weight(             # <<<<<<<<<<<<<<
  *                     self.__layerable_cnn_list[i].graph.weight_arr
  *                 )
  */
-      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__opt); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 847, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_10);
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_constrain_weight); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 847, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__opt); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 862, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_12);
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_constrain_weight); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 862, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":848
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":863
  *             if ((epoch + 1) % self.__attenuate_epoch == 0):
  *                 self.__layerable_cnn_list[i].graph.weight_arr = self.__opt_params.constrain_weight(
  *                     self.__layerable_cnn_list[i].graph.weight_arr             # <<<<<<<<<<<<<<
  *                 )
  * 
  */
-      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 848, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_10);
-      __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_10, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 848, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 863, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_12);
+      __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_12, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 863, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 848, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_10);
+      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_graph); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 863, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_weight_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 848, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_weight_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 863, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-      __pyx_t_10 = NULL;
-      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
-        __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_7);
-        if (likely(__pyx_t_10)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
-          __Pyx_INCREF(__pyx_t_10);
+      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+      __pyx_t_12 = NULL;
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_9))) {
+        __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_9);
+        if (likely(__pyx_t_12)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
+          __Pyx_INCREF(__pyx_t_12);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_7, function);
+          __Pyx_DECREF_SET(__pyx_t_9, function);
         }
       }
-      if (!__pyx_t_10) {
-        __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 847, __pyx_L1_error)
+      if (!__pyx_t_12) {
+        __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 862, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else {
         #if CYTHON_FAST_PYCALL
-        if (PyFunction_Check(__pyx_t_7)) {
-          PyObject *__pyx_temp[2] = {__pyx_t_10, __pyx_t_5};
-          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 847, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+        if (PyFunction_Check(__pyx_t_9)) {
+          PyObject *__pyx_temp[2] = {__pyx_t_12, __pyx_t_5};
+          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_9, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 862, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         } else
         #endif
         #if CYTHON_FAST_PYCCALL
-        if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
-          PyObject *__pyx_temp[2] = {__pyx_t_10, __pyx_t_5};
-          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 847, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_9)) {
+          PyObject *__pyx_temp[2] = {__pyx_t_12, __pyx_t_5};
+          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_9, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 862, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         } else
         #endif
         {
-          __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 847, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_8);
-          __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_10); __pyx_t_10 = NULL;
+          __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 862, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_10);
+          __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_12); __pyx_t_12 = NULL;
           __Pyx_GIVEREF(__pyx_t_5);
-          PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_5);
+          PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_t_5);
           __pyx_t_5 = 0;
-          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 847, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_10, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 862, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+          __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
         }
       }
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":847
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":862
  *             self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)
  *             if ((epoch + 1) % self.__attenuate_epoch == 0):
  *                 self.__layerable_cnn_list[i].graph.weight_arr = self.__opt_params.constrain_weight(             # <<<<<<<<<<<<<<
  *                     self.__layerable_cnn_list[i].graph.weight_arr
  *                 )
  */
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 847, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_7, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 847, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_graph); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 847, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      if (__Pyx_PyObject_SetAttrStr(__pyx_t_7, __pyx_n_s_weight_arr, __pyx_t_1) < 0) __PYX_ERR(0, 847, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 862, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __pyx_t_10 = __Pyx_GetItemInt(__pyx_t_9, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 862, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 862, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      if (__Pyx_PyObject_SetAttrStr(__pyx_t_9, __pyx_n_s_weight_arr, __pyx_t_1) < 0) __PYX_ERR(0, 862, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":846
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":861
  *         for i in range(len(self.__layerable_cnn_list)):
  *             self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)
  *             if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
@@ -17202,91 +17404,196 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     }
   }
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":851
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":866
  *                 )
  * 
  *         for i in range(len(self.__layerable_cnn_list)):             # <<<<<<<<<<<<<<
  *             self.__layerable_cnn_list[i].graph.bias_arr = params_list.pop(0)
  * 
  */
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 851, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_2 = PyObject_Length(__pyx_t_7); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 851, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 866, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __pyx_t_2 = PyObject_Length(__pyx_t_9); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 866, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __pyx_t_3 = __pyx_t_2;
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_i = __pyx_t_4;
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":852
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":867
  * 
  *         for i in range(len(self.__layerable_cnn_list)):
  *             self.__layerable_cnn_list[i].graph.bias_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
  * 
  *         for i in range(len(self.__layerable_cnn_list)):
  */
-    __pyx_t_7 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 852, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 852, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 867, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 867, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 852, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_10 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 867, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 852, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 867, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_bias_arr, __pyx_t_7) < 0) __PYX_ERR(0, 852, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_bias_arr, __pyx_t_9) < 0) __PYX_ERR(0, 867, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":854
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":869
  *             self.__layerable_cnn_list[i].graph.bias_arr = params_list.pop(0)
  * 
  *         for i in range(len(self.__layerable_cnn_list)):             # <<<<<<<<<<<<<<
- *             self.__layerable_cnn_list[i].reset_delta()
- * 
+ *             if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:
+ *                 self.__layerable_cnn_list[i].graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 854, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 869, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 854, __pyx_L1_error)
+  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 869, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = __pyx_t_2;
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_i = __pyx_t_4;
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":855
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":870
+ * 
+ *         for i in range(len(self.__layerable_cnn_list)):
+ *             if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *                 self.__layerable_cnn_list[i].graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ *                 self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 870, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 870, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 870, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 870, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 870, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_8 = (__pyx_t_1 != Py_None);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_7 = (__pyx_t_8 != 0);
+    if (__pyx_t_7) {
+
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":871
+ *         for i in range(len(self.__layerable_cnn_list)):
+ *             if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:
+ *                 self.__layerable_cnn_list[i].graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
+ *                 self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ * 
+ */
+      __pyx_t_1 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 871, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 871, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __pyx_t_10 = __Pyx_GetItemInt(__pyx_t_9, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 871, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 871, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 871, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 871, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      if (__Pyx_PyObject_SetAttrStr(__pyx_t_9, __pyx_n_s_gamma_arr, __pyx_t_1) < 0) __PYX_ERR(0, 871, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":872
+ *             if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:
+ *                 self.__layerable_cnn_list[i].graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ *                 self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr = params_list.pop(0)             # <<<<<<<<<<<<<<
+ * 
+ *         for i in range(len(self.__layerable_cnn_list)):
+ */
+      __pyx_t_9 = __Pyx_PyObject_PopIndex(__pyx_v_params_list, __pyx_int_0, 0, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 872, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 872, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_10 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 872, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 872, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_activation_function); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 872, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 872, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_beta_arr, __pyx_t_9) < 0) __PYX_ERR(0, 872, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":870
+ * 
+ *         for i in range(len(self.__layerable_cnn_list)):
+ *             if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *                 self.__layerable_cnn_list[i].graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+ *                 self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ */
+    }
+  }
+
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":874
+ *                 self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+ * 
+ *         for i in range(len(self.__layerable_cnn_list)):             # <<<<<<<<<<<<<<
+ *             self.__layerable_cnn_list[i].reset_delta()
+ * 
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 874, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 874, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_3 = __pyx_t_2;
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v_i = __pyx_t_4;
+
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":875
  * 
  *         for i in range(len(self.__layerable_cnn_list)):
  *             self.__layerable_cnn_list[i].reset_delta()             # <<<<<<<<<<<<<<
  * 
  *     def temporal_back_propagation(
  */
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 855, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_7, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 855, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_reset_delta); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 855, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
-      __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_7);
-      if (likely(__pyx_t_8)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
-        __Pyx_INCREF(__pyx_t_8);
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 875, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_10 = __Pyx_GetItemInt(__pyx_t_9, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 875, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_reset_delta); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 875, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __pyx_t_10 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_9))) {
+      __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_9);
+      if (likely(__pyx_t_10)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
+        __Pyx_INCREF(__pyx_t_10);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_7, function);
+        __Pyx_DECREF_SET(__pyx_t_9, function);
       }
     }
-    if (__pyx_t_8) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 855, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    if (__pyx_t_10) {
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 875, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     } else {
-      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 855, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 875, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
@@ -17304,9 +17611,9 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_9);
   __Pyx_XDECREF(__pyx_t_10);
+  __Pyx_XDECREF(__pyx_t_12);
   __Pyx_AddTraceback("pydbm.cnn.spatio_temporal_auto_encoder.SpatioTemporalAutoEncoder.optimize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -17318,7 +17625,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   return __pyx_r;
 }
 
-/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":857
+/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":877
  *             self.__layerable_cnn_list[i].reset_delta()
  * 
  *     def temporal_back_propagation(             # <<<<<<<<<<<<<<
@@ -17359,11 +17666,11 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_delta_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("temporal_back_propagation", 1, 2, 2, 1); __PYX_ERR(0, 857, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("temporal_back_propagation", 1, 2, 2, 1); __PYX_ERR(0, 877, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "temporal_back_propagation") < 0)) __PYX_ERR(0, 857, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "temporal_back_propagation") < 0)) __PYX_ERR(0, 877, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -17376,13 +17683,13 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("temporal_back_propagation", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 857, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("temporal_back_propagation", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 877, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.spatio_temporal_auto_encoder.SpatioTemporalAutoEncoder.temporal_back_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_delta_arr), __pyx_ptype_5numpy_ndarray, 1, "delta_arr", 0))) __PYX_ERR(0, 859, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_delta_arr), __pyx_ptype_5numpy_ndarray, 1, "delta_arr", 0))) __PYX_ERR(0, 879, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_18temporal_back_propagation(__pyx_self, __pyx_v_self, __pyx_v_delta_arr);
 
   /* function exit code */
@@ -17410,16 +17717,16 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   PyObject *(*__pyx_t_6)(PyObject *);
   __Pyx_RefNannySetupContext("temporal_back_propagation", 0);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":874
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":894
  *             - encoder's `list` of gradations.
  *         '''
  *         decoder_delta_arr, delta_hidden_arr, decoder_grads_list = self.__decoder.hidden_back_propagate(delta_arr)             # <<<<<<<<<<<<<<
  *         decoder_grads_list.insert(0, None)
  *         decoder_grads_list.insert(0, None)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__deco); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 874, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__deco); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 894, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_hidden_back_propagate); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 874, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_hidden_back_propagate); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 894, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -17433,13 +17740,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_delta_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 874, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_delta_arr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 894, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, ((PyObject *)__pyx_v_delta_arr)};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 874, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 894, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -17447,19 +17754,19 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, ((PyObject *)__pyx_v_delta_arr)};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 874, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 894, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 874, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 894, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_delta_arr));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_delta_arr));
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, ((PyObject *)__pyx_v_delta_arr));
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 874, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 894, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -17471,7 +17778,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     if (unlikely(size != 3)) {
       if (size > 3) __Pyx_RaiseTooManyValuesError(3);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 874, __pyx_L1_error)
+      __PYX_ERR(0, 894, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -17487,17 +17794,17 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __Pyx_INCREF(__pyx_t_4);
     __Pyx_INCREF(__pyx_t_2);
     #else
-    __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 874, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 894, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 874, __pyx_L1_error)
+    __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 894, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_2 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 874, __pyx_L1_error)
+    __pyx_t_2 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 894, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     #endif
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_5 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 874, __pyx_L1_error)
+    __pyx_t_5 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 894, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_6 = Py_TYPE(__pyx_t_5)->tp_iternext;
@@ -17507,7 +17814,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __Pyx_GOTREF(__pyx_t_4);
     index = 2; __pyx_t_2 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_2)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_2);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) __PYX_ERR(0, 874, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) __PYX_ERR(0, 894, __pyx_L1_error)
     __pyx_t_6 = NULL;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L4_unpacking_done;
@@ -17515,7 +17822,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_6 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 874, __pyx_L1_error)
+    __PYX_ERR(0, 894, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
   __pyx_v_decoder_delta_arr = __pyx_t_3;
@@ -17525,44 +17832,44 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   __pyx_v_decoder_grads_list = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":875
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":895
  *         '''
  *         decoder_delta_arr, delta_hidden_arr, decoder_grads_list = self.__decoder.hidden_back_propagate(delta_arr)
  *         decoder_grads_list.insert(0, None)             # <<<<<<<<<<<<<<
  *         decoder_grads_list.insert(0, None)
  *         encoder_delta_arr, delta_hidden_arr, encoder_grads_list = self.__encoder.hidden_back_propagate(delta_hidden_arr)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_decoder_grads_list, __pyx_n_s_insert); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 875, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_decoder_grads_list, __pyx_n_s_insert); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 895, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__133, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 875, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__133, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 895, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":876
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":896
  *         decoder_delta_arr, delta_hidden_arr, decoder_grads_list = self.__decoder.hidden_back_propagate(delta_arr)
  *         decoder_grads_list.insert(0, None)
  *         decoder_grads_list.insert(0, None)             # <<<<<<<<<<<<<<
  *         encoder_delta_arr, delta_hidden_arr, encoder_grads_list = self.__encoder.hidden_back_propagate(delta_hidden_arr)
  *         encoder_grads_list.insert(0, None)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_decoder_grads_list, __pyx_n_s_insert); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 876, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_decoder_grads_list, __pyx_n_s_insert); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 896, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__134, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 876, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__134, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 896, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":877
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":897
  *         decoder_grads_list.insert(0, None)
  *         decoder_grads_list.insert(0, None)
  *         encoder_delta_arr, delta_hidden_arr, encoder_grads_list = self.__encoder.hidden_back_propagate(delta_hidden_arr)             # <<<<<<<<<<<<<<
  *         encoder_grads_list.insert(0, None)
  *         encoder_grads_list.insert(0, None)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__enco); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 877, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__enco); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 897, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_hidden_back_propagate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 877, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_hidden_back_propagate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 897, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -17576,13 +17883,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_delta_hidden_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 877, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_delta_hidden_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 897, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_delta_hidden_arr};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 877, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 897, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -17590,19 +17897,19 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_delta_hidden_arr};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 877, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 897, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 877, __pyx_L1_error)
+      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 897, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_INCREF(__pyx_v_delta_hidden_arr);
       __Pyx_GIVEREF(__pyx_v_delta_hidden_arr);
       PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_v_delta_hidden_arr);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 877, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 897, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
@@ -17614,7 +17921,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     if (unlikely(size != 3)) {
       if (size > 3) __Pyx_RaiseTooManyValuesError(3);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 877, __pyx_L1_error)
+      __PYX_ERR(0, 897, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -17630,17 +17937,17 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __Pyx_INCREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_t_2);
     #else
-    __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 877, __pyx_L1_error)
+    __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 897, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 877, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 897, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 877, __pyx_L1_error)
+    __pyx_t_2 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 897, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     #endif
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_5 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 877, __pyx_L1_error)
+    __pyx_t_5 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 897, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_6 = Py_TYPE(__pyx_t_5)->tp_iternext;
@@ -17650,7 +17957,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __Pyx_GOTREF(__pyx_t_3);
     index = 2; __pyx_t_2 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_2)) goto __pyx_L5_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_2);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) __PYX_ERR(0, 877, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) __PYX_ERR(0, 897, __pyx_L1_error)
     __pyx_t_6 = NULL;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L6_unpacking_done;
@@ -17658,7 +17965,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_6 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 877, __pyx_L1_error)
+    __PYX_ERR(0, 897, __pyx_L1_error)
     __pyx_L6_unpacking_done:;
   }
   __pyx_v_encoder_delta_arr = __pyx_t_4;
@@ -17668,35 +17975,35 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   __pyx_v_encoder_grads_list = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":878
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":898
  *         decoder_grads_list.insert(0, None)
  *         encoder_delta_arr, delta_hidden_arr, encoder_grads_list = self.__encoder.hidden_back_propagate(delta_hidden_arr)
  *         encoder_grads_list.insert(0, None)             # <<<<<<<<<<<<<<
  *         encoder_grads_list.insert(0, None)
  *         return decoder_grads_list, encoder_delta_arr, encoder_grads_list
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_encoder_grads_list, __pyx_n_s_insert); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 878, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_encoder_grads_list, __pyx_n_s_insert); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 898, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__135, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 878, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__135, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 898, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":879
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":899
  *         encoder_delta_arr, delta_hidden_arr, encoder_grads_list = self.__encoder.hidden_back_propagate(delta_hidden_arr)
  *         encoder_grads_list.insert(0, None)
  *         encoder_grads_list.insert(0, None)             # <<<<<<<<<<<<<<
  *         return decoder_grads_list, encoder_delta_arr, encoder_grads_list
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_encoder_grads_list, __pyx_n_s_insert); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 879, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_encoder_grads_list, __pyx_n_s_insert); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 899, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__136, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 879, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__136, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 899, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":880
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":900
  *         encoder_grads_list.insert(0, None)
  *         encoder_grads_list.insert(0, None)
  *         return decoder_grads_list, encoder_delta_arr, encoder_grads_list             # <<<<<<<<<<<<<<
@@ -17704,7 +18011,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  *     def temporal_optimize(
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 880, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 900, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_decoder_grads_list);
   __Pyx_GIVEREF(__pyx_v_decoder_grads_list);
@@ -17719,7 +18026,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":857
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":877
  *             self.__layerable_cnn_list[i].reset_delta()
  * 
  *     def temporal_back_propagation(             # <<<<<<<<<<<<<<
@@ -17747,7 +18054,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   return __pyx_r;
 }
 
-/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":882
+/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":902
  *         return decoder_grads_list, encoder_delta_arr, encoder_grads_list
  * 
  *     def temporal_optimize(             # <<<<<<<<<<<<<<
@@ -17797,29 +18104,29 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_decoder_grads_list)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("temporal_optimize", 1, 5, 5, 1); __PYX_ERR(0, 882, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("temporal_optimize", 1, 5, 5, 1); __PYX_ERR(0, 902, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_encoder_grads_list)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("temporal_optimize", 1, 5, 5, 2); __PYX_ERR(0, 882, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("temporal_optimize", 1, 5, 5, 2); __PYX_ERR(0, 902, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_learning_rate)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("temporal_optimize", 1, 5, 5, 3); __PYX_ERR(0, 882, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("temporal_optimize", 1, 5, 5, 3); __PYX_ERR(0, 902, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_epoch)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("temporal_optimize", 1, 5, 5, 4); __PYX_ERR(0, 882, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("temporal_optimize", 1, 5, 5, 4); __PYX_ERR(0, 902, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "temporal_optimize") < 0)) __PYX_ERR(0, 882, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "temporal_optimize") < 0)) __PYX_ERR(0, 902, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 5) {
       goto __pyx_L5_argtuple_error;
@@ -17833,12 +18140,12 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __pyx_v_self = values[0];
     __pyx_v_decoder_grads_list = values[1];
     __pyx_v_encoder_grads_list = values[2];
-    __pyx_v_learning_rate = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_learning_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 886, __pyx_L3_error)
-    __pyx_v_epoch = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_epoch == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 887, __pyx_L3_error)
+    __pyx_v_learning_rate = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_learning_rate == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 906, __pyx_L3_error)
+    __pyx_v_epoch = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_epoch == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 907, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("temporal_optimize", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 882, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("temporal_optimize", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 902, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.spatio_temporal_auto_encoder.SpatioTemporalAutoEncoder.temporal_optimize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -17863,21 +18170,21 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   PyObject *__pyx_t_7 = NULL;
   __Pyx_RefNannySetupContext("temporal_optimize", 0);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":898
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":918
  *             epoch:                  Now epoch.
  *         '''
  *         self.__decoder.optimize(decoder_grads_list, learning_rate, epoch)             # <<<<<<<<<<<<<<
  *         self.__encoder.optimize(encoder_grads_list, learning_rate, epoch)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__deco); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 898, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__deco); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 918, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_optimize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 898, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_optimize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 918, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 898, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 918, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_epoch); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 898, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_epoch); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 918, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -17894,7 +18201,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[4] = {__pyx_t_5, __pyx_v_decoder_grads_list, __pyx_t_2, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 898, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 918, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -17904,7 +18211,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[4] = {__pyx_t_5, __pyx_v_decoder_grads_list, __pyx_t_2, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 898, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 918, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -17912,7 +18219,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   } else
   #endif
   {
-    __pyx_t_7 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 898, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 918, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -17926,28 +18233,28 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     PyTuple_SET_ITEM(__pyx_t_7, 2+__pyx_t_6, __pyx_t_4);
     __pyx_t_2 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 898, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 918, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":899
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":919
  *         '''
  *         self.__decoder.optimize(decoder_grads_list, learning_rate, epoch)
  *         self.__encoder.optimize(encoder_grads_list, learning_rate, epoch)             # <<<<<<<<<<<<<<
  * 
  *     def __change_inferencing_mode(self, inferencing_mode):
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__enco); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 899, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__enco); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 919, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_optimize); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 899, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_optimize); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 919, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 899, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_learning_rate); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 919, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_epoch); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 899, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_epoch); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 919, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_2 = NULL;
   __pyx_t_6 = 0;
@@ -17964,7 +18271,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_7)) {
     PyObject *__pyx_temp[4] = {__pyx_t_2, __pyx_v_encoder_grads_list, __pyx_t_3, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 899, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 919, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -17974,7 +18281,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
     PyObject *__pyx_temp[4] = {__pyx_t_2, __pyx_v_encoder_grads_list, __pyx_t_3, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 899, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 919, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -17982,7 +18289,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   } else
   #endif
   {
-    __pyx_t_5 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 899, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 919, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     if (__pyx_t_2) {
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -17996,14 +18303,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     PyTuple_SET_ITEM(__pyx_t_5, 2+__pyx_t_6, __pyx_t_4);
     __pyx_t_3 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 899, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 919, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":882
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":902
  *         return decoder_grads_list, encoder_delta_arr, encoder_grads_list
  * 
  *     def temporal_optimize(             # <<<<<<<<<<<<<<
@@ -18029,7 +18336,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   return __pyx_r;
 }
 
-/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":901
+/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":921
  *         self.__encoder.optimize(encoder_grads_list, learning_rate, epoch)
  * 
  *     def __change_inferencing_mode(self, inferencing_mode):             # <<<<<<<<<<<<<<
@@ -18070,11 +18377,11 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_inferencing_mode)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__change_inferencing_mode", 1, 2, 2, 1); __PYX_ERR(0, 901, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__change_inferencing_mode", 1, 2, 2, 1); __PYX_ERR(0, 921, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__change_inferencing_mode") < 0)) __PYX_ERR(0, 901, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__change_inferencing_mode") < 0)) __PYX_ERR(0, 921, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -18087,7 +18394,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__change_inferencing_mode", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 901, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__change_inferencing_mode", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 921, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.spatio_temporal_auto_encoder.SpatioTemporalAutoEncoder.__change_inferencing_mode", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -18107,49 +18414,49 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__change_inferencing_mode", 0);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":908
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":928
  *             inferencing_mode:   Inferencing mode or not.
  *         '''
  *         self.__opt_params.inferencing_mode = inferencing_mode             # <<<<<<<<<<<<<<
  *         self.__decoder.opt_params.inferencing_mode = inferencing_mode
  *         self.__encoder.opt_params.inferencing_mode = inferencing_mode
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__opt); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 908, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__opt); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 928, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_inferencing_mode, __pyx_v_inferencing_mode) < 0) __PYX_ERR(0, 908, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_inferencing_mode, __pyx_v_inferencing_mode) < 0) __PYX_ERR(0, 928, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":909
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":929
  *         '''
  *         self.__opt_params.inferencing_mode = inferencing_mode
  *         self.__decoder.opt_params.inferencing_mode = inferencing_mode             # <<<<<<<<<<<<<<
  *         self.__encoder.opt_params.inferencing_mode = inferencing_mode
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__deco); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 909, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__deco); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 929, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_opt_params); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 909, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_opt_params); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 929, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_inferencing_mode, __pyx_v_inferencing_mode) < 0) __PYX_ERR(0, 909, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_inferencing_mode, __pyx_v_inferencing_mode) < 0) __PYX_ERR(0, 929, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":910
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":930
  *         self.__opt_params.inferencing_mode = inferencing_mode
  *         self.__decoder.opt_params.inferencing_mode = inferencing_mode
  *         self.__encoder.opt_params.inferencing_mode = inferencing_mode             # <<<<<<<<<<<<<<
  * 
  *     def save_pre_learned_params(self, dir_path):
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__enco); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 910, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__enco); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 930, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_opt_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 910, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_opt_params); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 930, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_inferencing_mode, __pyx_v_inferencing_mode) < 0) __PYX_ERR(0, 910, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_inferencing_mode, __pyx_v_inferencing_mode) < 0) __PYX_ERR(0, 930, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":901
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":921
  *         self.__encoder.optimize(encoder_grads_list, learning_rate, epoch)
  * 
  *     def __change_inferencing_mode(self, inferencing_mode):             # <<<<<<<<<<<<<<
@@ -18171,7 +18478,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   return __pyx_r;
 }
 
-/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":912
+/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":932
  *         self.__encoder.opt_params.inferencing_mode = inferencing_mode
  * 
  *     def save_pre_learned_params(self, dir_path):             # <<<<<<<<<<<<<<
@@ -18212,11 +18519,11 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_dir_path)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 1, 2, 2, 1); __PYX_ERR(0, 912, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 1, 2, 2, 1); __PYX_ERR(0, 932, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "save_pre_learned_params") < 0)) __PYX_ERR(0, 912, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "save_pre_learned_params") < 0)) __PYX_ERR(0, 932, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -18229,7 +18536,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 912, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("save_pre_learned_params", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 932, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.spatio_temporal_auto_encoder.SpatioTemporalAutoEncoder.save_pre_learned_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -18259,32 +18566,32 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   __Pyx_RefNannySetupContext("save_pre_learned_params", 0);
   __Pyx_INCREF(__pyx_v_dir_path);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":919
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":939
  *             dir_path:   Path of dir. If `None`, the file is saved in the current directory.
  *         '''
  *         if dir_path[-1] != "/":             # <<<<<<<<<<<<<<
  *             dir_path = dir_path + "/"
  * 
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_dir_path, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 919, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_dir_path, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 939, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_kp_s__137, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 919, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_kp_s__137, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 939, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":920
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":940
  *         '''
  *         if dir_path[-1] != "/":
  *             dir_path = dir_path + "/"             # <<<<<<<<<<<<<<
  * 
  *         for i in range(len(self.layerable_cnn_list)):
  */
-    __pyx_t_1 = PyNumber_Add(__pyx_v_dir_path, __pyx_kp_s__137); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 920, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Add(__pyx_v_dir_path, __pyx_kp_s__137); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 940, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF_SET(__pyx_v_dir_path, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":919
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":939
  *             dir_path:   Path of dir. If `None`, the file is saved in the current directory.
  *         '''
  *         if dir_path[-1] != "/":             # <<<<<<<<<<<<<<
@@ -18293,29 +18600,29 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  */
   }
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":922
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":942
  *             dir_path = dir_path + "/"
  * 
  *         for i in range(len(self.layerable_cnn_list)):             # <<<<<<<<<<<<<<
  *             self.layerable_cnn_list[i].graph.save_pre_learned_params(dir_path + "spatio_cnn_" + str(i) + ".npz")
  *         self.__encoder.save_pre_learned_params(dir_path, "temporal_encoder")
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_layerable_cnn_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 922, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_layerable_cnn_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 942, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 922, __pyx_L1_error)
+  __pyx_t_3 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 942, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 922, __pyx_L1_error)
+  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 942, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 922, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 942, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (likely(PyList_CheckExact(__pyx_t_4)) || PyTuple_CheckExact(__pyx_t_4)) {
     __pyx_t_1 = __pyx_t_4; __Pyx_INCREF(__pyx_t_1); __pyx_t_3 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 922, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 942, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 922, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 942, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   for (;;) {
@@ -18323,17 +18630,17 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 922, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 942, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 922, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 942, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 922, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 942, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 922, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 942, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -18343,7 +18650,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 922, __pyx_L1_error)
+          else __PYX_ERR(0, 942, __pyx_L1_error)
         }
         break;
       }
@@ -18352,33 +18659,33 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":923
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":943
  * 
  *         for i in range(len(self.layerable_cnn_list)):
  *             self.layerable_cnn_list[i].graph.save_pre_learned_params(dir_path + "spatio_cnn_" + str(i) + ".npz")             # <<<<<<<<<<<<<<
  *         self.__encoder.save_pre_learned_params(dir_path, "temporal_encoder")
  *         self.__decoder.save_pre_learned_params(dir_path, "temporal_decoder")
  */
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_layerable_cnn_list); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 923, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_layerable_cnn_list); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 943, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_i); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 923, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_i); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 943, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 923, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 943, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 923, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 943, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyNumber_Add(__pyx_v_dir_path, __pyx_n_s_spatio_cnn); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 923, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_Add(__pyx_v_dir_path, __pyx_n_s_spatio_cnn); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 943, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_8 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_i); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 923, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_i); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 943, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_9 = PyNumber_Add(__pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 923, __pyx_L1_error)
+    __pyx_t_9 = PyNumber_Add(__pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 943, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = PyNumber_Add(__pyx_t_9, __pyx_kp_s_npz); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 923, __pyx_L1_error)
+    __pyx_t_8 = PyNumber_Add(__pyx_t_9, __pyx_kp_s_npz); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 943, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __pyx_t_9 = NULL;
@@ -18392,14 +18699,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
       }
     }
     if (!__pyx_t_9) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 923, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 943, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_GOTREF(__pyx_t_4);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_7)) {
         PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_8};
-        __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 923, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 943, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -18408,20 +18715,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
         PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_8};
-        __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 923, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 943, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       } else
       #endif
       {
-        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 923, __pyx_L1_error)
+        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 943, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_9); __pyx_t_9 = NULL;
         __Pyx_GIVEREF(__pyx_t_8);
         PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_8);
         __pyx_t_8 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 923, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 943, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       }
@@ -18429,7 +18736,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":922
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":942
  *             dir_path = dir_path + "/"
  * 
  *         for i in range(len(self.layerable_cnn_list)):             # <<<<<<<<<<<<<<
@@ -18439,16 +18746,16 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":924
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":944
  *         for i in range(len(self.layerable_cnn_list)):
  *             self.layerable_cnn_list[i].graph.save_pre_learned_params(dir_path + "spatio_cnn_" + str(i) + ".npz")
  *         self.__encoder.save_pre_learned_params(dir_path, "temporal_encoder")             # <<<<<<<<<<<<<<
  *         self.__decoder.save_pre_learned_params(dir_path, "temporal_decoder")
  * 
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__enco); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 924, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__enco); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 944, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 924, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 944, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -18466,7 +18773,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_7)) {
     PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_dir_path, __pyx_n_s_temporal_encoder};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 924, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 944, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
@@ -18474,13 +18781,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
     PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_dir_path, __pyx_n_s_temporal_encoder};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 924, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 944, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
   #endif
   {
-    __pyx_t_6 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 924, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 944, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     if (__pyx_t_4) {
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -18491,23 +18798,23 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __Pyx_INCREF(__pyx_n_s_temporal_encoder);
     __Pyx_GIVEREF(__pyx_n_s_temporal_encoder);
     PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_10, __pyx_n_s_temporal_encoder);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 924, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 944, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":925
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":945
  *             self.layerable_cnn_list[i].graph.save_pre_learned_params(dir_path + "spatio_cnn_" + str(i) + ".npz")
  *         self.__encoder.save_pre_learned_params(dir_path, "temporal_encoder")
  *         self.__decoder.save_pre_learned_params(dir_path, "temporal_decoder")             # <<<<<<<<<<<<<<
  * 
  *     def load_pre_learned_params(self, dir_path):
  */
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__deco); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 925, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__deco); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 945, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 925, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_save_pre_learned_params); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 945, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -18525,7 +18832,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_6)) {
     PyObject *__pyx_temp[3] = {__pyx_t_7, __pyx_v_dir_path, __pyx_n_s_temporal_decoder};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 925, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 945, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
@@ -18533,13 +18840,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
     PyObject *__pyx_temp[3] = {__pyx_t_7, __pyx_v_dir_path, __pyx_n_s_temporal_decoder};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 925, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 945, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
   #endif
   {
-    __pyx_t_4 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 925, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 945, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     if (__pyx_t_7) {
       __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -18550,14 +18857,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __Pyx_INCREF(__pyx_n_s_temporal_decoder);
     __Pyx_GIVEREF(__pyx_n_s_temporal_decoder);
     PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_10, __pyx_n_s_temporal_decoder);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 925, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 945, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":912
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":932
  *         self.__encoder.opt_params.inferencing_mode = inferencing_mode
  * 
  *     def save_pre_learned_params(self, dir_path):             # <<<<<<<<<<<<<<
@@ -18585,7 +18892,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   return __pyx_r;
 }
 
-/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":927
+/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":947
  *         self.__decoder.save_pre_learned_params(dir_path, "temporal_decoder")
  * 
  *     def load_pre_learned_params(self, dir_path):             # <<<<<<<<<<<<<<
@@ -18626,11 +18933,11 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_dir_path)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("load_pre_learned_params", 1, 2, 2, 1); __PYX_ERR(0, 927, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("load_pre_learned_params", 1, 2, 2, 1); __PYX_ERR(0, 947, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "load_pre_learned_params") < 0)) __PYX_ERR(0, 927, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "load_pre_learned_params") < 0)) __PYX_ERR(0, 947, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -18643,7 +18950,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("load_pre_learned_params", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 927, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("load_pre_learned_params", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 947, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.spatio_temporal_auto_encoder.SpatioTemporalAutoEncoder.load_pre_learned_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -18673,32 +18980,32 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   __Pyx_RefNannySetupContext("load_pre_learned_params", 0);
   __Pyx_INCREF(__pyx_v_dir_path);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":934
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":954
  *             dir_path:   Path of dir. If `None`, the file is saved in the current directory.
  *         '''
  *         if dir_path[-1] != "/":             # <<<<<<<<<<<<<<
  *             dir_path = dir_path + "/"
  * 
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_dir_path, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 934, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_dir_path, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 954, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_kp_s__137, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 934, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_kp_s__137, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 954, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":935
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":955
  *         '''
  *         if dir_path[-1] != "/":
  *             dir_path = dir_path + "/"             # <<<<<<<<<<<<<<
  * 
  *         for i in range(len(self.layerable_cnn_list)):
  */
-    __pyx_t_1 = PyNumber_Add(__pyx_v_dir_path, __pyx_kp_s__137); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 935, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Add(__pyx_v_dir_path, __pyx_kp_s__137); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 955, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF_SET(__pyx_v_dir_path, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":934
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":954
  *             dir_path:   Path of dir. If `None`, the file is saved in the current directory.
  *         '''
  *         if dir_path[-1] != "/":             # <<<<<<<<<<<<<<
@@ -18707,29 +19014,29 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  */
   }
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":937
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":957
  *             dir_path = dir_path + "/"
  * 
  *         for i in range(len(self.layerable_cnn_list)):             # <<<<<<<<<<<<<<
  *             self.layerable_cnn_list[i].graph.load_pre_learned_params(dir_path + "spatio_cnn_" + str(i) + ".npz")
  *         self.__encoder.load_pre_learned_params(dir_path, "temporal_encoder")
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_layerable_cnn_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 937, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_layerable_cnn_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 957, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 937, __pyx_L1_error)
+  __pyx_t_3 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 957, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 937, __pyx_L1_error)
+  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 957, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 937, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 957, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (likely(PyList_CheckExact(__pyx_t_4)) || PyTuple_CheckExact(__pyx_t_4)) {
     __pyx_t_1 = __pyx_t_4; __Pyx_INCREF(__pyx_t_1); __pyx_t_3 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 937, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 957, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 937, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 957, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   for (;;) {
@@ -18737,17 +19044,17 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 937, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 957, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 937, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 957, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 937, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 957, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 937, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 957, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -18757,7 +19064,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 937, __pyx_L1_error)
+          else __PYX_ERR(0, 957, __pyx_L1_error)
         }
         break;
       }
@@ -18766,33 +19073,33 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":938
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":958
  * 
  *         for i in range(len(self.layerable_cnn_list)):
  *             self.layerable_cnn_list[i].graph.load_pre_learned_params(dir_path + "spatio_cnn_" + str(i) + ".npz")             # <<<<<<<<<<<<<<
  *         self.__encoder.load_pre_learned_params(dir_path, "temporal_encoder")
  *         self.__decoder.load_pre_learned_params(dir_path, "temporal_decoder")
  */
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_layerable_cnn_list); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 938, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_layerable_cnn_list); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 958, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_i); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 938, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_i); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 958, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 938, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_graph); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 958, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 938, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 958, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyNumber_Add(__pyx_v_dir_path, __pyx_n_s_spatio_cnn); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 938, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_Add(__pyx_v_dir_path, __pyx_n_s_spatio_cnn); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 958, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_8 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_i); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 938, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_i); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 958, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_9 = PyNumber_Add(__pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 938, __pyx_L1_error)
+    __pyx_t_9 = PyNumber_Add(__pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 958, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = PyNumber_Add(__pyx_t_9, __pyx_kp_s_npz); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 938, __pyx_L1_error)
+    __pyx_t_8 = PyNumber_Add(__pyx_t_9, __pyx_kp_s_npz); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 958, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __pyx_t_9 = NULL;
@@ -18806,14 +19113,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
       }
     }
     if (!__pyx_t_9) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 938, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 958, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_GOTREF(__pyx_t_4);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_7)) {
         PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_8};
-        __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 938, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 958, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -18822,20 +19129,20 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
         PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_8};
-        __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 938, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 958, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       } else
       #endif
       {
-        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 938, __pyx_L1_error)
+        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 958, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_9); __pyx_t_9 = NULL;
         __Pyx_GIVEREF(__pyx_t_8);
         PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_8);
         __pyx_t_8 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 938, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 958, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       }
@@ -18843,7 +19150,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":937
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":957
  *             dir_path = dir_path + "/"
  * 
  *         for i in range(len(self.layerable_cnn_list)):             # <<<<<<<<<<<<<<
@@ -18853,16 +19160,16 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":939
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":959
  *         for i in range(len(self.layerable_cnn_list)):
  *             self.layerable_cnn_list[i].graph.load_pre_learned_params(dir_path + "spatio_cnn_" + str(i) + ".npz")
  *         self.__encoder.load_pre_learned_params(dir_path, "temporal_encoder")             # <<<<<<<<<<<<<<
  *         self.__decoder.load_pre_learned_params(dir_path, "temporal_decoder")
  * 
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__enco); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 939, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__enco); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 959, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 939, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 959, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -18880,7 +19187,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_7)) {
     PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_dir_path, __pyx_n_s_temporal_encoder};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 939, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 959, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
@@ -18888,13 +19195,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
     PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_dir_path, __pyx_n_s_temporal_encoder};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 939, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 959, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
   #endif
   {
-    __pyx_t_6 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 939, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 959, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     if (__pyx_t_4) {
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -18905,23 +19212,23 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __Pyx_INCREF(__pyx_n_s_temporal_encoder);
     __Pyx_GIVEREF(__pyx_n_s_temporal_encoder);
     PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_10, __pyx_n_s_temporal_encoder);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 939, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 959, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":940
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":960
  *             self.layerable_cnn_list[i].graph.load_pre_learned_params(dir_path + "spatio_cnn_" + str(i) + ".npz")
  *         self.__encoder.load_pre_learned_params(dir_path, "temporal_encoder")
  *         self.__decoder.load_pre_learned_params(dir_path, "temporal_decoder")             # <<<<<<<<<<<<<<
  * 
  *     def extract_features_points(self):
  */
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__deco); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 940, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__deco); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 960, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 940, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_load_pre_learned_params); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 960, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -18939,7 +19246,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_6)) {
     PyObject *__pyx_temp[3] = {__pyx_t_7, __pyx_v_dir_path, __pyx_n_s_temporal_decoder};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 940, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 960, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
@@ -18947,13 +19254,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
     PyObject *__pyx_temp[3] = {__pyx_t_7, __pyx_v_dir_path, __pyx_n_s_temporal_decoder};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 940, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 960, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
   #endif
   {
-    __pyx_t_4 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 940, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 960, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     if (__pyx_t_7) {
       __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -18964,14 +19271,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __Pyx_INCREF(__pyx_n_s_temporal_decoder);
     __Pyx_GIVEREF(__pyx_n_s_temporal_decoder);
     PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_10, __pyx_n_s_temporal_decoder);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 940, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 960, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":927
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":947
  *         self.__decoder.save_pre_learned_params(dir_path, "temporal_decoder")
  * 
  *     def load_pre_learned_params(self, dir_path):             # <<<<<<<<<<<<<<
@@ -18999,7 +19306,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   return __pyx_r;
 }
 
-/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":942
+/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":962
  *         self.__decoder.load_pre_learned_params(dir_path, "temporal_decoder")
  * 
  *     def extract_features_points(self):             # <<<<<<<<<<<<<<
@@ -19031,7 +19338,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("extract_features_points", 0);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":952
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":972
  *             - Fully-connected Spatio encoded feature points and Temporal decoded feature points
  *         '''
  *         return (             # <<<<<<<<<<<<<<
@@ -19040,44 +19347,44 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  */
   __Pyx_XDECREF(__pyx_r);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":953
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":973
  *         '''
  *         return (
  *             self.__encoded_features_arr,             # <<<<<<<<<<<<<<
  *             self.__decoded_features_arr,
  *             self.__spatio_temporal_features_arr
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__enco_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 953, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__enco_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 973, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":954
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":974
  *         return (
  *             self.__encoded_features_arr,
  *             self.__decoded_features_arr,             # <<<<<<<<<<<<<<
  *             self.__spatio_temporal_features_arr
  *         )
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__deco_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 954, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__deco_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 974, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":955
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":975
  *             self.__encoded_features_arr,
  *             self.__decoded_features_arr,
  *             self.__spatio_temporal_features_arr             # <<<<<<<<<<<<<<
  *         )
  * 
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__spat); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 955, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__spat); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 975, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":953
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":973
  *         '''
  *         return (
  *             self.__encoded_features_arr,             # <<<<<<<<<<<<<<
  *             self.__decoded_features_arr,
  *             self.__spatio_temporal_features_arr
  */
-  __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 953, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 973, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_1);
@@ -19092,7 +19399,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":942
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":962
  *         self.__decoder.load_pre_learned_params(dir_path, "temporal_decoder")
  * 
  *     def extract_features_points(self):             # <<<<<<<<<<<<<<
@@ -19114,7 +19421,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   return __pyx_r;
 }
 
-/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":958
+/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":978
  *         )
  * 
  *     def get_layerable_cnn_list(self):             # <<<<<<<<<<<<<<
@@ -19143,7 +19450,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_layerable_cnn_list", 0);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":960
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":980
  *     def get_layerable_cnn_list(self):
  *         ''' getter '''
  *         return self.__layerable_cnn_list             # <<<<<<<<<<<<<<
@@ -19151,13 +19458,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  *     def set_layerable_cnn_list(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 960, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 980, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":958
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":978
  *         )
  * 
  *     def get_layerable_cnn_list(self):             # <<<<<<<<<<<<<<
@@ -19176,7 +19483,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   return __pyx_r;
 }
 
-/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":962
+/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":982
  *         return self.__layerable_cnn_list
  * 
  *     def set_layerable_cnn_list(self, value):             # <<<<<<<<<<<<<<
@@ -19217,11 +19524,11 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_layerable_cnn_list", 1, 2, 2, 1); __PYX_ERR(0, 962, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_layerable_cnn_list", 1, 2, 2, 1); __PYX_ERR(0, 982, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_layerable_cnn_list") < 0)) __PYX_ERR(0, 962, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_layerable_cnn_list") < 0)) __PYX_ERR(0, 982, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -19234,7 +19541,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_layerable_cnn_list", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 962, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_layerable_cnn_list", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 982, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.spatio_temporal_auto_encoder.SpatioTemporalAutoEncoder.set_layerable_cnn_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -19259,7 +19566,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   int __pyx_t_6;
   __Pyx_RefNannySetupContext("set_layerable_cnn_list", 0);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":964
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":984
  *     def set_layerable_cnn_list(self, value):
  *         ''' setter '''
  *         for layerable_cnn in value:             # <<<<<<<<<<<<<<
@@ -19270,26 +19577,26 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __pyx_t_1 = __pyx_v_value; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
     __pyx_t_3 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 964, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 984, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 964, __pyx_L1_error)
+    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 984, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_3)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 964, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 984, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 964, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 984, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 964, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 984, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 964, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 984, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -19299,7 +19606,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 964, __pyx_L1_error)
+          else __PYX_ERR(0, 984, __pyx_L1_error)
         }
         break;
       }
@@ -19308,34 +19615,34 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     __Pyx_XDECREF_SET(__pyx_v_layerable_cnn, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":965
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":985
  *         ''' setter '''
  *         for layerable_cnn in value:
  *             if isinstance(layerable_cnn, LayerableCNN) is False:             # <<<<<<<<<<<<<<
  *                 raise TypeError()
  * 
  */
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_LayerableCNN); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 965, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_LayerableCNN); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 985, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = PyObject_IsInstance(__pyx_v_layerable_cnn, __pyx_t_4); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 965, __pyx_L1_error)
+    __pyx_t_5 = PyObject_IsInstance(__pyx_v_layerable_cnn, __pyx_t_4); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 985, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_6 = ((__pyx_t_5 == 0) != 0);
     if (unlikely(__pyx_t_6)) {
 
-      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":966
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":986
  *         for layerable_cnn in value:
  *             if isinstance(layerable_cnn, LayerableCNN) is False:
  *                 raise TypeError()             # <<<<<<<<<<<<<<
  * 
  *         self.__layerable_cnn_list = value
  */
-      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 966, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 986, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_Raise(__pyx_t_4, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __PYX_ERR(0, 966, __pyx_L1_error)
+      __PYX_ERR(0, 986, __pyx_L1_error)
 
-      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":965
+      /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":985
  *         ''' setter '''
  *         for layerable_cnn in value:
  *             if isinstance(layerable_cnn, LayerableCNN) is False:             # <<<<<<<<<<<<<<
@@ -19344,7 +19651,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  */
     }
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":964
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":984
  *     def set_layerable_cnn_list(self, value):
  *         ''' setter '''
  *         for layerable_cnn in value:             # <<<<<<<<<<<<<<
@@ -19354,16 +19661,16 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":968
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":988
  *                 raise TypeError()
  * 
  *         self.__layerable_cnn_list = value             # <<<<<<<<<<<<<<
  * 
  *     layerable_cnn_list = property(get_layerable_cnn_list, set_layerable_cnn_list)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye, __pyx_v_value) < 0) __PYX_ERR(0, 968, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__laye, __pyx_v_value) < 0) __PYX_ERR(0, 988, __pyx_L1_error)
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":962
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":982
  *         return self.__layerable_cnn_list
  * 
  *     def set_layerable_cnn_list(self, value):             # <<<<<<<<<<<<<<
@@ -19386,7 +19693,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   return __pyx_r;
 }
 
-/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":972
+/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":992
  *     layerable_cnn_list = property(get_layerable_cnn_list, set_layerable_cnn_list)
  * 
  *     def get_verificatable_result(self):             # <<<<<<<<<<<<<<
@@ -19418,24 +19725,24 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("get_verificatable_result", 0);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":974
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":994
  *     def get_verificatable_result(self):
  *         ''' getter '''
  *         if isinstance(self.__verificatable_result, VerificatableResult):             # <<<<<<<<<<<<<<
  *             return self.__verificatable_result
  *         else:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__veri); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 974, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__veri); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 994, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 974, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 994, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 974, __pyx_L1_error)
+  __pyx_t_3 = PyObject_IsInstance(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 994, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_4 = (__pyx_t_3 != 0);
   if (likely(__pyx_t_4)) {
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":975
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":995
  *         ''' getter '''
  *         if isinstance(self.__verificatable_result, VerificatableResult):
  *             return self.__verificatable_result             # <<<<<<<<<<<<<<
@@ -19443,13 +19750,13 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  *             raise TypeError()
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__veri); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 975, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__veri); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 995, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":974
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":994
  *     def get_verificatable_result(self):
  *         ''' getter '''
  *         if isinstance(self.__verificatable_result, VerificatableResult):             # <<<<<<<<<<<<<<
@@ -19458,7 +19765,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  */
   }
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":977
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":997
  *             return self.__verificatable_result
  *         else:
  *             raise TypeError()             # <<<<<<<<<<<<<<
@@ -19466,14 +19773,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  *     def set_verificatable_result(self, value):
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 977, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 997, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 977, __pyx_L1_error)
+    __PYX_ERR(0, 997, __pyx_L1_error)
   }
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":972
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":992
  *     layerable_cnn_list = property(get_layerable_cnn_list, set_layerable_cnn_list)
  * 
  *     def get_verificatable_result(self):             # <<<<<<<<<<<<<<
@@ -19493,7 +19800,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   return __pyx_r;
 }
 
-/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":979
+/* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":999
  *             raise TypeError()
  * 
  *     def set_verificatable_result(self, value):             # <<<<<<<<<<<<<<
@@ -19534,11 +19841,11 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_verificatable_result", 1, 2, 2, 1); __PYX_ERR(0, 979, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_verificatable_result", 1, 2, 2, 1); __PYX_ERR(0, 999, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_verificatable_result") < 0)) __PYX_ERR(0, 979, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_verificatable_result") < 0)) __PYX_ERR(0, 999, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -19551,7 +19858,7 @@ static PyObject *__pyx_pw_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_verificatable_result", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 979, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_verificatable_result", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 999, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.cnn.spatio_temporal_auto_encoder.SpatioTemporalAutoEncoder.set_verificatable_result", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -19572,30 +19879,30 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("set_verificatable_result", 0);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":981
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":1001
  *     def set_verificatable_result(self, value):
  *         ''' setter '''
  *         if isinstance(value, VerificatableResult):             # <<<<<<<<<<<<<<
  *             self.__verificatable_result = value
  *         else:
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 981, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_VerificatableResult); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1001, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 981, __pyx_L1_error)
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 1001, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (likely(__pyx_t_3)) {
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":982
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":1002
  *         ''' setter '''
  *         if isinstance(value, VerificatableResult):
  *             self.__verificatable_result = value             # <<<<<<<<<<<<<<
  *         else:
  *             raise TypeError()
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__veri, __pyx_v_value) < 0) __PYX_ERR(0, 982, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__veri, __pyx_v_value) < 0) __PYX_ERR(0, 1002, __pyx_L1_error)
 
-    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":981
+    /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":1001
  *     def set_verificatable_result(self, value):
  *         ''' setter '''
  *         if isinstance(value, VerificatableResult):             # <<<<<<<<<<<<<<
@@ -19605,7 +19912,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
     goto __pyx_L3;
   }
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":984
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":1004
  *             self.__verificatable_result = value
  *         else:
  *             raise TypeError()             # <<<<<<<<<<<<<<
@@ -19613,15 +19920,15 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  *     verificatable_result = property(get_verificatable_result, set_verificatable_result)
  */
   /*else*/ {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 984, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1004, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 984, __pyx_L1_error)
+    __PYX_ERR(0, 1004, __pyx_L1_error)
   }
   __pyx_L3:;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":979
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":999
  *             raise TypeError()
  * 
  *     def set_verificatable_result(self, value):             # <<<<<<<<<<<<<<
@@ -22259,11 +22566,13 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_back_propagate, __pyx_k_back_propagate, sizeof(__pyx_k_back_propagate), 0, 0, 1, 1},
   {&__pyx_n_s_back_propagation, __pyx_k_back_propagation, sizeof(__pyx_k_back_propagation), 0, 0, 1, 1},
   {&__pyx_n_s_batch_index, __pyx_k_batch_index, sizeof(__pyx_k_batch_index), 0, 0, 1, 1},
+  {&__pyx_n_s_batch_norm, __pyx_k_batch_norm, sizeof(__pyx_k_batch_norm), 0, 0, 1, 1},
   {&__pyx_n_s_batch_observed_arr, __pyx_k_batch_observed_arr, sizeof(__pyx_k_batch_observed_arr), 0, 0, 1, 1},
   {&__pyx_n_s_batch_size, __pyx_k_batch_size, sizeof(__pyx_k_batch_size), 0, 0, 1, 1},
   {&__pyx_n_s_batch_target_arr, __pyx_k_batch_target_arr, sizeof(__pyx_k_batch_target_arr), 0, 0, 1, 1},
   {&__pyx_n_s_best_bias_params_list, __pyx_k_best_bias_params_list, sizeof(__pyx_k_best_bias_params_list), 0, 0, 1, 1},
   {&__pyx_n_s_best_weight_params_list, __pyx_k_best_weight_params_list, sizeof(__pyx_k_best_weight_params_list), 0, 0, 1, 1},
+  {&__pyx_n_s_beta_arr, __pyx_k_beta_arr, sizeof(__pyx_k_beta_arr), 0, 0, 1, 1},
   {&__pyx_n_s_bias_arr, __pyx_k_bias_arr, sizeof(__pyx_k_bias_arr), 0, 0, 1, 1},
   {&__pyx_n_s_change_inferencing_mode, __pyx_k_change_inferencing_mode, sizeof(__pyx_k_change_inferencing_mode), 0, 0, 1, 1},
   {&__pyx_n_s_channel, __pyx_k_channel, sizeof(__pyx_k_channel), 0, 0, 1, 1},
@@ -22287,7 +22596,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_deconv_output_arr, __pyx_k_deconv_output_arr, sizeof(__pyx_k_deconv_output_arr), 0, 0, 1, 1},
   {&__pyx_n_s_deconvolve, __pyx_k_deconvolve, sizeof(__pyx_k_deconvolve), 0, 0, 1, 1},
   {&__pyx_n_s_delta_arr, __pyx_k_delta_arr, sizeof(__pyx_k_delta_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_delta_beta_arr, __pyx_k_delta_beta_arr, sizeof(__pyx_k_delta_beta_arr), 0, 0, 1, 1},
   {&__pyx_n_s_delta_bias_arr, __pyx_k_delta_bias_arr, sizeof(__pyx_k_delta_bias_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_delta_gamma_arr, __pyx_k_delta_gamma_arr, sizeof(__pyx_k_delta_gamma_arr), 0, 0, 1, 1},
   {&__pyx_n_s_delta_hidden_arr, __pyx_k_delta_hidden_arr, sizeof(__pyx_k_delta_hidden_arr), 0, 0, 1, 1},
   {&__pyx_n_s_delta_weight_arr, __pyx_k_delta_weight_arr, sizeof(__pyx_k_delta_weight_arr), 0, 0, 1, 1},
   {&__pyx_n_s_derivative, __pyx_k_derivative, sizeof(__pyx_k_derivative), 0, 0, 1, 1},
@@ -22310,6 +22621,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_forward_propagation, __pyx_k_forward_propagation, sizeof(__pyx_k_forward_propagation), 0, 0, 1, 1},
   {&__pyx_n_s_fully_connected_activation, __pyx_k_fully_connected_activation, sizeof(__pyx_k_fully_connected_activation), 0, 0, 1, 1},
   {&__pyx_n_s_fully_connected_dim, __pyx_k_fully_connected_dim, sizeof(__pyx_k_fully_connected_dim), 0, 0, 1, 1},
+  {&__pyx_n_s_gamma_arr, __pyx_k_gamma_arr, sizeof(__pyx_k_gamma_arr), 0, 0, 1, 1},
   {&__pyx_n_s_generate, __pyx_k_generate, sizeof(__pyx_k_generate), 0, 0, 1, 1},
   {&__pyx_n_s_getLogger, __pyx_k_getLogger, sizeof(__pyx_k_getLogger), 0, 0, 1, 1},
   {&__pyx_n_s_get_feature_points, __pyx_k_get_feature_points, sizeof(__pyx_k_get_feature_points), 0, 0, 1, 1},
@@ -22445,7 +22757,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 };
 static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_object = __Pyx_GetBuiltinName(__pyx_n_s_object); if (!__pyx_builtin_object) __PYX_ERR(0, 15, __pyx_L1_error)
-  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 970, __pyx_L1_error)
+  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 990, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 89, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 98, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 195, __pyx_L1_error)
@@ -23569,47 +23881,47 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_slice__132);
   __Pyx_GIVEREF(__pyx_slice__132);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":875
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":895
  *         '''
  *         decoder_delta_arr, delta_hidden_arr, decoder_grads_list = self.__decoder.hidden_back_propagate(delta_arr)
  *         decoder_grads_list.insert(0, None)             # <<<<<<<<<<<<<<
  *         decoder_grads_list.insert(0, None)
  *         encoder_delta_arr, delta_hidden_arr, encoder_grads_list = self.__encoder.hidden_back_propagate(delta_hidden_arr)
  */
-  __pyx_tuple__133 = PyTuple_Pack(2, __pyx_int_0, Py_None); if (unlikely(!__pyx_tuple__133)) __PYX_ERR(0, 875, __pyx_L1_error)
+  __pyx_tuple__133 = PyTuple_Pack(2, __pyx_int_0, Py_None); if (unlikely(!__pyx_tuple__133)) __PYX_ERR(0, 895, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__133);
   __Pyx_GIVEREF(__pyx_tuple__133);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":876
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":896
  *         decoder_delta_arr, delta_hidden_arr, decoder_grads_list = self.__decoder.hidden_back_propagate(delta_arr)
  *         decoder_grads_list.insert(0, None)
  *         decoder_grads_list.insert(0, None)             # <<<<<<<<<<<<<<
  *         encoder_delta_arr, delta_hidden_arr, encoder_grads_list = self.__encoder.hidden_back_propagate(delta_hidden_arr)
  *         encoder_grads_list.insert(0, None)
  */
-  __pyx_tuple__134 = PyTuple_Pack(2, __pyx_int_0, Py_None); if (unlikely(!__pyx_tuple__134)) __PYX_ERR(0, 876, __pyx_L1_error)
+  __pyx_tuple__134 = PyTuple_Pack(2, __pyx_int_0, Py_None); if (unlikely(!__pyx_tuple__134)) __PYX_ERR(0, 896, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__134);
   __Pyx_GIVEREF(__pyx_tuple__134);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":878
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":898
  *         decoder_grads_list.insert(0, None)
  *         encoder_delta_arr, delta_hidden_arr, encoder_grads_list = self.__encoder.hidden_back_propagate(delta_hidden_arr)
  *         encoder_grads_list.insert(0, None)             # <<<<<<<<<<<<<<
  *         encoder_grads_list.insert(0, None)
  *         return decoder_grads_list, encoder_delta_arr, encoder_grads_list
  */
-  __pyx_tuple__135 = PyTuple_Pack(2, __pyx_int_0, Py_None); if (unlikely(!__pyx_tuple__135)) __PYX_ERR(0, 878, __pyx_L1_error)
+  __pyx_tuple__135 = PyTuple_Pack(2, __pyx_int_0, Py_None); if (unlikely(!__pyx_tuple__135)) __PYX_ERR(0, 898, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__135);
   __Pyx_GIVEREF(__pyx_tuple__135);
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":879
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":899
  *         encoder_delta_arr, delta_hidden_arr, encoder_grads_list = self.__encoder.hidden_back_propagate(delta_hidden_arr)
  *         encoder_grads_list.insert(0, None)
  *         encoder_grads_list.insert(0, None)             # <<<<<<<<<<<<<<
  *         return decoder_grads_list, encoder_delta_arr, encoder_grads_list
  * 
  */
-  __pyx_tuple__136 = PyTuple_Pack(2, __pyx_int_0, Py_None); if (unlikely(!__pyx_tuple__136)) __PYX_ERR(0, 879, __pyx_L1_error)
+  __pyx_tuple__136 = PyTuple_Pack(2, __pyx_int_0, Py_None); if (unlikely(!__pyx_tuple__136)) __PYX_ERR(0, 899, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__136);
   __Pyx_GIVEREF(__pyx_tuple__136);
 
@@ -23835,125 +24147,125 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__167);
   __pyx_codeobj__168 = (PyObject*)__Pyx_PyCode_New(3, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__167, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_optimize, 817, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__168)) __PYX_ERR(0, 817, __pyx_L1_error)
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":857
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":877
  *             self.__layerable_cnn_list[i].reset_delta()
  * 
  *     def temporal_back_propagation(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray delta_arr
  */
-  __pyx_tuple__169 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_delta_arr, __pyx_n_s_decoder_delta_arr, __pyx_n_s_delta_hidden_arr, __pyx_n_s_decoder_grads_list, __pyx_n_s_encoder_delta_arr, __pyx_n_s_encoder_grads_list); if (unlikely(!__pyx_tuple__169)) __PYX_ERR(0, 857, __pyx_L1_error)
+  __pyx_tuple__169 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_delta_arr, __pyx_n_s_decoder_delta_arr, __pyx_n_s_delta_hidden_arr, __pyx_n_s_decoder_grads_list, __pyx_n_s_encoder_delta_arr, __pyx_n_s_encoder_grads_list); if (unlikely(!__pyx_tuple__169)) __PYX_ERR(0, 877, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__169);
   __Pyx_GIVEREF(__pyx_tuple__169);
-  __pyx_codeobj__170 = (PyObject*)__Pyx_PyCode_New(2, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__169, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_temporal_back_propagation, 857, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__170)) __PYX_ERR(0, 857, __pyx_L1_error)
+  __pyx_codeobj__170 = (PyObject*)__Pyx_PyCode_New(2, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__169, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_temporal_back_propagation, 877, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__170)) __PYX_ERR(0, 877, __pyx_L1_error)
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":882
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":902
  *         return decoder_grads_list, encoder_delta_arr, encoder_grads_list
  * 
  *     def temporal_optimize(             # <<<<<<<<<<<<<<
  *         self,
  *         decoder_grads_list,
  */
-  __pyx_tuple__171 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_decoder_grads_list, __pyx_n_s_encoder_grads_list, __pyx_n_s_learning_rate, __pyx_n_s_epoch); if (unlikely(!__pyx_tuple__171)) __PYX_ERR(0, 882, __pyx_L1_error)
+  __pyx_tuple__171 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_decoder_grads_list, __pyx_n_s_encoder_grads_list, __pyx_n_s_learning_rate, __pyx_n_s_epoch); if (unlikely(!__pyx_tuple__171)) __PYX_ERR(0, 902, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__171);
   __Pyx_GIVEREF(__pyx_tuple__171);
-  __pyx_codeobj__172 = (PyObject*)__Pyx_PyCode_New(5, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__171, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_temporal_optimize, 882, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__172)) __PYX_ERR(0, 882, __pyx_L1_error)
+  __pyx_codeobj__172 = (PyObject*)__Pyx_PyCode_New(5, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__171, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_temporal_optimize, 902, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__172)) __PYX_ERR(0, 902, __pyx_L1_error)
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":901
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":921
  *         self.__encoder.optimize(encoder_grads_list, learning_rate, epoch)
  * 
  *     def __change_inferencing_mode(self, inferencing_mode):             # <<<<<<<<<<<<<<
  *         '''
  *         Change dropout rate in Encoder/Decoder.
  */
-  __pyx_tuple__173 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_inferencing_mode); if (unlikely(!__pyx_tuple__173)) __PYX_ERR(0, 901, __pyx_L1_error)
+  __pyx_tuple__173 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_inferencing_mode); if (unlikely(!__pyx_tuple__173)) __PYX_ERR(0, 921, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__173);
   __Pyx_GIVEREF(__pyx_tuple__173);
-  __pyx_codeobj__174 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__173, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_change_inferencing_mode, 901, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__174)) __PYX_ERR(0, 901, __pyx_L1_error)
+  __pyx_codeobj__174 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__173, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_change_inferencing_mode, 921, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__174)) __PYX_ERR(0, 921, __pyx_L1_error)
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":912
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":932
  *         self.__encoder.opt_params.inferencing_mode = inferencing_mode
  * 
  *     def save_pre_learned_params(self, dir_path):             # <<<<<<<<<<<<<<
  *         '''
  *         Save pre-learned parameters.
  */
-  __pyx_tuple__175 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_dir_path, __pyx_n_s_i); if (unlikely(!__pyx_tuple__175)) __PYX_ERR(0, 912, __pyx_L1_error)
+  __pyx_tuple__175 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_dir_path, __pyx_n_s_i); if (unlikely(!__pyx_tuple__175)) __PYX_ERR(0, 932, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__175);
   __Pyx_GIVEREF(__pyx_tuple__175);
-  __pyx_codeobj__176 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__175, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_save_pre_learned_params, 912, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__176)) __PYX_ERR(0, 912, __pyx_L1_error)
+  __pyx_codeobj__176 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__175, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_save_pre_learned_params, 932, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__176)) __PYX_ERR(0, 932, __pyx_L1_error)
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":927
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":947
  *         self.__decoder.save_pre_learned_params(dir_path, "temporal_decoder")
  * 
  *     def load_pre_learned_params(self, dir_path):             # <<<<<<<<<<<<<<
  *         '''
  *         Load pre-learned parameters.
  */
-  __pyx_tuple__177 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_dir_path, __pyx_n_s_i); if (unlikely(!__pyx_tuple__177)) __PYX_ERR(0, 927, __pyx_L1_error)
+  __pyx_tuple__177 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_dir_path, __pyx_n_s_i); if (unlikely(!__pyx_tuple__177)) __PYX_ERR(0, 947, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__177);
   __Pyx_GIVEREF(__pyx_tuple__177);
-  __pyx_codeobj__178 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__177, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_load_pre_learned_params, 927, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__178)) __PYX_ERR(0, 927, __pyx_L1_error)
+  __pyx_codeobj__178 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__177, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_load_pre_learned_params, 947, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__178)) __PYX_ERR(0, 947, __pyx_L1_error)
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":942
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":962
  *         self.__decoder.load_pre_learned_params(dir_path, "temporal_decoder")
  * 
  *     def extract_features_points(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Extract features points.
  */
-  __pyx_tuple__179 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__179)) __PYX_ERR(0, 942, __pyx_L1_error)
+  __pyx_tuple__179 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__179)) __PYX_ERR(0, 962, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__179);
   __Pyx_GIVEREF(__pyx_tuple__179);
-  __pyx_codeobj__180 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__179, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_extract_features_points, 942, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__180)) __PYX_ERR(0, 942, __pyx_L1_error)
+  __pyx_codeobj__180 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__179, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_extract_features_points, 962, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__180)) __PYX_ERR(0, 962, __pyx_L1_error)
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":958
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":978
  *         )
  * 
  *     def get_layerable_cnn_list(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__layerable_cnn_list
  */
-  __pyx_tuple__181 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__181)) __PYX_ERR(0, 958, __pyx_L1_error)
+  __pyx_tuple__181 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__181)) __PYX_ERR(0, 978, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__181);
   __Pyx_GIVEREF(__pyx_tuple__181);
-  __pyx_codeobj__182 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__181, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_get_layerable_cnn_list, 958, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__182)) __PYX_ERR(0, 958, __pyx_L1_error)
+  __pyx_codeobj__182 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__181, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_get_layerable_cnn_list, 978, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__182)) __PYX_ERR(0, 978, __pyx_L1_error)
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":962
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":982
  *         return self.__layerable_cnn_list
  * 
  *     def set_layerable_cnn_list(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         for layerable_cnn in value:
  */
-  __pyx_tuple__183 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_value, __pyx_n_s_layerable_cnn); if (unlikely(!__pyx_tuple__183)) __PYX_ERR(0, 962, __pyx_L1_error)
+  __pyx_tuple__183 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_value, __pyx_n_s_layerable_cnn); if (unlikely(!__pyx_tuple__183)) __PYX_ERR(0, 982, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__183);
   __Pyx_GIVEREF(__pyx_tuple__183);
-  __pyx_codeobj__184 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__183, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_set_layerable_cnn_list, 962, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__184)) __PYX_ERR(0, 962, __pyx_L1_error)
+  __pyx_codeobj__184 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__183, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_set_layerable_cnn_list, 982, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__184)) __PYX_ERR(0, 982, __pyx_L1_error)
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":972
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":992
  *     layerable_cnn_list = property(get_layerable_cnn_list, set_layerable_cnn_list)
  * 
  *     def get_verificatable_result(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__verificatable_result, VerificatableResult):
  */
-  __pyx_tuple__185 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__185)) __PYX_ERR(0, 972, __pyx_L1_error)
+  __pyx_tuple__185 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__185)) __PYX_ERR(0, 992, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__185);
   __Pyx_GIVEREF(__pyx_tuple__185);
-  __pyx_codeobj__186 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__185, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_get_verificatable_result, 972, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__186)) __PYX_ERR(0, 972, __pyx_L1_error)
+  __pyx_codeobj__186 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__185, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_get_verificatable_result, 992, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__186)) __PYX_ERR(0, 992, __pyx_L1_error)
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":979
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":999
  *             raise TypeError()
  * 
  *     def set_verificatable_result(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, VerificatableResult):
  */
-  __pyx_tuple__187 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__187)) __PYX_ERR(0, 979, __pyx_L1_error)
+  __pyx_tuple__187 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__187)) __PYX_ERR(0, 999, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__187);
   __Pyx_GIVEREF(__pyx_tuple__187);
-  __pyx_codeobj__188 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__187, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_set_verificatable_result, 979, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__188)) __PYX_ERR(0, 979, __pyx_L1_error)
+  __pyx_codeobj__188 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__187, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_cnn_spatio_temporal_auto_e_2, __pyx_n_s_set_verificatable_result, 999, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__188)) __PYX_ERR(0, 999, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -24650,103 +24962,103 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_optimize, __pyx_t_9) < 0) __PYX_ERR(0, 817, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":857
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":877
  *             self.__layerable_cnn_list[i].reset_delta()
  * 
  *     def temporal_back_propagation(             # <<<<<<<<<<<<<<
  *         self,
  *         np.ndarray delta_arr
  */
-  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_19temporal_back_propagation, 0, __pyx_n_s_SpatioTemporalAutoEncoder_tempor_2, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__170)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 857, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_19temporal_back_propagation, 0, __pyx_n_s_SpatioTemporalAutoEncoder_tempor_2, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__170)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 877, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_temporal_back_propagation, __pyx_t_9) < 0) __PYX_ERR(0, 857, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_temporal_back_propagation, __pyx_t_9) < 0) __PYX_ERR(0, 877, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":882
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":902
  *         return decoder_grads_list, encoder_delta_arr, encoder_grads_list
  * 
  *     def temporal_optimize(             # <<<<<<<<<<<<<<
  *         self,
  *         decoder_grads_list,
  */
-  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_21temporal_optimize, 0, __pyx_n_s_SpatioTemporalAutoEncoder_tempor_3, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__172)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 882, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_21temporal_optimize, 0, __pyx_n_s_SpatioTemporalAutoEncoder_tempor_3, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__172)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 902, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_temporal_optimize, __pyx_t_9) < 0) __PYX_ERR(0, 882, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_temporal_optimize, __pyx_t_9) < 0) __PYX_ERR(0, 902, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":901
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":921
  *         self.__encoder.optimize(encoder_grads_list, learning_rate, epoch)
  * 
  *     def __change_inferencing_mode(self, inferencing_mode):             # <<<<<<<<<<<<<<
  *         '''
  *         Change dropout rate in Encoder/Decoder.
  */
-  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_23__change_inferencing_mode, 0, __pyx_n_s_SpatioTemporalAutoEncoder___chan, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__174)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 901, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_23__change_inferencing_mode, 0, __pyx_n_s_SpatioTemporalAutoEncoder___chan, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__174)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 921, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_SpatioTemporalAutoEncoder__chan, __pyx_t_9) < 0) __PYX_ERR(0, 901, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_SpatioTemporalAutoEncoder__chan, __pyx_t_9) < 0) __PYX_ERR(0, 921, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":912
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":932
  *         self.__encoder.opt_params.inferencing_mode = inferencing_mode
  * 
  *     def save_pre_learned_params(self, dir_path):             # <<<<<<<<<<<<<<
  *         '''
  *         Save pre-learned parameters.
  */
-  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_25save_pre_learned_params, 0, __pyx_n_s_SpatioTemporalAutoEncoder_save_p, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__176)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 912, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_25save_pre_learned_params, 0, __pyx_n_s_SpatioTemporalAutoEncoder_save_p, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__176)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 932, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_save_pre_learned_params, __pyx_t_9) < 0) __PYX_ERR(0, 912, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_save_pre_learned_params, __pyx_t_9) < 0) __PYX_ERR(0, 932, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":927
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":947
  *         self.__decoder.save_pre_learned_params(dir_path, "temporal_decoder")
  * 
  *     def load_pre_learned_params(self, dir_path):             # <<<<<<<<<<<<<<
  *         '''
  *         Load pre-learned parameters.
  */
-  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_27load_pre_learned_params, 0, __pyx_n_s_SpatioTemporalAutoEncoder_load_p, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__178)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 927, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_27load_pre_learned_params, 0, __pyx_n_s_SpatioTemporalAutoEncoder_load_p, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__178)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 947, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_load_pre_learned_params, __pyx_t_9) < 0) __PYX_ERR(0, 927, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_load_pre_learned_params, __pyx_t_9) < 0) __PYX_ERR(0, 947, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":942
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":962
  *         self.__decoder.load_pre_learned_params(dir_path, "temporal_decoder")
  * 
  *     def extract_features_points(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Extract features points.
  */
-  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_29extract_features_points, 0, __pyx_n_s_SpatioTemporalAutoEncoder_extrac, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__180)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 942, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_29extract_features_points, 0, __pyx_n_s_SpatioTemporalAutoEncoder_extrac, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__180)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 962, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_extract_features_points, __pyx_t_9) < 0) __PYX_ERR(0, 942, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_extract_features_points, __pyx_t_9) < 0) __PYX_ERR(0, 962, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":958
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":978
  *         )
  * 
  *     def get_layerable_cnn_list(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__layerable_cnn_list
  */
-  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_31get_layerable_cnn_list, 0, __pyx_n_s_SpatioTemporalAutoEncoder_get_la, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__182)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 958, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_31get_layerable_cnn_list, 0, __pyx_n_s_SpatioTemporalAutoEncoder_get_la, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__182)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 978, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_layerable_cnn_list, __pyx_t_9) < 0) __PYX_ERR(0, 958, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_layerable_cnn_list, __pyx_t_9) < 0) __PYX_ERR(0, 978, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":962
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":982
  *         return self.__layerable_cnn_list
  * 
  *     def set_layerable_cnn_list(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         for layerable_cnn in value:
  */
-  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_33set_layerable_cnn_list, 0, __pyx_n_s_SpatioTemporalAutoEncoder_set_la, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__184)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 962, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_33set_layerable_cnn_list, 0, __pyx_n_s_SpatioTemporalAutoEncoder_set_la, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__184)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 982, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_set_layerable_cnn_list, __pyx_t_9) < 0) __PYX_ERR(0, 962, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_set_layerable_cnn_list, __pyx_t_9) < 0) __PYX_ERR(0, 982, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":970
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":990
  *         self.__layerable_cnn_list = value
  * 
  *     layerable_cnn_list = property(get_layerable_cnn_list, set_layerable_cnn_list)             # <<<<<<<<<<<<<<
@@ -24758,16 +25070,16 @@ if (!__Pyx_RefNanny) {
     PyErr_Clear();
     __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_layerable_cnn_list);
   }
-  if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 970, __pyx_L1_error)
+  if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 990, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __pyx_t_10 = PyObject_GetItem(__pyx_t_2, __pyx_n_s_set_layerable_cnn_list);
   if (unlikely(!__pyx_t_10)) {
     PyErr_Clear();
     __pyx_t_10 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_layerable_cnn_list);
   }
-  if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 970, __pyx_L1_error)
+  if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 990, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 970, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 990, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_GIVEREF(__pyx_t_9);
   PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_9);
@@ -24775,37 +25087,37 @@ if (!__Pyx_RefNanny) {
   PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_10);
   __pyx_t_9 = 0;
   __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_8, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 970, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_8, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 990, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_layerable_cnn_list, __pyx_t_10) < 0) __PYX_ERR(0, 970, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_layerable_cnn_list, __pyx_t_10) < 0) __PYX_ERR(0, 990, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":972
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":992
  *     layerable_cnn_list = property(get_layerable_cnn_list, set_layerable_cnn_list)
  * 
  *     def get_verificatable_result(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         if isinstance(self.__verificatable_result, VerificatableResult):
  */
-  __pyx_t_10 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_35get_verificatable_result, 0, __pyx_n_s_SpatioTemporalAutoEncoder_get_ve, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__186)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 972, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_35get_verificatable_result, 0, __pyx_n_s_SpatioTemporalAutoEncoder_get_ve, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__186)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 992, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_verificatable_result, __pyx_t_10) < 0) __PYX_ERR(0, 972, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_verificatable_result, __pyx_t_10) < 0) __PYX_ERR(0, 992, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":979
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":999
  *             raise TypeError()
  * 
  *     def set_verificatable_result(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         if isinstance(value, VerificatableResult):
  */
-  __pyx_t_10 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_37set_verificatable_result, 0, __pyx_n_s_SpatioTemporalAutoEncoder_set_ve, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__188)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 979, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTemporalAutoEncoder_37set_verificatable_result, 0, __pyx_n_s_SpatioTemporalAutoEncoder_set_ve, NULL, __pyx_n_s_pydbm_cnn_spatio_temporal_auto_e, __pyx_d, ((PyObject *)__pyx_codeobj__188)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 999, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_set_verificatable_result, __pyx_t_10) < 0) __PYX_ERR(0, 979, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_set_verificatable_result, __pyx_t_10) < 0) __PYX_ERR(0, 999, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":986
+  /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":1006
  *             raise TypeError()
  * 
  *     verificatable_result = property(get_verificatable_result, set_verificatable_result)             # <<<<<<<<<<<<<<
@@ -24815,16 +25127,16 @@ if (!__Pyx_RefNanny) {
     PyErr_Clear();
     __pyx_t_10 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_verificatable_result);
   }
-  if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 986, __pyx_L1_error)
+  if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 1006, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __pyx_t_8 = PyObject_GetItem(__pyx_t_2, __pyx_n_s_set_verificatable_result);
   if (unlikely(!__pyx_t_8)) {
     PyErr_Clear();
     __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_verificatable_result);
   }
-  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 986, __pyx_L1_error)
+  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1006, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 986, __pyx_L1_error)
+  __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 1006, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_GIVEREF(__pyx_t_10);
   PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_10);
@@ -24832,10 +25144,10 @@ if (!__Pyx_RefNanny) {
   PyTuple_SET_ITEM(__pyx_t_9, 1, __pyx_t_8);
   __pyx_t_10 = 0;
   __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_9, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 986, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_9, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1006, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_verificatable_result, __pyx_t_8) < 0) __PYX_ERR(0, 986, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_verificatable_result, __pyx_t_8) < 0) __PYX_ERR(0, 1006, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
   /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":15

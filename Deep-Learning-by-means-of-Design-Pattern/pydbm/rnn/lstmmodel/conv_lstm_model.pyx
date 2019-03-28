@@ -876,6 +876,60 @@ class ConvLSTMModel(ReconstructableModel):
             self.__forgot_conv.delta_bias_arr,
             self.__output_conv.delta_bias_arr
         ]
+
+        if self.__given_conv.graph.activation_function.batch_norm is not None:
+            params_list.append(
+                self.__given_conv.graph.activation_function.batch_norm.beta_arr
+            )
+            grads_list.append(
+                self.__given_conv.graph.activation_function.batch_norm.delta_beta_arr
+            )
+            params_list.append(
+                self.__given_conv.graph.activation_function.batch_norm.gamma_arr
+            )
+            grads_list.append(
+                self.__given_conv.graph.activation_function.batch_norm.delta_gamma_arr
+            )
+        if self.__input_conv.graph.activation_function.batch_norm is not None:
+            params_list.append(
+                self.__input_conv.graph.activation_function.batch_norm.beta_arr
+            )
+            grads_list.append(
+                self.__input_conv.graph.activation_function.batch_norm.delta_beta_arr
+            )
+            params_list.append(
+                self.__input_conv.graph.activation_function.batch_norm.gamma_arr
+            )
+            grads_list.append(
+                self.__input_conv.graph.activation_function.batch_norm.delta_gamma_arr
+            )
+        if self.__forgot_conv.graph.activation_function.batch_norm is not None:
+            params_list.append(
+                self.__forgot_conv.graph.activation_function.batch_norm.beta_arr
+            )
+            grads_list.append(
+                self.__forgot_conv.graph.activation_function.batch_norm.delta_beta_arr
+            )
+            params_list.append(
+                self.__forgot_conv.graph.activation_function.batch_norm.gamma_arr
+            )
+            grads_list.append(
+                self.__forgot_conv.graph.activation_function.batch_norm.delta_gamma_arr
+            )
+        if self.__output_conv.graph.activation_function.batch_norm is not None:
+            params_list.append(
+                self.__output_conv.graph.activation_function.batch_norm.beta_arr
+            )
+            grads_list.append(
+                self.__output_conv.graph.activation_function.batch_norm.delta_beta_arr
+            )
+            params_list.append(
+                self.__output_conv.graph.activation_function.batch_norm.gamma_arr
+            )
+            grads_list.append(
+                self.__output_conv.graph.activation_function.batch_norm.delta_gamma_arr
+            )
+            
         params_list = self.__opt_params.optimize(
             params_list,
             grads_list,
@@ -890,6 +944,19 @@ class ConvLSTMModel(ReconstructableModel):
         self.__input_conv.graph.bias_arr = params_list.pop(0)
         self.__forgot_conv.graph.bias_arr = params_list.pop(0)
         self.__output_conv.graph.bias_arr = params_list.pop(0)
+
+        if self.__given_conv.graph.activation_function.batch_norm is not None:
+            self.__given_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+            self.__given_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+        if self.__input_conv.graph.activation_function.batch_norm is not None:
+            self.__input_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+            self.__input_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+        if self.__forgot_conv.graph.activation_function.batch_norm is not None:
+            self.__forgot_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+            self.__forgot_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+        if self.__output_conv.graph.activation_function.batch_norm is not None:
+            self.__output_conv.graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+            self.__output_conv.graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
 
         if ((epoch + 1) % self.__attenuate_epoch == 0):
             self.__given_conv.graph.weight_arr = self.__opt_params.constrain_weight(

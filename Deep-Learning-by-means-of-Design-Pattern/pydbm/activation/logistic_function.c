@@ -1739,6 +1739,7 @@ static const char __pyx_k_metaclass[] = "__metaclass__";
 static const char __pyx_k_ones_like[] = "ones_like";
 static const char __pyx_k_partition[] = "partition";
 static const char __pyx_k_ValueError[] = "ValueError";
+static const char __pyx_k_batch_norm[] = "batch_norm";
 static const char __pyx_k_derivative[] = "derivative";
 static const char __pyx_k_memory_len[] = "memory_len";
 static const char __pyx_k_nan_to_num[] = "nan_to_num";
@@ -1747,9 +1748,11 @@ static const char __pyx_k_expand_dims[] = "expand_dims";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_activity_arr[] = "activity_arr";
 static const char __pyx_k_LogisticFunction[] = "LogisticFunction";
+static const char __pyx_k_back_propagation[] = "back_propagation";
 static const char __pyx_k_Logistic_Function[] = "\n    Logistic Function.\n    ";
 static const char __pyx_k_FloatingPointError[] = "FloatingPointError";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
+static const char __pyx_k_forward_propagation[] = "forward_propagation";
 static const char __pyx_k_LogisticFunction___init[] = "LogisticFunction.__init__";
 static const char __pyx_k_LogisticFunction_activate[] = "LogisticFunction.activate";
 static const char __pyx_k_ActivatingFunctionInterface[] = "ActivatingFunctionInterface";
@@ -1789,6 +1792,8 @@ static PyObject *__pyx_n_s_activity_arr;
 static PyObject *__pyx_n_s_append;
 static PyObject *__pyx_n_s_array;
 static PyObject *__pyx_n_s_axis;
+static PyObject *__pyx_n_s_back_propagation;
+static PyObject *__pyx_n_s_batch_norm;
 static PyObject *__pyx_n_s_c;
 static PyObject *__pyx_n_s_c_arr;
 static PyObject *__pyx_n_s_c_max;
@@ -1798,6 +1803,7 @@ static PyObject *__pyx_n_s_derivative;
 static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_exp;
 static PyObject *__pyx_n_s_expand_dims;
+static PyObject *__pyx_n_s_forward_propagation;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_init;
 static PyObject *__pyx_n_s_main;
@@ -4730,7 +4736,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_17logistic_function_16LogisticFunc
  *         self.__activity_arr_list.append(activity_arr)
  *         if len(self.__activity_arr_list) > self.__memory_len:             # <<<<<<<<<<<<<<
  *             self.__activity_arr_list = self.__activity_arr_list[len(self.__activity_arr_list) - self.__memory_len:]
- *         return activity_arr
+ * 
  */
   __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LogisticFunction__activity_arr); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 122, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
@@ -4751,8 +4757,8 @@ static PyObject *__pyx_pf_5pydbm_10activation_17logistic_function_16LogisticFunc
  *         self.__activity_arr_list.append(activity_arr)
  *         if len(self.__activity_arr_list) > self.__memory_len:
  *             self.__activity_arr_list = self.__activity_arr_list[len(self.__activity_arr_list) - self.__memory_len:]             # <<<<<<<<<<<<<<
- *         return activity_arr
  * 
+ *         if self.batch_norm is not None:
  */
     __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LogisticFunction__activity_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 123, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
@@ -4780,13 +4786,94 @@ static PyObject *__pyx_pf_5pydbm_10activation_17logistic_function_16LogisticFunc
  *         self.__activity_arr_list.append(activity_arr)
  *         if len(self.__activity_arr_list) > self.__memory_len:             # <<<<<<<<<<<<<<
  *             self.__activity_arr_list = self.__activity_arr_list[len(self.__activity_arr_list) - self.__memory_len:]
- *         return activity_arr
+ * 
  */
   }
 
-  /* "pydbm/activation/logistic_function.pyx":124
- *         if len(self.__activity_arr_list) > self.__memory_len:
+  /* "pydbm/activation/logistic_function.pyx":125
  *             self.__activity_arr_list = self.__activity_arr_list[len(self.__activity_arr_list) - self.__memory_len:]
+ * 
+ *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             activity_arr = self.batch_norm.forward_propagation(activity_arr)
+ * 
+ */
+  __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 125, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_13);
+  __pyx_t_8 = (__pyx_t_13 != Py_None);
+  __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+  __pyx_t_16 = (__pyx_t_8 != 0);
+  if (__pyx_t_16) {
+
+    /* "pydbm/activation/logistic_function.pyx":126
+ * 
+ *         if self.batch_norm is not None:
+ *             activity_arr = self.batch_norm.forward_propagation(activity_arr)             # <<<<<<<<<<<<<<
+ * 
+ *         return activity_arr
+ */
+    __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 126, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_15);
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_15, __pyx_n_s_forward_propagation); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 126, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+    __pyx_t_15 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
+      __pyx_t_15 = PyMethod_GET_SELF(__pyx_t_6);
+      if (likely(__pyx_t_15)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+        __Pyx_INCREF(__pyx_t_15);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_6, function);
+      }
+    }
+    if (!__pyx_t_15) {
+      __pyx_t_13 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_v_activity_arr); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 126, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_13);
+    } else {
+      #if CYTHON_FAST_PYCALL
+      if (PyFunction_Check(__pyx_t_6)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_15, __pyx_v_activity_arr};
+        __pyx_t_13 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 126, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+        __Pyx_GOTREF(__pyx_t_13);
+      } else
+      #endif
+      #if CYTHON_FAST_PYCCALL
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_15, __pyx_v_activity_arr};
+        __pyx_t_13 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 126, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+        __Pyx_GOTREF(__pyx_t_13);
+      } else
+      #endif
+      {
+        __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 126, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_10);
+        __Pyx_GIVEREF(__pyx_t_15); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_15); __pyx_t_15 = NULL;
+        __Pyx_INCREF(__pyx_v_activity_arr);
+        __Pyx_GIVEREF(__pyx_v_activity_arr);
+        PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_v_activity_arr);
+        __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_10, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 126, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_13);
+        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      }
+    }
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF_SET(__pyx_v_activity_arr, __pyx_t_13);
+    __pyx_t_13 = 0;
+
+    /* "pydbm/activation/logistic_function.pyx":125
+ *             self.__activity_arr_list = self.__activity_arr_list[len(self.__activity_arr_list) - self.__memory_len:]
+ * 
+ *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             activity_arr = self.batch_norm.forward_propagation(activity_arr)
+ * 
+ */
+  }
+
+  /* "pydbm/activation/logistic_function.pyx":128
+ *             activity_arr = self.batch_norm.forward_propagation(activity_arr)
+ * 
  *         return activity_arr             # <<<<<<<<<<<<<<
  * 
  *     def derivative(self, np.ndarray y):
@@ -4827,7 +4914,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_17logistic_function_16LogisticFunc
   return __pyx_r;
 }
 
-/* "pydbm/activation/logistic_function.pyx":126
+/* "pydbm/activation/logistic_function.pyx":130
  *         return activity_arr
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
@@ -4868,11 +4955,11 @@ static PyObject *__pyx_pw_5pydbm_10activation_17logistic_function_16LogisticFunc
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, 1); __PYX_ERR(0, 126, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, 1); __PYX_ERR(0, 130, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "derivative") < 0)) __PYX_ERR(0, 126, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "derivative") < 0)) __PYX_ERR(0, 130, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -4885,13 +4972,13 @@ static PyObject *__pyx_pw_5pydbm_10activation_17logistic_function_16LogisticFunc
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 126, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 130, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.activation.logistic_function.LogisticFunction.derivative", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y), __pyx_ptype_5numpy_ndarray, 1, "y", 0))) __PYX_ERR(0, 126, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y), __pyx_ptype_5numpy_ndarray, 1, "y", 0))) __PYX_ERR(0, 130, __pyx_L1_error)
   __pyx_r = __pyx_pf_5pydbm_10activation_17logistic_function_16LogisticFunction_4derivative(__pyx_self, __pyx_v_self, __pyx_v_y);
 
   /* function exit code */
@@ -4908,42 +4995,129 @@ static PyObject *__pyx_pf_5pydbm_10activation_17logistic_function_16LogisticFunc
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("derivative", 0);
+  __Pyx_INCREF((PyObject *)__pyx_v_y);
 
-  /* "pydbm/activation/logistic_function.pyx":136
+  /* "pydbm/activation/logistic_function.pyx":140
  *             The result.
  *         '''
+ *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             y = self.batch_norm.back_propagation(y)
+ * 
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = (__pyx_t_1 != Py_None);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_3 = (__pyx_t_2 != 0);
+  if (__pyx_t_3) {
+
+    /* "pydbm/activation/logistic_function.pyx":141
+ *         '''
+ *         if self.batch_norm is not None:
+ *             y = self.batch_norm.back_propagation(y)             # <<<<<<<<<<<<<<
+ * 
+ *         activity_arr = self.__activity_arr_list.pop(-1)
+ */
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_back_propagation); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 141, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
+      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_5);
+      if (likely(__pyx_t_4)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+        __Pyx_INCREF(__pyx_t_4);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_5, function);
+      }
+    }
+    if (!__pyx_t_4) {
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, ((PyObject *)__pyx_v_y)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+    } else {
+      #if CYTHON_FAST_PYCALL
+      if (PyFunction_Check(__pyx_t_5)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_4, ((PyObject *)__pyx_v_y)};
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __Pyx_GOTREF(__pyx_t_1);
+      } else
+      #endif
+      #if CYTHON_FAST_PYCCALL
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_4, ((PyObject *)__pyx_v_y)};
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __Pyx_GOTREF(__pyx_t_1);
+      } else
+      #endif
+      {
+        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 141, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
+        __Pyx_INCREF(((PyObject *)__pyx_v_y));
+        __Pyx_GIVEREF(((PyObject *)__pyx_v_y));
+        PyTuple_SET_ITEM(__pyx_t_6, 0+1, ((PyObject *)__pyx_v_y));
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      }
+    }
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 141, __pyx_L1_error)
+    __Pyx_DECREF_SET(__pyx_v_y, ((PyArrayObject *)__pyx_t_1));
+    __pyx_t_1 = 0;
+
+    /* "pydbm/activation/logistic_function.pyx":140
+ *             The result.
+ *         '''
+ *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
+ *             y = self.batch_norm.back_propagation(y)
+ * 
+ */
+  }
+
+  /* "pydbm/activation/logistic_function.pyx":143
+ *             y = self.batch_norm.back_propagation(y)
+ * 
  *         activity_arr = self.__activity_arr_list.pop(-1)             # <<<<<<<<<<<<<<
  *         return y * (activity_arr * (1 - activity_arr))
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LogisticFunction__activity_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LogisticFunction__activity_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_PopIndex(__pyx_t_1, __pyx_int_neg_1, -1L, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_5 = __Pyx_PyObject_PopIndex(__pyx_t_1, __pyx_int_neg_1, -1L, 1, Py_ssize_t, PyInt_FromSsize_t); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_activity_arr = __pyx_t_2;
-  __pyx_t_2 = 0;
+  __pyx_v_activity_arr = __pyx_t_5;
+  __pyx_t_5 = 0;
 
-  /* "pydbm/activation/logistic_function.pyx":137
- *         '''
+  /* "pydbm/activation/logistic_function.pyx":144
+ * 
  *         activity_arr = self.__activity_arr_list.pop(-1)
  *         return y * (activity_arr * (1 - activity_arr))             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyInt_SubtractCObj(__pyx_int_1, __pyx_v_activity_arr, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = PyNumber_Multiply(__pyx_v_activity_arr, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_SubtractCObj(__pyx_int_1, __pyx_v_activity_arr, 1, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_1 = PyNumber_Multiply(__pyx_v_activity_arr, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyNumber_Multiply(((PyObject *)__pyx_v_y), __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = PyNumber_Multiply(((PyObject *)__pyx_v_y), __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_r = __pyx_t_2;
-  __pyx_t_2 = 0;
+  __pyx_r = __pyx_t_5;
+  __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/activation/logistic_function.pyx":126
+  /* "pydbm/activation/logistic_function.pyx":130
  *         return activity_arr
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
@@ -4954,11 +5128,14 @@ static PyObject *__pyx_pf_5pydbm_10activation_17logistic_function_16LogisticFunc
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
   __Pyx_AddTraceback("pydbm.activation.logistic_function.LogisticFunction.derivative", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_activity_arr);
+  __Pyx_XDECREF((PyObject *)__pyx_v_y);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -7484,6 +7661,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
   {&__pyx_n_s_array, __pyx_k_array, sizeof(__pyx_k_array), 0, 0, 1, 1},
   {&__pyx_n_s_axis, __pyx_k_axis, sizeof(__pyx_k_axis), 0, 0, 1, 1},
+  {&__pyx_n_s_back_propagation, __pyx_k_back_propagation, sizeof(__pyx_k_back_propagation), 0, 0, 1, 1},
+  {&__pyx_n_s_batch_norm, __pyx_k_batch_norm, sizeof(__pyx_k_batch_norm), 0, 0, 1, 1},
   {&__pyx_n_s_c, __pyx_k_c, sizeof(__pyx_k_c), 0, 0, 1, 1},
   {&__pyx_n_s_c_arr, __pyx_k_c_arr, sizeof(__pyx_k_c_arr), 0, 0, 1, 1},
   {&__pyx_n_s_c_max, __pyx_k_c_max, sizeof(__pyx_k_c_max), 0, 0, 1, 1},
@@ -7493,6 +7672,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_exp, __pyx_k_exp, sizeof(__pyx_k_exp), 0, 0, 1, 1},
   {&__pyx_n_s_expand_dims, __pyx_k_expand_dims, sizeof(__pyx_k_expand_dims), 0, 0, 1, 1},
+  {&__pyx_n_s_forward_propagation, __pyx_k_forward_propagation, sizeof(__pyx_k_forward_propagation), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_init, __pyx_k_init, sizeof(__pyx_k_init), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
@@ -7668,17 +7848,17 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__13);
   __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(2, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_logistic_functi_2, __pyx_n_s_activate, 29, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 29, __pyx_L1_error)
 
-  /* "pydbm/activation/logistic_function.pyx":126
+  /* "pydbm/activation/logistic_function.pyx":130
  *         return activity_arr
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
  *         Return of derivative result from this activation function.
  */
-  __pyx_tuple__15 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_y, __pyx_n_s_activity_arr); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 126, __pyx_L1_error)
+  __pyx_tuple__15 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_y, __pyx_n_s_activity_arr); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 130, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_logistic_functi_2, __pyx_n_s_derivative, 126, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 126, __pyx_L1_error)
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_logistic_functi_2, __pyx_n_s_derivative, 130, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 130, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -8048,16 +8228,16 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_activate, __pyx_t_4) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/activation/logistic_function.pyx":126
+  /* "pydbm/activation/logistic_function.pyx":130
  *         return activity_arr
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
  *         Return of derivative result from this activation function.
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_17logistic_function_16LogisticFunction_5derivative, 0, __pyx_n_s_LogisticFunction_derivative, NULL, __pyx_n_s_pydbm_activation_logistic_functi, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_17logistic_function_16LogisticFunction_5derivative, 0, __pyx_n_s_LogisticFunction_derivative, NULL, __pyx_n_s_pydbm_activation_logistic_functi, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 130, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_derivative, __pyx_t_4) < 0) __PYX_ERR(0, 126, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_derivative, __pyx_t_4) < 0) __PYX_ERR(0, 130, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "pydbm/activation/logistic_function.pyx":8

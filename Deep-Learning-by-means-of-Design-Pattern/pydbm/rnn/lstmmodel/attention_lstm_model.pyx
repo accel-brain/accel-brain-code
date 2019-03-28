@@ -425,28 +425,127 @@ class AttentionLSTMModel(LSTMModel):
             epoch:          Now epoch.
             
         '''
+        params_list = [
+            self.graph.attention_output_weight_arr,
+            self.graph.output_bias_arr,
+            self.graph.weights_lstm_hidden_arr,
+            self.graph.weights_lstm_observed_arr,
+            self.graph.lstm_bias_arr,
+            self.graph.weights_input_cec_arr,
+            self.graph.weights_forget_cec_arr,
+            self.graph.weights_output_cec_arr
+        ]
+        if self.graph.observed_activating_function.batch_norm is not None:
+            params_list.append(
+                self.graph.observed_activating_function.batch_norm.beta_arr
+            )
+            grads_list.append(
+                self.graph.observed_activating_function.batch_norm.delta_beta_arr
+            )
+            params_list.append(
+                self.graph.observed_activating_function.batch_norm.gamma_arr
+            )
+            grads_list.append(
+                self.graph.observed_activating_function.batch_norm.delta_gamma_arr
+            )
+        if self.graph.input_gate_activating_function.batch_norm is not None:
+            params_list.append(
+                self.graph.input_gate_activating_function.batch_norm.beta_arr
+            )
+            grads_list.append(
+                self.graph.input_gate_activating_function.batch_norm.delta_beta_arr
+            )
+            params_list.append(
+                self.graph.input_gate_activating_function.batch_norm.gamma_arr
+            )
+            grads_list.append(
+                self.graph.input_gate_activating_function.batch_norm.delta_gamma_arr
+            )
+        if self.graph.forget_gate_activating_function.batch_norm is not None:
+            params_list.append(
+                self.graph.forget_gate_activating_function.batch_norm.beta_arr
+            )
+            grads_list.append(
+                self.graph.forget_gate_activating_function.batch_norm.delta_beta_arr
+            )
+            params_list.append(
+                self.graph.forget_gate_activating_function.batch_norm.gamma_arr
+            )
+            grads_list.append(
+                self.graph.forget_gate_activating_function.batch_norm.delta_gamma_arr
+            )
+        if self.graph.output_gate_activating_function.batch_norm is not None:
+            params_list.append(
+                self.graph.output_gate_activating_function.batch_norm.beta_arr
+            )
+            grads_list.append(
+                self.graph.output_gate_activating_function.batch_norm.delta_beta_arr
+            )
+            params_list.append(
+                self.graph.output_gate_activating_function.batch_norm.gamma_arr
+            )
+            grads_list.append(
+                self.graph.output_gate_activating_function.batch_norm.delta_gamma_arr
+            )
+        if self.graph.hidden_activating_function.batch_norm is not None:
+            params_list.append(
+                self.graph.hidden_activating_function.batch_norm.beta_arr
+            )
+            grads_list.append(
+                self.graph.hidden_activating_function.batch_norm.delta_beta_arr
+            )
+            params_list.append(
+                self.graph.hidden_activating_function.batch_norm.gamma_arr
+            )
+            grads_list.append(
+                self.graph.hidden_activating_function.batch_norm.delta_gamma_arr
+            )
+        if self.graph.output_activating_function.batch_norm is not None:
+            params_list.append(
+                self.graph.output_activating_function.batch_norm.beta_arr
+            )
+            grads_list.append(
+                self.graph.output_activating_function.batch_norm.delta_beta_arr
+            )
+            params_list.append(
+                self.graph.output_activating_function.batch_norm.gamma_arr
+            )
+            grads_list.append(
+                self.graph.output_activating_function.batch_norm.delta_gamma_arr
+            )
+
         params_list = self.opt_params.optimize(
-            [
-                self.graph.attention_output_weight_arr,
-                self.graph.output_bias_arr,
-                self.graph.weights_lstm_hidden_arr,
-                self.graph.weights_lstm_observed_arr,
-                self.graph.lstm_bias_arr,
-                self.graph.weights_input_cec_arr,
-                self.graph.weights_forget_cec_arr,
-                self.graph.weights_output_cec_arr
-            ],
+            params_list,
             grads_list,
             learning_rate
         )
-        self.graph.attention_output_weight_arr = params_list[0]
-        self.graph.output_bias_arr = params_list[1]
-        self.graph.weights_lstm_hidden_arr = params_list[2]
-        self.graph.weights_lstm_observed_arr = params_list[3]
-        self.graph.lstm_bias_arr = params_list[4]
-        self.graph.weights_input_cec_arr = params_list[5]
-        self.graph.weights_forget_cec_arr = params_list[6]
-        self.graph.weights_output_cec_arr = params_list[7]
+        self.graph.attention_output_weight_arr = params_list.pop(0)
+        self.graph.output_bias_arr = params_list.pop(0)
+        self.graph.weights_lstm_hidden_arr = params_list.pop(0)
+        self.graph.weights_lstm_observed_arr = params_list.pop(0)
+        self.graph.lstm_bias_arr = params_list.pop(0)
+        self.graph.weights_input_cec_arr = params_list.pop(0)
+        self.graph.weights_forget_cec_arr = params_list.pop(0)
+        self.graph.weights_output_cec_arr = params_list.pop(0)
+
+        if self.graph.observed_activating_function.batch_norm is not None:
+            self.graph.observed_activating_function.batch_norm.beta_arr = params_list.pop(0)
+            self.graph.observed_activating_function.batch_norm.gamma_arr = params_list.pop(0)
+        if self.graph.input_gate_activating_function.batch_norm is not None:
+            self.graph.input_gate_activating_function.batch_norm.beta_arr = params_list.pop(0)
+            self.graph.input_gate_activating_function.batch_norm.gamma_arr = params_list.pop(0)
+        if self.graph.forget_gate_activating_function.batch_norm is not None:
+            self.graph.forget_gate_activating_function.batch_norm.beta_arr = params_list.pop(0)
+            self.graph.forget_gate_activating_function.batch_norm.gamma_arr = params_list.pop(0)
+        if self.graph.output_gate_activating_function.batch_norm is not None:
+            self.graph.output_gate_activating_function.batch_norm.beta_arr = params_list.pop(0)
+            self.graph.output_gate_activating_function.batch_norm.gamma_arr = params_list.pop(0)
+        if self.graph.hidden_activating_function.batch_norm is not None:
+            self.graph.hidden_activating_function.batch_norm.beta_arr = params_list.pop(0)
+            self.graph.hidden_activating_function.batch_norm.gamma_arr = params_list.pop(0)
+        if self.graph.output_activating_function.batch_norm is not None:
+            self.graph.output_activating_function.batch_norm.beta_arr = params_list.pop(0)
+            self.graph.output_activating_function.batch_norm.gamma_arr = params_list.pop(0)
 
         if ((epoch + 1) % self.__attenuate_epoch == 0):
             self.graph.attention_output_weight_arr = self.opt_params.constrain_weight(self.graph.attention_output_weight_arr)

@@ -52,6 +52,21 @@ class SGD(OptParams):
                     if params_list[i] is None or grads_list[i] is None:
                         continue
 
+                    params_shape = params_list[i].shape
+                    params_ndim = params_list[i].ndim
+                    if params_ndim > 2:
+                        params_list[i] = params_list[i].reshape((
+                            params_shape[0],
+                            -1
+                        ))
+                    grads_shape = grads_list[i].shape
+                    grads_ndim = grads_list[i].ndim
+                    if grads_ndim > 2:
+                        grads_list[i] = grads_list[i].reshape((
+                            grads_shape[0],
+                            -1
+                        ))
+
                     if self.__variation_list[i] is not None:
                         self.__variation_list[i] = self.__momentum * self.__variation_list[i] - learning_rate * grads_list[i]
                         self.__variation_list[i] = np.nan_to_num(self.__variation_list[i])
@@ -59,6 +74,12 @@ class SGD(OptParams):
                     else:
                         params_list[i] -= np.nan_to_num(learning_rate * grads_list[i])
                         self.__variation_list[i] = learning_rate * grads_list[i]
+
+                    if params_ndim > 2:
+                        params_list[i] = params_list[i].reshape(params_shape)
+                    if grads_ndim > 2:
+                        grads_list[i] = grads_list[i].reshape(grads_shape)
+
                 except:
                     self.__logger.debug("Exception raised (key: " + str(i) + ")")
                     raise
@@ -68,6 +89,21 @@ class SGD(OptParams):
                 try:
                     if params_list[i] is None or grads_list[i] is None:
                         continue
+
+                    params_shape = params_list[i].shape
+                    params_ndim = params_list[i].ndim
+                    if params_ndim > 2:
+                        params_list[i] = params_list[i].reshape((
+                            params_shape[0],
+                            -1
+                        ))
+                    grads_shape = grads_list[i].shape
+                    grads_ndim = grads_list[i].ndim
+                    if grads_ndim > 2:
+                        grads_list[i] = grads_list[i].reshape((
+                            grads_shape[0],
+                            -1
+                        ))
 
                     params_list[i] = np.nansum(
                         np.array([
@@ -82,6 +118,12 @@ class SGD(OptParams):
                         ]),
                         axis=0
                     )[0]
+
+                    if params_ndim > 2:
+                        params_list[i] = params_list[i].reshape(params_shape)
+                    if grads_ndim > 2:
+                        grads_list[i] = grads_list[i].reshape(grads_shape)
+
                 except:
                     self.__logger.debug("Exception raised (key: " + str(i) + ")")
                     raise

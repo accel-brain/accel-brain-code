@@ -24,6 +24,10 @@ class SoftmaxFunction(ActivatingFunctionInterface):
         cdef np.ndarray prob
         exp_x = np.exp(x - np.max(x))
         prob = exp_x / exp_x.sum(axis=0)
+
+        if self.batch_norm is not None:
+            prob = self.batch_norm.forward_propagation(prob)
+
         return prob
 
     def derivative(self, np.ndarray y):
@@ -36,4 +40,7 @@ class SoftmaxFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
+        if self.batch_norm is not None:
+            y = self.batch_norm.back_propagation(y)
+
         return y

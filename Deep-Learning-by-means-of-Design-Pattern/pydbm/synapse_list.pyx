@@ -6,6 +6,7 @@ cimport cython
 import random
 ctypedef np.float64_t DOUBLE_t
 from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
+from pydbm.optimization.batch_norm import BatchNorm
 
 
 class Synapse(object):
@@ -139,6 +140,11 @@ class Synapse(object):
         for k, v in self.__dict__.items():
             if isinstance(v, np.ndarray):
                 d.setdefault(k, v)
+            if isinstance(v, ActivatingFunctionInterface) is True:
+                if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:
+                    d.setdefault(k + "_batch_norm_beta", v.batch_norm.beta_arr)
+                    d.setdefault(k + "_batch_norm_gamma", v.batch_norm.gamma_arr)
+
         np.savez_compressed(file_path, **d)
 
     def load_pre_learned_params(self, file_path):
@@ -155,3 +161,11 @@ class Synapse(object):
         for k, v in pre_learned_dict.items():
             if isinstance(v, np.ndarray):
                 self.__dict__[k] = v
+
+        for k, v in self.__dict__.items():
+            if isinstance(v, ActivatingFunctionInterface) is True:
+                if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:
+                    if k + "_batch_norm_beta" in pre_learned_dict:
+                        self.__dict__[k] = pre_learned_dict[k + "_batch_norm_beta"]
+                    if k + "_batch_norm_gamma" in pre_learned_dict:
+                        self.__dict__[k] = pre_learned_dict[k + "_batch_norm_gamma"]

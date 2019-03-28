@@ -44,15 +44,30 @@ class Adam(OptParams):
             raise ValueError("The row of `params_list` and `grads_list` must be equivalent.")
 
         if len(self.__first_moment_list) == 0 or len(self.__first_moment_list) != len(params_list):
-            self.__first_moment_list = [np.zeros_like(params_list[i]) for i in range(len(params_list))]
+            for i in range(len(params_list)):
+                first_moment_arr = np.zeros_like(params_list[i])
+                if first_moment_arr.ndim > 2:
+                    first_moment_arr = first_moment_arr.reshape((
+                        first_moment_arr.shape[0],
+                        -1
+                    ))
+                self.__first_moment_list.append(first_moment_arr)
+
         if len(self.__second_moment_list) == 0 or len(self.__second_moment_list) != len(params_list):
-            self.__second_moment_list  = [np.zeros_like(params_list[i]) for i in range(len(params_list))]
+            for i in range(len(params_list)):
+                second_moment_arr = np.zeros_like(params_list[i])
+                if second_moment_arr.ndim > 2:
+                    second_moment_arr = second_moment_arr.reshape((
+                        second_moment_arr.shape[0],
+                        -1
+                    ))
+                self.__second_moment_list.append(second_moment_arr)
         
         if self.__first_moment_list[0] is None or self.__second_moment_list[0] is None:
             self.__epoch = 0
 
         self.__epoch += 1
-        
+
         cdef double beta_2 = 1 - np.nanprod(
             np.array([self.__beta_2] * self.__epoch),
             axis=0
@@ -73,6 +88,21 @@ class Adam(OptParams):
         for i in range(len(params_list)):
             if params_list[i] is None or grads_list[i] is None:
                 continue
+
+            params_shape = params_list[i].shape
+            params_ndim = params_list[i].ndim
+            if params_ndim > 2:
+                params_list[i] = params_list[i].reshape((
+                    params_shape[0],
+                    -1
+                ))
+            grads_shape = grads_list[i].shape
+            grads_ndim = grads_list[i].ndim
+            if grads_ndim > 2:
+                grads_list[i] = grads_list[i].reshape((
+                    grads_shape[0],
+                    -1
+                ))
 
             first_moment_arr = np.nansum(
                 np.array([
@@ -165,5 +195,10 @@ class Adam(OptParams):
                 ]),
                 axis=0
             )[0]
+
+            if params_ndim > 2:
+                params_list[i] = params_list[i].reshape(params_shape)
+            if grads_ndim > 2:
+                grads_list[i] = grads_list[i].reshape(grads_shape)
 
         return params_list

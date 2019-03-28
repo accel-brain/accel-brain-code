@@ -1146,11 +1146,8 @@ static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
     PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
     const char* function_name);
 
-/* ArgTypeTest.proto */
-#define __Pyx_ArgTypeTest(obj, type, none_allowed, name, exact)\
-    ((likely((Py_TYPE(obj) == type) | (none_allowed && (obj == Py_None)))) ? 1 :\
-        __Pyx__ArgTypeTest(obj, type, name, exact))
-static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact);
+/* GetModuleGlobalName.proto */
+static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
 
 /* PyFunctionFastCall.proto */
 #if CYTHON_FAST_PYCALL
@@ -1221,6 +1218,21 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
 /* RaiseException.proto */
 static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
 
+/* PyObjectSetAttrStr.proto */
+#if CYTHON_USE_TYPE_SLOTS
+#define __Pyx_PyObject_DelAttrStr(o,n) __Pyx_PyObject_SetAttrStr(o, n, NULL)
+static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr_name, PyObject* value);
+#else
+#define __Pyx_PyObject_DelAttrStr(o,n)   PyObject_DelAttr(o,n)
+#define __Pyx_PyObject_SetAttrStr(o,n,v) PyObject_SetAttr(o,n,v)
+#endif
+
+/* ArgTypeTest.proto */
+#define __Pyx_ArgTypeTest(obj, type, none_allowed, name, exact)\
+    ((likely((Py_TYPE(obj) == type) | (none_allowed && (obj == Py_None)))) ? 1 :\
+        __Pyx__ArgTypeTest(obj, type, name, exact))
+static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact);
+
 /* PyCFunctionFastCall.proto */
 #if CYTHON_FAST_PYCCALL
 static CYTHON_INLINE PyObject *__Pyx_PyCFunction_FastCall(PyObject *func, PyObject **args, Py_ssize_t nargs);
@@ -1287,8 +1299,16 @@ static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
 /* ImportFrom.proto */
 static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name);
 
-/* GetModuleGlobalName.proto */
-static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
+/* SetNameInClass.proto */
+#if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030500A1
+#define __Pyx_SetNameInClass(ns, name, value)\
+    (likely(PyDict_CheckExact(ns)) ? _PyDict_SetItem_KnownHash(ns, name, value, ((PyASCIIObject *) name)->hash) : PyObject_SetItem(ns, name, value))
+#elif CYTHON_COMPILING_IN_CPYTHON
+#define __Pyx_SetNameInClass(ns, name, value)\
+    (likely(PyDict_CheckExact(ns)) ? PyDict_SetItem(ns, name, value) : PyObject_SetItem(ns, name, value))
+#else
+#define __Pyx_SetNameInClass(ns, name, value)  PyObject_SetItem(ns, name, value)
+#endif
 
 /* FetchCommonType.proto */
 static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type);
@@ -1345,17 +1365,6 @@ static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsKwDict(PyObject *m,
 static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *m,
                                                               PyObject *dict);
 static int __pyx_CyFunction_init(void);
-
-/* SetNameInClass.proto */
-#if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030500A1
-#define __Pyx_SetNameInClass(ns, name, value)\
-    (likely(PyDict_CheckExact(ns)) ? _PyDict_SetItem_KnownHash(ns, name, value, ((PyASCIIObject *) name)->hash) : PyObject_SetItem(ns, name, value))
-#elif CYTHON_COMPILING_IN_CPYTHON
-#define __Pyx_SetNameInClass(ns, name, value)\
-    (likely(PyDict_CheckExact(ns)) ? PyDict_SetItem(ns, name, value) : PyObject_SetItem(ns, name, value))
-#else
-#define __Pyx_SetNameInClass(ns, name, value)  PyObject_SetItem(ns, name, value)
-#endif
 
 /* CalculateMetaclass.proto */
 static PyObject *__Pyx_CalculateMetaclass(PyTypeObject *metaclass, PyObject *bases);
@@ -1575,6 +1584,8 @@ extern int __pyx_module_is_main_pydbm__activation__interface__activating_functio
 int __pyx_module_is_main_pydbm__activation__interface__activating_function_interface = 0;
 
 /* Implementation of 'pydbm.activation.interface.activating_function_interface' */
+static PyObject *__pyx_builtin_property;
+static PyObject *__pyx_builtin_TypeError;
 static PyObject *__pyx_builtin_NotImplementedError;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_range;
@@ -1590,22 +1601,33 @@ static const char __pyx_k_self[] = "self";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_range[] = "range";
+static const char __pyx_k_value[] = "value";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_module[] = "__module__";
 static const char __pyx_k_ABCMeta[] = "ABCMeta";
 static const char __pyx_k_prepare[] = "__prepare__";
 static const char __pyx_k_activate[] = "activate";
+static const char __pyx_k_property[] = "property";
 static const char __pyx_k_qualname[] = "__qualname__";
+static const char __pyx_k_BatchNorm[] = "BatchNorm";
+static const char __pyx_k_TypeError[] = "TypeError";
 static const char __pyx_k_metaclass[] = "__metaclass__";
 static const char __pyx_k_ValueError[] = "ValueError";
+static const char __pyx_k_batch_norm[] = "batch_norm";
 static const char __pyx_k_derivative[] = "derivative";
 static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_abstractmethod[] = "abstractmethod";
+static const char __pyx_k_get_batch_norm[] = "get_batch_norm";
+static const char __pyx_k_set_batch_norm[] = "set_batch_norm";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_NotImplementedError[] = "NotImplementedError";
 static const char __pyx_k_ActivatingFunctionInterface[] = "ActivatingFunctionInterface";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
+static const char __pyx_k_pydbm_optimization_batch_norm[] = "pydbm.optimization.batch_norm";
+static const char __pyx_k_ActivatingFunctionInterface__ba[] = "_ActivatingFunctionInterface__batch_norm";
+static const char __pyx_k_ActivatingFunctionInterface_get[] = "ActivatingFunctionInterface.get_batch_norm";
+static const char __pyx_k_ActivatingFunctionInterface_set[] = "ActivatingFunctionInterface.set_batch_norm";
 static const char __pyx_k_Interface_of_activation_functio[] = "\n    Interface of activation functions.\n    ";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
@@ -1620,8 +1642,12 @@ static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string 
 static const char __pyx_k_pydbm_activation_interface_activ_2[] = "pydbm/activation/interface/activating_function_interface.pyx";
 static PyObject *__pyx_n_s_ABCMeta;
 static PyObject *__pyx_n_s_ActivatingFunctionInterface;
+static PyObject *__pyx_n_s_ActivatingFunctionInterface__ba;
 static PyObject *__pyx_n_s_ActivatingFunctionInterface_acti;
 static PyObject *__pyx_n_s_ActivatingFunctionInterface_deri;
+static PyObject *__pyx_n_s_ActivatingFunctionInterface_get;
+static PyObject *__pyx_n_s_ActivatingFunctionInterface_set;
+static PyObject *__pyx_n_s_BatchNorm;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
 static PyObject *__pyx_n_s_ImportError;
@@ -1629,13 +1655,16 @@ static PyObject *__pyx_kp_s_Interface_of_activation_functio;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_NotImplementedError;
 static PyObject *__pyx_n_s_RuntimeError;
+static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_abc;
 static PyObject *__pyx_n_s_abstractmethod;
 static PyObject *__pyx_n_s_activate;
+static PyObject *__pyx_n_s_batch_norm;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_derivative;
 static PyObject *__pyx_n_s_doc;
+static PyObject *__pyx_n_s_get_batch_norm;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_metaclass;
@@ -1647,17 +1676,23 @@ static PyObject *__pyx_n_s_numpy;
 static PyObject *__pyx_kp_s_numpy_core_multiarray_failed_to;
 static PyObject *__pyx_kp_s_numpy_core_umath_failed_to_impor;
 static PyObject *__pyx_n_s_prepare;
+static PyObject *__pyx_n_s_property;
 static PyObject *__pyx_n_s_pydbm_activation_interface_activ;
 static PyObject *__pyx_kp_s_pydbm_activation_interface_activ_2;
+static PyObject *__pyx_n_s_pydbm_optimization_batch_norm;
 static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_self;
+static PyObject *__pyx_n_s_set_batch_norm;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
+static PyObject *__pyx_n_s_value;
 static PyObject *__pyx_n_s_x;
 static PyObject *__pyx_n_s_y;
-static PyObject *__pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_activate(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_x); /* proto */
-static PyObject *__pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_2derivative(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_y); /* proto */
+static PyObject *__pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_get_batch_norm(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_2set_batch_norm(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_4activate(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_x); /* proto */
+static PyObject *__pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_6derivative(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_y); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tuple_;
@@ -1671,11 +1706,222 @@ static PyObject *__pyx_tuple__8;
 static PyObject *__pyx_tuple__9;
 static PyObject *__pyx_tuple__10;
 static PyObject *__pyx_tuple__12;
+static PyObject *__pyx_tuple__14;
+static PyObject *__pyx_tuple__16;
 static PyObject *__pyx_codeobj__11;
 static PyObject *__pyx_codeobj__13;
+static PyObject *__pyx_codeobj__15;
+static PyObject *__pyx_codeobj__17;
 /* Late includes */
 
-/* "pydbm/activation/interface/activating_function_interface.pyx":13
+/* "pydbm/activation/interface/activating_function_interface.pyx":16
+ *     __batch_norm = None
+ * 
+ *     def get_batch_norm(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__batch_norm
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_1get_batch_norm(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_get_batch_norm[] = " getter ";
+static PyMethodDef __pyx_mdef_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_1get_batch_norm = {"get_batch_norm", (PyCFunction)__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_1get_batch_norm, METH_O, __pyx_doc_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_get_batch_norm};
+static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_1get_batch_norm(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_batch_norm (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_get_batch_norm(__pyx_self, ((PyObject *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_get_batch_norm(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("get_batch_norm", 0);
+
+  /* "pydbm/activation/interface/activating_function_interface.pyx":18
+ *     def get_batch_norm(self):
+ *         ''' getter '''
+ *         return self.__batch_norm             # <<<<<<<<<<<<<<
+ * 
+ *     def set_batch_norm(self, value):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ActivatingFunctionInterface__ba); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 18, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pydbm/activation/interface/activating_function_interface.pyx":16
+ *     __batch_norm = None
+ * 
+ *     def get_batch_norm(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__batch_norm
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface.get_batch_norm", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/activation/interface/activating_function_interface.pyx":20
+ *         return self.__batch_norm
+ * 
+ *     def set_batch_norm(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         if isinstance(value, BatchNorm) is False:
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_3set_batch_norm(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_2set_batch_norm[] = " setter ";
+static PyMethodDef __pyx_mdef_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_3set_batch_norm = {"set_batch_norm", (PyCFunction)__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_3set_batch_norm, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_2set_batch_norm};
+static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_3set_batch_norm(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_self = 0;
+  PyObject *__pyx_v_value = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_batch_norm (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_value,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("set_batch_norm", 1, 2, 2, 1); __PYX_ERR(0, 20, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_batch_norm") < 0)) __PYX_ERR(0, 20, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_self = values[0];
+    __pyx_v_value = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("set_batch_norm", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 20, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface.set_batch_norm", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_2set_batch_norm(__pyx_self, __pyx_v_self, __pyx_v_value);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_2set_batch_norm(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  __Pyx_RefNannySetupContext("set_batch_norm", 0);
+
+  /* "pydbm/activation/interface/activating_function_interface.pyx":22
+ *     def set_batch_norm(self, value):
+ *         ''' setter '''
+ *         if isinstance(value, BatchNorm) is False:             # <<<<<<<<<<<<<<
+ *             raise TypeError()
+ *         self.__batch_norm = value
+ */
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_BatchNorm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_value, __pyx_t_1); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 22, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_3 = ((__pyx_t_2 == 0) != 0);
+  if (unlikely(__pyx_t_3)) {
+
+    /* "pydbm/activation/interface/activating_function_interface.pyx":23
+ *         ''' setter '''
+ *         if isinstance(value, BatchNorm) is False:
+ *             raise TypeError()             # <<<<<<<<<<<<<<
+ *         self.__batch_norm = value
+ * 
+ */
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_TypeError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 23, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __PYX_ERR(0, 23, __pyx_L1_error)
+
+    /* "pydbm/activation/interface/activating_function_interface.pyx":22
+ *     def set_batch_norm(self, value):
+ *         ''' setter '''
+ *         if isinstance(value, BatchNorm) is False:             # <<<<<<<<<<<<<<
+ *             raise TypeError()
+ *         self.__batch_norm = value
+ */
+  }
+
+  /* "pydbm/activation/interface/activating_function_interface.pyx":24
+ *         if isinstance(value, BatchNorm) is False:
+ *             raise TypeError()
+ *         self.__batch_norm = value             # <<<<<<<<<<<<<<
+ * 
+ *     batch_norm = property(get_batch_norm, set_batch_norm)
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ActivatingFunctionInterface__ba, __pyx_v_value) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
+
+  /* "pydbm/activation/interface/activating_function_interface.pyx":20
+ *         return self.__batch_norm
+ * 
+ *     def set_batch_norm(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         if isinstance(value, BatchNorm) is False:
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface.set_batch_norm", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/activation/interface/activating_function_interface.pyx":29
  * 
  *     @abstractmethod
  *     def activate(self, np.ndarray x):             # <<<<<<<<<<<<<<
@@ -1684,10 +1930,10 @@ static PyObject *__pyx_codeobj__13;
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_1activate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_activate[] = "\n        Return of result from this activation function.\n\n        Args:\n            x   Parameter.\n\n        Returns:\n            The result.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_1activate = {"activate", (PyCFunction)__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_1activate, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_activate};
-static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_1activate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_5activate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_4activate[] = "\n        Return of result from this activation function.\n\n        Args:\n            x   Parameter.\n\n        Returns:\n            The result.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_5activate = {"activate", (PyCFunction)__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_5activate, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_4activate};
+static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_5activate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
   CYTHON_UNUSED PyArrayObject *__pyx_v_x = 0;
   PyObject *__pyx_r = 0;
@@ -1716,11 +1962,11 @@ static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_i
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_x)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("activate", 1, 2, 2, 1); __PYX_ERR(0, 13, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("activate", 1, 2, 2, 1); __PYX_ERR(0, 29, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "activate") < 0)) __PYX_ERR(0, 13, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "activate") < 0)) __PYX_ERR(0, 29, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1733,14 +1979,14 @@ static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_i
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("activate", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 13, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("activate", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 29, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface.activate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_x), __pyx_ptype_5numpy_ndarray, 1, "x", 0))) __PYX_ERR(0, 13, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_activate(__pyx_self, __pyx_v_self, __pyx_v_x);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_x), __pyx_ptype_5numpy_ndarray, 1, "x", 0))) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_4activate(__pyx_self, __pyx_v_self, __pyx_v_x);
 
   /* function exit code */
   goto __pyx_L0;
@@ -1751,26 +1997,26 @@ static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_i
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_activate(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_x) {
+static PyObject *__pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_4activate(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_x) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("activate", 0);
 
-  /* "pydbm/activation/interface/activating_function_interface.pyx":23
+  /* "pydbm/activation/interface/activating_function_interface.pyx":39
  *             The result.
  *         '''
  *         raise NotImplementedError()             # <<<<<<<<<<<<<<
  * 
  *     @abstractmethod
  */
-  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __PYX_ERR(0, 23, __pyx_L1_error)
+  __PYX_ERR(0, 39, __pyx_L1_error)
 
-  /* "pydbm/activation/interface/activating_function_interface.pyx":13
+  /* "pydbm/activation/interface/activating_function_interface.pyx":29
  * 
  *     @abstractmethod
  *     def activate(self, np.ndarray x):             # <<<<<<<<<<<<<<
@@ -1788,7 +2034,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_9interface_29activating_function_i
   return __pyx_r;
 }
 
-/* "pydbm/activation/interface/activating_function_interface.pyx":26
+/* "pydbm/activation/interface/activating_function_interface.pyx":42
  * 
  *     @abstractmethod
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
@@ -1797,10 +2043,10 @@ static PyObject *__pyx_pf_5pydbm_10activation_9interface_29activating_function_i
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_3derivative(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_2derivative[] = "\n        Return of derivative result from this activation function.\n\n        Args:\n            y:   The result of activation.\n\n        Returns:\n            The result.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_3derivative = {"derivative", (PyCFunction)__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_3derivative, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_2derivative};
-static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_3derivative(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_7derivative(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_6derivative[] = "\n        Return of derivative result from this activation function.\n\n        Args:\n            y:   The result of activation.\n\n        Returns:\n            The result.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_7derivative = {"derivative", (PyCFunction)__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_7derivative, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_6derivative};
+static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_7derivative(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
   CYTHON_UNUSED PyArrayObject *__pyx_v_y = 0;
   PyObject *__pyx_r = 0;
@@ -1829,11 +2075,11 @@ static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_i
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, 1); __PYX_ERR(0, 26, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, 1); __PYX_ERR(0, 42, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "derivative") < 0)) __PYX_ERR(0, 26, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "derivative") < 0)) __PYX_ERR(0, 42, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1846,14 +2092,14 @@ static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_i
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 26, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("derivative", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 42, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface.derivative", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y), __pyx_ptype_5numpy_ndarray, 1, "y", 0))) __PYX_ERR(0, 26, __pyx_L1_error)
-  __pyx_r = __pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_2derivative(__pyx_self, __pyx_v_self, __pyx_v_y);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y), __pyx_ptype_5numpy_ndarray, 1, "y", 0))) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_6derivative(__pyx_self, __pyx_v_self, __pyx_v_y);
 
   /* function exit code */
   goto __pyx_L0;
@@ -1864,24 +2110,24 @@ static PyObject *__pyx_pw_5pydbm_10activation_9interface_29activating_function_i
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_2derivative(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_y) {
+static PyObject *__pyx_pf_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_6derivative(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyArrayObject *__pyx_v_y) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("derivative", 0);
 
-  /* "pydbm/activation/interface/activating_function_interface.pyx":36
+  /* "pydbm/activation/interface/activating_function_interface.pyx":52
  *             The result.
  *         '''
  *         raise NotImplementedError()             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __PYX_ERR(0, 36, __pyx_L1_error)
+  __PYX_ERR(0, 52, __pyx_L1_error)
 
-  /* "pydbm/activation/interface/activating_function_interface.pyx":26
+  /* "pydbm/activation/interface/activating_function_interface.pyx":42
  * 
  *     @abstractmethod
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
@@ -4400,8 +4646,12 @@ static struct PyModuleDef __pyx_moduledef = {
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ABCMeta, __pyx_k_ABCMeta, sizeof(__pyx_k_ABCMeta), 0, 0, 1, 1},
   {&__pyx_n_s_ActivatingFunctionInterface, __pyx_k_ActivatingFunctionInterface, sizeof(__pyx_k_ActivatingFunctionInterface), 0, 0, 1, 1},
+  {&__pyx_n_s_ActivatingFunctionInterface__ba, __pyx_k_ActivatingFunctionInterface__ba, sizeof(__pyx_k_ActivatingFunctionInterface__ba), 0, 0, 1, 1},
   {&__pyx_n_s_ActivatingFunctionInterface_acti, __pyx_k_ActivatingFunctionInterface_acti, sizeof(__pyx_k_ActivatingFunctionInterface_acti), 0, 0, 1, 1},
   {&__pyx_n_s_ActivatingFunctionInterface_deri, __pyx_k_ActivatingFunctionInterface_deri, sizeof(__pyx_k_ActivatingFunctionInterface_deri), 0, 0, 1, 1},
+  {&__pyx_n_s_ActivatingFunctionInterface_get, __pyx_k_ActivatingFunctionInterface_get, sizeof(__pyx_k_ActivatingFunctionInterface_get), 0, 0, 1, 1},
+  {&__pyx_n_s_ActivatingFunctionInterface_set, __pyx_k_ActivatingFunctionInterface_set, sizeof(__pyx_k_ActivatingFunctionInterface_set), 0, 0, 1, 1},
+  {&__pyx_n_s_BatchNorm, __pyx_k_BatchNorm, sizeof(__pyx_k_BatchNorm), 0, 0, 1, 1},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
@@ -4409,13 +4659,16 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
   {&__pyx_n_s_NotImplementedError, __pyx_k_NotImplementedError, sizeof(__pyx_k_NotImplementedError), 0, 0, 1, 1},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
+  {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_abc, __pyx_k_abc, sizeof(__pyx_k_abc), 0, 0, 1, 1},
   {&__pyx_n_s_abstractmethod, __pyx_k_abstractmethod, sizeof(__pyx_k_abstractmethod), 0, 0, 1, 1},
   {&__pyx_n_s_activate, __pyx_k_activate, sizeof(__pyx_k_activate), 0, 0, 1, 1},
+  {&__pyx_n_s_batch_norm, __pyx_k_batch_norm, sizeof(__pyx_k_batch_norm), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_derivative, __pyx_k_derivative, sizeof(__pyx_k_derivative), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
+  {&__pyx_n_s_get_batch_norm, __pyx_k_get_batch_norm, sizeof(__pyx_k_get_batch_norm), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_metaclass, __pyx_k_metaclass, sizeof(__pyx_k_metaclass), 0, 0, 1, 1},
@@ -4427,19 +4680,25 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_numpy_core_multiarray_failed_to, __pyx_k_numpy_core_multiarray_failed_to, sizeof(__pyx_k_numpy_core_multiarray_failed_to), 0, 0, 1, 0},
   {&__pyx_kp_s_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 0, 1, 0},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
+  {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
   {&__pyx_n_s_pydbm_activation_interface_activ, __pyx_k_pydbm_activation_interface_activ, sizeof(__pyx_k_pydbm_activation_interface_activ), 0, 0, 1, 1},
   {&__pyx_kp_s_pydbm_activation_interface_activ_2, __pyx_k_pydbm_activation_interface_activ_2, sizeof(__pyx_k_pydbm_activation_interface_activ_2), 0, 0, 1, 0},
+  {&__pyx_n_s_pydbm_optimization_batch_norm, __pyx_k_pydbm_optimization_batch_norm, sizeof(__pyx_k_pydbm_optimization_batch_norm), 0, 0, 1, 1},
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
+  {&__pyx_n_s_set_batch_norm, __pyx_k_set_batch_norm, sizeof(__pyx_k_set_batch_norm), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_kp_u_unknown_dtype_code_in_numpy_pxd, __pyx_k_unknown_dtype_code_in_numpy_pxd, sizeof(__pyx_k_unknown_dtype_code_in_numpy_pxd), 0, 1, 0, 0},
+  {&__pyx_n_s_value, __pyx_k_value, sizeof(__pyx_k_value), 0, 0, 1, 1},
   {&__pyx_n_s_x, __pyx_k_x, sizeof(__pyx_k_x), 0, 0, 1, 1},
   {&__pyx_n_s_y, __pyx_k_y, sizeof(__pyx_k_y), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_NotImplementedError = __Pyx_GetBuiltinName(__pyx_n_s_NotImplementedError); if (!__pyx_builtin_NotImplementedError) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_builtin_NotImplementedError = __Pyx_GetBuiltinName(__pyx_n_s_NotImplementedError); if (!__pyx_builtin_NotImplementedError) __PYX_ERR(0, 39, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 229, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(1, 242, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 810, __pyx_L1_error)
@@ -4550,29 +4809,53 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
 
-  /* "pydbm/activation/interface/activating_function_interface.pyx":13
+  /* "pydbm/activation/interface/activating_function_interface.pyx":16
+ *     __batch_norm = None
+ * 
+ *     def get_batch_norm(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__batch_norm
+ */
+  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__10);
+  __Pyx_GIVEREF(__pyx_tuple__10);
+  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_interface_activ_2, __pyx_n_s_get_batch_norm, 16, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 16, __pyx_L1_error)
+
+  /* "pydbm/activation/interface/activating_function_interface.pyx":20
+ *         return self.__batch_norm
+ * 
+ *     def set_batch_norm(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         if isinstance(value, BatchNorm) is False:
+ */
+  __pyx_tuple__12 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__12);
+  __Pyx_GIVEREF(__pyx_tuple__12);
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_interface_activ_2, __pyx_n_s_set_batch_norm, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 20, __pyx_L1_error)
+
+  /* "pydbm/activation/interface/activating_function_interface.pyx":29
  * 
  *     @abstractmethod
  *     def activate(self, np.ndarray x):             # <<<<<<<<<<<<<<
  *         '''
  *         Return of result from this activation function.
  */
-  __pyx_tuple__10 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_x); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 13, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__10);
-  __Pyx_GIVEREF(__pyx_tuple__10);
-  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_interface_activ_2, __pyx_n_s_activate, 13, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_tuple__14 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_x); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__14);
+  __Pyx_GIVEREF(__pyx_tuple__14);
+  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_interface_activ_2, __pyx_n_s_activate, 29, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 29, __pyx_L1_error)
 
-  /* "pydbm/activation/interface/activating_function_interface.pyx":26
+  /* "pydbm/activation/interface/activating_function_interface.pyx":42
  * 
  *     @abstractmethod
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
  *         Return of derivative result from this activation function.
  */
-  __pyx_tuple__12 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_y); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 26, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__12);
-  __Pyx_GIVEREF(__pyx_tuple__12);
-  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_interface_activ_2, __pyx_n_s_derivative, 26, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_tuple__16 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_y); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__16);
+  __Pyx_GIVEREF(__pyx_tuple__16);
+  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_activation_interface_activ_2, __pyx_n_s_derivative, 42, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -4848,217 +5131,306 @@ if (!__Pyx_RefNanny) {
 
   /* "pydbm/activation/interface/activating_function_interface.pyx":2
  * # -*- coding: utf-8 -*-
+ * from pydbm.optimization.batch_norm import BatchNorm             # <<<<<<<<<<<<<<
+ * import numpy as np
+ * cimport numpy as np
+ */
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(__pyx_n_s_BatchNorm);
+  __Pyx_GIVEREF(__pyx_n_s_BatchNorm);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_BatchNorm);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pydbm_optimization_batch_norm, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_BatchNorm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_BatchNorm, __pyx_t_1) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "pydbm/activation/interface/activating_function_interface.pyx":3
+ * # -*- coding: utf-8 -*-
+ * from pydbm.optimization.batch_norm import BatchNorm
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
  * from abc import ABCMeta, abstractmethod
  */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_2) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/activation/interface/activating_function_interface.pyx":4
+  /* "pydbm/activation/interface/activating_function_interface.pyx":5
  * import numpy as np
  * cimport numpy as np
  * from abc import ABCMeta, abstractmethod             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_1 = PyList_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_ABCMeta);
   __Pyx_GIVEREF(__pyx_n_s_ABCMeta);
-  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_ABCMeta);
+  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_ABCMeta);
   __Pyx_INCREF(__pyx_n_s_abstractmethod);
   __Pyx_GIVEREF(__pyx_n_s_abstractmethod);
-  PyList_SET_ITEM(__pyx_t_1, 1, __pyx_n_s_abstractmethod);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_abc, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_ABCMeta); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_s_abstractmethod);
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_abc, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ABCMeta, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_abstractmethod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_abstractmethod, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_ABCMeta); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ABCMeta, __pyx_t_2) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_abstractmethod); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_abstractmethod, __pyx_t_2) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pydbm/activation/interface/activating_function_interface.pyx":7
+  /* "pydbm/activation/interface/activating_function_interface.pyx":8
  * 
  * 
  * class ActivatingFunctionInterface(metaclass=ABCMeta):             # <<<<<<<<<<<<<<
  *     '''
  *     Interface of activation functions.
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ABCMeta); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_1, __pyx_empty_tuple, __pyx_n_s_ActivatingFunctionInterface, __pyx_n_s_ActivatingFunctionInterface, __pyx_t_2, __pyx_n_s_pydbm_activation_interface_activ, __pyx_kp_s_Interface_of_activation_functio); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ABCMeta); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_empty_tuple, __pyx_n_s_ActivatingFunctionInterface, __pyx_n_s_ActivatingFunctionInterface, __pyx_t_1, __pyx_n_s_pydbm_activation_interface_activ, __pyx_kp_s_Interface_of_activation_functio); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "pydbm/activation/interface/activating_function_interface.pyx":12
- *     '''
+  /* "pydbm/activation/interface/activating_function_interface.pyx":14
+ * 
+ *     # is-a `BatchNorm`.
+ *     __batch_norm = None             # <<<<<<<<<<<<<<
+ * 
+ *     def get_batch_norm(self):
+ */
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_ActivatingFunctionInterface__ba, Py_None) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
+
+  /* "pydbm/activation/interface/activating_function_interface.pyx":16
+ *     __batch_norm = None
+ * 
+ *     def get_batch_norm(self):             # <<<<<<<<<<<<<<
+ *         ''' getter '''
+ *         return self.__batch_norm
+ */
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_1get_batch_norm, 0, __pyx_n_s_ActivatingFunctionInterface_get, NULL, __pyx_n_s_pydbm_activation_interface_activ, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_batch_norm, __pyx_t_4) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/activation/interface/activating_function_interface.pyx":20
+ *         return self.__batch_norm
+ * 
+ *     def set_batch_norm(self, value):             # <<<<<<<<<<<<<<
+ *         ''' setter '''
+ *         if isinstance(value, BatchNorm) is False:
+ */
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_3set_batch_norm, 0, __pyx_n_s_ActivatingFunctionInterface_set, NULL, __pyx_n_s_pydbm_activation_interface_activ, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_batch_norm, __pyx_t_4) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/activation/interface/activating_function_interface.pyx":26
+ *         self.__batch_norm = value
+ * 
+ *     batch_norm = property(get_batch_norm, set_batch_norm)             # <<<<<<<<<<<<<<
+ * 
+ *     @abstractmethod
+ */
+  __pyx_t_4 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_get_batch_norm);
+  if (unlikely(!__pyx_t_4)) {
+    PyErr_Clear();
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_batch_norm);
+  }
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 26, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_batch_norm);
+  if (unlikely(!__pyx_t_5)) {
+    PyErr_Clear();
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_batch_norm);
+  }
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 26, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 26, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_5);
+  __pyx_t_4 = 0;
+  __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 26, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_batch_norm, __pyx_t_5) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pydbm/activation/interface/activating_function_interface.pyx":28
+ *     batch_norm = property(get_batch_norm, set_batch_norm)
  * 
  *     @abstractmethod             # <<<<<<<<<<<<<<
  *     def activate(self, np.ndarray x):
  *         '''
  */
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_abstractmethod); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 12, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_abstractmethod); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
 
-  /* "pydbm/activation/interface/activating_function_interface.pyx":13
+  /* "pydbm/activation/interface/activating_function_interface.pyx":29
  * 
  *     @abstractmethod
  *     def activate(self, np.ndarray x):             # <<<<<<<<<<<<<<
  *         '''
  *         Return of result from this activation function.
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_1activate, 0, __pyx_n_s_ActivatingFunctionInterface_acti, NULL, __pyx_n_s_pydbm_activation_interface_activ, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 13, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_5activate, 0, __pyx_n_s_ActivatingFunctionInterface_acti, NULL, __pyx_n_s_pydbm_activation_interface_activ, __pyx_d, ((PyObject *)__pyx_codeobj__15)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_7 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
-    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_5);
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_6);
     if (likely(__pyx_t_7)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
       __Pyx_INCREF(__pyx_t_7);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_5, function);
+      __Pyx_DECREF_SET(__pyx_t_6, function);
     }
   }
   if (!__pyx_t_7) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 12, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 28, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_GOTREF(__pyx_t_5);
   } else {
     #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_5)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_6};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 12, __pyx_L1_error)
+    if (PyFunction_Check(__pyx_t_6)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_4};
+      __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 28, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_6};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 12, __pyx_L1_error)
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_4};
+      __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 28, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     } else
     #endif
     {
-      __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 12, __pyx_L1_error)
+      __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 28, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7); __pyx_t_7 = NULL;
-      __Pyx_GIVEREF(__pyx_t_6);
-      PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_6);
-      __pyx_t_6 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 12, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_GIVEREF(__pyx_t_4);
+      PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_4);
+      __pyx_t_4 = 0;
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_8, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 28, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     }
   }
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_activate, __pyx_t_5) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_activate, __pyx_t_4) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/activation/interface/activating_function_interface.pyx":25
+  /* "pydbm/activation/interface/activating_function_interface.pyx":41
  *         raise NotImplementedError()
  * 
  *     @abstractmethod             # <<<<<<<<<<<<<<
  *     def derivative(self, np.ndarray y):
  *         '''
  */
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_abstractmethod); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 25, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_abstractmethod); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
 
-  /* "pydbm/activation/interface/activating_function_interface.pyx":26
+  /* "pydbm/activation/interface/activating_function_interface.pyx":42
  * 
  *     @abstractmethod
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
  *         Return of derivative result from this activation function.
  */
-  __pyx_t_8 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_3derivative, 0, __pyx_n_s_ActivatingFunctionInterface_deri, NULL, __pyx_n_s_pydbm_activation_interface_activ, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_9interface_29activating_function_interface_27ActivatingFunctionInterface_7derivative, 0, __pyx_n_s_ActivatingFunctionInterface_deri, NULL, __pyx_n_s_pydbm_activation_interface_activ, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_6 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
-    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_5);
-    if (likely(__pyx_t_6)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-      __Pyx_INCREF(__pyx_t_6);
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_6);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+      __Pyx_INCREF(__pyx_t_4);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_5, function);
+      __Pyx_DECREF_SET(__pyx_t_6, function);
     }
   }
-  if (!__pyx_t_6) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 25, __pyx_L1_error)
+  if (!__pyx_t_4) {
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 41, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_GOTREF(__pyx_t_5);
   } else {
     #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_5)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_8};
-      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 25, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_GOTREF(__pyx_t_4);
+    if (PyFunction_Check(__pyx_t_6)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_8};
+      __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 41, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     } else
     #endif
     #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_8};
-      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 25, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_GOTREF(__pyx_t_4);
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_8};
+      __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 41, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     } else
     #endif
     {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 25, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 41, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
+      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4); __pyx_t_4 = NULL;
       __Pyx_GIVEREF(__pyx_t_8);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_8);
       __pyx_t_8 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 25, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 41, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
   }
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_derivative, __pyx_t_5) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_derivative, __pyx_t_4) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/activation/interface/activating_function_interface.pyx":7
+  /* "pydbm/activation/interface/activating_function_interface.pyx":8
  * 
  * 
  * class ActivatingFunctionInterface(metaclass=ABCMeta):             # <<<<<<<<<<<<<<
  *     '''
  *     Interface of activation functions.
  */
-  __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_1, __pyx_n_s_ActivatingFunctionInterface, __pyx_empty_tuple, __pyx_t_3, __pyx_t_2, 1, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 7, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ActivatingFunctionInterface, __pyx_t_4) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_5 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_ActivatingFunctionInterface, __pyx_empty_tuple, __pyx_t_3, __pyx_t_1, 1, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ActivatingFunctionInterface, __pyx_t_5) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/activation/interface/activating_function_interface.pyx":1
  * # -*- coding: utf-8 -*-             # <<<<<<<<<<<<<<
+ * from pydbm.optimization.batch_norm import BatchNorm
  * import numpy as np
- * cimport numpy as np
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "../../../../../../../home/rum/.pyenv/versions/anaconda3-5.3.1/lib/python3.7/site-packages/Cython/Includes/numpy/__init__.pxd":1008
  *         raise ImportError("numpy.core.umath failed to import")
@@ -5287,29 +5659,35 @@ bad:
     return -1;
 }
 
-/* ArgTypeTest */
-static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact)
-{
-    if (unlikely(!type)) {
-        PyErr_SetString(PyExc_SystemError, "Missing type object");
-        return 0;
+/* GetModuleGlobalName */
+static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name) {
+    PyObject *result;
+#if !CYTHON_AVOID_BORROWED_REFS
+#if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030500A1
+    result = _PyDict_GetItem_KnownHash(__pyx_d, name, ((PyASCIIObject *) name)->hash);
+    if (likely(result)) {
+        Py_INCREF(result);
+    } else if (unlikely(PyErr_Occurred())) {
+        result = NULL;
+    } else {
+#else
+    result = PyDict_GetItem(__pyx_d, name);
+    if (likely(result)) {
+        Py_INCREF(result);
+    } else {
+#endif
+#else
+    result = PyObject_GetItem(__pyx_d, name);
+    if (!result) {
+        PyErr_Clear();
+#endif
+        result = __Pyx_GetBuiltinName(name);
     }
-    else if (exact) {
-        #if PY_MAJOR_VERSION == 2
-        if ((type == &PyBaseString_Type) && likely(__Pyx_PyBaseString_CheckExact(obj))) return 1;
-        #endif
-    }
-    else {
-        if (likely(__Pyx_TypeCheck(obj, type))) return 1;
-    }
-    PyErr_Format(PyExc_TypeError,
-        "Argument '%.200s' has incorrect type (expected %.200s, got %.200s)",
-        name, type->tp_name, Py_TYPE(obj)->tp_name);
-    return 0;
+    return result;
 }
 
 /* PyFunctionFastCall */
-#if CYTHON_FAST_PYCALL
+    #if CYTHON_FAST_PYCALL
 #include "frameobject.h"
 static PyObject* __Pyx_PyFunction_FastCallNoKw(PyCodeObject *co, PyObject **args, Py_ssize_t na,
                                                PyObject *globals) {
@@ -5429,7 +5807,7 @@ done:
 #endif
 
 /* PyObjectCall */
-#if CYTHON_COMPILING_IN_CPYTHON
+    #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
     PyObject *result;
     ternaryfunc call = func->ob_type->tp_call;
@@ -5449,7 +5827,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
 #endif
 
 /* PyObjectCallMethO */
-#if CYTHON_COMPILING_IN_CPYTHON
+    #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
     PyObject *self, *result;
     PyCFunction cfunc;
@@ -5469,7 +5847,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject
 #endif
 
 /* PyObjectCallNoArg */
-#if CYTHON_COMPILING_IN_CPYTHON
+    #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
 #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(func)) {
@@ -5490,7 +5868,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
 #endif
 
 /* PyErrFetchRestore */
-  #if CYTHON_FAST_THREAD_STATE
+      #if CYTHON_FAST_THREAD_STATE
 static CYTHON_INLINE void __Pyx_ErrRestoreInState(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb) {
     PyObject *tmp_type, *tmp_value, *tmp_tb;
     tmp_type = tstate->curexc_type;
@@ -5514,7 +5892,7 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
 #endif
 
 /* RaiseException */
-  #if PY_MAJOR_VERSION < 3
+      #if PY_MAJOR_VERSION < 3
 static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb,
                         CYTHON_UNUSED PyObject *cause) {
     __Pyx_PyThreadState_declare
@@ -5672,8 +6050,43 @@ bad:
 }
 #endif
 
+/* PyObjectSetAttrStr */
+      #if CYTHON_USE_TYPE_SLOTS
+static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr_name, PyObject* value) {
+    PyTypeObject* tp = Py_TYPE(obj);
+    if (likely(tp->tp_setattro))
+        return tp->tp_setattro(obj, attr_name, value);
+#if PY_MAJOR_VERSION < 3
+    if (likely(tp->tp_setattr))
+        return tp->tp_setattr(obj, PyString_AS_STRING(attr_name), value);
+#endif
+    return PyObject_SetAttr(obj, attr_name, value);
+}
+#endif
+
+/* ArgTypeTest */
+      static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact)
+{
+    if (unlikely(!type)) {
+        PyErr_SetString(PyExc_SystemError, "Missing type object");
+        return 0;
+    }
+    else if (exact) {
+        #if PY_MAJOR_VERSION == 2
+        if ((type == &PyBaseString_Type) && likely(__Pyx_PyBaseString_CheckExact(obj))) return 1;
+        #endif
+    }
+    else {
+        if (likely(__Pyx_TypeCheck(obj, type))) return 1;
+    }
+    PyErr_Format(PyExc_TypeError,
+        "Argument '%.200s' has incorrect type (expected %.200s, got %.200s)",
+        name, type->tp_name, Py_TYPE(obj)->tp_name);
+    return 0;
+}
+
 /* PyCFunctionFastCall */
-  #if CYTHON_FAST_PYCCALL
+      #if CYTHON_FAST_PYCCALL
 static CYTHON_INLINE PyObject * __Pyx_PyCFunction_FastCall(PyObject *func_obj, PyObject **args, Py_ssize_t nargs) {
     PyCFunctionObject *func = (PyCFunctionObject*)func_obj;
     PyCFunction meth = PyCFunction_GET_FUNCTION(func);
@@ -5696,7 +6109,7 @@ static CYTHON_INLINE PyObject * __Pyx_PyCFunction_FastCall(PyObject *func_obj, P
 #endif
 
 /* PyObjectCallOneArg */
-  #if CYTHON_COMPILING_IN_CPYTHON
+      #if CYTHON_COMPILING_IN_CPYTHON
 static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
     PyObject *result;
     PyObject *args = PyTuple_New(1);
@@ -5736,7 +6149,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObjec
 #endif
 
 /* DictGetItem */
-  #if PY_MAJOR_VERSION >= 3 && !CYTHON_COMPILING_IN_PYPY
+      #if PY_MAJOR_VERSION >= 3 && !CYTHON_COMPILING_IN_PYPY
 static PyObject *__Pyx_PyDict_GetItem(PyObject *d, PyObject* key) {
     PyObject *value;
     value = PyDict_GetItemWithError(d, key);
@@ -5755,25 +6168,25 @@ static PyObject *__Pyx_PyDict_GetItem(PyObject *d, PyObject* key) {
 #endif
 
 /* RaiseTooManyValuesToUnpack */
-  static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected) {
+      static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected) {
     PyErr_Format(PyExc_ValueError,
                  "too many values to unpack (expected %" CYTHON_FORMAT_SSIZE_T "d)", expected);
 }
 
 /* RaiseNeedMoreValuesToUnpack */
-  static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index) {
+      static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index) {
     PyErr_Format(PyExc_ValueError,
                  "need more than %" CYTHON_FORMAT_SSIZE_T "d value%.1s to unpack",
                  index, (index == 1) ? "" : "s");
 }
 
 /* RaiseNoneIterError */
-  static CYTHON_INLINE void __Pyx_RaiseNoneNotIterableError(void) {
+      static CYTHON_INLINE void __Pyx_RaiseNoneNotIterableError(void) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
 }
 
 /* ExtTypeTest */
-  static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
+      static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
     if (unlikely(!type)) {
         PyErr_SetString(PyExc_SystemError, "Missing type object");
         return 0;
@@ -5786,7 +6199,7 @@ static PyObject *__Pyx_PyDict_GetItem(PyObject *d, PyObject* key) {
 }
 
 /* SaveResetException */
-  #if CYTHON_FAST_THREAD_STATE
+      #if CYTHON_FAST_THREAD_STATE
 static CYTHON_INLINE void __Pyx__ExceptionSave(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
     #if PY_VERSION_HEX >= 0x030700A3
     *type = tstate->exc_state.exc_type;
@@ -5825,7 +6238,7 @@ static CYTHON_INLINE void __Pyx__ExceptionReset(PyThreadState *tstate, PyObject 
 #endif
 
 /* PyErrExceptionMatches */
-  #if CYTHON_FAST_THREAD_STATE
+      #if CYTHON_FAST_THREAD_STATE
 static int __Pyx_PyErr_ExceptionMatchesTuple(PyObject *exc_type, PyObject *tuple) {
     Py_ssize_t i, n;
     n = PyTuple_GET_SIZE(tuple);
@@ -5850,7 +6263,7 @@ static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tsta
 #endif
 
 /* GetException */
-  #if CYTHON_FAST_THREAD_STATE
+      #if CYTHON_FAST_THREAD_STATE
 static int __Pyx__GetException(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
 #else
 static int __Pyx_GetException(PyObject **type, PyObject **value, PyObject **tb) {
@@ -5920,7 +6333,7 @@ bad:
 }
 
 /* Import */
-    static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
+        static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
     PyObject *empty_list = 0;
     PyObject *module = 0;
     PyObject *global_dict = 0;
@@ -5985,7 +6398,7 @@ bad:
 }
 
 /* ImportFrom */
-    static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name) {
+        static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name) {
     PyObject* value = __Pyx_PyObject_GetAttrStr(module, name);
     if (unlikely(!value) && PyErr_ExceptionMatches(PyExc_AttributeError)) {
         PyErr_Format(PyExc_ImportError,
@@ -5996,33 +6409,6 @@ bad:
         #endif
     }
     return value;
-}
-
-/* GetModuleGlobalName */
-    static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name) {
-    PyObject *result;
-#if !CYTHON_AVOID_BORROWED_REFS
-#if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030500A1
-    result = _PyDict_GetItem_KnownHash(__pyx_d, name, ((PyASCIIObject *) name)->hash);
-    if (likely(result)) {
-        Py_INCREF(result);
-    } else if (unlikely(PyErr_Occurred())) {
-        result = NULL;
-    } else {
-#else
-    result = PyDict_GetItem(__pyx_d, name);
-    if (likely(result)) {
-        Py_INCREF(result);
-    } else {
-#endif
-#else
-    result = PyObject_GetItem(__pyx_d, name);
-    if (!result) {
-        PyErr_Clear();
-#endif
-        result = __Pyx_GetBuiltinName(name);
-    }
-    return result;
 }
 
 /* FetchCommonType */

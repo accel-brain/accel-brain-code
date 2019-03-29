@@ -49,9 +49,23 @@ class CNNGraph(Synapse):
     
     activation_function = property(get_activation_function, set_activation_function)
 
+    # Activation function for deconvolution.
+    __deactivation_function = None
+    
+    def get_deactivation_function(self):
+        ''' getter '''
+        return self.__deactivation_function
+    
+    def set_deactivation_function(self, value):
+        ''' setter '''
+        self.__deactivation_function = value
+    
+    deactivation_function = property(get_deactivation_function, set_deactivation_function)
+
     def __init__(
         self,
         activation_function,
+        deactivation_function=None,
         int filter_num=30,
         int channel=3,
         int kernel_size=3,
@@ -64,6 +78,7 @@ class CNNGraph(Synapse):
         
         Args:
             activation_function:    Activation function.
+            deactivation_function:  Activation function for deconvolution.
             filter_num:             The number of kernels(filters).
             channel:                Channel of image files.
             kernel_size:            Size of the kernels.
@@ -72,6 +87,12 @@ class CNNGraph(Synapse):
             scale:                  Scale of filters.
         '''
         self.__activation_function = activation_function
+        if deactivation_function is not None:
+            self.__deactivation_function = deactivation_function
+        else:
+            from copy import deepcopy
+            self.__deactivation_function = deepcopy(activation_function)
+
         self.__weight_arr = np.random.normal(size=(filter_num, channel, kernel_size, kernel_size)) * scale
         self.__bias_arr = np.zeros((filter_num, ))
         

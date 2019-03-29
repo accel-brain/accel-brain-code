@@ -4307,7 +4307,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
  *             if isinstance(v, ActivatingFunctionInterface) is True:
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:             # <<<<<<<<<<<<<<
  *                     if k + "_batch_norm_beta" in pre_learned_dict:
- *                         self.__dict__[k] = pre_learned_dict[k + "_batch_norm_beta"]
+ *                         self.__dict__[k].batch_norm.beta_arr = pre_learned_dict[k + "_batch_norm_beta"]
  */
       __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_v, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
@@ -4335,7 +4335,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
  *             if isinstance(v, ActivatingFunctionInterface) is True:
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:
  *                     if k + "_batch_norm_beta" in pre_learned_dict:             # <<<<<<<<<<<<<<
- *                         self.__dict__[k] = pre_learned_dict[k + "_batch_norm_beta"]
+ *                         self.__dict__[k].batch_norm.beta_arr = pre_learned_dict[k + "_batch_norm_beta"]
  *                     if k + "_batch_norm_gamma" in pre_learned_dict:
  */
         __pyx_t_4 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_beta); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 168, __pyx_L1_error)
@@ -4348,9 +4348,9 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
           /* "pydbm/synapse_list.pyx":169
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:
  *                     if k + "_batch_norm_beta" in pre_learned_dict:
- *                         self.__dict__[k] = pre_learned_dict[k + "_batch_norm_beta"]             # <<<<<<<<<<<<<<
+ *                         self.__dict__[k].batch_norm.beta_arr = pre_learned_dict[k + "_batch_norm_beta"]             # <<<<<<<<<<<<<<
  *                     if k + "_batch_norm_gamma" in pre_learned_dict:
- *                         self.__dict__[k] = pre_learned_dict[k + "_batch_norm_gamma"]
+ *                         self.__dict__[k].batch_norm.gamma_arr = pre_learned_dict[k + "_batch_norm_gamma"]
  */
           __pyx_t_4 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_beta); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 169, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
@@ -4359,53 +4359,65 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 169, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
-          if (unlikely(PyObject_SetItem(__pyx_t_4, __pyx_v_k, __pyx_t_3) < 0)) __PYX_ERR(0, 169, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_4, __pyx_v_k); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 169, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 169, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_4);
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+          if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_beta_arr, __pyx_t_3) < 0) __PYX_ERR(0, 169, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
           /* "pydbm/synapse_list.pyx":168
  *             if isinstance(v, ActivatingFunctionInterface) is True:
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:
  *                     if k + "_batch_norm_beta" in pre_learned_dict:             # <<<<<<<<<<<<<<
- *                         self.__dict__[k] = pre_learned_dict[k + "_batch_norm_beta"]
+ *                         self.__dict__[k].batch_norm.beta_arr = pre_learned_dict[k + "_batch_norm_beta"]
  *                     if k + "_batch_norm_gamma" in pre_learned_dict:
  */
         }
 
         /* "pydbm/synapse_list.pyx":170
  *                     if k + "_batch_norm_beta" in pre_learned_dict:
- *                         self.__dict__[k] = pre_learned_dict[k + "_batch_norm_beta"]
+ *                         self.__dict__[k].batch_norm.beta_arr = pre_learned_dict[k + "_batch_norm_beta"]
  *                     if k + "_batch_norm_gamma" in pre_learned_dict:             # <<<<<<<<<<<<<<
- *                         self.__dict__[k] = pre_learned_dict[k + "_batch_norm_gamma"]
+ *                         self.__dict__[k].batch_norm.gamma_arr = pre_learned_dict[k + "_batch_norm_gamma"]
  */
-        __pyx_t_3 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_gamma); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 170, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_10 = (__Pyx_PySequence_ContainsTF(__pyx_t_3, __pyx_v_pre_learned_dict, Py_EQ)); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 170, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __pyx_t_4 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_gamma); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 170, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __pyx_t_10 = (__Pyx_PySequence_ContainsTF(__pyx_t_4, __pyx_v_pre_learned_dict, Py_EQ)); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 170, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_9 = (__pyx_t_10 != 0);
         if (__pyx_t_9) {
 
           /* "pydbm/synapse_list.pyx":171
- *                         self.__dict__[k] = pre_learned_dict[k + "_batch_norm_beta"]
+ *                         self.__dict__[k].batch_norm.beta_arr = pre_learned_dict[k + "_batch_norm_beta"]
  *                     if k + "_batch_norm_gamma" in pre_learned_dict:
- *                         self.__dict__[k] = pre_learned_dict[k + "_batch_norm_gamma"]             # <<<<<<<<<<<<<<
+ *                         self.__dict__[k].batch_norm.gamma_arr = pre_learned_dict[k + "_batch_norm_gamma"]             # <<<<<<<<<<<<<<
  */
-          __pyx_t_3 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_gamma); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_pre_learned_dict, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
+          __pyx_t_4 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_gamma); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_pre_learned_dict, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_v_k, __pyx_t_4) < 0)) __PYX_ERR(0, 171, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_4);
+          __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_4, __pyx_v_k); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 171, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_4);
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+          if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_gamma_arr, __pyx_t_3) < 0) __PYX_ERR(0, 171, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
           /* "pydbm/synapse_list.pyx":170
  *                     if k + "_batch_norm_beta" in pre_learned_dict:
- *                         self.__dict__[k] = pre_learned_dict[k + "_batch_norm_beta"]
+ *                         self.__dict__[k].batch_norm.beta_arr = pre_learned_dict[k + "_batch_norm_beta"]
  *                     if k + "_batch_norm_gamma" in pre_learned_dict:             # <<<<<<<<<<<<<<
- *                         self.__dict__[k] = pre_learned_dict[k + "_batch_norm_gamma"]
+ *                         self.__dict__[k].batch_norm.gamma_arr = pre_learned_dict[k + "_batch_norm_gamma"]
  */
         }
 
@@ -4414,7 +4426,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
  *             if isinstance(v, ActivatingFunctionInterface) is True:
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:             # <<<<<<<<<<<<<<
  *                     if k + "_batch_norm_beta" in pre_learned_dict:
- *                         self.__dict__[k] = pre_learned_dict[k + "_batch_norm_beta"]
+ *                         self.__dict__[k].batch_norm.beta_arr = pre_learned_dict[k + "_batch_norm_beta"]
  */
       }
 

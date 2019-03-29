@@ -166,6 +166,6 @@ class Synapse(object):
             if isinstance(v, ActivatingFunctionInterface) is True:
                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:
                     if k + "_batch_norm_beta" in pre_learned_dict:
-                        self.__dict__[k] = pre_learned_dict[k + "_batch_norm_beta"]
+                        self.__dict__[k].batch_norm.beta_arr = pre_learned_dict[k + "_batch_norm_beta"]
                     if k + "_batch_norm_gamma" in pre_learned_dict:
-                        self.__dict__[k] = pre_learned_dict[k + "_batch_norm_gamma"]
+                        self.__dict__[k].batch_norm.gamma_arr = pre_learned_dict[k + "_batch_norm_gamma"]

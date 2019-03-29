@@ -3,7 +3,7 @@ import pandas as pd
 import pretty_midi
 
 
-class MidiVectorlizer(object):
+class MidiController(object):
     '''
     MIDI Vectorlizer.
     

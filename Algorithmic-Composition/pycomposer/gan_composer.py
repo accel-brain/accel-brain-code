@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 # Vectolizer.
-from pycomposer.midi_vectorlizer import MidiVectorlizer
+from pycomposer.midi_controller import MidiController
 
 # is-a `TrueSampler`
 from pycomposer.truesampler.midi_true_sampler import MidiTrueSampler
@@ -91,8 +91,8 @@ class GANComposer(object):
             discriminative_model:   is-a `DiscriminativeModel`.
             gans_value_function:    is-a `GANsValueFunction`.
         '''
-        self.__midi_vectorlizer = MidiVectorlizer()
-        self.__midi_df_list = [self.__midi_vectorlizer.extract(midi_path) for midi_path in midi_path_list]
+        self.__midi_controller = MidiController()
+        self.__midi_df_list = [self.__midi_controller.extract(midi_path) for midi_path in midi_path_list]
 
         # The dimension of observed or feature points.
         dim = 12
@@ -244,7 +244,7 @@ class GANComposer(object):
         generated_midi_df = pd.concat(df_list)
         generated_midi_df = generated_midi_df.sort_values(by=["start", "end"])
 
-        self.__midi_vectorlizer.save(
+        self.__midi_controller.save(
             file_path=file_path, 
             note_df=generated_midi_df
         )

@@ -5,9 +5,7 @@ import pretty_midi
 
 class MidiController(object):
     '''
-    MIDI Vectorlizer.
-    
-    Vectorlize MIDI file.
+    MIDI Controller.
     '''
 
     def extract(self, file_path, is_drum=False):

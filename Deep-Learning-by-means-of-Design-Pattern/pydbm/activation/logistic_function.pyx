@@ -24,6 +24,7 @@ class LogisticFunction(ActivatingFunctionInterface):
             memory_len:     The number of memos of activities for derivative in backward.
         '''
         self.__activity_arr_list = []
+        self.__forward_arr_list = []
         self.__memory_len = memory_len
 
     def activate(self, np.ndarray x):
@@ -35,6 +36,68 @@ class LogisticFunction(ActivatingFunctionInterface):
 
         Returns:
             The result.
+        '''
+        activity_arr = self.__compute_activity_arr(x)
+
+        self.__activity_arr_list.append(activity_arr)
+        if len(self.__activity_arr_list) > self.__memory_len:
+            self.__activity_arr_list = self.__activity_arr_list[len(self.__activity_arr_list) - self.__memory_len:]
+
+        if self.batch_norm is not None:
+            activity_arr = self.batch_norm.forward_propagation(activity_arr)
+
+        return activity_arr
+
+    def derivative(self, np.ndarray y):
+        '''
+        Return of derivative result from this activation function.
+
+        Args:
+            y:   The result of activation.
+
+        Returns:
+            The result.
+        '''
+        if self.batch_norm is not None:
+            y = self.batch_norm.back_propagation(y)
+
+        activity_arr = self.__activity_arr_list.pop(-1)
+        return y * (activity_arr * (1 - activity_arr))
+
+    def forward(self, np.ndarray x):
+        '''
+        Forward propagation but not retain the activation.
+
+        Args:
+            x   `np.ndarray` of observed data points.
+
+        Returns:
+            The result.
+        '''
+        return self.__compute_activity_arr(x)
+
+    def backward(self, np.ndarray y):
+        '''
+        Back propagation but not operate the activation.
+
+        Args:
+            y:                  `np.ndarray` of delta.
+
+        Returns:
+            The result.
+        '''
+        activity_arr = self.__activity_arr_list[-1]
+        return y * (activity_arr * (1 - activity_arr))
+
+    def __compute_activity_arr(self, x):
+        '''
+        Compute activity.
+
+        Args:
+            x:      `np.ndarray` of observed data points.
+        
+        Returns:
+            `np.ndarray` of activity.
         '''
         cdef double x_max
         cdef double x_min
@@ -117,28 +180,4 @@ class LogisticFunction(ActivatingFunctionInterface):
                 ]),
                 axis=0
             )[0]
-
-        self.__activity_arr_list.append(activity_arr)
-        if len(self.__activity_arr_list) > self.__memory_len:
-            self.__activity_arr_list = self.__activity_arr_list[len(self.__activity_arr_list) - self.__memory_len:]
-
-        if self.batch_norm is not None:
-            activity_arr = self.batch_norm.forward_propagation(activity_arr)
-
         return activity_arr
-
-    def derivative(self, np.ndarray y):
-        '''
-        Return of derivative result from this activation function.
-
-        Args:
-            y:   The result of activation.
-
-        Returns:
-            The result.
-        '''
-        if self.batch_norm is not None:
-            y = self.batch_norm.back_propagation(y)
-
-        activity_arr = self.__activity_arr_list.pop(-1)
-        return y * (activity_arr * (1 - activity_arr))

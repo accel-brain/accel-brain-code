@@ -31,7 +31,7 @@ class ActivatingFunctionInterface(metaclass=ABCMeta):
         Return of result from this activation function.
 
         Args:
-            x   Parameter.
+            x   `np.ndarray` of observed data points.
 
         Returns:
             The result.
@@ -44,7 +44,33 @@ class ActivatingFunctionInterface(metaclass=ABCMeta):
         Return of derivative result from this activation function.
 
         Args:
-            y:   The result of activation.
+            y:                  `np.ndarray` of delta.
+
+        Returns:
+            The result.
+        '''
+        raise NotImplementedError()
+
+    @abstractmethod
+    def forward(self, np.ndarray x):
+        '''
+        Forward propagation but not retain the activation.
+
+        Args:
+            x   `np.ndarray` of observed data points.
+
+        Returns:
+            The result.
+        '''
+        raise NotImplementedError()
+
+    @abstractmethod
+    def backward(self, np.ndarray y):
+        '''
+        Back propagation but not operate the activation.
+
+        Args:
+            y:                  `np.ndarray` of delta.
 
         Returns:
             The result.

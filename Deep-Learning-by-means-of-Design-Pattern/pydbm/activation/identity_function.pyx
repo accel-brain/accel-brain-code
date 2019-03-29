@@ -39,3 +39,27 @@ class IdentityFunction(ActivatingFunctionInterface):
             y = self.batch_norm.back_propagation(y)
 
         return y
+
+    def forward(self, np.ndarray x):
+        '''
+        Forward propagation but not retain the activation.
+
+        Args:
+            x   `np.ndarray` of observed data points.
+
+        Returns:
+            The result.
+        '''
+        return x
+
+    def backward(self, np.ndarray y):
+        '''
+        Back propagation but not operate the activation.
+
+        Args:
+            y:                  `np.ndarray` of delta.
+
+        Returns:
+            The result.
+        '''
+        return y

@@ -44,3 +44,31 @@ class SoftmaxFunction(ActivatingFunctionInterface):
             y = self.batch_norm.back_propagation(y)
 
         return y
+
+    def forward(self, np.ndarray x):
+        '''
+        Forward propagation but not retain the activation.
+
+        Args:
+            x   `np.ndarray` of observed data points.
+
+        Returns:
+            The result.
+        '''
+        cdef np.ndarray exp_x
+        cdef np.ndarray prob
+        exp_x = np.exp(x - np.max(x))
+        prob = exp_x / exp_x.sum(axis=0)
+        return prob
+
+    def backward(self, np.ndarray y):
+        '''
+        Back propagation but not operate the activation.
+
+        Args:
+            y:                  `np.ndarray` of delta.
+
+        Returns:
+            The result.
+        '''
+        return y

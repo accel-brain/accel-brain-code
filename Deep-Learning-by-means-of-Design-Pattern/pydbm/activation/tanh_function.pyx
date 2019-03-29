@@ -59,3 +59,28 @@ class TanhFunction(ActivatingFunctionInterface):
 
         activity_arr = self.__activity_arr_list.pop(-1)
         return y * (1 - activity_arr ** 2)
+
+    def forward(self, np.ndarray x):
+        '''
+        Forward propagation but not retain the activation.
+
+        Args:
+            x   `np.ndarray` of observed data points.
+
+        Returns:
+            The result.
+        '''
+        return np.tanh(x)
+
+    def backward(self, np.ndarray y):
+        '''
+        Back propagation but not operate the activation.
+
+        Args:
+            y:                  `np.ndarray` of delta.
+
+        Returns:
+            The result.
+        '''
+        activity_arr = self.__activity_arr_list[-1]
+        return y * (1 - activity_arr ** 2)

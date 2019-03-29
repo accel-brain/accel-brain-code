@@ -147,8 +147,9 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         layerable_cnn_list = self.layerable_cnn_list[::-1]
         for i in range(len(layerable_cnn_list)):
             try:
+                img_arr = layerable_cnn_list[i].graph.activation_function.backward(img_arr)
                 img_arr = layerable_cnn_list[i].deconvolve(img_arr)
-                img_arr = layerable_cnn_list[i].graph.activation_function.activate(img_arr)
+                img_arr = layerable_cnn_list[i].graph.deactivation_function.activate(img_arr)
             except:
                 self.__logger.debug("Error raised in Deconvolution layer " + str(i + 1))
                 raise
@@ -190,6 +191,7 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         for i in range(len(layerable_cnn_list)):
             try:
                 delta_arr = layerable_cnn_list[i].back_propagate(delta_arr)
+                delta_arr = layerable_cnn_list[i].graph.deactivation_function.forward(delta_arr)
             except:
                 self.__logger.debug(
                     "Delta computation raised an error in CNN layer " + str(len(layerable_cnn_list) - i)

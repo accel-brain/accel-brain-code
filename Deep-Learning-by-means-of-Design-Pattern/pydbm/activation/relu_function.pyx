@@ -28,13 +28,13 @@ class ReLuFunction(ActivatingFunctionInterface):
 
     def activate(self, np.ndarray x):
         '''
-        Return of result from this activation function.
+        Activate and extract feature points in forward propagation.
 
         Args:
-            x:                  Parameter.
+            x   `np.ndarray` of observed data points.
 
         Returns:
-            The result.
+            `np.ndarray` of the activated feature points.
         '''
         self.__mask_arr_list.append((x <= 0))
         if len(self.__mask_arr_list) > self.__memory_len:
@@ -48,13 +48,13 @@ class ReLuFunction(ActivatingFunctionInterface):
 
     def derivative(self, np.ndarray y):
         '''
-        Return of derivative result from this activation function.
+        Derivative and extract delta in back propagation.
 
         Args:
-            y:   The result of activation.
+            y:  `np.ndarray` of delta.
 
         Returns:
-            The result.
+            `np.ndarray` of delta.
         '''
         if self.batch_norm is not None:
             y = self.batch_norm.back_propagation(y)
@@ -80,7 +80,7 @@ class ReLuFunction(ActivatingFunctionInterface):
         Back propagation but not operate the activation.
 
         Args:
-            y:                  `np.ndarray` of delta.
+            y:  `np.ndarray` of delta.
 
         Returns:
             The result.

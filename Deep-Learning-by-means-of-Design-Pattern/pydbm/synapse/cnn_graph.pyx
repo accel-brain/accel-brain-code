@@ -79,6 +79,11 @@ class CNNGraph(Synapse):
         Args:
             activation_function:    Activation function.
             deactivation_function:  Activation function for deconvolution.
+                                    If you want to set differently activation functions 
+                                    in standard convolution and in the transposed convolution 
+                                    as a deconvolution, especially when constructing `ConvolutionalAutoEncoder`, 
+                                    set this parameter.
+
             filter_num:             The number of kernels(filters).
             channel:                Channel of image files.
             kernel_size:            Size of the kernels.

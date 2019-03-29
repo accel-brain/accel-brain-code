@@ -132,7 +132,10 @@ class Synapse(object):
 
         If you want to save pre-learned parameters simultaneously with stacked graphs,
         call method `stack_graph` and setup the graphs before calling this method.
-        
+
+        If this class's subclass has a `ActivatingFunctionInterface` which has a `BatchNorm`, 
+        this class store `BatchNorm`'s `beta_arr` and `gamma_arr` to your file.
+
         Args:
             file_path:    File path.
         '''
@@ -153,7 +156,10 @@ class Synapse(object):
 
         If you want to load pre-learned parameters simultaneously with stacked graphs,
         call method `stack_graph` and setup the graphs before calling this method.
-        
+
+        If this class's subclass has a `ActivatingFunctionInterface` which has a `BatchNorm`, 
+        and your file stores appropriate data, this class set `BatchNorm`'s `beta_arr` and `gamma_arr`.
+
         Args:
             file_path:    File path.
         '''

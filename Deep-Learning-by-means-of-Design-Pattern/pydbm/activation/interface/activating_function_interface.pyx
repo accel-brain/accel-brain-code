@@ -7,7 +7,25 @@ from abc import ABCMeta, abstractmethod
 
 class ActivatingFunctionInterface(metaclass=ABCMeta):
     '''
-    Interface of activation functions.
+    Abstract class for building activation functions.
+
+    Two distinctions are introduced in this class design.
+
+    What was first introduced is the distinction between 
+    an activate in forward propagation and a derivative in back propagation.
+    This two kind of methods enable implementation of learning algorithm 
+    based on probabilistic gradient descent method etc, in relation to 
+    the neural networks theory.
+
+    The second distinction corresponds to the difference based on 
+    the presence or absence of memory retention.
+    In `activate` and `derivative`, the memories of propagated data points
+    will be stored for computing **delta**. On the other hand, in `forward` and `backword`,
+    the memories will be not stored.
+
+    The methods that can perform forward and back propagation independently of the recording 
+    for delta calculations are particularly useful for models such as `ConvolutionalAutoEncoder` 
+    that perform deconvolution as transposition.
     '''
     
     # is-a `BatchNorm`.
@@ -28,26 +46,26 @@ class ActivatingFunctionInterface(metaclass=ABCMeta):
     @abstractmethod
     def activate(self, np.ndarray x):
         '''
-        Return of result from this activation function.
+        Activate and extract feature points in forward propagation.
 
         Args:
             x   `np.ndarray` of observed data points.
 
         Returns:
-            The result.
+            `np.ndarray` of the activated feature points.
         '''
         raise NotImplementedError()
 
     @abstractmethod
     def derivative(self, np.ndarray y):
         '''
-        Return of derivative result from this activation function.
+        Derivative and extract delta in back propagation.
 
         Args:
-            y:                  `np.ndarray` of delta.
+            y:  `np.ndarray` of delta.
 
         Returns:
-            The result.
+            `np.ndarray` of delta.
         '''
         raise NotImplementedError()
 
@@ -70,7 +88,7 @@ class ActivatingFunctionInterface(metaclass=ABCMeta):
         Back propagation but not operate the activation.
 
         Args:
-            y:                  `np.ndarray` of delta.
+            y:  `np.ndarray` of delta.
 
         Returns:
             The result.

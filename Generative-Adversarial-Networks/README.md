@@ -4,6 +4,11 @@
 
 This library makes it possible to design the Generative models based on the Statistical machine learning problems in relation to Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs) to practice algorithm design for semi-supervised learning. But this library provides components for designers, not for end-users of state-of-the-art black boxes. Briefly speaking the philosophy of this library, *give user hype-driven blackboxes and you feed him for a day; show him how to design algorithms and you feed him for a lifetime.* So algorithm is power.
 
+See also ...
+
+- [Algorithmic Composition or Automatic Composition Library: pycomposer](https://github.com/chimera0/accel-brain-code/tree/pycomposer-dev/Algorithmic-Composition)
+   * If you want to implement the Algorithmic Composer based on Generative Adversarial Networks(GANs) by using `pygan` as components for Generative models based on the Statistical machine learning problems.
+
 ## Installation
 
 Install using pip:

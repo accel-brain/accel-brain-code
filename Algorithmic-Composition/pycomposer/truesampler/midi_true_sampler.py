@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 from pygan.true_sampler import TrueSampler
-from pycomposer.midi_vectorlizer import MidiVectorlizer
+from pycomposer.midi_controller import MidiController
 
 
 class MidiTrueSampler(TrueSampler):
@@ -27,10 +27,10 @@ class MidiTrueSampler(TrueSampler):
 
             time_fraction:      Time fraction.
         '''
-        midi_vectorlizer = MidiVectorlizer()
+        midi_controller = MidiController()
         self.__midi_df_list = [None] * len(midi_path_list)
         for i in range(len(midi_path_list)):
-            self.__midi_df_list[i] = midi_vectorlizer.extract(midi_path_list[i])
+            self.__midi_df_list[i] = midi_controller.extract(midi_path_list[i])
 
         self.__batch_size = batch_size
         self.__seq_len = seq_len

@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 
-# Vectolizer.
+# MIDI controller.
 from pycomposer.midi_controller import MidiController
 
 # is-a `TrueSampler`
@@ -137,6 +137,8 @@ class GANComposer(object):
         self.__generative_model = generative_model
         self.__discriminative_model = discriminative_model
         self.__GAN = GAN
+        self.__time_fraction = time_fraction
+        self.__target_program = target_program
 
     def learn(self, iter_n=500, k_step=10):
         '''
@@ -178,14 +180,17 @@ class GANComposer(object):
             pitch_min:      Minimum of pitch.
                             This class generates the pitch in the range 
                             `pitch_min` to `pitch_min` + 12.
+                            If `None`, the average pitch in MIDI files set to this parameter.
 
             velocity_mean:  Mean of velocity.
                             This class samples the velocity from a Gaussian distribution of 
                             `velocity_mean` and `velocity_std`.
+                            If `None`, the average velocity in MIDI files set to this parameter.
 
-            velocity_std:   Standard deviation of velocity.
+            velocity_std:   Standard deviation(SD) of velocity.
                             This class samples the velocity from a Gaussian distribution of 
                             `velocity_mean` and `velocity_std`.
+                            If `None`, the SD of velocity in MIDI files set to this parameter.
         '''
         generated_arr = self.__generative_model.draw()
 
@@ -225,8 +230,8 @@ class GANComposer(object):
                     velocity = int(velocity)
                     generated_list.append((start, end, pitch, velocity))
 
-                start += time_fraction
-                end += time_fraction
+                start += self.__time_fraction
+                end += self.__time_fraction
 
         generated_midi_df = pd.DataFrame(generated_list, columns=["start", "end", "pitch", "velocity"])
 
@@ -243,6 +248,8 @@ class GANComposer(object):
 
         generated_midi_df = pd.concat(df_list)
         generated_midi_df = generated_midi_df.sort_values(by=["start", "end"])
+
+        generated_midi_df["program"] = self.__target_program
 
         self.__midi_controller.save(
             file_path=file_path, 

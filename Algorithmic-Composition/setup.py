@@ -29,7 +29,7 @@ setup(
         'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
         'Programming Language :: Python :: 3',
     ],
-    keywords='RTRBM LSTM Annealing Quantum Monte Carlo',
+    keywords='GAN GANs MIDI Composition Generative Adversarial Networks',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
-    install_requires=['numpy', 'pandas', 'pretty_midi', 'pygan'],
+    install_requires=['numpy', 'pandas', 'pretty_midi', 'pygan', 'pydbm'],
 )

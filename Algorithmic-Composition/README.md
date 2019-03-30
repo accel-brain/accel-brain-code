@@ -28,6 +28,7 @@ Installers for the latest released version are available at the Python package i
 - pandas: v0.22.0 or higher.
 - pretty_midi: latest.
 - pygan: latest.
+- pydbm: latest.
 
 ## Documentation
 

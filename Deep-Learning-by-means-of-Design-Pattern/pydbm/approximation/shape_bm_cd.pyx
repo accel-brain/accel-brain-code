@@ -146,14 +146,14 @@ class ShapeBMCD(ApproximateInterface):
         Inference with function approximation.
 
         Args:
-            graph:                Graph of neurons.
-            learning_rate:        Learning rate.
-            observed_data_arr:    observed data points.
-            training_count:       Training counts.
-            r_batch_size:         Batch size.
-                                  If this value is `0`, the inferencing is a recursive learning.
-                                  If this value is more than `0`, the inferencing is a mini-batch recursive learning.
-                                  If this value is '-1', the inferencing is not a recursive learning.
+            graph:                  Graph of neurons.
+            learning_rate:          Learning rate.
+            observed_data_arr:      observed data points.
+            training_count:         Training counts.
+            r_batch_size:           Batch size.
+                                    If this value is `0`, the inferencing is a recursive learning.
+                                    If this value is more than `0`, the inferencing is a mini-batch recursive learning.
+                                    If this value is '-1', the inferencing is not a recursive learning.
 
         Returns:
             Graph of neurons.
@@ -315,22 +315,61 @@ class ShapeBMCD(ApproximateInterface):
         self.__graph.hidden_diff_bias_arr -= np.nansum(self.__graph.hidden_activity_arr, axis=0)
 
         # Learning.
+        params_list= [
+            self.__graph.visible_bias_arr,
+            self.__graph.hidden_bias_arr,
+            self.__graph.weights_arr
+        ]
+        grads_list = [
+            self.__graph.visible_diff_bias_arr,
+            self.__graph.hidden_diff_bias_arr,
+            self.__graph.diff_weights_arr
+        ]
+
+        if self.__graph.visible_activating_function.batch_norm is not None:
+            params_list.append(
+                self.__graph.visible_activating_function.batch_norm.beta_arr
+            )
+            params_list.append(
+                self.__graph.visible_activating_function.batch_norm.gamma_arr
+            )
+            grads_list.append(
+                self.__graph.visible_activating_function.batch_norm.delta_beta_arr
+            )
+            grads_list.append(
+                self.__graph.visible_activating_function.batch_norm.delta_gamma_arr
+            )
+
+        if self.__graph.hidden_activating_function.batch_norm is not None:
+            params_list.append(
+                self.__graph.hidden_activating_function.batch_norm.beta_arr
+            )
+            params_list.append(
+                self.__graph.hidden_activating_function.batch_norm.gamma_arr
+            )
+            grads_list.append(
+                self.__graph.hidden_activating_function.batch_norm.delta_beta_arr
+            )
+            grads_list.append(
+                self.__graph.hidden_activating_function.batch_norm.delta_gamma_arr
+            )
+
         params_list = self.__opt_params.optimize(
-            params_list=[
-                self.__graph.visible_bias_arr,
-                self.__graph.hidden_bias_arr,
-                self.__graph.weights_arr
-            ],
-            grads_list=[
-                self.__graph.visible_diff_bias_arr,
-                self.__graph.hidden_diff_bias_arr,
-                self.__graph.diff_weights_arr
-            ],
+            params_list=params_list,
+            grads_list=grads_list,
             learning_rate=self.__learning_rate
         )
-        self.__graph.visible_bias_arr = params_list[0]
-        self.__graph.hidden_bias_arr = params_list[1]
-        self.__graph.weights_arr = params_list[2]
+        self.__graph.visible_bias_arr = params_list.pop(0)
+        self.__graph.hidden_bias_arr = params_list.pop(0)
+        self.__graph.weights_arr = params_list.pop(0)
+
+        if self.__graph.visible_activating_function.batch_norm is not None:
+            self.__graph.visible_activating_function.batch_norm.beta_arr = params_list.pop(0)
+            self.__graph.visible_activating_function.batch_norm.gamma_arr = params_list.pop(0)
+
+        if self.__graph.hidden_activating_function.batch_norm is not None:
+            self.__graph.hidden_activating_function.batch_norm.beta_arr = params_list.pop(0)
+            self.__graph.hidden_activating_function.batch_norm.gamma_arr = params_list.pop(0)
 
         self.__graph.visible_diff_bias_arr = np.zeros(self.__graph.visible_bias_arr.shape)
         self.__graph.hidden_diff_bias_arr = np.zeros(self.__graph.hidden_bias_arr.shape)
@@ -391,22 +430,61 @@ class ShapeBMCD(ApproximateInterface):
         self.__graph.hidden_diff_bias_arr -= np.nansum(self.__graph.hidden_activity_arr, axis=0)
 
         # Learning.
+        params_list= [
+            self.__graph.visible_bias_arr,
+            self.__graph.hidden_bias_arr,
+            self.__graph.weights_arr
+        ]
+        grads_list = [
+            self.__graph.visible_diff_bias_arr,
+            self.__graph.hidden_diff_bias_arr,
+            self.__graph.diff_weights_arr
+        ]
+
+        if self.__graph.visible_activating_function.batch_norm is not None:
+            params_list.append(
+                self.__graph.visible_activating_function.batch_norm.beta_arr
+            )
+            params_list.append(
+                self.__graph.visible_activating_function.batch_norm.gamma_arr
+            )
+            grads_list.append(
+                self.__graph.visible_activating_function.batch_norm.delta_beta_arr
+            )
+            grads_list.append(
+                self.__graph.visible_activating_function.batch_norm.delta_gamma_arr
+            )
+
+        if self.__graph.hidden_activating_function.batch_norm is not None:
+            params_list.append(
+                self.__graph.hidden_activating_function.batch_norm.beta_arr
+            )
+            params_list.append(
+                self.__graph.hidden_activating_function.batch_norm.gamma_arr
+            )
+            grads_list.append(
+                self.__graph.hidden_activating_function.batch_norm.delta_beta_arr
+            )
+            grads_list.append(
+                self.__graph.hidden_activating_function.batch_norm.delta_gamma_arr
+            )
+
         params_list = self.__opt_params.optimize(
-            params_list=[
-                self.__graph.visible_bias_arr,
-                self.__graph.hidden_bias_arr,
-                self.__graph.weights_arr
-            ],
-            grads_list=[
-                self.__graph.visible_diff_bias_arr,
-                self.__graph.hidden_diff_bias_arr,
-                self.__graph.diff_weights_arr
-            ],
+            params_list=params_list,
+            grads_list=grads_list,
             learning_rate=self.__learning_rate
         )
-        self.__graph.visible_bias_arr = params_list[0]
-        self.__graph.hidden_bias_arr = params_list[1]
-        self.__graph.weights_arr = params_list[2]
+        self.__graph.visible_bias_arr = params_list.pop(0)
+        self.__graph.hidden_bias_arr = params_list.pop(0)
+        self.__graph.weights_arr = params_list.pop(0)
+
+        if self.__graph.visible_activating_function.batch_norm is not None:
+            self.__graph.visible_activating_function.batch_norm.beta_arr = params_list.pop(0)
+            self.__graph.visible_activating_function.batch_norm.gamma_arr = params_list.pop(0)
+
+        if self.__graph.hidden_activating_function.batch_norm is not None:
+            self.__graph.hidden_activating_function.batch_norm.beta_arr = params_list.pop(0)
+            self.__graph.hidden_activating_function.batch_norm.gamma_arr = params_list.pop(0)
 
         self.__graph.visible_diff_bias_arr = np.zeros(self.__graph.visible_bias_arr.shape)
         self.__graph.hidden_diff_bias_arr = np.zeros(self.__graph.hidden_bias_arr.shape)
@@ -500,22 +578,61 @@ class ShapeBMCD(ApproximateInterface):
             self.__graph.hidden_diff_bias_arr += np.nansum(self.__graph.hidden_activity_arr, axis=0)
 
             # Learning.
+            params_list= [
+                self.__graph.visible_bias_arr,
+                self.__graph.hidden_bias_arr,
+                self.__graph.weights_arr
+            ]
+            grads_list = [
+                self.__graph.visible_diff_bias_arr,
+                self.__graph.hidden_diff_bias_arr,
+                self.__graph.diff_weights_arr
+            ]
+
+            if self.__graph.visible_activating_function.batch_norm is not None:
+                params_list.append(
+                    self.__graph.visible_activating_function.batch_norm.beta_arr
+                )
+                params_list.append(
+                    self.__graph.visible_activating_function.batch_norm.gamma_arr
+                )
+                grads_list.append(
+                    self.__graph.visible_activating_function.batch_norm.delta_beta_arr
+                )
+                grads_list.append(
+                    self.__graph.visible_activating_function.batch_norm.delta_gamma_arr
+                )
+
+            if self.__graph.hidden_activating_function.batch_norm is not None:
+                params_list.append(
+                    self.__graph.hidden_activating_function.batch_norm.beta_arr
+                )
+                params_list.append(
+                    self.__graph.hidden_activating_function.batch_norm.gamma_arr
+                )
+                grads_list.append(
+                    self.__graph.hidden_activating_function.batch_norm.delta_beta_arr
+                )
+                grads_list.append(
+                    self.__graph.hidden_activating_function.batch_norm.delta_gamma_arr
+                )
+
             params_list = self.__opt_params.optimize(
-                params_list=[
-                    self.__graph.visible_bias_arr,
-                    self.__graph.hidden_bias_arr,
-                    self.__graph.weights_arr
-                ],
-                grads_list=[
-                    self.__graph.visible_diff_bias_arr,
-                    self.__graph.hidden_diff_bias_arr,
-                    self.__graph.diff_weights_arr
-                ],
+                params_list=params_list,
+                grads_list=grads_list,
                 learning_rate=self.__learning_rate
             )
-            self.__graph.visible_bias_arr = params_list[0]
-            self.__graph.hidden_bias_arr = params_list[1]
-            self.__graph.weights_arr = params_list[2]
+            self.__graph.visible_bias_arr = params_list.pop(0)
+            self.__graph.hidden_bias_arr = params_list.pop(0)
+            self.__graph.weights_arr = params_list.pop(0)
+
+            if self.__graph.visible_activating_function.batch_norm is not None:
+                self.__graph.visible_activating_function.batch_norm.beta_arr = params_list.pop(0)
+                self.__graph.visible_activating_function.batch_norm.gamma_arr = params_list.pop(0)
+
+            if self.__graph.hidden_activating_function.batch_norm is not None:
+                self.__graph.hidden_activating_function.batch_norm.beta_arr = params_list.pop(0)
+                self.__graph.hidden_activating_function.batch_norm.gamma_arr = params_list.pop(0)
 
             self.__graph.visible_diff_bias_arr = np.zeros(self.__graph.visible_bias_arr.shape)
             self.__graph.hidden_diff_bias_arr = np.zeros(self.__graph.hidden_bias_arr.shape)
@@ -526,7 +643,7 @@ class ShapeBMCD(ApproximateInterface):
         Sleeping, waking, and learning.
 
         Args:
-             observed_data_arr:      feature points.
+            observed_data_arr:      feature points.
         '''
         # Sleeping.
         self.__graph.hidden_activity_arr = observed_data_arr.copy()
@@ -564,22 +681,61 @@ class ShapeBMCD(ApproximateInterface):
             self.__graph.hidden_diff_bias_arr += np.nansum(self.__graph.hidden_activity_arr, axis=0)
 
             # Learning.
+            params_list= [
+                self.__graph.visible_bias_arr,
+                self.__graph.hidden_bias_arr,
+                self.__graph.weights_arr
+            ]
+            grads_list = [
+                self.__graph.visible_diff_bias_arr,
+                self.__graph.hidden_diff_bias_arr,
+                self.__graph.diff_weights_arr
+            ]
+
+            if self.__graph.visible_activating_function.batch_norm is not None:
+                params_list.append(
+                    self.__graph.visible_activating_function.batch_norm.beta_arr
+                )
+                params_list.append(
+                    self.__graph.visible_activating_function.batch_norm.gamma_arr
+                )
+                grads_list.append(
+                    self.__graph.visible_activating_function.batch_norm.delta_beta_arr
+                )
+                grads_list.append(
+                    self.__graph.visible_activating_function.batch_norm.delta_gamma_arr
+                )
+
+            if self.__graph.hidden_activating_function.batch_norm is not None:
+                params_list.append(
+                    self.__graph.hidden_activating_function.batch_norm.beta_arr
+                )
+                params_list.append(
+                    self.__graph.hidden_activating_function.batch_norm.gamma_arr
+                )
+                grads_list.append(
+                    self.__graph.hidden_activating_function.batch_norm.delta_beta_arr
+                )
+                grads_list.append(
+                    self.__graph.hidden_activating_function.batch_norm.delta_gamma_arr
+                )
+
             params_list = self.__opt_params.optimize(
-                params_list=[
-                    self.__graph.visible_bias_arr,
-                    self.__graph.hidden_bias_arr,
-                    self.__graph.weights_arr
-                ],
-                grads_list=[
-                    self.__graph.visible_diff_bias_arr,
-                    self.__graph.hidden_diff_bias_arr,
-                    self.__graph.diff_weights_arr
-                ],
+                params_list=params_list,
+                grads_list=grads_list,
                 learning_rate=self.__learning_rate
             )
-            self.__graph.visible_bias_arr = params_list[0]
-            self.__graph.hidden_bias_arr = params_list[1]
-            self.__graph.weights_arr = params_list[2]
+            self.__graph.visible_bias_arr = params_list.pop(0)
+            self.__graph.hidden_bias_arr = params_list.pop(0)
+            self.__graph.weights_arr = params_list.pop(0)
+
+            if self.__graph.visible_activating_function.batch_norm is not None:
+                self.__graph.visible_activating_function.batch_norm.beta_arr = params_list.pop(0)
+                self.__graph.visible_activating_function.batch_norm.gamma_arr = params_list.pop(0)
+
+            if self.__graph.hidden_activating_function.batch_norm is not None:
+                self.__graph.hidden_activating_function.batch_norm.beta_arr = params_list.pop(0)
+                self.__graph.hidden_activating_function.batch_norm.gamma_arr = params_list.pop(0)
 
             self.__graph.visible_diff_bias_arr = np.zeros(self.__graph.visible_bias_arr.shape)
             self.__graph.hidden_diff_bias_arr = np.zeros(self.__graph.hidden_bias_arr.shape)

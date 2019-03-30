@@ -657,8 +657,8 @@ Import Python and Cython modules.
 ```python
 # Logistic Function as activation function.
 from pydbm.activation.logistic_function import LogisticFunction
-# Softmax Function as activation function.
-from pydbm.activation.softmax_function import SoftmaxFunction
+# Tanh Function as activation function.
+from pydbm.activation.tanh_function import TanhFunction
 # Stochastic Gradient Descent(SGD) as optimizer.
 from pydbm.optimization.optparams.sgd import SGD
 # The `Client` in Builder Pattern for building RTRBM.
@@ -675,9 +675,9 @@ rt_rbm = RecurrentTemporalRBM(
     # The number of units in hidden layer.
     hidden_num=100,
     # The activation function in visible layer.
-    visible_activating_function=LogisticFunction(),
+    visible_activating_function=TanhFunction(),
     # The activation function in hidden layer.
-    hidden_activating_function=LogisticFunction(),
+    hidden_activating_function=TanhFunction(),
     # The activation function in RNN layer.
     rnn_activating_function=LogisticFunction(),
     # is-a `OptParams`.
@@ -742,9 +742,9 @@ rt_rbm = RecurrentTemporalRBM(
     # The number of units in hidden layer.
     hidden_num=100,
     # The activation function in visible layer.
-    visible_activating_function=LogisticFunction(),
+    visible_activating_function=TanhFunction(),
     # The activation function in hidden layer.
-    hidden_activating_function=LogisticFunction(),
+    hidden_activating_function=TanhFunction(),
     # The activation function in RNN layer.
     rnn_activating_function=LogisticFunction(),
     # is-a `OptParams`.
@@ -785,17 +785,15 @@ rt_rbm = RNNRBM(
     # The number of units in hidden layer.
     hidden_num=100,
     # The activation function in visible layer.
-    visible_activating_function=LogisticFunction(),
+    visible_activating_function=TanhFunction(),
     # The activation function in hidden layer.
-    hidden_activating_function=LogisticFunction(),
+    hidden_activating_function=TanhFunction(),
     # The activation function in RNN layer.
     rnn_activating_function=LogisticFunction(),
     # is-a `OptParams`.
     opt_params=SGD(),
     # Learning rate.
-    learning_rate=1e-05,
-    # File path that stores pre-learned parameters.
-    pre_learned_path="/var/tmp/demo_rtrbm.npz"
+    learning_rate=1e-05
 )
 ```
 
@@ -820,17 +818,15 @@ rt_rbm = LSTMRTRBM(
     # The number of units in hidden layer.
     hidden_num=100,
     # The activation function in visible layer.
-    visible_activating_function=LogisticFunction(),
+    visible_activating_function=TanhFunction(),
     # The activation function in hidden layer.
-    hidden_activating_function=LogisticFunction(),
+    hidden_activating_function=TanhFunction(),
     # The activation function in RNN layer.
     rnn_activating_function=LogisticFunction(),
     # is-a `OptParams`.
     opt_params=SGD(),
     # Learning rate.
-    learning_rate=1e-05,
-    # File path that stores pre-learned parameters.
-    pre_learned_path="/var/tmp/demo_rtrbm.npz"
+    learning_rate=1e-05
 )
 ```
 

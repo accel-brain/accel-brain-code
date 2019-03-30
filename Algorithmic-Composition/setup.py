@@ -12,8 +12,8 @@ def read_readme(file_name):
 
 setup(
     name='pycomposer',
-    version='0.0.5',
-    description='pycomposer is Python library for Algorithmic Composition or Automatic Composition based on the stochastic music theory. Especialy, this library provides apprication of the generative model such as a Restricted Boltzmann Machine(RBM). And the Monte Carlo method such as Quantum Annealing model is used in this library as optimizer of compositions.',
+    version='1.0.0',
+    description='pycomposer is Python library for Algorithmic Composition or Automatic Composition based on the stochastic music theory and the Statistical machine learning problems. Especialy, this library provides apprication of the Algorithmic Composer based on Generative Adversarial Networks(GANs).',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',
     url='https://github.com/chimera0/accel-brain-code/tree/master/Algorithmic-Composition',
@@ -21,7 +21,7 @@ setup(
     author_email='ai-brain-lab@accel-brain.com',
     license='GPL2',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Information Technology',
         'Intended Audience :: Science/Research',
         'Topic :: Multimedia :: Sound/Audio :: MIDI',
@@ -31,5 +31,5 @@ setup(
     ],
     keywords='RTRBM LSTM Annealing Quantum Monte Carlo',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
-    install_requires=['numpy', 'pandas', 'pretty_midi', 'pydbm', 'pyqlearning'],
+    install_requires=['numpy', 'pandas', 'pretty_midi', 'pygan'],
 )

@@ -10,6 +10,8 @@ See also ...
     * If you want to implement the Deep Reinforcement Learning, especially for Deep Q-Network and Multi-agent Deep Q-Network by using `pydbm` as a Function Approximator.
 - [Generative Adversarial Networks Library: pygan](https://github.com/chimera0/accel-brain-code/tree/master/Generative-Adversarial-Networks)
     * If you want to implement Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs) by using `pydbm` as components for Generative models based on the Statistical machine learning problems.
+- [Algorithmic Composition or Automatic Composition Library: pycomposer](https://github.com/chimera0/accel-brain-code/tree/master/Algorithmic-Composition)
+   * If you want to implement the Algorithmic Composer based on Generative Adversarial Networks(GANs) by using `pydbm` and `pygan` as components for Generative models based on the Statistical machine learning problems.
 
 ## Documentation
 

@@ -83,8 +83,8 @@ class GANComposer(object):
             midi_path_list:         `list` of paths to MIDI files.
             target_program:         Program in generated MIDI.
             batch_size:             Batch size.
-            seq_len:                The length of sequence in LSTM networks.
-            time_fraction:          Time fraction.
+            seq_len:                The length of sequence that LSTM networks will observe.
+            time_fraction:          Time fraction or time resolution (seconds).
             true_sampler:           is-a `TrueSampler`.
             noise_sampler:          is-a `NoiseSampler`.
             generative_model:       is-a `GenerativeModel`.
@@ -146,7 +146,7 @@ class GANComposer(object):
 
         Args:
             iter_n:     The number of training iterations.
-            k_step:     The number of learning of the discriminative_model.
+            k_step:     The number of learning of the `discriminator`.
 
         '''
         generative_model, discriminative_model = self.__GAN.train(

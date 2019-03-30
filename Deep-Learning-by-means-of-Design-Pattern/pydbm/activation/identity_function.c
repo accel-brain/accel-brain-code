@@ -1697,12 +1697,12 @@ static PyObject *__pyx_codeobj__17;
  * 
  *     def activate(self, np.ndarray x):             # <<<<<<<<<<<<<<
  *         '''
- *         Return the result from this activation function.
+ *         Activate and extract feature points in forward propagation.
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_10activation_17identity_function_16IdentityFunction_1activate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_10activation_17identity_function_16IdentityFunction_activate[] = "\n        Return the result from this activation function.\n\n        Args:\n            x   Parameter.\n\n        Returns:\n            The result.\n        ";
+static char __pyx_doc_5pydbm_10activation_17identity_function_16IdentityFunction_activate[] = "\n        Activate and extract feature points in forward propagation.\n\n        Args:\n            x   `np.ndarray` of observed data points.\n\n        Returns:\n            `np.ndarray` of the activated feature points.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_10activation_17identity_function_16IdentityFunction_1activate = {"activate", (PyCFunction)__pyx_pw_5pydbm_10activation_17identity_function_16IdentityFunction_1activate, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_10activation_17identity_function_16IdentityFunction_activate};
 static PyObject *__pyx_pw_5pydbm_10activation_17identity_function_16IdentityFunction_1activate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
@@ -1781,7 +1781,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_17identity_function_16IdentityFunc
   __Pyx_INCREF((PyObject *)__pyx_v_x);
 
   /* "pydbm/activation/identity_function.pyx":23
- *             The result.
+ *             `np.ndarray` of the activated feature points.
  *         '''
  *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
  *             x = self.batch_norm.forward_propagation(x)
@@ -1854,7 +1854,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_17identity_function_16IdentityFunc
     __pyx_t_1 = 0;
 
     /* "pydbm/activation/identity_function.pyx":23
- *             The result.
+ *             `np.ndarray` of the activated feature points.
  *         '''
  *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
  *             x = self.batch_norm.forward_propagation(x)
@@ -1879,7 +1879,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_17identity_function_16IdentityFunc
  * 
  *     def activate(self, np.ndarray x):             # <<<<<<<<<<<<<<
  *         '''
- *         Return the result from this activation function.
+ *         Activate and extract feature points in forward propagation.
  */
 
   /* function exit code */
@@ -1902,12 +1902,12 @@ static PyObject *__pyx_pf_5pydbm_10activation_17identity_function_16IdentityFunc
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
- *         Return of derivative with respect to this activation function.
+ *         Derivative and extract delta in back propagation.
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_10activation_17identity_function_16IdentityFunction_3derivative(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_10activation_17identity_function_16IdentityFunction_2derivative[] = "\n        Return of derivative with respect to this activation function.\n\n        Args:\n            y   The result of activation.\n\n        Returns:\n            The result.\n        ";
+static char __pyx_doc_5pydbm_10activation_17identity_function_16IdentityFunction_2derivative[] = "\n        Derivative and extract delta in back propagation.\n\n        Args:\n            y:  `np.ndarray` of delta.\n\n        Returns:\n            `np.ndarray` of delta.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_10activation_17identity_function_16IdentityFunction_3derivative = {"derivative", (PyCFunction)__pyx_pw_5pydbm_10activation_17identity_function_16IdentityFunction_3derivative, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_10activation_17identity_function_16IdentityFunction_2derivative};
 static PyObject *__pyx_pw_5pydbm_10activation_17identity_function_16IdentityFunction_3derivative(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
@@ -1986,7 +1986,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_17identity_function_16IdentityFunc
   __Pyx_INCREF((PyObject *)__pyx_v_y);
 
   /* "pydbm/activation/identity_function.pyx":38
- *             The result.
+ *             `np.ndarray` of delta.
  *         '''
  *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
  *             y = self.batch_norm.back_propagation(y)
@@ -2059,7 +2059,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_17identity_function_16IdentityFunc
     __pyx_t_1 = 0;
 
     /* "pydbm/activation/identity_function.pyx":38
- *             The result.
+ *             `np.ndarray` of delta.
  *         '''
  *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
  *             y = self.batch_norm.back_propagation(y)
@@ -2084,7 +2084,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_17identity_function_16IdentityFunc
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
- *         Return of derivative with respect to this activation function.
+ *         Derivative and extract delta in back propagation.
  */
 
   /* function exit code */
@@ -2220,7 +2220,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_17identity_function_16IdentityFunc
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_10activation_17identity_function_16IdentityFunction_7backward(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_10activation_17identity_function_16IdentityFunction_6backward[] = "\n        Back propagation but not operate the activation.\n\n        Args:\n            y:                  `np.ndarray` of delta.\n\n        Returns:\n            The result.\n        ";
+static char __pyx_doc_5pydbm_10activation_17identity_function_16IdentityFunction_6backward[] = "\n        Back propagation but not operate the activation.\n\n        Args:\n            y:  `np.ndarray` of delta.\n\n        Returns:\n            The result.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_10activation_17identity_function_16IdentityFunction_7backward = {"backward", (PyCFunction)__pyx_pw_5pydbm_10activation_17identity_function_16IdentityFunction_7backward, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_10activation_17identity_function_16IdentityFunction_6backward};
 static PyObject *__pyx_pw_5pydbm_10activation_17identity_function_16IdentityFunction_7backward(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
@@ -4976,7 +4976,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *     def activate(self, np.ndarray x):             # <<<<<<<<<<<<<<
  *         '''
- *         Return the result from this activation function.
+ *         Activate and extract feature points in forward propagation.
  */
   __pyx_tuple__10 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_x); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
@@ -4988,7 +4988,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
- *         Return of derivative with respect to this activation function.
+ *         Derivative and extract delta in back propagation.
  */
   __pyx_tuple__12 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_y); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 28, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
@@ -5343,7 +5343,7 @@ if (!__Pyx_RefNanny) {
  * 
  *     def activate(self, np.ndarray x):             # <<<<<<<<<<<<<<
  *         '''
- *         Return the result from this activation function.
+ *         Activate and extract feature points in forward propagation.
  */
   __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_17identity_function_16IdentityFunction_1activate, 0, __pyx_n_s_IdentityFunction_activate, NULL, __pyx_n_s_pydbm_activation_identity_functi, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
@@ -5355,7 +5355,7 @@ if (!__Pyx_RefNanny) {
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
- *         Return of derivative with respect to this activation function.
+ *         Derivative and extract delta in back propagation.
  */
   __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_17identity_function_16IdentityFunction_3derivative, 0, __pyx_n_s_IdentityFunction_derivative, NULL, __pyx_n_s_pydbm_activation_identity_functi, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 28, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);

@@ -1933,12 +1933,12 @@ static PyObject *__pyx_pf_5pydbm_10activation_13relu_function_12ReLuFunction___i
  * 
  *     def activate(self, np.ndarray x):             # <<<<<<<<<<<<<<
  *         '''
- *         Return of result from this activation function.
+ *         Activate and extract feature points in forward propagation.
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_10activation_13relu_function_12ReLuFunction_3activate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_10activation_13relu_function_12ReLuFunction_2activate[] = "\n        Return of result from this activation function.\n\n        Args:\n            x:                  Parameter.\n\n        Returns:\n            The result.\n        ";
+static char __pyx_doc_5pydbm_10activation_13relu_function_12ReLuFunction_2activate[] = "\n        Activate and extract feature points in forward propagation.\n\n        Args:\n            x   `np.ndarray` of observed data points.\n\n        Returns:\n            `np.ndarray` of the activated feature points.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_10activation_13relu_function_12ReLuFunction_3activate = {"activate", (PyCFunction)__pyx_pw_5pydbm_10activation_13relu_function_12ReLuFunction_3activate, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_10activation_13relu_function_12ReLuFunction_2activate};
 static PyObject *__pyx_pw_5pydbm_10activation_13relu_function_12ReLuFunction_3activate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
@@ -2021,7 +2021,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_13relu_function_12ReLuFunction_2ac
   __Pyx_INCREF((PyObject *)__pyx_v_x);
 
   /* "pydbm/activation/relu_function.pyx":39
- *             The result.
+ *             `np.ndarray` of the activated feature points.
  *         '''
  *         self.__mask_arr_list.append((x <= 0))             # <<<<<<<<<<<<<<
  *         if len(self.__mask_arr_list) > self.__memory_len:
@@ -2307,7 +2307,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_13relu_function_12ReLuFunction_2ac
  * 
  *     def activate(self, np.ndarray x):             # <<<<<<<<<<<<<<
  *         '''
- *         Return of result from this activation function.
+ *         Activate and extract feature points in forward propagation.
  */
 
   /* function exit code */
@@ -2331,12 +2331,12 @@ static PyObject *__pyx_pf_5pydbm_10activation_13relu_function_12ReLuFunction_2ac
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
- *         Return of derivative result from this activation function.
+ *         Derivative and extract delta in back propagation.
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_10activation_13relu_function_12ReLuFunction_5derivative(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_10activation_13relu_function_12ReLuFunction_4derivative[] = "\n        Return of derivative result from this activation function.\n\n        Args:\n            y:   The result of activation.\n\n        Returns:\n            The result.\n        ";
+static char __pyx_doc_5pydbm_10activation_13relu_function_12ReLuFunction_4derivative[] = "\n        Derivative and extract delta in back propagation.\n\n        Args:\n            y:  `np.ndarray` of delta.\n\n        Returns:\n            `np.ndarray` of delta.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_10activation_13relu_function_12ReLuFunction_5derivative = {"derivative", (PyCFunction)__pyx_pw_5pydbm_10activation_13relu_function_12ReLuFunction_5derivative, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_10activation_13relu_function_12ReLuFunction_4derivative};
 static PyObject *__pyx_pw_5pydbm_10activation_13relu_function_12ReLuFunction_5derivative(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
@@ -2416,7 +2416,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_13relu_function_12ReLuFunction_4de
   __Pyx_INCREF((PyObject *)__pyx_v_y);
 
   /* "pydbm/activation/relu_function.pyx":59
- *             The result.
+ *             `np.ndarray` of delta.
  *         '''
  *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
  *             y = self.batch_norm.back_propagation(y)
@@ -2489,7 +2489,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_13relu_function_12ReLuFunction_4de
     __pyx_t_1 = 0;
 
     /* "pydbm/activation/relu_function.pyx":59
- *             The result.
+ *             `np.ndarray` of delta.
  *         '''
  *         if self.batch_norm is not None:             # <<<<<<<<<<<<<<
  *             y = self.batch_norm.back_propagation(y)
@@ -2538,7 +2538,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_13relu_function_12ReLuFunction_4de
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
- *         Return of derivative result from this activation function.
+ *         Derivative and extract delta in back propagation.
  */
 
   /* function exit code */
@@ -2793,7 +2793,7 @@ static PyObject *__pyx_pf_5pydbm_10activation_13relu_function_12ReLuFunction_6fo
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_10activation_13relu_function_12ReLuFunction_9backward(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_10activation_13relu_function_12ReLuFunction_8backward[] = "\n        Back propagation but not operate the activation.\n\n        Args:\n            y:                  `np.ndarray` of delta.\n\n        Returns:\n            The result.\n        ";
+static char __pyx_doc_5pydbm_10activation_13relu_function_12ReLuFunction_8backward[] = "\n        Back propagation but not operate the activation.\n\n        Args:\n            y:  `np.ndarray` of delta.\n\n        Returns:\n            The result.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_10activation_13relu_function_12ReLuFunction_9backward = {"backward", (PyCFunction)__pyx_pw_5pydbm_10activation_13relu_function_12ReLuFunction_9backward, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_10activation_13relu_function_12ReLuFunction_8backward};
 static PyObject *__pyx_pw_5pydbm_10activation_13relu_function_12ReLuFunction_9backward(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
@@ -5607,7 +5607,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *     def activate(self, np.ndarray x):             # <<<<<<<<<<<<<<
  *         '''
- *         Return of result from this activation function.
+ *         Activate and extract feature points in forward propagation.
  */
   __pyx_tuple__13 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_x); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__13);
@@ -5619,7 +5619,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
- *         Return of derivative result from this activation function.
+ *         Derivative and extract delta in back propagation.
  */
   __pyx_tuple__15 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_y, __pyx_n_s_mask_arr); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__15);
@@ -6000,7 +6000,7 @@ if (!__Pyx_RefNanny) {
  * 
  *     def activate(self, np.ndarray x):             # <<<<<<<<<<<<<<
  *         '''
- *         Return of result from this activation function.
+ *         Activate and extract feature points in forward propagation.
  */
   __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_13relu_function_12ReLuFunction_3activate, 0, __pyx_n_s_ReLuFunction_activate, NULL, __pyx_n_s_pydbm_activation_relu_function, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
@@ -6012,7 +6012,7 @@ if (!__Pyx_RefNanny) {
  * 
  *     def derivative(self, np.ndarray y):             # <<<<<<<<<<<<<<
  *         '''
- *         Return of derivative result from this activation function.
+ *         Derivative and extract delta in back propagation.
  */
   __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10activation_13relu_function_12ReLuFunction_5derivative, 0, __pyx_n_s_ReLuFunction_derivative, NULL, __pyx_n_s_pydbm_activation_relu_function, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);

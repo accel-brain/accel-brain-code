@@ -3453,7 +3453,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_18learn_weights(CYTHON_
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_21save_pre_learned_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_12synapse_list_7Synapse_20save_pre_learned_params[] = "\n        Save pre-learned parameters.\n\n        If you want to save pre-learned parameters simultaneously with stacked graphs,\n        call method `stack_graph` and setup the graphs before calling this method.\n        \n        Args:\n            file_path:    File path.\n        ";
+static char __pyx_doc_5pydbm_12synapse_list_7Synapse_20save_pre_learned_params[] = "\n        Save pre-learned parameters.\n\n        If you want to save pre-learned parameters simultaneously with stacked graphs,\n        call method `stack_graph` and setup the graphs before calling this method.\n\n        If this class's subclass has a `ActivatingFunctionInterface` which has a `BatchNorm`, \n        this class store `BatchNorm`'s `beta_arr` and `gamma_arr` to your file.\n\n        Args:\n            file_path:    File path.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_12synapse_list_7Synapse_21save_pre_learned_params = {"save_pre_learned_params", (PyCFunction)__pyx_pw_5pydbm_12synapse_list_7Synapse_21save_pre_learned_params, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_12synapse_list_7Synapse_20save_pre_learned_params};
 static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_21save_pre_learned_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
@@ -3533,28 +3533,28 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
   int __pyx_t_11;
   __Pyx_RefNannySetupContext("save_pre_learned_params", 0);
 
-  /* "pydbm/synapse_list.pyx":139
+  /* "pydbm/synapse_list.pyx":142
  *             file_path:    File path.
  *         '''
  *         d = {}             # <<<<<<<<<<<<<<
  *         for k, v in self.__dict__.items():
  *             if isinstance(v, np.ndarray):
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_d = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/synapse_list.pyx":140
+  /* "pydbm/synapse_list.pyx":143
  *         '''
  *         d = {}
  *         for k, v in self.__dict__.items():             # <<<<<<<<<<<<<<
  *             if isinstance(v, np.ndarray):
  *                 d.setdefault(k, v)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_items); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_items); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -3568,10 +3568,10 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
     }
   }
   if (__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3579,9 +3579,9 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
     __pyx_t_3 = __pyx_t_1; __Pyx_INCREF(__pyx_t_3); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 143, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -3589,17 +3589,17 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
       if (likely(PyList_CheckExact(__pyx_t_3))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 140, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 143, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 140, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 143, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -3609,7 +3609,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 140, __pyx_L1_error)
+          else __PYX_ERR(0, 143, __pyx_L1_error)
         }
         break;
       }
@@ -3621,7 +3621,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 140, __pyx_L1_error)
+        __PYX_ERR(0, 143, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -3634,15 +3634,15 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
       __Pyx_INCREF(__pyx_t_2);
       __Pyx_INCREF(__pyx_t_6);
       #else
-      __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
+      __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 140, __pyx_L1_error)
+      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 143, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       #endif
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 140, __pyx_L1_error)
+      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 143, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
@@ -3650,7 +3650,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
       __Pyx_GOTREF(__pyx_t_2);
       index = 1; __pyx_t_6 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_6)) goto __pyx_L5_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_6);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 140, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 143, __pyx_L1_error)
       __pyx_t_8 = NULL;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       goto __pyx_L6_unpacking_done;
@@ -3658,7 +3658,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 140, __pyx_L1_error)
+      __PYX_ERR(0, 143, __pyx_L1_error)
       __pyx_L6_unpacking_done:;
     }
     __Pyx_XDECREF_SET(__pyx_v_k, __pyx_t_2);
@@ -3666,7 +3666,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
     __Pyx_XDECREF_SET(__pyx_v_v, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "pydbm/synapse_list.pyx":141
+    /* "pydbm/synapse_list.pyx":144
  *         d = {}
  *         for k, v in self.__dict__.items():
  *             if isinstance(v, np.ndarray):             # <<<<<<<<<<<<<<
@@ -3677,18 +3677,18 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
     __pyx_t_10 = (__pyx_t_9 != 0);
     if (__pyx_t_10) {
 
-      /* "pydbm/synapse_list.pyx":142
+      /* "pydbm/synapse_list.pyx":145
  *         for k, v in self.__dict__.items():
  *             if isinstance(v, np.ndarray):
  *                 d.setdefault(k, v)             # <<<<<<<<<<<<<<
  *             if isinstance(v, ActivatingFunctionInterface) is True:
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:
  */
-      __pyx_t_1 = __Pyx_PyDict_SetDefault(__pyx_v_d, __pyx_v_k, __pyx_v_v, -1L); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyDict_SetDefault(__pyx_v_d, __pyx_v_k, __pyx_v_v, -1L); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pydbm/synapse_list.pyx":141
+      /* "pydbm/synapse_list.pyx":144
  *         d = {}
  *         for k, v in self.__dict__.items():
  *             if isinstance(v, np.ndarray):             # <<<<<<<<<<<<<<
@@ -3697,28 +3697,28 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
  */
     }
 
-    /* "pydbm/synapse_list.pyx":143
+    /* "pydbm/synapse_list.pyx":146
  *             if isinstance(v, np.ndarray):
  *                 d.setdefault(k, v)
  *             if isinstance(v, ActivatingFunctionInterface) is True:             # <<<<<<<<<<<<<<
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:
  *                     d.setdefault(k + "_batch_norm_beta", v.batch_norm.beta_arr)
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_10 = PyObject_IsInstance(__pyx_v_v, __pyx_t_1); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_10 = PyObject_IsInstance(__pyx_v_v, __pyx_t_1); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 146, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_9 = ((__pyx_t_10 == 1) != 0);
     if (__pyx_t_9) {
 
-      /* "pydbm/synapse_list.pyx":144
+      /* "pydbm/synapse_list.pyx":147
  *                 d.setdefault(k, v)
  *             if isinstance(v, ActivatingFunctionInterface) is True:
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:             # <<<<<<<<<<<<<<
  *                     d.setdefault(k + "_batch_norm_beta", v.batch_norm.beta_arr)
  *                     d.setdefault(k + "_batch_norm_gamma", v.batch_norm.gamma_arr)
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_v, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_v, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_t_10 = (__pyx_t_1 != Py_None);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -3728,11 +3728,11 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
         __pyx_t_9 = __pyx_t_11;
         goto __pyx_L10_bool_binop_done;
       }
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_v, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_v, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_BatchNorm); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 144, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_BatchNorm); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 147, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_11 = PyObject_IsInstance(__pyx_t_1, __pyx_t_6); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 144, __pyx_L1_error)
+      __pyx_t_11 = PyObject_IsInstance(__pyx_t_1, __pyx_t_6); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 147, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __pyx_t_10 = ((__pyx_t_11 == 1) != 0);
@@ -3740,47 +3740,47 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
       __pyx_L10_bool_binop_done:;
       if (__pyx_t_9) {
 
-        /* "pydbm/synapse_list.pyx":145
+        /* "pydbm/synapse_list.pyx":148
  *             if isinstance(v, ActivatingFunctionInterface) is True:
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:
  *                     d.setdefault(k + "_batch_norm_beta", v.batch_norm.beta_arr)             # <<<<<<<<<<<<<<
  *                     d.setdefault(k + "_batch_norm_gamma", v.batch_norm.gamma_arr)
  * 
  */
-        __pyx_t_6 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_beta); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 145, __pyx_L1_error)
+        __pyx_t_6 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_beta); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 148, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_v, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_v, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_beta_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_beta_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = __Pyx_PyDict_SetDefault(__pyx_v_d, __pyx_t_6, __pyx_t_2, -1L); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyDict_SetDefault(__pyx_v_d, __pyx_t_6, __pyx_t_2, -1L); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "pydbm/synapse_list.pyx":146
+        /* "pydbm/synapse_list.pyx":149
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:
  *                     d.setdefault(k + "_batch_norm_beta", v.batch_norm.beta_arr)
  *                     d.setdefault(k + "_batch_norm_gamma", v.batch_norm.gamma_arr)             # <<<<<<<<<<<<<<
  * 
  *         np.savez_compressed(file_path, **d)
  */
-        __pyx_t_1 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_gamma); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+        __pyx_t_1 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_gamma); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_v, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_v, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 149, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_gamma_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 146, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_gamma_arr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 149, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_PyDict_SetDefault(__pyx_v_d, __pyx_t_1, __pyx_t_6, -1L); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyDict_SetDefault(__pyx_v_d, __pyx_t_1, __pyx_t_6, -1L); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 149, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "pydbm/synapse_list.pyx":144
+        /* "pydbm/synapse_list.pyx":147
  *                 d.setdefault(k, v)
  *             if isinstance(v, ActivatingFunctionInterface) is True:
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:             # <<<<<<<<<<<<<<
@@ -3789,7 +3789,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
  */
       }
 
-      /* "pydbm/synapse_list.pyx":143
+      /* "pydbm/synapse_list.pyx":146
  *             if isinstance(v, np.ndarray):
  *                 d.setdefault(k, v)
  *             if isinstance(v, ActivatingFunctionInterface) is True:             # <<<<<<<<<<<<<<
@@ -3798,7 +3798,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
  */
     }
 
-    /* "pydbm/synapse_list.pyx":140
+    /* "pydbm/synapse_list.pyx":143
  *         '''
  *         d = {}
  *         for k, v in self.__dict__.items():             # <<<<<<<<<<<<<<
@@ -3808,24 +3808,24 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse_list.pyx":148
+  /* "pydbm/synapse_list.pyx":151
  *                     d.setdefault(k + "_batch_norm_gamma", v.batch_norm.gamma_arr)
  * 
  *         np.savez_compressed(file_path, **d)             # <<<<<<<<<<<<<<
  * 
  *     def load_pre_learned_params(self, file_path):
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_savez_compressed); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_savez_compressed); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_v_file_path);
   __Pyx_GIVEREF(__pyx_v_file_path);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_file_path);
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_v_d); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_v_d); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3859,7 +3859,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
   return __pyx_r;
 }
 
-/* "pydbm/synapse_list.pyx":150
+/* "pydbm/synapse_list.pyx":153
  *         np.savez_compressed(file_path, **d)
  * 
  *     def load_pre_learned_params(self, file_path):             # <<<<<<<<<<<<<<
@@ -3869,7 +3869,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_20save_pre_learned_para
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_23load_pre_learned_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_12synapse_list_7Synapse_22load_pre_learned_params[] = "\n        Load pre-learned parameters.\n\n        If you want to load pre-learned parameters simultaneously with stacked graphs,\n        call method `stack_graph` and setup the graphs before calling this method.\n        \n        Args:\n            file_path:    File path.\n        ";
+static char __pyx_doc_5pydbm_12synapse_list_7Synapse_22load_pre_learned_params[] = "\n        Load pre-learned parameters.\n\n        If you want to load pre-learned parameters simultaneously with stacked graphs,\n        call method `stack_graph` and setup the graphs before calling this method.\n\n        If this class's subclass has a `ActivatingFunctionInterface` which has a `BatchNorm`, \n        and your file stores appropriate data, this class set `BatchNorm`'s `beta_arr` and `gamma_arr`.\n\n        Args:\n            file_path:    File path.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_12synapse_list_7Synapse_23load_pre_learned_params = {"load_pre_learned_params", (PyCFunction)__pyx_pw_5pydbm_12synapse_list_7Synapse_23load_pre_learned_params, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_12synapse_list_7Synapse_22load_pre_learned_params};
 static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_23load_pre_learned_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
@@ -3900,11 +3900,11 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_23load_pre_learned_para
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_file_path)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("load_pre_learned_params", 1, 2, 2, 1); __PYX_ERR(0, 150, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("load_pre_learned_params", 1, 2, 2, 1); __PYX_ERR(0, 153, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "load_pre_learned_params") < 0)) __PYX_ERR(0, 150, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "load_pre_learned_params") < 0)) __PYX_ERR(0, 153, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3917,7 +3917,7 @@ static PyObject *__pyx_pw_5pydbm_12synapse_list_7Synapse_23load_pre_learned_para
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("load_pre_learned_params", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 150, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("load_pre_learned_params", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 153, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.synapse_list.Synapse.load_pre_learned_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3949,16 +3949,16 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
   int __pyx_t_11;
   __Pyx_RefNannySetupContext("load_pre_learned_params", 0);
 
-  /* "pydbm/synapse_list.pyx":160
+  /* "pydbm/synapse_list.pyx":166
  *             file_path:    File path.
  *         '''
  *         pre_learned_dict = np.load(file_path)             # <<<<<<<<<<<<<<
  *         for k, v in pre_learned_dict.items():
  *             if isinstance(v, np.ndarray):
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_load); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_load); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -3972,13 +3972,13 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_file_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_file_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 166, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_file_path};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 166, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -3986,19 +3986,19 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_file_path};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 166, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 160, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 166, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_INCREF(__pyx_v_file_path);
       __Pyx_GIVEREF(__pyx_v_file_path);
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_file_path);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 166, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -4007,14 +4007,14 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
   __pyx_v_pre_learned_dict = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/synapse_list.pyx":161
+  /* "pydbm/synapse_list.pyx":167
  *         '''
  *         pre_learned_dict = np.load(file_path)
  *         for k, v in pre_learned_dict.items():             # <<<<<<<<<<<<<<
  *             if isinstance(v, np.ndarray):
  *                 self.__dict__[k] = v
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_pre_learned_dict, __pyx_n_s_items); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_pre_learned_dict, __pyx_n_s_items); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
@@ -4027,10 +4027,10 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
     }
   }
   if (__pyx_t_4) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -4038,9 +4038,9 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
     __pyx_t_3 = __pyx_t_1; __Pyx_INCREF(__pyx_t_3); __pyx_t_5 = 0;
     __pyx_t_6 = NULL;
   } else {
-    __pyx_t_5 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 161, __pyx_L1_error)
+    __pyx_t_5 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_6 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 161, __pyx_L1_error)
+    __pyx_t_6 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 167, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -4048,17 +4048,17 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
       if (likely(PyList_CheckExact(__pyx_t_3))) {
         if (__pyx_t_5 >= PyList_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 161, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 167, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_5 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 161, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 167, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -4068,7 +4068,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 161, __pyx_L1_error)
+          else __PYX_ERR(0, 167, __pyx_L1_error)
         }
         break;
       }
@@ -4080,7 +4080,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 161, __pyx_L1_error)
+        __PYX_ERR(0, 167, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -4093,15 +4093,15 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
       __Pyx_INCREF(__pyx_t_4);
       __Pyx_INCREF(__pyx_t_2);
       #else
-      __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 161, __pyx_L1_error)
+      __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 167, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_2 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 161, __pyx_L1_error)
+      __pyx_t_2 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 167, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       #endif
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 161, __pyx_L1_error)
+      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 167, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
@@ -4109,7 +4109,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
       __Pyx_GOTREF(__pyx_t_4);
       index = 1; __pyx_t_2 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_2)) goto __pyx_L5_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_2);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 161, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 167, __pyx_L1_error)
       __pyx_t_8 = NULL;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       goto __pyx_L6_unpacking_done;
@@ -4117,7 +4117,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 161, __pyx_L1_error)
+      __PYX_ERR(0, 167, __pyx_L1_error)
       __pyx_L6_unpacking_done:;
     }
     __Pyx_XDECREF_SET(__pyx_v_k, __pyx_t_4);
@@ -4125,7 +4125,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
     __Pyx_XDECREF_SET(__pyx_v_v, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pydbm/synapse_list.pyx":162
+    /* "pydbm/synapse_list.pyx":168
  *         pre_learned_dict = np.load(file_path)
  *         for k, v in pre_learned_dict.items():
  *             if isinstance(v, np.ndarray):             # <<<<<<<<<<<<<<
@@ -4136,19 +4136,19 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
     __pyx_t_10 = (__pyx_t_9 != 0);
     if (__pyx_t_10) {
 
-      /* "pydbm/synapse_list.pyx":163
+      /* "pydbm/synapse_list.pyx":169
  *         for k, v in pre_learned_dict.items():
  *             if isinstance(v, np.ndarray):
  *                 self.__dict__[k] = v             # <<<<<<<<<<<<<<
  * 
  *         for k, v in self.__dict__.items():
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 169, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_v_k, __pyx_v_v) < 0)) __PYX_ERR(0, 163, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_v_k, __pyx_v_v) < 0)) __PYX_ERR(0, 169, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pydbm/synapse_list.pyx":162
+      /* "pydbm/synapse_list.pyx":168
  *         pre_learned_dict = np.load(file_path)
  *         for k, v in pre_learned_dict.items():
  *             if isinstance(v, np.ndarray):             # <<<<<<<<<<<<<<
@@ -4157,7 +4157,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
  */
     }
 
-    /* "pydbm/synapse_list.pyx":161
+    /* "pydbm/synapse_list.pyx":167
  *         '''
  *         pre_learned_dict = np.load(file_path)
  *         for k, v in pre_learned_dict.items():             # <<<<<<<<<<<<<<
@@ -4167,16 +4167,16 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/synapse_list.pyx":165
+  /* "pydbm/synapse_list.pyx":171
  *                 self.__dict__[k] = v
  * 
  *         for k, v in self.__dict__.items():             # <<<<<<<<<<<<<<
  *             if isinstance(v, ActivatingFunctionInterface) is True:
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_items); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_items); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -4190,10 +4190,10 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
     }
   }
   if (__pyx_t_1) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 165, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else {
-    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 165, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -4201,9 +4201,9 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
     __pyx_t_2 = __pyx_t_3; __Pyx_INCREF(__pyx_t_2); __pyx_t_5 = 0;
     __pyx_t_6 = NULL;
   } else {
-    __pyx_t_5 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
+    __pyx_t_5 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 171, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_6 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 165, __pyx_L1_error)
+    __pyx_t_6 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 171, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   for (;;) {
@@ -4211,17 +4211,17 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_5 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_5); __Pyx_INCREF(__pyx_t_3); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_5); __Pyx_INCREF(__pyx_t_3); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 171, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         #endif
       } else {
         if (__pyx_t_5 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_5); __Pyx_INCREF(__pyx_t_3); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_5); __Pyx_INCREF(__pyx_t_3); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 171, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         #endif
       }
@@ -4231,7 +4231,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 165, __pyx_L1_error)
+          else __PYX_ERR(0, 171, __pyx_L1_error)
         }
         break;
       }
@@ -4243,7 +4243,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 165, __pyx_L1_error)
+        __PYX_ERR(0, 171, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -4256,15 +4256,15 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
       __Pyx_INCREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_t_4);
       #else
-      __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 165, __pyx_L1_error)
+      __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 171, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 165, __pyx_L1_error)
+      __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       #endif
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_7 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 165, __pyx_L1_error)
+      __pyx_t_7 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 171, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
@@ -4272,7 +4272,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
       __Pyx_GOTREF(__pyx_t_1);
       index = 1; __pyx_t_4 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_4)) goto __pyx_L10_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_4);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 165, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 171, __pyx_L1_error)
       __pyx_t_8 = NULL;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       goto __pyx_L11_unpacking_done;
@@ -4280,7 +4280,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 165, __pyx_L1_error)
+      __PYX_ERR(0, 171, __pyx_L1_error)
       __pyx_L11_unpacking_done:;
     }
     __Pyx_XDECREF_SET(__pyx_v_k, __pyx_t_1);
@@ -4288,28 +4288,28 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
     __Pyx_XDECREF_SET(__pyx_v_v, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "pydbm/synapse_list.pyx":166
+    /* "pydbm/synapse_list.pyx":172
  * 
  *         for k, v in self.__dict__.items():
  *             if isinstance(v, ActivatingFunctionInterface) is True:             # <<<<<<<<<<<<<<
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:
  *                     if k + "_batch_norm_beta" in pre_learned_dict:
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 166, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_ActivatingFunctionInterface); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 172, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_10 = PyObject_IsInstance(__pyx_v_v, __pyx_t_3); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 166, __pyx_L1_error)
+    __pyx_t_10 = PyObject_IsInstance(__pyx_v_v, __pyx_t_3); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 172, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_9 = ((__pyx_t_10 == 1) != 0);
     if (__pyx_t_9) {
 
-      /* "pydbm/synapse_list.pyx":167
+      /* "pydbm/synapse_list.pyx":173
  *         for k, v in self.__dict__.items():
  *             if isinstance(v, ActivatingFunctionInterface) is True:
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:             # <<<<<<<<<<<<<<
  *                     if k + "_batch_norm_beta" in pre_learned_dict:
  *                         self.__dict__[k].batch_norm.beta_arr = pre_learned_dict[k + "_batch_norm_beta"]
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_v, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_v, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 173, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __pyx_t_10 = (__pyx_t_3 != Py_None);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -4319,11 +4319,11 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
         __pyx_t_9 = __pyx_t_11;
         goto __pyx_L14_bool_binop_done;
       }
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_v, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_v, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 173, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_BatchNorm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 167, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_BatchNorm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 173, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_11 = PyObject_IsInstance(__pyx_t_3, __pyx_t_4); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 167, __pyx_L1_error)
+      __pyx_t_11 = PyObject_IsInstance(__pyx_t_3, __pyx_t_4); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 173, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __pyx_t_10 = ((__pyx_t_11 == 1) != 0);
@@ -4331,45 +4331,45 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
       __pyx_L14_bool_binop_done:;
       if (__pyx_t_9) {
 
-        /* "pydbm/synapse_list.pyx":168
+        /* "pydbm/synapse_list.pyx":174
  *             if isinstance(v, ActivatingFunctionInterface) is True:
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:
  *                     if k + "_batch_norm_beta" in pre_learned_dict:             # <<<<<<<<<<<<<<
  *                         self.__dict__[k].batch_norm.beta_arr = pre_learned_dict[k + "_batch_norm_beta"]
  *                     if k + "_batch_norm_gamma" in pre_learned_dict:
  */
-        __pyx_t_4 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_beta); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 168, __pyx_L1_error)
+        __pyx_t_4 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_beta); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 174, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_t_4, __pyx_v_pre_learned_dict, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 168, __pyx_L1_error)
+        __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_t_4, __pyx_v_pre_learned_dict, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 174, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_10 = (__pyx_t_9 != 0);
         if (__pyx_t_10) {
 
-          /* "pydbm/synapse_list.pyx":169
+          /* "pydbm/synapse_list.pyx":175
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:
  *                     if k + "_batch_norm_beta" in pre_learned_dict:
  *                         self.__dict__[k].batch_norm.beta_arr = pre_learned_dict[k + "_batch_norm_beta"]             # <<<<<<<<<<<<<<
  *                     if k + "_batch_norm_gamma" in pre_learned_dict:
  *                         self.__dict__[k].batch_norm.gamma_arr = pre_learned_dict[k + "_batch_norm_gamma"]
  */
-          __pyx_t_4 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_beta); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 169, __pyx_L1_error)
+          __pyx_t_4 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_beta); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 175, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_pre_learned_dict, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 169, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_pre_learned_dict, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 175, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 169, __pyx_L1_error)
+          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 175, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_4, __pyx_v_k); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 169, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_4, __pyx_v_k); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 175, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 169, __pyx_L1_error)
+          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 175, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_beta_arr, __pyx_t_3) < 0) __PYX_ERR(0, 169, __pyx_L1_error)
+          if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_beta_arr, __pyx_t_3) < 0) __PYX_ERR(0, 175, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "pydbm/synapse_list.pyx":168
+          /* "pydbm/synapse_list.pyx":174
  *             if isinstance(v, ActivatingFunctionInterface) is True:
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:
  *                     if k + "_batch_norm_beta" in pre_learned_dict:             # <<<<<<<<<<<<<<
@@ -4378,42 +4378,42 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
  */
         }
 
-        /* "pydbm/synapse_list.pyx":170
+        /* "pydbm/synapse_list.pyx":176
  *                     if k + "_batch_norm_beta" in pre_learned_dict:
  *                         self.__dict__[k].batch_norm.beta_arr = pre_learned_dict[k + "_batch_norm_beta"]
  *                     if k + "_batch_norm_gamma" in pre_learned_dict:             # <<<<<<<<<<<<<<
  *                         self.__dict__[k].batch_norm.gamma_arr = pre_learned_dict[k + "_batch_norm_gamma"]
  */
-        __pyx_t_4 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_gamma); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 170, __pyx_L1_error)
+        __pyx_t_4 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_gamma); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 176, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_10 = (__Pyx_PySequence_ContainsTF(__pyx_t_4, __pyx_v_pre_learned_dict, Py_EQ)); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 170, __pyx_L1_error)
+        __pyx_t_10 = (__Pyx_PySequence_ContainsTF(__pyx_t_4, __pyx_v_pre_learned_dict, Py_EQ)); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 176, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_9 = (__pyx_t_10 != 0);
         if (__pyx_t_9) {
 
-          /* "pydbm/synapse_list.pyx":171
+          /* "pydbm/synapse_list.pyx":177
  *                         self.__dict__[k].batch_norm.beta_arr = pre_learned_dict[k + "_batch_norm_beta"]
  *                     if k + "_batch_norm_gamma" in pre_learned_dict:
  *                         self.__dict__[k].batch_norm.gamma_arr = pre_learned_dict[k + "_batch_norm_gamma"]             # <<<<<<<<<<<<<<
  */
-          __pyx_t_4 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_gamma); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
+          __pyx_t_4 = PyNumber_Add(__pyx_v_k, __pyx_n_s_batch_norm_gamma); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 177, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_pre_learned_dict, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_pre_learned_dict, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 177, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
+          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_dict); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 177, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_4, __pyx_v_k); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 171, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_4, __pyx_v_k); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 177, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
+          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_batch_norm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 177, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_gamma_arr, __pyx_t_3) < 0) __PYX_ERR(0, 171, __pyx_L1_error)
+          if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_gamma_arr, __pyx_t_3) < 0) __PYX_ERR(0, 177, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "pydbm/synapse_list.pyx":170
+          /* "pydbm/synapse_list.pyx":176
  *                     if k + "_batch_norm_beta" in pre_learned_dict:
  *                         self.__dict__[k].batch_norm.beta_arr = pre_learned_dict[k + "_batch_norm_beta"]
  *                     if k + "_batch_norm_gamma" in pre_learned_dict:             # <<<<<<<<<<<<<<
@@ -4421,7 +4421,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
  */
         }
 
-        /* "pydbm/synapse_list.pyx":167
+        /* "pydbm/synapse_list.pyx":173
  *         for k, v in self.__dict__.items():
  *             if isinstance(v, ActivatingFunctionInterface) is True:
  *                 if v.batch_norm is not None and isinstance(v.batch_norm, BatchNorm) is True:             # <<<<<<<<<<<<<<
@@ -4430,7 +4430,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
  */
       }
 
-      /* "pydbm/synapse_list.pyx":166
+      /* "pydbm/synapse_list.pyx":172
  * 
  *         for k, v in self.__dict__.items():
  *             if isinstance(v, ActivatingFunctionInterface) is True:             # <<<<<<<<<<<<<<
@@ -4439,7 +4439,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
  */
     }
 
-    /* "pydbm/synapse_list.pyx":165
+    /* "pydbm/synapse_list.pyx":171
  *                 self.__dict__[k] = v
  * 
  *         for k, v in self.__dict__.items():             # <<<<<<<<<<<<<<
@@ -4449,7 +4449,7 @@ static PyObject *__pyx_pf_5pydbm_12synapse_list_7Synapse_22load_pre_learned_para
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/synapse_list.pyx":150
+  /* "pydbm/synapse_list.pyx":153
  *         np.savez_compressed(file_path, **d)
  * 
  *     def load_pre_learned_params(self, file_path):             # <<<<<<<<<<<<<<
@@ -7426,17 +7426,17 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__39);
   __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_save_pre_learned_params, 129, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 129, __pyx_L1_error)
 
-  /* "pydbm/synapse_list.pyx":150
+  /* "pydbm/synapse_list.pyx":153
  *         np.savez_compressed(file_path, **d)
  * 
  *     def load_pre_learned_params(self, file_path):             # <<<<<<<<<<<<<<
  *         '''
  *         Load pre-learned parameters.
  */
-  __pyx_tuple__41 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_file_path, __pyx_n_s_pre_learned_dict, __pyx_n_s_k, __pyx_n_s_v); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 150, __pyx_L1_error)
+  __pyx_tuple__41 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_file_path, __pyx_n_s_pre_learned_dict, __pyx_n_s_k, __pyx_n_s_v); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__41);
   __Pyx_GIVEREF(__pyx_tuple__41);
-  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_load_pre_learned_params, 150, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 150, __pyx_L1_error)
+  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_synapse_list_pyx, __pyx_n_s_load_pre_learned_params, 153, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -8242,16 +8242,16 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_save_pre_learned_params, __pyx_t_5) < 0) __PYX_ERR(0, 129, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/synapse_list.pyx":150
+  /* "pydbm/synapse_list.pyx":153
  *         np.savez_compressed(file_path, **d)
  * 
  *     def load_pre_learned_params(self, file_path):             # <<<<<<<<<<<<<<
  *         '''
  *         Load pre-learned parameters.
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_23load_pre_learned_params, 0, __pyx_n_s_Synapse_load_pre_learned_params, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__42)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 150, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_12synapse_list_7Synapse_23load_pre_learned_params, 0, __pyx_n_s_Synapse_load_pre_learned_params, NULL, __pyx_n_s_pydbm_synapse_list, __pyx_d, ((PyObject *)__pyx_codeobj__42)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_load_pre_learned_params, __pyx_t_5) < 0) __PYX_ERR(0, 150, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_load_pre_learned_params, __pyx_t_5) < 0) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
   /* "pydbm/synapse_list.pyx":12

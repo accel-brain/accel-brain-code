@@ -731,9 +731,10 @@ class ReSeq2Seq(AbstractableSemantics):
             seq_arr = test_arr[key]
             token_arr = vectorizable_token.tokenize(seq_arr.tolist())
             s = " ".join(token_arr.tolist())
+            _s = "".join(token_arr.tolist())
 
             for sentence in sentence_list:
-                if s in sentence:
+                if s in sentence or _s in sentence:
                     abstract_list.append(sentence)
                     abstract_list = list(set(abstract_list))
 

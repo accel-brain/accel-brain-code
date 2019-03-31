@@ -514,7 +514,7 @@ abstract_list = abstractable_semantics.summarize(
 
 The `abstract_list` is a `list` that contains `str`s of sentences.
 
-### Functional equivalent: LSTM-based Encoder/Decoder scheme for Anomaly Detection  (re-seq2seq).
+### Functional equivalent: LSTM-based Encoder/Decoder scheme for Anomaly Detection (EncDec-AD).
 
 This library applies the Encoder-Decoder scheme for Anomaly Detection (EncDec-AD) to text summarizations by intuition. In this scheme, LSTM-based Encoder/Decoder or so-called the sequence-to-sequence(Seq2Seq) model learns to reconstruct normal time-series behavior, and thereafter uses reconstruction error to detect anomalies.
 
@@ -533,7 +533,7 @@ In any case, this library deduces the function and potential of EncDec-AD in tex
 Note that the model in this library and Malhotra, P., et al. (2016) are different in some respects
 from the relation with the specification of the Deep Learning library: [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern). First, weight matrix of encoder and decoder is not shered. Second, it is possible to introduce regularization techniques which are not discussed in Malhotra, P., et al. (2016) such as the dropout, the gradient clipping, and limitation of weights. Third, the loss function for reconstruction error is not limited to the L2 norm.
 
-#### Building LSTM-based Encoder/Decoder scheme for Anomaly Detection  (re-seq2seq).
+#### Building LSTM-based Encoder/Decoder scheme for Anomaly Detection (EncDec-AD).
 
 Import Python modules.
 

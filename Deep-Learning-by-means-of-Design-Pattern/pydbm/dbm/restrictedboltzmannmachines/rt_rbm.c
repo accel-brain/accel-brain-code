@@ -1747,16 +1747,22 @@ static const char __pyx_k_training_count[] = "training_count";
 static const char __pyx_k_RTRBM_inference[] = "RTRBM.inference";
 static const char __pyx_k_RTRBM__batch_size[] = "_RTRBM__batch_size";
 static const char __pyx_k_observed_data_arr[] = "observed_data_arr";
+static const char __pyx_k_reconstructed_arr[] = "reconstructed_arr";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_feature_points_arr[] = "feature_points_arr";
 static const char __pyx_k_get_feature_points[] = "get_feature_points";
 static const char __pyx_k_hidden_activity_arr[] = "hidden_activity_arr";
 static const char __pyx_k_approximate_learning[] = "approximate_learning";
+static const char __pyx_k_get_reconstructed_arr[] = "get_reconstructed_arr";
+static const char __pyx_k_reconstruct_error_arr[] = "reconstruct_error_arr";
 static const char __pyx_k_approximate_inferencing[] = "approximate_inferencing";
 static const char __pyx_k_RTRBM_get_feature_points[] = "RTRBM.get_feature_points";
+static const char __pyx_k_get_reconstruct_error_arr[] = "get_reconstruct_error_arr";
 static const char __pyx_k_RestrictedBoltzmannMachine[] = "RestrictedBoltzmannMachine";
+static const char __pyx_k_RTRBM_get_reconstructed_arr[] = "RTRBM.get_reconstructed_arr";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_Reccurent_temploral_restricted[] = "\n    Reccurent temploral restricted boltzmann machine.\n    ";
+static const char __pyx_k_RTRBM_get_reconstruct_error_arr[] = "RTRBM.get_reconstruct_error_arr";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_traning_count_will_be_removed_i[] = "`traning_count` will be removed in future version. Use `training_count`.";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
@@ -1776,6 +1782,8 @@ static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_RTRBM;
 static PyObject *__pyx_n_s_RTRBM__batch_size;
 static PyObject *__pyx_n_s_RTRBM_get_feature_points;
+static PyObject *__pyx_n_s_RTRBM_get_reconstruct_error_arr;
+static PyObject *__pyx_n_s_RTRBM_get_reconstructed_arr;
 static PyObject *__pyx_n_s_RTRBM_inference;
 static PyObject *__pyx_n_s_RTRBM_learn;
 static PyObject *__pyx_kp_s_Reccurent_temploral_restricted;
@@ -1790,6 +1798,8 @@ static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_end_index;
 static PyObject *__pyx_n_s_feature_points_arr;
 static PyObject *__pyx_n_s_get_feature_points;
+static PyObject *__pyx_n_s_get_reconstruct_error_arr;
+static PyObject *__pyx_n_s_get_reconstructed_arr;
 static PyObject *__pyx_n_s_graph;
 static PyObject *__pyx_n_s_hidden_activity_arr;
 static PyObject *__pyx_n_s_i;
@@ -1815,6 +1825,8 @@ static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_r;
 static PyObject *__pyx_n_s_r_batch_size;
 static PyObject *__pyx_n_s_range;
+static PyObject *__pyx_n_s_reconstruct_error_arr;
+static PyObject *__pyx_n_s_reconstructed_arr;
 static PyObject *__pyx_n_s_self;
 static PyObject *__pyx_n_s_start_index;
 static PyObject *__pyx_n_s_test;
@@ -1827,6 +1839,8 @@ static PyObject *__pyx_n_s_warnings;
 static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_learn(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr, int __pyx_v_traning_count, int __pyx_v_batch_size, int __pyx_v_training_count); /* proto */
 static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_2inference(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_data_arr, int __pyx_v_traning_count, int __pyx_v_r_batch_size, int __pyx_v_training_count, PyObject *__pyx_v_batch_size); /* proto */
 static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_4get_feature_points(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_6get_reconstructed_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_8get_reconstruct_error_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_int_0;
@@ -1845,9 +1859,13 @@ static PyObject *__pyx_tuple__11;
 static PyObject *__pyx_tuple__12;
 static PyObject *__pyx_tuple__14;
 static PyObject *__pyx_tuple__16;
+static PyObject *__pyx_tuple__18;
+static PyObject *__pyx_tuple__20;
 static PyObject *__pyx_codeobj__13;
 static PyObject *__pyx_codeobj__15;
 static PyObject *__pyx_codeobj__17;
+static PyObject *__pyx_codeobj__19;
+static PyObject *__pyx_codeobj__21;
 /* Late includes */
 
 /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":14
@@ -1860,7 +1878,7 @@ static PyObject *__pyx_codeobj__17;
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_1learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_learn[] = "\n        Learning.\n\n        Args:\n            observed_data_arr:    The `np.ndarray` of observed data points,\n                                  which is a rank-3 array-like or sparse matrix of shape: \n                                  (`The number of samples`, `The length of cycle`, `The number of features`)\n\n            traning_count:        Training counts.\n            batch_size:           Batch size.\n        ";
+static char __pyx_doc_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_learn[] = "\n        Learning.\n\n        Args:\n            observed_data_arr:      The `np.ndarray` of observed data points,\n                                    which is a rank-3 array-like or sparse matrix of shape: \n                                    (`The number of samples`, `The length of cycle`, `The number of features`)\n\n            traning_count:        Training counts.\n            batch_size:           Batch size.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_1learn = {"learn", (PyCFunction)__pyx_pw_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_1learn, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_learn};
 static PyObject *__pyx_pw_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_1learn(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
@@ -2160,7 +2178,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_3inference(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_2inference[] = "\n        Inferencing.\n        \n        Args:\n            observed_data_arr:    The `np.ndarray` of observed data points,\n                                  which is a rank-3 array-like or sparse matrix of shape: \n                                  (`The number of samples`, `The length of cycle`, `The number of features`)\n\n            r_batch_size:         Batch size.\n                                  If this value is `0`, the inferencing is a recursive learning.\n                                  If this value is more than `0`, the inferencing is a mini-batch recursive learning.\n                                  If this value is '-1', the inferencing is not a recursive learning.\n\n                                  If you do not want to execute the mini-batch training, \n                                  the value of `batch_size` must be `-1`. \n                                  And `r_batch_size` is also parameter to control the mini-batch training \n                                  but is refered only in inference and reconstruction. \n                                  If this value is more than `0`, \n                                  the inferencing is a kind of reccursive learning with the mini-batch training.\n            batch_size:           Batch size.\n\n        Returns:\n            The `np.ndarray` of feature points.\n        ";
+static char __pyx_doc_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_2inference[] = "\n        Inferencing.\n        \n        Args:\n            observed_data_arr:      The `np.ndarray` of observed data points,\n                                    which is a rank-3 array-like or sparse matrix of shape: \n                                    (`The number of samples`, `The length of cycle`, `The number of features`)\n\n            r_batch_size:           Batch size.\n                                    If this value is `0`, the inferencing is a recursive learning.\n                                    If this value is more than `0`, the inferencing is a mini-batch recursive learning.\n                                    If this value is '-1', the inferencing is not a recursive learning.\n\n                                    If you do not want to execute the mini-batch training, \n                                    the value of `batch_size` must be `-1`. \n                                    And `r_batch_size` is also parameter to control the mini-batch training \n                                    but is refered only in inference and reconstruction. \n                                    If this value is more than `0`, \n                                    the inferencing is a kind of reccursive learning with the mini-batch training.\n\n            batch_size:             Batch size in learning.\n\n        Returns:\n            The `np.ndarray` of feature points.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_3inference = {"inference", (PyCFunction)__pyx_pw_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_3inference, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_2inference};
 static PyObject *__pyx_pw_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_3inference(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
@@ -2334,7 +2352,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
   }
   __pyx_pybuffernd_observed_data_arr.diminfo[0].strides = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_observed_data_arr.diminfo[0].shape = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_observed_data_arr.diminfo[1].strides = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_observed_data_arr.diminfo[1].shape = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_observed_data_arr.diminfo[2].strides = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_observed_data_arr.diminfo[2].shape = __pyx_pybuffernd_observed_data_arr.rcbuffer->pybuffer.shape[2];
 
-  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":76
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":77
  *             The `np.ndarray` of feature points.
  *         '''
  *         if batch_size is not None:             # <<<<<<<<<<<<<<
@@ -2345,16 +2363,16 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":77
+    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":78
  *         '''
  *         if batch_size is not None:
  *             self.__batch_size = batch_size             # <<<<<<<<<<<<<<
  * 
  *         if traning_count != -1:
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RTRBM__batch_size, __pyx_v_batch_size) < 0) __PYX_ERR(0, 77, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_RTRBM__batch_size, __pyx_v_batch_size) < 0) __PYX_ERR(0, 78, __pyx_L1_error)
 
-    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":76
+    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":77
  *             The `np.ndarray` of feature points.
  *         '''
  *         if batch_size is not None:             # <<<<<<<<<<<<<<
@@ -2363,7 +2381,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
  */
   }
 
-  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":79
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":80
  *             self.__batch_size = batch_size
  * 
  *         if traning_count != -1:             # <<<<<<<<<<<<<<
@@ -2373,7 +2391,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
   __pyx_t_2 = ((__pyx_v_traning_count != -1L) != 0);
   if (__pyx_t_2) {
 
-    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":80
+    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":81
  * 
  *         if traning_count != -1:
  *             training_count = traning_count             # <<<<<<<<<<<<<<
@@ -2382,24 +2400,24 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
  */
     __pyx_v_training_count = __pyx_v_traning_count;
 
-    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":81
+    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":82
  *         if traning_count != -1:
  *             training_count = traning_count
  *             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)             # <<<<<<<<<<<<<<
  * 
  *         feature_points_arr = None
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_warnings); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 81, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_warnings); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_warn); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 81, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_warn); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 81, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":79
+    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":80
  *             self.__batch_size = batch_size
  * 
  *         if traning_count != -1:             # <<<<<<<<<<<<<<
@@ -2408,7 +2426,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
  */
   }
 
-  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":83
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":84
  *             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)
  * 
  *         feature_points_arr = None             # <<<<<<<<<<<<<<
@@ -2418,49 +2436,49 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
   __Pyx_INCREF(Py_None);
   __pyx_v_feature_points_arr = Py_None;
 
-  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":84
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":85
  * 
  *         feature_points_arr = None
  *         if self.__batch_size > 0:             # <<<<<<<<<<<<<<
  *             for i in range(int(observed_data_arr.shape[0] / self.__batch_size)):
  *                 start_index = i * self.__batch_size
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBM__batch_size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBM__batch_size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (__pyx_t_2) {
 
-    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":85
+    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":86
  *         feature_points_arr = None
  *         if self.__batch_size > 0:
  *             for i in range(int(observed_data_arr.shape[0] / self.__batch_size)):             # <<<<<<<<<<<<<<
  *                 start_index = i * self.__batch_size
  *                 end_index = (i + 1) * self.__batch_size
  */
-    __pyx_t_4 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_observed_data_arr->dimensions[0])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 85, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_From_Py_intptr_t((__pyx_v_observed_data_arr->dimensions[0])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 86, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBM__batch_size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 85, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBM__batch_size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 86, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = __Pyx_PyNumber_Divide(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 85, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyNumber_Divide(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 86, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyNumber_Int(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 85, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyNumber_Int(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 86, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 85, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 86, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (likely(PyList_CheckExact(__pyx_t_5)) || PyTuple_CheckExact(__pyx_t_5)) {
       __pyx_t_3 = __pyx_t_5; __Pyx_INCREF(__pyx_t_3); __pyx_t_6 = 0;
       __pyx_t_7 = NULL;
     } else {
-      __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 85, __pyx_L1_error)
+      __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 86, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 85, __pyx_L1_error)
+      __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 86, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     for (;;) {
@@ -2468,17 +2486,17 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
         if (likely(PyList_CheckExact(__pyx_t_3))) {
           if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_3)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_5 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_5); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 85, __pyx_L1_error)
+          __pyx_t_5 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_5); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 86, __pyx_L1_error)
           #else
-          __pyx_t_5 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 85, __pyx_L1_error)
+          __pyx_t_5 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 86, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_5);
           #endif
         } else {
           if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_5); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 85, __pyx_L1_error)
+          __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_5); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 86, __pyx_L1_error)
           #else
-          __pyx_t_5 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 85, __pyx_L1_error)
+          __pyx_t_5 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 86, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_5);
           #endif
         }
@@ -2488,7 +2506,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 85, __pyx_L1_error)
+            else __PYX_ERR(0, 86, __pyx_L1_error)
           }
           break;
         }
@@ -2497,116 +2515,116 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
       __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":86
+      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":87
  *         if self.__batch_size > 0:
  *             for i in range(int(observed_data_arr.shape[0] / self.__batch_size)):
  *                 start_index = i * self.__batch_size             # <<<<<<<<<<<<<<
  *                 end_index = (i + 1) * self.__batch_size
  * 
  */
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBM__batch_size); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 86, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBM__batch_size); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 87, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_4 = PyNumber_Multiply(__pyx_v_i, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 86, __pyx_L1_error)
+      __pyx_t_4 = PyNumber_Multiply(__pyx_v_i, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_XDECREF_SET(__pyx_v_start_index, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":87
+      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":88
  *             for i in range(int(observed_data_arr.shape[0] / self.__batch_size)):
  *                 start_index = i * self.__batch_size
  *                 end_index = (i + 1) * self.__batch_size             # <<<<<<<<<<<<<<
  * 
  *                 self.approximate_inferencing(
  */
-      __pyx_t_4 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 88, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBM__batch_size); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 87, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RTRBM__batch_size); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 88, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_8 = PyNumber_Multiply(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 87, __pyx_L1_error)
+      __pyx_t_8 = PyNumber_Multiply(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 88, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_XDECREF_SET(__pyx_v_end_index, __pyx_t_8);
       __pyx_t_8 = 0;
 
-      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":89
+      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":90
  *                 end_index = (i + 1) * self.__batch_size
  * 
  *                 self.approximate_inferencing(             # <<<<<<<<<<<<<<
  *                     observed_data_arr[start_index:end_index],
  *                     training_count=training_count,
  */
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_approximate_inferencing); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_approximate_inferencing); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 90, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
 
-      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":90
+      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":91
  * 
  *                 self.approximate_inferencing(
  *                     observed_data_arr[start_index:end_index],             # <<<<<<<<<<<<<<
  *                     training_count=training_count,
  *                     r_batch_size=r_batch_size
  */
-      __pyx_t_5 = PySlice_New(__pyx_v_start_index, __pyx_v_end_index, Py_None); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 90, __pyx_L1_error)
+      __pyx_t_5 = PySlice_New(__pyx_v_start_index, __pyx_v_end_index, Py_None); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 91, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_4 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_observed_data_arr), __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 90, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetItem(((PyObject *)__pyx_v_observed_data_arr), __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 91, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":89
+      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":90
  *                 end_index = (i + 1) * self.__batch_size
  * 
  *                 self.approximate_inferencing(             # <<<<<<<<<<<<<<
  *                     observed_data_arr[start_index:end_index],
  *                     training_count=training_count,
  */
-      __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 90, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GIVEREF(__pyx_t_4);
       PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":91
+      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":92
  *                 self.approximate_inferencing(
  *                     observed_data_arr[start_index:end_index],
  *                     training_count=training_count,             # <<<<<<<<<<<<<<
  *                     r_batch_size=r_batch_size
  *                 )
  */
-      __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 91, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 92, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_training_count); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 91, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_training_count); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 92, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_training_count, __pyx_t_9) < 0) __PYX_ERR(0, 91, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_training_count, __pyx_t_9) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":92
+      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":93
  *                     observed_data_arr[start_index:end_index],
  *                     training_count=training_count,
  *                     r_batch_size=r_batch_size             # <<<<<<<<<<<<<<
  *                 )
  *                 if feature_points_arr is None:
  */
-      __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_r_batch_size); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 92, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_r_batch_size); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 93, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_r_batch_size, __pyx_t_9) < 0) __PYX_ERR(0, 91, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_r_batch_size, __pyx_t_9) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":89
+      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":90
  *                 end_index = (i + 1) * self.__batch_size
  * 
  *                 self.approximate_inferencing(             # <<<<<<<<<<<<<<
  *                     observed_data_arr[start_index:end_index],
  *                     training_count=training_count,
  */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 90, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":94
+      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":95
  *                     r_batch_size=r_batch_size
  *                 )
  *                 if feature_points_arr is None:             # <<<<<<<<<<<<<<
@@ -2617,22 +2635,22 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
       __pyx_t_1 = (__pyx_t_2 != 0);
       if (__pyx_t_1) {
 
-        /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":95
+        /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":96
  *                 )
  *                 if feature_points_arr is None:
  *                     feature_points_arr = self.graph.inferenced_arr             # <<<<<<<<<<<<<<
  *                 else:
  *                     feature_points_arr = np.r_[feature_points_arr, self.graph.inferenced_arr]
  */
-        __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 95, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 96, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_inferenced_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 95, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_inferenced_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 96, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_DECREF_SET(__pyx_v_feature_points_arr, __pyx_t_4);
         __pyx_t_4 = 0;
 
-        /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":94
+        /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":95
  *                     r_batch_size=r_batch_size
  *                 )
  *                 if feature_points_arr is None:             # <<<<<<<<<<<<<<
@@ -2642,7 +2660,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
         goto __pyx_L8;
       }
 
-      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":97
+      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":98
  *                     feature_points_arr = self.graph.inferenced_arr
  *                 else:
  *                     feature_points_arr = np.r_[feature_points_arr, self.graph.inferenced_arr]             # <<<<<<<<<<<<<<
@@ -2650,17 +2668,17 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
  *             self.approximate_inferencing(
  */
       /*else*/ {
-        __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 97, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 98, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_r); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 97, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_r); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 98, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 97, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 98, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_inferenced_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 97, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_inferenced_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 98, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 97, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 98, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_INCREF(__pyx_v_feature_points_arr);
         __Pyx_GIVEREF(__pyx_v_feature_points_arr);
@@ -2668,7 +2686,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
         __Pyx_GIVEREF(__pyx_t_5);
         PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_5);
         __pyx_t_5 = 0;
-        __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_9, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 97, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_9, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 98, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -2677,7 +2695,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
       }
       __pyx_L8:;
 
-      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":85
+      /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":86
  *         feature_points_arr = None
  *         if self.__batch_size > 0:
  *             for i in range(int(observed_data_arr.shape[0] / self.__batch_size)):             # <<<<<<<<<<<<<<
@@ -2687,7 +2705,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":84
+    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":85
  * 
  *         feature_points_arr = None
  *         if self.__batch_size > 0:             # <<<<<<<<<<<<<<
@@ -2697,7 +2715,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
     goto __pyx_L5;
   }
 
-  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":99
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":100
  *                     feature_points_arr = np.r_[feature_points_arr, self.graph.inferenced_arr]
  *         else:
  *             self.approximate_inferencing(             # <<<<<<<<<<<<<<
@@ -2705,72 +2723,72 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
  *                 training_count=training_count,
  */
   /*else*/ {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_approximate_inferencing); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_approximate_inferencing); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 100, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
 
-    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":100
+    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":101
  *         else:
  *             self.approximate_inferencing(
  *                 observed_data_arr,             # <<<<<<<<<<<<<<
  *                 training_count=training_count,
  *                 r_batch_size=r_batch_size
  */
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 100, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_INCREF(((PyObject *)__pyx_v_observed_data_arr));
     __Pyx_GIVEREF(((PyObject *)__pyx_v_observed_data_arr));
     PyTuple_SET_ITEM(__pyx_t_5, 0, ((PyObject *)__pyx_v_observed_data_arr));
 
-    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":101
+    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":102
  *             self.approximate_inferencing(
  *                 observed_data_arr,
  *                 training_count=training_count,             # <<<<<<<<<<<<<<
  *                 r_batch_size=r_batch_size
  *             )
  */
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 102, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_training_count); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_training_count); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 102, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_training_count, __pyx_t_9) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_training_count, __pyx_t_9) < 0) __PYX_ERR(0, 102, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":102
+    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":103
  *                 observed_data_arr,
  *                 training_count=training_count,
  *                 r_batch_size=r_batch_size             # <<<<<<<<<<<<<<
  *             )
  *             feature_points_arr = self.graph.inferenced_arr
  */
-    __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_r_batch_size); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 102, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_r_batch_size); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 103, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_r_batch_size, __pyx_t_9) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_r_batch_size, __pyx_t_9) < 0) __PYX_ERR(0, 102, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":99
+    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":100
  *                     feature_points_arr = np.r_[feature_points_arr, self.graph.inferenced_arr]
  *         else:
  *             self.approximate_inferencing(             # <<<<<<<<<<<<<<
  *                 observed_data_arr,
  *                 training_count=training_count,
  */
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 100, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":104
+    /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":105
  *                 r_batch_size=r_batch_size
  *             )
  *             feature_points_arr = self.graph.inferenced_arr             # <<<<<<<<<<<<<<
  * 
  *         return feature_points_arr
  */
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 104, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 105, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_inferenced_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 104, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_inferenced_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 105, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF_SET(__pyx_v_feature_points_arr, __pyx_t_4);
@@ -2778,7 +2796,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
   }
   __pyx_L5:;
 
-  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":106
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":107
  *             feature_points_arr = self.graph.inferenced_arr
  * 
  *         return feature_points_arr             # <<<<<<<<<<<<<<
@@ -2826,7 +2844,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
   return __pyx_r;
 }
 
-/* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":108
+/* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":109
  *         return feature_points_arr
  * 
  *     def get_feature_points(self):             # <<<<<<<<<<<<<<
@@ -2836,7 +2854,7 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_5get_feature_points(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_4get_feature_points[] = "\n        Extract feature points from hidden layer.\n        \n        Returns:\n            np.ndarray\n        ";
+static char __pyx_doc_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_4get_feature_points[] = "\n        Extract feature points from hidden layer.\n        \n        Returns:\n            `np.ndarray` of feature points.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_5get_feature_points = {"get_feature_points", (PyCFunction)__pyx_pw_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_5get_feature_points, METH_O, __pyx_doc_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_4get_feature_points};
 static PyObject *__pyx_pw_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_5get_feature_points(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
@@ -2856,22 +2874,24 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("get_feature_points", 0);
 
-  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":115
- *             np.ndarray
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":116
+ *             `np.ndarray` of feature points.
  *         '''
  *         return self.graph.hidden_activity_arr             # <<<<<<<<<<<<<<
+ * 
+ *     def get_reconstructed_arr(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_hidden_activity_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":108
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":109
  *         return feature_points_arr
  * 
  *     def get_feature_points(self):             # <<<<<<<<<<<<<<
@@ -2884,6 +2904,138 @@ static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTR
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_AddTraceback("pydbm.dbm.restrictedboltzmannmachines.rt_rbm.RTRBM.get_feature_points", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":118
+ *         return self.graph.hidden_activity_arr
+ * 
+ *     def get_reconstructed_arr(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract reconstructed points.
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_7get_reconstructed_arr(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_6get_reconstructed_arr[] = "\n        Extract reconstructed points.\n\n        Returns:\n            `np.ndarray` of reconstructed points.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_7get_reconstructed_arr = {"get_reconstructed_arr", (PyCFunction)__pyx_pw_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_7get_reconstructed_arr, METH_O, __pyx_doc_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_6get_reconstructed_arr};
+static PyObject *__pyx_pw_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_7get_reconstructed_arr(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_reconstructed_arr (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_6get_reconstructed_arr(__pyx_self, ((PyObject *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_6get_reconstructed_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("get_reconstructed_arr", 0);
+
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":125
+ *             `np.ndarray` of reconstructed points.
+ *         '''
+ *         return self.graph.reconstructed_arr             # <<<<<<<<<<<<<<
+ * 
+ *     def get_reconstruct_error_arr(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 125, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_reconstructed_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 125, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":118
+ *         return self.graph.hidden_activity_arr
+ * 
+ *     def get_reconstructed_arr(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract reconstructed points.
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pydbm.dbm.restrictedboltzmannmachines.rt_rbm.RTRBM.get_reconstructed_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":127
+ *         return self.graph.reconstructed_arr
+ * 
+ *     def get_reconstruct_error_arr(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract reconstructed errors.
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_9get_reconstruct_error_arr(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_8get_reconstruct_error_arr[] = "\n        Extract reconstructed errors.\n\n        Retruns:\n            `np.ndarray` of reconstructed errors.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_9get_reconstruct_error_arr = {"get_reconstruct_error_arr", (PyCFunction)__pyx_pw_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_9get_reconstruct_error_arr, METH_O, __pyx_doc_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_8get_reconstruct_error_arr};
+static PyObject *__pyx_pw_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_9get_reconstruct_error_arr(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_reconstruct_error_arr (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_8get_reconstruct_error_arr(__pyx_self, ((PyObject *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_8get_reconstruct_error_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("get_reconstruct_error_arr", 0);
+
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":134
+ *             `np.ndarray` of reconstructed errors.
+ *         '''
+ *         return self.graph.reconstruct_error_arr             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_reconstruct_error_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":127
+ *         return self.graph.reconstructed_arr
+ * 
+ *     def get_reconstruct_error_arr(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract reconstructed errors.
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pydbm.dbm.restrictedboltzmannmachines.rt_rbm.RTRBM.get_reconstruct_error_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5398,6 +5550,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_RTRBM, __pyx_k_RTRBM, sizeof(__pyx_k_RTRBM), 0, 0, 1, 1},
   {&__pyx_n_s_RTRBM__batch_size, __pyx_k_RTRBM__batch_size, sizeof(__pyx_k_RTRBM__batch_size), 0, 0, 1, 1},
   {&__pyx_n_s_RTRBM_get_feature_points, __pyx_k_RTRBM_get_feature_points, sizeof(__pyx_k_RTRBM_get_feature_points), 0, 0, 1, 1},
+  {&__pyx_n_s_RTRBM_get_reconstruct_error_arr, __pyx_k_RTRBM_get_reconstruct_error_arr, sizeof(__pyx_k_RTRBM_get_reconstruct_error_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_RTRBM_get_reconstructed_arr, __pyx_k_RTRBM_get_reconstructed_arr, sizeof(__pyx_k_RTRBM_get_reconstructed_arr), 0, 0, 1, 1},
   {&__pyx_n_s_RTRBM_inference, __pyx_k_RTRBM_inference, sizeof(__pyx_k_RTRBM_inference), 0, 0, 1, 1},
   {&__pyx_n_s_RTRBM_learn, __pyx_k_RTRBM_learn, sizeof(__pyx_k_RTRBM_learn), 0, 0, 1, 1},
   {&__pyx_kp_s_Reccurent_temploral_restricted, __pyx_k_Reccurent_temploral_restricted, sizeof(__pyx_k_Reccurent_temploral_restricted), 0, 0, 1, 0},
@@ -5412,6 +5566,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_end_index, __pyx_k_end_index, sizeof(__pyx_k_end_index), 0, 0, 1, 1},
   {&__pyx_n_s_feature_points_arr, __pyx_k_feature_points_arr, sizeof(__pyx_k_feature_points_arr), 0, 0, 1, 1},
   {&__pyx_n_s_get_feature_points, __pyx_k_get_feature_points, sizeof(__pyx_k_get_feature_points), 0, 0, 1, 1},
+  {&__pyx_n_s_get_reconstruct_error_arr, __pyx_k_get_reconstruct_error_arr, sizeof(__pyx_k_get_reconstruct_error_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_get_reconstructed_arr, __pyx_k_get_reconstructed_arr, sizeof(__pyx_k_get_reconstructed_arr), 0, 0, 1, 1},
   {&__pyx_n_s_graph, __pyx_k_graph, sizeof(__pyx_k_graph), 0, 0, 1, 1},
   {&__pyx_n_s_hidden_activity_arr, __pyx_k_hidden_activity_arr, sizeof(__pyx_k_hidden_activity_arr), 0, 0, 1, 1},
   {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
@@ -5437,6 +5593,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_r, __pyx_k_r, sizeof(__pyx_k_r), 0, 0, 1, 1},
   {&__pyx_n_s_r_batch_size, __pyx_k_r_batch_size, sizeof(__pyx_k_r_batch_size), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
+  {&__pyx_n_s_reconstruct_error_arr, __pyx_k_reconstruct_error_arr, sizeof(__pyx_k_reconstruct_error_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_reconstructed_arr, __pyx_k_reconstructed_arr, sizeof(__pyx_k_reconstructed_arr), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
   {&__pyx_n_s_start_index, __pyx_k_start_index, sizeof(__pyx_k_start_index), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
@@ -5450,7 +5608,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 };
 static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_FutureWarning = __Pyx_GetBuiltinName(__pyx_n_s_FutureWarning); if (!__pyx_builtin_FutureWarning) __PYX_ERR(0, 34, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 86, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 229, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 810, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 1000, __pyx_L1_error)
@@ -5474,14 +5632,14 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":81
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":82
  *         if traning_count != -1:
  *             training_count = traning_count
  *             warnings.warn("`traning_count` will be removed in future version. Use `training_count`.", FutureWarning)             # <<<<<<<<<<<<<<
  * 
  *         feature_points_arr = None
  */
-  __pyx_tuple__2 = PyTuple_Pack(2, __pyx_kp_s_traning_count_will_be_removed_i, __pyx_builtin_FutureWarning); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_tuple__2 = PyTuple_Pack(2, __pyx_kp_s_traning_count_will_be_removed_i, __pyx_builtin_FutureWarning); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
@@ -5606,17 +5764,41 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__14);
   __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(6, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_restrictedboltzmannmac_2, __pyx_n_s_inference, 44, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 44, __pyx_L1_error)
 
-  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":108
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":109
  *         return feature_points_arr
  * 
  *     def get_feature_points(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Extract feature points from hidden layer.
  */
-  __pyx_tuple__16 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_tuple__16 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__16);
   __Pyx_GIVEREF(__pyx_tuple__16);
-  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_restrictedboltzmannmac_2, __pyx_n_s_get_feature_points, 108, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_restrictedboltzmannmac_2, __pyx_n_s_get_feature_points, 109, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 109, __pyx_L1_error)
+
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":118
+ *         return self.graph.hidden_activity_arr
+ * 
+ *     def get_reconstructed_arr(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract reconstructed points.
+ */
+  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__18);
+  __Pyx_GIVEREF(__pyx_tuple__18);
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_restrictedboltzmannmac_2, __pyx_n_s_get_reconstructed_arr, 118, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 118, __pyx_L1_error)
+
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":127
+ *         return self.graph.reconstructed_arr
+ * 
+ *     def get_reconstruct_error_arr(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract reconstructed errors.
+ */
+  __pyx_tuple__20 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__20);
+  __Pyx_GIVEREF(__pyx_tuple__20);
+  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_dbm_restrictedboltzmannmac_2, __pyx_n_s_get_reconstruct_error_arr, 127, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -6067,16 +6249,40 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_inference, __pyx_t_5) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":108
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":109
  *         return feature_points_arr
  * 
  *     def get_feature_points(self):             # <<<<<<<<<<<<<<
  *         '''
  *         Extract feature points from hidden layer.
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_5get_feature_points, 0, __pyx_n_s_RTRBM_get_feature_points, NULL, __pyx_n_s_pydbm_dbm_restrictedboltzmannmac, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_5get_feature_points, 0, __pyx_n_s_RTRBM_get_feature_points, NULL, __pyx_n_s_pydbm_dbm_restrictedboltzmannmac, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_feature_points, __pyx_t_5) < 0) __PYX_ERR(0, 108, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_feature_points, __pyx_t_5) < 0) __PYX_ERR(0, 109, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":118
+ *         return self.graph.hidden_activity_arr
+ * 
+ *     def get_reconstructed_arr(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract reconstructed points.
+ */
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_7get_reconstructed_arr, 0, __pyx_n_s_RTRBM_get_reconstructed_arr, NULL, __pyx_n_s_pydbm_dbm_restrictedboltzmannmac, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_reconstructed_arr, __pyx_t_5) < 0) __PYX_ERR(0, 118, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":127
+ *         return self.graph.reconstructed_arr
+ * 
+ *     def get_reconstruct_error_arr(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Extract reconstructed errors.
+ */
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_3dbm_27restrictedboltzmannmachines_6rt_rbm_5RTRBM_9get_reconstruct_error_arr, 0, __pyx_n_s_RTRBM_get_reconstruct_error_arr, NULL, __pyx_n_s_pydbm_dbm_restrictedboltzmannmac, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_reconstruct_error_arr, __pyx_t_5) < 0) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
   /* "pydbm/dbm/restrictedboltzmannmachines/rt_rbm.pyx":9

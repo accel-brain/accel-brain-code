@@ -740,6 +740,8 @@ reconstructed_arr = rt_rbm.rbm.get_reconstructed_arr()
 
 The shape of `reconstructed_arr` is equivalent to `observed_arr`.
 
+If you want to know how to measure its reconstruction errors, see my Jupyter notebook: [demo/demo_rt_rbm.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_rt_rbm.ipynb).
+
 ### Save pre-learned parameters.
 
 The object `rt_rbm`, which is-a `RecurrentTemporalRBM`, has the method `save_pre_learned_params`, to store the pre-learned parameters in a compressed <a href="https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.lib.format.html#module-numpy.lib.format" target="_blank">NPY format</a> file.
@@ -817,6 +819,8 @@ rt_rbm = RNNRBM(
 
 The function of learning, inferencing, saving pre-learned parameters, and transfer learning are equivalent to `rt_rbm` of RTRBM. See <a href="#usecase_building_the_rtrbm_for_recursive_learning">Usecase: Building the RTRBM for recursive learning.</a>.
 
+If you want to know how to measure its reconstruction errors, see my Jupyter notebook: [demo/demo_rnn_rbm.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_rnn_rbm.ipynb).
+
 ## Usecase: Building the LSTM-RTRBM for recursive learning.
 
 Import not `RecurrentTemporalRBM` but `LSTMRTRBM`, which is-a `RecurrentTemporalRBM`.
@@ -849,6 +853,9 @@ rt_rbm = LSTMRTRBM(
 ```
 
 The function of learning, inferencing, saving pre-learned parameters, and transfer learning are equivalent to `rt_rbm` of RTRBM. See <a href="#usecase_building_the_rtrbm_for_recursive_learning">Usecase: Building the RTRBM for recursive learning.</a>.
+
+If you want to know how to measure its reconstruction errors, see my Jupyter notebook: [demo/demo_lstm_rt_rbm.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_lstm_rt_rbm.ipynb).
+
 
 ## Usecase: Image segmentation by Shape-BM.
 

@@ -174,7 +174,7 @@ Also considering many variable parts and functional extensions in the Deep Q-lea
 
 And this library provides the interface to implement many variable function approximators, which defines a family of algorithms to solve generalisation problems, encapsulate each one, and make them interchangeable. Strategy lets the algorithms such as CNNs and LSTM vary independently from the clients that use it. Capture the abstraction in an interface, bury implementation details in derived classes.
 
-<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/class_diagram_pyqlearning_DeepQLearning.png" />
+<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/pyqlearning_DeepQLearning_class_diagram-v2.png">
 
 The viewpoints for distinguishing between *commonality* and *variability* should  relate to not only typical concepts such as `State`, `Action`, `Reward`, and `Q-Value` in Q-learning models but also concepts of function approximators based on the Deep Learning Theory. Among the functions related to these concepts, the class `DeepQLearning` and `DeepQNetwork` are responsible for more *common* attributes and behaviors. On the other hand, in relation to *your* concrete problem settings, more *variable* elements have to be implemented by subclasses `YourDeepQNetwork`. And `DeepQLearning` has a `FunctionApproximator` to learn and inference `Q-Value` but the concrete object as a `FunctionApproximator` is more *variable*. The designers have to decide what Deep Learning Algorithm to use.
 

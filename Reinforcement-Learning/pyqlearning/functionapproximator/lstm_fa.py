@@ -42,8 +42,13 @@ class LSTMFA(FunctionApproximator):
 
     '''
     
+    # `list` of `np.ndarray` of predicted Q-Values in inferencing.
     __q_arr_list = []
-    
+    # `list` of `np.ndarray` of real Q-Values.
+    __real_q_arr_list = []
+    # `list` of `np.ndarray` of predicted Q-Values in learning.
+    __predicted_q_arr_list = []
+
     def __init__(
         self,
         batch_size,
@@ -107,6 +112,10 @@ class LSTMFA(FunctionApproximator):
         self.__learning_rate = learning_rate
         self.__verbose_mode = verbose_mode
         self.__loss_list = []
+        self.__next_action_arr_list = []
+        self.__real_q_arr_list = []
+        self.__predicted_q_arr_list = []
+        self.__q_arr = None
 
     def learn_q(self, predicted_q_arr, real_q_arr):
         '''
@@ -116,11 +125,28 @@ class LSTMFA(FunctionApproximator):
             predicted_q_arr:    `np.ndarray` of predicted Q-Values.
             real_q_arr:         `np.ndarray` of real Q-Values.
         '''
+        self.__predicted_q_arr_list.append(predicted_q_arr)
+        while len(self.__predicted_q_arr_list) > self.__seq_len:
+            self.__predicted_q_arr_list = self.__predicted_q_arr_list[1:]
+        while len(self.__predicted_q_arr_list) < self.__seq_len:
+            self.__predicted_q_arr_list.append(self.__predicted_q_arr_list[-1])
+        predicted_q_arr = np.array(self.__predicted_q_arr_list)
+        predicted_q_arr = predicted_q_arr.transpose((1, 0, 2))
+
+        self.__real_q_arr_list.append(real_q_arr)
+        while len(self.__real_q_arr_list) > self.__seq_len:
+            self.__real_q_arr_list = self.__real_q_arr_list[1:]
+        while len(self.__real_q_arr_list) < self.__seq_len:
+            self.__real_q_arr_list.append(self.__real_q_arr_list[-1])
+        real_q_arr = np.array(self.__real_q_arr_list)
+        real_q_arr = real_q_arr.transpose((1, 0, 2))
+
         loss = self.__computable_loss.compute_loss(predicted_q_arr, real_q_arr)
         delta_arr = self.__computable_loss.compute_delta(predicted_q_arr, real_q_arr)
+
         delta_arr, lstm_output_grads_list = self.__lstm_model.output_back_propagate(
-            np.expand_dims(predicted_q_arr, axis=1),
-            np.expand_dims(delta_arr, axis=1)
+            predicted_q_arr,
+            delta_arr
         )
         delta_arr, _, lstm_hidden_grads_list = self.__lstm_model.hidden_back_propagate(
             delta_arr[:, -1]

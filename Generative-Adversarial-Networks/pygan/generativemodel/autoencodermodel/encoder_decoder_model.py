@@ -129,7 +129,7 @@ class EncoderDecoderModel(AutoEncoderModel):
             inferenced_arr
         )
         decoder_grads_list, encoder_delta_arr, encoder_grads_list = self.__encoder_decoder_controller.back_propagation(
-            delta_arr[:, -1]
+            delta_arr
         )
         self.__encoder_decoder_controller.optimize(
             decoder_grads_list,

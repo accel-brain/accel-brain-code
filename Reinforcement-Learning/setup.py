@@ -29,7 +29,7 @@ setup(
         'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
         'Programming Language :: Python :: 3',
     ],
-    keywords='Q-Learning Deep Q-Network DQN DBM Reinforcement Learning Boltzmann Multi-agent LSTM CNN Convolution',
+    keywords='Q-Learning Deep Q-Network DQN Reinforcement Learning Boltzmann Multi-agent LSTM CNN Convolution',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     install_requires=['numpy', 'pandas'],
 )

@@ -95,7 +95,10 @@ class EncoderDecoderModel(AutoEncoderModel):
 
         Args:
             grad_arr:   `np.ndarray` of gradients.
-        
+
+        Returns:
+            `np.ndarray` of delta or gradients.
+
         '''
         encoder_delta_arr, _, encoder_grads_list = self.__encoder_decoder_controller.encoder.hidden_back_propagate(
             grad_arr[:, -1]
@@ -108,6 +111,8 @@ class EncoderDecoderModel(AutoEncoderModel):
             self.__learning_rate,
             1
         )
+
+        return encoder_delta_arr
 
     def update(self):
         '''

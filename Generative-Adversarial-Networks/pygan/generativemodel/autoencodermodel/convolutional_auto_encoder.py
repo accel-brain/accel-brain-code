@@ -187,7 +187,10 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
 
         Args:
             grad_arr:   `np.ndarray` of gradients.
-        
+
+        Returns:
+            `np.ndarray` of delta or gradients.
+
         '''
         deconvolution_layer_list = self.__deconvolution_layer_list[::-1]
         for i in range(len(deconvolution_layer_list)):
@@ -210,6 +213,8 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
                 raise
 
         self.__convolutional_auto_encoder.optimize(self.__learning_rate, 1)
+
+        return grad_arr
 
     def __optimize_deconvolution_layer(self, learning_rate, epoch):
         '''

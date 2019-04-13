@@ -39,6 +39,9 @@ class GenerativeModel(metaclass=ABCMeta):
 
         Args:
             grad_arr:   `np.ndarray` of gradients.
-        
+
+        Returns:
+            `np.ndarray` of delta or gradients.
+
         '''
         raise NotImplementedError()

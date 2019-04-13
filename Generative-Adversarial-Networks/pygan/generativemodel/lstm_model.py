@@ -187,7 +187,10 @@ class LSTMModel(GenerativeModel):
 
         Args:
             grad_arr:   `np.ndarray` of gradients.
-        
+
+        Returns:
+            `np.ndarray` of delta or gradients.
+
         '''
         if grad_arr.ndim > 3:
             grad_arr = grad_arr.reshape((
@@ -208,6 +211,8 @@ class LSTMModel(GenerativeModel):
             self.__learning_rate,
             1
         )
+
+        return delta_arr
 
     def get_lstm_model(self):
         ''' getter '''

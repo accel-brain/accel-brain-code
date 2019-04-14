@@ -2,12 +2,12 @@
 
 `pygan` is Python library to implement Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs).
 
-This library makes it possible to design the Generative models based on the Statistical machine learning problems in relation to Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs) to practice algorithm design for semi-supervised learning. But this library provides components for designers, not for end-users of state-of-the-art black boxes. Briefly speaking the philosophy of this library, *give user hype-driven blackboxes and you feed him for a day; show him how to design algorithms and you feed him for a lifetime.* So algorithm is power.
+This library makes it possible to design the Generative models based on the Statistical machine learning problems in relation to Generative Adversarial Networks(GANs), *Conditional* GANs, and Adversarial Auto-Encoders(AAEs) to practice algorithm design for semi-supervised learning. But this library provides components for designers, not for end-users of state-of-the-art black boxes. Briefly speaking the philosophy of this library, *give user hype-driven blackboxes and you feed him for a day; show him how to design algorithms and you feed him for a lifetime.* So algorithm is power.
 
 See also ...
 
 - [Algorithmic Composition or Automatic Composition Library: pycomposer](https://github.com/chimera0/accel-brain-code/tree/master/Algorithmic-Composition)
-   * If you want to implement the Algorithmic Composer based on Generative Adversarial Networks(GANs) by using `pygan` as components for Generative models based on the Statistical machine learning problems.
+   * If you want to implement the Algorithmic Composer based on Generative Adversarial Networks(GANs) and the *Conditional* GANs by using `pygan` as components for Generative models based on the Statistical machine learning problems.
 
 ## Installation
 
@@ -44,14 +44,18 @@ Full documentation is available on [https://code.accel-brain.com/Generative-Adve
 
 ## Description
 
-`pygan` is Python library to implement Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs).
+`pygan` is Python library to implement Generative Adversarial Networks(GANs), *Conditional* GANs, and Adversarial Auto-Encoders(AAEs).
 
 The Generative Adversarial Networks(GANs) (Goodfellow et al., 2014) framework establishes a
 min-max adversarial game between two neural networks – a generative model, `G`, and a discriminative
 model, `D`. The discriminator model, `D(x)`, is a neural network that computes the probability that
 a observed data point `x` in data space is a sample from the data distribution (positive samples) that we are trying to model, rather than a sample from our generative model (negative samples). Concurrently, the generator uses a function `G(z)` that maps samples `z` from the prior `p(z)` to the data space. `G(z)` is trained to maximally confuse the discriminator into believing that samples it generates come from the data distribution. The generator is trained by leveraging the gradient of `D(x)` w.r.t. `x`, and using that to modify its parameters.
 
-This library provides the Adversarial Auto-Encoders(AAEs), which is a probabilistic Auto-Encoder that uses GANs to perform variational inference by matching the aggregated posterior of the feature points in hidden layer of the Auto-Encoder with an arbitrary prior distribution(Makhzani, A., et al., 2015). Matching the aggregated posterior to the prior ensures that generating from any part of prior space results in meaningful samples. As a result, the decoder of the Adversarial Auto-Encoder learns a deep generative model that maps the imposed prior to the data distribution.
+The *Conditional* GANs (or cGANs) is a simple extension of the basic GAN model which allows the model to condition on external information. This makes it possible to engage the learned generative model in different "modes" by providing it with different contextual information (Gauthier, J. 2014).
+
+This model can be constructed by simply feeding the data, `y`, to condition on to both the generator and discriminator. In an unconditioned generative model, because the maps samples `z` from the prior `p(z)` are drawn from uniform or normal distribution, there is no control on modes of the data being generated. On the other hand, it is possible to direct the data generation process by conditioning the model on additional information (Mirza, M., & Osindero, S. 2014).
+
+This library also provides the Adversarial Auto-Encoders(AAEs), which is a probabilistic Auto-Encoder that uses GANs to perform variational inference by matching the aggregated posterior of the feature points in hidden layer of the Auto-Encoder with an arbitrary prior distribution(Makhzani, A., et al., 2015). Matching the aggregated posterior to the prior ensures that generating from any part of prior space results in meaningful samples. As a result, the decoder of the Adversarial Auto-Encoder learns a deep generative model that maps the imposed prior to the data distribution.
 
 ### The Commonality/Variability Analysis in order to practice object-oriented design.
 
@@ -71,6 +75,12 @@ This pattern is encapsulate each one as an object, and make them interchangeable
 `GenerativeAdversarialNetworks` is a *Context* in the `Strategy Pattern`, controlling the objects of `TrueSampler`, `GenerativeModel`, and `DiscriminativeModel` in order to train `G(z)` and `D(x)`. This *context* class also calls the object of `GANsValueFunction`, whose function is computing the rewards or gradients in GANs framework.
 
 The structural extension from GANs to AAEs is achieved by the inheritance of two classes: `GenerativeModel` and `GenerativeAdversarialNetworks`. One of the main concepts of AAEs, which is worthy of special mention, can be considered that *the Auto-Encoders can be transformed into the generative Models*. Therefore this library firstly implements a `AutoEncoderModel` by inheriting `GenerativeModel`. Next, this library watches closely that the difference between GANs and AAEs brings us different *context* in the `Strategy Pattern` in relation to the learning algorithm of Auto-Encoders. By the addition of the `AutoEncoderModel`'s learning method, this library provieds `AdversarialAutoEncoders` which is-a `GenerativeAdversarialNetworks` and makes it possible to train not only `GenerativeModel` and `DiscriminativeModel` but also `AutoEncoderModel`.
+
+<div>
+<img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/draw.io/pygan_class_diagram--ConditionalGANs.png">
+</div>
+
+Like Yang, L. C., et al. (2017), this library implements the `Conditioner` to conditon on external information. As class configuration in this library, the `Conditioner` is divided into two, `ConditionalGenerativeModel` and `ConditionalTrueSampler`. This library consider that the `ConditionalGenerativeModel` and `ConditionalTrueSampler` contain `Conditioner` of the *Conditional* GANs to reduce the burden of architectural design. The controller `GenerativeAdversarialNetworks` functionally uses the conditions in a black boxed state.
 
 ## Usecase: Generating Sine Waves by GANs.
 
@@ -887,12 +897,16 @@ plot(decoded_arr)
 - Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., ... & Bengio, Y. (2014). Generative adversarial nets. In Advances in neural information processing systems (pp. 2672-2680).
 - Long, J., Shelhamer, E., & Darrell, T. (2015). Fully convolutional networks for semantic segmentation. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 3431-3440).
 - Makhzani, A., Shlens, J., Jaitly, N., Goodfellow, I., & Frey, B. (2015). Adversarial autoencoders. arXiv preprint arXiv:1511.05644.
+- Mirza, M., & Osindero, S. (2014). Conditional generative adversarial nets. arXiv preprint arXiv:1411.1784.
+- Yang, L. C., Chou, S. Y., & Yang, Y. H. (2017). MidiNet: A convolutional generative adversarial network for symbolic-domain music generation. arXiv preprint arXiv:1703.10847.
 
 ### Related PoC
 
 - [深層強化学習のベイズ主義的な情報探索に駆動された自然言語処理の意味論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/) (Japanese)
     - [平均場近似推論の統計力学、自己符号化器としての深層ボルツマンマシン](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/tiefe-boltzmann-maschine-als-selbstkodierer/)
     - [正則化問題における敵対的生成ネットワーク(GANs)と敵対的自己符号化器(AAEs)のネットワーク構造](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/regularisierungsproblem-und-gan/)
+- [「人工の理想」を背景とした「万物照応」のデータモデリング](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/) (Japanese)
+    - [ランダムウォークの社会構造とダウ理論の意味論、再帰的ニューラルネットワークの価格変動モデルから敵対的生成ネットワーク（GAN）へ](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/sozialstruktur-von-random-walk-und-semantik-der-dow-theorie/)
 
 ## Author
 

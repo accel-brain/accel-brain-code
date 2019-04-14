@@ -5,6 +5,7 @@ from pygan.true_sampler import TrueSampler
 
 class ConditionalTrueSampler(TrueSampler):
     '''
+    Sampler which draws samples from the conditional `true` distribution.
     '''
 
     @abstractmethod

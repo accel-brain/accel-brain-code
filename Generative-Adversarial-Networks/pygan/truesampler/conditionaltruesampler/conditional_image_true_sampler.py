@@ -6,7 +6,7 @@ from pygan.truesampler.image_true_sampler import ImageTrueSampler
 
 class ConditionalImageTrueSampler(ConditionalTrueSampler):
     '''
-
+    Sampler which draws samples from the conditional `true` distribution of images.
     '''
 
     def __init__(self, image_true_sampler):

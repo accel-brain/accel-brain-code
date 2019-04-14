@@ -21,7 +21,7 @@ class ConditionalGenerativeModel(GenerativeModel):
     as a matrix or tensor.
 
     References:
-        - Yang, L. C., Chou, S. Y., & Yang, Y. H. (2017). MidiNet: A convolutional generative adversarial network for symbolic-domain music generation. arXiv preprint arXiv:1703.10847.
+        - Mirza, M., & Osindero, S. (2014). Conditional generative adversarial nets. arXiv preprint arXiv:1411.1784.
 
     '''
 

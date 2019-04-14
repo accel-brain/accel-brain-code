@@ -24,8 +24,9 @@ from pydbm.verification.verificate_function_approximation import VerificateFunct
 
 class ConditionalConvolutionalModel(ConditionalGenerativeModel):
     '''
-    Convolutional Neural Network as a `GenerativeModel` that has a
-    so-called Deconvolutional Neural Network as a `Conditioner`,
+    Convolutional Neural Network as a `GenerativeModel`.
+    
+    This model has a so-called Deconvolutional Neural Network as a `Conditioner`,
     where the function of `Conditioner` is a conditional mechanism 
     to use previous knowledge to condition the generations, 
     incorporating information from previous observed data points to 

@@ -55,8 +55,8 @@ class MidiTrueSampler(TrueSampler):
                 high=midi_df.end.max() - (self.__seq_len * self.__time_fraction)
             )
             for seq in range(self.__seq_len):
-                df = midi_df[midi_df.start > row + (seq * self.__time_fraction)]
-                df = df[df.end < row + ((seq+1) * self.__time_fraction)]
+                df = midi_df[midi_df.start < row + (seq * self.__time_fraction)]
+                df = df[df.end > row + ((seq+1) * self.__time_fraction)]
                 sampled_arr[batch, seq] = self.__convert_into_feature(df)
 
         if sampled_arr.max() > sampled_arr.min():

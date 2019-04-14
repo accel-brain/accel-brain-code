@@ -57,6 +57,7 @@ class BarTrueSampler(TrueSampler):
                 program_key = self.__program_list[i]
                 key = np.random.randint(low=0, high=len(self.__midi_df_list))
                 midi_df = self.__midi_df_list[key]
+
                 midi_df = midi_df[midi_df.program == program_key]
                 if midi_df.shape[0] < self.__seq_len:
                     continue
@@ -66,8 +67,8 @@ class BarTrueSampler(TrueSampler):
                     high=midi_df.end.max() - (self.__seq_len * self.__time_fraction)
                 )
                 for seq in range(self.__seq_len):
-                    df = midi_df[midi_df.start > row + (seq * self.__time_fraction)]
-                    df = df[df.end < row + ((seq+1) * self.__time_fraction)]
+                    df = midi_df[midi_df.start < row + (seq * self.__time_fraction)]
+                    df = df[df.end > row + ((seq+1) * self.__time_fraction)]
                     sampled_arr[batch, i, seq] = self.__convert_into_feature(df)
 
         if sampled_arr.max() > sampled_arr.min():

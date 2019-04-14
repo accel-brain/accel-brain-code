@@ -355,7 +355,9 @@ class ConditionalGANComposer(object):
         end = self.__time_fraction
         for batch in range(generated_arr.shape[0]):
             for program_key in range(generated_arr.shape[1]):
-                seq_arr, pitch_arr = np.where(generated_arr[batch, program_key] > generated_arr[:, program_key].mean())
+                arr = (generated_arr[batch, program_key] - generated_arr[batch, program_key].min()) / (generated_arr[batch, program_key].max() - generated_arr[batch, program_key].min() + 1e-08)
+                arr = np.random.binomial(1, arr, size=arr.shape)
+                seq_arr, pitch_arr = np.where(arr == 1)
                 key_df = pd.DataFrame(
                     np.c_[
                         seq_arr, 
@@ -368,11 +370,12 @@ class ConditionalGANComposer(object):
                 program = self.__noise_sampler.program_list[program_key]
                 for seq in range(generated_arr.shape[2]):
                     df = key_df[key_df.seq == seq]
-                    for i in range(1):
-                        pitch = int(df.pitch.values[i] + pitch_min)
-                        velocity = np.random.normal(loc=velocity_mean, scale=velocity_std)
-                        velocity = int(velocity)
-                        generated_list.append((program, start, end, pitch, velocity))
+                    if df.shape[0] > 0:
+                        for i in range(1):
+                            pitch = int(df.pitch.values[i] + pitch_min)
+                            velocity = np.random.normal(loc=velocity_mean, scale=velocity_std)
+                            velocity = int(velocity)
+                            generated_list.append((program, start, end, pitch, velocity))
 
                 start += self.__time_fraction
                 end += self.__time_fraction
@@ -406,3 +409,19 @@ class ConditionalGANComposer(object):
             file_path=file_path, 
             note_df=generated_midi_df
         )
+
+    def get_generative_model(self):
+        ''' getter '''
+        return self.__generative_model
+    
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+    
+    generative_model = property(get_generative_model, set_readonly)
+
+    def get_true_sampler(self):
+        ''' getter '''
+        return self.__true_sampler
+    
+    true_sampler = property(get_true_sampler, set_readonly)

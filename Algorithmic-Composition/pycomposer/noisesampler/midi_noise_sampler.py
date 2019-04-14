@@ -29,12 +29,13 @@ class MidiNoiseSampler(NoiseSampler):
             `np.ndarray` of samples.
         '''
         generated_arr = np.random.uniform(
-            low=-1,
-            high=1,
+            low=0.1,
+            high=0.9,
             size=((self.__batch_size, 1, 12))
         )
 
         if self.noise_sampler is not None:
+            self.noise_sampler.output_shape = generated_arr.shape
             generated_arr += self.noise_sampler.generate()
 
         return generated_arr

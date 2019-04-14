@@ -34,3 +34,13 @@ class GaussTrueSampler(TrueSampler):
             `np.ndarray` of samples.
         '''
         return np.random.normal(loc=self.__mu, scale=self.__sigma, size=self.__output_shape)
+
+    def get_output_shape(self):
+        ''' getter '''
+        return self.__output_shape
+    
+    def set_output_shape(self, value):
+        ''' setter '''
+        self.__output_shape = value
+    
+    output_shape = property(get_output_shape, set_output_shape)

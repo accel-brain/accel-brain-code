@@ -168,6 +168,7 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
         conv_arr = self.inference(observed_arr)
 
         if self.__conditon_noise_sampler is not None:
+            self.__conditon_noise_sampler.output_shape = conv_arr.shape
             noise_arr = self.__conditon_noise_sampler.generate()
             conv_arr += noise_arr
 

@@ -59,6 +59,7 @@ class ImageNoiseSampler(NoiseSampler):
             break
 
         if self.noise_sampler is not None:
+            self.noise_sampler.output_shape = observed_arr.shape
             observed_arr += self.noise_sampler.generate()
 
         observed_arr = observed_arr.astype(float)

@@ -14,6 +14,9 @@ class SeqCNNModel(CNNModel):
     image-like matrix will be configured as a `T` × `D` matrix.
     '''
 
+    # Add channel or not.
+    __add_channel_flag = False
+
     def inference(self, observed_arr):
         '''
         Draws samples from the `true` distribution.
@@ -24,10 +27,14 @@ class SeqCNNModel(CNNModel):
         Returns:
             `np.ndarray` of inferenced.
         '''
-        return super().inference(
+        if observed_arr.ndim < 4:
             # Add rank for channel.
-            np.expand_dims(observed_arr, axis=1)
-        )
+            observed_arr = np.expand_dims(observed_arr, axis=1)
+            self.__add_channel_flag = True
+        else:
+            self.__add_channel_flag = False
+
+        return super().inference(observed_arr)
 
     def learn(self, grad_arr, fix_opt_flag=False):
         '''
@@ -41,4 +48,7 @@ class SeqCNNModel(CNNModel):
             `np.ndarray` of delta or gradients.
         '''
         delta_arr = super().learn(grad_arr, fix_opt_flag)
-        return delta_arr[:, 0]
+        if self.__add_channel_flag is True:
+            return delta_arr[:, 0]
+        else:
+            return delta_arr

@@ -35,6 +35,17 @@ class GaussNoiseSampler(NoiseSampler):
         '''
         generated_arr = np.random.normal(loc=self.__mu, scale=self.__sigma, size=self.__output_shape)
         if self.noise_sampler is not None:
+            self.noise_sampler.output_shape = generated_arr.shape
             generated_arr += self.noise_sampler.generate()
         
         return generated_arr
+
+    def get_output_shape(self):
+        ''' getter '''
+        return self.__output_shape
+    
+    def set_output_shape(self, value):
+        ''' setter '''
+        self.__output_shape = value
+    
+    output_shape = property(get_output_shape, set_output_shape)

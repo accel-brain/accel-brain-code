@@ -90,6 +90,7 @@ class SineWaveNoiseSampler(NoiseSampler):
         gauss_noise = np.random.normal(loc=self.__mu, scale=self.__sigma, size=observed_arr.shape)
         observed_arr = observed_arr + gauss_noise
         if self.noise_sampler is not None:
+            self.noise_sampler.output_shape = observed_arr.shape
             observed_arr += self.noise_sampler.generate()
 
         if self.__norm_mode == "z_score":

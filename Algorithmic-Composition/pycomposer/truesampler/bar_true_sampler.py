@@ -71,9 +71,6 @@ class BarTrueSampler(TrueSampler):
                     df = df[df.end > row + ((seq+1) * self.__time_fraction)]
                     sampled_arr[batch, i, seq] = self.__convert_into_feature(df)
 
-        if sampled_arr.max() > sampled_arr.min():
-            sampled_arr = (sampled_arr - sampled_arr.min()) / (sampled_arr.max() - sampled_arr.min())
-
         return sampled_arr
 
     def __convert_into_feature(self, df):

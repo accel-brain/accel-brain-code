@@ -47,6 +47,9 @@ from pydbm.activation.tanh_function import TanhFunction
 from pydbm.activation.relu_function import ReLuFunction
 # Identity function as activation function.
 from pydbm.activation.identity_function import IdentityFunction
+# Sign function as activation function.
+from pydbm.activation.signfunction.deterministic_binary_neurons import DeterministicBinaryNeurons
+from pydbm.activation.signfunction.stochastic_binary_neurons import StochasticBinaryNeurons
 # SGD optimizer.
 from pydbm.optimization.optparams.sgd import SGD
 # Adams optimizer.
@@ -55,6 +58,7 @@ from pydbm.optimization.optparams.adam import Adam
 from pydbm.cnn.convolutional_neural_network import ConvolutionalNeuralNetwork as CNN
 # Mean Squared Error(MSE).
 from pydbm.loss.mean_squared_error import MeanSquaredError
+from pydbm.loss.cross_entropy import CrossEntropy
 # Transposed convolution.
 from pydbm.cnn.layerablecnn.convolutionlayer.deconvolution_layer import DeconvolutionLayer
 # computation graph for transposed convolution.
@@ -174,8 +178,8 @@ class ConditionalGANComposer(object):
                 )
             ]
 
-            deconv_activation_function = TanhFunction()
-            deconv_activation_function.batch_norm = BatchNorm()
+            deconv_activation_function = DeterministicBinaryNeurons()
+            #deconv_activation_function.batch_norm = BatchNorm()
 
             deconvolution_layer_list = [
                 DeconvolutionLayer(
@@ -265,6 +269,7 @@ class ConditionalGANComposer(object):
                 layerable_cnn_list=layerable_cnn_list,
                 cnn_output_graph=cnn_output_graph,
                 opt_params=opt_params,
+                computable_loss=CrossEntropy(),
                 verbose_mode=False
             )
 
@@ -355,9 +360,7 @@ class ConditionalGANComposer(object):
         end = self.__time_fraction
         for batch in range(generated_arr.shape[0]):
             for program_key in range(generated_arr.shape[1]):
-                arr = (generated_arr[batch, program_key] - generated_arr[batch, program_key].min()) / (generated_arr[batch, program_key].max() - generated_arr[batch, program_key].min() + 1e-08)
-                arr = np.random.binomial(1, arr, size=arr.shape)
-                seq_arr, pitch_arr = np.where(arr == 1)
+                seq_arr, pitch_arr = np.where(generated_arr[batch, program_key] == 1)
                 key_df = pd.DataFrame(
                     np.c_[
                         seq_arr, 

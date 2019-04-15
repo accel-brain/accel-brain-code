@@ -96,7 +96,14 @@ class ConditionalGANComposer(object):
     the `TrueSampler` and makes it possible to compose similar but slightly different music by the 
     imitation.
 
+    Following MidiNet and MuseGAN(Dong, H. W., et al., 2018), this class consider bars
+    as the basic compositional unit for the fact that harmonic changes usually occur at 
+    the boundaries of bars and that human beings often use bars as the building blocks 
+    when composing songs. The feature engineering in this class also is inspired by 
+    the Multi-track piano-roll representations in MuseGAN. 
+
     References:
+        - Dong, H. W., Hsiao, W. Y., Yang, L. C., & Yang, Y. H. (2018, April). MuseGAN: Multi-track sequential generative adversarial networks for symbolic music generation and accompaniment. In Thirty-Second AAAI Conference on Artificial Intelligence.
         - Fang, W., Zhang, F., Sheng, V. S., & Ding, Y. (2018). A method for improving CNN-based image recognition using DCGAN. Comput. Mater. Contin, 57, 167-178.
         - Gauthier, J. (2014). Conditional generative adversarial nets for convolutional face generation. Class Project for Stanford CS231N: Convolutional Neural Networks for Visual Recognition, Winter semester, 2014(5), 2.
         - Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., ... & Bengio, Y. (2014). Generative adversarial nets. In Advances in neural information processing systems (pp. 2672-2680).

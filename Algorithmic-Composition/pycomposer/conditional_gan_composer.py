@@ -118,6 +118,7 @@ class ConditionalGANComposer(object):
         time_fraction=1.0,
         min_pitch=24,
         max_pitch=108,
+        learning_rate=1e-05,
         hidden_dim=None,
         true_sampler=None,
         noise_sampler=None,
@@ -133,10 +134,13 @@ class ConditionalGANComposer(object):
             batch_size:             Batch size.
             seq_len:                The length of sequence that LSTM networks will observe.
             time_fraction:          Time fraction or time resolution (seconds).
-            hidden_dim:             The number of units in hidden layer of `DiscriminativeModel`.
 
             min_pitch:              The minimum of note number.
             max_pitch:              The maximum of note number.
+
+            learning_rate:          Learning rate in `Generator` and `Discriminator`.
+
+            hidden_dim:             The number of units in hidden layer of `DiscriminativeModel`.
 
             true_sampler:           is-a `TrueSampler`.
             noise_sampler:          is-a `NoiseSampler`.
@@ -225,6 +229,7 @@ class ConditionalGANComposer(object):
                     high=1, 
                     output_shape=(batch_size, channel, seq_len, dim)
                 ),
+                learning_rate=learning_rate,
                 verbose_mode=False
             )
 
@@ -281,6 +286,7 @@ class ConditionalGANComposer(object):
                 cnn_output_graph=cnn_output_graph,
                 opt_params=opt_params,
                 computable_loss=CrossEntropy(),
+                learning_rate=learning_rate,
                 verbose_mode=False
             )
 

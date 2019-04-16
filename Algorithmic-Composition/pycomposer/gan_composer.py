@@ -17,8 +17,6 @@ from pygan.discriminativemodel.lstm_model import LSTMModel as Discriminator
 from pygan.gansvaluefunction.mini_max import MiniMax
 # GANs framework.
 from pygan.generative_adversarial_networks import GenerativeAdversarialNetworks
-# The value function.
-from pygan.gansvaluefunction.mini_max import MiniMax
 
 # Activation function.
 from pydbm.activation.tanh_function import TanhFunction
@@ -76,6 +74,7 @@ class GANComposer(object):
         time_fraction=1.0,
         min_pitch=24,
         max_pitch=108,
+        learning_rate=1e-05,
         true_sampler=None,
         noise_sampler=None,
         generative_model=None,
@@ -93,6 +92,7 @@ class GANComposer(object):
             time_fraction:          Time fraction or time resolution (seconds).
             min_pitch:              The minimum of note number.
             max_pitch:              The maximum of note number.
+            learning_rate:          Learning rate in `Generator` and `Discriminator`.
             true_sampler:           is-a `TrueSampler`.
             noise_sampler:          is-a `NoiseSampler`.
             generative_model:       is-a `GenerativeModel`.
@@ -126,14 +126,14 @@ class GANComposer(object):
         if generative_model is None:
             hidden_activating_function = DeterministicBinaryNeurons()
             output_gate_activating_function = DeterministicBinaryNeurons()
-            #hidden_activating_function.batch_norm = BatchNorm()
             generative_model = Generator(
                 batch_size=batch_size,
                 seq_len=seq_len,
                 input_neuron_count=dim,
                 hidden_neuron_count=dim,
                 output_gate_activating_function=output_gate_activating_function,
-                hidden_activating_function=hidden_activating_function
+                hidden_activating_function=hidden_activating_function,
+                learning_rate=learning_rate
             )
 
         generative_model.noise_sampler = noise_sampler
@@ -143,7 +143,8 @@ class GANComposer(object):
                 batch_size=batch_size,
                 seq_len=seq_len,
                 input_neuron_count=dim,
-                hidden_neuron_count=dim
+                hidden_neuron_count=dim,
+                learning_rate=learning_rate
             )
 
         if gans_value_function is None:

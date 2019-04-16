@@ -22,6 +22,10 @@ from pygan.gansvaluefunction.mini_max import MiniMax
 
 # Activation function.
 from pydbm.activation.tanh_function import TanhFunction
+# Sign function as activation function.
+from pydbm.activation.signfunction.deterministic_binary_neurons import DeterministicBinaryNeurons
+from pydbm.activation.signfunction.stochastic_binary_neurons import StochasticBinaryNeurons
+
 # Batch normalization.
 from pydbm.optimization.batch_norm import BatchNorm
 
@@ -70,6 +74,8 @@ class GANComposer(object):
         batch_size=10,
         seq_len=4,
         time_fraction=1.0,
+        min_pitch=24,
+        max_pitch=108,
         true_sampler=None,
         noise_sampler=None,
         generative_model=None,
@@ -85,6 +91,8 @@ class GANComposer(object):
             batch_size:             Batch size.
             seq_len:                The length of sequence that LSTM networks will observe.
             time_fraction:          Time fraction or time resolution (seconds).
+            min_pitch:              The minimum of note number.
+            max_pitch:              The maximum of note number.
             true_sampler:           is-a `TrueSampler`.
             noise_sampler:          is-a `NoiseSampler`.
             generative_model:       is-a `GenerativeModel`.
@@ -95,17 +103,25 @@ class GANComposer(object):
         self.__midi_df_list = [self.__midi_controller.extract(midi_path) for midi_path in midi_path_list]
 
         # The dimension of observed or feature points.
-        dim = 12
+        dim = max_pitch - min_pitch
 
         if true_sampler is None:
             true_sampler = MidiTrueSampler(
                 midi_df_list=self.__midi_df_list,
                 batch_size=batch_size,
-                seq_len=seq_len
+                seq_len=seq_len,
+                time_fraction=time_fraction,
+                min_pitch=min_pitch,
+                max_pitch=max_pitch
             )
 
         if noise_sampler is None:
-            noise_sampler = MidiNoiseSampler(batch_size=batch_size)
+            noise_sampler = MidiNoiseSampler(
+                batch_size=batch_size,
+                seq_len=seq_len,
+                min_pitch=min_pitch,
+                max_pitch=max_pitch
+            )
 
         if generative_model is None:
             hidden_activating_function = TanhFunction()
@@ -139,6 +155,7 @@ class GANComposer(object):
         self.__GAN = GAN
         self.__time_fraction = time_fraction
         self.__target_program = target_program
+        self.__min_pitch = min_pitch
 
     def learn(self, iter_n=500, k_step=10):
         '''
@@ -171,17 +188,12 @@ class GANComposer(object):
         '''
         return self.__GAN.extract_logs_tuple()
 
-    def compose(self, file_path, pitch_min=None, velocity_mean=None, velocity_std=None):
+    def compose(self, file_path, velocity_mean=None, velocity_std=None):
         '''
         Compose by learned model.
 
         Args:
             file_path:      Path to generated MIDI file.
-            pitch_min:      Minimum of pitch.
-                            This class generates the pitch in the range 
-                            `pitch_min` to `pitch_min` + 12.
-                            If `None`, the average pitch in MIDI files set to this parameter.
-
             velocity_mean:  Mean of velocity.
                             This class samples the velocity from a Gaussian distribution of 
                             `velocity_mean` and `velocity_std`.
@@ -195,10 +207,6 @@ class GANComposer(object):
         generated_arr = self.__generative_model.draw()
 
         # @TODO(chimera0(RUM)): Fix the redundant processings.
-        if pitch_min is None:
-            pitch_min = np.array(
-                [self.__midi_df_list[i].pitch.mean() for i in range(len(self.__midi_df_list))]
-            ).mean()
         if velocity_mean is None:
             velocity_mean = np.array(
                 [self.__midi_df_list[i].velocity.mean() for i in range(len(self.__midi_df_list))]
@@ -206,13 +214,13 @@ class GANComposer(object):
         if velocity_std is None:
             velocity_std = np.array(
                 [self.__midi_df_list[i].velocity.std() for i in range(len(self.__midi_df_list))]
-            ).mean()
+            ).std()
 
         generated_list = []
         start = 0
         end = self.__time_fraction
         for batch in range(generated_arr.shape[0]):
-            seq_arr, pitch_arr = np.where(generated_arr[batch] > generated_arr.mean())
+            seq_arr, pitch_arr = np.where(generated_arr[batch] == 1)
             key_df = pd.DataFrame(
                 np.c_[
                     seq_arr, 
@@ -225,7 +233,7 @@ class GANComposer(object):
             for seq in range(generated_arr.shape[1]):
                 df = key_df[key_df.seq == seq]
                 for i in range(1):
-                    pitch = int(df.pitch.values[i] + pitch_min)
+                    pitch = int(df.pitch.values[i] + self.__min_pitch)
                     velocity = np.random.normal(loc=velocity_mean, scale=velocity_std)
                     velocity = int(velocity)
                     generated_list.append((start, end, pitch, velocity))

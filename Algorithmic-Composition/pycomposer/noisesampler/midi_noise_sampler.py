@@ -10,16 +10,27 @@ class MidiNoiseSampler(NoiseSampler):
 
     def __init__(
         self, 
-        batch_size=20
+        batch_size=20,
+        seq_len=10, 
+        min_pitch=24,
+        max_pitch=108
+
     ):
         '''
         Init.
 
         Args:
-            velocity_low:           Lower boundary of the output interval of Uniform noise for velocity.
-            velocity_high:          Higher boundary of the output interval of Uniform noise for velocity.
+            batch_size:         Batch size.
+            seq_len:            The length of sequneces.
+                                The length corresponds to the number of `time` splited by `time_fraction`.
+
+            min_pitch:          The minimum of note number.
+            max_pitch:          The maximum of note number.
+
         '''
         self.__batch_size = batch_size
+        self.__seq_len = seq_len
+        self.__dim = max_pitch - min_pitch
 
     def generate(self):
         '''
@@ -31,7 +42,7 @@ class MidiNoiseSampler(NoiseSampler):
         generated_arr = np.random.uniform(
             low=0.1,
             high=0.9,
-            size=((self.__batch_size, 1, 12))
+            size=((self.__batch_size, self.__seq_len, self.__dim))
         )
 
         if self.noise_sampler is not None:

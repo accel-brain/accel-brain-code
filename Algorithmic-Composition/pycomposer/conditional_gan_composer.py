@@ -22,8 +22,6 @@ from pygan.discriminativemodel.cnnmodel.seq_cnn_model import SeqCNNModel as Disc
 from pygan.gansvaluefunction.mini_max import MiniMax
 # GANs framework.
 from pygan.generative_adversarial_networks import GenerativeAdversarialNetworks
-# The value function.
-from pygan.gansvaluefunction.mini_max import MiniMax
 
 # Activation function.
 from pydbm.activation.tanh_function import TanhFunction
@@ -118,6 +116,8 @@ class ConditionalGANComposer(object):
         batch_size=10,
         seq_len=4,
         time_fraction=1.0,
+        min_pitch=24,
+        max_pitch=108,
         hidden_dim=None,
         true_sampler=None,
         noise_sampler=None,
@@ -134,6 +134,10 @@ class ConditionalGANComposer(object):
             seq_len:                The length of sequence that LSTM networks will observe.
             time_fraction:          Time fraction or time resolution (seconds).
             hidden_dim:             The number of units in hidden layer of `DiscriminativeModel`.
+
+            min_pitch:              The minimum of note number.
+            max_pitch:              The maximum of note number.
+
             true_sampler:           is-a `TrueSampler`.
             noise_sampler:          is-a `NoiseSampler`.
             generative_model:       is-a `GenerativeModel`.
@@ -144,29 +148,30 @@ class ConditionalGANComposer(object):
         self.__midi_df_list = [self.__midi_controller.extract(midi_path) for midi_path in midi_path_list]
 
         # The dimension of observed or feature points.
-        dim = 12
+        dim = max_pitch - min_pitch
 
         if true_sampler is None:
             true_sampler = BarTrueSampler(
                 midi_df_list=self.__midi_df_list,
                 batch_size=batch_size,
-                seq_len=seq_len
+                seq_len=seq_len,
+                time_fraction=time_fraction,
+                min_pitch=min_pitch,
+                max_pitch=max_pitch
             )
 
         if noise_sampler is None:
             noise_sampler = BarNoiseSampler(
                 midi_df_list=self.__midi_df_list,
                 batch_size=batch_size,
-                seq_len=seq_len
-            )
-            noise_sampler.noise_sampler = UniformNoiseSampler(
-                low=-1,
-                high=1.0,
-                output_shape=(batch_size, noise_sampler.channel, seq_len, dim)
+                seq_len=seq_len,
+                time_fraction=time_fraction,
+                min_pitch=min_pitch,
+                max_pitch=max_pitch
             )
 
         if generative_model is None:
-            conv_activation_function = TanhFunction()
+            conv_activation_function = LogisticFunction()
             conv_activation_function.batch_norm = BatchNorm()
 
             channel = noise_sampler.channel
@@ -186,7 +191,6 @@ class ConditionalGANComposer(object):
             ]
 
             deconv_activation_function = DeterministicBinaryNeurons()
-            #deconv_activation_function.batch_norm = BatchNorm()
 
             deconvolution_layer_list = [
                 DeconvolutionLayer(
@@ -217,7 +221,7 @@ class ConditionalGANComposer(object):
                 layerable_cnn_list=convolution_layer_list,
                 deconvolution_model=deconvolution_model,
                 conditon_noise_sampler=UniformNoiseSampler(
-                    low=-1, 
+                    low=0, 
                     high=1, 
                     output_shape=(batch_size, channel, seq_len, dim)
                 ),
@@ -227,7 +231,7 @@ class ConditionalGANComposer(object):
         generative_model.noise_sampler = noise_sampler
 
         if discriminative_model is None:
-            activation_function = TanhFunction()
+            activation_function = LogisticFunction()
             activation_function.batch_norm = BatchNorm()
 
             # First convolution layer.
@@ -291,6 +295,8 @@ class ConditionalGANComposer(object):
         self.__discriminative_model = discriminative_model
         self.__GAN = GAN
         self.__time_fraction = time_fraction
+        self.__min_pitch = min_pitch
+        self.__max_pitch = max_pitch
 
     def learn(self, iter_n=500, k_step=10):
         '''
@@ -323,16 +329,12 @@ class ConditionalGANComposer(object):
         '''
         return self.__GAN.extract_logs_tuple()
 
-    def compose(self, file_path, pitch_min=None, velocity_mean=None, velocity_std=None):
+    def compose(self, file_path, velocity_mean=None, velocity_std=None):
         '''
         Compose by learned model.
 
         Args:
             file_path:      Path to generated MIDI file.
-            pitch_min:      Minimum of pitch.
-                            This class generates the pitch in the range 
-                            `pitch_min` to `pitch_min` + 12.
-                            If `None`, the average pitch in MIDI files set to this parameter.
 
             velocity_mean:  Mean of velocity.
                             This class samples the velocity from a Gaussian distribution of 
@@ -349,10 +351,6 @@ class ConditionalGANComposer(object):
         generated_arr = generated_arr[:, :channel]
 
         # @TODO(chimera0(RUM)): Fix the redundant processings.
-        if pitch_min is None:
-            pitch_min = np.array(
-                [self.__midi_df_list[i].pitch.mean() for i in range(len(self.__midi_df_list))]
-            ).mean()
         if velocity_mean is None:
             velocity_mean = np.array(
                 [self.__midi_df_list[i].velocity.mean() for i in range(len(self.__midi_df_list))]
@@ -360,7 +358,7 @@ class ConditionalGANComposer(object):
         if velocity_std is None:
             velocity_std = np.array(
                 [self.__midi_df_list[i].velocity.std() for i in range(len(self.__midi_df_list))]
-            ).mean()
+            ).std()
 
         generated_list = []
         start = 0
@@ -382,7 +380,7 @@ class ConditionalGANComposer(object):
                     df = key_df[key_df.seq == seq]
                     if df.shape[0] > 0:
                         for i in range(1):
-                            pitch = int(df.pitch.values[i] + pitch_min)
+                            pitch = int(df.pitch.values[i] + self.__min_pitch)
                             velocity = np.random.normal(loc=velocity_mean, scale=velocity_std)
                             velocity = int(velocity)
                             generated_list.append((program, start, end, pitch, velocity))

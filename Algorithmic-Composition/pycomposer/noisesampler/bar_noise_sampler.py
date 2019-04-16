@@ -16,18 +16,23 @@ class BarNoiseSampler(NoiseSampler):
         midi_df_list, 
         batch_size=20, 
         seq_len=10, 
-        time_fraction=0.1
+        time_fraction=0.1,
+        min_pitch=24,
+        max_pitch=108
     ):
         '''
         Init.
 
         Args:
-            midi_path_list:     `list` of paths to MIDI files.
-            batch_size:         Batch size.
-            seq_len:            The length of sequneces.
-                                The length corresponds to the number of `time` splited by `time_fraction`.
+            midi_path_list:         `list` of paths to MIDI files.
+            batch_size:             Batch size.
+            seq_len:                The length of sequneces.
+                                    The length corresponds to the number of `time` splited by `time_fraction`.
 
-            time_fraction:      Time fraction which means the length of bars.
+            time_fraction:          Time fraction which means the length of bars.
+
+            min_pitch:              The minimum of note number.
+            max_pitch:              The maximum of note number.
         '''
         program_list = []
         self.__midi_df_list = midi_df_list
@@ -42,6 +47,9 @@ class BarNoiseSampler(NoiseSampler):
         self.__channel = len(program_list)
         self.__program_list = program_list
         self.__time_fraction = time_fraction
+        self.__min_pitch = min_pitch
+        self.__max_pitch = max_pitch
+        self.__dim = self.__max_pitch - self.__min_pitch
 
     def generate(self):
         '''
@@ -50,7 +58,7 @@ class BarNoiseSampler(NoiseSampler):
         Returns:
             `np.ndarray` of samples.
         '''
-        sampled_arr = np.zeros((self.__batch_size, self.__channel, self.__seq_len, 12))
+        sampled_arr = np.zeros((self.__batch_size, self.__channel, self.__seq_len, self.__dim))
 
         for batch in range(self.__batch_size):
             for i in range(len(self.__program_list)):
@@ -70,16 +78,13 @@ class BarNoiseSampler(NoiseSampler):
                     df = df[df.end > row + ((seq+1) * self.__time_fraction)]
                     sampled_arr[batch, i, seq] = self.__convert_into_feature(df)
 
-        if self.noise_sampler is not None:
-            self.noise_sampler.output_shape = sampled_arr.shape
-            sampled_arr += self.noise_sampler.generate()
-
         return sampled_arr
 
     def __convert_into_feature(self, df):
-        arr = np.zeros(12)
+        arr = np.zeros(self.__dim)
         for i in range(df.shape[0]):
-            arr[df.pitch.values[i] % 12] = 1
+            if df.pitch.values[i] < self.__max_pitch - 1:
+                arr[df.pitch.values[i] - self.__min_pitch] = 1
 
         return arr.reshape(1, -1).astype(float)
 

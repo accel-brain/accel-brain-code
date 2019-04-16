@@ -51,6 +51,10 @@ class LSTMModel(DiscriminativeModel):
         batch_size=20,
         input_neuron_count=100,
         hidden_neuron_count=300,
+        observed_activating_function=None,
+        input_gate_activating_function=None,
+        forget_gate_activating_function=None,
+        output_gate_activating_function=None,
         hidden_activating_function=None,
         seq_len=10,
         learning_rate=1e-05,
@@ -60,24 +64,41 @@ class LSTMModel(DiscriminativeModel):
         Init.
 
         Args:
-            lstm_model:                     is-a `lstm_model`.
-            batch_size:                     Batch size.
-                                            This parameters will be refered only when `lstm_model` is `None`.
+            lstm_model:                         is-a `lstm_model`.
+            batch_size:                         Batch size.
+                                                This parameters will be refered only when `lstm_model` is `None`.
 
-            input_neuron_count:             The number of input units.
-                                            This parameters will be refered only when `lstm_model` is `None`.
+            input_neuron_count:                 The number of input units.
+                                                This parameters will be refered only when `lstm_model` is `None`.
 
-            hidden_neuron_count:            The number of hidden units.
-                                            This parameters will be refered only when `lstm_model` is `None`.
+            hidden_neuron_count:                The number of hidden units.
+                                                This parameters will be refered only when `lstm_model` is `None`.
 
-            hidden_activating_function:     is-a `ActivatingFunctionInterface` in hidden layer.
-                                            This parameters will be refered only when `lstm_model` is `None`.
+            observed_activating_function:       is-a `ActivatingFunctionInterface` in hidden layer.
+                                                This parameters will be refered only when `lstm_model` is `None`.
+                                                If `None`, this value will be `TanhFunction`.
 
-            seq_len:                        The length of sequences.
-                                            This means refereed maxinum step `t` in feedforward.
+            input_gate_activating_function:     is-a `ActivatingFunctionInterface` in hidden layer.
+                                                This parameters will be refered only when `lstm_model` is `None`.
+                                                If `None`, this value will be `LogisticFunction`.
 
-            learning_rate:                  Learning rate.
-            verbose_mode:                   Verbose mode or not.
+            forget_gate_activating_function:    is-a `ActivatingFunctionInterface` in hidden layer.
+                                                This parameters will be refered only when `lstm_model` is `None`.
+                                                If `None`, this value will be `LogisticFunction`.
+
+            output_gate_activating_function:    is-a `ActivatingFunctionInterface` in hidden layer.
+                                                This parameters will be refered only when `lstm_model` is `None`.
+                                                If `None`, this value will be `LogisticFunction`.
+
+            hidden_activating_function:         is-a `ActivatingFunctionInterface` in hidden layer.
+                                                This parameters will be refered only when `lstm_model` is `None`.
+                                                If `None`, this value will be `TanhFunction`.
+
+            seq_len:                            The length of sequences.
+                                                This means refereed maxinum step `t` in feedforward.
+
+            learning_rate:                      Learning rate.
+            verbose_mode:                       Verbose mode or not.
         '''
         logger = getLogger("pydbm")
         handler = StreamHandler()
@@ -98,10 +119,34 @@ class LSTMModel(DiscriminativeModel):
             graph = LSTMGraph()
 
             # Activation function in LSTM.
-            graph.observed_activating_function = TanhFunction()
-            graph.input_gate_activating_function = LogisticFunction()
-            graph.forget_gate_activating_function = LogisticFunction()
-            graph.output_gate_activating_function = LogisticFunction()
+            if observed_activating_function is None:
+                graph.observed_activating_function = TanhFunction()
+            else:
+                if isinstance(observed_activating_function, ActivatingFunctionInterface) is False:
+                    raise TypeError()
+                graph.observed_activating_function = observed_activating_function
+            
+            if input_gate_activating_function is None:
+                graph.input_gate_activating_function = LogisticFunction()
+            else:
+                if isinstance(input_gate_activating_function, ActivatingFunctionInterface) is False:
+                    raise TypeError()
+                graph.input_gate_activating_function = input_gate_activating_function
+            
+            if forget_gate_activating_function is None:
+                graph.forget_gate_activating_function = LogisticFunction()
+            else:
+                if isinstance(forget_gate_activating_function, ActivatingFunctionInterface) is False:
+                    raise TypeError()
+                graph.forget_gate_activating_function = forget_gate_activating_function
+            
+            if output_gate_activating_function is None:
+                graph.output_gate_activating_function = LogisticFunction()
+            else:
+                if isinstance(output_gate_activating_function, ActivatingFunctionInterface) is False:
+                    raise TypeError()
+                graph.output_gate_activating_function = output_gate_activating_function
+
             if hidden_activating_function is None:
                 graph.hidden_activating_function = TanhFunction()
             else:

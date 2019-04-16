@@ -124,13 +124,15 @@ class GANComposer(object):
             )
 
         if generative_model is None:
-            hidden_activating_function = TanhFunction()
-            hidden_activating_function.batch_norm = BatchNorm()
+            hidden_activating_function = DeterministicBinaryNeurons()
+            output_gate_activating_function = DeterministicBinaryNeurons()
+            #hidden_activating_function.batch_norm = BatchNorm()
             generative_model = Generator(
                 batch_size=batch_size,
                 seq_len=seq_len,
                 input_neuron_count=dim,
                 hidden_neuron_count=dim,
+                output_gate_activating_function=output_gate_activating_function,
                 hidden_activating_function=hidden_activating_function
             )
 
@@ -232,7 +234,7 @@ class GANComposer(object):
             key_df = key_df.sort_values(by=["p"], ascending=False)
             for seq in range(generated_arr.shape[1]):
                 df = key_df[key_df.seq == seq]
-                for i in range(1):
+                for i in range(df.shape[0]):
                     pitch = int(df.pitch.values[i] + self.__min_pitch)
                     velocity = np.random.normal(loc=velocity_mean, scale=velocity_std)
                     velocity = int(velocity)
@@ -263,3 +265,19 @@ class GANComposer(object):
             file_path=file_path, 
             note_df=generated_midi_df
         )
+
+    def get_generative_model(self):
+        ''' getter '''
+        return self.__generative_model
+    
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+    
+    generative_model = property(get_generative_model, set_readonly)
+
+    def get_true_sampler(self):
+        ''' getter '''
+        return self.__true_sampler
+    
+    true_sampler = property(get_true_sampler, set_readonly)

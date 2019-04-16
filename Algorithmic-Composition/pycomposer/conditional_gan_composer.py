@@ -378,12 +378,11 @@ class ConditionalGANComposer(object):
                 program = self.__noise_sampler.program_list[program_key]
                 for seq in range(generated_arr.shape[2]):
                     df = key_df[key_df.seq == seq]
-                    if df.shape[0] > 0:
-                        for i in range(1):
-                            pitch = int(df.pitch.values[i] + self.__min_pitch)
-                            velocity = np.random.normal(loc=velocity_mean, scale=velocity_std)
-                            velocity = int(velocity)
-                            generated_list.append((program, start, end, pitch, velocity))
+                    for i in range(df.shape[0]):
+                        pitch = int(df.pitch.values[i] + self.__min_pitch)
+                        velocity = np.random.normal(loc=velocity_mean, scale=velocity_std)
+                        velocity = int(velocity)
+                        generated_list.append((program, start, end, pitch, velocity))
 
                 start += self.__time_fraction
                 end += self.__time_fraction

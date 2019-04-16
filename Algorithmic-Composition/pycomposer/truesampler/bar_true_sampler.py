@@ -85,6 +85,7 @@ class BarTrueSampler(TrueSampler):
         arr = np.zeros(self.__dim)
         for i in range(df.shape[0]):
             if df.pitch.values[i] < self.__max_pitch - 1:
-                arr[df.pitch.values[i] - self.__min_pitch] = 1
+                if df.pitch.values[i] - self.__min_pitch >= 0:
+                    arr[df.pitch.values[i] - self.__min_pitch] = 1
 
         return arr.reshape(1, -1).astype(float)

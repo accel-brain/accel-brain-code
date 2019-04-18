@@ -9,6 +9,8 @@ from pycomposer.midi_controller import MidiController
 from pycomposer.truesampler.bar_true_sampler import BarTrueSampler
 # is-a `NoiseSampler`.
 from pycomposer.noisesampler.bar_noise_sampler import BarNoiseSampler
+# is-a `ComputableLoss`.
+from pycomposer.computableloss.dissonance_loss import DissonanceLoss
 
 # is-a `NoiseSampler`.
 from pygan.noisesampler.uniform_noise_sampler import UniformNoiseSampler
@@ -269,7 +271,7 @@ class ConditionalGANComposer(object):
             opt_params.dropout_rate = 0.0
 
             if hidden_dim is None:
-                hidden_dim = (noise_sampler.channel * 2) * seq_len * dim
+                hidden_dim = channel * seq_len * dim
 
             cnn_output_activating_function = LogisticFunction()
 

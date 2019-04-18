@@ -15,7 +15,8 @@ class BarTrueSampler(TrueSampler):
         seq_len=10, 
         time_fraction=0.1,
         min_pitch=24,
-        max_pitch=108
+        max_pitch=108,
+        conditional_flag=True
     ):
         '''
         Init.
@@ -47,6 +48,7 @@ class BarTrueSampler(TrueSampler):
         self.__min_pitch = min_pitch
         self.__max_pitch = max_pitch
         self.__dim = self.__max_pitch - self.__min_pitch
+        self.__conditional_flag = conditional_flag
 
     def draw(self):
         '''
@@ -55,7 +57,10 @@ class BarTrueSampler(TrueSampler):
         Returns:
             `np.ndarray` of samples.
         '''
-        return np.concatenate((self.__create_samples(), self.__create_samples()), axis=1)
+        if self.__conditional_flag is True:
+            return np.concatenate((self.__create_samples(), self.__create_samples()), axis=1)
+        else:
+            return self.__create_samples()
 
     def __create_samples(self):
         sampled_arr = np.zeros((self.__batch_size, self.__channel, self.__seq_len, self.__dim))

@@ -198,7 +198,7 @@ class AAEComposer(object):
 
             conv2 = ConvolutionLayerG2(
                 CNNGraphG2(
-                    activation_function=TanhFunction(),
+                    activation_function=DeterministicBinaryNeurons(),
                     filter_num=batch_size,
                     channel=batch_size,
                     kernel_size=3,
@@ -211,7 +211,7 @@ class AAEComposer(object):
             deconvolution_layer_list = [
                 DeconvolutionLayer1(
                     DeCNNGraphD1(
-                        activation_function=TanhFunction(),
+                        activation_function=DeterministicBinaryNeurons(),
                         filter_num=batch_size,
                         channel=channel,
                         kernel_size=3,
@@ -254,6 +254,7 @@ class AAEComposer(object):
                 batch_size=batch_size,
                 learning_rate=learning_rate,
                 convolutional_auto_encoder=convolutional_auto_encoder,
+                deconvolution_layer_list=deconvolution_layer_list,
                 channel=channel,
                 verbose_mode=False
             )

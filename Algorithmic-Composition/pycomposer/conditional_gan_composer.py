@@ -228,7 +228,7 @@ class ConditionalGANComposer(object):
                 deconvolution_model=deconvolution_model,
                 conditon_noise_sampler=UniformNoiseSampler(
                     low=0, 
-                    high=1, 
+                    high=0.01, 
                     output_shape=(batch_size, channel, seq_len, dim)
                 ),
                 learning_rate=learning_rate,

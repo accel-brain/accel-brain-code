@@ -397,7 +397,7 @@ else:
 scale = 0.1
 
 conv1 = ConvolutionLayer(
-    ConvGraph(
+    CNNGraph(
         activation_function=TanhFunction(),
         # The number of filters.
         filter_num=batch_size,
@@ -413,7 +413,7 @@ conv1 = ConvolutionLayer(
 )
 
 conv2 = ConvolutionLayer(
-    ConvGraph(
+    CNNGraph(
         activation_function=TanhFunction(),
         filter_num=batch_size,
         channel=batch_size,
@@ -470,6 +470,7 @@ generator = Generator(
     batch_size=batch_size,
     learning_rate=1e-05,
     convolutional_auto_encoder=convolutional_auto_encoder,
+    deconvolution_layer_list=deconvolution_layer_list,
     gray_scale_flag=gray_scale_flag,
     verbose_mode=False
 )
@@ -480,7 +481,7 @@ Setup `DiscriminativeModel`.
 
 ```python
 convD = ConvolutionLayer(
-    ConvGraph(
+    CNNGraph(
         activation_function=TanhFunction(),
         filter_num=batch_size,
         channel=channel,

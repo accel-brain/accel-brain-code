@@ -2,6 +2,8 @@
 import numpy as np
 import pandas as pd
 
+from pycomposer.gancomposable.gan_composable import GANComposable
+
 # MIDI controller.
 from pycomposer.midi_controller import MidiController
 
@@ -28,7 +30,7 @@ from pydbm.activation.signfunction.stochastic_binary_neurons import StochasticBi
 from pydbm.optimization.batch_norm import BatchNorm
 
 
-class GANComposer(object):
+class GANComposer(GANComposable):
     '''
     Algorithmic Composer based on Generative Adversarial Networks(GANs).
 
@@ -223,28 +225,25 @@ class GANComposer(object):
         start = 0
         end = self.__time_fraction
         for batch in range(generated_arr.shape[0]):
-            seq_arr, pitch_arr = np.where(generated_arr[batch] == 1)
-            key_df = pd.DataFrame(
-                np.c_[
-                    seq_arr, 
-                    pitch_arr, 
-                    generated_arr[batch, seq_arr, pitch_arr]
-                ], 
-                columns=["seq", "pitch", "p"]
-            )
-            key_df = key_df.sort_values(by=["p"], ascending=False)
-            for seq in range(generated_arr.shape[1]):
-                df = key_df[key_df.seq == seq]
-                for i in range(df.shape[0]):
-                    pitch = int(df.pitch.values[i] + self.__min_pitch)
-                    velocity = np.random.normal(loc=velocity_mean, scale=velocity_std)
-                    velocity = int(velocity)
-                    generated_list.append((start, end, pitch, velocity))
+            for seq in range(generated_arr.shape[2]):
+                add_flag = False
+                for pitch_key in range(generated_arr.shape[3]):
+                    if generated_arr[batch, seq, pitch_key] == 1:
+                        pitch = pitch_key + self.__min_pitch
+                        velocity = np.random.normal(
+                            loc=velocity_mean, 
+                            scale=velocity_std
+                        )
+                        velocity = int(velocity)
+                        generated_list.append((start, end, pitch, velocity))
+                        add_flag = True
 
-                start += self.__time_fraction
-                end += self.__time_fraction
+                if add_flag is True:
+                    start += self.__time_fraction
+                    end += self.__time_fraction
 
         generated_midi_df = pd.DataFrame(generated_list, columns=["start", "end", "pitch", "velocity"])
+        generated_midi_df["program"] = self.__target_program
 
         pitch_arr = generated_midi_df.pitch.drop_duplicates()
         df_list = []
@@ -259,8 +258,6 @@ class GANComposer(object):
 
         generated_midi_df = pd.concat(df_list)
         generated_midi_df = generated_midi_df.sort_values(by=["start", "end"])
-
-        generated_midi_df["program"] = self.__target_program
 
         self.__midi_controller.save(
             file_path=file_path, 

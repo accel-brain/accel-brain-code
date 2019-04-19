@@ -109,4 +109,5 @@ class DissonanceLoss(ComputableLoss):
                 loss_arr[batch, channel] = sum(loss_list)
 
         loss_arr = np.nan_to_num(loss_arr)
+        loss_arr = np.log(loss_arr + 1e-08)
         return loss_arr

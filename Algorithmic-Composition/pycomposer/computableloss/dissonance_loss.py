@@ -78,25 +78,35 @@ class DissonanceLoss(ComputableLoss):
         '''
         delta_arr = self.__computable_loss.compute_delta(pred_arr, labeled_arr, delta_output)
         dissonance_loss_arr = self.__compute_dissonance(labeled_arr) - self.__compute_dissonance(pred_arr)
-        delta_arr = delta_arr + dissonance_loss_arr.reshape((dissonance_loss_arr.shape[0], -1))
+        delta_arr = delta_arr + dissonance_loss_arr.reshape((
+            dissonance_loss_arr.shape[0], 
+            dissonance_loss_arr.shape[1], 
+            1,
+            1
+        ))
         return delta_arr
 
     def __compute_dissonance(self, arr):
-        y_arr, x_arr = np.where(arr == 1)
-        loss_list = []
-        for i in range(arr.shape[0]):
-            loss = 0.0
-            pitch_arr = x_arr[y_arr == i]
-            if pitch_arr.shape[0] > 0:
-                pitch_arr = pitch_arr + min_pitch
-                pitch_arr = pitch_arr % 12
+        loss_arr = np.zeros((arr.shape[0], arr.shape[1], 1))
+        for batch in range(arr.shape[0]):
+            for channel in range(arr.shape[1]):
+                y_arr, x_arr = np.where(arr[batch, channel] == 1)
+                loss_list = []
+                for i in range(arr[batch, channel].shape[0]):
+                    loss = 0.0
+                    pitch_arr = x_arr[y_arr == i]
+                    if pitch_arr.shape[0] > 0:
+                        pitch_arr = pitch_arr + self.__min_pitch
+                        pitch_arr = pitch_arr % 12
 
-                for j in range(pitch_arr.shape[0]):
-                    for k in range(pitch_arr.shape[0]):
-                        if j == k:
-                            continue
-                    interval_key = abs(pitch_arr[j] - pitch_arr[k])
-                    loss += self.__freq_ratio_score_list[interval_key]
-            loss_list.append(loss)
+                        for j in range(pitch_arr.shape[0]):
+                            for k in range(pitch_arr.shape[0]):
+                                if j == k:
+                                    continue
+                            interval_key = abs(pitch_arr[j] - pitch_arr[k])
+                            loss += self.__freq_ratio_score_list[interval_key]
+                    loss_list.append(loss)
+                loss_arr[batch, channel] = sum(loss_list)
 
-        return np.array(loss_list)
+        loss_arr = np.nan_to_num(loss_arr)
+        return loss_arr

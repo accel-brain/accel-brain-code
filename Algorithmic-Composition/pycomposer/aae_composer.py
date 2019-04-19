@@ -9,6 +9,8 @@ from pycomposer.midi_controller import MidiController
 from pycomposer.truesampler.bar_true_sampler import BarTrueSampler
 # is-a `NoiseSampler`.
 from pycomposer.noisesampler.bar_noise_sampler import BarNoiseSampler
+# is-a `ComputableLoss`.
+from pycomposer.computableloss.dissonance_loss import DissonanceLoss
 
 # is-a `NoiseSampler`.
 from pygan.noisesampler.uniform_noise_sampler import UniformNoiseSampler
@@ -182,7 +184,7 @@ class AAEComposer(object):
         if generative_model is None:
             conv1 = ConvolutionLayerG1(
                 CNNGraphG1(
-                    activation_function=TanhFunction(),
+                    activation_function=DeterministicBinaryNeurons(),
                     # The number of filters.
                     filter_num=batch_size,
                     channel=channel,
@@ -238,7 +240,7 @@ class AAEComposer(object):
                 learning_attenuate_rate=0.1,
                 # # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
                 attenuate_epoch=25,
-                computable_loss=MeanSquaredError(),
+                computable_loss=DissonanceLoss(CrossEntropy(), min_pitch=min_pitch),
                 opt_params=opt_params,
                 verificatable_result=VerificateFunctionApproximation(),
                 # # Size of Test data set. If this value is `0`, the validation will not be executed.

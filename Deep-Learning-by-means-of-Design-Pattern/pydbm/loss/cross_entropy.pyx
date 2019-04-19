@@ -40,7 +40,7 @@ class CrossEntropy(ComputableLoss):
 
         cdef int batch_size = pred_arr.shape[0]
         cdef np.ndarray _pred_arr = pred_arr[np.arange(batch_size), _labeled_arr]
-        _pred_arr = ((1 - 1e-15) * (_pred_arr - _pred_arr.min()) / (_pred_arr.max() - _pred_arr.min())) + 1e-15
+        _pred_arr = ((1 - 1e-15) * (_pred_arr - _pred_arr.min()) / (_pred_arr.max() - _pred_arr.min() + 1e-15)) + 1e-15
         return -np.sum(np.log(_pred_arr), axis=axis) / batch_size
 
     def compute_delta(self, np.ndarray pred_arr, np.ndarray labeled_arr, delta_output=1):

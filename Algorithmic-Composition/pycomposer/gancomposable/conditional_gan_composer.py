@@ -86,14 +86,29 @@ class ConditionalGANComposer(GANComposable):
     the `TrueSampler` and makes it possible to compose similar but slightly different music by the 
     imitation.
 
+    In this class, Convolutional Neural Networks(CNNs) and Deconvolution Networks are implemented as 
+    `Generator` and `Discriminator`. The Deconvolution also called transposed convolutions "work by 
+    swapping the forward and backward passes of a convolution." (Dumoulin, V., & Visin, F. 2016, p20.)
+
     Following MidiNet and MuseGAN(Dong, H. W., et al., 2018), this class consider bars
     as the basic compositional unit for the fact that harmonic changes usually occur at 
     the boundaries of bars and that human beings often use bars as the building blocks 
     when composing songs. The feature engineering in this class also is inspired by 
-    the Multi-track piano-roll representations in MuseGAN. 
+    the Multi-track piano-roll representations in MuseGAN. But their strategies of 
+    activation function did not apply to this library since its methods can cause 
+    information losses. The models just binarize the `Generator`'s output, which 
+    uses tanh as an activation function in the output layer, by a threshold at zero, 
+    or by deterministic or stochastic binary neurons(Bengio, Y., et al., 2018, Chung, J., et al., 2016), 
+    and ignore drawing a distinction the consonance and the dissonance.
+
+    This library simply uses the softmax strategy. This class stochastically selects 
+    a combination of pitches in each bars drawn by the true MIDI files data.
 
     References:
+        - Bengio, Y., Léonard, N., & Courville, A. (2013). Estimating or propagating gradients through stochastic neurons for conditional computation. arXiv preprint arXiv:1308.3432.
+        - Chung, J., Ahn, S., & Bengio, Y. (2016). Hierarchical multiscale recurrent neural networks. arXiv preprint arXiv:1609.01704.
         - Dong, H. W., Hsiao, W. Y., Yang, L. C., & Yang, Y. H. (2018, April). MuseGAN: Multi-track sequential generative adversarial networks for symbolic music generation and accompaniment. In Thirty-Second AAAI Conference on Artificial Intelligence.
+        - Dumoulin, V., & V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
         - Fang, W., Zhang, F., Sheng, V. S., & Ding, Y. (2018). A method for improving CNN-based image recognition using DCGAN. Comput. Mater. Contin, 57, 167-178.
         - Gauthier, J. (2014). Conditional generative adversarial nets for convolutional face generation. Class Project for Stanford CS231N: Convolutional Neural Networks for Visual Recognition, Winter semester, 2014(5), 2.
         - Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., ... & Bengio, Y. (2014). Generative adversarial nets. In Advances in neural information processing systems (pp. 2672-2680).
@@ -109,7 +124,7 @@ class ConditionalGANComposer(GANComposable):
         seq_len=8,
         time_fraction=1.0,
         learning_rate=1e-10,
-        hidden_dim=None,
+        hidden_dim=15200,
         generative_model=None,
         discriminative_model=None,
         gans_value_function=None

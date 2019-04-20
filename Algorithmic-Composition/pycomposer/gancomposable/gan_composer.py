@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 import pandas as pd
-
 from pycomposer.gan_composable import GANComposable
 
 # MIDI controller.
@@ -52,12 +51,40 @@ class GANComposer(GANComposable):
     the `TrueSampler` and makes it possible to compose similar but slightly different music by the 
     imitation.
 
+    In this class, Long short term memory(LSTM) networks are implemented as `Generator` and `Discriminator`.
+    Originally, Long Short-Term Memory(LSTM) networks as a special RNN structure has proven stable and 
+    powerful for modeling long-range dependencies.
+    
+    The Key point of structural expansion is its memory cell which essentially acts as an accumulator of the state information. 
+    Every time observed data points are given as new information and input to LSTM's input gate, its information will be accumulated to 
+    the cell if the input gate is activated. The past state of cell could be forgotten in this process if LSTM's forget gate is on.
+    Whether the latest cell output will be propagated to the final state is further controlled by the output gate.
+
+    Following MidiNet and MuseGAN(Dong, H. W., et al., 2018), this class consider bars
+    as the basic compositional unit for the fact that harmonic changes usually occur at 
+    the boundaries of bars and that human beings often use bars as the building blocks 
+    when composing songs. The feature engineering in this class also is inspired by 
+    the Multi-track piano-roll representations in MuseGAN. But their strategies of 
+    activation function did not apply to this library since its methods can cause 
+    information losses. The models just binarize the `Generator`'s output, which 
+    uses tanh as an activation function in the output layer, by a threshold at zero, 
+    or by deterministic or stochastic binary neurons(Bengio, Y., et al., 2018, Chung, J., et al., 2016), 
+    and ignore drawing a distinction the consonance and the dissonance.
+
+    This library simply uses the softmax strategy. This class stochastically selects 
+    a combination of pitches in each bars drawn by the true MIDI files data.
+
     References:
+        - Bengio, Y., Léonard, N., & Courville, A. (2013). Estimating or propagating gradients through stochastic neurons for conditional computation. arXiv preprint arXiv:1308.3432.
+        - Chung, J., Ahn, S., & Bengio, Y. (2016). Hierarchical multiscale recurrent neural networks. arXiv preprint arXiv:1609.01704.
+        - Dong, H. W., Hsiao, W. Y., Yang, L. C., & Yang, Y. H. (2018, April). MuseGAN: Multi-track sequential generative adversarial networks for symbolic music generation and accompaniment. In Thirty-Second AAAI Conference on Artificial Intelligence.
         - Fang, W., Zhang, F., Sheng, V. S., & Ding, Y. (2018). A method for improving CNN-based image recognition using DCGAN. Comput. Mater. Contin, 57, 167-178.
         - Gauthier, J. (2014). Conditional generative adversarial nets for convolutional face generation. Class Project for Stanford CS231N: Convolutional Neural Networks for Visual Recognition, Winter semester, 2014(5), 2.
         - Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., ... & Bengio, Y. (2014). Generative adversarial nets. In Advances in neural information processing systems (pp. 2672-2680).
         - Long, J., Shelhamer, E., & Darrell, T. (2015). Fully convolutional networks for semantic segmentation. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 3431-3440).
         - Makhzani, A., Shlens, J., Jaitly, N., Goodfellow, I., & Frey, B. (2015). Adversarial autoencoders. arXiv preprint arXiv:1511.05644.
+        - Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., & Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.
+        - Zaremba, W., Sutskever, I., & Vinyals, O. (2014). Recurrent neural network regularization. arXiv preprint arXiv:1409.2329.
 
     '''
 

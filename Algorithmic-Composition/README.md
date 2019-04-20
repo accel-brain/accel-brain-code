@@ -72,7 +72,7 @@ Following MidiNet and MuseGAN(Dong, H. W., et al., 2018), this class consider ba
 
 But their strategies of activation function did not apply to this library since its methods can cause information losses. The models just binarize the `Generator`'s output, which uses tanh as an activation function in the output layer, by a threshold at zero, or by deterministic or stochastic binary neurons(Bengio, Y., et al., 2018, Chung, J., et al., 2016), and ignore drawing a distinction the consonance and the dissonance.
 
-This library simply uses the softmax strategy. This class stochastically selects a combination of pitches in each bars drawn by the true MIDI files data.
+This library simply uses the softmax strategy. This class stochastically selects a combination of pitches in each bars drawn by the true MIDI files data, based on the difference between consonance and dissonance intended by the composer of the MIDI files.
 
 ## Usecase: Composed of single instruments/tracks by GANs.
 

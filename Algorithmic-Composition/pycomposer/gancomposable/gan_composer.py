@@ -72,7 +72,8 @@ class GANComposer(GANComposable):
     and ignore drawing a distinction the consonance and the dissonance.
 
     This library simply uses the softmax strategy. This class stochastically selects 
-    a combination of pitches in each bars drawn by the true MIDI files data.
+    a combination of pitches in each bars drawn by the true MIDI files data, based on 
+    the difference between consonance and dissonance intended by the composer of the MIDI files.
 
     References:
         - Bengio, Y., Léonard, N., & Courville, A. (2013). Estimating or propagating gradients through stochastic neurons for conditional computation. arXiv preprint arXiv:1308.3432.

@@ -4,7 +4,7 @@ import pandas as pd
 from abc import ABCMeta, abstractmethod
 
 
-class GanComposable(metaclass=ABCMeta):
+class GANComposable(metaclass=ABCMeta):
     '''
     The interface to build an Algorithmic Composer 
     based on Generative Adversarial Networks(GANs) or its variants such as

@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 
-from pycomposer.gancomposable.gan_composable import GANComposable
+from pycomposer.gan_composable import GANComposable
 
 # MIDI controller.
 from pycomposer.midi_controller import MidiController
@@ -186,9 +186,10 @@ class AAEComposer(GANComposable):
             channel = len(program_list)
 
         if generative_model is None:
+            activation_function = DeterministicBinaryNeurons()
             conv1 = ConvolutionLayerG1(
                 CNNGraphG1(
-                    activation_function=DeterministicBinaryNeurons(),
+                    activation_function=activation_function,
                     # The number of filters.
                     filter_num=batch_size,
                     channel=channel,
@@ -216,21 +217,22 @@ class AAEComposer(GANComposable):
                 )
             )
 
-            conv3 = ConvolutionLayerG3(
-                CNNGraphG3(
-                    activation_function=DeterministicBinaryNeurons(),
-                    filter_num=batch_size,
-                    channel=batch_size,
-                    kernel_size=3,
-                    scale=scale,
-                    stride=1,
-                    pad=1
-                )
-            )
-
+            activation_function = TanhFunction()
+            activation_function.batch_norm = BatchNorm()
             deconvolution_layer_list = [
                 DeconvolutionLayer1(
                     DeCNNGraphD1(
+                        activation_function=activation_function,
+                        filter_num=batch_size,
+                        channel=batch_size,
+                        kernel_size=3,
+                        scale=scale,
+                        stride=1,
+                        pad=1
+                    )
+                ),
+                DeconvolutionLayer2(
+                    DeCNNGraphD2(
                         activation_function=DeterministicBinaryNeurons(),
                         filter_num=batch_size,
                         channel=channel,
@@ -249,8 +251,7 @@ class AAEComposer(GANComposable):
             convolutional_auto_encoder = CAE(
                 layerable_cnn_list=[
                     conv1, 
-                    conv2,
-                    conv3
+                    conv2
                 ],
                 epochs=100,
                 batch_size=batch_size,
@@ -260,6 +261,7 @@ class AAEComposer(GANComposable):
                 # # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
                 attenuate_epoch=25,
                 computable_loss=DissonanceLoss(CrossEntropy(), min_pitch=min_pitch),
+                #computable_loss=MeanSquaredError(),
                 opt_params=opt_params,
                 verificatable_result=VerificateFunctionApproximation(),
                 # # Size of Test data set. If this value is `0`, the validation will not be executed.
@@ -331,7 +333,7 @@ class AAEComposer(GANComposable):
                 layerable_cnn_list=layerable_cnn_list,
                 cnn_output_graph=cnn_output_graph,
                 opt_params=opt_params,
-                computable_loss=CrossEntropy(),
+                computable_loss=MeanSquaredError(),
                 learning_rate=learning_rate,
                 verbose_mode=False
             )

@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 
-from pycomposer.gancomposable.gan_composable import GANComposable
+from pycomposer.gan_composable import GANComposable
 
 # MIDI controller.
 from pycomposer.midi_controller import MidiController

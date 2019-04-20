@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 
-from pycomposer.gancomposable.gan_composable import GANComposable
+from pycomposer.gan_composable import GANComposable
 
 # MIDI controller.
 from pycomposer.midi_controller import MidiController
@@ -179,7 +179,7 @@ class ConditionalGANComposer(GANComposable):
             )
 
         if generative_model is None:
-            conv_activation_function = LogisticFunction()
+            conv_activation_function = TanhFunction()
             conv_activation_function.batch_norm = BatchNorm()
 
             channel = noise_sampler.channel
@@ -229,8 +229,8 @@ class ConditionalGANComposer(GANComposable):
                 layerable_cnn_list=convolution_layer_list,
                 deconvolution_model=deconvolution_model,
                 conditon_noise_sampler=UniformNoiseSampler(
-                    low=0, 
-                    high=0.01, 
+                    low=-0.1, 
+                    high=0.1, 
                     output_shape=(batch_size, channel, seq_len, dim)
                 ),
                 learning_rate=learning_rate,

@@ -1,6 +1,7 @@
 # Algorithmic Composition or Automatic Composition Library: pycomposer
 
-`pycomposer` is Python library for Algorithmic Composition or Automatic Composition based on the stochastic music theory and the Statistical machine learning problems. Especialy, this library provides apprication of the Algorithmic Composer based on Generative Adversarial Networks(GANs).
+`pycomposer` is Python library for Algorithmic Composition or Automatic Composition based on the stochastic music theory and the Statistical machine learning problems. Especialy, this library provides apprication of the Algorithmic Composer based on Generative Adversarial Networks(GANs)
+and Conditional Generative Adversarial Networks(Conditional GANs).
 
 ## Installation
 
@@ -65,6 +66,14 @@ By default, `Generator` and `Discriminator` are built as LSTM networks, observin
 
 After this game, the `Generator` will grow into a functional equivalent that enables to imitate the `TrueSampler` and makes it possible to compose similar but slightly different music by the imitation.
 
+### Data Representation
+
+Following MidiNet and MuseGAN(Dong, H. W., et al., 2018), this class consider bars as the basic compositional unit for the fact that harmonic changes usually occur at the boundaries of bars and that human beings often use bars as the building blocks when composing songs. The feature engineering in this class also is inspired by the Multi-track piano-roll representations in MuseGAN.
+
+But their strategies of activation function did not apply to this library since its methods can cause information losses. The models just binarize the `Generator`'s output, which uses tanh as an activation function in the output layer, by a threshold at zero, or by deterministic or stochastic binary neurons(Bengio, Y., et al., 2018, Chung, J., et al., 2016), and ignore drawing a distinction the consonance and the dissonance.
+
+This library simply uses the softmax strategy. This class stochastically selects a combination of pitches in each bars drawn by the true MIDI files data.
+
 ## Usecase: Composed of single instruments/tracks by GANs.
 
 Import Python modules.
@@ -86,11 +95,11 @@ gan_composer = GANComposer(
     # Program in generated MIDI.
     target_program=0,
     # Batch size.
-    batch_size=10,
+    batch_size=20,
     # The length of sequence that LSTM networks will observe.
-    seq_len=4,
+    seq_len=8,
     # Time fraction or time resolution (seconds).
-    time_fraction=0.5
+    time_fraction=1.0
 )
 ```
 
@@ -111,11 +120,6 @@ After learning, `gan_composer` enables to compose melody and new MIDI file by le
 gan_composer.compose(
     # Path to generated MIDI file.
     file_path="path/to/new/midi/file.mid", 
-    # Minimum of pitch.
-    # This class generates the pitch in the range 
-    # `pitch_min` to `pitch_min` + 12.
-    # If `None`, the average pitch in MIDI files set to this parameter.
-    pitch_min=None,
     # Mean of velocity.
     # This class samples the velocity from a Gaussian distribution of 
     # `velocity_mean` and `velocity_std`.
@@ -150,11 +154,11 @@ gan_composer = ConditionalGANComposer(
         "path/to/your/midi/files.mid"
     ], 
     # Batch size.
-    batch_size=10,
+    batch_size=20,
     # The length of sequence that LSTM networks will observe.
-    seq_len=4,
+    seq_len=8,
     # Time fraction or time resolution (seconds).
-    time_fraction=0.5
+    time_fraction=1.0
 )
 ```
 
@@ -175,11 +179,6 @@ After learning, `gan_composer` enables to compose melody and new MIDI file by le
 gan_composer.compose(
     # Path to generated MIDI file.
     file_path="path/to/new/midi/file.mid", 
-    # Minimum of pitch.
-    # This class generates the pitch in the range 
-    # `pitch_min` to `pitch_min` + 12.
-    # If `None`, the average pitch in MIDI files set to this parameter.
-    pitch_min=None,
     # Mean of velocity.
     # This class samples the velocity from a Gaussian distribution of 
     # `velocity_mean` and `velocity_std`.
@@ -197,6 +196,9 @@ Finally, new MIDI file will be stored in `file_path`.
 
 ## References
 
+- Bengio, Y., Léonard, N., & Courville, A. (2013). Estimating or propagating gradients through stochastic neurons for conditional computation. arXiv preprint arXiv:1308.3432.
+- Chung, J., Ahn, S., & Bengio, Y. (2016). Hierarchical multiscale recurrent neural networks. arXiv preprint arXiv:1609.01704.
+- Dong, H. W., Hsiao, W. Y., Yang, L. C., & Yang, Y. H. (2018, April). MuseGAN: Multi-track sequential generative adversarial networks for symbolic music generation and accompaniment. In Thirty-Second AAAI Conference on Artificial Intelligence.
 - Fang, W., Zhang, F., Sheng, V. S., & Ding, Y. (2018). A method for improving CNN-based image recognition using DCGAN. Comput. Mater. Contin, 57, 167-178.
 - Gauthier, J. (2014). Conditional generative adversarial nets for convolutional face generation. Class Project for Stanford CS231N: Convolutional Neural Networks for Visual Recognition, Winter semester, 2014(5), 2.
 - Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., ... & Bengio, Y. (2014). Generative adversarial nets. In Advances in neural information processing systems (pp. 2672-2680).

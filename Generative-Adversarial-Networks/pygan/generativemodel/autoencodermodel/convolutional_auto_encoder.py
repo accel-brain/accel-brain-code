@@ -47,6 +47,7 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         convolutional_auto_encoder=None,
         deconvolution_layer_list=None,
         gray_scale_flag=True,
+        channel=None,
         verbose_mode=False
     ):
         '''
@@ -57,7 +58,11 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
             learning_rate:                  Learning rate.
             convolutional_auto_encoder:     is-a `pydbm.cnn.convolutionalneuralnetwork.convolutional_auto_encoder.ConvolutionalAutoEncoder`.
             deconvolution_layer_list:       `list` of `DeconvolutionLayer`.
-            gray_scale_flag:                Gray scale or not. If `True`, the channel will be `1`. If `False`, the channel will be `3`.
+            gray_scale_flag:                Gray scale or not.
+                                            This parameter will be refered when `channel` is None.
+                                            If `True`, the channel will be `1`. If `False`, the channel will be `3`.
+
+            channel:                        Channel.
             verbose_mode:                   Verbose mode or not.
         '''
         logger = getLogger("pydbm")
@@ -71,10 +76,11 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
 
         logger.addHandler(handler)
 
-        if gray_scale_flag is True:
-            channel = 1
-        else:
-            channel = 3
+        if channel is None:
+            if gray_scale_flag is True:
+                channel = 1
+            else:
+                channel = 3
 
         if opt_params is None:
             opt_params = Adam()

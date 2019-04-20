@@ -74,8 +74,9 @@ class BarNoiseSampler(NoiseSampler):
                     high=midi_df.end.max() - (self.__seq_len * self.__time_fraction)
                 )
                 for seq in range(self.__seq_len):
-                    df = midi_df[midi_df.start < row + (seq * self.__time_fraction)]
-                    df = df[df.end > row + ((seq+1) * self.__time_fraction)]
+                    start = row + (seq * self.__time_fraction)
+                    end = row + ((seq+1) * self.__time_fraction)
+                    df = midi_df[(start <= midi_df.start) & (midi_df.start <= end)]
                     sampled_arr[batch, i, seq] = self.__convert_into_feature(df)
 
         return sampled_arr

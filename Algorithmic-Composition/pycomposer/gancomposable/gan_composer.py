@@ -6,11 +6,9 @@ from pycomposer.gan_composable import GANComposable
 
 # MIDI controller.
 from pycomposer.midi_controller import MidiController
+# n-gram of bars.
+from pycomposer.bar_gram import BarGram
 
-# is-a `TrueSampler`
-from pycomposer.truesampler.midi_true_sampler import MidiTrueSampler
-# is-a `NoiseSampler`.
-from pycomposer.noisesampler.midi_noise_sampler import MidiNoiseSampler
 # is-a `GenerativeModel`.
 from pygan.generativemodel.lstm_model import LSTMModel as Generator
 # is-a `DiscriminativeModel`.
@@ -22,10 +20,6 @@ from pygan.generative_adversarial_networks import GenerativeAdversarialNetworks
 
 # Activation function.
 from pydbm.activation.tanh_function import TanhFunction
-# Sign function as activation function.
-from pydbm.activation.signfunction.deterministic_binary_neurons import DeterministicBinaryNeurons
-from pydbm.activation.signfunction.stochastic_binary_neurons import StochasticBinaryNeurons
-
 # Batch normalization.
 from pydbm.optimization.batch_norm import BatchNorm
 
@@ -71,14 +65,10 @@ class GANComposer(GANComposable):
         self, 
         midi_path_list, 
         target_program=0,
-        batch_size=10,
-        seq_len=4,
+        batch_size=20,
+        seq_len=8,
         time_fraction=1.0,
-        min_pitch=24,
-        max_pitch=108,
-        learning_rate=1e-05,
-        true_sampler=None,
-        noise_sampler=None,
+        learning_rate=1e-10,
         generative_model=None,
         discriminative_model=None,
         gans_value_function=None
@@ -92,11 +82,7 @@ class GANComposer(GANComposable):
             batch_size:             Batch size.
             seq_len:                The length of sequence that LSTM networks will observe.
             time_fraction:          Time fraction or time resolution (seconds).
-            min_pitch:              The minimum of note number.
-            max_pitch:              The maximum of note number.
             learning_rate:          Learning rate in `Generator` and `Discriminator`.
-            true_sampler:           is-a `TrueSampler`.
-            noise_sampler:          is-a `NoiseSampler`.
             generative_model:       is-a `GenerativeModel`.
             discriminative_model:   is-a `DiscriminativeModel`.
             gans_value_function:    is-a `GANsValueFunction`.
@@ -104,30 +90,33 @@ class GANComposer(GANComposable):
         self.__midi_controller = MidiController()
         self.__midi_df_list = [self.__midi_controller.extract(midi_path) for midi_path in midi_path_list]
 
-        # The dimension of observed or feature points.
-        dim = max_pitch - min_pitch
+        bar_gram = BarGram(
+            midi_df_list=self.__midi_df_list,
+            time_fraction=time_fraction
+        )
+        self.__bar_gram = bar_gram
+        dim = self.__bar_gram.dim
 
-        if true_sampler is None:
-            true_sampler = MidiTrueSampler(
-                midi_df_list=self.__midi_df_list,
-                batch_size=batch_size,
-                seq_len=seq_len,
-                time_fraction=time_fraction,
-                min_pitch=min_pitch,
-                max_pitch=max_pitch
-            )
+        true_sampler = BarGramTrueSampler(
+            bar_gram=bar_gram,
+            midi_df_list=self.__midi_df_list,
+            batch_size=batch_size,
+            seq_len=seq_len,
+            time_fraction=time_fraction
+        )
 
-        if noise_sampler is None:
-            noise_sampler = MidiNoiseSampler(
-                batch_size=batch_size,
-                seq_len=seq_len,
-                min_pitch=min_pitch,
-                max_pitch=max_pitch
-            )
+        noise_sampler = BarGramNoiseSampler(
+            bar_gram=bar_gram,
+            midi_df_list=self.__midi_df_list,
+            batch_size=batch_size,
+            seq_len=seq_len,
+            time_fraction=time_fraction
+        )
 
         if generative_model is None:
-            hidden_activating_function = DeterministicBinaryNeurons()
-            output_gate_activating_function = DeterministicBinaryNeurons()
+            hidden_activating_function = TanhFunction()
+            hidden_activating_function.batch_norm = BatchNorm()
+            output_gate_activating_function = SoftmaxFunction()
             generative_model = Generator(
                 batch_size=batch_size,
                 seq_len=seq_len,
@@ -160,7 +149,6 @@ class GANComposer(GANComposable):
         self.__GAN = GAN
         self.__time_fraction = time_fraction
         self.__target_program = target_program
-        self.__min_pitch = min_pitch
 
     def learn(self, iter_n=500, k_step=10):
         '''
@@ -227,16 +215,16 @@ class GANComposer(GANComposable):
         for batch in range(generated_arr.shape[0]):
             for seq in range(generated_arr.shape[2]):
                 add_flag = False
-                for pitch_key in range(generated_arr.shape[3]):
-                    if generated_arr[batch, seq, pitch_key] == 1:
-                        pitch = pitch_key + self.__min_pitch
-                        velocity = np.random.normal(
-                            loc=velocity_mean, 
-                            scale=velocity_std
-                        )
-                        velocity = int(velocity)
-                        generated_list.append((start, end, pitch, velocity))
-                        add_flag = True
+                pitch_key = np.argmax(generated_arr[batch, seq])
+                pitch_tuple = self.__bar_gram.pitch_tuple_list[pitch_key]
+                for pitch in pitch_tuple:
+                    velocity = np.random.normal(
+                        loc=velocity_mean, 
+                        scale=velocity_std
+                    )
+                    velocity = int(velocity)
+                    generated_list.append((start, end, pitch, velocity))
+                    add_flag = True
 
                 if add_flag is True:
                     start += self.__time_fraction

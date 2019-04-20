@@ -1,37 +1,40 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 from pygan.true_sampler import TrueSampler
+from pycomposer.bar_gram import BarGram
 
 
-class BarTrueSampler(TrueSampler):
+class BarGramTrueSampler(TrueSampler):
     '''
     Sampler which draws samples from the `true` distribution of MIDI files.
     '''
 
     def __init__(
         self, 
+        bar_gram,
         midi_df_list, 
         batch_size=20, 
         seq_len=10, 
         time_fraction=0.1,
-        min_pitch=24,
-        max_pitch=108,
         conditional_flag=True
     ):
         '''
         Init.
 
         Args:
+            bar_gram:           is-a `BarGram`.
             midi_df_list:      `list` of paths to MIDI data extracted by `MidiController`.
             batch_size:         Batch size.
             seq_len:            The length of sequneces.
                                 The length corresponds to the number of `time` splited by `time_fraction`.
 
             time_fraction:      Time fraction which means the length of bars.
-
-            min_pitch:          The minimum of note number.
-            max_pitch:          The maximum of note number.
         '''
+        if isinstance(bar_gram, BarGram) is False:
+            raise TypeError()
+
+        self.__bar_gram = bar_gram
+
         program_list = []
         self.__midi_df_list = midi_df_list
         for i in range(len(self.__midi_df_list)):
@@ -45,9 +48,7 @@ class BarTrueSampler(TrueSampler):
         self.__channel = len(program_list)
         self.__program_list = program_list
         self.__time_fraction = time_fraction
-        self.__min_pitch = min_pitch
-        self.__max_pitch = max_pitch
-        self.__dim = self.__max_pitch - self.__min_pitch
+        self.__dim = self.__bar_gram.dim
         self.__conditional_flag = conditional_flag
 
     def draw(self):
@@ -88,10 +89,5 @@ class BarTrueSampler(TrueSampler):
         return sampled_arr
 
     def __convert_into_feature(self, df):
-        arr = np.zeros(self.__dim)
-        for i in range(df.shape[0]):
-            if df.pitch.values[i] < self.__max_pitch - 1:
-                if df.pitch.values[i] - self.__min_pitch >= 0:
-                    arr[df.pitch.values[i] - self.__min_pitch] = 1
-
+        arr = self.__bar_gram.extract_features(df)
         return arr.reshape(1, -1).astype(float)

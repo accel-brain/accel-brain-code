@@ -8,11 +8,11 @@ from pycomposer.gan_composable import GANComposable
 from pycomposer.midi_controller import MidiController
 
 # is-a `TrueSampler`
-from pycomposer.truesampler.bar_true_sampler import BarTrueSampler
+from pycomposer.truesampler.bar_gram_true_sampler import BarGramTrueSampler
 # is-a `NoiseSampler`.
-from pycomposer.noisesampler.bar_noise_sampler import BarNoiseSampler
-# is-a `ComputableLoss`.
-from pycomposer.computableloss.dissonance_loss import DissonanceLoss
+from pycomposer.noisesampler.bar_gram_noise_sampler import BarGramNoiseSampler
+# n-gram of bars.
+from pycomposer.bar_gram import BarGram
 
 # is-a `NoiseSampler`.
 from pygan.noisesampler.uniform_noise_sampler import UniformNoiseSampler
@@ -29,6 +29,8 @@ from pygan.generative_adversarial_networks import GenerativeAdversarialNetworks
 
 # Activation function.
 from pydbm.activation.tanh_function import TanhFunction
+# Activation function.
+from pydbm.activation.softmax_function import SoftmaxFunction
 # Batch normalization.
 from pydbm.optimization.batch_norm import BatchNorm
 # First convolution layer.
@@ -43,30 +45,16 @@ from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph1
 from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph2
 # Logistic Function as activation function.
 from pydbm.activation.logistic_function import LogisticFunction
-# Tanh Function as activation function.
-from pydbm.activation.tanh_function import TanhFunction
-# ReLu Function as activation function.
-from pydbm.activation.relu_function import ReLuFunction
-# Identity function as activation function.
-from pydbm.activation.identity_function import IdentityFunction
-# Sign function as activation function.
-from pydbm.activation.signfunction.deterministic_binary_neurons import DeterministicBinaryNeurons
-from pydbm.activation.signfunction.stochastic_binary_neurons import StochasticBinaryNeurons
-# SGD optimizer.
-from pydbm.optimization.optparams.sgd import SGD
 # Adams optimizer.
 from pydbm.optimization.optparams.adam import Adam
 # Convolutional Neural Networks(CNNs).
 from pydbm.cnn.convolutional_neural_network import ConvolutionalNeuralNetwork as CNN
-# Mean Squared Error(MSE).
-from pydbm.loss.mean_squared_error import MeanSquaredError
+# Cross entropy.
 from pydbm.loss.cross_entropy import CrossEntropy
 # Transposed convolution.
 from pydbm.cnn.layerablecnn.convolutionlayer.deconvolution_layer import DeconvolutionLayer
 # computation graph for transposed convolution.
 from pydbm.synapse.cnn_graph import CNNGraph as DeCNNGraph
-# Verification.
-from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
 
 
 class ConditionalGANComposer(GANComposable):
@@ -117,15 +105,11 @@ class ConditionalGANComposer(GANComposable):
     def __init__(
         self, 
         midi_path_list, 
-        batch_size=10,
-        seq_len=4,
+        batch_size=20,
+        seq_len=8,
         time_fraction=1.0,
-        min_pitch=24,
-        max_pitch=108,
-        learning_rate=1e-05,
+        learning_rate=1e-10,
         hidden_dim=None,
-        true_sampler=None,
-        noise_sampler=None,
         generative_model=None,
         discriminative_model=None,
         gans_value_function=None
@@ -138,9 +122,6 @@ class ConditionalGANComposer(GANComposable):
             batch_size:             Batch size.
             seq_len:                The length of sequence that LSTM networks will observe.
             time_fraction:          Time fraction or time resolution (seconds).
-
-            min_pitch:              The minimum of note number.
-            max_pitch:              The maximum of note number.
 
             learning_rate:          Learning rate in `Generator` and `Discriminator`.
 
@@ -155,28 +136,28 @@ class ConditionalGANComposer(GANComposable):
         self.__midi_controller = MidiController()
         self.__midi_df_list = [self.__midi_controller.extract(midi_path) for midi_path in midi_path_list]
 
-        # The dimension of observed or feature points.
-        dim = max_pitch - min_pitch
+        bar_gram = BarGram(
+            midi_df_list=self.__midi_df_list,
+            time_fraction=time_fraction
+        )
+        self.__bar_gram = bar_gram
+        dim = self.__bar_gram.dim
 
-        if true_sampler is None:
-            true_sampler = BarTrueSampler(
-                midi_df_list=self.__midi_df_list,
-                batch_size=batch_size,
-                seq_len=seq_len,
-                time_fraction=time_fraction,
-                min_pitch=min_pitch,
-                max_pitch=max_pitch
-            )
+        true_sampler = BarGramTrueSampler(
+            bar_gram=bar_gram,
+            midi_df_list=self.__midi_df_list,
+            batch_size=batch_size,
+            seq_len=seq_len,
+            time_fraction=time_fraction
+        )
 
-        if noise_sampler is None:
-            noise_sampler = BarNoiseSampler(
-                midi_df_list=self.__midi_df_list,
-                batch_size=batch_size,
-                seq_len=seq_len,
-                time_fraction=time_fraction,
-                min_pitch=min_pitch,
-                max_pitch=max_pitch
-            )
+        noise_sampler = BarGramNoiseSampler(
+            bar_gram=bar_gram,
+            midi_df_list=self.__midi_df_list,
+            batch_size=batch_size,
+            seq_len=seq_len,
+            time_fraction=time_fraction
+        )
 
         if generative_model is None:
             conv_activation_function = TanhFunction()
@@ -198,7 +179,7 @@ class ConditionalGANComposer(GANComposable):
                 )
             ]
 
-            deconv_activation_function = DeterministicBinaryNeurons()
+            deconv_activation_function = SoftmaxFunction()
 
             deconvolution_layer_list = [
                 DeconvolutionLayer(
@@ -305,8 +286,6 @@ class ConditionalGANComposer(GANComposable):
         self.__discriminative_model = discriminative_model
         self.__GAN = GAN
         self.__time_fraction = time_fraction
-        self.__min_pitch = min_pitch
-        self.__max_pitch = max_pitch
 
     def learn(self, iter_n=500, k_step=10):
         '''
@@ -377,17 +356,17 @@ class ConditionalGANComposer(GANComposable):
             for seq in range(generated_arr.shape[2]):
                 add_flag = False
                 for program_key in range(generated_arr.shape[1]):
-                    for pitch_key in range(generated_arr.shape[3]):
-                        if generated_arr[batch, program_key, seq, pitch_key] == 1:
-                            pitch = pitch_key + self.__min_pitch
-                            velocity = np.random.normal(
-                                loc=velocity_mean, 
-                                scale=velocity_std
-                            )
-                            velocity = int(velocity)
-                            program = self.__noise_sampler.program_list[program_key]
-                            generated_list.append((program, start, end, pitch, velocity))
-                            add_flag = True
+                    pitch_key = np.argmax(generated_arr[batch, program_key, seq])
+                    pitch_tuple = self.__bar_gram.pitch_tuple_list[pitch_key]
+                    for pitch in pitch_tuple:
+                        velocity = np.random.normal(
+                            loc=velocity_mean, 
+                            scale=velocity_std
+                        )
+                        velocity = int(velocity)
+                        program = self.__noise_sampler.program_list[program_key]
+                        generated_list.append((program, start, end, pitch, velocity))
+                        add_flag = True
 
                 if add_flag is True:
                     start += self.__time_fraction
@@ -438,3 +417,9 @@ class ConditionalGANComposer(GANComposable):
         return self.__true_sampler
     
     true_sampler = property(get_true_sampler, set_readonly)
+
+    def get_bar_gram(self):
+        ''' getter '''
+        return self.__bar_gram
+
+    bar_gram = property(get_bar_gram, set_readonly)

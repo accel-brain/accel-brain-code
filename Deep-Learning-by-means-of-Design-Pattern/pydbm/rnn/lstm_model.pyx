@@ -655,11 +655,18 @@ class LSTMModel(ReconstructableModel):
                         self.graph.cec_activity_arr
                     )
                 else:
-                    self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
-                        pred_arr[:, cycle-1, :],
-                        self.graph.hidden_activity_arr,
-                        self.graph.cec_activity_arr
-                    )
+                    if observed_arr.shape[1] > cycle:
+                        self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
+                            observed_arr[:, cycle, :],
+                            self.graph.hidden_activity_arr,
+                            self.graph.cec_activity_arr
+                        )
+                    else:
+                        self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
+                            pred_arr[:, cycle-1, :],
+                            self.graph.hidden_activity_arr,
+                            self.graph.cec_activity_arr
+                        )
 
             elif self.graph.hidden_activity_arr.ndim == 3:
                 if self.__seq_len == 0 or cycle == 0:
@@ -669,11 +676,18 @@ class LSTMModel(ReconstructableModel):
                         self.graph.cec_activity_arr
                     )
                 else:
-                    self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
-                        pred_arr[:, cycle-1, :],
-                        self.graph.hidden_activity_arr[:, cycle, :],
-                        self.graph.cec_activity_arr
-                    )
+                    if observed_arr.shape[1] > cycle:
+                        self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
+                            observed_arr[:, cycle, :],
+                            self.graph.hidden_activity_arr[:, cycle, :],
+                            self.graph.cec_activity_arr
+                        )
+                    else:
+                        self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
+                            pred_arr[:, cycle-1, :],
+                            self.graph.hidden_activity_arr[:, cycle, :],
+                            self.graph.cec_activity_arr
+                        )
             else:
                 raise ValueError("The shape of hidden activity array is invalid.")
 

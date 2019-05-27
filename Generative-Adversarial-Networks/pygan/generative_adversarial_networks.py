@@ -6,6 +6,7 @@ from pygan.generative_model import GenerativeModel
 from pygan.discriminative_model import DiscriminativeModel
 from pygan.gans_value_function import GANsValueFunction
 from pygan.gansvaluefunction.mini_max import MiniMax
+from pygan.feature_matching import FeatureMatching
 
 
 class GenerativeAdversarialNetworks(object):
@@ -13,7 +14,7 @@ class GenerativeAdversarialNetworks(object):
     The controller for the Generative Adversarial Networks(GANs).
     '''
 
-    def __init__(self, gans_value_function=None):
+    def __init__(self, gans_value_function=None, feature_matching=False):
         '''
         Init.
 
@@ -24,9 +25,17 @@ class GenerativeAdversarialNetworks(object):
         if gans_value_function is None:
             gans_value_function = MiniMax()
 
+        if feature_matching is False:
+            feature_matching = FeatureMatching()
+
         if isinstance(gans_value_function, GANsValueFunction) is False:
             raise TypeError("The type of `gans_value_function` must be `GANsValueFunction`.")
+        
+        if isinstance(feature_matching, FeatureMatching) is False and feature_matching is not None:
+            raise TypeError("The type of `feature_matching` must be `FeatureMatching`.")
+
         self.__gans_value_function = gans_value_function
+        self.__feature_matching = feature_matching
         self.__logger = getLogger("pygan")
 
     def train(
@@ -86,6 +95,7 @@ class GenerativeAdversarialNetworks(object):
                 self.__logger.debug("-" * 100)
 
                 generative_model, g_logs_list = self.train_generator(
+                    true_sampler,
                     generative_model,
                     discriminative_model,
                     g_logs_list
@@ -145,6 +155,7 @@ class GenerativeAdversarialNetworks(object):
 
     def train_generator(
         self,
+        true_sampler,
         generative_model,
         discriminative_model,
         g_logs_list
@@ -153,6 +164,7 @@ class GenerativeAdversarialNetworks(object):
         Train the generator.
 
         Args:
+            true_sampler:           Sampler which draws samples from the `true` distribution.
             generative_model:       Generator which draws samples from the `fake` distribution.
             discriminative_model:   Discriminator which discriminates `true` from `fake`.
             g_logs_list:            `list` of Probabilities inferenced by the `discriminator` (mean) in the `generator`'s update turn.
@@ -169,8 +181,22 @@ class GenerativeAdversarialNetworks(object):
             generated_posterior_arr
         )
         grad_arr = discriminative_model.learn(grad_arr, fix_opt_flag=True)
-        grad_arr = grad_arr.reshape(generated_arr.shape)
-        generative_model.learn(grad_arr)
+
+        if self.__feature_matching is None:
+            grad_arr = grad_arr.reshape(generated_arr.shape)
+            generative_model.learn(grad_arr)
+        else:
+            grad_arr = self.__feature_matching.compute_delta(
+                true_sampler=true_sampler, 
+                discriminative_model=discriminative_model,
+                generated_arr=generated_arr
+            )
+            grad_arr = grad_arr.reshape(generated_arr.shape)
+            generative_model.learn(grad_arr)
+
+            self.__logger.debug(
+                "Loss of Feature matching: " + str(self.__feature_matching.loss_arr[-1])
+            )
 
         self.__logger.debug(
             "Probability inferenced by the `discriminator` (mean): " + str(generated_posterior_arr.mean())
@@ -192,3 +218,13 @@ class GenerativeAdversarialNetworks(object):
             - `list` of probabilities inferenced by the `discriminator` (mean) in the `generator`'s update turn.
         '''
         return self.__logs_tuple
+
+    def get_feature_matching(self):
+        ''' getter '''
+        return self.__feature_matching
+    
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+    
+    feature_matching = property(get_feature_matching, set_readonly)

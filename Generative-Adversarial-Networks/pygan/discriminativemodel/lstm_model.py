@@ -244,6 +244,33 @@ class LSTMModel(DiscriminativeModel):
 
         return delta_arr
 
+    def first_forward(self, observed_arr):
+        '''
+        Forward propagation in only first or intermediate layer
+        for so-called Feature matching.
+
+        Args:
+            observed_arr:       `np.ndarray` of observed data points.
+
+        Returns:
+            `np.ndarray` of outputs.
+        '''
+        return self.__lstm_model.hidden_forward_propagate(observed_arr)
+
+    def first_backward(self, grad_arr):
+        '''
+        Back propagation in only first or intermediate layer
+        for so-called Feature matching.
+
+        Args:
+            observed_arr:       `np.ndarray` of observed data points.
+
+        Returns:
+            `np.ndarray` of outputs.
+        '''
+        grad_arr, _, _ = self.__lstm_model.hidden_back_propagate(grad_arr)
+        return grad_arr
+
     def get_lstm_model(self):
         ''' getter '''
         return self.__lstm_model

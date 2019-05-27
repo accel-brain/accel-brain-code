@@ -156,6 +156,32 @@ class CNNModel(DiscriminativeModel):
             self.__cnn.optimize(self.__learning_rate, 1)
         return delta_arr
 
+    def first_forward(self, observed_arr):
+        '''
+        Forward propagation in only first or intermediate layer
+        for so-called Feature matching.
+
+        Args:
+            observed_arr:       `np.ndarray` of observed data points.
+
+        Returns:
+            `np.ndarray` of outputs.
+        '''
+        return self.__cnn.layerable_cnn_list[0].forward_propagate(observed_arr)
+
+    def first_backward(self, grad_arr):
+        '''
+        Back propagation in only first or intermediate layer
+        for so-called Feature matching.
+
+        Args:
+            observed_arr:       `np.ndarray` of observed data points.
+
+        Returns:
+            `np.ndarray` of outputs.
+        '''
+        return self.__cnn.layerable_cnn_list[0].deconvolve(grad_arr)
+
     def get_cnn(self):
         ''' getter '''
         return self.__cnn

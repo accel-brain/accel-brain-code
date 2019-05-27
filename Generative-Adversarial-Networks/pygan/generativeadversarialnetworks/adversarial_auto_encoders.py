@@ -31,6 +31,30 @@ class AdversarialAutoEncoders(GenerativeAdversarialNetworks):
 
         super().__init__(gans_value_function)
 
+    def pre_train(self, generative_model, epochs=300):
+        '''
+        Pre-train.
+
+        Args:
+            generative_model:       Generator which draws samples from the `fake` distribution.
+            epochs:                 Epochs.
+        
+        Returnes:
+            Tuple data.
+            -trained Generator which is-a `GenerativeModel`.
+            - `list` of the reconstruction errors.
+        '''
+        if isinstance(generative_model, AutoEncoderModel) is False:
+            raise TypeError("The type of `generative_model` must be `AutoEncoderModel`.")
+
+        a_logs_list = []
+        for _ in range(epochs):
+            generative_model, a_logs_list = self.train_auto_encoder(
+                generative_model,
+                a_logs_list
+            )
+        return generative_model, a_logs_list
+
     def train(
         self,
         true_sampler,
@@ -100,6 +124,7 @@ class AdversarialAutoEncoders(GenerativeAdversarialNetworks):
                 self.__logger.debug("-" * 100)
 
                 generative_model, g_logs_list = self.train_generator(
+                    true_sampler,
                     generative_model,
                     discriminative_model,
                     g_logs_list

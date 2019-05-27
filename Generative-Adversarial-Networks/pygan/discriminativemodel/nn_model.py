@@ -154,6 +154,38 @@ class NNModel(DiscriminativeModel):
             self.__nn.optimize(self.__learning_rate, 1)
         return delta_arr
 
+    def first_forward(self, observed_arr):
+        '''
+        Forward propagation in only first or intermediate layer
+        for so-called Feature matching.
+
+        Args:
+            observed_arr:       `np.ndarray` of observed data points.
+
+        Returns:
+            `np.ndarray` of outputs.
+        '''
+        if observed_arr.ndim != 2:
+            observed_arr = observed_arr.reshape((observed_arr.shape[0], -1))
+
+        return self.__nn.nn_layer_list[0].forward_propagate(observed_arr)
+
+    def first_backward(self, grad_arr):
+        '''
+        Back propagation in only first or intermediate layer
+        for so-called Feature matching.
+
+        Args:
+            observed_arr:       `np.ndarray` of observed data points.
+
+        Returns:
+            `np.ndarray` of outputs.
+        '''
+        if grad_arr.ndim != 2:
+            grad_arr = grad_arr.reshape((grad_arr.shape[0], -1))
+
+        return np.dot(grad_arr, self.__nn.nn_layer_list[0].graph.weight_arr.T)
+
     def get_nn(self):
         ''' getter '''
         return self.__nn

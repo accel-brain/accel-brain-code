@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 from pygan.noise_sampler import NoiseSampler
-from pygan.noisesampler.gauss_sampler import GaussSampler
 from pydbm.cnn.featuregenerator.image_generator import ImageGenerator
 
 

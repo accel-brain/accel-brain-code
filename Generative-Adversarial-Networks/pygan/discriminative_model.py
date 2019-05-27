@@ -34,3 +34,31 @@ class DiscriminativeModel(metaclass=ABCMeta):
             `np.ndarray` of delta or gradients.
         '''
         raise NotImplementedError()
+
+    @abstractmethod
+    def first_forward(self, observed_arr):
+        '''
+        Forward propagation in only first or intermediate layer
+        for so-called Feature matching.
+
+        Args:
+            observed_arr:       `np.ndarray` of observed data points.
+
+        Returns:
+            `np.ndarray` of outputs.
+        '''
+        raise NotImplementedError()
+
+    @abstractmethod
+    def first_backward(self, grad_arr):
+        '''
+        Back propagation in only first or intermediate layer
+        for so-called Feature matching.
+
+        Args:
+            observed_arr:       `np.ndarray` of observed data points.
+
+        Returns:
+            `np.ndarray` of outputs.
+        '''
+        raise NotImplementedError()

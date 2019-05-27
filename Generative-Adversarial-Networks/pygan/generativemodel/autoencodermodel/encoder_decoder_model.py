@@ -44,8 +44,23 @@ class EncoderDecoderModel(AutoEncoderModel):
         encoder_decoder_controller,
         seq_len=10,
         learning_rate=1e-10,
+        join_io_flag=False,
         verbose_mode=False
     ):
+        '''
+        Init.
+        
+        Args:
+            encoder_decoder_controller:         is-a `EncoderDecoderController`.
+            seq_len:                            The length of sequence.
+            learning_rate:                      Learning rate.
+            join_io_flag:                       If this value and value of `output_activating_function` is not `None`,
+                                                This model outputs tensors combining observed data points and inferenced data
+                                                in a series direction.
+
+            verbose_mode:                       Verbose mode or not.
+
+        '''
         logger = getLogger("pydbm")
         handler = StreamHandler()
         if verbose_mode is True:
@@ -63,6 +78,7 @@ class EncoderDecoderModel(AutoEncoderModel):
         self.__encoder_decoder_controller = encoder_decoder_controller
         self.__seq_len = seq_len
         self.__learning_rate = learning_rate
+        self.__join_io_flag = join_io_flag
         self.__verbose_mode = verbose_mode
 
     def draw(self):
@@ -74,8 +90,11 @@ class EncoderDecoderModel(AutoEncoderModel):
         '''
         observed_arr = self.noise_sampler.generate()
         _ = self.__encoder_decoder_controller.encoder.inference(observed_arr)
-        arr = self.__encoder_decoder_controller.encoder.get_feature_points()
-        return arr
+        inferenced_arr = self.__encoder_decoder_controller.encoder.get_feature_points()
+        if self.__join_io_flag is False:
+            return inferenced_arr
+        else:
+            return np.concatenate([observed_arr, inferenced_arr], axis=1)
 
     def inference(self, observed_arr):
         '''
@@ -87,7 +106,8 @@ class EncoderDecoderModel(AutoEncoderModel):
         Returns:
             `np.ndarray` of inferenced.
         '''
-        return self.__encoder_decoder_controller.inference(observed_arr)
+        inferenced_arr = self.__encoder_decoder_controller.inference(observed_arr)
+        return inferenced_arr
 
     def learn(self, grad_arr):
         '''
@@ -100,6 +120,9 @@ class EncoderDecoderModel(AutoEncoderModel):
             `np.ndarray` of delta or gradients.
 
         '''
+        if self.__join_io_flag is True:
+            grad_arr = grad_arr[:, self.__seq_len:]
+
         encoder_delta_arr, _, encoder_grads_list = self.__encoder_decoder_controller.encoder.hidden_back_propagate(
             grad_arr[:, -1]
         )

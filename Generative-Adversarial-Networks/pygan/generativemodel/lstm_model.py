@@ -56,7 +56,9 @@ class LSTMModel(GenerativeModel):
         forget_gate_activating_function=None,
         output_gate_activating_function=None,
         hidden_activating_function=None,
+        output_activating_function=None,
         seq_len=10,
+        join_io_flag=False,
         learning_rate=1e-05,
         verbose_mode=False
     ):
@@ -93,8 +95,16 @@ class LSTMModel(GenerativeModel):
             hidden_activating_function:         is-a `ActivatingFunctionInterface` in hidden layer.
                                                 This parameters will be refered only when `lstm_model` is `None`.
 
+            output_activating_function:         is-a `ActivatingFunctionInterface` in output layer.
+                                                This parameters will be refered only when `lstm_model` is `None`.
+                                                If `None`, this model outputs from LSTM's hidden layer in inferencing.
+
             seq_len:                            The length of sequences.
                                                 This means refereed maxinum step `t` in feedforward.
+
+            join_io_flag:                       If this value and value of `output_activating_function` is not `None`,
+                                                This model outputs tensors combining observed data points and inferenced data
+                                                in a series direction.
 
             learning_rate:                      Learning rate.
             verbose_mode:                       Verbose mode or not.
@@ -153,14 +163,21 @@ class LSTMModel(GenerativeModel):
                     raise TypeError()
                 graph.hidden_activating_function = hidden_activating_function
 
-            graph.output_activating_function = TanhFunction()
+            if output_activating_function is None:
+                graph.output_activating_function = TanhFunction()
+                self.__output_flag = False
+                output_neuron_count = 1
+            else:
+                graph.output_activating_function = output_activating_function
+                self.__output_flag = True
+                output_neuron_count = hidden_neuron_count
 
             # Initialization strategy.
             # This method initialize each weight matrices and biases in Gaussian distribution: `np.random.normal(size=hoge) * 0.01`.
             graph.create_rnn_cells(
                 input_neuron_count=input_neuron_count,
                 hidden_neuron_count=hidden_neuron_count,
-                output_neuron_count=1
+                output_neuron_count=output_neuron_count
             )
 
             opt_params = SGD()
@@ -198,6 +215,7 @@ class LSTMModel(GenerativeModel):
         self.__lstm_model = lstm_model
         self.__seq_len = seq_len
         self.__learning_rate = learning_rate
+        self.__join_io_flag = join_io_flag
         self.__verbose_mode = verbose_mode
         self.__loss_list = []
 
@@ -220,10 +238,17 @@ class LSTMModel(GenerativeModel):
             observed_arr:     `np.ndarray` of observed data points.
         
         Returns:
-            `np.ndarray` of inferenced.
+            `np.ndarray` of inferenced data.
         '''
-        _ = self.__lstm_model.inference(observed_arr)
-        return self.__lstm_model.get_feature_points()
+        inferenced_arr = self.__lstm_model.inference(observed_arr)
+        if self.__output_flag is True:
+            self.__inferenced_arr = inferenced_arr
+            if self.__join_io_flag is False:
+                return inferenced_arr
+            else:
+                return np.concatenate([observed_arr, inferenced_arr], axis=1)
+        else:
+            return self.__lstm_model.get_feature_points()
 
     def learn(self, grad_arr):
         '''
@@ -236,19 +261,26 @@ class LSTMModel(GenerativeModel):
             `np.ndarray` of delta or gradients.
 
         '''
-        if grad_arr.ndim > 3:
-            grad_arr = grad_arr.reshape((
-                grad_arr.shape[0],
-                grad_arr.shape[1],
-                -1
-            ))
-            grad_arr = grad_arr[:, -1]
-        elif grad_arr.ndim == 3:
-            grad_arr = grad_arr[:, -1]
+        if self.__output_flag is True:
+            if self.__join_io_flag is False:
+                delta_arr, grads_list = self.__lstm_model.back_propagation(self.__inferenced_arr, grad_arr)
+            else:
+                grad_arr = grad_arr[:, self.__seq_len:]
+                delta_arr, grads_list = self.__lstm_model.back_propagation(self.__inferenced_arr, grad_arr)
+        else:
+            if grad_arr.ndim > 3:
+                grad_arr = grad_arr.reshape((
+                    grad_arr.shape[0],
+                    grad_arr.shape[1],
+                    -1
+                ))
+                grad_arr = grad_arr[:, -1]
+            elif grad_arr.ndim == 3:
+                grad_arr = grad_arr[:, -1]
 
-        delta_arr, _, grads_list = self.__lstm_model.hidden_back_propagate(grad_arr)
-        grads_list.insert(0, None)
-        grads_list.insert(0, None)
+            delta_arr, _, grads_list = self.__lstm_model.hidden_back_propagate(grad_arr)
+            grads_list.insert(0, None)
+            grads_list.insert(0, None)
 
         self.__lstm_model.optimize(
             grads_list,

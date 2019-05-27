@@ -7,6 +7,7 @@ from pygan.generativemodel.auto_encoder_model import AutoEncoderModel
 from pygan.discriminative_model import DiscriminativeModel
 from pygan.gans_value_function import GANsValueFunction
 from pygan.gansvaluefunction.mini_max import MiniMax
+from pygan.feature_matching import FeatureMatching
 
 
 class AdversarialAutoEncoders(GenerativeAdversarialNetworks):
@@ -14,7 +15,7 @@ class AdversarialAutoEncoders(GenerativeAdversarialNetworks):
     The controller for the Adversarial Auto-Encoders(AAEs).
     '''
 
-    def __init__(self, gans_value_function=None):
+    def __init__(self, gans_value_function=None, feature_matching=False):
         '''
         Init.
 
@@ -26,10 +27,14 @@ class AdversarialAutoEncoders(GenerativeAdversarialNetworks):
 
         if isinstance(gans_value_function, GANsValueFunction) is False:
             raise TypeError("The type of `gans_value_function` must be `GANsValueFunction`.")
+
+        if isinstance(feature_matching, FeatureMatching) is False and feature_matching is not None:
+            raise TypeError("The type of `feature_matching` must be `FeatureMatching`.")
+
         self.__gans_value_function = gans_value_function
         self.__logger = getLogger("pygan")
 
-        super().__init__(gans_value_function)
+        super().__init__(gans_value_function, feature_matching)
 
     def pre_train(self, generative_model, epochs=300):
         '''

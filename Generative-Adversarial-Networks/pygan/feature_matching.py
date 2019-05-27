@@ -61,12 +61,12 @@ class FeatureMatching(object):
             _generated_arr,
             _true_arr
         )
+        grad_arr = discriminative_model.first_backward(grad_arr)
         loss = self.__mean_squared_error.compute_loss(
             _generated_arr,
             _true_arr
         )
         self.__loss_list.append(loss)
-        grad_arr = discriminative_model.first_backward(grad_arr)
         return grad_arr
 
     def set_readonly(self, value):

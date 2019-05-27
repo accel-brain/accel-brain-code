@@ -17,6 +17,7 @@ from pydbm.loss.mean_squared_error import MeanSquaredError
 from pydbm.optimization.optparams.adam import Adam
 from pydbm.optimization.opt_params import OptParams
 from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
+from pydbm.synapse.cnn_output_graph import CNNOutputGraph
 
 
 class DeconvolutionModel(GenerativeModel):
@@ -30,9 +31,13 @@ class DeconvolutionModel(GenerativeModel):
         - Dumoulin, V., & V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
     '''
 
+    # Computation graph which is-a `CNNOutputGraph` to compute parameters in output layer.
+    __cnn_output_graph = None
+
     def __init__(
         self,
         deconvolution_layer_list,
+        cnn_output_graph=None,
         opt_params=None,
         learning_rate=1e-05,
         verbose_mode=False
@@ -42,6 +47,7 @@ class DeconvolutionModel(GenerativeModel):
 
         Args:
             deconvolution_layer_list:   `list` of `DeconvolutionLayer`.
+            cnn_output_graph:               is-a `CNNOutputGraph`.
             opt_params:                 is-a `OptParams`. If `None`, this value will be `Adam`.
             learning_rate:              Learning rate.
             verbose_mode:               Verbose mode or not.
@@ -50,6 +56,9 @@ class DeconvolutionModel(GenerativeModel):
         for deconvolution_layer in deconvolution_layer_list:
             if isinstance(deconvolution_layer, DeconvolutionLayer) is False:
                 raise TypeError()
+
+        if cnn_output_graph is not None and isinstance(cnn_output_graph, CNNOutputGraph) is False:
+            raise TypeError("The type of `cnn_output_graph` must be `CNNOutputGraph`.")
 
         if opt_params is None:
             opt_params = Adam()
@@ -70,6 +79,7 @@ class DeconvolutionModel(GenerativeModel):
         logger.addHandler(handler)
 
         self.__deconvolution_layer_list = deconvolution_layer_list
+        self.__cnn_output_graph = cnn_output_graph
         self.__learning_rate = learning_rate
         self.__attenuate_epoch = 50
         self.__opt_params = opt_params
@@ -102,7 +112,30 @@ class DeconvolutionModel(GenerativeModel):
                 self.__logger.debug("Error raised in Deconvolution layer " + str(i + 1))
                 raise
 
-        return observed_arr
+        if self.__cnn_output_graph is not None:
+            return self.output_forward_propagate(observed_arr)
+        else:
+            return observed_arr
+
+    def output_forward_propagate(self, pred_arr):
+        '''
+        Forward propagation in output layer.
+        
+        Args:
+            pred_arr:            `np.ndarray` of predicted data points.
+
+        Returns:
+            `np.ndarray` of propagated data points.
+        '''
+        if self.__cnn_output_graph is not None:
+            _pred_arr = self.__cnn_output_graph.activating_function.activate(
+                np.dot(pred_arr.reshape((pred_arr.shape[0], -1)), self.__cnn_output_graph.weight_arr) + self.__cnn_output_graph.bias_arr
+            )
+            self.__cnn_output_graph.hidden_arr = pred_arr
+            self.__cnn_output_graph.output_arr = _pred_arr
+            return _pred_arr
+        else:
+            return pred_arr
 
     def learn(self, grad_arr, fix_opt_flag=False):
         '''
@@ -115,6 +148,22 @@ class DeconvolutionModel(GenerativeModel):
         Returns:
             `np.ndarray` of delta or gradients.
         '''
+        if self.__cnn_output_graph is not None:
+            if grad_arr.ndim != 2:
+                grad_arr = grad_arr.reshape((grad_arr.shape[0], -1))
+
+            grad_arr, output_grads_list = self.output_back_propagate(
+                self.__cnn_output_graph.output_arr, 
+                grad_arr
+            )
+            grad_arr = grad_arr.reshape((
+                self.__cnn_output_graph.hidden_arr.shape[0],
+                self.__cnn_output_graph.hidden_arr.shape[1],
+                self.__cnn_output_graph.hidden_arr.shape[2],
+                self.__cnn_output_graph.hidden_arr.shape[3]
+            ))
+            self.__cnn_output_graph.output_grads_list = output_grads_list
+
         deconvolution_layer_list = self.__deconvolution_layer_list[::-1]
         for i in range(len(deconvolution_layer_list)):
             try:
@@ -128,6 +177,33 @@ class DeconvolutionModel(GenerativeModel):
         
         return grad_arr
 
+    def output_back_propagate(self, pred_arr, delta_arr):
+        '''
+        Back propagation in output layer.
+
+        Args:
+            pred_arr:            `np.ndarray` of predicted data points.
+            delta_output_arr:    Delta.
+        
+        Returns:
+            Tuple data.
+            - `np.ndarray` of Delta, 
+            - `list` of gradations.
+        '''
+        _delta_arr = np.dot(
+            delta_arr,
+            self.__cnn_output_graph.weight_arr.T
+        )
+        delta_weights_arr = np.dot(pred_arr.T, _delta_arr).T
+        delta_bias_arr = np.sum(delta_arr, axis=0)
+
+        grads_list = [
+            delta_weights_arr,
+            delta_bias_arr
+        ]
+        
+        return (_delta_arr, grads_list)
+
     def __optimize(self, learning_rate, epoch):
         '''
         Back propagation.
@@ -139,6 +215,12 @@ class DeconvolutionModel(GenerativeModel):
         '''
         params_list = []
         grads_list = []
+
+        if self.__cnn_output_graph is not None:
+            params_list.append(self.__cnn_output_graph.weight_arr)
+            params_list.append(self.__cnn_output_graph.bias_arr)
+            grads_list.append(self.__cnn_output_graph.output_grads_list[0])
+            grads_list.append(self.__cnn_output_graph.output_grads_list[1])
 
         for i in range(len(self.__deconvolution_layer_list)):
             if self.__deconvolution_layer_list[i].delta_weight_arr.shape[0] > 0:
@@ -155,6 +237,10 @@ class DeconvolutionModel(GenerativeModel):
             grads_list,
             learning_rate
         )
+
+        if self.__cnn_output_graph is not None:
+            self.__cnn_output_graph.weight_arr = params_list.pop(0)
+            self.__cnn_output_graph.bias_arr = params_list.pop(0)
 
         i = 0
         for i in range(len(self.__deconvolution_layer_list)):

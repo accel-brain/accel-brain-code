@@ -36,7 +36,8 @@ class CNNModel(DiscriminativeModel):
         opt_params=None,
         verificatable_result=None,
         cnn=None,
-        verbose_mode=False
+        verbose_mode=False,
+        feature_matching_layer=0
     ):
         '''
         Init.
@@ -61,6 +62,7 @@ class CNNModel(DiscriminativeModel):
                                             by default hyper parameters.
 
             verbose_mode:                   Verbose mode or not.
+            feature_matching_layer:         Key of layer number for feature matching forward/backward.
 
         '''
         for layerable_cnn in layerable_cnn_list:
@@ -125,6 +127,7 @@ class CNNModel(DiscriminativeModel):
         self.__verbose_mode = verbose_mode
         self.__q_shape = None
         self.__loss_list = []
+        self.__feature_matching_layer = feature_matching_layer
 
     def inference(self, observed_arr):
         '''
@@ -156,7 +159,7 @@ class CNNModel(DiscriminativeModel):
             self.__cnn.optimize(self.__learning_rate, 1)
         return delta_arr
 
-    def first_forward(self, observed_arr):
+    def feature_matching_forward(self, observed_arr):
         '''
         Forward propagation in only first or intermediate layer
         for so-called Feature matching.
@@ -167,9 +170,15 @@ class CNNModel(DiscriminativeModel):
         Returns:
             `np.ndarray` of outputs.
         '''
-        return self.__cnn.layerable_cnn_list[0].forward_propagate(observed_arr)
+        if self.__feature_matching_layer == 0:
+            return self.__cnn.layerable_cnn_list[0].forward_propagate(observed_arr)
+        else:
+            for i in range(self.__feature_matching_layer):
+                observed_arr = self.__cnn.layerable_cnn_list[i].forward_propagate(observed_arr)
 
-    def first_backward(self, grad_arr):
+        return observed_arr
+
+    def feature_matching_backward(self, grad_arr):
         '''
         Back propagation in only first or intermediate layer
         for so-called Feature matching.
@@ -180,7 +189,13 @@ class CNNModel(DiscriminativeModel):
         Returns:
             `np.ndarray` of outputs.
         '''
-        return self.__cnn.layerable_cnn_list[0].deconvolve(grad_arr)
+        if self.__feature_matching_layer == 0:
+            return self.__cnn.layerable_cnn_list[0].deconvolve(grad_arr)
+        else:
+            cnn_layer_list = self.__cnn.layerable_cnn_list[:self.__feature_matching_layer][::-1]
+            for i in range(len(cnn_layer_list)):
+                grad_arr = cnn_layer_list[i].deconvolve(grad_arr)
+            return grad_arr
 
     def get_cnn(self):
         ''' getter '''

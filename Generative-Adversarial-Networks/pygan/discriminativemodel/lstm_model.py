@@ -244,7 +244,7 @@ class LSTMModel(DiscriminativeModel):
 
         return delta_arr
 
-    def first_forward(self, observed_arr):
+    def feature_matching_forward(self, observed_arr):
         '''
         Forward propagation in only first or intermediate layer
         for so-called Feature matching.
@@ -257,7 +257,7 @@ class LSTMModel(DiscriminativeModel):
         '''
         return self.__lstm_model.hidden_forward_propagate(observed_arr)
 
-    def first_backward(self, grad_arr):
+    def feature_matching_backward(self, grad_arr):
         '''
         Back propagation in only first or intermediate layer
         for so-called Feature matching.

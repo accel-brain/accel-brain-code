@@ -35,7 +35,8 @@ class NNModel(DiscriminativeModel):
         opt_params=None,
         verificatable_result=None,
         nn=None,
-        verbose_mode=False
+        verbose_mode=False,
+        feature_matching_layer=0
     ):
         '''
         Init.
@@ -59,6 +60,7 @@ class NNModel(DiscriminativeModel):
                                             by default hyper parameters.
 
             verbose_mode:                   Verbose mode or not.
+            feature_matching_layer:         Key of layer number for feature matching forward/backward.
 
         '''
         logger = getLogger("pydbm")
@@ -121,6 +123,7 @@ class NNModel(DiscriminativeModel):
         self.__verbose_mode = verbose_mode
         self.__q_shape = None
         self.__loss_list = []
+        self.__feature_matching_layer = feature_matching_layer
 
     def inference(self, observed_arr):
         '''
@@ -154,7 +157,7 @@ class NNModel(DiscriminativeModel):
             self.__nn.optimize(self.__learning_rate, 1)
         return delta_arr
 
-    def first_forward(self, observed_arr):
+    def feature_matching_forward(self, observed_arr):
         '''
         Forward propagation in only first or intermediate layer
         for so-called Feature matching.
@@ -168,9 +171,15 @@ class NNModel(DiscriminativeModel):
         if observed_arr.ndim != 2:
             observed_arr = observed_arr.reshape((observed_arr.shape[0], -1))
 
-        return self.__nn.nn_layer_list[0].forward_propagate(observed_arr)
+        if self.__feature_matching_layer == 0:
+            return self.__nn.nn_layer_list[0].forward_propagate(observed_arr)
+        else:
+            for i in range(self.__feature_matching_layer):
+                observed_arr = self.__nn.nn_layer_list[i].forward_propagate(observed_arr)
 
-    def first_backward(self, grad_arr):
+        return observed_arr
+
+    def feature_matching_backward(self, grad_arr):
         '''
         Back propagation in only first or intermediate layer
         for so-called Feature matching.
@@ -184,7 +193,13 @@ class NNModel(DiscriminativeModel):
         if grad_arr.ndim != 2:
             grad_arr = grad_arr.reshape((grad_arr.shape[0], -1))
 
-        return np.dot(grad_arr, self.__nn.nn_layer_list[0].graph.weight_arr.T)
+        if self.__feature_matching_layer == 0:
+            return np.dot(self.__nn.nn_layer_list[0].graph.weight_arr.T)
+        else:
+            nn_layer_list = self.__nn.nn_layer_list[:self.__feature_matching_layer][::-1]
+            for i in range(len(nn_layer_list)):
+                grad_arr = np.dot(grad_arr, nn_layer_list[i].graph.weight_arr.T)
+            return grad_arr
 
     def get_nn(self):
         ''' getter '''

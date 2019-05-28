@@ -36,7 +36,7 @@ class DiscriminativeModel(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    def first_forward(self, observed_arr):
+    def feature_matching_forward(self, observed_arr):
         '''
         Forward propagation in only first or intermediate layer
         for so-called Feature matching.
@@ -50,7 +50,7 @@ class DiscriminativeModel(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    def first_backward(self, grad_arr):
+    def feature_matching_backward(self, grad_arr):
         '''
         Back propagation in only first or intermediate layer
         for so-called Feature matching.

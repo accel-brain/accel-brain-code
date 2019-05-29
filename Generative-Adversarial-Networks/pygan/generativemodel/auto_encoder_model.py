@@ -10,6 +10,17 @@ class AutoEncoderModel(GenerativeModel):
     '''
 
     @abstractmethod
+    def pre_learn(self, true_sampler, epochs=1000):
+        '''
+        Pre learning.
+
+        Args:
+            true_sampler:       is-a `TrueSampler`.
+            epochs:             Epochs.
+        '''
+        raise NotImplementedError()
+
+    @abstractmethod
     def update(self):
         '''
         Update the encoder and the decoder

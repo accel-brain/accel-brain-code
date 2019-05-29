@@ -213,38 +213,8 @@ class LSTMModel(GenerativeModel):
         self.__join_io_flag = join_io_flag
         self.__computable_loss = computable_loss
         self.__loss_list = []
-        self.__pre_loss_arr = None
         logger = getLogger("pygan")
         self.__logger = logger
-
-    def pre_learn(self, true_sampler, epochs=1000):
-        '''
-        Pre learning.
-
-        Args:
-            true_sampler:       is-a `TrueSampler`.
-            epochs:             Epochs.
-        '''
-        if isinstance(true_sampler, TrueSampler) is False:
-            raise TypeError("The type of `true_sampler` must be `TrueSampler`.")
-        
-        pre_loss_list = []
-        for epoch in range(epochs):
-            try:
-                observed_arr = true_sampler.draw()
-                inferenced_arr = self.inference(observed_arr)
-                if observed_arr.size != inferenced_arr.size:
-                    raise ValueError("In pre-learning, the rank or shape of observed data points and feature points in last layer must be equivalent.")
-                grad_arr = self.__computable_loss.compute_delta(observed_arr, inferenced_arr)
-                loss = self.__computable_loss.compute_loss(observed_arr, inferenced_arr)
-                pre_loss_list.append(loss)
-                self.__logger.debug("Epoch: " + str(epoch) + " loss: " + str(loss))
-                self.learn(grad_arr)
-            except KeyboardInterrupt:
-                self.__logger.debug("Interrupt.")
-                break
-
-        self.__pre_loss_arr = np.array(pre_loss_list)
 
     def draw(self):
         '''
@@ -326,13 +296,3 @@ class LSTMModel(GenerativeModel):
         raise TypeError("This property must be read-only.")
     
     lstm_model = property(get_lstm_model, set_lstm_model)
-
-    def get_pre_loss_arr(self):
-        ''' getter '''
-        return self.__pre_loss_arr
-    
-    def set_readonly(self, value):
-        ''' setter '''
-        raise TypeError("This property must be read-only.")
-    
-    pre_loss_arr = property(get_pre_loss_arr, set_readonly)

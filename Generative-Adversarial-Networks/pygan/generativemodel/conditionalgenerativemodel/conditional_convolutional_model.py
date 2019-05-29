@@ -36,7 +36,7 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
 
     This model observes not only random noises but also any other prior
     information as a previous knowledge and outputs feature points.
-    Due to the `Conditoner`, this model has the capacity to exploit
+    Due to the `Conditioner`, this model has the capacity to exploit
     whatever prior knowledge that is available and can be represented
     as a matrix or tensor.
 

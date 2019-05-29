@@ -187,6 +187,7 @@ class LSTMModel(DiscriminativeModel):
         self.__seq_len = seq_len
         self.__learning_rate = learning_rate
         self.__loss_list = []
+        self.__epoch_counter = 0
         logger = getLogger("pygan")
         self.__logger = logger
 
@@ -227,8 +228,9 @@ class LSTMModel(DiscriminativeModel):
             self.__lstm_model.optimize(
                 grads_list,
                 self.__learning_rate,
-                1
+                self.__epoch_counter
             )
+            self.__epoch_counter += 1
 
         return delta_arr
 

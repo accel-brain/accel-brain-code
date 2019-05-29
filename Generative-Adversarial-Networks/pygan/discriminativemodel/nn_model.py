@@ -110,6 +110,7 @@ class NNModel(DiscriminativeModel):
         self.__q_shape = None
         self.__loss_list = []
         self.__feature_matching_layer = feature_matching_layer
+        self.__epoch_counter = 0
         logger = getLogger("pygan")
         self.__logger = logger
 
@@ -142,7 +143,9 @@ class NNModel(DiscriminativeModel):
             grad_arr = grad_arr.reshape((grad_arr.shape[0], -1))
         delta_arr = self.__nn.back_propagation(grad_arr)
         if fix_opt_flag is False:
-            self.__nn.optimize(self.__learning_rate, 1)
+            self.__nn.optimize(self.__learning_rate, self.__epoch_counter)
+            self.__epoch_counter += 1
+
         return delta_arr
 
     def feature_matching_forward(self, observed_arr):

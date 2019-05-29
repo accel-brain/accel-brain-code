@@ -213,6 +213,7 @@ class LSTMModel(GenerativeModel):
         self.__join_io_flag = join_io_flag
         self.__computable_loss = computable_loss
         self.__loss_list = []
+        self.__epoch_counter = 0
         logger = getLogger("pygan")
         self.__logger = logger
 
@@ -282,8 +283,9 @@ class LSTMModel(GenerativeModel):
         self.__lstm_model.optimize(
             grads_list,
             self.__learning_rate,
-            1
+            self.__epoch_counter
         )
+        self.__epoch_counter += 1
 
         return delta_arr
 

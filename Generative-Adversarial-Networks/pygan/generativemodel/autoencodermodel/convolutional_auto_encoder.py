@@ -143,6 +143,8 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         self.__saved_img_n = 0
         self.__attenuate_epoch = 50
 
+        self.__epoch_counter = 0
+
         logger = getLogger("pygan")
         self.__logger = logger
 
@@ -168,12 +170,25 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
                 loss = self.__convolutional_auto_encoder.computable_loss.compute_loss(observed_arr, inferenced_arr)
                 pre_loss_list.append(loss)
                 self.__logger.debug("Epoch: " + str(epoch) + " loss: " + str(loss))
-                self.learn(grad_arr)
+                self.__optimize_cae(grad_arr, epoch)
             except KeyboardInterrupt:
                 self.__logger.debug("Interrupt.")
                 break
 
         self.__pre_loss_arr = np.array(pre_loss_list)
+
+    def __optimize_cae(self, grad_arr, epoch):
+        layerable_cnn_list = self.__convolutional_auto_encoder.layerable_cnn_list[::-1]
+        for i in range(len(layerable_cnn_list)):
+            try:
+                grad_arr = layerable_cnn_list[i].back_propagate(grad_arr)
+            except:
+                self.__logger.debug(
+                    "Delta computation raised an error in CNN layer " + str(len(layerable_cnn_list) - i)
+                )
+                raise
+
+        self.__convolutional_auto_encoder.optimize(self.__learning_rate, epoch)
 
     def draw(self):
         '''
@@ -225,7 +240,7 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
                 self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
                 raise
 
-        self.__optimize_deconvolution_layer(self.__learning_rate, 1)
+        self.__optimize_deconvolution_layer(self.__learning_rate, self.__epoch_counter)
 
         layerable_cnn_list = self.__convolutional_auto_encoder.layerable_cnn_list[::-1]
         for i in range(len(layerable_cnn_list)):
@@ -237,8 +252,9 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
                 )
                 raise
 
-        self.__convolutional_auto_encoder.optimize(self.__learning_rate, 1)
+        self.__convolutional_auto_encoder.optimize(self.__learning_rate, self.__epoch_counter)
 
+        self.__epoch_counter += 1
         return grad_arr
 
     def __optimize_deconvolution_layer(self, learning_rate, epoch):
@@ -309,8 +325,9 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         )
 
         delta_arr = self.__convolutional_auto_encoder.back_propagation(delta_arr)
-        self.__convolutional_auto_encoder.optimize(self.__learning_rate, 1)
+        self.__convolutional_auto_encoder.optimize(self.__learning_rate, self.__epoch_counter)
 
+        self.__epoch_counter += 1
         return error_arr
 
     def get_convolutional_auto_encoder(self):
@@ -332,3 +349,13 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         self.__deconvolution_layer_list = value
     
     deconvolution_layer_list = property(get_deconvolution_layer_list, set_deconvolution_layer_list)
+
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+    
+    def get_pre_loss_arr(self):
+        ''' getter '''
+        return self.__pre_loss_arr
+
+    pre_loss_arr = property(get_pre_loss_arr, set_readonly)

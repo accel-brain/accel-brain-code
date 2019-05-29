@@ -142,6 +142,7 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
         self.__learning_rate = learning_rate
         self.__q_shape = None
         self.__loss_list = []
+        self.__epoch_counter = 0
         logger = getLogger("pygan")
         self.__logger = logger
 
@@ -205,22 +206,22 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
         '''
         return self.__cnn.inference(observed_arr)
 
-    def learn(self, grad_arr, fix_opt_flag=False):
+    def learn(self, grad_arr):
         '''
-        Update this Discriminator by ascending its stochastic gradient.
+        Update this Generator by ascending its stochastic gradient.
 
         Args:
             grad_arr:       `np.ndarray` of gradients.
-            fix_opt_flag:   If `False`, no optimization in this model will be done.
         
         Returns:
             `np.ndarray` of delta or gradients.
         '''
         channel = grad_arr.shape[1] // 2
-        grad_arr = self.__deconvolution_model.learn(grad_arr[:, :channel], fix_opt_flag=fix_opt_flag)
+        grad_arr = self.__deconvolution_model.learn(grad_arr[:, :channel])
         delta_arr = self.__cnn.back_propagation(grad_arr)
-        if fix_opt_flag is False:
-            self.__cnn.optimize(self.__learning_rate, 1)
+        self.__cnn.optimize(self.__learning_rate, self.__epoch_counter)
+        self.__epoch_counter += 1
+
         return delta_arr
 
     def get_cnn(self):
@@ -252,3 +253,13 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
         raise TypeError()
     
     deconvolution_model = property(get_deconvolution_model, set_readonly)
+
+    def get_epoch_counter(self):
+        ''' getter '''
+        return self.__epoch_counter
+    
+    def set_epoch_counter(self, value):
+        ''' setter '''
+        self.__epoch_counter = value
+    
+    epoch_counter = property(get_epoch_counter, set_epoch_counter)

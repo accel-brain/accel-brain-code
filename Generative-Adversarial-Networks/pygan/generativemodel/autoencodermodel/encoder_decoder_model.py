@@ -67,6 +67,7 @@ class EncoderDecoderModel(AutoEncoderModel):
         self.__seq_len = seq_len
         self.__learning_rate = learning_rate
         self.__join_io_flag = join_io_flag
+        self.__epoch_counter = 0
         logger = getLogger("pygan")
         self.__logger = logger
 
@@ -150,9 +151,10 @@ class EncoderDecoderModel(AutoEncoderModel):
         self.__encoder_decoder_controller.encoder.optimize(
             encoder_grads_list, 
             self.__learning_rate,
-            1
+            self.__epoch_counter
         )
 
+        self.__epoch_counter += 1
         return encoder_delta_arr
 
     def update(self):
@@ -181,9 +183,10 @@ class EncoderDecoderModel(AutoEncoderModel):
             decoder_grads_list,
             encoder_grads_list,
             self.__learning_rate, 
-            1
+            self.__epoch_counter
         )
 
+        self.__epoch_counter += 1
         return error_arr
 
     def get_encoder_decoder_controller(self):
@@ -195,3 +198,13 @@ class EncoderDecoderModel(AutoEncoderModel):
         raise TypeError("This property must be read-only.")
     
     encoder_decoder_controller = property(get_encoder_decoder_controller, set_encoder_decoder_controller)
+
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+    
+    def get_pre_loss_arr(self):
+        ''' getter '''
+        return self.__pre_loss_arr
+
+    pre_loss_arr = property(get_pre_loss_arr, set_readonly)

@@ -95,6 +95,7 @@ class NNModel(GenerativeModel):
         self.__learning_rate = learning_rate
         self.__q_shape = None
         self.__loss_list = []
+        self.__epoch_counter = 0
 
         logger = getLogger("pygan")
         self.__logger = logger
@@ -126,9 +127,9 @@ class NNModel(GenerativeModel):
         pred_arr = self.__nn.inference(observed_arr)
         return pred_arr
 
-    def learn(self, grad_arr, fix_opt_flag=False):
+    def learn(self, grad_arr):
         '''
-        Update this Discriminator by ascending its stochastic gradient.
+        Update this Generator by ascending its stochastic gradient.
 
         Args:
             grad_arr:       `np.ndarray` of gradients.
@@ -140,8 +141,8 @@ class NNModel(GenerativeModel):
         if grad_arr.ndim != 2:
             grad_arr = grad_arr.reshape((grad_arr.shape[0], -1))
         delta_arr = self.__nn.back_propagation(grad_arr)
-        if fix_opt_flag is False:
-            self.__nn.optimize(self.__learning_rate, 1)
+        self.__nn.optimize(self.__learning_rate, self.__epoch_counter)
+        self.__epoch_counter += 1
         
         return delta_arr
 

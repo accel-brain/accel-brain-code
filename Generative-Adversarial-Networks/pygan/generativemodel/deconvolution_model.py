@@ -74,7 +74,7 @@ class DeconvolutionModel(GenerativeModel):
         self.__learning_rate = learning_rate
         self.__attenuate_epoch = 50
         self.__opt_params = opt_params
-
+        self.__epoch_counter = 0
         logger = getLogger("pygan")
         self.__logger = logger
 
@@ -130,13 +130,12 @@ class DeconvolutionModel(GenerativeModel):
         else:
             return pred_arr
 
-    def learn(self, grad_arr, fix_opt_flag=False):
+    def learn(self, grad_arr):
         '''
-        Update this Discriminator by ascending its stochastic gradient.
+        Update this Generator by ascending its stochastic gradient.
 
         Args:
             grad_arr:       `np.ndarray` of gradients.
-            fix_opt_flag:   If `False`, no optimization in this model will be done.
         
         Returns:
             `np.ndarray` of delta or gradients.
@@ -165,9 +164,9 @@ class DeconvolutionModel(GenerativeModel):
                 self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
                 raise
 
-        if fix_opt_flag is False:
-            self.__optimize(self.__learning_rate, 1)
-        
+        self.__optimize(self.__learning_rate, self.__epoch_counter)
+        self.__epoch_counter += 1
+
         return grad_arr
 
     def output_back_propagate(self, pred_arr, delta_arr):

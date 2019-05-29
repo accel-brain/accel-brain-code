@@ -142,8 +142,9 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
         )
 
         delta_arr = self.__conditional_convolutional_model.cnn.back_propagation(delta_arr)
-        self.__conditional_convolutional_model.cnn.optimize(self.__learning_rate, 1)
+        self.__conditional_convolutional_model.cnn.optimize(self.__learning_rate, self.__conditional_convolutional_model.epoch_counter)
 
+        self.__conditional_convolutional_model.epoch_counter += 1
         return error_arr
 
     def get_conditional_convolutional_model(self):
@@ -155,3 +156,13 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
         self.__conditional_convolutional_model = value
 
     conditional_convolutional_model = property(get_conditional_convolutional_model, set_conditional_convolutional_model)
+
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+    
+    def get_pre_loss_arr(self):
+        ''' getter '''
+        return self.conditional_convolutional_model.pre_loss_arr
+
+    pre_loss_arr = property(get_pre_loss_arr, set_readonly)

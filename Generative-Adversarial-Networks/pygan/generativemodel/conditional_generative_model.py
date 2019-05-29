@@ -5,7 +5,7 @@ from abc import abstractmethod
 
 class ConditionalGenerativeModel(GenerativeModel):
     '''
-    Generate samples based on the conditonal noise prior.
+    Generate samples based on the conditional noise prior.
 
     `GenerativeModel` that has a `Conditioner`, where the function of 
     `Conditioner` is a conditional mechanism to use previous knowledge 
@@ -16,7 +16,7 @@ class ConditionalGenerativeModel(GenerativeModel):
 
     This model observes not only random noises but also any other prior
     information as a previous knowledge and outputs feature points.
-    Dut to the `Conditoner`, this model has the capacity to exploit
+    Dut to the `Conditioner`, this model has the capacity to exploit
     whatever prior knowledge that is available and can be represented
     as a matrix or tensor.
 

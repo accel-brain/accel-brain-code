@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
+from logging import getLogger
 
 from pygan.discriminative_model import DiscriminativeModel
 
@@ -35,7 +35,6 @@ class NNModel(DiscriminativeModel):
         opt_params=None,
         verificatable_result=None,
         nn=None,
-        verbose_mode=False,
         feature_matching_layer=0
     ):
         '''
@@ -59,21 +58,9 @@ class NNModel(DiscriminativeModel):
                                             If `None`, this class initialize `NeuralNetwork`
                                             by default hyper parameters.
 
-            verbose_mode:                   Verbose mode or not.
             feature_matching_layer:         Key of layer number for feature matching forward/backward.
 
         '''
-        logger = getLogger("pydbm")
-        handler = StreamHandler()
-        if verbose_mode is True:
-            handler.setLevel(DEBUG)
-            logger.setLevel(DEBUG)
-        else:
-            handler.setLevel(ERROR)
-            logger.setLevel(ERROR)
-
-        logger.addHandler(handler)
-
         if nn is None:
             if computable_loss is None:
                 computable_loss = MeanSquaredError()
@@ -120,10 +107,11 @@ class NNModel(DiscriminativeModel):
         self.__nn = nn
         self.__batch_size = batch_size
         self.__learning_rate = learning_rate
-        self.__verbose_mode = verbose_mode
         self.__q_shape = None
         self.__loss_list = []
         self.__feature_matching_layer = feature_matching_layer
+        logger = getLogger("pygan")
+        self.__logger = logger
 
     def inference(self, observed_arr):
         '''
@@ -194,7 +182,7 @@ class NNModel(DiscriminativeModel):
             grad_arr = grad_arr.reshape((grad_arr.shape[0], -1))
 
         if self.__feature_matching_layer == 0:
-            return np.dot(self.__nn.nn_layer_list[0].graph.weight_arr.T)
+            return np.dot(grad_arr, self.__nn.nn_layer_list[0].graph.weight_arr.T)
         else:
             nn_layer_list = self.__nn.nn_layer_list[:self.__feature_matching_layer][::-1]
             for i in range(len(nn_layer_list)):

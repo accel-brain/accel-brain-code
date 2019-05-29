@@ -23,6 +23,17 @@ class GenerativeModel(metaclass=ABCMeta):
     noise_sampler = property(get_noise_sampler, set_noise_sampler)
 
     @abstractmethod
+    def pre_learn(self, true_sampler, epochs=1000):
+        '''
+        Pre learning.
+
+        Args:
+            true_sampler:       is-a `TrueSampler`.
+            epochs:             Epochs.
+        '''
+        raise NotImplementedError()
+
+    @abstractmethod
     def draw(self):
         '''
         Draws samples from the `fake` distribution.

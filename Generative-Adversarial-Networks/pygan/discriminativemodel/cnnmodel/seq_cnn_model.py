@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
 from pygan.discriminativemodel.cnn_model import CNNModel
 
 

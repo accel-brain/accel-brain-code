@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
+from logging import getLogger
 
 from pygan.generativemodel.auto_encoder_model import AutoEncoderModel
+from pygan.true_sampler import TrueSampler
+
 from pydbm.rnn.encoder_decoder_controller import EncoderDecoderController
 
 from pydbm.activation.relu_function import ReLuFunction
@@ -44,8 +46,7 @@ class EncoderDecoderModel(AutoEncoderModel):
         encoder_decoder_controller,
         seq_len=10,
         learning_rate=1e-10,
-        join_io_flag=False,
-        verbose_mode=False
+        join_io_flag=False
     ):
         '''
         Init.
@@ -58,20 +59,7 @@ class EncoderDecoderModel(AutoEncoderModel):
                                                 This model outputs tensors combining observed data points and inferenced data
                                                 in a series direction.
 
-            verbose_mode:                       Verbose mode or not.
-
         '''
-        logger = getLogger("pydbm")
-        handler = StreamHandler()
-        if verbose_mode is True:
-            handler.setLevel(DEBUG)
-            logger.setLevel(DEBUG)
-        else:
-            handler.setLevel(ERROR)
-            logger.setLevel(ERROR)
-
-        logger.addHandler(handler)
-
         if isinstance(encoder_decoder_controller, EncoderDecoderController) is False:
             raise TypeError()
 
@@ -79,7 +67,37 @@ class EncoderDecoderModel(AutoEncoderModel):
         self.__seq_len = seq_len
         self.__learning_rate = learning_rate
         self.__join_io_flag = join_io_flag
-        self.__verbose_mode = verbose_mode
+        logger = getLogger("pygan")
+        self.__logger = logger
+
+    def pre_learn(self, true_sampler, epochs=1000):
+        '''
+        Pre learning.
+
+        Args:
+            true_sampler:       is-a `TrueSampler`.
+            epochs:             Epochs.
+        '''
+        if isinstance(true_sampler, TrueSampler) is False:
+            raise TypeError("The type of `true_sampler` must be `TrueSampler`.")
+        
+        pre_loss_list = []
+        for epoch in range(epochs):
+            try:
+                observed_arr = true_sampler.draw()
+                inferenced_arr = self.inference(observed_arr)
+                if observed_arr.size != inferenced_arr.size:
+                    raise ValueError("In pre-learning, the rank or shape of observed data points and feature points in last layer must be equivalent.")
+                grad_arr = self.__encoder_decoder_controller.computable_loss.compute_delta(observed_arr, inferenced_arr)
+                loss = self.__encoder_decoder_controller.computable_loss.compute_loss(observed_arr, inferenced_arr)
+                pre_loss_list.append(loss)
+                self.__logger.debug("Epoch: " + str(epoch) + " loss: " + str(loss))
+                self.learn(grad_arr)
+            except KeyboardInterrupt:
+                self.__logger.debug("Interrupt.")
+                break
+
+        self.__pre_loss_arr = np.array(pre_loss_list)
 
     def draw(self):
         '''

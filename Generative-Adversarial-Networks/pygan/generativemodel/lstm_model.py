@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
+from logging import getLogger
 
 from pygan.generative_model import GenerativeModel
+from pygan.true_sampler import TrueSampler
 
 # LSTM Graph which is-a `Synapse`.
 from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph
 # Loss function.
+from pydbm.loss.interface.computable_loss import ComputableLoss
 from pydbm.loss.mean_squared_error import MeanSquaredError
-# SGD as a Loss function.
+# SGD.
 from pydbm.optimization.optparams.sgd import SGD
 # Verification.
 from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
@@ -48,6 +50,7 @@ class LSTMModel(GenerativeModel):
     def __init__(
         self,
         lstm_model=None,
+        computable_loss=None,
         batch_size=20,
         input_neuron_count=100,
         hidden_neuron_count=300,
@@ -59,14 +62,15 @@ class LSTMModel(GenerativeModel):
         output_activating_function=None,
         seq_len=10,
         join_io_flag=False,
-        learning_rate=1e-05,
-        verbose_mode=False
+        learning_rate=1e-05
     ):
         '''
         Init.
 
         Args:
             lstm_model:                         is-a `lstm_model`.
+            computable_loss:                    is-a `ComputableLoss`.
+
             batch_size:                         Batch size.
                                                 This parameters will be refered only when `lstm_model` is `None`.
 
@@ -107,18 +111,9 @@ class LSTMModel(GenerativeModel):
                                                 in a series direction.
 
             learning_rate:                      Learning rate.
-            verbose_mode:                       Verbose mode or not.
         '''
-        logger = getLogger("pydbm")
-        handler = StreamHandler()
-        if verbose_mode is True:
-            handler.setLevel(DEBUG)
-            logger.setLevel(DEBUG)
-        else:
-            handler.setLevel(ERROR)
-            logger.setLevel(ERROR)
-
-        logger.addHandler(handler)
+        if computable_loss is None:
+            computable_loss = MeanSquaredError()
 
         if lstm_model is not None:
             if isinstance(lstm_model, LSTM) is False:
@@ -204,7 +199,7 @@ class LSTMModel(GenerativeModel):
                 # Size of Test data set. If this value is `0`, the validation will not be executed.
                 test_size_rate=0.3,
                 # Loss function.
-                computable_loss=MeanSquaredError(),
+                computable_loss=computable_loss,
                 # Optimizer.
                 opt_params=opt_params,
                 # Verification function.
@@ -216,8 +211,40 @@ class LSTMModel(GenerativeModel):
         self.__seq_len = seq_len
         self.__learning_rate = learning_rate
         self.__join_io_flag = join_io_flag
-        self.__verbose_mode = verbose_mode
+        self.__computable_loss = computable_loss
         self.__loss_list = []
+        self.__pre_loss_arr = None
+        logger = getLogger("pygan")
+        self.__logger = logger
+
+    def pre_learn(self, true_sampler, epochs=1000):
+        '''
+        Pre learning.
+
+        Args:
+            true_sampler:       is-a `TrueSampler`.
+            epochs:             Epochs.
+        '''
+        if isinstance(true_sampler, TrueSampler) is False:
+            raise TypeError("The type of `true_sampler` must be `TrueSampler`.")
+        
+        pre_loss_list = []
+        for epoch in range(epochs):
+            try:
+                observed_arr = true_sampler.draw()
+                inferenced_arr = self.inference(observed_arr)
+                if observed_arr.size != inferenced_arr.size:
+                    raise ValueError("In pre-learning, the rank or shape of observed data points and feature points in last layer must be equivalent.")
+                grad_arr = self.__computable_loss.compute_delta(observed_arr, inferenced_arr)
+                loss = self.__computable_loss.compute_loss(observed_arr, inferenced_arr)
+                pre_loss_list.append(loss)
+                self.__logger.debug("Epoch: " + str(epoch) + " loss: " + str(loss))
+                self.learn(grad_arr)
+            except KeyboardInterrupt:
+                self.__logger.debug("Interrupt.")
+                break
+
+        self.__pre_loss_arr = np.array(pre_loss_list)
 
     def draw(self):
         '''
@@ -299,3 +326,13 @@ class LSTMModel(GenerativeModel):
         raise TypeError("This property must be read-only.")
     
     lstm_model = property(get_lstm_model, set_lstm_model)
+
+    def get_pre_loss_arr(self):
+        ''' getter '''
+        return self.__pre_loss_arr
+    
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+    
+    pre_loss_arr = property(get_pre_loss_arr, set_readonly)

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
+from logging import getLogger
 
 from pygan.discriminative_model import DiscriminativeModel
 
@@ -36,7 +36,6 @@ class CNNModel(DiscriminativeModel):
         opt_params=None,
         verificatable_result=None,
         cnn=None,
-        verbose_mode=False,
         feature_matching_layer=0
     ):
         '''
@@ -61,7 +60,6 @@ class CNNModel(DiscriminativeModel):
                                             If `None`, this class initialize `ConvolutionalNeuralNetwork`
                                             by default hyper parameters.
 
-            verbose_mode:                   Verbose mode or not.
             feature_matching_layer:         Key of layer number for feature matching forward/backward.
 
         '''
@@ -69,21 +67,10 @@ class CNNModel(DiscriminativeModel):
             if isinstance(layerable_cnn, LayerableCNN) is False:
                 raise TypeError()
 
-        logger = getLogger("pydbm")
-        handler = StreamHandler()
-        if verbose_mode is True:
-            handler.setLevel(DEBUG)
-            logger.setLevel(DEBUG)
-        else:
-            handler.setLevel(ERROR)
-            logger.setLevel(ERROR)
-
-        logger.addHandler(handler)
 
         self.__layerable_cnn_list = layerable_cnn_list
         self.__learning_rate = learning_rate
         self.__opt_params = opt_params
-        self.__logger = logger
 
         if cnn is None:
             if computable_loss is None:
@@ -124,10 +111,11 @@ class CNNModel(DiscriminativeModel):
         self.__batch_size = batch_size
         self.__computable_loss = computable_loss
         self.__learning_rate = learning_rate
-        self.__verbose_mode = verbose_mode
         self.__q_shape = None
         self.__loss_list = []
         self.__feature_matching_layer = feature_matching_layer
+        logger = getLogger("pygan")
+        self.__logger = logger
 
     def inference(self, observed_arr):
         '''

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
+from logging import getLogger
 from pygan.generativemodel.auto_encoder_model import AutoEncoderModel
+from pygan.true_sampler import TrueSampler
 from pygan.generativemodel.conditionalgenerativemodel.conditional_convolutional_model import ConditionalConvolutionalModel
 
 
@@ -35,7 +36,7 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
 
     **Note** that this model defines the inputs as samples of conditions and so 
     the outputs as reconstructed samples of condtions, considering that
-    those distributions, especially scales represented by biases, are equivalents or similar.
+    those distributions, especially scales represented by biases, can be equivalents or similar.
     This definition assumes an *intuitive* implementation specific to this library.
     If you do not want to train in this way, you should use not this model but `ConditionalConvolutionalModel`.
 
@@ -53,26 +54,31 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
         conditional_convolutional_model,
         batch_size=20,
         learning_rate=1e-10,
-        opt_params=None,
-        verbose_mode=False
+        opt_params=None
     ):
         if isinstance(conditional_convolutional_model, ConditionalConvolutionalModel) is False:
             raise TypeError("The type of `conditional_convolutional_model` must be `ConditionalConvolutionalModel`")
         
         self.__conditional_convolutional_model = conditional_convolutional_model
 
-        logger = getLogger("pydbm")
-        handler = StreamHandler()
-        if verbose_mode is True:
-            handler.setLevel(DEBUG)
-            logger.setLevel(DEBUG)
-        else:
-            handler.setLevel(ERROR)
-            logger.setLevel(ERROR)
-
-        logger.addHandler(handler)
         self.__batch_size = batch_size
         self.__learning_rate = learning_rate
+
+        logger = getLogger("pygan")
+        self.__logger = logger
+
+    def pre_learn(self, true_sampler, epochs=1000):
+        '''
+        Pre learning.
+
+        Args:
+            true_sampler:       is-a `TrueSampler`.
+            epochs:             Epochs.
+        '''
+        if isinstance(true_sampler, TrueSampler) is False:
+            raise TypeError("The type of `true_sampler` must be `TrueSampler`.")
+
+        self.__conditional_convolutional_model.pre_learn(true_sampler, epochs)
 
     def draw(self):
         '''

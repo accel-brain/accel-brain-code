@@ -4,6 +4,7 @@ from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
 
 from pygan.generativemodel.conditional_generative_model import ConditionalGenerativeModel
 from pygan.generativemodel.deconvolution_model import DeconvolutionModel
+from pygan.true_sampler import TrueSampler
 
 from pydbm.optimization.opt_params import OptParams
 from pydbm.verification.interface.verificatable_result import VerificatableResult
@@ -59,8 +60,7 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
         opt_params=None,
         verificatable_result=None,
         cnn=None,
-        conditon_noise_sampler=None,
-        verbose_mode=False
+        condition_noise_sampler=None
     ):
         '''
         Init.
@@ -85,8 +85,7 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
                                             If `None`, this class initialize `ConvolutionalNeuralNetwork`
                                             by default hyper parameters.
 
-            conditon_noise_sampler:         is-a `NoiseSampler` to add noise to outputs from `Conditioner`.
-            verbose_mode:                   Verbose mode or not.
+            condition_noise_sampler:         is-a `NoiseSampler` to add noise to outputs from `Conditioner`.
 
         '''
         if isinstance(deconvolution_model, DeconvolutionModel) is False:
@@ -98,21 +97,9 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
                 if isinstance(layerable_cnn, LayerableCNN) is False:
                     raise TypeError()
 
-        logger = getLogger("pydbm")
-        handler = StreamHandler()
-        if verbose_mode is True:
-            handler.setLevel(DEBUG)
-            logger.setLevel(DEBUG)
-        else:
-            handler.setLevel(ERROR)
-            logger.setLevel(ERROR)
-
-        logger.addHandler(handler)
-
         self.__layerable_cnn_list = layerable_cnn_list
         self.__learning_rate = learning_rate
         self.__opt_params = opt_params
-        self.__logger = logger
 
         if cnn is None:
             if computable_loss is None:
@@ -149,13 +136,44 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
             )
 
         self.__cnn = cnn
-        self.__conditon_noise_sampler = conditon_noise_sampler
+        self.__condition_noise_sampler = condition_noise_sampler
         self.__batch_size = batch_size
         self.__computable_loss = computable_loss
         self.__learning_rate = learning_rate
-        self.__verbose_mode = verbose_mode
         self.__q_shape = None
         self.__loss_list = []
+        logger = getLogger("pygan")
+        self.__logger = logger
+
+    def pre_learn(self, true_sampler, epochs=1000):
+        '''
+        Pre learning.
+
+        Args:
+            true_sampler:       is-a `TrueSampler`.
+            epochs:             Epochs.
+        '''
+        if isinstance(true_sampler, TrueSampler) is False:
+            raise TypeError("The type of `true_sampler` must be `TrueSampler`.")
+        
+        pre_loss_list = []
+        for epoch in range(epochs):
+            try:
+                observed_arr = true_sampler.draw()
+                channel = observed_arr.shape[1]
+                inferenced_arr = self.inference(observed_arr[:, :channel//2])
+                if observed_arr.size != inferenced_arr.size:
+                    raise ValueError("In pre-learning, the rank or shape of observed data points and feature points in last layer must be equivalent.")
+                grad_arr = self.__computable_loss.compute_delta(observed_arr[:, :channel//2], inferenced_arr)
+                loss = self.__computable_loss.compute_loss(observed_arr[:, :channel//2], inferenced_arr)
+                pre_loss_list.append(loss)
+                self.__logger.debug("Epoch: " + str(epoch) + " loss: " + str(loss))
+                self.learn(grad_arr)
+            except KeyboardInterrupt:
+                self.__logger.debug("Interrupt.")
+                break
+
+        self.__pre_loss_arr = np.array(pre_loss_list)
 
     def draw(self):
         '''
@@ -167,9 +185,9 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
         observed_arr = self.extract_conditions()
         conv_arr = self.inference(observed_arr)
 
-        if self.__conditon_noise_sampler is not None:
-            self.__conditon_noise_sampler.output_shape = conv_arr.shape
-            noise_arr = self.__conditon_noise_sampler.generate()
+        if self.__condition_noise_sampler is not None:
+            self.__condition_noise_sampler.output_shape = conv_arr.shape
+            noise_arr = self.__condition_noise_sampler.generate()
             conv_arr += noise_arr
 
         deconv_arr = self.__deconvolution_model.inference(conv_arr)

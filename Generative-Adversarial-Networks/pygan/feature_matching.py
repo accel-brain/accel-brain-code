@@ -79,6 +79,7 @@ class FeatureMatching(object):
                 _true_arr
             )
             grad_arr1 = discriminative_model.feature_matching_backward(grad_arr1)
+            grad_arr1 = grad_arr1.reshape(generated_arr.shape)
 
             loss1 = self.__mean_squared_error.compute_loss(
                 _generated_arr,

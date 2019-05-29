@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
+from logging import getLogger
 
 from pygan.discriminative_model import DiscriminativeModel
 
@@ -57,8 +57,7 @@ class LSTMModel(DiscriminativeModel):
         output_gate_activating_function=None,
         hidden_activating_function=None,
         seq_len=10,
-        learning_rate=1e-05,
-        verbose_mode=False
+        learning_rate=1e-05
     ):
         '''
         Init.
@@ -98,19 +97,7 @@ class LSTMModel(DiscriminativeModel):
                                                 This means refereed maxinum step `t` in feedforward.
 
             learning_rate:                      Learning rate.
-            verbose_mode:                       Verbose mode or not.
         '''
-        logger = getLogger("pydbm")
-        handler = StreamHandler()
-        if verbose_mode is True:
-            handler.setLevel(DEBUG)
-            logger.setLevel(DEBUG)
-        else:
-            handler.setLevel(ERROR)
-            logger.setLevel(ERROR)
-
-        logger.addHandler(handler)
-
         if lstm_model is not None:
             if isinstance(lstm_model, LSTM) is False:
                 raise TypeError()
@@ -199,8 +186,9 @@ class LSTMModel(DiscriminativeModel):
         self.__lstm_model = lstm_model
         self.__seq_len = seq_len
         self.__learning_rate = learning_rate
-        self.__verbose_mode = verbose_mode
         self.__loss_list = []
+        logger = getLogger("pygan")
+        self.__logger = logger
 
     def inference(self, observed_arr):
         '''

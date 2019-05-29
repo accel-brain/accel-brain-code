@@ -52,7 +52,7 @@ class SeqCNNModel(CNNModel):
         else:
             return delta_arr
 
-    def first_forward(self, observed_arr):
+    def feature_matching_forward(self, observed_arr):
         '''
         Forward propagation in only first or intermediate layer
         for so-called Feature matching.
@@ -67,4 +67,4 @@ class SeqCNNModel(CNNModel):
             # Add rank for channel.
             observed_arr = np.expand_dims(observed_arr, axis=1)
 
-        return super().first_forward(observed_arr)
+        return super().feature_matching_forward(observed_arr)

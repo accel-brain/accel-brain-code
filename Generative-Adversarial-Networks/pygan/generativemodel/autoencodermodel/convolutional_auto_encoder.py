@@ -170,25 +170,13 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
                 loss = self.__convolutional_auto_encoder.computable_loss.compute_loss(observed_arr, inferenced_arr)
                 pre_loss_list.append(loss)
                 self.__logger.debug("Epoch: " + str(epoch) + " loss: " + str(loss))
-                self.__optimize_cae(grad_arr, epoch)
+                _ = self.__convolutional_auto_encoder.back_propagation(grad_arr)
+                self.__convolutional_auto_encoder.optimize(self.__learning_rate, epoch)
             except KeyboardInterrupt:
                 self.__logger.debug("Interrupt.")
                 break
 
         self.__pre_loss_arr = np.array(pre_loss_list)
-
-    def __optimize_cae(self, grad_arr, epoch):
-        layerable_cnn_list = self.__convolutional_auto_encoder.layerable_cnn_list[::-1]
-        for i in range(len(layerable_cnn_list)):
-            try:
-                grad_arr = layerable_cnn_list[i].back_propagate(grad_arr)
-            except:
-                self.__logger.debug(
-                    "Delta computation raised an error in CNN layer " + str(len(layerable_cnn_list) - i)
-                )
-                raise
-
-        self.__convolutional_auto_encoder.optimize(self.__learning_rate, epoch)
 
     def draw(self):
         '''

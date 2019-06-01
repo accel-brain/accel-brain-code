@@ -258,7 +258,7 @@ class LSTMModel(DiscriminativeModel):
         Returns:
             `np.ndarray` of outputs.
         '''
-        grad_arr, _, _ = self.__lstm_model.hidden_back_propagate(grad_arr)
+        grad_arr, _, _ = self.__lstm_model.hidden_back_propagate(grad_arr[:, -1])
         return grad_arr
 
     def get_lstm_model(self):

@@ -26,6 +26,8 @@ from pygan.discriminativemodel.cnnmodel.seq_cnn_model import SeqCNNModel as Disc
 from pygan.gansvaluefunction.mini_max import MiniMax
 # GANs framework.
 from pygan.generative_adversarial_networks import GenerativeAdversarialNetworks
+# Feature Matching.
+from pygan.feature_matching import FeatureMatching
 
 # Activation function.
 from pydbm.activation.tanh_function import TanhFunction
@@ -214,8 +216,7 @@ class ConditionalGANComposer(GANComposable):
             opt_params_deconv = Adam()
             deconvolution_model = DeconvolutionModel(
                 deconvolution_layer_list=deconvolution_layer_list,
-                opt_params=opt_params_deconv,
-                verbose_mode=False
+                opt_params=opt_params_deconv
             )
 
             opt_params=Adam()
@@ -225,13 +226,12 @@ class ConditionalGANComposer(GANComposable):
                 batch_size=batch_size,
                 layerable_cnn_list=convolution_layer_list,
                 deconvolution_model=deconvolution_model,
-                conditon_noise_sampler=UniformNoiseSampler(
+                condition_noise_sampler=UniformNoiseSampler(
                     low=-0.1, 
                     high=0.1, 
                     output_shape=(batch_size, channel, seq_len, dim)
                 ),
                 learning_rate=learning_rate,
-                verbose_mode=False
             )
 
         generative_model.noise_sampler = noise_sampler
@@ -287,14 +287,16 @@ class ConditionalGANComposer(GANComposable):
                 cnn_output_graph=cnn_output_graph,
                 opt_params=opt_params,
                 computable_loss=CrossEntropy(),
-                learning_rate=learning_rate,
-                verbose_mode=False
+                learning_rate=learning_rate
             )
 
         if gans_value_function is None:
             gans_value_function = MiniMax()
 
-        GAN = GenerativeAdversarialNetworks(gans_value_function=gans_value_function)
+        GAN = GenerativeAdversarialNetworks(
+            gans_value_function=gans_value_function,
+            feature_matching=FeatureMatching(lambda1=0.01, lambda2=0.99)
+        )
 
         self.__noise_sampler = noise_sampler
         self.__true_sampler = true_sampler

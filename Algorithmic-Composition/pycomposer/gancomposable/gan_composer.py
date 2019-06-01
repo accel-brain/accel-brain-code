@@ -16,6 +16,8 @@ from pygan.discriminativemodel.lstm_model import LSTMModel as Discriminator
 from pygan.gansvaluefunction.mini_max import MiniMax
 # GANs framework.
 from pygan.generative_adversarial_networks import GenerativeAdversarialNetworks
+# Feature Matching.
+from pygan.feature_matching import FeatureMatching
 
 # Activation function.
 from pydbm.activation.tanh_function import TanhFunction
@@ -169,7 +171,10 @@ class GANComposer(GANComposable):
         if gans_value_function is None:
             gans_value_function = MiniMax()
 
-        GAN = GenerativeAdversarialNetworks(gans_value_function=gans_value_function)
+        GAN = GenerativeAdversarialNetworks(
+            gans_value_function=gans_value_function,
+            feature_matching=FeatureMatching(lambda1=0.01, lambda2=0.99)
+        )
 
         self.__true_sampler = true_sampler
         self.__generative_model = generative_model

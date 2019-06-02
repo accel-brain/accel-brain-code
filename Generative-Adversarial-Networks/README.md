@@ -184,6 +184,22 @@ GAN = GenerativeAdversarialNetworks(
 )
 ```
 
+If you want to setup GNAs framework with so-called feature matching technic, which is effective in situations where regular GAN becomes unstable(Salimans, T., et al., 2016), setup GANs framework as follows:
+
+```python
+GAN = GenerativeAdversarialNetworks(
+    gans_value_function=gans_value_function,
+    feature_matching=FeatureMatching(
+        # Weight for results of standard feature matching.
+        lambda1=0.01, 
+        # Weight for results of difference between generated data points and true samples.
+        lambda2=0.99
+    )
+)
+```
+
+where `lambda1` and `lambda2` are trade-off parameters. `lambda1` means a weight for results of standard feature matching and `lambda2` means a weight for results of difference between generated data points and true samples(Yang, L. C., et al., 2017).
+
 Start training.
 
 ```python
@@ -274,7 +290,7 @@ plt.show()
 
 ### Usecase: Generating images by AAEs.
 
-In this demonstration, we use image dataset in [the Weizmann horse dataset](https://avaminzhang.wordpress.com/2012/12/07/%E3%80%90dataset%E3%80%91weizmann-horses/). [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library used this dataset to demonstrate for [observing reconstruction images by Convolutional Auto-Encoder.](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_convolutional_auto_encoder.ipynb) and Shape boltzmann machines as follow.
+In this demonstration, we use image dataset in [the Weizmann horse dataset](https://avaminzhang.wordpress.com/2012/12/07/%E3%80%90dataset%E3%80%91weizmann-horses/). [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) library used this dataset to demonstrate for [observing reconstruction images by Convolutional Auto-Encoder.](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_convolutional_auto_encoder.ipynb) and Shape boltzmann machines as follows.
 
 <table border="0">
     <tr>
@@ -333,7 +349,10 @@ from pygan.generativemodel.autoencodermodel.convolutional_auto_encoder import Co
 from pygan.discriminativemodel.cnn_model import CNNModel as Discriminator
 # `AdversarialAutoEncoders` which is-a `GenerativeAdversarialNetworks`.
 from pygan.generativeadversarialnetworks.adversarial_auto_encoders import AdversarialAutoEncoders
+# Value function.
 from pygan.gansvaluefunction.mini_max import MiniMax
+# Feature Matching.
+from pygan.feature_matching import FeatureMatching
 ```
 
 Import [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) modules.
@@ -471,8 +490,7 @@ generator = Generator(
     learning_rate=1e-05,
     convolutional_auto_encoder=convolutional_auto_encoder,
     deconvolution_layer_list=deconvolution_layer_list,
-    gray_scale_flag=gray_scale_flag,
-    verbose_mode=False
+    gray_scale_flag=gray_scale_flag
 )
 generator.noise_sampler = noise_sampler
 ```
@@ -513,15 +531,28 @@ discriminator = Discriminator(
     layerable_cnn_list=layerable_cnn_list,
     cnn_output_graph=cnn_output_graph,
     learning_rate=1e-05,
-    opt_params=opt_params,
-    verbose_mode=False
+    opt_params=opt_params
 )
 ```
 
 Setup AAEs framework.
 
 ```python
-AAE = AdversarialAutoEncoders(gans_value_function=MiniMax())
+AAE = AdversarialAutoEncoders(
+    gans_value_function=MiniMax(),
+    feature_matching=FeatureMatching(
+        # Weight for results of standard feature matching.
+        lambda1=0.01, 
+        # Weight for results of difference between generated data points and true samples.
+        lambda2=0.99
+    )
+)
+```
+
+Start pre-training.
+
+```python
+generator.pre_learn(true_sampler=true_sampler, epochs=1000)
 ```
 
 Start training.
@@ -899,6 +930,7 @@ plot(decoded_arr)
 - Long, J., Shelhamer, E., & Darrell, T. (2015). Fully convolutional networks for semantic segmentation. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 3431-3440).
 - Makhzani, A., Shlens, J., Jaitly, N., Goodfellow, I., & Frey, B. (2015). Adversarial autoencoders. arXiv preprint arXiv:1511.05644.
 - Mirza, M., & Osindero, S. (2014). Conditional generative adversarial nets. arXiv preprint arXiv:1411.1784.
+- Salimans, T., Goodfellow, I., Zaremba, W., Cheung, V., Radford, A., & Chen, X. (2016). Improved techniques for training gans. In Advances in neural information processing systems (pp. 2234-2242).
 - Yang, L. C., Chou, S. Y., & Yang, Y. H. (2017). MidiNet: A convolutional generative adversarial network for symbolic-domain music generation. arXiv preprint arXiv:1703.10847.
 
 ### Related PoC

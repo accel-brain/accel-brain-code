@@ -572,6 +572,16 @@ generator, discriminator = AAE.train(
 Check the rewards or losses.
 
 ```python
+plt.figure(figsize=(20, 10))
+plt.title("The reconstruction errors.")
+plt.plot(generator.pre_loss_arr)
+plt.show()
+plt.close()
+```
+
+<div><img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/logs/AAE_pre_learning.png"></div>
+
+```python
 a_logs_list, d_logs_list, g_logs_list = AAE.extract_logs_tuple()
 ```
 
@@ -590,8 +600,7 @@ plt.show()
 plt.close()
 ```
 
-<div>
-<img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/logs/all_reconstruction_errors.png">
+<div><img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/logs/all_reconstruction_errors.png"></div>
 
 The error is not decreasing in steps toward the lower side. Initially, the error is monotonically increased probably due to the side effects of `GeneratorModel` and `DiscriminativeModel` learning in GANs framework. However, as learning as an Auto-Encoder progresses gradually in AAEs framework, it converges after showing the tendency of the monotonous phenomenon.
 

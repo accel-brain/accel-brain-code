@@ -571,6 +571,8 @@ generator, discriminator = AAE.train(
 
 Check the rewards or losses.
 
+##### Result of pre-training.
+
 ```python
 plt.figure(figsize=(20, 10))
 plt.title("The reconstruction errors.")
@@ -580,6 +582,8 @@ plt.close()
 ```
 
 <div><img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/logs/AAE_pre_learning.png"></div>
+
+##### Result of training.
 
 ```python
 a_logs_list, d_logs_list, g_logs_list = AAE.extract_logs_tuple()

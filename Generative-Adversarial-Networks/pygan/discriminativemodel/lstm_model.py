@@ -24,7 +24,7 @@ from pydbm.rnn.lstm_model import LSTMModel as LSTM
 
 class LSTMModel(DiscriminativeModel):
     '''
-    Encoder/Decoder based on LSTM as a Generator.
+    LSTM as a Discriminator.
 
     Originally, Long Short-Term Memory(LSTM) networks as a 
     special RNN structure has proven stable and powerful for 
@@ -41,6 +41,7 @@ class LSTMModel(DiscriminativeModel):
     References:
         - Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.
         - Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., & Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.
+        - Mogren, O. (2016). C-RNN-GAN: Continuous recurrent neural networks with adversarial training. arXiv preprint arXiv:1611.09904.
         - Zaremba, W., Sutskever, I., & Vinyals, O. (2014). Recurrent neural network regularization. arXiv preprint arXiv:1409.2329.
 
     '''
@@ -238,6 +239,9 @@ class LSTMModel(DiscriminativeModel):
         '''
         Forward propagation in only first or intermediate layer
         for so-called Feature matching.
+
+        Like C-RNN-GAN(Mogren, O. 2016), this model chooses 
+        the last layer before the output layer in this Discriminator.
 
         Args:
             observed_arr:       `np.ndarray` of observed data points.

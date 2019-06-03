@@ -26,7 +26,7 @@ from pydbm.rnn.lstm_model import LSTMModel as LSTM
 
 class LSTMModel(GenerativeModel):
     '''
-    Encoder/Decoder based on LSTM as a Generator.
+    LSTM as a Generator.
 
     Originally, Long Short-Term Memory(LSTM) networks as a 
     special RNN structure has proven stable and powerful for 

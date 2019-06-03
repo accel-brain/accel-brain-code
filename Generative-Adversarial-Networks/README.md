@@ -62,7 +62,7 @@ This library also provides the Adversarial Auto-Encoders(AAEs), which is a proba
 From perspective of *commonality/variability* analysis in order to practice object-oriented design, the concepts of GANs and AAEs can be organized as follows:
 
 <div>
-<img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/draw.io/pygan_class_diagram.png">
+<img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/draw.io/pygan_class_diagram_20190603.png">
 </div>
 
 The configuration is based on the `Strategy Pattern`, which provides a way to define a family of algorithms implemented by inheriting the interface or abstract class such as `TrueSampler`, `NoiseSampler`, `GenerativeModel`, and `DiscriminativeModel`, where ...
@@ -75,6 +75,8 @@ This pattern is encapsulate each one as an object, and make them interchangeable
 `GenerativeAdversarialNetworks` is a *Context* in the `Strategy Pattern`, controlling the objects of `TrueSampler`, `GenerativeModel`, and `DiscriminativeModel` in order to train `G(z)` and `D(x)`. This *context* class also calls the object of `GANsValueFunction`, whose function is computing the rewards or gradients in GANs framework.
 
 The structural extension from GANs to AAEs is achieved by the inheritance of two classes: `GenerativeModel` and `GenerativeAdversarialNetworks`. One of the main concepts of AAEs, which is worthy of special mention, can be considered that *the Auto-Encoders can be transformed into the generative Models*. Therefore this library firstly implements a `AutoEncoderModel` by inheriting `GenerativeModel`. Next, this library watches closely that the difference between GANs and AAEs brings us different *context* in the `Strategy Pattern` in relation to the learning algorithm of Auto-Encoders. By the addition of the `AutoEncoderModel`'s learning method, this library provieds `AdversarialAutoEncoders` which is-a `GenerativeAdversarialNetworks` and makes it possible to train not only `GenerativeModel` and `DiscriminativeModel` but also `AutoEncoderModel`.
+
+Furthermore, `FeatureMatching` is a value function with so-called Feature matching technic, which addresses the instability of GANs by specifying a new objective for the generator that prevents it from overtraining on the current discriminator(Salimans, T., et al., 2016).
 
 <div>
 <img src="https://storage.googleapis.com/accel-brain-code/Generative-Adversarial-Networks/draw.io/pygan_class_diagram--ConditionalGANs.png">

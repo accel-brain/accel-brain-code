@@ -1611,6 +1611,7 @@ static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_compute_loss[] = "compute_loss";
 static const char __pyx_k_delta_output[] = "delta_output";
 static const char __pyx_k_compute_delta[] = "compute_delta";
+static const char __pyx_k_reverse_delta[] = "reverse_delta";
 static const char __pyx_k_ComputableLoss[] = "ComputableLoss";
 static const char __pyx_k_MeanSquaredError[] = "MeanSquaredError";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
@@ -1620,6 +1621,7 @@ static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C cont
 static const char __pyx_k_MeanSquaredError_compute_loss[] = "MeanSquaredError.compute_loss";
 static const char __pyx_k_pydbm_loss_mean_squared_error[] = "pydbm.loss.mean_squared_error";
 static const char __pyx_k_MeanSquaredError_compute_delta[] = "MeanSquaredError.compute_delta";
+static const char __pyx_k_MeanSquaredError_reverse_delta[] = "MeanSquaredError.reverse_delta";
 static const char __pyx_k_MeanSquaredError__grad_clip_thr[] = "_MeanSquaredError__grad_clip_threshold";
 static const char __pyx_k_The_mean_squared_error_MSE_Refe[] = "\n    The mean squared error (MSE).\n\n    References:\n        - Pascanu, R., Mikolov, T., & Bengio, Y. (2012). Understanding the exploding gradient problem. CoRR, abs/1211.5063, 2.\n        - Pascanu, R., Mikolov, T., & Bengio, Y. (2013, February). On the difficulty of training recurrent neural networks. In International conference on machine learning (pp. 1310-1318).\n    ";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
@@ -1640,6 +1642,7 @@ static PyObject *__pyx_n_s_MeanSquaredError___init;
 static PyObject *__pyx_n_s_MeanSquaredError__grad_clip_thr;
 static PyObject *__pyx_n_s_MeanSquaredError_compute_delta;
 static PyObject *__pyx_n_s_MeanSquaredError_compute_loss;
+static PyObject *__pyx_n_s_MeanSquaredError_reverse_delta;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_RuntimeError;
 static PyObject *__pyx_kp_s_The_mean_squared_error_MSE_Refe;
@@ -1676,6 +1679,7 @@ static PyObject *__pyx_n_s_pydbm_loss_mean_squared_error;
 static PyObject *__pyx_kp_s_pydbm_loss_mean_squared_error_py;
 static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_range;
+static PyObject *__pyx_n_s_reverse_delta;
 static PyObject *__pyx_n_s_self;
 static PyObject *__pyx_n_s_square;
 static PyObject *__pyx_n_s_test;
@@ -1684,6 +1688,7 @@ static PyObject *__pyx_n_s_v;
 static PyObject *__pyx_pf_5pydbm_4loss_18mean_squared_error_16MeanSquaredError___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_grad_clip_threshold); /* proto */
 static PyObject *__pyx_pf_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_2compute_loss(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_pred_arr, PyArrayObject *__pyx_v_labeled_arr, PyObject *__pyx_v_axis); /* proto */
 static PyObject *__pyx_pf_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_4compute_delta(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_pred_arr, PyArrayObject *__pyx_v_labeled_arr, PyObject *__pyx_v_delta_output); /* proto */
+static PyObject *__pyx_pf_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_6reverse_delta(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyArrayObject *__pyx_v_delta_arr, PyArrayObject *__pyx_v_labeled_arr, PyObject *__pyx_v_delta_output); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_float_1e_05;
@@ -1703,9 +1708,12 @@ static PyObject *__pyx_tuple__13;
 static PyObject *__pyx_tuple__15;
 static PyObject *__pyx_tuple__16;
 static PyObject *__pyx_tuple__18;
+static PyObject *__pyx_tuple__19;
+static PyObject *__pyx_tuple__21;
 static PyObject *__pyx_codeobj__11;
 static PyObject *__pyx_codeobj__14;
 static PyObject *__pyx_codeobj__17;
+static PyObject *__pyx_codeobj__20;
 /* Late includes */
 
 /* "pydbm/loss/mean_squared_error.pyx":16
@@ -2414,6 +2422,8 @@ static PyObject *__pyx_pf_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_4
  *             delta_arr = delta_arr * self.__grad_clip_threshold / v
  * 
  *         return delta_arr             # <<<<<<<<<<<<<<
+ * 
+ *     def reverse_delta(self, np.ndarray delta_arr, np.ndarray labeled_arr, delta_output=1):
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(((PyObject *)__pyx_v_delta_arr));
@@ -2439,6 +2449,179 @@ static PyObject *__pyx_pf_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_4
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_delta_arr);
   __Pyx_XDECREF(__pyx_v_v);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pydbm/loss/mean_squared_error.pyx":66
+ *         return delta_arr
+ * 
+ *     def reverse_delta(self, np.ndarray delta_arr, np.ndarray labeled_arr, delta_output=1):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Reverse delta.
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_7reverse_delta(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_6reverse_delta[] = "\n        Reverse delta.\n\n        Args:\n            delta_arr:      Gradients data.\n            labeled_arr:    Labeled data.\n            delta_output:   Delta.\n\n        Returns:\n            Delta.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_7reverse_delta = {"reverse_delta", (PyCFunction)__pyx_pw_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_7reverse_delta, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_6reverse_delta};
+static PyObject *__pyx_pw_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_7reverse_delta(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  CYTHON_UNUSED PyObject *__pyx_v_self = 0;
+  PyArrayObject *__pyx_v_delta_arr = 0;
+  PyArrayObject *__pyx_v_labeled_arr = 0;
+  PyObject *__pyx_v_delta_output = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("reverse_delta (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_delta_arr,&__pyx_n_s_labeled_arr,&__pyx_n_s_delta_output,0};
+    PyObject* values[4] = {0,0,0,0};
+    values[3] = ((PyObject *)((PyObject *)__pyx_int_1));
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_delta_arr)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("reverse_delta", 0, 3, 4, 1); __PYX_ERR(0, 66, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_labeled_arr)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("reverse_delta", 0, 3, 4, 2); __PYX_ERR(0, 66, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  3:
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_delta_output);
+          if (value) { values[3] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "reverse_delta") < 0)) __PYX_ERR(0, 66, __pyx_L3_error)
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_self = values[0];
+    __pyx_v_delta_arr = ((PyArrayObject *)values[1]);
+    __pyx_v_labeled_arr = ((PyArrayObject *)values[2]);
+    __pyx_v_delta_output = values[3];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("reverse_delta", 0, 3, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 66, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pydbm.loss.mean_squared_error.MeanSquaredError.reverse_delta", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_delta_arr), __pyx_ptype_5numpy_ndarray, 1, "delta_arr", 0))) __PYX_ERR(0, 66, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_labeled_arr), __pyx_ptype_5numpy_ndarray, 1, "labeled_arr", 0))) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_r = __pyx_pf_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_6reverse_delta(__pyx_self, __pyx_v_self, __pyx_v_delta_arr, __pyx_v_labeled_arr, __pyx_v_delta_output);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_6reverse_delta(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyArrayObject *__pyx_v_delta_arr, PyArrayObject *__pyx_v_labeled_arr, PyObject *__pyx_v_delta_output) {
+  int __pyx_v_batch_size;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("reverse_delta", 0);
+  __Pyx_INCREF((PyObject *)__pyx_v_delta_arr);
+
+  /* "pydbm/loss/mean_squared_error.pyx":78
+ *             Delta.
+ *         '''
+ *         cdef int batch_size = labeled_arr.shape[0]             # <<<<<<<<<<<<<<
+ *         delta_arr = delta_arr * (batch_size * delta_output) + labeled_arr
+ *         return delta_arr
+ */
+  __pyx_v_batch_size = (__pyx_v_labeled_arr->dimensions[0]);
+
+  /* "pydbm/loss/mean_squared_error.pyx":79
+ *         '''
+ *         cdef int batch_size = labeled_arr.shape[0]
+ *         delta_arr = delta_arr * (batch_size * delta_output) + labeled_arr             # <<<<<<<<<<<<<<
+ *         return delta_arr
+ */
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_batch_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_1, __pyx_v_delta_output); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = PyNumber_Multiply(((PyObject *)__pyx_v_delta_arr), __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = PyNumber_Add(__pyx_t_1, ((PyObject *)__pyx_v_labeled_arr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 79, __pyx_L1_error)
+  __Pyx_DECREF_SET(__pyx_v_delta_arr, ((PyArrayObject *)__pyx_t_2));
+  __pyx_t_2 = 0;
+
+  /* "pydbm/loss/mean_squared_error.pyx":80
+ *         cdef int batch_size = labeled_arr.shape[0]
+ *         delta_arr = delta_arr * (batch_size * delta_output) + labeled_arr
+ *         return delta_arr             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(((PyObject *)__pyx_v_delta_arr));
+  __pyx_r = ((PyObject *)__pyx_v_delta_arr);
+  goto __pyx_L0;
+
+  /* "pydbm/loss/mean_squared_error.pyx":66
+ *         return delta_arr
+ * 
+ *     def reverse_delta(self, np.ndarray delta_arr, np.ndarray labeled_arr, delta_output=1):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Reverse delta.
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pydbm.loss.mean_squared_error.MeanSquaredError.reverse_delta", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_delta_arr);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -4952,6 +5135,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_MeanSquaredError__grad_clip_thr, __pyx_k_MeanSquaredError__grad_clip_thr, sizeof(__pyx_k_MeanSquaredError__grad_clip_thr), 0, 0, 1, 1},
   {&__pyx_n_s_MeanSquaredError_compute_delta, __pyx_k_MeanSquaredError_compute_delta, sizeof(__pyx_k_MeanSquaredError_compute_delta), 0, 0, 1, 1},
   {&__pyx_n_s_MeanSquaredError_compute_loss, __pyx_k_MeanSquaredError_compute_loss, sizeof(__pyx_k_MeanSquaredError_compute_loss), 0, 0, 1, 1},
+  {&__pyx_n_s_MeanSquaredError_reverse_delta, __pyx_k_MeanSquaredError_reverse_delta, sizeof(__pyx_k_MeanSquaredError_reverse_delta), 0, 0, 1, 1},
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
   {&__pyx_kp_s_The_mean_squared_error_MSE_Refe, __pyx_k_The_mean_squared_error_MSE_Refe, sizeof(__pyx_k_The_mean_squared_error_MSE_Refe), 0, 0, 1, 0},
@@ -4988,6 +5172,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_pydbm_loss_mean_squared_error_py, __pyx_k_pydbm_loss_mean_squared_error_py, sizeof(__pyx_k_pydbm_loss_mean_squared_error_py), 0, 0, 1, 0},
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
+  {&__pyx_n_s_reverse_delta, __pyx_k_reverse_delta, sizeof(__pyx_k_reverse_delta), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
   {&__pyx_n_s_square, __pyx_k_square, sizeof(__pyx_k_square), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
@@ -5150,6 +5335,21 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__18 = PyTuple_Pack(1, ((PyObject *)__pyx_int_1)); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_GIVEREF(__pyx_tuple__18);
+
+  /* "pydbm/loss/mean_squared_error.pyx":66
+ *         return delta_arr
+ * 
+ *     def reverse_delta(self, np.ndarray delta_arr, np.ndarray labeled_arr, delta_output=1):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Reverse delta.
+ */
+  __pyx_tuple__19 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_delta_arr, __pyx_n_s_labeled_arr, __pyx_n_s_delta_output, __pyx_n_s_batch_size); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__19);
+  __Pyx_GIVEREF(__pyx_tuple__19);
+  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(4, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_loss_mean_squared_error_py, __pyx_n_s_reverse_delta, 66, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_tuple__21 = PyTuple_Pack(1, ((PyObject *)__pyx_int_1)); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__21);
+  __Pyx_GIVEREF(__pyx_tuple__21);
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5509,6 +5709,19 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__18);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_compute_delta, __pyx_t_4) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "pydbm/loss/mean_squared_error.pyx":66
+ *         return delta_arr
+ * 
+ *     def reverse_delta(self, np.ndarray delta_arr, np.ndarray labeled_arr, delta_output=1):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Reverse delta.
+ */
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_4loss_18mean_squared_error_16MeanSquaredError_7reverse_delta, 0, __pyx_n_s_MeanSquaredError_reverse_delta, NULL, __pyx_n_s_pydbm_loss_mean_squared_error, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__21);
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_reverse_delta, __pyx_t_4) < 0) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "pydbm/loss/mean_squared_error.pyx":7

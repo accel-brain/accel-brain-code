@@ -62,3 +62,19 @@ class MeanSquaredError(ComputableLoss):
             delta_arr = delta_arr * self.__grad_clip_threshold / v
 
         return delta_arr
+
+    def reverse_delta(self, np.ndarray delta_arr, np.ndarray labeled_arr, delta_output=1):
+        '''
+        Reverse delta.
+
+        Args:
+            delta_arr:      Gradients data.
+            labeled_arr:    Labeled data.
+            delta_output:   Delta.
+
+        Returns:
+            Delta.
+        '''
+        cdef int batch_size = labeled_arr.shape[0]
+        delta_arr = delta_arr * (batch_size * delta_output) + labeled_arr
+        return delta_arr

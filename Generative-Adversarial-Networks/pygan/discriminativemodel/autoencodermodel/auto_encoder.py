@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+from logging import getLogger
+import numpy as np
+
 from pygan.discriminativemodel.auto_encoder_model import AutoEncoderModel
 from pygan.true_sampler import TrueSampler
 
@@ -129,12 +132,10 @@ class AutoEncoder(AutoEncoderModel):
         for epoch in range(epochs):
             try:
                 observed_arr = true_sampler.draw()
-                grad_arr = self.inference(observed_arr)
-                if observed_arr.size != inferenced_arr.size:
-                    raise ValueError("In pre-learning, the rank or shape of observed data points and feature points in last layer must be equivalent.")
-
+                _ = self.inference(observed_arr)
                 self.__logger.debug("Epoch: " + str(epoch) + " loss: " + str(self.__loss))
-                _ = self.__nn.back_propagation(grad_arr)
+                _ = self.__nn.back_propagation(self.__delta_arr)
+                self.__nn.optimize(self.__learning_rate, epoch)
                 pre_loss_list.append(self.__loss)
             except KeyboardInterrupt:
                 self.__logger.debug("Interrupt.")
@@ -150,16 +151,16 @@ class AutoEncoder(AutoEncoderModel):
             observed_arr:     `np.ndarray` of observed data points.
         
         Returns:
-            `np.ndarray` of inferenced.
+            `np.ndarray` of MSE.
         '''
         if observed_arr.ndim != 2:
             observed_arr = observed_arr.reshape((observed_arr.shape[0], -1))
         
         self.__observed_arr = observed_arr
         inferenced_arr = self.__nn.inference(observed_arr)
-        loss_arr = self.__computable_loss.compute_delta(inferenced_arr, observed_arr)
+        self.__delta_arr = self.__computable_loss.compute_delta(inferenced_arr, observed_arr)
         self.__loss = self.__computable_loss.compute_loss(inferenced_arr, observed_arr)
-        return loss_arr
+        return np.nansum(self.__delta_arr, axis=1) / self.__delta_arr.shape[1]
 
     def learn(self, grad_arr, fix_opt_flag=False):
         '''
@@ -175,6 +176,7 @@ class AutoEncoder(AutoEncoderModel):
         if grad_arr.ndim != 2:
             grad_arr = grad_arr.reshape((grad_arr.shape[0], -1))
 
+        grad_arr = np.repeat(grad_arr, repeats=self.__observed_arr.shape[1], axis=1)
         grad_arr = self.__computable_loss.reverse_delta(grad_arr, self.__observed_arr)
 
         delta_arr = self.__nn.back_propagation(grad_arr)

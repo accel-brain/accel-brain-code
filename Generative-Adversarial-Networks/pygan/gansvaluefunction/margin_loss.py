@@ -26,6 +26,7 @@ class MarginLoss(GANsValueFunction):
         self.__margin_attenuate_rate = margin_attenuate_rate
         self.__attenuate_epoch = attenuate_epoch
         self.__epoch = 0
+        self.__discriminator_reward_list = []
 
     def compute_discriminator_reward(
         self,
@@ -46,6 +47,7 @@ class MarginLoss(GANsValueFunction):
         self.__epoch += 1
         if self.__epoch % self.__attenuate_epoch == 0:
             self.__margin = self.__margin * self.__margin_attenuate_rate
+        self.__discriminator_reward_list.append(grad_arr.mean())
         return grad_arr
 
     def compute_generator_reward(
@@ -63,3 +65,19 @@ class MarginLoss(GANsValueFunction):
         '''
         grad_arr = generated_posterior_arr
         return grad_arr
+
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+
+    def get_margin(self):
+        ''' getter '''
+        return self.__margin
+    
+    margin = property(get_margin, set_readonly)
+
+    def get_discriminator_reward_arr(self):
+        ''' getter '''
+        return np.array(self.__discriminator_reward_list)
+
+    discriminator_reward_arr = property(get_discriminator_reward_arr, set_readonly)

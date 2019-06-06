@@ -3,7 +3,8 @@ from logging import getLogger
 import numpy as np
 from pygan.discriminativemodel.auto_encoder_model import AutoEncoderModel
 from pygan.true_sampler import TrueSampler
-from pydbm.cnn.convolutionalneuralnetwork.convolutional_auto_encoder import ConvolutionalAutoEncoder
+from pydbm.cnn.convolutionalneuralnetwork.convolutional_auto_encoder import ConvolutionalAutoEncoder as CAE
+from pydbm.cnn.convolutionalneuralnetwork.convolutionalautoencoder.repelling_convolutional_auto_encoder import RepellingConvolutionalAutoEncoder
 from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer1
 from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer2
 from pydbm.activation.tanh_function import TanhFunction
@@ -26,10 +27,6 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         convolutional_auto_encoder=None,
         batch_size=10,
         channel=1,
-        height=100,
-        width=100,
-        scale=0.1,
-        seq_len=10,
         learning_rate=1e-10,
         opt_params=None,
         feature_matching_layer=0
@@ -38,20 +35,23 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         Init.
         
         Args:
-            convolutional_auto_encoder:         is-a `EncoderDecoderController`.
-            seq_len:                            The length of sequence.
-            learning_rate:                      Learning rate.
-            feature_matching_layer:             Key of layer number for feature matching forward/backward.
+            convolutional_auto_encoder:     is-a `pydbm.cnn.convolutionalneuralnetwork.convolutional_auto_encoder.ConvolutionalAutoEncoder`.
+            learning_rate:                  Learning rate.
+            batch_size:                     Batch size in mini-batch.
+            learning_rate:                  Learning rate.
+            opt_params:                     is-a `pydbm.optimization.opt_params.OptParams`.
+            feature_matching_layer:         Key of layer number for feature matching forward/backward.
 
         '''
-        if isinstance(convolutional_auto_encoder, AutoEncoderModel) is False and convolutional_auto_encoder is not None:
-            raise TypeError()
+        if isinstance(convolutional_auto_encoder, CAE) is False and convolutional_auto_encoder is not None:
+            raise TypeError("The type of `convolutional_auto_encoder` must be `pydbm.cnn.convolutionalneuralnetwork.convolutional_auto_encoder.ConvolutionalAutoEncoder`.")
 
         if opt_params is None:
             opt_params = Adam()
             opt_params.dropout_rate = 0.0
 
         if convolutional_auto_encoder is None:
+            scale = 0.01
             conv1 = ConvolutionLayer1(
                 ConvGraph1(
                     activation_function=TanhFunction(),
@@ -76,7 +76,7 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
                 )
             )
 
-            convolutional_auto_encoder = ConvolutionalAutoEncoder(
+            convolutional_auto_encoder = RepellingConvolutionalAutoEncoder(
                 layerable_cnn_list=[
                     conv1, 
                     conv2
@@ -119,12 +119,10 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
                 _ = self.inference(observed_arr)
                 pre_loss_list.append(self.__loss)
                 self.__logger.debug("Epoch: " + str(epoch) + " loss: " + str(self.__loss))
-                decoder_grads_list, _, encoder_grads_list = self.__encoder_decoder_controller.back_propagation(
+                _ = self.__convolutional_auto_encoder.back_propagation(
                     self.__delta_arr
                 )
-                self.__encoder_decoder_controller.optimize(
-                    decoder_grads_list,
-                    encoder_grads_list,
+                self.__convolutional_auto_encoder.optimize(
                     self.__learning_rate, 
                     epoch
                 )
@@ -155,7 +153,7 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
             inferenced_arr, 
             observed_arr
         )
-        return np.nansum(self.__delta_arr.reshape((self.__delta_arr.shape[0], -1)), axis=1) / (self.__delta_arr.shape[1] * self.__delta_arr.shape[2])
+        return np.nanmean(self.__delta_arr, axis=1).mean(axis=1).mean(axis=1)
 
     def learn(self, grad_arr, fix_opt_flag=False):
         '''
@@ -168,9 +166,13 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         Returns:
             `np.ndarray` of delta or gradients.
         '''
+        repeats = 1
+        for i in range(1, self.__delta_arr.ndim):
+            repeats *= self.__delta_arr.shape[i]
+
         grad_arr = np.repeat(
             grad_arr.reshape((grad_arr.shape[0], -1)), 
-            repeats=self.__delta_arr.shape[1] * self.__delta_arr.shape[2], 
+            repeats=repeats, 
             axis=1
         )
         grad_arr = grad_arr.reshape(self.__delta_arr.shape)
@@ -229,7 +231,7 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
 
     def get_convolutional_auto_encoder(self):
         ''' getter '''
-        return self.____convolutional_auto_encoder
+        return self.__convolutional_auto_encoder
     
     def set_convolutional_auto_encoder(self, value):
         ''' setter '''

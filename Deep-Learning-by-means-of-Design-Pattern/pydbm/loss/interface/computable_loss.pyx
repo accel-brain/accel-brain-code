@@ -9,6 +9,9 @@ class ComputableLoss(metaclass=ABCMeta):
     Interface of Loss functions.
     '''
 
+    # `list` of penalty terms.
+    __penalty_arr = []
+
     @abstractmethod
     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):
         '''
@@ -39,3 +42,13 @@ class ComputableLoss(metaclass=ABCMeta):
             Delta.
         '''
         raise NotImplementedError()
+
+    def get_penalty_arr(self):
+        ''' getter '''
+        return self.__penalty_arr
+
+    def set_penalty_arr(self, value):
+        ''' setter '''
+        self.__penalty_arr = value
+
+    penalty_arr = property(get_penalty_arr, set_penalty_arr)

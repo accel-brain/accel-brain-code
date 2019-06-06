@@ -20,6 +20,7 @@ class MeanSquaredError(ComputableLoss):
         Args:
             grad_clip_threshold:    Threshold of the gradient clipping.
         '''
+        self.penalty_arr = None
         self.__grad_clip_threshold = grad_clip_threshold
 
     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):
@@ -41,6 +42,9 @@ class MeanSquaredError(ComputableLoss):
         if v > self.__grad_clip_threshold:
             diff_arr = diff_arr * self.__grad_clip_threshold / v
 
+        if self.penalty_arr is not None:
+            diff_arr += self.penalty_arr
+
         return np.square(diff_arr).mean(axis=axis)
 
     def compute_delta(self, np.ndarray pred_arr, np.ndarray labeled_arr, delta_output=1):
@@ -60,6 +64,9 @@ class MeanSquaredError(ComputableLoss):
         v = np.linalg.norm(delta_arr)
         if v > self.__grad_clip_threshold:
             delta_arr = delta_arr * self.__grad_clip_threshold / v
+
+        if self.penalty_arr is not None:
+            delta_arr += self.penalty_arr
 
         return delta_arr
 

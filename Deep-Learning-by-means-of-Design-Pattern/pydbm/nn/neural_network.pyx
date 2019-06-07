@@ -53,10 +53,11 @@ class NeuralNetwork(object):
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
             tol:                            Tolerance for the optimization.
             tld:                            Tolerance for deviation of loss.
+            pre_learned_path_list:          `list` of file path that stores pre-learned parameters.
         '''
         for nn_layer in nn_layer_list:
             if isinstance(nn_layer, NNLayer) is False:
-                raise TypeError("The type of value of `nn_layer` must be `NNLayer`.")
+                raise TypeError("The type of value of `nn_layer_list` must be `NNLayer`.")
         
         if pre_learned_path_list is not None:
             if len(pre_learned_path_list) != len(nn_layer_list):

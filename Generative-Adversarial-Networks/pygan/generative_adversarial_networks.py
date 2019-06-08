@@ -143,7 +143,7 @@ class GenerativeAdversarialNetworks(object):
             discriminative_model.learn(grad_arr)
 
             self.__logger.debug(
-                "Probability inferenced by the `discriminator` (mean): " + str(generated_posterior_arr.mean())
+                "Inferenced by the `discriminator` (mean): " + str(generated_posterior_arr.mean())
             )
             self.__logger.debug(
                 "And update the `discriminator` by descending its stochastic gradient(means): " + str(grad_arr.mean())
@@ -199,7 +199,7 @@ class GenerativeAdversarialNetworks(object):
             )
 
         self.__logger.debug(
-            "Probability inferenced by the `discriminator` (mean): " + str(generated_posterior_arr.mean())
+            "Inferenced by the `discriminator` (mean): " + str(generated_posterior_arr.mean())
         )
         self.__logger.debug(
             "And update the `generator` by descending its stochastic gradient(means): " + str(grad_arr.mean())

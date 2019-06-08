@@ -41,5 +41,14 @@ class ConditionalImageTrueSampler(ConditionalTrueSampler):
         Returns:
             `np.ndarray` of samples.
         '''
-        condition_arr = self.__image_true_sampler.draw()
-        return np.concatenate((observed_arr, condition_arr), axis=1)
+        if self.__image_true_sampler.seq_len is None:
+            condition_arr = self.__image_true_sampler.draw()
+            return np.concatenate((observed_arr, condition_arr), axis=1)
+        else:
+            return np.concatenate(
+                (
+                    observed_arr[:, 1, :, :, :],
+                    observed_arr[:, 0, :, :, :]
+                ),
+                axis=1
+            )

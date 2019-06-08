@@ -85,7 +85,7 @@ class EncoderDecoderModel(AutoEncoderModel):
         inferenced_arr = self.__encoder_decoder_controller.inference(observed_arr)
         self.__delta_arr = self.__encoder_decoder_controller.get_reconstruction_error()
         self.__loss = (self.__delta_arr ** 2).mean()
-        return np.nanmean(self.__delta_arr, axis=1).mean(axis=1)
+        return np.nanmean(np.square(self.__delta_arr), axis=1).mean(axis=1)
 
     def learn(self, grad_arr, fix_opt_flag=False):
         '''

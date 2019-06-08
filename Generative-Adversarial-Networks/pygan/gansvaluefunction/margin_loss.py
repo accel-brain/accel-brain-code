@@ -6,6 +6,9 @@ from pygan.gans_value_function import GANsValueFunction
 class MarginLoss(GANsValueFunction):
     '''
     Value function in energy-based GANs framework.
+
+    References:
+        - Zhao, J., Mathieu, M., & LeCun, Y. (2016). Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126.
     '''
 
     def __init__(

@@ -10,6 +10,15 @@ class EncoderDecoderModel(AutoEncoderModel):
     '''
     Encoder/Decoder based on LSTM as a Discriminative Model
     which discriminates `true` from `fake`.
+
+    The Energy-based GAN framework considers the discriminator as an energy function, 
+    which assigns low energy values to real data and high to fake data. 
+    The generator is a trainable parameterized function that produces 
+    samples in regions to which the discriminator assigns low energy. 
+
+    References:
+        - Manisha, P., & Gujar, S. (2018). Generative Adversarial Networks (GANs): What it can generate and What it cannot?. arXiv preprint arXiv:1804.00140.
+        - Zhao, J., Mathieu, M., & LeCun, Y. (2016). Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126.
     '''
 
     def __init__(
@@ -85,7 +94,7 @@ class EncoderDecoderModel(AutoEncoderModel):
         inferenced_arr = self.__encoder_decoder_controller.inference(observed_arr)
         self.__delta_arr = self.__encoder_decoder_controller.get_reconstruction_error()
         self.__loss = (self.__delta_arr ** 2).mean()
-        return np.nanmean(np.square(self.__delta_arr), axis=1).mean(axis=1)
+        return np.nanmean(self.__delta_arr, axis=1).mean(axis=1)
 
     def learn(self, grad_arr, fix_opt_flag=False):
         '''

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from logging import getLogger
-from pydbm.nn.nn_layer import NNLayer
-from pydbm.optimization.opt_params import OptParams
+from pydbm.nn.neural_network import NeuralNetwork
 from pydbm.verification.interface.verificatable_result import VerificatableResult
 from pydbm.loss.interface.computable_loss import ComputableLoss
 import numpy as np
@@ -9,20 +8,18 @@ cimport numpy as np
 ctypedef np.float64_t DOUBLE_t
 
 
-class NeuralNetwork(object):
+class SimpleAutoEncoder(object):
     '''
-    Neural Network.
+    Auto-Encoder.
     '''
     # is-a `ComputableLoss`.
     __computable_loss = None
-    # is-a `OptParams`.
-    __opt_params = None
 
     def __init__(
         self,
-        nn_layer_list,
+        encoder,
+        decoder,
         computable_loss,
-        opt_params,
         verificatable_result,
         int epochs=100,
         int batch_size=100,
@@ -32,15 +29,15 @@ class NeuralNetwork(object):
         double test_size_rate=0.3,
         tol=1e-15,
         tld=100.0,
-        pre_learned_path_list=None
+        pre_learned_path_tuple=None
     ):
         '''
         Init.
         
         Args:
-            nn_layer_list:                  The `list` of `NNLayer`.
+            encoder:                        is-a `NeuralNetwork`.
+            decoder:                        is-a `NeuralNetwork`.
             computable_loss:                Loss function.
-            opt_params:                     Optimization function.
             verificatable_result:           Verification function.
             epochs:                         Epochs of Mini-batch.
             bath_size:                      Batch size of Mini-batch.
@@ -53,30 +50,19 @@ class NeuralNetwork(object):
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
             tol:                            Tolerance for the optimization.
             tld:                            Tolerance for deviation of loss.
-            pre_learned_path_list:          `list` of file path that stores pre-learned parameters.
         '''
-        for nn_layer in nn_layer_list:
-            if isinstance(nn_layer, NNLayer) is False:
-                raise TypeError("The type of value of `nn_layer_list` must be `NNLayer`.")
-        
-        if pre_learned_path_list is not None:
-            if len(pre_learned_path_list) != len(nn_layer_list):
-                raise ValueError("The number of files that store pre-learned parameters must be same as the number of `nn_layer_list`.")
-            for i in range(len(pre_learned_path_list)):
-                nn_layer_list[i].graph.load_pre_learned_params(pre_learned_path_list[i])
+        if isinstance(encoder, NeuralNetwork) is False:
+            raise TypeError("The type of `encoder` must be `NeuralNetwork`.")
+        if isinstance(decoder, NeuralNetwork) is False:
+            raise TypeError("The type of `decoder` must be `NeuralNetwork`.")
 
-        self.__nn_layer_list = nn_layer_list
+        self.__encoder = encoder
+        self.__decoder = decoder
 
         if isinstance(computable_loss, ComputableLoss):
             self.__computable_loss = computable_loss
         else:
             raise TypeError("The type of `computable_loss` must be `ComputableLoss`.")
-
-        if isinstance(opt_params, OptParams):
-            self.__opt_params = opt_params
-            self.__dropout_rate = self.__opt_params.dropout_rate
-        else:
-            raise TypeError("The type of `opt_params` must be `OptParams`.")
 
         if isinstance(verificatable_result, VerificatableResult):
             self.__verificatable_result = verificatable_result
@@ -160,8 +146,10 @@ class NeuralNetwork(object):
         cdef np.ndarray[DOUBLE_t, ndim=2] test_pred_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_arr
         
-        best_weight_params_list = []
-        best_bias_params_list = []
+        best_encoder_weight_params_list = []
+        best_encoder_bias_params_list = []
+        best_decoder_weight_params_list = []
+        best_decoder_bias_params_list = []
 
         try:
             self.__memory_tuple_list = []
@@ -169,8 +157,8 @@ class NeuralNetwork(object):
             min_loss = None
             eary_stop_flag = False
             for epoch in range(self.__epochs):
-                self.__opt_params.dropout_rate = self.__dropout_rate
-                self.__opt_params.inferencing_mode = False
+                self.__encoder.opt_params.inferencing_mode = False
+                self.__decoder.opt_params.inferencing_mode = False
 
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
                     learning_rate = learning_rate / self.__learning_attenuate_rate
@@ -193,7 +181,12 @@ class NeuralNetwork(object):
                             remember_flag = True
 
                     if remember_flag is True:
-                        self.__remember_best_params(best_weight_params_list, best_bias_params_list)
+                        self.__remember_best_params(
+                            best_encoder_weight_params_list, 
+                            best_encoder_bias_params_list,
+                            best_decoder_weight_params_list, 
+                            best_decoder_bias_params_list
+                        )
                         # Re-try.
                         pred_arr = self.inference(batch_observed_arr)
                         ver_pred_arr = pred_arr.copy()
@@ -211,12 +204,18 @@ class NeuralNetwork(object):
 
                     if min_loss is None or min_loss > loss:
                         min_loss = loss
-                        best_weight_params_list = []
-                        best_bias_params_list = []
+                        best_encoder_weight_params_list = []
+                        best_encoder_bias_params_list = []
+                        best_decoder_weight_params_list = []
+                        best_decoder_bias_params_list = []
 
-                        for i in range(len(self.__nn_layer_list)):
-                            best_weight_params_list.append(self.__nn_layer_list[i].graph.weight_arr)
-                            best_bias_params_list.append(self.__nn_layer_list[i].graph.bias_arr)
+                        for i in range(len(self.__encoder.nn_layer_list)):
+                            best_encoder_weight_params_list.append(self.__encoder.nn_layer_list[i].graph.weight_arr)
+                            best_encoder_bias_params_list.append(self.__encoder.nn_layer_list[i].graph.bias_arr)
+                        for i in range(len(self.__decoder.nn_layer_list)):
+                            best_decoder_weight_params_list.append(self.__decoder.nn_layer_list[i].graph.weight_arr)
+                            best_decoder_bias_params_list.append(self.__decoder.nn_layer_list[i].graph.bias_arr)
+
                         self.__logger.debug("Best params are updated.")
 
                 except FloatingPointError:
@@ -230,7 +229,9 @@ class NeuralNetwork(object):
                         raise
 
                 if self.__test_size_rate > 0:
-                    self.__opt_params.inferencing_mode = True
+                    self.__encoder.opt_params.inferencing_mode = True
+                    self.__decoder.opt_params.inferencing_mode = True
+
                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
                     test_batch_observed_arr = test_observed_arr[rand_index]
                     test_batch_target_arr = test_target_arr[rand_index]
@@ -249,7 +250,12 @@ class NeuralNetwork(object):
                             remember_flag = True
 
                     if remember_flag is True:
-                        self.__remember_best_params(best_weight_params_list, best_bias_params_list)
+                        self.__remember_best_params(
+                            best_encoder_weight_params_list, 
+                            best_encoder_bias_params_list,
+                            best_decoder_weight_params_list, 
+                            best_decoder_bias_params_list
+                        )
                         # Re-try
                         test_pred_arr = self.forward_propagation(
                             test_batch_observed_arr
@@ -277,23 +283,41 @@ class NeuralNetwork(object):
             self.__logger.debug("Eary stopping.")
             eary_stop_flag = False
 
-        self.__remember_best_params(best_weight_params_list, best_bias_params_list)
+        self.__remember_best_params(
+            best_encoder_weight_params_list, 
+            best_encoder_bias_params_list,
+            best_decoder_weight_params_list, 
+            best_decoder_bias_params_list
+        )
         self.__logger.debug("end. ")
 
-    def __remember_best_params(self, best_weight_params_list, best_bias_params_list):
+    def __remember_best_params(
+        self, 
+        best_encoder_weight_params_list, 
+        best_encoder_bias_params_list,
+        best_decoder_weight_params_list, 
+        best_decoder_bias_params_list
+    ):
         '''
         Remember best parameters.
         
         Args:
-            best_weight_params_list:    `list` of weight parameters.
-            best_bias_params_list:      `list` of bias parameters.
+            best_encoder_weight_params_list:    `list` of weight parameters in encoder.
+            best_encoder_bias_params_list:      `list` of bias parameters in encoder.
+            best_decoder_weight_params_list:    `list` of weight parameters in decoder.
+            best_decoder_bias_params_list:      `list` of bias parameters in decoder.
 
         '''
-        if len(best_weight_params_list) and len(best_bias_params_list):
-            for i in range(len(self.__nn_layer_list)):
-                self.__nn_layer_list[i].graph.weight_arr = best_weight_params_list[i]
-                self.__nn_layer_list[i].graph.bias_arr = best_bias_params_list[i]
-            self.__logger.debug("Best params are saved.")
+        if len(best_encoder_weight_params_list) and len(best_encoder_bias_params_list):
+            for i in range(len(self.__encoder.nn_layer_list)):
+                self.__encoder.nn_layer_list[i].graph.weight_arr = best_encoder_weight_params_list[i]
+                self.__encoder.nn_layer_list[i].graph.bias_arr = best_encoder_bias_params_list[i]
+            self.__logger.debug("Encoder's best params are saved.")
+        if len(best_decoder_weight_params_list) and len(best_decoder_bias_params_list):
+            for i in range(len(self.__decoder.nn_layer_list)):
+                self.__decoder.nn_layer_list[i].graph.weight_arr = best_decoder_weight_params_list[i]
+                self.__decoder.nn_layer_list[i].graph.bias_arr = best_decoder_bias_params_list[i]
+            self.__logger.debug("Decoder's best params are saved.")
 
     def inference(self, np.ndarray[DOUBLE_t, ndim=2] observed_arr):
         '''
@@ -322,18 +346,9 @@ class NeuralNetwork(object):
         Returns:
             Propagated `np.ndarray`.
         '''
-        cdef int i = 0
-        for i in range(len(self.__nn_layer_list)):
-            try:
-                observed_arr = self.__nn_layer_list[i].forward_propagate(observed_arr)
-            except:
-                self.__logger.debug("Error raised in NN layer " + str(i + 1))
-                raise
-
-        if self.__opt_params.dropout_rate > 0:
-            observed_arr = self.__opt_params.dropout(observed_arr)
-
-        return observed_arr
+        cdef np.ndarray encoded_arr = self.__encoder.inference(observed_arr)
+        cdef np.ndarray decoded_arr = self.__decoder.inference(encoded_arr)
+        return decoded_arr
 
     def back_propagation(self, np.ndarray delta_arr):
         '''
@@ -345,21 +360,8 @@ class NeuralNetwork(object):
         Returns.
             Delta.
         '''
-        if self.__opt_params.dropout_rate > 0:
-            delta_arr = self.__opt_params.de_dropout(delta_arr)
-
-        cdef int i = 0
-        nn_layer_list = self.__nn_layer_list[::-1]
-
-        for i in range(len(nn_layer_list)):
-            try:
-                delta_arr = nn_layer_list[i].back_propagate(delta_arr)
-            except:
-                self.__logger.debug(
-                    "Delta computation raised an error in NN layer " + str(len(nn_layer_list) - i)
-                )
-                raise
-
+        delta_arr = self.__decoder.back_propagation(delta_arr)
+        delta_arr = self.__encoder.back_propagation(delta_arr)
         return delta_arr
 
     def optimize(self, double learning_rate, int epoch):
@@ -371,95 +373,8 @@ class NeuralNetwork(object):
             epoch:          Now epoch.
             
         '''
-        params_list = []
-        grads_list = []
-
-        for i in range(len(self.__nn_layer_list)):
-            if self.__nn_layer_list[i].delta_weight_arr.shape[0] > 0:
-                params_list.append(self.__nn_layer_list[i].graph.weight_arr)
-                grads_list.append(self.__nn_layer_list[i].delta_weight_arr)
-
-        for i in range(len(self.__nn_layer_list)):
-            if self.__nn_layer_list[i].delta_bias_arr.shape[0] > 0:
-                params_list.append(self.__nn_layer_list[i].graph.bias_arr)
-                grads_list.append(self.__nn_layer_list[i].delta_bias_arr)
-
-        for i in range(len(self.__nn_layer_list)):
-            if self.__nn_layer_list[i].graph.activation_function.batch_norm is not None:
-                params_list.append(
-                    self.__nn_layer_list[i].graph.activation_function.batch_norm.beta_arr
-                )
-                grads_list.append(
-                    self.__nn_layer_list[i].graph.activation_function.batch_norm.delta_beta_arr
-                )
-                params_list.append(
-                    self.__nn_layer_list[i].graph.activation_function.batch_norm.gamma_arr
-                )
-                grads_list.append(
-                    self.__nn_layer_list[i].graph.activation_function.batch_norm.delta_gamma_arr
-                )
-
-        params_list = self.__opt_params.optimize(
-            params_list,
-            grads_list,
-            learning_rate
-        )
-        
-        for i in range(len(self.__nn_layer_list)):
-            if self.__nn_layer_list[i].delta_weight_arr.shape[0] > 0:
-                self.__nn_layer_list[i].graph.weight_arr = params_list.pop(0)
-                if ((epoch + 1) % self.__attenuate_epoch == 0):
-                    self.__nn_layer_list[i].graph.weight_arr = self.__opt_params.constrain_weight(
-                        self.__nn_layer_list[i].graph.weight_arr
-                    )
-
-        for i in range(len(self.__nn_layer_list)):
-            if self.__nn_layer_list[i].delta_bias_arr.shape[0] > 0:
-                self.__nn_layer_list[i].graph.bias_arr = params_list.pop(0)
-
-        for i in range(len(self.__nn_layer_list)):
-            if self.__nn_layer_list[i].graph.activation_function.batch_norm is not None:
-                self.__nn_layer_list[i].graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
-                self.__nn_layer_list[i].graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
-
-        for i in range(len(self.__nn_layer_list)):
-            if self.__nn_layer_list[i].delta_weight_arr.shape[0] > 0:
-                if self.__nn_layer_list[i].delta_bias_arr.shape[0] > 0:
-                    self.__nn_layer_list[i].reset_delta()
-
-    def save_pre_learned_params(self, dir_path=None, file_name=None):
-        '''
-        Save pre-learned parameters.
-        
-        Args:
-            dir_path:   Path of dir. If `None`, the file is saved in the current directory.
-            file_name:  The naming rule of files. If `None`, this value is `nn`.
-        '''
-        file_path = ""
-        if dir_path is not None:
-            file_path += dir_path + "/"
-        if file_name is not None:
-            file_path += file_name
-        else:
-            file_path += "nn"
-        file_path += "_"
-
-        for i in range(len(self.nn_layer_list)):
-            self.nn_layer_list[i].graph.save_pre_learned_params(file_path + str(i) + ".npz")
-
-    def get_nn_layer_list(self):
-        ''' getter '''
-        return self.__nn_layer_list
-
-    def set_nn_layer_list(self, value):
-        ''' setter '''
-        for nn_layer in value:
-            if isinstance(nn_layer, NNLayer) is False:
-                raise TypeError()
-
-        self.__nn_layer_list = value
-
-    nn_layer_list = property(get_nn_layer_list, set_nn_layer_list)
+        self.__encoder.optimize(learning_rate, epoch)
+        self.__decoder.optimize(learning_rate, epoch)
 
     def get_verificatable_result(self):
         ''' getter '''
@@ -477,16 +392,6 @@ class NeuralNetwork(object):
     
     verificatable_result = property(get_verificatable_result, set_verificatable_result)
 
-    def get_opt_params(self):
-        ''' getter '''
-        return self.__opt_params
-    
-    def set_opt_params(self, value):
-        ''' setter '''
-        self.__opt_params = value
-    
-    opt_params = property(get_opt_params, set_opt_params)
-
     def get_computable_loss(self):
         ''' getter '''
         return self.__computable_loss
@@ -496,3 +401,27 @@ class NeuralNetwork(object):
         self.__computable_loss = value
 
     computable_loss = property(get_computable_loss, set_computable_loss)
+
+    def get_encoder(self):
+        ''' getter '''
+        return self.__encoder
+    
+    def set_encoder(self, value):
+        ''' setter '''
+        if isinstance(value, NeuralNetwork):
+            raise TypeError("The type of `encoder` must be `NeuralNetwork`.")
+        self.__encoder = value
+    
+    encoder = property(get_encoder, set_encoder)
+
+    def get_decoder(self):
+        ''' getter '''
+        return self.__decoder
+    
+    def set_decoder(self, value):
+        ''' setter '''
+        if isinstance(value, NeuralNetwork):
+            raise TypeError("The type of `decoder` must be `NeuralNetwork`.")
+        self.__decoder = value
+    
+    decoder = property(get_decoder, set_decoder)

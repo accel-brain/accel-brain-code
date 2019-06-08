@@ -44,6 +44,7 @@ class ImageTrueSampler(TrueSampler):
             norm_mode=norm_mode
         )
         self.__norm_mode = norm_mode
+        self.__seq_len = seq_len
 
     def draw(self):
         '''
@@ -68,3 +69,13 @@ class ImageTrueSampler(TrueSampler):
             observed_arr = np.tanh(observed_arr)
 
         return observed_arr
+
+    def get_seq_len(self):
+        ''' getter '''
+        return self.__seq_len
+    
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError()
+    
+    seq_len = property(get_seq_len, set_readonly)

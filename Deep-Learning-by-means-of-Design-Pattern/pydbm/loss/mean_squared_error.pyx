@@ -20,6 +20,7 @@ class MeanSquaredError(ComputableLoss):
         Args:
             grad_clip_threshold:    Threshold of the gradient clipping.
         '''
+        self.penalty_arr = None
         self.__grad_clip_threshold = grad_clip_threshold
 
     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):
@@ -41,6 +42,9 @@ class MeanSquaredError(ComputableLoss):
         if v > self.__grad_clip_threshold:
             diff_arr = diff_arr * self.__grad_clip_threshold / v
 
+        if self.penalty_arr is not None:
+            diff_arr += self.penalty_arr
+
         return np.square(diff_arr).mean(axis=axis)
 
     def compute_delta(self, np.ndarray pred_arr, np.ndarray labeled_arr, delta_output=1):
@@ -61,4 +65,23 @@ class MeanSquaredError(ComputableLoss):
         if v > self.__grad_clip_threshold:
             delta_arr = delta_arr * self.__grad_clip_threshold / v
 
+        if self.penalty_arr is not None:
+            delta_arr += self.penalty_arr
+
+        return delta_arr
+
+    def reverse_delta(self, np.ndarray delta_arr, np.ndarray labeled_arr, delta_output=1):
+        '''
+        Reverse delta.
+
+        Args:
+            delta_arr:      Gradients data.
+            labeled_arr:    Labeled data.
+            delta_output:   Delta.
+
+        Returns:
+            Delta.
+        '''
+        cdef int batch_size = labeled_arr.shape[0]
+        delta_arr = delta_arr * (batch_size * delta_output) + labeled_arr
         return delta_arr

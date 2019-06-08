@@ -25,10 +25,12 @@ Install using pip:
 pip install pydbm
 ```
 
-Or, you can install from wheel file.
+Or, after cloning this repository, you can install this library with the following command:
 
-```sh
-pip install https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/pydbm-{X.X.X}-cp36-cp36m-linux_x86_64.whl
+```bash
+cd Deep-Learning-by-means-of-Design-Pattern/
+python setup.py bdist_wheel
+pip install dist/pydbm-{version}-{hoge}.whl
 ```
 
 ### Source code

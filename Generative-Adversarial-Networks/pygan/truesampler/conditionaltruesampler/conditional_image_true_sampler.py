@@ -9,6 +9,9 @@ class ConditionalImageTrueSampler(ConditionalTrueSampler):
     Sampler which draws samples from the conditional `true` distribution of images.
     '''
 
+    # The axis along which the arrays will be joined conditions and generated data.
+    __conditional_axis = 1
+
     def __init__(self, image_true_sampler):
         '''
         Init.
@@ -43,12 +46,22 @@ class ConditionalImageTrueSampler(ConditionalTrueSampler):
         '''
         if self.__image_true_sampler.seq_len is None:
             condition_arr = self.__image_true_sampler.draw()
-            return np.concatenate((observed_arr, condition_arr), axis=1)
+            return np.concatenate((observed_arr, condition_arr), axis=self.conditional_axis)
         else:
             return np.concatenate(
                 (
                     observed_arr[:, 1, :, :, :],
                     observed_arr[:, 0, :, :, :]
                 ),
-                axis=1
+                axis=self.conditional_axis
             )
+
+    def get_conditional_axis(self):
+        ''' getter '''
+        return self.__conditional_axis
+    
+    def set_conditional_axis(self, value):
+        ''' setter '''
+        self.__conditional_axis = value
+    
+    conditional_axis = property(get_conditional_axis, set_conditional_axis)

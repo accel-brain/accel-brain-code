@@ -78,6 +78,7 @@ class FeatureMatching(object):
                 _generated_arr,
                 _true_arr
             )
+
             grad_arr1 = discriminative_model.feature_matching_backward(grad_arr1)
             grad_arr1 = grad_arr1.reshape(generated_arr.shape)
 

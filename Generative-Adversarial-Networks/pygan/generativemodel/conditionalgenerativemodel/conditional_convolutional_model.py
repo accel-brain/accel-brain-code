@@ -50,6 +50,9 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
 
     '''
 
+    # The axis along which the arrays will be joined conditions and generated data.
+    __conditional_axis = 1
+
     def __init__(
         self,
         deconvolution_model,
@@ -161,12 +164,20 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
         for epoch in range(epochs):
             try:
                 observed_arr = true_sampler.draw()
-                channel = observed_arr.shape[1]
-                inferenced_arr = self.inference(observed_arr[:, :channel//2])
-                if observed_arr.size != inferenced_arr.size:
-                    raise ValueError("In pre-learning, the rank or shape of observed data points and feature points in last layer must be equivalent.")
-                grad_arr = self.__computable_loss.compute_delta(observed_arr[:, :channel//2], inferenced_arr)
-                loss = self.__computable_loss.compute_loss(observed_arr[:, :channel//2], inferenced_arr)
+                if self.conditional_axis == 1:
+                    channel = observed_arr.shape[1] // 2
+                    observed_arr = observed_arr[:, :channel]
+                elif self.conditional_axis == 2:
+                    width = grad_aobserved_arrrr.shape[2] // 2
+                    observed_arr = observed_arr[:, :, :width]
+                elif self.conditional_axis == 3:
+                    height = observed_arr.shape[3] // 2
+                    observed_arr = observed_arr[:, :, :, :height]
+
+                inferenced_arr = self.inference(observed_arr)
+
+                grad_arr = self.__computable_loss.compute_delta(observed_arr, inferenced_arr)
+                loss = self.__computable_loss.compute_loss(observed_arr, inferenced_arr)
                 pre_loss_list.append(loss)
                 self.__logger.debug("Epoch: " + str(epoch) + " loss: " + str(loss))
                 self.learn(grad_arr)
@@ -192,7 +203,7 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
             conv_arr += noise_arr
 
         deconv_arr = self.__deconvolution_model.inference(conv_arr)
-        return np.concatenate((deconv_arr, observed_arr), axis=1)
+        return np.concatenate((deconv_arr, observed_arr), axis=self.conditional_axis)
 
     def inference(self, observed_arr):
         '''
@@ -216,8 +227,16 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
         Returns:
             `np.ndarray` of delta or gradients.
         '''
-        channel = grad_arr.shape[1] // 2
-        grad_arr = self.__deconvolution_model.learn(grad_arr[:, :channel])
+        if self.conditional_axis == 1:
+            channel = grad_arr.shape[1] // 2
+            grad_arr = self.__deconvolution_model.learn(grad_arr[:, :channel])
+        elif self.conditional_axis == 2:
+            width = grad_arr.shape[2] // 2
+            grad_arr = self.__deconvolution_model.learn(grad_arr[:, :, :width])
+        elif self.conditional_axis == 3:
+            height = grad_arr.shape[3] // 2
+            grad_arr = self.__deconvolution_model.learn(grad_arr[:, :, :, :height])
+
         delta_arr = self.__cnn.back_propagation(grad_arr)
         self.__cnn.optimize(self.__learning_rate, self.__epoch_counter)
         self.__epoch_counter += 1
@@ -263,3 +282,13 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
         self.__epoch_counter = value
     
     epoch_counter = property(get_epoch_counter, set_epoch_counter)
+
+    def get_conditional_axis(self):
+        ''' getter '''
+        return self.__conditional_axis
+    
+    def set_conditional_axis(self, value):
+        ''' setter '''
+        self.__conditional_axis = value
+    
+    conditional_axis = property(get_conditional_axis, set_conditional_axis)

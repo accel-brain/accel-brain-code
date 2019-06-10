@@ -202,6 +202,9 @@ class GenerativeAdversarialNetworks(object):
             "Inferenced by the `discriminator` (mean): " + str(generated_posterior_arr.mean())
         )
         self.__logger.debug(
+            "Inferenced by the `discriminator` (MAE): " + str(np.abs(generated_posterior_arr).mean())
+        )
+        self.__logger.debug(
             "And update the `generator` by descending its stochastic gradient(means): " + str(grad_arr.mean())
         )
         g_logs_list.append(generated_posterior_arr.mean())

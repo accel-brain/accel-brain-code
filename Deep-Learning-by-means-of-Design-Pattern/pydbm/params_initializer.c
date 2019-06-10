@@ -1072,7 +1072,6 @@ struct __pyx_defaults;
 typedef struct __pyx_defaults __pyx_defaults;
 struct __pyx_defaults {
   PyObject *__pyx_arg_sampler_f;
-  PyObject *__pyx_arg_astype;
 };
 
 /* --- Runtime support code (head) --- */
@@ -1640,7 +1639,6 @@ static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_items[] = "items";
 static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_range[] = "range";
-static const char __pyx_k_astype[] = "astype";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_kwargs[] = "kwargs";
 static const char __pyx_k_module[] = "__module__";
@@ -1648,7 +1646,6 @@ static const char __pyx_k_normal[] = "normal";
 static const char __pyx_k_object[] = "object";
 static const char __pyx_k_random[] = "random";
 static const char __pyx_k_sample[] = "sample";
-static const char __pyx_k_float32[] = "float32";
 static const char __pyx_k_prepare[] = "__prepare__";
 static const char __pyx_k_qualname[] = "__qualname__";
 static const char __pyx_k_metaclass[] = "__metaclass__";
@@ -1663,7 +1660,6 @@ static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_ParamsInitializer___init[] = "ParamsInitializer.__init__";
 static const char __pyx_k_ParamsInitializer_sample[] = "ParamsInitializer.sample";
 static const char __pyx_k_pydbm_params_initializer[] = "pydbm.params_initializer";
-static const char __pyx_k_ParamsInitializer__astype[] = "_ParamsInitializer__astype";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_ParamsInitializer__sampler_f[] = "_ParamsInitializer__sampler_f";
 static const char __pyx_k_pydbm_params_initializer_pyx[] = "pydbm/params_initializer.pyx";
@@ -1680,16 +1676,13 @@ static PyObject *__pyx_n_s_ImportError;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_ParamsInitializer;
 static PyObject *__pyx_n_s_ParamsInitializer___init;
-static PyObject *__pyx_n_s_ParamsInitializer__astype;
 static PyObject *__pyx_n_s_ParamsInitializer__sampler_f;
 static PyObject *__pyx_n_s_ParamsInitializer_sample;
 static PyObject *__pyx_kp_s_Params_Initializer;
 static PyObject *__pyx_n_s_RuntimeError;
 static PyObject *__pyx_n_s_ValueError;
-static PyObject *__pyx_n_s_astype;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_doc;
-static PyObject *__pyx_n_s_float32;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_init;
 static PyObject *__pyx_n_s_items;
@@ -1719,7 +1712,7 @@ static PyObject *__pyx_n_s_size;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
 static PyObject *__pyx_pf_5pydbm_18params_initializer___defaults__(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_18params_initializer_17ParamsInitializer___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sampler_f, PyObject *__pyx_v_astype); /* proto */
+static PyObject *__pyx_pf_5pydbm_18params_initializer_17ParamsInitializer___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sampler_f); /* proto */
 static PyObject *__pyx_pf_5pydbm_18params_initializer_17ParamsInitializer_2sample(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_size, PyObject *__pyx_v_kwargs); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
@@ -1742,7 +1735,7 @@ static PyObject *__pyx_codeobj__14;
 /* "pydbm/params_initializer.pyx":13
  *     '''
  * 
- *     def __init__(self, sampler_f=np.random.normal, astype=np.float32):             # <<<<<<<<<<<<<<
+ *     def __init__(self, sampler_f=np.random.normal):             # <<<<<<<<<<<<<<
  *         '''
  *         Init.
  */
@@ -1754,14 +1747,11 @@ static PyObject *__pyx_pf_5pydbm_18params_initializer___defaults__(CYTHON_UNUSED
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__defaults__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_sampler_f);
   __Pyx_GIVEREF(__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_sampler_f);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_sampler_f);
-  __Pyx_INCREF(__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_astype);
-  __Pyx_GIVEREF(__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_astype);
-  PyTuple_SET_ITEM(__pyx_t_1, 1, __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_astype);
   __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -1788,27 +1778,23 @@ static PyObject *__pyx_pf_5pydbm_18params_initializer___defaults__(CYTHON_UNUSED
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5pydbm_18params_initializer_17ParamsInitializer_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_18params_initializer_17ParamsInitializer___init__[] = "\n        Init.\n\n        Args:\n            sampler:        A function of a Random sampling.\n            astype:         Type of parameters.\n        ";
+static char __pyx_doc_5pydbm_18params_initializer_17ParamsInitializer___init__[] = "\n        Init.\n\n        Args:\n            sampler:        A function of a Random sampling.\n        ";
 static PyMethodDef __pyx_mdef_5pydbm_18params_initializer_17ParamsInitializer_1__init__ = {"__init__", (PyCFunction)__pyx_pw_5pydbm_18params_initializer_17ParamsInitializer_1__init__, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_18params_initializer_17ParamsInitializer___init__};
 static PyObject *__pyx_pw_5pydbm_18params_initializer_17ParamsInitializer_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_sampler_f = 0;
-  PyObject *__pyx_v_astype = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_sampler_f,&__pyx_n_s_astype,0};
-    PyObject* values[3] = {0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_sampler_f,0};
+    PyObject* values[2] = {0,0};
     __pyx_defaults *__pyx_dynamic_args = __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self);
     values[1] = __pyx_dynamic_args->__pyx_arg_sampler_f;
-    values[2] = __pyx_dynamic_args->__pyx_arg_astype;
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
-        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-        CYTHON_FALLTHROUGH;
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
         CYTHON_FALLTHROUGH;
         case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
@@ -1827,20 +1813,12 @@ static PyObject *__pyx_pw_5pydbm_18params_initializer_17ParamsInitializer_1__ini
           PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_sampler_f);
           if (value) { values[1] = value; kw_args--; }
         }
-        CYTHON_FALLTHROUGH;
-        case  2:
-        if (kw_args > 0) {
-          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_astype);
-          if (value) { values[2] = value; kw_args--; }
-        }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 13, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
-        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-        CYTHON_FALLTHROUGH;
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
         CYTHON_FALLTHROUGH;
         case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
@@ -1850,50 +1828,40 @@ static PyObject *__pyx_pw_5pydbm_18params_initializer_17ParamsInitializer_1__ini
     }
     __pyx_v_self = values[0];
     __pyx_v_sampler_f = values[1];
-    __pyx_v_astype = values[2];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 13, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 13, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.params_initializer.ParamsInitializer.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_18params_initializer_17ParamsInitializer___init__(__pyx_self, __pyx_v_self, __pyx_v_sampler_f, __pyx_v_astype);
+  __pyx_r = __pyx_pf_5pydbm_18params_initializer_17ParamsInitializer___init__(__pyx_self, __pyx_v_self, __pyx_v_sampler_f);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_18params_initializer_17ParamsInitializer___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sampler_f, PyObject *__pyx_v_astype) {
+static PyObject *__pyx_pf_5pydbm_18params_initializer_17ParamsInitializer___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_sampler_f) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "pydbm/params_initializer.pyx":21
- *             astype:         Type of parameters.
+  /* "pydbm/params_initializer.pyx":20
+ *             sampler:        A function of a Random sampling.
  *         '''
  *         self.__sampler_f = sampler_f             # <<<<<<<<<<<<<<
- *         self.__astype = astype
- * 
- */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ParamsInitializer__sampler_f, __pyx_v_sampler_f) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
-
-  /* "pydbm/params_initializer.pyx":22
- *         '''
- *         self.__sampler_f = sampler_f
- *         self.__astype = astype             # <<<<<<<<<<<<<<
  * 
  *     def sample(self, size, **kwargs):
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ParamsInitializer__astype, __pyx_v_astype) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ParamsInitializer__sampler_f, __pyx_v_sampler_f) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
 
   /* "pydbm/params_initializer.pyx":13
  *     '''
  * 
- *     def __init__(self, sampler_f=np.random.normal, astype=np.float32):             # <<<<<<<<<<<<<<
+ *     def __init__(self, sampler_f=np.random.normal):             # <<<<<<<<<<<<<<
  *         '''
  *         Init.
  */
@@ -1910,8 +1878,8 @@ static PyObject *__pyx_pf_5pydbm_18params_initializer_17ParamsInitializer___init
   return __pyx_r;
 }
 
-/* "pydbm/params_initializer.pyx":24
- *         self.__astype = astype
+/* "pydbm/params_initializer.pyx":22
+ *         self.__sampler_f = sampler_f
  * 
  *     def sample(self, size, **kwargs):             # <<<<<<<<<<<<<<
  *         '''
@@ -1954,11 +1922,11 @@ static PyObject *__pyx_pw_5pydbm_18params_initializer_17ParamsInitializer_3sampl
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_size)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("sample", 1, 2, 2, 1); __PYX_ERR(0, 24, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("sample", 1, 2, 2, 1); __PYX_ERR(0, 22, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwargs, values, pos_args, "sample") < 0)) __PYX_ERR(0, 24, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwargs, values, pos_args, "sample") < 0)) __PYX_ERR(0, 22, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1971,7 +1939,7 @@ static PyObject *__pyx_pw_5pydbm_18params_initializer_17ParamsInitializer_3sampl
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("sample", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 24, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("sample", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 22, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_DECREF(__pyx_v_kwargs); __pyx_v_kwargs = 0;
   __Pyx_AddTraceback("pydbm.params_initializer.ParamsInitializer.sample", __pyx_clineno, __pyx_lineno, __pyx_filename);
@@ -1993,96 +1961,33 @@ static PyObject *__pyx_pf_5pydbm_18params_initializer_17ParamsInitializer_2sampl
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("sample", 0);
 
-  /* "pydbm/params_initializer.pyx":35
+  /* "pydbm/params_initializer.pyx":33
  *             Returns by `sample_f`.
  *         '''
  *         cdef np.ndarray params_arr = self.__sampler_f(size=size, **kwargs)             # <<<<<<<<<<<<<<
- *         params_arr = params_arr.astype(self.__astype)
  *         return params_arr
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ParamsInitializer__sampler_f); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ParamsInitializer__sampler_f); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_size, __pyx_v_size) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_size, __pyx_v_size) < 0) __PYX_ERR(0, 33, __pyx_L1_error)
   __pyx_t_2 = __pyx_t_3;
   __pyx_t_3 = 0;
-  if (__Pyx_MergeKeywords(__pyx_t_2, __pyx_v_kwargs) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 35, __pyx_L1_error)
+  if (__Pyx_MergeKeywords(__pyx_t_2, __pyx_v_kwargs) < 0) __PYX_ERR(0, 33, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 35, __pyx_L1_error)
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 33, __pyx_L1_error)
   __pyx_v_params_arr = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "pydbm/params_initializer.pyx":36
+  /* "pydbm/params_initializer.pyx":34
  *         '''
  *         cdef np.ndarray params_arr = self.__sampler_f(size=size, **kwargs)
- *         params_arr = params_arr.astype(self.__astype)             # <<<<<<<<<<<<<<
- *         return params_arr
- */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_params_arr), __pyx_n_s_astype); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 36, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ParamsInitializer__astype); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_4)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_4);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
-    }
-  }
-  if (!__pyx_t_4) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 36, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_GOTREF(__pyx_t_3);
-  } else {
-    #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_2)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_1};
-      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 36, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    } else
-    #endif
-    #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-      PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_1};
-      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 36, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    } else
-    #endif
-    {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 36, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_5);
-      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
-      __Pyx_GIVEREF(__pyx_t_1);
-      PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_1);
-      __pyx_t_1 = 0;
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 36, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    }
-  }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 36, __pyx_L1_error)
-  __Pyx_DECREF_SET(__pyx_v_params_arr, ((PyArrayObject *)__pyx_t_3));
-  __pyx_t_3 = 0;
-
-  /* "pydbm/params_initializer.pyx":37
- *         cdef np.ndarray params_arr = self.__sampler_f(size=size, **kwargs)
- *         params_arr = params_arr.astype(self.__astype)
  *         return params_arr             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
@@ -2090,8 +1995,8 @@ static PyObject *__pyx_pf_5pydbm_18params_initializer_17ParamsInitializer_2sampl
   __pyx_r = ((PyObject *)__pyx_v_params_arr);
   goto __pyx_L0;
 
-  /* "pydbm/params_initializer.pyx":24
- *         self.__astype = astype
+  /* "pydbm/params_initializer.pyx":22
+ *         self.__sampler_f = sampler_f
  * 
  *     def sample(self, size, **kwargs):             # <<<<<<<<<<<<<<
  *         '''
@@ -2103,8 +2008,6 @@ static PyObject *__pyx_pf_5pydbm_18params_initializer_17ParamsInitializer_2sampl
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
   __Pyx_AddTraceback("pydbm.params_initializer.ParamsInitializer.sample", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -4619,16 +4522,13 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
   {&__pyx_n_s_ParamsInitializer, __pyx_k_ParamsInitializer, sizeof(__pyx_k_ParamsInitializer), 0, 0, 1, 1},
   {&__pyx_n_s_ParamsInitializer___init, __pyx_k_ParamsInitializer___init, sizeof(__pyx_k_ParamsInitializer___init), 0, 0, 1, 1},
-  {&__pyx_n_s_ParamsInitializer__astype, __pyx_k_ParamsInitializer__astype, sizeof(__pyx_k_ParamsInitializer__astype), 0, 0, 1, 1},
   {&__pyx_n_s_ParamsInitializer__sampler_f, __pyx_k_ParamsInitializer__sampler_f, sizeof(__pyx_k_ParamsInitializer__sampler_f), 0, 0, 1, 1},
   {&__pyx_n_s_ParamsInitializer_sample, __pyx_k_ParamsInitializer_sample, sizeof(__pyx_k_ParamsInitializer_sample), 0, 0, 1, 1},
   {&__pyx_kp_s_Params_Initializer, __pyx_k_Params_Initializer, sizeof(__pyx_k_Params_Initializer), 0, 0, 1, 0},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
-  {&__pyx_n_s_astype, __pyx_k_astype, sizeof(__pyx_k_astype), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
-  {&__pyx_n_s_float32, __pyx_k_float32, sizeof(__pyx_k_float32), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_init, __pyx_k_init, sizeof(__pyx_k_init), 0, 0, 1, 1},
   {&__pyx_n_s_items, __pyx_k_items, sizeof(__pyx_k_items), 0, 0, 1, 1},
@@ -4785,26 +4685,26 @@ static int __Pyx_InitCachedConstants(void) {
   /* "pydbm/params_initializer.pyx":13
  *     '''
  * 
- *     def __init__(self, sampler_f=np.random.normal, astype=np.float32):             # <<<<<<<<<<<<<<
+ *     def __init__(self, sampler_f=np.random.normal):             # <<<<<<<<<<<<<<
  *         '''
  *         Init.
  */
-  __pyx_tuple__11 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_sampler_f, __pyx_n_s_astype); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_tuple__11 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_sampler_f); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
-  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_params_initializer_pyx, __pyx_n_s_init, 13, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_params_initializer_pyx, __pyx_n_s_init, 13, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 13, __pyx_L1_error)
 
-  /* "pydbm/params_initializer.pyx":24
- *         self.__astype = astype
+  /* "pydbm/params_initializer.pyx":22
+ *         self.__sampler_f = sampler_f
  * 
  *     def sample(self, size, **kwargs):             # <<<<<<<<<<<<<<
  *         '''
  *         Random sampling.
  */
-  __pyx_tuple__13 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_size, __pyx_n_s_kwargs, __pyx_n_s_params_arr); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_tuple__13 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_size, __pyx_n_s_kwargs, __pyx_n_s_params_arr); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_params_initializer_pyx, __pyx_n_s_sample, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_params_initializer_pyx, __pyx_n_s_sample, 22, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5101,13 +5001,13 @@ if (!__Pyx_RefNanny) {
   /* "pydbm/params_initializer.pyx":13
  *     '''
  * 
- *     def __init__(self, sampler_f=np.random.normal, astype=np.float32):             # <<<<<<<<<<<<<<
+ *     def __init__(self, sampler_f=np.random.normal):             # <<<<<<<<<<<<<<
  *         '''
  *         Init.
  */
   __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_18params_initializer_17ParamsInitializer_1__init__, 0, __pyx_n_s_ParamsInitializer___init, NULL, __pyx_n_s_pydbm_params_initializer, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_3, sizeof(__pyx_defaults), 2)) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_3, sizeof(__pyx_defaults), 1)) __PYX_ERR(0, 13, __pyx_L1_error)
   __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_random); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 13, __pyx_L1_error)
@@ -5119,28 +5019,20 @@ if (!__Pyx_RefNanny) {
   __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_t_3)->__pyx_arg_sampler_f = __pyx_t_4;
   __Pyx_GIVEREF(__pyx_t_4);
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 13, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 13, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_t_3)->__pyx_arg_astype = __pyx_t_5;
-  __Pyx_GIVEREF(__pyx_t_5);
-  __pyx_t_5 = 0;
   __Pyx_CyFunction_SetDefaultsGetter(__pyx_t_3, __pyx_pf_5pydbm_18params_initializer___defaults__);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_init, __pyx_t_3) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pydbm/params_initializer.pyx":24
- *         self.__astype = astype
+  /* "pydbm/params_initializer.pyx":22
+ *         self.__sampler_f = sampler_f
  * 
  *     def sample(self, size, **kwargs):             # <<<<<<<<<<<<<<
  *         '''
  *         Random sampling.
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_18params_initializer_17ParamsInitializer_3sample, 0, __pyx_n_s_ParamsInitializer_sample, NULL, __pyx_n_s_pydbm_params_initializer, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_18params_initializer_17ParamsInitializer_3sample, 0, __pyx_n_s_ParamsInitializer_sample, NULL, __pyx_n_s_pydbm_params_initializer, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_sample, __pyx_t_3) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_sample, __pyx_t_3) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "pydbm/params_initializer.pyx":8

@@ -10,16 +10,14 @@ class ParamsInitializer(object):
     Params Initializer.
     '''
 
-    def __init__(self, sampler_f=np.random.normal, astype=np.float32):
+    def __init__(self, sampler_f=np.random.normal):
         '''
         Init.
 
         Args:
             sampler:        A function of a Random sampling.
-            astype:         Type of parameters.
         '''
         self.__sampler_f = sampler_f
-        self.__astype = astype
 
     def sample(self, size, **kwargs):
         '''
@@ -33,5 +31,4 @@ class ParamsInitializer(object):
             Returns by `sample_f`.
         '''
         cdef np.ndarray params_arr = self.__sampler_f(size=size, **kwargs)
-        params_arr = params_arr.astype(self.__astype)
         return params_arr

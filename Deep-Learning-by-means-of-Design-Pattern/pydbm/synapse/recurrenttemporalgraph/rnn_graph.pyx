@@ -162,7 +162,7 @@ class RNNGraph(RecurrentTemporalGraph):
         ) * scale
 
         self.diff_rnn_hidden_weights_arr = np.zeros(
-            size=(deeper_neuron_count, deeper_neuron_count)
+            (deeper_neuron_count, deeper_neuron_count)
         )
 
         super().create_node(

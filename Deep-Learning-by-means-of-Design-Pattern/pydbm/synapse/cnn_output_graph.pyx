@@ -4,6 +4,7 @@ cimport numpy as np
 cimport cython
 from pydbm.synapse_list import Synapse
 from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
+from pydbm.params_initializer import ParamsInitializer
 
 
 class CNNOutputGraph(Synapse):
@@ -54,7 +55,15 @@ class CNNOutputGraph(Synapse):
     
     activating_function = property(get_activating_function, set_activating_function)
 
-    def __init__(self, activating_function, int hidden_dim, int output_dim, scale=0.1):
+    def __init__(
+        self, 
+        activating_function, 
+        int hidden_dim, 
+        int output_dim, 
+        scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
+    ):
         '''
         Init.
         
@@ -62,8 +71,16 @@ class CNNOutputGraph(Synapse):
             activating_function:    Activation function.
             hidden_dim:             Dimension in deepest hidden layer.
             output_dim:             Dimension in output layer.
-            scale:                  Scale of weight matrix.
+            scale:                  Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:     is-a `ParamsInitializer`.
+            params_dict:            `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
         '''
+        if isinstance(params_initializer, ParamsInitializer) is False:
+            raise TypeError("The type of `params_initializer` must be `ParamsInitializer`.")
+
         self.activating_function = activating_function
-        self.__weight_arr = np.random.normal(size=(hidden_dim, output_dim)) * scale
+        self.__weight_arr = params_initializer.sample(
+            size=(hidden_dim, output_dim),
+            **params_dict
+        ) * scale
         self.__bias_arr = np.zeros((output_dim, ))

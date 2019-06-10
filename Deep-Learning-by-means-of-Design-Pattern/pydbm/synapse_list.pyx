@@ -7,6 +7,7 @@ import random
 ctypedef np.float64_t DOUBLE_t
 from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
 from pydbm.optimization.batch_norm import BatchNorm
+from pydbm.params_initializer import ParamsInitializer
 
 
 class Synapse(object):
@@ -89,7 +90,10 @@ class Synapse(object):
         int deeper_neuron_count,
         shallower_activating_function,
         deeper_activating_function,
-        np.ndarray weights_arr=np.array([])
+        np.ndarray weights_arr=np.array([]),
+        scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
     ):
         '''
         Set links of nodes to the graphs.
@@ -99,21 +103,27 @@ class Synapse(object):
             deeper_neuron_count:                The number of neurons in deeper layer.
             shallower_activating_function:      The activation function in shallower layer.
             deeper_activating_function:         The activation function in deeper layer.
-            weights_arr:                        The weights of links.
+            weights_arr:                        The pre-learned weights of links.
+                                                If this array is not empty, `ParamsInitializer.sample_f` will not be called 
+                                                and `weights_arr` will be refered as initial weights.
+
+            scale:                              Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:                 is-a `ParamsInitializer`.
+            params_dict:                        `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
         '''
+        if isinstance(params_initializer, ParamsInitializer) is False:
+            raise TypeError("The type of `params_initializer` must be `ParamsInitializer`.")
+
         self.shallower_activating_function = shallower_activating_function
         self.deeper_activating_function = deeper_activating_function
-
-        cdef np.ndarray init_weights_arr = np.random.normal(
-            loc=0.5,
-            scale=0.2,
-            size=(shallower_neuron_count, deeper_neuron_count)
-        )
 
         if weights_arr.shape[0]:
             self.weights_arr = weights_arr
         else:
-            self.weights_arr = init_weights_arr
+            self.weights_arr = params_initializer.sample(
+                size=(shallower_neuron_count, deeper_neuron_count),
+                **params_dict
+            ) * scale
         self.diff_weights_arr = np.zeros(self.weights_arr.shape, dtype=float)
         self.stacked_graph_list = []
 

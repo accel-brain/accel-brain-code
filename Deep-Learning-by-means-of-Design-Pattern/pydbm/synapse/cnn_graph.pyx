@@ -3,6 +3,7 @@ import numpy as np
 cimport numpy as np
 cimport cython
 from pydbm.synapse_list import Synapse
+from pydbm.params_initializer import ParamsInitializer
 
 
 class CNNGraph(Synapse):
@@ -71,7 +72,9 @@ class CNNGraph(Synapse):
         int kernel_size=3,
         int stride=1,
         int pad=1,
-        double scale=0.01
+        double scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
     ):
         '''
         Init.
@@ -89,8 +92,13 @@ class CNNGraph(Synapse):
             kernel_size:            Size of the kernels.
             stride:                 Stride.
             pad:                    Padding.
-            scale:                  Scale of filters.
+            scale:                  Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:     is-a `ParamsInitializer`.
+            params_dict:            `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
         '''
+        if isinstance(params_initializer, ParamsInitializer) is False:
+            raise TypeError("The type of `params_initializer` must be `ParamsInitializer`.")
+
         self.__activation_function = activation_function
         if deactivation_function is not None:
             self.__deactivation_function = deactivation_function
@@ -98,7 +106,11 @@ class CNNGraph(Synapse):
             from copy import deepcopy
             self.__deactivation_function = deepcopy(activation_function)
 
-        self.__weight_arr = np.random.normal(size=(filter_num, channel, kernel_size, kernel_size)) * scale
+        self.__weight_arr = params_initializer.sample(
+            size=(filter_num, channel, kernel_size, kernel_size),
+            **params_dict
+        ) * scale
+
         self.__bias_arr = np.zeros((filter_num, ))
         
         self.__stride = stride

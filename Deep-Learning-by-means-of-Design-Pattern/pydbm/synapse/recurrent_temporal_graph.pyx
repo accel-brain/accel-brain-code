@@ -4,6 +4,7 @@ cimport numpy as np
 cimport cython
 from pydbm.synapse_list import Synapse
 from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
+from pydbm.params_initializer import ParamsInitializer
 
 
 class RecurrentTemporalGraph(Synapse):
@@ -313,7 +314,10 @@ class RecurrentTemporalGraph(Synapse):
         int deeper_neuron_count,
         shallower_activating_function,
         deeper_activating_function,
-        np.ndarray weights_arr=np.array([])
+        np.ndarray weights_arr=np.array([]),
+        scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
     ):
         '''
         Set links of nodes to the graphs.
@@ -325,24 +329,38 @@ class RecurrentTemporalGraph(Synapse):
             deeper_neuron_count:                The number of neurons in deeper layer.
             shallower_activating_function:      The activation function in shallower layer.
             deeper_activating_function:         The activation function in deeper layer.
-            weights_arr:                        The weights of links.
+            weights_arr:                        The pre-learned weights of links.
+                                                If this array is not empty, `ParamsInitializer.sample_f` will not be called 
+                                                and `weights_arr` will be refered as initial weights.
+
+            scale:                              Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:                 is-a `ParamsInitializer`.
+            params_dict:                        `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
         '''
+        if isinstance(params_initializer, ParamsInitializer) is False:
+            raise TypeError("The type of `params_initializer` must be `ParamsInitializer`.")
+
         self.visible_bias_arr = np.zeros((shallower_neuron_count, ))
         self.hidden_bias_arr = np.zeros((deeper_neuron_count, ))
         self.visible_diff_bias_arr = np.zeros(self.visible_bias_arr.shape)
         self.hidden_diff_bias_arr = np.zeros(self.hidden_bias_arr.shape)
 
-        self.rnn_visible_weights_arr = np.random.normal(
-            size=(shallower_neuron_count, deeper_neuron_count)
-        ) * 0.1
-        self.rnn_hidden_weights_arr = np.random.normal(
-            size=(deeper_neuron_count, deeper_neuron_count)
-        ) * 0.1
+        self.rnn_visible_weights_arr = params_initializer.sample(
+            size=(shallower_neuron_count, deeper_neuron_count),
+            **params_dict
+        ) * scale
+        self.rnn_hidden_weights_arr = params_initializer.sample(
+            size=(deeper_neuron_count, deeper_neuron_count),
+            **params_dict
+        ) * scale
 
         super().create_node(
             shallower_neuron_count,
             deeper_neuron_count,
             shallower_activating_function,
             deeper_activating_function,
-            weights_arr
+            weights_arr,
+            scale,
+            params_initializer,
+            params_dict
         )

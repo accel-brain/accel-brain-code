@@ -3,6 +3,7 @@ import numpy as np
 cimport numpy as np
 cimport cython
 from pydbm.synapse.recurrent_temporal_graph import RecurrentTemporalGraph
+from pydbm.params_initializer import ParamsInitializer
 
 
 class RNNGraph(RecurrentTemporalGraph):
@@ -115,7 +116,10 @@ class RNNGraph(RecurrentTemporalGraph):
         int deeper_neuron_count,
         shallower_activating_function,
         deeper_activating_function,
-        np.ndarray weights_arr=np.array([])
+        np.ndarray weights_arr=np.array([]),
+        scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
     ):
         '''
         Set links of nodes to the graphs.
@@ -128,30 +132,46 @@ class RNNGraph(RecurrentTemporalGraph):
             shallower_activating_function:      The activation function in shallower layer.
             deeper_activating_function:         The activation function in deeper layer.
             weights_arr:                        The weights of links.
+                                                If this array is not empty, `ParamsInitializer.sample_f` will not be called 
+                                                and `weights_arr` will be refered as initial weights.
+
+            scale:                              Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:                 is-a `ParamsInitializer`.
+            params_dict:                        `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
         '''
-        self.v_hat_weights_arr = np.random.normal(
-            size=(shallower_neuron_count, deeper_neuron_count)
-        ) * 0.1
-        self.hat_weights_arr = np.random.normal(
-            size=(deeper_neuron_count, deeper_neuron_count)
-        ) * 0.1
+        if isinstance(params_initializer, ParamsInitializer) is False:
+            raise TypeError("The type of `params_initializer` must be `ParamsInitializer`.")
+
+        self.v_hat_weights_arr = params_initializer.sample(
+            size=(shallower_neuron_count, deeper_neuron_count),
+            **params_dict
+        ) * scale
+        self.hat_weights_arr = params_initializer.sample(
+            size=(deeper_neuron_count, deeper_neuron_count),
+            **params_dict
+        ) * scale
         self.rnn_hidden_bias_arr = np.zeros((deeper_neuron_count, ))
 
-        self.rnn_visible_weights_arr = np.random.normal(
-            size=(shallower_neuron_count, deeper_neuron_count)
-        ) * 0.1
-        self.rnn_hidden_weights_arr = np.random.normal(
-            size=(deeper_neuron_count, deeper_neuron_count)
-        ) * 0.1
+        self.rnn_visible_weights_arr = params_initializer.sample(
+            size=(shallower_neuron_count, deeper_neuron_count),
+            **params_dict
+        ) * scale
+        self.rnn_hidden_weights_arr = params_initializer.sample(
+            size=(deeper_neuron_count, deeper_neuron_count),
+            **params_dict
+        ) * scale
 
-        self.diff_rnn_hidden_weights_arr = np.random.normal(
+        self.diff_rnn_hidden_weights_arr = np.zeros(
             size=(deeper_neuron_count, deeper_neuron_count)
-        ) * 0.1
+        )
 
         super().create_node(
             shallower_neuron_count,
             deeper_neuron_count,
             shallower_activating_function,
             deeper_activating_function,
-            weights_arr
+            weights_arr,
+            scale,
+            params_initializer,
+            params_dict
         )

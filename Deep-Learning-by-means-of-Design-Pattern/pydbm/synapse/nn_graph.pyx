@@ -3,6 +3,7 @@ import numpy as np
 cimport numpy as np
 cimport cython
 from pydbm.synapse_list import Synapse
+from pydbm.params_initializer import ParamsInitializer
 
 
 class NNGraph(Synapse):
@@ -54,7 +55,9 @@ class NNGraph(Synapse):
         activation_function,
         int hidden_neuron_count,
         int output_neuron_count,
-        double scale=0.01
+        double scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
     ):
         '''
         Init.
@@ -63,10 +66,16 @@ class NNGraph(Synapse):
             activation_function:    Activation function.
             hidden_neuron_count:    The number of hidden units.
             output_neuron_count:    The number of output units.
-            scale:                  Scale of filters.
+            scale:                  Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:     is-a `ParamsInitializer`.
+            params_dict:            `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
         '''
+        if isinstance(params_initializer, ParamsInitializer) is False:
+            raise TypeError("The type of `params_initializer` must be `ParamsInitializer`.")
+
         self.__activation_function = activation_function
-        self.__weight_arr = np.random.normal(
-            size=(hidden_neuron_count, output_neuron_count)
+        self.__weight_arr = params_initializer.sample(
+            size=(hidden_neuron_count, output_neuron_count),
+            **params_dict
          ) * scale
         self.__bias_arr = np.zeros((output_neuron_count, ))

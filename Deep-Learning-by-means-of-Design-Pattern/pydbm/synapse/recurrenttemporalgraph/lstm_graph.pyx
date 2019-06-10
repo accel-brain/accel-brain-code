@@ -5,6 +5,7 @@ cimport numpy as np
 cimport cython
 from pydbm.synapse.recurrent_temporal_graph import RecurrentTemporalGraph
 from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
+from pydbm.params_initializer import ParamsInitializer
 
 
 class LSTMGraph(RecurrentTemporalGraph):
@@ -505,19 +506,61 @@ class LSTMGraph(RecurrentTemporalGraph):
         self,
         int input_neuron_count,
         int hidden_neuron_count,
-        int output_neuron_count
+        int output_neuron_count,
+        scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
     ):
+        '''
+        Create RNN cells for a `LSTMModel`.
+
+        Args:
+            input_neuron_count:     The number of units in input layer.
+            hidden_neuron_count:    The number of units in hidden layer.
+            output_neuron_count:    The number of units in output layer.
+            scale:                  Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:     is-a `ParamsInitializer`.
+            params_dict:            `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
+        '''
+        if isinstance(params_initializer, ParamsInitializer) is False:
+            raise TypeError("The type of `params_initializer` must be `ParamsInitializer`.")
+
         self.hidden_activity_arr = np.array([])
         self.cec_activity_arr = np.array([])
 
-        self.weights_lstm_observed_arr = np.random.normal(size=(input_neuron_count, hidden_neuron_count * 4)).astype(np.float16) * 0.1
-        self.weights_lstm_hidden_arr = np.random.normal(size=(hidden_neuron_count, hidden_neuron_count * 4)).astype(np.float16) * 0.1
-        self.weights_input_cec_arr = np.random.normal(size=(hidden_neuron_count, hidden_neuron_count)).astype(np.float16) * 0.1
-        self.weights_forget_cec_arr = np.random.normal(size=(hidden_neuron_count, hidden_neuron_count)).astype(np.float16) * 0.1
-        self.weights_output_cec_arr = np.random.normal(size=(hidden_neuron_count, hidden_neuron_count)).astype(np.float16) * 0.1
-        self.lstm_bias_arr = np.zeros(hidden_neuron_count * 4).astype(np.float16)
-        self.weights_output_arr = np.random.normal(size=(hidden_neuron_count, output_neuron_count)).astype(np.float16) * 0.1
-        self.output_bias_arr = np.zeros(output_neuron_count).astype(np.float16)
+        self.weights_lstm_observed_arr = params_initializer.sample(
+            size=(input_neuron_count, hidden_neuron_count * 4),
+            **params_dict
+        ) * scale
+
+        self.weights_lstm_hidden_arr = params_initializer.sample(
+            size=(hidden_neuron_count, hidden_neuron_count * 4),
+            **params_dict
+        ) * scale
+
+        self.weights_input_cec_arr = params_initializer.sample(
+            size=(hidden_neuron_count, hidden_neuron_count),
+            **params_dict
+        ) * scale
+
+        self.weights_forget_cec_arr = params_initializer.sample(
+            size=(hidden_neuron_count, hidden_neuron_count),
+            **params_dict
+        ) * scale
+
+        self.weights_output_cec_arr = params_initializer.sample(
+            size=(hidden_neuron_count, hidden_neuron_count),
+            **params_dict
+        ) * scale
+
+        self.lstm_bias_arr = np.zeros(hidden_neuron_count * 4)
+
+        self.weights_output_arr = params_initializer.sample(
+            size=(hidden_neuron_count, output_neuron_count),
+            **params_dict
+        ) * scale
+
+        self.output_bias_arr = np.zeros(output_neuron_count)
 
     def create_node(
         self,
@@ -525,7 +568,10 @@ class LSTMGraph(RecurrentTemporalGraph):
         int deeper_neuron_count,
         shallower_activating_function,
         deeper_activating_function,
-        np.ndarray weights_arr=np.array([])
+        np.ndarray weights_arr=np.array([]),
+        scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
     ):
         '''
         Set links of nodes to the graphs.
@@ -538,16 +584,28 @@ class LSTMGraph(RecurrentTemporalGraph):
             shallower_activating_function:      The activation function in shallower layer.
             deeper_activating_function:         The activation function in deeper layer.
             weights_arr:                        The weights of links.
+                                                If this array is not empty, `ParamsInitializer.sample_f` will not be called 
+                                                and `weights_arr` will be refered as initial weights.
+
+            scale:                              Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:                 is-a `ParamsInitializer`.
+            params_dict:                        `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
         '''
-        self.v_hat_weights_arr = np.random.normal(
-            size=(shallower_neuron_count, deeper_neuron_count)
-        ) * 0.1
-        self.hat_weights_arr = np.random.normal(
-            size=(deeper_neuron_count, deeper_neuron_count)
-        ) * 0.1
-        self.rbm_hidden_weights_arr = np.random.normal(
-            size=(deeper_neuron_count, deeper_neuron_count)
-        ) * 0.1
+        if isinstance(params_initializer, ParamsInitializer) is False:
+            raise TypeError("The type of `params_initializer` must be `ParamsInitializer`.")
+
+        self.v_hat_weights_arr = params_initializer.sample(
+            size=(shallower_neuron_count, deeper_neuron_count),
+            **params_dict
+        ) * scale
+        self.hat_weights_arr = params_initializer.sample(
+            size=(deeper_neuron_count, deeper_neuron_count),
+            **params_dict
+        ) * scale
+        self.rbm_hidden_weights_arr = params_initializer.sample(
+            size=(deeper_neuron_count, deeper_neuron_count),
+            **params_dict
+        ) * scale
         self.rnn_hidden_bias_arr = np.zeros((deeper_neuron_count, ))
 
         self.diff_rnn_hidden_weights_arr = np.zeros(
@@ -566,5 +624,8 @@ class LSTMGraph(RecurrentTemporalGraph):
             deeper_neuron_count,
             shallower_activating_function,
             deeper_activating_function,
-            weights_arr
+            weights_arr,
+            scale,
+            params_initializer,
+            params_dict
         )

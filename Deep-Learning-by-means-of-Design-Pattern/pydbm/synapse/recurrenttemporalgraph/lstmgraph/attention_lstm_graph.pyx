@@ -4,6 +4,7 @@ import numpy as np
 cimport numpy as np
 cimport cython
 from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph
+from pydbm.params_initializer import ParamsInitializer
 
 
 class AttentionLSTMGraph(LSTMGraph):
@@ -35,11 +36,34 @@ class AttentionLSTMGraph(LSTMGraph):
         self,
         int input_neuron_count,
         int hidden_neuron_count,
-        int output_neuron_count
+        int output_neuron_count,
+        scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
     ):
+        '''
+        Create RNN cells for a `LSTMModel`.
+
+        Args:
+            input_neuron_count:     The number of units in input layer.
+            hidden_neuron_count:    The number of units in hidden layer.
+            output_neuron_count:    The number of units in output layer.
+            scale:                  Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:     is-a `ParamsInitializer`.
+            params_dict:            `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
+        '''
+        if isinstance(params_initializer, ParamsInitializer) is False:
+            raise TypeError("The type of `params_initializer` must be `ParamsInitializer`.")
+
         super().create_rnn_cells(
             input_neuron_count,
             hidden_neuron_count,
-            output_neuron_count
+            output_neuron_count,
+            scale,
+            params_initializer,
+            params_dict
         )
-        self.attention_output_weight_arr = np.random.normal(size=(hidden_neuron_count*2, output_neuron_count)).astype(np.float16) * 0.1
+        self.attention_output_weight_arr = params_initializer.sample(
+            size=(hidden_neuron_count*2, output_neuron_count),
+            **params_dict
+         ) * scale

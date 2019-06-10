@@ -4,7 +4,8 @@ cimport numpy as np
 import warnings
 from pydbm.dbm.deep_boltzmann_machine import DeepBoltzmannMachine
 from pydbm.approximation.shape_bm_cd import ShapeBMCD
-from pydbm.activation.logistic_function import LogisticFunction
+from pydbm.activation.signfunction.deterministic_binary_neurons import DeterministicBinaryNeurons
+from pydbm.params_initializer import ParamsInitializer
 ctypedef np.float64_t DOUBLE_t
 
 
@@ -50,7 +51,10 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         dropout_rate=None,
         int overlap_n=4,
         int reshaped_w=-1,
-        int filter_size=5
+        int filter_size=5,
+        scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
     ):
         '''
         Initialize deep boltzmann machine.
@@ -74,7 +78,10 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
             learning_rate:               Learning rate.
             overlap_n:                   The number of overlapped pixels.
             filter_size:                 The 'filter' size.
-        
+            scale:                       Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:          is-a `ParamsInitializer`.
+            params_dict:                 `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
+
         References:
             - Eslami, S. A., Heess, N., Williams, C. K., & Winn, J. (2014). The shape boltzmann machine: a strong model of object shape. International Journal of Computer Vision, 107(2), 155-176.
 
@@ -105,9 +112,9 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         if len(activating_function_list) == 0:
             # Default setting objects for activation function.
             activating_function_list = [
-                LogisticFunction(binary_flag=True), 
-                LogisticFunction(binary_flag=True), 
-                LogisticFunction(binary_flag=True)
+                DeterministicBinaryNeurons(), 
+                DeterministicBinaryNeurons(), 
+                DeterministicBinaryNeurons()
             ]
 
         if len(approximate_interface_list) == 0:
@@ -125,7 +132,10 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
             learning_rate,
             dropout_rate,
             inferencing_flag=True,
-            inferencing_plan="each"
+            inferencing_plan="each",
+            scale=scale,
+            params_initializer=params_initializer,
+            params_dict=params_dict
         )
 
     def learn(

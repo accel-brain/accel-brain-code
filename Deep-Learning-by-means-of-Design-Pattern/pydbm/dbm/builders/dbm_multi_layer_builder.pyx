@@ -5,6 +5,7 @@ from pydbm.dbm.interface.dbm_builder import DBMBuilder
 from pydbm.approximation.contrastive_divergence import ContrastiveDivergence
 from pydbm.synapse.complete_bipartite_graph import CompleteBipartiteGraph
 from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
+from pydbm.params_initializer import ParamsInitializer
 import warnings
 
 
@@ -131,12 +132,21 @@ class DBMMultiLayerBuilder(DBMBuilder):
         self.__hidden_activating_function = activating_function
         self.__hidden_neuron_list = neuron_count
 
-    def graph_part(self, approximate_interface_list):
+    def graph_part(
+        self, 
+        approximate_interface_list,
+        scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
+    ):
         '''
         Build complete bipartite graph.
 
         Args:
-            approximate_interface_list:       The list of function approximation.
+            approximate_interface_list:     The list of function approximation.
+            scale:                          Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:             is-a `ParamsInitializer`.
+            params_dict:                    `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
         '''
         self.__approximate_interface_list = approximate_interface_list
 
@@ -153,7 +163,10 @@ class DBMMultiLayerBuilder(DBMBuilder):
                 self.__feature_point_count_list[0],
                 self.__visible_activating_function,
                 self.__feature_activating_function_list[0],
-                self.__weights_arr_list[0]
+                self.__weights_arr_list[0],
+                scale=scale,
+                params_initializer=params_initializer,
+                params_dict=params_dict
             )
         else:
             complete_bipartite_graph.create_node(
@@ -161,6 +174,9 @@ class DBMMultiLayerBuilder(DBMBuilder):
                 self.__feature_point_count_list[0],
                 self.__visible_activating_function,
                 self.__feature_activating_function_list[0],
+                scale=scale,
+                params_initializer=params_initializer,
+                params_dict=params_dict
             )
 
         if len(self.__visible_bias_arr_list):
@@ -184,14 +200,20 @@ class DBMMultiLayerBuilder(DBMBuilder):
                     self.__feature_point_count_list[i],
                     self.__feature_activating_function_list[i - 1],
                     self.__feature_activating_function_list[i],
-                    self.__weights_arr_list[i]
+                    self.__weights_arr_list[i],
+                    scale=scale,
+                    params_initializer=params_initializer,
+                    params_dict=params_dict
                 )
             else:
                 complete_bipartite_graph.create_node(
                     self.__feature_point_count_list[i - 1],
                     self.__feature_point_count_list[i],
                     self.__feature_activating_function_list[i - 1],
-                    self.__feature_activating_function_list[i]
+                    self.__feature_activating_function_list[i],
+                    scale=scale,
+                    params_initializer=params_initializer,
+                    params_dict=params_dict
                 )
 
             if len(self.__visible_bias_arr_list):
@@ -213,14 +235,20 @@ class DBMMultiLayerBuilder(DBMBuilder):
                 self.__hidden_neuron_list,
                 self.__feature_activating_function_list[-1],
                 self.__hidden_activating_function,
-                self.__weights_arr_list[-1]
+                self.__weights_arr_list[-1],
+                scale=scale,
+                params_initializer=params_initializer,
+                params_dict=params_dict
             )
         else:
             complete_bipartite_graph.create_node(
                 self.__feature_point_count_list[-1],
                 self.__hidden_neuron_list,
                 self.__feature_activating_function_list[-1],
-                self.__hidden_activating_function
+                self.__hidden_activating_function,
+                scale=scale,
+                params_initializer=params_initializer,
+                params_dict=params_dict
             )
 
         if len(self.__visible_bias_arr_list):

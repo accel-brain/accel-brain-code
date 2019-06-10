@@ -6,6 +6,7 @@ from pydbm.dbm.builders.rnn_rbm_simple_builder import RNNRBMSimpleBuilder
 from pydbm.approximation.rtrbmcd.rnn_rbm_cd import RNNRBMCD
 from pydbm.optimization.opt_params import OptParams
 from pydbm.dbm.recurrent_temporal_rbm import RecurrentTemporalRBM
+from pydbm.params_initializer import ParamsInitializer
 
 
 class LSTMRTRBM(RecurrentTemporalRBM):
@@ -35,7 +36,10 @@ class LSTMRTRBM(RecurrentTemporalRBM):
         rnn_activating_function,
         opt_params,
         learning_rate=1e-05,
-        pre_learned_path=None
+        pre_learned_path=None,
+        scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
     ):
         '''
         Init.
@@ -48,8 +52,14 @@ class LSTMRTRBM(RecurrentTemporalRBM):
             opt_params:                     is-a `OptParams`.
             learning_rate:                  Learning rate.
             pre_learned_path:               File path that stores pre-learned parameters.
+            scale:                          Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:             is-a `ParamsInitializer`.
+            params_dict:                    `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
 
         '''
+        if isinstance(params_initializer, ParamsInitializer) is False:
+            raise TypeError("The type of `params_initializer` must be `ParamsInitializer`.")
+
         if isinstance(opt_params, OptParams) is False:
             raise TypeError()
 
@@ -63,6 +73,9 @@ class LSTMRTRBM(RecurrentTemporalRBM):
             RNNRBMCD(
                 opt_params=opt_params
             ),
-            learning_rate=learning_rate
+            learning_rate=learning_rate,
+            scale=scale,
+            params_initializer=params_initializer,
+            params_dict=params_dict
         )
         self.rbm = rtrbm_director.rbm

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from abc import ABCMeta, abstractmethod, abstractproperty
+from pydbm.params_initializer import ParamsInitializer
 
 
 class DBMBuilder(metaclass=ABCMeta):
@@ -51,12 +52,22 @@ class DBMBuilder(metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
-    def graph_part(self, approximate_interface_list):
+    def graph_part(
+        self, 
+        approximate_interface_list,
+        scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
+    ):
         '''
         Build complete bipartite graph.
 
         Args:
-            approximate_interface_list:    The list of function approximation.
+            approximate_interface_list:     The list of function approximation.
+            scale:                          Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:             is-a `ParamsInitializer`.
+            params_dict:                    `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
+
         '''
         raise NotImplementedError()
 

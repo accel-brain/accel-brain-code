@@ -3,6 +3,7 @@ from pydbm.dbm.interface.dbm_builder import DBMBuilder
 from pydbm.dbm.restricted_boltzmann_machines import RestrictedBoltzmannMachine
 from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
 from pydbm.approximation.interface.approximate_interface import ApproximateInterface
+from pydbm.params_initializer import ParamsInitializer
 
 
 class DBMDirector(object):
@@ -73,16 +74,26 @@ class DBMDirector(object):
         self,
         neuron_assign_list,
         activating_function_list,
-        approximate_interface_list
+        approximate_interface_list,
+        scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
     ):
         '''
         Build deep boltzmann machine.
 
         Args:
-            neuron_assign_list:          The unit of neurons in each layers.
-            activating_function_list:    The list of activation function,
-            approximate_interface_list:  The list of function approximation.
+            neuron_assign_list:             The unit of neurons in each layers.
+            activating_function_list:       The list of activation function,
+            approximate_interface_list:     The list of function approximation.
+            scale:                          Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:             is-a `ParamsInitializer`.
+            params_dict:                    `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
+
         '''
+        if isinstance(params_initializer, ParamsInitializer) is False:
+            raise TypeError("The type of `params_initializer` must be `ParamsInitializer`.")
+
         for i in range(len(activating_function_list)):
             if isinstance(activating_function_list[i], ActivatingFunctionInterface) is False:
                 raise TypeError()
@@ -103,5 +114,10 @@ class DBMDirector(object):
         hidden_acitivating_function = activating_function_list[-1]
         self.__dbm_builder.hidden_neuron_part(hidden_acitivating_function, hidden_neuron_count)
 
-        self.__dbm_builder.graph_part(approximate_interface_list)
+        self.__dbm_builder.graph_part(
+            approximate_interface_list,
+            scale=scale,
+            params_initializer=params_initializer,
+            params_dict=params_dict
+        )
         self.rbm_list = self.__dbm_builder.get_result()

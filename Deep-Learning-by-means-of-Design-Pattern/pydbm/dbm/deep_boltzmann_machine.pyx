@@ -6,6 +6,7 @@ from pydbm.dbm.interface.dbm_builder import DBMBuilder
 from pydbm.dbm.dbm_director import DBMDirector
 from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
 from pydbm.approximation.interface.approximate_interface import ApproximateInterface
+from pydbm.params_initializer import ParamsInitializer
 ctypedef np.float64_t DOUBLE_t
 
 
@@ -27,7 +28,7 @@ class DeepBoltzmannMachine(object):
         - Hinton, G. E. (2002). Training products of experts by minimizing contrastive divergence. Neural computation, 14(8), 1771-1800.
         - Le Roux, N., & Bengio, Y. (2008). Representational power of restricted Boltzmann machines and deep belief networks. Neural computation, 20(6), 1631-1649.
         - Salakhutdinov, R., & Hinton, G. E. (2009). Deep boltzmann machines. InInternational conference on artificial intelligence and statistics (pp. 448-455).
- 
+
     '''
 
     # The list of restricted boltzmann machines.
@@ -61,21 +62,32 @@ class DeepBoltzmannMachine(object):
         double learning_rate,
         dropout_rate=None,
         inferencing_flag=True,
-        inferencing_plan=None
+        inferencing_plan=None,
+        scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
     ):
         '''
         Initialize deep boltzmann machine.
 
         Args:
-            dbm_builder:            `    Concrete Builder` in Builder Pattern.
-            neuron_assign_list:          The number of neurons in each layers.
-            activating_function_list:    Activation function.
-            approximate_interface_list:  The object of function approximation.
-            learning_rate:               Learning rate.
-            inferencing_flag:            Execute inferencing or not. 
-            inferencing_plan:            `each`:  Learn -> Inferece -> Learn -> ...
-                                         `at_once`: All learn -> All inference   
+            dbm_builder:                    `Concrete Builder` in Builder Pattern.
+            neuron_assign_list:             The number of neurons in each layers.
+            activating_function_list:       Activation function.
+            approximate_interface_list:     The object of function approximation.
+            learning_rate:                  Learning rate.
+            inferencing_flag:               Execute inferencing or not. 
+            inferencing_plan:               `each`:  Learn -> Inferece -> Learn -> ...
+                                            `at_once`: All learn -> All inference
+
+            scale:                          Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:             is-a `ParamsInitializer`.
+            params_dict:                    `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
+
         '''
+        if isinstance(params_initializer, ParamsInitializer) is False:
+            raise TypeError("The type of `params_initializer` must be `ParamsInitializer`.")
+
         if dropout_rate is not None:
             warnings.warn("`dropout_rate` will be removed in future version. Use `OptParams`.", FutureWarning)
 
@@ -89,7 +101,10 @@ class DeepBoltzmannMachine(object):
         dbm_director.dbm_construct(
             neuron_assign_list=neuron_assign_list,
             activating_function_list=activating_function_list,
-            approximate_interface_list=approximate_interface_list
+            approximate_interface_list=approximate_interface_list,
+            scale=scale,
+            params_initializer=params_initializer,
+            params_dict=params_dict
         )
         self.__rbm_list = dbm_director.rbm_list
 

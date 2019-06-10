@@ -5,6 +5,7 @@ from pydbm.dbm.interface.rt_rbm_builder import RTRBMBuilder
 from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph
 from pydbm.dbm.restrictedboltzmannmachines.rt_rbm import RTRBM
 from pydbm.activation.logistic_function import LogisticFunction
+from pydbm.params_initializer import ParamsInitializer
 
 
 class LSTMRTRBMSimpleBuilder(RTRBMBuilder):
@@ -92,12 +93,22 @@ class LSTMRTRBMSimpleBuilder(RTRBMBuilder):
         '''
         self.__rnn_activating_function = rnn_activating_function
 
-    def graph_part(self, approximate_interface):
+    def graph_part(
+        self, 
+        approximate_interface,
+        scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
+    ):
         '''
         Build RNNRBM graph.
 
         Args:
-            approximate_interface:       The function approximation.
+            approximate_interface:          The function approximation.
+            scale:                          Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:             is-a `ParamsInitializer`.
+            params_dict:                    `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
+
         '''
         self.__approximate_interface = approximate_interface
 
@@ -114,13 +125,19 @@ class LSTMRTRBMSimpleBuilder(RTRBMBuilder):
             self.__lstm_graph.create_rnn_cells(
                 input_neuron_count=self.__visible_neuron_count,
                 hidden_neuron_count=self.__hidden_neuron_count,
-                output_neuron_count=self.__visible_neuron_count
+                output_neuron_count=self.__visible_neuron_count,
+                scale=scale,
+                params_initializer=params_initializer,
+                params_dict=params_dict
             )
             self.__lstm_graph.create_node(
                 self.__visible_neuron_count,
                 self.__hidden_neuron_count,
                 self.__visible_activating_function,
-                self.__hidden_activating_function
+                self.__hidden_activating_function,
+                scale=scale,
+                params_initializer=params_initializer,
+                params_dict=params_dict
             )
         else:
             self.__lstm_graph.load_pre_learned_params(self.__pre_learned_path)

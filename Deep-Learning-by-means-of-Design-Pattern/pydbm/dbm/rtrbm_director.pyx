@@ -2,6 +2,7 @@
 from pydbm.dbm.interface.rt_rbm_builder import RTRBMBuilder
 from pydbm.approximation.interface.approximate_interface import ApproximateInterface
 from pydbm.activation.interface.activating_function_interface import ActivatingFunctionInterface
+from pydbm.params_initializer import ParamsInitializer
 
 
 class RTRBMDirector(object):
@@ -60,7 +61,10 @@ class RTRBMDirector(object):
         hidden_activating_function,
         rnn_activating_function,
         approximate_interface,
-        learning_rate=1e-05
+        learning_rate=1e-05,
+        scale=1.0,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
     ):
         '''
         Build deep boltzmann machine.
@@ -71,6 +75,10 @@ class RTRBMDirector(object):
             visible_activating_function:    The activation function in visible layer.
             hidden_activating_function:     The activation function in hidden layer.
             approximate_interface:          The function approximation.
+            scale:                          Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:             is-a `ParamsInitializer`.
+            params_dict:                    `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
+
         '''
         if isinstance(visible_activating_function, ActivatingFunctionInterface) is False:
             raise TypeError()
@@ -96,6 +104,11 @@ class RTRBMDirector(object):
         # Set units in RNN layer.
         self.__rtrbm_builder.rnn_neuron_part(rnn_activating_function)
         # Set graph and approximation function, delegating `SGD` which is-a `OptParams`.
-        self.__rtrbm_builder.graph_part(approximate_interface)
+        self.__rtrbm_builder.graph_part(
+            approximate_interface,
+            scale=scale,
+            params_initializer=params_initializer,
+            params_dict=params_dict
+        )
         # Building.
         self.__rbm = self.__rtrbm_builder.get_result()

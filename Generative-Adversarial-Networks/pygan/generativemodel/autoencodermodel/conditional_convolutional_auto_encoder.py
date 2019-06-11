@@ -4,6 +4,8 @@ from logging import getLogger
 from pygan.generativemodel.auto_encoder_model import AutoEncoderModel
 from pygan.true_sampler import TrueSampler
 from pygan.generativemodel.conditionalgenerativemodel.conditional_convolutional_model import ConditionalConvolutionalModel
+from pygan.truesampler.conditional_true_sampler import ConditionalTrueSampler
+from pygan.true_sampler import TrueSampler
 
 
 class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
@@ -47,7 +49,6 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
         - Yang, L. C., Chou, S. Y., & Yang, Y. H. (2017). MidiNet: A convolutional generative adversarial network for symbolic-domain music generation. arXiv preprint arXiv:1703.10847.
 
     '''
-    
 
     def __init__(
         self,
@@ -63,6 +64,7 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
 
         self.__batch_size = batch_size
         self.__learning_rate = learning_rate
+        self.__epoch_counter = 0
 
         logger = getLogger("pygan")
         self.__logger = logger
@@ -75,10 +77,37 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
             true_sampler:       is-a `TrueSampler`.
             epochs:             Epochs.
         '''
+        if isinstance(true_sampler, ConditionalTrueSampler) is True:
+            raise TypeError("The type of `true_sampler` must be not `ConditionalTrueSampler` but `TrueSampler`.")
         if isinstance(true_sampler, TrueSampler) is False:
             raise TypeError("The type of `true_sampler` must be `TrueSampler`.")
 
-        self.__conditional_convolutional_model.pre_learn(true_sampler, epochs)
+        pre_loss_list = []
+        for epoch in range(epochs):
+            try:
+                observed_arr = true_sampler.draw()
+                conv_arr = self.inference(observed_arr)
+                if self.__conditional_convolutional_model.condition_noise_sampler is not None:
+                    self.__conditional_convolutional_model.condition_noise_sampler.output_shape = conv_arr.shape
+                    noise_arr = self.__conditional_convolutional_model.condition_noise_sampler.generate()
+                    conv_arr += noise_arr
+
+                deconv_arr = self.__conditional_convolutional_model.deconvolution_model.inference(conv_arr)
+
+                grad_arr = self.__conditional_convolutional_model.cnn.computable_loss.compute_delta(observed_arr, deconv_arr)
+                loss = self.__conditional_convolutional_model.cnn.computable_loss.compute_loss(observed_arr, deconv_arr)
+                pre_loss_list.append(loss)
+                self.__logger.debug("Epoch: " + str(epoch) + " loss: " + str(loss))
+
+                grad_arr = self.__conditional_convolutional_model.deconvolution_model.learn(grad_arr)
+                grad_arr = self.__conditional_convolutional_model.cnn.back_propagation(grad_arr)
+                self.__conditional_convolutional_model.cnn.optimize(self.__learning_rate, epoch)
+
+            except KeyboardInterrupt:
+                self.__logger.debug("Interrupt.")
+                break
+
+        self.__pre_loss_arr = np.array(pre_loss_list)
 
     def draw(self):
         '''
@@ -101,18 +130,17 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
         '''
         return self.__conditional_convolutional_model.inference(observed_arr)
 
-    def learn(self, grad_arr, fix_opt_flag=False):
+    def learn(self, grad_arr):
         '''
-        Update this Discriminator by ascending its stochastic gradient.
+        Update this Generator by ascending its stochastic gradient.
 
         Args:
             grad_arr:       `np.ndarray` of gradients.
-            fix_opt_flag:   If `False`, no optimization in this model will be done.
         
         Returns:
             `np.ndarray` of delta or gradients.
         '''
-        return self.__conditional_convolutional_model.learn(grad_arr, fix_opt_flag=fix_opt_flag)
+        return self.__conditional_convolutional_model.learn(grad_arr)
 
     def update(self):
         '''
@@ -127,9 +155,13 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
             `np.ndarray` of the reconstruction errors.
         '''
         observed_arr = self.__conditional_convolutional_model.extract_conditions()
-        inferenced_arr = self.inference(observed_arr)
-        channel = inferenced_arr.shape[1] // 2
-        inferenced_arr = inferenced_arr[:, channel:]
+        conv_arr = self.inference(observed_arr)
+        if self.__conditional_convolutional_model.condition_noise_sampler is not None:
+            self.__conditional_convolutional_model.condition_noise_sampler.output_shape = conv_arr.shape
+            noise_arr = self.__conditional_convolutional_model.condition_noise_sampler.generate()
+            conv_arr += noise_arr
+
+        inferenced_arr = self.__conditional_convolutional_model.deconvolution_model.inference(conv_arr)
 
         error_arr = self.__conditional_convolutional_model.cnn.computable_loss.compute_loss(
             observed_arr,
@@ -141,6 +173,7 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
             inferenced_arr
         )
 
+        delta_arr = self.__conditional_convolutional_model.deconvolution_model.learn(delta_arr)
         delta_arr = self.__conditional_convolutional_model.cnn.back_propagation(delta_arr)
         self.__conditional_convolutional_model.cnn.optimize(self.__learning_rate, self.__conditional_convolutional_model.epoch_counter)
 
@@ -163,6 +196,6 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
     
     def get_pre_loss_arr(self):
         ''' getter '''
-        return self.conditional_convolutional_model.pre_loss_arr
+        return self.__pre_loss_arr
 
     pre_loss_arr = property(get_pre_loss_arr, set_readonly)

@@ -4,7 +4,6 @@ from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
 
 from pygan.generativemodel.conditional_generative_model import ConditionalGenerativeModel
 from pygan.generativemodel.deconvolution_model import DeconvolutionModel
-from pygan.true_sampler import TrueSampler
 
 from pydbm.optimization.opt_params import OptParams
 from pydbm.verification.interface.verificatable_result import VerificatableResult
@@ -149,44 +148,6 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
         logger = getLogger("pygan")
         self.__logger = logger
 
-    def pre_learn(self, true_sampler, epochs=1000):
-        '''
-        Pre learning.
-
-        Args:
-            true_sampler:       is-a `TrueSampler`.
-            epochs:             Epochs.
-        '''
-        if isinstance(true_sampler, TrueSampler) is False:
-            raise TypeError("The type of `true_sampler` must be `TrueSampler`.")
-        
-        pre_loss_list = []
-        for epoch in range(epochs):
-            try:
-                observed_arr = true_sampler.draw()
-                if self.conditional_axis == 1:
-                    channel = observed_arr.shape[1] // 2
-                    observed_arr = observed_arr[:, :channel]
-                elif self.conditional_axis == 2:
-                    width = grad_aobserved_arrrr.shape[2] // 2
-                    observed_arr = observed_arr[:, :, :width]
-                elif self.conditional_axis == 3:
-                    height = observed_arr.shape[3] // 2
-                    observed_arr = observed_arr[:, :, :, :height]
-
-                inferenced_arr = self.inference(observed_arr)
-
-                grad_arr = self.__computable_loss.compute_delta(observed_arr, inferenced_arr)
-                loss = self.__computable_loss.compute_loss(observed_arr, inferenced_arr)
-                pre_loss_list.append(loss)
-                self.__logger.debug("Epoch: " + str(epoch) + " loss: " + str(loss))
-                self.learn(grad_arr)
-            except KeyboardInterrupt:
-                self.__logger.debug("Interrupt.")
-                break
-
-        self.__pre_loss_arr = np.array(pre_loss_list)
-
     def draw(self):
         '''
         Draws samples from the `fake` distribution.
@@ -267,11 +228,11 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
         ''' getter '''
         return self.__deconvolution_model
     
-    def set_readonly(self, value):
+    def set_deconvolution_model(self, value):
         ''' setter '''
-        raise TypeError()
+        self.__deconvolution_model = value
     
-    deconvolution_model = property(get_deconvolution_model, set_readonly)
+    deconvolution_model = property(get_deconvolution_model, set_deconvolution_model)
 
     def get_epoch_counter(self):
         ''' getter '''
@@ -292,3 +253,13 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
         self.__conditional_axis = value
     
     conditional_axis = property(get_conditional_axis, set_conditional_axis)
+
+    def get_condition_noise_sampler(self):
+        ''' getter '''
+        return self.__condition_noise_sampler
+    
+    def set_condition_noise_sampler(self, value):
+        ''' setter '''
+        self.__condition_noise_sampler = value
+    
+    condition_noise_sampler = property(get_condition_noise_sampler, set_condition_noise_sampler)

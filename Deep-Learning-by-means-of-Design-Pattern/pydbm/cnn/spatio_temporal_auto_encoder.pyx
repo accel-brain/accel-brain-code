@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from logging import getLogger
 from pydbm.cnn.layerable_cnn import LayerableCNN
-from pydbm.rnn.interface.reconstructable_model import ReconstructableModel
+from pydbm.rnn.lstmmodel.conv_lstm_model import ConvLSTMModel
 from pydbm.cnn.feature_generator import FeatureGenerator
 from pydbm.optimization.opt_params import OptParams
 from pydbm.verification.interface.verificatable_result import VerificatableResult
@@ -50,8 +50,6 @@ class SpatioTemporalAutoEncoder(object):
         double learning_attenuate_rate=0.1,
         int attenuate_epoch=50,
         double test_size_rate=0.3,
-        int fully_connected_dim=100,
-        fully_connected_activation=None,
         tol=1e-15,
         tld=100.0,
         save_flag=False,
@@ -62,8 +60,8 @@ class SpatioTemporalAutoEncoder(object):
         
         Args:
             layerable_cnn_list:             The `list` of `LayerableCNN`.
-            encoder:                        is-a `ReconstructableModel`.
-            decoder:                        is-a `ReconstructableModel`.
+            encoder:                        is-a `ConvLSTMModel`.
+            decoder:                        is-a `ConvLSTMModel`.
             computable_loss:                Loss function.
             opt_params:                     Optimization function.
             verificatable_result:           Verification function.
@@ -77,18 +75,16 @@ class SpatioTemporalAutoEncoder(object):
                                             this class constrains weight matrixes every `attenuate_epoch`.
 
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
-            fully_connected_dim:            Dimension of fully-connected layer between Convolution layer and Encoder/Decoder.
-            fully_connected_activation:     is-a `ActivatingFunctionInterface`.
             tol:                            Tolerance for the optimization.
             tld:                            Tolerance for deviation of loss.
             save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.
             pre_learned_dir:                Path to directory that stores pre-learned parameters.
 
         '''
-        if isinstance(encoder, ReconstructableModel) is False:
-            raise TypeError()
-        if isinstance(decoder, ReconstructableModel) is False:
-            raise TypeError()
+        if isinstance(encoder, ConvLSTMModel) is False:
+            raise TypeError("The type of `encoder` must be `ConvLSTMModel`.")
+        if isinstance(decoder, ConvLSTMModel) is False:
+            raise TypeError("The type of `decoder` must be `ConvLSTMModel`.")
 
         for layerable_cnn in layerable_cnn_list:
             if isinstance(layerable_cnn, LayerableCNN) is False:
@@ -128,16 +124,8 @@ class SpatioTemporalAutoEncoder(object):
         self.__attenuate_epoch = attenuate_epoch
 
         self.__test_size_rate = test_size_rate
-        self.__fully_connected_dim = fully_connected_dim
         self.__fully_connected_weight_arr = None
         
-        if fully_connected_activation is not None:
-            if isinstance(fully_connected_activation, ActivatingFunctionInterface) is False:
-                raise TypeError()
-            self.__fully_connected_activation = fully_connected_activation
-        else:
-            self.__fully_connected_activation = None
-
         self.__tol = tol
         self.__tld = tld
 
@@ -670,32 +658,11 @@ class SpatioTemporalAutoEncoder(object):
         cdef np.ndarray decoder_delta_arr
 
         cdef np.ndarray[DOUBLE_t, ndim=3] conv_input_arr = conv_arr.reshape((sample_n, seq_len, -1))
-        cdef np.ndarray[DOUBLE_t, ndim=3] observed_arr = np.empty((sample_n, seq_len, self.__fully_connected_dim))
 
-        if self.__fully_connected_activation is not None:
-            if self.__fully_connected_weight_arr is None:
-                self.__fully_connected_weight_arr = np.random.normal(
-                    size=(
-                        conv_arr.reshape((sample_n, seq_len, -1)).shape[-1], 
-                        self.__fully_connected_dim
-                    )
-                ) * 0.1
-
-            for seq in range(conv_input_arr.shape[1]):
-                observed_arr[:, seq] = self.__fully_connected_activation.activate(
-                    np.dot(conv_input_arr[:, seq], self.__fully_connected_weight_arr)
-                )
-
-            decoded_arr = self.temporal_inference(observed_arr)
-            self.__decoded_features_arr = decoded_arr
-            ver_decoded_arr = decoded_arr.copy()
-            loss = self.__temporal_reconstruction_error_arr
-            delta_arr = self.__computable_loss.compute_delta(decoded_arr[:, 0], observed_arr[:, 0])
-        else:
-            decoded_arr = self.temporal_inference(conv_arr)
-            self.__decoded_features_arr = decoded_arr
-            loss = self.__temporal_reconstruction_error_arr
-            delta_arr = self.__computable_loss.compute_delta(decoded_arr[:, 0], conv_arr[:, 0])
+        decoded_arr = self.temporal_inference(conv_arr)
+        self.__decoded_features_arr = decoded_arr
+        loss = self.__temporal_reconstruction_error_arr
+        delta_arr = self.__computable_loss.compute_delta(decoded_arr[:, 0], conv_arr[:, 0])
 
         if self.__learn_flag is True:
             self.__encoder_decoder_loss = loss
@@ -729,29 +696,10 @@ class SpatioTemporalAutoEncoder(object):
         self.__decoder.graph.rnn_activity_arr = np.array([])
 
         cdef np.ndarray[DOUBLE_t, ndim=3] lstm_input_arr
-        if self.__fully_connected_activation is not None:
-            lstm_input_arr = np.empty(
-                (
-                    sample_n, 
-                    seq_len, 
-                    conv_arr.reshape((sample_n, seq_len, -1)).shape[-1]
-                )
-            )
-            for seq in range(decoded_arr.shape[1]):
-                if decoded_arr[:, seq].shape[-1] != self.__fully_connected_weight_arr.T.shape[-1]:
-                    lstm_input_arr[:, seq] = self.__fully_connected_activation.derivative(
-                        np.dot(decoded_arr[:, seq], self.__fully_connected_weight_arr.T)
-                    )
-                else:
-                    lstm_input_arr[:, seq] = decoded_arr[:, seq]
-
-            conv_arr = conv_arr + lstm_input_arr.reshape((sample_n, seq_len, channel, width, height))
-            conv_arr = self.__fully_connected_activation.activate(conv_arr)
+        if conv_arr.ndim == decoded_arr.ndim:
+            conv_arr = np.tanh(conv_arr + decoded_arr)
         else:
-            if conv_arr.ndim == decoded_arr.ndim:
-                conv_arr = np.tanh(conv_arr + decoded_arr)
-            else:
-                conv_arr = np.tanh(conv_arr + decoded_arr.reshape(conv_arr.copy().shape))
+            conv_arr = np.tanh(conv_arr + decoded_arr.reshape(conv_arr.copy().shape))
 
         conv_arr = conv_arr - conv_arr.mean()
         self.__spatio_temporal_features_arr = conv_arr
@@ -765,12 +713,22 @@ class SpatioTemporalAutoEncoder(object):
             for i in range(len(layerable_cnn_list)):
                 try:
                     if i == 0:
+                        conv_arr[:, seq] = layerable_cnn_list[i].graph.activation_function.backward(conv_arr[:, seq])
                         deconv_output_arr = layerable_cnn_list[i].deconvolve(conv_arr[:, seq])
                     else:
+                        deconv_output_arr = layerable_cnn_list[i].graph.activation_function.backward(deconv_output_arr)
                         deconv_output_arr = layerable_cnn_list[i].deconvolve(deconv_output_arr)
-                    deconv_output_arr = layerable_cnn_list[i].graph.activation_function.activate(
+
+                    deconv_output_arr = layerable_cnn_list[i].graph.deactivation_function.activate(
                         deconv_output_arr
                     )
+                    if layerable_cnn_list[i].graph.deconvolved_bias_arr is not None:
+                        deconv_output_arr += layerable_cnn_list[i].graph.deconvolved_bias_arr.reshape((
+                            1,
+                            deconv_output_arr.shape[1],
+                            deconv_output_arr.shape[2],
+                            deconv_output_arr.shape[3]
+                        ))
                 except:
                     self.__logger.debug("Error raised in Deconvolution layer " + str(i + 1))
                     raise
@@ -794,10 +752,66 @@ class SpatioTemporalAutoEncoder(object):
             Delta.
         '''
         cdef int i = 0
+        cdef int sample_n = delta_arr.shape[0]
+        cdef int kernel_height
+        cdef int kernel_width
+        cdef int img_sample_n
+        cdef int img_channel
+        cdef int img_height
+        cdef int img_width
+
+        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr
+        cdef np.ndarray[DOUBLE_t, ndim=3] delta_bias_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr
+        cdef np.ndarray[DOUBLE_t, ndim=4] _delta_weight_arr
 
         for i in range(len(self.layerable_cnn_list)):
             try:
+                img_sample_n = delta_arr.shape[0]
+                img_channel = delta_arr.shape[1]
+                img_height = delta_arr.shape[2]
+                img_width = delta_arr.shape[3]
+                kernel_height = self.layerable_cnn_list[i].graph.weight_arr.shape[2]
+                kernel_width = self.layerable_cnn_list[i].graph.weight_arr.shape[3]
+                reshaped_img_arr = self.layerable_cnn_list[i].affine_to_matrix(
+                    delta_arr,
+                    kernel_height, 
+                    kernel_width, 
+                    self.layerable_cnn_list[i].graph.stride, 
+                    self.layerable_cnn_list[i].graph.pad
+                )
+                delta_bias_arr = delta_arr.sum(axis=0)
                 delta_arr = self.layerable_cnn_list[i].convolve(delta_arr, no_bias_flag=True)
+                channel = delta_arr.shape[1]
+                _delta_arr = delta_arr.reshape(-1, sample_n)
+                delta_weight_arr = np.dot(reshaped_img_arr.T, _delta_arr)
+
+                delta_weight_arr = delta_weight_arr.transpose(1, 0)
+                _delta_weight_arr = delta_weight_arr.reshape(
+                    sample_n,
+                    kernel_height,
+                    kernel_width,
+                    -1
+                )
+                _delta_weight_arr = _delta_weight_arr.transpose((0, 3, 1, 2))
+
+                if self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr is None:
+                    self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr = delta_bias_arr.reshape(1, -1)
+                else:
+                    self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr += delta_bias_arr.reshape(1, -1)
+
+                if self.layerable_cnn_list[i].graph.deconvolved_bias_arr is None:
+                    self.layerable_cnn_list[i].graph.deconvolved_bias_arr = np.zeros((
+                        1, 
+                        img_channel * img_height * img_width
+                    ))
+
+                if self.layerable_cnn_list[i].delta_weight_arr is None:
+                    self.layerable_cnn_list[i].delta_weight_arr = _delta_weight_arr
+                else:
+                    self.layerable_cnn_list[i].delta_weight_arr += _delta_weight_arr
+
             except:
                 self.__logger.debug("Backward raised error in Convolution layer " + str(i + 1))
                 raise

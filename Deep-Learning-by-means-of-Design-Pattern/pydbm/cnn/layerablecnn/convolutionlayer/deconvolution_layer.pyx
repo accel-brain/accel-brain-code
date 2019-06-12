@@ -35,16 +35,19 @@ class DeconvolutionLayer(ConvolutionLayer):
             result_arr.shape[0],
             -1
         ))
-        _result_arr += self.graph.bias_arr.reshape((
-            self.graph.bias_arr.shape[0],
-            1
-        ))
         result_arr = _result_arr.reshape((
             result_arr.shape[0],
             result_arr.shape[1],
             result_arr.shape[2],
             result_arr.shape[3]
         ))
+        if self.graph.bias_arr is not None:
+            result_arr += self.graph.bias_arr.reshape((
+                1,
+                result_arr.shape[1],
+                result_arr.shape[2],
+                result_arr.shape[3]
+            ))
 
         cdef int kernel_height = self.graph.weight_arr.shape[2]
         cdef int kernel_width = self.graph.weight_arr.shape[3]
@@ -87,7 +90,7 @@ class DeconvolutionLayer(ConvolutionLayer):
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_img_arr = self.convolve(delta_arr, no_bias_flag=True)
         delta_arr = delta_arr.transpose(0, 2, 3, 1)
         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr = delta_arr.reshape(-1, sample_n)
-        cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = _delta_arr.sum(axis=0)
+        cdef np.ndarray[DOUBLE_t, ndim=3] delta_bias_arr = delta_arr.sum(axis=0)
         _delta_arr = delta_arr.reshape(-1, channel)
         cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr = self.__reshaped_img_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr = np.dot(reshaped_img_arr.T, _delta_arr)
@@ -98,10 +101,13 @@ class DeconvolutionLayer(ConvolutionLayer):
             kernel_height,
             kernel_width
         )
+        if self.graph.bias_arr is None:
+            self.graph.bias_arr = np.zeros((1, img_channel * img_height * img_width))
+
         if self.delta_bias_arr is None:
-            self.delta_bias_arr = delta_bias_arr
+            self.delta_bias_arr = delta_bias_arr.reshape(1, -1)
         else:
-            self.delta_bias_arr += delta_bias_arr
+            self.delta_bias_arr += delta_bias_arr.reshape(1, -1)
 
         if self.delta_weight_arr is None:
             self.delta_weight_arr = _delta_weight_arr

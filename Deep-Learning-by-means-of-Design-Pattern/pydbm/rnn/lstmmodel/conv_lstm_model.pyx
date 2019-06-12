@@ -822,7 +822,6 @@ class ConvLSTMModel(ReconstructableModel):
             - `list` of gradations.
         '''
         delta_arr, grads_list = self.output_back_propagate(pred_arr, delta_arr)
-
         cdef np.ndarray[DOUBLE_t, ndim=2] arr
         if self.__opt_params.dropout_rate > 0:
             arr = delta_arr.reshape((
@@ -1051,7 +1050,7 @@ class ConvLSTMModel(ReconstructableModel):
         cdef np.ndarray[DOUBLE_t, ndim=5] pred_arr = None
         cdef int cycle
         for cycle in range(cycle_len):
-            if self.__seq_len == 0 or cycle == 0:
+            if self.__seq_len > 0 and observed_arr.shape[1] > 1:
                 self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
                     observed_arr[:, cycle, :, :, :],
                     self.graph.hidden_activity_arr,
@@ -1059,7 +1058,7 @@ class ConvLSTMModel(ReconstructableModel):
                 )
             else:
                 self.graph.hidden_activity_arr, self.graph.cec_activity_arr = self.__lstm_forward(
-                    pred_arr[:, cycle-1, :, :, :],
+                    observed_arr[:, 0, :, :, :],
                     self.graph.hidden_activity_arr,
                     self.graph.cec_activity_arr
                 )
@@ -1131,7 +1130,6 @@ class ConvLSTMModel(ReconstructableModel):
             cycle_len = self.__seq_len
 
         cdef np.ndarray[DOUBLE_t, ndim=5] delta_arr = None
-        cdef np.ndarray[DOUBLE_t, ndim=4] _delta_hidden_arr
         cdef np.ndarray[DOUBLE_t, ndim=4] delta_hidden_arr
         cdef np.ndarray delta_cec_arr = np.array([])
 
@@ -1139,13 +1137,8 @@ class ConvLSTMModel(ReconstructableModel):
         cdef int cycle
 
         for cycle in reversed(range(cycle_len)):
-            if bp_count == 0:
-                _delta_hidden_arr = delta_output_arr
-            else:
-                _delta_hidden_arr = delta_hidden_arr
-
             delta_hidden_arr, delta_cec_arr = self.lstm_backward(
-                _delta_hidden_arr,
+                delta_output_arr,
                 delta_cec_arr,
                 cycle
             )

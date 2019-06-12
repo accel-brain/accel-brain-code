@@ -37,6 +37,32 @@ class CNNGraph(Synapse):
     
     bias_arr = property(get_bias_arr, set_bias_arr)
 
+    # Deconvolved bias vector.
+    __deconvolved_bias_arr = None
+
+    def get_deconvolved_bias_arr(self):
+        ''' getter '''
+        return self.__deconvolved_bias_arr
+
+    def set_deconvolved_bias_arr(self, value):
+        ''' setter '''
+        self.__deconvolved_bias_arr = value
+
+    deconvolved_bias_arr = property(get_deconvolved_bias_arr, set_deconvolved_bias_arr)
+
+    # Delta of deconvolved bias vector.
+    __delta_deconvolved_bias_arr = None
+
+    def get_delta_deconvolved_bias_arr(self):
+        ''' getter '''
+        return self.__delta_deconvolved_bias_arr
+
+    def set_delta_deconvolved_bias_arr(self, value):
+        ''' setter '''
+        self.__delta_deconvolved_bias_arr = value
+
+    delta_deconvolved_bias_arr = property(get_delta_deconvolved_bias_arr, set_delta_deconvolved_bias_arr)
+
     # Activation function.
     __activation_function = None
     
@@ -111,7 +137,8 @@ class CNNGraph(Synapse):
             **params_dict
         ) * scale
 
-        self.__bias_arr = np.zeros((filter_num, ))
+        # dynamically defined.
+        self.__bias_arr = None
         
         self.__stride = stride
         self.__pad = pad

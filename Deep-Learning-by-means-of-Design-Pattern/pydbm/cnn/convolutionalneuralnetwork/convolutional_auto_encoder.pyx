@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from logging import getLogger
+from copy import deepcopy
 from pydbm.cnn.convolutional_neural_network import ConvolutionalNeuralNetwork
 from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer
 import numpy as np
@@ -28,6 +29,9 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
     '''
     # Feature points.
     __feature_points_arr = None
+
+    # Delta.
+    __delta_deconvolved_bias_arr = None
 
     def __init__(
         self,
@@ -91,6 +95,7 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         self.__epochs = epochs
         self.__batch_size = batch_size
         self.opt_params = opt_params
+        self.__deconv_opt_params = deepcopy(self.opt_params)
 
         self.__learning_rate = learning_rate
         self.__learning_attenuate_rate = learning_attenuate_rate
@@ -150,6 +155,13 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
                 img_arr = layerable_cnn_list[i].graph.activation_function.backward(img_arr)
                 img_arr = layerable_cnn_list[i].deconvolve(img_arr)
                 img_arr = layerable_cnn_list[i].graph.deactivation_function.activate(img_arr)
+                if layerable_cnn_list[i].graph.deconvolved_bias_arr is not None:
+                    img_arr += layerable_cnn_list[i].graph.deconvolved_bias_arr.reshape((
+                        1,
+                        img_arr.shape[1],
+                        img_arr.shape[2],
+                        img_arr.shape[3]
+                    ))
             except:
                 self.__logger.debug("Error raised in Deconvolution layer " + str(i + 1))
                 raise
@@ -168,10 +180,70 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         Returns.
             Delta.
         '''
-        cdef int i = 0        
+        cdef int i = 0
+        cdef int sample_n = delta_arr.shape[0]
+        cdef int kernel_height
+        cdef int kernel_width
+        cdef int img_sample_n
+        cdef int img_channel
+        cdef int img_height
+        cdef int img_width
+
+        cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr
+        cdef np.ndarray[DOUBLE_t, ndim=3] delta_bias_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_weight_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr
+        cdef np.ndarray[DOUBLE_t, ndim=4] _delta_weight_arr
+
         for i in range(len(self.layerable_cnn_list)):
             try:
+                img_sample_n = delta_arr.shape[0]
+                img_channel = delta_arr.shape[1]
+                img_height = delta_arr.shape[2]
+                img_width = delta_arr.shape[3]
+
+                kernel_height = self.layerable_cnn_list[i].graph.weight_arr.shape[2]
+                kernel_width = self.layerable_cnn_list[i].graph.weight_arr.shape[3]
+                reshaped_img_arr = self.layerable_cnn_list[i].affine_to_matrix(
+                    delta_arr,
+                    kernel_height, 
+                    kernel_width, 
+                    self.layerable_cnn_list[i].graph.stride, 
+                    self.layerable_cnn_list[i].graph.pad
+                )
+                delta_bias_arr = delta_arr.sum(axis=0)
                 delta_arr = self.layerable_cnn_list[i].convolve(delta_arr, no_bias_flag=True)
+                channel = delta_arr.shape[1]
+                _delta_arr = delta_arr.reshape(-1, sample_n)
+                reshaped_weight_arr = self.layerable_cnn_list[i].graph.weight_arr.reshape(sample_n, -1).T
+                delta_weight_arr = np.dot(reshaped_img_arr.T, _delta_arr)
+
+                delta_weight_arr = delta_weight_arr.transpose(1, 0)
+                _delta_weight_arr = delta_weight_arr.reshape(
+                    sample_n,
+                    kernel_height,
+                    kernel_width,
+                    -1
+                )
+                _delta_weight_arr = _delta_weight_arr.transpose((0, 3, 1, 2))
+
+                if self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr is None:
+                    self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr = delta_bias_arr.reshape(1, -1)
+                else:
+                    self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr += delta_bias_arr.reshape(1, -1)
+
+                if self.layerable_cnn_list[i].graph.deconvolved_bias_arr is None:
+                    self.layerable_cnn_list[i].graph.deconvolved_bias_arr = np.zeros((
+                        1, 
+                        img_channel * img_height * img_width
+                    ))
+
+                if self.layerable_cnn_list[i].delta_weight_arr is None:
+                    self.layerable_cnn_list[i].delta_weight_arr = _delta_weight_arr
+                else:
+                    self.layerable_cnn_list[i].delta_weight_arr += _delta_weight_arr
+
             except:
                 self.__logger.debug("Backward raised error in Convolution layer " + str(i + 1))
                 raise
@@ -199,6 +271,32 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
                 raise
 
         return delta_arr
+
+    def optimize(self, double learning_rate, int epoch):
+        '''
+        Back propagation.
+        
+        Args:
+            learning_rate:  Learning rate.
+            epoch:          Now epoch.
+            
+        '''
+        params_list = [
+            self.layerable_cnn_list[i].graph.deconvolved_bias_arr for i in range(len(self.layerable_cnn_list))
+        ]
+        grads_list = [
+            self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr for i in range(len(self.layerable_cnn_list))
+        ]
+        params_list = self.__deconv_opt_params.optimize(
+            params_list,
+            grads_list,
+            learning_rate
+        )
+        for i in range(len(self.layerable_cnn_list)):
+            self.layerable_cnn_list[i].graph.deconvolved_bias_arr = params_list[i]
+            self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr = None
+
+        super().optimize(learning_rate, epoch)
 
     def extract_feature_points_arr(self):
         '''

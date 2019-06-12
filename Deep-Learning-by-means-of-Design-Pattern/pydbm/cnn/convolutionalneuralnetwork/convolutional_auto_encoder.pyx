@@ -192,7 +192,6 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         cdef np.ndarray[DOUBLE_t, ndim=2] _delta_arr
         cdef np.ndarray[DOUBLE_t, ndim=3] delta_bias_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_img_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] reshaped_weight_arr
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr
         cdef np.ndarray[DOUBLE_t, ndim=4] _delta_weight_arr
 
@@ -216,7 +215,6 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
                 delta_arr = self.layerable_cnn_list[i].convolve(delta_arr, no_bias_flag=True)
                 channel = delta_arr.shape[1]
                 _delta_arr = delta_arr.reshape(-1, sample_n)
-                reshaped_weight_arr = self.layerable_cnn_list[i].graph.weight_arr.reshape(sample_n, -1).T
                 delta_weight_arr = np.dot(reshaped_img_arr.T, _delta_arr)
 
                 delta_weight_arr = delta_weight_arr.transpose(1, 0)

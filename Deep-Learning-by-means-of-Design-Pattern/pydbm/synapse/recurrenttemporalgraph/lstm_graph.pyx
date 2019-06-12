@@ -504,9 +504,9 @@ class LSTMGraph(RecurrentTemporalGraph):
 
     def create_rnn_cells(
         self,
-        int input_neuron_count,
-        int hidden_neuron_count,
-        int output_neuron_count,
+        int input_neuron_count=1,
+        int hidden_neuron_count=1,
+        int output_neuron_count=1,
         scale=1.0,
         params_initializer=ParamsInitializer(),
         params_dict={"loc": 0.0, "scale": 1.0}

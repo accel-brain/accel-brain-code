@@ -187,7 +187,7 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
         Args:
             inferencing_mode:       Inferencing mode or not.
         '''
-        self.__conditional_convolutional_model.opt_params.inferencing_mode = inferencing_mode
+        self.__conditional_convolutional_model.switch_inferencing_mode(inferencing_mode)
 
     def get_conditional_convolutional_model(self):
         ''' getter '''

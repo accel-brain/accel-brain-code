@@ -696,12 +696,13 @@ class SpatioTemporalAutoEncoder(object):
         self.__decoder.graph.rnn_activity_arr = np.array([])
 
         cdef np.ndarray[DOUBLE_t, ndim=3] lstm_input_arr
+        conv_arr = decoded_arr
         if conv_arr.ndim == decoded_arr.ndim:
-            conv_arr = np.tanh(conv_arr + decoded_arr)
+            conv_arr = conv_arr + decoded_arr
         else:
-            conv_arr = np.tanh(conv_arr + decoded_arr.reshape(conv_arr.copy().shape))
+            conv_arr = conv_arr + decoded_arr.reshape(conv_arr.copy().shape)
 
-        conv_arr = conv_arr - conv_arr.mean()
+        conv_arr = (conv_arr - conv_arr.mean()) / (conv_arr.std() + 1e-08)
         self.__spatio_temporal_features_arr = conv_arr
 
         layerable_cnn_list = self.__layerable_cnn_list[::-1]

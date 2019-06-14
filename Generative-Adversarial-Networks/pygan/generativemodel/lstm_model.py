@@ -176,7 +176,7 @@ class LSTMModel(GenerativeModel):
             )
 
             opt_params = SGD()
-            opt_params.weight_limit = 0.5
+            opt_params.weight_limit = 1e+10
             opt_params.dropout_rate = 0.0
 
             lstm_model = LSTM(

@@ -63,6 +63,7 @@ class DeconvolutionModel(GenerativeModel):
 
         if opt_params is None:
             opt_params = Adam()
+            opt_params.weight_limit = 1e+10
             opt_params.dropout_rate = 0.0
         
         if isinstance(opt_params, OptParams) is False:

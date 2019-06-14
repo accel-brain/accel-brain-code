@@ -63,7 +63,7 @@ class NNModel(GenerativeModel):
             verificatable_result = VerificateFunctionApproximation()
         if opt_params is None:
             opt_params = Adam()
-            opt_params.weight_limit = 0.5
+            opt_params.weight_limit = 1e+10
             opt_params.dropout_rate = 0.0
 
         if nn is None:

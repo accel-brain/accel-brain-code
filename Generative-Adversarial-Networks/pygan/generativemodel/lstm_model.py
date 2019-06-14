@@ -289,6 +289,15 @@ class LSTMModel(GenerativeModel):
 
         return delta_arr
 
+    def switch_inferencing_mode(self, inferencing_mode=True):
+        '''
+        Set inferencing mode in relation to concrete regularizations.
+
+        Args:
+            inferencing_mode:       Inferencing mode or not.
+        '''
+        self.__lstm_model.opt_params.inferencing_mode = inferencing_mode
+
     def get_lstm_model(self):
         ''' getter '''
         return self.__lstm_model

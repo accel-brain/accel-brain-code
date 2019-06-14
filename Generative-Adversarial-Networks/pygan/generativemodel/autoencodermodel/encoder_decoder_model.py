@@ -189,6 +189,15 @@ class EncoderDecoderModel(AutoEncoderModel):
         self.__epoch_counter += 1
         return error_arr
 
+    def switch_inferencing_mode(self, inferencing_mode=True):
+        '''
+        Set inferencing mode in relation to concrete regularizations.
+
+        Args:
+            inferencing_mode:       Inferencing mode or not.
+        '''
+        self.__encoder_decoder_controller.opt_params.inferencing_mode = inferencing_mode
+
     def get_encoder_decoder_controller(self):
         ''' getter '''
         return self.__encoder_decoder_controller

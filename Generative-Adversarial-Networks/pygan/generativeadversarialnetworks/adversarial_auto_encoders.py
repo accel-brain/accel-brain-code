@@ -90,6 +90,8 @@ class AdversarialAutoEncoders(GenerativeAdversarialNetworks):
         if isinstance(discriminative_model, DiscriminativeModel) is False:
             raise TypeError("The type of `discriminative_model` must be `DiscriminativeModel`.")
 
+        generative_model.switch_inferencing_mode(inferencing_mode=False)
+
         a_logs_list = []
         d_logs_list = []
         g_logs_list = []
@@ -139,6 +141,7 @@ class AdversarialAutoEncoders(GenerativeAdversarialNetworks):
             print("Keyboard Interrupt.")
 
         self.__logs_tuple = (a_logs_list, d_logs_list, g_logs_list)
+        generative_model.switch_inferencing_mode(inferencing_mode=True)
         return generative_model, discriminative_model
 
     def train_auto_encoder(self, generative_model, a_logs_list):

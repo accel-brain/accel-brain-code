@@ -180,6 +180,15 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
         self.__conditional_convolutional_model.epoch_counter += 1
         return error_arr
 
+    def switch_inferencing_mode(self, inferencing_mode=True):
+        '''
+        Set inferencing mode in relation to concrete regularizations.
+
+        Args:
+            inferencing_mode:       Inferencing mode or not.
+        '''
+        self.__conditional_convolutional_model.opt_params.inferencing_mode = inferencing_mode
+
     def get_conditional_convolutional_model(self):
         ''' getter '''
         return self.__conditional_convolutional_model

@@ -253,6 +253,15 @@ class DeconvolutionModel(GenerativeModel):
                 if self.__deconvolution_layer_list[i].delta_bias_arr.shape[0] > 0:
                     self.__deconvolution_layer_list[i].reset_delta()
 
+    def switch_inferencing_mode(self, inferencing_mode=True):
+        '''
+        Set inferencing mode in relation to concrete regularizations.
+
+        Args:
+            inferencing_mode:       Inferencing mode or not.
+        '''
+        self.__opt_params.inferencing_mode = inferencing_mode
+
     def get_deconvolution_layer_list(self):
         ''' getter '''
         return self.__deconvolution_layer_list

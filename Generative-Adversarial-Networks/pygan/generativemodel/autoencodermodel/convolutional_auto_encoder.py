@@ -319,6 +319,16 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         self.__epoch_counter += 1
         return error_arr
 
+    def switch_inferencing_mode(self, inferencing_mode=True):
+        '''
+        Set inferencing mode in relation to concrete regularizations.
+
+        Args:
+            inferencing_mode:       Inferencing mode or not.
+        '''
+        self.__opt_params.inferencing_mode = inferencing_mode
+        self.__convolutional_auto_encoder.opt_params.inferencing_mode = inferencing_mode
+
     def get_convolutional_auto_encoder(self):
         ''' getter '''
         return self.__convolutional_auto_encoder

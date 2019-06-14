@@ -146,6 +146,15 @@ class NNModel(GenerativeModel):
         
         return delta_arr
 
+    def switch_inferencing_mode(self, inferencing_mode=True):
+        '''
+        Set inferencing mode in relation to concrete regularizations.
+
+        Args:
+            inferencing_mode:       Inferencing mode or not.
+        '''
+        self.__nn.opt_params.inferencing_mode = inferencing_mode
+
     def get_nn(self):
         ''' getter '''
         return self.__nn

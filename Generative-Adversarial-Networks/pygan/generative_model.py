@@ -45,3 +45,13 @@ class GenerativeModel(metaclass=ABCMeta):
 
         '''
         raise NotImplementedError()
+
+    @abstractmethod
+    def switch_inferencing_mode(self, inferencing_mode=True):
+        '''
+        Set inferencing mode in relation to concrete regularizations.
+
+        Args:
+            inferencing_mode:       Inferencing mode or not.
+        '''
+        raise NotImplementedError()

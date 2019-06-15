@@ -214,13 +214,17 @@ class ConditionalGANComposer(GANComposable):
             ]
 
             opt_params_deconv = Adam()
+            opt_params_deconv.dropout_rate = 0.0
+            opt_params_deconv.weight_limit = 1e+10
+
             deconvolution_model = DeconvolutionModel(
                 deconvolution_layer_list=deconvolution_layer_list,
                 opt_params=opt_params_deconv
             )
 
-            opt_params=Adam()
+            opt_params = Adam()
             opt_params.dropout_rate = 0.0
+            opt_params.weight_limit = 1e+10
 
             generative_model = Generator(
                 batch_size=batch_size,

@@ -268,6 +268,7 @@ class ConditionalGANComposer(GANComposable):
 
             opt_params = Adam()
             opt_params.dropout_rate = 0.0
+            opt_params.weight_limit = 1e+10
 
             if hidden_dim is None:
                 hidden_dim = channel * seq_len * dim
@@ -355,7 +356,7 @@ class ConditionalGANComposer(GANComposable):
         '''
         generated_arr = self.__generative_model.draw()
         channel = generated_arr.shape[1] // 2
-        generated_arr = generated_arr[:, :channel]
+        generated_arr = generated_arr[:, channel:]
 
         # @TODO(chimera0(RUM)): Fix the redundant processings.
         if velocity_mean is None:

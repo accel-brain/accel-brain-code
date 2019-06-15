@@ -299,13 +299,14 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         cdef int col_x = observed_data_arr.shape[1]
 
         cdef np.ndarray[DOUBLE_t, ndim=2] reshape_arr = observed_data_arr.copy()
-
         i = 0
         for x in range(col_x):
-            for y in range(row_y):
-                reshape_arr[y, x] = reshape_arr[y, x] * shaped_data_arr[i]
-                i += 1
-
+            try:
+                for y in range(row_y):
+                    reshape_arr[y, x] = reshape_arr[y, x] * shaped_data_arr[i]
+                    i += 1
+            except IndexError:
+                break
         if reshape_arr.min() != 0 or reshape_arr.max() != 1:
             reshape_arr = 255 * (reshape_arr - reshape_arr.min()) / (reshape_arr.max() - reshape_arr.min())
         return reshape_arr

@@ -164,7 +164,8 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
             conv_arr += noise_arr
 
         deconv_arr = self.__deconvolution_model.inference(conv_arr)
-        return np.concatenate((deconv_arr, observed_arr), axis=self.conditional_axis)
+        #return np.concatenate((deconv_arr, observed_arr), axis=self.conditional_axis)
+        return np.concatenate((observed_arr, deconv_arr), axis=self.conditional_axis)
 
     def inference(self, observed_arr):
         '''
@@ -190,13 +191,13 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
         '''
         if self.conditional_axis == 1:
             channel = grad_arr.shape[1] // 2
-            grad_arr = self.__deconvolution_model.learn(grad_arr[:, :channel])
+            grad_arr = self.__deconvolution_model.learn(grad_arr[:, channel:])
         elif self.conditional_axis == 2:
             width = grad_arr.shape[2] // 2
-            grad_arr = self.__deconvolution_model.learn(grad_arr[:, :, :width])
+            grad_arr = self.__deconvolution_model.learn(grad_arr[:, :, width:])
         elif self.conditional_axis == 3:
             height = grad_arr.shape[3] // 2
-            grad_arr = self.__deconvolution_model.learn(grad_arr[:, :, :, :height])
+            grad_arr = self.__deconvolution_model.learn(grad_arr[:, :, :, height:])
 
         delta_arr = self.__cnn.back_propagation(grad_arr)
         self.__cnn.optimize(self.__learning_rate, self.__epoch_counter)

@@ -50,8 +50,8 @@ class ConditionalImageTrueSampler(ConditionalTrueSampler):
         else:
             return np.concatenate(
                 (
-                    observed_arr[:, 1, :, :, :],
-                    observed_arr[:, 0, :, :, :]
+                    observed_arr[:, 0, :, :, :],
+                    observed_arr[:, 1, :, :, :]
                 ),
                 axis=self.conditional_axis
             )

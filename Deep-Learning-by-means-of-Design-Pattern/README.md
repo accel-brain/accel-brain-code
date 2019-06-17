@@ -350,6 +350,14 @@ In `cnn` subpackage, the class `LayerableCNN` is an abstract class to implement 
 
 [demo/demo_spatio_temporal_auto_encoder.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_spatio_temporal_auto_encoder.ipynb) is a jupyter notebook which demonstrates the video recognition and reconstruction of video images by the Spatio-Temporal Auto-Encoder.
 
+### Structural extension from Auto-Encoders and Encoder/Decoders to Generative models.
+
+Auto-Encoders, such as the Convolutional Auto-Encoder and the Spatio-Temporal Auto-Encoder, and the DBM have in common that these models are Stacked Auto-Encoders. And the Encoder/Decoder based on LSTM or ConvLSTM share similarity with the RTRBM, RNN-RBM, and LSTM-RTRBM, as the reconstruction models. On the other hand, the Auto-Encoders and the Encoder/Decoders are not statistical mechanical energy-based models unlike with RBM or DBM.
+
+However, Auto-Encoders have traditionally been used to represent energy-based models. When trained with some regularization terms, the Auto-Encoders have the ability to learn an energy manifold without supervision or negative examples(Zhao, J., et al., 2016). This means that even when an energy-based Auto-Encoding model is trained to reconstruct a real sample, the model contributes to discovering the data manifold by itself.
+
+This library provides energy-based Auto-Encoders such as Contractive Convolutional Auto-Encoder(Rifai, S., et al., 2011) and Repelling Convolutional Auto-Encoder(Zhao, J., et al., 2016). But, to make those models function as not only energy-based models but also Generative models, it is necessary to redescribe the Auto-Encoders in the framework of Generative Adversarial Networks(GANs)(Goodfellow, I., et al., 2014). For instance, theory of an Adversarial Auto-Encoders(AAEs)(Makhzani, A., et al., 2015) and energy-based GANs(EBGANs)(Zhao, J., et al., 2016) enables us to turn Auto-Encoders into a Generative models which referes energy functions. If you want to implement GANs and AAEs by using `pydbm` as components for Generative models based on the Statistical machine learning problems, see [Generative Adversarial Networks Library: pygan](https://github.com/chimera0/accel-brain-code/tree/master/Generative-Adversarial-Networks).
+
 ### Composition and Correspondence in this library
 
 To summarize the information so far into one class diagram, the outline is as follows.
@@ -1764,6 +1772,14 @@ The class `Synapse` has sub-classes: `CompleteBipartiteGraph`, `LSTMGraph`, `CNN
 - Chong, Y. S., & Tay, Y. H. (2017, June). Abnormal event detection in videos using spatiotemporal autoencoder. In International Symposium on Neural Networks (pp. 189-196). Springer, Cham.
 - Masci, J., Meier, U., Cireşan, D., & Schmidhuber, J. (2011, June). Stacked convolutional auto-encoders for hierarchical feature extraction. In International Conference on Artificial Neural Networks (pp. 52-59). Springer, Berlin, Heidelberg.
 - Patraucean, V., Handa, A., & Cipolla, R. (2015). Spatio-temporal video autoencoder with differentiable memory. arXiv preprint arXiv:1511.06309.
+- Rifai, S., Vincent, P., Muller, X., Glorot, X., & Bengio, Y. (2011, June). Contractive auto-encoders: Explicit invariance during feature extraction. In Proceedings of the 28th International Conference on International Conference on Machine Learning (pp. 833-840). Omnipress.
+- Rifai, S., Mesnil, G., Vincent, P., Muller, X., Bengio, Y., Dauphin, Y., & Glorot, X. (2011, September). Higher order contractive auto-encoder. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases (pp. 645-660). Springer, Berlin, Heidelberg.
+- Zhao, J., Mathieu, M., & LeCun, Y. (2016). Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126.
+
+### Generative Adversarial Networks(GANs).
+
+- Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., ... & Bengio, Y. (2014). Generative adversarial nets. In Advances in neural information processing systems (pp. 2672-2680).
+- Makhzani, A., Shlens, J., Jaitly, N., Goodfellow, I., & Frey, B. (2015). Adversarial autoencoders. arXiv preprint arXiv:1511.05644.
 
 ### Algorithms, Arithmetic, and Regularizations
 

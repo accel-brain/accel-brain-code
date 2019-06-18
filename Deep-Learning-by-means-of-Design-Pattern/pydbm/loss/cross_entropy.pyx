@@ -9,6 +9,12 @@ class CrossEntropy(ComputableLoss):
     Cross Entropy.
     '''
 
+    def __init__(self):
+        '''
+        Init.
+        '''
+        self.penalty_arr = None
+
     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):
         '''
         Return of result from this Cost function.
@@ -40,8 +46,14 @@ class CrossEntropy(ComputableLoss):
 
         cdef int batch_size = pred_arr.shape[0]
         cdef np.ndarray _pred_arr = pred_arr[np.arange(batch_size), _labeled_arr]
-        _pred_arr = ((1 - 1e-15) * (_pred_arr - _pred_arr.min()) / (_pred_arr.max() - _pred_arr.min() + 1e-15)) + 1e-15
-        return -np.sum(np.log(_pred_arr), axis=axis) / batch_size
+        if self.penalty_arr is not None:
+            if _pred_arr.ndim != self.penalty_arr.ndim:
+                penalty_arr = self.penalty_arr.reshape(*_pred_arr.copy().shape)
+            else:
+                penalty_arr = self.penalty_arr
+            _pred_arr += penalty_arr
+
+        return -np.sum(np.ma.log(_pred_arr), axis=axis) / batch_size
 
     def compute_delta(self, np.ndarray pred_arr, np.ndarray labeled_arr, delta_output=1):
         '''
@@ -56,26 +68,34 @@ class CrossEntropy(ComputableLoss):
             Delta.
         '''
         cdef np.ndarray _labeled_arr
+        cdef np.ndarray delta_arr
 
         if pred_arr.ndim > 2:
-            _pred_arr = pred_arr.reshape((pred_arr.shape[0], -1))
+            delta_arr = pred_arr.reshape((pred_arr.shape[0], -1))
         else:
-            _pred_arr = pred_arr
+            delta_arr = pred_arr
 
         if labeled_arr.ndim > 2:
             labeled_arr = labeled_arr.reshape((labeled_arr.shape[0], -1))
 
-        if labeled_arr.size == _pred_arr.size:
+        if labeled_arr.size == delta_arr.size:
             _labeled_arr = labeled_arr.argmax(axis=1)
         else:
             _labeled_arr = labeled_arr
 
-        batch_size = _pred_arr.shape[0]
-        _pred_arr[np.arange(batch_size), _labeled_arr] -= 1
-        _pred_arr *= delta_output
-        _pred_arr = _pred_arr / batch_size
+        batch_size = delta_arr.shape[0]
+        delta_arr[np.arange(batch_size), _labeled_arr] -= 1
+        delta_arr *= delta_output
+        delta_arr = delta_arr / batch_size
 
-        if pred_arr.ndim != _pred_arr.ndim:
-            _pred_arr = _pred_arr.reshape(*pred_arr.copy().shape)
+        if pred_arr.ndim != delta_arr.ndim:
+            delta_arr = delta_arr.reshape(*pred_arr.copy().shape)
 
-        return pred_arr
+        if self.penalty_arr is not None:
+            if delta_arr.ndim != self.penalty_arr.ndim:
+                penalty_arr = self.penalty_arr.reshape(*delta_arr.copy().shape)
+            else:
+                penalty_arr = self.penalty_arr
+            delta_arr += penalty_arr
+
+        return delta_arr

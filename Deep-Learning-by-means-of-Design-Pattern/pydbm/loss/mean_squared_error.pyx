@@ -36,8 +36,7 @@ class MeanSquaredError(ComputableLoss):
         Returns:
             Cost.
         '''
-        cdef int batch_size = labeled_arr.shape[0]
-        cdef np.ndarray diff_arr = (labeled_arr - pred_arr) / batch_size
+        cdef np.ndarray diff_arr = (labeled_arr - pred_arr)
         v = np.linalg.norm(diff_arr)
         if v > self.__grad_clip_threshold:
             diff_arr = diff_arr * self.__grad_clip_threshold / v
@@ -59,8 +58,7 @@ class MeanSquaredError(ComputableLoss):
         Returns:
             Delta.
         '''
-        cdef int batch_size = labeled_arr.shape[0]
-        cdef np.ndarray delta_arr = (pred_arr - labeled_arr) / batch_size * delta_output
+        cdef np.ndarray delta_arr = (pred_arr - labeled_arr) * delta_output
         v = np.linalg.norm(delta_arr)
         if v > self.__grad_clip_threshold:
             delta_arr = delta_arr * self.__grad_clip_threshold / v

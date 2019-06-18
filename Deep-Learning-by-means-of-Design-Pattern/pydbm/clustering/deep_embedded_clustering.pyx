@@ -6,6 +6,7 @@ from abc import ABCMeta, abstractmethod
 ctypedef np.float64_t DOUBLE_t
 from pydbm.loss.kl_divergence import KLDivergence
 from pydbm.cnn.feature_generator import FeatureGenerator
+from pydbm.clustering.interface.extract_centroids import ExtractableCentroids
 
 
 class DeepEmbeddedClustering(metaclass=ABCMeta):
@@ -32,13 +33,12 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
     __kl_divergence = KLDivergence()
 
     @abstractmethod
-    def pre_learn(self, np.ndarray observed_arr=None, feature_generator=None):
+    def pre_learn(self, np.ndarray observed_arr):
         '''
         Pre-learning.
 
         Args:
             observed_arr:       `np.ndarray` of observed data points.
-            feature_generator:  is-a `FeatureGenerator`.
         '''
         raise NotImplementedError()
 
@@ -67,13 +67,12 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         Returns:
             `np.ndarray` of centroids.
         '''
-        extractable_centroids.clustering(observed_arr, k)
-        self.__mu_arr = extractable_centroids.extract_centroids()
+        if isinstance(extractable_centroids, ExtractableCentroids) is False:
+            raise TypeError("The type `extract_centroids` must be `ExtractableCentroids`.")
 
-    def learn(
-        self,
-        np.ndarray[DOUBLE_t, ndim=2] observed_arr
-    ):
+        self.__mu_arr = extractable_centroids.extract_centroids(observed_arr, k)
+
+    def learn(self, np.ndarray[DOUBLE_t, ndim=2] observed_arr):
         '''
         Learn.
         

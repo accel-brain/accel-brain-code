@@ -4,13 +4,9 @@ cimport numpy as np
 from pydbm.loss.interface.computable_loss import ComputableLoss
 
 
-class MeanSquaredError(ComputableLoss):
+class KLDivergence(ComputableLoss):
     '''
-    The mean squared error (MSE).
-
-    References:
-        - Pascanu, R., Mikolov, T., & Bengio, Y. (2012). Understanding the exploding gradient problem. CoRR, abs/1211.5063, 2.
-        - Pascanu, R., Mikolov, T., & Bengio, Y. (2013, February). On the difficulty of training recurrent neural networks. In International conference on machine learning (pp. 1310-1318).
+    Kullback–Leibler Divergence (KLD).
     '''
 
     def __init__(self, grad_clip_threshold=1e+05):
@@ -36,7 +32,8 @@ class MeanSquaredError(ComputableLoss):
         Returns:
             Cost.
         '''
-        cdef np.ndarray diff_arr = (labeled_arr - pred_arr)
+        cdef np.ndarray diff_arr = pred_arr * np.ma.log((pred_arr / labeled_arr))
+
         v = np.linalg.norm(diff_arr)
         if v > self.__grad_clip_threshold:
             diff_arr = diff_arr * self.__grad_clip_threshold / v
@@ -44,7 +41,7 @@ class MeanSquaredError(ComputableLoss):
         if self.penalty_arr is not None:
             diff_arr += self.penalty_arr
 
-        return np.square(diff_arr).mean(axis=axis)
+        return diff_arr.mean(axis=axis)
 
     def compute_delta(self, np.ndarray pred_arr, np.ndarray labeled_arr, delta_output=1):
         '''
@@ -58,7 +55,8 @@ class MeanSquaredError(ComputableLoss):
         Returns:
             Delta.
         '''
-        cdef np.ndarray delta_arr = (pred_arr - labeled_arr) * delta_output
+        cdef np.ndarray delta_arr = pred_arr * np.ma.log(pred_arr / labeled_arr)
+        delta_arr = delta_arr * delta_output
         v = np.linalg.norm(delta_arr)
         if v > self.__grad_clip_threshold:
             delta_arr = delta_arr * self.__grad_clip_threshold / v

@@ -36,4 +36,6 @@ class SklearnKMeans(ExtractableCentroids):
         Returns:
             `np.ndarray` of centroids.
         '''
+        if observed_arr.ndim != 2:
+            observed_arr = observed_arr.reshape((observed_arr.shape[0], -1))
         return KMeans(n_clusters=k, **self.__kwargs).fit(observed_arr).cluster_centers_

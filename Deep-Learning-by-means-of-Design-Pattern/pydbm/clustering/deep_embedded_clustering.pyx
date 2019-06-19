@@ -132,7 +132,7 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         feature_arr = self.embed_feature_points(observed_arr)
         self.__mu_arr = extractable_centroids.extract_centroids(feature_arr, k)
 
-    def learn(self, np.ndarray[DOUBLE_t, ndim=2] observed_arr):
+    def learn(self, np.ndarray observed_arr):
         '''
         Learn.
         
@@ -145,11 +145,11 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
 
         cdef np.ndarray train_index
         cdef np.ndarray test_index
-        cdef np.ndarray[DOUBLE_t, ndim=2] train_observed_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] test_observed_arr
+        cdef np.ndarray train_observed_arr
+        cdef np.ndarray test_observed_arr
 
         cdef np.ndarray rand_index
-        cdef np.ndarray[DOUBLE_t, ndim=2] batch_observed_arr
+        cdef np.ndarray batch_observed_arr
 
         if self.__test_size_rate > 0:
             train_index = np.random.choice(observed_arr.shape[0], round(self.__test_size_rate * observed_arr.shape[0]), replace=False)
@@ -161,8 +161,8 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
 
         cdef double loss
         cdef double test_loss
-        cdef np.ndarray[DOUBLE_t, ndim=3] pred_arr
-        cdef np.ndarray[DOUBLE_t, ndim=3] test_pred_arr
+        cdef np.ndarray pred_arr
+        cdef np.ndarray test_pred_arr
 
         loss_log_list = []
         try:
@@ -220,7 +220,7 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         self.__logger.debug("end. ")
         self.__loss_arr = np.array(loss_log_list)
 
-    def inference(self, np.ndarray[DOUBLE_t, ndim=2] observed_arr):
+    def inference(self, np.ndarray observed_arr):
         '''
         Inference the feature points to reconstruct the time-series.
 
@@ -271,11 +271,10 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
             delta_arr[:, i] = feature_arr - self.__mu_arr[i]
             q_arr[:, i] = np.power((1 + np.square(delta_arr[:, i]) / self.__alpha), -(self.__alpha + 1) / 2)
         q_arr = q_arr / np.nansum(q_arr, axis=1).reshape((batch_size, 1, q_arr.shape[2]))
-        if default_shape is not None:
-            delta_arr = delta_arr.reshape(default_shape)
 
         self.__feature_arr = feature_arr
         self.__delta_arr = delta_arr
+        self.__default_shape = default_shape
 
         return q_arr
 
@@ -329,7 +328,7 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         Returns:
             `np.ndarray` of delta.
         '''
-        self.backward_auto_encoder(self.__delta_z_arr)
+        self.backward_auto_encoder(self.__delta_z_arr.reshape(self.__default_shape))
 
     @abstractmethod
     def backward_auto_encoder(self, np.ndarray delta_arr):

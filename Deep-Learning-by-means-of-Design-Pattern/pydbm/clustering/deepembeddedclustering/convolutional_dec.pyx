@@ -77,4 +77,4 @@ class ConvolutionalDEC(DeepEmbeddedClustering):
             learning_rate:      Learning rate.
             epoch:              Now epoch.
         '''
-        self.__convolutional_auto_encoder.encoder.optimize(learning_rate, epoch)
+        self.__convolutional_auto_encoder.optimize(learning_rate, epoch)

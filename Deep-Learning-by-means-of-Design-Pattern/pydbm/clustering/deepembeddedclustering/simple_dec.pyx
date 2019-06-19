@@ -14,17 +14,21 @@ class SimpleDEC(DeepEmbeddedClustering):
         - Xie, J., Girshick, R., & Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).
     '''
 
-    def __init__(self, simple_auto_encoder):
-        '''
-        Init.
+    # is-a `SimpleAutoEncoer`.
+    __simple_auto_encoder = None
 
-        Args:
-            simple_auto_encoder:        is-a `SimpleAutoEncoder`.
-        '''
-        if isinstance(simple_auto_encoder, SimpleAutoEncoder) is False:
-            raise TypeError("The type of `simple_auto_encoder` must be `SimpleAutoEncoder`.")
+    def get_auto_encoder_model(self):
+        ''' getter '''
+        return self.__simple_auto_encoder
+    
+    def set_auto_encoder_model(self, value):
+        ''' setter '''
+        if isinstance(value, SimpleAutoEncoder) is False:
+            raise TypeError("The type of `auto_encoder_model` must be `SimpleAutoEncoder`.")
 
-        self.__simple_auto_encoder = simple_auto_encoder
+        self.__simple_auto_encoder = value
+
+    auto_encoder_model = property(get_auto_encoder_model, set_auto_encoder_model)
 
     def pre_learn(self, np.ndarray observed_arr):
         '''

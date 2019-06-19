@@ -13,18 +13,21 @@ class ConvolutionalDEC(DeepEmbeddedClustering):
     References:
         - Xie, J., Girshick, R., & Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).
     '''
+    # is-a `ConvolutionalAutoEncoder`.
+    __convolutional_auto_encoder = None
 
-    def __init__(self, convolutional_auto_encoder):
-        '''
-        Init.
+    def get_auto_encoder_model(self):
+        ''' getter '''
+        return self.__convolutional_auto_encoder
+    
+    def set_auto_encoder_model(self, value):
+        ''' setter '''
+        if isinstance(value, ConvolutionalAutoEncoder) is False:
+            raise TypeError("The type of `auto_encoder_model` must be `ConvolutionalAutoEncoder`.")
 
-        Args:
-            convolutional_auto_encoder:        is-a `SimpleAutoEncoder`.
-        '''
-        if isinstance(convolutional_auto_encoder, ConvolutionalAutoEncoder) is False:
-            raise TypeError("The type of `convolutional_auto_encoder` must be `ConvolutionalAutoEncoder`.")
+        self.__convolutional_auto_encoder = value
 
-        self.__convolutional_auto_encoder = convolutional_auto_encoder
+    auto_encoder_model = property(get_auto_encoder_model, set_auto_encoder_model)
 
     def pre_learn(self, np.ndarray observed_arr):
         '''

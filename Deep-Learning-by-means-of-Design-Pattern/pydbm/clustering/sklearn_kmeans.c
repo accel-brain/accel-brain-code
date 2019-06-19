@@ -1160,9 +1160,9 @@ static const char __pyx_k_n_clusters[] = "n_clusters";
 static const char __pyx_k_observed_arr[] = "observed_arr";
 static const char __pyx_k_SklearnKMeans[] = "SklearnKMeans";
 static const char __pyx_k_cluster_centers[] = "cluster_centers_";
+static const char __pyx_k_sklearn_cluster[] = "sklearn.cluster";
 static const char __pyx_k_extract_centroids[] = "extract_centroids";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
-static const char __pyx_k_sklearn_clustering[] = "sklearn.clustering";
 static const char __pyx_k_ExtractableCentroids[] = "ExtractableCentroids";
 static const char __pyx_k_SklearnKMeans___init[] = "SklearnKMeans.__init__";
 static const char __pyx_k_SklearnKMeans__kwargs[] = "_SklearnKMeans__kwargs";
@@ -1199,7 +1199,7 @@ static PyObject *__pyx_n_s_pydbm_clustering_sklearn_kmeans;
 static PyObject *__pyx_kp_s_pydbm_clustering_sklearn_kmeans_2;
 static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_self;
-static PyObject *__pyx_n_s_sklearn_clustering;
+static PyObject *__pyx_n_s_sklearn_cluster;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_pf_5pydbm_10clustering_14sklearn_kmeans_13SklearnKMeans___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_kwargs); /* proto */
 static PyObject *__pyx_pf_5pydbm_10clustering_14sklearn_kmeans_13SklearnKMeans_2extract_centroids(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_observed_arr, PyObject *__pyx_v_k); /* proto */
@@ -1564,7 +1564,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_pydbm_clustering_sklearn_kmeans_2, __pyx_k_pydbm_clustering_sklearn_kmeans_2, sizeof(__pyx_k_pydbm_clustering_sklearn_kmeans_2), 0, 0, 1, 0},
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
-  {&__pyx_n_s_sklearn_clustering, __pyx_k_sklearn_clustering, sizeof(__pyx_k_sklearn_clustering), 0, 0, 1, 1},
+  {&__pyx_n_s_sklearn_cluster, __pyx_k_sklearn_cluster, sizeof(__pyx_k_sklearn_cluster), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
@@ -1856,7 +1856,7 @@ if (!__Pyx_RefNanny) {
   /* "pydbm/clustering/sklearn_kmeans.pyx":2
  * # -*- coding: utf-8 -*-
  * from pydbm.clustering.interface.extract_centroids import ExtractableCentroids             # <<<<<<<<<<<<<<
- * from sklearn.clustering import KMeans
+ * from sklearn.cluster import KMeans
  * 
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
@@ -1876,7 +1876,7 @@ if (!__Pyx_RefNanny) {
   /* "pydbm/clustering/sklearn_kmeans.pyx":3
  * # -*- coding: utf-8 -*-
  * from pydbm.clustering.interface.extract_centroids import ExtractableCentroids
- * from sklearn.clustering import KMeans             # <<<<<<<<<<<<<<
+ * from sklearn.cluster import KMeans             # <<<<<<<<<<<<<<
  * 
  * 
  */
@@ -1885,7 +1885,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_INCREF(__pyx_n_s_KMeans);
   __Pyx_GIVEREF(__pyx_n_s_KMeans);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_KMeans);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_sklearn_clustering, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_sklearn_cluster, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_KMeans); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
@@ -1955,7 +1955,7 @@ if (!__Pyx_RefNanny) {
   /* "pydbm/clustering/sklearn_kmeans.pyx":1
  * # -*- coding: utf-8 -*-             # <<<<<<<<<<<<<<
  * from pydbm.clustering.interface.extract_centroids import ExtractableCentroids
- * from sklearn.clustering import KMeans
+ * from sklearn.cluster import KMeans
  */
   __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);

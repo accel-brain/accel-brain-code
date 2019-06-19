@@ -15,17 +15,21 @@ class EncoderDecoderDec(DeepEmbeddedClustering):
 
     '''
 
-    def __init__(self, encoder_decoder_controller):
-        '''
-        Init.
+    # is-a `EncoderDecoderController`.
+    __encoder_decoder_controller = None
 
-        Args:
-            encoder_decoder_controller:        is-a `EncoderDecoderController`.
-        '''
-        if isinstance(encoder_decoder_controller, EncoderDecoderController) is False:
-            raise TypeError("The type of `encoder_decoder_controller` must be `EncoderDecoderController`.")
+    def get_auto_encoder_model(self):
+        ''' getter '''
+        return self.__encoder_decoder_controller
+    
+    def set_auto_encoder_model(self, value):
+        ''' setter '''
+        if isinstance(value, EncoderDecoderController) is False:
+            raise TypeError("The type of `auto_encoder_model` must be `EncoderDecoderController`.")
 
-        self.__encoder_decoder_controller = encoder_decoder_controller
+        self.__encoder_decoder_controller = value
+
+    auto_encoder_model = property(get_auto_encoder_model, set_auto_encoder_model)
 
     def pre_learn(self, np.ndarray observed_arr):
         '''

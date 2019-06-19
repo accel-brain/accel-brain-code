@@ -2,11 +2,12 @@
 from logging import getLogger
 import numpy as np
 cimport numpy as np
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta, abstractmethod, abstractproperty
 ctypedef np.float64_t DOUBLE_t
 from pydbm.loss.kl_divergence import KLDivergence
 from pydbm.cnn.feature_generator import FeatureGenerator
 from pydbm.clustering.interface.extract_centroids import ExtractableCentroids
+from pydbm.optimization.optparams.sgd import SGD
 
 
 class DeepEmbeddedClustering(metaclass=ABCMeta):
@@ -20,7 +21,7 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
     __alpha = 1
 
     def get_alpha(self):
-        ''' getter for degrees of freedom of the Student's t-distribution. '''
+        ''' getter or degrees of freedom of the Student's t-distribution. '''
         return self.__alpha
     
     def set_alpha(self, value):
@@ -31,6 +32,58 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
 
     # KL Divergence.
     __kl_divergence = KLDivergence()
+
+    @abstractproperty
+    def auto_encoder_model(self):
+        ''' Model object of Auto-Encoder. '''
+        raise NotImplementedError()
+
+    def __init__(
+        self,
+        int epochs=100,
+        int batch_size=100,
+        double learning_rate=1e-05,
+        double learning_attenuate_rate=0.1,
+        int attenuate_epoch=50,
+        opt_params=None,
+        double test_size_rate=0.3,
+        tol=1e-15,
+        tld=100.0
+    ):
+        '''
+        Init.
+
+        Args:
+            epochs:                         Epochs of Mini-batch.
+            bath_size:                      Batch size of Mini-batch.
+            learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+                                            Additionally, in relation to regularization,
+                                            this class constrains weight matrixes every `attenuate_epoch`.
+
+            opt_params:                     is-a `OptParams`. If `None`, this value will be `SGD`.
+
+            test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
+            tol:                            Tolerance for the optimization.
+            tld:                            Tolerance for deviation of loss.
+        '''
+        self.__epochs = epochs
+        self.__batch_size = batch_size
+        self.__learning_rate = learning_rate
+        self.__learning_attenuate_rate = learning_attenuate_rate
+        self.__attenuate_epoch = attenuate_epoch
+        if opt_params is None:
+            self.__opt_params = SGD()
+            self.__opt_params.weight_limit = 1e+10
+            self.__opt_params.dropout_rate = 0.2
+        else:
+            self.__opt_params = opt_params
+        self.__test_size_rate = test_size_rate
+        self.__tol = tol
+        self.__tld = tld
+        logger = getLogger("pydbm")
+        self.__logger = logger
 
     @abstractmethod
     def pre_learn(self, np.ndarray observed_arr):
@@ -70,7 +123,14 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         if isinstance(extractable_centroids, ExtractableCentroids) is False:
             raise TypeError("The type `extract_centroids` must be `ExtractableCentroids`.")
 
-        self.__mu_arr = extractable_centroids.extract_centroids(observed_arr, k)
+        cdef np.ndarray key_arr
+        if observed_arr.shape[0] != self.__batch_size:
+            key_arr = np.arange(observed_arr.shape[0])
+            np.random.shuffle(key_arr)
+            observed_arr = observed_arr[key_arr[:self.__batch_size]]
+
+        feature_arr = self.embed_feature_points(observed_arr)
+        self.__mu_arr = extractable_centroids.extract_centroids(feature_arr, k)
 
     def learn(self, np.ndarray[DOUBLE_t, ndim=2] observed_arr):
         '''
@@ -101,13 +161,14 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
 
         cdef double loss
         cdef double test_loss
-        cdef np.ndarray[DOUBLE_t, ndim=2] pred_arr
-        cdef np.ndarray[DOUBLE_t, ndim=2] test_pred_arr
+        cdef np.ndarray[DOUBLE_t, ndim=3] pred_arr
+        cdef np.ndarray[DOUBLE_t, ndim=3] test_pred_arr
 
+        loss_log_list = []
         try:
             loss_list = []
             for epoch in range(self.__epochs):
-                self.opt_params.inferencing_mode = False
+                self.__opt_params.inferencing_mode = False
 
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
                     learning_rate = learning_rate / self.__learning_attenuate_rate
@@ -134,8 +195,9 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
                     else:
                         raise
 
+                test_loss = 0.0
                 if self.__test_size_rate > 0:
-                    self.opt_params.inferencing_mode = True
+                    self.__opt_params.inferencing_mode = True
 
                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
                     test_batch_observed_arr = test_observed_arr[rand_index]
@@ -149,12 +211,14 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
                     )
 
                 loss_list.append(loss)
+                loss_log_list.append((loss, test_loss))
                 self.__logger.debug("Epoch: " + str(epoch) + " Train loss(KLD): " + str(loss) + " Test loss(KLD): " + str(test_loss))
 
         except KeyboardInterrupt:
             self.__logger.debug("Interrupt.")
 
         self.__logger.debug("end. ")
+        self.__loss_arr = np.array(loss_log_list)
 
     def inference(self, np.ndarray[DOUBLE_t, ndim=2] observed_arr):
         '''
@@ -203,12 +267,15 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
             k, 
             dim
         ))
-
         for i in range(k):
-            delta_arr[:, k] = feature_arr - self.__mu_arr[k]
-            q_arr[:, k] = np.power((1 + np.square(delta_arr[:, k]) / self.__alpha), -(self.__alpha + 1) / 2)
-        q_arr = q_arr / np.nansum(q_arr, axis=1)
+            delta_arr[:, i] = feature_arr - self.__mu_arr[i]
+            q_arr[:, i] = np.power((1 + np.square(delta_arr[:, i]) / self.__alpha), -(self.__alpha + 1) / 2)
+        q_arr = q_arr / np.repeat(np.expand_dims(np.nansum(q_arr, axis=1), axis=1), repeats=k, axis=1)
 
+        if default_shape is not None:
+            delta_arr = delta_arr.reshape(default_shape)
+
+        self.__feature_arr = feature_arr
         self.__delta_arr = delta_arr
         return q_arr
 
@@ -223,8 +290,11 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
             `np.ndarray` of target distribution.
         '''
         cdef np.ndarray[DOUBLE_t, ndim=2] f_arr = np.nansum(q_arr, axis=2)
-        cdef np.ndarray[DOUBLE_t, ndim=3] p_arr = np.power(q_arr, 2) / f_arr
-        p_arr = p_arr / np.nansum(p_arr, axis=1)
+        cdef np.ndarray[DOUBLE_t, ndim=3] p_arr = np.power(q_arr, 2) / np.repeat(
+            np.expand_dims(f_arr, axis=2), repeats=q_arr.shape[2], 
+            axis=2
+        )
+        p_arr = p_arr / np.repeat(np.expand_dims(np.nansum(p_arr, axis=1), axis=1), repeats=p_arr.shape[1], axis=1)
         return p_arr
     
     def compute_loss(self, p_arr, q_arr):
@@ -251,7 +321,7 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         )
 
         self.__delta_z_arr = delta_z_arr
-        self.__delta_mu_arr = delta_mu_arr
+        self.__delta_mu_arr = np.dot(self.__feature_arr.T, delta_mu_arr).T
 
         return loss
 
@@ -291,7 +361,7 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         grads_list = [
             self.__delta_mu_arr
         ]
-        params_list = self.opt_params.optimize(
+        params_list = self.__opt_params.optimize(
             params_list,
             grads_list,
             learning_rate
@@ -309,3 +379,23 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
             epoch:              Now epoch.
         '''
         raise NotImplementedError()
+
+    def get_mu_arr(self):
+        ''' getter for learned centroids. '''
+        return self.__mu_arr
+    
+    def set_mu_arr(self, value):
+        ''' setter for learned centroids. '''
+        self.__mu_arr = value
+    
+    mu_arr = property(get_mu_arr, set_mu_arr)
+
+    def get_loss_arr(self):
+        ''' getter '''
+        return self.__loss_arr
+    
+    def set_loss_arr(self, value):
+        ''' setter '''
+        self.__loss_arr = value
+    
+    loss_arr = property(get_loss_arr, set_loss_arr)

@@ -270,13 +270,13 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         for i in range(k):
             delta_arr[:, i] = feature_arr - self.__mu_arr[i]
             q_arr[:, i] = np.power((1 + np.square(delta_arr[:, i]) / self.__alpha), -(self.__alpha + 1) / 2)
-        q_arr = q_arr / np.repeat(np.expand_dims(np.nansum(q_arr, axis=1), axis=1), repeats=k, axis=1)
-
+        q_arr = q_arr / np.nansum(q_arr, axis=1).reshape((batch_size, 1, q_arr.shape[2]))
         if default_shape is not None:
             delta_arr = delta_arr.reshape(default_shape)
 
         self.__feature_arr = feature_arr
         self.__delta_arr = delta_arr
+
         return q_arr
 
     def compute_target_distribution(self, q_arr):
@@ -290,11 +290,8 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
             `np.ndarray` of target distribution.
         '''
         cdef np.ndarray[DOUBLE_t, ndim=2] f_arr = np.nansum(q_arr, axis=2)
-        cdef np.ndarray[DOUBLE_t, ndim=3] p_arr = np.power(q_arr, 2) / np.repeat(
-            np.expand_dims(f_arr, axis=2), repeats=q_arr.shape[2], 
-            axis=2
-        )
-        p_arr = p_arr / np.repeat(np.expand_dims(np.nansum(p_arr, axis=1), axis=1), repeats=p_arr.shape[1], axis=1)
+        cdef np.ndarray[DOUBLE_t, ndim=3] p_arr = np.power(q_arr, 2) / f_arr.reshape((f_arr.shape[0], f_arr.shape[1], 1))
+        p_arr = p_arr / np.nansum(p_arr, axis=1).reshape((p_arr.shape[0], 1, p_arr.shape[2]))
         return p_arr
     
     def compute_loss(self, p_arr, q_arr):

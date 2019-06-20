@@ -38,6 +38,11 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         ''' Model object of Auto-Encoder. '''
         raise NotImplementedError()
 
+    @abstractproperty
+    def inferencing_mode(self):
+        ''' `inferencing_mode` for `auto_encoder_model`. '''
+        raise NotImplementedError()
+
     def __init__(
         self,
         int epochs=100,
@@ -48,7 +53,8 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         opt_params=None,
         double test_size_rate=0.3,
         tol=1e-15,
-        tld=100.0
+        tld=100.0,
+        grad_clip_threshold=1.0
     ):
         '''
         Init.
@@ -67,6 +73,7 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
             test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
             tol:                            Tolerance for the optimization.
             tld:                            Tolerance for deviation of loss.
+            grad_clip_threshold:            Threshold of the gradient clipping.
         '''
         self.__epochs = epochs
         self.__batch_size = batch_size
@@ -82,6 +89,7 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         self.__test_size_rate = test_size_rate
         self.__tol = tol
         self.__tld = tld
+        self.__grad_clip_threshold = grad_clip_threshold
         logger = getLogger("pydbm")
         self.__logger = logger
 
@@ -168,6 +176,7 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         try:
             loss_list = []
             for epoch in range(self.__epochs):
+                self.inferencing_mode = False
                 self.__opt_params.inferencing_mode = False
 
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
@@ -198,6 +207,7 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
                 test_loss = 0.0
                 if self.__test_size_rate > 0:
                     self.__opt_params.inferencing_mode = True
+                    self.inferencing_mode = True
 
                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
                     test_batch_observed_arr = test_observed_arr[rand_index]
@@ -323,19 +333,28 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         loss = self.__kl_divergence.compute_loss(p_arr, q_arr)
 
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_z_arr = ((self.__alpha + 1) / self.__alpha) * np.nansum(
-            np.power(1 + self.__delta_arr / self.__alpha, -1) * (p_arr - q_arr) * (self.__delta_arr), 
+            np.power(1 + np.square(self.__delta_arr) / self.__alpha, -1) * (p_arr - q_arr) * np.square(self.__delta_arr), 
             axis=1
         )
 
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_mu_arr = -((self.__alpha + 1) / self.__alpha) * np.nansum(
-            np.power(1 + self.__delta_arr / self.__alpha, -1)  * (p_arr - q_arr) * (self.__delta_arr),
+            np.power(1 + np.square(self.__delta_arr) / self.__alpha, -1)  * (p_arr - q_arr) * np.square(self.__delta_arr),
             axis=2
         )
 
         self.__delta_z_arr = delta_z_arr
         self.__delta_mu_arr = np.dot(self.__feature_arr.T, delta_mu_arr).T
+        self.__delta_z_arr = self.__grad_clipping(self.__delta_z_arr)
+        self.__delta_mu_arr = self.__grad_clipping(self.__delta_mu_arr)
 
         return loss
+
+    def __grad_clipping(self, diff_arr):
+        v = np.linalg.norm(diff_arr)
+        if v > self.__grad_clip_threshold:
+            diff_arr = diff_arr * self.__grad_clip_threshold / v
+
+        return diff_arr
 
     def back_propagation(self):
         '''

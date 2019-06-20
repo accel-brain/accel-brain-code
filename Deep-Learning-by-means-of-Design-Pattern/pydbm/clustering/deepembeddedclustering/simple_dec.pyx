@@ -30,6 +30,17 @@ class SimpleDEC(DeepEmbeddedClustering):
 
     auto_encoder_model = property(get_auto_encoder_model, set_auto_encoder_model)
 
+    def get_inferencing_mode(self):
+        ''' getter '''
+        return self.__simple_auto_encoder.encoder.opt_params.inferencing_mode
+    
+    def set_inferencing_mode(self, value):
+        ''' setter '''
+        self.__simple_auto_encoder.encoder.opt_params.inferencing_mode = value
+        self.__simple_auto_encoder.decoder.opt_params.inferencing_mode = value
+
+    inferencing_mode = property(get_inferencing_mode, set_inferencing_mode)
+
     def pre_learn(self, np.ndarray observed_arr):
         '''
         Pre-learning.

@@ -220,6 +220,22 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         self.__logger.debug("end. ")
         self.__loss_arr = np.array(loss_log_list)
 
+    def clustering(self, np.ndarray observed_arr):
+        '''
+        Clustering.
+
+        Args:
+            observed_arr:           Array like or sparse matrix as the observed data points.
+
+        Returns:
+            `np.ndarray` of labels.
+        '''
+        cdef np.ndarray q_arr = self.forward_propagation(observed_arr)
+        if q_arr.shape[2] > 1:
+            q_arr = np.nanmean(q_arr, axis=2)
+        q_arr = q_arr.reshape((q_arr.shape[0], q_arr.shape[1]))
+        return q_arr.argmax(axis=1)
+
     def inference(self, np.ndarray observed_arr):
         '''
         Inference the feature points to reconstruct the time-series.

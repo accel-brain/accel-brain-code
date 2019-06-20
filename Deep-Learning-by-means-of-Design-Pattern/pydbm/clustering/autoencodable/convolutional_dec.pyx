@@ -2,42 +2,40 @@
 from logging import getLogger
 import numpy as np
 cimport numpy as np
-from pydbm.clustering.deep_embedded_clustering import DeepEmbeddedClustering
-from pydbm.nn.simple_auto_encoder import SimpleAutoEncoder
+from pydbm.clustering.interface.auto_encodable import AutoEncodable
+from pydbm.cnn.convolutionalneuralnetwork.convolutional_auto_encoder import ConvolutionalAutoEncoder
 
 
-class SimpleDEC(DeepEmbeddedClustering):
+class ConvolutionalDEC(AutoEncodable):
     '''
-    The Deep Embedded Clustering(DEC).
+    The Deep Embedded Clustering(DEC) with Convolutional Neural Networks.
 
     References:
         - Xie, J., Girshick, R., & Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).
     '''
-
-    # is-a `SimpleAutoEncoer`.
-    __simple_auto_encoder = None
+    # is-a `ConvolutionalAutoEncoder`.
+    __convolutional_auto_encoder = None
 
     def get_auto_encoder_model(self):
         ''' getter '''
-        return self.__simple_auto_encoder
+        return self.__convolutional_auto_encoder
     
     def set_auto_encoder_model(self, value):
         ''' setter '''
-        if isinstance(value, SimpleAutoEncoder) is False:
-            raise TypeError("The type of `auto_encoder_model` must be `SimpleAutoEncoder`.")
+        if isinstance(value, ConvolutionalAutoEncoder) is False:
+            raise TypeError("The type of `auto_encoder_model` must be `ConvolutionalAutoEncoder`.")
 
-        self.__simple_auto_encoder = value
+        self.__convolutional_auto_encoder = value
 
     auto_encoder_model = property(get_auto_encoder_model, set_auto_encoder_model)
 
     def get_inferencing_mode(self):
         ''' getter '''
-        return self.__simple_auto_encoder.encoder.opt_params.inferencing_mode
+        return self.__convolutional_auto_encoder.opt_params.inferencing_mode
     
     def set_inferencing_mode(self, value):
         ''' setter '''
-        self.__simple_auto_encoder.encoder.opt_params.inferencing_mode = value
-        self.__simple_auto_encoder.decoder.opt_params.inferencing_mode = value
+        self.__convolutional_auto_encoder.opt_params.inferencing_mode = value
 
     inferencing_mode = property(get_inferencing_mode, set_inferencing_mode)
 
@@ -49,7 +47,7 @@ class SimpleDEC(DeepEmbeddedClustering):
             observed_arr:       `np.ndarray` of observed data points.
             feature_generator:  is-a `FeatureGenerator`.
         '''
-        self.__simple_auto_encoder.learn(observed_arr)
+        self.__convolutional_auto_encoder.learn(observed_arr)
 
     def embed_feature_points(self, np.ndarray observed_arr):
         '''
@@ -61,7 +59,8 @@ class SimpleDEC(DeepEmbeddedClustering):
         Returns:
             `np.ndarray` of feature points.
         '''
-        return self.__simple_auto_encoder.encoder.inference(observed_arr)
+        _ = self.__convolutional_auto_encoder.inference(observed_arr)
+        return self.__convolutional_auto_encoder.extract_feature_points_arr()
 
     def backward_auto_encoder(self, np.ndarray delta_arr):
         '''
@@ -73,7 +72,12 @@ class SimpleDEC(DeepEmbeddedClustering):
         Returns:
             `np.ndarray` of delta.
         '''
-        return self.__simple_auto_encoder.encoder.back_propagation(delta_arr)
+        layerable_cnn_list = self.__convolutional_auto_encoder.layerable_cnn_list[::-1]
+        for i in range(len(layerable_cnn_list)):
+            delta_arr = layerable_cnn_list[i].back_propagate(delta_arr)
+            delta_arr = layerable_cnn_list[i].graph.deactivation_function.forward(delta_arr)
+
+        return delta_arr
 
     def optimize_auto_encoder(self, learning_rate, epoch):
         '''
@@ -83,4 +87,4 @@ class SimpleDEC(DeepEmbeddedClustering):
             learning_rate:      Learning rate.
             epoch:              Now epoch.
         '''
-        self.__simple_auto_encoder.encoder.optimize(learning_rate, epoch)
+        self.__convolutional_auto_encoder.optimize(learning_rate, epoch)

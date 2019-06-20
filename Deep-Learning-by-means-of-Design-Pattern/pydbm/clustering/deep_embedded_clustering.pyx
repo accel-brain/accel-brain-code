@@ -5,14 +5,14 @@ cimport numpy as np
 from abc import ABCMeta, abstractmethod, abstractproperty
 ctypedef np.float64_t DOUBLE_t
 from pydbm.loss.kl_divergence import KLDivergence
-from pydbm.cnn.feature_generator import FeatureGenerator
-from pydbm.clustering.interface.extract_centroids import ExtractableCentroids
+from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids
+from pydbm.clustering.interface.auto_encodable import AutoEncodable
 from pydbm.optimization.optparams.sgd import SGD
 
 
-class DeepEmbeddedClustering(metaclass=ABCMeta):
+class DeepEmbeddedClustering(object):
     '''
-    Abstract class of the Deep Embedded Clustering(DEC).
+    The Deep Embedded Clustering(DEC).
 
     References:
         - Xie, J., Girshick, R., & Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).
@@ -33,18 +33,11 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
     # KL Divergence.
     __kl_divergence = KLDivergence()
 
-    @abstractproperty
-    def auto_encoder_model(self):
-        ''' Model object of Auto-Encoder. '''
-        raise NotImplementedError()
-
-    @abstractproperty
-    def inferencing_mode(self):
-        ''' `inferencing_mode` for `auto_encoder_model`. '''
-        raise NotImplementedError()
-
     def __init__(
         self,
+        auto_encodable,
+        extractable_centroids,
+        int k=10,
         int epochs=100,
         int batch_size=100,
         double learning_rate=1e-05,
@@ -60,6 +53,9 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         Init.
 
         Args:
+            auto_encodable:                 is-a `AutoEncodable`.
+            extractable_centroids:          is-a `ExtractableCentroids`.
+            k:                              The number of clusters.
             epochs:                         Epochs of Mini-batch.
             bath_size:                      Batch size of Mini-batch.
             learning_rate:                  Learning rate.
@@ -75,6 +71,15 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
             tld:                            Tolerance for deviation of loss.
             grad_clip_threshold:            Threshold of the gradient clipping.
         '''
+        if isinstance(auto_encodable, AutoEncodable) is False:
+            raise TypeError("The type of `auto_encodable` must be `AutoEncodable`.")
+
+        if isinstance(extractable_centroids, ExtractableCentroids) is False:
+            raise TypeError("The type `extractable_centroids` must be `ExtractableCentroids`.")
+
+        self.__auto_encodable = auto_encodable
+        self.__extractable_centroids = extractable_centroids
+        self.__k = k
         self.__epochs = epochs
         self.__batch_size = batch_size
         self.__learning_rate = learning_rate
@@ -93,52 +98,24 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         logger = getLogger("pydbm")
         self.__logger = logger
 
-    @abstractmethod
-    def pre_learn(self, np.ndarray observed_arr):
-        '''
-        Pre-learning.
-
-        Args:
-            observed_arr:       `np.ndarray` of observed data points.
-        '''
-        raise NotImplementedError()
-
-    @abstractmethod
-    def embed_feature_points(self, np.ndarray observed_arr):
-        '''
-        Embed and extract feature points.
-
-        Args:
-            observed_arr:       `np.ndarray` of observed data points.
-        
-        Returns:
-            `np.ndarray` of feature points.
-        '''
-        raise NotImplementedError()
-
-    def setup_initial_centroids(self, extractable_centroids, np.ndarray observed_arr, k=10):
+    def __setup_initial_centroids(self, np.ndarray observed_arr):
         '''
         Create initial centroids and set it as property.
 
         Args:
-            extractable_centroids:      is-a `ExtractableCentroids`.
             observed_arr:               `np.ndarray` of observed data points.
-            k:                          The number of centroids.
         
         Returns:
             `np.ndarray` of centroids.
         '''
-        if isinstance(extractable_centroids, ExtractableCentroids) is False:
-            raise TypeError("The type `extract_centroids` must be `ExtractableCentroids`.")
-
         cdef np.ndarray key_arr
         if observed_arr.shape[0] != self.__batch_size:
             key_arr = np.arange(observed_arr.shape[0])
             np.random.shuffle(key_arr)
             observed_arr = observed_arr[key_arr[:self.__batch_size]]
 
-        feature_arr = self.embed_feature_points(observed_arr)
-        self.__mu_arr = extractable_centroids.extract_centroids(feature_arr, k)
+        feature_arr = self.__auto_encodable.embed_feature_points(observed_arr)
+        self.__mu_arr = self.__extractable_centroids.extract_centroids(feature_arr, self.__k)
 
     def learn(self, np.ndarray observed_arr):
         '''
@@ -147,6 +124,9 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         Args:
             observed_arr:   `np.ndarray` of observed data points.
         '''
+        self.__auto_encodable.pre_learn(observed_arr)
+        self.__setup_initial_centroids(observed_arr)
+
         cdef double learning_rate = self.__learning_rate
         cdef int epoch
         cdef int batch_index
@@ -176,7 +156,7 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         try:
             loss_list = []
             for epoch in range(self.__epochs):
-                self.inferencing_mode = False
+                self.__auto_encodable.inferencing_mode = False
                 self.__opt_params.inferencing_mode = False
 
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
@@ -207,7 +187,7 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
                 test_loss = 0.0
                 if self.__test_size_rate > 0:
                     self.__opt_params.inferencing_mode = True
-                    self.inferencing_mode = True
+                    self.__auto_encodable.inferencing_mode = True
 
                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
                     test_batch_observed_arr = test_observed_arr[rand_index]
@@ -273,7 +253,7 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         Returns:
             `np.ndarray` of result of soft assignment.
         '''
-        cdef np.ndarray feature_arr = self.embed_feature_points(observed_arr)
+        cdef np.ndarray feature_arr = self.__auto_encodable.embed_feature_points(observed_arr)
         cdef int batch_size = feature_arr.shape[0]
         if feature_arr.ndim != 2:
             default_shape = feature_arr.copy().shape
@@ -363,20 +343,7 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         Returns:
             `np.ndarray` of delta.
         '''
-        self.backward_auto_encoder(self.__delta_z_arr.reshape(self.__default_shape))
-
-    @abstractmethod
-    def backward_auto_encoder(self, np.ndarray delta_arr):
-        '''
-        Pass down to the Auto-Encoder as backward.
-
-        Args:
-            delta_arr:      `np.ndarray` of delta.
-        
-        Returns:
-            `np.ndarray` of delta.
-        '''
-        raise NotImplementedError()
+        self.__auto_encodable.backward_auto_encoder(self.__delta_z_arr.reshape(self.__default_shape))
 
     def optimize(self, learning_rate, epoch):
         '''
@@ -398,18 +365,7 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
             learning_rate
         )
         self.__mu_arr = params_list[0]
-        self.optimize_auto_encoder(learning_rate, epoch)
-
-    @abstractmethod
-    def optimize_auto_encoder(self, learning_rate, epoch):
-        '''
-        Optimize Auto-Encoder.
-
-        Args:
-            learning_rate:      Learning rate.
-            epoch:              Now epoch.
-        '''
-        raise NotImplementedError()
+        self.__auto_encodable.optimize_auto_encoder(learning_rate, epoch)
 
     def get_mu_arr(self):
         ''' getter for learned centroids. '''
@@ -430,3 +386,13 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
         self.__loss_arr = value
     
     loss_arr = property(get_loss_arr, set_loss_arr)
+
+    def get_auto_encodable(self):
+        ''' getter '''
+        return self.__auto_encodable
+    
+    def set_auto_encodable(self, value):
+        ''' setter '''
+        self.__auto_encodable = value
+    
+    auto_encodable = property(get_auto_encodable, set_auto_encodable)

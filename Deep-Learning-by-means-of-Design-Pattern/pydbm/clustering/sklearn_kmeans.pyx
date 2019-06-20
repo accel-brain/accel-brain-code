@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from pydbm.clustering.interface.extract_centroids import ExtractableCentroids
+from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids
 from sklearn.cluster import KMeans
 
 

@@ -1194,7 +1194,7 @@ static const char __pyx_k_SklearnKMeans__kwargs[] = "_SklearnKMeans__kwargs";
 static const char __pyx_k_K_Means_method_The_function_of[] = "\n    K-Means method.\n\n    The function of this class is only to get information on \n    centroids to be mentioned as initial parameters in framework \n    of the Deep Embedded Clustering(DEC).\n\n    References:\n        - https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html\n        - Xie, J., Girshick, R., & Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).\n    ";
 static const char __pyx_k_SklearnKMeans_extract_centroids[] = "SklearnKMeans.extract_centroids";
 static const char __pyx_k_pydbm_clustering_sklearn_kmeans[] = "pydbm.clustering.sklearn_kmeans";
-static const char __pyx_k_pydbm_clustering_interface_extra[] = "pydbm.clustering.interface.extract_centroids";
+static const char __pyx_k_pydbm_clustering_interface_extra[] = "pydbm.clustering.interface.extractable_centroids";
 static const char __pyx_k_pydbm_clustering_sklearn_kmeans_2[] = "pydbm/clustering/sklearn_kmeans.pyx";
 static PyObject *__pyx_n_s_ExtractableCentroids;
 static PyObject *__pyx_n_s_KMeans;
@@ -1989,7 +1989,7 @@ if (!__Pyx_RefNanny) {
 
   /* "pydbm/clustering/sklearn_kmeans.pyx":2
  * # -*- coding: utf-8 -*-
- * from pydbm.clustering.interface.extract_centroids import ExtractableCentroids             # <<<<<<<<<<<<<<
+ * from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids             # <<<<<<<<<<<<<<
  * from sklearn.cluster import KMeans
  * 
  */
@@ -2009,7 +2009,7 @@ if (!__Pyx_RefNanny) {
 
   /* "pydbm/clustering/sklearn_kmeans.pyx":3
  * # -*- coding: utf-8 -*-
- * from pydbm.clustering.interface.extract_centroids import ExtractableCentroids
+ * from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids
  * from sklearn.cluster import KMeans             # <<<<<<<<<<<<<<
  * 
  * 
@@ -2088,7 +2088,7 @@ if (!__Pyx_RefNanny) {
 
   /* "pydbm/clustering/sklearn_kmeans.pyx":1
  * # -*- coding: utf-8 -*-             # <<<<<<<<<<<<<<
- * from pydbm.clustering.interface.extract_centroids import ExtractableCentroids
+ * from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids
  * from sklearn.cluster import KMeans
  */
   __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)

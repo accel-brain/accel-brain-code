@@ -3,12 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
-        "name": "pydbm.clustering.interface.extract_centroids",
+        "name": "pydbm.clustering.interface.extractable_centroids",
         "sources": [
-            "./pydbm/clustering/interface/extract_centroids.pyx"
+            "./pydbm/clustering/interface/extractable_centroids.pyx"
         ]
     },
-    "module_name": "pydbm.clustering.interface.extract_centroids"
+    "module_name": "pydbm.clustering.interface.extractable_centroids"
 }
 END: Cython Metadata */
 
@@ -571,8 +571,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__pydbm__clustering__interface__extract_centroids
-#define __PYX_HAVE_API__pydbm__clustering__interface__extract_centroids
+#define __PYX_HAVE__pydbm__clustering__interface__extractable_centroids
+#define __PYX_HAVE_API__pydbm__clustering__interface__extractable_centroids
 /* Early includes */
 #ifdef _OPENMP
 #include <omp.h>
@@ -777,7 +777,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pydbm/clustering/interface/extract_centroids.pyx",
+  "pydbm/clustering/interface/extractable_centroids.pyx",
 };
 
 /*--- Type declarations ---*/
@@ -1077,12 +1077,12 @@ static int __Pyx_check_binary_version(void);
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'pydbm.clustering.interface.extract_centroids' */
-#define __Pyx_MODULE_NAME "pydbm.clustering.interface.extract_centroids"
-extern int __pyx_module_is_main_pydbm__clustering__interface__extract_centroids;
-int __pyx_module_is_main_pydbm__clustering__interface__extract_centroids = 0;
+/* Module declarations from 'pydbm.clustering.interface.extractable_centroids' */
+#define __Pyx_MODULE_NAME "pydbm.clustering.interface.extractable_centroids"
+extern int __pyx_module_is_main_pydbm__clustering__interface__extractable_centroids;
+int __pyx_module_is_main_pydbm__clustering__interface__extractable_centroids = 0;
 
-/* Implementation of 'pydbm.clustering.interface.extract_centroids' */
+/* Implementation of 'pydbm.clustering.interface.extractable_centroids' */
 static PyObject *__pyx_builtin_NotImplementedError;
 static const char __pyx_k_k[] = "k";
 static const char __pyx_k_abc[] = "abc";
@@ -1104,8 +1104,8 @@ static const char __pyx_k_NotImplementedError[] = "NotImplementedError";
 static const char __pyx_k_ExtractableCentroids[] = "ExtractableCentroids";
 static const char __pyx_k_The_interface_of_clustering_onl[] = "\n    The interface of clustering only to get information on \n    centroids to be mentioned as initial parameters in framework \n    of the Deep Embedded Clustering(DEC).\n\n    References:\n        - Xie, J., Girshick, R., & Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).\n    ";
 static const char __pyx_k_ExtractableCentroids_extract_cen[] = "ExtractableCentroids.extract_centroids";
-static const char __pyx_k_pydbm_clustering_interface_extra[] = "pydbm.clustering.interface.extract_centroids";
-static const char __pyx_k_pydbm_clustering_interface_extra_2[] = "pydbm/clustering/interface/extract_centroids.pyx";
+static const char __pyx_k_pydbm_clustering_interface_extra[] = "pydbm.clustering.interface.extractable_centroids";
+static const char __pyx_k_pydbm_clustering_interface_extra_2[] = "pydbm/clustering/interface/extractable_centroids.pyx";
 static PyObject *__pyx_n_s_ABCMeta;
 static PyObject *__pyx_n_s_ExtractableCentroids;
 static PyObject *__pyx_n_s_ExtractableCentroids_extract_cen;
@@ -1128,12 +1128,12 @@ static PyObject *__pyx_kp_s_pydbm_clustering_interface_extra_2;
 static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_self;
 static PyObject *__pyx_n_s_test;
-static PyObject *__pyx_pf_5pydbm_10clustering_9interface_17extract_centroids_20ExtractableCentroids_extract_centroids(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_observed_arr, CYTHON_UNUSED PyObject *__pyx_v_k); /* proto */
+static PyObject *__pyx_pf_5pydbm_10clustering_9interface_21extractable_centroids_20ExtractableCentroids_extract_centroids(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_observed_arr, CYTHON_UNUSED PyObject *__pyx_v_k); /* proto */
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_codeobj__2;
 /* Late includes */
 
-/* "pydbm/clustering/interface/extract_centroids.pyx":15
+/* "pydbm/clustering/interface/extractable_centroids.pyx":15
  *     '''
  * 
  *     def extract_centroids(self, observed_arr, k):             # <<<<<<<<<<<<<<
@@ -1142,10 +1142,10 @@ static PyObject *__pyx_codeobj__2;
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_10clustering_9interface_17extract_centroids_20ExtractableCentroids_1extract_centroids(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_5pydbm_10clustering_9interface_17extract_centroids_20ExtractableCentroids_extract_centroids[] = "\n        Clustering and extract centroids.\n\n        Args:\n            observed_arr:       `np.ndarray` of observed data points.\n            k:                  The number of clusters.\n\n        Returns:\n            `np.ndarray` of centroids.\n        ";
-static PyMethodDef __pyx_mdef_5pydbm_10clustering_9interface_17extract_centroids_20ExtractableCentroids_1extract_centroids = {"extract_centroids", (PyCFunction)__pyx_pw_5pydbm_10clustering_9interface_17extract_centroids_20ExtractableCentroids_1extract_centroids, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_10clustering_9interface_17extract_centroids_20ExtractableCentroids_extract_centroids};
-static PyObject *__pyx_pw_5pydbm_10clustering_9interface_17extract_centroids_20ExtractableCentroids_1extract_centroids(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_10clustering_9interface_21extractable_centroids_20ExtractableCentroids_1extract_centroids(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_5pydbm_10clustering_9interface_21extractable_centroids_20ExtractableCentroids_extract_centroids[] = "\n        Clustering and extract centroids.\n\n        Args:\n            observed_arr:       `np.ndarray` of observed data points.\n            k:                  The number of clusters.\n\n        Returns:\n            `np.ndarray` of centroids.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_10clustering_9interface_21extractable_centroids_20ExtractableCentroids_1extract_centroids = {"extract_centroids", (PyCFunction)__pyx_pw_5pydbm_10clustering_9interface_21extractable_centroids_20ExtractableCentroids_1extract_centroids, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5pydbm_10clustering_9interface_21extractable_centroids_20ExtractableCentroids_extract_centroids};
+static PyObject *__pyx_pw_5pydbm_10clustering_9interface_21extractable_centroids_20ExtractableCentroids_1extract_centroids(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
   CYTHON_UNUSED PyObject *__pyx_v_observed_arr = 0;
   CYTHON_UNUSED PyObject *__pyx_v_k = 0;
@@ -1204,24 +1204,24 @@ static PyObject *__pyx_pw_5pydbm_10clustering_9interface_17extract_centroids_20E
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("extract_centroids", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 15, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.interface.extract_centroids.ExtractableCentroids.extract_centroids", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.clustering.interface.extractable_centroids.ExtractableCentroids.extract_centroids", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_10clustering_9interface_17extract_centroids_20ExtractableCentroids_extract_centroids(__pyx_self, __pyx_v_self, __pyx_v_observed_arr, __pyx_v_k);
+  __pyx_r = __pyx_pf_5pydbm_10clustering_9interface_21extractable_centroids_20ExtractableCentroids_extract_centroids(__pyx_self, __pyx_v_self, __pyx_v_observed_arr, __pyx_v_k);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_10clustering_9interface_17extract_centroids_20ExtractableCentroids_extract_centroids(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_observed_arr, CYTHON_UNUSED PyObject *__pyx_v_k) {
+static PyObject *__pyx_pf_5pydbm_10clustering_9interface_21extractable_centroids_20ExtractableCentroids_extract_centroids(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_observed_arr, CYTHON_UNUSED PyObject *__pyx_v_k) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("extract_centroids", 0);
 
-  /* "pydbm/clustering/interface/extract_centroids.pyx":26
+  /* "pydbm/clustering/interface/extractable_centroids.pyx":26
  *             `np.ndarray` of centroids.
  *         '''
  *         raise NotImplementedError()             # <<<<<<<<<<<<<<
@@ -1232,7 +1232,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_9interface_17extract_centroids_20E
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __PYX_ERR(0, 26, __pyx_L1_error)
 
-  /* "pydbm/clustering/interface/extract_centroids.pyx":15
+  /* "pydbm/clustering/interface/extractable_centroids.pyx":15
  *     '''
  * 
  *     def extract_centroids(self, observed_arr, k):             # <<<<<<<<<<<<<<
@@ -1243,7 +1243,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_9interface_17extract_centroids_20E
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.clustering.interface.extract_centroids.ExtractableCentroids.extract_centroids", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.clustering.interface.extractable_centroids.ExtractableCentroids.extract_centroids", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
@@ -1257,17 +1257,17 @@ static PyMethodDef __pyx_methods[] = {
 #if PY_MAJOR_VERSION >= 3
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 static PyObject* __pyx_pymod_create(PyObject *spec, PyModuleDef *def); /*proto*/
-static int __pyx_pymod_exec_extract_centroids(PyObject* module); /*proto*/
+static int __pyx_pymod_exec_extractable_centroids(PyObject* module); /*proto*/
 static PyModuleDef_Slot __pyx_moduledef_slots[] = {
   {Py_mod_create, (void*)__pyx_pymod_create},
-  {Py_mod_exec, (void*)__pyx_pymod_exec_extract_centroids},
+  {Py_mod_exec, (void*)__pyx_pymod_exec_extractable_centroids},
   {0, NULL}
 };
 #endif
 
 static struct PyModuleDef __pyx_moduledef = {
     PyModuleDef_HEAD_INIT,
-    "extract_centroids",
+    "extractable_centroids",
     0, /* m_doc */
   #if CYTHON_PEP489_MULTI_PHASE_INIT
     0, /* m_size */
@@ -1322,7 +1322,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pydbm/clustering/interface/extract_centroids.pyx":15
+  /* "pydbm/clustering/interface/extractable_centroids.pyx":15
  *     '''
  * 
  *     def extract_centroids(self, observed_arr, k):             # <<<<<<<<<<<<<<
@@ -1437,11 +1437,11 @@ static int __Pyx_modinit_function_import_code(void) {
 
 
 #if PY_MAJOR_VERSION < 3
-__Pyx_PyMODINIT_FUNC initextract_centroids(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC initextract_centroids(void)
+__Pyx_PyMODINIT_FUNC initextractable_centroids(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC initextractable_centroids(void)
 #else
-__Pyx_PyMODINIT_FUNC PyInit_extract_centroids(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC PyInit_extract_centroids(void)
+__Pyx_PyMODINIT_FUNC PyInit_extractable_centroids(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC PyInit_extractable_centroids(void)
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 {
   return PyModuleDef_Init(&__pyx_moduledef);
@@ -1481,7 +1481,7 @@ bad:
 }
 
 
-static int __pyx_pymod_exec_extract_centroids(PyObject *__pyx_pyinit_module)
+static int __pyx_pymod_exec_extractable_centroids(PyObject *__pyx_pyinit_module)
 #endif
 #endif
 {
@@ -1504,7 +1504,7 @@ if (!__Pyx_RefNanny) {
       Py_FatalError("failed to import 'refnanny' module");
 }
 #endif
-  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_extract_centroids(void)", 0);
+  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_extractable_centroids(void)", 0);
   if (__Pyx_check_binary_version() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -1540,7 +1540,7 @@ if (!__Pyx_RefNanny) {
   Py_INCREF(__pyx_m);
   #else
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("extract_centroids", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("extractable_centroids", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
@@ -1559,14 +1559,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_pydbm__clustering__interface__extract_centroids) {
+  if (__pyx_module_is_main_pydbm__clustering__interface__extractable_centroids) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "pydbm.clustering.interface.extract_centroids")) {
-      if (unlikely(PyDict_SetItemString(modules, "pydbm.clustering.interface.extract_centroids", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "pydbm.clustering.interface.extractable_centroids")) {
+      if (unlikely(PyDict_SetItemString(modules, "pydbm.clustering.interface.extractable_centroids", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -1587,7 +1587,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "pydbm/clustering/interface/extract_centroids.pyx":2
+  /* "pydbm/clustering/interface/extractable_centroids.pyx":2
  * # -*- coding: utf-8 -*-
  * from abc import ABCMeta, abstractmethod             # <<<<<<<<<<<<<<
  * 
@@ -1614,7 +1614,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/clustering/interface/extract_centroids.pyx":5
+  /* "pydbm/clustering/interface/extractable_centroids.pyx":5
  * 
  * 
  * class ExtractableCentroids(metaclass=ABCMeta):             # <<<<<<<<<<<<<<
@@ -1628,19 +1628,19 @@ if (!__Pyx_RefNanny) {
   __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_1, __pyx_empty_tuple, __pyx_n_s_ExtractableCentroids, __pyx_n_s_ExtractableCentroids, __pyx_t_2, __pyx_n_s_pydbm_clustering_interface_extra, __pyx_kp_s_The_interface_of_clustering_onl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "pydbm/clustering/interface/extract_centroids.pyx":15
+  /* "pydbm/clustering/interface/extractable_centroids.pyx":15
  *     '''
  * 
  *     def extract_centroids(self, observed_arr, k):             # <<<<<<<<<<<<<<
  *         '''
  *         Clustering and extract centroids.
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10clustering_9interface_17extract_centroids_20ExtractableCentroids_1extract_centroids, 0, __pyx_n_s_ExtractableCentroids_extract_cen, NULL, __pyx_n_s_pydbm_clustering_interface_extra, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10clustering_9interface_21extractable_centroids_20ExtractableCentroids_1extract_centroids, 0, __pyx_n_s_ExtractableCentroids_extract_cen, NULL, __pyx_n_s_pydbm_clustering_interface_extra, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_extract_centroids, __pyx_t_4) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/clustering/interface/extract_centroids.pyx":5
+  /* "pydbm/clustering/interface/extractable_centroids.pyx":5
  * 
  * 
  * class ExtractableCentroids(metaclass=ABCMeta):             # <<<<<<<<<<<<<<
@@ -1655,7 +1655,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/clustering/interface/extract_centroids.pyx":1
+  /* "pydbm/clustering/interface/extractable_centroids.pyx":1
  * # -*- coding: utf-8 -*-             # <<<<<<<<<<<<<<
  * from abc import ABCMeta, abstractmethod
  * 
@@ -1675,11 +1675,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_4);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pydbm.clustering.interface.extract_centroids", 0, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pydbm.clustering.interface.extractable_centroids", 0, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pydbm.clustering.interface.extract_centroids");
+    PyErr_SetString(PyExc_ImportError, "init pydbm.clustering.interface.extractable_centroids");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

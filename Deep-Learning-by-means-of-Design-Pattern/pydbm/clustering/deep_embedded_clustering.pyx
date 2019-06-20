@@ -202,7 +202,7 @@ class DeepEmbeddedClustering(object):
 
                 loss_list.append(loss)
                 loss_log_list.append((loss, test_loss))
-                self.__logger.debug("Epoch: " + str(epoch) + " Train loss(KLD): " + str(loss) + " Test loss(KLD): " + str(test_loss))
+                self.__logger.debug("Epoch: " + str(epoch) + " Train loss: " + str(loss) + " Test loss: " + str(test_loss))
 
         except KeyboardInterrupt:
             self.__logger.debug("Interrupt.")
@@ -377,6 +377,16 @@ class DeepEmbeddedClustering(object):
     
     mu_arr = property(get_mu_arr, set_mu_arr)
 
+    def get_delta_mu_arr(self):
+        ''' getter for delta of learned centroids. '''
+        return self.__delta_mu_arr
+    
+    def set_delta_mu_arr(self, value):
+        ''' setter for delta of learned centroids. '''
+        self.__delta_mu_arr = value
+    
+    delta_mu_arr = property(get_delta_mu_arr, set_delta_mu_arr)
+
     def get_loss_arr(self):
         ''' getter '''
         return self.__loss_arr
@@ -396,3 +406,13 @@ class DeepEmbeddedClustering(object):
         self.__auto_encodable = value
     
     auto_encodable = property(get_auto_encodable, set_auto_encodable)
+
+    def get_opt_params(self):
+        ''' getter '''
+        return self.__opt_params
+    
+    def set_opt_params(self, value):
+        ''' setter '''
+        self.__opt_params = value
+    
+    opt_params = property(get_opt_params, set_opt_params)

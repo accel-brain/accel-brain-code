@@ -49,6 +49,18 @@ class ConvolutionalDEC(AutoEncodable):
         '''
         self.__convolutional_auto_encoder.learn(observed_arr)
 
+    def inference(self, np.ndarray observed_arr):
+        '''
+        Inferencing.
+
+        Args:
+            observed_arr:       `np.ndarray` of observed data points.
+        
+        Returns:
+            `np.ndarray` of inferenced data.
+        '''
+        return self.__convolutional_auto_encoder.inference(observed_arr)
+
     def embed_feature_points(self, np.ndarray observed_arr):
         '''
         Embed and extract feature points.
@@ -62,29 +74,36 @@ class ConvolutionalDEC(AutoEncodable):
         _ = self.__convolutional_auto_encoder.inference(observed_arr)
         return self.__convolutional_auto_encoder.extract_feature_points_arr()
 
-    def backward_auto_encoder(self, np.ndarray delta_arr):
+    def backward_auto_encoder(self, np.ndarray delta_arr, encoder_only_flag=True):
         '''
         Pass down to the Auto-Encoder as backward.
 
         Args:
-            delta_arr:      `np.ndarray` of delta.
-        
+            delta_arr:              `np.ndarray` of delta.
+            encoder_only_flag:      Pass down to encoder only or decoder/encoder.
+
         Returns:
             `np.ndarray` of delta.
         '''
-        layerable_cnn_list = self.__convolutional_auto_encoder.layerable_cnn_list[::-1]
-        for i in range(len(layerable_cnn_list)):
-            delta_arr = layerable_cnn_list[i].back_propagate(delta_arr)
-            delta_arr = layerable_cnn_list[i].graph.deactivation_function.forward(delta_arr)
+        if encoder_only_flag is True:
+            layerable_cnn_list = self.__convolutional_auto_encoder.layerable_cnn_list[::-1]
+            for i in range(len(layerable_cnn_list)):
+                delta_arr = layerable_cnn_list[i].back_propagate(delta_arr)
+                delta_arr = layerable_cnn_list[i].graph.deactivation_function.forward(delta_arr)
 
-        return delta_arr
+            return delta_arr
+        else:
+            return self.__convolutional_auto_encoder.back_propagation(delta_arr)
 
-    def optimize_auto_encoder(self, learning_rate, epoch):
+    def optimize_auto_encoder(self, learning_rate, epoch, encoder_only_flag=True):
         '''
         Optimize Auto-Encoder.
 
         Args:
-            learning_rate:      Learning rate.
-            epoch:              Now epoch.
+            learning_rate:          Learning rate.
+            epoch:                  Now epoch.
+            encoder_only_flag:      Optimize encoder only or decoder/encoder.
         '''
-        self.__convolutional_auto_encoder.optimize(learning_rate, epoch)
+        # Convotlutional Auto-Encoder operates deconvolution as a transposed convolution. 
+        if encoder_only_flag is True or encoder_only_flag is False:
+            self.__convolutional_auto_encoder.optimize(learning_rate, epoch)

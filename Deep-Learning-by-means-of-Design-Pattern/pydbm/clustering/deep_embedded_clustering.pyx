@@ -171,7 +171,7 @@ class DeepEmbeddedClustering(metaclass=ABCMeta):
                 self.__opt_params.inferencing_mode = False
 
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
-                    learning_rate = learning_rate / self.__learning_attenuate_rate
+                    learning_rate = learning_rate * self.__learning_attenuate_rate
 
                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)
                 batch_observed_arr = train_observed_arr[rand_index]

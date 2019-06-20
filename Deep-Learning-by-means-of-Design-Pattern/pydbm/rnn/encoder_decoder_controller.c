@@ -3622,7 +3622,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
  *             min_loss = None
  *             for epoch in range(self.__epochs):             # <<<<<<<<<<<<<<
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  */
       __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_EncoderDecoderController__epoch); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 178, __pyx_L9_error)
       __Pyx_GOTREF(__pyx_t_7);
@@ -3636,7 +3636,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
  *             min_loss = None
  *             for epoch in range(self.__epochs):
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  */
         __pyx_t_7 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 179, __pyx_L9_error)
@@ -3657,7 +3657,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           /* "pydbm/rnn/encoder_decoder_controller.pyx":180
  *             for epoch in range(self.__epochs):
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
  * 
  *                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)
  */
@@ -3665,7 +3665,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           __Pyx_GOTREF(__pyx_t_1);
           __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_EncoderDecoderController__learn_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 180, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_7 = __Pyx_PyNumber_Divide(__pyx_t_1, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 180, __pyx_L9_error)
+          __pyx_t_7 = PyNumber_Multiply(__pyx_t_1, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 180, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_7);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -3677,13 +3677,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
  *             min_loss = None
  *             for epoch in range(self.__epochs):
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  */
         }
 
         /* "pydbm/rnn/encoder_decoder_controller.pyx":182
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  *                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)             # <<<<<<<<<<<<<<
  *                 batch_observed_arr = train_observed_arr[rand_index]
@@ -6627,7 +6627,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
  *                 epoch += 1
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  */
         __pyx_t_8 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 338, __pyx_L4_error)
@@ -6648,7 +6648,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           /* "pydbm/rnn/encoder_decoder_controller.pyx":339
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
  * 
  *                 try:
  */
@@ -6656,7 +6656,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           __Pyx_GOTREF(__pyx_t_14);
           __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_EncoderDecoderController__learn_2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 339, __pyx_L4_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_8 = __Pyx_PyNumber_Divide(__pyx_t_14, __pyx_t_13); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 339, __pyx_L4_error)
+          __pyx_t_8 = PyNumber_Multiply(__pyx_t_14, __pyx_t_13); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 339, __pyx_L4_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
@@ -6668,13 +6668,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
  *                 epoch += 1
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  */
         }
 
         /* "pydbm/rnn/encoder_decoder_controller.pyx":341
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  *                 try:             # <<<<<<<<<<<<<<
  *                     decoded_arr = self.inference(batch_observed_arr)
@@ -7762,7 +7762,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
             __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
             /* "pydbm/rnn/encoder_decoder_controller.pyx":341
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  *                 try:             # <<<<<<<<<<<<<<
  *                     decoded_arr = self.inference(batch_observed_arr)
@@ -7906,7 +7906,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_26encoder_decoder_controller_24EncoderDeco
           __pyx_L17_except_error:;
 
           /* "pydbm/rnn/encoder_decoder_controller.pyx":341
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  *                 try:             # <<<<<<<<<<<<<<
  *                     decoded_arr = self.inference(batch_observed_arr)

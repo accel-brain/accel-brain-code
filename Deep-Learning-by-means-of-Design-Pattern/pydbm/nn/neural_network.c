@@ -3922,7 +3922,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_14neural_network_13NeuralNetwork_2learn(CYT
  *                 self.__opt_params.inferencing_mode = False
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  */
         __pyx_t_8 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 175, __pyx_L9_error)
@@ -3943,7 +3943,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_14neural_network_13NeuralNetwork_2learn(CYT
           /* "pydbm/nn/neural_network.pyx":176
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
  * 
  *                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)
  */
@@ -3951,7 +3951,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_14neural_network_13NeuralNetwork_2learn(CYT
           __Pyx_GOTREF(__pyx_t_1);
           __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_NeuralNetwork__learning_attenua); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 176, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_7);
-          __pyx_t_8 = __Pyx_PyNumber_Divide(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 176, __pyx_L9_error)
+          __pyx_t_8 = PyNumber_Multiply(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 176, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -3963,13 +3963,13 @@ static PyObject *__pyx_pf_5pydbm_2nn_14neural_network_13NeuralNetwork_2learn(CYT
  *                 self.__opt_params.inferencing_mode = False
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  */
         }
 
         /* "pydbm/nn/neural_network.pyx":178
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  *                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)             # <<<<<<<<<<<<<<
  *                 batch_observed_arr = train_observed_arr[rand_index]

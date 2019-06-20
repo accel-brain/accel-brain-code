@@ -3995,7 +3995,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
  *                 self.__opt_params.inferencing_mode = False
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  */
         __pyx_t_1 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L4_error)
@@ -4016,7 +4016,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
           /* "pydbm/clustering/deep_embedded_clustering.pyx":174
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
  * 
  *                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)
  */
@@ -4024,7 +4024,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
           __Pyx_GOTREF(__pyx_t_7);
           __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_DeepEmbeddedClustering__learnin_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 174, __pyx_L4_error)
           __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_t_7, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 174, __pyx_L4_error)
+          __pyx_t_1 = PyNumber_Multiply(__pyx_t_7, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 174, __pyx_L4_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -4036,13 +4036,13 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
  *                 self.__opt_params.inferencing_mode = False
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  */
         }
 
         /* "pydbm/clustering/deep_embedded_clustering.pyx":176
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  *                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)             # <<<<<<<<<<<<<<
  *                 batch_observed_arr = train_observed_arr[rand_index]

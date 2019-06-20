@@ -4286,7 +4286,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_10lstm_model_9LSTMModel_6learn(CYTHON_UNUS
  *                 self.__opt_params.inferencing_mode = False
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  */
         __pyx_t_7 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 227, __pyx_L9_error)
@@ -4307,7 +4307,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_10lstm_model_9LSTMModel_6learn(CYTHON_UNUS
           /* "pydbm/rnn/lstm_model.pyx":228
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
  * 
  *                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)
  */
@@ -4315,7 +4315,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_10lstm_model_9LSTMModel_6learn(CYTHON_UNUS
           __Pyx_GOTREF(__pyx_t_1);
           __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LSTMModel__learning_attenuate_r); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 228, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_8);
-          __pyx_t_7 = __Pyx_PyNumber_Divide(__pyx_t_1, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 228, __pyx_L9_error)
+          __pyx_t_7 = PyNumber_Multiply(__pyx_t_1, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 228, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_7);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -4327,13 +4327,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_10lstm_model_9LSTMModel_6learn(CYTHON_UNUS
  *                 self.__opt_params.inferencing_mode = False
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  */
         }
 
         /* "pydbm/rnn/lstm_model.pyx":230
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  *                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)             # <<<<<<<<<<<<<<
  *                 batch_observed_arr = train_observed_arr[rand_index]

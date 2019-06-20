@@ -223,7 +223,7 @@ class SpatioTemporalAutoEncoder(object):
                 self.__opt_params.inferencing_mode = False
 
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
-                    learning_rate = learning_rate / self.__learning_attenuate_rate
+                    learning_rate = learning_rate * self.__learning_attenuate_rate
                 self.__now_epoch = epoch
                 self.__now_learning_rate = learning_rate
 
@@ -401,7 +401,7 @@ class SpatioTemporalAutoEncoder(object):
                 self.__opt_params.inferencing_mode = False
 
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
-                    learning_rate = learning_rate / self.__learning_attenuate_rate
+                    learning_rate = learning_rate * self.__learning_attenuate_rate
                 self.__now_epoch = epoch
                 self.__now_learning_rate = learning_rate
                 try:

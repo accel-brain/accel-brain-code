@@ -410,7 +410,7 @@ class ReSeq2Seq(AbstractableSemantics):
             min_loss = None
             for epoch in range(self.__epochs):
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
-                    learning_rate = learning_rate / self.__learning_attenuate_rate
+                    learning_rate = learning_rate * self.__learning_attenuate_rate
 
                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)
                 batch_observed_arr = train_observed_arr[rand_index]
@@ -566,7 +566,7 @@ class ReSeq2Seq(AbstractableSemantics):
             for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr in feature_generator.generate():
                 epoch += 1
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
-                    learning_rate = learning_rate / self.__learning_attenuate_rate
+                    learning_rate = learning_rate * self.__learning_attenuate_rate
 
                 try:
                     _ = self.inference(batch_observed_arr)

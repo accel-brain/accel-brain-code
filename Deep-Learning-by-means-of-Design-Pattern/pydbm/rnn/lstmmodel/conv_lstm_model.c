@@ -6083,7 +6083,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *                 self.__opt_params.inferencing_mode = False
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  */
         __pyx_t_1 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 381, __pyx_L9_error)
@@ -6104,7 +6104,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
           /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":382
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
  * 
  *                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)
  */
@@ -6112,7 +6112,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
           __Pyx_GOTREF(__pyx_t_7);
           __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__learning_attenua); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 382, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_8);
-          __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 382, __pyx_L9_error)
+          __pyx_t_1 = PyNumber_Multiply(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 382, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -6124,13 +6124,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *                 self.__opt_params.inferencing_mode = False
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  */
         }
 
         /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":384
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  *                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)             # <<<<<<<<<<<<<<
  *                 batch_observed_arr = train_observed_arr[rand_index]
@@ -9955,7 +9955,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *                 self.__opt_params.inferencing_mode = False
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  */
         __pyx_t_14 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 594, __pyx_L4_error)
@@ -9976,7 +9976,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
           /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":595
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
  * 
  *                 try:
  */
@@ -9984,7 +9984,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
           __Pyx_GOTREF(__pyx_t_8);
           __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvLSTMModel__learning_attenua); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 595, __pyx_L4_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_14 = __Pyx_PyNumber_Divide(__pyx_t_8, __pyx_t_13); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 595, __pyx_L4_error)
+          __pyx_t_14 = PyNumber_Multiply(__pyx_t_8, __pyx_t_13); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 595, __pyx_L4_error)
           __Pyx_GOTREF(__pyx_t_14);
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
@@ -9996,13 +9996,13 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
  *                 self.__opt_params.inferencing_mode = False
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  */
         }
 
         /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":597
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  *                 try:             # <<<<<<<<<<<<<<
  *                     pred_arr = self.forward_propagation(batch_observed_arr)
@@ -11757,7 +11757,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
             }
 
             /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":597
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  *                 try:             # <<<<<<<<<<<<<<
  *                     pred_arr = self.forward_propagation(batch_observed_arr)
@@ -11887,7 +11887,7 @@ static PyObject *__pyx_pf_5pydbm_3rnn_9lstmmodel_15conv_lstm_model_13ConvLSTMMod
           __pyx_L17_except_error:;
 
           /* "pydbm/rnn/lstmmodel/conv_lstm_model.pyx":597
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  * 
  *                 try:             # <<<<<<<<<<<<<<
  *                     pred_arr = self.forward_propagation(batch_observed_arr)

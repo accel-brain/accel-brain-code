@@ -4810,7 +4810,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  *                 self.__opt_params.inferencing_mode = False
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  *                 self.__now_epoch = epoch
  */
         __pyx_t_1 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 225, __pyx_L10_error)
@@ -4831,7 +4831,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
           /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":226
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
  *                 self.__now_epoch = epoch
  *                 self.__now_learning_rate = learning_rate
  */
@@ -4839,7 +4839,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
           __Pyx_GOTREF(__pyx_t_7);
           __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__lear_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 226, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_8);
-          __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L10_error)
+          __pyx_t_1 = PyNumber_Multiply(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -4851,14 +4851,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  *                 self.__opt_params.inferencing_mode = False
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  *                 self.__now_epoch = epoch
  */
         }
 
         /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":227
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  *                 self.__now_epoch = epoch             # <<<<<<<<<<<<<<
  *                 self.__now_learning_rate = learning_rate
  * 
@@ -4869,7 +4869,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
         /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":228
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  *                 self.__now_epoch = epoch
  *                 self.__now_learning_rate = learning_rate             # <<<<<<<<<<<<<<
  * 
@@ -7955,7 +7955,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  *                 self.__opt_params.inferencing_mode = False
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  *                 self.__now_epoch = epoch
  */
         __pyx_t_14 = __Pyx_PyInt_From_long((__pyx_v_epoch + 1)); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 403, __pyx_L4_error)
@@ -7976,7 +7976,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
           /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":404
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate             # <<<<<<<<<<<<<<
  *                 self.__now_epoch = epoch
  *                 self.__now_learning_rate = learning_rate
  */
@@ -7984,7 +7984,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
           __Pyx_GOTREF(__pyx_t_4);
           __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_SpatioTemporalAutoEncoder__lear_2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 404, __pyx_L4_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_14 = __Pyx_PyNumber_Divide(__pyx_t_4, __pyx_t_13); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 404, __pyx_L4_error)
+          __pyx_t_14 = PyNumber_Multiply(__pyx_t_4, __pyx_t_13); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 404, __pyx_L4_error)
           __Pyx_GOTREF(__pyx_t_14);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
@@ -7996,14 +7996,14 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
  *                 self.__opt_params.inferencing_mode = False
  * 
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):             # <<<<<<<<<<<<<<
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  *                 self.__now_epoch = epoch
  */
         }
 
         /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":405
  *                 if ((epoch + 1) % self.__attenuate_epoch == 0):
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  *                 self.__now_epoch = epoch             # <<<<<<<<<<<<<<
  *                 self.__now_learning_rate = learning_rate
  *                 try:
@@ -8014,7 +8014,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28spatio_temporal_auto_encoder_25SpatioTem
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
         /* "pydbm/cnn/spatio_temporal_auto_encoder.pyx":406
- *                     learning_rate = learning_rate / self.__learning_attenuate_rate
+ *                     learning_rate = learning_rate * self.__learning_attenuate_rate
  *                 self.__now_epoch = epoch
  *                 self.__now_learning_rate = learning_rate             # <<<<<<<<<<<<<<
  *                 try:

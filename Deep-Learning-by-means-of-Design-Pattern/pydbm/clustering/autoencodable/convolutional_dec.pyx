@@ -11,6 +11,8 @@ class ConvolutionalDEC(AutoEncodable):
     The Deep Embedded Clustering(DEC) with Convolutional Neural Networks.
 
     References:
+        - Guo, X., Liu, X., Zhu, E., & Yin, J. (2017, November). Deep clustering with convolutional autoencoders. In International Conference on Neural Information Processing (pp. 373-382). Springer, Cham.
+        - Guo, X., Gao, L., Liu, X., & Yin, J. (2017, June). Improved Deep Embedded Clustering with Local Structure Preservation. In IJCAI (pp. 1753-1759).
         - Xie, J., Girshick, R., & Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).
     '''
     # is-a `ConvolutionalAutoEncoder`.

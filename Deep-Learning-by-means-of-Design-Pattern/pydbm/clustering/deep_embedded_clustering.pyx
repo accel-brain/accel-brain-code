@@ -40,10 +40,14 @@ class DeepEmbeddedClustering(object):
         tol=1e-15,
         tld=100.0,
         grad_clip_threshold=1.0,
+        T=100,
         alpha=1,
+        soft_assign_weight=0.1,
         beta=0.33,
         gamma=0.33,
-        kappa=0.33
+        kappa=0.33,
+        repelling_weight=1.0,
+        anti_repelling_weight=1.0
     ):
         '''
         Init.
@@ -66,6 +70,7 @@ class DeepEmbeddedClustering(object):
             tol:                            Tolerance for the optimization.
             tld:                            Tolerance for deviation of loss.
             grad_clip_threshold:            Threshold of the gradient clipping.
+            T:                              Target distribution update interval.
             alpha:                          Degrees of freedom of the Student's t-distribution.
             beta:                           Weight of balanced assignments loss.
             gamma:                          A coefficient that controls the degree of distorting embedded space.
@@ -96,10 +101,17 @@ class DeepEmbeddedClustering(object):
         self.__tld = tld
         self.__grad_clip_threshold = grad_clip_threshold
 
+        self.__T = T
+
         self.__alpha = alpha
+
+        self.__soft_assign_weight = soft_assign_weight
         self.__beta = beta
         self.__gamma = gamma
         self.__kappa = kappa
+
+        self.__repelling_weight = repelling_weight
+        self.__anti_repelling_weight = anti_repelling_weight
 
         logger = getLogger("pydbm")
         self.__logger = logger
@@ -155,8 +167,10 @@ class DeepEmbeddedClustering(object):
 
         cdef double loss
         cdef double test_loss
-        cdef np.ndarray pred_arr
-        cdef np.ndarray test_pred_arr
+        cdef np.ndarray q_arr
+        cdef np.ndarray test_q_arr
+        cdef np.ndarray p_arr
+        cdef np.ndarray test_p_arr
 
         loss_log_list = []
         try:
@@ -172,11 +186,16 @@ class DeepEmbeddedClustering(object):
                 batch_observed_arr = train_observed_arr[rand_index]
 
                 try:
-                    pred_arr = self.inference(batch_observed_arr)
-                    ver_pred_arr = pred_arr.copy()
+                    q_arr = self.inference(batch_observed_arr)
+
+                    if epoch == 0 or epoch % self.__T == 0:
+                        p_arr = self.compute_target_distribution(q_arr)
+
+                    q_arr = q_arr.copy()
+
                     loss = self.compute_loss(
-                        pred_arr,
-                        self.compute_target_distribution(pred_arr)
+                        q_arr,
+                        p_arr
                     )
                     self.back_propagation()
                     self.optimize(learning_rate, epoch)
@@ -198,12 +217,16 @@ class DeepEmbeddedClustering(object):
                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
                     test_batch_observed_arr = test_observed_arr[rand_index]
 
-                    test_pred_arr = self.inference(
+                    test_q_arr = self.inference(
                         test_batch_observed_arr
                     )
+
+                    if epoch == 0 or epoch % self.__T == 0:
+                        test_p_arr = self.compute_target_distribution(test_q_arr)
+
                     test_loss = self.compute_loss(
-                        test_pred_arr,
-                        self.compute_target_distribution(test_pred_arr)
+                        test_q_arr,
+                        test_p_arr
                     )
 
                 loss_list.append(loss)
@@ -322,8 +345,6 @@ class DeepEmbeddedClustering(object):
         Returns:
             (loss, `np.ndarray` of delta)
         '''
-        loss = self.__kl_divergence.compute_loss(p_arr, q_arr)        
-
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_z_arr = ((self.__alpha + 1) / self.__alpha) * np.nansum(
             np.power(1 + np.square(self.__delta_arr) / self.__alpha, -1) * (p_arr - q_arr) * np.square(self.__delta_arr), 
             axis=1
@@ -338,6 +359,8 @@ class DeepEmbeddedClustering(object):
         self.__delta_mu_arr = np.dot(self.__feature_arr.T, delta_mu_arr).T
         self.__delta_z_arr = self.__grad_clipping(self.__delta_z_arr)
         self.__delta_mu_arr = self.__grad_clipping(self.__delta_mu_arr)
+        self.__delta_z_arr = self.__delta_z_arr * self.__soft_assign_weight
+        self.__delta_mu_arr = self.__delta_mu_arr * self.__soft_assign_weight
 
         # K-Means loss.
         cdef np.ndarray label_arr = self.__assign_label(q_arr)
@@ -376,12 +399,66 @@ class DeepEmbeddedClustering(object):
 
         # Reconstruction Loss.
         reconstructed_loss = self.__mean_squared_error.compute_loss(self.__pred_arr, self.__observed_arr)
-        cdef np.ndarray rec_delta_arr = self.__mean_squared_error.compute_delta(self.__pred_arr, self.__observed_arr)
+        cdef np.ndarray delta_rec_arr = self.__mean_squared_error.compute_delta(self.__pred_arr, self.__observed_arr)
 
-        self.__rec_delta_arr = self.__grad_clipping(rec_delta_arr)
-        self.__rec_delta_arr = self.__rec_delta_arr * self.__gamma
+        self.__delta_rec_arr = self.__grad_clipping(delta_rec_arr)
+        self.__delta_rec_arr = self.__delta_rec_arr * self.__gamma
 
-        return loss + (reconstructed_loss * self.__gamma) + (ba_loss * self.__beta) + (kmeans_loss * self.__kappa)
+        # Repelling penalty.
+        cdef int N = self.__feature_arr.reshape((self.__feature_arr.shape[0], -1)).shape[1]
+        cdef int s
+        cdef int sa
+        cdef np.ndarray pt_arr
+        cdef np.ndarray anti_arr
+        cdef np.ndarray penalty_arr = np.zeros(label_arr.shape[0])
+        cdef np.ndarray anti_penalty_arr = np.zeros(label_arr.shape[0])
+
+        for label in label_arr:
+            feature_arr = self.__feature_arr[label_arr == label]
+            anti_feature_arr = self.__feature_arr[label_arr != label]
+            s = feature_arr.shape[0]
+            sa = anti_feature_arr.shape[0]
+
+            pt_arr = np.zeros(s ** 2)
+            anti_arr = np.zeros(sa * s)
+            k = 0
+            l = 0
+            for i in range(s):
+                for j in range(s):
+                    if i == j:
+                        continue
+                    pt_arr[k] = np.dot(feature_arr[i].T, feature_arr[j]) / (np.sqrt(np.dot(feature_arr[i], feature_arr[i])) * np.sqrt(np.dot(feature_arr[j], feature_arr[j])))
+                    k += 1
+                for j in range(sa):
+                    anti_arr[l] = np.dot(feature_arr[i].T, anti_feature_arr[j]) / (np.sqrt(np.dot(feature_arr[i], feature_arr[i])) * np.sqrt(np.dot(anti_feature_arr[j], anti_feature_arr[j])))
+                    l += 1
+
+            penalty_arr[label] = np.nansum(pt_arr) / (N * (N - 1))
+            anti_penalty_arr[label] = np.nansum(anti_arr) / (N * (N - 1))
+
+        penalty = penalty_arr.mean()
+        anti_penalty = anti_penalty_arr.mean()
+
+        # The number of delta.
+        penalty = penalty / 4
+        penalty = penalty * self.__repelling_weight
+        anti_penalty = anti_penalty / 4
+        anti_penalty = anti_penalty * self.__anti_repelling_weight
+        penalty_term = (penalty + anti_penalty)
+
+        self.__delta_mu_arr = self.__delta_mu_arr + penalty_term
+        self.__delta_z_arr = self.__delta_z_arr + penalty_term
+        self.__delta_kmeans_z_arr = self.__delta_kmeans_z_arr + penalty_term
+        self.__delta_ba_arr = self.__delta_ba_arr + penalty_term
+        #self.__delta_rec_arr = self.__delta_rec_arr + penalty_term
+
+        return np.array([
+            np.abs(self.__delta_mu_arr).mean(), 
+            np.abs(self.__delta_z_arr).mean(), 
+            np.abs(self.__delta_kmeans_z_arr).mean(), 
+            np.abs(self.__delta_ba_arr).mean(), 
+            np.abs(self.__delta_rec_arr).mean(), 
+        ]).mean()
 
     def __grad_clipping(self, diff_arr):
         v = np.linalg.norm(diff_arr)
@@ -398,11 +475,16 @@ class DeepEmbeddedClustering(object):
             `np.ndarray` of delta.
         '''
         self.__auto_encodable.backward_auto_encoder(
-            self.__rec_delta_arr,
+            self.__delta_rec_arr,
             encoder_only_flag=False
         )
+        cdef np.ndarray delta_arr = self.__delta_z_arr.reshape(
+            self.__default_shape
+        ) + self.__delta_kmeans_z_arr.reshape(
+            self.__default_shape
+        )
         self.__auto_encodable.backward_auto_encoder(
-            self.__delta_z_arr.reshape(self.__default_shape) + self.__delta_kmeans_z_arr.reshape(self.__default_shape)
+            self.__grad_clipping(delta_arr)
         )
 
     def optimize(self, learning_rate, epoch):
@@ -417,7 +499,7 @@ class DeepEmbeddedClustering(object):
             self.__mu_arr
         ]
         grads_list = [
-            self.__delta_mu_arr + self.__delta_ba_arr
+            self.__grad_clipping(self.__delta_mu_arr + self.__delta_ba_arr)
         ]
         params_list = self.__opt_params.optimize(
             params_list,

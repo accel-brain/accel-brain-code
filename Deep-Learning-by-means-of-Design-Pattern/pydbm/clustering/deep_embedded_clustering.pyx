@@ -42,12 +42,12 @@ class DeepEmbeddedClustering(object):
         grad_clip_threshold=1.0,
         T=100,
         alpha=1,
-        soft_assign_weight=0.1,
-        beta=0.33,
-        gamma=0.33,
-        kappa=0.33,
-        repelling_weight=1.0,
-        anti_repelling_weight=1.0
+        soft_assign_weight=0.25,
+        beta=0.25,
+        gamma=0.125,
+        kappa=0.125,
+        repelling_weight=0.1,
+        anti_repelling_weight=0.0
     ):
         '''
         Init.
@@ -450,15 +450,16 @@ class DeepEmbeddedClustering(object):
         self.__delta_z_arr = self.__delta_z_arr + penalty_term
         self.__delta_kmeans_z_arr = self.__delta_kmeans_z_arr + penalty_term
         self.__delta_ba_arr = self.__delta_ba_arr + penalty_term
-        #self.__delta_rec_arr = self.__delta_rec_arr + penalty_term
 
-        return np.array([
+        loss = np.array([
             np.abs(self.__delta_mu_arr).mean(), 
             np.abs(self.__delta_z_arr).mean(), 
             np.abs(self.__delta_kmeans_z_arr).mean(), 
             np.abs(self.__delta_ba_arr).mean(), 
             np.abs(self.__delta_rec_arr).mean(), 
         ]).mean()
+
+        return loss
 
     def __grad_clipping(self, diff_arr):
         v = np.linalg.norm(diff_arr)

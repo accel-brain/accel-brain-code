@@ -19,7 +19,7 @@ class OptParams(metaclass=ABCMeta):
     # Regularization for weights matrix
     # to repeat multiplying the weights matrix and `0.9`
     # until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
-    __weight_limit = 0.9
+    __weight_limit = 1e+10
     
     # Probability of dropout.
     __dropout_rate = 0.5

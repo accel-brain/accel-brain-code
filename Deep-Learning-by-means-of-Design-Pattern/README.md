@@ -425,7 +425,7 @@ Setup parameters of regularization. For instance, constraining (or scale down) w
 # Regularization for weights matrix
 # to repeat multiplying the weights matrix and `0.9`
 # until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
-opt_params.weight_limit = 0.5
+opt_params.weight_limit = 1e+03
 
 # Probability of dropout.
 opt_params.dropout_rate = 0.5
@@ -1235,7 +1235,7 @@ encoder_graph.create_rnn_cells(
 
 # Optimizer for Encoder.
 encoder_opt_params = EncoderAdam()
-encoder_opt_params.weight_limit = 0.5
+encoder_opt_params.weight_limit = 1e+03
 encoder_opt_params.dropout_rate = 0.5
 
 encoder = Encoder(
@@ -1283,7 +1283,7 @@ decoder_graph.create_rnn_cells(
 
 # Optimizer for Decoder.
 decoder_opt_params = DecoderAdam()
-decoder_opt_params.weight_limit = 0.5
+decoder_opt_params.weight_limit = 1e+03
 decoder_opt_params.dropout_rate = 0.5
 
 decoder = Decoder(

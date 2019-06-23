@@ -55,6 +55,8 @@ class LSTMFA(FunctionApproximator):
         lstm_model,
         seq_len=10,
         learning_rate=1e-05,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50,
         computable_loss=None,
         opt_params=None,
         verificatable_result=None,
@@ -68,6 +70,8 @@ class LSTMFA(FunctionApproximator):
             lstm_model:                     is-a `LSTMMode`.
             seq_len:                        The length of sequences.
             learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
             computable_loss:                is-a `ComputableLoss`.
             opt_params:                     is-a `OptParams`.
             verificatable_result:           is-a `VerificateFunctionApproximation`.
@@ -102,7 +106,7 @@ class LSTMFA(FunctionApproximator):
             verificatable_result = VerificateFunctionApproximation()
         if opt_params is None:
             opt_params = Adam()
-            opt_params.weight_limit = 0.5
+            opt_params.weight_limit = 1e+10
             opt_params.dropout_rate = 0.0
 
         self.__lstm_model = lstm_model
@@ -110,12 +114,15 @@ class LSTMFA(FunctionApproximator):
         self.__batch_size = batch_size
         self.__computable_loss = computable_loss
         self.__learning_rate = learning_rate
+        self.__learning_attenuate_rate = learning_attenuate_rate
+        self.__attenuate_epoch = attenuate_epoch
         self.__verbose_mode = verbose_mode
         self.__loss_list = []
         self.__next_action_arr_list = []
         self.__real_q_arr_list = []
         self.__predicted_q_arr_list = []
         self.__q_arr = None
+        self.__epoch_counter = 0
 
     def learn_q(self, predicted_q_arr, real_q_arr):
         '''
@@ -153,8 +160,14 @@ class LSTMFA(FunctionApproximator):
         )
         lstm_grads_list = lstm_output_grads_list
         lstm_grads_list.extend(lstm_hidden_grads_list)
-        self.__lstm_model.optimize(lstm_grads_list, self.__learning_rate, 1)
+
+        if ((self.__epoch_counter + 1) % self.__attenuate_epoch == 0):
+            self.__learning_rate = self.__learning_rate * self.__learning_attenuate_rate
+
+        self.__lstm_model.optimize(lstm_grads_list, self.__learning_rate, self.__epoch_counter)
         self.__loss_list.append(loss)
+
+        self.__epoch_counter += 1
 
     def inference_q(self, next_action_arr):
         '''

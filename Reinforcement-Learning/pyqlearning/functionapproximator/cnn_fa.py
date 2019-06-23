@@ -47,6 +47,8 @@ class CNNFA(FunctionApproximator):
         layerable_cnn_list,
         cnn_output_graph,
         learning_rate=1e-05,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50,
         computable_loss=None,
         opt_params=None,
         verificatable_result=None,
@@ -63,6 +65,8 @@ class CNNFA(FunctionApproximator):
             layerable_cnn_list:             `list` of `LayerableCNN`.
             cnn_output_graph:               Computation graph which is-a `CNNOutputGraph` to compute parameters in output layer.
             learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
             computable_loss:                is-a `ComputableLoss`.
             opt_params:                     is-a `OptParams`.
             verificatable_result:           is-a `VerificateFunctionApproximation`.
@@ -105,7 +109,7 @@ class CNNFA(FunctionApproximator):
             verificatable_result = VerificateFunctionApproximation()
         if opt_params is None:
             opt_params = Adam()
-            opt_params.weight_limit = 0.5
+            opt_params.weight_limit = 1e+10
             opt_params.dropout_rate = 0.0
 
         if cnn is None:
@@ -127,8 +131,8 @@ class CNNFA(FunctionApproximator):
                 # Pre-learned parameters.
                 pre_learned_path_list=pre_learned_path_list,
                 # Others.
-                learning_attenuate_rate=0.1,
-                attenuate_epoch=50
+                learning_attenuate_rate=learning_attenuate_rate,
+                attenuate_epoch=attenuate_epoch
             )
             cnn.setup_output_layer(cnn_output_graph, pre_learned_output_path)
 
@@ -136,8 +140,11 @@ class CNNFA(FunctionApproximator):
         self.__batch_size = batch_size
         self.__computable_loss = computable_loss
         self.__learning_rate = learning_rate
+        self.__learning_attenuate_rate = learning_attenuate_rate
+        self.__attenuate_epoch = attenuate_epoch
         self.__verbose_mode = verbose_mode
         self.__loss_list = []
+        self.__epoch_counter = 0
 
     def learn_q(self, predicted_q_arr, real_q_arr):
         '''
@@ -155,6 +162,10 @@ class CNNFA(FunctionApproximator):
         loss = self.__computable_loss.compute_loss(predicted_q_arr, real_q_arr)
         delta_arr = self.__computable_loss.compute_delta(predicted_q_arr, real_q_arr)
         delta_arr = self.__cnn.back_propagation(delta_arr)
+
+        if ((self.__epoch_counter + 1) % self.__attenuate_epoch == 0):
+            self.__learning_rate = self.__learning_rate * self.__learning_attenuate_rate
+
         self.__cnn.optimize(self.__learning_rate, 1)
         self.__loss_list.append(loss)
 

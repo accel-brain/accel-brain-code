@@ -406,45 +406,37 @@ class DeepEmbeddedClustering(object):
 
         # Repelling penalty.
         cdef int N = self.__feature_arr.reshape((self.__feature_arr.shape[0], -1)).shape[1]
+        cdef int oN = self.__observed_arr.reshape((self.__observed_arr.shape[0], -1)).shape[1]
         cdef int s
         cdef int sa
+        cdef int oa
         cdef np.ndarray pt_arr
+        cdef np.ndarray observed_pt_arr
         cdef np.ndarray anti_arr
         cdef np.ndarray penalty_arr = np.zeros(label_arr.shape[0])
+        cdef np.ndarray observed_penalty_arr = np.zeros(label_arr.shape[0])
         cdef np.ndarray anti_penalty_arr = np.zeros(label_arr.shape[0])
 
         for label in label_arr:
             feature_arr = self.__feature_arr[label_arr == label]
-            anti_feature_arr = self.__feature_arr[label_arr != label]
             s = feature_arr.shape[0]
-            sa = anti_feature_arr.shape[0]
 
             pt_arr = np.zeros(s ** 2)
-            anti_arr = np.zeros(sa * s)
             k = 0
-            l = 0
             for i in range(s):
                 for j in range(s):
                     if i == j:
                         continue
                     pt_arr[k] = np.dot(feature_arr[i].T, feature_arr[j]) / (np.sqrt(np.dot(feature_arr[i], feature_arr[i])) * np.sqrt(np.dot(feature_arr[j], feature_arr[j])))
                     k += 1
-                for j in range(sa):
-                    anti_arr[l] = np.dot(feature_arr[i].T, anti_feature_arr[j]) / (np.sqrt(np.dot(feature_arr[i], feature_arr[i])) * np.sqrt(np.dot(anti_feature_arr[j], anti_feature_arr[j])))
-                    l += 1
 
             penalty_arr[label] = np.nansum(pt_arr) / (N * (N - 1))
-            anti_penalty_arr[label] = np.nansum(anti_arr) / (N * (N - 1))
 
         penalty = penalty_arr.mean()
-        anti_penalty = anti_penalty_arr.mean()
 
         # The number of delta.
         penalty = penalty / 4
-        penalty = penalty * self.__repelling_weight
-        anti_penalty = anti_penalty / 4
-        anti_penalty = anti_penalty * self.__anti_repelling_weight
-        penalty_term = (penalty + anti_penalty)
+        penalty_term = penalty * self.__repelling_weight
 
         self.__delta_mu_arr = self.__delta_mu_arr + penalty_term
         self.__delta_z_arr = self.__delta_z_arr + penalty_term

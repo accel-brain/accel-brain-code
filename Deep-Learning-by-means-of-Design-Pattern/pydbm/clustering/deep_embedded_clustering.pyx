@@ -19,6 +19,7 @@ class DeepEmbeddedClustering(object):
         - Aljalbout, E., Golkov, V., Siddiqui, Y., Strobel, M., & Cremers, D. (2018). Clustering with deep learning: Taxonomy and new methods. arXiv preprint arXiv:1801.07648.
         - Guo, X., Gao, L., Liu, X., & Yin, J. (2017, June). Improved Deep Embedded Clustering with Local Structure Preservation. In IJCAI (pp. 1753-1759).
         - Xie, J., Girshick, R., & Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).
+        - Zhao, J., Mathieu, M., & LeCun, Y. (2016). Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126.
     '''
     # KL Divergence.
     __kl_divergence = KLDivergence()
@@ -46,8 +47,7 @@ class DeepEmbeddedClustering(object):
         beta=0.25,
         gamma=0.125,
         kappa=0.125,
-        repelling_weight=0.1,
-        anti_repelling_weight=0.0
+        repelling_weight=1.0,
     ):
         '''
         Init.
@@ -75,6 +75,9 @@ class DeepEmbeddedClustering(object):
             beta:                           Weight of balanced assignments loss.
             gamma:                          A coefficient that controls the degree of distorting embedded space.
             kappa:                          Weight of K-Means loss.
+            repelling_weight:               Weight of the repelling regularizer.
+                                            Note that this class calculates this term for each cluster 
+                                            divided by soft assignments and refers to the sum as a regularizer.
         '''
         if isinstance(auto_encodable, AutoEncodable) is False:
             raise TypeError("The type of `auto_encodable` must be `AutoEncodable`.")
@@ -111,7 +114,6 @@ class DeepEmbeddedClustering(object):
         self.__kappa = kappa
 
         self.__repelling_weight = repelling_weight
-        self.__anti_repelling_weight = anti_repelling_weight
 
         logger = getLogger("pydbm")
         self.__logger = logger

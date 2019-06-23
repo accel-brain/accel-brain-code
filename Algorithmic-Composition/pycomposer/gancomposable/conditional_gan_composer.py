@@ -127,6 +127,8 @@ class ConditionalGANComposer(GANComposable):
         seq_len=8,
         time_fraction=1.0,
         learning_rate=1e-10,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50,
         hidden_dim=15200,
         generative_model=None,
         discriminative_model=None,
@@ -136,20 +138,22 @@ class ConditionalGANComposer(GANComposable):
         Init.
 
         Args:
-            midi_path_list:         `list` of paths to MIDI files.
-            batch_size:             Batch size.
-            seq_len:                The length of sequence that LSTM networks will observe.
-            time_fraction:          Time fraction or time resolution (seconds).
+            midi_path_list:                 `list` of paths to MIDI files.
+            batch_size:                     Batch size.
+            seq_len:                        The length of sequence that LSTM networks will observe.
+            time_fraction:                  Time fraction or time resolution (seconds).
 
-            learning_rate:          Learning rate in `Generator` and `Discriminator`.
+            learning_rate:                  Learning rate in `Generator` and `Discriminator`.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
 
-            hidden_dim:             The number of units in hidden layer of `DiscriminativeModel`.
+            hidden_dim:                     The number of units in hidden layer of `DiscriminativeModel`.
 
-            true_sampler:           is-a `TrueSampler`.
-            noise_sampler:          is-a `NoiseSampler`.
-            generative_model:       is-a `GenerativeModel`.
-            discriminative_model:   is-a `DiscriminativeModel`.
-            gans_value_function:    is-a `GANsValueFunction`.
+            true_sampler:                   is-a `TrueSampler`.
+            noise_sampler:                  is-a `NoiseSampler`.
+            generative_model:               is-a `GenerativeModel`.
+            discriminative_model:           is-a `DiscriminativeModel`.
+            gans_value_function:            is-a `GANsValueFunction`.
         '''
         self.__midi_controller = MidiController()
         self.__midi_df_list = [self.__midi_controller.extract(midi_path) for midi_path in midi_path_list]
@@ -236,6 +240,8 @@ class ConditionalGANComposer(GANComposable):
                     output_shape=(batch_size, channel, seq_len, dim)
                 ),
                 learning_rate=learning_rate,
+                learning_attenuate_rate=learning_attenuate_rate,
+                attenuate_epoch=attenuate_epoch
             )
 
         generative_model.noise_sampler = noise_sampler
@@ -292,7 +298,9 @@ class ConditionalGANComposer(GANComposable):
                 cnn_output_graph=cnn_output_graph,
                 opt_params=opt_params,
                 computable_loss=CrossEntropy(),
-                learning_rate=learning_rate
+                learning_rate=learning_rate,
+                learning_attenuate_rate=learning_attenuate_rate,
+                attenuate_epoch=attenuate_epoch
             )
 
         if gans_value_function is None:

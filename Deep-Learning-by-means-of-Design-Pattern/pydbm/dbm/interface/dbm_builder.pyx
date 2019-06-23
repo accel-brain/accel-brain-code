@@ -13,6 +13,20 @@ class DBMBuilder(metaclass=ABCMeta):
         ''' Learning rate. '''
         raise NotImplementedError()
 
+    @abstractproperty
+    def learning_attenuate_rate(self):
+        '''
+        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+        '''
+        raise NotImplementedError()
+
+    @abstractproperty
+    def attenuate_epoch(self):
+        '''
+        Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+        '''
+        raise NotImplementedError()
+
     @abstractmethod
     def visible_neuron_part(self, activating_function, neuron_count):
         '''

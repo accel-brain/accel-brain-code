@@ -62,6 +62,8 @@ class RTRBMDirector(object):
         rnn_activating_function,
         approximate_interface,
         learning_rate=1e-05,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50,
         scale=1.0,
         params_initializer=ParamsInitializer(),
         params_dict={"loc": 0.0, "scale": 1.0}
@@ -75,6 +77,9 @@ class RTRBMDirector(object):
             visible_activating_function:    The activation function in visible layer.
             hidden_activating_function:     The activation function in hidden layer.
             approximate_interface:          The function approximation.
+            learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
             scale:                          Scale of parameters which will be `ParamsInitializer`.
             params_initializer:             is-a `ParamsInitializer`.
             params_dict:                    `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
@@ -91,6 +96,10 @@ class RTRBMDirector(object):
 
         # Learning rate.
         self.__rtrbm_builder.learning_rate = learning_rate
+        # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+        self.__rtrbm_builder.learning_attenuate_rate = learning_attenuate_rate
+        # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+        self.__rtrbm_builder.attenuate_epoch = attenuate_epoch
         # Set units in visible layer.
         self.__rtrbm_builder.visible_neuron_part(
             visible_activating_function,

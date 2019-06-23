@@ -47,7 +47,9 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         neuron_assign_list=[],
         activating_function_list=[],
         approximate_interface_list=[],
-        double learning_rate=0.01,
+        double learning_rate=1e-05,
+        double learning_attenuate_rate=0.1,
+        int attenuate_epoch=50,
         dropout_rate=None,
         int overlap_n=4,
         int reshaped_w=-1,
@@ -71,16 +73,18 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         but is a kind of limitation to simplify design and implementation in this library.
 
         Args:
-            dbm_builder:            `    Concrete Builder` in Builder Pattern.
-            neuron_assign_list:          The number of neurons in each layers.
-            activating_function_list:    Activation function.
-            approximate_interface_list:  The object of function approximation.
-            learning_rate:               Learning rate.
-            overlap_n:                   The number of overlapped pixels.
-            filter_size:                 The 'filter' size.
-            scale:                       Scale of parameters which will be `ParamsInitializer`.
-            params_initializer:          is-a `ParamsInitializer`.
-            params_dict:                 `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
+            dbm_builder:                    `Concrete Builder` in Builder Pattern.
+            neuron_assign_list:             The number of neurons in each layers.
+            activating_function_list:       Activation function.
+            approximate_interface_list:     The object of function approximation.
+            learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+            overlap_n:                      The number of overlapped pixels.
+            filter_size:                    The 'filter' size.
+            scale:                          Scale of parameters which will be `ParamsInitializer`.
+            params_initializer:             is-a `ParamsInitializer`.
+            params_dict:                    `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
 
         References:
             - Eslami, S. A., Heess, N., Williams, C. K., & Winn, J. (2014). The shape boltzmann machine: a strong model of object shape. International Journal of Computer Vision, 107(2), 155-176.
@@ -129,8 +133,10 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
             neuron_assign_list,
             activating_function_list,
             approximate_interface_list,
-            learning_rate,
-            dropout_rate,
+            learning_rate=learning_rate,
+            learning_attenuate_rate=learning_attenuate_rate,
+            attenuate_epoch=attenuate_epoch,
+            dropout_rate=dropout_rate,
             inferencing_flag=True,
             inferencing_plan="each",
             scale=scale,
@@ -151,20 +157,20 @@ class ShapeBoltzmannMachine(DeepBoltzmannMachine):
         Learning.
 
         Args:
-            observed_data_arr:    The `np.ndarray` of observed data points.
-            training_count:       Training counts.
-            batch_size:           Batch size in learning.
-            r_batch_size:         Batch size in inferencing.
-                                  If this value is `0`, the inferencing is a recursive learning.
-                                  If this value is more than `0`, the inferencing is a mini-batch recursive learning.
-                                  If this value is '-1', the inferencing is not a recursive learning.
+            observed_data_arr:      The `np.ndarray` of observed data points.
+            training_count:         Training counts.
+            batch_size:             Batch size in learning.
+            r_batch_size:           Batch size in inferencing.
+                                    If this value is `0`, the inferencing is a recursive learning.
+                                    If this value is more than `0`, the inferencing is a mini-batch recursive learning.
+                                    If this value is '-1', the inferencing is not a recursive learning.
 
-                                  If you do not want to execute the mini-batch training, 
-                                  the value of `batch_size` must be `-1`. 
-                                  And `r_batch_size` is also parameter to control the mini-batch training 
-                                  but is refered only in inference and reconstruction. 
-                                  If this value is more than `0`, 
-                                  the inferencing is a kind of reccursive learning with the mini-batch training.
+                                    If you do not want to execute the mini-batch training, 
+                                    the value of `batch_size` must be `-1`. 
+                                    And `r_batch_size` is also parameter to control the mini-batch training 
+                                    but is refered only in inference and reconstruction. 
+                                    If this value is more than `0`, 
+                                    the inferencing is a kind of reccursive learning with the mini-batch training.
         '''
         if traning_count != -1:
             training_count = traning_count

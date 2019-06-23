@@ -36,6 +36,8 @@ class LSTMRTRBM(RecurrentTemporalRBM):
         rnn_activating_function,
         opt_params,
         learning_rate=1e-05,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50,
         pre_learned_path=None,
         scale=1.0,
         params_initializer=ParamsInitializer(),
@@ -51,6 +53,8 @@ class LSTMRTRBM(RecurrentTemporalRBM):
             hidden_activating_function:     The activation function in hidden layer.
             opt_params:                     is-a `OptParams`.
             learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
             pre_learned_path:               File path that stores pre-learned parameters.
             scale:                          Scale of parameters which will be `ParamsInitializer`.
             params_initializer:             is-a `ParamsInitializer`.
@@ -74,6 +78,8 @@ class LSTMRTRBM(RecurrentTemporalRBM):
                 opt_params=opt_params
             ),
             learning_rate=learning_rate,
+            learning_attenuate_rate=learning_attenuate_rate,
+            attenuate_epoch=attenuate_epoch,
             scale=scale,
             params_initializer=params_initializer,
             params_dict=params_dict

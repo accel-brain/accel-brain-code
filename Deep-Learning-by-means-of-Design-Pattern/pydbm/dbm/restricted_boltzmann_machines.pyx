@@ -26,6 +26,10 @@ class RestrictedBoltzmannMachine(object):
     __graph = None
     # Learning rate.
     __learning_rate = 0.5
+    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+    __learning_attenuate_rate = 0.1
+    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+    __attenuate_epoch = 50
     # The object of function approximation.
     __approximate_interface = None
 
@@ -43,6 +47,8 @@ class RestrictedBoltzmannMachine(object):
         self,
         graph,
         double learning_rate=0.005,
+        double learning_attenuate_rate=0.1,
+        int attenuate_epoch=50,
         dropout_rate=None,
         approximate_interface=None
     ):
@@ -50,10 +56,12 @@ class RestrictedBoltzmannMachine(object):
         Initialize.
 
         Args:
-            graph:                  Synapse.
-            learning_rate:          Learning rate.
-            dropout_rate:           Dropout rate.
-            approximate_interface:  The object of function approximation.
+            graph:                          Synapse.
+            learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+            dropout_rate:                   Dropout rate.
+            approximate_interface:          The object of function approximation.
 
         '''
         if isinstance(graph, Synapse) is False:
@@ -68,6 +76,8 @@ class RestrictedBoltzmannMachine(object):
 
         self.__graph = graph
         self.__learning_rate = learning_rate
+        self.__learning_attenuate_rate = learning_attenuate_rate
+        self.__attenuate_epoch = attenuate_epoch
         self.__approximate_interface = approximate_interface
 
     def approximate_learning(
@@ -92,6 +102,8 @@ class RestrictedBoltzmannMachine(object):
         self.__graph = self.__approximate_interface.approximate_learn(
             self.__graph,
             self.__learning_rate,
+            self.__learning_attenuate_rate,
+            self.__attenuate_epoch,
             observed_data_arr,
             training_count=training_count,
             batch_size=batch_size
@@ -108,19 +120,19 @@ class RestrictedBoltzmannMachine(object):
         Learning with function approximation.
 
         Args:
-            observed_data_arr:    The array of observed data points.
-            traning_count:        Training counts.
-            r_batch_size:         Batch size.
-                                  If this value is `0`, the inferencing is a recursive learning.
-                                  If this value is more than `0`, the inferencing is a mini-batch recursive learning.
-                                  If this value is '-1', the inferencing is not a recursive learning.
+            observed_data_arr:      The array of observed data points.
+            traning_count:          Training counts.
+            r_batch_size:           Batch size.
+                                    If this value is `0`, the inferencing is a recursive learning.
+                                    If this value is more than `0`, the inferencing is a mini-batch recursive learning.
+                                    If this value is '-1', the inferencing is not a recursive learning.
 
-                                  If you do not want to execute the mini-batch training, 
-                                  the value of `batch_size` must be `-1`. 
-                                  And `r_batch_size` is also parameter to control the mini-batch training 
-                                  but is refered only in inference and reconstruction. 
-                                  If this value is more than `0`, 
-                                  the inferencing is a kind of reccursive learning with the mini-batch training.
+                                    If you do not want to execute the mini-batch training, 
+                                    the value of `batch_size` must be `-1`. 
+                                    And `r_batch_size` is also parameter to control the mini-batch training 
+                                    but is refered only in inference and reconstruction. 
+                                    If this value is more than `0`, 
+                                    the inferencing is a kind of reccursive learning with the mini-batch training.
 
         '''
         if traning_count != -1:
@@ -130,6 +142,8 @@ class RestrictedBoltzmannMachine(object):
         self.__graph = self.__approximate_interface.approximate_inference(
             self.__graph,
             self.__learning_rate,
+            self.__learning_attenuate_rate,
+            self.__attenuate_epoch,
             observed_data_arr,
             training_count=training_count,
             r_batch_size=r_batch_size

@@ -101,6 +101,8 @@ class RTRBMCD(ApproximateInterface):
         self,
         graph,
         double learning_rate,
+        double learning_attenuate_rate,
+        int attenuate_epoch,
         np.ndarray[DOUBLE_t, ndim=3] observed_data_arr,
         int traning_count=-1,
         int batch_size=200,
@@ -110,16 +112,17 @@ class RTRBMCD(ApproximateInterface):
         learning with function approximation.
 
         Args:
-            graph:                Graph of neurons.
-            learning_rate:        Learning rate.
-            observed_data_arr:    observed data points.
-            training_count:       Training counts.
-            batch_size:           Batch size (0: not mini-batch)
+            graph:                          Graph of neurons.
+            learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+            observed_data_arr:              Observed data points.
+            training_count:                 Training counts.
+            batch_size:                     Batch size (0: not mini-batch)
 
         Returns:
             Graph of neurons.
         '''
-        cdef int _
         cdef np.ndarray rand_index
         cdef np.ndarray[DOUBLE_t, ndim=3] batch_observed_arr
         cdef np.ndarray[DOUBLE_t, ndim=3] inferenced_arr = np.empty((
@@ -141,6 +144,9 @@ class RTRBMCD(ApproximateInterface):
 
         # Learning.
         for epoch in range(training_count):
+            if ((epoch + 1) % attenuate_epoch == 0):
+                self.learning_rate = self.learning_rate * learning_attenuate_rate
+
             rand_index = np.random.choice(observed_data_arr.shape[0], size=batch_size)
             batch_observed_arr = observed_data_arr[rand_index]
             for cycle_index in range(batch_observed_arr.shape[1]):
@@ -168,6 +174,8 @@ class RTRBMCD(ApproximateInterface):
         self,
         graph,
         double learning_rate,
+        double learning_attenuate_rate,
+        int attenuate_epoch,
         np.ndarray[DOUBLE_t, ndim=3] observed_data_arr,
         int traning_count=-1,
         int r_batch_size=200,
@@ -178,21 +186,23 @@ class RTRBMCD(ApproximateInterface):
         Inference with function approximation.
 
         Args:
-            graph:                  Graph of neurons.
-            learning_rate:          Learning rate.
-            observed_data_arr:      observed data points.
-            training_count:         Training counts.
-            r_batch_size:           Batch size.
-                                    If this value is `0`, the inferencing is a recursive learning.
-                                    If this value is more than `0`, the inferencing is a mini-batch recursive learning.
-                                    If this value is '-1', the inferencing is not a recursive learning.
+            graph:                          Graph of neurons.
+            learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+            observed_data_arr:              observed data points.
+            training_count:                 Training counts.
+            r_batch_size:                   Batch size.
+                                            If this value is `0`, the inferencing is a recursive learning.
+                                            If this value is more than `0`, the inferencing is a mini-batch recursive learning.
+                                            If this value is '-1', the inferencing is not a recursive learning.
 
-            seq_len:                The length of sequences.
-                                    If `None`, this value will be considered as `observed_data_arr.shape[1]`.
+            seq_len:                        The length of sequences.
+                                            If `None`, this value will be considered as `observed_data_arr.shape[1]`.
+
         Returns:
             Graph of neurons.
         '''
-        cdef int counter = 0
         cdef np.ndarray rand_index
         cdef np.ndarray[DOUBLE_t, ndim=3] batch_observed_arr
         cdef int batch_index
@@ -225,7 +235,10 @@ class RTRBMCD(ApproximateInterface):
         self.learning_rate = learning_rate
         self.r_batch_size = r_batch_size
 
-        for counter in range(training_count):
+        for epoch in range(training_count):
+            if ((epoch + 1) % attenuate_epoch == 0):
+                self.learning_rate = self.learning_rate * learning_attenuate_rate
+
             if r_batch_size > 0:
                 rand_index = np.random.choice(observed_data_arr.shape[0], size=r_batch_size)
                 batch_observed_arr = observed_data_arr[rand_index]

@@ -35,6 +35,10 @@ class RTRBMSimpleBuilder(RTRBMBuilder):
     __rbm_list = []
     # Learning rate.
     __learning_rate = 0.5
+    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+    __learning_attenuate_rate = 0.1
+    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+    __attenuate_epoch = 50
 
     def __init__(self, pre_learned_path=None):
         '''
@@ -59,6 +63,30 @@ class RTRBMSimpleBuilder(RTRBMBuilder):
         self.__learning_rate = value
 
     learning_rate = property(get_learning_rate, set_learning_rate)
+
+    def get_learning_attenuate_rate(self):
+        ''' getter '''
+        return self.__learning_attenuate_rate
+    
+    def set_learning_attenuate_rate(self, value):
+        ''' setter '''
+        if isinstance(value, float) is False:
+            raise TypeError()
+        self.__learning_attenuate_rate = value
+
+    learning_attenuate_rate = property(get_learning_attenuate_rate, set_learning_attenuate_rate)
+
+    def get_attenuate_epoch(self):
+        ''' getter '''
+        return self.__attenuate_epoch
+    
+    def set_attenuate_epoch(self, value):
+        ''' setter '''
+        if isinstance(value, int) is False:
+            raise TypeError()
+        self.__attenuate_epoch = value
+
+    attenuate_epoch = property(get_attenuate_epoch, set_attenuate_epoch)
 
     def visible_neuron_part(self, activating_function, int neuron_count):
         '''
@@ -136,7 +164,9 @@ class RTRBMSimpleBuilder(RTRBMBuilder):
         '''
         rbm = RTRBM(
             self.__rt_graph,
-            self.__learning_rate,
+            learning_rate=self.__learning_rate,
+            learning_attenuate_rate=self.__learning_attenuate_rate,
+            attenuate_epoch=self.__attenuate_epoch,
             approximate_interface=self.__approximate_interface
         )
         return rbm

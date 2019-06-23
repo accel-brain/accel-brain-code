@@ -59,7 +59,9 @@ class DeepBoltzmannMachine(object):
         neuron_assign_list,
         activating_function_list,
         approximate_interface_list,
-        double learning_rate,
+        double learning_rate=1e-05,
+        double learning_attenuate_rate=0.1,
+        int attenuate_epoch=50,
         dropout_rate=None,
         inferencing_flag=True,
         inferencing_plan=None,
@@ -76,6 +78,8 @@ class DeepBoltzmannMachine(object):
             activating_function_list:       Activation function.
             approximate_interface_list:     The object of function approximation.
             learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
             inferencing_flag:               Execute inferencing or not. 
             inferencing_plan:               `each`:  Learn -> Inferece -> Learn -> ...
                                             `at_once`: All learn -> All inference
@@ -95,6 +99,8 @@ class DeepBoltzmannMachine(object):
             warnings.warn("`inferencing_plan` will be removed in future version.", FutureWarning)
             
         dbm_builder.learning_rate = learning_rate
+        dbm_builder.learning_attenuate_rate = learning_attenuate_rate
+        dbm_builder.attenuate_epoch = attenuate_epoch
         dbm_director = DBMDirector(
             dbm_builder=dbm_builder
         )
@@ -126,20 +132,20 @@ class DeepBoltzmannMachine(object):
         Learning.
 
         Args:
-            observed_data_arr:    The `np.ndarray` of observed data points.
-            training_count:       Training counts.
-            batch_size:           Batch size in learning.
-            r_batch_size:         Batch size in inferencing.
-                                  If this value is `0`, the inferencing is a recursive learning.
-                                  If this value is more than `0`, the inferencing is a mini-batch recursive learning.
-                                  If this value is '-1', the inferencing is not a recursive learning.
+            observed_data_arr:      The `np.ndarray` of observed data points.
+            training_count:         Training counts.
+            batch_size:             Batch size in learning.
+            r_batch_size:           Batch size in inferencing.
+                                    If this value is `0`, the inferencing is a recursive learning.
+                                    If this value is more than `0`, the inferencing is a mini-batch recursive learning.
+                                    If this value is '-1', the inferencing is not a recursive learning.
 
-                                  If you do not want to execute the mini-batch training, 
-                                  the value of `batch_size` must be `-1`. 
-                                  And `r_batch_size` is also parameter to control the mini-batch training 
-                                  but is refered only in inference and reconstruction. 
-                                  If this value is more than `0`, 
-                                  the inferencing is a kind of reccursive learning with the mini-batch training.
+                                    If you do not want to execute the mini-batch training, 
+                                    the value of `batch_size` must be `-1`. 
+                                    And `r_batch_size` is also parameter to control the mini-batch training 
+                                    but is refered only in inference and reconstruction. 
+                                    If this value is more than `0`, 
+                                    the inferencing is a kind of reccursive learning with the mini-batch training.
         '''
         if traning_count != -1:
             training_count = traning_count
@@ -204,10 +210,10 @@ class DeepBoltzmannMachine(object):
         Extract the visible data points which is reconsturcted.
 
         Args:
-            layer_number:    The index of layers.
-                             For instance, `0` is visible layer, 
-                             `1` is hidden or middle layer, 
-                             and `2` is hidden layer in three layers.
+            layer_number:       The index of layers.
+                                For instance, `0` is visible layer, 
+                                `1` is hidden or middle layer, 
+                                and `2` is hidden layer in three layers.
 
         Returns:
             The np.ndarray of visible data points.

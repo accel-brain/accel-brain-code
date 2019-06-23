@@ -77,6 +77,8 @@ class ContrastiveDivergence(ApproximateInterface):
         self,
         graph,
         double learning_rate,
+        double learning_attenuate_rate,
+        int attenuate_epoch,
         np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
         int traning_count=-1,
         int batch_size=200,
@@ -86,11 +88,13 @@ class ContrastiveDivergence(ApproximateInterface):
         learning with function approximation.
 
         Args:
-            graph:                Graph of neurons.
-            learning_rate:        Learning rate.
-            observed_data_arr:    observed data points.
-            training_count:       Training counts.
-            batch_size:           Batch size (0: not mini-batch)
+            graph:                          Graph of neurons.
+            learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+            observed_data_arr:              observed data points.
+            training_count:                 Training counts.
+            batch_size:                     Batch size (0: not mini-batch)
 
         Returns:
             Graph of neurons.
@@ -101,10 +105,15 @@ class ContrastiveDivergence(ApproximateInterface):
 
         self.__graph = graph
         self.__learning_rate = learning_rate
+        self.__learning_attenuate_rate = learning_attenuate_rate
+        self.__attenuate_epoch = attenuate_epoch
         self.__batch_size = batch_size
 
-        cdef int _
-        for _ in range(training_count):
+        cdef int epoch
+        for epoch in range(training_count):
+            if ((epoch + 1) % attenuate_epoch == 0):
+                self.__learning_rate = self.__learning_rate * learning_attenuate_rate
+
             if self.__batch_size > 0:
                 rand_index = np.random.choice(observed_data_arr.shape[0], size=self.__batch_size)
                 self.__wake_sleep_learn(observed_data_arr[rand_index])
@@ -117,6 +126,8 @@ class ContrastiveDivergence(ApproximateInterface):
         self,
         graph,
         double learning_rate,
+        double learning_attenuate_rate,
+        int attenuate_epoch,
         np.ndarray[DOUBLE_t, ndim=2] observed_data_arr,
         int traning_count=-1,
         int r_batch_size=200,
@@ -126,14 +137,16 @@ class ContrastiveDivergence(ApproximateInterface):
         Inference with function approximation.
 
         Args:
-            graph:                  Graph of neurons.
-            learning_rate:          Learning rate.
-            observed_data_arr:      observed data points.
-            training_count:         Training counts.
-            r_batch_size:           Batch size.
-                                    If this value is `0`, the inferencing is a recursive learning.
-                                    If this value is more than `0`, the inferencing is a mini-batch recursive learning.
-                                    If this value is '-1', the inferencing is not a recursive learning.
+            graph:                          Graph of neurons.
+            learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+            observed_data_arr:              observed data points.
+            training_count:                 Training counts.
+            r_batch_size:                   Batch size.
+                                            If this value is `0`, the inferencing is a recursive learning.
+                                            If this value is more than `0`, the inferencing is a mini-batch recursive learning.
+                                            If this value is '-1', the inferencing is not a recursive learning.
 
         Returns:
             Graph of neurons.
@@ -151,8 +164,11 @@ class ContrastiveDivergence(ApproximateInterface):
         else:
             batch_size = self.__r_batch_size
 
-        cdef int _
-        for _ in range(training_count):
+        cdef int epoch
+        for epoch in range(training_count):
+            if ((epoch + 1) % attenuate_epoch == 0):
+                self.__learning_rate = self.__learning_rate * learning_attenuate_rate
+
             if batch_size > 0:
                 rand_index = np.random.choice(observed_data_arr.shape[0], size=batch_size)
                 self.__sleep_wake_learn(observed_data_arr[rand_index])

@@ -64,13 +64,13 @@ class StackedAutoEncoder(DeepBoltzmannMachine):
         Learning and auto-saving featrue points with `np.ndarray`.
 
         Args:
-            observed_data_arr:    The `np.ndarray` of observed data points.
-            training_count:       Training counts.
-            batch_size:           Batch size.
-            r_batch_size:         Batch size.
-                                  If this value is `0`, the inferencing is a recursive learning.
-                                  If this value is more than `0`, the inferencing is a mini-batch recursive learning.
-                                  If this value is '-1', the inferencing is not a recursive learning.
+            observed_data_arr:      The `np.ndarray` of observed data points.
+            training_count:         Training counts.
+            batch_size:             Batch size.
+            r_batch_size:           Batch size.
+                                    If this value is `0`, the inferencing is a recursive learning.
+                                    If this value is more than `0`, the inferencing is a mini-batch recursive learning.
+                                    If this value is '-1', the inferencing is not a recursive learning.
         '''
         if traning_count != -1:
             training_count = traning_count

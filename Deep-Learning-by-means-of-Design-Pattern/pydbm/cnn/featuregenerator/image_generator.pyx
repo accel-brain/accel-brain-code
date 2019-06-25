@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 from logging import getLogger
 from pydbm.cnn.feature_generator import FeatureGenerator
+from pydbm.params_initializer import ParamsInitializer
 from PIL import Image
 import os
 import numpy as np
+cimport numpy as np
+ctypedef np.float64_t DOUBLE_t
 
 
 class ImageGenerator(FeatureGenerator):
@@ -24,7 +27,10 @@ class ImageGenerator(FeatureGenerator):
         seq_len=None,
         gray_scale_flag=True,
         wh_size_tuple=None,
-        norm_mode="z_score"
+        norm_mode="z_score",
+        noised_flag=False,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
     ):
         '''
         Init.
@@ -41,7 +47,18 @@ class ImageGenerator(FeatureGenerator):
                                             - `z_score`: Z-Score normalization.
                                             - `min_max`: Min-max normalization.
                                             - `tanh`: Normalization by tanh function.
+
+            noised_flag:                    Noise generated observed data points or not.
+                                            If `True`, this generator will generate 
+                                            noised observed data points for training your model
+                                            as a Denoising Auto-Encoder.
+
+            params_initializer:                 is-a `ParamsInitializer`.
+            params_dict:                        `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
         '''
+        if isinstance(params_initializer, ParamsInitializer) is False:
+            raise TypeError("The type of `params_initializer` must be `ParamsInitializer`.")
+
         self.__epochs = epochs
         self.__batch_size = batch_size
 
@@ -59,6 +76,9 @@ class ImageGenerator(FeatureGenerator):
         self.__gray_scale_flag = gray_scale_flag
         self.__wh_size_tuple = wh_size_tuple
         self.__norm_mode = norm_mode
+        self.__noised_flag = noised_flag
+        self.__params_initializer = params_initializer
+        self.__params_dict = params_dict
 
         logger = getLogger("pydbm")
         self.__logger = logger
@@ -71,6 +91,10 @@ class ImageGenerator(FeatureGenerator):
             The tuple of feature points.
             The shape is: (`Training data`, `Training label`, `Test data`, `Test label`).
         '''
+        cdef np.ndarray _training_data_arr
+        cdef np.ndarray _training_label_arr
+        cdef np.ndarray _test_data_arr
+        cdef np.ndarray _test_label_arr
 
         for epoch in range(self.epochs):
             _training_data_arr, _test_data_arr = None, None
@@ -118,10 +142,20 @@ class ImageGenerator(FeatureGenerator):
                 else:
                     _test_data_arr = test_data_arr
 
-            self.__logger.debug("Generate training data: " + str(_training_data_arr.shape))
-            self.__logger.debug("Generate test data: " + str(_test_data_arr.shape))
-            
-            yield _training_data_arr, _training_data_arr, _test_data_arr, _test_data_arr
+            _training_label_arr = _training_data_arr.copy()
+            _test_label_arr = _test_data_arr.copy()
+
+            if self.__noised_flag is True:
+                _training_data_arr += self.__params_initializer.sample(
+                    _training_data_arr.copy().shape,
+                    **self.__params_dict
+                )
+                _test_data_arr += self.__params_initializer.sample(
+                    _test_data_arr.copy().shape,
+                    **self.__params_dict
+                )
+
+            yield _training_data_arr, _training_label_arr, _test_data_arr, _test_label_arr
 
     def __read(self, file_path):
         '''
@@ -172,3 +206,13 @@ class ImageGenerator(FeatureGenerator):
 
     epochs = property(get_epochs, set_readonly)
     batch_size = property(get_batch_size, set_readonly)
+
+    def get_noised_flag(self):
+        ''' getter '''
+        return self.__noised_flag
+    
+    def set_noised_flag(self, value):
+        ''' setter '''
+        self.__noised_flag = value
+    
+    noised_flag = property(get_noised_flag, set_noised_flag)

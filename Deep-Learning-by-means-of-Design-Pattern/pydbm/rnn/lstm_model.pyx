@@ -62,6 +62,9 @@ class LSTMModel(ReconstructableModel):
     # Latest loss
     __latest_loss = None
 
+    # Penalty term of weight decay.
+    __weight_decay_term = 0.0
+
     def __init__(
         self,
         graph,
@@ -234,8 +237,9 @@ class LSTMModel(ReconstructableModel):
                 try:
                     pred_arr = self.forward_propagation(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
+                    train_weight_decay = self.__weight_decay_term
                     loss = self.__computable_loss.compute_loss(
-                        pred_arr,
+                        pred_arr + self.__weight_decay_term,
                         batch_target_arr
                     )
                     remember_flag = False
@@ -248,8 +252,9 @@ class LSTMModel(ReconstructableModel):
                         # Re-try.
                         pred_arr = self.forward_propagation(batch_observed_arr)
                         ver_pred_arr = pred_arr.copy()
+                        train_weight_decay = self.__weight_decay_term
                         loss = self.__computable_loss.compute_loss(
-                            pred_arr,
+                            pred_arr + self.__weight_decay_term,
                             batch_target_arr
                         )
 
@@ -291,8 +296,9 @@ class LSTMModel(ReconstructableModel):
 
                     test_pred_arr = self.forward_propagation(test_batch_observed_arr)
 
+                    test_weight_decay = self.__weight_decay_term
                     test_loss = self.__computable_loss.compute_loss(
-                        test_pred_arr,
+                        test_pred_arr + self.__weight_decay_term,
                         test_batch_target_arr
                     )
 
@@ -310,9 +316,9 @@ class LSTMModel(ReconstructableModel):
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=ver_pred_arr, 
+                                train_pred_arr=ver_pred_arr + train_weight_decay, 
                                 train_label_arr=batch_target_arr,
-                                test_pred_arr=test_pred_arr,
+                                test_pred_arr=test_pred_arr + test_weight_decay,
                                 test_label_arr=test_batch_target_arr
                             )
 
@@ -357,6 +363,26 @@ class LSTMModel(ReconstructableModel):
         Returns:
             Array like or sparse matrix as the predicted data points.
         '''
+        self.__weight_decay_term = 0.0
+        self.__weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.graph.weights_output_arr
+        )
+        self.__weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.graph.weights_lstm_hidden_arr
+        )
+        self.__weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.graph.weights_lstm_observed_arr
+        )
+        self.__weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.graph.weights_input_cec_arr
+        )
+        self.__weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.graph.weights_forget_cec_arr
+        )
+        self.__weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.graph.weights_output_cec_arr
+        )
+
         cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr = self.hidden_forward_propagate(
             batch_observed_arr
         )
@@ -427,6 +453,25 @@ class LSTMModel(ReconstructableModel):
             epoch:          Now epoch.
             
         '''
+        grads_list[0] = self.__opt_params.compute_weight_decay_delta(
+            self.graph.weights_output_arr
+        )
+        grads_list[2] = self.__opt_params.compute_weight_decay_delta(
+            self.graph.weights_lstm_hidden_arr
+        )
+        grads_list[3] = self.__opt_params.compute_weight_decay_delta(
+            self.graph.weights_lstm_observed_arr
+        )
+        grads_list[5] = self.__opt_params.compute_weight_decay_delta(
+            self.graph.weights_input_cec_arr
+        )
+        grads_list[6] = self.__opt_params.compute_weight_decay_delta(
+            self.graph.weights_forget_cec_arr
+        )
+        grads_list[7] = self.__opt_params.compute_weight_decay_delta(
+            self.graph.weights_output_cec_arr
+        )
+
         params_list = [
                 self.graph.weights_output_arr,
                 self.graph.output_bias_arr,
@@ -1148,3 +1193,13 @@ class LSTMModel(ReconstructableModel):
                 file_name += ".npz"
 
         self.graph.load_pre_learned_params(dir_name + file_name)
+
+    def get_weight_decay_term(self):
+        ''' getter '''
+        return self.__weight_decay_term
+    
+    def set_weight_decay_term(self, value):
+        ''' setter '''
+        self.__weight_decay_term = value
+    
+    weight_decay_term = property(get_weight_decay_term, set_weight_decay_term)

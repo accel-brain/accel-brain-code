@@ -109,6 +109,26 @@ class AttentionLSTMModel(LSTMModel):
         Returns:
             Array like or sparse matrix as the predicted data points.
         '''
+        self.weight_decay_term = 0.0
+        self.weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.graph.attention_output_weight_arr
+        )
+        self.weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.graph.weights_lstm_hidden_arr
+        )
+        self.weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.graph.weights_lstm_observed_arr
+        )
+        self.weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.graph.weights_input_cec_arr
+        )
+        self.weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.graph.weights_forget_cec_arr
+        )
+        self.weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.graph.weights_output_cec_arr
+        )
+
         cdef np.ndarray[DOUBLE_t, ndim=3] hidden_activity_arr = self.hidden_forward_propagate(
             batch_observed_arr
         )
@@ -425,6 +445,25 @@ class AttentionLSTMModel(LSTMModel):
             epoch:          Now epoch.
             
         '''
+        grads_list[0] = self.__opt_params.compute_weight_decay_delta(
+            self.graph.attention_output_weight_arr
+        )
+        grads_list[2] = self.__opt_params.compute_weight_decay_delta(
+            self.graph.weights_lstm_hidden_arr
+        )
+        grads_list[3] = self.__opt_params.compute_weight_decay_delta(
+            self.graph.weights_lstm_observed_arr
+        )
+        grads_list[5] = self.__opt_params.compute_weight_decay_delta(
+            self.graph.weights_input_cec_arr
+        )
+        grads_list[6] = self.__opt_params.compute_weight_decay_delta(
+            self.graph.weights_forget_cec_arr
+        )
+        grads_list[7] = self.__opt_params.compute_weight_decay_delta(
+            self.graph.weights_output_cec_arr
+        )
+
         params_list = [
             self.graph.attention_output_weight_arr,
             self.graph.output_bias_arr,

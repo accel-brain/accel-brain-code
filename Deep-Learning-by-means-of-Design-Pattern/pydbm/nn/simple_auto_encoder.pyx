@@ -170,8 +170,9 @@ class SimpleAutoEncoder(object):
                 try:
                     pred_arr = self.inference(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
+                    train_weight_decay = self.__encoder.weight_decay_term + self.__decoder.weight_decay_term
                     loss = self.__computable_loss.compute_loss(
-                        pred_arr,
+                        pred_arr + self.__encoder.weight_decay_term + self.__decoder.weight_decay_term,
                         batch_target_arr
                     )
 
@@ -190,8 +191,9 @@ class SimpleAutoEncoder(object):
                         # Re-try.
                         pred_arr = self.inference(batch_observed_arr)
                         ver_pred_arr = pred_arr.copy()
+                        train_weight_decay = self.__encoder.weight_decay_term + self.__decoder.weight_decay_term
                         loss = self.__computable_loss.compute_loss(
-                            pred_arr,
+                            pred_arr + self.__encoder.weight_decay_term + self.__decoder.weight_decay_term,
                             batch_target_arr
                         )
 
@@ -239,8 +241,9 @@ class SimpleAutoEncoder(object):
                     test_pred_arr = self.forward_propagation(
                         test_batch_observed_arr
                     )
+                    test_weight_decay = self.__encoder.weight_decay_term + self.__decoder.weight_decay_term
                     test_loss = self.__computable_loss.compute_loss(
-                        test_pred_arr,
+                        test_pred_arr + self.__encoder.weight_decay_term + self.__decoder.weight_decay_term,
                         test_batch_target_arr
                     )
 
@@ -265,9 +268,9 @@ class SimpleAutoEncoder(object):
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=ver_pred_arr, 
+                                train_pred_arr=ver_pred_arr + train_weight_decay, 
                                 train_label_arr=batch_target_arr,
-                                test_pred_arr=test_pred_arr,
+                                test_pred_arr=test_pred_arr + test_weight_decay,
                                 test_label_arr=test_batch_target_arr
                             )
 

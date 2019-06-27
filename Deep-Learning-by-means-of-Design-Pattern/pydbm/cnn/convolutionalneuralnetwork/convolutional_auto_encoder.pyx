@@ -128,6 +128,7 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         '''
         cdef np.ndarray[DOUBLE_t, ndim=2] hidden_activity_arr
         cdef int i = 0
+        self.weight_decay_term = 0.0
 
         for i in range(len(self.layerable_cnn_list)):
             try:
@@ -136,6 +137,9 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
             except:
                 self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
                 raise
+            self.weight_decay_term += self.opt_params.compute_weight_decay(
+                self.layerable_cnn_list[i].graph.weight_arr
+            )
 
         self.__feature_points_arr = img_arr.copy()
 

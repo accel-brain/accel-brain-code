@@ -33,6 +33,9 @@ class OptParams(metaclass=ABCMeta):
     # Threshold of the gradient clipping.
     __grad_clip_threshold = 10.0
 
+    # lambda for weight decay.
+    __weight_decay_lambda = 0.0
+
     @abstractmethod
     def optimize(self, params_list, np.ndarray grads_arr, double learning_rate):
         '''
@@ -85,6 +88,30 @@ class OptParams(metaclass=ABCMeta):
             )[0]
 
         return weight_arr
+
+    def compute_weight_decay_delta(self, np.ndarray weight_arr):
+        '''
+        Compute delta of weight decay.
+
+        Args:
+            weight_arr:     `np.ndarray` of weight matrix.
+        
+        Returns:
+            `np.ndarray` of delta.
+        '''
+        return self.weight_decay_lambda * weight_arr
+
+    def compute_weight_decay(self, np.ndarray weight_arr):
+        '''
+        Compute penalty term of weight decay.
+
+        Args:
+            weight_arr:     `np.ndarray` of weight matrix.
+        
+        Returns:
+            `np.ndarray` of delta.
+        '''
+        return 0.5 * self.weight_decay_lambda * np.square(weight_arr)
 
     def dropout(self, np.ndarray activity_arr):
         '''
@@ -166,6 +193,16 @@ class OptParams(metaclass=ABCMeta):
             raise TypeError()
 
     weight_limit = property(get_weight_limit, set_weight_limit)
+
+    def get_weight_decay_lambda(self):
+        ''' getter '''
+        return self.__weight_decay_lambda
+    
+    def set_weight_decay_lambda(self, value):
+        ''' setter '''
+        self.__weight_decay_lambda = value
+
+    weight_decay_lambda = property(get_weight_decay_lambda, set_weight_decay_lambda)
 
     def get_dropout_rate(self):
         ''' getter '''

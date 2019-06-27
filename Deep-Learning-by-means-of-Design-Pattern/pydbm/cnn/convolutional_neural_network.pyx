@@ -23,6 +23,9 @@ class ConvolutionalNeuralNetwork(object):
     # Computation graph which is-a `CNNOutputGraph` to compute parameters in output layer.
     __cnn_output_graph = None
 
+    # Penalty term of weight decay.
+    __weight_decay_term = 0.0
+
     def __init__(
         self,
         layerable_cnn_list,
@@ -214,8 +217,9 @@ class ConvolutionalNeuralNetwork(object):
                 try:
                     pred_arr = self.inference(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
+                    train_weight_decay = self.__weight_decay_term
                     loss = self.__computable_loss.compute_loss(
-                        pred_arr,
+                        pred_arr + self.__weight_decay_term,
                         batch_target_arr
                     )
 
@@ -229,8 +233,9 @@ class ConvolutionalNeuralNetwork(object):
                         # Re-try.
                         pred_arr = self.inference(batch_observed_arr)
                         ver_pred_arr = pred_arr.copy()
+                        train_weight_decay = self.__weight_decay_term
                         loss = self.__computable_loss.compute_loss(
-                            pred_arr,
+                            pred_arr + self.__weight_decay_term,
                             batch_target_arr
                         )
 
@@ -270,8 +275,9 @@ class ConvolutionalNeuralNetwork(object):
                     test_pred_arr = self.forward_propagation(
                         test_batch_observed_arr
                     )
+                    test_weight_decay = self.__weight_decay_term
                     test_loss = self.__computable_loss.compute_loss(
-                        test_pred_arr,
+                        test_pred_arr + self.__weight_decay_term,
                         test_batch_target_arr
                     )
 
@@ -294,9 +300,9 @@ class ConvolutionalNeuralNetwork(object):
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=ver_pred_arr, 
+                                train_pred_arr=ver_pred_arr + train_weight_decay, 
                                 train_label_arr=batch_target_arr,
-                                test_pred_arr=test_pred_arr,
+                                test_pred_arr=test_pred_arr + test_weight_decay,
                                 test_label_arr=test_batch_target_arr
                             )
 
@@ -369,8 +375,9 @@ class ConvolutionalNeuralNetwork(object):
                 try:
                     pred_arr = self.inference(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
+                    train_weight_decay = self.__weight_decay_term
                     loss = self.__computable_loss.compute_loss(
-                        pred_arr,
+                        pred_arr + self.__weight_decay_term,
                         batch_target_arr
                     )
 
@@ -384,8 +391,9 @@ class ConvolutionalNeuralNetwork(object):
                         # Re-try.
                         pred_arr = self.inference(batch_observed_arr)
                         ver_pred_arr = pred_arr.copy()
+                        train_weight_decay = self.__weight_decay_term
                         loss = self.__computable_loss.compute_loss(
-                            pred_arr,
+                            pred_arr + self.__weight_decay_term,
                             batch_target_arr
                         )
 
@@ -420,8 +428,9 @@ class ConvolutionalNeuralNetwork(object):
                     test_pred_arr = self.forward_propagation(
                         test_batch_observed_arr
                     )
+                    test_weight_decay = self.__weight_decay_term
                     test_loss = self.__computable_loss.compute_loss(
-                        test_pred_arr,
+                        test_pred_arr + self.__weight_decay_term,
                         test_batch_target_arr
                     )
 
@@ -444,9 +453,9 @@ class ConvolutionalNeuralNetwork(object):
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=ver_pred_arr, 
+                                train_pred_arr=ver_pred_arr + train_weight_decay, 
                                 train_label_arr=batch_target_arr,
-                                test_pred_arr=test_pred_arr,
+                                test_pred_arr=test_pred_arr + test_weight_decay,
                                 test_label_arr=test_batch_target_arr
                             )
 
@@ -508,12 +517,16 @@ class ConvolutionalNeuralNetwork(object):
             Propagated `np.ndarray`.
         '''
         cdef int i = 0
+        self.__weight_decay_term = 0.0
         for i in range(len(self.__layerable_cnn_list)):
             try:
                 img_arr = self.__layerable_cnn_list[i].forward_propagate(img_arr)
             except:
                 self.__logger.debug("Error raised in CNN layer " + str(i + 1))
                 raise
+            self.__weight_decay_term += self.__opt_params.compute_weight_decay(
+                self.__layerable_cnn_list[i].graph.weight_arr
+            )
 
         if self.__opt_params.dropout_rate > 0:
             hidden_activity_arr = img_arr.reshape((img_arr.shape[0], -1))
@@ -547,6 +560,11 @@ class ConvolutionalNeuralNetwork(object):
             )
             self.__cnn_output_graph.hidden_arr = pred_arr
             self.__cnn_output_graph.output_arr = _pred_arr
+
+            self.__weight_decay_term += self.__opt_params.compute_weight_decay(
+                self.__cnn_output_graph.weight_arr
+            )
+
             return _pred_arr
         else:
             return pred_arr
@@ -644,6 +662,9 @@ class ConvolutionalNeuralNetwork(object):
         grads_list = []
 
         if self.__cnn_output_graph is not None:
+            self.__cnn_output_graph.output_grads_list[0] += self.__opt_params.compute_weight_decay_delta(
+                self.__cnn_output_graph.weight_arr
+            )
             params_list.append(self.__cnn_output_graph.weight_arr)
             params_list.append(self.__cnn_output_graph.bias_arr)
             grads_list.append(self.__cnn_output_graph.output_grads_list[0])
@@ -651,6 +672,9 @@ class ConvolutionalNeuralNetwork(object):
 
         for i in range(len(self.__layerable_cnn_list)):
             if self.__layerable_cnn_list[i].delta_weight_arr.shape[0] > 0:
+                self.__layerable_cnn_list[i].delta_weight_arr += self.__opt_params.compute_weight_decay_delta(
+                    self.__layerable_cnn_list[i].graph.weight_arr
+                )
                 params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
                 grads_list.append(self.__layerable_cnn_list[i].delta_weight_arr)
 
@@ -779,3 +803,13 @@ class ConvolutionalNeuralNetwork(object):
         self.__computable_loss = value
 
     computable_loss = property(get_computable_loss, set_computable_loss)
+
+    def get_weight_decay_term(self):
+        ''' getter '''
+        return self.__weight_decay_term
+    
+    def set_weight_decay_term(self, value):
+        ''' setter '''
+        self.__weight_decay_term = value
+    
+    weight_decay_term = property(get_weight_decay_term, set_weight_decay_term)

@@ -182,8 +182,9 @@ class NeuralNetwork(object):
                 try:
                     pred_arr = self.inference(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
+                    train_weight_decay = self.__weight_decay_term
                     loss = self.__computable_loss.compute_loss(
-                        pred_arr,
+                        pred_arr + self.__weight_decay_term,
                         batch_target_arr
                     )
 
@@ -197,8 +198,9 @@ class NeuralNetwork(object):
                         # Re-try.
                         pred_arr = self.inference(batch_observed_arr)
                         ver_pred_arr = pred_arr.copy()
+                        train_weight_decay = self.__weight_decay_term
                         loss = self.__computable_loss.compute_loss(
-                            pred_arr,
+                            pred_arr + self.__weight_decay_term,
                             batch_target_arr
                         )
 
@@ -238,8 +240,9 @@ class NeuralNetwork(object):
                     test_pred_arr = self.forward_propagation(
                         test_batch_observed_arr
                     )
+                    test_weight_decay = self.__weight_decay_term
                     test_loss = self.__computable_loss.compute_loss(
-                        test_pred_arr,
+                        test_pred_arr + self.__weight_decay_term,
                         test_batch_target_arr
                     )
 
@@ -259,9 +262,9 @@ class NeuralNetwork(object):
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=ver_pred_arr, 
+                                train_pred_arr=ver_pred_arr + train_weight_decay,  
                                 train_label_arr=batch_target_arr,
-                                test_pred_arr=test_pred_arr,
+                                test_pred_arr=test_pred_arr + test_weight_decay,
                                 test_label_arr=test_batch_target_arr
                             )
 
@@ -323,12 +326,18 @@ class NeuralNetwork(object):
             Propagated `np.ndarray`.
         '''
         cdef int i = 0
+        self.__weight_decay_term = 0.0
+
         for i in range(len(self.__nn_layer_list)):
             try:
                 observed_arr = self.__nn_layer_list[i].forward_propagate(observed_arr)
             except:
                 self.__logger.debug("Error raised in NN layer " + str(i + 1))
                 raise
+
+            self.__weight_decay_term += self.__opt_params.compute_weight_decay(
+                self.__nn_layer_list[i].graph.weight_arr
+            )
 
         if self.__opt_params.dropout_rate > 0:
             observed_arr = self.__opt_params.dropout(observed_arr)
@@ -376,6 +385,9 @@ class NeuralNetwork(object):
 
         for i in range(len(self.__nn_layer_list)):
             if self.__nn_layer_list[i].delta_weight_arr.shape[0] > 0:
+                self.__nn_layer_list[i].delta_weight_arr += self.__opt_params.compute_weight_decay_delta(
+                    self.__nn_layer_list[i].graph.weight_arr
+                )
                 params_list.append(self.__nn_layer_list[i].graph.weight_arr)
                 grads_list.append(self.__nn_layer_list[i].delta_weight_arr)
 
@@ -496,3 +508,13 @@ class NeuralNetwork(object):
         self.__computable_loss = value
 
     computable_loss = property(get_computable_loss, set_computable_loss)
+
+    def get_weight_decay_term(self):
+        ''' getter '''
+        return self.__weight_decay_term
+    
+    def set_weight_decay_term(self, value):
+        ''' setter '''
+        self.__weight_decay_term = value
+    
+    weight_decay_term = property(get_weight_decay_term, set_weight_decay_term)

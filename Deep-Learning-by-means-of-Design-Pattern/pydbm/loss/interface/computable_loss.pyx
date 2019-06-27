@@ -9,8 +9,8 @@ class ComputableLoss(metaclass=ABCMeta):
     Interface of Loss functions.
     '''
 
-    # `list` of penalty terms.
-    __penalty_arr = []
+    # Penalty term.
+    __penalty_arr = None
 
     @abstractmethod
     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):

@@ -235,8 +235,9 @@ class SpatioTemporalAutoEncoder(object):
                     self.__learn_flag = True
                     pred_arr = self.inference(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
+                    train_weight_decay = self.__weight_decay_term
                     loss = self.__computable_loss.compute_loss(
-                        pred_arr[:, -1],
+                        pred_arr[:, -1] + self.__weight_decay_term,
                         batch_target_arr[:, -1]
                     )
 
@@ -250,11 +251,12 @@ class SpatioTemporalAutoEncoder(object):
                         # Re-try.
                         pred_arr = self.inference(batch_observed_arr)
                         ver_pred_arr = pred_arr.copy()
+                        train_weight_decay = self.__weight_decay_term
                         loss = self.__computable_loss.compute_loss(
-                            pred_arr[:, -1],
+                            pred_arr[:, -1] + self.__weight_decay_term,
                             batch_target_arr[:, -1]
                         )
-                        
+                    
                     delta_arr = self.__computable_loss.compute_delta(
                         pred_arr[:, -1],
                         batch_target_arr[:, -1]
@@ -292,9 +294,9 @@ class SpatioTemporalAutoEncoder(object):
                     test_pred_arr = self.forward_propagation(
                         test_batch_observed_arr
                     )
-
+                    test_weight_decay = self.__weight_decay_term
                     test_loss = self.__computable_loss.compute_loss(
-                        test_pred_arr[:, -1],
+                        test_pred_arr[:, -1] + self.__weight_decay_term,
                         test_batch_target_arr[:, -1]
                     )
 
@@ -321,9 +323,9 @@ class SpatioTemporalAutoEncoder(object):
                             self.__logger.debug("Convolutional Auto-Encoder's loss.")
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=ver_pred_arr[:, -1], 
+                                train_pred_arr=ver_pred_arr[:, -1] + train_weight_decay, 
                                 train_label_arr=batch_target_arr[:, -1],
-                                test_pred_arr=test_pred_arr[:, -1],
+                                test_pred_arr=test_pred_arr[:, -1] + test_weight_decay,
                                 test_label_arr=test_batch_target_arr[:, -1]
                             )
                             self.__logger.debug("-" * 100)
@@ -408,8 +410,9 @@ class SpatioTemporalAutoEncoder(object):
                     self.__learn_flag = True
                     pred_arr = self.inference(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
+                    train_weight_decay = self.__weight_decay_term
                     loss = self.__computable_loss.compute_loss(
-                        pred_arr[:, -1],
+                        pred_arr[:, -1] + self.__weight_decay_term,
                         batch_target_arr[:, -1]
                     )
 
@@ -424,8 +427,9 @@ class SpatioTemporalAutoEncoder(object):
                         self.__logger.debug("Re-try.")
                         pred_arr = self.inference(batch_observed_arr)
                         ver_pred_arr = pred_arr.copy()
+                        train_weight_decay = self.__weight_decay_term
                         loss = self.__computable_loss.compute_loss(
-                            pred_arr[:, -1],
+                            pred_arr[:, -1] + self.__weight_decay_term,
                             batch_target_arr[:, -1]
                         )
 
@@ -461,8 +465,9 @@ class SpatioTemporalAutoEncoder(object):
                     test_pred_arr = self.forward_propagation(
                         test_batch_observed_arr
                     )
+                    test_weight_decay = self.__weight_decay_term
                     test_loss = self.__computable_loss.compute_loss(
-                        test_pred_arr[:, -1],
+                        test_pred_arr[:, -1] + self.__weight_decay_term,
                         test_batch_target_arr[:, -1]
                     )
 
@@ -490,9 +495,9 @@ class SpatioTemporalAutoEncoder(object):
                             self.__logger.debug("Convolutional Auto-Encoder's loss:")
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=ver_pred_arr[:, -1], 
+                                train_pred_arr=ver_pred_arr[:, -1] + train_weight_decay, 
                                 train_label_arr=batch_target_arr[:, -1],
-                                test_pred_arr=test_pred_arr[:, -1],
+                                test_pred_arr=test_pred_arr[:, -1] + test_weight_decay,
                                 test_label_arr=test_batch_target_arr[:, -1]
                             )
                             self.__logger.debug("-" * 100)
@@ -586,10 +591,30 @@ class SpatioTemporalAutoEncoder(object):
             - Array like or sparse matrix of the state in hidden layer,
             - Array like or sparse matrix of the state in RNN.
         '''
+        self.__temporal_weight_decay_term = 0.0
         if hidden_activity_arr is not None:
             self.__encoder.graph.hidden_activity_arr = hidden_activity_arr
         else:
             self.__encoder.graph.hidden_activity_arr = np.array([])
+
+        self.__temporal_weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.__encoder.graph.weights_lstm_observed_arr
+        )
+        self.__temporal_weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.__encoder.graph.weights_lstm_hidden_arr
+        )
+        self.__temporal_weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.__encoder.graph.weights_input_cec_arr
+        )
+        self.__temporal_weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.__encoder.graph.weights_forget_cec_arr
+        )
+        self.__temporal_weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.__encoder.graph.weights_output_cec_arr
+        )
+        self.__temporal_weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.__encoder.graph.weights_output_arr
+        )
 
         if rnn_activity_arr is not None:
             self.__encoder.graph.rnn_activity_arr = rnn_activity_arr
@@ -602,7 +627,26 @@ class SpatioTemporalAutoEncoder(object):
             encoded_arr,
         )
         decoded_arr = self.__decoder.get_feature_points()[:, ::-1, :]
-        
+
+        self.__temporal_weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.__decoder.graph.weights_lstm_observed_arr
+        )
+        self.__temporal_weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.__decoder.graph.weights_lstm_hidden_arr
+        )
+        self.__temporal_weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.__decoder.graph.weights_input_cec_arr
+        )
+        self.__temporal_weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.__decoder.graph.weights_forget_cec_arr
+        )
+        self.__temporal_weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.__decoder.graph.weights_output_cec_arr
+        )
+        self.__temporal_weight_decay_term += self.__opt_params.compute_weight_decay(
+            self.__decoder.graph.weights_output_arr
+        )
+
         self.__encoded_features_arr = encoded_arr
         self.__temporal_reconstruction_error_arr = self.__computable_loss.compute_loss(
             decoded_arr[:, -1],
@@ -623,6 +667,8 @@ class SpatioTemporalAutoEncoder(object):
             Propagated `np.ndarray`.
         '''
         cdef int i = 0
+        self.__weight_decay_term = 0.0
+
         cdef np.ndarray conv_arr = None
         cdef np.ndarray[DOUBLE_t, ndim=4] conv_output_arr = None
         for seq in range(img_arr.shape[1]):
@@ -638,6 +684,9 @@ class SpatioTemporalAutoEncoder(object):
                 except:
                     self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
                     raise
+                self.__weight_decay_term += self.__opt_params.compute_weight_decay(
+                    self.__layerable_cnn_list[i].graph.weight_arr
+                )
 
             if conv_arr is None:
                 conv_arr = np.expand_dims(conv_output_arr, axis=0)
@@ -662,6 +711,8 @@ class SpatioTemporalAutoEncoder(object):
         decoded_arr = self.temporal_inference(conv_arr)
         self.__decoded_features_arr = decoded_arr
         loss = self.__temporal_reconstruction_error_arr
+        loss += self.__temporal_weight_decay_term
+
         delta_arr = self.__computable_loss.compute_delta(decoded_arr[:, 0], conv_arr[:, 0])
 
         if self.__learn_flag is True:
@@ -841,6 +892,9 @@ class SpatioTemporalAutoEncoder(object):
         params_list = []
         grads_list = []
         for i in range(len(self.__layerable_cnn_list)):
+            self.__layerable_cnn_list[i].delta_weight_arr += self.__opt_params.compute_weight_decay_delta(
+                self.__layerable_cnn_list[i].graph.weight_arr
+            )
             params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
             grads_list.append(self.__layerable_cnn_list[i].delta_weight_arr)
 

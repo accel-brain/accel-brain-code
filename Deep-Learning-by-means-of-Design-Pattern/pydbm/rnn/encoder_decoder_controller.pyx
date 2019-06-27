@@ -197,6 +197,7 @@ class EncoderDecoderController(object):
                         decoded_arr = self.inference(batch_observed_arr)
                         loss = self.__reconstruction_error_arr.mean()
 
+                    loss += self.__encoder.weight_decay_term + self.__decoder.weight_decay_term
                     delta_arr = self.__computable_loss.compute_delta(
                         decoded_arr, 
                         batch_target_arr
@@ -256,6 +257,8 @@ class EncoderDecoderController(object):
                         # Re-try.
                         test_decoded_arr = self.inference(test_batch_observed_arr)
                         test_loss = self.__reconstruction_error_arr.mean()
+
+                    test_loss += self.__encoder.weight_decay_term + self.__decoder.weight_decay_term
 
                     self.__change_inferencing_mode(False)
 
@@ -353,6 +356,8 @@ class EncoderDecoderController(object):
                         decoded_arr = self.inference(batch_observed_arr)
                         loss = self.__reconstruction_error_arr.mean()
 
+                    train_weight_decay = self.__encoder.weight_decay_term + self.__decoder.weight_decay_term
+                    loss += train_weight_decay
                     delta_arr = self.__computable_loss.compute_delta(
                         decoded_arr, 
                         batch_target_arr
@@ -409,15 +414,18 @@ class EncoderDecoderController(object):
                         test_decoded_arr = self.inference(test_batch_observed_arr)
                         test_loss = self.__reconstruction_error_arr.mean()
 
+                    test_weight_decay = self.__encoder.weight_decay_term + self.__decoder.weight_decay_term
+                    test_loss += test_weight_decay
+
                     self.__change_inferencing_mode(False)
 
                     if self.__verificatable_result is not None:
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=decoded_arr, 
+                                train_pred_arr=decoded_arr + train_weight_decay, 
                                 train_label_arr=batch_target_arr,
-                                test_pred_arr=test_decoded_arr,
+                                test_pred_arr=test_decoded_arr + test_weight_decay,
                                 test_label_arr=test_batch_target_arr
                             )
 

@@ -41,6 +41,7 @@ class KLDivergence(ComputableLoss):
         if self.penalty_arr is not None:
             diff_arr += self.penalty_arr
 
+        diff_arr += self.loss_only_penalty
         return diff_arr.mean(axis=axis)
 
     def compute_delta(self, np.ndarray pred_arr, np.ndarray labeled_arr, delta_output=1):

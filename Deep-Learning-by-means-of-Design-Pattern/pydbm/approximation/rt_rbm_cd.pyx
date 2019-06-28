@@ -161,7 +161,7 @@ class RTRBMCD(ApproximateInterface):
                 )
                 inferenced_arr[:, cycle_index] = self.graph.visible_activity_arr
 
-            reconstruct_error = self.__computable_loss.compute_loss(batch_observed_arr, inferenced_arr)
+            reconstruct_error = self.compute_loss(batch_observed_arr, inferenced_arr)
             self.__logger.debug("Epoch: " + str(epoch) + " Reconstruction Error: " + str(reconstruct_error))
             reconstruct_error_list.append(reconstruct_error)
             # Back propagation.
@@ -327,6 +327,29 @@ class RTRBMCD(ApproximateInterface):
 
         self.graph.visible_diff_bias_arr += np.nansum((observed_data_arr - negative_visible_activity_arr), axis=0)
 
+    def compute_loss(self, np.ndarray batch_observed_arr, np.ndarray inferenced_arr):
+        '''
+        Compute loss.
+
+        Args:
+            batch_observed_arr:     `np.ndarray` of observed data points.
+            inferenced_arr:         `np.ndarray` of reconstructed feature points.
+        
+        Returns:
+            loss.
+        '''
+        reconstruct_error = self.__computable_loss.compute_loss(batch_observed_arr, inferenced_arr)
+        reconstruct_error += self.__opt_params.compute_weight_decay(
+            self.graph.weights_arr
+        )
+        reconstruct_error += self.__opt_params.compute_weight_decay(
+            self.graph.rnn_hidden_weights_arr
+        )
+        reconstruct_error += self.__opt_params.compute_weight_decay(
+            self.graph.rnn_visible_weights_arr
+        )
+        return reconstruct_error
+
     def back_propagation(self):
         '''
         Details of the backpropagation through time algorithm.
@@ -374,7 +397,17 @@ class RTRBMCD(ApproximateInterface):
             self.graph.visible_diff_bias_arr.reshape(-1, 1),
             np.nansum(self.graph.pre_hidden_activity_arr, axis=0).reshape(-1, 1).T
         )
-        
+
+        self.graph.diff_weights_arr += self.__opt_params.compute_weight_decay_delta(
+            self.graph.weights_arr
+        )
+        delta_rnn_hidden_weight_arr += self.__opt_params.compute_weight_decay_delta(
+            self.graph.rnn_hidden_weights_arr
+        )
+        delta_rnn_visible_weight_arr += self.__opt_params.compute_weight_decay_delta(
+            self.graph.rnn_visible_weights_arr
+        )
+
         params_list = self.__opt_params.optimize(
             params_list=[
                 self.graph.visible_bias_arr,
@@ -507,8 +540,22 @@ class RTRBMCD(ApproximateInterface):
             self.graph.visible_diff_bias_arr -= np.nansum(self.graph.visible_activity_arr, axis=0)
             self.graph.hidden_diff_bias_arr -= np.nansum(self.graph.hidden_activity_arr, axis=0)
 
+    def get_computable_loss(self):
+        ''' getter '''
+        return self.__computable_loss
+    
+    def set_computable_loss(self, value):
+        ''' setter '''
+        self.__computable_loss = value
+
+    computable_loss = property(get_computable_loss, set_computable_loss)
+
     def get_opt_params(self):
         ''' getter '''
         return self.__opt_params
 
-    opt_params = property(get_opt_params, set_readonly)
+    def set_opt_params(self, value):
+        ''' setter '''
+        self.__opt_params = value
+
+    opt_params = property(get_opt_params, set_opt_params)

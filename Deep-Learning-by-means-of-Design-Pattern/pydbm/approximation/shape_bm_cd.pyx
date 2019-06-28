@@ -328,6 +328,10 @@ class ShapeBMCD(ApproximateInterface):
         self.__graph.visible_diff_bias_arr -= np.nansum(self.__graph.visible_activity_arr, axis=0)
         self.__graph.hidden_diff_bias_arr -= np.nansum(self.__graph.hidden_activity_arr, axis=0)
 
+        self.__graph.diff_weights_arr += self.__opt_params.compute_weight_decay_delta(
+            self.__graph.weights_arr
+        )
+
         # Learning.
         params_list= [
             self.__graph.visible_bias_arr,
@@ -442,6 +446,10 @@ class ShapeBMCD(ApproximateInterface):
 
         self.__graph.visible_diff_bias_arr -= np.nansum(self.__graph.visible_activity_arr, axis=0)
         self.__graph.hidden_diff_bias_arr -= np.nansum(self.__graph.hidden_activity_arr, axis=0)
+
+        self.__graph.diff_weights_arr += self.__opt_params.compute_weight_decay_delta(
+            self.__graph.weights_arr
+        )
 
         # Learning.
         params_list= [
@@ -591,6 +599,10 @@ class ShapeBMCD(ApproximateInterface):
             self.__graph.visible_diff_bias_arr += np.nansum(self.__graph.visible_activity_arr, axis=0)
             self.__graph.hidden_diff_bias_arr += np.nansum(self.__graph.hidden_activity_arr, axis=0)
 
+            self.__graph.diff_weights_arr += self.__opt_params.compute_weight_decay_delta(
+                self.__graph.weights_arr
+            )
+
             # Learning.
             params_list= [
                 self.__graph.visible_bias_arr,
@@ -693,6 +705,10 @@ class ShapeBMCD(ApproximateInterface):
 
             self.__graph.visible_diff_bias_arr += np.nansum(self.__graph.visible_activity_arr, axis=0)
             self.__graph.hidden_diff_bias_arr += np.nansum(self.__graph.hidden_activity_arr, axis=0)
+
+            self.__graph.diff_weights_arr += self.__opt_params.compute_weight_decay_delta(
+                self.__graph.weights_arr
+            )
 
             # Learning.
             params_list= [

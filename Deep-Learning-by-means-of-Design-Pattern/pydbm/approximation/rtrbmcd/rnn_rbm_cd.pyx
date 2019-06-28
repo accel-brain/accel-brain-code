@@ -145,6 +145,35 @@ class RNNRBMCD(RTRBMCD):
 
         super().memorize_activity(observed_data_arr, negative_visible_activity_arr)
 
+    def compute_loss(self, np.ndarray batch_observed_arr, np.ndarray inferenced_arr):
+        '''
+        Compute loss.
+
+        Args:
+            batch_observed_arr:     `np.ndarray` of observed data points.
+            inferenced_arr:         `np.ndarray` of reconstructed feature points.
+        
+        Returns:
+            loss.
+        '''
+        reconstruct_error = self.computable_loss.compute_loss(batch_observed_arr, inferenced_arr)
+        reconstruct_error += self.opt_params.compute_weight_decay(
+            self.graph.weights_arr
+        )
+        reconstruct_error += self.opt_params.compute_weight_decay(
+            self.graph.rnn_hidden_weights_arr
+        )
+        reconstruct_error += self.opt_params.compute_weight_decay(
+            self.graph.rnn_visible_weights_arr
+        )
+        reconstruct_error += self.opt_params.compute_weight_decay(
+            self.graph.hat_weights_arr
+        )
+        reconstruct_error += self.opt_params.compute_weight_decay(
+            self.graph.v_hat_weights_arr
+        )
+        return reconstruct_error
+
     def back_propagation(self):
         '''
         Details of the backpropagation through time algorithm.
@@ -206,6 +235,22 @@ class RNNRBMCD(RTRBMCD):
         delta_rnn_visible_weight_arr = np.dot(
             self.graph.visible_diff_bias_arr.reshape(-1, 1),
             np.nansum(self.graph.pre_hidden_activity_arr, axis=0).reshape(-1, 1).T
+        )
+
+        self.graph.diff_weights_arr += self.opt_params.compute_weight_decay_delta(
+            self.graph.weights_arr
+        )
+        self.graph.diff_rnn_hidden_weights_arr += self.opt_params.compute_weight_decay_delta(
+            self.graph.rnn_hidden_weights_arr
+        )
+        delta_rnn_visible_weight_arr += self.opt_params.compute_weight_decay_delta(
+            self.graph.rnn_visible_weights_arr
+        )
+        diff_hat_weights_arr += self.opt_params.compute_weight_decay_delta(
+            self.graph.hat_weights_arr
+        )
+        diff_v_hat_weights_arr += self.opt_params.compute_weight_decay_delta(
+            self.graph.v_hat_weights_arr
         )
 
         params_list = [

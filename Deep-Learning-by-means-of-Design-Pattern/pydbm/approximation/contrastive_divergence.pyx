@@ -215,6 +215,9 @@ class ContrastiveDivergence(ApproximateInterface):
 
         # Validation.
         loss = self.__computable_loss.compute_loss(observed_data_arr, self.__graph.visible_activity_arr).mean()
+        loss += self.__opt_params.compute_weight_decay(
+            self.__graph.weights_arr
+        )
         self.__reconstruct_error_list.append(loss)
 
         self.__graph.hidden_activity_arr = self.__graph.hidden_activating_function.activate(
@@ -233,6 +236,10 @@ class ContrastiveDivergence(ApproximateInterface):
 
         self.__graph.visible_diff_bias_arr -= np.nansum(self.__graph.visible_activity_arr, axis=0)
         self.__graph.hidden_diff_bias_arr -= np.nansum(self.__graph.hidden_activity_arr, axis=0)
+
+        self.__graph.diff_weights_arr += self.__opt_params.compute_weight_decay_delta(
+            self.__graph.weights_arr
+        )
 
         # Learning.
         params_list= [
@@ -343,6 +350,10 @@ class ContrastiveDivergence(ApproximateInterface):
 
             self.__graph.visible_diff_bias_arr += np.nansum(self.__graph.visible_activity_arr, axis=0)
             self.__graph.hidden_diff_bias_arr += np.nansum(self.__graph.hidden_activity_arr, axis=0)
+
+            self.__graph.diff_weights_arr += self.__opt_params.compute_weight_decay_delta(
+                self.__graph.weights_arr
+            )
 
             # Learning.
             params_list = [

@@ -25,12 +25,13 @@ class AutoEncodable(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    def pre_learn(self, np.ndarray observed_arr):
+    def pre_learn(self, np.ndarray observed_arr, np.ndarray target_arr=None):
         '''
         Pre-learning.
 
         Args:
             observed_arr:       `np.ndarray` of observed data points.
+            target_arr:         `np.ndarray` of noised observed data points.
         '''
         raise NotImplementedError()
 

@@ -41,15 +41,15 @@ class SimpleDEC(AutoEncodable):
 
     inferencing_mode = property(get_inferencing_mode, set_inferencing_mode)
 
-    def pre_learn(self, np.ndarray observed_arr):
+    def pre_learn(self, np.ndarray observed_arr, np.ndarray target_arr=None):
         '''
         Pre-learning.
 
         Args:
             observed_arr:       `np.ndarray` of observed data points.
-            feature_generator:  is-a `FeatureGenerator`.
+            target_arr:         `np.ndarray` of noised observed data points.
         '''
-        self.__simple_auto_encoder.learn(observed_arr)
+        self.__simple_auto_encoder.learn(observed_arr, target_arr)
 
     def inference(self, np.ndarray observed_arr):
         '''

@@ -53,7 +53,6 @@ class CrossEntropy(ComputableLoss):
                 penalty_arr = self.penalty_arr
             _pred_arr += penalty_arr
 
-        _pred_arr += self.loss_only_penalty
         return -np.sum(np.ma.log(_pred_arr), axis=axis) / batch_size
 
     def compute_delta(self, np.ndarray pred_arr, np.ndarray labeled_arr, delta_output=1):

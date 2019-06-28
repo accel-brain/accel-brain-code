@@ -98,6 +98,7 @@ class AttentionLSTMModel(LSTMModel):
         )
         self.__softmax_function = SoftmaxFunction()
         self.__attenuate_epoch = attenuate_epoch
+        self.__opt_params = opt_params
 
     def forward_propagation(self, np.ndarray[DOUBLE_t, ndim=3] batch_observed_arr):
         '''

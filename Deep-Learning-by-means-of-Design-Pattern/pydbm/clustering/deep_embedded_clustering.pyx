@@ -137,14 +137,15 @@ class DeepEmbeddedClustering(object):
         feature_arr = self.__auto_encodable.embed_feature_points(observed_arr)
         self.__mu_arr = self.__extractable_centroids.extract_centroids(feature_arr, self.__k)
 
-    def learn(self, np.ndarray observed_arr):
+    def learn(self, np.ndarray observed_arr, np.ndarray target_arr=None):
         '''
         Learn.
         
         Args:
             observed_arr:   `np.ndarray` of observed data points.
+            target_arr:     `np.ndarray` of noised observed data points.
         '''
-        self.__auto_encodable.pre_learn(observed_arr)
+        self.__auto_encodable.pre_learn(observed_arr, target_arr)
         self.__setup_initial_centroids(observed_arr)
 
         cdef double learning_rate = self.__learning_rate
@@ -410,14 +411,8 @@ class DeepEmbeddedClustering(object):
         cdef int N = self.__feature_arr.reshape((self.__feature_arr.shape[0], -1)).shape[1]
         cdef int oN = self.__observed_arr.reshape((self.__observed_arr.shape[0], -1)).shape[1]
         cdef int s
-        cdef int sa
-        cdef int oa
         cdef np.ndarray pt_arr
-        cdef np.ndarray observed_pt_arr
-        cdef np.ndarray anti_arr
         cdef np.ndarray penalty_arr = np.zeros(label_arr.shape[0])
-        cdef np.ndarray observed_penalty_arr = np.zeros(label_arr.shape[0])
-        cdef np.ndarray anti_penalty_arr = np.zeros(label_arr.shape[0])
 
         for label in label_arr:
             feature_arr = self.__feature_arr[label_arr == label]

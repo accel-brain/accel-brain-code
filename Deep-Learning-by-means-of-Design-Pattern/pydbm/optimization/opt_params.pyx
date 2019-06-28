@@ -111,7 +111,7 @@ class OptParams(metaclass=ABCMeta):
         Returns:
             `np.ndarray` of delta.
         '''
-        return 0.5 * self.weight_decay_lambda * np.square(weight_arr)
+        return 0.5 * self.weight_decay_lambda * np.nansum(np.square(weight_arr))
 
     def dropout(self, np.ndarray activity_arr):
         '''

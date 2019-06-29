@@ -42,6 +42,25 @@ class RepellingAutoEncoder(SimpleAutoEncoder):
                 pt_arr[k] = np.dot(feature_points_arr[i].T, feature_points_arr[j]) / (np.sqrt(np.dot(feature_points_arr[i], feature_points_arr[i])) * np.sqrt(np.dot(feature_points_arr[j], feature_points_arr[j])))
                 k += 1
 
-        self.computable_loss.penalty_arr = pt_arr.sum() / (N * (N - 1))
+        self.computable_loss.penalty_term = pt_arr.sum() / (N * (N - 1))
+        self.__penalty_delta_arr = np.dot(
+            self.computable_loss.penalty_term, 
+            feature_points_arr
+        )
 
         return decoded_arr
+
+    def back_propagation(self, np.ndarray delta_arr):
+        '''
+        Back propagation in NN.
+        
+        Args:
+            Delta.
+        
+        Returns.
+            Delta.
+        '''
+        delta_arr = self.__decoder.back_propagation(delta_arr)
+        delta_arr = delta_arr + self.__penalty_delta_arr.reshape(delta_arr.copy().shape)
+        delta_arr = self.__encoder.back_propagation(delta_arr)
+        return delta_arr

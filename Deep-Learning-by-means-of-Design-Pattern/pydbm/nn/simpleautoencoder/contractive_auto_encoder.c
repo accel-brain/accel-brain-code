@@ -1745,6 +1745,7 @@ static const char __pyx_k_module[] = "__module__";
 static const char __pyx_k_decoder[] = "decoder";
 static const char __pyx_k_encoder[] = "encoder";
 static const char __pyx_k_logging[] = "logging";
+static const char __pyx_k_nanmean[] = "nanmean";
 static const char __pyx_k_prepare[] = "__prepare__";
 static const char __pyx_k_property[] = "property";
 static const char __pyx_k_qualname[] = "__qualname__";
@@ -1758,9 +1759,9 @@ static const char __pyx_k_weight_arr[] = "weight_arr";
 static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_decoded_arr[] = "decoded_arr";
 static const char __pyx_k_encoded_arr[] = "encoded_arr";
-static const char __pyx_k_penalty_arr[] = "penalty_arr";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_observed_arr[] = "observed_arr";
+static const char __pyx_k_penalty_term[] = "penalty_term";
 static const char __pyx_k_learning_rate[] = "learning_rate";
 static const char __pyx_k_nn_layer_list[] = "nn_layer_list";
 static const char __pyx_k_penalty_lambda[] = "penalty_lambda";
@@ -1769,6 +1770,7 @@ static const char __pyx_k_attenuate_epoch[] = "attenuate_epoch";
 static const char __pyx_k_computable_loss[] = "computable_loss";
 static const char __pyx_k_LogisticFunction[] = "LogisticFunction";
 static const char __pyx_k_SimpleAutoEncoder[] = "SimpleAutoEncoder";
+static const char __pyx_k_penalty_delta_arr[] = "penalty_delta_arr";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_feature_points_arr[] = "feature_points_arr";
 static const char __pyx_k_get_penalty_lambda[] = "get_penalty_lambda";
@@ -1848,6 +1850,7 @@ static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_mean;
 static PyObject *__pyx_n_s_metaclass;
 static PyObject *__pyx_n_s_module;
+static PyObject *__pyx_n_s_nanmean;
 static PyObject *__pyx_kp_u_ndarray_is_not_C_contiguous;
 static PyObject *__pyx_kp_u_ndarray_is_not_Fortran_contiguou;
 static PyObject *__pyx_n_s_nn_layer_list;
@@ -1856,8 +1859,9 @@ static PyObject *__pyx_n_s_numpy;
 static PyObject *__pyx_kp_s_numpy_core_multiarray_failed_to;
 static PyObject *__pyx_kp_s_numpy_core_umath_failed_to_impor;
 static PyObject *__pyx_n_s_observed_arr;
-static PyObject *__pyx_n_s_penalty_arr;
+static PyObject *__pyx_n_s_penalty_delta_arr;
 static PyObject *__pyx_n_s_penalty_lambda;
+static PyObject *__pyx_n_s_penalty_term;
 static PyObject *__pyx_n_s_pre_learned_path_tuple;
 static PyObject *__pyx_n_s_prepare;
 static PyObject *__pyx_n_s_property;
@@ -2766,8 +2770,8 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_24contractive_auto_enco
  *             feature_points_arr = np.dot(feature_points_arr, nn_layer_list[i].graph.weight_arr.T)
  * 
  *         feature_points_arr = (feature_points_arr - feature_points_arr.mean()) / (feature_points_arr.std() + 1e-08)             # <<<<<<<<<<<<<<
- *         self.computable_loss.penalty_arr = feature_points_arr * self.penalty_lambda
- * 
+ *         self.computable_loss.penalty_delta_arr = feature_points_arr * self.penalty_lambda
+ *         self.computable_loss.penalty_term = np.nanmean(feature_points_arr) * self.penalty_lambda
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_feature_points_arr), __pyx_n_s_mean); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -2826,9 +2830,9 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_24contractive_auto_enco
   /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":96
  * 
  *         feature_points_arr = (feature_points_arr - feature_points_arr.mean()) / (feature_points_arr.std() + 1e-08)
- *         self.computable_loss.penalty_arr = feature_points_arr * self.penalty_lambda             # <<<<<<<<<<<<<<
+ *         self.computable_loss.penalty_delta_arr = feature_points_arr * self.penalty_lambda             # <<<<<<<<<<<<<<
+ *         self.computable_loss.penalty_term = np.nanmean(feature_points_arr) * self.penalty_lambda
  * 
- *         return decoded_arr
  */
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_penalty_lambda); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
@@ -2837,12 +2841,79 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_24contractive_auto_enco
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_computable_loss); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_penalty_arr, __pyx_t_9) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_penalty_delta_arr, __pyx_t_9) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":98
- *         self.computable_loss.penalty_arr = feature_points_arr * self.penalty_lambda
+  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":97
+ *         feature_points_arr = (feature_points_arr - feature_points_arr.mean()) / (feature_points_arr.std() + 1e-08)
+ *         self.computable_loss.penalty_delta_arr = feature_points_arr * self.penalty_lambda
+ *         self.computable_loss.penalty_term = np.nanmean(feature_points_arr) * self.penalty_lambda             # <<<<<<<<<<<<<<
+ * 
+ *         return decoded_arr
+ */
+  __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_9 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_9)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_9);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  if (!__pyx_t_9) {
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_feature_points_arr)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 97, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+  } else {
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(__pyx_t_2)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_9, ((PyObject *)__pyx_v_feature_points_arr)};
+      __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 97, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __Pyx_GOTREF(__pyx_t_4);
+    } else
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
+      PyObject *__pyx_temp[2] = {__pyx_t_9, ((PyObject *)__pyx_v_feature_points_arr)};
+      __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 97, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __Pyx_GOTREF(__pyx_t_4);
+    } else
+    #endif
+    {
+      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_9); __pyx_t_9 = NULL;
+      __Pyx_INCREF(((PyObject *)__pyx_v_feature_points_arr));
+      __Pyx_GIVEREF(((PyObject *)__pyx_v_feature_points_arr));
+      PyTuple_SET_ITEM(__pyx_t_3, 0+1, ((PyObject *)__pyx_v_feature_points_arr));
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 97, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    }
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_penalty_lambda); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_computable_loss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_penalty_term, __pyx_t_3) < 0) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":99
+ *         self.computable_loss.penalty_term = np.nanmean(feature_points_arr) * self.penalty_lambda
  * 
  *         return decoded_arr             # <<<<<<<<<<<<<<
  * 
@@ -2889,7 +2960,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_24contractive_auto_enco
   return __pyx_r;
 }
 
-/* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":100
+/* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":101
  *         return decoded_arr
  * 
  *     def get_penalty_lambda(self):             # <<<<<<<<<<<<<<
@@ -2918,7 +2989,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_24contractive_auto_enco
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_penalty_lambda", 0);
 
-  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":105
+  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":106
  *         that controls the strength of the regularization.
  *         '''
  *         return self.__penalty_lambda             # <<<<<<<<<<<<<<
@@ -2926,13 +2997,13 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_24contractive_auto_enco
  *     def set_penalty_lambda(self, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContractiveAutoEncoder__penalty); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ContractiveAutoEncoder__penalty); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":100
+  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":101
  *         return decoded_arr
  * 
  *     def get_penalty_lambda(self):             # <<<<<<<<<<<<<<
@@ -2951,7 +3022,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_24contractive_auto_enco
   return __pyx_r;
 }
 
-/* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":107
+/* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":108
  *         return self.__penalty_lambda
  * 
  *     def set_penalty_lambda(self, value):             # <<<<<<<<<<<<<<
@@ -2992,11 +3063,11 @@ static PyObject *__pyx_pw_5pydbm_2nn_17simpleautoencoder_24contractive_auto_enco
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_penalty_lambda", 1, 2, 2, 1); __PYX_ERR(0, 107, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_penalty_lambda", 1, 2, 2, 1); __PYX_ERR(0, 108, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_penalty_lambda") < 0)) __PYX_ERR(0, 107, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_penalty_lambda") < 0)) __PYX_ERR(0, 108, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3009,7 +3080,7 @@ static PyObject *__pyx_pw_5pydbm_2nn_17simpleautoencoder_24contractive_auto_enco
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_penalty_lambda", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 107, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_penalty_lambda", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 108, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.nn.simpleautoencoder.contractive_auto_encoder.ContractiveAutoEncoder.set_penalty_lambda", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3030,7 +3101,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_24contractive_auto_enco
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("set_penalty_lambda", 0);
 
-  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":112
+  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":113
  *         that controls the strength of the regularization.
  *         '''
  *         if isinstance(value, float) is False:             # <<<<<<<<<<<<<<
@@ -3041,20 +3112,20 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_24contractive_auto_enco
   __pyx_t_2 = ((__pyx_t_1 == 0) != 0);
   if (unlikely(__pyx_t_2)) {
 
-    /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":113
+    /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":114
  *         '''
  *         if isinstance(value, float) is False:
  *             raise TypeError("The type of `penalty_lambda` must be `float`.")             # <<<<<<<<<<<<<<
  *         if value <= 0:
  *             raise ValueError("The value of `penalty_lambda` must be more than `0.0`.")
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 113, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 113, __pyx_L1_error)
+    __PYX_ERR(0, 114, __pyx_L1_error)
 
-    /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":112
+    /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":113
  *         that controls the strength of the regularization.
  *         '''
  *         if isinstance(value, float) is False:             # <<<<<<<<<<<<<<
@@ -3063,32 +3134,32 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_24contractive_auto_enco
  */
   }
 
-  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":114
+  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":115
  *         if isinstance(value, float) is False:
  *             raise TypeError("The type of `penalty_lambda` must be `float`.")
  *         if value <= 0:             # <<<<<<<<<<<<<<
  *             raise ValueError("The value of `penalty_lambda` must be more than `0.0`.")
  *         self.__penalty_lambda = value
  */
-  __pyx_t_3 = PyObject_RichCompare(__pyx_v_value, __pyx_int_0, Py_LE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 114, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_3 = PyObject_RichCompare(__pyx_v_value, __pyx_int_0, Py_LE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 115, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (unlikely(__pyx_t_2)) {
 
-    /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":115
+    /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":116
  *             raise TypeError("The type of `penalty_lambda` must be `float`.")
  *         if value <= 0:
  *             raise ValueError("The value of `penalty_lambda` must be more than `0.0`.")             # <<<<<<<<<<<<<<
  *         self.__penalty_lambda = value
  * 
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 115, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 116, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 115, __pyx_L1_error)
+    __PYX_ERR(0, 116, __pyx_L1_error)
 
-    /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":114
+    /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":115
  *         if isinstance(value, float) is False:
  *             raise TypeError("The type of `penalty_lambda` must be `float`.")
  *         if value <= 0:             # <<<<<<<<<<<<<<
@@ -3097,16 +3168,16 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_24contractive_auto_enco
  */
   }
 
-  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":116
+  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":117
  *         if value <= 0:
  *             raise ValueError("The value of `penalty_lambda` must be more than `0.0`.")
  *         self.__penalty_lambda = value             # <<<<<<<<<<<<<<
  * 
  *     penalty_lambda = property(get_penalty_lambda, set_penalty_lambda)
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ContractiveAutoEncoder__penalty, __pyx_v_value) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ContractiveAutoEncoder__penalty, __pyx_v_value) < 0) __PYX_ERR(0, 117, __pyx_L1_error)
 
-  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":107
+  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":108
  *         return self.__penalty_lambda
  * 
  *     def set_penalty_lambda(self, value):             # <<<<<<<<<<<<<<
@@ -5674,6 +5745,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_mean, __pyx_k_mean, sizeof(__pyx_k_mean), 0, 0, 1, 1},
   {&__pyx_n_s_metaclass, __pyx_k_metaclass, sizeof(__pyx_k_metaclass), 0, 0, 1, 1},
   {&__pyx_n_s_module, __pyx_k_module, sizeof(__pyx_k_module), 0, 0, 1, 1},
+  {&__pyx_n_s_nanmean, __pyx_k_nanmean, sizeof(__pyx_k_nanmean), 0, 0, 1, 1},
   {&__pyx_kp_u_ndarray_is_not_C_contiguous, __pyx_k_ndarray_is_not_C_contiguous, sizeof(__pyx_k_ndarray_is_not_C_contiguous), 0, 1, 0, 0},
   {&__pyx_kp_u_ndarray_is_not_Fortran_contiguou, __pyx_k_ndarray_is_not_Fortran_contiguou, sizeof(__pyx_k_ndarray_is_not_Fortran_contiguou), 0, 1, 0, 0},
   {&__pyx_n_s_nn_layer_list, __pyx_k_nn_layer_list, sizeof(__pyx_k_nn_layer_list), 0, 0, 1, 1},
@@ -5682,8 +5754,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_numpy_core_multiarray_failed_to, __pyx_k_numpy_core_multiarray_failed_to, sizeof(__pyx_k_numpy_core_multiarray_failed_to), 0, 0, 1, 0},
   {&__pyx_kp_s_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 0, 1, 0},
   {&__pyx_n_s_observed_arr, __pyx_k_observed_arr, sizeof(__pyx_k_observed_arr), 0, 0, 1, 1},
-  {&__pyx_n_s_penalty_arr, __pyx_k_penalty_arr, sizeof(__pyx_k_penalty_arr), 0, 0, 1, 1},
+  {&__pyx_n_s_penalty_delta_arr, __pyx_k_penalty_delta_arr, sizeof(__pyx_k_penalty_delta_arr), 0, 0, 1, 1},
   {&__pyx_n_s_penalty_lambda, __pyx_k_penalty_lambda, sizeof(__pyx_k_penalty_lambda), 0, 0, 1, 1},
+  {&__pyx_n_s_penalty_term, __pyx_k_penalty_term, sizeof(__pyx_k_penalty_term), 0, 0, 1, 1},
   {&__pyx_n_s_pre_learned_path_tuple, __pyx_k_pre_learned_path_tuple, sizeof(__pyx_k_pre_learned_path_tuple), 0, 0, 1, 1},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
   {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
@@ -5708,11 +5781,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 118, __pyx_L1_error)
+  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 119, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 59, __pyx_L1_error)
   __pyx_builtin_super = __Pyx_GetBuiltinName(__pyx_n_s_super); if (!__pyx_builtin_super) __PYX_ERR(0, 61, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 92, __pyx_L1_error)
-  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 116, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 810, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 1000, __pyx_L1_error)
   return 0;
@@ -5746,25 +5819,25 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_slice__2);
   __Pyx_GIVEREF(__pyx_slice__2);
 
-  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":113
+  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":114
  *         '''
  *         if isinstance(value, float) is False:
  *             raise TypeError("The type of `penalty_lambda` must be `float`.")             # <<<<<<<<<<<<<<
  *         if value <= 0:
  *             raise ValueError("The value of `penalty_lambda` must be more than `0.0`.")
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_The_type_of_penalty_lambda_must); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_The_type_of_penalty_lambda_must); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":115
+  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":116
  *             raise TypeError("The type of `penalty_lambda` must be `float`.")
  *         if value <= 0:
  *             raise ValueError("The value of `penalty_lambda` must be more than `0.0`.")             # <<<<<<<<<<<<<<
  *         self.__penalty_lambda = value
  * 
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_The_value_of_penalty_lambda_must); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_The_value_of_penalty_lambda_must); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
@@ -5889,29 +5962,29 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__16);
   __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(2, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_contr_2, __pyx_n_s_forward_propagation, 77, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 77, __pyx_L1_error)
 
-  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":100
+  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":101
  *         return decoded_arr
  * 
  *     def get_penalty_lambda(self):             # <<<<<<<<<<<<<<
  *         '''
  *         getter for Positive hyperparameter
  */
-  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_GIVEREF(__pyx_tuple__18);
-  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_contr_2, __pyx_n_s_get_penalty_lambda, 100, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_contr_2, __pyx_n_s_get_penalty_lambda, 101, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 101, __pyx_L1_error)
 
-  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":107
+  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":108
  *         return self.__penalty_lambda
  * 
  *     def set_penalty_lambda(self, value):             # <<<<<<<<<<<<<<
  *         '''
  *         setter for Positive hyperparameter
  */
-  __pyx_tuple__20 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_tuple__20 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__20);
   __Pyx_GIVEREF(__pyx_tuple__20);
-  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_contr_2, __pyx_n_s_set_penalty_lambda, 107, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_contr_2, __pyx_n_s_set_penalty_lambda, 108, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -6417,31 +6490,31 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_forward_propagation, __pyx_t_10) < 0) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":100
+  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":101
  *         return decoded_arr
  * 
  *     def get_penalty_lambda(self):             # <<<<<<<<<<<<<<
  *         '''
  *         getter for Positive hyperparameter
  */
-  __pyx_t_10 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_24contractive_auto_encoder_22ContractiveAutoEncoder_5get_penalty_lambda, 0, __pyx_n_s_ContractiveAutoEncoder_get_penal, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_contr, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_24contractive_auto_encoder_22ContractiveAutoEncoder_5get_penalty_lambda, 0, __pyx_n_s_ContractiveAutoEncoder_get_penal, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_contr, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_penalty_lambda, __pyx_t_10) < 0) __PYX_ERR(0, 100, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_penalty_lambda, __pyx_t_10) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":107
+  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":108
  *         return self.__penalty_lambda
  * 
  *     def set_penalty_lambda(self, value):             # <<<<<<<<<<<<<<
  *         '''
  *         setter for Positive hyperparameter
  */
-  __pyx_t_10 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_24contractive_auto_encoder_22ContractiveAutoEncoder_7set_penalty_lambda, 0, __pyx_n_s_ContractiveAutoEncoder_set_penal, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_contr, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_24contractive_auto_encoder_22ContractiveAutoEncoder_7set_penalty_lambda, 0, __pyx_n_s_ContractiveAutoEncoder_set_penal, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_contr, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_penalty_lambda, __pyx_t_10) < 0) __PYX_ERR(0, 107, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_penalty_lambda, __pyx_t_10) < 0) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":118
+  /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":119
  *         self.__penalty_lambda = value
  * 
  *     penalty_lambda = property(get_penalty_lambda, set_penalty_lambda)             # <<<<<<<<<<<<<<
@@ -6451,16 +6524,16 @@ if (!__Pyx_RefNanny) {
     PyErr_Clear();
     __pyx_t_10 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_penalty_lambda);
   }
-  if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 118, __pyx_L1_error)
+  if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __pyx_t_11 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_penalty_lambda);
   if (unlikely(!__pyx_t_11)) {
     PyErr_Clear();
     __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_penalty_lambda);
   }
-  if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 118, __pyx_L1_error)
+  if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_GIVEREF(__pyx_t_10);
   PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_10);
@@ -6468,10 +6541,10 @@ if (!__Pyx_RefNanny) {
   PyTuple_SET_ITEM(__pyx_t_9, 1, __pyx_t_11);
   __pyx_t_10 = 0;
   __pyx_t_11 = 0;
-  __pyx_t_11 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_9, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_9, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_penalty_lambda, __pyx_t_11) < 0) __PYX_ERR(0, 118, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_penalty_lambda, __pyx_t_11) < 0) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
   /* "pydbm/nn/simpleautoencoder/contractive_auto_encoder.pyx":10

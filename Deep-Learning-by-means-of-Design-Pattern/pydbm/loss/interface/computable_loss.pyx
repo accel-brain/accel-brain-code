@@ -10,7 +10,10 @@ class ComputableLoss(metaclass=ABCMeta):
     '''
 
     # Penalty term.
-    __penalty_arr = None
+    __penalty_term = 0.0
+
+    # Penalty delta.
+    __penalty_delta_arr = None
 
     @abstractmethod
     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):
@@ -43,12 +46,22 @@ class ComputableLoss(metaclass=ABCMeta):
         '''
         raise NotImplementedError()
 
-    def get_penalty_arr(self):
+    def get_penalty_term(self):
         ''' getter '''
-        return self.__penalty_arr
+        return self.__penalty_term
 
-    def set_penalty_arr(self, value):
+    def set_penalty_term(self, value):
         ''' setter '''
-        self.__penalty_arr = value
+        self.__penalty_term = value
 
-    penalty_arr = property(get_penalty_arr, set_penalty_arr)
+    penalty_term = property(get_penalty_term, set_penalty_term)
+
+    def get_penalty_delta_arr(self):
+        ''' getter '''
+        return self.__penalty_delta_arr
+    
+    def set_penalty_delta_arr(self, value):
+        ''' setter '''
+        self.__penalty_delta_arr = value
+    
+    penalty_delta_arr = property(get_penalty_delta_arr, set_penalty_delta_arr)

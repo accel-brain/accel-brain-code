@@ -93,7 +93,8 @@ class ContractiveAutoEncoder(SimpleAutoEncoder):
             feature_points_arr = np.dot(feature_points_arr, nn_layer_list[i].graph.weight_arr.T)
 
         feature_points_arr = (feature_points_arr - feature_points_arr.mean()) / (feature_points_arr.std() + 1e-08)
-        self.computable_loss.penalty_arr = feature_points_arr * self.penalty_lambda
+        self.computable_loss.penalty_delta_arr = feature_points_arr * self.penalty_lambda
+        self.computable_loss.penalty_term = np.nanmean(feature_points_arr) * self.penalty_lambda
 
         return decoded_arr
 

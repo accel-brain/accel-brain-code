@@ -120,7 +120,8 @@ class ContractiveConvolutionalAutoEncoder(ConvolutionalAutoEncoder):
             )
             feature_points_arr = layerable_cnn_list[i].deconvolve(feature_points_arr)
 
-        self.computable_loss.penalty_arr = feature_points_arr * self.penalty_lambda
+        self.computable_loss.penalty_delta_arr = feature_points_arr * self.penalty_lambda
+        self.computable_loss.penalty_term = np.nanmean(feature_points_arr) * self.penalty_lambda
 
         return result_arr
 

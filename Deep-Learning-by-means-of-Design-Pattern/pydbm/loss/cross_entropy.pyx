@@ -13,7 +13,8 @@ class CrossEntropy(ComputableLoss):
         '''
         Init.
         '''
-        self.penalty_arr = None
+        self.penalty_term = 0.0
+        self.penalty_delta_arr = None
 
     def compute_loss(self, np.ndarray pred_arr, np.ndarray labeled_arr, axis=None):
         '''
@@ -46,14 +47,11 @@ class CrossEntropy(ComputableLoss):
 
         cdef int batch_size = pred_arr.shape[0]
         cdef np.ndarray _pred_arr = pred_arr[np.arange(batch_size), _labeled_arr]
-        if self.penalty_arr is not None:
-            if _pred_arr.ndim != self.penalty_arr.ndim:
-                penalty_arr = self.penalty_arr.reshape(*_pred_arr.copy().shape)
-            else:
-                penalty_arr = self.penalty_arr
-            _pred_arr += penalty_arr
 
-        return -np.sum(np.ma.log(_pred_arr), axis=axis) / batch_size
+        loss = -np.sum(np.ma.log(_pred_arr), axis=axis) / batch_size
+        loss = loss + self.penalty_term
+        self.penalty_term = 0.0
+        return loss
 
     def compute_delta(self, np.ndarray pred_arr, np.ndarray labeled_arr, delta_output=1):
         '''
@@ -91,11 +89,12 @@ class CrossEntropy(ComputableLoss):
         if pred_arr.ndim != delta_arr.ndim:
             delta_arr = delta_arr.reshape(*pred_arr.copy().shape)
 
-        if self.penalty_arr is not None:
-            if delta_arr.ndim != self.penalty_arr.ndim:
-                penalty_arr = self.penalty_arr.reshape(*delta_arr.copy().shape)
+        if self.penalty_delta_arr is not None:
+            if delta_arr.ndim != self.penalty_delta_arr.ndim:
+                penalty_delta_arr = self.penalty_delta_arr.reshape(*delta_arr.copy().shape)
             else:
-                penalty_arr = self.penalty_arr
-            delta_arr += penalty_arr
+                penalty_delta_arr = self.penalty_delta_arr
+            delta_arr += penalty_delta_arr
 
+        self.penalty_delta_arr = None
         return delta_arr

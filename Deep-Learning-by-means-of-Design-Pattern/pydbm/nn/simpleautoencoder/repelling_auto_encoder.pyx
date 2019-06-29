@@ -60,7 +60,7 @@ class RepellingAutoEncoder(SimpleAutoEncoder):
         Returns.
             Delta.
         '''
-        delta_arr = self.__decoder.back_propagation(delta_arr)
+        delta_arr = self.decoder.back_propagation(delta_arr)
         delta_arr = delta_arr + self.__penalty_delta_arr.reshape(delta_arr.copy().shape)
-        delta_arr = self.__encoder.back_propagation(delta_arr)
+        delta_arr = self.encoder.back_propagation(delta_arr)
         return delta_arr

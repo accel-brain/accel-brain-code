@@ -32,6 +32,8 @@ class CNNModel(DiscriminativeModel):
         layerable_cnn_list,
         cnn_output_graph,
         learning_rate=1e-05,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50,
         computable_loss=None,
         opt_params=None,
         verificatable_result=None,
@@ -46,6 +48,11 @@ class CNNModel(DiscriminativeModel):
             layerable_cnn_list:             `list` of `LayerableCNN`.
             cnn_output_graph:               is-a `CNNOutputGraph`.
             learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+                                            Additionally, in relation to regularization,
+                                            this class constrains weight matrixes every `attenuate_epoch`.
+
             computable_loss:                is-a `ComputableLoss`.
                                             This parameters will be refered only when `cnn` is `None`.
 
@@ -97,7 +104,8 @@ class CNNModel(DiscriminativeModel):
                 epochs=100,
                 batch_size=batch_size,
                 learning_rate=learning_rate,
-                learning_attenuate_rate=0.1,
+                learning_attenuate_rate=learning_attenuate_rate,
+                attenuate_epoch=attenuate_epoch,
                 test_size_rate=0.3,
                 tol=1e-15,
                 tld=100.0,
@@ -110,6 +118,9 @@ class CNNModel(DiscriminativeModel):
         self.__batch_size = batch_size
         self.__computable_loss = computable_loss
         self.__learning_rate = learning_rate
+        self.__attenuate_epoch = attenuate_epoch
+        self.__learning_attenuate_rate = learning_attenuate_rate
+
         self.__q_shape = None
         self.__loss_list = []
         self.__feature_matching_layer = feature_matching_layer
@@ -144,6 +155,9 @@ class CNNModel(DiscriminativeModel):
             grad_arr = grad_arr.reshape((grad_arr.shape[0], -1))
         delta_arr = self.__cnn.back_propagation(grad_arr)
         if fix_opt_flag is False:
+            if ((self.__epoch_counter + 1) % self.__attenuate_epoch == 0):
+                self.__learning_rate = self.__learning_rate * self.__learning_attenuate_rate
+
             self.__cnn.optimize(self.__learning_rate, self.__epoch_counter)
             self.__epoch_counter += 1
         return delta_arr

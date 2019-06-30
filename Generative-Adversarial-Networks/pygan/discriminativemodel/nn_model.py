@@ -31,6 +31,8 @@ class NNModel(DiscriminativeModel):
         batch_size,
         nn_layer_list,
         learning_rate=1e-05,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50,
         computable_loss=None,
         opt_params=None,
         verificatable_result=None,
@@ -44,6 +46,11 @@ class NNModel(DiscriminativeModel):
             batch_size:                     Batch size in mini-batch.
             nn_layer_list:                  `list` of `NNLayer`.
             learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+                                            Additionally, in relation to regularization,
+                                            this class constrains weight matrixes every `attenuate_epoch`.
+
             computable_loss:                is-a `ComputableLoss`.
                                             This parameters will be refered only when `nn` is `None`.
 
@@ -100,13 +107,16 @@ class NNModel(DiscriminativeModel):
                 # Pre-learned parameters.
                 pre_learned_path_list=None,
                 # Others.
-                learning_attenuate_rate=0.1,
-                attenuate_epoch=50
+                learning_attenuate_rate=learning_attenuate_rate,
+                attenuate_epoch=attenuate_epoch
             )
 
         self.__nn = nn
         self.__batch_size = batch_size
         self.__learning_rate = learning_rate
+        self.__attenuate_epoch = attenuate_epoch
+        self.__learning_attenuate_rate = learning_attenuate_rate
+
         self.__q_shape = None
         self.__loss_list = []
         self.__feature_matching_layer = feature_matching_layer
@@ -143,6 +153,9 @@ class NNModel(DiscriminativeModel):
             grad_arr = grad_arr.reshape((grad_arr.shape[0], -1))
         delta_arr = self.__nn.back_propagation(grad_arr)
         if fix_opt_flag is False:
+            if ((self.__epoch_counter + 1) % self.__attenuate_epoch == 0):
+                self.__learning_rate = self.__learning_rate * self.__learning_attenuate_rate
+
             self.__nn.optimize(self.__learning_rate, self.__epoch_counter)
             self.__epoch_counter += 1
 

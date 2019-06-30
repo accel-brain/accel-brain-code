@@ -41,17 +41,23 @@ class DeconvolutionModel(GenerativeModel):
         computable_loss=None,
         cnn_output_graph=None,
         opt_params=None,
-        learning_rate=1e-05
+        learning_rate=1e-05,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50
     ):
         '''
         Init.
 
         Args:
-            deconvolution_layer_list:   `list` of `DeconvolutionLayer`.
-            computable_loss:            Loss function.
-            cnn_output_graph:           is-a `CNNOutputGraph`.
-            opt_params:                 is-a `OptParams`. If `None`, this value will be `Adam`.
-            learning_rate:              Learning rate.
+            deconvolution_layer_list:           `list` of `DeconvolutionLayer`.
+            computable_loss:                    Loss function.
+            cnn_output_graph:                   is-a `CNNOutputGraph`.
+            opt_params:                         is-a `OptParams`. If `None`, this value will be `Adam`.
+            learning_rate:                      Learning rate.
+            learning_attenuate_rate:            Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                    Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+                                                Additionally, in relation to regularization,
+                                                this class constrains weight matrixes every `attenuate_epoch`.
 
         '''
         for deconvolution_layer in deconvolution_layer_list:
@@ -73,7 +79,9 @@ class DeconvolutionModel(GenerativeModel):
         self.__computable_loss = computable_loss
         self.__cnn_output_graph = cnn_output_graph
         self.__learning_rate = learning_rate
-        self.__attenuate_epoch = 50
+        self.__learning_attenuate_rate = learning_attenuate_rate
+        self.__attenuate_epoch = attenuate_epoch
+
         self.__opt_params = opt_params
         self.__epoch_counter = 0
         logger = getLogger("pygan")
@@ -141,6 +149,9 @@ class DeconvolutionModel(GenerativeModel):
         Returns:
             `np.ndarray` of delta or gradients.
         '''
+        if ((self.__epoch_counter + 1) % self.__attenuate_epoch == 0):
+            self.__learning_rate = self.__learning_rate * self.__learning_attenuate_rate
+
         if self.__cnn_output_graph is not None:
             if grad_arr.ndim != 2:
                 grad_arr = grad_arr.reshape((grad_arr.shape[0], -1))

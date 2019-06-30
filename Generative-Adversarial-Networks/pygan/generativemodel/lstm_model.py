@@ -62,7 +62,9 @@ class LSTMModel(GenerativeModel):
         output_activating_function=None,
         seq_len=10,
         join_io_flag=False,
-        learning_rate=1e-05
+        learning_rate=1e-05,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50
     ):
         '''
         Init.
@@ -111,6 +113,11 @@ class LSTMModel(GenerativeModel):
                                                 in a series direction.
 
             learning_rate:                      Learning rate.
+            learning_attenuate_rate:            Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                    Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+                                                Additionally, in relation to regularization,
+                                                this class constrains weight matrixes every `attenuate_epoch`.
+
         '''
         if computable_loss is None:
             computable_loss = MeanSquaredError()
@@ -187,11 +194,11 @@ class LSTMModel(GenerativeModel):
                 # The batch size.
                 batch_size=batch_size,
                 # Learning rate.
-                learning_rate=1e-05,
+                learning_rate=learning_rate,
                 # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
-                learning_attenuate_rate=0.1,
+                learning_attenuate_rate=learning_attenuate_rate,
                 # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
-                attenuate_epoch=50,
+                attenuate_epoch=attenuate_epoch,
                 # The length of sequences.
                 seq_len=seq_len,
                 # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
@@ -214,6 +221,9 @@ class LSTMModel(GenerativeModel):
         self.__computable_loss = computable_loss
         self.__loss_list = []
         self.__epoch_counter = 0
+        self.__learning_attenuate_rate = learning_attenuate_rate
+        self.__attenuate_epoch = attenuate_epoch
+
         logger = getLogger("pygan")
         self.__logger = logger
 
@@ -259,6 +269,9 @@ class LSTMModel(GenerativeModel):
             `np.ndarray` of delta or gradients.
 
         '''
+        if ((self.__epoch_counter + 1) % self.__attenuate_epoch == 0):
+            self.__learning_rate = self.__learning_rate * self.__learning_attenuate_rate
+
         if self.__output_flag is True:
             if self.__join_io_flag is False:
                 delta_arr, grads_list = self.__lstm_model.back_propagation(self.__inferenced_arr, grad_arr)

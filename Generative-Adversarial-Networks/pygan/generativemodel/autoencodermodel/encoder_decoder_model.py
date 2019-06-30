@@ -46,6 +46,8 @@ class EncoderDecoderModel(AutoEncoderModel):
         encoder_decoder_controller,
         seq_len=10,
         learning_rate=1e-10,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50,
         join_io_flag=False
     ):
         '''
@@ -55,6 +57,11 @@ class EncoderDecoderModel(AutoEncoderModel):
             encoder_decoder_controller:         is-a `EncoderDecoderController`.
             seq_len:                            The length of sequence.
             learning_rate:                      Learning rate.
+            learning_attenuate_rate:            Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                    Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+                                                Additionally, in relation to regularization,
+                                                this class constrains weight matrixes every `attenuate_epoch`.
+
             join_io_flag:                       If this value and value of `output_activating_function` is not `None`,
                                                 This model outputs tensors combining observed data points and inferenced data
                                                 in a series direction.
@@ -66,6 +73,9 @@ class EncoderDecoderModel(AutoEncoderModel):
         self.__encoder_decoder_controller = encoder_decoder_controller
         self.__seq_len = seq_len
         self.__learning_rate = learning_rate
+        self.__learning_attenuate_rate = learning_attenuate_rate
+        self.__attenuate_epoch = attenuate_epoch
+
         self.__join_io_flag = join_io_flag
         self.__epoch_counter = 0
         logger = getLogger("pygan")
@@ -81,7 +91,8 @@ class EncoderDecoderModel(AutoEncoderModel):
         '''
         if isinstance(true_sampler, TrueSampler) is False:
             raise TypeError("The type of `true_sampler` must be `TrueSampler`.")
-        
+
+        learning_rate = self.__learning_rate
         pre_loss_list = []
         for epoch in range(epochs):
             try:
@@ -99,6 +110,7 @@ class EncoderDecoderModel(AutoEncoderModel):
                 break
 
         self.__pre_loss_arr = np.array(pre_loss_list)
+        self.__learning_rate = learning_rate
 
     def draw(self):
         '''
@@ -139,6 +151,9 @@ class EncoderDecoderModel(AutoEncoderModel):
             `np.ndarray` of delta or gradients.
 
         '''
+        if ((self.__epoch_counter + 1) % self.__attenuate_epoch == 0):
+            self.__learning_rate = self.__learning_rate * self.__learning_attenuate_rate
+
         if self.__join_io_flag is True:
             grad_arr = grad_arr[:, self.__seq_len:]
 
@@ -165,6 +180,9 @@ class EncoderDecoderModel(AutoEncoderModel):
         Returns:
             `np.ndarray` of the reconstruction errors.
         '''
+        if ((self.__epoch_counter + 1) % self.__attenuate_epoch == 0):
+            self.__learning_rate = self.__learning_rate * self.__learning_attenuate_rate
+
         observed_arr = self.noise_sampler.generate()
         inferenced_arr = self.inference(observed_arr)
 

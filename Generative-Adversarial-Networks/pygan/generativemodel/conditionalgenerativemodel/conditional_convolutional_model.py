@@ -58,6 +58,8 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
         batch_size,
         layerable_cnn_list,
         learning_rate=1e-05,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50,
         computable_loss=None,
         opt_params=None,
         verificatable_result=None,
@@ -73,6 +75,11 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
             layerable_cnn_list:             `list` of `LayerableCNN`.
             cnn_output_graph:               is-a `CNNOutputGraph`.
             learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+                                            Additionally, in relation to regularization,
+                                            this class constrains weight matrixes every `attenuate_epoch`.
+
             computable_loss:                is-a `ComputableLoss`.
                                             This parameters will be refered only when `cnn` is `None`.
 
@@ -129,7 +136,7 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
                 epochs=100,
                 batch_size=batch_size,
                 learning_rate=learning_rate,
-                learning_attenuate_rate=0.1,
+                learning_attenuate_rate=learning_attenuate_rate,
                 test_size_rate=0.3,
                 tol=1e-15,
                 tld=100.0,
@@ -142,6 +149,9 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
         self.__batch_size = batch_size
         self.__computable_loss = computable_loss
         self.__learning_rate = learning_rate
+        self.__attenuate_epoch = attenuate_epoch
+        self.__learning_attenuate_rate = learning_attenuate_rate
+
         self.__q_shape = None
         self.__loss_list = []
         self.__epoch_counter = 0
@@ -164,7 +174,6 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
             conv_arr += noise_arr
 
         deconv_arr = self.__deconvolution_model.inference(conv_arr)
-        #return np.concatenate((deconv_arr, observed_arr), axis=self.conditional_axis)
         return np.concatenate((observed_arr, deconv_arr), axis=self.conditional_axis)
 
     def inference(self, observed_arr):
@@ -189,6 +198,9 @@ class ConditionalConvolutionalModel(ConditionalGenerativeModel):
         Returns:
             `np.ndarray` of delta or gradients.
         '''
+        if ((self.__epoch_counter + 1) % self.__attenuate_epoch == 0):
+            self.__learning_rate = self.__learning_rate * self.__learning_attenuate_rate
+
         if self.conditional_axis == 1:
             channel = grad_arr.shape[1] // 2
             grad_arr = self.__deconvolution_model.learn(grad_arr[:, channel:])

@@ -37,6 +37,8 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         batch_size=10,
         channel=1,
         learning_rate=1e-10,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50,
         opt_params=None,
         feature_matching_layer=0
     ):
@@ -48,6 +50,11 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
             learning_rate:                  Learning rate.
             batch_size:                     Batch size in mini-batch.
             learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+                                            Additionally, in relation to regularization,
+                                            this class constrains weight matrixes every `attenuate_epoch`.
+
             opt_params:                     is-a `pydbm.optimization.opt_params.OptParams`.
             feature_matching_layer:         Key of layer number for feature matching forward/backward.
 
@@ -93,9 +100,9 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
                 ],
                 epochs=100,
                 batch_size=batch_size,
-                learning_rate=1e-05,
-                learning_attenuate_rate=0.1,
-                attenuate_epoch=25,
+                learning_rate=learning_rate,
+                learning_attenuate_rate=learning_attenuate_rate,
+                attenuate_epoch=attenuate_epoch,
                 computable_loss=MeanSquaredError(),
                 opt_params=opt_params,
                 verificatable_result=VerificateFunctionApproximation(),
@@ -106,6 +113,9 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
 
         self.__convolutional_auto_encoder = convolutional_auto_encoder
         self.__learning_rate = learning_rate
+        self.__attenuate_epoch = attenuate_epoch
+        self.__learning_attenuate_rate = learning_attenuate_rate
+
         self.__epoch_counter = 0
         self.__feature_matching_layer = feature_matching_layer
         logger = getLogger("pygan")
@@ -122,8 +132,13 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         if isinstance(true_sampler, TrueSampler) is False:
             raise TypeError("The type of `true_sampler` must be `TrueSampler`.")
         
+        learning_rate = self.__learning_rate
+
         pre_loss_list = []
         for epoch in range(epochs):
+            if (epoch + 1) % self.__attenuate_epoch == 0:
+                learning_rate = learning_rate * self.__learning_attenuate_rate
+
             try:
                 observed_arr = true_sampler.draw()
                 _ = self.inference(observed_arr)
@@ -133,7 +148,7 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
                     self.__delta_arr
                 )
                 self.__convolutional_auto_encoder.optimize(
-                    self.__learning_rate, 
+                    learning_rate, 
                     epoch
                 )
 
@@ -191,6 +206,9 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
             grad_arr
         )
         if fix_opt_flag is False:
+            if ((self.__epoch_counter + 1) % self.__attenuate_epoch == 0):
+                self.__learning_rate = self.__learning_rate * self.__learning_attenuate_rate
+
             self.__convolutional_auto_encoder.optimize(
                 self.__learning_rate, 
                 self.__epoch_counter

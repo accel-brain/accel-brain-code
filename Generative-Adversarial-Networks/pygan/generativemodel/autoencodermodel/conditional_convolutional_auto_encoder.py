@@ -55,8 +55,22 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
         conditional_convolutional_model,
         batch_size=20,
         learning_rate=1e-10,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50,
         opt_params=None
     ):
+        '''
+        Init.
+
+        Args:
+            conditional_convolutional_model:        is-a `ConditionalConvolutionalModel`.
+            batch_size:                             Batch size.
+            learning_rate:                          Learning rate.
+            learning_attenuate_rate:                Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                        Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+                                                    Additionally, in relation to regularization,
+                                                    this class constrains weight matrixes every `attenuate_epoch`.
+        '''
         if isinstance(conditional_convolutional_model, ConditionalConvolutionalModel) is False:
             raise TypeError("The type of `conditional_convolutional_model` must be `ConditionalConvolutionalModel`")
         
@@ -65,6 +79,8 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
         self.__batch_size = batch_size
         self.__learning_rate = learning_rate
         self.__epoch_counter = 0
+        self.__attenuate_epoch = attenuate_epoch
+        self.__learning_attenuate_rate = learning_attenuate_rate
 
         logger = getLogger("pygan")
         self.__logger = logger
@@ -82,8 +98,12 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
         if isinstance(true_sampler, TrueSampler) is False:
             raise TypeError("The type of `true_sampler` must be `TrueSampler`.")
 
+        learning_rate = self.__learning_rate
         pre_loss_list = []
         for epoch in range(epochs):
+            if (epoch + 1) % self.__attenuate_epoch == 0:
+                learning_rate = learning_rate * self.__learning_attenuate_rate
+
             try:
                 observed_arr = true_sampler.draw()
                 conv_arr = self.inference(observed_arr)
@@ -101,7 +121,7 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
 
                 grad_arr = self.__conditional_convolutional_model.deconvolution_model.learn(grad_arr)
                 grad_arr = self.__conditional_convolutional_model.cnn.back_propagation(grad_arr)
-                self.__conditional_convolutional_model.cnn.optimize(self.__learning_rate, epoch)
+                self.__conditional_convolutional_model.cnn.optimize(learning_rate, epoch)
 
             except KeyboardInterrupt:
                 self.__logger.debug("Interrupt.")
@@ -154,6 +174,9 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
         Returns:
             `np.ndarray` of the reconstruction errors.
         '''
+        if ((self.__epoch_counter + 1) % self.__attenuate_epoch == 0):
+            self.__learning_rate = self.__learning_rate * self.__learning_attenuate_rate
+
         observed_arr = self.__conditional_convolutional_model.extract_conditions()
         conv_arr = self.inference(observed_arr)
         if self.__conditional_convolutional_model.condition_noise_sampler is not None:

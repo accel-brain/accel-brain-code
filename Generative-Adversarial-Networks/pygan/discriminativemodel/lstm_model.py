@@ -58,7 +58,9 @@ class LSTMModel(DiscriminativeModel):
         output_gate_activating_function=None,
         hidden_activating_function=None,
         seq_len=10,
-        learning_rate=1e-05
+        learning_rate=1e-05,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50,
     ):
         '''
         Init.
@@ -98,6 +100,11 @@ class LSTMModel(DiscriminativeModel):
                                                 This means refereed maxinum step `t` in feedforward.
 
             learning_rate:                      Learning rate.
+            learning_attenuate_rate:            Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                    Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+                                                Additionally, in relation to regularization,
+                                                this class constrains weight matrixes every `attenuate_epoch`.
+
         '''
         if lstm_model is not None:
             if isinstance(lstm_model, LSTM) is False:
@@ -164,11 +171,11 @@ class LSTMModel(DiscriminativeModel):
                 # The batch size.
                 batch_size=batch_size,
                 # Learning rate.
-                learning_rate=1e-05,
+                learning_rate=learning_rate,
                 # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
-                learning_attenuate_rate=0.1,
+                learning_attenuate_rate=learning_attenuate_rate,
                 # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
-                attenuate_epoch=50,
+                attenuate_epoch=attenuate_epoch,
                 # The length of sequences.
                 seq_len=seq_len,
                 # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
@@ -187,6 +194,9 @@ class LSTMModel(DiscriminativeModel):
         self.__lstm_model = lstm_model
         self.__seq_len = seq_len
         self.__learning_rate = learning_rate
+        self.__attenuate_epoch = attenuate_epoch
+        self.__learning_attenuate_rate = learning_attenuate_rate
+
         self.__loss_list = []
         self.__epoch_counter = 0
         logger = getLogger("pygan")
@@ -226,6 +236,9 @@ class LSTMModel(DiscriminativeModel):
         delta_arr, grads_list = self.__lstm_model.back_propagation(self.__pred_arr, grad_arr)
 
         if fix_opt_flag is False:
+            if ((self.__epoch_counter + 1) % self.__attenuate_epoch == 0):
+                self.__learning_rate = self.__learning_rate * self.__learning_attenuate_rate
+
             self.__lstm_model.optimize(
                 grads_list,
                 self.__learning_rate,

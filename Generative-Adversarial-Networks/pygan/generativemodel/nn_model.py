@@ -32,6 +32,8 @@ class NNModel(GenerativeModel):
         batch_size,
         nn_layer_list,
         learning_rate=1e-05,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50,
         computable_loss=None,
         opt_params=None,
         verificatable_result=None,
@@ -45,6 +47,11 @@ class NNModel(GenerativeModel):
             batch_size:                     Batch size in mini-batch.
             nn_layer_list:                  `list` of `NNLayer`.
             learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+                                            Additionally, in relation to regularization,
+                                            this class constrains weight matrixes every `attenuate_epoch`.
+
             computable_loss:                is-a `ComputableLoss`.
             opt_params:                     is-a `OptParams`.
             verificatable_result:           is-a `VerificateFunctionApproximation`.
@@ -85,8 +92,8 @@ class NNModel(GenerativeModel):
                 # Pre-learned parameters.
                 pre_learned_path_list=pre_learned_path_list,
                 # Others.
-                learning_attenuate_rate=0.1,
-                attenuate_epoch=50
+                learning_attenuate_rate=learning_attenuate_rate,
+                attenuate_epoch=attenuate_epoch
             )
 
         self.__nn = nn
@@ -96,6 +103,8 @@ class NNModel(GenerativeModel):
         self.__q_shape = None
         self.__loss_list = []
         self.__epoch_counter = 0
+        self.__learning_attenuate_rate = learning_attenuate_rate
+        self.__attenuate_epoch = attenuate_epoch
 
         logger = getLogger("pygan")
         self.__logger = logger
@@ -137,7 +146,11 @@ class NNModel(GenerativeModel):
         
         Returns:
             `np.ndarray` of delta or gradients.
+        
         '''
+        if ((self.__epoch_counter + 1) % self.__attenuate_epoch == 0):
+            self.__learning_rate = self.__learning_rate * self.__learning_attenuate_rate
+
         if grad_arr.ndim != 2:
             grad_arr = grad_arr.reshape((grad_arr.shape[0], -1))
         delta_arr = self.__nn.back_propagation(grad_arr)

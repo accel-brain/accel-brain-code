@@ -25,15 +25,21 @@ class EncoderDecoderModel(AutoEncoderModel):
         self, 
         encoder_decoder_controller,
         seq_len=10,
-        learning_rate=1e-10
+        learning_rate=1e-10,
+        learning_attenuate_rate=0.1,
+        attenuate_epoch=50,
     ):
         '''
         Init.
         
         Args:
-            encoder_decoder_controller:         is-a `EncoderDecoderController`.
-            seq_len:                            The length of sequence.
-            learning_rate:                      Learning rate.
+            encoder_decoder_controller:     is-a `EncoderDecoderController`.
+            seq_len:                        The length of sequence.
+            learning_rate:                  Learning rate.
+            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+                                            Additionally, in relation to regularization,
+                                            this class constrains weight matrixes every `attenuate_epoch`.
 
         '''
         if isinstance(encoder_decoder_controller, EncoderDecoderController) is False:
@@ -42,6 +48,9 @@ class EncoderDecoderModel(AutoEncoderModel):
         self.__encoder_decoder_controller = encoder_decoder_controller
         self.__seq_len = seq_len
         self.__learning_rate = learning_rate
+        self.__attenuate_epoch = attenuate_epoch
+        self.__learning_attenuate_rate = learning_attenuate_rate
+
         self.__epoch_counter = 0
         logger = getLogger("pygan")
         self.__logger = logger
@@ -57,8 +66,13 @@ class EncoderDecoderModel(AutoEncoderModel):
         if isinstance(true_sampler, TrueSampler) is False:
             raise TypeError("The type of `true_sampler` must be `TrueSampler`.")
         
+
+        learning_rate = self.__learning_rate
+
         pre_loss_list = []
         for epoch in range(epochs):
+            if (epoch + 1) % self.__attenuate_epoch == 0:
+                learning_rate = learning_rate * self.__learning_attenuate_rate
             try:
                 observed_arr = true_sampler.draw()
                 _ = self.inference(observed_arr)
@@ -70,7 +84,7 @@ class EncoderDecoderModel(AutoEncoderModel):
                 self.__encoder_decoder_controller.optimize(
                     decoder_grads_list,
                     encoder_grads_list,
-                    self.__learning_rate, 
+                    learning_rate, 
                     epoch
                 )
 
@@ -118,6 +132,9 @@ class EncoderDecoderModel(AutoEncoderModel):
             grad_arr
         )
         if fix_opt_flag is False:
+            if ((self.__epoch_counter + 1) % self.__attenuate_epoch == 0):
+                self.__learning_rate = self.__learning_rate * self.__learning_attenuate_rate
+
             self.__encoder_decoder_controller.optimize(
                 decoder_grads_list,
                 encoder_grads_list,

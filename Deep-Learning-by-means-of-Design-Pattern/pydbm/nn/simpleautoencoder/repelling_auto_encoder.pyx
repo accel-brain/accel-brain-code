@@ -33,7 +33,7 @@ class RepellingAutoEncoder(SimpleAutoEncoder):
 
         cdef int N = feature_points_arr.shape[1]
         cdef int s = feature_points_arr.shape[0]
-        cdef np.ndarray pt_arr = np.zeros(s ** 2)
+        cdef np.ndarray[DOUBLE_t, ndim=1] pt_arr = np.zeros(s ** 2)
         k = 0
         for i in range(s):
             for j in range(s):
@@ -43,10 +43,12 @@ class RepellingAutoEncoder(SimpleAutoEncoder):
                 k += 1
 
         self.computable_loss.penalty_term = pt_arr.sum() / (N * (N - 1))
-        self.__penalty_delta_arr = np.dot(
+        
+        cdef np.ndarray[DOUBLE_t, ndim=2] penalty_delta_arr = np.dot(
             self.computable_loss.penalty_term, 
             feature_points_arr
         )
+        self.__penalty_delta_arr = penalty_delta_arr
 
         return decoded_arr
 

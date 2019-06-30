@@ -35,7 +35,7 @@ class RepellingConvolutionalAutoEncoder(ConvolutionalAutoEncoder):
         feature_points_arr = feature_points_arr.reshape((feature_points_arr.shape[0], -1))
         cdef int N = feature_points_arr.shape[1]
         cdef int s = feature_points_arr.shape[0]
-        cdef np.ndarray pt_arr = np.zeros(s ** 2)
+        cdef np.ndarray[DOUBLE_t, ndim=1] pt_arr = np.zeros(s ** 2)
         k = 0
         for i in range(s):
             for j in range(s):
@@ -45,10 +45,12 @@ class RepellingConvolutionalAutoEncoder(ConvolutionalAutoEncoder):
                 k += 1
 
         self.computable_loss.penalty_term = pt_arr.sum() / (N * (N - 1))
-        self.__penalty_delta_arr = np.dot(
+
+        cdef np.ndarray[DOUBLE_t, ndim=2] penalty_delta_arr = np.dot(
             self.computable_loss.penalty_term, 
             feature_points_arr
         )
+        self.__penalty_delta_arr = penalty_delta_arr
         return result_arr
 
     def back_propagation(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):
@@ -79,55 +81,50 @@ class RepellingConvolutionalAutoEncoder(ConvolutionalAutoEncoder):
         cdef np.ndarray[DOUBLE_t, ndim=4] _delta_weight_arr
 
         for i in range(len(self.layerable_cnn_list)):
-            try:
-                img_sample_n = delta_arr.shape[0]
-                img_channel = delta_arr.shape[1]
-                img_height = delta_arr.shape[2]
-                img_width = delta_arr.shape[3]
+            img_sample_n = delta_arr.shape[0]
+            img_channel = delta_arr.shape[1]
+            img_height = delta_arr.shape[2]
+            img_width = delta_arr.shape[3]
 
-                kernel_height = self.layerable_cnn_list[i].graph.weight_arr.shape[2]
-                kernel_width = self.layerable_cnn_list[i].graph.weight_arr.shape[3]
-                reshaped_img_arr = self.layerable_cnn_list[i].affine_to_matrix(
-                    delta_arr,
-                    kernel_height, 
-                    kernel_width, 
-                    self.layerable_cnn_list[i].graph.stride, 
-                    self.layerable_cnn_list[i].graph.pad
-                )
-                delta_bias_arr = delta_arr.sum(axis=0)
-                delta_arr = self.layerable_cnn_list[i].convolve(delta_arr, no_bias_flag=True)
-                channel = delta_arr.shape[1]
-                _delta_arr = delta_arr.reshape(-1, sample_n)
-                delta_weight_arr = np.dot(reshaped_img_arr.T, _delta_arr)
+            kernel_height = self.layerable_cnn_list[i].graph.weight_arr.shape[2]
+            kernel_width = self.layerable_cnn_list[i].graph.weight_arr.shape[3]
+            reshaped_img_arr = self.layerable_cnn_list[i].affine_to_matrix(
+                delta_arr,
+                kernel_height, 
+                kernel_width, 
+                self.layerable_cnn_list[i].graph.stride, 
+                self.layerable_cnn_list[i].graph.pad
+            )
+            delta_bias_arr = delta_arr.sum(axis=0)
+            delta_arr = self.layerable_cnn_list[i].convolve(delta_arr, no_bias_flag=True)
+            channel = delta_arr.shape[1]
+            _delta_arr = delta_arr.reshape(-1, sample_n)
+            delta_weight_arr = np.dot(reshaped_img_arr.T, _delta_arr)
 
-                delta_weight_arr = delta_weight_arr.transpose(1, 0)
-                _delta_weight_arr = delta_weight_arr.reshape(
-                    sample_n,
-                    kernel_height,
-                    kernel_width,
-                    -1
-                )
-                _delta_weight_arr = _delta_weight_arr.transpose((0, 3, 1, 2))
+            delta_weight_arr = delta_weight_arr.transpose(1, 0)
+            _delta_weight_arr = delta_weight_arr.reshape(
+                sample_n,
+                kernel_height,
+                kernel_width,
+                -1
+            )
+            _delta_weight_arr = _delta_weight_arr.transpose((0, 3, 1, 2))
 
-                if self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr is None:
-                    self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr = delta_bias_arr.reshape(1, -1)
-                else:
-                    self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr += delta_bias_arr.reshape(1, -1)
+            if self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr is None:
+                self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr = delta_bias_arr.reshape(1, -1)
+            else:
+                self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr += delta_bias_arr.reshape(1, -1)
 
-                if self.layerable_cnn_list[i].graph.deconvolved_bias_arr is None:
-                    self.layerable_cnn_list[i].graph.deconvolved_bias_arr = np.zeros((
-                        1, 
-                        img_channel * img_height * img_width
-                    ))
+            if self.layerable_cnn_list[i].graph.deconvolved_bias_arr is None:
+                self.layerable_cnn_list[i].graph.deconvolved_bias_arr = np.zeros((
+                    1, 
+                    img_channel * img_height * img_width
+                ))
 
-                if self.layerable_cnn_list[i].delta_weight_arr is None:
-                    self.layerable_cnn_list[i].delta_weight_arr = _delta_weight_arr
-                else:
-                    self.layerable_cnn_list[i].delta_weight_arr += _delta_weight_arr
-
-            except:
-                self.__logger.debug("Backward raised error in Convolution layer " + str(i + 1))
-                raise
+            if self.layerable_cnn_list[i].delta_weight_arr is None:
+                self.layerable_cnn_list[i].delta_weight_arr = _delta_weight_arr
+            else:
+                self.layerable_cnn_list[i].delta_weight_arr += _delta_weight_arr
 
         delta_arr = delta_arr + self.__penalty_delta_arr.reshape((delta_arr.copy().shape))
 
@@ -144,13 +141,7 @@ class RepellingConvolutionalAutoEncoder(ConvolutionalAutoEncoder):
 
         layerable_cnn_list = self.layerable_cnn_list[::-1]
         for i in range(len(layerable_cnn_list)):
-            try:
-                delta_arr = layerable_cnn_list[i].back_propagate(delta_arr)
-                delta_arr = layerable_cnn_list[i].graph.deactivation_function.forward(delta_arr)
-            except:
-                self.__logger.debug(
-                    "Delta computation raised an error in CNN layer " + str(len(layerable_cnn_list) - i)
-                )
-                raise
+            delta_arr = layerable_cnn_list[i].back_propagate(delta_arr)
+            delta_arr = layerable_cnn_list[i].graph.deactivation_function.forward(delta_arr)
 
         return delta_arr

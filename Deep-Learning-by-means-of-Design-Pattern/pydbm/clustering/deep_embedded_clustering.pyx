@@ -4,11 +4,14 @@ import numpy as np
 cimport numpy as np
 from abc import ABCMeta, abstractmethod, abstractproperty
 ctypedef np.float64_t DOUBLE_t
-from pydbm.loss.kl_divergence import KLDivergence
 from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids
 from pydbm.clustering.interface.auto_encodable import AutoEncodable
+from pydbm.clustering.interface.computable_clustering_loss import ComputableClusteringLoss
+from pydbm.clustering.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
+from pydbm.clustering.computableclusteringloss.k_means_loss import KMeansLoss
+from pydbm.clustering.computableclusteringloss.reconstruction_loss import ReconstructionLoss
+from pydbm.clustering.computableclusteringloss.repelling_loss import RepellingLoss
 from pydbm.optimization.optparams.sgd import SGD
-from pydbm.loss.mean_squared_error import MeanSquaredError
 
 
 class DeepEmbeddedClustering(object):
@@ -21,15 +24,12 @@ class DeepEmbeddedClustering(object):
         - Xie, J., Girshick, R., & Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).
         - Zhao, J., Mathieu, M., & LeCun, Y. (2016). Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126.
     '''
-    # KL Divergence.
-    __kl_divergence = KLDivergence()
-    # MSE
-    __mean_squared_error = MeanSquaredError()
 
     def __init__(
         self,
         auto_encodable,
         extractable_centroids,
+        computable_clustering_loss_list=[],
         int k=10,
         int epochs=100,
         int batch_size=100,
@@ -44,40 +44,32 @@ class DeepEmbeddedClustering(object):
         T=100,
         alpha=1,
         soft_assign_weight=0.25,
-        beta=0.25,
-        gamma=0.125,
-        kappa=0.125,
-        repelling_weight=1.0,
     ):
         '''
         Init.
 
         Args:
-            auto_encodable:                 is-a `AutoEncodable`.
-            extractable_centroids:          is-a `ExtractableCentroids`.
-            k:                              The number of clusters.
-            epochs:                         Epochs of Mini-batch.
-            bath_size:                      Batch size of Mini-batch.
-            learning_rate:                  Learning rate.
-            learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
-            attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
-                                            Additionally, in relation to regularization,
-                                            this class constrains weight matrixes every `attenuate_epoch`.
+            auto_encodable:                     is-a `AutoEncodable`.
+            extractable_centroids:              is-a `ExtractableCentroids`.
+            computable_clustering_loss_list:    `list` of `ComputableClusteringLoss`s.
+            k:                                  The number of clusters.
+            epochs:                             Epochs of Mini-batch.
+            bath_size:                          Batch size of Mini-batch.
+            learning_rate:                      Learning rate.
+            learning_attenuate_rate:            Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
+            attenuate_epoch:                    Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
+                                                Additionally, in relation to regularization,
+                                                this class constrains weight matrixes every `attenuate_epoch`.
 
-            opt_params:                     is-a `OptParams`. If `None`, this value will be `SGD`.
+            opt_params:                         is-a `OptParams`. If `None`, this value will be `SGD`.
 
-            test_size_rate:                 Size of Test data set. If this value is `0`, the validation will not be executed.
-            tol:                            Tolerance for the optimization.
-            tld:                            Tolerance for deviation of loss.
-            grad_clip_threshold:            Threshold of the gradient clipping.
-            T:                              Target distribution update interval.
-            alpha:                          Degrees of freedom of the Student's t-distribution.
-            beta:                           Weight of balanced assignments loss.
-            gamma:                          A coefficient that controls the degree of distorting embedded space.
-            kappa:                          Weight of K-Means loss.
-            repelling_weight:               Weight of the repelling regularizer.
-                                            Note that this class calculates this term for each cluster 
-                                            divided by soft assignments and refers to the sum as a regularizer.
+            test_size_rate:                     Size of Test data set. If this value is `0`, the validation will not be executed.
+            tol:                                Tolerance for the optimization.
+            tld:                                Tolerance for deviation of loss.
+            grad_clip_threshold:                Threshold of the gradient clipping.
+            T:                                  Target distribution update interval.
+            alpha:                              Degrees of freedom of the Student's t-distribution.
+            soft_assign_weight:                 Weight of soft assignments.
         '''
         if isinstance(auto_encodable, AutoEncodable) is False:
             raise TypeError("The type of `auto_encodable` must be `AutoEncodable`.")
@@ -85,8 +77,22 @@ class DeepEmbeddedClustering(object):
         if isinstance(extractable_centroids, ExtractableCentroids) is False:
             raise TypeError("The type `extractable_centroids` must be `ExtractableCentroids`.")
 
+        for computable_clustering_loss in computable_clustering_loss_list:
+            if isinstance(computable_clustering_loss, ComputableClusteringLoss) is False:
+                raise TypeError()
+
+        if len(computable_clustering_loss_list) == 0:
+            computable_clustering_loss_list = [
+                BalancedAssignmentsLoss(weight=0.125),
+                KMeansLoss(weight=0.125),
+                ReconstructionLoss(weight=0.125),
+                RepellingLoss(weight=0.125),
+            ]
+
         self.__auto_encodable = auto_encodable
         self.__extractable_centroids = extractable_centroids
+        self.__computable_clustering_loss_list = computable_clustering_loss_list
+
         self.__k = k
         self.__epochs = epochs
         self.__batch_size = batch_size
@@ -105,15 +111,8 @@ class DeepEmbeddedClustering(object):
         self.__grad_clip_threshold = grad_clip_threshold
 
         self.__T = T
-
         self.__alpha = alpha
-
         self.__soft_assign_weight = soft_assign_weight
-        self.__beta = beta
-        self.__gamma = gamma
-        self.__kappa = kappa
-
-        self.__repelling_weight = repelling_weight
 
         logger = getLogger("pydbm")
         self.__logger = logger
@@ -365,87 +364,59 @@ class DeepEmbeddedClustering(object):
         self.__delta_z_arr = self.__delta_z_arr * self.__soft_assign_weight
         self.__delta_mu_arr = self.__delta_mu_arr * self.__soft_assign_weight
 
-        # K-Means loss.
-        cdef np.ndarray label_arr = self.__assign_label(q_arr)
-        cdef np.ndarray t_hot_arr = np.zeros((label_arr.shape[0], self.__delta_arr.shape[1]))
-        for i in range(label_arr.shape[0]):
-            t_hot_arr[i, label_arr[i]] = 1
-        t_hot_arr = np.expand_dims(t_hot_arr, axis=2)
-        cdef np.ndarray[DOUBLE_t, ndim=3] delta_kmeans_arr = t_hot_arr.astype(np.float) * np.square(self.__delta_arr)
-        self.__delta_kmeans_z_arr = np.nanmean(delta_kmeans_arr, axis=1)
-        self.__delta_kmeans_z_arr = self.__grad_clipping(self.__delta_kmeans_z_arr)
-        kmeans_loss = np.nansum(self.__delta_kmeans_z_arr)
-        self.__delta_kmeans_z_arr = self.__delta_kmeans_z_arr * self.__kappa
+        cdef np.ndarray delta_encoder_arr = None
+        cdef np.ndarray delta_decoder_arr = None
+        cdef np.ndarray delta_centroid_arr = None
+        cdef np.ndarray _delta_encoder_arr = None
+        cdef np.ndarray _delta_decoder_arr = None
+        cdef np.ndarray _delta_centroid_arr = None
 
-        # Balanced assignments loss
-        cdef assign_arr = q_arr
-        if assign_arr.shape[2] > 1:
-            assign_arr = np.nanmean(assign_arr, axis=2)
-        assign_arr = assign_arr.reshape((assign_arr.shape[0], assign_arr.shape[1]))
+        for computable_clustering_loss in self.__computable_clustering_loss_list:
+            _delta_encoder_arr, _delta_decoder_arr, _delta_centroid_arr = computable_clustering_loss.compute_clustering_loss(
+                observed_arr=self.__observed_arr, 
+                reconstructed_arr=self.__pred_arr, 
+                feature_arr=self.__feature_arr,
+                delta_arr=self.__delta_arr, 
+                q_arr=q_arr, 
+                p_arr=p_arr, 
+            )
+            if _delta_encoder_arr is not None:
+                if delta_encoder_arr is None:
+                    delta_encoder_arr = _delta_encoder_arr
+                else:
+                    delta_encoder_arr = delta_encoder_arr + _delta_encoder_arr
 
-        cdef uniform_arr = np.random.uniform(
-            low=assign_arr.min(), 
-            high=assign_arr.max(), 
-            size=assign_arr.copy().shape
-        )
-        ba_loss = self.__kl_divergence.compute_loss(
-            assign_arr,
-            uniform_arr
-        )
-        cdef np.ndarray delta_ba_arr = self.__kl_divergence.compute_delta(
-            assign_arr,
-            uniform_arr
-        )
-        delta_ba_arr = delta_ba_arr * self.__beta
-        self.__delta_ba_arr = np.dot(self.__feature_arr.T, delta_ba_arr).T
-        self.__delta_ba_arr = self.__grad_clipping(self.__delta_ba_arr)
+            if _delta_decoder_arr is not None:
+                if delta_decoder_arr is None:
+                    delta_decoder_arr = _delta_decoder_arr
+                else:
+                    delta_decoder_arr = delta_decoder_arr + _delta_decoder_arr
 
-        # Reconstruction Loss.
-        reconstructed_loss = self.__mean_squared_error.compute_loss(self.__pred_arr, self.__observed_arr)
-        cdef np.ndarray delta_rec_arr = self.__mean_squared_error.compute_delta(self.__pred_arr, self.__observed_arr)
+            if _delta_centroid_arr is not None:
+                if delta_centroid_arr is None:
+                    delta_centroid_arr = _delta_centroid_arr
+                else:
+                    delta_centroid_arr = delta_centroid_arr + _delta_centroid_arr
 
-        self.__delta_rec_arr = self.__grad_clipping(delta_rec_arr)
-        self.__delta_rec_arr = self.__delta_rec_arr * self.__gamma
-
-        # Repelling penalty.
-        cdef int N = self.__feature_arr.reshape((self.__feature_arr.shape[0], -1)).shape[1]
-        cdef int oN = self.__observed_arr.reshape((self.__observed_arr.shape[0], -1)).shape[1]
-        cdef int s
-        cdef np.ndarray pt_arr
-        cdef np.ndarray penalty_arr = np.zeros(label_arr.shape[0])
-
-        for label in label_arr:
-            feature_arr = self.__feature_arr[label_arr == label]
-            s = feature_arr.shape[0]
-
-            pt_arr = np.zeros(s ** 2)
-            k = 0
-            for i in range(s):
-                for j in range(s):
-                    if i == j:
-                        continue
-                    pt_arr[k] = np.dot(feature_arr[i].T, feature_arr[j]) / (np.sqrt(np.dot(feature_arr[i], feature_arr[i])) * np.sqrt(np.dot(feature_arr[j], feature_arr[j])))
-                    k += 1
-
-            penalty_arr[label] = np.nansum(pt_arr) / (N * (N - 1))
-
-        penalty = penalty_arr.mean()
-
-        # The number of delta.
-        penalty = penalty / 4
-        penalty_term = penalty * self.__repelling_weight
-
-        self.__delta_mu_arr = self.__delta_mu_arr + penalty_term
-        self.__delta_z_arr = self.__delta_z_arr + penalty_term
-        self.__delta_kmeans_z_arr = self.__delta_kmeans_z_arr + penalty_term
-        self.__delta_ba_arr = self.__delta_ba_arr + penalty_term
+        if delta_encoder_arr is not None:
+            self.__delta_encoder_arr = delta_encoder_arr
+        else:
+            self.__delta_encoder_arr = np.zeros(1)
+        if delta_decoder_arr is not None:
+            self.__delta_decoder_arr = delta_decoder_arr
+        else:
+            self.__delta_decoder_arr = np.zeros(1)
+        if delta_centroid_arr is not None:
+            self.__delta_centroid_arr = delta_centroid_arr
+        else:
+            self.__delta_centroid_arr = np.zeros(1)
 
         loss = np.array([
             np.abs(self.__delta_mu_arr).mean(), 
             np.abs(self.__delta_z_arr).mean(), 
-            np.abs(self.__delta_kmeans_z_arr).mean(), 
-            np.abs(self.__delta_ba_arr).mean(), 
-            np.abs(self.__delta_rec_arr).mean(), 
+            np.abs(self.__delta_encoder_arr).mean(), 
+            np.abs(self.__delta_decoder_arr).mean(), 
+            np.abs(self.__delta_centroid_arr).mean()
         ]).mean()
 
         return loss
@@ -465,12 +436,12 @@ class DeepEmbeddedClustering(object):
             `np.ndarray` of delta.
         '''
         self.__auto_encodable.backward_auto_encoder(
-            self.__delta_rec_arr,
+            self.__grad_clipping(self.__delta_decoder_arr),
             encoder_only_flag=False
         )
         cdef np.ndarray delta_arr = self.__delta_z_arr.reshape(
             self.__default_shape
-        ) + self.__delta_kmeans_z_arr.reshape(
+        ) + self.__delta_encoder_arr.reshape(
             self.__default_shape
         )
         self.__auto_encodable.backward_auto_encoder(
@@ -489,7 +460,7 @@ class DeepEmbeddedClustering(object):
             self.__mu_arr
         ]
         grads_list = [
-            self.__grad_clipping(self.__delta_mu_arr + self.__delta_ba_arr)
+            self.__grad_clipping(self.__delta_mu_arr + self.__delta_centroid_arr)
         ]
         params_list = self.__opt_params.optimize(
             params_list,
@@ -497,6 +468,7 @@ class DeepEmbeddedClustering(object):
             learning_rate
         )
         self.__mu_arr = params_list[0]
+
         self.__auto_encodable.optimize_auto_encoder(learning_rate, epoch, encoder_only_flag=False)
 
     def get_mu_arr(self):

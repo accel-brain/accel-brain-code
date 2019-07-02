@@ -1760,7 +1760,7 @@ static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_feature_arr[] = "feature_arr";
 static const char __pyx_k_penalty_arr[] = "penalty_arr";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
-static const char __pyx_k_assign_label[] = "__assign_label";
+static const char __pyx_k_assign_label[] = "assign_label";
 static const char __pyx_k_observed_arr[] = "observed_arr";
 static const char __pyx_k_penalty_term[] = "penalty_term";
 static const char __pyx_k_RepellingLoss[] = "RepellingLoss";
@@ -1773,9 +1773,8 @@ static const char __pyx_k_RepellingLoss___init[] = "RepellingLoss.__init__";
 static const char __pyx_k_RepellingLoss__weight[] = "_RepellingLoss__weight";
 static const char __pyx_k_compute_clustering_loss[] = "compute_clustering_loss";
 static const char __pyx_k_ComputableClusteringLoss[] = "ComputableClusteringLoss";
-static const char __pyx_k_RepellingLoss__assign_label[] = "_RepellingLoss__assign_label";
+static const char __pyx_k_RepellingLoss_assign_label[] = "RepellingLoss.assign_label";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
-static const char __pyx_k_RepellingLoss___assign_label[] = "RepellingLoss.__assign_label";
 static const char __pyx_k_Repelling_Loss_Note_that_this_c[] = "\n    Repelling Loss.\n\n    Note that this class calculates this penalty term for each cluster \n    divided by soft assignments and refers to the sum as a regularizer.\n\n    References:\n        - Aljalbout, E., Golkov, V., Siddiqui, Y., Strobel, M., & Cremers, D. (2018). Clustering with deep learning: Taxonomy and new methods. arXiv preprint arXiv:1801.07648.\n        - Guo, X., Gao, L., Liu, X., & Yin, J. (2017, June). Improved Deep Embedded Clustering with Local Structure Preservation. In IJCAI (pp. 1753-1759).\n        - Xie, J., Girshick, R., & Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).\n        - Zhao, J., Mathieu, M., & LeCun, Y. (2016). Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126.\n\n    ";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
@@ -1795,10 +1794,9 @@ static PyObject *__pyx_n_s_ImportError;
 static PyObject *__pyx_n_s_N;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_RepellingLoss;
-static PyObject *__pyx_n_s_RepellingLoss___assign_label;
 static PyObject *__pyx_n_s_RepellingLoss___init;
-static PyObject *__pyx_n_s_RepellingLoss__assign_label;
 static PyObject *__pyx_n_s_RepellingLoss__weight;
+static PyObject *__pyx_n_s_RepellingLoss_assign_label;
 static PyObject *__pyx_n_s_RepellingLoss_compute_clustering;
 static PyObject *__pyx_kp_s_Repelling_Loss_Note_that_this_c;
 static PyObject *__pyx_n_s_RuntimeError;
@@ -1860,7 +1858,7 @@ static PyObject *__pyx_n_s_weight;
 static PyObject *__pyx_n_s_zeros;
 static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_weight); /* proto */
 static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_2compute_clustering_loss(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_observed_arr, CYTHON_UNUSED PyObject *__pyx_v_reconstructed_arr, PyObject *__pyx_v_feature_arr, CYTHON_UNUSED PyObject *__pyx_v_delta_arr, PyObject *__pyx_v_q_arr, CYTHON_UNUSED PyObject *__pyx_v_p_arr); /* proto */
-static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_4__assign_label(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyObject *__pyx_v_q_arr); /* proto */
+static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_4assign_label(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyObject *__pyx_v_q_arr); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_float_0_125;
@@ -2181,11 +2179,11 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repel
   /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":58
  *             - `np.ndarray` of delta for the centroids.
  *         '''
- *         cdef np.ndarray label_arr = self.__assign_label(q_arr)             # <<<<<<<<<<<<<<
+ *         cdef np.ndarray label_arr = self.assign_label(q_arr)             # <<<<<<<<<<<<<<
  *         cdef np.ndarray _feature_arr
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RepellingLoss__assign_label); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_assign_label); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -3378,8 +3376,8 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repel
  *             penalty_delta_arr[label_arr == label] = _penalty_delta_arr
  * 
  *         penalty_delta_arr = penalty_delta_arr * self.__weight             # <<<<<<<<<<<<<<
+ *         self.label_arr = label_arr
  *         return (penalty_delta_arr, None, None)
- * 
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_RepellingLoss__weight); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -3412,12 +3410,21 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repel
   /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":108
  * 
  *         penalty_delta_arr = penalty_delta_arr * self.__weight
+ *         self.label_arr = label_arr             # <<<<<<<<<<<<<<
+ *         return (penalty_delta_arr, None, None)
+ * 
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_label_arr, ((PyObject *)__pyx_v_label_arr)) < 0) __PYX_ERR(0, 108, __pyx_L1_error)
+
+  /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":109
+ *         penalty_delta_arr = penalty_delta_arr * self.__weight
+ *         self.label_arr = label_arr
  *         return (penalty_delta_arr, None, None)             # <<<<<<<<<<<<<<
  * 
- *     def __assign_label(self, q_arr):
+ *     def assign_label(self, q_arr):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_11 = PyTuple_New(3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_t_11 = PyTuple_New(3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_INCREF(((PyObject *)__pyx_v_penalty_delta_arr));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_penalty_delta_arr));
@@ -3481,23 +3488,23 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repel
   return __pyx_r;
 }
 
-/* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":110
+/* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":111
  *         return (penalty_delta_arr, None, None)
  * 
- *     def __assign_label(self, q_arr):             # <<<<<<<<<<<<<<
+ *     def assign_label(self, q_arr):             # <<<<<<<<<<<<<<
  *         if q_arr.shape[2] > 1:
  *             q_arr = np.nanmean(q_arr, axis=2)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_5__assign_label(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_5__assign_label = {"__assign_label", (PyCFunction)__pyx_pw_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_5__assign_label, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_5__assign_label(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_5assign_label(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_5assign_label = {"assign_label", (PyCFunction)__pyx_pw_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_5assign_label, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_5assign_label(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_q_arr = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__assign_label (wrapper)", 0);
+  __Pyx_RefNannySetupContext("assign_label (wrapper)", 0);
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_q_arr,0};
     PyObject* values[2] = {0,0};
@@ -3521,11 +3528,11 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24computableclusteringloss_14repel
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_q_arr)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__assign_label", 1, 2, 2, 1); __PYX_ERR(0, 110, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("assign_label", 1, 2, 2, 1); __PYX_ERR(0, 111, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__assign_label") < 0)) __PYX_ERR(0, 110, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "assign_label") < 0)) __PYX_ERR(0, 111, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3538,20 +3545,20 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24computableclusteringloss_14repel
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__assign_label", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 110, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("assign_label", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 111, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.computableclusteringloss.repelling_loss.RepellingLoss.__assign_label", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.clustering.computableclusteringloss.repelling_loss.RepellingLoss.assign_label", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_4__assign_label(__pyx_self, __pyx_v_self, __pyx_v_q_arr);
+  __pyx_r = __pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_4assign_label(__pyx_self, __pyx_v_self, __pyx_v_q_arr);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_4__assign_label(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyObject *__pyx_v_q_arr) {
+static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_4assign_label(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, PyObject *__pyx_v_q_arr) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3560,48 +3567,48 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repel
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
-  __Pyx_RefNannySetupContext("__assign_label", 0);
+  __Pyx_RefNannySetupContext("assign_label", 0);
   __Pyx_INCREF(__pyx_v_q_arr);
 
-  /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":111
+  /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":112
  * 
- *     def __assign_label(self, q_arr):
+ *     def assign_label(self, q_arr):
  *         if q_arr.shape[2] > 1:             # <<<<<<<<<<<<<<
  *             q_arr = np.nanmean(q_arr, axis=2)
  *         q_arr = q_arr.reshape((q_arr.shape[0], q_arr.shape[1]))
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_q_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_q_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, __pyx_int_1, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, __pyx_int_1, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_3) {
 
-    /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":112
- *     def __assign_label(self, q_arr):
+    /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":113
+ *     def assign_label(self, q_arr):
  *         if q_arr.shape[2] > 1:
  *             q_arr = np.nanmean(q_arr, axis=2)             # <<<<<<<<<<<<<<
  *         q_arr = q_arr.reshape((q_arr.shape[0], q_arr.shape[1]))
  *         return q_arr.argmax(axis=1)
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_v_q_arr);
     __Pyx_GIVEREF(__pyx_v_q_arr);
     PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_q_arr);
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_axis, __pyx_int_2) < 0) __PYX_ERR(0, 112, __pyx_L1_error)
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 112, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_axis, __pyx_int_2) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -3609,34 +3616,34 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repel
     __Pyx_DECREF_SET(__pyx_v_q_arr, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":111
+    /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":112
  * 
- *     def __assign_label(self, q_arr):
+ *     def assign_label(self, q_arr):
  *         if q_arr.shape[2] > 1:             # <<<<<<<<<<<<<<
  *             q_arr = np.nanmean(q_arr, axis=2)
  *         q_arr = q_arr.reshape((q_arr.shape[0], q_arr.shape[1]))
  */
   }
 
-  /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":113
+  /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":114
  *         if q_arr.shape[2] > 1:
  *             q_arr = np.nanmean(q_arr, axis=2)
  *         q_arr = q_arr.reshape((q_arr.shape[0], q_arr.shape[1]))             # <<<<<<<<<<<<<<
  *         return q_arr.argmax(axis=1)
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_q_arr, __pyx_n_s_reshape); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_q_arr, __pyx_n_s_reshape); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_q_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_q_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_q_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_q_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
@@ -3655,14 +3662,14 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repel
     }
   }
   if (!__pyx_t_6) {
-    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_5);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_1};
-      __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -3671,20 +3678,20 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repel
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_1};
-      __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else
     #endif
     {
-      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 113, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 114, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_6); __pyx_t_6 = NULL;
       __Pyx_GIVEREF(__pyx_t_1);
       PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_1);
       __pyx_t_1 = 0;
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
@@ -3693,18 +3700,18 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repel
   __Pyx_DECREF_SET(__pyx_v_q_arr, __pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":114
+  /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":115
  *             q_arr = np.nanmean(q_arr, axis=2)
  *         q_arr = q_arr.reshape((q_arr.shape[0], q_arr.shape[1]))
  *         return q_arr.argmax(axis=1)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_q_arr, __pyx_n_s_argmax); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_q_arr, __pyx_n_s_argmax); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 115, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 115, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 114, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 114, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 115, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -3712,10 +3719,10 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repel
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":110
+  /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":111
  *         return (penalty_delta_arr, None, None)
  * 
- *     def __assign_label(self, q_arr):             # <<<<<<<<<<<<<<
+ *     def assign_label(self, q_arr):             # <<<<<<<<<<<<<<
  *         if q_arr.shape[2] > 1:
  *             q_arr = np.nanmean(q_arr, axis=2)
  */
@@ -3727,7 +3734,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24computableclusteringloss_14repel
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("pydbm.clustering.computableclusteringloss.repelling_loss.RepellingLoss.__assign_label", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.clustering.computableclusteringloss.repelling_loss.RepellingLoss.assign_label", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_q_arr);
@@ -6242,10 +6249,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_N, __pyx_k_N, sizeof(__pyx_k_N), 0, 0, 1, 1},
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
   {&__pyx_n_s_RepellingLoss, __pyx_k_RepellingLoss, sizeof(__pyx_k_RepellingLoss), 0, 0, 1, 1},
-  {&__pyx_n_s_RepellingLoss___assign_label, __pyx_k_RepellingLoss___assign_label, sizeof(__pyx_k_RepellingLoss___assign_label), 0, 0, 1, 1},
   {&__pyx_n_s_RepellingLoss___init, __pyx_k_RepellingLoss___init, sizeof(__pyx_k_RepellingLoss___init), 0, 0, 1, 1},
-  {&__pyx_n_s_RepellingLoss__assign_label, __pyx_k_RepellingLoss__assign_label, sizeof(__pyx_k_RepellingLoss__assign_label), 0, 0, 1, 1},
   {&__pyx_n_s_RepellingLoss__weight, __pyx_k_RepellingLoss__weight, sizeof(__pyx_k_RepellingLoss__weight), 0, 0, 1, 1},
+  {&__pyx_n_s_RepellingLoss_assign_label, __pyx_k_RepellingLoss_assign_label, sizeof(__pyx_k_RepellingLoss_assign_label), 0, 0, 1, 1},
   {&__pyx_n_s_RepellingLoss_compute_clustering, __pyx_k_RepellingLoss_compute_clustering, sizeof(__pyx_k_RepellingLoss_compute_clustering), 0, 0, 1, 1},
   {&__pyx_kp_s_Repelling_Loss_Note_that_this_c, __pyx_k_Repelling_Loss_Note_that_this_c, sizeof(__pyx_k_Repelling_Loss_Note_that_this_c), 0, 0, 1, 0},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
@@ -6445,17 +6451,17 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__13);
   __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(7, 0, 21, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_clustering_computableclust_2, __pyx_n_s_compute_clustering_loss, 32, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 32, __pyx_L1_error)
 
-  /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":110
+  /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":111
  *         return (penalty_delta_arr, None, None)
  * 
- *     def __assign_label(self, q_arr):             # <<<<<<<<<<<<<<
+ *     def assign_label(self, q_arr):             # <<<<<<<<<<<<<<
  *         if q_arr.shape[2] > 1:
  *             q_arr = np.nanmean(q_arr, axis=2)
  */
-  __pyx_tuple__15 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_q_arr); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_tuple__15 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_q_arr); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_clustering_computableclust_2, __pyx_n_s_assign_label, 110, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_clustering_computableclust_2, __pyx_n_s_assign_label, 111, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -6806,16 +6812,16 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_compute_clustering_loss, __pyx_t_4) < 0) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":110
+  /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":111
  *         return (penalty_delta_arr, None, None)
  * 
- *     def __assign_label(self, q_arr):             # <<<<<<<<<<<<<<
+ *     def assign_label(self, q_arr):             # <<<<<<<<<<<<<<
  *         if q_arr.shape[2] > 1:
  *             q_arr = np.nanmean(q_arr, axis=2)
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_5__assign_label, 0, __pyx_n_s_RepellingLoss___assign_label, NULL, __pyx_n_s_pydbm_clustering_computableclust, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_10clustering_24computableclusteringloss_14repelling_loss_13RepellingLoss_5assign_label, 0, __pyx_n_s_RepellingLoss_assign_label, NULL, __pyx_n_s_pydbm_clustering_computableclust, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_RepellingLoss__assign_label, __pyx_t_4) < 0) __PYX_ERR(0, 110, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_assign_label, __pyx_t_4) < 0) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "pydbm/clustering/computableclusteringloss/repelling_loss.pyx":8

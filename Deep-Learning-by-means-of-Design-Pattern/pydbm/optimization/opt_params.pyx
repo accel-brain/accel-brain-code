@@ -8,8 +8,18 @@ class OptParams(metaclass=ABCMeta):
     '''
     Abstract class of optimization functions.
     
+    Note that this library underestimates effects and functions of weight decay regularizations
+    and then disregards the possibilities of various variants of weight decay such as 
+    *decoupling the weight decay from the gradient-based update* (Loshchilov, I., & Hutter, F., 2017).
+    From the perspective of architecture design, the concept of weight decays are highly variable.
+    This concept often tends to be described as obscuring the difference from *L2 regularization*.
+    From the perspective of algorithm design, it is considered that *weight constraint* or so-called 
+    *max-norm regularization* is more effective than weight decay. This regularization technic is 
+    structurally easily loosely coupled to other regularization techniques such as dropout (Srivastava, N., et al., 2014).
+
     References:
         - Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.
+        - Loshchilov, I., & Hutter, F. (2017). Fixing weight decay regularization in adam. arXiv preprint arXiv:1711.05101.
         - Pascanu, R., Mikolov, T., & Bengio, Y. (2012). Understanding the exploding gradient problem. CoRR, abs/1211.5063, 2.
         - Pascanu, R., Mikolov, T., & Bengio, Y. (2013, February). On the difficulty of training recurrent neural networks. In International conference on machine learning (pp. 1310-1318).
         - Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. (2014). Dropout: a simple way to prevent neural networks from overfitting. The Journal of Machine Learning Research, 15(1), 1929-1958.
@@ -53,6 +63,8 @@ class OptParams(metaclass=ABCMeta):
 
     def constrain_weight(self, np.ndarray weight_arr):
         '''
+        So-called max-norm regularization.
+
         Regularization for weights matrix
         to repeat multiplying the weights matrix and `0.9`
         until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.

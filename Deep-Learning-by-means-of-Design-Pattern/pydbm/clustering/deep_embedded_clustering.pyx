@@ -144,7 +144,7 @@ class DeepEmbeddedClustering(object):
             observed_arr:   `np.ndarray` of observed data points.
             target_arr:     `np.ndarray` of noised observed data points.
         '''
-        self.__auto_encodable.pre_learn(observed_arr, target_arr)
+        self.__auto_encodable.pre_learn(observed_arr, observed_arr)
         self.__setup_initial_centroids(observed_arr)
 
         cdef double learning_rate = self.__learning_rate
@@ -159,13 +159,22 @@ class DeepEmbeddedClustering(object):
         cdef np.ndarray rand_index
         cdef np.ndarray batch_observed_arr
 
+
+        cdef np.ndarray train_target_arr
+        cdef np.ndarray test_target_arr
+
         if self.__test_size_rate > 0:
             train_index = np.random.choice(observed_arr.shape[0], round(self.__test_size_rate * observed_arr.shape[0]), replace=False)
             test_index = np.array(list(set(range(observed_arr.shape[0])) - set(train_index)))
             train_observed_arr = observed_arr[train_index]
             test_observed_arr = observed_arr[test_index]
+            if target_arr is not None:
+                train_target_arr = target_arr[train_index]
+                test_target_arr = target_arr[test_index]
         else:
             train_observed_arr = observed_arr
+            if target_arr is not None:
+                train_target_arr = target_arr
 
         cdef double loss
         cdef double test_loss
@@ -186,6 +195,10 @@ class DeepEmbeddedClustering(object):
 
                 rand_index = np.random.choice(train_observed_arr.shape[0], size=self.__batch_size)
                 batch_observed_arr = train_observed_arr[rand_index]
+                if target_arr is not None:
+                    batch_target_arr = train_target_arr[rand_index]
+                else:
+                    batch_target_arr = None
 
                 try:
                     q_arr = self.inference(batch_observed_arr)
@@ -197,7 +210,8 @@ class DeepEmbeddedClustering(object):
 
                     loss = self.compute_loss(
                         q_arr,
-                        p_arr
+                        p_arr,
+                        batch_target_arr
                     )
                     self.back_propagation()
                     self.optimize(learning_rate, epoch)
@@ -218,6 +232,10 @@ class DeepEmbeddedClustering(object):
 
                     rand_index = np.random.choice(test_observed_arr.shape[0], size=self.__batch_size)
                     test_batch_observed_arr = test_observed_arr[rand_index]
+                    if target_arr is not None:
+                        test_batch_target_arr = test_target_arr[rand_index]
+                    else:
+                        test_batch_target_arr = None
 
                     test_q_arr = self.inference(
                         test_batch_observed_arr
@@ -228,7 +246,8 @@ class DeepEmbeddedClustering(object):
 
                     test_loss = self.compute_loss(
                         test_q_arr,
-                        test_p_arr
+                        test_p_arr,
+                        test_batch_target_arr
                     )
 
                 loss_list.append(loss)
@@ -336,13 +355,14 @@ class DeepEmbeddedClustering(object):
         p_arr = p_arr / np.nansum(p_arr, axis=1).reshape((p_arr.shape[0], 1, p_arr.shape[2]))
         return p_arr
     
-    def compute_loss(self, p_arr, q_arr):
+    def compute_loss(self, p_arr, q_arr, target_arr=None):
         '''
         Compute loss.
 
         Args:
             p_arr:      `np.ndarray` of result of soft assignment.
             q_arr:      `np.ndarray` of target distribution.
+            target_arr: `np.ndarray` of labeled data.
         
         Returns:
             (loss, `np.ndarray` of delta)
@@ -363,6 +383,21 @@ class DeepEmbeddedClustering(object):
         self.__delta_mu_arr = self.__grad_clipping(self.__delta_mu_arr)
         self.__delta_z_arr = self.__delta_z_arr * self.__soft_assign_weight
         self.__delta_mu_arr = self.__delta_mu_arr * self.__soft_assign_weight
+
+        cdef np.ndarray[DOUBLE_t, ndim=3] delta_pc_arr = np.zeros((
+            self.__batch_size, 
+            self.__batch_size, 
+            self.__feature_arr.shape[-1]
+        ))
+        self.__delta_pc_arr = np.zeros_like(delta_pc_arr)[:, 0, :]
+        if target_arr is not None:
+            pc_arr = self.compute_pairwise_constraint(target_arr)
+            for i in range(self.__batch_size):
+                for j in range(self.__batch_size):
+                    if i != j:
+                        delta_pc_arr[i, j] = self.__feature_arr[i] - self.__feature_arr[j]
+            delta_pc_arr = np.expand_dims(pc_arr, axis=-1) * delta_pc_arr
+            self.__delta_pc_arr = np.nanmean(delta_pc_arr, axis=1)
 
         cdef np.ndarray delta_encoder_arr = None
         cdef np.ndarray delta_decoder_arr = None
@@ -414,12 +449,22 @@ class DeepEmbeddedClustering(object):
         loss = np.array([
             np.abs(self.__delta_mu_arr).mean(), 
             np.abs(self.__delta_z_arr).mean(), 
+            np.abs(self.__delta_pc_arr).mean(),
             np.abs(self.__delta_encoder_arr).mean(), 
             np.abs(self.__delta_decoder_arr).mean(), 
             np.abs(self.__delta_centroid_arr).mean()
         ]).mean()
 
         return loss
+
+    def compute_pairwise_constraint(self, np.ndarray target_arr):
+        target_arr = target_arr.argmax(axis=1)
+        target_arr = target_arr + target_arr.max()
+        target_arr = np.expand_dims(target_arr, axis=1)
+        target_arr = target_arr / 1.0
+        cdef np.ndarray pc_arr = (np.dot(target_arr, target_arr.T) == np.square(np.dot(target_arr, np.ones_like(target_arr).T))).astype(int)
+        pc_arr[pc_arr == 0] = -1
+        return pc_arr
 
     def __grad_clipping(self, diff_arr):
         v = np.linalg.norm(diff_arr)
@@ -443,7 +488,7 @@ class DeepEmbeddedClustering(object):
             self.__default_shape
         ) + self.__delta_encoder_arr.reshape(
             self.__default_shape
-        )
+        ) + self.__delta_pc_arr
         self.__auto_encodable.backward_auto_encoder(
             self.__grad_clipping(delta_arr)
         )

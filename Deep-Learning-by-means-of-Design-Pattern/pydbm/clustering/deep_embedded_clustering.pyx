@@ -21,8 +21,10 @@ class DeepEmbeddedClustering(object):
     References:
         - Aljalbout, E., Golkov, V., Siddiqui, Y., Strobel, M., & Cremers, D. (2018). Clustering with deep learning: Taxonomy and new methods. arXiv preprint arXiv:1801.07648.
         - Guo, X., Gao, L., Liu, X., & Yin, J. (2017, June). Improved Deep Embedded Clustering with Local Structure Preservation. In IJCAI (pp. 1753-1759).
+        - Ren, Y., Hu, K., Dai, X., Pan, L., Hoi, S. C., & Xu, Z. (2019). Semi-supervised deep embedded clustering. Neurocomputing, 325, 121-130.
         - Xie, J., Girshick, R., & Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).
         - Zhao, J., Mathieu, M., & LeCun, Y. (2016). Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126.
+        - Wagstaff, K., Cardie, C., Rogers, S., & Schrödl, S. (2001, June). Constrained k-means clustering with background knowledge. In Icml (Vol. 1, pp. 577-584).
     '''
 
     def __init__(
@@ -44,6 +46,7 @@ class DeepEmbeddedClustering(object):
         T=100,
         alpha=1,
         soft_assign_weight=0.25,
+        pairwise_lambda=0.25
     ):
         '''
         Init.
@@ -70,6 +73,7 @@ class DeepEmbeddedClustering(object):
             T:                                  Target distribution update interval.
             alpha:                              Degrees of freedom of the Student's t-distribution.
             soft_assign_weight:                 Weight of soft assignments.
+            pairwise_lambda:                    Weight of pairwise constraint.
         '''
         if isinstance(auto_encodable, AutoEncodable) is False:
             raise TypeError("The type of `auto_encodable` must be `AutoEncodable`.")
@@ -77,9 +81,12 @@ class DeepEmbeddedClustering(object):
         if isinstance(extractable_centroids, ExtractableCentroids) is False:
             raise TypeError("The type `extractable_centroids` must be `ExtractableCentroids`.")
 
+        reconstruction_loss_flag = False
         for computable_clustering_loss in computable_clustering_loss_list:
             if isinstance(computable_clustering_loss, ComputableClusteringLoss) is False:
                 raise TypeError()
+            if isinstance(computable_clustering_loss, ReconstructionLoss) is True:
+                reconstruction_loss_flag = True
 
         if len(computable_clustering_loss_list) == 0:
             computable_clustering_loss_list = [
@@ -88,6 +95,13 @@ class DeepEmbeddedClustering(object):
                 ReconstructionLoss(weight=0.125),
                 RepellingLoss(weight=0.125),
             ]
+        else:
+            if reconstruction_loss_flag is False:
+                computable_clustering_loss_list.append(
+                    ReconstructionLoss(
+                        weight=0.0
+                    )
+                )
 
         self.__auto_encodable = auto_encodable
         self.__extractable_centroids = extractable_centroids
@@ -113,6 +127,7 @@ class DeepEmbeddedClustering(object):
         self.__T = T
         self.__alpha = alpha
         self.__soft_assign_weight = soft_assign_weight
+        self.__pairwise_lambda = pairwise_lambda
 
         logger = getLogger("pydbm")
         self.__logger = logger
@@ -395,9 +410,13 @@ class DeepEmbeddedClustering(object):
             for i in range(self.__batch_size):
                 for j in range(self.__batch_size):
                     if i != j:
-                        delta_pc_arr[i, j] = self.__feature_arr[i] - self.__feature_arr[j]
+                        delta_pc_arr[i, j] = np.square(self.__feature_arr[i] - self.__feature_arr[j])
+
             delta_pc_arr = np.expand_dims(pc_arr, axis=-1) * delta_pc_arr
-            self.__delta_pc_arr = np.nanmean(delta_pc_arr, axis=1)
+
+            self.__delta_pc_arr = np.nansum(delta_pc_arr, axis=1)
+            self.__delta_pc_arr = self.__grad_clipping(self.__delta_pc_arr)
+            self.__delta_pc_arr = self.__delta_pc_arr * self.__pairwise_lambda
 
         cdef np.ndarray delta_encoder_arr = None
         cdef np.ndarray delta_decoder_arr = None
@@ -435,27 +454,35 @@ class DeepEmbeddedClustering(object):
 
         if delta_encoder_arr is not None:
             self.__delta_encoder_arr = delta_encoder_arr
+            loss_encoder = np.abs(self.__delta_encoder_arr).mean()
         else:
-            self.__delta_encoder_arr = np.zeros(1)
+            self.__delta_encoder_arr = None
+            loss_encoder = 0.0
+
         if delta_decoder_arr is not None:
             self.__delta_decoder_arr = delta_decoder_arr
+            loss_decoder = np.abs(self.__delta_decoder_arr).mean()
         else:
-            self.__delta_decoder_arr = np.zeros(1)
+            self.__delta_decoder_arr = None
+            loss_decoder = 0.0
+
         if delta_centroid_arr is not None:
             self.__delta_centroid_arr = delta_centroid_arr
+            loss_centroid = np.abs(self.__delta_centroid_arr).mean()
         else:
-            self.__delta_centroid_arr = np.zeros(1)
+            self.__delta_centroid_arr = None
+            loss_centroid = 0.0
 
-        loss = np.array([
+        loss_arr = np.array([
             np.abs(self.__delta_mu_arr).mean(), 
             np.abs(self.__delta_z_arr).mean(), 
             np.abs(self.__delta_pc_arr).mean(),
-            np.abs(self.__delta_encoder_arr).mean(), 
-            np.abs(self.__delta_decoder_arr).mean(), 
-            np.abs(self.__delta_centroid_arr).mean()
-        ]).mean()
-
-        return loss
+            loss_encoder, 
+            loss_decoder,
+            loss_centroid
+        ])
+        self.__loss_arr = loss_arr
+        return loss_arr.mean()
 
     def compute_pairwise_constraint(self, np.ndarray target_arr):
         target_arr = target_arr.argmax(axis=1)
@@ -480,17 +507,24 @@ class DeepEmbeddedClustering(object):
         Returns:
             `np.ndarray` of delta.
         '''
-        self.__auto_encodable.backward_auto_encoder(
-            self.__grad_clipping(self.__delta_decoder_arr),
-            encoder_only_flag=False
-        )
+        if self.__delta_decoder_arr is not None:
+            self.__auto_encodable.backward_auto_encoder(
+                self.__delta_decoder_arr,
+                encoder_only_flag=False
+            )
         cdef np.ndarray delta_arr = self.__delta_z_arr.reshape(
             self.__default_shape
-        ) + self.__delta_encoder_arr.reshape(
-            self.__default_shape
-        ) + self.__delta_pc_arr
+        )
+        if self.__delta_encoder_arr is not None:
+            delta_arr = delta_arr + self.__delta_encoder_arr.reshape(
+                self.__default_shape
+            )
+
+        if self.__delta_pc_arr is not None:
+            delta_arr = delta_arr + self.__delta_pc_arr
+
         self.__auto_encodable.backward_auto_encoder(
-            self.__grad_clipping(delta_arr)
+            delta_arr
         )
 
     def optimize(self, learning_rate, epoch):
@@ -504,8 +538,11 @@ class DeepEmbeddedClustering(object):
         params_list = [
             self.__mu_arr
         ]
+        cdef np.ndarray delta_arr = self.__delta_mu_arr
+        if self.__delta_centroid_arr is not None:
+            delta_arr = delta_arr + self.__delta_centroid_arr
         grads_list = [
-            self.__grad_clipping(self.__delta_mu_arr + self.__delta_centroid_arr)
+            delta_arr
         ]
         params_list = self.__opt_params.optimize(
             params_list,

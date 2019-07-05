@@ -158,7 +158,6 @@ class LabelImageGenerator(FeatureGenerator):
                     _training_label_arr = np.r_[_training_label_arr, training_label_arr]
                 else:
                     _training_label_arr = training_label_arr
-
                 if _test_data_arr is not None:
                     _test_data_arr = np.r_[_test_data_arr, test_data_arr]
                 else:

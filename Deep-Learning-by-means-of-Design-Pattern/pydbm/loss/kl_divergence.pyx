@@ -39,7 +39,7 @@ class KLDivergence(ComputableLoss):
         if v > self.__grad_clip_threshold:
             diff_arr = diff_arr * self.__grad_clip_threshold / v
 
-        loss = diff_arr.mean(axis=axis) + self.penalty_term
+        loss = np.square(diff_arr).mean(axis=axis) + self.penalty_term
         self.penalty_term = 0.0
         return loss
 

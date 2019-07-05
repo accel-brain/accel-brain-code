@@ -44,6 +44,7 @@ class DeepEmbeddedClustering(object):
         T=100,
         alpha=1,
         soft_assign_weight=0.25,
+        pairwise_lambda=0.25
     ):
         '''
         Init.
@@ -70,6 +71,7 @@ class DeepEmbeddedClustering(object):
             T:                                  Target distribution update interval.
             alpha:                              Degrees of freedom of the Student's t-distribution.
             soft_assign_weight:                 Weight of soft assignments.
+            pairwise_lambda:                    Weight of pairwise constraint.
         '''
         if isinstance(auto_encodable, AutoEncodable) is False:
             raise TypeError("The type of `auto_encodable` must be `AutoEncodable`.")
@@ -113,6 +115,7 @@ class DeepEmbeddedClustering(object):
         self.__T = T
         self.__alpha = alpha
         self.__soft_assign_weight = soft_assign_weight
+        self.__pairwise_lambda = pairwise_lambda
 
         logger = getLogger("pydbm")
         self.__logger = logger
@@ -395,9 +398,12 @@ class DeepEmbeddedClustering(object):
             for i in range(self.__batch_size):
                 for j in range(self.__batch_size):
                     if i != j:
-                        delta_pc_arr[i, j] = self.__feature_arr[i] - self.__feature_arr[j]
+                        delta_pc_arr[i, j] = np.square(self.__feature_arr[i] - self.__feature_arr[j])
+
             delta_pc_arr = np.expand_dims(pc_arr, axis=-1) * delta_pc_arr
             self.__delta_pc_arr = np.nanmean(delta_pc_arr, axis=1)
+            self.__delta_pc_arr = self.__grad_clipping(self.__delta_pc_arr)
+            self.__delta_pc_arr = self.__delta_pc_arr * self.__pairwise_lambda
 
         cdef np.ndarray delta_encoder_arr = None
         cdef np.ndarray delta_decoder_arr = None

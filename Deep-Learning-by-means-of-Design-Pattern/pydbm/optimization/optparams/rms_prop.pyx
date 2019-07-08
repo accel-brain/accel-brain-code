@@ -48,6 +48,8 @@ class RMSProp(OptParams):
         if len(self.__variation_list) == 0 or len(self.__variation_list) != len(params_list):
             self.__variation_list  = [None] * len(params_list)
 
+        cdef np.ndarray square_variation_arr = None
+
         for i in range(len(params_list)):
             try:
                 if params_list[i] is None or grads_list[i] is None:
@@ -71,7 +73,22 @@ class RMSProp(OptParams):
                 if self.__variation_list[i] is not None:
                     self.__variation_list[i] = self.__variation_list[i] * self.__decay_rate
                     self.__variation_list[i] = self.__variation_list[i] + ((1 - self.__decay_rate) * np.square(np.nan_to_num(grads_list[i])))
-                    params_list[i] = params_list[i] - ((learning_rate * np.nan_to_num(grads_list[i])) / (np.sqrt(self.__variation_list[i]) + 1e-08))
+                    self.__variation_list[i] = np.nan_to_num(self.__variation_list[i])
+                    try:
+                        square_variation_arr = np.nan_to_num(np.sqrt(self.__variation_list[i]))
+                        square_variation_arr[square_variation_arr == 0] += 1e-08
+                        params_list[i] = np.nan_to_num(
+                            params_list[i] - ((learning_rate * np.nan_to_num(grads_list[i])) / square_variation_arr)
+                        )
+                    except:
+                        print("-" * 100)
+                        print(learning_rate)
+                        print("-" * 100)
+                        print(params_list[i])
+                        print("-" * 100)
+                        print(self.__variation_list[i])
+                        print("-" * 100)
+                        raise
                 else:
                     params_list[i] -= np.nan_to_num(learning_rate * grads_list[i])
                     self.__variation_list[i] = np.square(np.nan_to_num(grads_list[i]))

@@ -40,7 +40,7 @@ class CrossEntropy(ComputableLoss):
         if labeled_arr.ndim > 2:
             labeled_arr = labeled_arr.reshape((labeled_arr.shape[0], -1))
 
-        if labeled_arr.size == pred_arr.size:
+        if labeled_arr.size == pred_arr.size or labeled_arr.ndim == 2:
             _labeled_arr = labeled_arr.argmax(axis=1)
         else:
             _labeled_arr = labeled_arr
@@ -76,15 +76,13 @@ class CrossEntropy(ComputableLoss):
         if labeled_arr.ndim > 2:
             labeled_arr = labeled_arr.reshape((labeled_arr.shape[0], -1))
 
-        if labeled_arr.size == delta_arr.size:
+        if labeled_arr.size == delta_arr.size or labeled_arr.ndim == 2:
             _labeled_arr = labeled_arr.argmax(axis=1)
         else:
             _labeled_arr = labeled_arr
 
-        batch_size = delta_arr.shape[0]
-        delta_arr[np.arange(batch_size), _labeled_arr] -= 1
+        delta_arr[:, _labeled_arr] -= 1
         delta_arr *= delta_output
-        delta_arr = delta_arr / batch_size
 
         if pred_arr.ndim != delta_arr.ndim:
             delta_arr = delta_arr.reshape(*pred_arr.copy().shape)

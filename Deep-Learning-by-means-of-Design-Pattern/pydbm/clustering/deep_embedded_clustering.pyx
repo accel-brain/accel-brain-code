@@ -151,7 +151,12 @@ class DeepEmbeddedClustering(object):
         feature_arr = self.__auto_encodable.embed_feature_points(observed_arr)
         self.__mu_arr = self.__extractable_centroids.extract_centroids(feature_arr, self.__k)
 
-    def learn(self, np.ndarray observed_arr, np.ndarray target_arr=None):
+    def learn(
+        self, 
+        np.ndarray observed_arr, 
+        np.ndarray target_arr=None, 
+        supervised_target_mode=False
+    ):
         '''
         Learn.
         
@@ -173,7 +178,6 @@ class DeepEmbeddedClustering(object):
 
         cdef np.ndarray rand_index
         cdef np.ndarray batch_observed_arr
-
 
         cdef np.ndarray train_target_arr
         cdef np.ndarray test_target_arr
@@ -217,9 +221,17 @@ class DeepEmbeddedClustering(object):
 
                 try:
                     q_arr = self.inference(batch_observed_arr)
-
-                    if epoch == 0 or epoch % self.__T == 0:
-                        p_arr = self.compute_target_distribution(q_arr)
+                    if supervised_target_mode is False:
+                        if epoch == 0 or epoch % self.__T == 0:
+                            p_arr = self.compute_target_distribution(q_arr)
+                    else:
+                        if batch_target_arr is None:
+                            raise ValueError("The `target_arr` must be not `None`.")
+                        p_arr = np.repeat(
+                            np.expand_dims(batch_target_arr, axis=2), 
+                            repeats=q_arr.shape[2], 
+                            axis=2
+                        )
 
                     q_arr = q_arr.copy()
 
@@ -256,8 +268,17 @@ class DeepEmbeddedClustering(object):
                         test_batch_observed_arr
                     )
 
-                    if epoch == 0 or epoch % self.__T == 0:
-                        test_p_arr = self.compute_target_distribution(test_q_arr)
+                    if supervised_target_mode is False:
+                        if epoch == 0 or epoch % self.__T == 0:
+                            test_p_arr = self.compute_target_distribution(test_q_arr)
+                    else:
+                        if test_batch_target_arr is None:
+                            raise ValueError("The `target_arr` must be not `None`.")
+                        test_p_arr = np.repeat(
+                            np.expand_dims(test_batch_target_arr, axis=2), 
+                            repeats=test_q_arr.shape[2], 
+                            axis=2
+                        )
 
                     test_loss = self.compute_loss(
                         test_q_arr,
@@ -509,7 +530,9 @@ class DeepEmbeddedClustering(object):
         '''
         if self.__delta_decoder_arr is not None:
             self.__auto_encodable.backward_auto_encoder(
-                self.__delta_decoder_arr,
+                self.__delta_decoder_arr.reshape((
+                    self.__observed_arr.copy().shape
+                )),
                 encoder_only_flag=False
             )
         cdef np.ndarray delta_arr = self.__delta_z_arr.reshape(
@@ -521,7 +544,9 @@ class DeepEmbeddedClustering(object):
             )
 
         if self.__delta_pc_arr is not None:
-            delta_arr = delta_arr + self.__delta_pc_arr
+            delta_arr = delta_arr + self.__delta_pc_arr.reshape(
+                self.__default_shape
+            )
 
         self.__auto_encodable.backward_auto_encoder(
             delta_arr

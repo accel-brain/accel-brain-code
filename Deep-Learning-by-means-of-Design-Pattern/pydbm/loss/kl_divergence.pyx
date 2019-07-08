@@ -33,6 +33,10 @@ class KLDivergence(ComputableLoss):
         Returns:
             Cost.
         '''
+        pred_arr = (pred_arr - pred_arr.min()) / (pred_arr.max() - pred_arr.min() + 1e-08)
+        labeled_arr = (labeled_arr - labeled_arr.min()) / (labeled_arr.max() - labeled_arr.min() + 1e-08)
+
+        labeled_arr[labeled_arr == 0] += 1e-08
         cdef np.ndarray diff_arr = pred_arr * np.ma.log((pred_arr / labeled_arr))
 
         v = np.linalg.norm(diff_arr)
@@ -55,6 +59,7 @@ class KLDivergence(ComputableLoss):
         Returns:
             Delta.
         '''
+        labeled_arr[labeled_arr == 0] += 1e-08
         cdef np.ndarray delta_arr = pred_arr * np.ma.log(pred_arr / labeled_arr)
         delta_arr = delta_arr * delta_output
         v = np.linalg.norm(delta_arr)

@@ -48,7 +48,8 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         tol=1e-15,
         tld=100.0,
         save_flag=False,
-        pre_learned_path_list=None
+        pre_learned_path_list=None,
+        output_no_bias_flag=True
     ):
         '''
         Init.
@@ -74,7 +75,7 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
             tld:                            Tolerance for deviation of loss.
             save_flag:                      If `True`, save `np.ndarray` of inferenced test data in training.
             pre_learned_path_list:          `list` of file path that stores pre-learned parameters.
-
+            output_no_bias_flag:            Output with no bias or not.
         '''
         super().__init__(
             layerable_cnn_list=layerable_cnn_list,
@@ -108,6 +109,8 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
         self.__memory_tuple_list = []
         
         self.__save_flag = save_flag
+
+        self.__output_no_bias_flag = output_no_bias_flag
 
         logger = getLogger("pydbm")
         self.__logger = logger
@@ -158,14 +161,14 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
             try:
                 img_arr = layerable_cnn_list[i].graph.activation_function.backward(img_arr)
                 img_arr = layerable_cnn_list[i].deconvolve(img_arr)
-                img_arr = layerable_cnn_list[i].graph.deactivation_function.activate(img_arr)
-                if layerable_cnn_list[i].graph.deconvolved_bias_arr is not None:
+                if layerable_cnn_list[i].graph.deconvolved_bias_arr is not None and self.__output_no_bias_flag is False:
                     img_arr += layerable_cnn_list[i].graph.deconvolved_bias_arr.reshape((
                         1,
                         img_arr.shape[1],
                         img_arr.shape[2],
                         img_arr.shape[3]
                     ))
+                img_arr = layerable_cnn_list[i].graph.deactivation_function.activate(img_arr)
             except:
                 self.__logger.debug("Error raised in Deconvolution layer " + str(i + 1))
                 raise
@@ -215,7 +218,9 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
                     self.layerable_cnn_list[i].graph.stride, 
                     self.layerable_cnn_list[i].graph.pad
                 )
-                delta_bias_arr = delta_arr.sum(axis=0)
+                if self.__output_no_bias_flag is False:
+                    delta_bias_arr = delta_arr.sum(axis=0)
+
                 delta_arr = self.layerable_cnn_list[i].convolve(delta_arr, no_bias_flag=True)
                 channel = delta_arr.shape[1]
                 _delta_arr = delta_arr.reshape(-1, sample_n)
@@ -230,16 +235,17 @@ class ConvolutionalAutoEncoder(ConvolutionalNeuralNetwork):
                 )
                 _delta_weight_arr = _delta_weight_arr.transpose((0, 3, 1, 2))
 
-                if self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr is None:
-                    self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr = delta_bias_arr.reshape(1, -1)
-                else:
-                    self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr += delta_bias_arr.reshape(1, -1)
+                if self.__output_no_bias_flag is False:
+                    if self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr is None:
+                        self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr = delta_bias_arr.reshape(1, -1)
+                    else:
+                        self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr += delta_bias_arr.reshape(1, -1)
 
-                if self.layerable_cnn_list[i].graph.deconvolved_bias_arr is None:
-                    self.layerable_cnn_list[i].graph.deconvolved_bias_arr = np.zeros((
-                        1, 
-                        img_channel * img_height * img_width
-                    ))
+                    if self.layerable_cnn_list[i].graph.deconvolved_bias_arr is None:
+                        self.layerable_cnn_list[i].graph.deconvolved_bias_arr = np.zeros((
+                            1, 
+                            img_channel * img_height * img_width
+                        ))
 
                 if self.layerable_cnn_list[i].delta_weight_arr is None:
                     self.layerable_cnn_list[i].delta_weight_arr = _delta_weight_arr

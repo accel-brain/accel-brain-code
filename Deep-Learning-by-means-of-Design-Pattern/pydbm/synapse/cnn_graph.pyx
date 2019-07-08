@@ -158,3 +158,15 @@ class CNNGraph(Synapse):
         return self.__pad
 
     pad = property(get_pad, set_readonly)
+
+    __constant_flag = False
+
+    def get_constant_flag(self):
+        ''' getter '''
+        return self.__constant_flag
+    
+    def set_constant_flag(self, value):
+        ''' setter '''
+        self.__constant_flag = value
+
+    constant_flag = property(get_constant_flag, set_constant_flag)

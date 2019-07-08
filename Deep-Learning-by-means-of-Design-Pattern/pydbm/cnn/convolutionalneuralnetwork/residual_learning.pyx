@@ -150,9 +150,11 @@ class ResidualLearning(ConvolutionalNeuralNetwork):
             except:
                 self.__logger.debug("Error raised in CNN layer " + str(i + 1))
                 raise
-            self.weight_decay_term += self.opt_params.compute_weight_decay(
-                self.layerable_cnn_list[i].graph.weight_arr
-            )
+
+            if self.layerable_cnn_list[i].graph.constant_flag is False:
+                self.weight_decay_term += self.opt_params.compute_weight_decay(
+                    self.layerable_cnn_list[i].graph.weight_arr
+                )
 
         if self.__learn_mode is True:
             img_arr = img_arr + _img_arr

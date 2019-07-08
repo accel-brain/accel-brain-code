@@ -414,7 +414,7 @@ class DeepEmbeddedClustering(object):
         )
 
         self.__delta_z_arr = delta_z_arr
-        self.__delta_mu_arr = np.dot(self.__feature_arr.T, delta_mu_arr).T
+        self.__delta_mu_arr = np.dot(self.__feature_arr.T, delta_mu_arr).T / self.__batch_size
         self.__delta_z_arr = self.__grad_clipping(self.__delta_z_arr)
         self.__delta_mu_arr = self.__grad_clipping(self.__delta_mu_arr)
         self.__delta_z_arr = self.__delta_z_arr * self.__soft_assign_weight
@@ -435,7 +435,8 @@ class DeepEmbeddedClustering(object):
 
             delta_pc_arr = np.expand_dims(pc_arr, axis=-1) * delta_pc_arr
 
-            self.__delta_pc_arr = np.nansum(delta_pc_arr, axis=1)
+            n = delta_pc_arr.reshape((delta_pc_arr.shape[0], -1)).copy().shape[1]
+            self.__delta_pc_arr = np.nansum(delta_pc_arr, axis=1) / n
             self.__delta_pc_arr = self.__grad_clipping(self.__delta_pc_arr)
             self.__delta_pc_arr = self.__delta_pc_arr * self.__pairwise_lambda
 

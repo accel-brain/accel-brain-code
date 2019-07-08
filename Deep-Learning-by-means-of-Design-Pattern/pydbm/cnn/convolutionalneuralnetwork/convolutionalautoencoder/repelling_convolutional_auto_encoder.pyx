@@ -86,45 +86,48 @@ class RepellingConvolutionalAutoEncoder(ConvolutionalAutoEncoder):
             img_height = delta_arr.shape[2]
             img_width = delta_arr.shape[3]
 
-            kernel_height = self.layerable_cnn_list[i].graph.weight_arr.shape[2]
-            kernel_width = self.layerable_cnn_list[i].graph.weight_arr.shape[3]
-            reshaped_img_arr = self.layerable_cnn_list[i].affine_to_matrix(
-                delta_arr,
-                kernel_height, 
-                kernel_width, 
-                self.layerable_cnn_list[i].graph.stride, 
-                self.layerable_cnn_list[i].graph.pad
-            )
-            delta_bias_arr = delta_arr.sum(axis=0)
+            if self.layerable_cnn_list[i].graph.constant_flag is False:
+                kernel_height = self.layerable_cnn_list[i].graph.weight_arr.shape[2]
+                kernel_width = self.layerable_cnn_list[i].graph.weight_arr.shape[3]
+                reshaped_img_arr = self.layerable_cnn_list[i].affine_to_matrix(
+                    delta_arr,
+                    kernel_height, 
+                    kernel_width, 
+                    self.layerable_cnn_list[i].graph.stride, 
+                    self.layerable_cnn_list[i].graph.pad
+                )
+                delta_bias_arr = delta_arr.sum(axis=0)
             delta_arr = self.layerable_cnn_list[i].convolve(delta_arr, no_bias_flag=True)
             channel = delta_arr.shape[1]
-            _delta_arr = delta_arr.reshape(-1, sample_n)
-            delta_weight_arr = np.dot(reshaped_img_arr.T, _delta_arr)
 
-            delta_weight_arr = delta_weight_arr.transpose(1, 0)
-            _delta_weight_arr = delta_weight_arr.reshape(
-                sample_n,
-                kernel_height,
-                kernel_width,
-                -1
-            )
-            _delta_weight_arr = _delta_weight_arr.transpose((0, 3, 1, 2))
+            if self.layerable_cnn_list[i].graph.constant_flag is False:
+                _delta_arr = delta_arr.reshape(-1, sample_n)
+                delta_weight_arr = np.dot(reshaped_img_arr.T, _delta_arr)
 
-            if self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr is None:
-                self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr = delta_bias_arr.reshape(1, -1)
-            else:
-                self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr += delta_bias_arr.reshape(1, -1)
+                delta_weight_arr = delta_weight_arr.transpose(1, 0)
+                _delta_weight_arr = delta_weight_arr.reshape(
+                    sample_n,
+                    kernel_height,
+                    kernel_width,
+                    -1
+                )
+                _delta_weight_arr = _delta_weight_arr.transpose((0, 3, 1, 2))
 
-            if self.layerable_cnn_list[i].graph.deconvolved_bias_arr is None:
-                self.layerable_cnn_list[i].graph.deconvolved_bias_arr = np.zeros((
-                    1, 
-                    img_channel * img_height * img_width
-                ))
+                if self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr is None:
+                    self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr = delta_bias_arr.reshape(1, -1)
+                else:
+                    self.layerable_cnn_list[i].graph.delta_deconvolved_bias_arr += delta_bias_arr.reshape(1, -1)
 
-            if self.layerable_cnn_list[i].delta_weight_arr is None:
-                self.layerable_cnn_list[i].delta_weight_arr = _delta_weight_arr
-            else:
-                self.layerable_cnn_list[i].delta_weight_arr += _delta_weight_arr
+                if self.layerable_cnn_list[i].graph.deconvolved_bias_arr is None:
+                    self.layerable_cnn_list[i].graph.deconvolved_bias_arr = np.zeros((
+                        1, 
+                        img_channel * img_height * img_width
+                    ))
+
+                if self.layerable_cnn_list[i].delta_weight_arr is None:
+                    self.layerable_cnn_list[i].delta_weight_arr = _delta_weight_arr
+                else:
+                    self.layerable_cnn_list[i].delta_weight_arr += _delta_weight_arr
 
         delta_arr = delta_arr + self.__penalty_delta_arr.reshape((delta_arr.copy().shape))
 

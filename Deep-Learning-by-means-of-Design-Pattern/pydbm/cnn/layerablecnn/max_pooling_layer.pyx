@@ -44,6 +44,21 @@ class MaxPoolingLayer(LayerableCNN):
         self.__stride = graph.stride
         self.__pad = graph.pad
 
+        self.__graph.constant_flag = True
+
+    def convolve(self, np.ndarray[DOUBLE_t, ndim=4] img_arr, no_bias_flag=False):
+        '''
+        Convolution.
+        
+        Args:
+            img_arr:        4-rank array like or sparse matrix.
+            no_bias_flag:   Use bias or not.
+        
+        Returns:
+            4-rank array like or sparse matrix.
+        '''
+        return self.forward_propagate(img_arr)
+
     def forward_propagate(self, np.ndarray[DOUBLE_t, ndim=4] img_arr):
         '''
         Forward propagation in CNN layers.
@@ -84,8 +99,28 @@ class MaxPoolingLayer(LayerableCNN):
 
         self.__img_arr = img_arr
         self.__max_index_arr = max_index_arr
+        self.__channel = img_channel
 
         return _result_arr
+
+    def deconvolve(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):
+        '''
+        Deconvolution also called transposed convolutions
+        "work by swapping the forward and backward passes of a convolution." (Dumoulin, V., & Visin, F. 2016, p20.)
+
+        Args:
+            delta_arr:    4-rank array like or sparse matrix.
+
+        Returns:
+            Tuple data.
+            - 4-rank array like or sparse matrix.,
+            - 2-rank array like or sparse matrix.
+
+        References:
+            - Dumoulin, V., & V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
+
+        '''
+        return self.back_propagate(delta_arr)
 
     def back_propagate(self, np.ndarray[DOUBLE_t, ndim=4] delta_arr):
         '''
@@ -121,7 +156,7 @@ class MaxPoolingLayer(LayerableCNN):
         )
 
         cdef int img_sample_n = delta_arr.shape[0]
-        cdef int channel = self.graph.weight_arr.shape[1]
+        cdef int channel = self.__channel
         cdef int img_height = delta_arr.shape[2]
         cdef int img_width = delta_arr.shape[3]
 
@@ -148,6 +183,10 @@ class MaxPoolingLayer(LayerableCNN):
         return self.__graph
 
     graph = property(get_graph, set_readonly)
+
+
+    __delta_weight_arr = None
+    __delta_bias_arr = None
 
     def get_delta_weight_arr(self):
         ''' getter '''

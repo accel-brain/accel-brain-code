@@ -485,8 +485,9 @@ class ConvolutionalNeuralNetwork(object):
         '''
         if len(best_weight_params_list) and len(best_bias_params_list):
             for i in range(len(self.__layerable_cnn_list)):
-                self.__layerable_cnn_list[i].graph.weight_arr = best_weight_params_list[i]
-                self.__layerable_cnn_list[i].graph.bias_arr = best_bias_params_list[i]
+                if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                    self.__layerable_cnn_list[i].graph.weight_arr = best_weight_params_list[i]
+                    self.__layerable_cnn_list[i].graph.bias_arr = best_bias_params_list[i]
             self.__logger.debug("Best params are saved.")
 
     def inference(self, np.ndarray[DOUBLE_t, ndim=4] observed_arr):
@@ -524,9 +525,10 @@ class ConvolutionalNeuralNetwork(object):
             except:
                 self.__logger.debug("Error raised in CNN layer " + str(i + 1))
                 raise
-            self.__weight_decay_term += self.__opt_params.compute_weight_decay(
-                self.__layerable_cnn_list[i].graph.weight_arr
-            )
+            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                self.__weight_decay_term += self.__opt_params.compute_weight_decay(
+                    self.__layerable_cnn_list[i].graph.weight_arr
+                )
 
         if self.__opt_params.dropout_rate > 0:
             hidden_activity_arr = img_arr.reshape((img_arr.shape[0], -1))
@@ -671,32 +673,35 @@ class ConvolutionalNeuralNetwork(object):
             grads_list.append(self.__cnn_output_graph.output_grads_list[1])
 
         for i in range(len(self.__layerable_cnn_list)):
-            if self.__layerable_cnn_list[i].delta_weight_arr.shape[0] > 0:
-                self.__layerable_cnn_list[i].delta_weight_arr += self.__opt_params.compute_weight_decay_delta(
-                    self.__layerable_cnn_list[i].graph.weight_arr
-                )
-                params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
-                grads_list.append(self.__layerable_cnn_list[i].delta_weight_arr)
+            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                if self.__layerable_cnn_list[i].delta_weight_arr.shape[0] > 0:
+                    self.__layerable_cnn_list[i].delta_weight_arr += self.__opt_params.compute_weight_decay_delta(
+                        self.__layerable_cnn_list[i].graph.weight_arr
+                    )
+                    params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
+                    grads_list.append(self.__layerable_cnn_list[i].delta_weight_arr)
 
         for i in range(len(self.__layerable_cnn_list)):
-            if self.__layerable_cnn_list[i].delta_bias_arr.shape[0] > 0:
-                params_list.append(self.__layerable_cnn_list[i].graph.bias_arr)
-                grads_list.append(self.__layerable_cnn_list[i].delta_bias_arr)
+            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                if self.__layerable_cnn_list[i].delta_bias_arr.shape[0] > 0:
+                    params_list.append(self.__layerable_cnn_list[i].graph.bias_arr)
+                    grads_list.append(self.__layerable_cnn_list[i].delta_bias_arr)
 
         for i in range(len(self.__layerable_cnn_list)):
-            if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:
-                params_list.append(
-                    self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr
-                )
-                grads_list.append(
-                    self.__layerable_cnn_list[i].graph.activation_function.batch_norm.delta_beta_arr
-                )
-                params_list.append(
-                    self.__layerable_cnn_list[i].graph.activation_function.batch_norm.gamma_arr
-                )
-                grads_list.append(
-                    self.__layerable_cnn_list[i].graph.activation_function.batch_norm.delta_gamma_arr
-                )
+            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:
+                    params_list.append(
+                        self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr
+                    )
+                    grads_list.append(
+                        self.__layerable_cnn_list[i].graph.activation_function.batch_norm.delta_beta_arr
+                    )
+                    params_list.append(
+                        self.__layerable_cnn_list[i].graph.activation_function.batch_norm.gamma_arr
+                    )
+                    grads_list.append(
+                        self.__layerable_cnn_list[i].graph.activation_function.batch_norm.delta_gamma_arr
+                    )
 
         params_list = self.__opt_params.optimize(
             params_list,
@@ -710,26 +715,30 @@ class ConvolutionalNeuralNetwork(object):
 
         i = 0
         for i in range(len(self.__layerable_cnn_list)):
-            if self.__layerable_cnn_list[i].delta_weight_arr.shape[0] > 0:
-                self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)
-                if ((epoch + 1) % self.__attenuate_epoch == 0):
-                    self.__layerable_cnn_list[i].graph.weight_arr = self.__opt_params.constrain_weight(
-                        self.__layerable_cnn_list[i].graph.weight_arr
-                    )
+            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                if self.__layerable_cnn_list[i].delta_weight_arr.shape[0] > 0:
+                    self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)
+                    if ((epoch + 1) % self.__attenuate_epoch == 0):
+                        self.__layerable_cnn_list[i].graph.weight_arr = self.__opt_params.constrain_weight(
+                            self.__layerable_cnn_list[i].graph.weight_arr
+                        )
 
         for i in range(len(self.__layerable_cnn_list)):
-            if self.__layerable_cnn_list[i].delta_bias_arr.shape[0] > 0:
-                self.__layerable_cnn_list[i].graph.bias_arr = params_list.pop(0)
-
-        for i in range(len(self.__layerable_cnn_list)):
-            if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:
-                self.__layerable_cnn_list[i].graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
-                self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
-
-        for i in range(len(self.__layerable_cnn_list)):
-            if self.__layerable_cnn_list[i].delta_weight_arr.shape[0] > 0:
+            if self.__layerable_cnn_list[i].graph.constant_flag is False:
                 if self.__layerable_cnn_list[i].delta_bias_arr.shape[0] > 0:
-                    self.__layerable_cnn_list[i].reset_delta()
+                    self.__layerable_cnn_list[i].graph.bias_arr = params_list.pop(0)
+
+        for i in range(len(self.__layerable_cnn_list)):
+            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:
+                    self.__layerable_cnn_list[i].graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+                    self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+
+        for i in range(len(self.__layerable_cnn_list)):
+            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                if self.__layerable_cnn_list[i].delta_weight_arr.shape[0] > 0:
+                    if self.__layerable_cnn_list[i].delta_bias_arr.shape[0] > 0:
+                        self.__layerable_cnn_list[i].reset_delta()
 
     def save_pre_learned_params(self, dir_path=None, file_name=None):
         '''
@@ -752,7 +761,8 @@ class ConvolutionalNeuralNetwork(object):
             self.__cnn_output_graph.save_pre_learned_params(file_path + "_output_layer.npz")
 
         for i in range(len(self.layerable_cnn_list)):
-            self.layerable_cnn_list[i].graph.save_pre_learned_params(file_path + str(i) + ".npz")
+            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                self.layerable_cnn_list[i].graph.save_pre_learned_params(file_path + str(i) + ".npz")
 
     def get_layerable_cnn_list(self):
         ''' getter '''

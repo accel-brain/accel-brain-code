@@ -270,8 +270,9 @@ class SpatioTemporalAutoEncoder(object):
                         best_bias_params_list = []
 
                         for i in range(len(self.__layerable_cnn_list)):
-                            best_weight_params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
-                            best_bias_params_list.append(self.__layerable_cnn_list[i].graph.bias_arr)
+                            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                                best_weight_params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
+                                best_bias_params_list.append(self.__layerable_cnn_list[i].graph.bias_arr)
                         self.__logger.debug("Convolutional Auto-Encoder's best params are updated.")
 
                 except FloatingPointError:
@@ -445,8 +446,9 @@ class SpatioTemporalAutoEncoder(object):
                         best_bias_params_list = []
 
                         for i in range(len(self.__layerable_cnn_list)):
-                            best_weight_params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
-                            best_bias_params_list.append(self.__layerable_cnn_list[i].graph.bias_arr)
+                            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                                best_weight_params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
+                                best_bias_params_list.append(self.__layerable_cnn_list[i].graph.bias_arr)
                         self.__logger.debug("Convolutional Auto-Encoder's best params are updated.")
 
                 except FloatingPointError:
@@ -533,8 +535,9 @@ class SpatioTemporalAutoEncoder(object):
         '''
         if len(best_weight_params_list) and len(best_bias_params_list):
             for i in range(len(self.__layerable_cnn_list)):
-                self.__layerable_cnn_list[i].graph.weight_arr = best_weight_params_list[i]
-                self.__layerable_cnn_list[i].graph.bias_arr = best_bias_params_list[i]
+                if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                    self.__layerable_cnn_list[i].graph.weight_arr = best_weight_params_list[i]
+                    self.__layerable_cnn_list[i].graph.bias_arr = best_bias_params_list[i]
             self.__logger.debug("Convolutional Auto-Encoder's best params are saved.")
         else:
             self.__logger.debug("Convolutional Auto-Encoder's best params are not saved.")
@@ -684,9 +687,11 @@ class SpatioTemporalAutoEncoder(object):
                 except:
                     self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
                     raise
-                self.__weight_decay_term += self.__opt_params.compute_weight_decay(
-                    self.__layerable_cnn_list[i].graph.weight_arr
-                )
+
+                if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                    self.__weight_decay_term += self.__opt_params.compute_weight_decay(
+                        self.__layerable_cnn_list[i].graph.weight_arr
+                    )
 
             if conv_arr is None:
                 conv_arr = np.expand_dims(conv_output_arr, axis=0)
@@ -892,30 +897,33 @@ class SpatioTemporalAutoEncoder(object):
         params_list = []
         grads_list = []
         for i in range(len(self.__layerable_cnn_list)):
-            self.__layerable_cnn_list[i].delta_weight_arr += self.__opt_params.compute_weight_decay_delta(
-                self.__layerable_cnn_list[i].graph.weight_arr
-            )
-            params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
-            grads_list.append(self.__layerable_cnn_list[i].delta_weight_arr)
+            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                self.__layerable_cnn_list[i].delta_weight_arr += self.__opt_params.compute_weight_decay_delta(
+                    self.__layerable_cnn_list[i].graph.weight_arr
+                )
+                params_list.append(self.__layerable_cnn_list[i].graph.weight_arr)
+                grads_list.append(self.__layerable_cnn_list[i].delta_weight_arr)
 
         for i in range(len(self.__layerable_cnn_list)):
-            params_list.append(self.__layerable_cnn_list[i].graph.bias_arr)
-            grads_list.append(self.__layerable_cnn_list[i].delta_bias_arr)
+            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                params_list.append(self.__layerable_cnn_list[i].graph.bias_arr)
+                grads_list.append(self.__layerable_cnn_list[i].delta_bias_arr)
 
         for i in range(len(self.__layerable_cnn_list)):
-            if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:
-                params_list.append(
-                    self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr
-                )
-                grads_list.append(
-                    self.__layerable_cnn_list[i].graph.activation_function.batch_norm.delta_beta_arr
-                )
-                params_list.append(
-                    self.__layerable_cnn_list[i].graph.activation_function.batch_norm.gamma_arr
-                )
-                grads_list.append(
-                    self.__layerable_cnn_list[i].graph.activation_function.batch_norm.delta_gamma_arr
-                )
+            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:
+                    params_list.append(
+                        self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr
+                    )
+                    grads_list.append(
+                        self.__layerable_cnn_list[i].graph.activation_function.batch_norm.delta_beta_arr
+                    )
+                    params_list.append(
+                        self.__layerable_cnn_list[i].graph.activation_function.batch_norm.gamma_arr
+                    )
+                    grads_list.append(
+                        self.__layerable_cnn_list[i].graph.activation_function.batch_norm.delta_gamma_arr
+                    )
 
         params_list = self.__opt_params.optimize(
             params_list,
@@ -926,19 +934,22 @@ class SpatioTemporalAutoEncoder(object):
         params_dict = {}
         i = 0
         for i in range(len(self.__layerable_cnn_list)):
-            self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)
-            if ((epoch + 1) % self.__attenuate_epoch == 0):
-                self.__layerable_cnn_list[i].graph.weight_arr = self.__opt_params.constrain_weight(
-                    self.__layerable_cnn_list[i].graph.weight_arr
-                )
+            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                self.__layerable_cnn_list[i].graph.weight_arr = params_list.pop(0)
+                if ((epoch + 1) % self.__attenuate_epoch == 0):
+                    self.__layerable_cnn_list[i].graph.weight_arr = self.__opt_params.constrain_weight(
+                        self.__layerable_cnn_list[i].graph.weight_arr
+                    )
 
         for i in range(len(self.__layerable_cnn_list)):
-            self.__layerable_cnn_list[i].graph.bias_arr = params_list.pop(0)
+            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                self.__layerable_cnn_list[i].graph.bias_arr = params_list.pop(0)
 
         for i in range(len(self.__layerable_cnn_list)):
-            if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:
-                self.__layerable_cnn_list[i].graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
-                self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
+            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                if self.__layerable_cnn_list[i].graph.activation_function.batch_norm is not None:
+                    self.__layerable_cnn_list[i].graph.activation_function.batch_norm.gamma_arr = params_list.pop(0)
+                    self.__layerable_cnn_list[i].graph.activation_function.batch_norm.beta_arr = params_list.pop(0)
 
         for i in range(len(self.__layerable_cnn_list)):
             self.__layerable_cnn_list[i].reset_delta()
@@ -1024,7 +1035,8 @@ class SpatioTemporalAutoEncoder(object):
             dir_path = dir_path + "/"
 
         for i in range(len(self.layerable_cnn_list)):
-            self.layerable_cnn_list[i].graph.load_pre_learned_params(dir_path + "spatio_cnn_" + str(i) + ".npz")
+            if self.__layerable_cnn_list[i].graph.constant_flag is False:
+                self.layerable_cnn_list[i].graph.load_pre_learned_params(dir_path + "spatio_cnn_" + str(i) + ".npz")
         self.__encoder.load_pre_learned_params(dir_path, "temporal_encoder")
         self.__decoder.load_pre_learned_params(dir_path, "temporal_decoder")
 

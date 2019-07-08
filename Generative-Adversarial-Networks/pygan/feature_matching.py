@@ -3,6 +3,7 @@ import numpy as np
 from pygan.true_sampler import TrueSampler
 from pygan.discriminative_model import DiscriminativeModel
 from pydbm.loss.mean_squared_error import MeanSquaredError
+from pydbm.loss.interface.computable_loss import ComputableLoss
 
 
 class FeatureMatching(object):
@@ -21,20 +22,27 @@ class FeatureMatching(object):
         - Yang, L. C., Chou, S. Y., & Yang, Y. H. (2017). MidiNet: A convolutional generative adversarial network for symbolic-domain music generation. arXiv preprint arXiv:1703.10847.
     '''
 
-    def __init__(self, lambda1=1.0, lambda2=0.0):
+    def __init__(self, lambda1=1.0, lambda2=0.0, computable_loss=None):
         '''
         Init.
 
         Args:
-            lambda1:        Weight for results of standard feature matching.
-            lambda2:        Weight for results of difference between generated data points and true samples.
+            lambda1:            Weight for results of standard feature matching.
+            lambda2:            Weight for results of difference between generated data points and true samples.
+            computable_loss:    is-a `pydbm.loss.interface.computable_loss.ComputableLoss`.
+                                If `None`, the default value is a `MeanSquaredError`.
 
         Exceptions:
             ValueError:     When the sum of `lambda1` and `lambda2` is not less than `1.0`.
                             Those parameters are trade-off parameters.
         '''
         self.__true_arr = None
-        self.__mean_squared_error = MeanSquaredError()
+        if computable_loss is None:
+            self.__computable_loss = MeanSquaredError()
+        else:
+            if isinstance(computable_loss, ComputableLoss) is False:
+                raise TypeError("The type of `computable_loss` must be `ComputableLoss`.")
+            self.__computable_loss = computable_loss
         self.__loss_list = []
 
         if lambda1 + lambda2 > 1:
@@ -74,7 +82,7 @@ class FeatureMatching(object):
             _generated_arr = discriminative_model.feature_matching_forward(generated_arr)
             _true_arr = discriminative_model.feature_matching_forward(self.__true_arr)
 
-            grad_arr1 = self.__mean_squared_error.compute_delta(
+            grad_arr1 = self.__computable_loss.compute_delta(
                 _generated_arr,
                 _true_arr
             )
@@ -82,16 +90,16 @@ class FeatureMatching(object):
             grad_arr1 = discriminative_model.feature_matching_backward(grad_arr1)
             grad_arr1 = grad_arr1.reshape(generated_arr.shape)
 
-            loss1 = self.__mean_squared_error.compute_loss(
+            loss1 = self.__computable_loss.compute_loss(
                 _generated_arr,
                 _true_arr
             )
         if self.__lambda2 > 0.0:
-            grad_arr2 = self.__mean_squared_error.compute_delta(
+            grad_arr2 = self.__computable_loss.compute_delta(
                 generated_arr,
                 self.__true_arr
             )
-            loss2 = self.__mean_squared_error.compute_loss(
+            loss2 = self.__computable_loss.compute_loss(
                 generated_arr,
                 self.__true_arr
             )
@@ -111,11 +119,11 @@ class FeatureMatching(object):
 
     true_arr = property(get_true_arr, set_readonly)
 
-    def get_mean_squared_error(self):
+    def get_computable_loss(self):
         ''' getter '''
-        return self.__mean_squared_error
+        return self.__computable_loss
     
-    mean_squared_error = property(get_mean_squared_error, set_readonly)
+    computable_loss = property(get_computable_loss, set_readonly)
 
     def get_loss_arr(self):
         ''' getter '''

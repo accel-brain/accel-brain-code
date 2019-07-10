@@ -143,12 +143,24 @@ class DeepEmbeddedClustering(object):
             `np.ndarray` of centroids.
         '''
         cdef np.ndarray key_arr
-        if observed_arr.shape[0] != self.__batch_size:
-            key_arr = np.arange(observed_arr.shape[0])
-            np.random.shuffle(key_arr)
-            observed_arr = observed_arr[key_arr[:self.__batch_size]]
+        cdef np.ndarray _observed_arr
 
-        feature_arr = self.__auto_encodable.embed_feature_points(observed_arr)
+        if observed_arr.shape[0] != self.__batch_size:
+            epochs = observed_arr.shape[0] / self.__batch_size
+            epochs = int(epochs)
+            feature_arr = None
+            for epoch in range(epochs):
+                _observed_arr = observed_arr[
+                    epoch * self.__batch_size:(epoch + 1) * self.__batch_size
+                ]
+                _feature_arr = self.__auto_encodable.embed_feature_points(_observed_arr)
+                if feature_arr is None:
+                    feature_arr = _feature_arr
+                else:
+                    feature_arr = np.r_[feature_arr, _feature_arr]
+        else:
+            feature_arr = self.__auto_encodable.embed_feature_points(observed_arr)
+
         self.__mu_arr = self.__extractable_centroids.extract_centroids(feature_arr, self.__k)
 
     def learn(

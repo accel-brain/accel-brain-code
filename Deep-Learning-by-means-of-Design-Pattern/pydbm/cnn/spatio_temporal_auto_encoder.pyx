@@ -237,9 +237,10 @@ class SpatioTemporalAutoEncoder(object):
                     ver_pred_arr = pred_arr.copy()
                     train_weight_decay = self.__weight_decay_term
                     loss = self.__computable_loss.compute_loss(
-                        pred_arr[:, -1] + self.__weight_decay_term,
+                        pred_arr[:, -1],
                         batch_target_arr[:, -1]
                     )
+                    loss = loss + train_weight_decay
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -253,9 +254,10 @@ class SpatioTemporalAutoEncoder(object):
                         ver_pred_arr = pred_arr.copy()
                         train_weight_decay = self.__weight_decay_term
                         loss = self.__computable_loss.compute_loss(
-                            pred_arr[:, -1] + self.__weight_decay_term,
+                            pred_arr[:, -1],
                             batch_target_arr[:, -1]
                         )
+                        loss = loss + train_weight_decay
                     
                     delta_arr = self.__computable_loss.compute_delta(
                         pred_arr[:, -1],
@@ -297,9 +299,10 @@ class SpatioTemporalAutoEncoder(object):
                     )
                     test_weight_decay = self.__weight_decay_term
                     test_loss = self.__computable_loss.compute_loss(
-                        test_pred_arr[:, -1] + self.__weight_decay_term,
+                        test_pred_arr[:, -1],
                         test_batch_target_arr[:, -1]
                     )
+                    test_loss = test_loss + test_weight_decay
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -324,10 +327,12 @@ class SpatioTemporalAutoEncoder(object):
                             self.__logger.debug("Convolutional Auto-Encoder's loss.")
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=ver_pred_arr[:, -1] + train_weight_decay, 
+                                train_pred_arr=ver_pred_arr[:, -1], 
                                 train_label_arr=batch_target_arr[:, -1],
-                                test_pred_arr=test_pred_arr[:, -1] + test_weight_decay,
-                                test_label_arr=test_batch_target_arr[:, -1]
+                                test_pred_arr=test_pred_arr[:, -1],
+                                test_label_arr=test_batch_target_arr[:, -1],
+                                train_penalty=train_weight_decay,
+                                test_penalty=test_weight_decay
                             )
                             self.__logger.debug("-" * 100)
                             self.__logger.debug("Encoder/Decoder's loss: ")
@@ -413,9 +418,10 @@ class SpatioTemporalAutoEncoder(object):
                     ver_pred_arr = pred_arr.copy()
                     train_weight_decay = self.__weight_decay_term
                     loss = self.__computable_loss.compute_loss(
-                        pred_arr[:, -1] + self.__weight_decay_term,
+                        pred_arr[:, -1],
                         batch_target_arr[:, -1]
                     )
+                    loss = loss + train_weight_decay
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -433,6 +439,7 @@ class SpatioTemporalAutoEncoder(object):
                             pred_arr[:, -1] + self.__weight_decay_term,
                             batch_target_arr[:, -1]
                         )
+                        loss = loss + train_weight_decay
 
                     delta_arr = self.__computable_loss.compute_delta(
                         pred_arr[:, -1],
@@ -469,9 +476,10 @@ class SpatioTemporalAutoEncoder(object):
                     )
                     test_weight_decay = self.__weight_decay_term
                     test_loss = self.__computable_loss.compute_loss(
-                        test_pred_arr[:, -1] + self.__weight_decay_term,
+                        test_pred_arr[:, -1],
                         test_batch_target_arr[:, -1]
                     )
+                    test_loss = test_loss + test_weight_decay
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -497,10 +505,12 @@ class SpatioTemporalAutoEncoder(object):
                             self.__logger.debug("Convolutional Auto-Encoder's loss:")
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=ver_pred_arr[:, -1] + train_weight_decay, 
+                                train_pred_arr=ver_pred_arr[:, -1], 
                                 train_label_arr=batch_target_arr[:, -1],
-                                test_pred_arr=test_pred_arr[:, -1] + test_weight_decay,
-                                test_label_arr=test_batch_target_arr[:, -1]
+                                test_pred_arr=test_pred_arr[:, -1],
+                                test_label_arr=test_batch_target_arr[:, -1],
+                                train_penalty=train_weight_decay,
+                                test_penalty=test_weight_decay
                             )
                             self.__logger.debug("-" * 100)
                             self.__logger.debug("Encoder/Decoder's loss: ")

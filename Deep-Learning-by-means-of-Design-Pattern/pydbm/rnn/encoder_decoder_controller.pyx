@@ -185,6 +185,8 @@ class EncoderDecoderController(object):
                 try:
                     decoded_arr = self.inference(batch_observed_arr)
                     loss = self.__reconstruction_error_arr.mean()
+                    train_weight_decay = self.__encoder.weight_decay_term + self.__decoder.weight_decay_term
+                    loss = loss + train_weight_decay
                     
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -197,7 +199,9 @@ class EncoderDecoderController(object):
                         decoded_arr = self.inference(batch_observed_arr)
                         loss = self.__reconstruction_error_arr.mean()
 
-                    loss += self.__encoder.weight_decay_term + self.__decoder.weight_decay_term
+                        train_weight_decay = self.__encoder.weight_decay_term + self.__decoder.weight_decay_term
+                        loss = loss + train_weight_decay
+
                     delta_arr = self.__computable_loss.compute_delta(
                         decoded_arr, 
                         batch_target_arr
@@ -246,6 +250,8 @@ class EncoderDecoderController(object):
                     self.__change_inferencing_mode(True)
                     test_decoded_arr = self.inference(test_batch_observed_arr)
                     test_loss = self.__reconstruction_error_arr.mean()
+                    test_weight_decay = self.__encoder.weight_decay_term + self.__decoder.weight_decay_term
+                    test_loss = test_loss + test_weight_decay
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -269,7 +275,9 @@ class EncoderDecoderController(object):
                                 train_pred_arr=decoded_arr, 
                                 train_label_arr=batch_target_arr,
                                 test_pred_arr=test_decoded_arr,
-                                test_label_arr=test_batch_target_arr
+                                test_label_arr=test_batch_target_arr,
+                                train_penalty=train_weight_decay,
+                                test_penalty=test_weight_decay
                             )
                     self.__encoder.graph.hidden_activity_arr = np.array([])
                     self.__encoder.graph.cec_activity_arr = np.array([])
@@ -344,6 +352,8 @@ class EncoderDecoderController(object):
                 try:
                     decoded_arr = self.inference(batch_observed_arr)
                     loss = self.__reconstruction_error_arr.mean()
+                    train_weight_decay = self.__encoder.weight_decay_term + self.__decoder.weight_decay_term
+                    loss = loss + train_weight_decay
                     
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -355,9 +365,9 @@ class EncoderDecoderController(object):
                         # Re-try.
                         decoded_arr = self.inference(batch_observed_arr)
                         loss = self.__reconstruction_error_arr.mean()
+                        train_weight_decay = self.__encoder.weight_decay_term + self.__decoder.weight_decay_term
+                        loss = loss + train_weight_decay
 
-                    train_weight_decay = self.__encoder.weight_decay_term + self.__decoder.weight_decay_term
-                    loss += train_weight_decay
                     delta_arr = self.__computable_loss.compute_delta(
                         decoded_arr, 
                         batch_target_arr
@@ -402,20 +412,8 @@ class EncoderDecoderController(object):
                     self.__change_inferencing_mode(True)
                     test_decoded_arr = self.inference(test_batch_observed_arr)
                     test_loss = self.__reconstruction_error_arr.mean()
-
-                    remember_flag = False
-                    if len(loss_list) > 0:
-                        if abs(test_loss - (sum(loss_list)/len(loss_list))) > self.__tld:
-                            remember_flag = True
-
-                    if remember_flag is True:
-                        self.__remember_best_params(encoder_best_params_list, decoder_best_params_list)
-                        # Re-try.
-                        test_decoded_arr = self.inference(test_batch_observed_arr)
-                        test_loss = self.__reconstruction_error_arr.mean()
-
                     test_weight_decay = self.__encoder.weight_decay_term + self.__decoder.weight_decay_term
-                    test_loss += test_weight_decay
+                    test_loss = test_loss + test_weight_decay
 
                     self.__change_inferencing_mode(False)
 
@@ -426,7 +424,9 @@ class EncoderDecoderController(object):
                                 train_pred_arr=decoded_arr + train_weight_decay, 
                                 train_label_arr=batch_target_arr,
                                 test_pred_arr=test_decoded_arr + test_weight_decay,
-                                test_label_arr=test_batch_target_arr
+                                test_label_arr=test_batch_target_arr,
+                                train_penalty=train_weight_decay,
+                                test_penalty=test_weight_decay
                             )
 
                     self.__encoder.graph.hidden_activity_arr = np.array([])

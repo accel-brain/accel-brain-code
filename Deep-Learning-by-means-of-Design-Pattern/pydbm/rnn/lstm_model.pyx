@@ -239,9 +239,11 @@ class LSTMModel(ReconstructableModel):
                     ver_pred_arr = pred_arr.copy()
                     train_weight_decay = self.__weight_decay_term
                     loss = self.__computable_loss.compute_loss(
-                        pred_arr + self.__weight_decay_term,
+                        pred_arr,
                         batch_target_arr
                     )
+                    loss = loss + train_weight_decay
+
                     remember_flag = False
                     if len(loss_list) > 0:
                         if abs(loss - (sum(loss_list)/len(loss_list))) > self.__tld:
@@ -254,9 +256,10 @@ class LSTMModel(ReconstructableModel):
                         ver_pred_arr = pred_arr.copy()
                         train_weight_decay = self.__weight_decay_term
                         loss = self.__computable_loss.compute_loss(
-                            pred_arr + self.__weight_decay_term,
+                            pred_arr,
                             batch_target_arr
                         )
+                        loss = loss + train_weight_decay
 
                     delta_arr = self.__computable_loss.compute_delta(
                         pred_arr,
@@ -301,6 +304,7 @@ class LSTMModel(ReconstructableModel):
                         test_pred_arr + self.__weight_decay_term,
                         test_batch_target_arr
                     )
+                    test_loss = test_loss + test_weight_decay
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -316,10 +320,12 @@ class LSTMModel(ReconstructableModel):
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=ver_pred_arr + train_weight_decay, 
+                                train_pred_arr=ver_pred_arr, 
                                 train_label_arr=batch_target_arr,
-                                test_pred_arr=test_pred_arr + test_weight_decay,
-                                test_label_arr=test_batch_target_arr
+                                test_pred_arr=test_pred_arr,
+                                test_label_arr=test_batch_target_arr,
+                                train_penalty=train_weight_decay,
+                                test_penalty=test_weight_decay
                             )
 
                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:

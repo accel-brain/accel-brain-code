@@ -391,17 +391,18 @@ class ConvLSTMModel(ReconstructableModel):
                     train_weight_decay = self.weight_decay_term
                     if pred_arr.ndim == batch_target_arr[:, -1].ndim:
                         loss = self.__computable_loss.compute_loss(
-                            pred_arr + self.weight_decay_term,
+                            pred_arr,
                             batch_target_arr[:, -1]
                         )
                     else:
                         loss = self.__computable_loss.compute_loss(
-                            pred_arr + self.weight_decay_term,
+                            pred_arr,
                             batch_target_arr[:, -1].reshape((
                                 batch_target_arr[:, -1].shape[0],
                                 -1
                             ))
                         )
+                    loss = loss + train_weight_decay
                     
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -416,17 +417,18 @@ class ConvLSTMModel(ReconstructableModel):
                         train_weight_decay = self.weight_decay_term
                         if pred_arr.ndim == batch_target_arr[:, -1].ndim:
                             loss = self.__computable_loss.compute_loss(
-                                pred_arr + self.weight_decay_term,
+                                pred_arr,
                                 batch_target_arr[:, -1]
                             )
                         else:
                             loss = self.__computable_loss.compute_loss(
-                                pred_arr + self.weight_decay_term,
+                                pred_arr,
                                 batch_target_arr[:, -1].reshape((
                                     batch_target_arr[:, -1].shape[0],
                                     -1
                                 ))
                             )
+                        loss = loss + train_weight_decay
 
                     if pred_arr.ndim == batch_target_arr[:, -1].ndim:
                         delta_arr = self.__computable_loss.compute_delta(
@@ -481,17 +483,18 @@ class ConvLSTMModel(ReconstructableModel):
                     test_weight_decay = self.weight_decay_term
                     if test_pred_arr.ndim == test_batch_target_arr[:, -1].ndim:
                         test_loss = self.__computable_loss.compute_loss(
-                            test_pred_arr + self.weight_decay_term,
+                            test_pred_arr,
                             test_batch_target_arr[:, -1]
                         )
                     else:
                         test_loss = self.__computable_loss.compute_loss(
-                            test_pred_arr + self.weight_decay_term,
+                            test_pred_arr,
                             test_batch_target_arr[:, -1].reshape((
                                 test_batch_target_arr[:, -1].shape[0],
                                 -1
                             ))
                         )
+                    test_loss = test_loss + test_weight_decay
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -528,7 +531,9 @@ class ConvLSTMModel(ReconstructableModel):
                                 train_pred_arr=ver_pred_arr + train_weight_decay, 
                                 train_label_arr=train_label_arr,
                                 test_pred_arr=test_pred_arr + test_weight_decay,
-                                test_label_arr=test_label_arr
+                                test_label_arr=test_label_arr,
+                                train_penalty=train_weight_decay,
+                                test_penalty=test_weight_decay
                             )
 
                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:
@@ -602,17 +607,18 @@ class ConvLSTMModel(ReconstructableModel):
                     train_weight_decay = self.weight_decay_term
                     if pred_arr.ndim == batch_target_arr[:, -1].ndim:
                         loss = self.__computable_loss.compute_loss(
-                            pred_arr + self.weight_decay_term,
+                            pred_arr,
                             batch_target_arr[:, -1]
                         )
                     else:
                         loss = self.__computable_loss.compute_loss(
-                            pred_arr + self.weight_decay_term,
+                            pred_arr,
                             batch_target_arr[:, -1].reshape((
                                 batch_target_arr[:, -1].shape[0],
                                 -1
                             ))
                         )
+                    loss = loss + train_weight_decay
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -627,17 +633,18 @@ class ConvLSTMModel(ReconstructableModel):
                         train_weight_decay = self.weight_decay_term
                         if pred_arr.ndim == batch_target_arr[:, -1].ndim:
                             loss = self.__computable_loss.compute_loss(
-                                pred_arr + self.weight_decay_term,
+                                pred_arr,
                                 batch_target_arr[:, -1]
                             )
                         else:
                             loss = self.__computable_loss.compute_loss(
-                                pred_arr + self.weight_decay_term,
+                                pred_arr,
                                 batch_target_arr[:, -1].reshape((
                                     batch_target_arr[:, -1].shape[0],
                                     -1
                                 ))
                             )
+                        loss = loss + train_weight_decay
 
                     if pred_arr.ndim == batch_target_arr[:, -1].ndim:
                         delta_arr = self.__computable_loss.compute_delta(
@@ -688,17 +695,18 @@ class ConvLSTMModel(ReconstructableModel):
                     test_weight_decay = self.weight_decay_term
                     if test_pred_arr.ndim == test_batch_target_arr[:, -1].ndim:
                         test_loss = self.__computable_loss.compute_loss(
-                            test_pred_arr + self.weight_decay_term,
+                            test_pred_arr,
                             test_batch_target_arr[:, -1]
                         )
                     else:
                         test_loss = self.__computable_loss.compute_loss(
-                            test_pred_arr + self.weight_decay_term,
+                            test_pred_arr,
                             test_batch_target_arr[:, -1].reshape((
                                 test_batch_target_arr[:, -1].shape[0],
                                 -1
                             ))
                         )
+                    test_loss = test_loss + test_weight_decay
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -731,10 +739,12 @@ class ConvLSTMModel(ReconstructableModel):
 
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=ver_pred_arr + train_weight_decay, 
+                                train_pred_arr=ver_pred_arr, 
                                 train_label_arr=train_label_arr,
-                                test_pred_arr=test_pred_arr + test_weight_decay,
-                                test_label_arr=test_label_arr
+                                test_pred_arr=test_pred_arr,
+                                test_label_arr=test_label_arr,
+                                train_penalty=train_weight_decay,
+                                test_penalty=test_weight_decay
                             )
 
                 if epoch > 1 and abs(loss - loss_list[-1]) < self.__tol:

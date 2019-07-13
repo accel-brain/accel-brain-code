@@ -12,6 +12,7 @@ from pydbm.clustering.computableclusteringloss.k_means_loss import KMeansLoss
 from pydbm.clustering.computableclusteringloss.reconstruction_loss import ReconstructionLoss
 from pydbm.clustering.computableclusteringloss.repelling_loss import RepellingLoss
 from pydbm.optimization.optparams.sgd import SGD
+from pydbm.params_initializer import ParamsInitializer
 
 
 class DeepEmbeddedClustering(object):
@@ -46,7 +47,10 @@ class DeepEmbeddedClustering(object):
         T=100,
         alpha=1,
         soft_assign_weight=0.25,
-        pairwise_lambda=0.25
+        pairwise_lambda=0.25,
+        denoising_flag=True,
+        params_initializer=ParamsInitializer(),
+        params_dict={"loc": 0.0, "scale": 1.0}
     ):
         '''
         Init.
@@ -74,6 +78,13 @@ class DeepEmbeddedClustering(object):
             alpha:                              Degrees of freedom of the Student's t-distribution.
             soft_assign_weight:                 Weight of soft assignments.
             pairwise_lambda:                    Weight of pairwise constraint.
+            denoising_flag:                     Do pre-learning as a Denoising Auto-Encoder or not.
+            params_initializer:                 is-a `ParamsInitializer`.
+                                                If `denoising_flag` is `True`, this class will noise 
+                                                observed data points by using this `params_initializer`.
+
+            params_dict:                        `dict` of parameters other than `size` to be input to function `ParamsInitializer.sample_f`.
+
         '''
         if isinstance(auto_encodable, AutoEncodable) is False:
             raise TypeError("The type of `auto_encodable` must be `AutoEncodable`.")
@@ -129,6 +140,10 @@ class DeepEmbeddedClustering(object):
         self.__soft_assign_weight = soft_assign_weight
         self.__pairwise_lambda = pairwise_lambda
 
+        self.__denoising_flag = denoising_flag
+        self.__params_initializer = params_initializer
+        self.__params_dict = params_dict
+
         logger = getLogger("pydbm")
         self.__logger = logger
 
@@ -176,7 +191,17 @@ class DeepEmbeddedClustering(object):
             observed_arr:   `np.ndarray` of observed data points.
             target_arr:     `np.ndarray` of noised observed data points.
         '''
-        self.__auto_encodable.pre_learn(observed_arr, observed_arr)
+        cdef np.ndarray noised_observed_arr
+        if self.__denoising_flag is True:
+            noised_observed_arr = observed_arr + self.__params_initializer.sample(
+                size=observed_arr.copy().shape,
+                **self.__params_dict
+            )
+        else:
+            noised_observed_arr = observed_arr
+
+        self.__auto_encodable.pre_learn(noised_observed_arr, observed_arr)
+
         self.__setup_initial_centroids(observed_arr)
 
         cdef double learning_rate = self.__learning_rate

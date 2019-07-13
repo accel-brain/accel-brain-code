@@ -6375,7 +6375,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  *                         if self.__test_size_rate > 0:
  *                             self.__verificatable_result.verificate(             # <<<<<<<<<<<<<<
  *                                 self.__computable_loss,
- *                                 train_pred_arr=ver_pred_arr + train_weight_decay,
+ *                                 train_pred_arr=ver_pred_arr,
  */
               __pyx_t_28 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__ver); if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 304, __pyx_L10_error)
               __Pyx_GOTREF(__pyx_t_28);
@@ -6387,7 +6387,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  *                         if self.__test_size_rate > 0:
  *                             self.__verificatable_result.verificate(
  *                                 self.__computable_loss,             # <<<<<<<<<<<<<<
- *                                 train_pred_arr=ver_pred_arr + train_weight_decay,
+ *                                 train_pred_arr=ver_pred_arr,
  *                                 train_label_arr=batch_target_arr,
  */
               __pyx_t_28 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_ConvolutionalNeuralNetwork__com); if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 305, __pyx_L10_error)
@@ -6398,7 +6398,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  *                         if self.__test_size_rate > 0:
  *                             self.__verificatable_result.verificate(             # <<<<<<<<<<<<<<
  *                                 self.__computable_loss,
- *                                 train_pred_arr=ver_pred_arr + train_weight_decay,
+ *                                 train_pred_arr=ver_pred_arr,
  */
               __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 304, __pyx_L10_error)
               __Pyx_GOTREF(__pyx_t_7);
@@ -6409,41 +6409,35 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
               /* "pydbm/cnn/convolutional_neural_network.pyx":306
  *                             self.__verificatable_result.verificate(
  *                                 self.__computable_loss,
- *                                 train_pred_arr=ver_pred_arr + train_weight_decay,             # <<<<<<<<<<<<<<
+ *                                 train_pred_arr=ver_pred_arr,             # <<<<<<<<<<<<<<
  *                                 train_label_arr=batch_target_arr,
- *                                 test_pred_arr=test_pred_arr + test_weight_decay,
+ *                                 test_pred_arr=test_pred_arr,
  */
               __pyx_t_28 = __Pyx_PyDict_NewPresized(6); if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 306, __pyx_L10_error)
               __Pyx_GOTREF(__pyx_t_28);
-              __pyx_t_2 = PyNumber_Add(__pyx_v_ver_pred_arr, __pyx_v_train_weight_decay); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 306, __pyx_L10_error)
-              __Pyx_GOTREF(__pyx_t_2);
-              if (PyDict_SetItem(__pyx_t_28, __pyx_n_s_train_pred_arr, __pyx_t_2) < 0) __PYX_ERR(0, 306, __pyx_L10_error)
-              __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+              if (PyDict_SetItem(__pyx_t_28, __pyx_n_s_train_pred_arr, __pyx_v_ver_pred_arr) < 0) __PYX_ERR(0, 306, __pyx_L10_error)
 
               /* "pydbm/cnn/convolutional_neural_network.pyx":307
  *                                 self.__computable_loss,
- *                                 train_pred_arr=ver_pred_arr + train_weight_decay,
+ *                                 train_pred_arr=ver_pred_arr,
  *                                 train_label_arr=batch_target_arr,             # <<<<<<<<<<<<<<
- *                                 test_pred_arr=test_pred_arr + test_weight_decay,
+ *                                 test_pred_arr=test_pred_arr,
  *                                 test_label_arr=test_batch_target_arr,
  */
               if (PyDict_SetItem(__pyx_t_28, __pyx_n_s_train_label_arr, ((PyObject *)__pyx_v_batch_target_arr)) < 0) __PYX_ERR(0, 306, __pyx_L10_error)
 
               /* "pydbm/cnn/convolutional_neural_network.pyx":308
- *                                 train_pred_arr=ver_pred_arr + train_weight_decay,
+ *                                 train_pred_arr=ver_pred_arr,
  *                                 train_label_arr=batch_target_arr,
- *                                 test_pred_arr=test_pred_arr + test_weight_decay,             # <<<<<<<<<<<<<<
+ *                                 test_pred_arr=test_pred_arr,             # <<<<<<<<<<<<<<
  *                                 test_label_arr=test_batch_target_arr,
  *                                 train_penalty=train_weight_decay,
  */
-              __pyx_t_2 = PyNumber_Add(((PyObject *)__pyx_v_test_pred_arr), __pyx_v_test_weight_decay); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 308, __pyx_L10_error)
-              __Pyx_GOTREF(__pyx_t_2);
-              if (PyDict_SetItem(__pyx_t_28, __pyx_n_s_test_pred_arr_2, __pyx_t_2) < 0) __PYX_ERR(0, 306, __pyx_L10_error)
-              __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+              if (PyDict_SetItem(__pyx_t_28, __pyx_n_s_test_pred_arr_2, ((PyObject *)__pyx_v_test_pred_arr)) < 0) __PYX_ERR(0, 306, __pyx_L10_error)
 
               /* "pydbm/cnn/convolutional_neural_network.pyx":309
  *                                 train_label_arr=batch_target_arr,
- *                                 test_pred_arr=test_pred_arr + test_weight_decay,
+ *                                 test_pred_arr=test_pred_arr,
  *                                 test_label_arr=test_batch_target_arr,             # <<<<<<<<<<<<<<
  *                                 train_penalty=train_weight_decay,
  *                                 test_penalty=test_weight_decay
@@ -6451,7 +6445,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
               if (PyDict_SetItem(__pyx_t_28, __pyx_n_s_test_label_arr, __pyx_v_test_batch_target_arr) < 0) __PYX_ERR(0, 306, __pyx_L10_error)
 
               /* "pydbm/cnn/convolutional_neural_network.pyx":310
- *                                 test_pred_arr=test_pred_arr + test_weight_decay,
+ *                                 test_pred_arr=test_pred_arr,
  *                                 test_label_arr=test_batch_target_arr,
  *                                 train_penalty=train_weight_decay,             # <<<<<<<<<<<<<<
  *                                 test_penalty=test_weight_decay
@@ -6473,7 +6467,7 @@ static PyObject *__pyx_pf_5pydbm_3cnn_28convolutional_neural_network_26Convoluti
  *                         if self.__test_size_rate > 0:
  *                             self.__verificatable_result.verificate(             # <<<<<<<<<<<<<<
  *                                 self.__computable_loss,
- *                                 train_pred_arr=ver_pred_arr + train_weight_decay,
+ *                                 train_pred_arr=ver_pred_arr,
  */
               __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, __pyx_t_28); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 304, __pyx_L10_error)
               __Pyx_GOTREF(__pyx_t_2);

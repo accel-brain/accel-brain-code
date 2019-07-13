@@ -303,9 +303,9 @@ class ConvolutionalNeuralNetwork(object):
                         if self.__test_size_rate > 0:
                             self.__verificatable_result.verificate(
                                 self.__computable_loss,
-                                train_pred_arr=ver_pred_arr + train_weight_decay, 
+                                train_pred_arr=ver_pred_arr, 
                                 train_label_arr=batch_target_arr,
-                                test_pred_arr=test_pred_arr + test_weight_decay,
+                                test_pred_arr=test_pred_arr,
                                 test_label_arr=test_batch_target_arr,
                                 train_penalty=train_weight_decay,
                                 test_penalty=test_weight_decay

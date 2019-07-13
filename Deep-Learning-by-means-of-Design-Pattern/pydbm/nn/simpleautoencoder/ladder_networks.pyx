@@ -36,6 +36,7 @@ class LadderNetworks(SimpleAutoEncoder):
         tol=1e-15,
         tld=100.0,
         pre_learned_path_tuple=None,
+        alpha_weight=1e-05,
         sigma_weight=0.7,
         mu_weight=0.7,
         params_initializer=ParamsInitializer(),
@@ -61,6 +62,7 @@ class LadderNetworks(SimpleAutoEncoder):
             tol:                            Tolerance for the optimization.
             tld:                            Tolerance for deviation of loss.
 
+            alpha_weight:                   Weight of alpha cost.
             sigma_weight:                   Weight of sigma cost.
             mu_weight:                      Weight of mu cost.
 
@@ -103,6 +105,7 @@ class LadderNetworks(SimpleAutoEncoder):
             pre_learned_path_tuple=pre_learned_path_tuple
         )
 
+        self.__alpha_weight = alpha_weight
         self.__sigma_weight = sigma_weight
         self.__mu_weight = mu_weight
         self.__params_initializer = params_initializer
@@ -175,6 +178,7 @@ class LadderNetworks(SimpleAutoEncoder):
         try:
             self.__memory_tuple_list = []
             loss_list = []
+            alpha_list = []
             sigma_list = []
             mu_list = []
             min_loss = None
@@ -194,13 +198,14 @@ class LadderNetworks(SimpleAutoEncoder):
                     pred_arr = self.inference(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
                     train_weight_decay = self.encoder.weight_decay_term + self.decoder.weight_decay_term
+                    train_alpha_loss = self.__compute_alpha_loss()
                     train_sigma_loss = self.__compute_sigma_loss()
                     train_mu_loss = self.__compute_mu_loss()
                     loss = self.computable_loss.compute_loss(
                         pred_arr,
                         batch_target_arr
                     )
-                    loss = loss + train_sigma_loss + train_mu_loss + train_weight_decay
+                    loss = loss + train_alpha_loss + train_sigma_loss + train_mu_loss + train_weight_decay
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -218,13 +223,14 @@ class LadderNetworks(SimpleAutoEncoder):
                         pred_arr = self.inference(batch_observed_arr)
                         ver_pred_arr = pred_arr.copy()
                         train_weight_decay = self.encoder.weight_decay_term + self.decoder.weight_decay_term
+                        train_alpha_loss = self.__compute_alpha_loss()
                         train_sigma_loss = self.__compute_sigma_loss()
                         train_mu_loss = self.__compute_mu_loss()
                         loss = self.computable_loss.compute_loss(
                             pred_arr,
                             batch_target_arr
                         )
-                        loss = loss + train_sigma_loss + train_mu_loss + train_weight_decay
+                        loss = loss + train_alpha_loss + train_sigma_loss + train_mu_loss + train_weight_decay
 
                     delta_arr = self.computable_loss.compute_delta(
                         pred_arr,
@@ -271,13 +277,14 @@ class LadderNetworks(SimpleAutoEncoder):
                         test_batch_observed_arr
                     )
                     test_weight_decay = self.encoder.weight_decay_term + self.decoder.weight_decay_term
+                    test_alpha_loss = self.__compute_alpha_loss()
                     test_sigma_loss = self.__compute_sigma_loss()
                     test_mu_loss = self.__compute_mu_loss()
                     test_loss = self.computable_loss.compute_loss(
                         test_pred_arr + self.encoder.weight_decay_term + self.decoder.weight_decay_term,
                         test_batch_target_arr
                     )
-                    test_loss = test_loss + test_sigma_loss + test_mu_loss + test_weight_decay
+                    test_loss = test_loss + test_alpha_loss + test_sigma_loss + test_mu_loss + test_weight_decay
 
                     remember_flag = False
                     if len(loss_list) > 0:
@@ -304,14 +311,16 @@ class LadderNetworks(SimpleAutoEncoder):
                                 train_label_arr=batch_target_arr,
                                 test_pred_arr=test_pred_arr,
                                 test_label_arr=test_batch_target_arr,
-                                train_penalty=train_sigma_loss + train_mu_loss + train_weight_decay,
-                                test_penalty=test_sigma_loss + test_mu_loss + test_weight_decay
+                                train_penalty=train_alpha_loss + train_sigma_loss + train_mu_loss + train_weight_decay,
+                                test_penalty=test_alpha_loss + test_sigma_loss + test_mu_loss + test_weight_decay
                             )
                             self.__logger.debug("-" * 100)
+                            self.__logger.debug("Train alpha: " + str(train_alpha_loss) + " Test alpha: " + str(test_alpha_loss))
                             self.__logger.debug("Train sigma: " + str(train_sigma_loss) + " Test sigma: " + str(test_sigma_loss))
                             self.__logger.debug("Train mu: " + str(train_mu_loss) + " Test mu: " + str(test_mu_loss))
                             self.__logger.debug("-" * 100)
 
+                            alpha_list.append((train_alpha_loss, test_alpha_loss))
                             sigma_list.append((train_sigma_loss, test_sigma_loss))
                             mu_list.append((train_mu_loss, test_mu_loss))
 
@@ -334,6 +343,7 @@ class LadderNetworks(SimpleAutoEncoder):
             best_decoder_bias_params_list
         )
 
+        self.__alpha_loss_arr = np.array(alpha_list)
         self.__sigma_loss_arr = np.array(sigma_list)
         self.__mu_loss_arr = np.array(mu_list)
 
@@ -408,7 +418,6 @@ class LadderNetworks(SimpleAutoEncoder):
                 self.__encoder_delta_arr_list.append(delta_arr)
                 sigma_arr = np.dot(observed_arr.T, observed_arr)
                 sigma_arr = sigma_arr / sigma_arr.shape[1]
-                sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
                 self.__encoder_sigma_arr_list.append(sigma_arr)
                 self.__encoder_observed_arr_list.append(observed_arr)
             except:
@@ -437,7 +446,6 @@ class LadderNetworks(SimpleAutoEncoder):
                 self.__decoder_delta_arr_list.append(delta_arr)
                 sigma_arr = np.dot(observed_arr.T, observed_arr)
                 sigma_arr = sigma_arr / sigma_arr.shape[1]
-                sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
                 self.__decoder_sigma_arr_list.append(sigma_arr)
                 self.__decoder_observed_arr_list.append(observed_arr)
             except:
@@ -479,9 +487,11 @@ class LadderNetworks(SimpleAutoEncoder):
             try:
                 hidden_delta_arr = hidden_delta_arr_list[i]
                 sigma_arr = sigma_arr_list[i]
+                sigma_arr = np.eye(sigma_arr.shape[0]) - np.power(sigma_arr, -1)
+                sigma_arr = np.nanmean(sigma_arr, axis=0).reshape((1, sigma_arr.shape[0]))
                 observed_arr = observed_arr_list[i]
-                mu_arr = np.square(observed_arr)
-                delta_arr = delta_arr + (self.__sigma_weight * sigma_arr) + (self.__mu_weight * mu_arr)
+                mu_arr = np.nanmean(observed_arr, axis=0).reshape((1, observed_arr.shape[1]))
+                delta_arr = delta_arr + (self.__alpha_weight * hidden_delta_arr) + (self.__sigma_weight * sigma_arr) + (self.__mu_weight * mu_arr)
                 delta_arr = nn_layer_list[i].back_propagate(delta_arr)
             except:
                 self.__logger.debug(
@@ -501,9 +511,11 @@ class LadderNetworks(SimpleAutoEncoder):
             try:
                 hidden_delta_arr = hidden_delta_arr_list[i]
                 sigma_arr = sigma_arr_list[i]
+                sigma_arr = np.eye(sigma_arr.shape[0]) - np.power(sigma_arr, -1)
+                sigma_arr = np.nanmean(sigma_arr, axis=0).reshape((1, sigma_arr.shape[0]))
                 observed_arr = observed_arr_list[i]
-                mu_arr = np.square(observed_arr)
-                delta_arr = delta_arr + (self.__sigma_weight * sigma_arr) + (self.__mu_weight * mu_arr)
+                mu_arr = np.nanmean(observed_arr, axis=0).reshape((1, observed_arr.shape[1]))
+                delta_arr = delta_arr + (self.__alpha_weight * hidden_delta_arr) + (self.__sigma_weight * sigma_arr) + (self.__mu_weight * mu_arr)
                 delta_arr = nn_layer_list[i].back_propagate(delta_arr)
             except:
                 self.__logger.debug(
@@ -513,14 +525,28 @@ class LadderNetworks(SimpleAutoEncoder):
 
         return delta_arr
 
+    def __compute_alpha_loss(self):
+        loss = 0.0
+        for arr in self.__encoder_delta_arr_list:
+            loss = loss + np.nansum(np.nanmean(np.square(arr), axis=0))
+        for arr in self.__decoder_delta_arr_list:
+            loss = loss + np.nansum(np.nanmean(np.square(arr), axis=0))
+
+        return loss * self.__alpha_weight
+
     def __compute_sigma_loss(self):
         sigma_arr = self.__encoder_sigma_arr_list[0]
+        sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
         sigma = np.mean(np.nanmean(sigma_arr, axis=1))
         for i in range(1, len(self.__encoder_sigma_arr_list)):
-            sigma = sigma + np.mean(np.nanmean(self.__encoder_sigma_arr_list[i], axis=1))
+            sigma_arr = self.__encoder_sigma_arr_list[i]
+            sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
+            sigma = sigma + np.mean(np.nanmean(sigma_arr, axis=1))
 
         for i in range(len(self.__decoder_sigma_arr_list)):
-            sigma += sigma + np.mean(np.nanmean(self.__decoder_sigma_arr_list[i], axis=1))
+            sigma_arr = self.__decoder_sigma_arr_list[i]
+            sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
+            sigma += sigma + np.mean(np.nanmean(sigma_arr, axis=1))
 
         sigma = sigma / (len(self.__encoder_sigma_arr_list) + len(self.__decoder_sigma_arr_list))
         sigma = sigma * self.__sigma_weight
@@ -537,22 +563,24 @@ class LadderNetworks(SimpleAutoEncoder):
         mu = mu * self.__mu_weight
         return mu
 
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+
+    def get_alpha_loss_arr(self):
+        ''' getter '''
+        return self.__alpha_loss_arr
+
+    alpha_loss_arr = property(get_alpha_loss_arr, set_readonly)
+
     def get_sigma_loss_arr(self):
         ''' getter '''
         return self.__sigma_loss_arr
     
-    def set_sigma_loss_arr(self, value):
-        ''' setter '''
-        self.__sigma_loss_arr = value
-    
-    sigma_loss_arr = property(get_sigma_loss_arr, set_sigma_loss_arr)
+    sigma_loss_arr = property(get_sigma_loss_arr, set_readonly)
 
     def get_mu_loss_arr(self):
         ''' getter '''
         return self.__mu_loss_arr
     
-    def set_mu_loss_arr(self, value):
-        ''' setter '''
-        self.__mu_loss_arr
-    
-    mu_loss_arr = property(get_mu_loss_arr, set_mu_loss_arr)
+    mu_loss_arr = property(get_mu_loss_arr, set_readonly)

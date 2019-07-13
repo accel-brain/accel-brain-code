@@ -487,6 +487,7 @@ class LadderNetworks(SimpleAutoEncoder):
             try:
                 hidden_delta_arr = hidden_delta_arr_list[i]
                 sigma_arr = sigma_arr_list[i]
+                sigma_arr[sigma_arr == 0] += 1e-08
                 sigma_arr = np.eye(sigma_arr.shape[0]) - np.power(sigma_arr, -1)
                 sigma_arr = np.nanmean(sigma_arr, axis=0).reshape((1, sigma_arr.shape[0]))
                 observed_arr = observed_arr_list[i]
@@ -511,6 +512,7 @@ class LadderNetworks(SimpleAutoEncoder):
             try:
                 hidden_delta_arr = hidden_delta_arr_list[i]
                 sigma_arr = sigma_arr_list[i]
+                sigma_arr[sigma_arr == 0] += 1e-08
                 sigma_arr = np.eye(sigma_arr.shape[0]) - np.power(sigma_arr, -1)
                 sigma_arr = np.nanmean(sigma_arr, axis=0).reshape((1, sigma_arr.shape[0]))
                 observed_arr = observed_arr_list[i]

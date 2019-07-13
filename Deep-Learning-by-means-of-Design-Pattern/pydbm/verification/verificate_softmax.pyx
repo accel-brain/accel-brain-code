@@ -37,15 +37,22 @@ class VerificateSoftmax(VerificatableResult):
         train_pred_arr,
         train_label_arr,
         test_pred_arr,
-        test_label_arr
+        test_label_arr,
+        train_penalty=0.0,
+        test_penalty=0.0
     ):
         '''
         Verificate result.
+
         Args:
+            computable_loss:   is-a `ComputableLoss`.
             train_pred_arr:    Predicted data in training.
             train_label_arr:   Labeled data in training.
             test_pred_arr:     Predicted data in test.
             test_label_arr:    Labeled data in test.
+            train_penalty:     Sum of penalty terms in training.
+            test_penalty:      Sum of penalty terms in test.
+
         '''
         if isinstance(computable_loss, ComputableLoss) is False:
             raise TypeError()
@@ -58,6 +65,9 @@ class VerificateSoftmax(VerificatableResult):
         
         train_loss = computable_loss.compute_loss(train_pred_arr, train_label_arr)
         test_loss = computable_loss.compute_loss(test_pred_arr, test_label_arr)
+
+        train_loss = train_loss + train_penalty
+        test_loss = test_loss + test_penalty
 
         self.__total_train_n += train_pred_arr.shape[0]
         self.__total_test_n += test_pred_arr.shape[0]

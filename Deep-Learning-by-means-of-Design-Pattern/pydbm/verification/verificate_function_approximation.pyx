@@ -36,7 +36,9 @@ class VerificateFunctionApproximation(VerificatableResult):
         np.ndarray train_pred_arr,
         np.ndarray train_label_arr,
         np.ndarray test_pred_arr,
-        np.ndarray test_label_arr
+        np.ndarray test_label_arr,
+        train_penalty=0.0,
+        test_penalty=0.0
     ):
         '''
         Verificate result.
@@ -47,6 +49,8 @@ class VerificateFunctionApproximation(VerificatableResult):
             train_label_arr:   Labeled data in training.
             test_pred_arr:     Predicted data in test.
             test_label_arr:    Labeled data in test.
+            train_penalty:     Sum of penalty terms in training.
+            test_penalty:      Sum of penalty terms in test.
 
         '''
         if isinstance(computable_loss, ComputableLoss) is False:
@@ -54,6 +58,9 @@ class VerificateFunctionApproximation(VerificatableResult):
 
         train_loss = computable_loss.compute_loss(train_pred_arr, train_label_arr)
         test_loss = computable_loss.compute_loss(test_pred_arr, test_label_arr)
+
+        train_loss = train_loss + train_penalty
+        test_loss = test_loss + test_penalty
 
         self.__logger.debug("Epoch: " + str(len(self.__logs_tuple_list) + 1))
 

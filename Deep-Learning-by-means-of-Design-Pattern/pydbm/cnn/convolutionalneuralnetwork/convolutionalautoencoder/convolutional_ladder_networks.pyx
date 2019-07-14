@@ -224,9 +224,9 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
                     pred_arr = self.inference(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
                     train_weight_decay = self.weight_decay_term
-                    train_alpha_loss = self.__compute_alpha_loss()
-                    train_sigma_loss = self.__compute_sigma_loss()
-                    train_mu_loss = self.__compute_mu_loss()
+                    train_alpha_loss = self.compute_alpha_loss()
+                    train_sigma_loss = self.compute_sigma_loss()
+                    train_mu_loss = self.compute_mu_loss()
                     loss = self.computable_loss.compute_loss(
                         pred_arr,
                         batch_target_arr
@@ -244,9 +244,9 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
                         pred_arr = self.inference(batch_observed_arr)
                         ver_pred_arr = pred_arr.copy()
                         train_weight_decay = self.weight_decay_term
-                        train_alpha_loss = self.__compute_alpha_loss()
-                        train_sigma_loss = self.__compute_sigma_loss()
-                        train_mu_loss = self.__compute_mu_loss()
+                        train_alpha_loss = self.compute_alpha_loss()
+                        train_sigma_loss = self.compute_sigma_loss()
+                        train_mu_loss = self.compute_mu_loss()
                         loss = self.computable_loss.compute_loss(
                             pred_arr,
                             batch_target_arr
@@ -290,9 +290,9 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
                         test_batch_observed_arr
                     )
                     test_weight_decay = self.weight_decay_term
-                    test_alpha_loss = self.__compute_alpha_loss()
-                    test_sigma_loss = self.__compute_sigma_loss()
-                    test_mu_loss = self.__compute_mu_loss()
+                    test_alpha_loss = self.compute_alpha_loss()
+                    test_sigma_loss = self.compute_sigma_loss()
+                    test_mu_loss = self.compute_mu_loss()
                     test_loss = self.computable_loss.compute_loss(
                         test_pred_arr,
                         test_batch_target_arr
@@ -414,9 +414,9 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
                     pred_arr = self.inference(batch_observed_arr)
                     ver_pred_arr = pred_arr.copy()
                     train_weight_decay = self.weight_decay_term
-                    train_alpha_loss = self.__compute_alpha_loss()
-                    train_sigma_loss = self.__compute_sigma_loss()
-                    train_mu_loss = self.__compute_mu_loss()
+                    train_alpha_loss = self.compute_alpha_loss()
+                    train_sigma_loss = self.compute_sigma_loss()
+                    train_mu_loss = self.compute_mu_loss()
 
                     loss = self.computable_loss.compute_loss(
                         pred_arr,
@@ -435,9 +435,9 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
                         pred_arr = self.inference(batch_observed_arr)
                         ver_pred_arr = pred_arr.copy()
                         train_weight_decay = self.weight_decay_term
-                        train_alpha_loss = self.__compute_alpha_loss()
-                        train_sigma_loss = self.__compute_sigma_loss()
-                        train_mu_loss = self.__compute_mu_loss()
+                        train_alpha_loss = self.compute_alpha_loss()
+                        train_sigma_loss = self.compute_sigma_loss()
+                        train_mu_loss = self.compute_mu_loss()
 
                         loss = self.computable_loss.compute_loss(
                             pred_arr,
@@ -477,9 +477,9 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
                         test_batch_observed_arr
                     )
                     test_weight_decay = self.weight_decay_term
-                    test_alpha_loss = self.__compute_alpha_loss()
-                    test_sigma_loss = self.__compute_sigma_loss()
-                    test_mu_loss = self.__compute_mu_loss()
+                    test_alpha_loss = self.compute_alpha_loss()
+                    test_sigma_loss = self.compute_sigma_loss()
+                    test_mu_loss = self.compute_mu_loss()
                     test_loss = self.computable_loss.compute_loss(
                         test_pred_arr,
                         test_batch_target_arr
@@ -859,7 +859,13 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
         '''
         return self.__feature_points_arr
 
-    def __compute_alpha_loss(self):
+    def compute_alpha_loss(self):
+        '''
+        Compute denoising loss weighted alpha.
+
+        Returns:
+            loss.
+        '''
         loss = 0.0
         for arr in self.__encoder_delta_arr_list:
             loss = loss + np.nansum(np.nanmean(np.square(arr), axis=0))
@@ -868,7 +874,13 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
 
         return loss * self.__alpha_weight
 
-    def __compute_sigma_loss(self):
+    def compute_sigma_loss(self):
+        '''
+        Compute sigma loss weighted sigma.
+
+        Returns:
+            loss.
+        '''
         sigma_arr = self.__encoder_sigma_arr_list[0]
         sigma = np.mean(np.nanmean(sigma_arr, axis=1))
         for i in range(1, len(self.__encoder_sigma_arr_list)):
@@ -881,7 +893,13 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
         sigma = sigma * self.__sigma_weight
         return sigma
 
-    def __compute_mu_loss(self):
+    def compute_mu_loss(self):
+        '''
+        Compute mu loss weighted mu.
+
+        Returns:
+            loss.
+        '''
         mu = np.nanmean(np.square(self.__encoder_mu_arr_list[0]))
         for i in range(1, len(self.__encoder_mu_arr_list)):
             mu += np.nanmean(np.square(self.__encoder_mu_arr_list[i]))

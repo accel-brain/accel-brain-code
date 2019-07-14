@@ -1961,7 +1961,7 @@ static const char __pyx_k_test_size_rate[] = "test_size_rate";
 static const char __pyx_k_train_pred_arr[] = "train_pred_arr";
 static const char __pyx_k_attenuate_epoch[] = "attenuate_epoch";
 static const char __pyx_k_computable_loss[] = "computable_loss";
-static const char __pyx_k_compute_mu_loss[] = "__compute_mu_loss";
+static const char __pyx_k_compute_mu_loss[] = "compute_mu_loss";
 static const char __pyx_k_get_mu_loss_arr[] = "get_mu_loss_arr";
 static const char __pyx_k_test_alpha_loss[] = "test_alpha_loss";
 static const char __pyx_k_test_sigma_loss[] = "test_sigma_loss";
@@ -1986,8 +1986,8 @@ static const char __pyx_k_FloatingPointError[] = "FloatingPointError";
 static const char __pyx_k_NN_starts_learning[] = "NN starts learning.";
 static const char __pyx_k_batch_observed_arr[] = "batch_observed_arr";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
-static const char __pyx_k_compute_alpha_loss[] = "__compute_alpha_loss";
-static const char __pyx_k_compute_sigma_loss[] = "__compute_sigma_loss";
+static const char __pyx_k_compute_alpha_loss[] = "compute_alpha_loss";
+static const char __pyx_k_compute_sigma_loss[] = "compute_sigma_loss";
 static const char __pyx_k_get_alpha_loss_arr[] = "get_alpha_loss_arr";
 static const char __pyx_k_get_sigma_loss_arr[] = "get_sigma_loss_arr";
 static const char __pyx_k_params_initializer[] = "params_initializer";
@@ -2029,13 +2029,11 @@ static const char __pyx_k_LadderNetworks__decoder_mu_arr[] = "_LadderNetworks__d
 static const char __pyx_k_LadderNetworks__encoder_mu_arr[] = "_LadderNetworks__encoder_mu_arr_list";
 static const char __pyx_k_LadderNetworks__sigma_loss_arr[] = "_LadderNetworks__sigma_loss_arr";
 static const char __pyx_k_LadderNetworks__test_size_rate[] = "_LadderNetworks__test_size_rate";
+static const char __pyx_k_LadderNetworks_compute_mu_loss[] = "LadderNetworks.compute_mu_loss";
 static const char __pyx_k_LadderNetworks_get_mu_loss_arr[] = "LadderNetworks.get_mu_loss_arr";
 static const char __pyx_k_Decoder_s_best_params_are_saved[] = "Decoder's best params are saved.";
 static const char __pyx_k_Encoder_s_best_params_are_saved[] = "Encoder's best params are saved.";
 static const char __pyx_k_LadderNetworks__attenuate_epoch[] = "_LadderNetworks__attenuate_epoch";
-static const char __pyx_k_LadderNetworks__compute_alpha_l[] = "_LadderNetworks__compute_alpha_loss";
-static const char __pyx_k_LadderNetworks__compute_mu_loss[] = "_LadderNetworks__compute_mu_loss";
-static const char __pyx_k_LadderNetworks__compute_sigma_l[] = "_LadderNetworks__compute_sigma_loss";
 static const char __pyx_k_LadderNetworks__decoder_delta_a[] = "_LadderNetworks__decoder_delta_arr_list";
 static const char __pyx_k_LadderNetworks__decoder_sigma_a[] = "_LadderNetworks__decoder_sigma_arr_list";
 static const char __pyx_k_LadderNetworks__encoder_delta_a[] = "_LadderNetworks__encoder_delta_arr_list";
@@ -2053,10 +2051,9 @@ static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multia
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_Delta_computation_raised_an_erro[] = "Delta computation raised an error in decoder's NN layer ";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
-static const char __pyx_k_LadderNetworks___compute_alpha_l[] = "LadderNetworks.__compute_alpha_loss";
-static const char __pyx_k_LadderNetworks___compute_mu_loss[] = "LadderNetworks.__compute_mu_loss";
-static const char __pyx_k_LadderNetworks___compute_sigma_l[] = "LadderNetworks.__compute_sigma_loss";
 static const char __pyx_k_LadderNetworks___remember_best_p[] = "LadderNetworks.__remember_best_params";
+static const char __pyx_k_LadderNetworks_compute_alpha_los[] = "LadderNetworks.compute_alpha_loss";
+static const char __pyx_k_LadderNetworks_compute_sigma_los[] = "LadderNetworks.compute_sigma_loss";
 static const char __pyx_k_LadderNetworks_forward_propagati[] = "LadderNetworks.forward_propagation";
 static const char __pyx_k_LadderNetworks_get_alpha_loss_ar[] = "LadderNetworks.get_alpha_loss_arr";
 static const char __pyx_k_LadderNetworks_get_sigma_loss_ar[] = "LadderNetworks.get_sigma_loss_arr";
@@ -2084,18 +2081,12 @@ static PyObject *__pyx_n_s_ImportError;
 static PyObject *__pyx_kp_s_Interrupt;
 static PyObject *__pyx_n_s_KeyboardInterrupt;
 static PyObject *__pyx_n_s_LadderNetworks;
-static PyObject *__pyx_n_s_LadderNetworks___compute_alpha_l;
-static PyObject *__pyx_n_s_LadderNetworks___compute_mu_loss;
-static PyObject *__pyx_n_s_LadderNetworks___compute_sigma_l;
 static PyObject *__pyx_n_s_LadderNetworks___init;
 static PyObject *__pyx_n_s_LadderNetworks___remember_best_p;
 static PyObject *__pyx_n_s_LadderNetworks__alpha_loss_arr;
 static PyObject *__pyx_n_s_LadderNetworks__alpha_weight;
 static PyObject *__pyx_n_s_LadderNetworks__attenuate_epoch;
 static PyObject *__pyx_n_s_LadderNetworks__batch_size;
-static PyObject *__pyx_n_s_LadderNetworks__compute_alpha_l;
-static PyObject *__pyx_n_s_LadderNetworks__compute_mu_loss;
-static PyObject *__pyx_n_s_LadderNetworks__compute_sigma_l;
 static PyObject *__pyx_n_s_LadderNetworks__decoder_delta_a;
 static PyObject *__pyx_n_s_LadderNetworks__decoder_mu_arr;
 static PyObject *__pyx_n_s_LadderNetworks__decoder_sigma_a;
@@ -2118,6 +2109,9 @@ static PyObject *__pyx_n_s_LadderNetworks__test_size_rate;
 static PyObject *__pyx_n_s_LadderNetworks__tld;
 static PyObject *__pyx_n_s_LadderNetworks__tol;
 static PyObject *__pyx_n_s_LadderNetworks_back_propagation;
+static PyObject *__pyx_n_s_LadderNetworks_compute_alpha_los;
+static PyObject *__pyx_n_s_LadderNetworks_compute_mu_loss;
+static PyObject *__pyx_n_s_LadderNetworks_compute_sigma_los;
 static PyObject *__pyx_n_s_LadderNetworks_forward_propagati;
 static PyObject *__pyx_n_s_LadderNetworks_get_alpha_loss_ar;
 static PyObject *__pyx_n_s_LadderNetworks_get_mu_loss_arr;
@@ -2317,9 +2311,9 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
 static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_4__remember_best_params(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_best_encoder_weight_params_list, PyObject *__pyx_v_best_encoder_bias_params_list, PyObject *__pyx_v_best_decoder_weight_params_list, PyObject *__pyx_v_best_decoder_bias_params_list); /* proto */
 static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_6forward_propagation(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_observed_arr); /* proto */
 static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_8back_propagation(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyArrayObject *__pyx_v_delta_arr); /* proto */
-static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_10__compute_alpha_loss(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_12__compute_sigma_loss(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_14__compute_mu_loss(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_10compute_alpha_loss(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_12compute_sigma_loss(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_14compute_mu_loss(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_16set_readonly(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_18get_alpha_loss_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_20get_sigma_loss_arr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
@@ -4332,7 +4326,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
  *                     pred_arr = self.inference(batch_observed_arr)
  *                     ver_pred_arr = pred_arr.copy()             # <<<<<<<<<<<<<<
  *                     train_weight_decay = self.encoder.weight_decay_term + self.decoder.weight_decay_term
- *                     train_alpha_loss = self.__compute_alpha_loss()
+ *                     train_alpha_loss = self.compute_alpha_loss()
  */
             __pyx_t_7 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_pred_arr), __pyx_n_s_copy); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 199, __pyx_L18_error)
             __Pyx_GOTREF(__pyx_t_7);
@@ -4361,8 +4355,8 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
  *                     pred_arr = self.inference(batch_observed_arr)
  *                     ver_pred_arr = pred_arr.copy()
  *                     train_weight_decay = self.encoder.weight_decay_term + self.decoder.weight_decay_term             # <<<<<<<<<<<<<<
- *                     train_alpha_loss = self.__compute_alpha_loss()
- *                     train_sigma_loss = self.__compute_sigma_loss()
+ *                     train_alpha_loss = self.compute_alpha_loss()
+ *                     train_sigma_loss = self.compute_sigma_loss()
  */
             __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_encoder); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 200, __pyx_L18_error)
             __Pyx_GOTREF(__pyx_t_2);
@@ -4384,11 +4378,11 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
             /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":201
  *                     ver_pred_arr = pred_arr.copy()
  *                     train_weight_decay = self.encoder.weight_decay_term + self.decoder.weight_decay_term
- *                     train_alpha_loss = self.__compute_alpha_loss()             # <<<<<<<<<<<<<<
- *                     train_sigma_loss = self.__compute_sigma_loss()
- *                     train_mu_loss = self.__compute_mu_loss()
+ *                     train_alpha_loss = self.compute_alpha_loss()             # <<<<<<<<<<<<<<
+ *                     train_sigma_loss = self.compute_sigma_loss()
+ *                     train_mu_loss = self.compute_mu_loss()
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__compute_alpha_l); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 201, __pyx_L18_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_compute_alpha_loss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 201, __pyx_L18_error)
             __Pyx_GOTREF(__pyx_t_1);
             __pyx_t_7 = NULL;
             if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -4413,12 +4407,12 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
 
             /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":202
  *                     train_weight_decay = self.encoder.weight_decay_term + self.decoder.weight_decay_term
- *                     train_alpha_loss = self.__compute_alpha_loss()
- *                     train_sigma_loss = self.__compute_sigma_loss()             # <<<<<<<<<<<<<<
- *                     train_mu_loss = self.__compute_mu_loss()
+ *                     train_alpha_loss = self.compute_alpha_loss()
+ *                     train_sigma_loss = self.compute_sigma_loss()             # <<<<<<<<<<<<<<
+ *                     train_mu_loss = self.compute_mu_loss()
  *                     loss = self.computable_loss.compute_loss(
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__compute_sigma_l); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 202, __pyx_L18_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_compute_sigma_loss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 202, __pyx_L18_error)
             __Pyx_GOTREF(__pyx_t_1);
             __pyx_t_7 = NULL;
             if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -4442,13 +4436,13 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
             __pyx_t_2 = 0;
 
             /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":203
- *                     train_alpha_loss = self.__compute_alpha_loss()
- *                     train_sigma_loss = self.__compute_sigma_loss()
- *                     train_mu_loss = self.__compute_mu_loss()             # <<<<<<<<<<<<<<
+ *                     train_alpha_loss = self.compute_alpha_loss()
+ *                     train_sigma_loss = self.compute_sigma_loss()
+ *                     train_mu_loss = self.compute_mu_loss()             # <<<<<<<<<<<<<<
  *                     loss = self.computable_loss.compute_loss(
  *                         pred_arr,
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__compute_mu_loss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 203, __pyx_L18_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_compute_mu_loss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 203, __pyx_L18_error)
             __Pyx_GOTREF(__pyx_t_1);
             __pyx_t_7 = NULL;
             if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -4472,8 +4466,8 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
             __pyx_t_2 = 0;
 
             /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":204
- *                     train_sigma_loss = self.__compute_sigma_loss()
- *                     train_mu_loss = self.__compute_mu_loss()
+ *                     train_sigma_loss = self.compute_sigma_loss()
+ *                     train_mu_loss = self.compute_mu_loss()
  *                     loss = self.computable_loss.compute_loss(             # <<<<<<<<<<<<<<
  *                         pred_arr,
  *                         batch_target_arr
@@ -4538,8 +4532,8 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
             /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":204
- *                     train_sigma_loss = self.__compute_sigma_loss()
- *                     train_mu_loss = self.__compute_mu_loss()
+ *                     train_sigma_loss = self.compute_sigma_loss()
+ *                     train_mu_loss = self.compute_mu_loss()
  *                     loss = self.computable_loss.compute_loss(             # <<<<<<<<<<<<<<
  *                         pred_arr,
  *                         batch_target_arr
@@ -4814,7 +4808,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
  *                         pred_arr = self.inference(batch_observed_arr)
  *                         ver_pred_arr = pred_arr.copy()             # <<<<<<<<<<<<<<
  *                         train_weight_decay = self.encoder.weight_decay_term + self.decoder.weight_decay_term
- *                         train_alpha_loss = self.__compute_alpha_loss()
+ *                         train_alpha_loss = self.compute_alpha_loss()
  */
               __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_pred_arr), __pyx_n_s_copy); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 224, __pyx_L18_error)
               __Pyx_GOTREF(__pyx_t_8);
@@ -4843,8 +4837,8 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
  *                         pred_arr = self.inference(batch_observed_arr)
  *                         ver_pred_arr = pred_arr.copy()
  *                         train_weight_decay = self.encoder.weight_decay_term + self.decoder.weight_decay_term             # <<<<<<<<<<<<<<
- *                         train_alpha_loss = self.__compute_alpha_loss()
- *                         train_sigma_loss = self.__compute_sigma_loss()
+ *                         train_alpha_loss = self.compute_alpha_loss()
+ *                         train_sigma_loss = self.compute_sigma_loss()
  */
               __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_encoder); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 225, __pyx_L18_error)
               __Pyx_GOTREF(__pyx_t_2);
@@ -4866,11 +4860,11 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
               /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":226
  *                         ver_pred_arr = pred_arr.copy()
  *                         train_weight_decay = self.encoder.weight_decay_term + self.decoder.weight_decay_term
- *                         train_alpha_loss = self.__compute_alpha_loss()             # <<<<<<<<<<<<<<
- *                         train_sigma_loss = self.__compute_sigma_loss()
- *                         train_mu_loss = self.__compute_mu_loss()
+ *                         train_alpha_loss = self.compute_alpha_loss()             # <<<<<<<<<<<<<<
+ *                         train_sigma_loss = self.compute_sigma_loss()
+ *                         train_mu_loss = self.compute_mu_loss()
  */
-              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__compute_alpha_l); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L18_error)
+              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_compute_alpha_loss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L18_error)
               __Pyx_GOTREF(__pyx_t_1);
               __pyx_t_8 = NULL;
               if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -4895,12 +4889,12 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
 
               /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":227
  *                         train_weight_decay = self.encoder.weight_decay_term + self.decoder.weight_decay_term
- *                         train_alpha_loss = self.__compute_alpha_loss()
- *                         train_sigma_loss = self.__compute_sigma_loss()             # <<<<<<<<<<<<<<
- *                         train_mu_loss = self.__compute_mu_loss()
+ *                         train_alpha_loss = self.compute_alpha_loss()
+ *                         train_sigma_loss = self.compute_sigma_loss()             # <<<<<<<<<<<<<<
+ *                         train_mu_loss = self.compute_mu_loss()
  *                         loss = self.computable_loss.compute_loss(
  */
-              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__compute_sigma_l); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 227, __pyx_L18_error)
+              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_compute_sigma_loss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 227, __pyx_L18_error)
               __Pyx_GOTREF(__pyx_t_1);
               __pyx_t_8 = NULL;
               if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -4924,13 +4918,13 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
               __pyx_t_2 = 0;
 
               /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":228
- *                         train_alpha_loss = self.__compute_alpha_loss()
- *                         train_sigma_loss = self.__compute_sigma_loss()
- *                         train_mu_loss = self.__compute_mu_loss()             # <<<<<<<<<<<<<<
+ *                         train_alpha_loss = self.compute_alpha_loss()
+ *                         train_sigma_loss = self.compute_sigma_loss()
+ *                         train_mu_loss = self.compute_mu_loss()             # <<<<<<<<<<<<<<
  *                         loss = self.computable_loss.compute_loss(
  *                             pred_arr,
  */
-              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__compute_mu_loss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L18_error)
+              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_compute_mu_loss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L18_error)
               __Pyx_GOTREF(__pyx_t_1);
               __pyx_t_8 = NULL;
               if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -4954,8 +4948,8 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
               __pyx_t_2 = 0;
 
               /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":229
- *                         train_sigma_loss = self.__compute_sigma_loss()
- *                         train_mu_loss = self.__compute_mu_loss()
+ *                         train_sigma_loss = self.compute_sigma_loss()
+ *                         train_mu_loss = self.compute_mu_loss()
  *                         loss = self.computable_loss.compute_loss(             # <<<<<<<<<<<<<<
  *                             pred_arr,
  *                             batch_target_arr
@@ -5020,8 +5014,8 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
               __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
               /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":229
- *                         train_sigma_loss = self.__compute_sigma_loss()
- *                         train_mu_loss = self.__compute_mu_loss()
+ *                         train_sigma_loss = self.compute_sigma_loss()
+ *                         train_mu_loss = self.compute_mu_loss()
  *                         loss = self.computable_loss.compute_loss(             # <<<<<<<<<<<<<<
  *                             pred_arr,
  *                             batch_target_arr
@@ -5893,8 +5887,8 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
  *                         test_batch_observed_arr
  *                     )
  *                     test_weight_decay = self.encoder.weight_decay_term + self.decoder.weight_decay_term             # <<<<<<<<<<<<<<
- *                     test_alpha_loss = self.__compute_alpha_loss()
- *                     test_sigma_loss = self.__compute_sigma_loss()
+ *                     test_alpha_loss = self.compute_alpha_loss()
+ *                     test_sigma_loss = self.compute_sigma_loss()
  */
           __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_encoder); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 279, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_6);
@@ -5916,11 +5910,11 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
           /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":280
  *                     )
  *                     test_weight_decay = self.encoder.weight_decay_term + self.decoder.weight_decay_term
- *                     test_alpha_loss = self.__compute_alpha_loss()             # <<<<<<<<<<<<<<
- *                     test_sigma_loss = self.__compute_sigma_loss()
- *                     test_mu_loss = self.__compute_mu_loss()
+ *                     test_alpha_loss = self.compute_alpha_loss()             # <<<<<<<<<<<<<<
+ *                     test_sigma_loss = self.compute_sigma_loss()
+ *                     test_mu_loss = self.compute_mu_loss()
  */
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__compute_alpha_l); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 280, __pyx_L9_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_compute_alpha_loss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 280, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_2);
           __pyx_t_28 = NULL;
           if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -5945,12 +5939,12 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
 
           /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":281
  *                     test_weight_decay = self.encoder.weight_decay_term + self.decoder.weight_decay_term
- *                     test_alpha_loss = self.__compute_alpha_loss()
- *                     test_sigma_loss = self.__compute_sigma_loss()             # <<<<<<<<<<<<<<
- *                     test_mu_loss = self.__compute_mu_loss()
+ *                     test_alpha_loss = self.compute_alpha_loss()
+ *                     test_sigma_loss = self.compute_sigma_loss()             # <<<<<<<<<<<<<<
+ *                     test_mu_loss = self.compute_mu_loss()
  *                     test_loss = self.computable_loss.compute_loss(
  */
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__compute_sigma_l); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 281, __pyx_L9_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_compute_sigma_loss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 281, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_2);
           __pyx_t_28 = NULL;
           if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -5974,13 +5968,13 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
           __pyx_t_6 = 0;
 
           /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":282
- *                     test_alpha_loss = self.__compute_alpha_loss()
- *                     test_sigma_loss = self.__compute_sigma_loss()
- *                     test_mu_loss = self.__compute_mu_loss()             # <<<<<<<<<<<<<<
+ *                     test_alpha_loss = self.compute_alpha_loss()
+ *                     test_sigma_loss = self.compute_sigma_loss()
+ *                     test_mu_loss = self.compute_mu_loss()             # <<<<<<<<<<<<<<
  *                     test_loss = self.computable_loss.compute_loss(
  *                         test_pred_arr + self.encoder.weight_decay_term + self.decoder.weight_decay_term,
  */
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__compute_mu_loss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 282, __pyx_L9_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_compute_mu_loss); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 282, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_2);
           __pyx_t_28 = NULL;
           if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -6004,8 +5998,8 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
           __pyx_t_6 = 0;
 
           /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":283
- *                     test_sigma_loss = self.__compute_sigma_loss()
- *                     test_mu_loss = self.__compute_mu_loss()
+ *                     test_sigma_loss = self.compute_sigma_loss()
+ *                     test_mu_loss = self.compute_mu_loss()
  *                     test_loss = self.computable_loss.compute_loss(             # <<<<<<<<<<<<<<
  *                         test_pred_arr + self.encoder.weight_decay_term + self.decoder.weight_decay_term,
  *                         test_batch_target_arr
@@ -6017,7 +6011,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
           /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":284
- *                     test_mu_loss = self.__compute_mu_loss()
+ *                     test_mu_loss = self.compute_mu_loss()
  *                     test_loss = self.computable_loss.compute_loss(
  *                         test_pred_arr + self.encoder.weight_decay_term + self.decoder.weight_decay_term,             # <<<<<<<<<<<<<<
  *                         test_batch_target_arr
@@ -6097,8 +6091,8 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
           __Pyx_DECREF(__pyx_t_28); __pyx_t_28 = 0;
 
           /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":283
- *                     test_sigma_loss = self.__compute_sigma_loss()
- *                     test_mu_loss = self.__compute_mu_loss()
+ *                     test_sigma_loss = self.compute_sigma_loss()
+ *                     test_mu_loss = self.compute_mu_loss()
  *                     test_loss = self.computable_loss.compute_loss(             # <<<<<<<<<<<<<<
  *                         test_pred_arr + self.encoder.weight_decay_term + self.decoder.weight_decay_term,
  *                         test_batch_target_arr
@@ -11691,7 +11685,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
  * 
  *         return delta_arr             # <<<<<<<<<<<<<<
  * 
- *     def __compute_alpha_loss(self):
+ *     def compute_alpha_loss(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(((PyObject *)__pyx_v_delta_arr));
@@ -11737,26 +11731,27 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
 /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":528
  *         return delta_arr
  * 
- *     def __compute_alpha_loss(self):             # <<<<<<<<<<<<<<
- *         loss = 0.0
- *         for arr in self.__encoder_delta_arr_list:
+ *     def compute_alpha_loss(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Compute denoising loss weighted alpha.
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_11__compute_alpha_loss(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_11__compute_alpha_loss = {"__compute_alpha_loss", (PyCFunction)__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_11__compute_alpha_loss, METH_O, 0};
-static PyObject *__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_11__compute_alpha_loss(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_11compute_alpha_loss(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_10compute_alpha_loss[] = "\n        Compute denoising loss weighted alpha.\n\n        Returns:\n            loss.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_11compute_alpha_loss = {"compute_alpha_loss", (PyCFunction)__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_11compute_alpha_loss, METH_O, __pyx_doc_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_10compute_alpha_loss};
+static PyObject *__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_11compute_alpha_loss(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__compute_alpha_loss (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_10__compute_alpha_loss(__pyx_self, ((PyObject *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("compute_alpha_loss (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_10compute_alpha_loss(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_10__compute_alpha_loss(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_10compute_alpha_loss(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_v_loss = NULL;
   PyObject *__pyx_v_arr = NULL;
   PyObject *__pyx_r = NULL;
@@ -11771,11 +11766,11 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   PyObject *__pyx_t_8 = NULL;
   PyObject *__pyx_t_9 = NULL;
   PyObject *__pyx_t_10 = NULL;
-  __Pyx_RefNannySetupContext("__compute_alpha_loss", 0);
+  __Pyx_RefNannySetupContext("compute_alpha_loss", 0);
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":529
- * 
- *     def __compute_alpha_loss(self):
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":535
+ *             loss.
+ *         '''
  *         loss = 0.0             # <<<<<<<<<<<<<<
  *         for arr in self.__encoder_delta_arr_list:
  *             loss = loss + np.nansum(np.nanmean(np.square(arr), axis=0))
@@ -11783,22 +11778,22 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   __Pyx_INCREF(__pyx_float_0_0);
   __pyx_v_loss = __pyx_float_0_0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":530
- *     def __compute_alpha_loss(self):
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":536
+ *         '''
  *         loss = 0.0
  *         for arr in self.__encoder_delta_arr_list:             # <<<<<<<<<<<<<<
  *             loss = loss + np.nansum(np.nanmean(np.square(arr), axis=0))
  *         for arr in self.__decoder_delta_arr_list:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_delta_a); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 530, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_delta_a); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 536, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 530, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 536, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 530, __pyx_L1_error)
+    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 536, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -11806,17 +11801,17 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 530, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 536, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 530, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 536, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 530, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 536, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 530, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 536, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -11826,7 +11821,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 530, __pyx_L1_error)
+          else __PYX_ERR(0, 536, __pyx_L1_error)
         }
         break;
       }
@@ -11835,26 +11830,26 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     __Pyx_XDECREF_SET(__pyx_v_arr, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":531
+    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":537
  *         loss = 0.0
  *         for arr in self.__encoder_delta_arr_list:
  *             loss = loss + np.nansum(np.nanmean(np.square(arr), axis=0))             # <<<<<<<<<<<<<<
  *         for arr in self.__decoder_delta_arr_list:
  *             loss = loss + np.nansum(np.nanmean(np.square(arr), axis=0))
  */
-    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 531, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 537, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_nansum); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 531, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_nansum); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 537, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 531, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 537, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 531, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 537, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 531, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 537, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_square); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 531, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_square); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 537, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __pyx_t_8 = NULL;
@@ -11868,13 +11863,13 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (!__pyx_t_8) {
-      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_v_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 531, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_v_arr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 537, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_9)) {
         PyObject *__pyx_temp[2] = {__pyx_t_8, __pyx_v_arr};
-        __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_9, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 531, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_9, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 537, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_GOTREF(__pyx_t_5);
       } else
@@ -11882,33 +11877,33 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_9)) {
         PyObject *__pyx_temp[2] = {__pyx_t_8, __pyx_v_arr};
-        __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_9, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 531, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_9, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 537, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_GOTREF(__pyx_t_5);
       } else
       #endif
       {
-        __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 531, __pyx_L1_error)
+        __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 537, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_8); __pyx_t_8 = NULL;
         __Pyx_INCREF(__pyx_v_arr);
         __Pyx_GIVEREF(__pyx_v_arr);
         PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_v_arr);
-        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_10, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 531, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_10, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 537, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 531, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 537, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_GIVEREF(__pyx_t_5);
     PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_5);
     __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 531, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 537, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 531, __pyx_L1_error)
-    __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_9, __pyx_t_5); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 531, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 537, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_9, __pyx_t_5); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 537, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -11924,14 +11919,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (!__pyx_t_5) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 531, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 537, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_6)) {
         PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_10};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 531, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 537, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
@@ -11940,33 +11935,33 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
         PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_10};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 531, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 537, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       } else
       #endif
       {
-        __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 531, __pyx_L1_error)
+        __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 537, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_5); __pyx_t_5 = NULL;
         __Pyx_GIVEREF(__pyx_t_10);
         PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_t_10);
         __pyx_t_10 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 531, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 537, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyNumber_Add(__pyx_v_loss, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 531, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_Add(__pyx_v_loss, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 537, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF_SET(__pyx_v_loss, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":530
- *     def __compute_alpha_loss(self):
+    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":536
+ *         '''
  *         loss = 0.0
  *         for arr in self.__encoder_delta_arr_list:             # <<<<<<<<<<<<<<
  *             loss = loss + np.nansum(np.nanmean(np.square(arr), axis=0))
@@ -11975,22 +11970,22 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":532
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":538
  *         for arr in self.__encoder_delta_arr_list:
  *             loss = loss + np.nansum(np.nanmean(np.square(arr), axis=0))
  *         for arr in self.__decoder_delta_arr_list:             # <<<<<<<<<<<<<<
  *             loss = loss + np.nansum(np.nanmean(np.square(arr), axis=0))
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__decoder_delta_a); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 532, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__decoder_delta_a); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 538, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (likely(PyList_CheckExact(__pyx_t_2)) || PyTuple_CheckExact(__pyx_t_2)) {
     __pyx_t_6 = __pyx_t_2; __Pyx_INCREF(__pyx_t_6); __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 532, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 538, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_4 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 532, __pyx_L1_error)
+    __pyx_t_4 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 538, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   for (;;) {
@@ -11998,17 +11993,17 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       if (likely(PyList_CheckExact(__pyx_t_6))) {
         if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_6)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_3); __Pyx_INCREF(__pyx_t_2); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 532, __pyx_L1_error)
+        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_3); __Pyx_INCREF(__pyx_t_2); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 538, __pyx_L1_error)
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_6, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 532, __pyx_L1_error)
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_6, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 538, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         #endif
       } else {
         if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_3); __Pyx_INCREF(__pyx_t_2); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 532, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_3); __Pyx_INCREF(__pyx_t_2); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 538, __pyx_L1_error)
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_6, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 532, __pyx_L1_error)
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_6, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 538, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         #endif
       }
@@ -12018,7 +12013,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 532, __pyx_L1_error)
+          else __PYX_ERR(0, 538, __pyx_L1_error)
         }
         break;
       }
@@ -12027,26 +12022,26 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     __Pyx_XDECREF_SET(__pyx_v_arr, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":533
+    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":539
  *             loss = loss + np.nansum(np.nanmean(np.square(arr), axis=0))
  *         for arr in self.__decoder_delta_arr_list:
  *             loss = loss + np.nansum(np.nanmean(np.square(arr), axis=0))             # <<<<<<<<<<<<<<
  * 
  *         return loss * self.__alpha_weight
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 533, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 539, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nansum); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 533, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nansum); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 539, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 533, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 539, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 533, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 539, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 533, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 539, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_square); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 533, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_square); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 539, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_5 = NULL;
@@ -12060,13 +12055,13 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (!__pyx_t_5) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_v_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 533, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_v_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 539, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_7)) {
         PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_v_arr};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 533, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 539, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else
@@ -12074,33 +12069,33 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
         PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_v_arr};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 533, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 539, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else
       #endif
       {
-        __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 533, __pyx_L1_error)
+        __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 539, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5); __pyx_t_5 = NULL;
         __Pyx_INCREF(__pyx_v_arr);
         __Pyx_GIVEREF(__pyx_v_arr);
         PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_v_arr);
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 533, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 539, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 533, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 539, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_GIVEREF(__pyx_t_1);
     PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_1);
     __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 533, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 539, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 533, __pyx_L1_error)
-    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 533, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_0) < 0) __PYX_ERR(0, 539, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 539, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -12116,14 +12111,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (!__pyx_t_1) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 533, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 539, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_9)) {
         PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_8};
-        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_9, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 533, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_9, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 539, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -12132,32 +12127,32 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_9)) {
         PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_8};
-        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_9, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 533, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_9, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 539, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       } else
       #endif
       {
-        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 533, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 539, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_1); __pyx_t_1 = NULL;
         __Pyx_GIVEREF(__pyx_t_8);
         PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_8);
         __pyx_t_8 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 533, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 539, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_9 = PyNumber_Add(__pyx_v_loss, __pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 533, __pyx_L1_error)
+    __pyx_t_9 = PyNumber_Add(__pyx_v_loss, __pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 539, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF_SET(__pyx_v_loss, __pyx_t_9);
     __pyx_t_9 = 0;
 
-    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":532
+    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":538
  *         for arr in self.__encoder_delta_arr_list:
  *             loss = loss + np.nansum(np.nanmean(np.square(arr), axis=0))
  *         for arr in self.__decoder_delta_arr_list:             # <<<<<<<<<<<<<<
@@ -12167,17 +12162,17 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":535
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":541
  *             loss = loss + np.nansum(np.nanmean(np.square(arr), axis=0))
  * 
  *         return loss * self.__alpha_weight             # <<<<<<<<<<<<<<
  * 
- *     def __compute_sigma_loss(self):
+ *     def compute_sigma_loss(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__alpha_weight); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 535, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__alpha_weight); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 541, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_9 = PyNumber_Multiply(__pyx_v_loss, __pyx_t_6); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 535, __pyx_L1_error)
+  __pyx_t_9 = PyNumber_Multiply(__pyx_v_loss, __pyx_t_6); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 541, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_r = __pyx_t_9;
@@ -12187,9 +12182,9 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":528
  *         return delta_arr
  * 
- *     def __compute_alpha_loss(self):             # <<<<<<<<<<<<<<
- *         loss = 0.0
- *         for arr in self.__encoder_delta_arr_list:
+ *     def compute_alpha_loss(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Compute denoising loss weighted alpha.
  */
 
   /* function exit code */
@@ -12202,7 +12197,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
   __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_AddTraceback("pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.__compute_alpha_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.compute_alpha_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_loss);
@@ -12212,29 +12207,30 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   return __pyx_r;
 }
 
-/* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":537
+/* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":543
  *         return loss * self.__alpha_weight
  * 
- *     def __compute_sigma_loss(self):             # <<<<<<<<<<<<<<
- *         sigma_arr = self.__encoder_sigma_arr_list[0]
- *         sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
+ *     def compute_sigma_loss(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Compute sigma loss weighted sigma.
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_13__compute_sigma_loss(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_13__compute_sigma_loss = {"__compute_sigma_loss", (PyCFunction)__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_13__compute_sigma_loss, METH_O, 0};
-static PyObject *__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_13__compute_sigma_loss(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_13compute_sigma_loss(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_12compute_sigma_loss[] = "\n        Compute sigma loss weighted sigma.\n\n        Returns:\n            loss.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_13compute_sigma_loss = {"compute_sigma_loss", (PyCFunction)__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_13compute_sigma_loss, METH_O, __pyx_doc_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_12compute_sigma_loss};
+static PyObject *__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_13compute_sigma_loss(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__compute_sigma_loss (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_12__compute_sigma_loss(__pyx_self, ((PyObject *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("compute_sigma_loss (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_12compute_sigma_loss(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_12__compute_sigma_loss(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_12compute_sigma_loss(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_v_sigma_arr = NULL;
   PyObject *__pyx_v_sigma = NULL;
   Py_ssize_t __pyx_v_i;
@@ -12253,41 +12249,41 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   Py_ssize_t __pyx_t_11;
   Py_ssize_t __pyx_t_12;
   Py_ssize_t __pyx_t_13;
-  __Pyx_RefNannySetupContext("__compute_sigma_loss", 0);
+  __Pyx_RefNannySetupContext("compute_sigma_loss", 0);
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":538
- * 
- *     def __compute_sigma_loss(self):
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":550
+ *             loss.
+ *         '''
  *         sigma_arr = self.__encoder_sigma_arr_list[0]             # <<<<<<<<<<<<<<
  *         sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
  *         sigma = np.mean(np.nanmean(sigma_arr, axis=1))
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_sigma_a); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 538, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_sigma_a); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 550, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 538, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 550, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_sigma_arr = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":539
- *     def __compute_sigma_loss(self):
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":551
+ *         '''
  *         sigma_arr = self.__encoder_sigma_arr_list[0]
  *         sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])             # <<<<<<<<<<<<<<
  *         sigma = np.mean(np.nanmean(sigma_arr, axis=1))
  *         for i in range(1, len(self.__encoder_sigma_arr_list)):
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_diag); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_diag); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_ma); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_ma); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_log); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_log); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -12301,13 +12297,13 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     }
   }
   if (!__pyx_t_6) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_sigma_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 539, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_sigma_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 551, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_v_sigma_arr};
-      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 539, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 551, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else
@@ -12315,33 +12311,33 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_v_sigma_arr};
-      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 539, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 551, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else
     #endif
     {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 539, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 551, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
       __Pyx_INCREF(__pyx_v_sigma_arr);
       __Pyx_GIVEREF(__pyx_v_sigma_arr);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_v_sigma_arr);
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 539, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 551, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyNumber_Subtract(__pyx_v_sigma_arr, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_5 = PyNumber_Subtract(__pyx_v_sigma_arr, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_eye); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_eye); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_sigma_arr, __pyx_n_s_copy); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_sigma_arr, __pyx_n_s_copy); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __pyx_t_9 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
@@ -12354,17 +12350,17 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     }
   }
   if (__pyx_t_9) {
-    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 539, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 551, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   } else {
-    __pyx_t_7 = __Pyx_PyObject_CallNoArg(__pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 539, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_CallNoArg(__pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 551, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_shape); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_shape); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_8, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_8, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __pyx_t_8 = NULL;
@@ -12378,14 +12374,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     }
   }
   if (!__pyx_t_8) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 539, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 551, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_3);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[2] = {__pyx_t_8, __pyx_t_7};
-      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 539, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 551, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -12394,26 +12390,26 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[2] = {__pyx_t_8, __pyx_t_7};
-      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 539, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 551, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else
     #endif
     {
-      __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 539, __pyx_L1_error)
+      __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 551, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_8); __pyx_t_8 = NULL;
       __Pyx_GIVEREF(__pyx_t_7);
       PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_t_7);
       __pyx_t_7 = 0;
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_9, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 539, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_9, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 551, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyNumber_Subtract(__pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Subtract(__pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -12428,14 +12424,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 539, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 551, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_6};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 539, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 551, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -12444,31 +12440,31 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_6};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 539, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 551, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else
     #endif
     {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 539, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 551, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3); __pyx_t_3 = NULL;
       __Pyx_GIVEREF(__pyx_t_6);
       PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_6);
       __pyx_t_6 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 539, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 551, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_reshape); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_reshape); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_sigma_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_sigma_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -12486,7 +12482,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_4)) {
     PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_int_1, __pyx_t_5};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 539, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 551, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -12495,14 +12491,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
     PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_int_1, __pyx_t_5};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 539, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 551, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   } else
   #endif
   {
-    __pyx_t_6 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 539, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 551, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     if (__pyx_t_1) {
       __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_1); __pyx_t_1 = NULL;
@@ -12513,7 +12509,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     __Pyx_GIVEREF(__pyx_t_5);
     PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_10, __pyx_t_5);
     __pyx_t_5 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 539, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 551, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
@@ -12521,32 +12517,32 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   __Pyx_DECREF_SET(__pyx_v_sigma_arr, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":540
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":552
  *         sigma_arr = self.__encoder_sigma_arr_list[0]
  *         sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
  *         sigma = np.mean(np.nanmean(sigma_arr, axis=1))             # <<<<<<<<<<<<<<
  *         for i in range(1, len(self.__encoder_sigma_arr_list)):
  *             sigma_arr = self.__encoder_sigma_arr_list[i]
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 540, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 552, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_mean); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 540, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_mean); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 552, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 540, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 552, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 540, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 552, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 540, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 552, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_sigma_arr);
   __Pyx_GIVEREF(__pyx_v_sigma_arr);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_sigma_arr);
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 540, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 552, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 540, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 540, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 552, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 552, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -12562,14 +12558,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     }
   }
   if (!__pyx_t_1) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 540, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 552, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_3};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 540, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 552, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -12578,20 +12574,20 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
       PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_3};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 540, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 552, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 540, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 552, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_1); __pyx_t_1 = NULL;
       __Pyx_GIVEREF(__pyx_t_3);
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_3);
       __pyx_t_3 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 540, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 552, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -12600,54 +12596,54 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   __pyx_v_sigma = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":541
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":553
  *         sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
  *         sigma = np.mean(np.nanmean(sigma_arr, axis=1))
  *         for i in range(1, len(self.__encoder_sigma_arr_list)):             # <<<<<<<<<<<<<<
  *             sigma_arr = self.__encoder_sigma_arr_list[i]
  *             sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_sigma_a); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 541, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_sigma_a); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 553, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_11 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 541, __pyx_L1_error)
+  __pyx_t_11 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 553, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_12 = __pyx_t_11;
   for (__pyx_t_13 = 1; __pyx_t_13 < __pyx_t_12; __pyx_t_13+=1) {
     __pyx_v_i = __pyx_t_13;
 
-    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":542
+    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":554
  *         sigma = np.mean(np.nanmean(sigma_arr, axis=1))
  *         for i in range(1, len(self.__encoder_sigma_arr_list)):
  *             sigma_arr = self.__encoder_sigma_arr_list[i]             # <<<<<<<<<<<<<<
  *             sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
  *             sigma = sigma + np.mean(np.nanmean(sigma_arr, axis=1))
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_sigma_a); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 542, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_sigma_a); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 554, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 542, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 554, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF_SET(__pyx_v_sigma_arr, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":543
+    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":555
  *         for i in range(1, len(self.__encoder_sigma_arr_list)):
  *             sigma_arr = self.__encoder_sigma_arr_list[i]
  *             sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])             # <<<<<<<<<<<<<<
  *             sigma = sigma + np.mean(np.nanmean(sigma_arr, axis=1))
  * 
  */
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 555, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_diag); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_diag); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 555, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 555, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ma); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ma); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 555, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 555, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_5 = NULL;
@@ -12661,13 +12657,13 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (!__pyx_t_5) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_sigma_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 543, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_sigma_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 555, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_v_sigma_arr};
-        __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 543, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 555, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_4);
       } else
@@ -12675,33 +12671,33 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_v_sigma_arr};
-        __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 543, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 555, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_4);
       } else
       #endif
       {
-        __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 543, __pyx_L1_error)
+        __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 555, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_5); __pyx_t_5 = NULL;
         __Pyx_INCREF(__pyx_v_sigma_arr);
         __Pyx_GIVEREF(__pyx_v_sigma_arr);
         PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_v_sigma_arr);
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_9, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 543, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_9, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 555, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Subtract(__pyx_v_sigma_arr, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Subtract(__pyx_v_sigma_arr, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 555, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 555, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_eye); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_eye); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 555, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_sigma_arr, __pyx_n_s_copy); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_sigma_arr, __pyx_n_s_copy); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 555, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
@@ -12714,17 +12710,17 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (__pyx_t_8) {
-      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 543, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 555, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     } else {
-      __pyx_t_9 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 543, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 555, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_shape); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_shape); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 555, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 555, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_t_7 = NULL;
@@ -12738,14 +12734,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (!__pyx_t_7) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 543, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 555, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       __Pyx_GOTREF(__pyx_t_4);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_5)) {
         PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_9};
-        __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 543, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 555, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -12754,26 +12750,26 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
         PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_9};
-        __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 543, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 555, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       } else
       #endif
       {
-        __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 543, __pyx_L1_error)
+        __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 555, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7); __pyx_t_7 = NULL;
         __Pyx_GIVEREF(__pyx_t_9);
         PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_9);
         __pyx_t_9 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 543, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 555, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyNumber_Subtract(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Subtract(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 555, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -12788,14 +12784,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (!__pyx_t_4) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 543, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 555, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_2);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_3)) {
         PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_5};
-        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 543, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 555, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -12804,31 +12800,31 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
         PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_5};
-        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 543, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 555, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       } else
       #endif
       {
-        __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 543, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 555, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_4); __pyx_t_4 = NULL;
         __Pyx_GIVEREF(__pyx_t_5);
         PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_5);
         __pyx_t_5 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 543, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 555, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_reshape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_reshape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 555, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_sigma_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_sigma_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 555, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 555, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_2 = NULL;
@@ -12846,7 +12842,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_int_1, __pyx_t_1};
-      __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 543, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 555, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -12855,14 +12851,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_int_1, __pyx_t_1};
-      __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 543, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 555, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else
     #endif
     {
-      __pyx_t_5 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 543, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 555, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       if (__pyx_t_2) {
         __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -12873,7 +12869,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       __Pyx_GIVEREF(__pyx_t_1);
       PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_10, __pyx_t_1);
       __pyx_t_1 = 0;
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 543, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 555, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
@@ -12881,32 +12877,32 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     __Pyx_DECREF_SET(__pyx_v_sigma_arr, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":544
+    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":556
  *             sigma_arr = self.__encoder_sigma_arr_list[i]
  *             sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
  *             sigma = sigma + np.mean(np.nanmean(sigma_arr, axis=1))             # <<<<<<<<<<<<<<
  * 
  *         for i in range(len(self.__decoder_sigma_arr_list)):
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 544, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 556, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_mean); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 544, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_mean); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 556, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 544, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 556, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 544, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 556, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 544, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 556, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_v_sigma_arr);
     __Pyx_GIVEREF(__pyx_v_sigma_arr);
     PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_sigma_arr);
-    __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 544, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 556, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 544, __pyx_L1_error)
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 544, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 556, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 556, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -12922,14 +12918,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (!__pyx_t_2) {
-      __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 544, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 556, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_6);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_5)) {
         PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_4};
-        __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 544, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 556, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -12938,80 +12934,80 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
         PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_4};
-        __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 544, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 556, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       } else
       #endif
       {
-        __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 544, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 556, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2); __pyx_t_2 = NULL;
         __Pyx_GIVEREF(__pyx_t_4);
         PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_4);
         __pyx_t_4 = 0;
-        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 544, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 556, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyNumber_Add(__pyx_v_sigma, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 544, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Add(__pyx_v_sigma, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 556, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF_SET(__pyx_v_sigma, __pyx_t_5);
     __pyx_t_5 = 0;
   }
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":546
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":558
  *             sigma = sigma + np.mean(np.nanmean(sigma_arr, axis=1))
  * 
  *         for i in range(len(self.__decoder_sigma_arr_list)):             # <<<<<<<<<<<<<<
  *             sigma_arr = self.__decoder_sigma_arr_list[i]
  *             sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__decoder_sigma_a); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 546, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__decoder_sigma_a); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 558, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_11 = PyObject_Length(__pyx_t_5); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 546, __pyx_L1_error)
+  __pyx_t_11 = PyObject_Length(__pyx_t_5); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 558, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_12 = __pyx_t_11;
   for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_12; __pyx_t_13+=1) {
     __pyx_v_i = __pyx_t_13;
 
-    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":547
+    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":559
  * 
  *         for i in range(len(self.__decoder_sigma_arr_list)):
  *             sigma_arr = self.__decoder_sigma_arr_list[i]             # <<<<<<<<<<<<<<
  *             sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
  *             sigma += sigma + np.mean(np.nanmean(sigma_arr, axis=1))
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__decoder_sigma_a); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 547, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__decoder_sigma_a); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 559, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_5, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 547, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_5, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 559, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF_SET(__pyx_v_sigma_arr, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":548
+    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":560
  *         for i in range(len(self.__decoder_sigma_arr_list)):
  *             sigma_arr = self.__decoder_sigma_arr_list[i]
  *             sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])             # <<<<<<<<<<<<<<
  *             sigma += sigma + np.mean(np.nanmean(sigma_arr, axis=1))
  * 
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 560, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_diag); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_diag); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 560, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 560, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_ma); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_ma); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 560, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_log); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_log); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 560, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_1 = NULL;
@@ -13025,13 +13021,13 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (!__pyx_t_1) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_sigma_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 548, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_sigma_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 560, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_v_sigma_arr};
-        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 548, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 560, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_GOTREF(__pyx_t_3);
       } else
@@ -13039,33 +13035,33 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_v_sigma_arr};
-        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 548, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 560, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_GOTREF(__pyx_t_3);
       } else
       #endif
       {
-        __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 548, __pyx_L1_error)
+        __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 560, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_1); __pyx_t_1 = NULL;
         __Pyx_INCREF(__pyx_v_sigma_arr);
         __Pyx_GIVEREF(__pyx_v_sigma_arr);
         PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_v_sigma_arr);
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 548, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 560, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyNumber_Subtract(__pyx_v_sigma_arr, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_2 = PyNumber_Subtract(__pyx_v_sigma_arr, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 560, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 560, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_eye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_eye); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 560, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_sigma_arr, __pyx_n_s_copy); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_sigma_arr, __pyx_n_s_copy); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 560, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_7 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_9))) {
@@ -13078,17 +13074,17 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (__pyx_t_7) {
-      __pyx_t_8 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 548, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 560, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else {
-      __pyx_t_8 = __Pyx_PyObject_CallNoArg(__pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 548, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_CallNoArg(__pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 560, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_shape); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_shape); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 560, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_9, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_9, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 560, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __pyx_t_9 = NULL;
@@ -13102,14 +13098,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (!__pyx_t_9) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 548, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 560, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_8};
-        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 548, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 560, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -13118,26 +13114,26 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_8};
-        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 548, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 560, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       } else
       #endif
       {
-        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 548, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 560, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_9); __pyx_t_9 = NULL;
         __Pyx_GIVEREF(__pyx_t_8);
         PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_8);
         __pyx_t_8 = 0;
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 548, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 560, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Subtract(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Subtract(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 560, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -13152,14 +13148,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (!__pyx_t_3) {
-      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 548, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 560, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_5);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_1};
-        __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 548, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 560, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -13168,31 +13164,31 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_1};
-        __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 548, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 560, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       } else
       #endif
       {
-        __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 548, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 560, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
         __Pyx_GIVEREF(__pyx_t_1);
         PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_1);
         __pyx_t_1 = 0;
-        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 548, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 560, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_reshape); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_reshape); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 560, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_sigma_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_sigma_arr, __pyx_n_s_shape); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 560, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_5, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 548, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_5, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 560, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_5 = NULL;
@@ -13210,7 +13206,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_int_1, __pyx_t_2};
-      __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 548, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 560, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -13219,14 +13215,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_int_1, __pyx_t_2};
-      __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 548, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 560, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     } else
     #endif
     {
-      __pyx_t_1 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 548, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 560, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       if (__pyx_t_5) {
         __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -13237,7 +13233,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       __Pyx_GIVEREF(__pyx_t_2);
       PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_10, __pyx_t_2);
       __pyx_t_2 = 0;
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 548, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 560, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
@@ -13245,32 +13241,32 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     __Pyx_DECREF_SET(__pyx_v_sigma_arr, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":549
+    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":561
  *             sigma_arr = self.__decoder_sigma_arr_list[i]
  *             sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
  *             sigma += sigma + np.mean(np.nanmean(sigma_arr, axis=1))             # <<<<<<<<<<<<<<
  * 
  *         sigma = sigma / (len(self.__encoder_sigma_arr_list) + len(self.__decoder_sigma_arr_list))
  */
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 561, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_mean); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 549, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_mean); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 561, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 561, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 549, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 561, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 561, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_INCREF(__pyx_v_sigma_arr);
     __Pyx_GIVEREF(__pyx_v_sigma_arr);
     PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_sigma_arr);
-    __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 549, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 561, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 549, __pyx_L1_error)
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 549, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 561, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 561, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -13286,14 +13282,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (!__pyx_t_5) {
-      __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 561, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_6);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_3};
-        __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 561, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -13302,91 +13298,91 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_3};
-        __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 561, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       } else
       #endif
       {
-        __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 561, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5); __pyx_t_5 = NULL;
         __Pyx_GIVEREF(__pyx_t_3);
         PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_3);
         __pyx_t_3 = 0;
-        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_4, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_4, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 561, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Add(__pyx_v_sigma, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 549, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Add(__pyx_v_sigma, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 561, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyNumber_InPlaceAdd(__pyx_v_sigma, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_InPlaceAdd(__pyx_v_sigma, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 561, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF_SET(__pyx_v_sigma, __pyx_t_6);
     __pyx_t_6 = 0;
   }
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":551
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":563
  *             sigma += sigma + np.mean(np.nanmean(sigma_arr, axis=1))
  * 
  *         sigma = sigma / (len(self.__encoder_sigma_arr_list) + len(self.__decoder_sigma_arr_list))             # <<<<<<<<<<<<<<
  *         sigma = sigma * self.__sigma_weight
  *         return sigma
  */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_sigma_a); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 551, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_sigma_a); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 563, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_11 = PyObject_Length(__pyx_t_6); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 551, __pyx_L1_error)
+  __pyx_t_11 = PyObject_Length(__pyx_t_6); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 563, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__decoder_sigma_a); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 551, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__decoder_sigma_a); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 563, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_12 = PyObject_Length(__pyx_t_6); if (unlikely(__pyx_t_12 == ((Py_ssize_t)-1))) __PYX_ERR(0, 551, __pyx_L1_error)
+  __pyx_t_12 = PyObject_Length(__pyx_t_6); if (unlikely(__pyx_t_12 == ((Py_ssize_t)-1))) __PYX_ERR(0, 563, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyInt_FromSsize_t((__pyx_t_11 + __pyx_t_12)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 551, __pyx_L1_error)
+  __pyx_t_6 = PyInt_FromSsize_t((__pyx_t_11 + __pyx_t_12)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 563, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_v_sigma, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 551, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_v_sigma, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 563, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF_SET(__pyx_v_sigma, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":552
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":564
  * 
  *         sigma = sigma / (len(self.__encoder_sigma_arr_list) + len(self.__decoder_sigma_arr_list))
  *         sigma = sigma * self.__sigma_weight             # <<<<<<<<<<<<<<
  *         return sigma
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__sigma_weight); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 552, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__sigma_weight); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 564, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = PyNumber_Multiply(__pyx_v_sigma, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 552, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Multiply(__pyx_v_sigma, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 564, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF_SET(__pyx_v_sigma, __pyx_t_6);
   __pyx_t_6 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":553
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":565
  *         sigma = sigma / (len(self.__encoder_sigma_arr_list) + len(self.__decoder_sigma_arr_list))
  *         sigma = sigma * self.__sigma_weight
  *         return sigma             # <<<<<<<<<<<<<<
  * 
- *     def __compute_mu_loss(self):
+ *     def compute_mu_loss(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(__pyx_v_sigma);
   __pyx_r = __pyx_v_sigma;
   goto __pyx_L0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":537
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":543
  *         return loss * self.__alpha_weight
  * 
- *     def __compute_sigma_loss(self):             # <<<<<<<<<<<<<<
- *         sigma_arr = self.__encoder_sigma_arr_list[0]
- *         sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
+ *     def compute_sigma_loss(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Compute sigma loss weighted sigma.
  */
 
   /* function exit code */
@@ -13400,7 +13396,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.__compute_sigma_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.compute_sigma_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_sigma_arr);
@@ -13410,29 +13406,30 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   return __pyx_r;
 }
 
-/* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":555
+/* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":567
  *         return sigma
  * 
- *     def __compute_mu_loss(self):             # <<<<<<<<<<<<<<
- *         mu = np.nanmean(np.square(self.__encoder_mu_arr_list[0]))
- *         for i in range(1, len(self.__encoder_mu_arr_list)):
+ *     def compute_mu_loss(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Compute mu loss weighted mu.
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_15__compute_mu_loss(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_15__compute_mu_loss = {"__compute_mu_loss", (PyCFunction)__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_15__compute_mu_loss, METH_O, 0};
-static PyObject *__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_15__compute_mu_loss(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_15compute_mu_loss(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_14compute_mu_loss[] = "\n        Compute mu loss weighted mu.\n\n        Returns:\n            loss.\n        ";
+static PyMethodDef __pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_15compute_mu_loss = {"compute_mu_loss", (PyCFunction)__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_15compute_mu_loss, METH_O, __pyx_doc_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_14compute_mu_loss};
+static PyObject *__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_15compute_mu_loss(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__compute_mu_loss (wrapper)", 0);
-  __pyx_r = __pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_14__compute_mu_loss(__pyx_self, ((PyObject *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("compute_mu_loss (wrapper)", 0);
+  __pyx_r = __pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_14compute_mu_loss(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_14__compute_mu_loss(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_14compute_mu_loss(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_v_mu = NULL;
   Py_ssize_t __pyx_v_i;
   PyObject *__pyx_r = NULL;
@@ -13447,28 +13444,28 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   Py_ssize_t __pyx_t_8;
   Py_ssize_t __pyx_t_9;
   Py_ssize_t __pyx_t_10;
-  __Pyx_RefNannySetupContext("__compute_mu_loss", 0);
+  __Pyx_RefNannySetupContext("compute_mu_loss", 0);
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":556
- * 
- *     def __compute_mu_loss(self):
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":574
+ *             loss.
+ *         '''
  *         mu = np.nanmean(np.square(self.__encoder_mu_arr_list[0]))             # <<<<<<<<<<<<<<
  *         for i in range(1, len(self.__encoder_mu_arr_list)):
  *             mu += np.nanmean(np.square(self.__encoder_mu_arr_list[i]))
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 556, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 574, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 556, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 574, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 556, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 574, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_square); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 556, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_square); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 574, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_mu_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 556, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_mu_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 574, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 556, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 574, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -13482,14 +13479,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 556, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 574, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_6};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 556, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 574, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -13498,20 +13495,20 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_6};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 556, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 574, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else
     #endif
     {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 556, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 574, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4); __pyx_t_4 = NULL;
       __Pyx_GIVEREF(__pyx_t_6);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_6);
       __pyx_t_6 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 556, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 574, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
@@ -13528,14 +13525,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 556, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 574, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_2};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 556, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 574, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -13544,20 +13541,20 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_2};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 556, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 574, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     } else
     #endif
     {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 556, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 574, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
       __Pyx_GIVEREF(__pyx_t_2);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_2);
       __pyx_t_2 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 556, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 574, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
@@ -13566,41 +13563,41 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   __pyx_v_mu = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":557
- *     def __compute_mu_loss(self):
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":575
+ *         '''
  *         mu = np.nanmean(np.square(self.__encoder_mu_arr_list[0]))
  *         for i in range(1, len(self.__encoder_mu_arr_list)):             # <<<<<<<<<<<<<<
  *             mu += np.nanmean(np.square(self.__encoder_mu_arr_list[i]))
  *         for i in range(len(self.__decoder_mu_arr_list)):
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_mu_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 557, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_mu_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 575, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_8 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 557, __pyx_L1_error)
+  __pyx_t_8 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 575, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_9 = __pyx_t_8;
   for (__pyx_t_10 = 1; __pyx_t_10 < __pyx_t_9; __pyx_t_10+=1) {
     __pyx_v_i = __pyx_t_10;
 
-    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":558
+    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":576
  *         mu = np.nanmean(np.square(self.__encoder_mu_arr_list[0]))
  *         for i in range(1, len(self.__encoder_mu_arr_list)):
  *             mu += np.nanmean(np.square(self.__encoder_mu_arr_list[i]))             # <<<<<<<<<<<<<<
  *         for i in range(len(self.__decoder_mu_arr_list)):
  *             mu += np.nanmean(np.square(self.__decoder_mu_arr_list[i]))
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 558, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 576, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 558, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 576, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 558, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 576, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_square); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 558, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_square); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 576, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_mu_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 558, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_mu_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 576, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 558, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 576, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_2 = NULL;
@@ -13614,14 +13611,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (!__pyx_t_2) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 558, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 576, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_5)) {
         PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_6};
-        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 558, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 576, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -13630,20 +13627,20 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
         PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_6};
-        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 558, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 576, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       } else
       #endif
       {
-        __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 558, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 576, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
         __Pyx_GIVEREF(__pyx_t_6);
         PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_6);
         __pyx_t_6 = 0;
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 558, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 576, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       }
@@ -13660,14 +13657,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (!__pyx_t_5) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 558, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 576, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_7)) {
         PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_3};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 558, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 576, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -13676,67 +13673,67 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
         PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_3};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 558, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 576, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       } else
       #endif
       {
-        __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 558, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 576, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5); __pyx_t_5 = NULL;
         __Pyx_GIVEREF(__pyx_t_3);
         PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_3);
         __pyx_t_3 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 558, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 576, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyNumber_InPlaceAdd(__pyx_v_mu, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 558, __pyx_L1_error)
+    __pyx_t_7 = PyNumber_InPlaceAdd(__pyx_v_mu, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 576, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF_SET(__pyx_v_mu, __pyx_t_7);
     __pyx_t_7 = 0;
   }
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":559
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":577
  *         for i in range(1, len(self.__encoder_mu_arr_list)):
  *             mu += np.nanmean(np.square(self.__encoder_mu_arr_list[i]))
  *         for i in range(len(self.__decoder_mu_arr_list)):             # <<<<<<<<<<<<<<
  *             mu += np.nanmean(np.square(self.__decoder_mu_arr_list[i]))
  * 
  */
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__decoder_mu_arr); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 559, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__decoder_mu_arr); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 577, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = PyObject_Length(__pyx_t_7); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 559, __pyx_L1_error)
+  __pyx_t_8 = PyObject_Length(__pyx_t_7); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 577, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_9 = __pyx_t_8;
   for (__pyx_t_10 = 0; __pyx_t_10 < __pyx_t_9; __pyx_t_10+=1) {
     __pyx_v_i = __pyx_t_10;
 
-    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":560
+    /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":578
  *             mu += np.nanmean(np.square(self.__encoder_mu_arr_list[i]))
  *         for i in range(len(self.__decoder_mu_arr_list)):
  *             mu += np.nanmean(np.square(self.__decoder_mu_arr_list[i]))             # <<<<<<<<<<<<<<
  * 
  *         mu = mu / (len(self.__encoder_mu_arr_list) + len(self.__decoder_mu_arr_list))
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 560, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 578, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 560, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nanmean); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 578, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 560, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 578, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_square); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 560, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_square); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 578, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__decoder_mu_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 560, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__decoder_mu_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 578, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_3, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 560, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_3, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 578, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -13750,14 +13747,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (!__pyx_t_3) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 560, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 578, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_5)) {
         PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_6};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 560, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 578, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -13766,20 +13763,20 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
         PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_6};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 560, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 578, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       } else
       #endif
       {
-        __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 560, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 578, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
         __Pyx_GIVEREF(__pyx_t_6);
         PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_6);
         __pyx_t_6 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 560, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 578, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       }
@@ -13796,14 +13793,14 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       }
     }
     if (!__pyx_t_5) {
-      __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 560, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 578, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_7);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_1};
-        __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 560, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 578, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -13812,71 +13809,71 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_t_1};
-        __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 560, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 578, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       } else
       #endif
       {
-        __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 560, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 578, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_5); __pyx_t_5 = NULL;
         __Pyx_GIVEREF(__pyx_t_1);
         PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_1);
         __pyx_t_1 = 0;
-        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 560, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 578, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_v_mu, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 560, __pyx_L1_error)
+    __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_v_mu, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 578, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF_SET(__pyx_v_mu, __pyx_t_4);
     __pyx_t_4 = 0;
   }
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":562
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":580
  *             mu += np.nanmean(np.square(self.__decoder_mu_arr_list[i]))
  * 
  *         mu = mu / (len(self.__encoder_mu_arr_list) + len(self.__decoder_mu_arr_list))             # <<<<<<<<<<<<<<
  *         mu = mu * self.__mu_weight
  *         return mu
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_mu_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 562, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__encoder_mu_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 580, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_8 = PyObject_Length(__pyx_t_4); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 562, __pyx_L1_error)
+  __pyx_t_8 = PyObject_Length(__pyx_t_4); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 580, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__decoder_mu_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 562, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__decoder_mu_arr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 580, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_9 = PyObject_Length(__pyx_t_4); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 562, __pyx_L1_error)
+  __pyx_t_9 = PyObject_Length(__pyx_t_4); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 580, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyInt_FromSsize_t((__pyx_t_8 + __pyx_t_9)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 562, __pyx_L1_error)
+  __pyx_t_4 = PyInt_FromSsize_t((__pyx_t_8 + __pyx_t_9)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 580, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = __Pyx_PyNumber_Divide(__pyx_v_mu, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 562, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyNumber_Divide(__pyx_v_mu, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 580, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF_SET(__pyx_v_mu, __pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":563
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":581
  * 
  *         mu = mu / (len(self.__encoder_mu_arr_list) + len(self.__decoder_mu_arr_list))
  *         mu = mu * self.__mu_weight             # <<<<<<<<<<<<<<
  *         return mu
  * 
  */
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__mu_weight); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 563, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__mu_weight); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 581, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_4 = PyNumber_Multiply(__pyx_v_mu, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 563, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Multiply(__pyx_v_mu, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 581, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF_SET(__pyx_v_mu, __pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":564
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":582
  *         mu = mu / (len(self.__encoder_mu_arr_list) + len(self.__decoder_mu_arr_list))
  *         mu = mu * self.__mu_weight
  *         return mu             # <<<<<<<<<<<<<<
@@ -13888,12 +13885,12 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   __pyx_r = __pyx_v_mu;
   goto __pyx_L0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":555
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":567
  *         return sigma
  * 
- *     def __compute_mu_loss(self):             # <<<<<<<<<<<<<<
- *         mu = np.nanmean(np.square(self.__encoder_mu_arr_list[0]))
- *         for i in range(1, len(self.__encoder_mu_arr_list)):
+ *     def compute_mu_loss(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Compute mu loss weighted mu.
  */
 
   /* function exit code */
@@ -13905,7 +13902,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.__compute_mu_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.compute_mu_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_mu);
@@ -13914,7 +13911,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   return __pyx_r;
 }
 
-/* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":566
+/* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":584
  *         return mu
  * 
  *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
@@ -13955,11 +13952,11 @@ static PyObject *__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_readonly", 1, 2, 2, 1); __PYX_ERR(0, 566, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_readonly", 1, 2, 2, 1); __PYX_ERR(0, 584, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_readonly") < 0)) __PYX_ERR(0, 566, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_readonly") < 0)) __PYX_ERR(0, 584, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -13972,7 +13969,7 @@ static PyObject *__pyx_pw_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_readonly", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 566, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_readonly", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 584, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.set_readonly", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -13991,20 +13988,20 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("set_readonly", 0);
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":568
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":586
  *     def set_readonly(self, value):
  *         ''' setter '''
  *         raise TypeError("This property must be read-only.")             # <<<<<<<<<<<<<<
  * 
  *     def get_alpha_loss_arr(self):
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__22, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 568, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__22, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 586, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __PYX_ERR(0, 568, __pyx_L1_error)
+  __PYX_ERR(0, 586, __pyx_L1_error)
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":566
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":584
  *         return mu
  * 
  *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
@@ -14022,7 +14019,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   return __pyx_r;
 }
 
-/* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":570
+/* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":588
  *         raise TypeError("This property must be read-only.")
  * 
  *     def get_alpha_loss_arr(self):             # <<<<<<<<<<<<<<
@@ -14051,7 +14048,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_alpha_loss_arr", 0);
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":572
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":590
  *     def get_alpha_loss_arr(self):
  *         ''' getter '''
  *         return self.__alpha_loss_arr             # <<<<<<<<<<<<<<
@@ -14059,13 +14056,13 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
  *     alpha_loss_arr = property(get_alpha_loss_arr, set_readonly)
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__alpha_loss_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 572, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__alpha_loss_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 590, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":570
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":588
  *         raise TypeError("This property must be read-only.")
  * 
  *     def get_alpha_loss_arr(self):             # <<<<<<<<<<<<<<
@@ -14084,7 +14081,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   return __pyx_r;
 }
 
-/* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":576
+/* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":594
  *     alpha_loss_arr = property(get_alpha_loss_arr, set_readonly)
  * 
  *     def get_sigma_loss_arr(self):             # <<<<<<<<<<<<<<
@@ -14113,7 +14110,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_sigma_loss_arr", 0);
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":578
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":596
  *     def get_sigma_loss_arr(self):
  *         ''' getter '''
  *         return self.__sigma_loss_arr             # <<<<<<<<<<<<<<
@@ -14121,13 +14118,13 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
  *     sigma_loss_arr = property(get_sigma_loss_arr, set_readonly)
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__sigma_loss_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 578, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__sigma_loss_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 596, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":576
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":594
  *     alpha_loss_arr = property(get_alpha_loss_arr, set_readonly)
  * 
  *     def get_sigma_loss_arr(self):             # <<<<<<<<<<<<<<
@@ -14146,7 +14143,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   return __pyx_r;
 }
 
-/* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":582
+/* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":600
  *     sigma_loss_arr = property(get_sigma_loss_arr, set_readonly)
  * 
  *     def get_mu_loss_arr(self):             # <<<<<<<<<<<<<<
@@ -14175,7 +14172,7 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("get_mu_loss_arr", 0);
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":584
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":602
  *     def get_mu_loss_arr(self):
  *         ''' getter '''
  *         return self.__mu_loss_arr             # <<<<<<<<<<<<<<
@@ -14183,13 +14180,13 @@ static PyObject *__pyx_pf_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14Lad
  *     mu_loss_arr = property(get_mu_loss_arr, set_readonly)
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__mu_loss_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 584, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_LadderNetworks__mu_loss_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 602, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":582
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":600
  *     sigma_loss_arr = property(get_sigma_loss_arr, set_readonly)
  * 
  *     def get_mu_loss_arr(self):             # <<<<<<<<<<<<<<
@@ -16721,18 +16718,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Interrupt, __pyx_k_Interrupt, sizeof(__pyx_k_Interrupt), 0, 0, 1, 0},
   {&__pyx_n_s_KeyboardInterrupt, __pyx_k_KeyboardInterrupt, sizeof(__pyx_k_KeyboardInterrupt), 0, 0, 1, 1},
   {&__pyx_n_s_LadderNetworks, __pyx_k_LadderNetworks, sizeof(__pyx_k_LadderNetworks), 0, 0, 1, 1},
-  {&__pyx_n_s_LadderNetworks___compute_alpha_l, __pyx_k_LadderNetworks___compute_alpha_l, sizeof(__pyx_k_LadderNetworks___compute_alpha_l), 0, 0, 1, 1},
-  {&__pyx_n_s_LadderNetworks___compute_mu_loss, __pyx_k_LadderNetworks___compute_mu_loss, sizeof(__pyx_k_LadderNetworks___compute_mu_loss), 0, 0, 1, 1},
-  {&__pyx_n_s_LadderNetworks___compute_sigma_l, __pyx_k_LadderNetworks___compute_sigma_l, sizeof(__pyx_k_LadderNetworks___compute_sigma_l), 0, 0, 1, 1},
   {&__pyx_n_s_LadderNetworks___init, __pyx_k_LadderNetworks___init, sizeof(__pyx_k_LadderNetworks___init), 0, 0, 1, 1},
   {&__pyx_n_s_LadderNetworks___remember_best_p, __pyx_k_LadderNetworks___remember_best_p, sizeof(__pyx_k_LadderNetworks___remember_best_p), 0, 0, 1, 1},
   {&__pyx_n_s_LadderNetworks__alpha_loss_arr, __pyx_k_LadderNetworks__alpha_loss_arr, sizeof(__pyx_k_LadderNetworks__alpha_loss_arr), 0, 0, 1, 1},
   {&__pyx_n_s_LadderNetworks__alpha_weight, __pyx_k_LadderNetworks__alpha_weight, sizeof(__pyx_k_LadderNetworks__alpha_weight), 0, 0, 1, 1},
   {&__pyx_n_s_LadderNetworks__attenuate_epoch, __pyx_k_LadderNetworks__attenuate_epoch, sizeof(__pyx_k_LadderNetworks__attenuate_epoch), 0, 0, 1, 1},
   {&__pyx_n_s_LadderNetworks__batch_size, __pyx_k_LadderNetworks__batch_size, sizeof(__pyx_k_LadderNetworks__batch_size), 0, 0, 1, 1},
-  {&__pyx_n_s_LadderNetworks__compute_alpha_l, __pyx_k_LadderNetworks__compute_alpha_l, sizeof(__pyx_k_LadderNetworks__compute_alpha_l), 0, 0, 1, 1},
-  {&__pyx_n_s_LadderNetworks__compute_mu_loss, __pyx_k_LadderNetworks__compute_mu_loss, sizeof(__pyx_k_LadderNetworks__compute_mu_loss), 0, 0, 1, 1},
-  {&__pyx_n_s_LadderNetworks__compute_sigma_l, __pyx_k_LadderNetworks__compute_sigma_l, sizeof(__pyx_k_LadderNetworks__compute_sigma_l), 0, 0, 1, 1},
   {&__pyx_n_s_LadderNetworks__decoder_delta_a, __pyx_k_LadderNetworks__decoder_delta_a, sizeof(__pyx_k_LadderNetworks__decoder_delta_a), 0, 0, 1, 1},
   {&__pyx_n_s_LadderNetworks__decoder_mu_arr, __pyx_k_LadderNetworks__decoder_mu_arr, sizeof(__pyx_k_LadderNetworks__decoder_mu_arr), 0, 0, 1, 1},
   {&__pyx_n_s_LadderNetworks__decoder_sigma_a, __pyx_k_LadderNetworks__decoder_sigma_a, sizeof(__pyx_k_LadderNetworks__decoder_sigma_a), 0, 0, 1, 1},
@@ -16755,6 +16746,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_LadderNetworks__tld, __pyx_k_LadderNetworks__tld, sizeof(__pyx_k_LadderNetworks__tld), 0, 0, 1, 1},
   {&__pyx_n_s_LadderNetworks__tol, __pyx_k_LadderNetworks__tol, sizeof(__pyx_k_LadderNetworks__tol), 0, 0, 1, 1},
   {&__pyx_n_s_LadderNetworks_back_propagation, __pyx_k_LadderNetworks_back_propagation, sizeof(__pyx_k_LadderNetworks_back_propagation), 0, 0, 1, 1},
+  {&__pyx_n_s_LadderNetworks_compute_alpha_los, __pyx_k_LadderNetworks_compute_alpha_los, sizeof(__pyx_k_LadderNetworks_compute_alpha_los), 0, 0, 1, 1},
+  {&__pyx_n_s_LadderNetworks_compute_mu_loss, __pyx_k_LadderNetworks_compute_mu_loss, sizeof(__pyx_k_LadderNetworks_compute_mu_loss), 0, 0, 1, 1},
+  {&__pyx_n_s_LadderNetworks_compute_sigma_los, __pyx_k_LadderNetworks_compute_sigma_los, sizeof(__pyx_k_LadderNetworks_compute_sigma_los), 0, 0, 1, 1},
   {&__pyx_n_s_LadderNetworks_forward_propagati, __pyx_k_LadderNetworks_forward_propagati, sizeof(__pyx_k_LadderNetworks_forward_propagati), 0, 0, 1, 1},
   {&__pyx_n_s_LadderNetworks_get_alpha_loss_ar, __pyx_k_LadderNetworks_get_alpha_loss_ar, sizeof(__pyx_k_LadderNetworks_get_alpha_loss_ar), 0, 0, 1, 1},
   {&__pyx_n_s_LadderNetworks_get_mu_loss_arr, __pyx_k_LadderNetworks_get_mu_loss_arr, sizeof(__pyx_k_LadderNetworks_get_mu_loss_arr), 0, 0, 1, 1},
@@ -16955,7 +16949,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 574, __pyx_L1_error)
+  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 592, __pyx_L1_error)
   __pyx_builtin_super = __Pyx_GetBuiltinName(__pyx_n_s_super); if (!__pyx_builtin_super) __PYX_ERR(0, 92, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 151, __pyx_L1_error)
   __pyx_builtin_round = __Pyx_GetBuiltinName(__pyx_n_s_round); if (!__pyx_builtin_round) __PYX_ERR(0, 157, __pyx_L1_error)
@@ -16963,7 +16957,7 @@ static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_sum = __Pyx_GetBuiltinName(__pyx_n_s_sum); if (!__pyx_builtin_sum) __PYX_ERR(0, 212, __pyx_L1_error)
   __pyx_builtin_FloatingPointError = __Pyx_GetBuiltinName(__pyx_n_s_FloatingPointError); if (!__pyx_builtin_FloatingPointError) __PYX_ERR(0, 258, __pyx_L1_error)
   __pyx_builtin_KeyboardInterrupt = __Pyx_GetBuiltinName(__pyx_n_s_KeyboardInterrupt); if (!__pyx_builtin_KeyboardInterrupt) __PYX_ERR(0, 332, __pyx_L1_error)
-  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 568, __pyx_L1_error)
+  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 586, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 810, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 1000, __pyx_L1_error)
   return 0;
@@ -17195,14 +17189,14 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_slice__21);
   __Pyx_GIVEREF(__pyx_slice__21);
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":568
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":586
  *     def set_readonly(self, value):
  *         ''' setter '''
  *         raise TypeError("This property must be read-only.")             # <<<<<<<<<<<<<<
  * 
  *     def get_alpha_loss_arr(self):
  */
-  __pyx_tuple__22 = PyTuple_Pack(1, __pyx_kp_s_This_property_must_be_read_only); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 568, __pyx_L1_error)
+  __pyx_tuple__22 = PyTuple_Pack(1, __pyx_kp_s_This_property_must_be_read_only); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 586, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__22);
   __Pyx_GIVEREF(__pyx_tuple__22);
 
@@ -17369,86 +17363,86 @@ static int __Pyx_InitCachedConstants(void) {
   /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":528
  *         return delta_arr
  * 
- *     def __compute_alpha_loss(self):             # <<<<<<<<<<<<<<
- *         loss = 0.0
- *         for arr in self.__encoder_delta_arr_list:
+ *     def compute_alpha_loss(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Compute denoising loss weighted alpha.
  */
   __pyx_tuple__43 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_loss, __pyx_n_s_arr); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(0, 528, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__43);
   __Pyx_GIVEREF(__pyx_tuple__43);
   __pyx_codeobj__44 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__43, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_ladde_2, __pyx_n_s_compute_alpha_loss, 528, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__44)) __PYX_ERR(0, 528, __pyx_L1_error)
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":537
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":543
  *         return loss * self.__alpha_weight
  * 
- *     def __compute_sigma_loss(self):             # <<<<<<<<<<<<<<
- *         sigma_arr = self.__encoder_sigma_arr_list[0]
- *         sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
+ *     def compute_sigma_loss(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Compute sigma loss weighted sigma.
  */
-  __pyx_tuple__45 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_sigma_arr, __pyx_n_s_sigma, __pyx_n_s_i); if (unlikely(!__pyx_tuple__45)) __PYX_ERR(0, 537, __pyx_L1_error)
+  __pyx_tuple__45 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_sigma_arr, __pyx_n_s_sigma, __pyx_n_s_i); if (unlikely(!__pyx_tuple__45)) __PYX_ERR(0, 543, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__45);
   __Pyx_GIVEREF(__pyx_tuple__45);
-  __pyx_codeobj__46 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__45, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_ladde_2, __pyx_n_s_compute_sigma_loss, 537, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__46)) __PYX_ERR(0, 537, __pyx_L1_error)
+  __pyx_codeobj__46 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__45, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_ladde_2, __pyx_n_s_compute_sigma_loss, 543, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__46)) __PYX_ERR(0, 543, __pyx_L1_error)
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":555
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":567
  *         return sigma
  * 
- *     def __compute_mu_loss(self):             # <<<<<<<<<<<<<<
- *         mu = np.nanmean(np.square(self.__encoder_mu_arr_list[0]))
- *         for i in range(1, len(self.__encoder_mu_arr_list)):
+ *     def compute_mu_loss(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Compute mu loss weighted mu.
  */
-  __pyx_tuple__47 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_mu, __pyx_n_s_i); if (unlikely(!__pyx_tuple__47)) __PYX_ERR(0, 555, __pyx_L1_error)
+  __pyx_tuple__47 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_mu, __pyx_n_s_i); if (unlikely(!__pyx_tuple__47)) __PYX_ERR(0, 567, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__47);
   __Pyx_GIVEREF(__pyx_tuple__47);
-  __pyx_codeobj__48 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__47, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_ladde_2, __pyx_n_s_compute_mu_loss, 555, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__48)) __PYX_ERR(0, 555, __pyx_L1_error)
+  __pyx_codeobj__48 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__47, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_ladde_2, __pyx_n_s_compute_mu_loss, 567, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__48)) __PYX_ERR(0, 567, __pyx_L1_error)
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":566
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":584
  *         return mu
  * 
  *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         raise TypeError("This property must be read-only.")
  */
-  __pyx_tuple__49 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__49)) __PYX_ERR(0, 566, __pyx_L1_error)
+  __pyx_tuple__49 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_value); if (unlikely(!__pyx_tuple__49)) __PYX_ERR(0, 584, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__49);
   __Pyx_GIVEREF(__pyx_tuple__49);
-  __pyx_codeobj__50 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__49, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_ladde_2, __pyx_n_s_set_readonly, 566, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__50)) __PYX_ERR(0, 566, __pyx_L1_error)
+  __pyx_codeobj__50 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__49, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_ladde_2, __pyx_n_s_set_readonly, 584, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__50)) __PYX_ERR(0, 584, __pyx_L1_error)
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":570
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":588
  *         raise TypeError("This property must be read-only.")
  * 
  *     def get_alpha_loss_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__alpha_loss_arr
  */
-  __pyx_tuple__51 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__51)) __PYX_ERR(0, 570, __pyx_L1_error)
+  __pyx_tuple__51 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__51)) __PYX_ERR(0, 588, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__51);
   __Pyx_GIVEREF(__pyx_tuple__51);
-  __pyx_codeobj__52 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__51, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_ladde_2, __pyx_n_s_get_alpha_loss_arr, 570, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__52)) __PYX_ERR(0, 570, __pyx_L1_error)
+  __pyx_codeobj__52 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__51, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_ladde_2, __pyx_n_s_get_alpha_loss_arr, 588, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__52)) __PYX_ERR(0, 588, __pyx_L1_error)
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":576
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":594
  *     alpha_loss_arr = property(get_alpha_loss_arr, set_readonly)
  * 
  *     def get_sigma_loss_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__sigma_loss_arr
  */
-  __pyx_tuple__53 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__53)) __PYX_ERR(0, 576, __pyx_L1_error)
+  __pyx_tuple__53 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__53)) __PYX_ERR(0, 594, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__53);
   __Pyx_GIVEREF(__pyx_tuple__53);
-  __pyx_codeobj__54 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__53, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_ladde_2, __pyx_n_s_get_sigma_loss_arr, 576, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__54)) __PYX_ERR(0, 576, __pyx_L1_error)
+  __pyx_codeobj__54 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__53, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_ladde_2, __pyx_n_s_get_sigma_loss_arr, 594, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__54)) __PYX_ERR(0, 594, __pyx_L1_error)
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":582
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":600
  *     sigma_loss_arr = property(get_sigma_loss_arr, set_readonly)
  * 
  *     def get_mu_loss_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__mu_loss_arr
  */
-  __pyx_tuple__55 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__55)) __PYX_ERR(0, 582, __pyx_L1_error)
+  __pyx_tuple__55 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__55)) __PYX_ERR(0, 600, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__55);
   __Pyx_GIVEREF(__pyx_tuple__55);
-  __pyx_codeobj__56 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__55, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_ladde_2, __pyx_n_s_get_mu_loss_arr, 582, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__56)) __PYX_ERR(0, 582, __pyx_L1_error)
+  __pyx_codeobj__56 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__55, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pydbm_nn_simpleautoencoder_ladde_2, __pyx_n_s_get_mu_loss_arr, 600, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__56)) __PYX_ERR(0, 600, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -17947,64 +17941,64 @@ if (!__Pyx_RefNanny) {
   /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":528
  *         return delta_arr
  * 
- *     def __compute_alpha_loss(self):             # <<<<<<<<<<<<<<
- *         loss = 0.0
- *         for arr in self.__encoder_delta_arr_list:
+ *     def compute_alpha_loss(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Compute denoising loss weighted alpha.
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_11__compute_alpha_loss, 0, __pyx_n_s_LadderNetworks___compute_alpha_l, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_ladde, __pyx_d, ((PyObject *)__pyx_codeobj__44)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 528, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_11compute_alpha_loss, 0, __pyx_n_s_LadderNetworks_compute_alpha_los, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_ladde, __pyx_d, ((PyObject *)__pyx_codeobj__44)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 528, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_LadderNetworks__compute_alpha_l, __pyx_t_5) < 0) __PYX_ERR(0, 528, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_compute_alpha_loss, __pyx_t_5) < 0) __PYX_ERR(0, 528, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":537
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":543
  *         return loss * self.__alpha_weight
  * 
- *     def __compute_sigma_loss(self):             # <<<<<<<<<<<<<<
- *         sigma_arr = self.__encoder_sigma_arr_list[0]
- *         sigma_arr = np.diag(sigma_arr - np.ma.log(sigma_arr) - np.eye(sigma_arr.copy().shape[0])).reshape(1, sigma_arr.shape[1])
+ *     def compute_sigma_loss(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Compute sigma loss weighted sigma.
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_13__compute_sigma_loss, 0, __pyx_n_s_LadderNetworks___compute_sigma_l, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_ladde, __pyx_d, ((PyObject *)__pyx_codeobj__46)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 537, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_13compute_sigma_loss, 0, __pyx_n_s_LadderNetworks_compute_sigma_los, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_ladde, __pyx_d, ((PyObject *)__pyx_codeobj__46)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 543, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_LadderNetworks__compute_sigma_l, __pyx_t_5) < 0) __PYX_ERR(0, 537, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_compute_sigma_loss, __pyx_t_5) < 0) __PYX_ERR(0, 543, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":555
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":567
  *         return sigma
  * 
- *     def __compute_mu_loss(self):             # <<<<<<<<<<<<<<
- *         mu = np.nanmean(np.square(self.__encoder_mu_arr_list[0]))
- *         for i in range(1, len(self.__encoder_mu_arr_list)):
+ *     def compute_mu_loss(self):             # <<<<<<<<<<<<<<
+ *         '''
+ *         Compute mu loss weighted mu.
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_15__compute_mu_loss, 0, __pyx_n_s_LadderNetworks___compute_mu_loss, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_ladde, __pyx_d, ((PyObject *)__pyx_codeobj__48)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 555, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_15compute_mu_loss, 0, __pyx_n_s_LadderNetworks_compute_mu_loss, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_ladde, __pyx_d, ((PyObject *)__pyx_codeobj__48)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 567, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_LadderNetworks__compute_mu_loss, __pyx_t_5) < 0) __PYX_ERR(0, 555, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_compute_mu_loss, __pyx_t_5) < 0) __PYX_ERR(0, 567, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":566
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":584
  *         return mu
  * 
  *     def set_readonly(self, value):             # <<<<<<<<<<<<<<
  *         ''' setter '''
  *         raise TypeError("This property must be read-only.")
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_17set_readonly, 0, __pyx_n_s_LadderNetworks_set_readonly, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_ladde, __pyx_d, ((PyObject *)__pyx_codeobj__50)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 566, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_17set_readonly, 0, __pyx_n_s_LadderNetworks_set_readonly, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_ladde, __pyx_d, ((PyObject *)__pyx_codeobj__50)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 584, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_readonly, __pyx_t_5) < 0) __PYX_ERR(0, 566, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_readonly, __pyx_t_5) < 0) __PYX_ERR(0, 584, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":570
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":588
  *         raise TypeError("This property must be read-only.")
  * 
  *     def get_alpha_loss_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__alpha_loss_arr
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_19get_alpha_loss_arr, 0, __pyx_n_s_LadderNetworks_get_alpha_loss_ar, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_ladde, __pyx_d, ((PyObject *)__pyx_codeobj__52)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 570, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_19get_alpha_loss_arr, 0, __pyx_n_s_LadderNetworks_get_alpha_loss_ar, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_ladde, __pyx_d, ((PyObject *)__pyx_codeobj__52)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 588, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_alpha_loss_arr, __pyx_t_5) < 0) __PYX_ERR(0, 570, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_alpha_loss_arr, __pyx_t_5) < 0) __PYX_ERR(0, 588, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":574
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":592
  *         return self.__alpha_loss_arr
  * 
  *     alpha_loss_arr = property(get_alpha_loss_arr, set_readonly)             # <<<<<<<<<<<<<<
@@ -18016,16 +18010,16 @@ if (!__Pyx_RefNanny) {
     PyErr_Clear();
     __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_alpha_loss_arr);
   }
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 574, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 592, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_7 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_readonly);
   if (unlikely(!__pyx_t_7)) {
     PyErr_Clear();
     __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_readonly);
   }
-  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 574, __pyx_L1_error)
+  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 592, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 574, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 592, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_5);
   PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5);
@@ -18033,25 +18027,25 @@ if (!__Pyx_RefNanny) {
   PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_7);
   __pyx_t_5 = 0;
   __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_6, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 574, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_6, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 592, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_alpha_loss_arr, __pyx_t_7) < 0) __PYX_ERR(0, 574, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_alpha_loss_arr, __pyx_t_7) < 0) __PYX_ERR(0, 592, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":576
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":594
  *     alpha_loss_arr = property(get_alpha_loss_arr, set_readonly)
  * 
  *     def get_sigma_loss_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__sigma_loss_arr
  */
-  __pyx_t_7 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_21get_sigma_loss_arr, 0, __pyx_n_s_LadderNetworks_get_sigma_loss_ar, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_ladde, __pyx_d, ((PyObject *)__pyx_codeobj__54)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 576, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_21get_sigma_loss_arr, 0, __pyx_n_s_LadderNetworks_get_sigma_loss_ar, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_ladde, __pyx_d, ((PyObject *)__pyx_codeobj__54)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 594, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_sigma_loss_arr, __pyx_t_7) < 0) __PYX_ERR(0, 576, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_sigma_loss_arr, __pyx_t_7) < 0) __PYX_ERR(0, 594, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":580
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":598
  *         return self.__sigma_loss_arr
  * 
  *     sigma_loss_arr = property(get_sigma_loss_arr, set_readonly)             # <<<<<<<<<<<<<<
@@ -18063,16 +18057,16 @@ if (!__Pyx_RefNanny) {
     PyErr_Clear();
     __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_sigma_loss_arr);
   }
-  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 580, __pyx_L1_error)
+  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 598, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_6 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_readonly);
   if (unlikely(!__pyx_t_6)) {
     PyErr_Clear();
     __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_readonly);
   }
-  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 580, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 598, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 580, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 598, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_7);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7);
@@ -18080,25 +18074,25 @@ if (!__Pyx_RefNanny) {
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_6);
   __pyx_t_7 = 0;
   __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 580, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_5, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 598, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_sigma_loss_arr, __pyx_t_6) < 0) __PYX_ERR(0, 580, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_sigma_loss_arr, __pyx_t_6) < 0) __PYX_ERR(0, 598, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":582
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":600
  *     sigma_loss_arr = property(get_sigma_loss_arr, set_readonly)
  * 
  *     def get_mu_loss_arr(self):             # <<<<<<<<<<<<<<
  *         ''' getter '''
  *         return self.__mu_loss_arr
  */
-  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_23get_mu_loss_arr, 0, __pyx_n_s_LadderNetworks_get_mu_loss_arr, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_ladde, __pyx_d, ((PyObject *)__pyx_codeobj__56)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 582, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5pydbm_2nn_17simpleautoencoder_15ladder_networks_14LadderNetworks_23get_mu_loss_arr, 0, __pyx_n_s_LadderNetworks_get_mu_loss_arr, NULL, __pyx_n_s_pydbm_nn_simpleautoencoder_ladde, __pyx_d, ((PyObject *)__pyx_codeobj__56)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 600, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_mu_loss_arr, __pyx_t_6) < 0) __PYX_ERR(0, 582, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_get_mu_loss_arr, __pyx_t_6) < 0) __PYX_ERR(0, 600, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":586
+  /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":604
  *         return self.__mu_loss_arr
  * 
  *     mu_loss_arr = property(get_mu_loss_arr, set_readonly)             # <<<<<<<<<<<<<<
@@ -18108,16 +18102,16 @@ if (!__Pyx_RefNanny) {
     PyErr_Clear();
     __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_mu_loss_arr);
   }
-  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 586, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 604, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_5 = PyObject_GetItem(__pyx_t_3, __pyx_n_s_set_readonly);
   if (unlikely(!__pyx_t_5)) {
     PyErr_Clear();
     __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_set_readonly);
   }
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 586, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 604, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 586, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 604, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_GIVEREF(__pyx_t_6);
   PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6);
@@ -18125,10 +18119,10 @@ if (!__Pyx_RefNanny) {
   PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_5);
   __pyx_t_6 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 586, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 604, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_mu_loss_arr, __pyx_t_5) < 0) __PYX_ERR(0, 586, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_mu_loss_arr, __pyx_t_5) < 0) __PYX_ERR(0, 604, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
   /* "pydbm/nn/simpleautoencoder/ladder_networks.pyx":11

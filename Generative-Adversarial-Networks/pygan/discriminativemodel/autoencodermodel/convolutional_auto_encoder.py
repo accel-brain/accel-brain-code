@@ -276,3 +276,13 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
         return self.__pre_loss_arr
 
     pre_loss_arr = property(get_pre_loss_arr, set_readonly)
+
+    def get_loss(self):
+        ''' getter '''
+        return self.__loss
+
+    def set_loss(self, value):
+        ''' setter '''
+        self.__loss = value
+
+    loss = property(get_loss, set_loss)

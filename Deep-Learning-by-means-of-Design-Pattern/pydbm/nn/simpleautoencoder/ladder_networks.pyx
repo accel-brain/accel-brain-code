@@ -394,8 +394,8 @@ class LadderNetworks(SimpleAutoEncoder):
         self.__decoder_delta_arr_list = []
         self.__encoder_sigma_arr_list = []
         self.__decoder_sigma_arr_list = []
-        self.__encoder_observed_arr_list = []
-        self.__decoder_observed_arr_list = []
+        self.__encoder_mu_arr_list = []
+        self.__decoder_mu_arr_list = []
 
         cdef np.ndarray[DOUBLE_t, ndim=2] nosied_observed_arr = observed_arr + self.__params_initializer.sample(
             size=observed_arr.copy().shape,
@@ -416,10 +416,10 @@ class LadderNetworks(SimpleAutoEncoder):
                     observed_arr
                 )
                 self.__encoder_delta_arr_list.append(delta_arr)
-                sigma_arr = np.dot(observed_arr.T, observed_arr)
-                sigma_arr = sigma_arr / sigma_arr.shape[1]
+                sigma_arr = np.dot(observed_arr, observed_arr.T)
+                sigma_arr = sigma_arr / observed_arr.shape[1]
                 self.__encoder_sigma_arr_list.append(sigma_arr)
-                self.__encoder_observed_arr_list.append(observed_arr)
+                self.__encoder_mu_arr_list.append(observed_arr)
             except:
                 self.__logger.debug("Error raised in NN layer " + str(i + 1))
                 raise
@@ -444,10 +444,10 @@ class LadderNetworks(SimpleAutoEncoder):
                     observed_arr
                 )
                 self.__decoder_delta_arr_list.append(delta_arr)
-                sigma_arr = np.dot(observed_arr.T, observed_arr)
-                sigma_arr = sigma_arr / sigma_arr.shape[1]
+                sigma_arr = np.dot(observed_arr, observed_arr.T)
+                sigma_arr = sigma_arr / observed_arr.shape[1]
                 self.__decoder_sigma_arr_list.append(sigma_arr)
-                self.__decoder_observed_arr_list.append(observed_arr)
+                self.__decoder_mu_arr_list.append(observed_arr)
             except:
                 self.__logger.debug("Error raised in NN layer " + str(i + 1))
                 raise
@@ -474,7 +474,7 @@ class LadderNetworks(SimpleAutoEncoder):
         nn_layer_list = self.decoder.nn_layer_list[::-1]
         hidden_delta_arr_list = self.__decoder_delta_arr_list[::-1]
         sigma_arr_list = self.__decoder_sigma_arr_list[::-1]
-        observed_arr_list = self.__decoder_observed_arr_list[::-1]
+        mu_arr_list = self.__decoder_mu_arr_list[::-1]
 
         if self.decoder.opt_params.dropout_rate > 0:
             delta_arr = self.decoder.opt_params.de_dropout(delta_arr)
@@ -489,9 +489,8 @@ class LadderNetworks(SimpleAutoEncoder):
                 sigma_arr = sigma_arr_list[i]
                 sigma_arr[sigma_arr == 0] += 1e-08
                 sigma_arr = np.eye(sigma_arr.shape[0]) - np.power(sigma_arr, -1)
-                sigma_arr = np.nanmean(sigma_arr, axis=0).reshape((1, sigma_arr.shape[0]))
-                observed_arr = observed_arr_list[i]
-                mu_arr = np.nanmean(observed_arr, axis=0).reshape((1, observed_arr.shape[1]))
+                sigma_arr = np.nanmean(sigma_arr, axis=0).reshape((sigma_arr.shape[0], 1))
+                mu_arr = mu_arr_list[i]
                 delta_arr = delta_arr + (self.__alpha_weight * hidden_delta_arr) + (self.__sigma_weight * sigma_arr) + (self.__mu_weight * mu_arr)
                 delta_arr = nn_layer_list[i].back_propagate(delta_arr)
             except:
@@ -506,7 +505,7 @@ class LadderNetworks(SimpleAutoEncoder):
         nn_layer_list = self.encoder.nn_layer_list[::-1]
         hidden_delta_arr_list = self.__encoder_delta_arr_list[::-1]
         sigma_arr_list = self.__encoder_sigma_arr_list[::-1]
-        observed_arr_list = self.__encoder_observed_arr_list[::-1]
+        mu_arr_list = self.__encoder_mu_arr_list[::-1]
 
         for i in range(len(nn_layer_list)):
             try:
@@ -514,9 +513,8 @@ class LadderNetworks(SimpleAutoEncoder):
                 sigma_arr = sigma_arr_list[i]
                 sigma_arr[sigma_arr == 0] += 1e-08
                 sigma_arr = np.eye(sigma_arr.shape[0]) - np.power(sigma_arr, -1)
-                sigma_arr = np.nanmean(sigma_arr, axis=0).reshape((1, sigma_arr.shape[0]))
-                observed_arr = observed_arr_list[i]
-                mu_arr = np.nanmean(observed_arr, axis=0).reshape((1, observed_arr.shape[1]))
+                sigma_arr = np.nanmean(sigma_arr, axis=0).reshape((sigma_arr.shape[0], 1))
+                mu_arr = mu_arr_list[i]
                 delta_arr = delta_arr + (self.__alpha_weight * hidden_delta_arr) + (self.__sigma_weight * sigma_arr) + (self.__mu_weight * mu_arr)
                 delta_arr = nn_layer_list[i].back_propagate(delta_arr)
             except:
@@ -555,13 +553,13 @@ class LadderNetworks(SimpleAutoEncoder):
         return sigma
 
     def __compute_mu_loss(self):
-        mu = np.nanmean(np.square(self.__encoder_observed_arr_list[0]))
-        for i in range(1, len(self.__encoder_observed_arr_list)):
-            mu += np.nanmean(np.square(self.__encoder_observed_arr_list[i]))
-        for i in range(len(self.__decoder_observed_arr_list)):
-            mu += np.nanmean(np.square(self.__decoder_observed_arr_list[i]))
+        mu = np.nanmean(np.square(self.__encoder_mu_arr_list[0]))
+        for i in range(1, len(self.__encoder_mu_arr_list)):
+            mu += np.nanmean(np.square(self.__encoder_mu_arr_list[i]))
+        for i in range(len(self.__decoder_mu_arr_list)):
+            mu += np.nanmean(np.square(self.__decoder_mu_arr_list[i]))
 
-        mu = mu / (len(self.__encoder_observed_arr_list) + len(self.__decoder_observed_arr_list))
+        mu = mu / (len(self.__encoder_mu_arr_list) + len(self.__decoder_mu_arr_list))
         mu = mu * self.__mu_weight
         return mu
 

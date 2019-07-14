@@ -348,6 +348,11 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
             eary_stop_flag = False
 
         self.__remember_best_params(best_weight_params_list, best_bias_params_list)
+
+        self.__alpha_loss_arr = np.array(alpha_list)
+        self.__sigma_loss_arr = np.array(sigma_list)
+        self.__mu_loss_arr = np.array(mu_list)
+
         self.__logger.debug("end. ")
 
     def learn_generated(self, feature_generator):
@@ -530,6 +535,11 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
             eary_stop_flag = False
 
         self.__remember_best_params(best_weight_params_list, best_bias_params_list)
+
+        self.__alpha_loss_arr = np.array(alpha_list)
+        self.__sigma_loss_arr = np.array(sigma_list)
+        self.__mu_loss_arr = np.array(mu_list)
+
         self.__logger.debug("end. ")
 
     def __remember_best_params(self, best_weight_params_list, best_bias_params_list):
@@ -564,8 +574,8 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
         self.__decoder_delta_arr_list = []
         self.__encoder_sigma_arr_list = []
         self.__decoder_sigma_arr_list = []
-        self.__encoder_observed_arr_list = []
-        self.__decoder_observed_arr_list = []
+        self.__encoder_mu_arr_list = []
+        self.__decoder_mu_arr_list = []
 
         cdef np.ndarray[DOUBLE_t, ndim=4] nosied_observed_arr = img_arr + self.__params_initializer.sample(
             size=img_arr.copy().shape,
@@ -599,11 +609,10 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
                     img_arr.shape[0],
                     -1
                 ))
-                sigma_arr = np.dot(hidden_activity_arr.T, hidden_activity_arr)
-                sigma_arr = sigma_arr / sigma_arr.shape[1]
+                sigma_arr = np.dot(hidden_activity_arr, hidden_activity_arr.T)
+                sigma_arr = sigma_arr / hidden_activity_arr.shape[1]
                 self.__encoder_sigma_arr_list.append(sigma_arr)
-                self.__encoder_observed_arr_list.append(img_arr)
-
+                self.__encoder_mu_arr_list.append(img_arr)
             except:
                 self.__logger.debug("Error raised in Convolution layer " + str(i + 1))
                 raise
@@ -661,10 +670,10 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
                     img_arr.shape[0],
                     -1
                 ))
-                sigma_arr = np.dot(hidden_activity_arr.T, hidden_activity_arr)
-                sigma_arr = sigma_arr / sigma_arr.shape[1]
+                sigma_arr = np.dot(hidden_activity_arr, hidden_activity_arr.T)
+                sigma_arr = sigma_arr / hidden_activity_arr.shape[1]
                 self.__decoder_sigma_arr_list.append(sigma_arr)
-                self.__decoder_observed_arr_list.append(img_arr)
+                self.__decoder_mu_arr_list.append(img_arr)
 
             except:
                 self.__logger.debug("Error raised in Deconvolution layer " + str(i + 1))
@@ -701,7 +710,7 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
 
         hidden_delta_arr_list = self.__decoder_delta_arr_list[::-1]
         sigma_arr_list = self.__decoder_sigma_arr_list[::-1]
-        observed_arr_list = self.__decoder_observed_arr_list[::-1]
+        mu_arr_list = self.__decoder_mu_arr_list[::-1]
 
         for i in range(len(self.layerable_cnn_list)):
             try:
@@ -710,18 +719,12 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
                 sigma_arr[sigma_arr == 0] += 1e-08
                 sigma_arr = np.eye(sigma_arr.shape[0]) - np.power(sigma_arr, -1)
                 sigma_arr = np.nanmean(sigma_arr, axis=0).reshape((
-                    1, 
-                    hidden_delta_arr.shape[1],
-                    hidden_delta_arr.shape[2],
-                    hidden_delta_arr.shape[3]
+                    hidden_delta_arr.shape[0], 
+                    1,
+                    1,
+                    1
                 ))
-                observed_arr = observed_arr_list[i]
-                mu_arr = np.nanmean(observed_arr, axis=0).reshape((
-                    1, 
-                    observed_arr.shape[1],
-                    observed_arr.shape[2],
-                    observed_arr.shape[3]
-                ))
+                mu_arr = mu_arr_list[i]
 
                 delta_arr = delta_arr + (self.__alpha_weight * hidden_delta_arr) + (self.__sigma_weight * sigma_arr) + (self.__mu_weight * mu_arr)
 
@@ -791,7 +794,7 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
 
         hidden_delta_arr_list = self.__encoder_delta_arr_list[::-1]
         sigma_arr_list = self.__encoder_sigma_arr_list[::-1]
-        observed_arr_list = self.__encoder_observed_arr_list[::-1]
+        mu_arr_list = self.__encoder_mu_arr_list[::-1]
 
         layerable_cnn_list = self.layerable_cnn_list[::-1]
         for i in range(len(layerable_cnn_list)):
@@ -801,18 +804,12 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
                 sigma_arr[sigma_arr == 0] += 1e-08
                 sigma_arr = np.eye(sigma_arr.shape[0]) - np.power(sigma_arr, -1)
                 sigma_arr = np.nanmean(sigma_arr, axis=0).reshape((
-                    1, 
-                    hidden_delta_arr.shape[1],
-                    hidden_delta_arr.shape[2],
-                    hidden_delta_arr.shape[3]
+                    hidden_delta_arr.shape[0], 
+                    1,
+                    1,
+                    1
                 ))
-                observed_arr = observed_arr_list[i]
-                mu_arr = np.nanmean(observed_arr, axis=0).reshape((
-                    1, 
-                    observed_arr.shape[1],
-                    observed_arr.shape[2],
-                    observed_arr.shape[3]
-                ))
+                mu_arr = mu_arr_list[i]
 
                 delta_arr = delta_arr + (self.__alpha_weight * hidden_delta_arr) + (self.__sigma_weight * sigma_arr) + (self.__mu_weight * mu_arr)
 
@@ -885,13 +882,13 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
         return sigma
 
     def __compute_mu_loss(self):
-        mu = np.nanmean(np.square(self.__encoder_observed_arr_list[0]))
-        for i in range(1, len(self.__encoder_observed_arr_list)):
-            mu += np.nanmean(np.square(self.__encoder_observed_arr_list[i]))
-        for i in range(len(self.__decoder_observed_arr_list)):
-            mu += np.nanmean(np.square(self.__decoder_observed_arr_list[i]))
+        mu = np.nanmean(np.square(self.__encoder_mu_arr_list[0]))
+        for i in range(1, len(self.__encoder_mu_arr_list)):
+            mu += np.nanmean(np.square(self.__encoder_mu_arr_list[i]))
+        for i in range(len(self.__decoder_mu_arr_list)):
+            mu += np.nanmean(np.square(self.__decoder_mu_arr_list[i]))
 
-        mu = mu / (len(self.__encoder_observed_arr_list) + len(self.__decoder_observed_arr_list))
+        mu = mu / (len(self.__encoder_mu_arr_list) + len(self.__decoder_mu_arr_list))
         mu = mu * self.__mu_weight
         return mu
 

@@ -9,18 +9,43 @@ from pydbm.params_initializer import ParamsInitializer
 class NNGraph(Synapse):
     '''
     Computation graph in the perceptron or Neural Network.
+
+    References:
+        - Kamyshanska, H., & Memisevic, R. (2014). The potential energy of an autoencoder. IEEE transactions on pattern analysis and machine intelligence, 37(6), 1261-1273.
     '''
     
+    # Tied graph.
+    __tied_graph = None
+
+    def get_tied_graph(self):
+        ''' getter '''
+        return self.__tied_graph
+    
+    def set_tied_graph(self, value):
+        ''' setter '''
+        if isinstance(value, NNGraph):
+            self.__tied_graph = value
+        else:
+            raise TypeError("The type of `tied_graph` must be `NNGraph`.")
+
+    tied_graph = property(get_tied_graph, set_tied_graph)
+
     # Weight matrix (kernel)
     __weight_arr = None
     
     def get_weight_arr(self):
         ''' getter '''
-        return self.__weight_arr
+        if self.tied_graph is None:
+            return self.__weight_arr
+        else:
+            return self.tied_graph.weight_arr.T
 
     def set_weight_arr(self, value):
         ''' setter '''
-        self.__weight_arr = value
+        if self.tied_graph is None:
+            self.__weight_arr = value
+        else:
+            self.tied_graph.weight_arr = value.T
     
     weight_arr = property(get_weight_arr, set_weight_arr)
 

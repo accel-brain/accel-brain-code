@@ -12,6 +12,9 @@ ctypedef np.float64_t DOUBLE_t
 class NeuralNetwork(object):
     '''
     Neural Network.
+
+    References:
+        - Kamyshanska, H., & Memisevic, R. (2014). The potential energy of an autoencoder. IEEE transactions on pattern analysis and machine intelligence, 37(6), 1261-1273.
     '''
     # is-a `ComputableLoss`.
     __computable_loss = None

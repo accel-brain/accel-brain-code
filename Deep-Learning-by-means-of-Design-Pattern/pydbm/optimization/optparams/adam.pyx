@@ -12,7 +12,7 @@ class Adam(OptParams):
         - Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.
     '''
 
-    def __init__(self, double beta_1=0.9, double beta_2=0.99, bias_corrected_flag=False):
+    def __init__(self, double beta_1=0.9, double beta_2=0.99, bias_corrected_flag=True):
         '''
         Init.
         
@@ -70,23 +70,9 @@ class Adam(OptParams):
 
         self.__epoch += 1
 
-        cdef double beta_2 = 1 - np.nanprod(
-            np.array([self.__beta_2] * self.__epoch),
-            axis=0
-        )
-        cdef double beta_1 = 1 - np.nanprod(
-            np.array([self.__beta_1] * self.__epoch),
-            axis=0
-        )
-        
-        cdef double sqrt = np.sqrt(
-            np.nanprod(
-                np.array([beta_2, 1 / beta_1]),
-                axis=0
-            )
-        )
-        learning_rate = np.nanprod(np.array([learning_rate, sqrt]), axis=0)
+        learning_rate = learning_rate * np.sqrt(1 - np.power(self.__beta_2, self.__epoch)) / (1 - np.power(self.__beta_1, self.__epoch))
 
+        cdef np.ndarray var_arr
         for i in range(len(params_list)):
             if params_list[i] is None or grads_list[i] is None:
                 continue
@@ -106,26 +92,21 @@ class Adam(OptParams):
                     -1
                 ))
 
-            first_moment_arr = (self.__beta_1 * self.__first_moment_list[i]) + (1 - self.__beta_1) * grads_list[i]
-            first_moment_arr = np.nan_to_num(first_moment_arr)
-            second_moment_arr = (self.__beta_2 * self.__second_moment_list[i]) + (1 - self.__beta_2) * np.nanprod(
-                np.array([
-                    np.expand_dims(grads_list[i], axis=0),
-                    np.expand_dims(grads_list[i], axis=0)
-                ]),
-                axis=0
-            )[0]
-            second_moment_arr = np.nan_to_num(second_moment_arr)
+            self.__first_moment_list[i] += np.nan_to_num(
+                (self.__beta_1 * self.__first_moment_list[i]) + (1 - self.__beta_1) * grads_list[i]
+            )
+            self.__first_moment_list[i] = np.nan_to_num(self.__first_moment_list[i])
+            self.__second_moment_list[i] += np.nan_to_num(
+                (self.__beta_2 * self.__second_moment_list[i]) + (1 - self.__beta_2) * np.square(grads_list[i])
+            )
+            self.__second_moment_list[i] = np.nan_to_num(self.__second_moment_list[i])
 
             if self.__bias_corrected_flag is True:
-                first_moment_arr = first_moment_arr / (1 - np.power(self.__beta_1, self.__epoch))
-                second_moment_arr = second_moment_arr / (1 - np.power(self.__beta_2, self.__epoch))
+                self.__first_moment_list[i] = self.__first_moment_list[i] / (1 - np.power(self.__beta_1, self.__epoch))
+                self.__second_moment_list[i] = self.__second_moment_list[i] / (1 - np.power(self.__beta_2, self.__epoch))
 
-            var_arr = learning_rate * first_moment_arr / (np.sqrt(second_moment_arr) + 1e-08)
+            var_arr = learning_rate * self.__first_moment_list[i] / (np.sqrt(self.__second_moment_list[i]) + 1e-08)
             params_list[i] = params_list[i] - np.nan_to_num(var_arr)
-            
-            self.__first_moment_list[i] = first_moment_arr
-            self.__second_moment_list[i] = second_moment_arr
 
             if params_ndim > 2:
                 params_list[i] = params_list[i].reshape(params_shape)

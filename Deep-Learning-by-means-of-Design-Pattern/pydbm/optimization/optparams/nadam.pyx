@@ -13,17 +13,19 @@ class Nadam(OptParams):
         - Dozat, T. (2016). Incorporating nesterov momentum into adam., Workshop track - ICLR 2016.
     '''
 
-    def __init__(self, double beta_1=0.9, double beta_2=0.99, bias_corrected_flag=True):
+    def __init__(self, double beta_1=0.9, double beta_2=0.99, bias_corrected_flag=False):
         '''
         Init.
         
         Args:
             beta_1:                 Weight for frist moment parameters.
             beta_2:                 Weight for second moment parameters.
-            bias_corrected_flag:    Compute bias-corrected moments or not.
+            bias_corrected_flag:    Compute bias-corrected first moment / second raw moment estimate or not.
         '''
         self.__beta_1 = beta_1
         self.__beta_2 = beta_2
+        self.__beta_1_arr = np.array([])
+        self.__first_moment_list = []
         self.__second_moment_list = []
         self.__variation_list = []
         self.__bias_corrected_flag = bias_corrected_flag
@@ -46,8 +48,15 @@ class Nadam(OptParams):
         if len(params_list) != len(grads_list):
             raise ValueError("The row of `params_list` and `grads_list` must be equivalent.")
 
-        if len(self.__variation_list) == 0 or len(self.__variation_list) != len(params_list):
-            self.__variation_list  = [self.__beta_1] * len(params_list)
+        if len(self.__first_moment_list) == 0 or len(self.__first_moment_list) != len(params_list):
+            for i in range(len(params_list)):
+                first_moment_arr = np.zeros_like(params_list[i])
+                if first_moment_arr.ndim > 2:
+                    first_moment_arr = first_moment_arr.reshape((
+                        first_moment_arr.shape[0],
+                        -1
+                    ))
+                self.__first_moment_list.append(first_moment_arr)
 
         if len(self.__second_moment_list) == 0 or len(self.__second_moment_list) != len(params_list):
             for i in range(len(params_list)):
@@ -61,14 +70,14 @@ class Nadam(OptParams):
         
         if self.__second_moment_list[0] is None:
             self.__epoch = 0
+            self.__beta_1_arr = np.array([])
 
         self.__epoch += 1
-
-        cdef np.ndarray momentum_arr
-        cdef np.ndarray pre_variation_arr
+        self.__beta_1_arr = np.insert(self.__beta_1_arr, 0, np.power(self.__beta_1, self.__epoch))
 
         learning_rate = learning_rate * np.sqrt(1 - np.power(self.__beta_2, self.__epoch)) / (1 - np.power(self.__beta_1, self.__epoch))
 
+        cdef momentum_arr
         for i in range(len(params_list)):
             if params_list[i] is None or grads_list[i] is None:
                 continue
@@ -88,24 +97,21 @@ class Nadam(OptParams):
                     -1
                 ))
 
-            pre_variation_arr = self.__variation_list[i]
-            self.__variation_list[i] = self.__variation_list[i] * self.__momentum
-            self.__variation_list[i] = self.__variation_list[i] - (learning_rate * grads_list[i])
+            if self.__beta_1_arr.shape[0] > 1:
+                grads_list[i] = grads_list[i] / (1 - np.nanprod(self.__beta_1_arr[1:]))
+            
+            self.__first_moment_list[i] = (self.__beta_1 * self.__first_moment_list[i]) + (1 - self.__beta_1) * grads_list[i]
+            momentum_arr = self.__first_moment_list[i] / (1 - np.nanprod(self.__beta_1_arr))
 
-            momentum_arr = self.__variation_list[i] * self.__momentum / (1 - np.nanprod(self.__variation_list[i])) + ((1 - pre_variation_arr) / (1 - np.nanprod(pre_variation_arr)))
-
-            self.__second_moment_list[i] = np.nan_to_num(
-                (self.__beta_2 * self.__second_moment_list[i]) + (1 - self.__beta_2) * np.square(grads_list[i])
-            )
-            self.__second_moment_list[i] = np.nan_to_num(self.__second_moment_list[i])
-
+            self.__second_moment_list[i] = (self.__beta_2 * self.__second_moment_list[i]) + ((1 - self.__beta_2) * np.square(grads_list[i]))
             if self.__bias_corrected_flag is True:
                 self.__second_moment_list[i] = self.__second_moment_list[i] / (1 - np.power(self.__beta_2, self.__epoch))
 
+            momentum_arr = ((1 - self.__beta_1) * grads_list[i]) + (self.__beta_1_arr[0] * momentum_arr)
+
             var_arr = learning_rate * momentum_arr / (np.sqrt(self.__second_moment_list[i]) + 1e-08)
-            params_list[i] = params_list[i] - np.nan_to_num(var_arr)
-            
-            self.__second_moment_list[i] = second_moment_arr
+
+            params_list[i] = params_list[i] - var_arr
 
             if params_ndim > 2:
                 params_list[i] = params_list[i].reshape(params_shape)

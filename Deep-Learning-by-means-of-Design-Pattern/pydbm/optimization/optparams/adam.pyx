@@ -12,14 +12,14 @@ class Adam(OptParams):
         - Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.
     '''
 
-    def __init__(self, double beta_1=0.9, double beta_2=0.99, bias_corrected_flag=True):
+    def __init__(self, double beta_1=0.9, double beta_2=0.99, bias_corrected_flag=False):
         '''
         Init.
         
         Args:
             beta_1:                 Weight for frist moment parameters.
             beta_2:                 Weight for second moment parameters.
-            bias_corrected_flag:    Compute bias-corrected moments or not.
+            bias_corrected_flag:    Compute bias-corrected first moment / second raw moment estimate or not.
         '''
         self.__beta_1 = beta_1
         self.__beta_2 = beta_2
@@ -92,21 +92,16 @@ class Adam(OptParams):
                     -1
                 ))
 
-            self.__first_moment_list[i] += np.nan_to_num(
-                (self.__beta_1 * self.__first_moment_list[i]) + (1 - self.__beta_1) * grads_list[i]
-            )
-            self.__first_moment_list[i] = np.nan_to_num(self.__first_moment_list[i])
-            self.__second_moment_list[i] += np.nan_to_num(
-                (self.__beta_2 * self.__second_moment_list[i]) + (1 - self.__beta_2) * np.square(grads_list[i])
-            )
-            self.__second_moment_list[i] = np.nan_to_num(self.__second_moment_list[i])
+            self.__first_moment_list[i] = (self.__beta_1 * self.__first_moment_list[i]) + ((1 - self.__beta_1) * grads_list[i])
+            self.__second_moment_list[i] = (self.__beta_2 * self.__second_moment_list[i]) + ((1 - self.__beta_2) * np.square(grads_list[i]))
 
             if self.__bias_corrected_flag is True:
                 self.__first_moment_list[i] = self.__first_moment_list[i] / (1 - np.power(self.__beta_1, self.__epoch))
                 self.__second_moment_list[i] = self.__second_moment_list[i] / (1 - np.power(self.__beta_2, self.__epoch))
 
             var_arr = learning_rate * self.__first_moment_list[i] / (np.sqrt(self.__second_moment_list[i]) + 1e-08)
-            params_list[i] = params_list[i] - np.nan_to_num(var_arr)
+
+            params_list[i] = params_list[i] - var_arr
 
             if params_ndim > 2:
                 params_list[i] = params_list[i].reshape(params_shape)

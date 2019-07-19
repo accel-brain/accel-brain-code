@@ -12,18 +12,20 @@ class Adam(OptParams):
         - Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.
     '''
 
-    def __init__(self, double beta_1=0.9, double beta_2=0.99):
+    def __init__(self, double beta_1=0.9, double beta_2=0.99, bias_corrected_flag=False):
         '''
         Init.
         
         Args:
-            beta_1:    A param.
-            beta_2:    A param.
+            beta_1:                 Weight for frist moment parameters.
+            beta_2:                 Weight for second moment parameters.
+            bias_corrected_flag:    Compute bias-corrected moments or not.
         '''
         self.__beta_1 = beta_1
         self.__beta_2 = beta_2
         self.__second_moment_list = []
         self.__first_moment_list = []
+        self.__bias_corrected_flag = bias_corrected_flag
         self.__epoch = 0
 
     def optimize(self, params_list, grads_list, double learning_rate):
@@ -104,97 +106,26 @@ class Adam(OptParams):
                     -1
                 ))
 
-            first_moment_arr = np.nansum(
+            first_moment_arr = (self.__beta_1 * self.__first_moment_list[i]) + (1 - self.__beta_1) * grads_list[i]
+            first_moment_arr = np.nan_to_num(first_moment_arr)
+            second_moment_arr = (self.__beta_2 * self.__second_moment_list[i]) + (1 - self.__beta_2) * np.nanprod(
                 np.array([
                     np.expand_dims(grads_list[i], axis=0),
-                    np.expand_dims(
-                        np.nanprod(
-                            np.array([
-                                np.expand_dims(np.ones_like(self.__first_moment_list[i]) * -1, axis=0),
-                                np.expand_dims(self.__first_moment_list[i], axis=0)
-                            ]),
-                            axis=0
-                        )[0],
-                        axis=0
-                    )
+                    np.expand_dims(grads_list[i], axis=0)
                 ]),
                 axis=0
             )[0]
-            try:
-                first_moment_arr = (1 - self.__beta_1) * first_moment_arr
-            except FloatingPointError:
-                pass
+            second_moment_arr = np.nan_to_num(second_moment_arr)
 
-            self.__first_moment_list[i] = np.nansum(
-                np.array([
-                    np.expand_dims(self.__first_moment_list[i], axis=0),
-                    np.expand_dims(first_moment_arr, axis=0)
-                ]),
-                axis=0
-            )[0]
+            if self.__bias_corrected_flag is True:
+                first_moment_arr = first_moment_arr / (1 - np.power(self.__beta_1, self.__epoch))
+                second_moment_arr = second_moment_arr / (1 - np.power(self.__beta_2, self.__epoch))
 
-            self.__second_moment_list[i] = np.nansum(
-                np.array([
-                    np.expand_dims(self.__second_moment_list[i], axis=0),
-                    np.nanprod(
-                        np.array([
-                            np.expand_dims(np.ones_like(self.__second_moment_list[i]) * (1 - self.__beta_2), axis=0),
-                            np.expand_dims(
-                                np.nansum(
-                                    np.array([
-                                        np.nanprod(
-                                            np.array([
-                                                np.expand_dims(grads_list[i], axis=0),
-                                                np.expand_dims(grads_list[i], axis=0)
-                                            ]),
-                                            axis=0
-                                        ),
-                                        np.expand_dims(-1 * self.__second_moment_list[i], axis=0)
-                                    ]),
-                                    axis=0
-                                )[0],
-                                axis=0
-                            )
-                        ]),
-                        axis=0
-                    )
-                ]),
-                axis=0
-            )[0]
-
-            var_arr = np.nanprod(
-                np.array([
-                    np.expand_dims(
-                        np.nanprod(
-                            np.array([
-                                np.expand_dims(np.ones_like(self.__first_moment_list[i]) * learning_rate, axis=0),
-                                np.expand_dims(self.__first_moment_list[i], axis=0)
-                            ]),
-                            axis=0
-                        )[0],
-                        axis=0
-                    ),
-                    np.expand_dims(1 / (np.sqrt(self.__second_moment_list[i]) + 0.00001), axis=0)
-                ]),
-                axis=0
-            )[0]
-
-            params_list[i] = np.nansum(
-                np.array([
-                    np.expand_dims(params_list[i], axis=0),
-                    np.expand_dims(
-                        np.nanprod(
-                            np.array([
-                                np.expand_dims(np.ones_like(var_arr) * -1, axis=0),
-                                np.expand_dims(var_arr, axis=0)
-                            ]),
-                            axis=0
-                        )[0],
-                        axis=0
-                    )
-                ]),
-                axis=0
-            )[0]
+            var_arr = learning_rate * first_moment_arr / (np.sqrt(second_moment_arr) + 1e-08)
+            params_list[i] = params_list[i] - np.nan_to_num(var_arr)
+            
+            self.__first_moment_list[i] = first_moment_arr
+            self.__second_moment_list[i] = second_moment_arr
 
             if params_ndim > 2:
                 params_list[i] = params_list[i].reshape(params_shape)

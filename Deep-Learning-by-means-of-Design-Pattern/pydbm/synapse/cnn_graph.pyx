@@ -10,18 +10,40 @@ class CNNGraph(Synapse):
     '''
     Computation graph in CNN.
     '''
+
+    # Tied graph.
+    __tied_graph = None
+
+    def get_tied_graph(self):
+        ''' getter '''
+        return self.__tied_graph
     
+    def set_tied_graph(self, value):
+        ''' setter '''
+        if isinstance(value, CNNGraph):
+            self.__tied_graph = value
+        else:
+            raise TypeError("The type of `tied_graph` must be `CNNGraph`.")
+
+    tied_graph = property(get_tied_graph, set_tied_graph)
+
     # Weight matrix (kernel)
     __weight_arr = None
     
     def get_weight_arr(self):
         ''' getter '''
-        return self.__weight_arr
+        if self.tied_graph is None:
+            return self.__weight_arr
+        else:
+            return self.tied_graph.weight_arr
 
     def set_weight_arr(self, value):
         ''' setter '''
-        self.__weight_arr = value
-    
+        if self.tied_graph is None:
+            self.__weight_arr = value
+        else:
+            self.tied_graph.weight_arr = value
+
     weight_arr = property(get_weight_arr, set_weight_arr)
 
     # Bias vector.

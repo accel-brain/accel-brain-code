@@ -549,7 +549,7 @@ class DeepEmbeddedClustering(object):
         target_arr = np.expand_dims(target_arr, axis=1)
         target_arr = target_arr / 1.0
         cdef np.ndarray pc_arr = (np.dot(target_arr, target_arr.T) == np.square(np.dot(target_arr, np.ones_like(target_arr).T))).astype(int)
-        pc_arr[pc_arr == 0] = -1
+        #pc_arr[pc_arr == 0] = -1
         return pc_arr
 
     def __grad_clipping(self, diff_arr):

@@ -268,7 +268,7 @@ Pay attention to the interface of the above class diagram. While each model is *
 
 Considering the *commonality*, it is useful to design based on `Builder Pattern` represented by `DBMBuilder` or `RTRBMBuilder`, which separates the construction of RBM object `RestrictedBoltzmannMachine` from its representation by `DBMDirector` or `RTRBMDirector` so that the same construction process can create different representations such as DBM, RTRBM, RNN-RBM, and Shape-BM. Additionally, the models of all neural networks are *common* in that they possess like synapses by obtaining computation graphs without exception. So the class `Synapse` is contained in various models in a state where computation graphs of weight matrix and bias vector are held in the field.
 
-On the other hand, to deal with the *variability*, `Strategy Pattern`, which provides a way to define a family of algorithms such as approximation methods implemented by inheriting the interface `ApproximateInterface`, and also activation functions implemented by inheriting the interface `ActivatingFunctionInterface`, is useful design method, which is encapsulate each one as an object, and make them interchangeable from the point of view of functionally equivalent. `Template Method Pattern` is also useful design method to design the optimizer in this library because this design pattern makes it possible to define the skeleton of an algorithm in a parameter tuning, deferring some steps to client subclasses such as `Adam` or `SGD`. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm’s structure.
+On the other hand, to deal with the *variability*, `Strategy Pattern`, which provides a way to define a family of algorithms such as approximation methods implemented by inheriting the interface `ApproximateInterface`, and also activation functions implemented by inheriting the interface `ActivatingFunctionInterface`, is useful design method, which is encapsulate each one as an object, and make them interchangeable from the point of view of functionally equivalent. `Template Method Pattern` is also useful design method to design the optimizer in this library because this design pattern makes it possible to define the skeleton of an algorithm in a parameter tuning, deferring some steps to client subclasses such as `SGD`, `AdaGrad`, `RMSProp`, `NAG`,  `Adam` or `Nadam`. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm’s structure.
 
 ### Functionally equivalent: Encoder/Decoder based on LSTM.
 
@@ -1691,6 +1691,90 @@ cnn2 = SpatioTemporalAutoEncoder(
 cnn2.learn(img_arr, img_arr)
 ```
 
+## Usecase: Build Optimizer.
+
+If you want to use various optimizers other than Stochastic Gradient Descent(SGD), instantiate each class as follows.
+
+### Adaptive subgradient methods(AdaGrad).
+
+If you want to use Adaptive subgradient methods(AdaGrad) optimizer, import `AdaGrad` and instantiate it.
+
+```python
+# AdaGrad as a optimizer.
+from pydbm.optimization.optparams.ada_grad import AdaGrad
+
+# is-a `OptParams`.
+opt_params = AdaGrad()
+```
+
+### Adaptive RootMean-Square (RMSProp) gradient decent algorithm.
+
+If you want to use an optimizer of the Adaptive RootMean-Square (RMSProp) gradient decent algorithm, import `RMSProp` and instantiate it.
+
+```python
+# RMSProp as a optimizer.
+from pydbm.optimization.optparams.rms_prop import RMSProp
+
+# is-a `OptParams`.
+opt_params = RMSProp(
+    # Decay rate.
+    decay_rate=0.99
+)
+```
+
+### Nesterov's Accelerated Gradient(NAG).
+
+If you want to use the Nesterov's Accelerated Gradient(NAG) optimizer, import `NAG` and instantiate it.
+
+```python
+# Adam as a optimizer.
+from pydbm.optimization.optparams.nag import NAG
+
+# is-a `OptParams`.
+opt_params = NAG(
+    # Momentum.
+    momentum=0.9
+)
+```
+
+### Adaptive Moment Estimation(Adam).
+
+If you want to use the Adaptive Moment Estimation(Adam) optimizer, import `Adam` and instantiate it.
+
+```python
+# Adam as a optimizer.
+from pydbm.optimization.optparams.adam import Adam
+
+# is-a `OptParams`.
+opt_params = Adam(
+    # BETA 1.
+    beta_1=0.9,
+    # BETA 2.
+    beta_2=0.99,
+    # Compute bias-corrected first moment / second raw moment estimate or not.
+    bias_corrected_flag=False
+)
+```
+
+### Nesterov-accelerated Adaptive Moment Estimation(Nadam).
+
+If you want to use the Nesterov-accelerated Adaptive Moment Estimation(Nadam) optimizer, import `Nadam` and instantiate it.
+
+```python
+# Nadam as a optimizer.
+from pydbm.optimization.optparams.nadam import Nadam
+
+# is-a `OptParams`.
+opt_params = Nadam(
+    # BETA 1.
+    beta_1=0.9,
+    # BETA 2.
+    beta_2=0.99,
+    # Compute bias-corrected first moment / second raw moment estimate or not.
+    bias_corrected_flag=False
+)
+```
+
 ## Usecase: Build and delegate image generator.
 
 `ConvolutionalAutoEncoder` and `SpatioTemporalAutoEncoder`, which are `ConvolutionalNeuralNetwork`s, provide a method `learn_generated` which can be delegated an `ImageGenerator`. `ImageGenerator` is an Iterates to reads batches of images from local directories for mini-batch training.
@@ -1813,13 +1897,19 @@ The class `Synapse` has sub-classes: `CompleteBipartiteGraph`, `LSTMGraph`, `CNN
 - Zhao, J., Mathieu, M., & LeCun, Y. (2016). Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126.
 - Wagstaff, K., Cardie, C., Rogers, S., & Schrödl, S. (2001, June). Constrained k-means clustering with background knowledge. In Icml (Vol. 1, pp. 577-584).
 
+### Optimizations.
+
+- Bengio, Y., Boulanger-Lewandowski, N., & Pascanu, R. (2013, May). Advances in optimizing recurrent networks. In 2013 IEEE International Conference on Acoustics, Speech and Signal Processing (pp. 8624-8628). IEEE.
+- Duchi, J., Hazan, E., & Singer, Y. (2011). Adaptive subgradient methods for online learning and stochastic optimization. Journal of Machine Learning Research, 12(Jul), 2121-2159.
+- Dozat, T. (2016). Incorporating nesterov momentum into adam., Workshop track - ICLR 2016.
+- Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.
+
 ### Algorithms, Arithmetic, and Regularizations
 
 - Dumoulin, V., & Visin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.
 - He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 770-778).
 - Ioffe, S., & Szegedy, C. (2015). Batch normalization: Accelerating deep network training by reducing internal covariate shift. arXiv preprint arXiv:1502.03167.
 - Kamyshanska, H., & Memisevic, R. (2014). The potential energy of an autoencoder. IEEE transactions on pattern analysis and machine intelligence, 37(6), 1261-1273.
-- Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.
 - Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. (2014). Dropout: a simple way to prevent neural networks from overfitting. The Journal of Machine Learning Research, 15(1), 1929-1958.
 - Zaremba, W., Sutskever, I., & Vinyals, O. (2014). Recurrent neural network regularization. arXiv preprint arXiv:1409.2329.
 

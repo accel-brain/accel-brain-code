@@ -1780,9 +1780,10 @@ opt_params = Nadam(
 An Auto-Encoder is guaranteed to have a well-defined energy function if it has tied weights. It reduces the number of parameters. 
 
 <div><blockquote>
-"It is interesting to note that for an autoencoder whose weights are not tied, contractive regularization will encourage the vector field to be conservative. The reason is that encouraging the first derivative to be small and the second derivative to be negative will tend to bound the energy surface near the training .
+"It is interesting to note that for an autoencoder whose weights are not tied, contractive regularization will encourage the vector field to be conservative. The reason is that encouraging the first derivative to be small and the second derivative to be negative will tend to bound the energy surface near the training."
+</blockquote>
 Kamyshanska, H., & Memisevic, R. (2014). The potential energy of an autoencoder. IEEE transactions on pattern analysis and machine intelligence, 37(6), 1261-1273., p7.
-</blockquote></div>
+</div>
 
 In this library, `ConvolutionalAutoEncoder`'s weights are tied in default. But the weight matrixs of `SimpleAutoEncoder` which has two `NeuralNetwork`s are not tied. If you want to tie the weights, set the `tied_graph` as follows.
 

@@ -1707,7 +1707,7 @@ static const char __pyx_k_Adam__second_moment_list[] = "_Adam__second_moment_lis
 static const char __pyx_k_Adam__bias_corrected_flag[] = "_Adam__bias_corrected_flag";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_pydbm_optimization_opt_params[] = "pydbm.optimization.opt_params";
-static const char __pyx_k_Adam_References_Kingma_D_P_Ba_J[] = "\n    Adam.\n\n    References:\n        - Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.\n    ";
+static const char __pyx_k_Adaptive_Moment_Estimation_Adam[] = "\n    Adaptive Moment Estimation(Adam).\n\n    References:\n        - Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.\n    ";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
@@ -1719,7 +1719,6 @@ static const char __pyx_k_pydbm_optimization_optparams_ada[] = "pydbm.optimizati
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
 static const char __pyx_k_pydbm_optimization_optparams_ada_2[] = "pydbm/optimization/optparams/adam.pyx";
 static PyObject *__pyx_n_s_Adam;
-static PyObject *__pyx_kp_s_Adam_References_Kingma_D_P_Ba_J;
 static PyObject *__pyx_n_s_Adam___init;
 static PyObject *__pyx_n_s_Adam__beta_1;
 static PyObject *__pyx_n_s_Adam__beta_2;
@@ -1728,6 +1727,7 @@ static PyObject *__pyx_n_s_Adam__epoch;
 static PyObject *__pyx_n_s_Adam__first_moment_list;
 static PyObject *__pyx_n_s_Adam__second_moment_list;
 static PyObject *__pyx_n_s_Adam_optimize;
+static PyObject *__pyx_kp_s_Adaptive_Moment_Estimation_Adam;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
 static PyObject *__pyx_n_s_ImportError;
@@ -6331,7 +6331,6 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_Adam, __pyx_k_Adam, sizeof(__pyx_k_Adam), 0, 0, 1, 1},
-  {&__pyx_kp_s_Adam_References_Kingma_D_P_Ba_J, __pyx_k_Adam_References_Kingma_D_P_Ba_J, sizeof(__pyx_k_Adam_References_Kingma_D_P_Ba_J), 0, 0, 1, 0},
   {&__pyx_n_s_Adam___init, __pyx_k_Adam___init, sizeof(__pyx_k_Adam___init), 0, 0, 1, 1},
   {&__pyx_n_s_Adam__beta_1, __pyx_k_Adam__beta_1, sizeof(__pyx_k_Adam__beta_1), 0, 0, 1, 1},
   {&__pyx_n_s_Adam__beta_2, __pyx_k_Adam__beta_2, sizeof(__pyx_k_Adam__beta_2), 0, 0, 1, 1},
@@ -6340,6 +6339,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_Adam__first_moment_list, __pyx_k_Adam__first_moment_list, sizeof(__pyx_k_Adam__first_moment_list), 0, 0, 1, 1},
   {&__pyx_n_s_Adam__second_moment_list, __pyx_k_Adam__second_moment_list, sizeof(__pyx_k_Adam__second_moment_list), 0, 0, 1, 1},
   {&__pyx_n_s_Adam_optimize, __pyx_k_Adam_optimize, sizeof(__pyx_k_Adam_optimize), 0, 0, 1, 1},
+  {&__pyx_kp_s_Adaptive_Moment_Estimation_Adam, __pyx_k_Adaptive_Moment_Estimation_Adam, sizeof(__pyx_k_Adaptive_Moment_Estimation_Adam), 0, 0, 1, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
@@ -6817,7 +6817,7 @@ if (!__Pyx_RefNanny) {
   #endif
 
   /* "pydbm/optimization/optparams/adam.pyx":2
- * # -*- codiAdam utf-8 -*-
+ * # -*- coding utf-8 -*-
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
  * from pydbm.optimization.opt_params import OptParams
@@ -6853,7 +6853,7 @@ if (!__Pyx_RefNanny) {
  * 
  * class Adam(OptParams):             # <<<<<<<<<<<<<<
  *     '''
- *     Adam.
+ *     Adaptive Moment Estimation(Adam).
  */
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_OptParams); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -6864,7 +6864,7 @@ if (!__Pyx_RefNanny) {
   __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_Adam, __pyx_n_s_Adam, (PyObject *) NULL, __pyx_n_s_pydbm_optimization_optparams_ada, __pyx_kp_s_Adam_References_Kingma_D_P_Ba_J); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_Adam, __pyx_n_s_Adam, (PyObject *) NULL, __pyx_n_s_pydbm_optimization_optparams_ada, __pyx_kp_s_Adaptive_Moment_Estimation_Adam); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
   /* "pydbm/optimization/optparams/adam.pyx":15
@@ -6913,7 +6913,7 @@ if (!__Pyx_RefNanny) {
  * 
  * class Adam(OptParams):             # <<<<<<<<<<<<<<
  *     '''
- *     Adam.
+ *     Adaptive Moment Estimation(Adam).
  */
   __pyx_t_5 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_Adam, __pyx_t_1, __pyx_t_3, NULL, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
@@ -6924,7 +6924,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/optimization/optparams/adam.pyx":1
- * # -*- codiAdam utf-8 -*-             # <<<<<<<<<<<<<<
+ * # -*- coding utf-8 -*-             # <<<<<<<<<<<<<<
  * import numpy as np
  * cimport numpy as np
  */

@@ -1775,6 +1775,39 @@ opt_params = Nadam(
 )
 ```
 
+## Usecase: Tied-weights.
+
+An Auto-Encoder is guaranteed to have a well-defined energy function if it has tied weights. It reduces the number of parameters. 
+
+<div><blockquote>
+"It is interesting to note that for an autoencoder whose weights are not tied, contractive regularization will encourage the vector field to be conservative. The reason is that encouraging the first derivative to be small and the second derivative to be negative will tend to bound the energy surface near the training .
+Kamyshanska, H., & Memisevic, R. (2014). The potential energy of an autoencoder. IEEE transactions on pattern analysis and machine intelligence, 37(6), 1261-1273., p7.
+</blockquote></div>
+
+In this library, `ConvolutionalAutoEncoder`'s weights are tied in default. But the weight matrixs of `SimpleAutoEncoder` which has two `NeuralNetwork`s are not tied. If you want to tie the weights, set the `tied_graph` as follows.
+
+```python
+from pydbm.synapse.nn_graph import NNGraph
+from pydbm.activation.identity_function import IdentityFunction
+
+# Encoder's graph.
+encoder_graph = NNGraph(
+    activation_function=IdentityFunction(),
+    hidden_neuron_count=100,
+    output_neuron_count=10,
+)
+
+# Decoder's graph.
+decoder_graph = NNGraph(
+    activation_function=IdentityFunction(),
+    hidden_neuron_count=10,
+    output_neuron_count=100,
+)
+
+# Set encoder's graph.
+decoder_graph.tied_graph = encoder_graph
+```
+
 ## Usecase: Build and delegate image generator.
 
 `ConvolutionalAutoEncoder` and `SpatioTemporalAutoEncoder`, which are `ConvolutionalNeuralNetwork`s, provide a method `learn_generated` which can be delegated an `ImageGenerator`. `ImageGenerator` is an Iterates to reads batches of images from local directories for mini-batch training.

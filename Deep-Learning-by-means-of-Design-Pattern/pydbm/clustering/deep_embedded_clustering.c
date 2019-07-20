@@ -12113,7 +12113,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
  *         target_arr = np.expand_dims(target_arr, axis=1)
  *         target_arr = target_arr / 1.0             # <<<<<<<<<<<<<<
  *         cdef np.ndarray pc_arr = (np.dot(target_arr, target_arr.T) == np.square(np.dot(target_arr, np.ones_like(target_arr).T))).astype(int)
- *         pc_arr[pc_arr == 0] = -1
+ *         #pc_arr[pc_arr == 0] = -1
  */
   __pyx_t_4 = __Pyx_PyNumber_Divide(((PyObject *)__pyx_v_target_arr), __pyx_float_1_0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 550, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
@@ -12125,7 +12125,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
  *         target_arr = np.expand_dims(target_arr, axis=1)
  *         target_arr = target_arr / 1.0
  *         cdef np.ndarray pc_arr = (np.dot(target_arr, target_arr.T) == np.square(np.dot(target_arr, np.ones_like(target_arr).T))).astype(int)             # <<<<<<<<<<<<<<
- *         pc_arr[pc_arr == 0] = -1
+ *         #pc_arr[pc_arr == 0] = -1
  *         return pc_arr
  */
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 551, __pyx_L1_error)
@@ -12389,20 +12389,9 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_v_pc_arr = ((PyArrayObject *)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "pydbm/clustering/deep_embedded_clustering.pyx":552
- *         target_arr = target_arr / 1.0
- *         cdef np.ndarray pc_arr = (np.dot(target_arr, target_arr.T) == np.square(np.dot(target_arr, np.ones_like(target_arr).T))).astype(int)
- *         pc_arr[pc_arr == 0] = -1             # <<<<<<<<<<<<<<
- *         return pc_arr
- * 
- */
-  __pyx_t_4 = PyObject_RichCompare(((PyObject *)__pyx_v_pc_arr), __pyx_int_0, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 552, __pyx_L1_error)
-  if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_pc_arr), __pyx_t_4, __pyx_int_neg_1) < 0)) __PYX_ERR(0, 552, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-
   /* "pydbm/clustering/deep_embedded_clustering.pyx":553
  *         cdef np.ndarray pc_arr = (np.dot(target_arr, target_arr.T) == np.square(np.dot(target_arr, np.ones_like(target_arr).T))).astype(int)
- *         pc_arr[pc_arr == 0] = -1
+ *         #pc_arr[pc_arr == 0] = -1
  *         return pc_arr             # <<<<<<<<<<<<<<
  * 
  *     def __grad_clipping(self, diff_arr):

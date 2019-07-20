@@ -7236,7 +7236,7 @@ if (!__Pyx_RefNanny) {
   #endif
 
   /* "pydbm/optimization/optparams/nadam.pyx":2
- * # -*- codiAdam utf-8 -*-
+ * # -*- coding utf-8 -*-
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
  * from pydbm.optimization.opt_params import OptParams
@@ -7343,7 +7343,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/optimization/optparams/nadam.pyx":1
- * # -*- codiAdam utf-8 -*-             # <<<<<<<<<<<<<<
+ * # -*- coding utf-8 -*-             # <<<<<<<<<<<<<<
  * import numpy as np
  * cimport numpy as np
  */

@@ -7,7 +7,7 @@ from pydbm.optimization.opt_params import OptParams
 
 class NAG(OptParams):
     '''
-    Optimizer of the Nesterov's Accelerated Gradient.
+    Optimizer of the Nesterov's Accelerated Gradient(NAG).
 
     References:
         - Bengio, Y., Boulanger-Lewandowski, N., & Pascanu, R. (2013, May). Advances in optimizing recurrent networks. In 2013 IEEE International Conference on Acoustics, Speech and Signal Processing (pp. 8624-8628). IEEE.

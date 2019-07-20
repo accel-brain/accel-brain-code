@@ -6,7 +6,7 @@ from pydbm.optimization.opt_params import OptParams
 
 class Adam(OptParams):
     '''
-    Adam.
+    Adaptive Moment Estimation(Adam).
 
     References:
         - Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980.

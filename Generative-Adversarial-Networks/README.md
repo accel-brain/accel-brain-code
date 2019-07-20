@@ -965,6 +965,8 @@ plot(decoded_arr)
 - [深層強化学習のベイズ主義的な情報探索に駆動された自然言語処理の意味論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/) (Japanese)
     - [平均場近似推論の統計力学、自己符号化器としての深層ボルツマンマシン](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/tiefe-boltzmann-maschine-als-selbstkodierer/)
     - [正則化問題における敵対的生成ネットワーク(GANs)と敵対的自己符号化器(AAEs)のネットワーク構造](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/regularisierungsproblem-und-gan/)
+    - [階層的潜在変数モデルをメディアとしたラダーネットワークの半教師あり学習形式、ノイズ除去型自己符号化器の機能](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/hierarchical-latent-variable-model-as-media-and-semi-supervised-learning-of-ladder-network-as-a-form/)
+    - [エネルギーベースモデルとしての敵対的生成ネットワーク(GAN)と自己符号化器におけるリアプノフ安定](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/lyaponov-stability-optimization-in-gan-and-auto-encoder-in-energy-based-models/)
 - [「人工の理想」を背景とした「万物照応」のデータモデリング](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/) (Japanese)
     - [ランダムウォークの社会構造とダウ理論の意味論、再帰的ニューラルネットワークの価格変動モデルから敵対的生成ネットワーク（GAN）へ](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/sozialstruktur-von-random-walk-und-semantik-der-dow-theorie/)
 

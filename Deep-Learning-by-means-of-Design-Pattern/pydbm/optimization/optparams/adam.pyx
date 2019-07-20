@@ -1,4 +1,4 @@
-# -*- codiAdam utf-8 -*-
+# -*- coding utf-8 -*-
 import numpy as np
 cimport numpy as np
 from pydbm.optimization.opt_params import OptParams

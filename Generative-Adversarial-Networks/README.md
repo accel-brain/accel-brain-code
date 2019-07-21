@@ -1,8 +1,8 @@
 # Generative Adversarial Networks Library: pygan
 
-`pygan` is Python library to implement Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs).
+`pygan` is Python library to implement Generative Adversarial Networks(GANs), *Conditional* GANs, Adversarial Auto-Encoders(AAEs), and Energy-based Generative Adversarial Network(EBGAN).
 
-This library makes it possible to design the Generative models based on the Statistical machine learning problems in relation to Generative Adversarial Networks(GANs), *Conditional* GANs, and Adversarial Auto-Encoders(AAEs) to practice algorithm design for semi-supervised learning. But this library provides components for designers, not for end-users of state-of-the-art black boxes. Briefly speaking the philosophy of this library, *give user hype-driven blackboxes and you feed him for a day; show him how to design algorithms and you feed him for a lifetime.* So algorithm is power.
+This library makes it possible to design the Generative models based on the Statistical machine learning problems in relation to Generative Adversarial Networks(GANs), *Conditional* GANs, Adversarial Auto-Encoders(AAEs), and Energy-based Generative Adversarial Network(EBGAN) to practice algorithm design for semi-supervised learning. But this library provides components for designers, not for end-users of state-of-the-art black boxes. Briefly speaking the philosophy of this library, *give user hype-driven blackboxes and you feed him for a day; show him how to design algorithms and you feed him for a lifetime.* So algorithm is power.
 
 See also ...
 
@@ -35,7 +35,7 @@ Installers for the latest released version are available at the Python package i
 
 #### Option
 
-- [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern): v1.4.3 or higher.
+- [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern): v1.4.9 or higher.
     * Only if you want to implement the components based on this library.
 
 ## Documentation
@@ -44,7 +44,7 @@ Full documentation is available on [https://code.accel-brain.com/Generative-Adve
 
 ## Description
 
-`pygan` is Python library to implement Generative Adversarial Networks(GANs), *Conditional* GANs, and Adversarial Auto-Encoders(AAEs).
+`pygan` is Python library to implement Generative Adversarial Networks(GANs), *Conditional* GANs, Adversarial Auto-Encoders(AAEs), and Energy-based Generative Adversarial Network(EBGAN).
 
 The Generative Adversarial Networks(GANs) (Goodfellow et al., 2014) framework establishes a
 min-max adversarial game between two neural networks – a generative model, `G`, and a discriminative
@@ -963,7 +963,6 @@ plot(decoded_arr)
 ### Related PoC
 
 - [深層強化学習のベイズ主義的な情報探索に駆動された自然言語処理の意味論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/) (Japanese)
-    - [平均場近似推論の統計力学、自己符号化器としての深層ボルツマンマシン](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/tiefe-boltzmann-maschine-als-selbstkodierer/)
     - [正則化問題における敵対的生成ネットワーク(GANs)と敵対的自己符号化器(AAEs)のネットワーク構造](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/regularisierungsproblem-und-gan/)
     - [階層的潜在変数モデルをメディアとしたラダーネットワークの半教師あり学習形式、ノイズ除去型自己符号化器の機能](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/hierarchical-latent-variable-model-as-media-and-semi-supervised-learning-of-ladder-network-as-a-form/)
     - [エネルギーベースモデルとしての敵対的生成ネットワーク(GAN)と自己符号化器におけるリアプノフ安定](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/lyaponov-stability-optimization-in-gan-and-auto-encoder-in-energy-based-models/)

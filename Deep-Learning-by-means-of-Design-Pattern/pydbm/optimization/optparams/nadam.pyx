@@ -98,18 +98,51 @@ class Nadam(OptParams):
                 ))
 
             if self.__beta_1_arr.shape[0] > 1:
-                grads_list[i] = grads_list[i] / (1 - np.nanprod(self.__beta_1_arr[1:]))
+                grads_list[i] = self.__multiply_arr_scalar(
+                    arr=grads_list[i],
+                    scalar=1 / (1 - np.nanprod(self.__beta_1_arr[1:]))
+                )
             
-            self.__first_moment_list[i] = (self.__beta_1 * self.__first_moment_list[i]) + (1 - self.__beta_1) * grads_list[i]
-            momentum_arr = self.__first_moment_list[i] / (1 - np.nanprod(self.__beta_1_arr))
+            self.__first_moment_list[i] = self.__multiply_arr_scalar(
+                scalar=self.__beta_1,
+                arr=self.__first_moment_list[i]
+            ) + self.__multiply_arr_scalar(
+                scalar=1 - self.__beta_1,
+                arr=grads_list[i]
+            )
+            momentum_arr = self.__multiply_arr_scalar(
+                arr=self.__first_moment_list[i],
+                scalar=1 / (1 - np.nanprod(self.__beta_1_arr))
+            )
 
-            self.__second_moment_list[i] = (self.__beta_2 * self.__second_moment_list[i]) + ((1 - self.__beta_2) * np.square(grads_list[i]))
+            self.__second_moment_list[i] = self.__multiply_arr_scalar(
+                scalar=self.__beta_2,
+                arr=self.__second_moment_list[i]
+            ) + self.__multiply_arr_scalar(
+                scalar=(1 - self.__beta_2),
+                arr=np.square(grads_list[i])
+            )
             if self.__bias_corrected_flag is True:
-                self.__second_moment_list[i] = self.__second_moment_list[i] / (1 - np.power(self.__beta_2, self.__epoch))
+                self.__second_moment_list[i] = self.__multiply_arr_scalar(
+                    arr=self.__second_moment_list[i],
+                    scalar=1 / (1 - np.power(self.__beta_2, self.__epoch))
+                )
 
-            momentum_arr = ((1 - self.__beta_1) * grads_list[i]) + (self.__beta_1_arr[0] * momentum_arr)
+            momentum_arr = self.__multiply_arr_scalar(
+                scalar=(1 - self.__beta_1),
+                arr=grads_list[i]
+            ) + self.__multiply_arr_scalar(
+                scalar=self.__beta_1_arr[0],
+                arr=momentum_arr
+            )
 
-            var_arr = learning_rate * momentum_arr / (np.sqrt(self.__second_moment_list[i]) + 1e-08)
+            var_arr = self.__multiply_arr_scalar(
+                scalar=learning_rate,
+                arr=self.__multiply_arrs(
+                    momentum_arr,
+                    1 / (np.sqrt(self.__second_moment_list[i]) + 1e-08)
+                )
+            )
 
             params_list[i] = params_list[i] - var_arr
 
@@ -119,3 +152,12 @@ class Nadam(OptParams):
                 grads_list[i] = grads_list[i].reshape(grads_shape)
 
         return params_list
+
+    def __multiply_arr_scalar(self, np.ndarray arr, scalar):
+        return np.nanprod([np.ones_like(arr) * scalar, arr], axis=0)
+
+    def __multiply_arrs(self, *args):
+        return np.nanprod(args, axis=0)
+
+    def __multiply_scalars(self, *args):
+        return np.nanprod(args, axis=0)

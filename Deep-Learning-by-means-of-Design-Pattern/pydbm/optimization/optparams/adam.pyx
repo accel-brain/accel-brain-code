@@ -70,8 +70,12 @@ class Adam(OptParams):
 
         self.__epoch += 1
 
-        learning_rate = learning_rate * np.sqrt(1 - np.power(self.__beta_2, self.__epoch)) / (1 - np.power(self.__beta_1, self.__epoch))
-
+        learning_rate = self.__multiply_scalars(
+            learning_rate,
+            np.sqrt(1 - np.power(self.__beta_2, self.__epoch)),
+            1 / (1 - np.power(self.__beta_1, self.__epoch))
+        )
+        
         cdef np.ndarray var_arr
         for i in range(len(params_list)):
             if params_list[i] is None or grads_list[i] is None:
@@ -92,14 +96,39 @@ class Adam(OptParams):
                     -1
                 ))
 
-            self.__first_moment_list[i] = (self.__beta_1 * self.__first_moment_list[i]) + ((1 - self.__beta_1) * grads_list[i])
-            self.__second_moment_list[i] = (self.__beta_2 * self.__second_moment_list[i]) + ((1 - self.__beta_2) * np.square(grads_list[i]))
+            self.__first_moment_list[i] = self.__multiply_arr_scalar(
+                scalar=self.__beta_1, 
+                arr=self.__first_moment_list[i]
+            ) + self.__multiply_arr_scalar(
+                scalar=(1 - self.__beta_1), 
+                arr=grads_list[i]
+            )
+
+            self.__second_moment_list[i] = self.__multiply_arr_scalar(
+                scalar=self.__beta_2,
+                arr=self.__second_moment_list[i]
+            ) + self.__multiply_arr_scalar(
+                scalar=(1 - self.__beta_2), 
+                arr=np.square(grads_list[i])
+            )
 
             if self.__bias_corrected_flag is True:
-                self.__first_moment_list[i] = self.__first_moment_list[i] / (1 - np.power(self.__beta_1, self.__epoch))
-                self.__second_moment_list[i] = self.__second_moment_list[i] / (1 - np.power(self.__beta_2, self.__epoch))
+                self.__first_moment_list[i] = self.__multiply_arr_scalar(
+                    arr=self.__first_moment_list[i],
+                    scalar=1/(1 - np.power(self.__beta_1, self.__epoch))
+                )
+                self.__second_moment_list[i] = self.__multiply_arr_scalar(
+                    arr=self.__second_moment_list[i],
+                    scalar=1/(1 - np.power(self.__beta_2, self.__epoch))
+                )
 
-            var_arr = learning_rate * self.__first_moment_list[i] / (np.sqrt(self.__second_moment_list[i]) + 1e-08)
+            var_arr = self.__multiply_arr_scalar(
+                scalar=learning_rate,
+                arr=self.__multiply_arrs(
+                    self.__first_moment_list[i],
+                    1 / (np.sqrt(self.__second_moment_list[i]) + 1e-08)
+                )
+            )
 
             params_list[i] = params_list[i] - var_arr
 
@@ -109,3 +138,12 @@ class Adam(OptParams):
                 grads_list[i] = grads_list[i].reshape(grads_shape)
 
         return params_list
+
+    def __multiply_arr_scalar(self, np.ndarray arr, scalar):
+        return np.nanprod([np.ones_like(arr) * scalar, arr], axis=0)
+
+    def __multiply_arrs(self, *args):
+        return np.nanprod(args, axis=0)
+
+    def __multiply_scalars(self, *args):
+        return np.nanprod(args, axis=0)

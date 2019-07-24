@@ -20,15 +20,12 @@ class SoftmaxFunction(ActivatingFunctionInterface):
         Returns:
             `np.ndarray` of the activated feature points.
         '''
-        cdef np.ndarray exp_x
-        cdef np.ndarray prob
-        exp_x = np.exp(x - np.max(x))
-        prob = exp_x / exp_x.sum(axis=0)
+        cdef np.ndarray prob_arr = self.forward(x)
 
         if self.batch_norm is not None:
-            prob = self.batch_norm.forward_propagation(prob)
+            prob_arr = self.batch_norm.forward_propagation(prob_arr)
 
-        return prob
+        return prob_arr
 
     def derivative(self, np.ndarray y):
         '''
@@ -55,11 +52,11 @@ class SoftmaxFunction(ActivatingFunctionInterface):
         Returns:
             The result.
         '''
-        cdef np.ndarray exp_x
-        cdef np.ndarray prob
-        exp_x = np.exp(x - np.max(x))
-        prob = exp_x / exp_x.sum(axis=0)
-        return prob
+        cdef np.ndarray exp_x_arr
+        cdef np.ndarray prob_arr
+        exp_x_arr = np.exp(x - np.max(x))
+        prob_arr = exp_x_arr / np.nansum(exp_x_arr, axis=1).reshape(-1, 1)
+        return prob_arr
 
     def backward(self, np.ndarray y):
         '''

@@ -187,13 +187,13 @@ class ConvolutionalNeuralNetwork(object):
             test_target_arr = target_arr[test_index]
         else:
             train_observed_arr = observed_arr
-            train_target_arr = observed_arr
+            train_target_arr = target_arr
 
         cdef double loss
         cdef double test_loss
-        cdef np.ndarray[DOUBLE_t, ndim=4] pred_arr
-        cdef np.ndarray[DOUBLE_t, ndim=4] test_pred_arr
-        cdef np.ndarray[DOUBLE_t, ndim=4] delta_arr
+        cdef np.ndarray pred_arr
+        cdef np.ndarray test_pred_arr
+        cdef np.ndarray delta_arr
         
         best_weight_params_list = []
         best_bias_params_list = []
@@ -356,9 +356,9 @@ class ConvolutionalNeuralNetwork(object):
 
         cdef double loss
         cdef double test_loss
-        cdef np.ndarray[DOUBLE_t, ndim=4] pred_arr
-        cdef np.ndarray[DOUBLE_t, ndim=4] test_pred_arr
-        cdef np.ndarray[DOUBLE_t, ndim=4] delta_arr
+        cdef np.ndarray pred_arr
+        cdef np.ndarray test_pred_arr
+        cdef np.ndarray delta_arr
 
         best_weight_params_list = []
         best_bias_params_list = []
@@ -568,7 +568,8 @@ class ConvolutionalNeuralNetwork(object):
         cdef np.ndarray[DOUBLE_t, ndim=2] _pred_arr
         if self.__cnn_output_graph is not None:
             _pred_arr = self.__cnn_output_graph.activating_function.activate(
-                np.dot(pred_arr.reshape((pred_arr.shape[0], -1)), self.__cnn_output_graph.weight_arr) + self.__cnn_output_graph.bias_arr
+                np.dot(
+                    pred_arr.reshape((pred_arr.shape[0], -1)), self.__cnn_output_graph.weight_arr) + self.__cnn_output_graph.bias_arr
             )
             self.__cnn_output_graph.hidden_arr = pred_arr
             self.__cnn_output_graph.output_arr = _pred_arr
@@ -599,8 +600,8 @@ class ConvolutionalNeuralNetwork(object):
                 _delta_arr = delta_arr
 
             _delta_arr, output_grads_list = self.output_back_propagate(
-                self.__cnn_output_graph.output_arr, 
-                _delta_arr
+                self.__cnn_output_graph.output_arr.reshape((self.__cnn_output_graph.output_arr.shape[0], -1)), 
+                _delta_arr.reshape((_delta_arr.shape[0], -1))
             )
             delta_arr = _delta_arr.reshape((
                 self.__cnn_output_graph.hidden_arr.shape[0],
@@ -634,7 +635,11 @@ class ConvolutionalNeuralNetwork(object):
 
         return delta_arr
 
-    def output_back_propagate(self, np.ndarray[DOUBLE_t, ndim=2] pred_arr, np.ndarray[DOUBLE_t, ndim=2] delta_arr):
+    def output_back_propagate(
+        self, 
+        np.ndarray[DOUBLE_t, ndim=2] pred_arr, 
+        np.ndarray[DOUBLE_t, ndim=2] delta_arr
+    ):
         '''
         Back propagation in output layer.
 
@@ -651,7 +656,13 @@ class ConvolutionalNeuralNetwork(object):
             delta_arr,
             self.__cnn_output_graph.weight_arr.T
         )
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weights_arr = np.dot(pred_arr.T, _delta_arr).T
+        cdef np.ndarray[DOUBLE_t, ndim=2] delta_weights_arr = np.dot(
+            self.__cnn_output_graph.hidden_arr.reshape((
+                self.__cnn_output_graph.hidden_arr.shape[0],
+                -1
+            )).T, 
+            delta_arr
+        )
         cdef np.ndarray[DOUBLE_t, ndim=1] delta_bias_arr = np.sum(delta_arr, axis=0)
 
         grads_list = [

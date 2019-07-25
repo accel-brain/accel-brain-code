@@ -67,6 +67,7 @@ class CrossEntropy(ComputableLoss):
         '''
         cdef np.ndarray _labeled_arr
         cdef np.ndarray delta_arr
+        cdef int batch_size = pred_arr.shape[0]
 
         if pred_arr.ndim > 2:
             delta_arr = pred_arr.reshape((pred_arr.shape[0], -1))
@@ -81,8 +82,9 @@ class CrossEntropy(ComputableLoss):
         else:
             _labeled_arr = labeled_arr
 
-        delta_arr[:, _labeled_arr] -= 1
+        delta_arr[np.arange(batch_size), _labeled_arr] -= 1
         delta_arr *= delta_output
+        delta_arr = delta_arr / batch_size
 
         if pred_arr.ndim != delta_arr.ndim:
             delta_arr = delta_arr.reshape(*pred_arr.copy().shape)

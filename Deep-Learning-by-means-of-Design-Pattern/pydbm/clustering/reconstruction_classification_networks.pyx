@@ -297,7 +297,7 @@ class ReconstructionClassificationNetworks(object):
             )
             self.__nn = NeuralNetwork(
                 nn_layer_list=[nn_layer],
-                computable_loss=KLDivergence(),
+                computable_loss=CrossEntropy(),
                 opt_params=Adam(),
                 verificatable_result=VerificateSoftmax(),
             )

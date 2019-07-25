@@ -6211,7 +6211,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
  *             )
  *             self.__nn = NeuralNetwork(             # <<<<<<<<<<<<<<
  *                 nn_layer_list=[nn_layer],
- *                 computable_loss=KLDivergence(),
+ *                 computable_loss=CrossEntropy(),
  */
     __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_NeuralNetwork); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 298, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
@@ -6220,7 +6220,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
  *             )
  *             self.__nn = NeuralNetwork(
  *                 nn_layer_list=[nn_layer],             # <<<<<<<<<<<<<<
- *                 computable_loss=KLDivergence(),
+ *                 computable_loss=CrossEntropy(),
  *                 opt_params=Adam(),
  */
     __pyx_t_1 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 299, __pyx_L1_error)
@@ -6236,11 +6236,11 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
     /* "pydbm/clustering/reconstruction_classification_networks.pyx":300
  *             self.__nn = NeuralNetwork(
  *                 nn_layer_list=[nn_layer],
- *                 computable_loss=KLDivergence(),             # <<<<<<<<<<<<<<
+ *                 computable_loss=CrossEntropy(),             # <<<<<<<<<<<<<<
  *                 opt_params=Adam(),
  *                 verificatable_result=VerificateSoftmax(),
  */
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_KLDivergence); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 300, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_CrossEntropy); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 300, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_2 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -6265,7 +6265,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
 
     /* "pydbm/clustering/reconstruction_classification_networks.pyx":301
  *                 nn_layer_list=[nn_layer],
- *                 computable_loss=KLDivergence(),
+ *                 computable_loss=CrossEntropy(),
  *                 opt_params=Adam(),             # <<<<<<<<<<<<<<
  *                 verificatable_result=VerificateSoftmax(),
  *             )
@@ -6294,7 +6294,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
     /* "pydbm/clustering/reconstruction_classification_networks.pyx":302
- *                 computable_loss=KLDivergence(),
+ *                 computable_loss=CrossEntropy(),
  *                 opt_params=Adam(),
  *                 verificatable_result=VerificateSoftmax(),             # <<<<<<<<<<<<<<
  *             )
@@ -6328,7 +6328,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
  *             )
  *             self.__nn = NeuralNetwork(             # <<<<<<<<<<<<<<
  *                 nn_layer_list=[nn_layer],
- *                 computable_loss=KLDivergence(),
+ *                 computable_loss=CrossEntropy(),
  */
     __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 298, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);

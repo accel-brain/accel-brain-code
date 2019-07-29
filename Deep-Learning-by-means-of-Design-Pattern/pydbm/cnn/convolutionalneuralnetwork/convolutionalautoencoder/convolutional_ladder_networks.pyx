@@ -708,6 +708,11 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
         cdef np.ndarray[DOUBLE_t, ndim=2] delta_weight_arr
         cdef np.ndarray[DOUBLE_t, ndim=4] _delta_weight_arr
 
+        cdef np.ndarray[DOUBLE_t, ndim=4] hidden_delta_arr
+        cdef np.ndarray[DOUBLE_t, ndim=2] sigma_arr
+        cdef np.ndarray[DOUBLE_t, ndim=4] _sigma_arr
+        cdef np.ndarray[DOUBLE_t, ndim=4] mu_arr
+
         hidden_delta_arr_list = self.__decoder_delta_arr_list[::-1]
         sigma_arr_list = self.__decoder_sigma_arr_list[::-1]
         mu_arr_list = self.__decoder_mu_arr_list[::-1]
@@ -718,7 +723,7 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
                 sigma_arr = sigma_arr_list[i]
                 sigma_arr[sigma_arr == 0] += 1e-08
                 sigma_arr = np.eye(sigma_arr.shape[0]) - np.power(sigma_arr, -1)
-                sigma_arr = np.nanmean(sigma_arr, axis=0).reshape((
+                _sigma_arr = np.nanmean(sigma_arr, axis=0).reshape((
                     hidden_delta_arr.shape[0], 
                     1,
                     1,
@@ -726,7 +731,7 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
                 ))
                 mu_arr = mu_arr_list[i]
 
-                delta_arr = delta_arr + (self.__alpha_weight * hidden_delta_arr) + (self.__sigma_weight * sigma_arr) + (self.__mu_weight * mu_arr)
+                delta_arr = delta_arr + (self.__alpha_weight * hidden_delta_arr) + (self.__sigma_weight * _sigma_arr) + (self.__mu_weight * mu_arr)
 
                 img_sample_n = delta_arr.shape[0]
                 img_channel = delta_arr.shape[1]
@@ -803,7 +808,7 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
                 sigma_arr = sigma_arr_list[i]
                 sigma_arr[sigma_arr == 0] += 1e-08
                 sigma_arr = np.eye(sigma_arr.shape[0]) - np.power(sigma_arr, -1)
-                sigma_arr = np.nanmean(sigma_arr, axis=0).reshape((
+                _sigma_arr = np.nanmean(sigma_arr, axis=0).reshape((
                     hidden_delta_arr.shape[0], 
                     1,
                     1,
@@ -811,7 +816,7 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
                 ))
                 mu_arr = mu_arr_list[i]
 
-                delta_arr = delta_arr + (self.__alpha_weight * hidden_delta_arr) + (self.__sigma_weight * sigma_arr) + (self.__mu_weight * mu_arr)
+                delta_arr = delta_arr + (self.__alpha_weight * hidden_delta_arr) + (self.__sigma_weight * _sigma_arr) + (self.__mu_weight * mu_arr)
 
                 delta_arr = layerable_cnn_list[i].back_propagate(delta_arr)
                 delta_arr = layerable_cnn_list[i].graph.deactivation_function.forward(delta_arr)
@@ -868,9 +873,9 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
         '''
         loss = 0.0
         for arr in self.__encoder_delta_arr_list:
-            loss = loss + np.nansum(np.nanmean(np.square(arr), axis=0))
+            loss = loss + np.nanmean(np.nanmean(np.square(arr), axis=0))
         for arr in self.__decoder_delta_arr_list:
-            loss = loss + np.nansum(np.nanmean(np.square(arr), axis=0))
+            loss = loss + np.nanmean(np.nanmean(np.square(arr), axis=0))
 
         return loss * self.__alpha_weight
 

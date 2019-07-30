@@ -14,9 +14,9 @@ from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as ReEncod
 from pydbm.loss.mean_squared_error import MeanSquaredError
 
 # Adam as a Loss function.
-from pydbm.optimization.optparams.adam import Adam as EncoderAdam
-from pydbm.optimization.optparams.adam import Adam as DecoderAdam
-from pydbm.optimization.optparams.adam import Adam as ReEncoderAdam
+from pydbm.optimization.optparams.nadam import Nadam as EncoderAdam
+from pydbm.optimization.optparams.nadam import Nadam as DecoderAdam
+from pydbm.optimization.optparams.nadam import Nadam as ReEncoderAdam
 # Verification.
 from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
 # LSTM model.
@@ -89,13 +89,13 @@ class ReSeq2Seq(AbstractableSemantics):
         retrospective_encoder=None,
         input_neuron_count=20,
         hidden_neuron_count=20,
-        weight_limit=0.5,
+        weight_limit=1e+10,
         dropout_rate=0.5,
         pre_learning_epochs=1000,
         epochs=100,
         batch_size=20,
         learning_rate=1e-05,
-        learning_attenuate_rate=0.1,
+        learning_attenuate_rate=1.0,
         attenuate_epoch=50,
         grad_clip_threshold=1e+10,
         seq_len=8,
@@ -223,13 +223,13 @@ class ReSeq2Seq(AbstractableSemantics):
         self,
         input_neuron_count=20,
         hidden_neuron_count=20,
-        weight_limit=0.5,
+        weight_limit=1e+15,
         dropout_rate=0.5,
         epochs=1000,
         batch_size=20,
         learning_rate=1e-05,
         attenuate_epoch=50,
-        learning_attenuate_rate=0.1,
+        learning_attenuate_rate=1.0,
         seq_len=8,
         bptt_tau=8,
         test_size_rate=0.3,
@@ -259,7 +259,7 @@ class ReSeq2Seq(AbstractableSemantics):
             epochs=100,
             batch_size=batch_size,
             learning_rate=learning_rate,
-            learning_attenuate_rate=0.1,
+            learning_attenuate_rate=1.0,
             attenuate_epoch=50,
             bptt_tau=8,
             test_size_rate=0.3,
@@ -293,7 +293,7 @@ class ReSeq2Seq(AbstractableSemantics):
             epochs=100,
             batch_size=batch_size,
             learning_rate=learning_rate,
-            learning_attenuate_rate=0.1,
+            learning_attenuate_rate=1.0,
             attenuate_epoch=50,
             seq_len=seq_len,
             bptt_tau=bptt_tau,
@@ -324,7 +324,7 @@ class ReSeq2Seq(AbstractableSemantics):
         self,
         input_neuron_count=20,
         hidden_neuron_count=20,
-        weight_limit=0.5,
+        weight_limit=1e+10,
         dropout_rate=0.5,
         batch_size=20,
         learning_rate=1e-05,
@@ -353,7 +353,7 @@ class ReSeq2Seq(AbstractableSemantics):
             epochs=100,
             batch_size=batch_size,
             learning_rate=learning_rate,
-            learning_attenuate_rate=0.1,
+            learning_attenuate_rate=1.0,
             attenuate_epoch=50,
             bptt_tau=bptt_tau,
             test_size_rate=0.3,

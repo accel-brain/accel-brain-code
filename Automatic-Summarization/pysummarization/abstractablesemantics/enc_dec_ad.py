@@ -13,8 +13,8 @@ from pydbm.synapse.recurrenttemporalgraph.lstm_graph import LSTMGraph as Decoder
 from pydbm.loss.mean_squared_error import MeanSquaredError
 
 # Adam as a Loss function.
-from pydbm.optimization.optparams.adam import Adam as EncoderAdam
-from pydbm.optimization.optparams.adam import Adam as DecoderAdam
+from pydbm.optimization.optparams.nadam import Nadam as EncoderAdam
+from pydbm.optimization.optparams.nadam import Nadam as DecoderAdam
 # Verification.
 from pydbm.verification.verificate_function_approximation import VerificateFunctionApproximation
 # LSTM model.
@@ -80,13 +80,13 @@ class EncDecAD(AbstractableSemantics):
         encoder_decoder_controller=None,
         input_neuron_count=20,
         hidden_neuron_count=20,
-        weight_limit=0.5,
+        weight_limit=1e+10,
         dropout_rate=0.5,
         pre_learning_epochs=1000,
         epochs=100,
         batch_size=20,
         learning_rate=1e-05,
-        learning_attenuate_rate=0.1,
+        learning_attenuate_rate=1.0,
         attenuate_epoch=50,
         seq_len=8,
         bptt_tau=8,
@@ -166,13 +166,13 @@ class EncDecAD(AbstractableSemantics):
         self,
         input_neuron_count=20,
         hidden_neuron_count=20,
-        weight_limit=0.5,
+        weight_limit=1e+10,
         dropout_rate=0.5,
         epochs=1000,
         batch_size=20,
         learning_rate=1e-05,
         attenuate_epoch=50,
-        learning_attenuate_rate=0.1,
+        learning_attenuate_rate=1.0,
         seq_len=8,
         bptt_tau=8,
         test_size_rate=0.3,
@@ -211,7 +211,7 @@ class EncDecAD(AbstractableSemantics):
             # Learning rate.
             learning_rate=learning_rate,
             # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
-            learning_attenuate_rate=0.1,
+            learning_attenuate_rate=1.0,
             # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
             attenuate_epoch=50,
             # Refereed maxinum step `t` in BPTT. If `0`, this class referes all past data in BPTT.
@@ -258,7 +258,7 @@ class EncDecAD(AbstractableSemantics):
             # Learning rate.
             learning_rate=learning_rate,
             # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
-            learning_attenuate_rate=0.1,
+            learning_attenuate_rate=1.0,
             # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
             attenuate_epoch=50,
             # The length of sequences.

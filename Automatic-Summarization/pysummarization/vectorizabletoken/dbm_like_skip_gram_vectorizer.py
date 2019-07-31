@@ -27,7 +27,12 @@ class DBMLikeSkipGramVectorizer(VectorizableToken):
         Initialize.
         
         Args:
-            token_list:    The list of all tokens.
+            token_list:         The list of all tokens.
+            document_list:      The list of document composed by tokens.
+            training_count:     The epochs.
+            batch_size:         Batch size.
+            learning_rate:      Learning rate.
+            feature_dim:        The dimension of feature points.
         '''
         pair_dict = {}
         document_dict = {}

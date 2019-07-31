@@ -12,6 +12,11 @@ import pandas as pd
 class DBMLikeSkipGramVectorizer(VectorizableToken):
     '''
     Vectorize token by Deep Bolzmann Machine(DBM).
+
+    Note that this class employs an original method 
+    based on this library-specific intuition and analogy about skip-gram,
+    where by n-grams are still stored to model language, 
+    but they allow for tokens to be skipped.
     '''    
 
     def __init__(

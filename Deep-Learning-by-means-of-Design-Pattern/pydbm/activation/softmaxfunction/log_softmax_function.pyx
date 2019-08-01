@@ -20,8 +20,4 @@ class LogSoftmaxFunction(SoftmaxFunction):
         Returns:
             The result.
         '''
-        max_x = np.max(x)
-        cdef np.ndarray exp_x_arr = np.exp(x - max_x)
-        cdef np.ndarray sum_x_arr = np.nansum(exp_x_arr, axis=1).reshape(-1, 1)
-        sum_x_arr[sum_x_arr == 0.0] += 1e-08
-        return np.log((x - max_x) / sum_x_arr)
+        return x - np.log(np.nansum(np.exp(x - np.max(x)), axis=1).reshape(-1, 1)) + np.max(x)

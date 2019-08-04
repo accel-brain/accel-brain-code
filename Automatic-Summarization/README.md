@@ -43,7 +43,7 @@ Installers for the latest released version are available at the Python package i
     * Relevant only for PDF files.
 - pyquery:v1.2.17 or higher.
     * Relevant only for web scraiping.
-- pydbm: v1.4.9 or higher.
+- pydbm: v1.5.0 or higher.
     * Only when using **Encoder/Decoder based on LSTM**, **skip-gram**, **Re-Seq2Seq**, and **EncDec-AD**.
 
 ## Usecase: Summarize an English string argument.

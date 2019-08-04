@@ -615,13 +615,6 @@ The `abstract_list` is a `list` that contains `str`s of sentences.
 - Sutskever, I., Hinton, G. E., & Taylor, G. W. (2009). The recurrent temporal restricted boltzmann machine. In Advances in Neural Information Processing Systems (pp. 1601-1608).
 - Zhang, K., Grauman, K., & Sha, F. (2018). Retrospective Encoders for Video Summarization. In Proceedings of the European Conference on Computer Vision (ECCV) (pp. 383-399).
 
-## More detail demos
-
-- [Webクローラ型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-web-crawling-ai/) (Japanese)
-    - 20001 bots are running as 20001 web-crawlers and 20001 web-scrapers.
-- [「代理演算」一覧 | Welcome to Singularity](https://media.accel-brain.com/category/agency-operation/) (Japanese)
-    - 20001 bots are running as 20001 blogers and 20001 "content curation writers".
-
 ## Related PoC
 
 - [Webクローラ型人工知能によるパラドックス探索暴露機能の社会進化論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/) (Japanese)
@@ -634,6 +627,13 @@ The `abstract_list` is a `list` that contains `str`s of sentences.
     - [自然言語処理のパラドックス、パラドックスの自然言語処理](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/naturliche-sprachverarbeitung-von-paradoxien-und-paradoxien-durch-naturliche-sprachverarbeitung/)
 - [「人工の理想」を背景とした「万物照応」のデータモデリング](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/) (Japanese)
     - [遊歩者の機能的等価物としてのWebクローラ、探索のアルゴリズムとアルゴリズムの探索](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/web-crawler-als-funktionelles-aquivalent-des-flaneurs/)
+
+## More detail demos
+
+- [Webクローラ型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-web-crawling-ai/) (Japanese)
+    - 20001 bots are running as 20001 web-crawlers and 20001 web-scrapers.
+- [「代理演算」一覧 | Welcome to Singularity](https://media.accel-brain.com/category/agency-operation/) (Japanese)
+    - 20001 bots are running as 20001 blogers and 20001 "content curation writers".
 
 ## Author
 

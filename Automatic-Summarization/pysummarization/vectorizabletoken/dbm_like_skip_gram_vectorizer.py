@@ -32,7 +32,11 @@ class DBMLikeSkipGramVectorizer(VectorizableToken):
         Initialize.
         
         Args:
-            token_list:         The list of all tokens.
+            token_list:         The list of all tokens in all sentences.
+                                If the input value is a two-dimensional list, 
+                                the first-dimensional key represents a sentence number, 
+                                and the second-dimensional key represents a token number.
+
             document_list:      The list of document composed by tokens.
             training_count:     The epochs.
             batch_size:         Batch size.

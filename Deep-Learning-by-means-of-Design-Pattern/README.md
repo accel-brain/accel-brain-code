@@ -1948,13 +1948,6 @@ The class `Synapse` has sub-classes: `CompleteBipartiteGraph`, `LSTMGraph`, `CNN
 - Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. (2014). Dropout: a simple way to prevent neural networks from overfitting. The Journal of Machine Learning Research, 15(1), 1929-1958.
 - Zaremba, W., Sutskever, I., & Vinyals, O. (2014). Recurrent neural network regularization. arXiv preprint arXiv:1409.2329.
 
-### More detail demos
-
-- [Webクローラ型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-web-crawling-ai/) (Japanese)
-    - Implemented by the `C++` version of this library, these 20001 bots are able to execute the dimensions reduction(or pre-learning) for natural language processing to run as 20001 web-crawlers and 20001 web-scrapers.
-- [ロボアドバイザー型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-robo-adviser/) (Japanese)
-   - The 20001 bots can also simulate the portfolio optimization of securities such as stocks and circulation currency such as cryptocurrencies.
-
 ### Related PoC
 
 - [量子力学、統計力学、熱力学における天才物理学者たちの神学的な形象について](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/) (Japanese)
@@ -1972,6 +1965,7 @@ The class `Synapse` has sub-classes: `CompleteBipartiteGraph`, `LSTMGraph`, `CNN
     - [階層的潜在変数モデルをメディアとしたラダーネットワークの半教師あり学習形式、ノイズ除去型自己符号化器の機能](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/hierarchical-latent-variable-model-as-media-and-semi-supervised-learning-of-ladder-network-as-a-form/)
     - [エネルギーベースモデルとしての敵対的生成ネットワーク(GAN)と自己符号化器におけるリアプノフ安定](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/lyaponov-stability-optimization-in-gan-and-auto-encoder-in-energy-based-models/)
     - [ニューラルネットワーク言語モデルの自然言語処理と再帰的ニューラルネットワークのネットワーク構造](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/naturliche-sprachverarbeitung-des-neuronalen-netzwerkmodells-und-der-netzwerkstruktur-eines-rekursiven-neuronalen-netzwerks/)
+    - [転移学習のパラドックス、脱パラドックス化の形式としての半教師あり学習](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/paradox-of-transfer-learning/)
 - [ハッカー倫理に準拠した人工知能のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/) (Japanese)
     - [アーキテクチャ中心設計の社会構造とアーキテクチャの意味論](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/sozialstruktur-des-architekturzentrum-designs-und-architektur-der-semantik/)
     - [近代社会の社会構造とハッカー倫理の意味論](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/sozialstruktur-der-modernen-gesellschaft-und-semantik-der-hackerethik/)
@@ -1979,6 +1973,13 @@ The class `Synapse` has sub-classes: `CompleteBipartiteGraph`, `LSTMGraph`, `CNN
     - [オブジェクト指向のオブジェクト指向](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/objektorientiert-uber-objektorientiert/)
 - [「人工の理想」を背景とした「万物照応」のデータモデリング](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/) (Japanese)
     - [探偵の機能的等価物としての異常検知モデル、謎解きの推論アルゴリズム](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/anomalieerkennungsmodell-als-funktionelles-aquivalent-eines-detektivs/)
+
+### More detail demos
+
+- [Webクローラ型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-web-crawling-ai/) (Japanese)
+    - Implemented by the `C++` version of this library, these 20001 bots are able to execute the dimensions reduction(or pre-learning) for natural language processing to run as 20001 web-crawlers and 20001 web-scrapers.
+- [ロボアドバイザー型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-robo-adviser/) (Japanese)
+   - The 20001 bots can also simulate the portfolio optimization of securities such as stocks and circulation currency such as cryptocurrencies.
 
 ## Author
 

@@ -78,7 +78,6 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
 
         self.__batch_size = batch_size
         self.__learning_rate = learning_rate
-        self.__epoch_counter = 0
         self.__attenuate_epoch = attenuate_epoch
         self.__learning_attenuate_rate = learning_attenuate_rate
 

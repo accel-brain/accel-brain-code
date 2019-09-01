@@ -174,7 +174,7 @@ class ConditionalConvolutionalAutoEncoder(AutoEncoderModel):
         Returns:
             `np.ndarray` of the reconstruction errors.
         '''
-        if ((self.__epoch_counter + 1) % self.__attenuate_epoch == 0):
+        if ((self.__conditional_convolutional_model.epoch_counter + 1) % self.__attenuate_epoch == 0):
             self.__learning_rate = self.__learning_rate * self.__learning_attenuate_rate
 
         observed_arr = self.__conditional_convolutional_model.extract_conditions()

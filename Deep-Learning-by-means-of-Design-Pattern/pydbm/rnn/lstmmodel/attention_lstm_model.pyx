@@ -153,7 +153,7 @@ class AttentionLSTMModel(LSTMModel):
         for cycle in range(cycle_len):
             weight_activity_arr = self.weight_forward(
                 batch_observed_arr,
-                hidden_activity_arr
+                hidden_activity_arr[:, cycle, :]
             )
             context_arr = self.context_forward(
                 batch_observed_arr,

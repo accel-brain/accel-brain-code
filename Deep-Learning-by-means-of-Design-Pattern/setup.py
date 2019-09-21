@@ -7,23 +7,32 @@ import os
 try:
     from Cython.Distutils import build_ext
     from Cython.Build import cythonize
-    CYTHON_FLAG = True
+    cython_flag = True
 except ImportError:
-    CYTHON_FLAG = False
-
-from setuptools.command import sdist
+    cython_flag = False
 
 
-def extract_extension_list(file_format):
-    extension_list = []
-    for dirpath, dirs, files in os.walk('.'):
-        for f in files:
-            if (file_format in f and "checkpoint" not in f) or "__init__.py" == f:
-                pyx_path = os.path.join(dirpath, f)
-                print("Extract " + str(pyx_path))
-                extension_list.append(Extension(pyx_path.replace("/", "."), [pyx_path]))
+if cython_flag is True:
+    file_format = ".pyx"
+    cmdclass = {"build_ext": build_ext}
+else:
+    file_format = ".c"
+    cmdclass = {}
 
-    return extension_list
+
+pyx_list = []
+for dirpath, dirs, files in os.walk('.'):
+    for f in files:
+        if file_format in f and "checkpoint" not in f:
+            pyx_path = os.path.join(dirpath, f)
+            pyx_list.append(Extension("*", [pyx_path]))
+
+
+if cython_flag is True:
+    ext_modules = cythonize(pyx_list, include_path=[np.get_include()])
+else:
+    ext_modules = pyx_list
+
 
 def read_readme(file_name):
     from os import path
@@ -32,34 +41,6 @@ def read_readme(file_name):
         long_description = f.read()
 
     return long_description
-
-
-if CYTHON_FLAG is True:
-    file_format = ".pyx"
-    cmdclass = {"build_ext": build_ext}
-else:
-    file_format = ".c"
-    cmdclass = {}
-
-ext_modules = extract_extension_list(file_format)
-
-class Sdist(sdist.sdist):
-
-    def __init__(self, *args, **kwargs):
-        assert CYTHON_FLAG
-
-        from Cython.Build import cythonize
-
-        for e in ext_modules:
-            for src in e.sources:
-                if file_format in src:
-                    print("cythonize " + str(src))
-                    cythonize(src)
-
-        super(sdist.sdist, self).__init__(*args, **kwargs)
-
-cmdclass.setdefault("sdist", Sdist)
-cmdclass["sdist"] = Sdist
 
 
 setup(
@@ -84,8 +65,6 @@ setup(
     keywords='restricted boltzmann machine autoencoder auto-encoder rnn rbm rtrbm convolution deconvolution spatio-temporal encoder decoder LSTM',
     install_requires=['numpy', 'cython'],
     include_dirs=[ '.', np.get_include()],
-    include_package_data=True,
-    packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     cmdclass=cmdclass,
-    ext_modules=cythonize(ext_modules, exclude=['**/__init__.py'])
+    ext_modules=ext_modules
 )

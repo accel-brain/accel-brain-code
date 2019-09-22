@@ -22,12 +22,13 @@ Full documentation is available on [https://code.accel-brain.com/Deep-Learning-b
 Install using pip:
 
 ```sh
-pip install pydbm
+pip install "git+https://github.com/chimera0/accel-brain-code.git#egg=pydbm&subdirectory=Deep-Learning-by-means-of-Design-Pattern"
 ```
 
 Or, after cloning this repository, you can install this library with the following command:
 
 ```bash
+git clone https://github.com/chimera0/accel-brain-code.git
 cd Deep-Learning-by-means-of-Design-Pattern/
 python setup.py bdist_wheel
 pip install dist/pydbm-{version}-{hoge}.whl

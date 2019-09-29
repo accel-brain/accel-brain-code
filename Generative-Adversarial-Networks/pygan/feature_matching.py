@@ -125,6 +125,16 @@ class FeatureMatching(object):
     
     computable_loss = property(get_computable_loss, set_readonly)
 
+    def get_loss_list(self):
+        ''' getter '''
+        return self.__loss_list
+    
+    def set_loss_list(self, value):
+        ''' setter '''
+        return self.__loss_list
+
+    _loss_list = property(get_loss_list, set_loss_list)
+
     def get_loss_arr(self):
         ''' getter '''
         return np.array(self.__loss_list)

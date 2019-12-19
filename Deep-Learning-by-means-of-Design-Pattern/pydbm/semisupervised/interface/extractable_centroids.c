@@ -3,12 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
-        "name": "pydbm.clustering.interface.extractable_centroids",
+        "name": "pydbm.semisupervised.interface.extractable_centroids",
         "sources": [
             "./pydbm/clustering/interface/extractable_centroids.pyx"
         ]
     },
-    "module_name": "pydbm.clustering.interface.extractable_centroids"
+    "module_name": "pydbm.semisupervised.interface.extractable_centroids"
 }
 END: Cython Metadata */
 
@@ -1077,12 +1077,12 @@ static int __Pyx_check_binary_version(void);
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'pydbm.clustering.interface.extractable_centroids' */
-#define __Pyx_MODULE_NAME "pydbm.clustering.interface.extractable_centroids"
+/* Module declarations from 'pydbm.semisupervised.interface.extractable_centroids' */
+#define __Pyx_MODULE_NAME "pydbm.semisupervised.interface.extractable_centroids"
 extern int __pyx_module_is_main_pydbm__clustering__interface__extractable_centroids;
 int __pyx_module_is_main_pydbm__clustering__interface__extractable_centroids = 0;
 
-/* Implementation of 'pydbm.clustering.interface.extractable_centroids' */
+/* Implementation of 'pydbm.semisupervised.interface.extractable_centroids' */
 static PyObject *__pyx_builtin_NotImplementedError;
 static const char __pyx_k_k[] = "k";
 static const char __pyx_k_abc[] = "abc";
@@ -1104,7 +1104,7 @@ static const char __pyx_k_NotImplementedError[] = "NotImplementedError";
 static const char __pyx_k_ExtractableCentroids[] = "ExtractableCentroids";
 static const char __pyx_k_The_interface_of_clustering_onl[] = "\n    The interface of clustering only to get information on \n    centroids to be mentioned as initial parameters in framework \n    of the Deep Embedded Clustering(DEC).\n\n    References:\n        - Xie, J., Girshick, R., & Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).\n    ";
 static const char __pyx_k_ExtractableCentroids_extract_cen[] = "ExtractableCentroids.extract_centroids";
-static const char __pyx_k_pydbm_clustering_interface_extra[] = "pydbm.clustering.interface.extractable_centroids";
+static const char __pyx_k_pydbm_clustering_interface_extra[] = "pydbm.semisupervised.interface.extractable_centroids";
 static const char __pyx_k_pydbm_clustering_interface_extra_2[] = "pydbm/clustering/interface/extractable_centroids.pyx";
 static PyObject *__pyx_n_s_ABCMeta;
 static PyObject *__pyx_n_s_ExtractableCentroids;
@@ -1204,7 +1204,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_9interface_21extractable_centroids
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("extract_centroids", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 15, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.interface.extractable_centroids.ExtractableCentroids.extract_centroids", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.interface.extractable_centroids.ExtractableCentroids.extract_centroids", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -1243,7 +1243,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_9interface_21extractable_centroids
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.clustering.interface.extractable_centroids.ExtractableCentroids.extract_centroids", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.interface.extractable_centroids.ExtractableCentroids.extract_centroids", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
@@ -1565,8 +1565,8 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "pydbm.clustering.interface.extractable_centroids")) {
-      if (unlikely(PyDict_SetItemString(modules, "pydbm.clustering.interface.extractable_centroids", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "pydbm.semisupervised.interface.extractable_centroids")) {
+      if (unlikely(PyDict_SetItemString(modules, "pydbm.semisupervised.interface.extractable_centroids", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -1675,11 +1675,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_4);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pydbm.clustering.interface.extractable_centroids", 0, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pydbm.semisupervised.interface.extractable_centroids", 0, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pydbm.clustering.interface.extractable_centroids");
+    PyErr_SetString(PyExc_ImportError, "init pydbm.semisupervised.interface.extractable_centroids");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

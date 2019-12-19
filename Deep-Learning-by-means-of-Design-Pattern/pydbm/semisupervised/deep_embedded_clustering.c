@@ -4,12 +4,12 @@
 {
     "distutils": {
         "depends": [],
-        "name": "pydbm.clustering.deep_embedded_clustering",
+        "name": "pydbm.semisupervised.deep_embedded_clustering",
         "sources": [
             "./pydbm/clustering/deep_embedded_clustering.pyx"
         ]
     },
-    "module_name": "pydbm.clustering.deep_embedded_clustering"
+    "module_name": "pydbm.semisupervised.deep_embedded_clustering"
 }
 END: Cython Metadata */
 
@@ -1038,8 +1038,8 @@ typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
  * cimport numpy as np
  * from abc import ABCMeta, abstractmethod, abstractproperty
  * ctypedef np.float64_t DOUBLE_t             # <<<<<<<<<<<<<<
- * from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids
- * from pydbm.clustering.interface.auto_encodable import AutoEncodable
+ * from pydbm.semisupervised.interface.extractable_centroids import ExtractableCentroids
+ * from pydbm.semisupervised.interface.auto_encodable import AutoEncodable
  */
 typedef __pyx_t_5numpy_float64_t __pyx_t_5pydbm_10clustering_24deep_embedded_clustering_DOUBLE_t;
 /* Declarations.proto */
@@ -1799,13 +1799,13 @@ static PyTypeObject *__pyx_ptype_5numpy_ndarray = 0;
 static PyTypeObject *__pyx_ptype_5numpy_ufunc = 0;
 static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *, char *, char *, int *); /*proto*/
 
-/* Module declarations from 'pydbm.clustering.deep_embedded_clustering' */
+/* Module declarations from 'pydbm.semisupervised.deep_embedded_clustering' */
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5pydbm_10clustering_24deep_embedded_clustering_DOUBLE_t = { "DOUBLE_t", NULL, sizeof(__pyx_t_5pydbm_10clustering_24deep_embedded_clustering_DOUBLE_t), { 0 }, 0, 'R', 0, 0 };
-#define __Pyx_MODULE_NAME "pydbm.clustering.deep_embedded_clustering"
+#define __Pyx_MODULE_NAME "pydbm.semisupervised.deep_embedded_clustering"
 extern int __pyx_module_is_main_pydbm__clustering__deep_embedded_clustering;
 int __pyx_module_is_main_pydbm__clustering__deep_embedded_clustering = 0;
 
-/* Implementation of 'pydbm.clustering.deep_embedded_clustering' */
+/* Implementation of 'pydbm.semisupervised.deep_embedded_clustering' */
 static PyObject *__pyx_builtin_object;
 static PyObject *__pyx_builtin_property;
 static PyObject *__pyx_builtin_TypeError;
@@ -2057,7 +2057,7 @@ static const char __pyx_k_The_target_arr_must_be_not_None[] = "The `target_arr` 
 static const char __pyx_k_The_type_of_auto_encodable_must[] = "The type of `auto_encodable` must be `AutoEncodable`.";
 static const char __pyx_k_computable_clustering_loss_list[] = "computable_clustering_loss_list";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
-static const char __pyx_k_pydbm_clustering_interface_auto[] = "pydbm.clustering.interface.auto_encodable";
+static const char __pyx_k_pydbm_clustering_interface_auto[] = "pydbm.semisupervised.interface.auto_encodable";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_DeepEmbeddedClustering___grad_cl[] = "DeepEmbeddedClustering.__grad_clipping";
 static const char __pyx_k_DeepEmbeddedClustering___setup_i[] = "DeepEmbeddedClustering.__setup_initial_centroids";
@@ -2079,17 +2079,17 @@ static const char __pyx_k_The_type_extractable_centroids_m[] = "The type `extrac
 static const char __pyx_k_Underflow_occurred_when_the_para[] = "Underflow occurred when the parameters are being updated. Because of early stopping, this error is catched and the parameter is not updated.";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
-static const char __pyx_k_pydbm_clustering_computableclust[] = "pydbm.clustering.computableclusteringloss.balanced_assignments_loss";
-static const char __pyx_k_pydbm_clustering_deep_embedded_c[] = "pydbm.clustering.deep_embedded_clustering";
-static const char __pyx_k_pydbm_clustering_interface_compu[] = "pydbm.clustering.interface.computable_clustering_loss";
-static const char __pyx_k_pydbm_clustering_interface_extra[] = "pydbm.clustering.interface.extractable_centroids";
+static const char __pyx_k_pydbm_clustering_computableclust[] = "pydbm.semisupervised.computableclusteringloss.balanced_assignments_loss";
+static const char __pyx_k_pydbm_clustering_deep_embedded_c[] = "pydbm.semisupervised.deep_embedded_clustering";
+static const char __pyx_k_pydbm_clustering_interface_compu[] = "pydbm.semisupervised.interface.computable_clustering_loss";
+static const char __pyx_k_pydbm_clustering_interface_extra[] = "pydbm.semisupervised.interface.extractable_centroids";
 static const char __pyx_k_pydbm_optimization_optparams_sgd[] = "pydbm.optimization.optparams.sgd";
 static const char __pyx_k_DeepEmbeddedClustering__grad_cl_2[] = "_DeepEmbeddedClustering__grad_clipping";
 static const char __pyx_k_DeepEmbeddedClustering__learnin_2[] = "_DeepEmbeddedClustering__learning_attenuate_rate";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
-static const char __pyx_k_pydbm_clustering_computableclust_2[] = "pydbm.clustering.computableclusteringloss.k_means_loss";
-static const char __pyx_k_pydbm_clustering_computableclust_3[] = "pydbm.clustering.computableclusteringloss.reconstruction_loss";
-static const char __pyx_k_pydbm_clustering_computableclust_4[] = "pydbm.clustering.computableclusteringloss.repelling_loss";
+static const char __pyx_k_pydbm_clustering_computableclust_2[] = "pydbm.semisupervised.computableclusteringloss.k_means_loss";
+static const char __pyx_k_pydbm_clustering_computableclust_3[] = "pydbm.semisupervised.computableclusteringloss.reconstruction_loss";
+static const char __pyx_k_pydbm_clustering_computableclust_4[] = "pydbm.semisupervised.computableclusteringloss.repelling_loss";
 static const char __pyx_k_pydbm_clustering_deep_embedded_c_2[] = "pydbm/clustering/deep_embedded_clustering.pyx";
 static PyObject *__pyx_n_s_ABCMeta;
 static PyObject *__pyx_n_s_AutoEncodable;
@@ -2654,7 +2654,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering___defau
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.__defaults__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.__defaults__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2996,7 +2996,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__init__", 0, 3, 22, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 31, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -3743,7 +3743,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
   __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_computable_clustering_loss);
@@ -3814,7 +3814,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__setup_initial_centroids", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 150, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.__setup_initial_centroids", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.__setup_initial_centroids", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -4277,7 +4277,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.__setup_initial_centroids", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.__setup_initial_centroids", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v__observed_arr);
@@ -4394,7 +4394,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("learn", 0, 2, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 181, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -5752,7 +5752,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
  */
           __pyx_t_19 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_FloatingPointError);
           if (__pyx_t_19) {
-            __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+            __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
             if (__Pyx_GetException(&__pyx_t_7, &__pyx_t_5, &__pyx_t_8) < 0) __PYX_ERR(0, 283, __pyx_L19_except_error)
             __Pyx_GOTREF(__pyx_t_7);
             __Pyx_GOTREF(__pyx_t_5);
@@ -6567,7 +6567,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
  */
     __pyx_t_9 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyboardInterrupt);
     if (__pyx_t_9) {
-      __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
       if (__Pyx_GetException(&__pyx_t_5, &__pyx_t_8, &__pyx_t_7) < 0) __PYX_ERR(0, 330, __pyx_L9_except_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GOTREF(__pyx_t_8);
@@ -6710,7 +6710,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_noised_observed_arr);
@@ -6796,7 +6796,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("clustering", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 336, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.clustering", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.clustering", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -6949,7 +6949,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.clustering", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.clustering", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_q_arr);
@@ -7017,7 +7017,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__assign_label", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 349, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.__assign_label", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.__assign_label", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -7207,7 +7207,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.__assign_label", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.__assign_label", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_q_arr);
@@ -7276,7 +7276,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("inference", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 355, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -7400,7 +7400,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_pred_arr);
@@ -7469,7 +7469,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("forward_propagation", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 372, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.forward_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.forward_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -8462,7 +8462,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_delta_arr.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_q_arr.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.forward_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.forward_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -8538,7 +8538,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("compute_target_distribution", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 416, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.compute_target_distribution", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.compute_target_distribution", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -8907,7 +8907,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_f_arr.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_p_arr.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.compute_target_distribution", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.compute_target_distribution", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -9007,7 +9007,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("compute_loss", 0, 3, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 431, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.compute_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.compute_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -11901,7 +11901,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_delta_pc_arr.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_delta_z_arr.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.compute_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.compute_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -11991,7 +11991,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("compute_pairwise_constraint", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 546, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.compute_pairwise_constraint", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.compute_pairwise_constraint", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -12421,7 +12421,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __Pyx_XDECREF(__pyx_t_9);
   __Pyx_XDECREF(__pyx_t_10);
   __Pyx_XDECREF(__pyx_t_11);
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.compute_pairwise_constraint", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.compute_pairwise_constraint", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_pc_arr);
@@ -12490,7 +12490,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__grad_clipping", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 555, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.__grad_clipping", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.__grad_clipping", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -12642,7 +12642,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.__grad_clipping", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.__grad_clipping", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_v);
@@ -13231,7 +13231,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.back_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.back_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_delta_arr);
@@ -13311,7 +13311,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("optimize", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 593, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.optimize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.optimize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -13558,7 +13558,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.optimize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.optimize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_params_list);
@@ -13623,7 +13623,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.get_mu_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.get_mu_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -13691,7 +13691,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("set_mu_arr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 623, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.set_mu_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.set_mu_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -13728,7 +13728,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.set_mu_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.set_mu_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -13790,7 +13790,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.get_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.get_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -13858,7 +13858,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("set_loss_arr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 633, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.set_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.set_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -13895,7 +13895,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.set_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.set_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -13957,7 +13957,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.get_auto_encodable", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.get_auto_encodable", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -14025,7 +14025,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("set_auto_encodable", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 643, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.set_auto_encodable", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.set_auto_encodable", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -14062,7 +14062,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.set_auto_encodable", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.set_auto_encodable", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -14124,7 +14124,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.get_opt_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.get_opt_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -14192,7 +14192,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("set_opt_params", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 653, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.set_opt_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.set_opt_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -14229,7 +14229,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_24deep_embedded_clustering_22DeepE
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("pydbm.clustering.deep_embedded_clustering.DeepEmbeddedClustering.set_opt_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.deep_embedded_clustering.DeepEmbeddedClustering.set_opt_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -17790,8 +17790,8 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "pydbm.clustering.deep_embedded_clustering")) {
-      if (unlikely(PyDict_SetItemString(modules, "pydbm.clustering.deep_embedded_clustering", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "pydbm.semisupervised.deep_embedded_clustering")) {
+      if (unlikely(PyDict_SetItemString(modules, "pydbm.semisupervised.deep_embedded_clustering", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -17849,7 +17849,7 @@ if (!__Pyx_RefNanny) {
  * cimport numpy as np
  * from abc import ABCMeta, abstractmethod, abstractproperty             # <<<<<<<<<<<<<<
  * ctypedef np.float64_t DOUBLE_t
- * from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids
+ * from pydbm.semisupervised.interface.extractable_centroids import ExtractableCentroids
  */
   __pyx_t_2 = PyList_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -17882,9 +17882,9 @@ if (!__Pyx_RefNanny) {
   /* "pydbm/clustering/deep_embedded_clustering.pyx":7
  * from abc import ABCMeta, abstractmethod, abstractproperty
  * ctypedef np.float64_t DOUBLE_t
- * from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids             # <<<<<<<<<<<<<<
- * from pydbm.clustering.interface.auto_encodable import AutoEncodable
- * from pydbm.clustering.interface.computable_clustering_loss import ComputableClusteringLoss
+ * from pydbm.semisupervised.interface.extractable_centroids import ExtractableCentroids             # <<<<<<<<<<<<<<
+ * from pydbm.semisupervised.interface.auto_encodable import AutoEncodable
+ * from pydbm.semisupervised.interface.computable_clustering_loss import ComputableClusteringLoss
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -17902,10 +17902,10 @@ if (!__Pyx_RefNanny) {
 
   /* "pydbm/clustering/deep_embedded_clustering.pyx":8
  * ctypedef np.float64_t DOUBLE_t
- * from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids
- * from pydbm.clustering.interface.auto_encodable import AutoEncodable             # <<<<<<<<<<<<<<
- * from pydbm.clustering.interface.computable_clustering_loss import ComputableClusteringLoss
- * from pydbm.clustering.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
+ * from pydbm.semisupervised.interface.extractable_centroids import ExtractableCentroids
+ * from pydbm.semisupervised.interface.auto_encodable import AutoEncodable             # <<<<<<<<<<<<<<
+ * from pydbm.semisupervised.interface.computable_clustering_loss import ComputableClusteringLoss
+ * from pydbm.semisupervised.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -17922,11 +17922,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/clustering/deep_embedded_clustering.pyx":9
- * from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids
- * from pydbm.clustering.interface.auto_encodable import AutoEncodable
- * from pydbm.clustering.interface.computable_clustering_loss import ComputableClusteringLoss             # <<<<<<<<<<<<<<
- * from pydbm.clustering.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
- * from pydbm.clustering.computableclusteringloss.k_means_loss import KMeansLoss
+ * from pydbm.semisupervised.interface.extractable_centroids import ExtractableCentroids
+ * from pydbm.semisupervised.interface.auto_encodable import AutoEncodable
+ * from pydbm.semisupervised.interface.computable_clustering_loss import ComputableClusteringLoss             # <<<<<<<<<<<<<<
+ * from pydbm.semisupervised.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
+ * from pydbm.semisupervised.computableclusteringloss.k_means_loss import KMeansLoss
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -17943,11 +17943,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pydbm/clustering/deep_embedded_clustering.pyx":10
- * from pydbm.clustering.interface.auto_encodable import AutoEncodable
- * from pydbm.clustering.interface.computable_clustering_loss import ComputableClusteringLoss
- * from pydbm.clustering.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss             # <<<<<<<<<<<<<<
- * from pydbm.clustering.computableclusteringloss.k_means_loss import KMeansLoss
- * from pydbm.clustering.computableclusteringloss.reconstruction_loss import ReconstructionLoss
+ * from pydbm.semisupervised.interface.auto_encodable import AutoEncodable
+ * from pydbm.semisupervised.interface.computable_clustering_loss import ComputableClusteringLoss
+ * from pydbm.semisupervised.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss             # <<<<<<<<<<<<<<
+ * from pydbm.semisupervised.computableclusteringloss.k_means_loss import KMeansLoss
+ * from pydbm.semisupervised.computableclusteringloss.reconstruction_loss import ReconstructionLoss
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -17964,11 +17964,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/clustering/deep_embedded_clustering.pyx":11
- * from pydbm.clustering.interface.computable_clustering_loss import ComputableClusteringLoss
- * from pydbm.clustering.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
- * from pydbm.clustering.computableclusteringloss.k_means_loss import KMeansLoss             # <<<<<<<<<<<<<<
- * from pydbm.clustering.computableclusteringloss.reconstruction_loss import ReconstructionLoss
- * from pydbm.clustering.computableclusteringloss.repelling_loss import RepellingLoss
+ * from pydbm.semisupervised.interface.computable_clustering_loss import ComputableClusteringLoss
+ * from pydbm.semisupervised.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
+ * from pydbm.semisupervised.computableclusteringloss.k_means_loss import KMeansLoss             # <<<<<<<<<<<<<<
+ * from pydbm.semisupervised.computableclusteringloss.reconstruction_loss import ReconstructionLoss
+ * from pydbm.semisupervised.computableclusteringloss.repelling_loss import RepellingLoss
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -17985,10 +17985,10 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pydbm/clustering/deep_embedded_clustering.pyx":12
- * from pydbm.clustering.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
- * from pydbm.clustering.computableclusteringloss.k_means_loss import KMeansLoss
- * from pydbm.clustering.computableclusteringloss.reconstruction_loss import ReconstructionLoss             # <<<<<<<<<<<<<<
- * from pydbm.clustering.computableclusteringloss.repelling_loss import RepellingLoss
+ * from pydbm.semisupervised.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
+ * from pydbm.semisupervised.computableclusteringloss.k_means_loss import KMeansLoss
+ * from pydbm.semisupervised.computableclusteringloss.reconstruction_loss import ReconstructionLoss             # <<<<<<<<<<<<<<
+ * from pydbm.semisupervised.computableclusteringloss.repelling_loss import RepellingLoss
  * from pydbm.optimization.optparams.sgd import SGD
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)
@@ -18006,9 +18006,9 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/clustering/deep_embedded_clustering.pyx":13
- * from pydbm.clustering.computableclusteringloss.k_means_loss import KMeansLoss
- * from pydbm.clustering.computableclusteringloss.reconstruction_loss import ReconstructionLoss
- * from pydbm.clustering.computableclusteringloss.repelling_loss import RepellingLoss             # <<<<<<<<<<<<<<
+ * from pydbm.semisupervised.computableclusteringloss.k_means_loss import KMeansLoss
+ * from pydbm.semisupervised.computableclusteringloss.reconstruction_loss import ReconstructionLoss
+ * from pydbm.semisupervised.computableclusteringloss.repelling_loss import RepellingLoss             # <<<<<<<<<<<<<<
  * from pydbm.optimization.optparams.sgd import SGD
  * from pydbm.params_initializer import ParamsInitializer
  */
@@ -18027,8 +18027,8 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pydbm/clustering/deep_embedded_clustering.pyx":14
- * from pydbm.clustering.computableclusteringloss.reconstruction_loss import ReconstructionLoss
- * from pydbm.clustering.computableclusteringloss.repelling_loss import RepellingLoss
+ * from pydbm.semisupervised.computableclusteringloss.reconstruction_loss import ReconstructionLoss
+ * from pydbm.semisupervised.computableclusteringloss.repelling_loss import RepellingLoss
  * from pydbm.optimization.optparams.sgd import SGD             # <<<<<<<<<<<<<<
  * from pydbm.params_initializer import ParamsInitializer
  * 
@@ -18048,7 +18048,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/clustering/deep_embedded_clustering.pyx":15
- * from pydbm.clustering.computableclusteringloss.repelling_loss import RepellingLoss
+ * from pydbm.semisupervised.computableclusteringloss.repelling_loss import RepellingLoss
  * from pydbm.optimization.optparams.sgd import SGD
  * from pydbm.params_initializer import ParamsInitializer             # <<<<<<<<<<<<<<
  * 
@@ -18561,11 +18561,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_5);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pydbm.clustering.deep_embedded_clustering", 0, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pydbm.semisupervised.deep_embedded_clustering", 0, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pydbm.clustering.deep_embedded_clustering");
+    PyErr_SetString(PyExc_ImportError, "init pydbm.semisupervised.deep_embedded_clustering");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

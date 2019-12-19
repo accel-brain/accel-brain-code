@@ -3,12 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
-        "name": "pydbm.clustering.sklearn_kmeans",
+        "name": "pydbm.semisupervised.sklearn_kmeans",
         "sources": [
             "./pydbm/clustering/sklearn_kmeans.pyx"
         ]
     },
-    "module_name": "pydbm.clustering.sklearn_kmeans"
+    "module_name": "pydbm.semisupervised.sklearn_kmeans"
 }
 END: Cython Metadata */
 
@@ -1157,12 +1157,12 @@ static int __Pyx_check_binary_version(void);
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'pydbm.clustering.sklearn_kmeans' */
-#define __Pyx_MODULE_NAME "pydbm.clustering.sklearn_kmeans"
+/* Module declarations from 'pydbm.semisupervised.sklearn_kmeans' */
+#define __Pyx_MODULE_NAME "pydbm.semisupervised.sklearn_kmeans"
 extern int __pyx_module_is_main_pydbm__clustering__sklearn_kmeans;
 int __pyx_module_is_main_pydbm__clustering__sklearn_kmeans = 0;
 
-/* Implementation of 'pydbm.clustering.sklearn_kmeans' */
+/* Implementation of 'pydbm.semisupervised.sklearn_kmeans' */
 static const char __pyx_k_k[] = "k";
 static const char __pyx_k_doc[] = "__doc__";
 static const char __pyx_k_fit[] = "fit";
@@ -1193,8 +1193,8 @@ static const char __pyx_k_SklearnKMeans___init[] = "SklearnKMeans.__init__";
 static const char __pyx_k_SklearnKMeans__kwargs[] = "_SklearnKMeans__kwargs";
 static const char __pyx_k_K_Means_method_The_function_of[] = "\n    K-Means method.\n\n    The function of this class is only to get information on \n    centroids to be mentioned as initial parameters in framework \n    of the Deep Embedded Clustering(DEC).\n\n    References:\n        - https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html\n        - Xie, J., Girshick, R., & Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).\n    ";
 static const char __pyx_k_SklearnKMeans_extract_centroids[] = "SklearnKMeans.extract_centroids";
-static const char __pyx_k_pydbm_clustering_sklearn_kmeans[] = "pydbm.clustering.sklearn_kmeans";
-static const char __pyx_k_pydbm_clustering_interface_extra[] = "pydbm.clustering.interface.extractable_centroids";
+static const char __pyx_k_pydbm_clustering_sklearn_kmeans[] = "pydbm.semisupervised.sklearn_kmeans";
+static const char __pyx_k_pydbm_clustering_interface_extra[] = "pydbm.semisupervised.interface.extractable_centroids";
 static const char __pyx_k_pydbm_clustering_sklearn_kmeans_2[] = "pydbm/clustering/sklearn_kmeans.pyx";
 static PyObject *__pyx_n_s_ExtractableCentroids;
 static PyObject *__pyx_n_s_KMeans;
@@ -1292,7 +1292,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_14sklearn_kmeans_13SklearnKMeans_1
   __Pyx_RaiseArgtupleInvalid("__init__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 19, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_DECREF(__pyx_v_kwargs); __pyx_v_kwargs = 0;
-  __Pyx_AddTraceback("pydbm.clustering.sklearn_kmeans.SklearnKMeans.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.sklearn_kmeans.SklearnKMeans.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -1330,7 +1330,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_14sklearn_kmeans_13SklearnKMeans__
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("pydbm.clustering.sklearn_kmeans.SklearnKMeans.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.sklearn_kmeans.SklearnKMeans.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1409,7 +1409,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_14sklearn_kmeans_13SklearnKMeans_3
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("extract_centroids", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 28, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.sklearn_kmeans.SklearnKMeans.extract_centroids", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.sklearn_kmeans.SklearnKMeans.extract_centroids", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -1619,7 +1619,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_14sklearn_kmeans_13SklearnKMeans_2
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("pydbm.clustering.sklearn_kmeans.SklearnKMeans.extract_centroids", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.sklearn_kmeans.SklearnKMeans.extract_centroids", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_observed_arr);
@@ -1965,8 +1965,8 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "pydbm.clustering.sklearn_kmeans")) {
-      if (unlikely(PyDict_SetItemString(modules, "pydbm.clustering.sklearn_kmeans", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "pydbm.semisupervised.sklearn_kmeans")) {
+      if (unlikely(PyDict_SetItemString(modules, "pydbm.semisupervised.sklearn_kmeans", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -1989,7 +1989,7 @@ if (!__Pyx_RefNanny) {
 
   /* "pydbm/clustering/sklearn_kmeans.pyx":2
  * # -*- coding: utf-8 -*-
- * from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids             # <<<<<<<<<<<<<<
+ * from pydbm.semisupervised.interface.extractable_centroids import ExtractableCentroids             # <<<<<<<<<<<<<<
  * from sklearn.cluster import KMeans
  * 
  */
@@ -2009,7 +2009,7 @@ if (!__Pyx_RefNanny) {
 
   /* "pydbm/clustering/sklearn_kmeans.pyx":3
  * # -*- coding: utf-8 -*-
- * from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids
+ * from pydbm.semisupervised.interface.extractable_centroids import ExtractableCentroids
  * from sklearn.cluster import KMeans             # <<<<<<<<<<<<<<
  * 
  * 
@@ -2088,7 +2088,7 @@ if (!__Pyx_RefNanny) {
 
   /* "pydbm/clustering/sklearn_kmeans.pyx":1
  * # -*- coding: utf-8 -*-             # <<<<<<<<<<<<<<
- * from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids
+ * from pydbm.semisupervised.interface.extractable_centroids import ExtractableCentroids
  * from sklearn.cluster import KMeans
  */
   __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -2106,11 +2106,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_4);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pydbm.clustering.sklearn_kmeans", 0, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pydbm.semisupervised.sklearn_kmeans", 0, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pydbm.clustering.sklearn_kmeans");
+    PyErr_SetString(PyExc_ImportError, "init pydbm.semisupervised.sklearn_kmeans");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

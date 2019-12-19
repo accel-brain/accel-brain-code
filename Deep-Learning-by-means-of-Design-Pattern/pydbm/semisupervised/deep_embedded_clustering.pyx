@@ -4,13 +4,13 @@ import numpy as np
 cimport numpy as np
 from abc import ABCMeta, abstractmethod, abstractproperty
 ctypedef np.float64_t DOUBLE_t
-from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids
-from pydbm.clustering.interface.auto_encodable import AutoEncodable
-from pydbm.clustering.interface.computable_clustering_loss import ComputableClusteringLoss
-from pydbm.clustering.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
-from pydbm.clustering.computableclusteringloss.k_means_loss import KMeansLoss
-from pydbm.clustering.computableclusteringloss.reconstruction_loss import ReconstructionLoss
-from pydbm.clustering.computableclusteringloss.repelling_loss import RepellingLoss
+from pydbm.semisupervised.interface.extractable_centroids import ExtractableCentroids
+from pydbm.semisupervised.interface.auto_encodable import AutoEncodable
+from pydbm.semisupervised.interface.computable_clustering_loss import ComputableClusteringLoss
+from pydbm.semisupervised.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
+from pydbm.semisupervised.computableclusteringloss.k_means_loss import KMeansLoss
+from pydbm.semisupervised.computableclusteringloss.reconstruction_loss import ReconstructionLoss
+from pydbm.semisupervised.computableclusteringloss.repelling_loss import RepellingLoss
 from pydbm.optimization.optparams.sgd import SGD
 from pydbm.params_initializer import ParamsInitializer
 

@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
-from pydbm.clustering.interface.computable_clustering_loss import ComputableClusteringLoss
-from pydbm.loss.kl_divergence import KLDivergence
+from pydbm.semisupervised.interface.computable_clustering_loss import ComputableClusteringLoss
 import numpy as np
 cimport numpy as np
 ctypedef np.float64_t DOUBLE_t
 
 
-class BalancedAssignmentsLoss(ComputableClusteringLoss):
+class KMeansLoss(ComputableClusteringLoss):
     '''
-    Balanced Assignments Loss.
+    Compute K-Means Loss.
 
     References:
         - Aljalbout, E., Golkov, V., Siddiqui, Y., Strobel, M., & Cremers, D. (2018). Clustering with deep learning: Taxonomy and new methods. arXiv preprint arXiv:1801.07648.
@@ -26,7 +25,6 @@ class BalancedAssignmentsLoss(ComputableClusteringLoss):
             weight:     Weight of delta and loss.
         '''
         self.__weight = weight
-        self.__kl_divergence = KLDivergence()
     
     def compute_clustering_loss(
         self, 
@@ -54,19 +52,18 @@ class BalancedAssignmentsLoss(ComputableClusteringLoss):
             - `np.ndarray` of delta for the decoder.
             - `np.ndarray` of delta for the centroids.
         '''
+        cdef np.ndarray label_arr = self.__assign_label(q_arr)
+        cdef np.ndarray t_hot_arr = np.zeros((label_arr.shape[0], delta_arr.shape[1]))
+        for i in range(label_arr.shape[0]):
+            t_hot_arr[i, label_arr[i]] = 1
+        t_hot_arr = np.expand_dims(t_hot_arr, axis=2)
+        cdef np.ndarray[DOUBLE_t, ndim=3] delta_kmeans_arr = t_hot_arr.astype(np.float) * np.square(delta_arr)
+        delta_kmeans_z_arr = np.nanmean(delta_kmeans_arr, axis=1)
+        delta_kmeans_z_arr = delta_kmeans_z_arr * self.__weight
+        return (delta_kmeans_z_arr, None, None)
+
+    def __assign_label(self, q_arr):
         if q_arr.shape[2] > 1:
             q_arr = np.nanmean(q_arr, axis=2)
         q_arr = q_arr.reshape((q_arr.shape[0], q_arr.shape[1]))
-
-        cdef np.ndarray[DOUBLE_t, ndim=2] uniform_arr = np.random.uniform(
-            low=q_arr.min(), 
-            high=q_arr.max(), 
-            size=q_arr.copy().shape
-        )
-        cdef np.ndarray[DOUBLE_t, ndim=2] delta_ba_arr = self.__kl_divergence.compute_delta(
-            q_arr,
-            uniform_arr
-        )
-        delta_ba_arr = np.dot(feature_arr.T, delta_ba_arr).T
-        delta_ba_arr = delta_ba_arr * self.__weight
-        return (None, None, delta_ba_arr)
+        return q_arr.argmax(axis=1)

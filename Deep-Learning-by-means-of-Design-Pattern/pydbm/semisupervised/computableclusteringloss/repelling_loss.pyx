@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from pydbm.clustering.computableclusteringloss.repelling_loss import RepellingLoss
+from pydbm.semisupervised.interface.computable_clustering_loss import ComputableClusteringLoss
 import numpy as np
 cimport numpy as np
 ctypedef np.float64_t DOUBLE_t
 
 
-class ImprovedRepellingLoss(RepellingLoss):
+class RepellingLoss(ComputableClusteringLoss):
     '''
     Repelling Loss.
 
@@ -28,7 +28,6 @@ class ImprovedRepellingLoss(RepellingLoss):
             weight:     Weight of delta and loss.
         '''
         self.__weight = weight
-        super().__init__(weight=weight)
     
     def compute_clustering_loss(
         self, 
@@ -56,43 +55,33 @@ class ImprovedRepellingLoss(RepellingLoss):
             - `np.ndarray` of delta for the decoder.
             - `np.ndarray` of delta for the centroids.
         '''
-        arr, _, _ = super().compute_clustering_loss(
-            observed_arr, 
-            reconstructed_arr, 
-            feature_arr,
-            delta_arr, 
-            q_arr, 
-            p_arr, 
-        )
-        cdef np.ndarray[DOUBLE_t, ndim=2] penalty_delta_arr = arr
-        cdef np.ndarray label_arr = self.label_arr
+        cdef np.ndarray label_arr = self.assign_label(q_arr)
         cdef np.ndarray _feature_arr
-        cdef np.ndarray _outer_feature_arr
 
         cdef int N = feature_arr.reshape((feature_arr.shape[0], -1)).shape[1]
         cdef int oN = observed_arr.reshape((observed_arr.shape[0], -1)).shape[1]
         cdef int s
-        cdef int _s
         cdef np.ndarray pt_arr
         cdef np.ndarray penalty_arr = np.zeros(label_arr.shape[0])
 
+        cdef np.ndarray[DOUBLE_t, ndim=2] penalty_delta_arr = np.zeros(feature_arr.copy().shape)
         cdef np.ndarray[DOUBLE_t, ndim=2] _penalty_delta_arr
 
         for label in label_arr:
             _feature_arr = feature_arr[label_arr == label]
-            _outer_feature_arr = feature_arr[label_arr != label]
             s = _feature_arr.shape[0]
-            _s = _outer_feature_arr.shape[0]
-            if s == 0 or _s == 0:
+            if s == 0:
                 continue
 
-            pt_arr = np.zeros(s * _s)
+            pt_arr = np.zeros(s ** 2)
             k = 0
             for i in range(s):
-                for j in range(_s):
+                for j in range(s):
+                    if i == j:
+                        continue
                     pt_arr[k] = np.dot(
                         _feature_arr[i].T, 
-                        _outer_feature_arr[j]
+                        _feature_arr[j]
                     ) / (
                         np.sqrt(
                             np.dot(
@@ -101,8 +90,8 @@ class ImprovedRepellingLoss(RepellingLoss):
                             )
                         ) * np.sqrt(
                             np.dot(
-                                _outer_feature_arr[j], 
-                                _outer_feature_arr[j]
+                                _feature_arr[j], 
+                                _feature_arr[j]
                             )
                         )
                     )
@@ -113,6 +102,14 @@ class ImprovedRepellingLoss(RepellingLoss):
                 penalty_term, 
                 _feature_arr
             )
-            penalty_delta_arr[label_arr == label] -= _penalty_delta_arr * self.__weight
+            penalty_delta_arr[label_arr == label] = _penalty_delta_arr
 
+        penalty_delta_arr = penalty_delta_arr * self.__weight
+        self.label_arr = label_arr
         return (penalty_delta_arr, None, None)
+
+    def assign_label(self, q_arr):
+        if q_arr.shape[2] > 1:
+            q_arr = np.nanmean(q_arr, axis=2)
+        q_arr = q_arr.reshape((q_arr.shape[0], q_arr.shape[1]))
+        return q_arr.argmax(axis=1)

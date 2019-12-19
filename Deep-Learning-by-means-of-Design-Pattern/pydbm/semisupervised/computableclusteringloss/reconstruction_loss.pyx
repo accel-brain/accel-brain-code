@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from pydbm.clustering.interface.computable_clustering_loss import ComputableClusteringLoss
+from pydbm.semisupervised.interface.computable_clustering_loss import ComputableClusteringLoss
 from pydbm.loss.interface.computable_loss import ComputableLoss
 from pydbm.loss.mean_squared_error import MeanSquaredError
 import numpy as np

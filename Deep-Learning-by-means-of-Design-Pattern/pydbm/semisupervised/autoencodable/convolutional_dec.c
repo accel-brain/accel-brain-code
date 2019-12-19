@@ -4,12 +4,12 @@
 {
     "distutils": {
         "depends": [],
-        "name": "pydbm.clustering.autoencodable.convolutional_dec",
+        "name": "pydbm.semisupervised.autoencodable.convolutional_dec",
         "sources": [
             "./pydbm/clustering/autoencodable/convolutional_dec.pyx"
         ]
     },
-    "module_name": "pydbm.clustering.autoencodable.convolutional_dec"
+    "module_name": "pydbm.semisupervised.autoencodable.convolutional_dec"
 }
 END: Cython Metadata */
 
@@ -1607,12 +1607,12 @@ static PyTypeObject *__pyx_ptype_5numpy_ndarray = 0;
 static PyTypeObject *__pyx_ptype_5numpy_ufunc = 0;
 static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *, char *, char *, int *); /*proto*/
 
-/* Module declarations from 'pydbm.clustering.autoencodable.convolutional_dec' */
-#define __Pyx_MODULE_NAME "pydbm.clustering.autoencodable.convolutional_dec"
+/* Module declarations from 'pydbm.semisupervised.autoencodable.convolutional_dec' */
+#define __Pyx_MODULE_NAME "pydbm.semisupervised.autoencodable.convolutional_dec"
 extern int __pyx_module_is_main_pydbm__clustering__autoencodable__convolutional_dec;
 int __pyx_module_is_main_pydbm__clustering__autoencodable__convolutional_dec = 0;
 
-/* Implementation of 'pydbm.clustering.autoencodable.convolutional_dec' */
+/* Implementation of 'pydbm.semisupervised.autoencodable.convolutional_dec' */
 static PyObject *__pyx_builtin_property;
 static PyObject *__pyx_builtin_TypeError;
 static PyObject *__pyx_builtin_range;
@@ -1678,7 +1678,7 @@ static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C cont
 static const char __pyx_k_ConvolutionalDEC__convolutional[] = "_ConvolutionalDEC__convolutional_auto_encoder";
 static const char __pyx_k_The_Deep_Embedded_Clustering_DE[] = "\n    The Deep Embedded Clustering(DEC) with Convolutional Neural Networks.\n\n    References:\n        - Guo, X., Liu, X., Zhu, E., & Yin, J. (2017, November). Deep clustering with convolutional autoencoders. In International Conference on Neural Information Processing (pp. 373-382). Springer, Cham.\n        - Guo, X., Gao, L., Liu, X., & Yin, J. (2017, June). Improved Deep Embedded Clustering with Local Structure Preservation. In IJCAI (pp. 1753-1759).\n        - Xie, J., Girshick, R., & Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).\n    ";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
-static const char __pyx_k_pydbm_clustering_interface_auto[] = "pydbm.clustering.interface.auto_encodable";
+static const char __pyx_k_pydbm_clustering_interface_auto[] = "pydbm.semisupervised.interface.auto_encodable";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_ConvolutionalDEC_backward_auto_e[] = "ConvolutionalDEC.backward_auto_encoder";
 static const char __pyx_k_ConvolutionalDEC_embed_feature_p[] = "ConvolutionalDEC.embed_feature_points";
@@ -1692,7 +1692,7 @@ static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte 
 static const char __pyx_k_The_type_of_auto_encoder_model_m[] = "The type of `auto_encoder_model` must be `ConvolutionalAutoEncoder`.";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
-static const char __pyx_k_pydbm_clustering_autoencodable_c[] = "pydbm.clustering.autoencodable.convolutional_dec";
+static const char __pyx_k_pydbm_clustering_autoencodable_c[] = "pydbm.semisupervised.autoencodable.convolutional_dec";
 static const char __pyx_k_pydbm_cnn_convolutionalneuralnet[] = "pydbm.cnn.convolutionalneuralnetwork.convolutional_auto_encoder";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
 static const char __pyx_k_pydbm_clustering_autoencodable_c_2[] = "pydbm/clustering/autoencodable/convolutional_dec.pyx";
@@ -1873,7 +1873,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_13autoencodable_17convolutional_de
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.clustering.autoencodable.convolutional_dec.ConvolutionalDEC.get_auto_encoder_model", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.autoencodable.convolutional_dec.ConvolutionalDEC.get_auto_encoder_model", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1941,7 +1941,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_13autoencodable_17convolutional_de
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("set_auto_encoder_model", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 25, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.autoencodable.convolutional_dec.ConvolutionalDEC.set_auto_encoder_model", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.autoencodable.convolutional_dec.ConvolutionalDEC.set_auto_encoder_model", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -2018,7 +2018,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_13autoencodable_17convolutional_de
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.clustering.autoencodable.convolutional_dec.ConvolutionalDEC.set_auto_encoder_model", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.autoencodable.convolutional_dec.ConvolutionalDEC.set_auto_encoder_model", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2088,7 +2088,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_13autoencodable_17convolutional_de
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("pydbm.clustering.autoencodable.convolutional_dec.ConvolutionalDEC.get_inferencing_mode", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.autoencodable.convolutional_dec.ConvolutionalDEC.get_inferencing_mode", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2156,7 +2156,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_13autoencodable_17convolutional_de
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("set_inferencing_mode", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 38, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.autoencodable.convolutional_dec.ConvolutionalDEC.set_inferencing_mode", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.autoencodable.convolutional_dec.ConvolutionalDEC.set_inferencing_mode", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -2203,7 +2203,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_13autoencodable_17convolutional_de
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("pydbm.clustering.autoencodable.convolutional_dec.ConvolutionalDEC.set_inferencing_mode", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.autoencodable.convolutional_dec.ConvolutionalDEC.set_inferencing_mode", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2286,7 +2286,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_13autoencodable_17convolutional_de
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("pre_learn", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 44, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.autoencodable.convolutional_dec.ConvolutionalDEC.pre_learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.autoencodable.convolutional_dec.ConvolutionalDEC.pre_learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -2388,7 +2388,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_13autoencodable_17convolutional_de
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("pydbm.clustering.autoencodable.convolutional_dec.ConvolutionalDEC.pre_learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.autoencodable.convolutional_dec.ConvolutionalDEC.pre_learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2456,7 +2456,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_13autoencodable_17convolutional_de
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("inference", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 54, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.autoencodable.convolutional_dec.ConvolutionalDEC.inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.autoencodable.convolutional_dec.ConvolutionalDEC.inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -2555,7 +2555,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_13autoencodable_17convolutional_de
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pydbm.clustering.autoencodable.convolutional_dec.ConvolutionalDEC.inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.autoencodable.convolutional_dec.ConvolutionalDEC.inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2623,7 +2623,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_13autoencodable_17convolutional_de
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("embed_feature_points", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 66, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.autoencodable.convolutional_dec.ConvolutionalDEC.embed_feature_points", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.autoencodable.convolutional_dec.ConvolutionalDEC.embed_feature_points", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -2756,7 +2756,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_13autoencodable_17convolutional_de
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pydbm.clustering.autoencodable.convolutional_dec.ConvolutionalDEC.embed_feature_points", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.autoencodable.convolutional_dec.ConvolutionalDEC.embed_feature_points", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v__);
@@ -2840,7 +2840,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_13autoencodable_17convolutional_de
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("backward_auto_encoder", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 79, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.autoencodable.convolutional_dec.ConvolutionalDEC.backward_auto_encoder", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.autoencodable.convolutional_dec.ConvolutionalDEC.backward_auto_encoder", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -3136,7 +3136,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_13autoencodable_17convolutional_de
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("pydbm.clustering.autoencodable.convolutional_dec.ConvolutionalDEC.backward_auto_encoder", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.autoencodable.convolutional_dec.ConvolutionalDEC.backward_auto_encoder", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_layerable_cnn_list);
@@ -3232,7 +3232,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_13autoencodable_17convolutional_de
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("optimize_auto_encoder", 0, 3, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 100, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.autoencodable.convolutional_dec.ConvolutionalDEC.optimize_auto_encoder", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.autoencodable.convolutional_dec.ConvolutionalDEC.optimize_auto_encoder", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -3356,7 +3356,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_13autoencodable_17convolutional_de
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("pydbm.clustering.autoencodable.convolutional_dec.ConvolutionalDEC.optimize_auto_encoder", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.autoencodable.convolutional_dec.ConvolutionalDEC.optimize_auto_encoder", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6443,8 +6443,8 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "pydbm.clustering.autoencodable.convolutional_dec")) {
-      if (unlikely(PyDict_SetItemString(modules, "pydbm.clustering.autoencodable.convolutional_dec", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "pydbm.semisupervised.autoencodable.convolutional_dec")) {
+      if (unlikely(PyDict_SetItemString(modules, "pydbm.semisupervised.autoencodable.convolutional_dec", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -6490,7 +6490,7 @@ if (!__Pyx_RefNanny) {
  * from logging import getLogger
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
- * from pydbm.clustering.interface.auto_encodable import AutoEncodable
+ * from pydbm.semisupervised.interface.auto_encodable import AutoEncodable
  */
   __pyx_t_2 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -6500,7 +6500,7 @@ if (!__Pyx_RefNanny) {
   /* "pydbm/clustering/autoencodable/convolutional_dec.pyx":5
  * import numpy as np
  * cimport numpy as np
- * from pydbm.clustering.interface.auto_encodable import AutoEncodable             # <<<<<<<<<<<<<<
+ * from pydbm.semisupervised.interface.auto_encodable import AutoEncodable             # <<<<<<<<<<<<<<
  * from pydbm.cnn.convolutionalneuralnetwork.convolutional_auto_encoder import ConvolutionalAutoEncoder
  * 
  */
@@ -6520,7 +6520,7 @@ if (!__Pyx_RefNanny) {
 
   /* "pydbm/clustering/autoencodable/convolutional_dec.pyx":6
  * cimport numpy as np
- * from pydbm.clustering.interface.auto_encodable import AutoEncodable
+ * from pydbm.semisupervised.interface.auto_encodable import AutoEncodable
  * from pydbm.cnn.convolutionalneuralnetwork.convolutional_auto_encoder import ConvolutionalAutoEncoder             # <<<<<<<<<<<<<<
  * 
  * 
@@ -6793,11 +6793,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_6);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pydbm.clustering.autoencodable.convolutional_dec", 0, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pydbm.semisupervised.autoencodable.convolutional_dec", 0, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pydbm.clustering.autoencodable.convolutional_dec");
+    PyErr_SetString(PyExc_ImportError, "init pydbm.semisupervised.autoencodable.convolutional_dec");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

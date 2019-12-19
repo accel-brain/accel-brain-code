@@ -3,12 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
-        "name": "pydbm.clustering.interface.computable_clustering_loss",
+        "name": "pydbm.semisupervised.interface.computable_clustering_loss",
         "sources": [
             "./pydbm/clustering/interface/computable_clustering_loss.pyx"
         ]
     },
-    "module_name": "pydbm.clustering.interface.computable_clustering_loss"
+    "module_name": "pydbm.semisupervised.interface.computable_clustering_loss"
 }
 END: Cython Metadata */
 
@@ -1077,12 +1077,12 @@ static int __Pyx_check_binary_version(void);
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'pydbm.clustering.interface.computable_clustering_loss' */
-#define __Pyx_MODULE_NAME "pydbm.clustering.interface.computable_clustering_loss"
+/* Module declarations from 'pydbm.semisupervised.interface.computable_clustering_loss' */
+#define __Pyx_MODULE_NAME "pydbm.semisupervised.interface.computable_clustering_loss"
 extern int __pyx_module_is_main_pydbm__clustering__interface__computable_clustering_loss;
 int __pyx_module_is_main_pydbm__clustering__interface__computable_clustering_loss = 0;
 
-/* Implementation of 'pydbm.clustering.interface.computable_clustering_loss' */
+/* Implementation of 'pydbm.semisupervised.interface.computable_clustering_loss' */
 static PyObject *__pyx_builtin_NotImplementedError;
 static const char __pyx_k_abc[] = "abc";
 static const char __pyx_k_doc[] = "__doc__";
@@ -1108,7 +1108,7 @@ static const char __pyx_k_compute_clustering_loss[] = "compute_clustering_loss";
 static const char __pyx_k_ComputableClusteringLoss[] = "ComputableClusteringLoss";
 static const char __pyx_k_The_interface_of_Loss_functions[] = "\n    The interface of Loss functions in framework \n    of the Deep Embedded Clustering(DEC).\n\n    References:\n        - Aljalbout, E., Golkov, V., Siddiqui, Y., Strobel, M., & Cremers, D. (2018). Clustering with deep learning: Taxonomy and new methods. arXiv preprint arXiv:1801.07648.\n        - Guo, X., Gao, L., Liu, X., & Yin, J. (2017, June). Improved Deep Embedded Clustering with Local Structure Preservation. In IJCAI (pp. 1753-1759).\n        - Xie, J., Girshick, R., & Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).\n        - Zhao, J., Mathieu, M., & LeCun, Y. (2016). Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126.\n    ";
 static const char __pyx_k_ComputableClusteringLoss_compute[] = "ComputableClusteringLoss.compute_clustering_loss";
-static const char __pyx_k_pydbm_clustering_interface_compu[] = "pydbm.clustering.interface.computable_clustering_loss";
+static const char __pyx_k_pydbm_clustering_interface_compu[] = "pydbm.semisupervised.interface.computable_clustering_loss";
 static const char __pyx_k_pydbm_clustering_interface_compu_2[] = "pydbm/clustering/interface/computable_clustering_loss.pyx";
 static PyObject *__pyx_n_s_ABCMeta;
 static PyObject *__pyx_n_s_ComputableClusteringLoss;
@@ -1256,7 +1256,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_9interface_26computable_clustering
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("compute_clustering_loss", 1, 7, 7, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 17, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.interface.computable_clustering_loss.ComputableClusteringLoss.compute_clustering_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.interface.computable_clustering_loss.ComputableClusteringLoss.compute_clustering_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -1295,7 +1295,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_9interface_26computable_clustering
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.clustering.interface.computable_clustering_loss.ComputableClusteringLoss.compute_clustering_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.interface.computable_clustering_loss.ComputableClusteringLoss.compute_clustering_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
@@ -1621,8 +1621,8 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "pydbm.clustering.interface.computable_clustering_loss")) {
-      if (unlikely(PyDict_SetItemString(modules, "pydbm.clustering.interface.computable_clustering_loss", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "pydbm.semisupervised.interface.computable_clustering_loss")) {
+      if (unlikely(PyDict_SetItemString(modules, "pydbm.semisupervised.interface.computable_clustering_loss", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -1731,11 +1731,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_4);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pydbm.clustering.interface.computable_clustering_loss", 0, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pydbm.semisupervised.interface.computable_clustering_loss", 0, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pydbm.clustering.interface.computable_clustering_loss");
+    PyErr_SetString(PyExc_ImportError, "init pydbm.semisupervised.interface.computable_clustering_loss");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

@@ -4,12 +4,12 @@
 {
     "distutils": {
         "depends": [],
-        "name": "pydbm.clustering.reconstruction_classification_networks",
+        "name": "pydbm.semisupervised.reconstruction_classification_networks",
         "sources": [
             "./pydbm/clustering/reconstruction_classification_networks.pyx"
         ]
     },
-    "module_name": "pydbm.clustering.reconstruction_classification_networks"
+    "module_name": "pydbm.semisupervised.reconstruction_classification_networks"
 }
 END: Cython Metadata */
 
@@ -1002,8 +1002,8 @@ typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
  * cimport numpy as np
  * from abc import ABCMeta, abstractmethod, abstractproperty
  * ctypedef np.float64_t DOUBLE_t             # <<<<<<<<<<<<<<
- * from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids
- * from pydbm.clustering.interface.auto_encodable import AutoEncodable
+ * from pydbm.semisupervised.interface.extractable_centroids import ExtractableCentroids
+ * from pydbm.semisupervised.interface.auto_encodable import AutoEncodable
  */
 typedef __pyx_t_5numpy_float64_t __pyx_t_5pydbm_10clustering_38reconstruction_classification_networks_DOUBLE_t;
 /* Declarations.proto */
@@ -1694,12 +1694,12 @@ static PyTypeObject *__pyx_ptype_5numpy_ndarray = 0;
 static PyTypeObject *__pyx_ptype_5numpy_ufunc = 0;
 static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *, char *, char *, int *); /*proto*/
 
-/* Module declarations from 'pydbm.clustering.reconstruction_classification_networks' */
-#define __Pyx_MODULE_NAME "pydbm.clustering.reconstruction_classification_networks"
+/* Module declarations from 'pydbm.semisupervised.reconstruction_classification_networks' */
+#define __Pyx_MODULE_NAME "pydbm.semisupervised.reconstruction_classification_networks"
 extern int __pyx_module_is_main_pydbm__clustering__reconstruction_classification_networks;
 int __pyx_module_is_main_pydbm__clustering__reconstruction_classification_networks = 0;
 
-/* Implementation of 'pydbm.clustering.reconstruction_classification_networks' */
+/* Implementation of 'pydbm.semisupervised.reconstruction_classification_networks' */
 static PyObject *__pyx_builtin_object;
 static PyObject *__pyx_builtin_property;
 static PyObject *__pyx_builtin_TypeError;
@@ -1882,8 +1882,8 @@ static const char __pyx_k_ReconstructionClassificationNet[] = "_ReconstructionCl
 static const char __pyx_k_The_Deep_Reconstruction_Classif[] = "\n    The Deep Reconstruction-Classification Networks.\n\n    References:\n        - Ghifary, M., Kleijn, W. B., Zhang, M., Balduzzi, D., & Li, W. (2016, October). Deep reconstruction-classification networks for unsupervised domain adaptation. In European Conference on Computer Vision (pp. 597-613). Springer, Cham.\n    ";
 static const char __pyx_k_The_type_of_auto_encodable_must[] = "The type of `auto_encodable` must be `AutoEncodable`.";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
-static const char __pyx_k_pydbm_clustering_interface_auto[] = "pydbm.clustering.interface.auto_encodable";
-static const char __pyx_k_pydbm_clustering_reconstruction[] = "pydbm.clustering.reconstruction_classification_networks";
+static const char __pyx_k_pydbm_clustering_interface_auto[] = "pydbm.semisupervised.interface.auto_encodable";
+static const char __pyx_k_pydbm_clustering_reconstruction[] = "pydbm.semisupervised.reconstruction_classification_networks";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
@@ -1892,9 +1892,9 @@ static const char __pyx_k_Underflow_occurred_when_the_para[] = "Underflow occurr
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
 static const char __pyx_k_pydbm_activation_softmax_functio[] = "pydbm.activation.softmax_function";
-static const char __pyx_k_pydbm_clustering_computableclust[] = "pydbm.clustering.computableclusteringloss.balanced_assignments_loss";
-static const char __pyx_k_pydbm_clustering_interface_compu[] = "pydbm.clustering.interface.computable_clustering_loss";
-static const char __pyx_k_pydbm_clustering_interface_extra[] = "pydbm.clustering.interface.extractable_centroids";
+static const char __pyx_k_pydbm_clustering_computableclust[] = "pydbm.semisupervised.computableclusteringloss.balanced_assignments_loss";
+static const char __pyx_k_pydbm_clustering_interface_compu[] = "pydbm.semisupervised.interface.computable_clustering_loss";
+static const char __pyx_k_pydbm_clustering_interface_extra[] = "pydbm.semisupervised.interface.extractable_centroids";
 static const char __pyx_k_pydbm_optimization_optparams_ada[] = "pydbm.optimization.optparams.adam";
 static const char __pyx_k_pydbm_optimization_optparams_sgd[] = "pydbm.optimization.optparams.sgd";
 static const char __pyx_k_pydbm_verification_verificate_so[] = "pydbm.verification.verificate_softmax";
@@ -1935,9 +1935,9 @@ static const char __pyx_k_ReconstructionClassificationNetw_6[] = "Reconstruction
 static const char __pyx_k_ReconstructionClassificationNetw_7[] = "ReconstructionClassificationNetworks.__reconstruct";
 static const char __pyx_k_ReconstructionClassificationNetw_8[] = "ReconstructionClassificationNetworks.__compute_rec_loss";
 static const char __pyx_k_ReconstructionClassificationNetw_9[] = "ReconstructionClassificationNetworks.back_propagation";
-static const char __pyx_k_pydbm_clustering_computableclust_2[] = "pydbm.clustering.computableclusteringloss.k_means_loss";
-static const char __pyx_k_pydbm_clustering_computableclust_3[] = "pydbm.clustering.computableclusteringloss.reconstruction_loss";
-static const char __pyx_k_pydbm_clustering_computableclust_4[] = "pydbm.clustering.computableclusteringloss.repelling_loss";
+static const char __pyx_k_pydbm_clustering_computableclust_2[] = "pydbm.semisupervised.computableclusteringloss.k_means_loss";
+static const char __pyx_k_pydbm_clustering_computableclust_3[] = "pydbm.semisupervised.computableclusteringloss.reconstruction_loss";
+static const char __pyx_k_pydbm_clustering_computableclust_4[] = "pydbm.semisupervised.computableclusteringloss.repelling_loss";
 static const char __pyx_k_ReconstructionClassificationNetw_10[] = "ReconstructionClassificationNetworks.__rec_back_propagate";
 static const char __pyx_k_ReconstructionClassificationNetw_11[] = "ReconstructionClassificationNetworks.optimize";
 static const char __pyx_k_ReconstructionClassificationNetw_12[] = "ReconstructionClassificationNetworks.__optimize_rec";
@@ -2445,7 +2445,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.__defaults__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.__defaults__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2698,7 +2698,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 15, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 34, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -2990,7 +2990,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_logger);
@@ -3070,7 +3070,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("learn", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 106, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -4290,7 +4290,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
  */
           __pyx_t_19 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_FloatingPointError);
           if (__pyx_t_19) {
-            __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+            __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
             if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_5, &__pyx_t_7) < 0) __PYX_ERR(0, 200, __pyx_L20_except_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_GOTREF(__pyx_t_5);
@@ -5231,7 +5231,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
  */
     __pyx_t_15 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyboardInterrupt);
     if (__pyx_t_15) {
-      __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
       if (__Pyx_GetException(&__pyx_t_7, &__pyx_t_8, &__pyx_t_5) < 0) __PYX_ERR(0, 243, __pyx_L9_except_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GOTREF(__pyx_t_8);
@@ -5490,7 +5490,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.learn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_noised_observed_arr);
@@ -5580,7 +5580,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("inference", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 251, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -5704,7 +5704,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.inference", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_pred_arr);
@@ -5773,7 +5773,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("forward_propagation", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 268, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.forward_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.forward_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -6458,7 +6458,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.forward_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.forward_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_feature_arr);
@@ -6541,7 +6541,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("compute_loss", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 311, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.compute_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.compute_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -6670,7 +6670,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.compute_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.compute_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_clf_loss);
@@ -6738,7 +6738,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__reconstruct", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 327, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.__reconstruct", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.__reconstruct", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -6852,7 +6852,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.__reconstruct", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.__reconstruct", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_reconstructed_arr);
@@ -7014,7 +7014,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.__compute_rec_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.__compute_rec_loss", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_rec_loss);
@@ -7385,7 +7385,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.back_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.back_propagation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_delta_arr);
@@ -7616,7 +7616,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.__rec_back_propagate", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.__rec_back_propagate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_rec_delta_arr);
@@ -7696,7 +7696,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("optimize", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 371, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.optimize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.optimize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -7846,7 +7846,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.optimize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.optimize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7924,7 +7924,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__optimize_rec", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 386, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.__optimize_rec", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.__optimize_rec", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -8014,7 +8014,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.__optimize_rec", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.__optimize_rec", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8076,7 +8076,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.get_auto_encodable", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.get_auto_encodable", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8144,7 +8144,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("set_auto_encodable", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 397, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_auto_encodable", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_auto_encodable", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -8181,7 +8181,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_auto_encodable", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_auto_encodable", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8243,7 +8243,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.get_nn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.get_nn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8311,7 +8311,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("set_nn", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 407, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_nn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_nn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -8392,7 +8392,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_nn", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_nn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8454,7 +8454,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.get_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.get_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8522,7 +8522,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("set_loss_arr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 420, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -8559,7 +8559,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8621,7 +8621,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.get_clf_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.get_clf_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8689,7 +8689,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("set_clf_loss_arr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 430, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_clf_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_clf_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -8726,7 +8726,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_clf_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_clf_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8788,7 +8788,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.get_rec_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.get_rec_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -8856,7 +8856,7 @@ static PyObject *__pyx_pw_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("set_rec_loss_arr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 440, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_rec_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_rec_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
@@ -8893,7 +8893,7 @@ static PyObject *__pyx_pf_5pydbm_10clustering_38reconstruction_classification_ne
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("pydbm.clustering.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_rec_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pydbm.semisupervised.reconstruction_classification_networks.ReconstructionClassificationNetworks.set_rec_loss_arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -12333,8 +12333,8 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "pydbm.clustering.reconstruction_classification_networks")) {
-      if (unlikely(PyDict_SetItemString(modules, "pydbm.clustering.reconstruction_classification_networks", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "pydbm.semisupervised.reconstruction_classification_networks")) {
+      if (unlikely(PyDict_SetItemString(modules, "pydbm.semisupervised.reconstruction_classification_networks", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -12392,7 +12392,7 @@ if (!__Pyx_RefNanny) {
  * cimport numpy as np
  * from abc import ABCMeta, abstractmethod, abstractproperty             # <<<<<<<<<<<<<<
  * ctypedef np.float64_t DOUBLE_t
- * from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids
+ * from pydbm.semisupervised.interface.extractable_centroids import ExtractableCentroids
  */
   __pyx_t_2 = PyList_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -12425,9 +12425,9 @@ if (!__Pyx_RefNanny) {
   /* "pydbm/clustering/reconstruction_classification_networks.pyx":7
  * from abc import ABCMeta, abstractmethod, abstractproperty
  * ctypedef np.float64_t DOUBLE_t
- * from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids             # <<<<<<<<<<<<<<
- * from pydbm.clustering.interface.auto_encodable import AutoEncodable
- * from pydbm.clustering.interface.computable_clustering_loss import ComputableClusteringLoss
+ * from pydbm.semisupervised.interface.extractable_centroids import ExtractableCentroids             # <<<<<<<<<<<<<<
+ * from pydbm.semisupervised.interface.auto_encodable import AutoEncodable
+ * from pydbm.semisupervised.interface.computable_clustering_loss import ComputableClusteringLoss
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -12445,10 +12445,10 @@ if (!__Pyx_RefNanny) {
 
   /* "pydbm/clustering/reconstruction_classification_networks.pyx":8
  * ctypedef np.float64_t DOUBLE_t
- * from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids
- * from pydbm.clustering.interface.auto_encodable import AutoEncodable             # <<<<<<<<<<<<<<
- * from pydbm.clustering.interface.computable_clustering_loss import ComputableClusteringLoss
- * from pydbm.clustering.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
+ * from pydbm.semisupervised.interface.extractable_centroids import ExtractableCentroids
+ * from pydbm.semisupervised.interface.auto_encodable import AutoEncodable             # <<<<<<<<<<<<<<
+ * from pydbm.semisupervised.interface.computable_clustering_loss import ComputableClusteringLoss
+ * from pydbm.semisupervised.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -12465,11 +12465,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/clustering/reconstruction_classification_networks.pyx":9
- * from pydbm.clustering.interface.extractable_centroids import ExtractableCentroids
- * from pydbm.clustering.interface.auto_encodable import AutoEncodable
- * from pydbm.clustering.interface.computable_clustering_loss import ComputableClusteringLoss             # <<<<<<<<<<<<<<
- * from pydbm.clustering.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
- * from pydbm.clustering.computableclusteringloss.k_means_loss import KMeansLoss
+ * from pydbm.semisupervised.interface.extractable_centroids import ExtractableCentroids
+ * from pydbm.semisupervised.interface.auto_encodable import AutoEncodable
+ * from pydbm.semisupervised.interface.computable_clustering_loss import ComputableClusteringLoss             # <<<<<<<<<<<<<<
+ * from pydbm.semisupervised.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
+ * from pydbm.semisupervised.computableclusteringloss.k_means_loss import KMeansLoss
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -12486,11 +12486,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pydbm/clustering/reconstruction_classification_networks.pyx":10
- * from pydbm.clustering.interface.auto_encodable import AutoEncodable
- * from pydbm.clustering.interface.computable_clustering_loss import ComputableClusteringLoss
- * from pydbm.clustering.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss             # <<<<<<<<<<<<<<
- * from pydbm.clustering.computableclusteringloss.k_means_loss import KMeansLoss
- * from pydbm.clustering.computableclusteringloss.reconstruction_loss import ReconstructionLoss
+ * from pydbm.semisupervised.interface.auto_encodable import AutoEncodable
+ * from pydbm.semisupervised.interface.computable_clustering_loss import ComputableClusteringLoss
+ * from pydbm.semisupervised.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss             # <<<<<<<<<<<<<<
+ * from pydbm.semisupervised.computableclusteringloss.k_means_loss import KMeansLoss
+ * from pydbm.semisupervised.computableclusteringloss.reconstruction_loss import ReconstructionLoss
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -12507,11 +12507,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/clustering/reconstruction_classification_networks.pyx":11
- * from pydbm.clustering.interface.computable_clustering_loss import ComputableClusteringLoss
- * from pydbm.clustering.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
- * from pydbm.clustering.computableclusteringloss.k_means_loss import KMeansLoss             # <<<<<<<<<<<<<<
- * from pydbm.clustering.computableclusteringloss.reconstruction_loss import ReconstructionLoss
- * from pydbm.clustering.computableclusteringloss.repelling_loss import RepellingLoss
+ * from pydbm.semisupervised.interface.computable_clustering_loss import ComputableClusteringLoss
+ * from pydbm.semisupervised.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
+ * from pydbm.semisupervised.computableclusteringloss.k_means_loss import KMeansLoss             # <<<<<<<<<<<<<<
+ * from pydbm.semisupervised.computableclusteringloss.reconstruction_loss import ReconstructionLoss
+ * from pydbm.semisupervised.computableclusteringloss.repelling_loss import RepellingLoss
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -12528,10 +12528,10 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pydbm/clustering/reconstruction_classification_networks.pyx":12
- * from pydbm.clustering.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
- * from pydbm.clustering.computableclusteringloss.k_means_loss import KMeansLoss
- * from pydbm.clustering.computableclusteringloss.reconstruction_loss import ReconstructionLoss             # <<<<<<<<<<<<<<
- * from pydbm.clustering.computableclusteringloss.repelling_loss import RepellingLoss
+ * from pydbm.semisupervised.computableclusteringloss.balanced_assignments_loss import BalancedAssignmentsLoss
+ * from pydbm.semisupervised.computableclusteringloss.k_means_loss import KMeansLoss
+ * from pydbm.semisupervised.computableclusteringloss.reconstruction_loss import ReconstructionLoss             # <<<<<<<<<<<<<<
+ * from pydbm.semisupervised.computableclusteringloss.repelling_loss import RepellingLoss
  * from pydbm.optimization.optparams.sgd import SGD
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)
@@ -12549,9 +12549,9 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/clustering/reconstruction_classification_networks.pyx":13
- * from pydbm.clustering.computableclusteringloss.k_means_loss import KMeansLoss
- * from pydbm.clustering.computableclusteringloss.reconstruction_loss import ReconstructionLoss
- * from pydbm.clustering.computableclusteringloss.repelling_loss import RepellingLoss             # <<<<<<<<<<<<<<
+ * from pydbm.semisupervised.computableclusteringloss.k_means_loss import KMeansLoss
+ * from pydbm.semisupervised.computableclusteringloss.reconstruction_loss import ReconstructionLoss
+ * from pydbm.semisupervised.computableclusteringloss.repelling_loss import RepellingLoss             # <<<<<<<<<<<<<<
  * from pydbm.optimization.optparams.sgd import SGD
  * from pydbm.params_initializer import ParamsInitializer
  */
@@ -12570,8 +12570,8 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pydbm/clustering/reconstruction_classification_networks.pyx":14
- * from pydbm.clustering.computableclusteringloss.reconstruction_loss import ReconstructionLoss
- * from pydbm.clustering.computableclusteringloss.repelling_loss import RepellingLoss
+ * from pydbm.semisupervised.computableclusteringloss.reconstruction_loss import ReconstructionLoss
+ * from pydbm.semisupervised.computableclusteringloss.repelling_loss import RepellingLoss
  * from pydbm.optimization.optparams.sgd import SGD             # <<<<<<<<<<<<<<
  * from pydbm.params_initializer import ParamsInitializer
  * from pydbm.nn.neural_network import NeuralNetwork
@@ -12591,7 +12591,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pydbm/clustering/reconstruction_classification_networks.pyx":15
- * from pydbm.clustering.computableclusteringloss.repelling_loss import RepellingLoss
+ * from pydbm.semisupervised.computableclusteringloss.repelling_loss import RepellingLoss
  * from pydbm.optimization.optparams.sgd import SGD
  * from pydbm.params_initializer import ParamsInitializer             # <<<<<<<<<<<<<<
  * from pydbm.nn.neural_network import NeuralNetwork
@@ -13292,11 +13292,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_5);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pydbm.clustering.reconstruction_classification_networks", 0, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pydbm.semisupervised.reconstruction_classification_networks", 0, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pydbm.clustering.reconstruction_classification_networks");
+    PyErr_SetString(PyExc_ImportError, "init pydbm.semisupervised.reconstruction_classification_networks");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

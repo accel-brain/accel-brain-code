@@ -20,4 +20,7 @@ class LogSoftmaxFunction(SoftmaxFunction):
         Returns:
             The result.
         '''
-        return x - np.log(np.nansum(np.exp(x - np.max(x)), axis=1).reshape(-1, 1)) + np.max(x)
+        if np.max(x) >= 1000:
+            x = x / np.linalg.norm(x)
+
+        return x - np.log(np.nansum(np.exp(x), axis=1).reshape(-1, 1))

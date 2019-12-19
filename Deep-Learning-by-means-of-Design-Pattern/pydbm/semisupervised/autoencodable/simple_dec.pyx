@@ -2,7 +2,7 @@
 from logging import getLogger
 import numpy as np
 cimport numpy as np
-from pydbm.clustering.interface.auto_encodable import AutoEncodable
+from pydbm.semisupervised.interface.auto_encodable import AutoEncodable
 from pydbm.nn.simple_auto_encoder import SimpleAutoEncoder
 
 

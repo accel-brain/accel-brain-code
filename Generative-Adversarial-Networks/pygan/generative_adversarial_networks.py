@@ -145,16 +145,13 @@ class GenerativeAdversarialNetworks(object):
             discriminative_model.learn(grad_arr)
 
             self.__logger.debug(
-                "Inferenced by the `discriminator` (mean): " + str(generated_posterior_arr.mean())
-            )
-            self.__logger.debug(
-                "Inferenced by the `discriminator` (MAE): " + str(np.abs(generated_posterior_arr).mean())
+                "Inferenced by the `discriminator`: " + str(np.abs(generated_posterior_arr).mean())
             )
             self.__logger.debug(
                 "And update the `discriminator` by descending its stochastic gradient(means): " + str(grad_arr.mean())
             )
 
-            d_logs_list.append(generated_posterior_arr.mean())
+            d_logs_list.append(np.abs(generated_posterior_arr).mean())
 
         return discriminative_model, d_logs_list
 
@@ -204,15 +201,12 @@ class GenerativeAdversarialNetworks(object):
             )
 
         self.__logger.debug(
-            "Inferenced by the `discriminator` (mean): " + str(generated_posterior_arr.mean())
-        )
-        self.__logger.debug(
-            "Inferenced by the `discriminator` (MAE): " + str(np.abs(generated_posterior_arr).mean())
+            "Inferenced by the `discriminator`: " + str(np.abs(generated_posterior_arr).mean())
         )
         self.__logger.debug(
             "And update the `generator` by descending its stochastic gradient(means): " + str(grad_arr.mean())
         )
-        g_logs_list.append(generated_posterior_arr.mean())
+        g_logs_list.append(np.abs(generated_posterior_arr).mean())
 
         return generative_model, g_logs_list
 

@@ -21,6 +21,17 @@ class AutoEncoderModel(GenerativeModel):
         raise NotImplementedError()
 
     @abstractmethod
+    def generate(self):
+        '''
+        Draws samples and reconstruct the observed data points
+        as a generative model.
+
+        Returns:
+            `np.ndarray` of generated samples.
+        '''
+        raise NotImplementedError()
+
+    @abstractmethod
     def update(self):
         '''
         Update the encoder and the decoder

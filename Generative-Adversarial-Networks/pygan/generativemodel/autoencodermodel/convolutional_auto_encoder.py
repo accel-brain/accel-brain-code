@@ -195,6 +195,18 @@ class ConvolutionalAutoEncoder(AutoEncoderModel):
 
         self.__pre_loss_arr = np.array(pre_loss_list)
 
+    def generate(self):
+        '''
+        Draws samples and reconstruct the observed data points
+        as a generative model.
+
+        Returns:
+            `np.ndarray` of generated samples.
+        '''
+        observed_arr = self.noise_sampler.generate()
+        generated_arr = self.inference(observed_arr)
+        return generated_arr
+
     def draw(self):
         '''
         Draws samples from the `fake` distribution.

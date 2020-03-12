@@ -20,7 +20,11 @@ class LogSoftmaxFunction(SoftmaxFunction):
         Returns:
             The result.
         '''
+        x_shape = x.copy().shape
+        x = x.reshape((x.shape[0], -1))
+
         if np.max(x) >= 1000:
             x = x / np.linalg.norm(x)
 
-        return x - np.log(np.nansum(np.exp(x), axis=1).reshape(-1, 1))
+        y = x - np.log(np.nansum(np.exp(x), axis=1).reshape(-1, 1))
+        return y.reshape(x_shape)

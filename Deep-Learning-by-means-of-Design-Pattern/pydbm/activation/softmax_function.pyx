@@ -54,9 +54,13 @@ class SoftmaxFunction(ActivatingFunctionInterface):
         '''
         cdef np.ndarray exp_x_arr
         cdef np.ndarray prob_arr
+
+        x_shape = x.copy().shape
+        x = x.reshape((x.shape[0], -1))
+
         exp_x_arr = np.exp(x - np.max(x))
         prob_arr = exp_x_arr / np.nansum(exp_x_arr, axis=1).reshape(-1, 1)
-        return prob_arr
+        return prob_arr.reshape(x_shape)
 
     def backward(self, np.ndarray y):
         '''

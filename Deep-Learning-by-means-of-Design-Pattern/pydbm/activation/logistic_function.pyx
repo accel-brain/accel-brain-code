@@ -16,7 +16,7 @@ class LogisticFunction(ActivatingFunctionInterface):
     # The length of memories.
     __memory_len = 50
 
-    def __init__(self, memory_len=50):
+    def __init__(self, memory_len=50, normalized_flag=False):
         '''
         Init.
 
@@ -26,6 +26,7 @@ class LogisticFunction(ActivatingFunctionInterface):
         self.__activity_arr_list = []
         self.__forward_arr_list = []
         self.__memory_len = memory_len
+        self.__normalized_flag = normalized_flag
 
     def activate(self, np.ndarray x):
         '''
@@ -89,6 +90,10 @@ class LogisticFunction(ActivatingFunctionInterface):
         activity_arr = self.__activity_arr_list[-1]
         return y * (activity_arr * (1 - activity_arr))
 
+    def __sigmoid(self, x):
+        activity_arr = 1.0 / (1.0 + np.exp(-x))
+        return activity_arr
+
     def __compute_activity_arr(self, x):
         '''
         Compute activity.
@@ -99,6 +104,9 @@ class LogisticFunction(ActivatingFunctionInterface):
         Returns:
             `np.ndarray` of activity.
         '''
+        if self.__normalized_flag is False:
+            return self.__sigmoid(x)
+
         cdef double x_max
         cdef double x_min
         cdef double c_max

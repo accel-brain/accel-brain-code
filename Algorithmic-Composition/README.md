@@ -1,3 +1,5 @@
+**Note** that the basis of the architectural design of this repository gradually shifts to `accel-brain-base` managed by [accel-brain/accel-brain-architecture](https://github.com/accel-brain/accel-brain-architecture/tree/master/accel-brain-base). Each code will be fixed without compatibility in the future.
+
 # Algorithmic Composition or Automatic Composition Library: pycomposer
 
 `pycomposer` is Python library for Algorithmic Composition or Automatic Composition based on the stochastic music theory and the Statistical machine learning problems. Especialy, this library provides apprication of the Algorithmic Composer based on Conditional Generative Adversarial Networks(Conditional GANs).

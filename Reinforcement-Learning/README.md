@@ -1,3 +1,5 @@
+**Note** that the basis of the architectural design of this repository gradually shifts to `accel-brain-base` managed by [accel-brain/accel-brain-architecture](https://github.com/accel-brain/accel-brain-architecture/tree/master/accel-brain-base). Each code will be fixed without compatibility in the future.
+
 # Reinforcement Learning Library: pyqlearning
 
 `pyqlearning` is Python library to implement Reinforcement Learning and Deep Reinforcement Learning, especially for Q-Learning, Deep Q-Network, and Multi-agent Deep Q-Network which can be optimized by Annealing models such as Simulated Annealing, Adaptive Simulated Annealing, and Quantum Monte Carlo Method.

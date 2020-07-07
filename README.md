@@ -22,9 +22,9 @@ The basic theme in my PoC is a Lifehack, which is any technique that reduces the
 
 In this problem setting and *recursive* solutions, this repository is functionally differentiated by compositions such as information collection, searching optimal solution, and focus booster. Each function can be considered an integral component of lifehack solutions. These tools make it possible to efficiency the process of contemplation and accelerate our brain, enabling provisions for the developments of other tools in this repository. All code, implemented as in an algorithm of machine learning or data science, reflects the concept of proof of concept(PoC). 
 
-### Problem Solution: [accel-brain-base](https://github.com/accel-brain/accel-brain-architecture/tree/master/accel-brain-base).
+### Problem Solution: [Accel-Brain-Base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base).
 
-As part of prototyping, this repository publishes a special machine learning library, [accel-brain-base](https://github.com/accel-brain/accel-brain-architecture/tree/master/accel-brain-base).
+As part of prototyping, this repository publishes a special machine learning library, [Accel-Brain-Base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base).
 
 Considering many variable parts, structural unions, and *functional equivalents* in the deep learning paradigm, which are variants derived not only from research but also from the relationship with business domains, from perspective of *commonality/variability analysis* in order to practice object-oriented design, this library provides abstract classes that define the skeleton of the deep Learning algorithm in an operation, deferring some steps in concrete variant algorithms such as the **Deep Boltzmann Machines**, **Stacked Auto-Encoder**, **Encoder/Decoder based on LSTM**, and **Convolutional Auto-Encoder** to client subclasses. The abstract classes and the interfaces in this library let subclasses redefine certain steps of the deep Learning algorithm without changing the algorithm's structure.
 

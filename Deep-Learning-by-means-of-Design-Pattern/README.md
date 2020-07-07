@@ -1,5 +1,3 @@
-**Note** that the basis of the architectural design of this repository gradually shifts to `accel-brain-base` managed by [accel-brain/accel-brain-architecture](https://github.com/accel-brain/accel-brain-architecture/tree/master/accel-brain-base). Each code will be fixed without compatibility in the future.
-
 # Deep Learning Library: pydbm
 
 `pydbm` is Python library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Long Short-Term Memory Recurrent Temporal Restricted Boltzmann Machine(LSTM-RTRBM), and Shape Boltzmann Machine(Shape-BM). From the view points of functionally equivalents and structural expansions, this library also prototypes many variants such as Encoder/Decoder based on LSTM with an Attention mechanism, Convolutional Auto-Encoder, ConvLSTM, and Spatio-temporal Auto-Encoder.

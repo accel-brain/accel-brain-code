@@ -1,5 +1,3 @@
-**Note** that the basis of the architectural design of this repository gradually shifts to `accel-brain-base` managed by [accel-brain/accel-brain-architecture](https://github.com/accel-brain/accel-brain-architecture/tree/master/accel-brain-base). Each code will be fixed without compatibility in the future.
-
 # Generative Adversarial Networks Library: pygan
 
 `pygan` is Python library to implement Generative Adversarial Networks(GANs), *Conditional* GANs, Adversarial Auto-Encoders(AAEs), and Energy-based Generative Adversarial Network(EBGAN).

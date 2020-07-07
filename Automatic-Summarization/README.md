@@ -1,5 +1,3 @@
-**Note** that the basis of the architectural design of this repository gradually shifts to `accel-brain-base` managed by [accel-brain/accel-brain-architecture](https://github.com/accel-brain/accel-brain-architecture/tree/master/accel-brain-base). Each code will be fixed without compatibility in the future.
-
 # Automatic Summarization Library: pysummarization
 
 `pysummarization` is Python3 library for the automatic summarization, document abstraction, and text filtering.

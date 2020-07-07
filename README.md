@@ -14,7 +14,7 @@ On the other hand, it must be remembered that any R&D builds on the history of t
 
 The blind spot of "democratization of AI" occurs when a new concept is created throughout the society, including business. It takes time before a new concept can be broken down into an interface specification from a perspective such as object-oriented analysis, and code that conforms to the interface specification can be implemented. There will always be some difference between the new AI created in this way and the AI already "democratized". 
 
-In a more realistic way, casual users who are just waiting for the AI to be "democratized" will always fall behind. On the contrary, those who can create new concepts and new AIs with PoC will always continue to have a leading advantage in the market where AI is the main topic. Hiding behind the "democratic" movement of "AI democratization" is the cold reality of "capitalist" competition.
+In a more realistic perspective, casual users who are just waiting for the AI to be "democratized" will always fall behind. On the contrary, those who can create new concepts and new AIs with PoC will always continue to have a leading advantage in the market where AI is the main topic. Hiding behind the "democratic" movement of "AI democratization" is the dry reality of "capitalist" competition.
 
 #### Lifehack of Lifehack.
 

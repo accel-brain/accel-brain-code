@@ -12,7 +12,7 @@ def read_readme(file_name):
 
 setup(
     name='accel-brain-base',
-    version='0.0.1',
+    version='0.0.2',
     description='.',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',

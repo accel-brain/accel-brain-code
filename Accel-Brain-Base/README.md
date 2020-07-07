@@ -38,7 +38,7 @@ In this library, almost all models inherit [HybridBlock](https://gluon.mxnet.io/
 
 ## Documentation
 
-Full documentation is available on [https://code.accel-brain.com/accel-brain-code/Accel-Brain-Base/README.html](https://code.accel-brain.com/accel-brain-code/Accel-Brain-Base/README.html). This document contains information on functionally reusability, functional scalability and functional extensibility.
+Full documentation is available on [https://code.accel-brain.com/Accel-Brain-Base/README.html](https://code.accel-brain.com/Accel-Brain-Base/README.html). This document contains information on functionally reusability, functional scalability and functional extensibility.
 
 ## Problem Setting: Deep Learning after the era of "Democratization of Artificial Intelligence(AI)".
 

@@ -14,13 +14,14 @@ class AbstractableSemantics(metaclass=ABCMeta):
     '''
 
     @abstractmethod
-    def learn(self, observed_arr, target_arr):
+    def learn(self, iteratable_data):
         '''
-        Training the model.
+        Learn the observed data points
+        for vector representation of the input time-series.
 
         Args:
-            observed_arr:       `np.ndarray` of observed data points.
-            target_arr:         `np.ndarray` of target labeled data.
+            iteratable_data:     is-a `IteratableData`.
+
         '''
         raise NotImplementedError("This method must be implemented.")
 

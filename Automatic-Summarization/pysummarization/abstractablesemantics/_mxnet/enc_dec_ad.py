@@ -48,13 +48,6 @@ class EncDecAD(AbstractableSemantics):
     In any case, this library deduces the function and potential of EncDec-AD in text summarization
     is to draw the distinction of normal and anomaly texts and is to filter the one from the other.
 
-    Note that the model in this library and Malhotra, P., et al. (2016) are different in some respects
-    from the relation with the specification of the Deep Learning library: [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern).
-    First, weight matrix of encoder and decoder is not shered. Second, it is possible to 
-    introduce regularization techniques which are not discussed in Malhotra, P., et al. (2016) 
-    such as the dropout, the gradient clipping, and limitation of weights. 
-    Third, the loss function for reconstruction error is not limited to the L2 norm.
-
     References:
         - Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., & Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.
     '''

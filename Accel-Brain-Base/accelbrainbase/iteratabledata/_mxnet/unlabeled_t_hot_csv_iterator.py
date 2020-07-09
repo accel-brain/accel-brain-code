@@ -147,7 +147,6 @@ class UnlabeledTHotCSVIterator(_LabeledImageIterator):
 
             if self.__noiseable_data is not None:
                 training_batch_arr = self.__noiseable_data.noise(training_batch_arr)
-                noisedtest_batch_arr = self.__noiseable_data.noise(test_batch_arr)
 
             yield training_batch_arr, training_batch_arr, test_batch_arr, test_batch_arr
 

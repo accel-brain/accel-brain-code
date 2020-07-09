@@ -282,26 +282,29 @@ class DQLController(HybridBlock, ControllableModel):
                         predicted_q_arr, 
                         real_q_arr
                     )
-                loss.backward()
-                self.trainer.step(predicted_q_arr.shape[0])
-                self.function_approximator.model.regularize()
+                if mx.nd.contrib.isnan(loss).astype(int).sum() == 0:
+                    loss.backward()
+                    self.trainer.step(predicted_q_arr.shape[0])
+                    self.function_approximator.model.regularize()
 
-                if (n + 1) % 100 == 0 or n < 100:
-                    self.__logger.debug("Reward value(mean): " + str(reward_value_arr.mean().asnumpy()[0]))
-                    self.__logger.debug("Predicted Q-value(mean): " + str(predicted_q_arr.mean().asnumpy()[0]))
-                    self.__logger.debug("Real Q-value(mean): " + str(real_q_arr.mean().asnumpy()[0]))
-                    self.__logger.debug("Loss of Q-Value(mean): " + str(loss.mean().asnumpy()[0]))
+                    if (n + 1) % 100 == 0 or n < 100:
+                        self.__logger.debug("Reward value(mean): " + str(reward_value_arr.mean().asnumpy()[0]))
+                        self.__logger.debug("Predicted Q-value(mean): " + str(predicted_q_arr.mean().asnumpy()[0]))
+                        self.__logger.debug("Real Q-value(mean): " + str(real_q_arr.mean().asnumpy()[0]))
+                        self.__logger.debug("Loss of Q-Value(mean): " + str(loss.mean().asnumpy()[0]))
 
-                if self.__recursive_learning_flag is True:
-                    # Update State.
-                    state_arr, state_meta_data_arr = self.policy_sampler.update_state(
-                        action_arr, 
-                        meta_data_arr=action_meta_data_arr
-                    )
-                    self.policy_sampler.observe_state(
-                        state_arr=state_arr,
-                        meta_data_arr=state_meta_data_arr
-                    )
+                    if self.__recursive_learning_flag is True:
+                        # Update State.
+                        state_arr, state_meta_data_arr = self.policy_sampler.update_state(
+                            action_arr, 
+                            meta_data_arr=action_meta_data_arr
+                        )
+                        self.policy_sampler.observe_state(
+                            state_arr=state_arr,
+                            meta_data_arr=state_meta_data_arr
+                        )
+                else:
+                    self.__logger.debug("The parameter update was skipped because the vanishing gradient problem or gradient explosion occurred.")
 
                 # Epsode.
                 self.t += 1

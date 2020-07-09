@@ -158,7 +158,6 @@ class LabeledImageIterator(_LabeledImageIterator):
 
             if self.__noiseable_data is not None:
                 training_batch_arr = self.__noiseable_data.noise(training_batch_arr)
-                noisedtest_batch_arr = self.__noiseable_data.noise(test_batch_arr)
 
             yield training_batch_arr, training_label_arr, test_batch_arr, test_label_arr
 
@@ -199,8 +198,6 @@ class LabeledImageIterator(_LabeledImageIterator):
             file_path_list.append(file_path)
 
             if test_batch_arr.shape[0] == self.batch_size:
-                if self.__noiseable_data is not None:
-                    test_batch_arr = self.__noiseable_data.noise(nd, test_batch_arr)
                 test_batch_arr_ = test_batch_arr
                 test_batch_arr = None
                 _file_path_list = file_path_list

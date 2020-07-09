@@ -15,8 +15,8 @@ from accelbrainbase.noiseabledata._mxnet.gauss_noise import GaussNoise
 from accelbrainbase.observabledata._mxnet.lstm_networks import LSTMNetworks
 from accelbrainbase.observabledata._mxnet.lstmnetworks.encoder_decoder import EncoderDecoder
 
-from pysummarizationprod.abstractable_semantics import AbstractableSemantics
-from pysummarizationprod.vectorizable_token import VectorizableToken
+from pysummarization.abstractable_semantics import AbstractableSemantics
+from pysummarization.vectorizable_token import VectorizableToken
 
 
 class EncDecAD(AbstractableSemantics):
@@ -76,6 +76,7 @@ class EncDecAD(AbstractableSemantics):
 
     def __init__(
         self, 
+        computable_loss=None,
         normal_prior_flag=False,
         encoder_decoder_controller=None,
         hidden_neuron_count=20,
@@ -92,6 +93,7 @@ class EncDecAD(AbstractableSemantics):
         Init.
 
         Args:
+            computable_loss:                is-a `ComputableLoss`.
             normal_prior_flag:              If `True`, this class will select abstract sentence
                                             from sentences with low reconstruction error.
 
@@ -110,10 +112,15 @@ class EncDecAD(AbstractableSemantics):
             seq_len:                        The length of sequneces in Decoder with Attention model.
 
         '''
+        if computable_loss is None:
+            computable_loss = L2NormLoss()
+
         self.__normal_prior_flag = normal_prior_flag
         if encoder_decoder_controller is None:
             encoder_decoder_controller = self.__build_encoder_decoder_controller(
+                computable_loss=computable_loss,
                 hidden_neuron_count=hidden_neuron_count,
+                output_neuron_count=output_neuron_count,
                 dropout_rate=dropout_rate,
                 batch_size=batch_size,
                 learning_rate=learning_rate,
@@ -128,17 +135,13 @@ class EncDecAD(AbstractableSemantics):
         self.__encoder_decoder_controller = encoder_decoder_controller
 
         logger = getLogger("accelbrainbase")
-        handler = StreamHandler()
-        handler.setLevel(DEBUG)
-        logger.setLevel(DEBUG)
-        logger.addHandler(handler)
-
-        logger = getLogger("pysummarization")
         self.__logger = logger
         self.__logs_tuple_list = []
+        self.__computable_loss = computable_loss
 
     def __build_encoder_decoder_controller(
         self,
+        computable_loss=None,
         hidden_neuron_count=20,
         output_neuron_count=20,
         dropout_rate=0.5,
@@ -149,7 +152,6 @@ class EncDecAD(AbstractableSemantics):
         learning_attenuate_rate=1.0,
         seq_len=8,
     ):
-        computable_loss = L2NormLoss()
         encoder = LSTMNetworks(
             # is-a `ComputableLoss` or `mxnet.gluon.loss`.
             computable_loss=computable_loss,
@@ -266,14 +268,16 @@ class EncDecAD(AbstractableSemantics):
         Returns:
             `np.ndarray` of inferenced feature points.
         '''
+        if isinstance(observed_arr, nd.NDArray) is False:
+            observed_arr = nd.ndarray.array(observed_arr, ctx=self.__ctx)
         return self.__encoder_decoder_controller.inference(observed_arr)
 
-    def summarize(self, test_arr, vectorizable_token, sentence_list, limit=5):
+    def summarize(self, iteratable_data, vectorizable_token, sentence_list, limit=5):
         '''
         Summarize input document.
 
         Args:
-            test_arr:               `np.ndarray` of observed data points..
+            iteratable_data:        is-a `IteratableData`.
             vectorizable_token:     is-a `VectorizableToken`.
             sentence_list:          `list` of all sentences.
             limit:                  The number of selected abstract sentence.
@@ -284,10 +288,24 @@ class EncDecAD(AbstractableSemantics):
         if isinstance(vectorizable_token, VectorizableToken) is False:
             raise TypeError()
 
-        reconstruced_arr = self.inference(test_arr)
-        score_arr = self.__computable_loss(test_arr, reconstruced_arr)
+        _score_arr = None
+        _test_arr = None
+        for _, _, test_arr, _ in iteratable_data.generate_inferenced_samples():
+            reconstruced_arr = self.inference(test_arr)
+            score_arr = self.__computable_loss(test_arr, reconstruced_arr)
+            score_arr = score_arr.asnumpy()
 
-        score_list = score_arr.tolist()
+            if _score_arr is None:
+                _score_arr = score_arr
+            else:
+                _score_arr = np.r_[_score_arr, score_arr]
+            if _test_arr is None:
+                _test_arr = test_arr.asnumpy()
+            else:
+                _test_arr = np.r_[_test_arr, test_arr.asnumpy()]
+
+        score_list = _score_arr.tolist()
+        test_arr = _test_arr
 
         abstract_list = []
         for i in range(limit):

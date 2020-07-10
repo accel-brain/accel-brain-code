@@ -299,6 +299,7 @@ class EncDecAD(AbstractableSemantics):
 
         score_list = _score_arr.tolist()
         test_arr = _test_arr
+        score_arr = _score_arr
 
         abstract_list = []
         for i in range(limit):

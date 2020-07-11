@@ -12,13 +12,13 @@ def read_readme(file_name):
 
 setup(
     name='pygan',
-    version='1.0.8',
+    version='1.0.9',
     description='pygan is Python library to implement Generative Adversarial Networks(GANs), Conditional GANs, Adversarial Auto-Encoders(AAEs), and Energy-based Generative Adversarial Network(EBGAN).',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',
-    url='https://github.com/chimera0/accel-brain-code/tree/master/Generative-Adversarial-Networks/',
-    author='chimera0',
-    author_email='ai-brain-lab@accel-brain.com',
+    url='https://github.com/accel-brain/accel-brain-code/tree/master/Generative-Adversarial-Networks/',
+    author='accel-brain',
+    author_email='info@accel-brain.co.jp',
     license='GPL2',
     classifiers=[
         'Development Status :: 5 - Production/Stable',

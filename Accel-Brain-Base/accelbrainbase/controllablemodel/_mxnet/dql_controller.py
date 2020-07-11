@@ -321,6 +321,145 @@ class DQLController(HybridBlock, ControllableModel):
         except KeyboardInterrupt:
             print("Keyboard Interrupt.")
 
+    def inference(self, iter_n=100):
+        '''
+        Inference.
+
+        Args:
+            iter_n:     `int` of the number of training iterations.
+
+        Returns:
+            `list` of logs of states.
+        '''
+        state_arr_list = []
+        q_value_arr_list = []
+        state_arr = None
+        try:
+            for n in range(iter_n):
+                # Draw samples of next possible actions from any distribution.
+                # (batch, possible_n, dim1, dim2, ...)
+                possible_action_arr, action_meta_data_arr = self.policy_sampler.draw()
+
+                possible_reward_value_arr = None
+                next_q_arr = None
+                possible_predicted_q_arr = None
+
+                for possible_i in range(possible_action_arr.shape[1]):
+                    if action_meta_data_arr is not None:
+                        meta_data_arr = action_meta_data_arr[:, possible_i]
+                    else:
+                        meta_data_arr = None
+
+                    # Inference Q-Values.
+                    _predicted_q_arr = self.function_approximator.inference(
+                        possible_action_arr[:, possible_i]
+                    )
+                    if possible_predicted_q_arr is None:
+                        possible_predicted_q_arr = nd.expand_dims(_predicted_q_arr, axis=1)
+                    else:
+                        possible_predicted_q_arr = nd.concat(
+                            possible_predicted_q_arr,
+                            nd.expand_dims(_predicted_q_arr, axis=1),
+                            dim=1
+                        )
+
+                    # Observe reward values.
+                    _reward_value_arr = self.policy_sampler.observe_reward_value(
+                        state_arr, 
+                        possible_action_arr[:, possible_i],
+                        meta_data_arr=meta_data_arr,
+                    )
+                    if possible_reward_value_arr is None:
+                        possible_reward_value_arr = nd.expand_dims(_reward_value_arr, axis=1)
+                    else:
+                        possible_reward_value_arr = nd.concat(
+                            possible_reward_value_arr,
+                            nd.expand_dims(_reward_value_arr, axis=1),
+                            dim=1
+                        )
+
+                    # Inference the Max-Q-Value in next action time.
+                    self.policy_sampler.observe_state(
+                        state_arr=possible_action_arr[:, possible_i],
+                        meta_data_arr=meta_data_arr
+                    )
+                    next_possible_action_arr, _ = self.policy_sampler.draw()
+                    next_next_q_arr = None
+
+                    for possible_j in range(next_possible_action_arr.shape[1]):
+                        _next_next_q_arr = self.function_approximator.inference(
+                            next_possible_action_arr[:, possible_j]
+                        )
+                        if next_next_q_arr is None:
+                            next_next_q_arr = nd.expand_dims(
+                                _next_next_q_arr,
+                                axis=1
+                            )
+                        else:
+                            next_next_q_arr = nd.concat(
+                                next_next_q_arr,
+                                nd.expand_dims(
+                                    _next_next_q_arr, 
+                                    axis=1
+                                ),
+                                dim=1
+                            )
+
+                    next_max_q_arr = next_next_q_arr.max(axis=1)
+
+                    if next_q_arr is None:
+                        next_q_arr = nd.expand_dims(
+                            next_max_q_arr,
+                            axis=1
+                        )
+                    else:
+                        next_q_arr = nd.concat(
+                            next_q_arr,
+                            nd.expand_dims(
+                                next_max_q_arr,
+                                axis=1
+                            ),
+                            dim=1
+                        )
+
+                # Select action.
+                selected_tuple = self.select_action(
+                    possible_action_arr, 
+                    possible_predicted_q_arr,
+                    possible_reward_value_arr,
+                    next_q_arr,
+                    possible_meta_data_arr=action_meta_data_arr
+                )
+                action_arr, predicted_q_arr, reward_value_arr, next_q_arr, action_meta_data_arr = selected_tuple
+
+                # Update State.
+                state_arr, state_meta_data_arr = self.policy_sampler.update_state(
+                    action_arr, 
+                    meta_data_arr=action_meta_data_arr
+                )
+                self.policy_sampler.observe_state(
+                    state_arr=state_arr,
+                    meta_data_arr=state_meta_data_arr
+                )
+                state_arr_list.append(state_arr)
+                q_value_arr_list.append(predicted_q_arr)
+
+                # Epsode.
+                self.t += 1
+
+                # Check.
+                end_flag = self.policy_sampler.check_the_end_flag(
+                    state_arr, 
+                    meta_data_arr=meta_data_arr
+                )
+                if end_flag is True:
+                    break
+
+        except KeyboardInterrupt:
+            print("Keyboard Interrupt.")
+
+        return state_arr_list, q_value_arr_list
+
     def extract_learned_dict(self):
         '''
         Extract (pre-) learned parameters.

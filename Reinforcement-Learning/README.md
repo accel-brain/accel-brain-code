@@ -46,7 +46,7 @@ Installers for the latest released version are available at the Python package i
 
 #### Option
 
-- [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern): v1.4.3 or higher.
+- [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base): v1.0.0 or higher.
     * Only if you want to implement the *Deep* Reinforcement Learning.
 
 ## Documentation
@@ -139,186 +139,9 @@ is the target for iteration <img src="https://storage.googleapis.com/accel-brain
 
 <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/latex/nabla_theta_i_L_i_theta_i_mathbb_E_s_a_sim_rho_cdot.png" />
 
-### Functional equivalent: LSTM
-
-It is not inevitable to functionally reuse CNN as a function approximator. In the above problem setting of generalisation and Combination explosion, for instance, Long Short-Term Memory(LSTM) networks, which is-a special Reccurent Neural Network(RNN) structure, and CNN as a function approximator are functionally equivalent. In the same problem setting, functional equivalents can be functionally replaced. Considering that the feature space of the rewards has the time-series nature, LSTM will be more useful.
-
-##### Structure of LSTM.
-
-Originally, Long Short-Term Memory(LSTM) networks as a special RNN structure has proven stable and
-powerful for modeling long-range dependencies. The Key point of structural expansion is its memory cell <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/c_t.png" /> which essentially acts as an accumulator of the state information. Every time observed data points are given as new information <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/g_t.png" /> and input to LSTM's input gate, its information will be accumulated to the cell if the input gate <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/i_t.png" /> is activated. The past state of cell <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/c_t-1.png" /> could be forgotten in this process if LSTM's forget gate <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/f_t.png" /> is on. Whether the latest cell output <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/c_t.png" /> will be propagated to the final state <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/h_t.png" /> is further controlled by the output gate <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/o_t.png" />.
-
-Omitting so-called peephole connection, it makes possible to combine the activations in LSTM gates into an affine transformation below.
-
-<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_affine.png" /></div>
-
-where <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/W_lstm.png" /> is a weight matrix which connects observed data points and hidden units in LSTM gates, and <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/u.png" /> is a weight matrix which connects hidden units as a remembered memory in LSTM gates. Furthermore, activation functions are as follows:
-
-<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_given.png" /></div>
-
-<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_input_gate.png" /></div>
-
-<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_forget_gate.png" /></div>
-
-<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_output_gate.png" /></div>
-
-and the acitivation of memory cell and hidden units are calculated as follows:
-
-<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_memory_cell.png" /></div>
-
-<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/lstm_hidden_activity.png" /></div>
-
-### Commonality/variability of Deep Q-learning models
-
-Also considering many variable parts and functional extensions in the Deep Q-learning paradigm from perspective of *commonality/variability analysis* in order to practice object-oriented design, this library provides abstract class that defines the skeleton of a Deep Q-Learning algorithm in an operation, deferring some steps in concrete variant algorithms such as Deep Q-Network to client subclasses. The abstract class in this library lets subclasses redefine certain steps of a Deep Q-Learning algorithm without changing the algorithm's structure.
-
-And this library provides the interface to implement many variable function approximators, which defines a family of algorithms to solve generalisation problems, encapsulate each one, and make them interchangeable. Strategy lets the algorithms such as CNNs and LSTM vary independently from the clients that use it. Capture the abstraction in an interface, bury implementation details in derived classes.
-
-<img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/pyqlearning_DeepQLearning_class_diagram-v2.png">
-
-The viewpoints for distinguishing between *commonality* and *variability* should  relate to not only typical concepts such as `State`, `Action`, `Reward`, and `Q-Value` in Q-learning models but also concepts of function approximators based on the Deep Learning Theory. Among the functions related to these concepts, the class `DeepQLearning` and `DeepQNetwork` are responsible for more *common* attributes and behaviors. On the other hand, in relation to *your* concrete problem settings, more *variable* elements have to be implemented by subclasses `YourDeepQNetwork`. And `DeepQLearning` has a `FunctionApproximator` to learn and inference `Q-Value` but the concrete object as a `FunctionApproximator` is more *variable*. The designers have to decide what Deep Learning Algorithm to use.
-
-For more detailed specification of this template method, refer to API documentation: [pyqlearning.deep_q_learning module](https://code.accel-brain.com/Reinforcement-Learning/pyqlearning.html#pyqlearning.deep_q_learning.DeepQLearning) and [pyqlearning.function_approximator module](https://code.accel-brain.com/Reinforcement-Learning/pyqlearning.html#pyqlearning.function_approximator.FunctionApproximator). If you want to know the samples of implemented code, see [demo/](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning/demo) and the following tutorial. 
-
-### Sample subclass
-
-[templates/your_deep_q_network.py](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/templates/your_deep_q_network.py) is a template subclass which is-a `DeepQNetwork`. The following code is an example of implementation.
-
-First of all, we should practice model selection in relatino to *your* problem settings. If the general Deep Q-Network can be expected to function as a *your* problem solution, CNNs can be selected as a function approximator model.
-
-Let's build the model as follows, while confirming the specifications of the [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern).
-
-```python
-# First convolution layer.
-from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer1
-# Second convolution layer.
-from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer2
-# Computation graph for first convolution layer.
-from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph1
-# Computation graph for second convolution layer.
-from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph2
-# Tanh Function as activation function.
-from pydbm.activation.tanh_function import TanhFunction
-# Mean squared error is-a `pydbm.optimization.opt_params.OptParams`.
-from pydbm.loss.mean_squared_error import MeanSquaredError
-# Adam optimizer which is-a `pydbm.optimization.opt_params.OptParams`.
-from pydbm.optimization.optparams.adam import Adam
-
-
-# First convolution layer.
-conv1 = ConvolutionLayer1(
-    # Computation graph for first convolution layer.
-    ConvGraph1(
-        # Logistic function as activation function.
-        activation_function=TanhFunction(),
-        # The number of `filter`.
-        filter_num=batch_size,
-        # The number of channel.
-        channel=channel,
-        # The size of kernel.
-        kernel_size=kernel_size,
-        # The filter scale.
-        scale=scale,
-        # The nubmer of stride.
-        stride=stride,
-        # The number of zero-padding.
-        pad=pad
-    )
-)
-
-# Second convolution layer.
-conv2 = ConvolutionLayer2(
-    # Computation graph for second convolution layer.
-    ConvGraph2(
-        # Logistic function as activation function.
-        activation_function=TanhFunction(),
-        # The number of `filter`.
-        filter_num=batch_size,
-        # The number of channel.
-        channel=batch_size,
-        # The size of kernel.
-        kernel_size=kernel_size,
-        # The filter scale.
-        scale=scale,
-        # The nubmer of stride.
-        stride=stride,
-        # The number of zero-padding.
-        pad=pad
-    )
-)
-
-# Stack.
-layerable_cnn_list=[
-    conv1, 
-    conv2
-]
-
-# is-a `pydbm.loss.interface.computable_loss.ComputableLoss`.
-computable_loss = MeanSquaredError()
-# is-a `pydbm.optimization.opt_params.OptParams`.
-opt_params = Adam()
-```
-
-Next, we construct a function approximator by delegating the above model. Because of the model selection, we should import `CNNFA` which is-a `FunctionApproximator`.
-
-```python
-# CNN as a Function Approximator.
-from pyqlearning.functionapproximator.cnn_fa import CNNFA
-
-# CNN as a function approximator.
-function_approximator = CNNFA(
-    # Batch size.
-    batch_size=batch_size,
-    # Stacked CNNs.
-    layerable_cnn_list=layerable_cnn_list,
-    # Learning rate.
-    learning_rate=learning_rate,
-    # is-a `pydbm.loss.interface.computable_loss.ComputableLoss`.
-    computable_loss=computable_loss,
-    # is-a `pydbm.optimization.opt_params.OptParams`.
-    opt_params=opt_params
-)
-```
-
-And, we delegate the function approximator to class `YourDeepQNetwork` and instantiate it.
-
-```python
-# Deep Q-Network to solive your problem.
-from _path.to.your_deep_q_network import YourDeepQNetwork
-# Instantiate your class.
-your_deep_q_network = YourDeepQNetwork(function_approximator=function_approximator)
-```
-
-Finally, we perform learning and inference based on the functionality of the implemented concrete class.
-
-```python
-# Learning.
-your_deep_q_network.learn(state_arr, limit=1000)
-# Inferencing.
-result_arr = your_deep_q_network.inference(state_arr, limit=1000)
-```
-
-#### Storing pre-learned parameters and do transfer learning
-
-`function_approximator` has a `object` which has the selected model. `model.cnn` which has a method `save_pre_learned_params` to store pre-learned parameters.
-
-```python
-# Delegated model.
-model = your_deep_q_network.function_approximator.model
-# Save pre-learned parameters.
-model.cnn.save_pre_learned_params(
-    # Path of dir. If `None`, the file is saved in the current directory.
-    dir_path="/var/tmp/",
-    # The naming rule of files. If `None`, this value is `cnn`.
-    file_name="demo_cnn"
-)
-```
-
-`function_approximator.model` has different fields depending on the model selection. For more detailed specification of this function for pre-learned parameters and function of trasfer learning, refer to API documentation: [pyqlearning.function_approximator module](https://code.accel-brain.com/Reinforcement-Learning/pyqlearning.html#pyqlearning.function_approximator.FunctionApproximator) and [pydbm's documentation](https://code.accel-brain.com/Deep-Learning-by-means-of-Design-Pattern/README.html).
-
 ## Tutorial: Maze Solving and the pursuit-evasion game by Deep Q-Network (Jupyter notebook)
 
-[demo/search_maze_by_deep_q_network.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb) is a Jupyter notebook which demonstrates a maze solving algorithm based on Deep Q-Network, rigidly coupled with Deep Convolutional Neural Networks(Deep CNNs). The function of the Deep Learning is **generalisation** and CNNs is-a **function approximator**. In this notebook, several functional equivalents such as CNN and LSTM can be compared from a functional point of view.
+[demo/search_maze_by_deep_q_network.ipynb](https://github.com/accel-brain/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb) is a Jupyter notebook which demonstrates a maze solving algorithm based on Deep Q-Network, rigidly coupled with Deep Convolutional Neural Networks(Deep CNNs). The function of the Deep Learning is **generalisation** and CNNs is-a **function approximator**. In this notebook, several functional equivalents such as CNN and LSTM can be compared from a functional point of view.
 
 <div align="center">
     <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_single_agent_goal_compressed-loop.gif" /></a></p>
@@ -346,17 +169,17 @@ An important aspect of this data modeling is that by expressing each state of th
 <img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/multi_agent_q_learning_and_cnn_model_big.png" />
 <p><cite><a href="https://pdfs.semanticscholar.org/dd98/9d94613f439c05725bad958929357e365084.pdf" target="_blank">Egorov, M. (2016). Multi-agent deep reinforcement learning., p4.</a></cite></p>
 
-[demo/search_maze_by_deep_q_network.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb) also prototypes Multi Agent Deep Q-Network to solve the pursuit-evasion game based on the image-like state representation of the multi-agent.
+[demo/multi_agent_maze_by_deep_q_network.ipynb](https://github.com/accel-brain/accel-brain-code/blob/master/Reinforcement-Learning/demo/multi_agent_maze_by_deep_q_network.ipynb) also prototypes Multi Agent Deep Q-Network to solve the pursuit-evasion game based on the image-like state representation of the multi-agent.
 
 <div align="center">
     <table style="border: none;">
         <tr>
             <td width="45%" align="center">
-            <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_crash_enemy_2-compressed.gif" /></a></p>
+            <p><a href="https://github.com/accel-brain/accel-brain-code/blob/master/Reinforcement-Learning/demo/multi_agent_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_crash_enemy_2-compressed.gif" /></a></p>
             <p>Multi-agent Deep Reinforcement Learning to solve the pursuit-evasion game. The player is caught by enemies.</p>
             </td>
             <td width="45%" align="center">
-            <p><a href="https://github.com/chimera0/accel-brain-code/blob/master/Reinforcement-Learning/demo/search_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_goal_enemy_2-compressed.gif" /></a></p>
+            <p><a href="https://github.com/accel-brain/accel-brain-code/blob/master/Reinforcement-Learning/demo/multi_agent_maze_by_deep_q_network.ipynb" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Reinforcement-Learning/img/DQN_multi_agent_demo_goal_enemy_2-compressed.gif" /></a></p>
             <p>
             <p>Multi-agent Deep Reinforcement Learning to solve the pursuit-evasion game. The player reaches the goal.</p>
             </td>

@@ -186,6 +186,8 @@ class ConvolutionalNeuralNetworks(HybridBlock, ObservableData):
 
         self.__ctx = ctx
 
+        self.__safe_params_dict = {}
+
         logger = getLogger("accelbrainbase")
         self.__logger = logger
 
@@ -313,6 +315,27 @@ class ConvolutionalNeuralNetworks(HybridBlock, ObservableData):
         '''
         Regularization.
         '''
+        nan_flag = False
+        learned_dict = self.extract_learned_dict()
+        for k, params in learned_dict.items():
+            if mx.nd.contrib.isnan(params).astype(int).sum() > 0:
+                nan_flag = True
+                break
+
+        if nan_flag is False:
+            self.__safe_params_dict = learned_dict
+        else:
+            if len(self.__safe_params_dict) == 0:
+                raise ValueError("The vanishing gradient problem was rasied.")
+
+            for k, params in self.collect_params().items():
+                params.set_data(self.__safe_params_dict[k])
+
+            self.__logger.debug(
+                "The parameter was not updated. The vanishing gradient problem was rasied."
+            )
+            return
+
         params_dict = self.extract_learned_dict()
         for regularizatable_data in self.__regularizatable_data_list:
             params_dict = regularizatable_data.regularize(params_dict)

@@ -16,9 +16,9 @@ setup(
     description='pyqlearning is Python library to implement Reinforcement Learning and Deep Reinforcement Learning, especially for Q-Learning, Deep Q-Network, and Multi-agent Deep Q-Network which can be optimized by Annealing models such as Simulated Annealing, Adaptive Simulated Annealing, and Quantum Monte Carlo Method.',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',
-    url='https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning',
-    author='chimera0',
-    author_email='ai-brain-lab@accel-brain.com',
+    url='https://github.com/accel-brain/accel-brain-code/tree/master/Reinforcement-Learning',
+    author='accel-brain',
+    author_email='info@accel-brain.co.jp',
     license='GPL2',
     classifiers=[
         'Development Status :: 5 - Production/Stable',

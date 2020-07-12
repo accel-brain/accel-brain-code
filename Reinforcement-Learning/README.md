@@ -41,8 +41,8 @@ Installers for the latest released version are available at the Python package i
 
 ### Dependencies
 
-- numpy: v1.13.3 or higher.
-- pandas: v0.22.0 or higher.
+- [numpy](https://github.com/numpy/numpy): v1.13.3 or higher.
+- [pandas](https://github.com/pandas-dev/pandas): v0.22.0 or higher.
 
 #### Option
 
@@ -513,11 +513,12 @@ Hilgevoord, Jan and Uffink, Jos, "The Uncertainty Principle", The Stanford Encyc
 
 ## Author
 
-- chimera0(RUM)
+- accel-brain
 
 ## Author URI
 
-- http://accel-brain.com/
+- https://accel-brain.co.jp/
+- https://accel-brain.com/
 
 ## License
 

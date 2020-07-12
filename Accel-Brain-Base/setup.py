@@ -13,7 +13,7 @@ def read_readme(file_name):
 setup(
     name='accel-brain-base',
     version='1.0.0',
-    description='accel-brain-base is a basic library of the Deep Learning for rapid development at low cost. This library makes it possible to design and implement deep learning, which must be configured as a complex system, by combining a plurality of functionally differentiated modules such as the Restricted Boltzmann Machine(RBM), Deep Boltzmann Machines(DBMs), a Stacked-Auto-Encoder, an Encoder/Decoder based on Long Short-Term Memory(LSTM), and a Convolutional Auto-Encoder(CAE).',
+    description='accel-brain-base is a basic library of the Deep Learning for rapid development at low cost. This library makes it possible to design and implement deep learning, which must be configured as a complex system, by combining a plurality of functionally differentiated modules such as a Restricted Boltzmann Machine(RBM), Deep Boltzmann Machines(DBMs), a Stacked-Auto-Encoder, an Encoder/Decoder based on Long Short-Term Memory(LSTM), and a Convolutional Auto-Encoder(CAE).',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',
     url='https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base/',

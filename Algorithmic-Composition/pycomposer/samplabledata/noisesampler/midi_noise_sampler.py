@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from pygan.noise_sampler import NoiseSampler
+from accelbrainbase.samplabledata.noise_sampler import NoiseSampler
 
 
 class MidiNoiseSampler(NoiseSampler):

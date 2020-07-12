@@ -1,6 +1,14 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 import pandas as pd
+import mxnet as mx
+import mxnet as mx
+import mxnet.ndarray as nd
+import numpy as np
+import pandas as pd
+from mxnet.gluon.nn import Conv2D
+from mxnet.gluon.nn import Conv2DTranspose
+from mxnet.gluon.nn import BatchNorm
 
 from pycomposer.gan_composable import GANComposable
 
@@ -8,9 +16,9 @@ from pycomposer.gan_composable import GANComposable
 from pycomposer.midi_controller import MidiController
 
 # is-a `TrueSampler`
-from pycomposer.sampleddata.truesampler._mxnet.bar_gram_true_sampler import BarGramTrueSampler
-# is-a `NoiseSampler`.
-from pycomposer.sampleddata.noisesampler._mxnet.bar_gram_noise_sampler import BarGramNoiseSampler
+from pycomposer.samplabledata.truesampler._mxnet.bar_gram_true_sampler import BarGramTrueSampler
+from pycomposer.samplabledata.truesampler._mxnet.bargramtruesampler.conditonal_bar_gram_true_sampler import ConditionalBarGramTrueSampler
+
 # n-gram of bars.
 from pycomposer.bar_gram import BarGram
 
@@ -27,7 +35,6 @@ from accelbrainbase.computableloss._mxnet.generator_loss import GeneratorLoss
 from accelbrainbase.computableloss._mxnet.discriminator_loss import DiscriminatorLoss
 from accelbrainbase.samplabledata.true_sampler import TrueSampler
 from accelbrainbase.samplabledata.condition_sampler import ConditionSampler
-from accelbrainbase.samplabledata.noisesampler._mxnet.uniform_noise_sampler import UniformNoiseSampler
 from accelbrainbase.controllablemodel._mxnet.gan_controller import GANController
 
 
@@ -104,7 +111,8 @@ class ConditionalGANComposer(GANComposable):
         attenuate_epoch=50,
         generative_model=None,
         discriminative_model=None,
-        gans_value_function=None
+        ctx=mx.gpu(),
+        initializer=None,
     ):
         '''
         Init.
@@ -123,8 +131,11 @@ class ConditionalGANComposer(GANComposable):
             noise_sampler:                  is-a `NoiseSampler`.
             generative_model:               is-a `GenerativeModel`.
             discriminative_model:           is-a `DiscriminativeModel`.
-            gans_value_function:            is-a `GANsValueFunction`.
+            ctx:                            `mx.cpu()` or `mx.gpu()`.
+            initializer:                    is-a `mxnet.initializer` for parameters of model. If `None`, it is drawing from the Xavier distribution.
         '''
+        computable_loss = mx.gluon.loss.SoftmaxCrossEntropyLoss(sparse_label=False)
+
         self.__midi_controller = MidiController()
         self.__midi_df_list = [self.__midi_controller.extract(midi_path) for midi_path in midi_path_list]
 
@@ -135,7 +146,7 @@ class ConditionalGANComposer(GANComposable):
         self.__bar_gram = bar_gram
         dim = self.__bar_gram.dim
 
-        true_sampler = BarGramTrueSampler(
+        c_true_sampler = ConditionalBarGramTrueSampler(
             bar_gram=bar_gram,
             midi_df_list=self.__midi_df_list,
             batch_size=batch_size,
@@ -143,7 +154,7 @@ class ConditionalGANComposer(GANComposable):
             time_fraction=time_fraction
         )
 
-        noise_sampler = BarGramNoiseSampler(
+        true_sampler = BarGramTrueSampler(
             bar_gram=bar_gram,
             midi_df_list=self.__midi_df_list,
             batch_size=batch_size,
@@ -169,7 +180,7 @@ class ConditionalGANComposer(GANComposable):
                         padding=(1, 1),
                     ), 
                     Conv2D(
-                        channels=1,
+                        channels=len(true_sampler.program_list),
                         kernel_size=6,
                         strides=(1, 1),
                         padding=(1, 1),
@@ -193,7 +204,6 @@ class ConditionalGANComposer(GANComposable):
                 scale=1.0,
             )
             condition_sampler.model = c_model
-
             g_model = ConvolutionalNeuralNetworks(
                 computable_loss=computable_loss,
                 initializer=initializer,
@@ -208,7 +218,7 @@ class ConditionalGANComposer(GANComposable):
                         padding=(1, 1),
                     ), 
                     Conv2DTranspose(
-                        channels=1,
+                        channels=len(true_sampler.program_list),
                         kernel_size=6,
                         strides=(1, 1),
                         padding=(1, 1),
@@ -233,16 +243,7 @@ class ConditionalGANComposer(GANComposable):
             )
 
             generative_model = GenerativeModel(
-                noise_sampler=UniformNoiseSampler(
-                    low=-1e-05,
-                    high=1e-05,
-                    batch_size=batch_size,
-                    seq_len=0,
-                    channel=channel,
-                    height=height,
-                    width=width,
-                    ctx=ctx
-                ), 
+                noise_sampler=None, 
                 model=g_model, 
                 initializer=None,
                 condition_sampler=condition_sampler,
@@ -256,8 +257,6 @@ class ConditionalGANComposer(GANComposable):
         else:
             if isinstance(generative_model, GenerativeModel) is False:
                 raise TypeError("The type of `generative_model` must be `GenerativeModel`.")
-
-        generative_model.noise_sampler = noise_sampler
 
         if discriminative_model is None:
             output_nn = NeuralNetworks(
@@ -332,7 +331,7 @@ class ConditionalGANComposer(GANComposable):
                 raise TypeError("The type of `discriminative_model` must be `DiscriminativeModel`.")
 
         GAN = GANController(
-            true_sampler=true_sampler,
+            true_sampler=c_true_sampler,
             generative_model=generative_model,
             discriminative_model=discriminative_model,
             generator_loss=GeneratorLoss(weight=1.0),
@@ -348,7 +347,6 @@ class ConditionalGANComposer(GANComposable):
             initializer=initializer,
         )
 
-        self.__noise_sampler = noise_sampler
         self.__true_sampler = true_sampler
         self.__generative_model = generative_model
         self.__discriminative_model = discriminative_model
@@ -364,15 +362,12 @@ class ConditionalGANComposer(GANComposable):
             k_step:     The number of learning of the `discriminator`.
 
         '''
-        generative_model, discriminative_model = self.__GAN.train(
-            self.__true_sampler,
-            self.__generative_model,
-            self.__discriminative_model,
+        self.__GAN.learn(
             iter_n=iter_n,
             k_step=k_step
         )
-        self.__generative_model = generative_model
-        self.__discriminative_model = discriminative_model
+        self.__generative_model = self.__GAN.generative_model
+        self.__discriminative_model = self.__GAN.discriminative_model
 
     def extract_logs(self):
         '''
@@ -380,11 +375,18 @@ class ConditionalGANComposer(GANComposable):
 
         Returns:
             The shape is:
-            - `list` of probabilities inferenced by the `discriminator` (mean) in the `discriminator`'s update turn.
-            - `list` of probabilities inferenced by the `discriminator` (mean) in the `generator`'s update turn.
+            - `np.ndarray` of probabilities inferenced by the `discriminator` (mean) in the `discriminator`'s update turn.
+            - `np.ndarray` of probabilities inferenced by the `discriminator` (mean) in the `generator`'s update turn.
+            - `np.ndarray` of posterior(mean).
+            - `np.ndarray` of losses of the feature matching.
 
         '''
-        return self.__GAN.extract_logs_tuple()
+        return (
+            self.__GAN.generative_loss_arr,
+            self.__GAN.discriminative_loss_arr,
+            self.__GAN.posterior_logs_arr,
+            self.__GAN.feature_matching_loss_arr
+        )
 
     def compose(self, file_path, velocity_mean=None, velocity_std=None):
         '''
@@ -432,7 +434,7 @@ class ConditionalGANComposer(GANComposable):
                             scale=velocity_std
                         )
                         velocity = int(velocity)
-                        program = self.__noise_sampler.program_list[program_key]
+                        program = self.__true_sampler.program_list[program_key]
                         generated_list.append((program, start, end, pitch, velocity))
                         add_flag = True
 

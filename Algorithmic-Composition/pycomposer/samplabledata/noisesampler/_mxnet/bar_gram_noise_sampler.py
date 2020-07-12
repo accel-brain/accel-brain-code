@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
-import numpy as np
-from pygan.samplabledata.noisesampler.midi_noise_sampler import MidiNoiseSampler as _MidiNoiseSampler
+from pycomposer.samplabledata.noisesampler.bar_gram_noise_sampler import BarGramNoiseSampler as _BarGramNoiseSampler
 import mxnet as mx
 import mxnet.ndarray as nd
 
 
-class MidiNoiseSampler(_MidiNoiseSampler):
+class BarGramNoiseSampler(_BarGramNoiseSampler):
     '''
     Sampler which draws samples from the `true` distribution of MIDI files.
     '''
@@ -31,3 +30,4 @@ class MidiNoiseSampler(_MidiNoiseSampler):
         '''
         arr = super().draw()
         arr = nd.ndarray.array(arr, ctx=self.__ctx)
+        return arr

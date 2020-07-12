@@ -16,7 +16,6 @@ class BarGramTrueSampler(TrueSampler):
         batch_size=20, 
         seq_len=10, 
         time_fraction=0.1,
-        conditional_flag=True
     ):
         '''
         Init.
@@ -49,7 +48,6 @@ class BarGramTrueSampler(TrueSampler):
         self.__program_list = program_list
         self.__time_fraction = time_fraction
         self.__dim = self.__bar_gram.dim
-        self.__conditional_flag = conditional_flag
 
     def draw(self):
         '''
@@ -58,10 +56,7 @@ class BarGramTrueSampler(TrueSampler):
         Returns:
             `np.ndarray` of samples.
         '''
-        if self.__conditional_flag is True:
-            return np.concatenate((self.__create_samples(), self.__create_samples()), axis=1)
-        else:
-            return self.__create_samples()
+        return self.__create_samples()
 
     def __create_samples(self):
         sampled_arr = np.zeros((self.__batch_size, self.__channel, self.__seq_len, self.__dim))
@@ -91,3 +86,19 @@ class BarGramTrueSampler(TrueSampler):
     def __convert_into_feature(self, df):
         arr = self.__bar_gram.extract_features(df)
         return arr.reshape(1, -1).astype(float)
+
+    def set_readonly(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+
+    def get_program_list(self):
+        ''' getter '''
+        return self.__program_list
+    
+    program_list = property(get_program_list, set_readonly)
+
+    def get_channel(self):
+        ''' getter '''
+        return self.__channel
+
+    channel = property(get_channel, set_readonly)

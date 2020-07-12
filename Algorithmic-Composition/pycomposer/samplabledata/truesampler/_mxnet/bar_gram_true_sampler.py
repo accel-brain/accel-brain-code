@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from pygan.samplabledata.truesampler.bar_gram_true_sampler import BarGramTrueSampler as _BarGramTrueSampler
+from pycomposer.samplabledata.truesampler.bar_gram_true_sampler import BarGramTrueSampler as _BarGramTrueSampler
 import mxnet as mx
 import mxnet.ndarray as nd
 
@@ -30,3 +30,4 @@ class BarGramTrueSampler(_BarGramTrueSampler):
         '''
         arr = super().draw()
         arr = nd.ndarray.array(arr, ctx=self.__ctx)
+        return arr

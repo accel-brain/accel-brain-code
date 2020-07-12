@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from pygan.samplabledata.truesampler.midi_true_sampler import MidiTrueSampler as _MidiTrueSampler
+from pycomposer.samplabledata.truesampler.midi_true_sampler import MidiTrueSampler as _MidiTrueSampler
 import mxnet as mx
 import mxnet.ndarray as nd
 
@@ -31,3 +31,4 @@ class MidiTrueSampler(_MidiTrueSampler):
         '''
         arr = super().draw()
         arr = nd.ndarray.array(arr, ctx=self.__ctx)
+        return arr

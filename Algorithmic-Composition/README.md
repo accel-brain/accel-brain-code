@@ -24,11 +24,10 @@ Installers for the latest released version are available at the Python package i
 
 ### Dependencies
 
-- numpy: v1.13.3 or higher.
-- pandas: v0.22.0 or higher.
-- pretty_midi: latest.
-- pygan: latest.
-- pydbm: latest.
+- [numpy](https://github.com/numpy/numpy): v1.13.3 or higher.
+- [pandas](https://github.com/pandas-dev/pandas): v0.22.0 or higher.
+- [pretty_midi](https://github.com/craffel/pretty-midi): latest.
+- [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base): v1.0.0 or higher.
 
 ## Documentation
 
@@ -124,12 +123,8 @@ gan_composer = ConditionalGANComposer(
     learning_rate=1e-10,
     # Time fraction or time resolution (seconds).
     time_fraction=0.5,
-    # The number of units in hidden layer of `DiscriminativeModel`.
-    hidden_dim=105920
 )
 ```
-
-**Note** that the value of hidden_dim depends on the values of seq_len and time_fraction because the Symbolic Representation for Convolutional/Deconvolutional neural networks(Yang, L. C., et al., 2017) is the theoretical background.
 
 ### Learning.
 
@@ -167,7 +162,7 @@ gan_composer.compose(
 
 Finally, new MIDI file will be stored in `file_path`.
 
-If you want to know more detailed implementation and log visualization, see [my notebook](https://github.com/chimera0/accel-brain-code/blob/master/Algorithmic-Composition/demo/Algorithmic_composition_by_conditional_GAN_like_MidiNet.ipynb).
+If you want to know more detailed implementation and log visualization, see [my notebook](https://github.com/accel-brain/accel-brain-code/blob/master/Algorithmic-Composition/demo/Algorithmic_composition_by_conditional_GAN_like_MidiNet.ipynb).
 
 ## References
 
@@ -196,11 +191,12 @@ If you want to know more detailed implementation and log visualization, see [my 
 
 ## Author
 
-- chimera0(RUM)
+- accel-brain
 
 ## Author URI
 
-- http://accel-brain.com/
+- https://accel-brain.co.jp/
+- https://accel-brain.com/
 
 ## License
 

@@ -4,6 +4,17 @@
 
 From the view points of functionally equivalents and structural expansions, this library also prototypes many variants such as energy-based models and Generative models. Typical examples are Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs). In addition, it provides deep reinforcement learning that applies the neural network described above as a function approximator.
 
+See also ...
+
+- [Automatic Summarization Library: pysummarization](https://github.com/accel-brain/accel-brain-code/tree/master/Automatic-Summarization)
+   * If you want to implement the Sequence-to-Sequence(Seq2Seq) model for the automatic summarization by using `accel-brain-base` to build the Encoder/Decoder controllers.
+- [Reinforcement Learning Library: pyqlearning](https://github.com/accel-brain/accel-brain-code/tree/master/Reinforcement-Learning)
+    * If you want to implement the Deep Reinforcement Learning, especially for Deep Q-Network and Multi-agent Deep Q-Network by using `accel-brain-base` as a Function Approximator.
+- [Generative Adversarial Networks Library: pygan](https://github.com/accel-brain/accel-brain-code/tree/master/Generative-Adversarial-Networks)
+    * If you want to implement Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs) by using `accel-brain-base` as components for Generative models based on the Statistical machine learning problems.
+- [Algorithmic Composition or Automatic Composition Library: pycomposer](https://github.com/accel-brain/accel-brain-code/tree/master/Algorithmic-Composition)
+   * If you want to implement the Algorithmic Composer based on Generative Adversarial Networks(GANs) by using `accel-brain-base` as components for Generative models based on the Statistical machine learning problems.
+
 ## Installation
 
 Install using pip:
@@ -409,3 +420,16 @@ It is not inevitable to functionally reuse CNN as a function approximator. In th
 - Sandler, M., Howard, A., Zhu, M., Zhmoginov, A., & Chen, L. C. (2018). Mobilenetv2: Inverted residuals and linear bottlenecks. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 4510-4520).
 - Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. (2014). Dropout: a simple way to prevent neural networks from overfitting. The Journal of Machine Learning Research, 15(1), 1929-1958.
 - Zaremba, W., Sutskever, I., & Vinyals, O. (2014). Recurrent neural network regularization. arXiv preprint arXiv:1409.2329.
+
+## Author
+
+- accel-brain
+
+## Author URI
+
+- https://accel-brain.co.jp/
+- https://accel-brain.com/
+
+## License
+
+- GNU General Public License v2.0

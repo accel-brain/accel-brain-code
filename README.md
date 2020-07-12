@@ -26,9 +26,17 @@ In this problem setting and *recursive* solutions, this repository is functional
 
 As part of prototyping, this repository publishes a special machine learning library, [Accel-Brain-Base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base).
 
+`accel-brain-base` is a basic library of the Deep Learning for rapid development at low cost. This library makes it possible to design and implement deep learning, which must be configured as a complex system or a System of Systems, by combining a plurality of functionally differentiated modules such as a Restricted Boltzmann Machine(RBM), Deep Boltzmann Machines(DBMs), a Stacked-Auto-Encoder, an Encoder/Decoder based on Long Short-Term Memory(LSTM), and a Convolutional Auto-Encoder(CAE).
+
+From the view points of functionally equivalents and structural expansions, this library also prototypes many variants such as energy-based models and Generative models. Typical examples are Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs). In addition, it provides deep reinforcement learning that applies the neural network described above as a function approximator.
+
 Considering many variable parts, structural unions, and *functional equivalents* in the deep learning paradigm, which are variants derived not only from research but also from the relationship with business domains, from perspective of *commonality/variability analysis* in order to practice object-oriented design, this library provides abstract classes that define the skeleton of the deep Learning algorithm in an operation, deferring some steps in concrete variant algorithms such as the **Deep Boltzmann Machines**, **Stacked Auto-Encoder**, **Encoder/Decoder based on LSTM**, and **Convolutional Auto-Encoder** to client subclasses. The abstract classes and the interfaces in this library let subclasses redefine certain steps of the deep Learning algorithm without changing the algorithm's structure.
 
 These abstract classes can also provide new original models and algorithms such as **Generative Adversarial Networks(GANs)**, **Deep Reinforcement Learning**, or **Neural network language model** by implementing the variable parts of the fluid elements of objects.
+
+#### Documentation
+
+Full documentation is available on [https://code.accel-brain.com/Accel-Brain-Base/README.html](https://code.accel-brain.com/Accel-Brain-Base/README.html). This document contains information on functionally reusability, functional scalability and functional extensibility.
 
 ### Problem Solution: [Automatic Summarization Library: pysummarization](https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization)
 
@@ -39,88 +47,6 @@ The function of this library is automatic summarization using a kind of natural 
 #### Documentation
 
 Full documentation is available on [https://code.accel-brain.com/Automatic-Summarization/](https://code.accel-brain.com/Automatic-Summarization/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
-
-### Problem Solution: [Deep Learning Library: pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern)
-
-The function of `pydbm` is building and modeling **Restricted Boltzmann Machine**(RBM) and **Deep Boltzmann Machine**(DBM). The models are functionally equivalent to **stacked auto-encoder**. The basic function is the same as **dimensions reduction**(or **pre-training**). And this library enables you to build many functional extensions from RBM and DBM such as Recurrent Temporal Restricted Boltzmann Machine(RTRBM), Recurrent Neural Network Restricted Boltzmann Machine(RNN-RBM), Long Short-Term Memory Recurrent Temporal Restricted Boltzmann Machine(LSTM-RTRBM), and Shape Boltzmann Machine(Shape-BM).
-
-#### RTRBM, RNN-RBM, and LSTM-RTRBM for probabilistic time-series model.
-
-As more usecases, **RTRBM**, **RNN-RBM**, and **LSTM-RTRBM** can learn dependency structures in temporal patterns such as music, natural sentences, and n-gram. RTRBM is a probabilistic time-series model which can be viewed as a temporal stack of RBMs, where each RBM has a contextual hidden state that is received from the previous RBM and is used to modulate its hidden units bias. The RTRBM can be understood as a sequence of conditional RBMs whose parameters are the output of a deterministic RNN, with the constraint that the hidden units must describe the conditional distributions. This constraint can be lifted by combining a full RNN with distinct hidden units. In terms of this possibility, RNN-RBM and LSTM-RTRBM are structurally expanded model from RTRBM that allows more freedom to describe the temporal dependencies involved.
-
-#### Shape-BM for image segmentation, object detection, inpainting and graphics.
-
-The usecases of **Shape-BM** are image segmentation, object detection, inpainting and graphics. Shape-BM is the model for the task of modeling binary shape images, in that samples from the model look realistic and it can generalize to generate samples that differ from training examples.
-
-<table border="0">
-    <tr>
-        <td>
-            <img src="https://github.com/chimera0/accel-brain-code/raw/master/Deep-Learning-by-means-of-Design-Pattern/img/horse099.jpg" />
-        <p>Image in <a href="https://avaminzhang.wordpress.com/2012/12/07/%E3%80%90dataset%E3%80%91weizmann-horses/" target="_blank">the Weizmann horse dataset</a>.</p>
-        </td>
-        <td>
-            <img src="https://github.com/chimera0/accel-brain-code/raw/master/Deep-Learning-by-means-of-Design-Pattern/img/horse099_binary.png" />
-            <p>Binarized image.</p>
-        </td>
-        <td>
-            <img src="https://github.com/chimera0/accel-brain-code/raw/master/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_horse099.gif" />
-            <p>Reconstructed image by Shape-BM.</p>
-        </td>
-    </tr>
-</table>
-
-#### Functionally equivalent: Encoder/Decoder based on LSTM.
-
-The methodology of *equivalent-functionalism* enables us to introduce more functional equivalents and compare problem solutions structured with different algorithms and models in common problem setting. For example, in dimension reduction problem, the function of **Encoder/Decoder schema** is equivalent to **DBM** as a **Stacked Auto-Encoder**.
-
-<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/encoder_decoder.png" />
-<p>Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078., p2.</p>
-</div>
-
-According to the neural networks theory, and in relation to manifold hypothesis, it is well known that multilayer neural networks can learn features of observed data points and have the feature points in hidden layer. High-dimensional data can be converted to low-dimensional codes by training the model such as **Stacked Auto-Encoder** and **Encoder/Decoder** with a small central layer to reconstruct high-dimensional input vectors. This function of dimensionality reduction facilitates feature expressions to calculate similarity of each data point.
-
-This library provides **Encoder/Decoder based on LSTM**, which is a reconstruction model and makes it possible to extract series features embedded in deeper layers. The LSTM encoder learns a fixed length vector of time-series observed data points and the LSTM decoder uses this representation to reconstruct the time-series using the current hidden state and the value inferenced at the previous time-step.
-
-#### Functionally equivalent: Convolutional Auto-Encoder.
-
-**Shape-BM** is a kind of problem solution in relation to problem settings such as image segmentation, object detection, inpainting and graphics. In this problem settings, **Convolutional Auto-Encoder**(Masci, J., et al., 2011) is a functionally equivalent of **Shape-BM**. A stack of Convolutional Auto-Encoder forms a convolutional neural network(CNN), which are among the most successful models for supervised image classification. Each Convolutional Auto-Encoder is trained using conventional on-line gradient descent without additional regularization terms.
-
-<table border="0">
-    <tr>
-        <td>
-            <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/horse099.jpg" />
-        <p>Image in <a href="https://avaminzhang.wordpress.com/2012/12/07/%E3%80%90dataset%E3%80%91weizmann-horses/" target="_blank">the Weizmann horse dataset</a>.</p>
-        </td>
-        <td>
-            <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_horse099.gif" />
-            <p>Reconstructed image by <strong>Shape-BM</strong>.</p>
-        </td>
-        <td>
-            <img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/reconstructed_by_CAE.gif" />
-            <p>Reconstructed image by <strong>Convolutional Auto-Encoder</strong>.</p>
-        </td>
-    </tr>
-</table>
-
-My jupyter notebook: [demo/demo_convolutional_auto_encoder.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_convolutional_auto_encoder.ipynb) also demonstrates various reconstructed images.
-
-In this library, **Convolutional Auto-Encoder** is also based on **Encoder/Decoder** scheme. The *encoder* is to the *decoder* what the *Convolution* is to the *Deconvolution*. The Deconvolution also called transposed convolutions "work by swapping the forward and backward passes of a convolution." (Dumoulin, V., & Visin, F. 2016, p20.)
-
-#### Structural expansion for Spatio-Temporal Auto-Encoder.
-
-**Encoder/Decoder based on LSTM** and **Convolutional Auto-Encoder** have a functional reusability to extend the structures to **Spatio-Temporal Auto-Encoder**, which can learn the regular patterns in the training videos(Baccouche, M., et al., 2012, Patraucean, V., et al. 2015). This model consists of spatial Auto-Encoder and temporal Encoder/Decoder. The spatial Auto-Encoder is a Convolutional Auto-Encoder for learning spatial structures of each video frame. The temporal Encoder/Decoder is an Encoder/Decoder based on LSTM scheme for learning temporal patterns of the encoded spatial structures. The spatial encoder and decoder have two convolutional and deconvolutional layers respectively, while the temporal encoder and decoder are to act as a twin LSTM models.
-
-<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/spatio_temporal_auto_encoder_model.png" />
-<p>Chong, Y. S., & Tay, Y. H. (2017, June). Abnormal event detection in videos using spatiotemporal autoencoder. In International Symposium on Neural Networks (pp. 189-196). Springer, Cham., p.195.</p>
-</div>
-
-##### Video recognition and reconstruction of video images.
-
-[demo/demo_spatio_temporal_auto_encoder.ipynb](https://github.com/chimera0/accel-brain-code/blob/master/Deep-Learning-by-means-of-Design-Pattern/demo/demo_spatio_temporal_auto_encoder.ipynb) is a jupyter notebook which demonstrates the video recognition and reconstruction of video images by the Spatio-Temporal Auto-Encoder.
-
-#### Documentation
-
-Full documentation is available on [https://code.accel-brain.com/Deep-Learning-by-means-of-Design-Pattern/](https://code.accel-brain.com/Deep-Learning-by-means-of-Design-Pattern/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
 
 ### Problem Solution: [Reinforcement Learning Library: pyqlearning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning)
 

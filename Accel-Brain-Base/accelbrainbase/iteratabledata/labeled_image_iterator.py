@@ -24,7 +24,7 @@ class LabeledImageIterator(IteratableData):
                 n = 1e-08
             arr = (arr - arr.min()) / (arr.max() - arr.min() + n)
         elif self.__norm_mode == "z_score":
-            std = arr.std()
+            std = arr.asnumpy().std()
             if std == 0:
                 std += 1e-08
             arr = (arr - arr.mean()) / std

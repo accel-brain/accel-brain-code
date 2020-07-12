@@ -1,6 +1,6 @@
-# accel-brain-base.
+# Deep Learning Library: accel-brain-base.
 
-`accel-brain-base` is Python library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Stacked-Auto-Encoder, Encoder/Decoder based on Long Short-Term Memory(LSTM), and Convolutional Auto-Encoder(CAE).
+`accel-brain-base` is a basic library of the Deep Learning for rapid development at low cost. This library makes it possible to design and implement deep learning, which must be configured as a complex system or a System of Systems, by combining a plurality of functionally differentiated modules such as the Restricted Boltzmann Machine(RBM), Deep Boltzmann Machines(DBMs), a Stacked-Auto-Encoder, an Encoder/Decoder based on Long Short-Term Memory(LSTM), and a Convolutional Auto-Encoder(CAE).
 
 From the view points of functionally equivalents and structural expansions, this library also prototypes many variants such as energy-based models and Generative models. Typical examples are Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs). In addition, it provides deep reinforcement learning that applies the neural network described above as a function approximator.
 
@@ -27,7 +27,7 @@ pip install accelbrainbase
 
 The source code is currently hosted on GitHub.
 
-- [accel-brain-code/Accel-Brain-Base](https://github.com/accel-brain/accel-brain-architecture/tree/master/accel-brain-base)
+- [accel-brain-code/Accel-Brain-Base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base)
 
 ### Python package index(PyPI)
 
@@ -37,9 +37,9 @@ Installers for the latest released version are available at the Python package i
 
 ### Dependencies
 
-- numpy: v1.13.3 or higher.
-- pandas: v0.22.0 or higher.
-- mxnet or mxnet-cu*: latest.
+- [numpy](https://github.com/numpy/numpy): v1.13.3 or higher.
+- [pandas](https://github.com/pandas-dev/pandas): v0.22.0 or higher.
+- [mxnet](https://github.com/apache/incubator-mxnet) or [mxnet-cu*](https://mxnet.apache.org/api/python/docs/tutorials/getting-started/crash-course/6-use_gpus.html): latest.
 
 #### For ML Ops.
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from pygan.true_sampler import TrueSampler
+from accelbrainbase.samplabledata.true_sampler import TrueSampler
 
 
 class MidiTrueSampler(TrueSampler):

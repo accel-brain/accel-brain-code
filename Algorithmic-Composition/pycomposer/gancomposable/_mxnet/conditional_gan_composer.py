@@ -8,55 +8,28 @@ from pycomposer.gan_composable import GANComposable
 from pycomposer.midi_controller import MidiController
 
 # is-a `TrueSampler`
-from pycomposer.truesampler.bar_gram_true_sampler import BarGramTrueSampler
+from pycomposer.sampleddata.truesampler._mxnet.bar_gram_true_sampler import BarGramTrueSampler
 # is-a `NoiseSampler`.
-from pycomposer.noisesampler.bar_gram_noise_sampler import BarGramNoiseSampler
+from pycomposer.sampleddata.noisesampler._mxnet.bar_gram_noise_sampler import BarGramNoiseSampler
 # n-gram of bars.
 from pycomposer.bar_gram import BarGram
 
-# is-a `NoiseSampler`.
-from pygan.noisesampler.uniform_noise_sampler import UniformNoiseSampler
-# is-a `GenerativeModel`.
-from pygan.generativemodel.conditionalgenerativemodel.conditional_convolutional_model import ConditionalConvolutionalModel as Generator
-# is-a `GenerativeModel`.
-from pygan.generativemodel.deconvolution_model import DeconvolutionModel
-# is-a `DiscriminativeModel`.
-from pygan.discriminativemodel.cnnmodel.seq_cnn_model import SeqCNNModel as Discriminator
-# is-a `GANsValueFunction`.
-from pygan.gansvaluefunction.mini_max import MiniMax
-# GANs framework.
-from pygan.generative_adversarial_networks import GenerativeAdversarialNetworks
-# Feature Matching.
-from pygan.feature_matching import FeatureMatching
+from accelbrainbase.computableloss._mxnet.l2_norm_loss import L2NormLoss
+from accelbrainbase.extractabledata._mxnet.image_extractor import ImageExtractor
+from accelbrainbase.iteratabledata._mxnet.unlabeled_image_iterator import UnlabeledImageIterator
+from accelbrainbase.noiseabledata._mxnet.gauss_noise import GaussNoise
+from accelbrainbase.observabledata._mxnet.convolutional_neural_networks import ConvolutionalNeuralNetworks
+from accelbrainbase.observabledata._mxnet.neural_networks import NeuralNetworks
+from accelbrainbase.observabledata._mxnet.convolutionalneuralnetworks.convolutional_auto_encoder import ConvolutionalAutoEncoder
+from accelbrainbase.observabledata._mxnet.adversarialmodel.discriminative_model import DiscriminativeModel
+from accelbrainbase.observabledata._mxnet.adversarialmodel.generative_model import GenerativeModel
+from accelbrainbase.computableloss._mxnet.generator_loss import GeneratorLoss
+from accelbrainbase.computableloss._mxnet.discriminator_loss import DiscriminatorLoss
+from accelbrainbase.samplabledata.true_sampler import TrueSampler
+from accelbrainbase.samplabledata.condition_sampler import ConditionSampler
+from accelbrainbase.samplabledata.noisesampler._mxnet.uniform_noise_sampler import UniformNoiseSampler
+from accelbrainbase.controllablemodel._mxnet.gan_controller import GANController
 
-# Activation function.
-from pydbm.activation.tanh_function import TanhFunction
-# Activation function.
-from pydbm.activation.softmax_function import SoftmaxFunction
-# Batch normalization.
-from pydbm.optimization.batch_norm import BatchNorm
-# First convolution layer.
-from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer1
-# Second convolution layer.
-from pydbm.cnn.layerablecnn.convolution_layer import ConvolutionLayer as ConvolutionLayer2
-# Computation graph in output layer.
-from pydbm.synapse.cnn_output_graph import CNNOutputGraph
-# Computation graph for first convolution layer.
-from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph1
-# Computation graph for second convolution layer.
-from pydbm.synapse.cnn_graph import CNNGraph as ConvGraph2
-# Logistic Function as activation function.
-from pydbm.activation.logistic_function import LogisticFunction
-# Adams optimizer.
-from pydbm.optimization.optparams.adam import Adam
-# Convolutional Neural Networks(CNNs).
-from pydbm.cnn.convolutional_neural_network import ConvolutionalNeuralNetwork as CNN
-# Cross entropy.
-from pydbm.loss.cross_entropy import CrossEntropy
-# Transposed convolution.
-from pydbm.cnn.layerablecnn.convolutionlayer.deconvolution_layer import DeconvolutionLayer
-# computation graph for transposed convolution.
-from pydbm.synapse.cnn_graph import CNNGraph as DeCNNGraph
 
 
 class ConditionalGANComposer(GANComposable):
@@ -129,7 +102,6 @@ class ConditionalGANComposer(GANComposable):
         learning_rate=1e-10,
         learning_attenuate_rate=0.1,
         attenuate_epoch=50,
-        hidden_dim=15200,
         generative_model=None,
         discriminative_model=None,
         gans_value_function=None
@@ -146,8 +118,6 @@ class ConditionalGANComposer(GANComposable):
             learning_rate:                  Learning rate in `Generator` and `Discriminator`.
             learning_attenuate_rate:        Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
             attenuate_epoch:                Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
-
-            hidden_dim:                     The number of units in hidden layer of `DiscriminativeModel`.
 
             true_sampler:                   is-a `TrueSampler`.
             noise_sampler:                  is-a `NoiseSampler`.
@@ -182,133 +152,200 @@ class ConditionalGANComposer(GANComposable):
         )
 
         if generative_model is None:
-            conv_activation_function = TanhFunction()
-            conv_activation_function.batch_norm = BatchNorm()
+            condition_sampler = ConditionSampler()
+            condition_sampler.true_sampler = true_sampler
 
-            channel = noise_sampler.channel
-
-            convolution_layer_list = [
-                ConvolutionLayer1(
-                    ConvGraph1(
-                        activation_function=conv_activation_function,
-                        filter_num=batch_size,
-                        channel=channel,
-                        kernel_size=3,
-                        scale=0.01,
-                        stride=1,
-                        pad=1
-                    )
-                )
-            ]
-
-            deconv_activation_function = SoftmaxFunction()
-
-            deconvolution_layer_list = [
-                DeconvolutionLayer(
-                    DeCNNGraph(
-                        activation_function=deconv_activation_function,
-                        filter_num=batch_size,
-                        channel=channel,
-                        kernel_size=3,
-                        scale=0.01,
-                        stride=1,
-                        pad=1
-                    )
-                )
-            ]
-
-            opt_params_deconv = Adam()
-            opt_params_deconv.dropout_rate = 0.0
-            opt_params_deconv.weight_limit = 1e+10
-
-            deconvolution_model = DeconvolutionModel(
-                deconvolution_layer_list=deconvolution_layer_list,
-                opt_params=opt_params_deconv
-            )
-
-            opt_params = Adam()
-            opt_params.dropout_rate = 0.0
-            opt_params.weight_limit = 1e+10
-
-            generative_model = Generator(
-                batch_size=batch_size,
-                layerable_cnn_list=convolution_layer_list,
-                deconvolution_model=deconvolution_model,
-                condition_noise_sampler=UniformNoiseSampler(
-                    low=-0.1, 
-                    high=0.1, 
-                    output_shape=(batch_size, channel, seq_len, dim)
-                ),
+            c_model = ConvolutionalNeuralNetworks(
+                computable_loss=computable_loss,
+                initializer=initializer,
                 learning_rate=learning_rate,
-                learning_attenuate_rate=learning_attenuate_rate,
-                attenuate_epoch=attenuate_epoch
+                learning_attenuate_rate=1.0,
+                attenuate_epoch=50,
+                hidden_units_list=[
+                    Conv2D(
+                        channels=16,
+                        kernel_size=6,
+                        strides=(1, 1),
+                        padding=(1, 1),
+                    ), 
+                    Conv2D(
+                        channels=1,
+                        kernel_size=6,
+                        strides=(1, 1),
+                        padding=(1, 1),
+                    ),
+                ],
+                input_nn=None,
+                input_result_height=None,
+                input_result_width=None,
+                input_result_channel=None,
+                output_nn=None,
+                hidden_dropout_rate_list=[0.5, 0.0],
+                hidden_batch_norm_list=[BatchNorm(), None],
+                optimizer_name="SGD",
+                hidden_activation_list=["relu", "identity"],
+                hidden_residual_flag=False,
+                hidden_dense_flag=False,
+                dense_axis=1,
+                ctx=ctx,
+                hybridize_flag=True,
+                regularizatable_data_list=[],
+                scale=1.0,
             )
+            condition_sampler.model = c_model
+
+            g_model = ConvolutionalNeuralNetworks(
+                computable_loss=computable_loss,
+                initializer=initializer,
+                learning_rate=learning_rate,
+                learning_attenuate_rate=1.0,
+                attenuate_epoch=50,
+                hidden_units_list=[
+                    Conv2DTranspose(
+                        channels=16,
+                        kernel_size=6,
+                        strides=(1, 1),
+                        padding=(1, 1),
+                    ), 
+                    Conv2DTranspose(
+                        channels=1,
+                        kernel_size=6,
+                        strides=(1, 1),
+                        padding=(1, 1),
+                    ),
+                ],
+                input_nn=None,
+                input_result_height=None,
+                input_result_width=None,
+                input_result_channel=None,
+                output_nn=None,
+                hidden_dropout_rate_list=[0.5, 0.0],
+                hidden_batch_norm_list=[BatchNorm(), None],
+                optimizer_name="SGD",
+                hidden_activation_list=["relu", "identity"],
+                hidden_residual_flag=False,
+                hidden_dense_flag=False,
+                dense_axis=1,
+                ctx=ctx,
+                hybridize_flag=True,
+                regularizatable_data_list=[],
+                scale=1.0,
+            )
+
+            generative_model = GenerativeModel(
+                noise_sampler=UniformNoiseSampler(
+                    low=-1e-05,
+                    high=1e-05,
+                    batch_size=batch_size,
+                    seq_len=0,
+                    channel=channel,
+                    height=height,
+                    width=width,
+                    ctx=ctx
+                ), 
+                model=g_model, 
+                initializer=None,
+                condition_sampler=condition_sampler,
+                conditonal_dim=1,
+                learning_rate=learning_rate,
+                optimizer_name="SGD",
+                hybridize_flag=True,
+                scale=1.0, 
+                ctx=ctx, 
+            )
+        else:
+            if isinstance(generative_model, GenerativeModel) is False:
+                raise TypeError("The type of `generative_model` must be `GenerativeModel`.")
 
         generative_model.noise_sampler = noise_sampler
 
         if discriminative_model is None:
-            activation_function = LogisticFunction()
-            activation_function.batch_norm = BatchNorm()
-
-            # First convolution layer.
-            conv2 = ConvolutionLayer2(
-                # Computation graph for first convolution layer.
-                ConvGraph2(
-                    # Logistic function as activation function.
-                    activation_function=activation_function,
-                    # The number of `filter`.
-                    filter_num=batch_size,
-                    # The number of channel.
-                    channel=noise_sampler.channel*2,
-                    # The size of kernel.
-                    kernel_size=3,
-                    # The filter scale.
-                    scale=0.001,
-                    # The nubmer of stride.
-                    stride=1,
-                    # The number of zero-padding.
-                    pad=1
-                )
-            )
-
-            # Stack.
-            layerable_cnn_list=[
-                conv2
-            ]
-
-            opt_params = Adam()
-            opt_params.dropout_rate = 0.0
-            opt_params.weight_limit = 1e+10
-
-            if hidden_dim is None:
-                hidden_dim = channel * seq_len * dim
-
-            cnn_output_activating_function = LogisticFunction()
-
-            cnn_output_graph = CNNOutputGraph(
-                hidden_dim=hidden_dim, 
-                output_dim=1, 
-                activating_function=cnn_output_activating_function, 
-                scale=0.01
-            )
-
-            discriminative_model = Discriminator(
-                batch_size=batch_size,
-                layerable_cnn_list=layerable_cnn_list,
-                cnn_output_graph=cnn_output_graph,
-                opt_params=opt_params,
-                computable_loss=CrossEntropy(),
+            output_nn = NeuralNetworks(
+                computable_loss=computable_loss,
+                initializer=initializer,
                 learning_rate=learning_rate,
-                learning_attenuate_rate=learning_attenuate_rate,
-                attenuate_epoch=attenuate_epoch
+                learning_attenuate_rate=1.0,
+                attenuate_epoch=50,
+                units_list=[100, 1],
+                dropout_rate_list=[0.5, 0.0],
+                optimizer_name="SGD",
+                activation_list=["relu", "sigmoid"],
+                hidden_batch_norm_list=[BatchNorm(), None],
+                ctx=ctx,
+                hybridize_flag=True,
+                regularizatable_data_list=[],
+                scale=1.0,
+                output_no_bias_flag=True,
+                all_no_bias_flag=True,
+                not_init_flag=False,
             )
 
-        if gans_value_function is None:
-            gans_value_function = MiniMax()
+            d_model = ConvolutionalNeuralNetworks(
+                computable_loss=computable_loss,
+                initializer=initializer,
+                learning_rate=learning_rate,
+                learning_attenuate_rate=1.0,
+                attenuate_epoch=50,
+                hidden_units_list=[
+                    Conv2D(
+                        channels=16,
+                        kernel_size=6,
+                        strides=(2, 2),
+                        padding=(1, 1),
+                    ), 
+                    Conv2D(
+                        channels=32,
+                        kernel_size=3,
+                        strides=(2, 2),
+                        padding=(1, 1),
+                    ),
+                ],
+                input_nn=None,
+                input_result_height=None,
+                input_result_width=None,
+                input_result_channel=None,
+                output_nn=output_nn,
+                hidden_dropout_rate_list=[0.5, 0.5],
+                hidden_batch_norm_list=[BatchNorm(), BatchNorm()],
+                optimizer_name="SGD",
+                hidden_activation_list=["relu", "relu"],
+                hidden_residual_flag=False,
+                hidden_dense_flag=False,
+                dense_axis=1,
+                ctx=ctx,
+                hybridize_flag=True,
+                regularizatable_data_list=[],
+                scale=1.0,
+            )
 
-        GAN = GenerativeAdversarialNetworks(
-            gans_value_function=gans_value_function,
-            feature_matching=FeatureMatching(lambda1=0.01, lambda2=0.99)
+            discriminative_model = DiscriminativeModel(
+                model=d_model, 
+                initializer=None,
+                learning_rate=learning_rate,
+                optimizer_name="SGD",
+                hybridize_flag=True,
+                scale=1.0, 
+                ctx=ctx, 
+            )
+        else:
+            if isinstance(discriminative_model, DiscriminativeModel) is False:
+                raise TypeError("The type of `discriminative_model` must be `DiscriminativeModel`.")
+
+        GAN = GANController(
+            true_sampler=true_sampler,
+            generative_model=generative_model,
+            discriminative_model=discriminative_model,
+            generator_loss=GeneratorLoss(weight=1.0),
+            discriminator_loss=DiscriminatorLoss(weight=1.0),
+            feature_matching_loss=L2NormLoss(weight=1.0),
+            optimizer_name="SGD",
+            learning_rate=learning_rate,
+            learning_attenuate_rate=1.0,
+            attenuate_epoch=50,
+            hybridize_flag=True,
+            scale=1.0,
+            ctx=ctx,
+            initializer=initializer,
         )
 
         self.__noise_sampler = noise_sampler
@@ -366,7 +403,7 @@ class ConditionalGANComposer(GANComposable):
                             `velocity_mean` and `velocity_std`.
                             If `None`, the SD of velocity in MIDI files set to this parameter.
         '''
-        generated_arr = self.__generative_model.draw()
+        generated_arr = self.__generative_model.draw().asnumpy()
         channel = generated_arr.shape[1] // 2
         generated_arr = generated_arr[:, channel:]
 

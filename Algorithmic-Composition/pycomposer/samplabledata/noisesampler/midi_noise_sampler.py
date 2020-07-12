@@ -32,9 +32,9 @@ class MidiNoiseSampler(NoiseSampler):
         self.__seq_len = seq_len
         self.__dim = max_pitch - min_pitch
 
-    def generate(self):
+    def draw(self):
         '''
-        Generate noise samples.
+        Draw noise samples.
         
         Returns:
             `np.ndarray` of samples.

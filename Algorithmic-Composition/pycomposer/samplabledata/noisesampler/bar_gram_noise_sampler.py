@@ -57,9 +57,9 @@ class BarGramNoiseSampler(NoiseSampler):
         self.__time_fraction = time_fraction
         self.__dim = self.__bar_gram.dim
 
-    def generate(self):
+    def draw(self):
         '''
-        Generate noise samples.
+        Draw noise samples.
         
         Returns:
             `np.ndarray` of samples.

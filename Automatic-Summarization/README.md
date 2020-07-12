@@ -4,7 +4,7 @@
 
 ## Description
 
-The function of this library is automatic summarization using a kind of natural language processing and neural network language model. This library enable you to create a summary with the major points of the original document or web-scraped text that filtered by text clustering. And this library applies [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern) to implement **Encoder/Decoder based on LSTM** (with an Attention mechanism) improving the accuracy of summarization by **Sequence-to-Sequence**(**Seq2Seq**) learning.
+The function of this library is automatic summarization using a kind of natural language processing and neural network language model. This library enable you to create a summary with the major points of the original document or web-scraped text that filtered by text clustering. And this library applies [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base) to implement **Encoder/Decoder based on LSTM** improving the accuracy of summarization by **Sequence-to-Sequence**(**Seq2Seq**) learning.
 
 ## Documentation
 
@@ -32,19 +32,19 @@ Installers for the latest released version are available at the Python package i
 
 ### Dependencies
 
-- numpy: v1.13.3 or higher.
-- nltk: v3.2.3 or higher.
+- [numpy](https://github.com/numpy/numpy): v1.13.3 or higher.
+- [nltk](https://github.com/nltk/nltk): v3.2.3 or higher.
 
 #### Options
 
-- mecab-python3: v0.7 or higher.
+- [mecab-python3](https://github.com/SamuraiT/mecab-python3): v0.7 or higher.
     * Relevant only for Japanese.
-- pdfminer2
+- [pdfminer2](https://github.com/brechin/pdfminer2)(or [pdfminer.six](https://github.com/pdfminer/pdfminer.six)): latest.
     * Relevant only for PDF files.
-- pyquery:v1.2.17 or higher.
+- [pyquery](https://github.com/gawel/pyquery):v1.2.17 or higher.
     * Relevant only for web scraiping.
-- pydbm: v1.5.0 or higher.
-    * Only when using **Encoder/Decoder based on LSTM**, **skip-gram**, **Re-Seq2Seq**, and **EncDec-AD**.
+- [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base): v1.0.0 or higher.
+    * Only when using **Re-Seq2Seq** and **EncDec-AD**.
 
 ## Usecase: Summarize an English string argument.
 
@@ -372,8 +372,6 @@ This library refers to this intuitive insight above to apply the model to text s
 
 The intuition in the design of their loss function is also suggestive. "The intuition behind our modeling is that the outputs should convey the same amount of information as the inputs. For summarization, this is precisely the goal: a good summary should be such that after viewing the summary, users would get about the same amount of information as if they had viewed the original video" (Zhang, K. et al., 2018, p7).
 
-But the model in this library and Zhang, K. et al.(2018) are different in some respects from the relation with the specification of the Deep Learning library: [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern). First, Encoder/Decoder based on LSTM is not designed as a hierarchical structure. Second, it is possible to introduce regularization techniques which are not discussed in Zhang, K. et al.(2018) such as the dropout, the gradient clipping, and limitation of weights. Third, the regression loss function for matching summaries is simplified in terms of calculation efficiency in this library.
-
 #### Building retrospective sequence-to-sequence learning(re-seq2seq).
 
 Import Python modules.
@@ -530,9 +528,6 @@ From the above analogy, this library introduces two conflicting intuitions. On t
 
 In any case, this library deduces the function and potential of EncDec-AD in text summarization is to draw the distinction of normal and anomaly texts and is to filter the one from the other.
 
-Note that the model in this library and Malhotra, P., et al. (2016) are different in some respects
-from the relation with the specification of the Deep Learning library: [pydbm](https://github.com/chimera0/accel-brain-code/tree/master/Deep-Learning-by-means-of-Design-Pattern). First, weight matrix of encoder and decoder is not shered. Second, it is possible to introduce regularization techniques which are not discussed in Malhotra, P., et al. (2016) such as the dropout, the gradient clipping, and limitation of weights. Third, the loss function for reconstruction error is not limited to the L2 norm.
-
 #### Building LSTM-based Encoder/Decoder scheme for Anomaly Detection (EncDec-AD).
 
 Import Python modules.
@@ -637,11 +632,12 @@ The `abstract_list` is a `list` that contains `str`s of sentences.
 
 ## Author
 
-- chimera0(RUM)
+- accel-brain
 
 ## Author URI
 
-- http://accel-brain.com/
+- https://accel-brain.co.jp/
+- https://accel-brain.com/
 
 ## License
 

@@ -11,13 +11,13 @@ def read_readme(file_name):
 
 setup(
     name='pysummarization',
-    version='1.1.4',
+    version='1.1.5',
     description='pysummarization is Python library for the automatic summarization, document abstraction, and text filtering in relation to Encoder/Decoder based on LSTM and LSTM-RTRBM.',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',
-    url='https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization',
-    author='chimera0',
-    author_email='ai-brain-lab@accel-brain.com',
+    url='https://github.com/accel-brain/accel-brain-code/tree/master/Automatic-Summarization/',
+    author='accel-brain',
+    author_email='info@accel-brain.co.jp',
     license='GPL2',
     classifiers=[
         'Development Status :: 5 - Production/Stable',

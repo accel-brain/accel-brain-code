@@ -2,16 +2,7 @@
 
 `pydbm` is Python library for building Restricted Boltzmann Machine(RBM), Deep Boltzmann Machine(DBM), Long Short-Term Memory Recurrent Temporal Restricted Boltzmann Machine(LSTM-RTRBM), and Shape Boltzmann Machine(Shape-BM). From the view points of functionally equivalents and structural expansions, this library also prototypes many variants such as Encoder/Decoder based on LSTM with an Attention mechanism, Convolutional Auto-Encoder, ConvLSTM, and Spatio-temporal Auto-Encoder.
 
-See also ...
-
-- [Automatic Summarization Library: pysummarization](https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization)
-   * If you want to implement the Sequence-to-Sequence(Seq2Seq) model for the automatic summarization by using `pydbm` to build the Encoder/Decoder controllers.
-- [Reinforcement Learning Library: pyqlearning](https://github.com/chimera0/accel-brain-code/tree/master/Reinforcement-Learning)
-    * If you want to implement the Deep Reinforcement Learning, especially for Deep Q-Network and Multi-agent Deep Q-Network by using `pydbm` as a Function Approximator.
-- [Generative Adversarial Networks Library: pygan](https://github.com/chimera0/accel-brain-code/tree/master/Generative-Adversarial-Networks)
-    * If you want to implement Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs) by using `pydbm` as components for Generative models based on the Statistical machine learning problems.
-- [Algorithmic Composition or Automatic Composition Library: pycomposer](https://github.com/chimera0/accel-brain-code/tree/master/Algorithmic-Composition)
-   * If you want to implement the Algorithmic Composer based on Generative Adversarial Networks(GANs) by using `pydbm` and `pygan` as components for Generative models based on the Statistical machine learning problems.
+`pydbm` project is dormant. Instead, [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base) project is in progress.
 
 ## Documentation
 
@@ -1984,11 +1975,12 @@ The class `Synapse` has sub-classes: `CompleteBipartiteGraph`, `LSTMGraph`, `CNN
 
 ## Author
 
-- chimera0(RUM)
+- accel-brain
 
 ## Author URI
 
-- http://accel-brain.com/
+- https://accel-brain.co.jp/
+- https://accel-brain.com/
 
 ## License
 

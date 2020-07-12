@@ -31,5 +31,5 @@ setup(
     ],
     keywords='Generative Adversarial Networks Adversarial Auto-Encoders autoencoder auto-encoder convolution deconvolution encoder decoder LSTM',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
-    install_requires=['numpy'],
+    install_requires=['numpy', 'accel-brain-base'],
 )

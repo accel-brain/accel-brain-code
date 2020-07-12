@@ -131,7 +131,8 @@ class GenerativeModel(HybridBlock, AdversarialModel):
         else:
             condition_arr, sampled_arr = self.condition_sampler.draw()
             if sampled_arr is not None:
-                sampled_arr = sampled_arr + self.noise_sampler.draw()
+                if self.noise_sampler is not None:
+                    sampled_arr = sampled_arr + self.noise_sampler.draw()
                 inferenced_arr = self.model(sampled_arr)
 
                 generated_arr = nd.concat(
@@ -140,7 +141,8 @@ class GenerativeModel(HybridBlock, AdversarialModel):
                     dim=self.conditonal_dim
                 )
             else:
-                condition_arr = condition_arr + self.noise_sampler.draw()
+                if self.noise_sampler is not None:
+                    condition_arr = condition_arr + self.noise_sampler.draw()
                 generated_arr = self.model(condition_arr)
 
             return generated_arr
@@ -154,7 +156,7 @@ class GenerativeModel(HybridBlock, AdversarialModel):
 
     def set_noise_sampler(self, value):
         ''' setter '''
-        if isinstance(value, NoiseSampler) is False:
+        if isinstance(value, NoiseSampler) is False and value is not None:
             raise TypeError("The type of `noise_sampler` must be `NoiseSampler`.")
         self.__noise_sampler = value
     

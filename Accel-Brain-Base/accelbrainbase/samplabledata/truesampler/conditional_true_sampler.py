@@ -14,11 +14,28 @@ class ConditionalTrueSampler(TrueSampler):
 
     '''
 
+    __conditonal_dim = 1
+
+    def get_conditonal_dim(self):
+        ''' getter '''
+        return self.__conditonal_dim
+
+    def set_conditonal_dim(self, value):
+        ''' setter '''
+        self.__conditonal_dim = value
+
+    conditonal_dim = property(get_conditonal_dim, set_conditonal_dim)
+
     def draw(self):
         '''
-        Draw samples from distribtions.
+        Draws samples from the `true` distribution.
         
         Returns:
-            `Tuple` of `mx.nd.array`s.
+            `nd.ndarray` of samples.
         '''
-        return super().draw(), super().draw()
+
+        return nd.concat(
+            super().draw(), 
+            super().draw(),
+            dim=self.conditonal_dim
+        )

@@ -377,16 +377,29 @@ The intuition in the design of their loss function is also suggestive. "The intu
 Import Python modules.
 
 ```python
-from pysummarization.abstractablesemantics.re_seq_2_seq import ReSeq2Seq
-```
-
-Import a tokenizer and a vectorizer.
-
-
-```python
+from pysummarization.abstractablesemantics._mxnet.re_seq_2_seq import ReSeq2Seq
+from pysummarization.iteratabledata._mxnet.token_iterator import TokenIterator
 from pysummarization.nlp_base import NlpBase
 from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
 from pysummarization.vectorizabletoken.t_hot_vectorizer import THotVectorizer
+import mxnet as mx
+```
+
+Setup a logger.
+
+```python
+from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
+
+logger = getLogger("accelbrainbase")
+handler = StreamHandler()
+handler.setLevel(DEBUG)
+logger.setLevel(DEBUG)
+logger.addHandler(handler)
+```
+
+Initialize a tokenizer and a vectorizer.
+
+```python
 
 # `str` of your document.
 document = "Your document."
@@ -396,7 +409,6 @@ nlp_base.delimiter_list = [".", "\n"]
 tokenizable_doc = SimpleTokenizer()
 sentence_list = nlp_base.listup_sentence(document)
 token_list = tokenizable_doc.tokenize(document)
-token_arr = np.array(token_list)
 ```
 
 Setup the vectorizer.
@@ -405,84 +417,42 @@ Setup the vectorizer.
 vectorizable_token = THotVectorizer(token_list=token_arr.tolist())
 vector_list = vectorizable_token.vectorize(token_list=token_arr.tolist())
 vector_arr = np.array(vector_list)
-```
+token_arr = np.array(token_list)
 
-The `ReSeq2Seq` has a `learn` method, to execute learning observed data points. This method can receive a `np.ndarray` of observed data points, which is a rank-3 array-like or sparse matrix of shape: (`The number of samples`, `The length of cycle`, `The number of features`). For example, the `np.ndarray` set as follows. 
+token_iterator = TokenIterator(
+    vectorizable_token=vectorizable_token, 
+    token_arr=token_arr, 
+    epochs=300,
+    batch_size=25,
+    seq_len=5,
+    test_size=0.3,
+    norm_mode=None,
+    ctx=mx.gpu()
+)
 
-```python
-# The length of sequences.
-seq_len = 5
-
-observed_list = []
-for i in range(seq_len, vector_arr.shape[0]):
-    observed_list.append(vector_arr[i-seq_len:i])
-observed_arr = np.array(observed_list)
+for observed_arr, _, _, _ in token_iterator.generate_learned_samples():
+    break
+print(observed_arr.shape) # (batch size, the length of series, dimension)
 ```
 
 Instantiate `ReSeq2Seq` and input hyperparameters.
 
 ```python
 abstractable_semantics = ReSeq2Seq(
-    # A margin parameter for the mismatched pairs penalty.
-    margin_param=0.01,
-    # Tradeoff parameter for loss function.
-    retrospective_lambda=0.5,
-    # Tradeoff parameter for loss function.
-    retrospective_eta=0.5,
-    # is-a `EncoderDecoderController`.
-    # If `None`, this class will build the model with default parameters.
-    encoder_decoder_controller=None,
-    # is-a `LSTMModel` as a retrospective encoder(or re-encoder).
-    # If `None`, this class will build the model with default parameters.
-    retrospective_encoder=None,
-    # The default parameter. The number of units in input layers.
-    input_neuron_count=observed_arr.shape[-1],
     # The default parameter. The number of units in hidden layers.
     hidden_neuron_count=observed_arr.shape[-1],
-    # The default parameter. Regularization for weights matrix to repeat multiplying
-    # the weights matrix and `0.9` until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
-    weight_limit=0.5,
-    # The default parameter. Probability of dropout.
+    # The default parameter. The number of units in output layer.
+    output_neuron_count=observed_arr.shape[-1],
+    # The rate of dropout.
     dropout_rate=0.0,
-    # The default parameter.
-    # The epochs in mini-batch pre-learning Encoder/Decoder.
-    # If this value is `0`, no pre-learning will be executed
-    # in this class's method `learn`. In this case, you should 
-    # do pre-learning before calling `learn`.
-    pre_learning_epochs=50,
-    # The default parameter. 
-    # The epochs in mini-batch training Encoder/Decoder and retrospective encoder.
-    epochs=500,
-    # The default parameter. Batch size.
-    batch_size=20,
-    # The default parameter. Learning rate.
+    # Batch size.
+    batch_size=25,
+    # Learning rate.
     learning_rate=1e-05,
-    # The default parameter. 
-    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
-    learning_attenuate_rate=0.1,
-    # The default parameter. 
-    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
-    # Additionally, in relation to regularization,
-    # this class constrains weight matrixes every `attenuate_epoch`.
-    attenuate_epoch=50,
-    # The default parameter. Threshold of the gradient clipping.
-    grad_clip_threshold=1e+10,
-    # The default parameter. 
-    # The length of sequneces in Decoder with Attention model.
-    seq_len=seq_len,
-    # The default parameter.
-    # Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
-    # If `0`, this class referes all past data in BPTT.
-    bptt_tau=seq_len,
-    # Size of Test data set. If this value is `0`, the validation will not be executed.
-    test_size_rate=0.3,
-    # Tolerance for the optimization.
-    # When the loss or score is not improving by at least tol 
-    # for two consecutive iterations, convergence is considered 
-    # to be reached and training stops.
-    tol=1e-10,
-    # Tolerance for deviation of loss.
-    tld=1e-10
+    # The length of series.
+    seq_len=5,
+    # `mx.gpu()` or `mx.cpu()`.
+    ctx=mx.gpu()
 )
 ```
 
@@ -490,8 +460,8 @@ Execute `learn` method.
 
 ```python
 abstractable_semantics.learn(
-    observed_arr=observed_arr, 
-    target_arr=observed_arr
+    # is-a `TokenIterator`.
+    token_iterator
 )
 ```
 
@@ -499,11 +469,11 @@ Execute `summarize` method to extract summaries.
 
 ```python
 abstract_list = abstractable_semantics.summarize(
-    # `np.ndarray` of observed data points.
-    observed_arr,
+    # is-a `TokenIterator`.
+    token_iterator,
     # is-a `VectorizableToken`.
     vectorizable_token,
-    # A `list` that contains `str`s of all sentences.
+    # `list` of `str`, extracted by `nlp_base.listup_sentence(document)`.
     sentence_list,
     # The number of extracted sentences.
     limit=5
@@ -533,44 +503,81 @@ In any case, this library deduces the function and potential of EncDec-AD in tex
 Import Python modules.
 
 ```python
-from pysummarization.abstractablesemantics.enc_dec_ad import EncDecAD
+from pysummarization.abstractablesemantics._mxnet.enc_dec_ad import EncDecAD
+from pysummarization.iteratabledata._mxnet.token_iterator import TokenIterator
+from pysummarization.nlp_base import NlpBase
+from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
+import mxnet as mx
+```
+
+Setup a logger.
+
+```python
+from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
+
+logger = getLogger("accelbrainbase")
+handler = StreamHandler()
+handler.setLevel(DEBUG)
+logger.setLevel(DEBUG)
+logger.addHandler(handler)
+```
+
+Initialize a tokenizer and a vectorizer.
+
+```python
+
+# `str` of your document.
+document = "Your document."
+
+nlp_base = NlpBase()
+nlp_base.delimiter_list = [".", "\n"]
+tokenizable_doc = SimpleTokenizer()
+sentence_list = nlp_base.listup_sentence(document)
+token_list = tokenizable_doc.tokenize(document)
+```
+
+Setup the vectorizer.
+
+```python
+vectorizable_token = THotVectorizer(token_list=token_arr.tolist())
+vector_list = vectorizable_token.vectorize(token_list=token_arr.tolist())
+vector_arr = np.array(vector_list)
+token_arr = np.array(token_list)
+
+token_iterator = TokenIterator(
+    vectorizable_token=vectorizable_token, 
+    token_arr=token_arr, 
+    epochs=300,
+    batch_size=25,
+    seq_len=5,
+    test_size=0.3,
+    norm_mode=None,
+    ctx=mx.gpu()
+)
+
+for observed_arr, _, _, _ in token_iterator.generate_learned_samples():
+    break
+print(observed_arr.shape) # (batch size, the length of series, dimension)
+```
+
+Instantiate `EncDecAD` and input hyperparameters.
+
+```python
 abstractable_semantics = EncDecAD(
-    # is-a `EncoderDecoderController`.
-    # If `None`, this class will build the model with default parameters.
-    encoder_decoder_controller=None,
-    # The default parameter. The number of units in input layers.
-    input_neuron_count=observed_arr.shape[-1],
     # The default parameter. The number of units in hidden layers.
-    hidden_neuron_count=observed_arr.shape[-1],
-    # The default parameter. Regularization for weights matrix to repeat multiplying
-    # the weights matrix and `0.9` until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
-    weight_limit=0.5,
-    # The default parameter. Probability of dropout.
+    hidden_neuron_count=200,
+    # The default parameter. The number of units in output layer.
+    output_neuron_count=observed_arr.shape[-1],
+    # The rate of dropout.
     dropout_rate=0.0,
-    # The default parameter. 
-    # The epochs in mini-batch training Encoder/Decoder and retrospective encoder.
-    epochs=500,
-    # The default parameter. Batch size.
-    batch_size=20,
-    # The default parameter. Learning rate.
+    # Batch size.
+    batch_size=25,
+    # Learning rate.
     learning_rate=1e-05,
-    # The default parameter. 
-    # Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.
-    learning_attenuate_rate=0.1,
-    # The default parameter.
-    # Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.
-    # Additionally, in relation to regularization,
-    # this class constrains weight matrixes every `attenuate_epoch`.
-    attenuate_epoch=50,
-    # The default parameter. The length of sequneces in Decoder with Attention model.
-    seq_len=seq_len,
-    # The default parameter. 
-    # Refereed maxinum step `t` in Backpropagation Through Time(BPTT).
-    # If `0`, this class referes all past data in BPTT.
-    bptt_tau=seq_len,
-    # The default parameter. 
-    # Size of Test data set. If this value is `0`, the validation will not be executed.
-    test_size_rate=0.3
+    # The length of series.
+    seq_len=5,
+    # `mx.gpu()` or `mx.cpu()`.
+    ctx=mx.gpu()
 )
 ```
 
@@ -578,8 +585,8 @@ Execute `learn` method.
 
 ```python
 abstractable_semantics.learn(
-    observed_arr=observed_arr, 
-    target_arr=observed_arr
+    # is-a `TokenIterator`.
+    token_iterator
 )
 ```
 
@@ -587,11 +594,11 @@ Execute `summarize` method to extract summaries.
 
 ```python
 abstract_list = abstractable_semantics.summarize(
-    # `np.ndarray` of observed data points.
-    observed_arr,
+    # is-a `TokenIterator`.
+    token_iterator,
     # is-a `VectorizableToken`.
     vectorizable_token,
-    # A `list` that contains `str`s of all sentences.
+    # `list` of `str`, extracted by `nlp_base.listup_sentence(document)`.
     sentence_list,
     # The number of extracted sentences.
     limit=5

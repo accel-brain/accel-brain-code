@@ -56,6 +56,10 @@ This library also provides the Adversarial Auto-Encoders(AAEs), which is a proba
 
 Reusing the Auto-Encoders, this library introduces the Energy-based Generative Adversarial Network (EBGAN) model(Zhao, J., et al., 2016) which views the discriminator as an energy function that attributes low energies to the regions near the data manifold and higher energies to other regions. THe Auto-Encoders have traditionally been used to represent energy-based models. When trained with some regularization terms, the Auto-Encoders have the ability to learn an energy manifold without supervision or negative examples. This means that even when an energy-based Auto-Encoding model is trained to reconstruct a real sample, the model contributes to discovering the data manifold by itself.
 
+### Structural coupling between AAEs and EBGAN.
+
+This library models the Energy-based Adversarial-Auto-Encoder(EBAAE) by structural coupling between AAEs and EBGAN. The learning algorithm equivalents an adversarial training of AAEs as a generator and EBGAN as a discriminator.
+
 ### Usecase: Image Generation by GANs.
 
 Import a Python module.

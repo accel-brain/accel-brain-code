@@ -263,13 +263,13 @@ ebaae_image_generator.learn(
 You can check logs of posterior.
 
 ```python
-print(ebaae_image_generator.AAE.posterior_logs_arr)
+print(ebaae_image_generator.EBAAE.posterior_logs_arr)
 ```
 
 And, call method `draw`. The generated image data is stored in the variable `decoded_arr`.
 
 ```python
-arr_tuple = ebaae_image_generator.AAE.generative_model.draw()
+arr_tuple = ebaae_image_generator.EBAAE.generative_model.draw()
 feature_points_arr, observed_arr, decoded_arr = arr_tuple
 ```
 

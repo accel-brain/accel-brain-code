@@ -372,7 +372,7 @@ class EBAAEImageGenerator(object):
             ctx=ctx
         )
 
-        AAE = EBAAEController(
+        EBAAE = EBAAEController(
             true_sampler=normal_ture_sampler,
             generative_model=generative_model,
             discriminative_model=discriminative_model,
@@ -388,7 +388,7 @@ class EBAAEImageGenerator(object):
             ctx=ctx,
             initializer=initializer,
         )
-        self.AAE = AAE
+        self.EBAAE = EBAAE
 
     def learn(self, iter_n=1000, k_step=10):
         '''
@@ -398,7 +398,7 @@ class EBAAEImageGenerator(object):
             iter_n:                         `int` of the number of training iterations.
             k_step:                         `int` of the number of learning of the `discriminative_model`.
         '''
-        self.AAE.learn(
+        self.EBAAE.learn(
             iter_n=iter_n,
             k_step=k_step,
         )

@@ -209,7 +209,7 @@ For more detailed or original modeling or tuning, see [accel-brain-base](https:/
 Import a Python module.
 
 ```python
-from pygan.aae_image_generator import AAEImageGenerator
+from pygan.ebaae_image_generator import EBAAEImageGenerator
 ```
 
 Setup a logger.
@@ -224,10 +224,10 @@ logger.setLevel(DEBUG)
 logger.addHandler(handler)
 ```
 
-Initialize `AAEImageGenerator`.
+Initialize `EBAAEImageGenerator`.
 
 ```python
-aae_image_generator = AAEImageGenerator(
+ebaae_image_generator = EBAAEImageGenerator(
     # `list` of path to your directories.
     dir_list=[
         "/path/to/your/image/files/", 
@@ -252,7 +252,7 @@ aae_image_generator = AAEImageGenerator(
 Call method `learn`.
 
 ```python
-aae_image_generator.learn(
+ebaae_image_generator.learn(
     # `int` of the number of training iterations.
     iter_n=100000,
     # `int` of the number of learning of the discriminative model.
@@ -263,13 +263,13 @@ aae_image_generator.learn(
 You can check logs of posterior.
 
 ```python
-print(aae_image_generator.AAE.posterior_logs_arr)
+print(ebaae_image_generator.AAE.posterior_logs_arr)
 ```
 
 And, call method `draw`. The generated image data is stored in the variable `decoded_arr`.
 
 ```python
-arr_tuple = aae_image_generator.AAE.generative_model.draw()
+arr_tuple = ebaae_image_generator.AAE.generative_model.draw()
 feature_points_arr, observed_arr, decoded_arr = arr_tuple
 ```
 

@@ -7,16 +7,20 @@ from accelbrainbase.observabledata._mxnet.convolutional_neural_networks import C
 from accelbrainbase.observabledata._mxnet.neural_networks import NeuralNetworks
 from accelbrainbase.observabledata._mxnet.convolutionalneuralnetworks.convolutionalautoencoder.contractive_cae import ContractiveCAE as ConvolutionalAutoEncoder
 from accelbrainbase.observabledata._mxnet.adversarialmodel.discriminative_model import DiscriminativeModel
+from accelbrainbase.observabledata._mxnet.adversarialmodel.discriminativemodel.eb_discriminative_model import EBDiscriminativeModel
 from accelbrainbase.observabledata._mxnet.adversarialmodel.generativemodel.convolutional_auto_encoder import ConvolutionalAutoEncoder as GenerativeModel
 from accelbrainbase.computableloss._mxnet.generator_loss import GeneratorLoss
 from accelbrainbase.computableloss._mxnet.discriminator_loss import DiscriminatorLoss
+from accelbrainbase.computableloss._mxnet.discriminatorloss.eb_discriminator_loss import EBDiscriminatorLoss
+from accelbrainbase.observabledata._mxnet.adversarialmodel.discriminativemodel.eb_discriminative_model import EBDiscriminativeModel
+
 from accelbrainbase.samplabledata.true_sampler import TrueSampler
 from accelbrainbase.samplabledata.truesampler.normal_true_sampler import NormalTrueSampler
 
 from accelbrainbase.samplabledata.condition_sampler import ConditionSampler
 from accelbrainbase.samplabledata.noisesampler._mxnet.uniform_noise_sampler import UniformNoiseSampler
 from accelbrainbase.controllablemodel._mxnet.gancontroller.aae_controller import AAEController
-
+from accelbrainbase.controllablemodel._mxnet.gancontroller.aaecontroller.ebaae_controller import EBAAEController
 
 import mxnet as mx
 import mxnet.ndarray as nd
@@ -27,9 +31,9 @@ from mxnet.gluon.nn import Conv2DTranspose
 from mxnet.gluon.nn import BatchNorm
 
 
-class AAEImageGenerator(object):
+class EBAAEImageGenerator(object):
     '''
-    Image generation by AAE.
+    Image generation by EBAAE.
 
     The Generative Adversarial Networks(GANs) (Goodfellow et al., 2014) framework establishes 
     a min-max adversarial game between two neural networks – a generative model, `G`, and a 
@@ -62,6 +66,16 @@ class AAEImageGenerator(object):
     to the prior ensures that generating from any part of prior space results 
     in meaningful samples. As a result, the decoder of the Adversarial Auto-Encoder 
     learns a deep generative model that maps the imposed prior to the data distribution.
+
+    On the other hand, models that construct a discriminator by Auto-Encoder have been proposed. 
+    The Energy-based GAN(EBGAN) framework considers the discriminator as an energy function, 
+    which assigns low energy values to real data and high to fake data. The generator is a 
+    trainable parameterized function that produces samples in regions to which the discriminator 
+    assigns low energy.
+
+    This class models the Energy-based Adversarial-Auto-Encoder(EBAAE) by structural coupling 
+    between AAEs and EBGAN. The learning algorithm equivalents an adversarial training of AAEs as 
+    a generator and EBGAN as a discriminator.
 
     References:
         - Gauthier, J. (2014). Conditional generative adversarial nets for convolutional face generation. Class Project for Stanford CS231N: Convolutional Neural Networks for Visual Recognition, Winter semester, 2014(5), 2.
@@ -128,7 +142,7 @@ class AAEImageGenerator(object):
             image_extractor=image_extractor,
             dir_list=dir_list,
             batch_size=batch_size,
-            norm_mode="min_max",
+            norm_mode="z_score",
             scale=1.0,
             noiseable_data=GaussNoise(sigma=1e-03, mu=0.0),
         )
@@ -136,33 +150,12 @@ class AAEImageGenerator(object):
         computable_loss = L2NormLoss()
 
         if discriminative_model is None:
-            output_nn = NeuralNetworks(
+            d_encoder = ConvolutionalNeuralNetworks(
+                # is-a `ComputableLoss` or `mxnet.gluon.loss`.
                 computable_loss=computable_loss,
-                initializer=initializer,
-                learning_rate=learning_rate,
-                learning_attenuate_rate=1.0,
-                attenuate_epoch=50,
-                units_list=[100, 1],
-                dropout_rate_list=[0.5, 0.0],
-                optimizer_name="SGD",
-                activation_list=["relu", "sigmoid"],
-                hidden_batch_norm_list=[BatchNorm(), None],
-                ctx=ctx,
-                hybridize_flag=True,
-                regularizatable_data_list=[],
-                scale=1.0,
-                output_no_bias_flag=True,
-                all_no_bias_flag=True,
-                not_init_flag=False,
-            )
-
-            d_model = ConvolutionalNeuralNetworks(
-                computable_loss=computable_loss,
-                initializer=initializer,
-                learning_rate=learning_rate,
-                learning_attenuate_rate=1.0,
-                attenuate_epoch=50,
+                # `list` of int` of the number of units in hidden layers.
                 hidden_units_list=[
+                    # `mxnet.gluon.nn.Conv2D`.
                     Conv2D(
                         channels=16,
                         kernel_size=6,
@@ -172,35 +165,74 @@ class AAEImageGenerator(object):
                     Conv2D(
                         channels=32,
                         kernel_size=3,
+                        strides=(1, 1),
+                        padding=(1, 1),
+                    ),
+                ],
+                # `list` of act_type` in `mxnet.ndarray.Activation` or `mxnet.symbol.Activation` in input gate.
+                hidden_activation_list=["relu", "relu"],
+                # `list` of `float` of dropout rate.
+                hidden_dropout_rate_list=[0.5, 0.5],
+                # `list` of `mxnet.gluon.nn.BatchNorm`.
+                hidden_batch_norm_list=[BatchNorm(), BatchNorm()],
+                # Call `mxnet.gluon.HybridBlock.hybridize()` or not.
+                hybridize_flag=True,
+                # `mx.gpu()` or `mx.cpu()`.
+                ctx=ctx,
+            )
+
+            d_decoder = ConvolutionalNeuralNetworks(
+                # is-a `ComputableLoss` or `mxnet.gluon.loss`.
+                computable_loss=computable_loss,
+                # `list` of int` of the number of units in hidden layers.
+                hidden_units_list=[
+                    # `mxnet.gluon.nn.Conv2DTranspose`.
+                    Conv2DTranspose(
+                        channels=16,
+                        kernel_size=3,
+                        strides=(1, 1),
+                        padding=(1, 1),
+                    ), 
+                    Conv2DTranspose(
+                        channels=32,
+                        kernel_size=6,
                         strides=(2, 2),
                         padding=(1, 1),
                     ),
                 ],
-                input_nn=None,
-                input_result_height=None,
-                input_result_width=None,
-                input_result_channel=None,
-                output_nn=output_nn,
-                hidden_dropout_rate_list=[0.5, 0.5],
-                hidden_batch_norm_list=[BatchNorm(), BatchNorm()],
-                optimizer_name="SGD",
-                hidden_activation_list=["relu", "relu"],
-                hidden_residual_flag=False,
-                hidden_dense_flag=False,
-                dense_axis=1,
+                # `list` of act_type` in `mxnet.ndarray.Activation` or `mxnet.symbol.Activation` in input gate.
+                hidden_activation_list=["identity", "identity"],
+                # `list` of `float` of dropout rate.
+                hidden_dropout_rate_list=[0.0, 0.0],
+                # `list` of `mxnet.gluon.nn.BatchNorm`.
+                hidden_batch_norm_list=[BatchNorm(), None],
+                # Call `mxnet.gluon.HybridBlock.hybridize()` or not.
+                hybridize_flag=True,
+                # `mx.gpu()` or `mx.cpu()`.
                 ctx=ctx,
-                hybridize_flag=True,
-                regularizatable_data_list=[],
-                scale=1.0,
             )
-
-            discriminative_model = DiscriminativeModel(
-                model=d_model, 
-                initializer=None,
-                learning_rate=learning_rate,
-                optimizer_name="SGD",
+            d_model = ConvolutionalAutoEncoder(
+                # is-a `ConvolutionalNeuralNetworks`.
+                encoder=d_encoder,
+                # is-a `ConvolutionalNeuralNetworks`.
+                decoder=d_decoder,
+                # is-a `ComputableLoss` or `mxnet.gluon.loss`.
+                computable_loss=computable_loss,
+                # `bool` of flag to tied weights or not.
+                tied_weights_flag=True,
+                # Call `mxnet.gluon.HybridBlock.hybridize()` or not.
                 hybridize_flag=True,
-                scale=1.0, 
+                # `mx.gpu()` or `mx.cpu()`.
+                ctx=ctx,
+            )
+            d_model.batch_size = 40
+
+            discriminative_model = EBDiscriminativeModel(
+                # is-a `ConvolutionalAutoEncoder`.
+                model=d_model, 
+                # Call `mxnet.gluon.HybridBlock.hybridize()` or not.
+                hybridize_flag=True,
+                # `mx.gpu()` or `mx.cpu()`.
                 ctx=ctx, 
             )
         else:
@@ -219,7 +251,7 @@ class AAEImageGenerator(object):
                         channels=16,
                         kernel_size=6,
                         strides=(2, 2),
-                        padding=(1, 1),
+                        padding=(0, 0),
                     ), 
                     Conv2D(
                         channels=32,
@@ -260,10 +292,10 @@ class AAEImageGenerator(object):
                         padding=(1, 1),
                     ), 
                     Conv2DTranspose(
-                        channels=1,
+                        channels=channel,
                         kernel_size=6,
                         strides=(2, 2),
-                        padding=(1, 1),
+                        padding=(0, 0),
                     ),
                 ],
                 input_nn=None,
@@ -274,7 +306,7 @@ class AAEImageGenerator(object):
                 hidden_dropout_rate_list=[0.0, 0.0],
                 hidden_batch_norm_list=[BatchNorm(), None],
                 optimizer_name="SGD",
-                hidden_activation_list=["identity", "sigmoid"],
+                hidden_activation_list=["identity", "identity"],
                 hidden_residual_flag=False,
                 hidden_dense_flag=False,
                 dense_axis=1,
@@ -340,12 +372,11 @@ class AAEImageGenerator(object):
             ctx=ctx
         )
 
-        AAE = AAEController(
+        AAE = EBAAEController(
             true_sampler=normal_ture_sampler,
             generative_model=generative_model,
             discriminative_model=discriminative_model,
-            discriminator_loss=DiscriminatorLoss(weight=1.0),
-            generator_loss=GeneratorLoss(weight=1.0),
+            discriminator_loss=EBDiscriminatorLoss(weight=1.0),
             reconstruction_loss=L2NormLoss(weight=1.0),
             feature_matching_loss=L2NormLoss(weight=1.0),
             optimizer_name="SGD",

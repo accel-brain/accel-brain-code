@@ -278,6 +278,13 @@ class GANImageGenerator(object):
         self.GAN = GAN
 
     def learn(self, iter_n=1000, k_step=10):
+        '''
+        Learning.
+
+        Args:
+            iter_n:                         `int` of the number of training iterations.
+            k_step:                         `int` of the number of learning of the `discriminative_model`.
+        '''
         self.GAN.learn(
             iter_n=iter_n,
             k_step=k_step,

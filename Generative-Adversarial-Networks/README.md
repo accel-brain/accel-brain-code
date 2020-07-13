@@ -2,12 +2,7 @@
 
 `pygan` is Python library to implement Generative Adversarial Networks(GANs), *Conditional* GANs, Adversarial Auto-Encoders(AAEs), and Energy-based Generative Adversarial Network(EBGAN).
 
-This library makes it possible to design the Generative models based on the Statistical machine learning problems in relation to Generative Adversarial Networks(GANs), *Conditional* GANs, Adversarial Auto-Encoders(AAEs), and Energy-based Generative Adversarial Network(EBGAN) to practice algorithm design for semi-supervised learning. But this library provides components for designers, not for end-users of state-of-the-art black boxes. Briefly speaking the philosophy of this library, *give user hype-driven blackboxes and you feed him for a day; show him how to design algorithms and you feed him for a lifetime.* So algorithm is power.
-
-See also ...
-
-- [Algorithmic Composition or Automatic Composition Library: pycomposer](https://github.com/chimera0/accel-brain-code/tree/master/Algorithmic-Composition)
-   * If you want to implement the Algorithmic Composer based on Generative Adversarial Networks(GANs) and the *Conditional* GANs by using `pygan` as components for Generative models based on the Statistical machine learning problems.
+This library makes it possible to design the Generative models based on the Statistical machine learning problems in relation to Generative Adversarial Networks(GANs), *Conditional* GANs, Adversarial Auto-Encoders(AAEs), and Energy-based Generative Adversarial Network(EBGAN) to practice algorithm design for semi-supervised learning. 
 
 ## Installation
 
@@ -60,6 +55,227 @@ This library also provides the Adversarial Auto-Encoders(AAEs), which is a proba
 ### Structural extension for Energy-based Generative Adversarial Network(EBGAN).
 
 Reusing the Auto-Encoders, this library introduces the Energy-based Generative Adversarial Network (EBGAN) model(Zhao, J., et al., 2016) which views the discriminator as an energy function that attributes low energies to the regions near the data manifold and higher energies to other regions. THe Auto-Encoders have traditionally been used to represent energy-based models. When trained with some regularization terms, the Auto-Encoders have the ability to learn an energy manifold without supervision or negative examples. This means that even when an energy-based Auto-Encoding model is trained to reconstruct a real sample, the model contributes to discovering the data manifold by itself.
+
+### Usecase: Image Generation by GANs.
+
+Import a Python module.
+
+```python
+from pygan.gan_image_generator import GANImageGenerator
+```
+
+Setup logger.
+
+```python
+from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
+
+logger = getLogger("accelbrainbase")
+handler = StreamHandler()
+handler.setLevel(DEBUG)
+logger.setLevel(DEBUG)
+logger.addHandler(handler)
+```
+
+Initialize `GANImageGenerator`.
+
+```python
+gan_image_generator = GANImageGenerator(
+    # `list` of path to your directories.
+    dir_list=[
+        "/path/to/your/image/files/", 
+    ],
+    # `int` of image width.
+    width=128,
+    # `int` of image height.
+    height=96,
+    # `int` of image channel.
+    channel=1,
+    # `int` of batch size.
+    batch_size=40,
+    # `float` of learning rate.
+    learning_rate=1e-06,
+)
+```
+
+Call method `learn`.
+
+```python
+gan_image_generator.learn(
+    # `int` of the number of training iterations.
+    iter_n=100000,
+    # `int` of the number of learning of the discriminative model.
+    k_step=10,
+)
+```
+
+You can check logs of posterior.
+
+```python
+print(gan_image_generator.GAN.posterior_logs_arr)
+```
+
+And, call method `draw`. The generated image data is stored in the variable `arr`.
+
+```python
+arr = gan_image_generator.GAN.generative_model.draw()
+```
+
+The shape of `arr` is ...
+- batch
+- channel
+- height
+- width
+
+For more detailed or original modeling or tuning, see [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base). This library is based on [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base).
+
+### Usecase: Image Generation by EBGANs.
+
+Import a Python module.
+
+```python
+from pygan.ebgan_image_generator import EBGANImageGenerator
+```
+
+Setup logger.
+
+```python
+from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
+
+logger = getLogger("accelbrainbase")
+handler = StreamHandler()
+handler.setLevel(DEBUG)
+logger.setLevel(DEBUG)
+logger.addHandler(handler)
+```
+
+Initialize `EBGANImageGenerator`.
+
+```python
+ebgan_image_generator = EBGANImageGenerator(
+    # `list` of path to your directories.
+    dir_list=[
+        "/path/to/your/image/files/", 
+    ],
+    # `int` of image width.
+    width=128,
+    # `int` of image height.
+    height=96,
+    # `int` of image channel.
+    channel=1,
+    # `int` of batch size.
+    batch_size=40,
+    # `float` of learning rate.
+    learning_rate=1e-06,
+)
+```
+
+Call method `learn`.
+
+```python
+ebgan_image_generator.learn(
+    # `int` of the number of training iterations.
+    iter_n=100000,
+    # `int` of the number of learning of the discriminative model.
+    k_step=10,
+)
+```
+
+You can check logs of posterior.
+
+```python
+print(ebgan_image_generator.EBGAN.posterior_logs_arr)
+```
+
+And, call method `draw`. The generated image data is stored in the variable `arr`.
+
+```python
+arr = ebgan_image_generator.EBGAN.generative_model.draw()
+```
+
+The shape of `arr` is ...
+- batch
+- channel
+- height
+- width
+
+For more detailed or original modeling or tuning, see [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base). This library is based on [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base).
+
+### Usecase: Image Generation by AAEs.
+
+Import a Python module.
+
+```python
+from pygan.aae_image_generator import AAEImageGenerator
+```
+
+Setup a logger.
+
+```python
+from logging import getLogger, StreamHandler, NullHandler, DEBUG, ERROR
+
+logger = getLogger("accelbrainbase")
+handler = StreamHandler()
+handler.setLevel(DEBUG)
+logger.setLevel(DEBUG)
+logger.addHandler(handler)
+```
+
+Initialize `AAEImageGenerator`.
+
+```python
+aae_image_generator = AAEImageGenerator(
+    # `list` of path to your directories.
+    dir_list=[
+        "/path/to/your/image/files/", 
+    ],
+    # `int` of image width.
+    width=128,
+    # `int` of image height.
+    height=96,
+    # `int` of image channel.
+    channel=1,
+    # `int` of batch size.
+    batch_size=40,
+    # `float` of learning rate.
+    learning_rate=1e-06,
+    # `int` of width of image drawn from normal distribution, p(z).
+    normal_height=128//2,
+    # `int` of height of image drawn from normal distribution, p(z).
+    normal_width=96//2,
+)
+```
+
+Call method `learn`.
+
+```python
+aae_image_generator.learn(
+    # `int` of the number of training iterations.
+    iter_n=100000,
+    # `int` of the number of learning of the discriminative model.
+    k_step=10,
+)
+```
+
+You can check logs of posterior.
+
+```python
+print(aae_image_generator.AAE.posterior_logs_arr)
+```
+
+And, call method `draw`. The generated image data is stored in the variable `decoded_arr`.
+
+```python
+arr_tuple = aae_image_generator.AAE.generative_model.draw()
+feature_points_arr, observed_arr, decoded_arr = arr_tuple
+```
+
+The shape of `decoded_arr` is ...
+- batch
+- channel
+- height
+- width
+
+For more detailed or original modeling or tuning, see [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base). This library is based on [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base).
 
 ## References
 

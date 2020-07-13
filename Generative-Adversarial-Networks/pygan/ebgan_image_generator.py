@@ -91,6 +91,7 @@ class EBGANImageGenerator(object):
             width:          `int` of image width.
             height:         `int` of image height.
             channel:        `int` of image channel.
+
             initializer:    is-a `mxnet.initializer` for parameters of model.
                             If `None`, it is drawing from the Xavier distribution.
             
@@ -114,8 +115,8 @@ class EBGANImageGenerator(object):
             dir_list=dir_list,
             batch_size=batch_size,
             norm_mode="min_max",
-            scale=1.0,
-            noiseable_data=GaussNoise(sigma=1e-03, mu=0.0),
+            scale=0.9,
+            noiseable_data=GaussNoise(sigma=1e-08, mu=0.005),
         )
 
         true_sampler = TrueSampler()
@@ -176,7 +177,7 @@ class EBGANImageGenerator(object):
                         padding=(1, 1),
                     ), 
                     Conv2DTranspose(
-                        channels=1,
+                        channels=channel,
                         kernel_size=6,
                         strides=(2, 2),
                         padding=(1, 1),
@@ -205,7 +206,7 @@ class EBGANImageGenerator(object):
                 decoder=decoder,
                 computable_loss=computable_loss,
                 initializer=initializer,
-                learning_rate=1e-03,
+                learning_rate=learning_rate,
                 learning_attenuate_rate=1.0,
                 attenuate_epoch=50,
                 optimizer_name="SGD",
@@ -244,8 +245,20 @@ class EBGANImageGenerator(object):
                         padding=(1, 1),
                     ), 
                     Conv2DTranspose(
-                        channels=1,
-                        kernel_size=3,
+                        channels=32,
+                        kernel_size=6,
+                        strides=(1, 1),
+                        padding=(1, 1),
+                    ), 
+                    Conv2DTranspose(
+                        channels=64,
+                        kernel_size=6,
+                        strides=(1, 1),
+                        padding=(1, 1),
+                    ), 
+                    Conv2DTranspose(
+                        channels=channel,
+                        kernel_size=6,
                         strides=(1, 1),
                         padding=(1, 1),
                     ),
@@ -255,10 +268,10 @@ class EBGANImageGenerator(object):
                 input_result_width=None,
                 input_result_channel=None,
                 output_nn=None,
-                hidden_dropout_rate_list=[0.5, 0.5],
-                hidden_batch_norm_list=[BatchNorm(), None],
+                hidden_dropout_rate_list=[0.5, 0.5, 0.5, 0.0],
+                hidden_batch_norm_list=[BatchNorm(), BatchNorm(), BatchNorm(), None],
                 optimizer_name="SGD",
-                hidden_activation_list=["relu", "sigmoid"],
+                hidden_activation_list=["identity", "identity", "identity", "sigmoid"],
                 hidden_residual_flag=False,
                 hidden_dense_flag=False,
                 dense_axis=1,
@@ -311,9 +324,16 @@ class EBGANImageGenerator(object):
             ctx=ctx,
             initializer=initializer,
         )
-        self.EBGAN = GAN
+        self.EBGAN = EBGAN
 
     def learn(self, iter_n=1000, k_step=10):
+        '''
+        Learning.
+
+        Args:
+            iter_n:                         `int` of the number of training iterations.
+            k_step:                         `int` of the number of learning of the `discriminative_model`.
+        '''
         self.EBGAN.learn(
             iter_n=iter_n,
             k_step=k_step,

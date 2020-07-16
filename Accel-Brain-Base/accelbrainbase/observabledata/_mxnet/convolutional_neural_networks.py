@@ -172,7 +172,7 @@ class ConvolutionalNeuralNetworks(HybridBlock, ObservableData):
         self.__attenuate_epoch = attenuate_epoch
 
         for v in regularizatable_data_list:
-            if isinstance(v, Regularizatable) is False:
+            if isinstance(v, RegularizatableData) is False:
                 raise TypeError("The type of values of `regularizatable_data_list` must be `Regularizatable`.")
         self.__regularizatable_data_list = regularizatable_data_list
 

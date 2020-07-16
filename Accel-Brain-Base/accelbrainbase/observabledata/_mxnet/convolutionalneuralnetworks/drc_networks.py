@@ -211,7 +211,7 @@ class DRCNetworks(ConvolutionalNeuralNetworks):
                 self.__logger.debug("The initialization should be deferred.")
 
         for v in regularizatable_data_list:
-            if isinstance(v, Regularizatable) is False:
+            if isinstance(v, RegularizatableData) is False:
                 raise TypeError("The type of values of `regularizatable_data_list` must be `Regularizatable`.")
         self.__regularizatable_data_list = regularizatable_data_list
 

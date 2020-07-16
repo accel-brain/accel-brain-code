@@ -94,6 +94,7 @@ class MobileNetV2(ConvolutionalNeuralNetworks):
         shortcut_flag=True,
         global_shortcut_flag=False,
         output_batch_norm_flag=True,
+        regularizatable_data_list=[],
         scale=1.0,
         init_deferred_flag=None,
         **kwargs
@@ -138,6 +139,7 @@ class MobileNetV2(ConvolutionalNeuralNetworks):
                                         This shortcut will propagate input data into output layer.
             scale:                      `float` of scaling factor for initial parameters.
             init_deferred_flag:         `bool` that means initialization in this class will be deferred or not.
+            regularizatable_data_list:  `list` of `RegularizatableData`.
 
         '''
 
@@ -161,6 +163,7 @@ class MobileNetV2(ConvolutionalNeuralNetworks):
             hybridize_flag=hybridize_flag,
             scale=scale,
             not_init_flag=True,
+            regularizatable_data_list=regularizatable_data_list,
             hidden_units_list=[],
             hidden_dropout_rate_list=[],
             hidden_batch_norm_list=[],

@@ -270,6 +270,10 @@ class NeuralNetworks(HybridBlock, ObservableData):
 
             if self.activation_list[i] == "identity_adjusted":
                 x = x / F.sum(F.ones_like(x))
+            elif self.activation_list[i] == "softmax":
+                x = F.softmax(x)
+            elif self.activation_list[i] == "log_softmax":
+                x = F.softmax(x)
             elif self.activation_list[i] != "identity":
                 x = F.Activation(x, self.activation_list[i])
             if self.dropout_forward_list[i] is not None:

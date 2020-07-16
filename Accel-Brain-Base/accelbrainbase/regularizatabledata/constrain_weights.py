@@ -19,6 +19,16 @@ class ConstrainWeights(RegularizatableData):
     # until $\sum_{j=0}^{n}w_{ji}^2 < weight\_limit$.
     __weight_limit = 0.9
 
+    def get_weight_limit(self):
+        ''' getter '''
+        return self.__weight_limit
+    
+    def set_weight_limit(self, value):
+        ''' setter '''
+        self.__weight_limit = value
+
+    weight_limit = property(get_weight_limit, set_weight_limit)
+
     def __init__(self, weight_limit=0.9):
         '''
         Init.

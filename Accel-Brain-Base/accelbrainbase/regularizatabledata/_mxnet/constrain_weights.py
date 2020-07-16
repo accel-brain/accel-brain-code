@@ -16,8 +16,9 @@ class ConstrainWeights(_ConstrainWeights):
 
     def constrain_weight(self, weight_arr):
         square_weight_arr = weight_arr * weight_arr
-        while nd.nansum(square_weight_arr) > self.__weight_limit:
+        while nd.nansum(square_weight_arr) > self.weight_limit:
             weight_arr = weight_arr * 0.9
             square_weight_arr = weight_arr * weight_arr
 
+        arr = weight_arr.asnumpy()
         return weight_arr

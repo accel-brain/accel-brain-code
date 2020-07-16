@@ -75,8 +75,8 @@ class DQLController(HybridBlock, ControllableModel):
             raise TypeError("The type of `function_approximator` must be `FunctionApproximator`.")
         if isinstance(policy_sampler, PolicySampler) is False:
             raise TypeError("The type of `policy_sampler` must be `PolicySampler`.")
-        if isinstance(computable_loss, ComputableLoss) is False:
-            raise TypeError("The type of `computable_loss` must be `ComputableLoss`.")
+        if isinstance(computable_loss, ComputableLoss) is False and isinstance(computable_loss, gluon.loss.Loss) is False:
+            raise TypeError("The type of `computable_loss` must be `ComputableLoss` or `gluon.loss.Loss`.")
 
         super(DQLController, self).__init__(**kwargs)
 
@@ -164,101 +164,102 @@ class DQLController(HybridBlock, ControllableModel):
                 possible_reward_value_arr = None
                 next_q_arr = None
                 possible_predicted_q_arr = None
-                with autograd.record():
-                    if state_arr is not None:
-                        state_arr.attach_grad()
 
-                    for possible_i in range(possible_action_arr.shape[1]):
-                        if action_meta_data_arr is not None:
-                            meta_data_arr = action_meta_data_arr[:, possible_i]
-                        else:
-                            meta_data_arr = None
+                for possible_i in range(possible_action_arr.shape[1]):
+                    if action_meta_data_arr is not None:
+                        meta_data_arr = action_meta_data_arr[:, possible_i]
+                    else:
+                        meta_data_arr = None
 
-                        # Inference Q-Values.
-                        _predicted_q_arr = self.function_approximator.inference(
-                            possible_action_arr[:, possible_i]
+                    # Inference Q-Values.
+                    _predicted_q_arr = self.function_approximator.inference(
+                        possible_action_arr[:, possible_i]
+                    )
+                    if possible_predicted_q_arr is None:
+                        possible_predicted_q_arr = nd.expand_dims(_predicted_q_arr, axis=1)
+                    else:
+                        possible_predicted_q_arr = nd.concat(
+                            possible_predicted_q_arr,
+                            nd.expand_dims(_predicted_q_arr, axis=1),
+                            dim=1
                         )
-                        if possible_predicted_q_arr is None:
-                            possible_predicted_q_arr = nd.expand_dims(_predicted_q_arr, axis=1)
-                        else:
-                            possible_predicted_q_arr = nd.concat(
-                                possible_predicted_q_arr,
-                                nd.expand_dims(_predicted_q_arr, axis=1),
-                                dim=1
+
+                    # Observe reward values.
+                    _reward_value_arr = self.policy_sampler.observe_reward_value(
+                        state_arr, 
+                        possible_action_arr[:, possible_i],
+                        meta_data_arr=meta_data_arr,
+                    )
+                    if possible_reward_value_arr is None:
+                        possible_reward_value_arr = nd.expand_dims(_reward_value_arr, axis=1)
+                    else:
+                        possible_reward_value_arr = nd.concat(
+                            possible_reward_value_arr,
+                            nd.expand_dims(_reward_value_arr, axis=1),
+                            dim=1
+                        )
+
+                    # Inference the Max-Q-Value in next action time.
+                    self.policy_sampler.observe_state(
+                        state_arr=possible_action_arr[:, possible_i],
+                        meta_data_arr=meta_data_arr
+                    )
+                    next_possible_action_arr, _ = self.policy_sampler.draw()
+                    next_next_q_arr = None
+
+                    for possible_j in range(next_possible_action_arr.shape[1]):
+                        with autograd.predict_mode():
+                            _next_next_q_arr = self.function_approximator.inference(
+                                next_possible_action_arr[:, possible_j]
                             )
-
-                        # Observe reward values.
-                        _reward_value_arr = self.policy_sampler.observe_reward_value(
-                            state_arr, 
-                            possible_action_arr[:, possible_i],
-                            meta_data_arr=meta_data_arr,
-                        )
-                        if possible_reward_value_arr is None:
-                            possible_reward_value_arr = nd.expand_dims(_reward_value_arr, axis=1)
-                        else:
-                            possible_reward_value_arr = nd.concat(
-                                possible_reward_value_arr,
-                                nd.expand_dims(_reward_value_arr, axis=1),
-                                dim=1
-                            )
-
-                        # Inference the Max-Q-Value in next action time.
-                        self.policy_sampler.observe_state(
-                            state_arr=possible_action_arr[:, possible_i],
-                            meta_data_arr=meta_data_arr
-                        )
-                        next_possible_action_arr, _ = self.policy_sampler.draw()
-                        next_next_q_arr = None
-
-                        for possible_j in range(next_possible_action_arr.shape[1]):
-                            with autograd.predict_mode():
-                                _next_next_q_arr = self.function_approximator.inference(
-                                    next_possible_action_arr[:, possible_j]
-                                )
-                            if next_next_q_arr is None:
-                                next_next_q_arr = nd.expand_dims(
-                                    _next_next_q_arr,
-                                    axis=1
-                                )
-                            else:
-                                next_next_q_arr = nd.concat(
-                                    next_next_q_arr,
-                                    nd.expand_dims(
-                                        _next_next_q_arr, 
-                                        axis=1
-                                    ),
-                                    dim=1
-                                )
-
-                        next_max_q_arr = next_next_q_arr.max(axis=1)
-
-                        if next_q_arr is None:
-                            next_q_arr = nd.expand_dims(
-                                next_max_q_arr,
+                        if next_next_q_arr is None:
+                            next_next_q_arr = nd.expand_dims(
+                                _next_next_q_arr,
                                 axis=1
                             )
                         else:
-                            next_q_arr = nd.concat(
-                                next_q_arr,
+                            next_next_q_arr = nd.concat(
+                                next_next_q_arr,
                                 nd.expand_dims(
-                                    next_max_q_arr,
+                                    _next_next_q_arr, 
                                     axis=1
                                 ),
                                 dim=1
                             )
 
-                    # Select action.
-                    selected_tuple = self.select_action(
-                        possible_action_arr, 
-                        possible_predicted_q_arr,
-                        possible_reward_value_arr,
-                        next_q_arr,
-                        possible_meta_data_arr=action_meta_data_arr
+                    next_max_q_arr = next_next_q_arr.max(axis=1)
+
+                    if next_q_arr is None:
+                        next_q_arr = nd.expand_dims(
+                            next_max_q_arr,
+                            axis=1
+                        )
+                    else:
+                        next_q_arr = nd.concat(
+                            next_q_arr,
+                            nd.expand_dims(
+                                next_max_q_arr,
+                                axis=1
+                            ),
+                            dim=1
+                        )
+
+                # Select action.
+                selected_tuple = self.select_action(
+                    possible_action_arr, 
+                    possible_predicted_q_arr,
+                    possible_reward_value_arr,
+                    next_q_arr,
+                    possible_meta_data_arr=action_meta_data_arr
+                )
+                action_arr, predicted_q_arr, reward_value_arr, next_q_arr, action_meta_data_arr = selected_tuple
+
+                with autograd.record():
+                    predicted_q_arr = self.function_approximator.inference(
+                        action_arr
                     )
-                    action_arr, predicted_q_arr, reward_value_arr, next_q_arr, action_meta_data_arr = selected_tuple
                     # Update real Q-Values.
                     real_q_arr = self.update_q(
-                        predicted_q_arr,
                         reward_value_arr,
                         next_q_arr
                     )
@@ -518,12 +519,11 @@ class DQLController(HybridBlock, ControllableModel):
         '''
         raise NotImplementedError("This method must be implemented.")
 
-    def update_q(self, predicted_q_arr, reward_value_arr, next_max_q_arr):
+    def update_q(self, reward_value_arr, next_max_q_arr):
         '''
         Update Q.
         
         Args:
-            predicted_q_arr:    `np.ndarray` of predicted Q-Values.
             reward_value_arr:   `np.ndarray` of reward values.
             next_max_q_arr:     `np.ndarray` of maximum Q-Values in next time step.
         
@@ -626,8 +626,8 @@ class DQLController(HybridBlock, ControllableModel):
     
     def set_computable_loss(self, value):
         ''' setter for `ComputableLoss`. '''
-        if isinstance(value, ComputableLoss) is False:
-            raise TypeError()
+        if isinstance(value, ComputableLoss) is False and isinstance(value, gluon.loss.Loss) is False:
+            raise TypeError("The type of `computable_loss` must be `ComputableLoss` or `gluon.loss.Loss`.")
         self.__computable_loss = value
 
     computable_loss = property(get_computable_loss, set_computable_loss)

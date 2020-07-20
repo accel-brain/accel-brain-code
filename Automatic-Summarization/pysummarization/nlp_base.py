@@ -28,7 +28,7 @@ class NlpBase(object):
     tokenizable_doc = property(get_tokenizable_doc, set_tokenizable_doc)
 
     # Delimiter for self.listup_sentence.
-    __delimiter_list=["。", "\n"]
+    __delimiter_list = ["。", "\n", ".", " ", "　", "．"]
     
     def get_delimiter_list(self):
         ''' getter '''

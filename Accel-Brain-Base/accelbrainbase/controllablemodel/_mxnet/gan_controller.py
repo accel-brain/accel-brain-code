@@ -197,7 +197,7 @@ class GANController(HybridBlock, ControllableModel):
                     self.generator_trainer.set_learning_rate(learning_rate)
                     self.discriminator_trainer.set_learning_rate(learning_rate)
 
-                if (n + 1) % 100 == 0:
+                if (n + 1) % 100 == 0 or n < 100:
                     self.__logger.debug("-" * 100)
                     self.__logger.debug("Iterations: (" + str(n+1) + "/" + str(iter_n) + ")")
                     self.__logger.debug("-" * 100)
@@ -211,7 +211,7 @@ class GANController(HybridBlock, ControllableModel):
                 loss = self.train_by_feature_matching(k_step)
                 feature_matching_loss_list.append(loss)
 
-                if (n + 1) % 100 == 0:
+                if (n + 1) % 100 == 0 or n < 100:
                     self.__logger.debug("The discriminator's posterior(mean): " + str(posterior_logs_list[-1]))
                     self.__logger.debug("The discriminator's loss(mean): " + str(d_logs_list[-1]))
                     self.__logger.debug("The discriminator's feature matching loss(mean): " + str(feature_matching_loss_list[-1]))
@@ -224,7 +224,7 @@ class GANController(HybridBlock, ControllableModel):
                 g_logs_list.append(loss)
                 posterior_logs_list.append(posterior)
 
-                if (n + 1) % 100 == 0:
+                if (n + 1) % 100 == 0 or n < 100:
                     self.__logger.debug("The generator's loss(mean): " + str(g_logs_list[-1]))
                     self.__logger.debug("The discriminator's posterior(mean): " + str(posterior_logs_list[-1]))
 

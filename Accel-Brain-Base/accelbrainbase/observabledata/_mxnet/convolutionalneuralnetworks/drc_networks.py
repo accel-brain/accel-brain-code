@@ -324,29 +324,30 @@ class DRCNetworks(ConvolutionalNeuralNetworks):
                         self.__logger.debug("Train classification loss: " + str(train_classification_loss.asnumpy().mean()) + " Test classification loss: " + str(test_classification_loss.asnumpy().mean()))
                         self.__logger.debug("Train reconstruction loss: " + str(train_reconstruction_loss.asnumpy().mean()) + " Test reconstruction loss: " + str(test_reconstruction_loss.asnumpy().mean()))
 
-                    acc, inferenced_label_arr, answer_label_arr = self.compute_acc(prob_arr, batch_target_arr)
-                    test_acc, test_inferenced_label_arr, test_answer_label_arr = self.compute_acc(test_prob_arr, test_batch_target_arr)
-
-                    if ((epoch + 1) % 100 == 0):
+                    if self.compute_acc_flag is True:
                         acc, inferenced_label_arr, answer_label_arr = self.compute_acc(prob_arr, batch_target_arr)
                         test_acc, test_inferenced_label_arr, test_answer_label_arr = self.compute_acc(test_prob_arr, test_batch_target_arr)
 
-                        self.__logger.debug("-" * 100)
-                        self.__logger.debug("Train accuracy: " + str(acc) + " Test accuracy: " + str(test_acc))
-                        self.__logger.debug("Train infenreced label(inferenced):")
-                        self.__logger.debug(inferenced_label_arr.asnumpy())
-                        self.__logger.debug("Train infenreced label(answer):")
-                        self.__logger.debug(answer_label_arr.asnumpy())
+                        if ((epoch + 1) % 100 == 0):
+                            acc, inferenced_label_arr, answer_label_arr = self.compute_acc(prob_arr, batch_target_arr)
+                            test_acc, test_inferenced_label_arr, test_answer_label_arr = self.compute_acc(test_prob_arr, test_batch_target_arr)
 
-                        self.__logger.debug("Test infenreced label(inferenced):")
-                        self.__logger.debug(test_inferenced_label_arr.asnumpy())
-                        self.__logger.debug("Test infenreced label(answer):")
-                        self.__logger.debug(test_answer_label_arr.asnumpy())
-                        self.__logger.debug("-" * 100)
+                            self.__logger.debug("-" * 100)
+                            self.__logger.debug("Train accuracy: " + str(acc) + " Test accuracy: " + str(test_acc))
+                            self.__logger.debug("Train infenreced label(inferenced):")
+                            self.__logger.debug(inferenced_label_arr.asnumpy())
+                            self.__logger.debug("Train infenreced label(answer):")
+                            self.__logger.debug(answer_label_arr.asnumpy())
 
-                        if (test_answer_label_arr[0].asnumpy() == test_answer_label_arr.asnumpy()).astype(int).sum() != test_answer_label_arr.shape[0]:
-                            if (test_inferenced_label_arr[0].asnumpy() == test_inferenced_label_arr.asnumpy()).astype(int).sum() == test_inferenced_label_arr.shape[0]:
-                                self.__logger.debug("It may be overfitting.")
+                            self.__logger.debug("Test infenreced label(inferenced):")
+                            self.__logger.debug(test_inferenced_label_arr.asnumpy())
+                            self.__logger.debug("Test infenreced label(answer):")
+                            self.__logger.debug(test_answer_label_arr.asnumpy())
+                            self.__logger.debug("-" * 100)
+
+                            if (test_answer_label_arr[0].asnumpy() == test_answer_label_arr.asnumpy()).astype(int).sum() != test_answer_label_arr.shape[0]:
+                                if (test_inferenced_label_arr[0].asnumpy() == test_inferenced_label_arr.asnumpy()).astype(int).sum() == test_inferenced_label_arr.shape[0]:
+                                    self.__logger.debug("It may be overfitting.")
 
                     self.__loss_list.append(
                         (
@@ -358,12 +359,13 @@ class DRCNetworks(ConvolutionalNeuralNetworks):
                             test_reconstruction_loss.asnumpy().mean()
                         )
                     )
-                    self.__acc_list.append(
-                        (
-                            acc,
-                            test_acc
+                    if self.compute_acc_flag is True:
+                        self.__acc_list.append(
+                            (
+                                acc,
+                                test_acc
+                            )
                         )
-                    )
                     epoch += 1
 
                     if tol_flag is True:

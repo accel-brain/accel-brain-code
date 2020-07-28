@@ -36,6 +36,19 @@ class ConvolutionalNeuralNetworks(HybridBlock, ObservableData):
     # is-a `NNHybrid`.
     __output_nn = None
 
+    # `bool`, compute accuracy or not in learning.
+    __compute_acc_flag = True
+
+    def get_compute_acc_flag(self):
+        ''' getter '''
+        return self.__compute_acc_flag
+    
+    def set_compute_acc_flag(self, value):
+        ''' setter '''
+        self.__compute_acc_flag = value
+
+    compute_acc_flag = property(get_compute_acc_flag, set_compute_acc_flag)
+
     def __init__(
         self,
         computable_loss,
@@ -250,33 +263,34 @@ class ConvolutionalNeuralNetworks(HybridBlock, ObservableData):
 
                 self.__loss_list.append((loss.asnumpy().mean(), test_loss.asnumpy().mean()))
 
-                acc, inferenced_label_arr, answer_label_arr = self.compute_acc(pred_arr, batch_target_arr)
-                test_acc, test_inferenced_label_arr, test_answer_label_arr = self.compute_acc(test_pred_arr, test_batch_target_arr)
+                if self.compute_acc_flag is True:
+                    acc, inferenced_label_arr, answer_label_arr = self.compute_acc(pred_arr, batch_target_arr)
+                    test_acc, test_inferenced_label_arr, test_answer_label_arr = self.compute_acc(test_pred_arr, test_batch_target_arr)
 
-                if ((epoch + 1) % 100 == 0):
-                    self.__logger.debug("-" * 100)
-                    self.__logger.debug("Train accuracy: " + str(acc) + " Test accuracy: " + str(test_acc))
-                    self.__logger.debug("Train infenreced label(inferenced):")
-                    self.__logger.debug(inferenced_label_arr.asnumpy())
-                    self.__logger.debug("Train infenreced label(answer):")
-                    self.__logger.debug(answer_label_arr.asnumpy())
+                    if ((epoch + 1) % 100 == 0):
+                        self.__logger.debug("-" * 100)
+                        self.__logger.debug("Train accuracy: " + str(acc) + " Test accuracy: " + str(test_acc))
+                        self.__logger.debug("Train infenreced label(inferenced):")
+                        self.__logger.debug(inferenced_label_arr.asnumpy())
+                        self.__logger.debug("Train infenreced label(answer):")
+                        self.__logger.debug(answer_label_arr.asnumpy())
 
-                    self.__logger.debug("Test infenreced label(inferenced):")
-                    self.__logger.debug(test_inferenced_label_arr.asnumpy())
-                    self.__logger.debug("Test infenreced label(answer):")
-                    self.__logger.debug(test_answer_label_arr.asnumpy())
-                    self.__logger.debug("-" * 100)
+                        self.__logger.debug("Test infenreced label(inferenced):")
+                        self.__logger.debug(test_inferenced_label_arr.asnumpy())
+                        self.__logger.debug("Test infenreced label(answer):")
+                        self.__logger.debug(test_answer_label_arr.asnumpy())
+                        self.__logger.debug("-" * 100)
 
-                    if (test_answer_label_arr[0].asnumpy() == test_answer_label_arr.asnumpy()).astype(int).sum() != test_answer_label_arr.shape[0]:
-                        if (test_inferenced_label_arr[0].asnumpy() == test_inferenced_label_arr.asnumpy()).astype(int).sum() == test_inferenced_label_arr.shape[0]:
-                            self.__logger.debug("It may be overfitting.")
+                        if (test_answer_label_arr[0].asnumpy() == test_answer_label_arr.asnumpy()).astype(int).sum() != test_answer_label_arr.shape[0]:
+                            if (test_inferenced_label_arr[0].asnumpy() == test_inferenced_label_arr.asnumpy()).astype(int).sum() == test_inferenced_label_arr.shape[0]:
+                                self.__logger.debug("It may be overfitting.")
 
-                self.__acc_list.append(
-                    (
-                        acc,
-                        test_acc
+                    self.__acc_list.append(
+                        (
+                            acc,
+                            test_acc
+                        )
                     )
-                )
 
                 epoch += 1
 

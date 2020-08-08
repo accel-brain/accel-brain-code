@@ -20,7 +20,7 @@ class MeCabTokenizer(TokenizableDoc):
         ''' setter '''
         self.__mecab_system_dic = value
 
-    property(get_mecab_system_dic, set_mecab_system_dic)
+    mecab_system_dic = property(get_mecab_system_dic, set_mecab_system_dic)
 
     __part_of_speech = ["名詞", "形容詞", "動詞"]
 

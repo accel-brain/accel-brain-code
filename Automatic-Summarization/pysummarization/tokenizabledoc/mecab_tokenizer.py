@@ -10,6 +10,18 @@ class MeCabTokenizer(TokenizableDoc):
     Japanese morphological analysis with MeCab.
     '''
 
+    __mecab_system_dic = "-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd"
+
+    def get_mecab_system_dic(self):
+        ''' getter '''
+        return self.__mecab_system_dic
+    
+    def set_mecab_system_dic(self, value):
+        ''' setter '''
+        self.__mecab_system_dic = value
+
+    property(get_mecab_system_dic, set_mecab_system_dic)
+
     __part_of_speech = ["名詞", "形容詞", "動詞"]
 
     def get_part_of_speech(self):
@@ -33,12 +45,12 @@ class MeCabTokenizer(TokenizableDoc):
             [token, token, token, ...]
         '''
         if len(self.part_of_speech) == 0:
-            mt = MeCab.Tagger("-Owakati")
+            mt = MeCab.Tagger(self.mecab_system_dic + " -Owakati")
             wordlist = mt.parse(sentence_str)
             token_list = wordlist.rstrip(" \n").split(" ")
             return token_list
         else:
-            tagger = MeCab.Tagger(" -Ochasen")
+            tagger = MeCab.Tagger(self.mecab_system_dic + " -Ochasen")
             node = tagger.parseToNode(sentence_str)
 
             result_tuple_list = []

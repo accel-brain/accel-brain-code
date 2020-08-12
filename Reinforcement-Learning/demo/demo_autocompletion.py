@@ -132,7 +132,7 @@ if __name__ == "__main__":
             next_action_list=next_action_list
         )
         reward_value = boltzmann_q_learning.observe_reward_value(state_key, action_key)
-        q_value = boltzmann_q_learning.extract_q_dict(state_key, action_key)
+        q_value = boltzmann_q_learning.extract_q_df(state_key, action_key)
 
         print("Predicted word: " + str(action_key))
         print("Reward: " + str(reward_value))

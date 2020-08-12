@@ -174,7 +174,7 @@ class QLearning(metaclass=ABCMeta):
 
     r_df = property(get_r_df, set_r_df)
 
-    def extract_r_df(self, state_key, r_value, action_key=None):
+    def extract_r_df(self, state_key, action_key=None):
         '''
         Insert or update R-Value in `self.r_df`.
 
@@ -186,9 +186,6 @@ class QLearning(metaclass=ABCMeta):
         Exceptions:
             TypeError:      If the type of `r_value` is not float.
         '''
-        if isinstance(r_value, float) is False:
-            raise TypeError("The type of r_value must be float.")
-
         r = 0.0
         if self.r_df is None:
             self.save_r_df(state_key, r, action_key)

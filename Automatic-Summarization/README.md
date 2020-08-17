@@ -2,6 +2,11 @@
 
 `pysummarization` is Python3 library for the automatic summarization, document abstraction, and text filtering.
 
+See also ...
+
+- [Automatic Summarization API: AI-Text-Marker](https://api.rakuten.net/accel-brain-ai-text-marker-team/api/ai-text-marker/details)
+    * `AI-Text-Marker` is an API of Automatic Document Summarizer with Natural Language Processing(NLP) and a Deep Reinforcement Learning, implemented by applying [Automatic Summarization Library: pysummarization](https://github.com/accel-brain/accel-brain-code/tree/master/Automatic-Summarization) and [Reinforcement Learning Library: pyqlearning](https://github.com/accel-brain/accel-brain-code/tree/master/Reinforcement-Learning) that we developed.
+
 ## Description
 
 The function of this library is automatic summarization using a kind of natural language processing and neural network language model. This library enable you to create a summary with the major points of the original document or web-scraped text that filtered by text clustering. And this library applies [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base) to implement **Encoder/Decoder based on LSTM** improving the accuracy of summarization by **Sequence-to-Sequence**(**Seq2Seq**) learning.

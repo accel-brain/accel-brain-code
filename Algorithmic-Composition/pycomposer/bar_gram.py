@@ -30,8 +30,8 @@ class BarGram(object):
         try:
             arr[self.pitch_tuple_list.index(pitch_tuple)] = 1
         except ValueError:
-            pitch_key = np.random.randint(low=0, high=len(pitch_tuple))
-            arr[pitch_tuple[pitch_key]] = 1
+            pitch_key = np.random.randint(low=0, high=len(self.pitch_tuple_list))
+            arr[pitch_key] = 1
 
         arr = arr.astype(float)
         return arr

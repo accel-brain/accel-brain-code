@@ -204,8 +204,8 @@ class ConvolutionalLadderNetworks(ConvolutionalAutoEncoder):
             1,
             1
         ))
-        sigma_arr = sigma_arr / row
-        mu_arr = F.square(x) / row
+        sigma_arr = F.broadcast_div(sigma_arr, row)
+        mu_arr = F.broadcast_div(F.square(x), row)
         alpha_arr = x - noised_x
 
         return alpha_arr, sigma_arr, mu_arr

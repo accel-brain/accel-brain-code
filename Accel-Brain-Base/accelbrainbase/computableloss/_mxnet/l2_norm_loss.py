@@ -46,7 +46,7 @@ class L2NormLoss(Loss, ComputableLoss):
             `mxnet.ndarray` or `mxnet.symbol` of loss.
         '''
         dest_arr = _reshape_like(F, dest_arr, orign_arr)
-        loss = F.square((orign_arr - dest_arr) ** 2)
+        loss = F.sqrt(F.mean(F.square(orign_arr - dest_arr), axis=1))
         loss = _apply_weighting(F, loss, self._weight, sample_weight)
         return F.mean(
             loss,

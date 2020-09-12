@@ -415,7 +415,7 @@ class LSTMNetworks(HybridBlock, ObservableData):
             - rank-2 tensor of activities in LSTM gate.
         '''
         if self.__input_adjusted_flag is True:
-            observed_arr = observed_arr / F.sum(F.ones_like(observed_arr))
+            observed_arr = F.broadcast_div(observed_arr, F.sum(F.ones_like(observed_arr)))
 
         observed_lstm_matrix = self.observed_fc(observed_arr)
 
@@ -467,7 +467,7 @@ class LSTMNetworks(HybridBlock, ObservableData):
             return pred_arr
         pred_arr = self.output_fc(F.reshape(pred_arr, shape=(self.__batch_size * self.__seq_len, -1)))
         if self.__output_activation == "identity_adjusted":
-            pred_arr = pred_arr / F.sum(F.ones_like(pred_arr))
+            pred_arr = F.broadcast_div(pred_arr, F.sum(F.ones_like(pred_arr)))
         elif self.__output_activation != "identity":
             pred_arr = F.Activation(pred_arr, self.__output_activation)
         pred_arr = F.reshape(pred_arr, shape=(self.__batch_size, self.__seq_len, -1))

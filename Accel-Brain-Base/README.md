@@ -20,7 +20,7 @@ See also ...
 Install using pip:
 
 ```sh
-pip install accelbrainbase
+pip install accel-brain-base
 ```
 
 ### Source code
@@ -33,7 +33,7 @@ The source code is currently hosted on GitHub.
 
 Installers for the latest released version are available at the Python package index.
 
-- [accelbrainbase : Python Package Index](https://pypi.python.org/pypi/accelbrainbase/)
+- [accel-brain-base : Python Package Index](https://pypi.python.org/pypi/accel-brain-base/)
 
 ### Dependencies
 

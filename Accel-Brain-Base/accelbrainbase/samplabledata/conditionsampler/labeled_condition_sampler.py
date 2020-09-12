@@ -42,6 +42,8 @@ class LabeledConditionSampler(SamplableData):
     
     observable_data = property(get_observable_data, set_observable_data)
 
+    model = property(get_observable_data, set_observable_data)
+
     def draw(self):
         '''
         Draw samples from distribtions.

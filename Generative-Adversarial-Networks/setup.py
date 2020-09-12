@@ -12,7 +12,7 @@ def read_readme(file_name):
 
 setup(
     name='pygan',
-    version='1.1.1',
+    version='1.1.0',
     description='pygan is Python library to implement Generative Adversarial Networks(GANs), Conditional GANs, Adversarial Auto-Encoders(AAEs), and Energy-based Generative Adversarial Network(EBGAN).',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',

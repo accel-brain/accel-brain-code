@@ -156,6 +156,6 @@ class AutoAbstractor(NlpBase):
                 if score > max_cluster_score:
                     max_cluster_score = score
 
-            scores_list.append((sentence_idx, score))
+            scores_list.append((sentence_idx, max_cluster_score))
 
         return scores_list

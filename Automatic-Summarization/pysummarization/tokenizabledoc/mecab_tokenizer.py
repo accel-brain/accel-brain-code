@@ -10,7 +10,10 @@ class MeCabTokenizer(TokenizableDoc):
     Japanese morphological analysis with MeCab.
     '''
 
-    __mecab_system_dic = "-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd"
+    # Path ot mecab dictionary.
+    # For instance, "-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd".
+    # If empty(""), this class will see default settings.
+    __mecab_system_dic = ""
 
     def get_mecab_system_dic(self):
         ''' getter '''

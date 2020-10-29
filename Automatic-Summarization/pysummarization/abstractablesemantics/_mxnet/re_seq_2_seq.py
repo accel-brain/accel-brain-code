@@ -400,8 +400,8 @@ class ReSeq2Seq(HybridBlock, AbstractableSemantics):
             loss_list = []
             min_loss = None
             epoch = 0
+            iter_n = 0
             for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr in iteratable_data.generate_learned_samples():
-                epoch += 1
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
                     learning_rate = learning_rate * self.__learning_attenuate_rate
 
@@ -416,10 +416,14 @@ class ReSeq2Seq(HybridBlock, AbstractableSemantics):
                 loss.backward()
                 self.trainer.step(batch_observed_arr.shape[0])
 
-                test_observed_arr, test_encoded_arr, test_decoded_arr, test_re_encoded_arr = self.inference(test_batch_observed_arr)
-                test_loss = self.compute_retrospective_loss(test_observed_arr, test_encoded_arr, test_decoded_arr, test_re_encoded_arr)
+                if (iter_n+1) % int(iteratable_data.iter_n / iteratable_data.epochs) == 0:
+                    test_observed_arr, test_encoded_arr, test_decoded_arr, test_re_encoded_arr = self.inference(test_batch_observed_arr)
+                    test_loss = self.compute_retrospective_loss(test_observed_arr, test_encoded_arr, test_decoded_arr, test_re_encoded_arr)
 
-                self.__verificate_retrospective_loss(loss, test_loss)
+                    self.__verificate_retrospective_loss(loss, test_loss)
+
+                    epoch += 1
+                iter_n += 1
 
         except KeyboardInterrupt:
             self.__logger.debug("Interrupt.")

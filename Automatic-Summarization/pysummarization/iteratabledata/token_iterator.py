@@ -70,9 +70,13 @@ class TokenIterator(IteratableData):
         training_arr = observed_arr[key_arr[:training_row]]
         test_arr = observed_arr[key_arr[training_row:]]
 
+        dataset_size = training_arr.shape[0]
+        iter_n = int(epochs * max(dataset_size / batch_size, 1))
+
         self.training_arr = training_arr
         self.test_arr = test_arr
 
+        self.iter_n = iter_n
         self.epochs = epochs
         self.batch_size = batch_size
         self.seq_len = seq_len
@@ -90,7 +94,7 @@ class TokenIterator(IteratableData):
             - `mxnet.ndarray` of observed data points in test.
             - `mxnet.ndarray` of supervised data in test.
         '''
-        for epoch in range(self.epochs):
+        for _ in range(self.iter_n):
             training_key_arr = np.arange(self.training_arr.shape[0])
             test_key_arr = np.arange(self.test_arr.shape[0])
 

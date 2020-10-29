@@ -57,9 +57,13 @@ class UnlabeledCSVIterator(_LabeledImageIterator):
         train_observed_arr = unlabeled_csv_extractor.extract(train_csv_path)
         test_observed_arr = unlabeled_csv_extractor.extract(test_csv_path)
 
+        dataset_size = train_observed_arr.shape[0]
+        iter_n = int(epochs * max(dataset_size / batch_size, 1))
+
         self.__train_observed_arr = train_observed_arr
         self.__test_observed_arr = test_observed_arr
 
+        self.iter_n = iter_n
         self.epochs = epochs
         self.batch_size = batch_size
         self.norm_mode = norm_mode
@@ -79,7 +83,7 @@ class UnlabeledCSVIterator(_LabeledImageIterator):
             - `mxnet.ndarray` of observed data points in test.
             - `mxnet.ndarray` of supervised data in test.
         '''
-        for epoch in range(self.epochs):
+        for _ in range(self.iter_n):
             training_batch_arr, test_batch_arr = None, None
 
             row_arr = np.arange(self.__train_observed_arr.shape[0])

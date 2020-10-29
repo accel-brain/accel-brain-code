@@ -176,6 +176,7 @@ class RestrictedBoltzmannMachines(HybridBlock, ObservableData):
 
         try:
             epoch = 0
+            iter_n = 0
             for observed_arr, label_arr, test_observed_arr, test_label_arr in iteratable_data.generate_learned_samples():
                 self.batch_size = observed_arr.shape[0]
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
@@ -190,19 +191,20 @@ class RestrictedBoltzmannMachines(HybridBlock, ObservableData):
                 loss.backward()
                 self.trainer.step(observed_arr.shape[0])
                 self.regularize()
-                self.__loss_list.append(loss.asnumpy()[0])
 
-                test_visible_activity_arr = self.inference(test_observed_arr)
-                test_loss = self.compute_loss(
-                    test_observed_arr,
-                    test_visible_activity_arr
-                )
-                self.__test_loss_list.append(test_loss.asnumpy()[0])
+                if (iter_n+1) % int(iteratable_data.iter_n / iteratable_data.epochs) == 0:
+                    test_visible_activity_arr = self.inference(test_observed_arr)
+                    test_loss = self.compute_loss(
+                        test_observed_arr,
+                        test_visible_activity_arr
+                    )
 
-                if (epoch + 1) % 100 == 0:
+                    self.__loss_list.append(loss.asnumpy()[0])
+                    self.__test_loss_list.append(test_loss.asnumpy()[0])
                     self.__logger.debug("Epoch: " + str(epoch + 1) + " Train loss: " + str(self.__loss_list[-1]) + " Test loss: " + str(self.__test_loss_list[-1]))
+                    epoch += 1
+                iter_n += 1
 
-                epoch = epoch + 1
         except KeyboardInterrupt:
             self.__logger.debug("Interrupt.")
 

@@ -25,7 +25,8 @@ class GaussIterator(_LabeledImageIterator):
         norm_mode="z_score",
         noiseable_data=None,
         scale=1.0,
-        ctx=mx.gpu()
+        ctx=mx.gpu(),
+        dataset_size=1000
     ):
         '''
         Init.
@@ -43,6 +44,7 @@ class GaussIterator(_LabeledImageIterator):
                                             - others : This class will not normalize the data.
 
             noiseable_data:                 is-a `NoiseableData` for Denoising Auto-Encoders.
+            dataset_size:                   `int` of the dataset size.
         '''
         if noiseable_data is not None and isinstance(noiseable_data, NoiseableData) is False:
             raise TypeError("The type of `noiseable_data` must be `NoiseableData`.")
@@ -50,10 +52,13 @@ class GaussIterator(_LabeledImageIterator):
         logger = getLogger("accelbrainbase")
         self.__logger = logger
 
+        iter_n = int(epochs * max(dataset_size / batch_size, 1))
+
         self.__loc = loc
         self.__std = std
         self.__dim = dim
 
+        self.iter_n = iter_n
         self.epochs = epochs
         self.batch_size = batch_size
         self.norm_mode = norm_mode
@@ -73,7 +78,7 @@ class GaussIterator(_LabeledImageIterator):
             - `mxnet.ndarray` of observed data points in test.
             - `mxnet.ndarray` of supervised data in test.
         '''
-        for epoch in range(self.epochs):
+        for _ in range(self.iter_n):
             training_batch_arr, test_batch_arr = None, None
 
             training_batch_arr = nd.random.normal(

@@ -52,7 +52,7 @@ class DRCNIterator(_DRCNIterator):
                                             all image file will be sorted by any rule in relation to your sequencial modeling.
 
             epochs:                         `int` of epochs of Mini-batch.
-            bath_size:                      `int` of batch size of Mini-batch.
+            batch_size:                     `int` of batch size of Mini-batch.
             norm_mode:                      How to normalize pixel values of images.
                                             - `z_score`: Z-Score normalization.
                                             - `min_max`: Min-max normalization.
@@ -75,10 +75,14 @@ class DRCNIterator(_DRCNIterator):
 
         dir_list.sort()
         self.__training_file_path_list = [None] * len(dir_list)
+        dataset_size = 0
         for i in range(len(dir_list)):
             file_path_list = [dir_list[i] + "/" + file_name for file_name in os.listdir(dir_list[i] + "/")]
             file_path_list.sort()
             self.__training_file_path_list[i] = file_path_list
+            dataset_size = dataset_size + len(file_path_list)
+
+        iter_n = int(epochs * max(dataset_size / batch_size, 1))
 
         target_domain_dir_list.sort()
         self.__target_domain_file_path_list = [None] * len(target_domain_dir_list)
@@ -105,6 +109,7 @@ class DRCNIterator(_DRCNIterator):
         self.__test_dir_list = test_dir_list
         self.__target_domain_dir_list = target_domain_dir_list
 
+        self.iter_n = iter_n
         self.epochs = epochs
         self.batch_size = batch_size
         self.norm_mode = norm_mode
@@ -124,7 +129,7 @@ class DRCNIterator(_DRCNIterator):
             - `mxnet.ndarray` of supervised data in test.
             - `mxnet.ndarray` of obsrved data points in target domain.
         '''
-        for epoch in range(self.epochs):
+        for _ in range(self.iter_n):
             training_batch_arr, test_batch_arr = None, None
             training_label_arr, test_label_arr = None, None
             target_domain_batch_arr = None

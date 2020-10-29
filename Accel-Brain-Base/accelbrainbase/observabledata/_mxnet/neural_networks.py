@@ -151,6 +151,7 @@ class NeuralNetworks(HybridBlock, ObservableData):
         learning_rate = self.__learning_rate
         try:
             epoch = 0
+            iter_n = 0
             for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr in iteratable_data.generate_learned_samples():
                 self.epoch = epoch
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
@@ -168,19 +169,18 @@ class NeuralNetworks(HybridBlock, ObservableData):
                 self.trainer.step(batch_observed_arr.shape[0])
                 self.regularize()
 
-                # rank-3
-                test_pred_arr = self.inference(test_batch_observed_arr)
+                if (iter_n+1) % int(iteratable_data.iter_n / iteratable_data.epochs) == 0:
+                    # rank-3
+                    test_pred_arr = self.inference(test_batch_observed_arr)
 
-                test_loss = self.compute_loss(
-                    test_pred_arr,
-                    test_batch_target_arr
-                )
-
-                if (epoch + 1) % 100 == 0:
+                    test_loss = self.compute_loss(
+                        test_pred_arr,
+                        test_batch_target_arr
+                    )
+                    self.__loss_list.append((loss.asnumpy().mean(), test_loss.asnumpy().mean()))
                     self.__logger.debug("Epochs: " + str(epoch + 1) + " Train loss: " + str(loss.asnumpy().mean()) + " Test loss: " + str(test_loss.asnumpy().mean()))
-
-                self.__loss_list.append((loss.asnumpy().mean(), test_loss.asnumpy().mean()))
-                epoch += 1
+                    epoch += 1
+                iter_n += 1
 
         except KeyboardInterrupt:
             self.__logger.debug("Interrupt.")

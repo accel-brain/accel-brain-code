@@ -263,6 +263,7 @@ class DRCNetworks(ConvolutionalNeuralNetworks):
         est_flag = False
         try:
             epoch = 0
+            iter_n = 0
             for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr, target_domain_arr in iteratable_data.generate_learned_samples():
                 self.epoch = epoch
                 self.batch_size = batch_observed_arr.shape[0]
@@ -309,64 +310,68 @@ class DRCNetworks(ConvolutionalNeuralNetworks):
 
                     self.__previous_loss = loss_mean
 
-                    # rank-3
-                    test_decoded_arr = self.inference_auto_encoder(target_domain_arr)
-                    _, test_prob_arr = self.inference(test_batch_observed_arr)
-                    test_loss, test_classification_loss, test_reconstruction_loss = self.compute_loss(
-                        test_decoded_arr, 
-                        test_prob_arr,
-                        target_domain_arr,
-                        test_batch_target_arr
-                    )
+                    if (iter_n+1) % int(iteratable_data.iter_n / iteratable_data.epochs) == 0:
+                        # rank-3
+                        test_decoded_arr = self.inference_auto_encoder(target_domain_arr)
+                        _, test_prob_arr = self.inference(test_batch_observed_arr)
+                        test_loss, test_classification_loss, test_reconstruction_loss = self.compute_loss(
+                            test_decoded_arr, 
+                            test_prob_arr,
+                            target_domain_arr,
+                            test_batch_target_arr
+                        )
 
-                    if (epoch + 1) % 100 == 0:
                         self.__logger.debug("Epochs: " + str(epoch + 1) + " Train total loss: " + str(loss.asnumpy().mean()) + " Test total loss: " + str(test_loss.asnumpy().mean()))
                         self.__logger.debug("Train classification loss: " + str(train_classification_loss.asnumpy().mean()) + " Test classification loss: " + str(test_classification_loss.asnumpy().mean()))
                         self.__logger.debug("Train reconstruction loss: " + str(train_reconstruction_loss.asnumpy().mean()) + " Test reconstruction loss: " + str(test_reconstruction_loss.asnumpy().mean()))
 
                     if self.compute_acc_flag is True:
-                        acc, inferenced_label_arr, answer_label_arr = self.compute_acc(prob_arr, batch_target_arr)
-                        test_acc, test_inferenced_label_arr, test_answer_label_arr = self.compute_acc(test_prob_arr, test_batch_target_arr)
-
-                        if ((epoch + 1) % 100 == 0):
+                        if (iter_n+1) % int(iteratable_data.iter_n / iteratable_data.epochs) == 0:
                             acc, inferenced_label_arr, answer_label_arr = self.compute_acc(prob_arr, batch_target_arr)
                             test_acc, test_inferenced_label_arr, test_answer_label_arr = self.compute_acc(test_prob_arr, test_batch_target_arr)
+                            if (epoch + 1) % 100 == 0 or epoch < 100:
+                                acc, inferenced_label_arr, answer_label_arr = self.compute_acc(prob_arr, batch_target_arr)
+                                test_acc, test_inferenced_label_arr, test_answer_label_arr = self.compute_acc(test_prob_arr, test_batch_target_arr)
 
-                            self.__logger.debug("-" * 100)
-                            self.__logger.debug("Train accuracy: " + str(acc) + " Test accuracy: " + str(test_acc))
-                            self.__logger.debug("Train infenreced label(inferenced):")
-                            self.__logger.debug(inferenced_label_arr.asnumpy())
-                            self.__logger.debug("Train infenreced label(answer):")
-                            self.__logger.debug(answer_label_arr.asnumpy())
+                                self.__logger.debug("-" * 100)
+                                self.__logger.debug("Train accuracy: " + str(acc) + " Test accuracy: " + str(test_acc))
+                                self.__logger.debug("Train infenreced label(inferenced):")
+                                self.__logger.debug(inferenced_label_arr.asnumpy())
+                                self.__logger.debug("Train infenreced label(answer):")
+                                self.__logger.debug(answer_label_arr.asnumpy())
 
-                            self.__logger.debug("Test infenreced label(inferenced):")
-                            self.__logger.debug(test_inferenced_label_arr.asnumpy())
-                            self.__logger.debug("Test infenreced label(answer):")
-                            self.__logger.debug(test_answer_label_arr.asnumpy())
-                            self.__logger.debug("-" * 100)
+                                self.__logger.debug("Test infenreced label(inferenced):")
+                                self.__logger.debug(test_inferenced_label_arr.asnumpy())
+                                self.__logger.debug("Test infenreced label(answer):")
+                                self.__logger.debug(test_answer_label_arr.asnumpy())
+                                self.__logger.debug("-" * 100)
 
-                            if (test_answer_label_arr[0].asnumpy() == test_answer_label_arr.asnumpy()).astype(int).sum() != test_answer_label_arr.shape[0]:
-                                if (test_inferenced_label_arr[0].asnumpy() == test_inferenced_label_arr.asnumpy()).astype(int).sum() == test_inferenced_label_arr.shape[0]:
-                                    self.__logger.debug("It may be overfitting.")
+                                if (test_answer_label_arr[0].asnumpy() == test_answer_label_arr.asnumpy()).astype(int).sum() != test_answer_label_arr.shape[0]:
+                                    if (test_inferenced_label_arr[0].asnumpy() == test_inferenced_label_arr.asnumpy()).astype(int).sum() == test_inferenced_label_arr.shape[0]:
+                                        self.__logger.debug("It may be overfitting.")
 
-                    self.__loss_list.append(
-                        (
-                            loss.asnumpy().mean(), 
-                            test_loss.asnumpy().mean(),
-                            train_classification_loss.asnumpy().mean(),
-                            test_classification_loss.asnumpy().mean(),
-                            train_reconstruction_loss.asnumpy().mean(),
-                            test_reconstruction_loss.asnumpy().mean()
-                        )
-                    )
-                    if self.compute_acc_flag is True:
-                        self.__acc_list.append(
+                    if (iter_n+1) % int(iteratable_data.iter_n / iteratable_data.epochs) == 0:
+                        self.__loss_list.append(
                             (
-                                acc,
-                                test_acc
+                                loss.asnumpy().mean(), 
+                                test_loss.asnumpy().mean(),
+                                train_classification_loss.asnumpy().mean(),
+                                test_classification_loss.asnumpy().mean(),
+                                train_reconstruction_loss.asnumpy().mean(),
+                                test_reconstruction_loss.asnumpy().mean()
                             )
                         )
-                    epoch += 1
+                        if self.compute_acc_flag is True:
+                            self.__acc_list.append(
+                                (
+                                    acc,
+                                    test_acc
+                                )
+                            )
+
+                    if (iter_n+1) % int(iteratable_data.iter_n / iteratable_data.epochs) == 0:
+                        epoch += 1
+                    iter_n += 1
 
                     if tol_flag is True:
                         self.trainer.set_learning_rate(learning_rate)

@@ -50,6 +50,7 @@ class UnlabeledTHotTXTIterator(_UnlabeledImageIterator):
         norm_mode="z_score",
         scale=1.0,
         noiseable_data=None,
+        dataset_size=None,
         ctx=mx.gpu()
     ):
         '''
@@ -70,6 +71,9 @@ class UnlabeledTHotTXTIterator(_UnlabeledImageIterator):
 
             scale:                          `float` of scaling factor for data.
             noiseable_data:                 is-a `NoiseableData` for Denoising Auto-Encoders.
+            dataset_size:                   `int` of the dataset size.
+                                            If `None`, this class will consider `dataset_size` as 
+                                            the number of text in training data.
         '''
         if noiseable_data is not None and isinstance(noiseable_data, NoiseableData) is False:
             raise TypeError("The type of `noiseable_data` must be `NoiseableData`.")
@@ -82,6 +86,11 @@ class UnlabeledTHotTXTIterator(_UnlabeledImageIterator):
             with open(train_txt_path) as f:
                 train_txt += f.read()
 
+        if dataset_size is None:
+            dataset_size = len(train_txt)
+
+        iter_n = int(epochs * max(dataset_size / batch_size, 1))
+
         train_token_list = list(train_txt)
         self.__token_list = list(set(train_token_list))
 
@@ -91,6 +100,7 @@ class UnlabeledTHotTXTIterator(_UnlabeledImageIterator):
         else:
             self.__test_txt_path_list = train_txt_path_list
 
+        self.iter_n = iter_n
         self.epochs = epochs
         self.batch_size = batch_size
         self.seq_len = seq_len
@@ -113,7 +123,7 @@ class UnlabeledTHotTXTIterator(_UnlabeledImageIterator):
             - `mxnet.ndarray` of observed data points in test.
             - `mxnet.ndarray` of supervised data in test.
         '''
-        for epoch in range(self.epochs):
+        for _ in range(self.iter_n):
             training_batch_arr = np.zeros(
                 (
                     self.batch_size,

@@ -37,7 +37,7 @@ class LabeledCSVIterator(_LabeledImageIterator):
             test_csv_path:                  `str` of path to CSV file in test.
 
             epochs:                         `int` of epochs of Mini-batch.
-            bath_size:                      `int` of batch size of Mini-batch.
+            batch_size:                     `int` of batch size of Mini-batch.
             norm_mode:                      How to normalize pixel values of images.
                                             - `z_score`: Z-Score normalization.
                                             - `min_max`: Min-max normalization.
@@ -57,6 +57,9 @@ class LabeledCSVIterator(_LabeledImageIterator):
         train_observed_arr, train_label_arr = labeled_csv_extractor.extract(train_csv_path)
         test_observed_arr, test_label_arr = labeled_csv_extractor.extract(test_csv_path)
 
+        dataset_size = train_observed_arr.shape[0]
+        iter_n = int(epochs * max(dataset_size / batch_size, 1))
+
         train_label_df = pd.DataFrame(train_label_arr, columns=["tmp"])
         self.__label_n = train_label_df.tmp.drop_duplicates().values.shape[0]
 
@@ -65,6 +68,7 @@ class LabeledCSVIterator(_LabeledImageIterator):
         self.__test_observed_arr = test_observed_arr
         self.__test_label_arr = test_label_arr
 
+        self.iter_n = iter_n
         self.epochs = epochs
         self.batch_size = batch_size
         self.norm_mode = norm_mode
@@ -84,7 +88,7 @@ class LabeledCSVIterator(_LabeledImageIterator):
             - `mxnet.ndarray` of observed data points in test.
             - `mxnet.ndarray` of supervised data in test.
         '''
-        for epoch in range(self.epochs):
+        for _ in range(self.iter_n):
             training_batch_arr, test_batch_arr = None, None
             training_label_arr, test_label_arr = None, None
             row_arr = np.arange(self.__train_observed_arr.shape[0])

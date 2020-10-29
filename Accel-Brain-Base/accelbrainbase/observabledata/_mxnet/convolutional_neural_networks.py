@@ -231,6 +231,7 @@ class ConvolutionalNeuralNetworks(HybridBlock, ObservableData):
         learning_rate = self.__learning_rate
         try:
             epoch = 0
+            iter_n = 0
             for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr in iteratable_data.generate_learned_samples():
                 self.epoch = epoch
                 self.batch_size = batch_observed_arr.shape[0]
@@ -250,49 +251,51 @@ class ConvolutionalNeuralNetworks(HybridBlock, ObservableData):
                 self.trainer.step(batch_observed_arr.shape[0])
                 self.regularize()
 
-                # rank-3
-                test_pred_arr = self.inference(test_batch_observed_arr)
+                if (iter_n+1) % int(iteratable_data.iter_n / iteratable_data.epochs) == 0:
+                    # rank-3
+                    test_pred_arr = self.inference(test_batch_observed_arr)
 
-                test_loss = self.compute_loss(
-                    test_pred_arr,
-                    test_batch_target_arr
-                )
-
-                if (epoch + 1) % 100 == 0:
-                    self.__logger.debug("Epochs: " + str(epoch + 1) + " Train loss: " + str(loss.asnumpy().mean()) + " Test loss: " + str(test_loss.asnumpy().mean()))
-
-                self.__loss_list.append((loss.asnumpy().mean(), test_loss.asnumpy().mean()))
-
-                if self.compute_acc_flag is True:
-                    acc, inferenced_label_arr, answer_label_arr = self.compute_acc(pred_arr, batch_target_arr)
-                    test_acc, test_inferenced_label_arr, test_answer_label_arr = self.compute_acc(test_pred_arr, test_batch_target_arr)
-
-                    if ((epoch + 1) % 100 == 0):
-                        self.__logger.debug("-" * 100)
-                        self.__logger.debug("Train accuracy: " + str(acc) + " Test accuracy: " + str(test_acc))
-                        self.__logger.debug("Train infenreced label(inferenced):")
-                        self.__logger.debug(inferenced_label_arr.asnumpy())
-                        self.__logger.debug("Train infenreced label(answer):")
-                        self.__logger.debug(answer_label_arr.asnumpy())
-
-                        self.__logger.debug("Test infenreced label(inferenced):")
-                        self.__logger.debug(test_inferenced_label_arr.asnumpy())
-                        self.__logger.debug("Test infenreced label(answer):")
-                        self.__logger.debug(test_answer_label_arr.asnumpy())
-                        self.__logger.debug("-" * 100)
-
-                        if (test_answer_label_arr[0].asnumpy() == test_answer_label_arr.asnumpy()).astype(int).sum() != test_answer_label_arr.shape[0]:
-                            if (test_inferenced_label_arr[0].asnumpy() == test_inferenced_label_arr.asnumpy()).astype(int).sum() == test_inferenced_label_arr.shape[0]:
-                                self.__logger.debug("It may be overfitting.")
-
-                    self.__acc_list.append(
-                        (
-                            acc,
-                            test_acc
-                        )
+                    test_loss = self.compute_loss(
+                        test_pred_arr,
+                        test_batch_target_arr
                     )
 
-                epoch += 1
+                    self.__logger.debug("Epochs: " + str(epoch + 1) + " Train loss: " + str(loss.asnumpy().mean()) + " Test loss: " + str(test_loss.asnumpy().mean()))
+                    self.__loss_list.append((loss.asnumpy().mean(), test_loss.asnumpy().mean()))
+
+                if self.compute_acc_flag is True:
+                    if (iter_n+1) % int(iteratable_data.iter_n / iteratable_data.epochs) == 0:
+                        acc, inferenced_label_arr, answer_label_arr = self.compute_acc(pred_arr, batch_target_arr)
+                        test_acc, test_inferenced_label_arr, test_answer_label_arr = self.compute_acc(test_pred_arr, test_batch_target_arr)
+
+                        if ((epoch + 1) % 100 == 0):
+                            self.__logger.debug("-" * 100)
+                            self.__logger.debug("Train accuracy: " + str(acc) + " Test accuracy: " + str(test_acc))
+                            self.__logger.debug("Train infenreced label(inferenced):")
+                            self.__logger.debug(inferenced_label_arr.asnumpy())
+                            self.__logger.debug("Train infenreced label(answer):")
+                            self.__logger.debug(answer_label_arr.asnumpy())
+
+                            self.__logger.debug("Test infenreced label(inferenced):")
+                            self.__logger.debug(test_inferenced_label_arr.asnumpy())
+                            self.__logger.debug("Test infenreced label(answer):")
+                            self.__logger.debug(test_answer_label_arr.asnumpy())
+                            self.__logger.debug("-" * 100)
+
+                            if (test_answer_label_arr[0].asnumpy() == test_answer_label_arr.asnumpy()).astype(int).sum() != test_answer_label_arr.shape[0]:
+                                if (test_inferenced_label_arr[0].asnumpy() == test_inferenced_label_arr.asnumpy()).astype(int).sum() == test_inferenced_label_arr.shape[0]:
+                                    self.__logger.debug("It may be overfitting.")
+
+                        self.__acc_list.append(
+                            (
+                                acc,
+                                test_acc
+                            )
+                        )
+
+                if (iter_n+1) % int(iteratable_data.iter_n / iteratable_data.epochs) == 0:
+                    epoch += 1
+                iter_n += 1
 
         except KeyboardInterrupt:
             self.__logger.debug("Interrupt.")

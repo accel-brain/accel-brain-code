@@ -38,7 +38,7 @@ class UnlabeledTHotCSVIterator(_LabeledImageIterator):
             test_csv_path_list:             `list` of `str` of path to CSV file in test.
 
             epochs:                         `int` of epochs of Mini-batch.
-            bath_size:                      `int` of batch size of Mini-batch.
+            batch_size:                     `int` of batch size of Mini-batch.
             seq_len:                        `int` of the length of series. 
             norm_mode:                      How to normalize pixel values of images.
                                             - `z_score`: Z-Score normalization.
@@ -61,6 +61,16 @@ class UnlabeledTHotCSVIterator(_LabeledImageIterator):
         self.__train_csv_path_list = train_csv_path_list
         self.__test_csv_path_list = test_csv_path_list
 
+        dataset_size = 0
+        for file_key in range(len(self.__train_csv_path_list)):
+            train_observed_arr = self.__unlabeled_csv_extractor.extract(
+                self.__train_csv_path_list[file_key]
+            )
+            dataset_size = dataset_size + train_observed_arr.shape[0]
+
+        iter_n = int(epochs * max(dataset_size / batch_size, 1))
+
+        self.iter_n = iter_n
         self.epochs = epochs
         self.batch_size = batch_size
         self.seq_len = seq_len
@@ -81,7 +91,7 @@ class UnlabeledTHotCSVIterator(_LabeledImageIterator):
             - `mxnet.ndarray` of observed data points in test.
             - `mxnet.ndarray` of supervised data in test.
         '''
-        for epoch in range(self.epochs):
+        for _ in range(self.iter_n):
             training_batch_arr, test_batch_arr = None, None
 
             for i in range(self.batch_size):

@@ -65,10 +65,14 @@ class UnlabeledImageIterator(_UnlabeledImageIterator):
         dir_list.sort()
 
         self.__training_file_path_list = [None] * len(dir_list)
+        dataset_size = 0
         for i in range(len(dir_list)):
             file_path_list = [dir_list[i] + "/" + file_name for file_name in os.listdir(dir_list[i] + "/")]
             file_path_list.sort()
             self.__training_file_path_list[i] = file_path_list
+            dataset_size = dataset_size + len(file_path_list)
+
+        iter_n = int(epochs * max(dataset_size / batch_size, 1))
 
         if test_dir_list is not None and isinstance(test_dir_list, list) is False:
             raise TypeError("The type of `test_dir_list` must be `list`.")
@@ -86,6 +90,7 @@ class UnlabeledImageIterator(_UnlabeledImageIterator):
         self.__image_extractor = image_extractor
         self.__dir_list = dir_list
         self.__test_dir_list = test_dir_list
+        self.iter_n = iter_n
         self.epochs = epochs
         self.batch_size = batch_size
 
@@ -105,7 +110,7 @@ class UnlabeledImageIterator(_UnlabeledImageIterator):
             - `mxnet.ndarray` of observed data points in test.
             - `mxnet.ndarray` of supervised data in test.
         '''
-        for epoch in range(self.epochs):
+        for _ in range(self.iter_n):
             training_batch_arr, test_batch_arr = None, None
             for batch_size in range(self.batch_size):
                 dir_key = np.random.randint(low=0, high=len(self.__training_file_path_list))

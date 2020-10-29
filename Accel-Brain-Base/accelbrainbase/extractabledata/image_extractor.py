@@ -55,7 +55,7 @@ class ImageExtractor(ExtractableData):
         img_arr = np.asarray(img)
 
         if self.channel == 3:
-            img_arr = img_arr.transpose((0, 1, 2))
+            img_arr = img_arr.transpose((2, 0, 1))
         elif self.channel == 1:
             img_arr = np.expand_dims(img_arr, axis=0)
 

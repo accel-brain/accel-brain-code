@@ -141,8 +141,11 @@ class EBDiscriminativeModel(DiscriminativeModel):
         inferenced_arr = self.model.forward_propagation(F, x)
         inferenced_arr = F.reshape_like(inferenced_arr, x)
         mse_arr = F.square(x - inferenced_arr)
-        return F.mean(
-            mse_arr,
-            axis=0,
-            exclude=True
+        return F.expand_dims(
+            F.mean(
+                mse_arr,
+                axis=0,
+                exclude=True
+            ),
+            axis=-1
         )

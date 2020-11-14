@@ -11,6 +11,7 @@ class AdversarialSSDALoss(Loss, ComputableLoss):
     Loss function of Self-supervised domain adaptation.
 
     References:
+        - Jing, L., & Tian, Y. (2020). Self-supervised visual feature learning with deep neural networks: A survey. IEEE Transactions on Pattern Analysis and Machine Intelligence.
         - Xu, J., Xiao, L., & López, A. M. (2019). Self-supervised domain adaptation for computer vision tasks. IEEE Access, 7, 156694-156706., p156698.
     '''
 

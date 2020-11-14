@@ -1,8 +1,8 @@
 # Deep Learning Library: accel-brain-base.
 
-`accel-brain-base` is a basic library of the Deep Learning for rapid development at low cost. This library makes it possible to design and implement deep learning, which must be configured as a complex system or a System of Systems, by combining a plurality of functionally differentiated modules such as a Restricted Boltzmann Machine(RBM), Deep Boltzmann Machines(DBMs), a Stacked-Auto-Encoder, an Encoder/Decoder based on Long Short-Term Memory(LSTM), and a Convolutional Auto-Encoder(CAE).
+`accel-brain-base` is a basic library of the Deep Learning for rapid development at low cost. This library makes it possible to design and implement deep learning, which must be configured as a complex system or a System of Systems, by combining a plurality of functionally differentiated modules such as a **Restricted Boltzmann Machine(RBM)**, **Deep Boltzmann Machines(DBMs)**, a **Stacked-Auto-Encoder**, an **Encoder/Decoder based on Long Short-Term Memory(LSTM)**, and a **Convolutional Auto-Encoder(CAE)**.
 
-From the view points of functionally equivalents and structural expansions, this library also prototypes many variants such as energy-based models and Generative models. Typical examples are Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs). In addition, it provides deep reinforcement learning that applies the neural network described above as a function approximator.
+From the view points of functionally equivalents and structural expansions, this library also prototypes many variants such as energy-based models and Generative models. Typical examples are **Generative Adversarial Networks(GANs)** and **Adversarial Auto-Encoders(AAEs)**. It also supports the implementation of **semi-supervised learning** and **self-supervised learning**, which consists of a combination of supervised and unsupervised learning systems. In addition, it provides **deep reinforcement learning** that applies the neural network described above as a function approximator.
 
 See also ...
 
@@ -181,7 +181,7 @@ In relation to the Representation Learning, like DBM, this model also can minimi
 
 ### Functionally equivalent: Convolutional Contractive Auto-Encoder.
 
-This library also provides some functionally equivalents of the Convolutional Auto-Encoder. For instance, Convolutional Contractive Auto-Encoder(Contractive CAE) is a Convolutional Auto-Encoder based on the First-Order Contractive Auto-Encoder(Rifai, S., et al., 2011), which executes the representation learning by adding a penalty term to the classical reconstruction cost function. This penalty term corresponds to the Frobenius norm of the Jacobian matrix of the encoder activations with respect to the input and results in a localized space contraction which in turn yields robust features on the activation layer.
+This library also provides some functionally equivalents of the Convolutional Auto-Encoder. For instance, **Convolutional Contractive Auto-Encoder(Contractive CAE)** is a Convolutional Auto-Encoder based on the First-Order Contractive Auto-Encoder(Rifai, S., et al., 2011), which executes the representation learning by adding a penalty term to the classical reconstruction cost function. This penalty term corresponds to the Frobenius norm of the Jacobian matrix of the encoder activations with respect to the input and results in a localized space contraction which in turn yields robust features on the activation layer.
 
 Analogically, the Contractive Convolutional Auto-Encoder calculates the penalty term. But it differs in that the operation of the deconvolution intervenes insted of inner product. The prototype is exemplified in [demo/Contractive-Convolutional-Auto-Encoder-for-Representation-Learning.ipynb](https://github.com/accel-brain/accel-brain-code/blob/master/Accel-Brain-Base/demo/Contractive-Convolutional-Auto-Encoder-for-Representation-Learning.ipynb).
 
@@ -189,13 +189,13 @@ Analogically, the Contractive Convolutional Auto-Encoder calculates the penalty 
 
 Auto-Encoders, such as the Encoder/Decoder, the Convolutional Auto-Encoder, and the DBM have in common that these models are Stacked Auto-Encoders or the reconstruction models. On the other hand, the Auto-Encoders and the Encoder/Decoders are not statistical mechanical energy-based models unlike with RBM or DBM.
 
-However, Auto-Encoders have traditionally been used to represent energy-based models. According to the statistical mechanical theory for energy-based models, Auto-Encoders constructed by neural networks can be associated with an energy landscape, akin to negative log-probability in a probabilistic model, which measures how well the Auto-Encoder can represent regions in the input space. The energy landscape has been commonly inferred heuristically, by using a training criterion that relates the Auto-Encoder to a probabilistic model such as a RBM. The energy function is identical to the free energy of the corresponding RBM, showing that Auto-Encoders and RBMs may be viewed as two different ways to derive training criteria for forming the same type of analytically defined energy landscape.
+However, Auto-Encoders have traditionally been used to represent energy-based models. According to the statistical mechanical theory for **energy-based models**, Auto-Encoders constructed by neural networks can be associated with an energy landscape, akin to negative log-probability in a probabilistic model, which measures how well the Auto-Encoder can represent regions in the input space. The energy landscape has been commonly inferred heuristically, by using a training criterion that relates the Auto-Encoder to a probabilistic model such as a RBM. The energy function is identical to the free energy of the corresponding RBM, showing that Auto-Encoders and RBMs may be viewed as two different ways to derive training criteria for forming the same type of analytically defined energy landscape.
 
 The view of the Auto-Encoder as a dynamical system allows us to understand how an energy function may be derived for the Auto-Encoder. This makes it possible to assign energies to Auto-Encoders with many different types of activation functions and outputs, and consider minimanization of reconstruction errors as energy minimanization(Kamyshanska, H., & Memisevic, R., 2014).
 
 When trained with some regularization terms, the Auto-Encoders have the ability to learn an energy manifold without supervision or negative examples(Zhao, J., et al., 2016). This means that even when an energy-based Auto-Encoding model is trained to reconstruct a real sample, the model contributes to discovering the data manifold by itself.
 
-This library provides energy-based Auto-Encoders such as Contractive Convolutional Auto-Encoder(Rifai, S., et al., 2011), Repelling Convolutional Auto-Encoder(Zhao, J., et al., 2016), Denoising Auto-Encoders(Bengio, Y., et al., 2013), and Ladder Networks(Valpola, H., 2015). But it is more usefull to redescribe the Auto-Encoders in the framework of Generative Adversarial Networks(GANs)(Goodfellow, I., et al., 2014) to make those models function as not only energy-based models but also Generative models. For instance, theory of an Adversarial Auto-Encoders(AAEs)(Makhzani, A., et al., 2015) and energy-based GANs(EBGANs)(Zhao, J., et al., 2016) enables us to turn Auto-Encoders into a Generative models which referes energy functions.
+This library provides energy-based Auto-Encoders such as **Contractive Convolutional Auto-Encoder**(Rifai, S., et al., 2011), **Repelling Convolutional Auto-Encoder**(Zhao, J., et al., 2016), **Denoising Auto-Encoders**(Bengio, Y., et al., 2013), and **Ladder Networks**(Valpola, H., 2015). But it is more usefull to redescribe the Auto-Encoders in the framework of **Generative Adversarial Networks(GANs)**(Goodfellow, I., et al., 2014) to make those models function as not only energy-based models but also Generative models. For instance, theory of an **Adversarial Auto-Encoders(AAEs)**(Makhzani, A., et al., 2015) and **energy-based GANs(EBGANs)**(Zhao, J., et al., 2016) enables us to turn Auto-Encoders into a Generative models which referes energy functions.
 
 ### Problem Solution: Generative Adversarial Networks(GANs).
 
@@ -226,7 +226,7 @@ Reusing the Auto-Encoders, this library introduces the Energy-based Generative A
 
 ### Functionally equivalent: Energy-based Adversarial Auto-Encoders(EBAAEs).
 
-This library models the Energy-based Adversarial-Auto-Encoder(EBAAE) by structural coupling between AAEs and EBGAN. As the prototype is exemplified in [demo/Energy-based-Adversarial-Auto-Encoder-for-Representation-Learning.ipynb](https://github.com/accel-brain/accel-brain-code/blob/master/Accel-Brain-Base/demo/Energy-based-Adversarial-Auto-Encoder-for-Representation-Learning.ipynb), the learning algorithm equivalents an adversarial training of AAEs as a generator and EBGAN as a discriminator.
+This library models the **Energy-based Adversarial-Auto-Encoder(EBAAE)** by structural coupling between AAEs and EBGAN. As the prototype is exemplified in [demo/Energy-based-Adversarial-Auto-Encoder-for-Representation-Learning.ipynb](https://github.com/accel-brain/accel-brain-code/blob/master/Accel-Brain-Base/demo/Energy-based-Adversarial-Auto-Encoder-for-Representation-Learning.ipynb), the learning algorithm equivalents an adversarial training of AAEs as a generator and EBGAN as a discriminator.
 
 ## Issue: How unsupervised learning like Auto-Encoder, Energy-based Model, and Generative Model can function in classification problem?
 
@@ -248,7 +248,7 @@ In relation to problem settings such as the Representation Learning, the Ladder 
 
 ### Problem Solution: Deep Reconstruction-Classification Networks(DRCN or DRCNetworks).
 
-Deep Reconstruction-Classification Network(DRCN or DRCNetworks) is a convolutional network that jointly learns two tasks: 
+**Deep Reconstruction-Classification Network(DRCN or DRCNetworks)** is a convolutional network that jointly learns two tasks: 
 
 1. supervised source label prediction.
 2. unsupervised target data reconstruction. 
@@ -264,9 +264,20 @@ The encoding parameters of the DRCN are shared across both tasks, while the deco
 
 Using this library, for instance, we can extend the Convolutional Auto-Encoder in DRCNetworks to the Convolutional Ladder Networks as mentioned in [demo/DRCNetworks-for-Dataset-Bias-Problem.ipynb](https://github.com/accel-brain/accel-brain-code/blob/master/Accel-Brain-Base/demo/DRCNetworks-for-Dataset-Bias-Problem.ipynb).
 
+### Functional equivalent: Self-Supervised Domain Adaptation.
+
+Xu, J., Xiao, L., & López, A. M. (2019) proposed **Self-Supervised Domain Adaptation** framework. This model learns a domain invariant feature representation by incorporating a pretext learning task which can automatically create labels from target domain images. The pretext and main task such as classification problem, object detection problem, or semantic segmentation problem are learned jointly via multi-task learning.
+
+<div align="center"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/Self_Supervised_Domain_Adaptation_for_Computer_Vision_Tasks_p156695.png" /><p>Xu, J., Xiao, L., & López, A. M. (2019). Self-supervised domain adaptation for computer vision tasks. IEEE Access, 7, 156694-156706., p156695.</p></div>
+
+While DRCNetworks jointly learns supervised source label prediction and unsupervised target data reconstruction, Self-Supervised Domain Adaptation learns supervised label prediction in source domain and unsupervised pretext-task in target domain. DRCNetworks and Self-Supervised Domain Adaptation are alike in not only network structures but also learning algorithms. Neither is mere supervised learning, nor is it mere unsupervised learning. The learning algorithm of DRCNetworks is a semi-supervised learning, but Self-Supervised Domain Adaptation literally does self-supervised learning.
+
+Using this library, for instance, we can extend the Self-Supervised Domain Adaptation as mentioned in [demo/Self-Supervised-Domain-Adaptation-for-Classfication-Problem.ipynb](https://github.com/accel-brain/accel-brain-code/blob/master/Accel-Brain-Base/demo/Self-Supervised-Domain-Adaptation-for-Classfication-Problem.ipynb
+) and [demo/Self-Supervised-Domain-Adaptation-with-Adversarial-training-for-Classfication-Problem.ipynb](https://github.com/accel-brain/accel-brain-code/blob/master/Accel-Brain-Base/demo/Self-Supervised-Domain-Adaptation-with-Adversarial-training-for-Classfication-Problem.ipynb).
+
 ## Issue: Structural extension for Deep Reinforcement Learning.
 
-The Reinforcement learning theory presents several issues from a perspective of deep learning theory(Mnih, V., et al. 2013). Firstly, deep learning applications have required large amounts of hand-labelled training data. Reinforcement learning algorithms, on the other hand, must be able to learn from a scalar reward signal that is frequently sparse, noisy and delayed.
+The **Reinforcement learning** theory presents several issues from a perspective of deep learning theory(Mnih, V., et al. 2013). Firstly, deep learning applications have required large amounts of hand-labelled training data. Reinforcement learning algorithms, on the other hand, must be able to learn from a scalar reward signal that is frequently sparse, noisy and delayed.
 
 The difference between the two theories is not only the type of data but also the timing to be observed. The delay between taking actions and receiving rewards, which can be thousands of timesteps long, seems particularly daunting when compared to the direct association between inputs and targets found in supervised learning.
 
@@ -390,6 +401,11 @@ It is not inevitable to functionally reuse CNN as a function approximator. In th
 - Ghifary, M., Kleijn, W. B., Zhang, M., Balduzzi, D., & Li, W. (2016, October). Deep reconstruction-classification networks for unsupervised domain adaptation. In European Conference on Computer Vision (pp. 597-613). Springer, Cham.
 - Rasmus, A., Berglund, M., Honkala, M., Valpola, H., & Raiko, T. (2015). Semi-supervised learning with ladder networks. In Advances in neural information processing systems (pp. 3546-3554).
 - Valpola, H. (2015). From neural PCA to deep unsupervised learning. In Advances in Independent Component Analysis and Learning Machines (pp. 143-171). Academic Press.
+
+### Self-supervised learning.
+
+- Jing, L., & Tian, Y. (2020). Self-supervised visual feature learning with deep neural networks: A survey. IEEE Transactions on Pattern Analysis and Machine Intelligence.
+- Xu, J., Xiao, L., & López, A. M. (2019). Self-supervised domain adaptation for computer vision tasks. IEEE Access, 7, 156694-156706.
 
 ### Deep Reinforcement Learning.
 

@@ -80,7 +80,7 @@ class DRCNetworks(ConvolutionalNeuralNetworks):
 
         Args:
             convolutional_auto_encoder:     is-a `ConvolutionalAutoEncoder`.
-            drcn_loss:               is-a `DRCNLoss`.
+            drcn_loss:                      is-a `DRCNLoss`.
             initializer:                    is-a `mxnet.initializer.Initializer` for parameters of model. If `None`, it is drawing from the Xavier distribution.
             learning_rate:                  `float` of learning rate.
             learning_attenuate_rate:        `float` of attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.

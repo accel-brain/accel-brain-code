@@ -103,6 +103,9 @@ class EBAAEImageGenerator(object):
         ctx=mx.gpu(),
         discriminative_model=None,
         generative_model=None,
+        discriminator_loss_weight=1.0,
+        reconstruction_loss_weight=1.0,
+        feature_matching_loss_weight=1.0,
     ):
         '''
         Init.
@@ -130,6 +133,9 @@ class EBAAEImageGenerator(object):
             discriminative_model:       is-a `accelbrainbase.observabledata._mxnet.adversarialmodel.discriminative_model.discriminativemodel.eb_discriminative_model.EBDiscriminativeModel`.
             generative_model:           is-a `accelbrainbase.observabledata._mxnet.adversarialmodel.generative_model.GenerativeModel`.
 
+            discriminator_loss_weight:      `float` of weight for discriminator loss.
+            reconstruction_loss_weight:     `float` of weight for reconstruction loss.
+            feature_matching_loss_weight:   `float` of weight for feature matching loss.
         '''
         image_extractor = ImageExtractor(
             width=width,
@@ -148,6 +154,12 @@ class EBAAEImageGenerator(object):
         )
 
         computable_loss = L2NormLoss()
+
+        if initializer is None:
+            initializer = mx.initializer.Uniform()
+        else:
+            if isinstance(initializer, mx.initializer.Initializer) is False:
+                raise TypeError("The type of `initializer` must be `mxnet.initializer.Initializer`.")
 
         if discriminative_model is None:
             d_encoder = ConvolutionalNeuralNetworks(
@@ -376,9 +388,9 @@ class EBAAEImageGenerator(object):
             true_sampler=normal_ture_sampler,
             generative_model=generative_model,
             discriminative_model=discriminative_model,
-            discriminator_loss=EBDiscriminatorLoss(weight=1.0),
-            reconstruction_loss=L2NormLoss(weight=1.0),
-            feature_matching_loss=L2NormLoss(weight=1.0),
+            discriminator_loss=EBDiscriminatorLoss(weight=discriminator_loss_weight),
+            reconstruction_loss=L2NormLoss(weight=reconstruction_loss_weight),
+            feature_matching_loss=L2NormLoss(weight=feature_matching_loss_weight),
             optimizer_name="SGD",
             learning_rate=learning_rate,
             learning_attenuate_rate=1.0,

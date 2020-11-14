@@ -75,6 +75,9 @@ class GANImageGenerator(object):
         ctx=mx.gpu(),
         discriminative_model=None,
         generative_model=None,
+        generator_loss_weight=1.0,
+        discriminator_loss_weight=1.0,
+        feature_matching_loss_weight=1.0,
     ):
         '''
         Init.
@@ -97,6 +100,9 @@ class GANImageGenerator(object):
             discriminative_model:       is-a `accelbrainbase.observabledata._mxnet.adversarialmodel.discriminative_model.DiscriminativeModel`.
             generative_model:           is-a `accelbrainbase.observabledata._mxnet.adversarialmodel.generative_model.GenerativeModel`.
 
+            generator_loss_weight:          `float` of weight for generator loss.
+            discriminator_loss_weight:      `float` of weight for discriminator loss.
+            feature_matching_loss_weight:   `float` of weight for feature matching loss.
         '''
         image_extractor = ImageExtractor(
             width=width,
@@ -121,6 +127,12 @@ class GANImageGenerator(object):
         condition_sampler.true_sampler = true_sampler
 
         computable_loss = L2NormLoss()
+
+        if initializer is None:
+            initializer = mx.initializer.Uniform()
+        else:
+            if isinstance(initializer, mx.initializer.Initializer) is False:
+                raise TypeError("The type of `initializer` must be `mxnet.initializer.Initializer`.")
 
         if discriminative_model is None:
             output_nn = NeuralNetworks(
@@ -209,7 +221,7 @@ class GANImageGenerator(object):
                         padding=(1, 1),
                     ), 
                     Conv2DTranspose(
-                        channels=1,
+                        channels=channel,
                         kernel_size=3,
                         strides=(1, 1),
                         padding=(1, 1),
@@ -262,9 +274,9 @@ class GANImageGenerator(object):
             true_sampler=true_sampler,
             generative_model=generative_model,
             discriminative_model=discriminative_model,
-            generator_loss=GeneratorLoss(weight=1.0),
-            discriminator_loss=DiscriminatorLoss(weight=1.0),
-            feature_matching_loss=L2NormLoss(weight=1.0),
+            generator_loss=GeneratorLoss(weight=generator_loss_weight),
+            discriminator_loss=DiscriminatorLoss(weight=discriminator_loss_weight),
+            feature_matching_loss=L2NormLoss(weight=feature_matching_loss_weight),
             optimizer_name="SGD",
             learning_rate=learning_rate,
             learning_attenuate_rate=1.0,

@@ -62,6 +62,10 @@ class GANomalyDetector(object):
         discriminative_model=None,
         generative_model=None,
         re_encoder_model=None,
+        advarsarial_loss_weight=1.0,
+        encoding_loss_weight=1.0,
+        contextual_loss_weight=1.0,
+        discriminator_loss_weight=1.0,
     ):
         '''
         Init.
@@ -86,6 +90,10 @@ class GANomalyDetector(object):
             generative_model:           is-a `accelbrainbase.observabledata._mxnet.adversarialmodel.generative_model.GenerativeModel`.
             re_encoder_model:           is-a `HybridBlock`.
 
+            advarsarial_loss_weight:    `float` of weight for advarsarial loss.
+            encoding_loss_weight:       `float` of weight for encoding loss.
+            contextual_loss_weight:     `float` of weight for contextual loss.
+            discriminator_loss_weight:  `float` of weight for discriminator loss.
         '''
         image_extractor = ImageExtractor(
             width=width,
@@ -119,6 +127,12 @@ class GANomalyDetector(object):
         condition_sampler.true_sampler = true_sampler
 
         computable_loss = L2NormLoss()
+
+        if initializer is None:
+            initializer = mx.initializer.Uniform()
+        else:
+            if isinstance(initializer, mx.initializer.Initializer) is False:
+                raise TypeError("The type of `initializer` must be `mxnet.initializer.Initializer`.")
 
         if discriminative_model is None:
             output_nn = NeuralNetworks(
@@ -339,10 +353,10 @@ class GANomalyDetector(object):
             generative_model=generative_model,
             re_encoder_model=re_encoder_model,
             discriminative_model=discriminative_model,
-            advarsarial_loss=L2NormLoss(weight=0.015),
-            encoding_loss=L2NormLoss(weight=0.015),
-            contextual_loss=L1Loss(weight=0.5),
-            discriminator_loss=DiscriminatorLoss(weight=0.015),
+            advarsarial_loss=L2NormLoss(weight=advarsarial_loss_weight),
+            encoding_loss=L2NormLoss(weight=encoding_loss_weight),
+            contextual_loss=L1Loss(weight=contextual_loss_weight),
+            discriminator_loss=DiscriminatorLoss(weight=discriminator_loss_weight),
             feature_matching_loss=None,
             optimizer_name="SGD",
             learning_rate=learning_rate,

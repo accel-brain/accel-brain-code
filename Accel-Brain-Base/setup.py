@@ -30,7 +30,7 @@ setup(
         'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
         'Programming Language :: Python :: 3',
     ],
-    keywords='Generative Adversarial Networks Adversarial Auto-Encoders autoencoder auto-encoder convolution deconvolution encoder decoder LSTM Deep Q-Learning Deep Reinforcement Learning Deep Boltzmann Machines Restricted Boltzmann Machine Ladder Networks semi-supervised learning DRCN',
+    keywords='Generative Adversarial Networks Adversarial Auto-Encoders autoencoder auto-encoder convolution deconvolution encoder decoder LSTM Deep Q-Learning Deep Reinforcement Learning Deep Boltzmann Machines Restricted Boltzmann Machine Ladder Networks semi-supervised learning DRCN Self-supervised',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     install_requires=['numpy', 'pandas'],
 )

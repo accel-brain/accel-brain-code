@@ -70,6 +70,8 @@ However, it cannot be said that there is only one function as a problem solution
 
 ### Problem Solution: Object-Oriented Analysis and Design.
 
+From perspective of *commonality/variability analysis* in order to practice object-oriented design, the concepts and interfaces of Deep Learning paradigms can be organized as follows:
+
 <div align="center"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/accel-brain-base_class_interface.png" /></div>
 
 - `ExtractableData` is an interface responsible for extracting data from local files.
@@ -89,7 +91,7 @@ For example, `Neural Networks` makes it possible to build multi-layer neural net
 
 In addition, various subclasses are arranged for `ConvolutionalNeuralNetworks`, which builds convolutional neural networks. Many relatively new learning algorithms, such as **semi-supervised learning** and **self-supervised learning**, have been proposed as extensions of convolutional neural networks. Therefore, when these algorithms are implemented, they are often implemented as a subclass of `ConvolutionalNeuralNetworks`.
 
-When adopting a functionalist method, such a series of interface designs assists in the search for functional equivalents. Since each class that realizes the same interface is designed on the premise of the same interface specifications, it is easy to consider it as a candidate for functional equivalent.
+When adopting a functionalism, such a series of interface designs assists in the search for functional equivalents. Since each class that realizes the same interface is designed on the premise of the same interface specifications, it is easy to consider it as a candidate for functional equivalent.
 
 Furthermore, developers using this library can reduce the burden of functional expansion as well as searching for functional equivalents. In fact, there are functional extensions to this library.
 

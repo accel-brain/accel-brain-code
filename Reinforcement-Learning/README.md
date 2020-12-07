@@ -441,6 +441,13 @@ To extract result of searching, call the property like the case of using `Simula
 
 ## References
 
+The basic concepts, theories, and methods behind this library are described in the following book.
+
+<div align="center"><a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/ref=sr_1_1?dchild=1&qid=1607343553&s=digital-text&sr=1-1&text=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEAccel+Brain" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/book_cover.jpg?1" width="160px" /></a>
+  <p>『<a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/ref=sr_1_1?dchild=1&qid=1607343553&s=digital-text&sr=1-1&text=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEAccel+Brain" target="_blank">「AIの民主化」時代の企業内研究開発: 深層学習の「実学」としての機能分析</a>』(Japanese)</p></div>
+
+Specific references are the following papers and books.
+
 ### Q-Learning models.
 
 - Agrawal, S., & Goyal, N. (2011). Analysis of Thompson sampling for the multi-armed bandit problem. arXiv preprint arXiv:1111.1797.
@@ -486,30 +493,6 @@ Hilgevoord, Jan and Uffink, Jos, "The Uncertainty Principle", The Stanford Encyc
 - Somma, R. D., Batista, C. D., & Ortiz, G. (2007). Quantum approach to classical statistical mechanics. Physical review letters, 99(3), 030603.
 - 鈴木正. (2008). 「組み合わせ最適化問題と量子アニーリング: 量子断熱発展の理論と性能評価」.,『物性研究』, 90(4): pp598-676. 参照箇所はpp619-624.
 - 西森秀稔、大関真之(2018) 『量子アニーリングの基礎』須藤 彰三、岡 真 監修、共立出版、参照箇所はpp9-46.
-
-### More detail demos
-
-- [Webクローラ型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-web-crawling-ai/) (Japanese)
-    - 20001 bots are running as 20001 web-crawlers and 20001 web-scrapers.
-- [ロボアドバイザー型人工知能：キメラ・ネットワークの仕様](https://media.accel-brain.com/_chimera-network-is-robo-adviser/) (Japanese)
-   - The 20001 bots can also simulate the portfolio optimization of securities such as stocks and circulation currency such as cryptocurrencies.
-
-### Related PoC
-
-- [量子力学、統計力学、熱力学における天才物理学者たちの神学的な形象について](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/) (Japanese)
-    - [熱力学の前史、マクスウェル＝ボルツマン分布におけるエントロピーの歴史的意味論](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/historische-semantik-der-entropie-in-der-maxwell-boltzmann-verteilung/)
-    - [メディアとしての統計力学と形式としてのアンサンブル、そのギブス的類推](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/statistische-mechanik-als-medium-und-ensemble-als-form/)
-    - [「マクスウェルの悪魔」、力学の基礎法則としての神](https://accel-brain.com/das-theologische-bild-genialer-physiker-in-der-quantenmechanik-und-der-statistischen-mechanik-und-thermodynamik/maxwell-damon/)
-- [Webクローラ型人工知能によるパラドックス探索暴露機能の社会進化論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/) (Japanese)
-    - [World-Wide Webの社会構造とWebクローラ型人工知能の意味論](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/sozialstruktur-des-world-wide-web-und-semantik-der-kunstlichen-intelligenz-des-web-crawlers/)
-    - [意味論の意味論、観察の観察](https://accel-brain.com/social-evolution-of-exploration-and-exposure-of-paradox-by-web-crawling-type-artificial-intelligence/semantik-der-semantik-und-beobachtung-der-beobachtung/)
-- [深層強化学習のベイズ主義的な情報探索に駆動された自然言語処理の意味論](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/) (Japanese)
-    - [バンディットアルゴリズムの機能的拡張としての強化学習アルゴリズム](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/verstarkungslernalgorithmus-als-funktionale-erweiterung-des-banditenalgorithmus/)
-    - [深層強化学習の統計的機械学習、強化学習の関数近似器としての深層学習](https://accel-brain.com/semantics-of-natural-language-processing-driven-by-bayesian-information-search-by-deep-reinforcement-learning/deep-learning-als-funktionsapproximator-fur-verstarktes-lernen/)
-- [ハッカー倫理に準拠した人工知能のアーキテクチャ設計](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/) (Japanese)
-    - [アーキテクチャ中心設計の社会構造とアーキテクチャの意味論](https://accel-brain.com/architectural-design-of-artificial-intelligence-conforming-to-hacker-ethics/sozialstruktur-des-architekturzentrum-designs-und-architektur-der-semantik/)
-- [「人工の理想」を背景とした「万物照応」のデータモデリング](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/) (Japanese)
-    - [ギャンブラーの機能的等価物としての強化学習エージェント、投資における冷静沈着な精神の現在性](https://accel-brain.com/data-modeling-von-korrespondenz-in-artificial-paradise/agent-in-reignforcement-lernen-als-funktionelle-aquivalente-von-spielern/)
 
 ## Author
 

@@ -63,11 +63,65 @@ Considering many variable parts, structural unions, and *functional equivalents*
 
 These abstract classes can also provide new original models and algorithms such as **Generative Adversarial Networks(GANs)**, **Deep Reinforcement Learning**, or **Neural network language model** by implementing the variable parts of the fluid elements of objects.
 
+### Problem Solution: Distinguishing between this library and other libraries.
+
+The functions of Deep Learning are already available in many machine learning libraries. Broadly speaking, the deep learning functions provided by each machine learning library can be divided into the following two.
+
+1. A component that works just by running a batch program or API.
+2. A component that allows you to freely design its functions and algorithms.
+
+Many of the former have somewhat fixed error functions, initialization strategies, samplers, activation functions, regularization, and deep architecture configurations. That is, the functional extensibility is low. If you just want to run a distributed batch program or demo code, or just run it on a pre-designed interface, you should be fine with these components.
+
+But, in-house R&D aimed at extending to more accurate and faster algorithms, it is a risk to rely on distributions that are less functionally reusable and less functionally scalable. In addition, many of the "A component that works just by running a batch program or API" tend to be specified with the condition that "if you prepare an appropriate dataset, it will work". The "appropriateness" of the "appropriate dataset" is often undecidable without knowing the inside of the black box obscured by its components.
+
+On the other hand, in the existing machine learning library, the latter "A component that allows you to freely design its functions and algorithms" is certainly distributed. For example, MxNet/Gluon's `HybridBlock` gives you the freedom to design functions. Similar things can be done with PyTorch's `torch.nn`.
+
+However, it cannot be said that a single algorithm can be produced in-house simply by making full use of these components. In-house R&D is also an organizational decision-making process. In this procedure, problems that can be solved by machine learning and statistics are first set in order to meet the demands from the business domain. Then, we will design an algorithm that functions as a problem-solving solution to this problem setting.
+
+However, it cannot be said that there is only one function as a problem solution. Unless we compare several functionally equivalent algorithms that help solve the problem, it remains unclear which algorithm should be the final choice.
+
+#### Object-Oriented Analysis and Design.
+
+From perspective of *commonality/variability analysis* in order to practice object-oriented design, the concepts and interfaces of Deep Learning paradigms can be organized as follows:
+
+<div align="center"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/accel-brain-base_class_interface.png" /></div>
+
+- `ExtractableData` is an interface responsible for extracting data from local files.
+- `NoiseableData` is an interface that has the function of enhancing robustness by adding noise to the extracted sample.
+- `IteratableData` is an interface that has the function of repeatedly outputting labeled and unlabeled samples by calling a class that implements` ExtractableData`. This function is the heart of iterative learning algorithms such as stochastic gradient descent. Whether or not to put the data in GPU memory can be selected in this subclass.
+- `SamplableData` is a useful interface for introducing neural network learning algorithms into data sampling processing, especially for Generative Adversarial Networks(GANs).
+- `ObservableData` is an interface for implementing neural network models in general. All of these subclasses are designed with the assumption that `IteratableData` will be delegated. You can also observe the mini-batch data extracted by `SamplableData`. Of course, the input / output function is variable depending on the problem setting, but basically it executes inference for the observed data points. The presence or absence of hyperparameters and GPUs can be adjusted in this subclass.
+- `ComputableLoss` is nothing but an interface for error/loss functions. Each subclass is premised on the automatic differentiation function implemented in the machine learning library.
+- `RegularizatableData` is the interface for performing regularization. The amount that the regular term is given as a penalty term can be realized inside the forward propagation method or inside the error/loss function. This interface works when other special regularizations are performed immediately after parameter updates.
+- `ControllableModel` functions as a controller when implementing complex `ObservableData` in combination as a complex system(or System of Systems) such as deep reinforcement learning and hostile generation network.
+
+Broadly speaking, each subclass that implements these interfaces is considered functionally equivalent and mutually substitutable. For example, the following classes are implemented as subclasses of `ObservableData`.
+
+<div align="center"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/accel-brain-base_class_observable_data.png" /></div>
+
+For example, `Neural Networks` makes it possible to build multi-layer neural networks. And, after inheriting this class, `AutoEncoder` constructed by joining two` NeuralNetworks`s in a stack is placed. There is a similar relationship between `LSTMNetworks` for building LSTM(Long short-term memory) Networks, which is a type of Recurrent Neural Networks, and its subclass `EncoderDecoder`.
+
+In addition, various subclasses are arranged for `ConvolutionalNeuralNetworks`, which builds convolutional neural networks. Many relatively new learning algorithms, such as **semi-supervised learning** and **self-supervised learning**, have been proposed as extensions of convolutional neural networks. Therefore, when these algorithms are implemented, they are often implemented as a subclass of `ConvolutionalNeuralNetworks`.
+
+When adopting a functionalism, such a series of interface designs assists in the search for functional equivalents. Since each class that realizes the same interface is designed on the premise of the same interface specifications, it is easy to consider it as a candidate for functional equivalent.
+
+Furthermore, developers using this library can reduce the burden of functional expansion as well as searching for functional equivalents. In fact, there are functional extensions to this library.
+
+For example, [Automatic Summarization Library: pysummarization](https://github.com/accel-brain/accel-brain-code/tree/master/Automatic-Summarization), which realizes automatic document summarization by natural language processing and text mining, reuses the Sequence-to-Sequence (Seq2Seq) model realized by [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base). This sub-library makes it possilbe to do automatically document summarization and clustering based on the manifold hypothesis.
+
+On the other hand, in [Reinforcement Learning Library: pyqlearning](https://github.com/accel-brain/accel-brain-code/tree/master/Reinforcement-Learning) and [Generative Adversarial Networks Library: pygan](https://github.com/accel-brain/accel-brain-code/tree/master/Generative-Adversarial-Networks), Reinforcement Learning and various variants of GANs are implemented.
+
+## Problem Re-Setting: What concept does this library design?
+
+Let's exemplify the basic deep architecture that this library has already designed. Users can functionally reuse or functionally extend the already implemented architecture.
+
 ### Problem Solution: Deep Boltzmann Machines.
 
 The function of this library is building and modeling Restricted Boltzmann Machine(RBM) and Deep Boltzmann Machine(DBM). The models are functionally equivalent to stacked auto-encoder. The basic function is the same as dimensions reduction or pre-learning for so-called transfer learning.
 
 #### The structure of RBM.
+
+<div align="center"><table><tr><td><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/boltzmann_machine.png" /></td><td><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/complete_bipartite_graph.png" /></td></tr><tr><td>Boltzmann Machine</td><td>Restricted Boltzmann Machine</td></tr></table></div>
 
 According to graph theory, the structure of RBM corresponds to a complete bipartite graph which is a special kind of bipartite graph where every node in the visible layer is connected to every node in the hidden layer. Based on statistical mechanics and thermodynamics(Ackley, D. H., Hinton, G. E., & Sejnowski, T. J. 1985), the state of this structure can be reflected by the energy function:
 
@@ -98,13 +152,14 @@ The learning equations of RBM are introduced by performing control so that those
 
 #### Contrastive Divergence as an approximation method.
 
+<div algin="center"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/network_of_RBM.png" /></div>
+
 In relation to RBM, **Contrastive Divergence**(CD) is a method for approximation of the gradients of the log-likelihood(Hinton, G. E. 2002). The procedure of this method is similar to Markov Chain Monte Carlo method(MCMC). However, unlike MCMC, the visbile variables to be set first in visible layer is not randomly initialized but the observed data points in training dataset are set to the first visbile variables. And, like Gibbs sampler, drawing samples from hidden variables and visible variables is repeated `k` times. Empirically (and surprisingly), `k` is considered to be `1`.
 
 #### The structure of DBM.
 
 <div align="center"> 
-<img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/image_dbn_and_dbm.png" />
-<p>Salakhutdinov, R., Hinton, G. E. (2009). Deep boltzmann machines. In International conference on artificial intelligence and statistics (pp. 448-455). p451.</p>
+<img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/network_of_DBN_and_DBM.png" />
 </div>
 
 As is well known, DBM is composed of layers of RBMs stacked on top of each other(Salakhutdinov, R., & Hinton, G. E. 2009). This model is a structural expansion of Deep Belief Networks(DBN), which is known as one of the earliest models of Deep Learning(Le Roux, N., & Bengio, Y. 2008). Like RBM, DBN places nodes in layers. However, only the uppermost layer is composed of undirected edges, and the other consists of directed edges. DBN with `R` hidden layers is below probabilistic model:
@@ -145,10 +200,6 @@ The reconstruction error should be calculated in relation to problem setting suc
 ### Functionally equivalent: Encoder/Decoder based on LSTM.
 
 The methodology of *equivalent-functionalism* enables us to introduce more functional equivalents and compare problem solutions structured with different algorithms and models in common problem setting. For example, in dimension reduction problem, the function of **Encoder/Decoder schema** is equivalent to **DBM** as a **Stacked Auto-Encoder**.
-
-<div align="center"><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/encoder_decoder.png" />
-<p>Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078., p2.</p>
-</div>
 
 According to the neural networks theory, and in relation to manifold hypothesis, it is well known that multilayer neural networks can learn features of observed data points and have the feature points in hidden layer. High-dimensional data can be converted to low-dimensional codes by training the model such as **Stacked Auto-Encoder** and **Encoder/Decoder** with a small central layer to reconstruct high-dimensional input vectors. This function of dimensionality reduction facilitates feature expressions to calculate similarity of each data point.
 
@@ -208,21 +259,19 @@ a observed data point `x` in data space is a sample from the data distribution (
 
 The *Conditional* GANs (or cGANs) is a simple extension of the basic GAN model which allows the model to condition on external information. This makes it possible to engage the learned generative model in different "modes" by providing it with different contextual information (Gauthier, J. 2014).
 
-<div align="center"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/conditional_adversarial_net.png" /><p>Mirza, M., & Osindero, S. (2014). Conditional generative adversarial nets. arXiv preprint arXiv:1411.1784., p3.</p></div>
-
 This model can be constructed by simply feeding the data, `y`, to condition on to both the generator and discriminator. In an unconditioned generative model, because the maps samples `z` from the prior `p(z)` are drawn from uniform or normal distribution, there is no control on modes of the data being generated. On the other hand, it is possible to direct the data generation process by conditioning the model on additional information (Mirza, M., & Osindero, S. 2014).
 
 ### Problem Solution: Adversarial Auto-Encoders(AAEs).
 
 This library also provides the Adversarial Auto-Encoders(AAEs), which is a probabilistic Auto-Encoder that uses GANs to perform variational inference by matching the aggregated posterior of the feature points in hidden layer of the Auto-Encoder with an arbitrary prior distribution(Makhzani, A., et al., 2015). Matching the aggregated posterior to the prior ensures that generating from any part of prior space results in meaningful samples. As a result, the decoder of the Adversarial Auto-Encoder learns a deep generative model that maps the imposed prior to the data distribution.
 
-<div align="center"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/adversarial_autoencoders.png" /><p>Makhzani, A., Shlens, J., Jaitly, N., Goodfellow, I., & Frey, B. (2015). Adversarial autoencoders. arXiv preprint arXiv:1511.05644., p2.</p></div>
+<div align="center"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/network_of_adversarial-autoencoder.png" /></div>
 
 ### Problem Solution: Energy-based Generative Adversarial Network(EBGAN).
 
 Reusing the Auto-Encoders, this library introduces the Energy-based Generative Adversarial Network (EBGAN) model(Zhao, J., et al., 2016) which views the discriminator as an energy function that attributes low energies to the regions near the data manifold and higher energies to other regions. THe Auto-Encoders have traditionally been used to represent energy-based models. When trained with some regularization terms, the Auto-Encoders have the ability to learn an energy manifold without supervision or negative examples. This means that even when an energy-based Auto-Encoding model is trained to reconstruct a real sample, the model contributes to discovering the data manifold by itself.
 
-<div align="center"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/energy_based_generative_adversarial_network.png" /><p>Zhao, J., Mathieu, M., & LeCun, Y. (2016). Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126., p4.</p></div>
+<div align="center"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/network_of_EBGAN.png" /></div>
 
 ### Functionally equivalent: Energy-based Adversarial Auto-Encoders(EBAAEs).
 
@@ -238,9 +287,11 @@ It is argued here that the reason why unsupervised learning has not been able to
 
 Ladder network is an Auto-Encoder which can discard information Unsupervised learning needs to toleratediscarding information in order to work well with supervised learning. Many unsupervised learning methods are not good at this but one class of models stands out as an exception: hierarchical latent variable models. Unfortunately their derivation can be quite complicated and often involves approximations which compromise their per-formance.
 
+<div align="center"><table><tr><td><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/network_of_HierarchicalLatentVariableModels.png" /></td><td><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/network_of_Auto-Encoder.png" /></td><td><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/network_of_LadderNetworks.png" /></td></tr><tr><td>Hierarchical Latent Variable Models</td><td>Auto-Encoder</td><td>Ladder Networks</td></tr></table></div>
+
 A simpler alternative is offered by Auto-Encoders which also have the benefit of being compatible with standard supervised feedforward networks. They would be a promising candidate for combining supervised and unsupervised learning but unfortunately Auto-Encoders normally correspond to latent variable models with a single layer of stochastic variables, that is, they do not tolerate discarding information.
 
-<div align="center"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/ladder_network.png" /><p>Valpola, H. (2015). From neural PCA to deep unsupervised learning. In Advances in independent component analysis and learning machines (pp. 143-171). Academic Press., p6.</p></div>
+<div align="center"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/network_of_cost_function_LadderNetworks.png" /></div>
 
 Ladder network makes it possible to solve that problem by settting recursive derivation of the learning rule with a distributed cost function, building denoisng Auto-Encoder recursively. Normally denoising Auto-Encoders have a fixed input but the cost functions on the higher layers can influence their input mappings and this creates a bias towards PCA-type solutions.
 
@@ -258,7 +309,7 @@ Ideally, a discriminative representation should model both the label and the str
 1. classify well the source domain labeled data.
 2. reconstruct well the target domain unlabeled data, which can be viewed as an approximate of the ideal discriminative representation.
 
-<div align="center"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/drc_network.png" /><p>Ghifary, M., Kleijn, W. B., Zhang, M., Balduzzi, D., & Li, W. (2016, October). Deep reconstruction-classification networks for unsupervised domain adaptation. In European Conference on Computer Vision (pp. 597-613). Springer, Cham., p5.</p></div>
+<div align="center"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/network_of_DRCN.png" /></div>
 
 The encoding parameters of the DRCN are shared across both tasks, while the decoding parameters are sepa-rated. The aim is that the learned label prediction function can perform well onclassifying images in the target domain thus the data reconstruction can beviewed as an auxiliary task to support the adaptation of the label prediction.
 
@@ -268,7 +319,7 @@ Using this library, for instance, we can extend the Convolutional Auto-Encoder i
 
 Xu, J., Xiao, L., & López, A. M. (2019) proposed **Self-Supervised Domain Adaptation** framework. This model learns a domain invariant feature representation by incorporating a pretext learning task which can automatically create labels from target domain images. The pretext and main task such as classification problem, object detection problem, or semantic segmentation problem are learned jointly via multi-task learning.
 
-<div align="center"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/Self_Supervised_Domain_Adaptation_for_Computer_Vision_Tasks_p156695.png" /><p>Xu, J., Xiao, L., & López, A. M. (2019). Self-supervised domain adaptation for computer vision tasks. IEEE Access, 7, 156694-156706., p156695.</p></div>
+<div align="center"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/network_of_Self-Supervised_domain_adaptation.png" /></div>
 
 While DRCNetworks jointly learns supervised source label prediction and unsupervised target data reconstruction, Self-Supervised Domain Adaptation learns supervised label prediction in source domain and unsupervised pretext-task in target domain. DRCNetworks and Self-Supervised Domain Adaptation are alike in not only network structures but also learning algorithms. Neither is mere supervised learning, nor is it mere unsupervised learning. The learning algorithm of DRCNetworks is a semi-supervised learning, but Self-Supervised Domain Adaptation literally does self-supervised learning.
 
@@ -351,6 +402,13 @@ If you pay attention to the calculation speed, it is better to extend the CNN pa
 It is not inevitable to functionally reuse CNN as a function approximator. In the above problem setting of generalisation and Combination explosion, for instance, Long Short-Term Memory(LSTM) networks, which is-a special Reccurent Neural Network(RNN) structure, and CNN as a function approximator are functionally equivalent. In the same problem setting, functional equivalents can be functionally replaced. Considering that the feature space of the rewards has the time-series nature, LSTM will be more useful.
 
 ## References
+
+The basic concepts, theories, and methods behind this library are described in the following book.
+
+<div align="center"><a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/ref=sr_1_1?dchild=1&qid=1607343553&s=digital-text&sr=1-1&text=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEAccel+Brain" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/book_cover.jpg?1" width="160px" /></a>
+  <p>『<a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/ref=sr_1_1?dchild=1&qid=1607343553&s=digital-text&sr=1-1&text=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEAccel+Brain" target="_blank">「AIの民主化」時代の企業内研究開発: 深層学習の「実学」としての機能分析</a>』(Japanese)</p></div>
+
+Specific references are the following papers and books.
 
 ### Deep Boltzmann machines.
 

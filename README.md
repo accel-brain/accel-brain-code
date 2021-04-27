@@ -174,15 +174,22 @@ These JavaScript are tool for experimentation of subliminal perception.
 
 This is a demo code for my case study in the context of my website.
 
-# Author
+## References
+
+The basic concepts, theories, and methods behind this library are described in the following book.
+
+<div align="center"><a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/ref=sr_1_1?dchild=1&qid=1607343553&s=digital-text&sr=1-1&text=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEAccel+Brain" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/book_cover.jpg?1" width="160px" /></a>
+  <p>『<a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/ref=sr_1_1?dchild=1&qid=1607343553&s=digital-text&sr=1-1&text=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEAccel+Brain" target="_blank">「AIの民主化」時代の企業内研究開発: 深層学習の「実学」としての機能分析</a>』(Japanese)</p></div>
+
+## Author
 
 - Accel Brain Co., Ltd.
 
-# Author URI
+## Author URI
 
 - http://accel-brain.com/
 - http://accel-brain.co.jp/
 
-# License
+## License
 
 - GNU General Public License v2.0

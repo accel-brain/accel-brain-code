@@ -54,11 +54,6 @@ class VolatilityGAN(object):
     # Target features
     __target_features_list = [
         "adjusted_close",
-        #"close",
-        #"high",
-        #"low",
-        #"open",
-        #"volume"
     ]
 
     def get_target_features_list(self):

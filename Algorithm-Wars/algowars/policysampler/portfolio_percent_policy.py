@@ -101,7 +101,7 @@ class PortfolioPercentPolicy(PolicySampler):
         rebalance_policy_list,
         rebalance_sub_policy_list,
         timing_policy_list,
-        trade_timer_dict,
+        technical_observer_dict,
         historical_arr,
         stock_master_arr,
         rebalance_prob=0.3,
@@ -148,8 +148,8 @@ class PortfolioPercentPolicy(PolicySampler):
                                                         - `bollinger_band_timer`: agent will decide timing of trades by the Bollinger bands.
                                                         - `dive_timer`: agent will decide timing of trades by thermodynamic dive.
 
-            trade_timer_dict:                           `dict`. The key is a use-defined value of `timing_policy_list`.
-                                                        The value is an object of `TradeTimer`.
+            technical_observer_dict:                    `dict`. The key is a use-defined value of `timing_policy_list`.
+                                                        The value is an object of `TechnicalObserver`.
 
             historical_arr:         rank-1 3D `np.ndarray` of historical data.
                                     - val1: Date key.
@@ -221,7 +221,7 @@ class PortfolioPercentPolicy(PolicySampler):
             SharpeRatioMaximization()
         )
 
-        self.__trade_timer_dict = trade_timer_dict
+        self.__technical_observer_dict = technical_observer_dict
 
         self.__now_date_key = first_date_key
         self.__date_fraction = date_fraction
@@ -380,7 +380,7 @@ class PortfolioPercentPolicy(PolicySampler):
 
             # if i = 0, not rebalance.
             # if i = 1, rebalance.
-            # if i > 1, dicide by `TradeTimerDict`.
+            # if i > 1, dicide by `TechnicalObserverDict`.
             for i in range(self.__next_action_n):
                 portfolio_arr_ = portfolio_arr.copy()
 
@@ -413,8 +413,8 @@ class PortfolioPercentPolicy(PolicySampler):
 
                                 historical_arr = np.r_[historical_arr, generated_historical_arr]
 
-                            if len(self.__trade_timer_dict) > 0 and self.__timing_policy_list[batch][agent_i] in self.__trade_timer_dict:
-                                rebalance_weight_arr = self.__trade_timer_dict[self.__timing_policy_list[batch][agent_i]].decide_timing(
+                            if len(self.__technical_observer_dict) > 0 and self.__timing_policy_list[batch][agent_i] in self.__technical_observer_dict and self.__timing_policy_list[batch][agent_i] == "multi_trade_observer":
+                                rebalance_weight_arr = self.__technical_observer_dict[self.__timing_policy_list[batch][agent_i]].decide_timing(
                                     historical_arr,
                                     agents_master_arr,
                                     portfolio_arr,
@@ -425,7 +425,7 @@ class PortfolioPercentPolicy(PolicySampler):
                             elif self.__timing_policy_list[batch][agent_i] == "only_drl":
                                 rebalance_weight_arr = np.ones(len(self.__ticker_list))
                             else:
-                                print(self.__trade_timer_dict)
+                                print(self.__technical_observer_dict)
                                 print(self.__timing_policy_list[batch][agent_i])
                                 raise ValueError("The value is `timing_policy_list` is invalid.")
 

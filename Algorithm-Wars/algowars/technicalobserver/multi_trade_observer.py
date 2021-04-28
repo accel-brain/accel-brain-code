@@ -11,8 +11,8 @@ class MultiTradeObserver(TechnicalObserver):
         technical_observer_list,
         technical_observer_weight_list=[]
     ):
-        for trade_timer in technical_observer_list:
-            if isinstance(trade_timer, TechnicalObserver) is False:
+        for technical_observer in technical_observer_list:
+            if isinstance(technical_observer, TechnicalObserver) is False:
                 raise TypeError("The type of value of `technical_observer_list` must be `TechnicalObserver`.")
 
         self.__technical_observer_list = technical_observer_list

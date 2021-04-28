@@ -14,12 +14,12 @@ from algowars.controllablemodel.gancontroller.volatility_gan_controller import V
 
 from algowars.policysampler.portfolio_percent_policy import PortfolioPercentPolicy
 
-from algowars.tradetimer.multi_trade_observer import MultiTradeObserver
-from algowars.tradetimer.bollinger_band_observer import BollingerBandObserver
-from algowars.tradetimer.contrarian_bollinger_band_observer import ContrarianBollingerBandObserver
-from algowars.tradetimer.contrarian_rsi_observer import ContrarianRSIObserver
-from algowars.tradetimer.rsi_observer import RSIObserver
-from algowars.tradetimer.macd_observer import MACDObserver
+from algowars.technicalobserver.multi_trade_observer import MultiTradeObserver
+from algowars.technicalobserver.bollinger_band_observer import BollingerBandObserver
+from algowars.technicalobserver.contrarian_bollinger_band_observer import ContrarianBollingerBandObserver
+from algowars.technicalobserver.contrarian_rsi_observer import ContrarianRSIObserver
+from algowars.technicalobserver.rsi_observer import RSIObserver
+from algowars.technicalobserver.macd_observer import MACDObserver
 
 from accelbrainbase.computableloss._mxnet.l2_norm_loss import L2NormLoss
 
@@ -407,7 +407,7 @@ class PortfolioDQNController(object):
             rebalance_policy_list=rebalance_policy_list,
             rebalance_sub_policy_list=rebalance_sub_policy_list,
             timing_policy_list=timing_policy_list,
-            trade_timer_dict={
+            technical_observer_dict={
                 "multi_trade_observer": MultiTradeObserver(
                     technical_observer_list=[
                         BollingerBandObserver(
@@ -918,7 +918,7 @@ class PortfolioDQNController(object):
             rebalance_policy_list=rebalance_policy_list,
             rebalance_sub_policy_list=rebalance_sub_policy_list,
             timing_policy_list=timing_policy_list,
-            trade_timer_dict={
+            technical_observer_dict={
                 "multi_trade_observer": MultiTradeObserver(
                     technical_observer_list=[
                         BollingerBandObserver(

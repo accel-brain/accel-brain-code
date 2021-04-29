@@ -671,7 +671,7 @@ if __name__ == "__main__":
         "-ld",
         "--logs_dir",
         type=str,
-        default="logs/",
+        default="result/",
         help="Logs dir."
     )
 
@@ -718,7 +718,7 @@ if __name__ == "__main__":
         "-sl",
         "--seq_len",
         type=int,
-        default=30,
+        default=10,
         help="The length of sequences."
     )
 
@@ -726,7 +726,7 @@ if __name__ == "__main__":
         "-lr",
         "--learning_rate",
         type=float,
-        default=1e-04,
+        default=1e-09,
         help="Learnign rate."
     )
 
@@ -786,14 +786,12 @@ if __name__ == "__main__":
     parser.add_argument(
         "-tf",
         "--transfer_flag",
-        type=int,
-        default=0,
+        action="store_true",
+        default=False,
         help="Do transfer learning or not."
     )
-
     args = parser.parse_args()
     params_dict = vars(args)
 
     print(params_dict)
-    params_dict["transfer_flag"] = bool(params_dict["transfer_flag"])
     Main(params_dict)

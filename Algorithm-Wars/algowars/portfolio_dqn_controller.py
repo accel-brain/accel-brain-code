@@ -275,12 +275,6 @@ class PortfolioDQNController(object):
                     df[col] = (_max - _min) * df[col]
                     df[col] = df[col] + _min
 
-                    try:
-                        diff = df[col].values[0] - target_df[col].values[0]
-                        df[col] = df[col] - diff
-                    except Exception as e:
-                        pass
-
                 result_df_list.append(df)
 
             result_df = pd.concat(result_df_list)

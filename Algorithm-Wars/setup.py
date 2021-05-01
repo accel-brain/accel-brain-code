@@ -12,7 +12,7 @@ def read_readme(file_name):
 setup(
     name='algo-wars',
     version='0.0.1',
-    description='algo-wars is Python library for Investment Strategies such as Volatility Modeling, Technical Analysis, and Portfolio Optimization. The goal of this library is to provides cues for strategies to investment or trade stock, bond, or cryptocurrency, based on the statistical machine learning and the deep reignforcement learning. Especialy, this library provides apprication of the Volatility model based on Conditional Generative Adversarial Networks(Conditional GANs) and Portfolio Selection based on Deep Q-Network.',
+    description='algo-wars is Python library for Investment Strategies such as Volatility Modeling, Technical Analysis, and Portfolio Optimization. The goal of this library is to provides cues for strategies to investment or trade stock, bond, or cryptocurrency, based on the statistical machine learning and the deep reignforcement learning.',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',
     url='https://github.com/accel-brain/accel-brain-code/tree/master/Algorithm-Wars/',

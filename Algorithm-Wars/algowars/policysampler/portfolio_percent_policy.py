@@ -581,13 +581,13 @@ class PortfolioPercentPolicy(PolicySampler):
         self.__buy_arr = None
         self.__sel_arr = None
         self.__commission_tax_arr = None
-        self.__divided_ratio_arr = None
+        self.__dividend_ratio_arr = None
         for batch in range(len(arr_tuple_list)):
             if batch == 0:
                 self.__buy_arr = np.expand_dims(arr_tuple_list[batch][0], axis=0)
                 self.__sel_arr = np.expand_dims(arr_tuple_list[batch][1], axis=0)
                 self.__commission_tax_arr = np.expand_dims(arr_tuple_list[batch][2], axis=0)
-                self.__divided_ratio_arr = np.expand_dims(arr_tuple_list[batch][3], axis=0)
+                self.__dividend_ratio_arr = np.expand_dims(arr_tuple_list[batch][3], axis=0)
             else:
                 self.__buy_arr = np.r_[
                     self.__buy_arr, 
@@ -601,8 +601,8 @@ class PortfolioPercentPolicy(PolicySampler):
                     self.__commission_tax_arr,
                     np.expand_dims(arr_tuple_list[batch][2], axis=0)
                 ]
-                self.__divided_ratio_arr = np.r_[
-                    self.__divided_ratio_arr,
+                self.__dividend_ratio_arr = np.r_[
+                    self.__dividend_ratio_arr,
                     np.expand_dims(arr_tuple_list[batch][3], axis=0)
                 ]
 
@@ -620,14 +620,14 @@ class PortfolioPercentPolicy(PolicySampler):
             else:
                 self.__cum_commission_tax_arr = self.__commission_tax_arr
             if self.__cum_devided_ratio_arr is not None:
-                self.__cum_devided_ratio_arr += self.__divided_ratio_arr
+                self.__cum_devided_ratio_arr += self.__dividend_ratio_arr
             else:
-                self.__cum_devided_ratio_arr = self.__divided_ratio_arr
+                self.__cum_devided_ratio_arr = self.__dividend_ratio_arr
         else:
             self.__possible_cum_buy_arr += self.__buy_arr
             self.__possible_cum_sel_arr += self.__sel_arr
             self.__possible_cum_commission_tax_arr += self.__commission_tax_arr
-            self.__possible_cum_devided_ratio_arr += self.__divided_ratio_arr
+            self.__possible_cum_devided_ratio_arr += self.__dividend_ratio_arr
 
         reward_value_arr = None
         for batch in range(batch_size):
@@ -685,7 +685,7 @@ class PortfolioPercentPolicy(PolicySampler):
             self.__agents_master_arr[:, :, 1] -= np.expand_dims(self.__commission_tax_arr, axis=-1)
             self.__agents_master_arr[:, :, 1] -= np.expand_dims(self.__buy_arr, axis=-1)
             self.__agents_master_arr[:, :, 1] += np.expand_dims(self.__sel_arr, axis=-1)
-            self.__agents_master_arr[:, :, 1] += np.expand_dims(self.__divided_ratio_arr, axis=-1)
+            self.__agents_master_arr[:, :, 1] += np.expand_dims(self.__dividend_ratio_arr, axis=-1)
             self.__agents_master_arr[:, :, 2] = np.expand_dims(self.__assessment_arr, axis=-1)
             self.__agents_master_arr[:, :, 5] = np.expand_dims(self.__buy_arr, axis=-1)
             self.__agents_master_arr[:, :, 6] = np.expand_dims(self.__sel_arr, axis=-1)
@@ -695,7 +695,7 @@ class PortfolioPercentPolicy(PolicySampler):
             self.__possible_agents_master_arr[:, :, 1] -= np.expand_dims(self.__commission_tax_arr, axis=-1)
             self.__possible_agents_master_arr[:, :, 1] -= np.expand_dims(self.__buy_arr, axis=-1)
             self.__possible_agents_master_arr[:, :, 1] += np.expand_dims(self.__sel_arr, axis=-1)
-            self.__possible_agents_master_arr[:, :, 1] += np.expand_dims(self.__divided_ratio_arr, axis=-1)
+            self.__possible_agents_master_arr[:, :, 1] += np.expand_dims(self.__dividend_ratio_arr, axis=-1)
             self.__possible_agents_master_arr[:, :, 2] = np.expand_dims(self.__possible_assessment_arr, axis=-1)
             self.__possible_agents_master_arr[:, :, 5] = np.expand_dims(self.__buy_arr, axis=-1)
             self.__possible_agents_master_arr[:, :, 6] = np.expand_dims(self.__sel_arr, axis=-1)
@@ -768,7 +768,7 @@ class PortfolioPercentPolicy(PolicySampler):
         self.__buy_arr = None
         self.__sel_arr = None
         self.__commission_tax_arr = None
-        self.__divided_ratio_arr = None
+        self.__dividend_ratio_arr = None
         self.__cum_buy_arr = np.zeros_like(self.__cum_buy_arr)
         self.__cum_sel_arr = np.zeros_like(self.__cum_sel_arr)
         self.__cum_commission_tax_arr = np.zeros_like(self.__cum_commission_tax_arr)
@@ -863,7 +863,7 @@ class PortfolioPercentPolicy(PolicySampler):
         agents_master_arr[:, :, 1] -= np.expand_dims(self.__commission_tax_arr, axis=-1)
         agents_master_arr[:, :, 1] -= np.expand_dims(self.__buy_arr, axis=-1)
         agents_master_arr[:, :, 1] += np.expand_dims(self.__sel_arr, axis=-1)
-        agents_master_arr[:, :, 1] += np.expand_dims(self.__cum_devided_ratio_arr + self.__divided_ratio_arr, axis=-1)
+        agents_master_arr[:, :, 1] += np.expand_dims(self.__cum_devided_ratio_arr + self.__dividend_ratio_arr, axis=-1)
 
         debit_tuple = np.where(agents_master_arr[:, :, 1] <= 0)
         if len(debit_tuple) == 3:
@@ -1102,7 +1102,7 @@ class PortfolioPercentPolicy(PolicySampler):
         ))
         commission_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
         expense_ratio_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
-        divided_ratio_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
+        dividend_ratio_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
         tax_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
         buy_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
         sel_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
@@ -1169,10 +1169,11 @@ class PortfolioPercentPolicy(PolicySampler):
 
                     commission_arr[agent_i] = np.abs(hold_arr[agent_i] - pre_state_hold_arr[agent_i]) * self.__stock_master_arr_list[batch][:, 0] * self.__stock_master_arr_list[batch][:, 1]
                     expense_ratio_arr[agent_i] = hold_arr[agent_i] * self.__stock_master_arr_list[batch][:, 0] * self.__stock_master_arr_list[batch][:, 4].astype(float) * float(self.__date_fraction) / 365 / 100
-                    divided_ratio_arr[agent_i] = hold_arr[agent_i] * self.__stock_master_arr_list[batch][:, 0] * self.__stock_master_arr_list[batch][:, 7].astype(float) * float(self.__date_fraction) / 365 / 100
+                    dividend_ratio_arr[agent_i] = hold_arr[agent_i] * self.__stock_master_arr_list[batch][:, 0] * self.__stock_master_arr_list[batch][:, 7].astype(float) * float(self.__date_fraction) / 365 / 100
                     buy_arr[agent_i] = np.maximum(hold_arr[agent_i] - pre_state_hold_arr[agent_i], 0) * self.__stock_master_arr_list[batch][:, 0]
                     sel_arr[agent_i] = np.maximum(pre_state_hold_arr[agent_i] - hold_arr[agent_i], 0) * self.__stock_master_arr_list[batch][:, 0]
                     tax_arr[agent_i] = np.maximum(sel_arr[agent_i] - buy_arr[agent_i], 0) * self.__stock_master_arr_list[batch][:, 2]
+                    tax_arr[agent_i] = tax_arr[agent_i] + (dividend_ratio_arr[agent_i] * self.__stock_master_arr_list[batch][:, 2])
 
                     commission_tax = np.nansum(tax_arr[agent_i] + commission_arr[agent_i] + expense_ratio_arr[agent_i])
                     buy = buy_arr[agent_i].sum()
@@ -1359,28 +1360,29 @@ class PortfolioPercentPolicy(PolicySampler):
         for batch in range(self.__agents_master_arr.shape[0]):
             commission_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
             expense_ratio_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
-            divided_ratio_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
+            dividend_ratio_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
             tax_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
             buy_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
             sel_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
             for agent_i in range(self.__agents_master_arr[batch].shape[0]):
                 commission_arr[agent_i] = np.abs(self.action_hold_arr[batch][agent_i] - self.__state_hold_arr[batch][agent_i]) * self.__stock_master_arr_list[batch][:, 0] * self.__stock_master_arr_list[batch][:, 1]
                 expense_ratio_arr[agent_i] = self.action_hold_arr[batch][agent_i] * self.__stock_master_arr_list[batch][:, 0] * self.__stock_master_arr_list[batch][:, 4].astype(float) * float(self.__date_fraction) / 365 / 100
-                divided_ratio_arr[agent_i] = self.action_hold_arr[batch][agent_i] * self.__stock_master_arr_list[batch][:, 0] * self.__stock_master_arr_list[batch][:, 7].astype(float) * float(self.__date_fraction) / 365 / 100
+                dividend_ratio_arr[agent_i] = self.action_hold_arr[batch][agent_i] * self.__stock_master_arr_list[batch][:, 0] * self.__stock_master_arr_list[batch][:, 7].astype(float) * float(self.__date_fraction) / 365 / 100
                 buy_arr[agent_i] = np.maximum(self.action_hold_arr[batch][agent_i] - self.__state_hold_arr[batch][agent_i], 0) * self.__stock_master_arr_list[batch][:, 0]
                 sel_arr[agent_i] = np.maximum(self.__state_hold_arr[batch][agent_i] - self.action_hold_arr[batch][agent_i], 0) * self.__stock_master_arr_list[batch][:, 0]
                 tax_arr[agent_i] = np.maximum(sel_arr[agent_i] - buy_arr[agent_i], 0) * self.__stock_master_arr_list[batch][:, 2]
+                tax_arr[agent_i] = tax_arr[agent_i] + (dividend_ratio_arr[agent_i] * self.__stock_master_arr_list[batch][:, 2])
 
             commission_tax_arr = np.nansum(tax_arr + commission_arr + expense_ratio_arr, axis=1)
             buy_arr = np.nansum(buy_arr, axis=1)
             sel_arr = np.nansum(sel_arr, axis=1)
-            divided_ratio_arr = np.nansum(divided_ratio_arr, axis=1)
+            dividend_ratio_arr = np.nansum(dividend_ratio_arr, axis=1)
 
             result_list[batch] = (
                 buy_arr, 
                 sel_arr,
                 commission_tax_arr,
-                divided_ratio_arr,
+                dividend_ratio_arr,
             )
 
         return result_list
@@ -1689,29 +1691,30 @@ class PortfolioPercentPolicy(PolicySampler):
             commission_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
             tax_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
             expense_ratio_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
-            divided_ratio_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
+            dividend_ratio_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
             sel_arr = np.zeros((self.__agents_master_arr[batch].shape[0], self.__stock_master_arr_list[batch].shape[0]))
 
             for agent_i in range(self.__agents_master_arr[batch].shape[0]):
                 commission_arr[agent_i] = self.__state_hold_arr[batch][agent_i] * self.__stock_master_arr_list[batch][:, 0] * self.__stock_master_arr_list[batch][:, 1]
                 tax_arr[agent_i] = self.__state_hold_arr[batch][agent_i] * self.__stock_master_arr_list[batch][:, 0] * self.__stock_master_arr_list[batch][:, 2]
                 expense_ratio_arr[agent_i] = self.__state_hold_arr[batch][agent_i] * self.__stock_master_arr_list[batch][:, 0] * self.__stock_master_arr_list[batch][:, 4].astype(float) * float(self.__date_fraction) / 365 / 100
-                divided_ratio_arr[agent_i] = self.__state_hold_arr[batch][agent_i] * self.__stock_master_arr_list[batch][:, 0] * self.__stock_master_arr_list[batch][:, 7].astype(float) * float(self.__date_fraction) / 365 / 100
+                dividend_ratio_arr[agent_i] = self.__state_hold_arr[batch][agent_i] * self.__stock_master_arr_list[batch][:, 0] * self.__stock_master_arr_list[batch][:, 7].astype(float) * float(self.__date_fraction) / 365 / 100
+                tax_arr[agent_i] = tax_arr[agent_i] + (dividend_ratio_arr[agent_i] * self.__stock_master_arr_list[batch][:, 2])
                 sel_arr[agent_i] = self.__state_hold_arr[batch][agent_i] * self.__stock_master_arr_list[batch][:, 0]
 
             commission_tax_arr = np.nansum(tax_arr + commission_arr, axis=1)
             sel_arr = np.nansum(sel_arr, axis=1)
-            divided_ratio_arr = np.nansum(divided_ratio_arr, axis=1)
+            dividend_ratio_arr = np.nansum(dividend_ratio_arr, axis=1)
 
             for agent_i in range(self.__agents_master_arr[batch].shape[0]):
                 self.__agents_master_arr[batch][agent_i, 1] -= commission_tax_arr[agent_i]
                 self.__agents_master_arr[batch][agent_i, 1] += sel_arr[agent_i]
-                self.__agents_master_arr[batch][agent_i, 1] += divided_ratio_arr[agent_i]
+                self.__agents_master_arr[batch][agent_i, 1] += dividend_ratio_arr[agent_i]
                 self.__agents_master_arr[batch][agent_i, 2] = 0.0
                 self.__agents_master_arr[batch][agent_i, 5] = 0.0
                 self.__agents_master_arr[batch][agent_i, 6] += sel_arr[agent_i]
                 self.__agents_master_arr[batch][agent_i, 7] += commission_tax_arr[agent_i]
-                self.__agents_master_arr[batch][agent_i, 8] = self.__cum_devided_ratio_arr[agent_i].sum() + divided_ratio_arr[agent_i]
+                self.__agents_master_arr[batch][agent_i, 8] = self.__cum_devided_ratio_arr[agent_i].sum() + dividend_ratio_arr[agent_i]
 
     def __yeild_on_the_way(self, batch):
         # shape is not changed, even if possible or not.

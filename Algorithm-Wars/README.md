@@ -138,6 +138,20 @@ A demonstration of visualizing the results of pseudo-historical data generation 
 
 ## References
 
+
+The basic concepts, theories, and methods behind this library are described in the following books.
+
+<div align="center"><a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/ref=sr_1_1?dchild=1&qid=1607343553&s=digital-text&sr=1-1&text=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEAccel+Brain" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/book_cover.jpg?1" width="160px" /></a>
+  <p>『<a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/ref=sr_1_1?dchild=1&qid=1607343553&s=digital-text&sr=1-1&text=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEAccel+Brain" target="_blank">「AIの民主化」時代の企業内研究開発: 深層学習の「実学」としての機能分析</a>』(Japanese)</p></div>
+  
+<br />
+
+<div align="center"><a href="https://www.amazon.co.jp/dp/B093Z533LK" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/book_cover_2.jpg?1" width="160px" /></a>
+  <p>『<a href="https://www.amazon.co.jp/dp/B093Z533LK" target="_blank">AI vs. ノイズトレーダーとしての投資家たち: 「アルゴリズム戦争」時代の証券投資戦略</a>』(Japanese)</p></div>
+
+
+Specific references are the following papers and books.
+
 - Akcay, S., Atapour-Abarghouei, A., & Breckon, T. P. (2018, December). Ganomaly: Semi-supervised anomaly detection via adversarial training. In Asian Conference on Computer Vision (pp. 622-637). Springer, Cham.
 - Donahue, J., Krähenbühl, P., & Darrell, T. (2016). Adversarial feature learning. arXiv preprint arXiv:1605.09782.
 - Makhzani, A., Shlens, J., Jaitly, N., Goodfellow, I., & Frey, B. (2015). Adversarial autoencoders. arXiv preprint arXiv:1511.05644.

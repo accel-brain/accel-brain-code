@@ -176,10 +176,15 @@ This is a demo code for my case study in the context of my website.
 
 ## References
 
-The basic concepts, theories, and methods behind this library are described in the following book.
+The basic concepts, theories, and methods behind this library are described in the following books.
 
 <div align="center"><a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/ref=sr_1_1?dchild=1&qid=1607343553&s=digital-text&sr=1-1&text=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEAccel+Brain" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/book_cover.jpg?1" width="160px" /></a>
   <p>『<a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/ref=sr_1_1?dchild=1&qid=1607343553&s=digital-text&sr=1-1&text=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEAccel+Brain" target="_blank">「AIの民主化」時代の企業内研究開発: 深層学習の「実学」としての機能分析</a>』(Japanese)</p></div>
+
+<br />
+  
+<div align="center"><a href="https://www.amazon.co.jp/AI-vs-%E3%83%8E%E3%82%A4%E3%82%BA%E3%83%88%E3%83%AC%E3%83%BC%E3%83%80%E3%83%BC%E3%81%A8%E3%81%97%E3%81%A6%E3%81%AE%E6%8A%95%E8%B3%87%E5%AE%B6%E3%81%9F%E3%81%A1-%E3%80%8C%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0%E6%88%A6%E4%BA%89%E3%80%8D%E6%99%82%E4%BB%A3%E3%81%AE%E8%A8%BC%E5%88%B8%E6%8A%95%E8%B3%87%E6%88%A6%E7%95%A5-%E6%9C%A8%E6%9D%91%E6%AD%A3%E5%BD%AC-ebook/dp/B093Z533LK/ref=sr_1_1?dchild=1&qid=1620108081&s=digital-text&sr=1-1&text=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEAccel+Brain" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/book_cover_2.jpg?1" width="160px" /></a>
+  <p>『<a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/ref=sr_1_1?dchild=1&qid=1607343553&s=digital-text&sr=1-1&text=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEAccel+Brain" target="_blank">AI vs. ノイズトレーダーとしての投資家たち: 「アルゴリズム戦争」時代の証券投資戦略</a>』(Japanese)</p></div>
 
 ## Author
 

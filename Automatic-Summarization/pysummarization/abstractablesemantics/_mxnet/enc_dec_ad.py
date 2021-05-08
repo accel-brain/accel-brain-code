@@ -320,6 +320,14 @@ class EncDecAD(AbstractableSemantics):
                 if s in sentence or _s in sentence:
                     abstract_list.append(sentence)
                     abstract_list = list(set(abstract_list))
+                else:
+                    hit_n = 0
+                    for token in token_arr.tolist():
+                        if token in sentence:
+                            hit_n += 1
+                    if hit_n == len(token_arr.tolist()):
+                        abstract_list.append(sentence)
+                        abstract_list = list(set(abstract_list))
 
             if len(abstract_list) >= limit:
                 break

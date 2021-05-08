@@ -517,6 +517,7 @@ class ReSeq2Seq(HybridBlock, AbstractableSemantics):
             score_arr = np.array(score_list)
 
             token_arr = vectorizable_token.tokenize(seq_arr.tolist())
+
             s = " ".join(token_arr.tolist())
             _s = "".join(token_arr.tolist())
 
@@ -524,6 +525,14 @@ class ReSeq2Seq(HybridBlock, AbstractableSemantics):
                 if s in sentence or _s in sentence:
                     abstract_list.append(sentence)
                     abstract_list = list(set(abstract_list))
+                else:
+                    hit_n = 0
+                    for token in token_arr.tolist():
+                        if token in sentence:
+                            hit_n += 1
+                    if hit_n == len(token_arr.tolist()):
+                        abstract_list.append(sentence)
+                        abstract_list = list(set(abstract_list))
 
             if len(abstract_list) >= limit:
                 break
@@ -586,93 +595,6 @@ class ReSeq2Seq(HybridBlock, AbstractableSemantics):
                     dim=0
                 )
 
-        """
-        other_encoded_delta_arr = None
-        for i in range(self.__batch_size):
-            _encoded_arr = None
-            for seq in range(encoded_arr[i].shape[0] - 1):
-                if _encoded_arr is None:
-                    _encoded_arr = nd.expand_dims(encoded_arr[i][seq], axis=0)
-                else:
-                    _encoded_arr = nd.concat(
-                        _encoded_arr,
-                        nd.expand_dims(encoded_arr[i][seq], axis=0),
-                        dim=0
-                    )
-
-            arr = nd.nansum(
-                nd.sqrt(
-                    nd.power(
-                        nd.maximum(
-                            0,
-                            _encoded_arr - re_encoded_arr[i, -1].reshape(
-                                1, 
-                                re_encoded_arr.shape[2]
-                            )
-                        ),
-                        2
-                    )
-                ) + self.__margin_param,
-                axis=0
-            )
-            if other_encoded_delta_arr is None:
-                other_encoded_delta_arr = nd.expand_dims(arr, axis=0)
-            else:
-                other_encoded_delta_arr = nd.concat(
-                    other_encoded_delta_arr,
-                    nd.expand_dims(arr, axis=0),
-                    dim=0
-                )
-
-        other_re_encoded_delta_arr = None
-        for i in range(self.__batch_size):
-            _re_encoded_arr = None
-            for seq in range(re_encoded_arr[i].shape[0] - 1):
-                if _re_encoded_arr is None:
-                    _re_encoded_arr = nd.expand_dims(re_encoded_arr[i][seq], axis=0)
-                else:
-                    _re_encoded_arr = nd.concat(
-                        _re_encoded_arr,
-                        nd.expand_dims(re_encoded_arr[i][seq], axis=0),
-                        dim=0
-                    )
-
-            arr = nd.nansum(
-                nd.sqrt(
-                    nd.power(
-                        nd.maximum(
-                            0, 
-                            encoded_arr[i, -1].reshape(
-                                1,
-                                encoded_arr.shape[2]
-                            ) - _re_encoded_arr
-                        ),
-                        2
-                    )
-                ) + self.__margin_param,
-                axis=0
-            )
-            if other_re_encoded_delta_arr is None:
-                other_re_encoded_delta_arr = nd.expand_dims(arr, axis=0)
-            else:
-                other_re_encoded_delta_arr = nd.concat(
-                    other_re_encoded_delta_arr,
-                    nd.expand_dims(arr, axis=0),
-                    dim=0
-                )
-
-        mismatch_delta_arr = (
-            match_delta_arr - other_encoded_delta_arr
-        ) + (
-            match_delta_arr - other_re_encoded_delta_arr
-        )
-
-        delta_arr = summary_delta_arr + nd.expand_dims(
-            self.__retrospective_lambda * match_delta_arr, axis=1
-        ) + nd.expand_dims(
-            self.__retrospective_eta * mismatch_delta_arr, axis=1
-        )
-        """
         delta_arr = summary_delta_arr + nd.expand_dims(
             self.__retrospective_lambda * match_delta_arr, axis=1
         )
@@ -689,16 +611,14 @@ class ReSeq2Seq(HybridBlock, AbstractableSemantics):
         return loss
 
     def __verificate_retrospective_loss(self, train_loss, test_loss):
-        if (len(self.__logs_tuple_list) + 1) % 100 == 0:
-            self.__logger.debug("Epoch: " + str(len(self.__logs_tuple_list) + 1))
+        self.__logger.debug("Epoch: " + str(len(self.__logs_tuple_list) + 1))
 
         _train_loss = train_loss.asnumpy().mean()
         _test_loss = test_loss.asnumpy().mean()
-        if (len(self.__logs_tuple_list) + 1) % 100 == 0:
-            self.__logger.debug("Loss: ")
-            self.__logger.debug(
-                "Training: " + str(_train_loss) + " Test: " + str(_test_loss)
-            )        
+        self.__logger.debug("Loss: ")
+        self.__logger.debug(
+            "Training: " + str(_train_loss) + " Test: " + str(_test_loss)
+        )        
         self.__logs_tuple_list.append(
             (
                 _train_loss,

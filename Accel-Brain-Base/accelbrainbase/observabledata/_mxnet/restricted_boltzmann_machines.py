@@ -178,6 +178,9 @@ class RestrictedBoltzmannMachines(HybridBlock, ObservableData):
             epoch = 0
             iter_n = 0
             for observed_arr, label_arr, test_observed_arr, test_label_arr in iteratable_data.generate_learned_samples():
+                observed_arr = nd.flatten(observed_arr)
+                test_observed_arr = nd.flatten(test_observed_arr)
+
                 self.batch_size = observed_arr.shape[0]
                 if ((epoch + 1) % self.__attenuate_epoch == 0):
                     self.__learning_rate = self.__learning_rate * self.__learning_attenuate_rate

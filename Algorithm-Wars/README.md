@@ -146,7 +146,7 @@ The basic concepts, theories, and methods behind this library are described in t
   
 <br />
 
-<div align="center"><a href="https://www.amazon.co.jp/dp/B093Z533LK" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/book_cover_2.jpg?1" width="160px" /></a>
+<div align="center"><a href="https://www.amazon.co.jp/dp/B093Z533LK" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/accel-brain-base/book_cover_2.jpg?2" width="160px" /></a>
   <p>『<a href="https://www.amazon.co.jp/dp/B093Z533LK" target="_blank">AI vs. ノイズトレーダーとしての投資家たち: 「アルゴリズム戦争」時代の証券投資戦略</a>』(Japanese)</p></div>
 
 

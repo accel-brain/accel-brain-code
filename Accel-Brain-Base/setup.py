@@ -12,8 +12,8 @@ def read_readme(file_name):
 
 setup(
     name='accel-brain-base',
-    version='1.0.4',
-    description='accel-brain-base is a basic library of the Deep Learning for rapid development at low cost. This library makes it possible to design and implement deep learning, which must be configured as a complex system, by combining a plurality of functionally differentiated modules such as a Restricted Boltzmann Machine(RBM), Deep Boltzmann Machines(DBMs), a Stacked-Auto-Encoder, an Encoder/Decoder based on Long Short-Term Memory(LSTM), and a Convolutional Auto-Encoder(CAE).',
+    version='1.0.5',
+    description='accel-brain-base is a basic library of the Deep Learning for rapid development at low cost. This library makes it possible to design and implement deep learning, which must be configured as a complex system, by combining a plurality of functionally differentiated modules such as a Deep Boltzmann Machines(DBMs), an Auto-Encoder, an Encoder/Decoder based on Long Short-Term Memory(LSTM), a Convolutional Auto-Encoder(CAE), and Transformer.',
     long_description=read_readme("README.md"),
     long_description_content_type='text/markdown',
     url='https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base/',
@@ -30,7 +30,7 @@ setup(
         'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
         'Programming Language :: Python :: 3',
     ],
-    keywords='Generative Adversarial Networks Adversarial Auto-Encoders autoencoder auto-encoder convolution deconvolution encoder decoder LSTM Deep Q-Learning Deep Reinforcement Learning Deep Boltzmann Machines Restricted Boltzmann Machine Ladder Networks semi-supervised learning DRCN Self-supervised',
+    keywords='Generative Adversarial Networks Adversarial Auto-Encoders autoencoder auto-encoder convolution deconvolution encoder decoder LSTM Deep Q-Learning Deep Reinforcement Learning Deep Boltzmann Machines Restricted Boltzmann Machine Ladder Networks semi-supervised learning DRCN Self-supervised attention transformer',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     install_requires=['numpy', 'pandas'],
 )

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta, abstractmethod, abstractproperty
 
 
 class VectorizableToken(metaclass=ABCMeta):
@@ -19,3 +19,8 @@ class VectorizableToken(metaclass=ABCMeta):
             [vector of token, vector of token, vector of token, ...]
         '''
         raise NotImplementedError("This method must be implemented.")
+
+    @abstractproperty
+    def dim(self):
+        ''' `int` of dimension of vectors. '''
+        raise NotImplementedError()

@@ -655,8 +655,8 @@ class ReSeq2Seq(HybridBlock, AbstractableSemantics):
             ignore_extra:   `bool` of whether to silently ignre parameters from the file that are not present in this `Block`.
         '''
         encoder_decoder_filename, retrospective_encoder_filename = self.__rename_file(filename)
-        self.encoder.load_parameters(encoder_decoder_filename, ctx=ctx, allow_missing=allow_missing, ignore_extra=ignore_extra)
-        self.decoder.load_parameters(retrospective_encoder_filename, ctx=ctx, allow_missing=allow_missing, ignore_extra=ignore_extra)
+        self.__encoder_decoder_controller.save_parameters(encoder_decoder_filename, ctx=ctx, allow_missing=allow_missing, ignore_extra=ignore_extra)
+        self.__retrospective_encoder.save_parameters(retrospective_encoder_filename, ctx=ctx, allow_missing=allow_missing, ignore_extra=ignore_extra)
 
     def get_logs_arr(self):
         ''' getter '''

@@ -25,7 +25,7 @@ class MeCabTokenizer(TokenizableDoc):
 
     mecab_system_dic = property(get_mecab_system_dic, set_mecab_system_dic)
 
-    __part_of_speech = ["名詞", "形容詞", "動詞"]
+    __part_of_speech = []
 
     def get_part_of_speech(self):
         ''' getter '''

@@ -53,6 +53,12 @@ class NlpBase(object):
 
     token = property(get_token, set_token)
 
+    def __init__(self):
+        ''' Init. '''
+        self.__token = []
+        self.__delimiter_list = ["。", "\n", ".", " ", "　", "．"]
+        self.__tokenizable_doc = None
+
     def tokenize(self, data):
         '''
         Tokenize sentence and set the list of tokens to self.token.

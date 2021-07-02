@@ -6,6 +6,7 @@ import mxnet.ndarray as nd
 
 class TokenIterator(_TokenIterator):
     '''
+    Token Iterator.
     '''
 
     def __init__(

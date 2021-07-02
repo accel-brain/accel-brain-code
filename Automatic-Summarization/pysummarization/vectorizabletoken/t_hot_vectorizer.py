@@ -75,3 +75,13 @@ class THotVectorizer(VectorizableToken):
         raise TypeError("This property must be read-only.")
     
     token_arr = property(get_token_arr, set_token_arr)
+
+    def get_dim(self):
+        ''' getter '''
+        return self.token_arr.shape[0]
+
+    def set_dim(self, value):
+        ''' setter '''
+        raise TypeError("This property must be read-only.")
+    
+    dim = property(get_dim, set_dim)

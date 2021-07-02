@@ -6,6 +6,7 @@ import numpy as np
 
 class TokenIterator(IteratableData):
     '''
+    Token Iterator.
     '''
 
     # is-a `VectorizableToken`.
@@ -61,6 +62,8 @@ class TokenIterator(IteratableData):
         for i in range(seq_len, vector_arr.shape[0]):
             observed_list.append(vector_arr[i-seq_len:i])
         observed_arr = np.array(observed_list)
+
+        print("setup observed arr: " + str(observed_arr.shape))
 
         self.observed_arr = observed_arr
 

@@ -7,7 +7,7 @@ From the view points of functionally equivalents and structural expansions, this
 See also ...
 
 - [Automatic Summarization Library: pysummarization](https://github.com/accel-brain/accel-brain-code/tree/master/Automatic-Summarization)
-   * If you want to implement the Sequence-to-Sequence(Seq2Seq) model for the automatic summarization by using `accel-brain-base` to build the Encoder/Decoder controllers.
+   * If you want to implement the Sequence-to-Sequence(Seq2Seq) model for the automatic summarization by using `accel-brain-base` to build the Encoder/Decoder controllers, Attention models, or Transformer models.
 - [Reinforcement Learning Library: pyqlearning](https://github.com/accel-brain/accel-brain-code/tree/master/Reinforcement-Learning)
     * If you want to implement the Deep Reinforcement Learning, especially for Deep Q-Network and Multi-agent Deep Q-Network by using `accel-brain-base` as a Function Approximator.
 - [Generative Adversarial Networks Library: pygan](https://github.com/accel-brain/accel-brain-code/tree/master/Generative-Adversarial-Networks)
@@ -482,6 +482,15 @@ Specific references are the following papers and books.
 - Sainath, T. N., Vinyals, O., Senior, A., & Sak, H. (2015, April). Convolutional, long short-term memory, fully connected deep neural networks. In Acoustics, Speech and Signal Processing (ICASSP), 2015 IEEE International Conference on (pp. 4580-4584). IEEE.
 - Xingjian, S. H. I., Chen, Z., Wang, H., Yeung, D. Y., Wong, W. K., & Woo, W. C. (2015). Convolutional LSTM network: A machine learning approach for precipitation nowcasting. In Advances in neural information processing systems (pp. 802-810).
 - Zaremba, W., Sutskever, I., & Vinyals, O. (2014). Recurrent neural network regularization. arXiv preprint arXiv:1409.2329.
+
+### Attention model and Transformer model.
+
+- Bahdanau, D., Cho, K., & Bengio, Y. (2014). Neural machine translation by jointly learning to align and translate. arXiv preprint arXiv:1409.0473.
+- Floridi, L., & Chiriatti, M. (2020). GPT-3: Its nature, scope, limits, and consequences. Minds and Machines, 30(4), 681-694.
+- Miller, A., Fisch, A., Dodge, J., Karimi, A. H., Bordes, A., & Weston, J. (2016). Key-value memory networks for directly reading documents. arXiv preprint arXiv:1606.03126.
+- Radford, A., Narasimhan, K., Salimans, T., & Sutskever, I. (2018) Improving Language Understanding by Generative Pre-Training. OpenAI (URL: https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf)
+- Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., & Sutskever, I. (2019). Language models are unsupervised multitask learners. OpenAI blog, 1(8), 9.
+- Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., & Polosukhin, I. (2017). Attention is all you need. arXiv preprint arXiv:1706.03762.
 
 ### Optimizations.
 

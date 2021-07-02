@@ -6,6 +6,8 @@
 
 The function of this library is automatic summarization using a kind of natural language processing and neural network language model. This library enable you to create a summary with the major points of the original document or web-scraped text that filtered by text clustering. And this library applies [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base) to implement **Encoder/Decoder based on LSTM** improving the accuracy of summarization by **Sequence-to-Sequence**(**Seq2Seq**) learning.
 
+The library also implements a function to extract document topics using the original model, which is a beta version of **Transformer** structured as an Auto-Encoder.
+
 ## Documentation
 
 Full documentation is available on [https://code.accel-brain.com/Automatic-Summarization/](https://code.accel-brain.com/Automatic-Summarization/) . This document contains information on functionally reusability, functional scalability and functional extensibility.
@@ -364,8 +366,7 @@ The concept of the re-seq2seq(Zhang, K. et al., 2018) provided inspiration to th
 The encoder of a seq2seq model observes the original video and output feature points which represents the semantic meaning of the observed data points. Then the feature points is observed by the decoder of this model. Additionally, in the re-seq2seq model, the outputs of the decoder is propagated to a retrospective encoder, which infers feature points to represent the semantic meaning of the summary. "If the summary preserves the important and relevant information in the original video, then we should expect that the  two embeddings are similar (e.g. in Euclidean distance)" (Zhang, K. et al., 2018, p3).
 
 <div>
-<img src="https://storage.googleapis.com/accel-brain-code/Automatic-Summarization/img/re-seq-2-seq-semantics.png">
-<p>Zhang, K., Grauman, K., & Sha, F. (2018). Retrospective Encoders for Video Summarization. In Proceedings of the European Conference on Computer Vision (ECCV) (pp. 383-399), p2.</p>
+<img src="https://storage.googleapis.com/accel-brain-code/Automatic-Summarization/img/network_of_Re-Seq2Seq.png">
 </div>
 
 This library refers to this intuitive insight above to apply the model to text summarizations. Like videos, semantic feature representation based on representation learning of manifolds is also possible in text summarizations.
@@ -487,10 +488,6 @@ The `abstract_list` is a `list` that contains `str`s of sentences.
 This library applies the Encoder-Decoder scheme for Anomaly Detection (EncDec-AD) to text summarizations by intuition. In this scheme, LSTM-based Encoder/Decoder or so-called the sequence-to-sequence(Seq2Seq) model learns to reconstruct normal time-series behavior, and thereafter uses reconstruction error to detect anomalies.
 
 Malhotra, P., et al. (2016) showed that EncDecAD paradigm is robust and can detect anomalies from predictable, unpredictable, periodic, aperiodic, and quasi-periodic time-series. Further, they showed that the paradigm is able to detect anomalies from short time-series (length as small as 30) as well as long time-series (length as large as 500).
-
-<div><img src="https://storage.googleapis.com/accel-brain-code/Deep-Learning-by-means-of-Design-Pattern/img/latex/encoder_decoder.png" />
-<p>Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078., p2.</p>
-</div>
 
 This library refers to the intuitive insight in relation to the use case of reconstruction error to detect anomalies above to apply the model to text summarization. As exemplified by Seq2Seq paradigm, document and sentence which contain tokens of text can be considered as time-series features. The anomalies data detected by EncDec-AD should have to express something about the text.
 
@@ -623,12 +620,18 @@ The basic concepts, theories, and methods behind this library are described in t
 
 Specific references are the following papers and books.
 
+- Bahdanau, D., Cho, K., & Bengio, Y. (2014). Neural machine translation by jointly learning to align and translate. arXiv preprint arXiv:1409.0473.
 - Boulanger-Lewandowski, N., Bengio, Y., & Vincent, P. (2012). Modeling temporal dependencies in high-dimensional sequences: Application to polyphonic music generation and transcription. arXiv preprint arXiv:1206.6392.
 - Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.
+- Floridi, L., & Chiriatti, M. (2020). GPT-3: Its nature, scope, limits, and consequences. Minds and Machines, 30(4), 681-694.
 - Luhn, Hans Peter. "The automatic creation of literature abstracts." IBM Journal of research and development 2.2 (1958): 159-165.
 - Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., & Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.
 - Matthew A. Russell　著、佐藤 敏紀、瀬戸口 光宏、原川 浩一　監訳、長尾 高弘　訳『入門 ソーシャルデータ 第2版――ソーシャルウェブのデータマイニング』 2014年06月 発行
+- Miller, A., Fisch, A., Dodge, J., Karimi, A. H., Bordes, A., & Weston, J. (2016). Key-value memory networks for directly reading documents. arXiv preprint arXiv:1606.03126.
+- Radford, A., Narasimhan, K., Salimans, T., & Sutskever, I. (2018) Improving Language Understanding by Generative Pre-Training. OpenAI (URL: https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf)
+- Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., & Sutskever, I. (2019). Language models are unsupervised multitask learners. OpenAI blog, 1(8), 9.
 - Sutskever, I., Hinton, G. E., & Taylor, G. W. (2009). The recurrent temporal restricted boltzmann machine. In Advances in Neural Information Processing Systems (pp. 1601-1608).
+- Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., & Polosukhin, I. (2017). Attention is all you need. arXiv preprint arXiv:1706.03762.
 - Zhang, K., Grauman, K., & Sha, F. (2018). Retrospective Encoders for Video Summarization. In Proceedings of the European Conference on Computer Vision (ECCV) (pp. 383-399).
 
 ## Author

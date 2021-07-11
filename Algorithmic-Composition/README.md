@@ -176,6 +176,10 @@ The basic concepts, theories, and methods behind this library are described in t
 <div align="center"><a href="https://www.amazon.co.jp/dp/B093Z533LK" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/AI_vs_Investors_as_Noise_Traders/book_cover.jpg" width="160px" /></a>
   <p>『<a href="https://www.amazon.co.jp/dp/B093Z533LK" target="_blank">AI vs. ノイズトレーダーとしての投資家たち: 「アルゴリズム戦争」時代の証券投資戦略</a>』(Japanese)</p></div>
 
+<br />
+
+<div align="center"><a href="https://www.amazon.co.jp/dp/B0994CH3CM" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/Babel_of_Natural_Language_Processing/book_cover.jpg" width="160px" /></a>
+  <p>『<a href="https://www.amazon.co.jp/dp/B0994CH3CM" target="_blank">自然言語処理のバベル: 文書自動要約、文章生成AI、チャットボットの意味論</a>』(Japanese)</p></div>
 
 
 Specific references are the following papers and books.

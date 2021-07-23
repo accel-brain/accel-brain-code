@@ -579,8 +579,9 @@ class PortfolioDQNController(object):
         _rebalance_policy_list = ["min_vol", "max_sharpe_ratio"]
 
         if agent_n > 2:
-            for _ in range(agent_n - 2):
-                key = np.random.randint(low=0, high=len(policy_list))
+            for _i in range(agent_n - 2):
+                #key = np.random.randint(low=0, high=len(policy_list))
+                key = _i % len(_rebalance_policy_list)
                 _rebalance_policy_list.append(policy_list[key])
 
         rebalance_policy_list = [_rebalance_policy_list for _ in range(batch_size)]
@@ -594,8 +595,9 @@ class PortfolioDQNController(object):
             "dollar_cost_averaging",
         ]
         if agent_n > 2:
-            for _ in range(agent_n - 2):
-                key = np.random.randint(low=0, high=len(sub_policy_list))
+            for _i in range(agent_n - 2):
+                #key = np.random.randint(low=0, high=len(sub_policy_list))
+                key = _i % len(sub_policy_list)
                 _rebalance_sub_policy_list.append(sub_policy_list[key])
 
         rebalance_sub_policy_list = [_rebalance_sub_policy_list for _ in range(batch_size)]
@@ -626,7 +628,8 @@ class PortfolioDQNController(object):
         if agent_n > 2:
             for n in range(agent_n - 2):
                 if n > 2:
-                    key = np.random.randint(low=0, high=len(timing_policy_list))
+                    #key = np.random.randint(low=0, high=len(timing_policy_list))
+                    key = n % len(timing_policy_list)
                 else:
                     key = 0
                 _timing_policy_list.append(timing_policy_list[key])

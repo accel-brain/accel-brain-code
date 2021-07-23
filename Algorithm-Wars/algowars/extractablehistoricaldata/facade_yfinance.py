@@ -65,18 +65,18 @@ class FacadeYFinance(ExtractableHistoricalData):
             self.__get_and_sleep([target_ticker])
         else:
             df = pd.read_csv(self.__ticker_master_path)
-            ticker_list = df.ticker.values.tolist()
+            ticker_list = df.ticker.astype(str).values.tolist()
             self.__get_and_sleep(ticker_list)
 
     def __get_and_sleep(self, ticker_list):
         self.__logger.info("Ticker symbol: " + str(", ".join(ticker_list)))
 
-        df = yf.download(ticker_list)
+        df = yf.download(ticker_list, threads=True, start="1970-01-02")
         idx = pd.IndexSlice
 
         min_timestamp_list = []
         for ticker in ticker_list:
-            ticker_df = df.loc[:,idx[:, ticker]]
+            ticker_df = df.loc[:, idx[:, ticker]]
             ticker_df = ticker_df.dropna()
             ticker_df.columns = ticker_df.columns.droplevel(1)
             ticker_df["timestamp"] = ticker_df.index

@@ -192,7 +192,12 @@ class FacadeAlphaVantage(ExtractableHistoricalData):
         #self.__logger.debug("After dropping na: " + str(result_df.shape[0]))
 
         result_df["date"] = result_df["timestamp"]
-        result_df["timestamp"] = result_df.date.apply(self.__get_timestamp)
+        try:
+            result_df["timestamp"] = result_df.date.apply(self.__get_timestamp)
+        except Exception as e:
+            print(e)
+            print(result_df["date"].drop_duplicates())
+            raise
 
         if start_date is not None:
             start_timestamp = datetime.strptime(start_date, self.__date_format).timestamp()
@@ -219,7 +224,12 @@ class FacadeAlphaVantage(ExtractableHistoricalData):
         return result_df
 
     def __get_timestamp(self, v):
-        return datetime.strptime(v, self.__date_format).timestamp()
+        try:
+            return datetime.strptime(v, self.__date_format).timestamp()
+        except Exception as e:
+            print(v)
+            print(e)
+            raise
 
 def Main(params_dict):
     '''

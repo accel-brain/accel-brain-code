@@ -159,6 +159,11 @@ The basic concepts, theories, and methods behind this library are described in t
 <div align="center"><a href="https://www.amazon.co.jp/dp/B09C4KYZBX" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/Origin_of_the_statistical_machine_learning/book_cover.jpg" width="160px" /></a>
   <p>『<a href="https://www.amazon.co.jp/dp/B09C4KYZBX" target="_blank">統計的機械学習の根源: 熱力学、量子力学、統計力学における天才物理学者たちの神学的な理念</a>』(Japanese)</p></div>
 
+<br />
+
+<div align="center"><a href="https://www.amazon.co.jp/dp/B09JC4Z7B4" target="_blank"><img border="0" src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/Media_Aesthetics_of_Data_Visualization/book_cover.jpg" width="160px"></a>
+  <p>『<a href="https://www.amazon.co.jp/dp/B09JC4Z7B4" target="_blank">データビジュアライゼーションのメディア美学: ハイブリッド戦略の魔術師たち</a>』(Japanese)</p></div>
+
 
 Specific references are the following papers and books.
 

@@ -199,6 +199,9 @@ The basic concepts, theories, and methods behind this library are described in t
 <div align="center"><a href="https://www.amazon.co.jp/dp/B09JC4Z7B4" target="_blank"><img border="0" src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/Media_Aesthetics_of_Data_Visualization/book_cover.jpg" width="160px"></a>
   <p>『<a href="https://www.amazon.co.jp/dp/B09JC4Z7B4" target="_blank">データビジュアライゼーションのメディア美学: ハイブリッド戦略の魔術師たち</a>』(Japanese)</p></div>
 
+<div align="center"><a href="https://www.amazon.co.jp/dp/B09P4JXQWB" target="_blank"><img border="0" src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/Education_of_the_Faustian_man/book_cover.jpg" width="160px"></a>
+  <p>『<a href="https://www.amazon.co.jp/dp/B09P4JXQWB" target="_blank">「ファウスト的人間」の教育: 起業家精神の生涯学習</a>』(Japanese)</p></div>
+
 ## Author
 
 - Accel Brain Co., Ltd.

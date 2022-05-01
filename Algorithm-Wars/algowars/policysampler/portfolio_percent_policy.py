@@ -1183,16 +1183,17 @@ class PortfolioPercentPolicy(PolicySampler):
                     money = money - buy
                     money = money + sel
 
-                    if money <= 0:
-                        hold_arr[agent_i] = hold_arr[agent_i] / 2
-                        hold_arr[agent_i] = np.maximum(hold_arr[agent_i], 0)
-                        """
-                        if hold_arr[agent_i].sum() <= 0:
-                            hold_arr[agent_i] = pre_state_hold_arr[agent_i].copy()
+                    with np.errstate(invalid='ignore'):
+                        if money <= 0:
+                            hold_arr[agent_i] = hold_arr[agent_i] / 2
+                            hold_arr[agent_i] = np.maximum(hold_arr[agent_i], 0)
+                            """
+                            if hold_arr[agent_i].sum() <= 0:
+                                hold_arr[agent_i] = pre_state_hold_arr[agent_i].copy()
+                                break
+                            """
+                        else:
                             break
-                        """
-                    else:
-                        break
 
         hold_arr = np.maximum(hold_arr, 0)
 

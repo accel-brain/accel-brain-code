@@ -621,6 +621,11 @@ The basic concepts, theories, and methods behind this library are described in t
 <div align="center"><a href="https://www.amazon.co.jp/dp/B0994CH3CM" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/Babel_of_Natural_Language_Processing/book_cover.jpg" width="160px" /></a>
   <p>『<a href="https://www.amazon.co.jp/dp/B0994CH3CM" target="_blank">自然言語処理のバベル: 文書自動要約、文章生成AI、チャットボットの意味論</a>』(Japanese)</p></div>
 
+<br />
+
+<div align="center"><a href="https://www.amazon.co.jp/dp/B09C4KYZBX" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/Origin_of_the_statistical_machine_learning/book_cover.jpg" width="160px" /></a>
+  <p>『<a href="https://www.amazon.co.jp/dp/B09C4KYZBX" target="_blank">統計的機械学習の根源: 熱力学、量子力学、統計力学における天才物理学者たちの神学的な理念</a>』(Japanese)</p></div>
+
 
 Specific references are the following papers and books.
 

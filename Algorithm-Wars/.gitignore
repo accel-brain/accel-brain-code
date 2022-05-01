@@ -1,3 +1,5 @@
 config/alpha_vantage_api_key.txt
+config/newsapi.txt
+config/
 logs/
 params/

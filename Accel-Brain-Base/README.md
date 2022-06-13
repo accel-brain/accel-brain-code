@@ -7,13 +7,13 @@ From the view points of functionally equivalents and structural expansions, this
 See also ...
 
 - [Automatic Summarization Library: pysummarization](https://github.com/accel-brain/accel-brain-code/tree/master/Automatic-Summarization)
-   * If you want to implement the Sequence-to-Sequence(Seq2Seq) model for the automatic summarization by using `accel-brain-base` to build the Encoder/Decoder controllers, Attention models, or Transformer models.
+   * If you want to implement the **Sequence-to-Sequence(Seq2Seq) model** for the automatic summarization by using `accel-brain-base` to build the **Encoder/Decoder controllers**, **Attention models**, or **Transformer models**.
 - [Reinforcement Learning Library: pyqlearning](https://github.com/accel-brain/accel-brain-code/tree/master/Reinforcement-Learning)
-    * If you want to implement the Deep Reinforcement Learning, especially for Deep Q-Network and Multi-agent Deep Q-Network by using `accel-brain-base` as a Function Approximator.
+    * If you want to implement the Deep Reinforcement Learning, especially for **Deep Q-Network** and **Multi-agent Deep Q-Network** by using `accel-brain-base` as a Function Approximator.
 - [Generative Adversarial Networks Library: pygan](https://github.com/accel-brain/accel-brain-code/tree/master/Generative-Adversarial-Networks)
-    * If you want to implement Generative Adversarial Networks(GANs) and Adversarial Auto-Encoders(AAEs) by using `accel-brain-base` as components for Generative models based on the Statistical machine learning problems.
+    * If you want to implement **Generative Adversarial Networks(GANs)** and **Adversarial Auto-Encoders(AAEs)** by using `accel-brain-base` as components for Generative models based on the Statistical machine learning problems.
 - [Algorithmic Composition or Automatic Composition Library: pycomposer](https://github.com/accel-brain/accel-brain-code/tree/master/Algorithmic-Composition)
-   * If you want to implement the Algorithmic Composer based on Generative Adversarial Networks(GANs) by using `accel-brain-base` as components for Generative models based on the Statistical machine learning problems.
+   * If you want to implement the Algorithmic Composer based on **Generative Adversarial Networks(GANs)** by using `accel-brain-base` as components for Generative models based on the Statistical machine learning problems.
 
 ## Installation
 
@@ -40,6 +40,9 @@ Installers for the latest released version are available at the Python package i
 - [numpy](https://github.com/numpy/numpy): v1.13.3 or higher.
 - [pandas](https://github.com/pandas-dev/pandas): v0.22.0 or higher.
 - [mxnet](https://github.com/apache/incubator-mxnet) or [mxnet-cu*](https://mxnet.apache.org/api/python/docs/tutorials/getting-started/crash-course/6-use_gpus.html): latest.
+  * Only when building a model of this library using [Apache MXNet](https://mxnet.apache.org/).
+- [torch](https://pytorch.org/get-started/locally/)
+  * Only when building a model of this library using [PyTorch](https://pytorch.org/).
 
 #### For ML Ops.
 

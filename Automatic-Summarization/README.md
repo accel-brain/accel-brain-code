@@ -46,7 +46,7 @@ Installers for the latest released version are available at the Python package i
 - [pyquery](https://github.com/gawel/pyquery):v1.2.17 or higher.
     * Relevant only for web scraiping.
 - [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base): v1.0.0 or higher.
-    * Only when using **Re-Seq2Seq** and **EncDec-AD**.
+    * Only when using **Re-Seq2Seq**, **EncDec-AD**, or **Transformer models**.
 
 ## Usecase: Summarize an English string argument.
 

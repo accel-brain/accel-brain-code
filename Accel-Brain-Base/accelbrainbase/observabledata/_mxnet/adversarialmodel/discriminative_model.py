@@ -63,7 +63,7 @@ class DiscriminativeModel(HybridBlock, AdversarialModel):
             ctx:                            `mx.cpu()` or `mx.gpu()`.
 
         '''
-        super(DiscriminativeModel, self).__init__(**kwargs)
+        super(DiscriminativeModel, self).__init__()
 
         self.model = model
         logger = getLogger("accelbrainbase")

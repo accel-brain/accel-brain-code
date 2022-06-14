@@ -85,7 +85,7 @@ class TransformerController(HybridBlock, ControllableModel):
             initializer:                    is-a `mxnet.initializer` for parameters of model. If `None`, it is drawing from the Xavier distribution.
 
         '''
-        super(TransformerController, self).__init__(**kwargs)
+        super(TransformerController, self).__init__()
 
         if computable_loss is None:
             computable_loss = gluon.loss.SoftmaxCrossEntropyLoss(

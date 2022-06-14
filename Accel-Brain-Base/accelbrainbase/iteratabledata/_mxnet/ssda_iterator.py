@@ -222,6 +222,7 @@ class SSDAIterator(_SSDAIterator):
                 file_path = self.__test_file_path_list[dir_key][file_key]
                 scan_file_path_list.append(file_path)
 
+        import random
         random.shuffle(scan_file_path_list)
 
         test_batch_arr = None

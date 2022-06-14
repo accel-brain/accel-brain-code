@@ -56,7 +56,8 @@ class ObservingMedia(object):
             layer_n:            `int` of the number of layers.
             dropout_rate:       `float` of dropout rate.
         """
-        sentence_list = document.split("\n")
+        #sentence_list = document.split("\n")
+        sentence_list = document.splitlines()
 
         token_list = []
         seq_token_list = []
@@ -247,7 +248,8 @@ def Main(
         with open(stop_word_path, encoding="utf-8") as f:
             stop_words = f.read()
         
-        stop_words_list = stop_words.split("\n")
+        #stop_words_list = stop_words.split("\n")
+        stop_words_list = stop_words.splitlines()
 
     with open(file_path, encoding="utf-8") as f:
         document = f.read()

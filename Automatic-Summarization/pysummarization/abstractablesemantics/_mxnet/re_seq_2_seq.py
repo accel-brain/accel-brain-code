@@ -134,7 +134,7 @@ class ReSeq2Seq(HybridBlock, AbstractableSemantics):
             seq_len:                        The length of sequneces in Decoder with Attention model.
 
         '''
-        super(ReSeq2Seq, self).__init__(**kwargs)
+        super(ReSeq2Seq, self).__init__()
         self.__ctx = ctx
         if computable_loss is None:
             computable_loss = L2NormLoss()

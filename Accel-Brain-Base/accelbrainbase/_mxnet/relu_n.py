@@ -18,7 +18,7 @@ class ReLuN(HybridBlock):
             max_n:      max of range. If this value is `-1`, this class will use not ReLu6 but ReLu.
 
         '''
-        super(ReLuN, self).__init__(**kwargs)
+        super(ReLuN, self).__init__()
         self.__min_n = min_n
         self.__max_n = max_n
 

@@ -89,7 +89,7 @@ class SSDAController(HybridBlock, ControllableModel):
         logger = getLogger("accelbrainbase")
         self.__logger = logger
 
-        super(SSDAController, self).__init__(**kwargs)
+        super(SSDAController, self).__init__()
 
         with self.name_scope():
             self.encoder = encoder

@@ -118,7 +118,7 @@ class LSTMNetworks(HybridBlock, ObservableData):
         if isinstance(computable_loss, ComputableLoss) is False and isinstance(computable_loss, gluon.loss.Loss) is False:
             raise TypeError("The type of `computable_loss` must be `ComputableLoss` or `gluon.loss.Loss`.")
 
-        super(LSTMNetworks, self).__init__(**kwargs)
+        super(LSTMNetworks, self).__init__()
 
         if initializer is None:
             self.initializer = mx.initializer.Xavier(

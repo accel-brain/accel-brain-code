@@ -212,6 +212,7 @@ class UnlabeledVideoIterator(_UnlabeledImageIterator):
                     _scan_file_path_list.append(file_path)
                 scan_file_path_list.append(_scan_file_path_list)
 
+        import random
         random.shuffle(scan_file_path_list)
 
         test_batch_arr = None

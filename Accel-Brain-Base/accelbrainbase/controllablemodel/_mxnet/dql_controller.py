@@ -78,7 +78,7 @@ class DQLController(HybridBlock, ControllableModel):
         if isinstance(computable_loss, ComputableLoss) is False and isinstance(computable_loss, gluon.loss.Loss) is False:
             raise TypeError("The type of `computable_loss` must be `ComputableLoss` or `gluon.loss.Loss`.")
 
-        super(DQLController, self).__init__(**kwargs)
+        super(DQLController, self).__init__()
 
         self.__function_approximator = function_approximator
         self.__policy_sampler = policy_sampler

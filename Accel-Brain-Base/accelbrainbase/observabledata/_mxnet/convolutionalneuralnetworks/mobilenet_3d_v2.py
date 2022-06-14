@@ -145,7 +145,6 @@ class MobileNet3DV2(ConvolutionalNeuralNetworks):
 
         '''
 
-        #super(MobileNetV2, self).__init__(**kwargs)
         if init_deferred_flag is None:
             init_deferred_flag = self.init_deferred_flag
         elif isinstance(init_deferred_flag, bool) is False:

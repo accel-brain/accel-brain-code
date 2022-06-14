@@ -59,7 +59,7 @@ class FunctionApproximator(HybridBlock, _FunctionApproximator):
             ctx:                            `mx.cpu()` or `mx.gpu()`.
 
         '''
-        super(FunctionApproximator, self).__init__(**kwargs)
+        super(FunctionApproximator, self).__init__()
 
         self.model = model
         logger = getLogger("accelbrainbase")

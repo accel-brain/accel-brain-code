@@ -96,7 +96,7 @@ class RestrictedBoltzmannMachines(HybridBlock, ObservableData):
             regularizatable_data_list:  `list` of `RegularizatableData`s.
             ctx:                        `mx.gpu()` or `mx.cpu()`.
         '''
-        super(RestrictedBoltzmannMachines, self).__init__(**kwargs)
+        super(RestrictedBoltzmannMachines, self).__init__()
 
         if initializer is None:
             self.initializer = mx.initializer.Xavier(

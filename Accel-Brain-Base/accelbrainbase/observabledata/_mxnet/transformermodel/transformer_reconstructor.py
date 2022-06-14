@@ -142,7 +142,7 @@ class TransformerReconstructor(HybridBlock, TransformerModel):
         if isinstance(computable_loss, ComputableLoss) is False and isinstance(computable_loss, gluon.loss.Loss) is False:
             raise TypeError("The type of `computable_loss` must be `ComputableLoss` or `gluon.loss.Loss`.")
 
-        super(TransformerReconstructor, self).__init__(**kwargs)
+        super(TransformerReconstructor, self).__init__()
         self.__computable_loss = computable_loss
 
         if initializer is None:
@@ -385,15 +385,15 @@ class TransformerReconstructor(HybridBlock, TransformerModel):
 
             if len(self.self_attention_activation_list) > 0:
                 if isinstance(self.self_attention_activation_list[i], gluon.nn.activations.GELU) is True:
-                    x = self.self_attention_activation_list[i](x)
+                    _x = self.self_attention_activation_list[i](_x)
                 elif self.self_attention_activation_list[i] == "identity_adjusted":
-                    x = x / F.sum(F.ones_like(x))
+                    _x = _x / F.sum(F.ones_like(_x))
                 elif self.self_attention_activation_list[i] == "softmax":
-                    x = F.softmax(x)
+                    _x = F.softmax(_x)
                 elif self.self_attention_activation_list[i] == "log_softmax":
-                    x = F.softmax(x)
+                    _x = F.softmax(_x)
                 elif self.self_attention_activation_list[i] != "identity":
-                    x = F.Activation(x, self.self_attention_activation_list[i])
+                    _x = F.Activation(_x, self.self_attention_activation_list[i])
 
             x = x + _x
 
@@ -404,15 +404,15 @@ class TransformerReconstructor(HybridBlock, TransformerModel):
 
             if len(self.fc_activation_list) > 0:
                 if isinstance(self.fc_activation_list[i], gluon.nn.activations.GELU) is True:
-                    x = self.fc_activation_list[i](x)
+                    _x = self.fc_activation_list[i](_x)
                 elif self.fc_activation_list[i] == "identity_adjusted":
-                    x = x / F.sum(F.ones_like(x))
+                    _x = _x / F.sum(F.ones_like(_x))
                 elif self.fc_activation_list[i] == "softmax":
-                    x = F.softmax(x)
+                    _x = F.softmax(_x)
                 elif self.fc_activation_list[i] == "log_softmax":
-                    x = F.softmax(x)
+                    _x = F.softmax(_x)
                 elif self.fc_activation_list[i] != "identity":
-                    x = F.Activation(x, self.fc_activation_list[i])
+                    _x = F.Activation(_x, self.fc_activation_list[i])
 
             x = x + _x
 

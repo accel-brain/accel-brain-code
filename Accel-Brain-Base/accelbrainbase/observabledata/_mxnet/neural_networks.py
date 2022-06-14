@@ -77,7 +77,7 @@ class NeuralNetworks(HybridBlock, ObservableData):
         if len(dropout_rate_list) != len(units_list):
             raise ValueError("The length of `dropout_rate_list` and `activation_list` must be equivalent.")
 
-        super(NeuralNetworks, self).__init__(**kwargs)
+        super(NeuralNetworks, self).__init__()
 
         if initializer is None:
             self.initializer = mx.initializer.Xavier(

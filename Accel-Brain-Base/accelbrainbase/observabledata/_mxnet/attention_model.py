@@ -81,7 +81,7 @@ class AttentionModel(HybridBlock, ObservableData):
         if isinstance(computable_loss, ComputableLoss) is False and isinstance(computable_loss, gluon.loss.Loss) is False:
             raise TypeError("The type of `computable_loss` must be `ComputableLoss` or `gluon.loss.Loss`.")
 
-        super(AttentionModel, self).__init__(**kwargs)
+        super(AttentionModel, self).__init__()
         self.__computable_loss = computable_loss
 
         if initializer is None:

@@ -108,7 +108,7 @@ class GANController(HybridBlock, ControllableModel):
         if isinstance(discriminator_loss, DiscriminatorLoss) is False:
             raise TypeError("The type of `discriminator_loss` must be `DiscriminatorLoss`.")
 
-        super(GANController, self).__init__(**kwargs)
+        super(GANController, self).__init__()
 
         self.__true_sampler = true_sampler
         self.__generative_model = generative_model

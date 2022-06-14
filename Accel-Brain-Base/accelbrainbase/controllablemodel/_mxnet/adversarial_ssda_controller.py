@@ -93,7 +93,7 @@ class AdversarialSSDAController(HybridBlock, ControllableModel):
         logger = getLogger("accelbrainbase")
         self.__logger = logger
 
-        super(AdversarialSSDAController, self).__init__(**kwargs)
+        super(AdversarialSSDAController, self).__init__()
 
         with self.name_scope():
             self.encoder = encoder

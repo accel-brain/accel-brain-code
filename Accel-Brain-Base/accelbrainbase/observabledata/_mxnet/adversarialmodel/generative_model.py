@@ -72,7 +72,7 @@ class GenerativeModel(HybridBlock, AdversarialModel):
             ctx:                            `mx.cpu()` or `mx.gpu()`.
 
         '''
-        super(GenerativeModel, self).__init__(**kwargs)
+        super(GenerativeModel, self).__init__()
 
         if initializer is None:
             self.initializer = mx.initializer.Xavier(

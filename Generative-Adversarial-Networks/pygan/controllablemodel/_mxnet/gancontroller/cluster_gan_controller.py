@@ -411,6 +411,7 @@ class ClusterGANController(GANController):
                 loss = g_loss + c_loss
             loss.backward()
 
+            self.clusterer_trainer.step(generated_arr.shape[0])
             self.clustering_model.model.regularize()
 
             total_g_loss += loss.mean().asnumpy()[0]

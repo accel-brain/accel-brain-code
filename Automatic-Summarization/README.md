@@ -47,6 +47,10 @@ Installers for the latest released version are available at the Python package i
     * Relevant only for web scraiping.
 - [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base): v1.0.0 or higher.
     * Only when using **Re-Seq2Seq**, **EncDec-AD**, or **Transformer models**.
+- [mxnet](https://github.com/apache/incubator-mxnet) or [mxnet-cu*](https://mxnet.apache.org/api/python/docs/tutorials/getting-started/crash-course/6-use_gpus.html): latest.
+  * Only when building a model of this library using [Apache MXNet](https://mxnet.apache.org/).
+- [torch](https://pytorch.org/get-started/locally/)
+  * Only when building a model of this library using [PyTorch](https://pytorch.org/).
 
 ## Usecase: Summarize an English string argument.
 

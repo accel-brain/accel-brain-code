@@ -28,6 +28,10 @@ Installers for the latest released version are available at the Python package i
 
 - [numpy](https://github.com/numpy/numpy): v1.13.3 or higher.
 - [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base): v1.0.0 or higher.
+- [mxnet](https://github.com/apache/incubator-mxnet) or [mxnet-cu*](https://mxnet.apache.org/api/python/docs/tutorials/getting-started/crash-course/6-use_gpus.html): latest.
+  * Only when building a model of this library using [Apache MXNet](https://mxnet.apache.org/).
+- [torch](https://pytorch.org/get-started/locally/)
+  * Only when building a model of this library using [PyTorch](https://pytorch.org/).
 
 ## Documentation
 
@@ -65,7 +69,7 @@ This library models the Energy-based Adversarial-Auto-Encoder(EBAAE) by structur
 Import a Python module.
 
 ```python
-from pygan.gan_image_generator import GANImageGenerator
+from pygan._mxnet.gan_image_generator import GANImageGenerator
 ```
 
 Setup logger.
@@ -98,6 +102,35 @@ gan_image_generator = GANImageGenerator(
     batch_size=40,
     # `float` of learning rate.
     learning_rate=1e-06,
+)
+```
+
+If you want to use the [PyTorch](https://pytorch.org/) version, import a Python module and initialize `GANImageGenerator`.
+
+```python
+from pygan._torch.gan_image_generator import GANImageGenerator
+import torch
+
+# Context-manager that changes the selected device.
+ctx = "cuda:0" if torch.cuda.is_available() else "cpu"
+
+gan_image_generator = GANImageGenerator(
+    # `list` of path to your directories.
+    dir_list=[
+        "/path/to/your/image/files/", 
+    ],
+    # `int` of image width.
+    width=128,
+    # `int` of image height.
+    height=96,
+    # `int` of image channel.
+    channel=1,
+    # `int` of batch size.
+    batch_size=40,
+    # `float` of learning rate.
+    learning_rate=1e-06,
+    # Context-manager that changes the selected device.
+    ctx=ctx,
 )
 ```
 
@@ -137,7 +170,7 @@ For more detailed or original modeling or tuning, see [accel-brain-base](https:/
 Import a Python module.
 
 ```python
-from pygan.ebgan_image_generator import EBGANImageGenerator
+from pygan._mxnet.ebgan_image_generator import EBGANImageGenerator
 ```
 
 Setup logger.
@@ -170,6 +203,34 @@ ebgan_image_generator = EBGANImageGenerator(
     batch_size=40,
     # `float` of learning rate.
     learning_rate=1e-06,
+)
+```
+If you want to use the [PyTorch](https://pytorch.org/) version, import a Python module and initialize `EBGANImageGenerator`.
+
+```python
+from pygan._torch.ebgan_image_generator import EBGANImageGenerator
+import torch
+
+# Context-manager that changes the selected device.
+ctx = "cuda:0" if torch.cuda.is_available() else "cpu"
+
+ebgan_image_generator = EBGANImageGenerator(
+    # `list` of path to your directories.
+    dir_list=[
+        "/path/to/your/image/files/", 
+    ],
+    # `int` of image width.
+    width=128,
+    # `int` of image height.
+    height=96,
+    # `int` of image channel.
+    channel=1,
+    # `int` of batch size.
+    batch_size=40,
+    # `float` of learning rate.
+    learning_rate=1e-06,
+    # Context-manager that changes the selected device.
+    ctx=ctx,
 )
 ```
 
@@ -209,7 +270,7 @@ For more detailed or original modeling or tuning, see [accel-brain-base](https:/
 Import a Python module.
 
 ```python
-from pygan.ebaae_image_generator import EBAAEImageGenerator
+from pygan._mxnet.ebaae_image_generator import EBAAEImageGenerator
 ```
 
 Setup a logger.
@@ -243,9 +304,42 @@ ebaae_image_generator = EBAAEImageGenerator(
     # `float` of learning rate.
     learning_rate=1e-06,
     # `int` of width of image drawn from normal distribution, p(z).
-    normal_height=128//2,
+    normal_height=128,
     # `int` of height of image drawn from normal distribution, p(z).
-    normal_width=96//2,
+    normal_width=96,
+)
+```
+
+If you want to use the [PyTorch](https://pytorch.org/) version, import a Python module and initialize `EBAAEImageGenerator`.
+
+```python
+from pygan._torch.ebaae_image_generator import EBAAEImageGenerator
+import torch
+
+# Context-manager that changes the selected device.
+ctx = "cuda:0" if torch.cuda.is_available() else "cpu"
+
+ebaae_image_generator = EBAAEImageGenerator(
+    # `list` of path to your directories.
+    dir_list=[
+        "/path/to/your/image/files/", 
+    ],
+    # `int` of image width.
+    width=128,
+    # `int` of image height.
+    height=96,
+    # `int` of image channel.
+    channel=1,
+    # `int` of batch size.
+    batch_size=40,
+    # `float` of learning rate.
+    learning_rate=1e-06,
+    # `int` of width of image drawn from normal distribution, p(z).
+    normal_height=128,
+    # `int` of height of image drawn from normal distribution, p(z).
+    normal_width=96,
+    # Context-manager that changes the selected device.
+    ctx=ctx,
 )
 ```
 
@@ -282,7 +376,6 @@ The shape of `decoded_arr` is ...
 For more detailed or original modeling or tuning, see [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base). This library is based on [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base).
 
 ## References
-
 
 The basic concepts, theories, and methods behind this library are described in the following books.
 

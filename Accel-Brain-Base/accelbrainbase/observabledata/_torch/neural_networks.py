@@ -96,9 +96,12 @@ class NeuralNetworks(nn.Module, ObservableData):
         self.hidden_batch_norm_list = [None] * len(hidden_batch_norm_list)
         for i in range(len(hidden_batch_norm_list)):
             if hidden_batch_norm_list[i] is not None:
-                self.hidden_batch_norm_list[i] = nn.BatchNorm1d(
-                    hidden_batch_norm_list[i]
-                )
+                if isinstance(hidden_batch_norm_list[i], int) is True:
+                    self.hidden_batch_norm_list[i] = nn.BatchNorm1d(
+                        hidden_batch_norm_list[i]
+                    )
+                else:
+                    self.hidden_batch_norm_list[i] = hidden_batch_norm_list[i]
 
         self.hidden_batch_norm_list = nn.ModuleList(self.hidden_batch_norm_list)
 

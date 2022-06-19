@@ -417,7 +417,8 @@ class ConditionalGANComposer(GANComposable):
                             `velocity_mean` and `velocity_std`.
                             If `None`, the SD of velocity in MIDI files set to this parameter.
         '''
-        generated_arr = self.__generative_model.draw().asnumpy()
+        generated_arr = self.__generative_model.draw()
+        generated_arr = generated_arr.to("cpu").detach().numpy()
         channel = generated_arr.shape[1] // 2
         generated_arr = generated_arr[:, channel:]
 

@@ -182,13 +182,19 @@ class GANController(nn.Module, ControllableModel):
                 if isinstance(loss, torch.Tensor) is True:
                     _loss = loss.to('cpu').detach().numpy()
                     _posterior = posterior.to('cpu').detach().numpy()
-                    d_logs_list.append(_loss)
-                    posterior_logs_list.append(_posterior)
+                else:
+                    _loss = loss
+                    _posterior = posterior
+
+                d_logs_list.append(_loss)
+                posterior_logs_list.append(_posterior)
 
                 loss = self.train_by_feature_matching(k_step)
                 if isinstance(loss, torch.Tensor) is True:
                     _loss = loss.to('cpu').detach().numpy()
-                    feature_matching_loss_list.append(_loss)
+                else:
+                    _loss = loss
+                feature_matching_loss_list.append(_loss)
 
                 if (n + 1) % 100 == 0 or n < 100:
                     if len(posterior_logs_list) > 0:
@@ -206,8 +212,12 @@ class GANController(nn.Module, ControllableModel):
                 if isinstance(loss, torch.Tensor) is True:
                     _loss = loss.to('cpu').detach().numpy()
                     _posterior = posterior.to('cpu').detach().numpy()
-                    g_logs_list.append(_loss)
-                    posterior_logs_list.append(_posterior)
+                else:
+                    _loss = loss
+                    _posterior = posterior
+
+                g_logs_list.append(_loss)
+                posterior_logs_list.append(_posterior)
 
                 if (n + 1) % 100 == 0 or n < 100:
                     if len(g_logs_list) > 0:

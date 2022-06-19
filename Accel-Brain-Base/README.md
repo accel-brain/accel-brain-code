@@ -23,6 +23,13 @@ Install using pip:
 pip install accel-brain-base
 ```
 
+or,
+
+```sh
+python setup.py bdist_wheel
+pip install dist/accel_brain_base-*.*.*-py3-*-*.whl
+```
+
 ### Source code
 
 The source code is currently hosted on GitHub.
@@ -46,9 +53,9 @@ Installers for the latest released version are available at the Python package i
 
 #### For ML Ops.
 
-In this library, almost all models inherit [HybridBlock](https://gluon.mxnet.io/chapter07_distributed-learning/hybridize.html) from [mxnet.gluon](https://mxnet.incubator.apache.org/api/python/docs/api/gluon/index.html). Functions for common ML Ops such as saving and loading parameters are provided by [HybridBlock](https://mxnet.apache.org/api/python/docs/api/gluon/hybrid_block.html).
+In the [Apache MXNet](https://mxnet.apache.org/) version of this library, almost all models inherit [HybridBlock](https://gluon.mxnet.io/chapter07_distributed-learning/hybridize.html) from [mxnet.gluon](https://mxnet.incubator.apache.org/api/python/docs/api/gluon/index.html). Functions for common ML Ops such as saving and loading parameters are provided by [HybridBlock](https://mxnet.apache.org/api/python/docs/api/gluon/hybrid_block.html).
 
-**Note** that, however, we are using [HybridBlocks](https://gluon.mxnet.io/chapter07_distributed-learning/hybridize.html) in [mxnet.gluon](https://mxnet.incubator.apache.org/api/python/docs/api/gluon/index.html) at present but we will also implement functional equivalents that use TensorFlow and PyTorch in the future. There is no reason to stick to one library.
+On the other hand, in [PyTorch](https://pytorch.org/) of this library, almost all models inherit [Module](https://pytorch.org/docs/stable/generated/torch.nn.Module.html) from [torch.nn](https://pytorch.org/docs/stable/nn.html). Check the official documentation for the information you need.
 
 ## Documentation
 

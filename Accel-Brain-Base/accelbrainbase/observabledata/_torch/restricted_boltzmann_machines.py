@@ -380,7 +380,7 @@ class RestrictedBoltzmannMachines(nn.Module, ObservableData):
             checkpoint['optimizer_state_dict']
         )
         self.epoch = checkpoint['epoch']
-        self.loss_arr = checkpoint['loss']
+        self.__loss_list = checkpoint['loss'].tolist()
         if ctx is not None:
             self.to(ctx)
             self.__ctx = ctx

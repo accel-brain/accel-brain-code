@@ -237,7 +237,7 @@ class DeepBoltzmannMachines(RestrictedBoltzmannMachines):
         '''
         checkpoint = torch.load(filename)
         self.epoch = checkpoint['epoch']
-        self.loss_arr = checkpoint['loss']
+        self.__loss_list = checkpoint['loss'].tolist()
 
         filename_list = self.__rename_file(filename)
         for i in range(len(filename_list)):

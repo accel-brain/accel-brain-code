@@ -298,7 +298,7 @@ class EncoderDecoder(LSTMNetworks):
 
         checkpoint = torch.load(filename)
         self.epoch = checkpoint['epoch']
-        self.loss_arr = checkpoint['loss']
+        self.__loss_list = checkpoint['loss'].tolist()
 
     def set_readonly(self, value):
         ''' setter '''

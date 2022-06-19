@@ -122,6 +122,7 @@ class NeuralNetworks(nn.Module, ObservableData):
         self.flatten = nn.Flatten()
 
         self.epoch = 0
+        self.__loss_list = []
         logger = getLogger("accelbrainbase")
         self.__logger = logger
         self.__input_dim = None
@@ -365,7 +366,7 @@ class NeuralNetworks(nn.Module, ObservableData):
             checkpoint['optimizer_state_dict']
         )
         self.epoch = checkpoint['epoch']
-        self.loss_arr = checkpoint['loss']
+        self.__loss_list = checkpoint['loss'].tolist()
         if ctx is not None:
             self.to(ctx)
             self.__ctx = ctx

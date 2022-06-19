@@ -157,6 +157,7 @@ class LSTMNetworks(nn.Module, ObservableData):
         self.seq_len = seq_len
 
         self.epoch = 0
+        self.__loss_list = []
 
     def initialize_params(self, input_dim, input_seq_len):
         '''
@@ -605,7 +606,7 @@ class LSTMNetworks(nn.Module, ObservableData):
             checkpoint['optimizer_state_dict']
         )
         self.epoch = checkpoint['epoch']
-        self.loss_arr = checkpoint['loss']
+        self.__loss_list = checkpoint['loss'].tolist()
         if ctx is not None:
             self.to(ctx)
             self.__ctx = ctx

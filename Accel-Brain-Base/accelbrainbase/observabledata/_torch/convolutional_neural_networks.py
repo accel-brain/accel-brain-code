@@ -199,7 +199,8 @@ class ConvolutionalNeuralNetworks(nn.Module, ObservableData):
 
         self.__safe_params_dict = {}
 
-        self.__epoch = 0
+        self.epoch = 0
+        self.__loss_list = []
         logger = getLogger("accelbrainbase")
         self.__logger = logger
 
@@ -219,7 +220,7 @@ class ConvolutionalNeuralNetworks(nn.Module, ObservableData):
         self.__acc_list = []
         learning_rate = self.__learning_rate
         try:
-            epoch = 0
+            epoch = self.epoch
             iter_n = 0
             for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr in iteratable_data.generate_learned_samples():
                 self.epoch = epoch
@@ -290,6 +291,7 @@ class ConvolutionalNeuralNetworks(nn.Module, ObservableData):
             self.__logger.debug("Interrupt.")
 
         self.__logger.debug("end. ")
+        self.epoch = epoch
 
     def inference(self, observed_arr):
         '''
@@ -446,7 +448,7 @@ class ConvolutionalNeuralNetworks(nn.Module, ObservableData):
             checkpoint['optimizer_state_dict']
         )
         self.epoch = checkpoint['epoch']
-        self.loss_arr = checkpoint['loss']
+        self.__loss_list = checkpoint['loss'].tolist()
         if ctx is not None:
             self.to(ctx)
             self.__ctx = ctx

@@ -28,6 +28,10 @@ Installers for the latest released version are available at the Python package i
 - [pandas](https://github.com/pandas-dev/pandas): v0.22.0 or higher.
 - [pretty_midi](https://github.com/craffel/pretty-midi): latest.
 - [accel-brain-base](https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base): v1.0.0 or higher.
+- [mxnet](https://github.com/apache/incubator-mxnet) or [mxnet-cu*](https://mxnet.apache.org/api/python/docs/tutorials/getting-started/crash-course/6-use_gpus.html): latest.
+  * Only when building a model of this library using [Apache MXNet](https://mxnet.apache.org/).
+- [torch](https://pytorch.org/get-started/locally/)
+  * Only when building a model of this library using [PyTorch](https://pytorch.org/).
 
 ## Documentation
 
@@ -93,7 +97,7 @@ plt.style.use("fivethirtyeight")
 Import Python modules.
 
 ```python
-from pycomposer.gancomposable.conditional_gan_composer import ConditionalGANComposer
+from pycomposer.gancomposable._mxnet.conditional_gan_composer import ConditionalGANComposer
 ```
 
 Let's make it possible to confirm later that learning is working according to GAN theory by the logger of Python.
@@ -113,7 +117,7 @@ Instantiate the required class.
 gan_composer = ConditionalGANComposer(
     # `list` of Midi files to learn.
     midi_path_list=[
-        "../../../../Downloads/Beethoven_gekko_3_k.mid"
+        "/path/to/your/midi/file"
     ], 
     # Batch size.
     batch_size=20,
@@ -123,6 +127,32 @@ gan_composer = ConditionalGANComposer(
     learning_rate=1e-10,
     # Time fraction or time resolution (seconds).
     time_fraction=0.5,
+)
+```
+
+If you want to use the [PyTorch](https://pytorch.org/) version, import a Python module and initialize `ConditionalGANComposer`.
+
+```python
+from pycomposer.gancomposable._torch.conditional_gan_composer import ConditionalGANComposer
+import torch
+
+ctx = "cuda:0" if torch.cuda.is_available() else "cpu"
+
+gan_composer = ConditionalGANComposer(
+    # `list` of Midi files to learn.
+    midi_path_list=[
+        "/path/to/your/midi/file.mid"
+    ], 
+    # Batch size.
+    batch_size=20,
+    # The length of sequence that LSTM networks will observe.
+    seq_len=8,
+    # Learning rate in `Generator` and `Discriminator`.
+    learning_rate=1e-10,
+    # Time fraction or time resolution (seconds).
+    time_fraction=0.5,
+    # Context-manager that changes the selected device.
+    ctx=ctx
 )
 ```
 

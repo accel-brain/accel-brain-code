@@ -105,8 +105,10 @@ class GenerativeModel(AdversarialModel):
                 inferenced_arr = self.model(sampled_arr)
 
                 generated_arr = torch.cat(
-                    inferenced_arr,
-                    condition_arr,
+                    (
+                        inferenced_arr,
+                        condition_arr,
+                    ),
                     dim=self.conditonal_dim
                 )
             else:

@@ -47,6 +47,9 @@ class NormalTrueSampler(TrueSampler):
 
             ctx:            `mx.gpu` or `mx.cpu`.
         '''
+        import warnings
+        warnings.warn("This class will be removed in future version. Use `accelbrainbase.samplabledata.truesampler._mxnet.normal_true_sampler.NormalTrueSampler`.", FutureWarning)
+
         self.__loc = loc
         self.__scale = scale
         self.__batch_size = batch_size

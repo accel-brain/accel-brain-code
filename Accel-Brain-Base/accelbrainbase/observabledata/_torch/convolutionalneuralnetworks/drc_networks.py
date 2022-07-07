@@ -200,7 +200,6 @@ class DRCNetworks(ConvolutionalNeuralNetworks):
                 if optimizer_f is not None:
                     self.optimizer = optimizer_f(
                         self.output_nn.parameters(),
-                        lr=self.__learning_rate,
                     )
                 elif optimizer_f is not None:
                     self.optimizer = optimizer_f(

@@ -208,8 +208,6 @@ class TransformingAutoEncoderController(nn.Module, ControllableModel):
                     if init_flag is True:
                         self.optimizer = optimizer_f(
                             self.parameters(),
-                            lr=learning_rate,
-                            weight_decay=weight_decay
                         )
                 else:
                     if init_flag is True:

@@ -177,8 +177,6 @@ class TransformerController(nn.Module, ControllableModel):
                 if optimizer_f is not None:
                     self.optimizer = optimizer_f(
                         self.parameters(),
-                        lr=self.__learning_rate,
-                        weight_decay=weight_decay
                     )
                 else:
                     self.optimizer = AdamW(

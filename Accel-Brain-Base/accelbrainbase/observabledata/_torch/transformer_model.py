@@ -88,7 +88,7 @@ class TransformerModel(ObservableData):
                 pred_arr = self.inference(batch_observed_arr, batch_observed_arr)
                 loss = self.compute_loss(
                     pred_arr,
-                    batch_observed_arr
+                    batch_target_arr
                 )
                 if optimizer_setup_flag is False:
                     # After initilization, restart.
@@ -96,7 +96,7 @@ class TransformerModel(ObservableData):
                     pred_arr = self.inference(batch_observed_arr, batch_observed_arr)
                     loss = self.compute_loss(
                         pred_arr,
-                        batch_observed_arr
+                        test_batch_target_arr
                     )
 
                 loss.backward()
@@ -191,14 +191,14 @@ class TransformerModel(ObservableData):
             torch.unsqueeze(
                 (
                     arr / 2
-                ).astype(int) * 2,
+                ).to(torch.int32) * 2,
                 0
             ), 
             (seq_len, 1)
         )
 
         depth_arr = depth_arr / depth_dim
-        depth_arr = torch.pow(10000.0, depth_arr).astype(torch.float32)
+        depth_arr = torch.pow(10000.0, depth_arr).to(torch.float32)
 
         arr = torch.from_numpy(np.arange(depth_dim))
         arr = arr.to(observed_arr.device)

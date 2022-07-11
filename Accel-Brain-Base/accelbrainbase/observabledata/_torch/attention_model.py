@@ -220,7 +220,7 @@ class AttentionModel(nn.Module, ObservableData):
 
                 if self.output_nn is not None:
                     if hasattr(self.output_nn, "optimizer") is False:
-                        _ = self.inference(batch_observed_arr)
+                        _ = self.inference(batch_observed_arr, batch_observed_arr)
 
                 self.optimizer.zero_grad()
                 if self.output_nn is not None:
@@ -229,7 +229,7 @@ class AttentionModel(nn.Module, ObservableData):
                 pred_arr = self.inference(batch_observed_arr, batch_observed_arr)
                 loss = self.compute_loss(
                     pred_arr,
-                    batch_observed_arr
+                    batch_target_arr
                 )
                 loss.backward()
                 if self.output_nn is not None:
@@ -246,7 +246,7 @@ class AttentionModel(nn.Module, ObservableData):
 
                         test_loss = self.compute_loss(
                             test_pred_arr,
-                            test_batch_observed_arr
+                            test_batch_target_arr
                         )
                     _loss = loss.to('cpu').detach().numpy().copy()
                     _test_loss = test_loss.to('cpu').detach().numpy().copy()

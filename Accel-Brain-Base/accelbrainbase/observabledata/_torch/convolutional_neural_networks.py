@@ -225,7 +225,14 @@ class ConvolutionalNeuralNetworks(nn.Module, ObservableData):
             for batch_observed_arr, batch_target_arr, test_batch_observed_arr, test_batch_target_arr in iteratable_data.generate_learned_samples():
                 self.epoch = epoch
                 self.batch_size = batch_observed_arr.shape[0]
+
+                if self.output_nn is not None:
+                    if hasattr(self.output_nn, "optimizer") is False:
+                        _ = self.inference(batch_observed_arr)
+
                 self.optimizer.zero_grad()
+                if self.output_nn is not None:
+                    self.output_nn.optimizer.zero_grad()
 
                 # rank-3
                 pred_arr = self.inference(batch_observed_arr)
@@ -234,6 +241,8 @@ class ConvolutionalNeuralNetworks(nn.Module, ObservableData):
                     batch_target_arr
                 )
                 loss.backward()
+                if self.output_nn is not None:
+                    self.output_nn.optimizer.step()
                 self.optimizer.step()
                 self.regularize()
 

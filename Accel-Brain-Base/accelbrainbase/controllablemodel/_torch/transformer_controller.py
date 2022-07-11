@@ -34,6 +34,7 @@ class TransformerController(nn.Module, ControllableModel):
         computable_loss=None,
         encoder=None,
         decoder=None,
+        output_nn=None,
         optimizer_f=None,
         layer_n=3,
         head_n=3,
@@ -153,6 +154,7 @@ class TransformerController(nn.Module, ControllableModel):
 
         self.encoder = encoder
         self.decoder = decoder
+        self.output_nn = output_nn
 
         if hidden_dim is not None and hidden_dim != depth_dim:
             self.encoder_hidden_fc = nn.Linear(
@@ -216,6 +218,8 @@ class TransformerController(nn.Module, ControllableModel):
                     self.encoder.optimizer.zero_grad()
                     self.decoder.optimizer.zero_grad()
                     self.optimizer.zero_grad()
+                    if self.output_nn is not None:
+                        self.output_nn.optimizer.zero_grad()
                 else:
                     optimizer_setup_flag = False
 
@@ -233,6 +237,9 @@ class TransformerController(nn.Module, ControllableModel):
                     self.encoder.optimizer.zero_grad()
                     self.decoder.optimizer.zero_grad()
                     self.optimizer.zero_grad()
+                    if self.output_nn is not None:
+                        self.output_nn.optimizer.zero_grad()
+
                     pred_arr = self.inference(
                         encoded_observed_arr, 
                         decoded_observed_arr, 
@@ -246,6 +253,9 @@ class TransformerController(nn.Module, ControllableModel):
 
                 loss.backward()
                 self.optimizer.step()
+                if self.output_nn is not None:
+                    self.output_nn.optimizer.step()
+
                 self.decoder.optimizer.step()
                 self.encoder.optimizer.step()
                 self.regularize()
@@ -405,7 +415,10 @@ class TransformerController(nn.Module, ControllableModel):
             decoded_mask_arr,
             encoded_mask_arr,
         )
-        return decoded_arr
+        if self.output_nn is not None:
+            return self.output_nn(decoded_arr)
+        else:
+            return decoded_arr
 
     def extract_learned_dict(self):
         '''

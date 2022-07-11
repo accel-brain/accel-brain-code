@@ -275,7 +275,14 @@ class LSTMNetworks(nn.Module, ObservableData):
                     ).shape[-1],
                     input_seq_len=self.__seq_len
                 )
+                if self.output_nn is not None:
+                    if hasattr(self.output_nn, "optimizer") is False:
+                        _ = self.inference(batch_observed_arr)
+
                 self.optimizer.zero_grad()
+                if self.output_nn is not None:
+                    self.output_nn.optimizer.zero_grad()
+
                 # rank-3
                 pred_arr = self.inference(batch_observed_arr)
                 loss = self.compute_loss(
@@ -284,6 +291,8 @@ class LSTMNetworks(nn.Module, ObservableData):
                 )
                 loss.backward()
 
+                if self.output_nn is not None:
+                    self.output_nn.optimizer.step()
                 self.optimizer.step()
                 self.regularize()
 

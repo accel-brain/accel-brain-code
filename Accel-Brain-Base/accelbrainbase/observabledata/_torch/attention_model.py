@@ -50,6 +50,7 @@ class AttentionModel(nn.Module, ObservableData):
         ctx="cpu",
         regularizatable_data_list=[],
         not_init_flag=False,
+        output_nn=None,
     ):
         '''
         Init.
@@ -80,6 +81,7 @@ class AttentionModel(nn.Module, ObservableData):
         self.optimizer_f = optimizer_f
         self.dropout = nn.Dropout(p=dropout_rate)
         self.softmax = nn.Softmax(dim=-1)
+        self.output_nn = output_nn
 
         for v in regularizatable_data_list:
             if isinstance(v, RegularizatableData) is False:
@@ -215,7 +217,14 @@ class AttentionModel(nn.Module, ObservableData):
                     input_dim=batch_observed_arr.shape[2]
                 )
                 self.epoch = epoch
+
+                if self.output_nn is not None:
+                    if hasattr(self.output_nn, "optimizer") is False:
+                        _ = self.inference(batch_observed_arr)
+
                 self.optimizer.zero_grad()
+                if self.output_nn is not None:
+                    self.output_nn.optimizer.zero_grad()
 
                 pred_arr = self.inference(batch_observed_arr, batch_observed_arr)
                 loss = self.compute_loss(
@@ -223,6 +232,8 @@ class AttentionModel(nn.Module, ObservableData):
                     batch_observed_arr
                 )
                 loss.backward()
+                if self.output_nn is not None:
+                    self.output_nn.optimizer.step()
                 self.optimizer.step()
                 self.regularize()
 
@@ -351,6 +362,10 @@ class AttentionModel(nn.Module, ObservableData):
             ))
         )
         output_arr = self.output_dense_layer(attention_output_arr)
+
+        if self.output_nn is not None:
+            output_arr = self.output_nn(output_arr)
+
         return output_arr
 
     def set_readonly(self, value):

@@ -58,6 +58,7 @@ class MultiHeadAttentionModel(AttentionModel):
         ctx="cpu",
         regularizatable_data_list=[],
         not_init_flag=False,
+        output_nn=None,
     ):
         '''
         Init.
@@ -87,6 +88,7 @@ class MultiHeadAttentionModel(AttentionModel):
             ctx=ctx,
             regularizatable_data_list=regularizatable_data_list,
             not_init_flag=not_init_flag,
+            output_nn=output_nn,
         )
 
     def inference(self, observed_arr, memory_arr, mask=None):
@@ -101,7 +103,7 @@ class MultiHeadAttentionModel(AttentionModel):
         Returns:
             `mxnet.ndarray` of inferenced feature points.
         '''
-        return self(observed_arr, memory_arr, mask)
+        return self.forward(observed_arr, memory_arr, mask)
 
     def forward(self, x, m, mask=None):
         '''
@@ -204,6 +206,8 @@ class MultiHeadAttentionModel(AttentionModel):
                 #logit_arr = torch.cat((logit_arr, _logit_arr), axis=1)
 
         if mask is not None and isinstance(mask, int) is False:
+            if len(mask.shape) != len(logit_arr.shape):
+                mask = torch.unsqueeze(mask, axis=-1)
             logit_arr = torch.mul(logit_arr, mask)
 
         attention_weight_arr = self.softmax(logit_arr)
@@ -243,4 +247,8 @@ class MultiHeadAttentionModel(AttentionModel):
             )
         )
         output_arr = self.output_dense_layer(attention_output_arr)
+
+        if self.output_nn is not None:
+            output_arr = self.output_nn(output_arr)
+
         return output_arr

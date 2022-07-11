@@ -22,7 +22,7 @@ class SelfAttentionModel(MultiHeadAttentionModel):
 
     '''
 
-    def inference(self, observed_arr, mask=None):
+    def inference(self, observed_arr, memory_arr, mask=None):
         '''
         Inference samples drawn by `IteratableData.generate_inferenced_samples()`.
 
@@ -33,9 +33,9 @@ class SelfAttentionModel(MultiHeadAttentionModel):
         Returns:
             `mxnet.ndarray` of inferenced feature points.
         '''
-        return super().inference(observed_arr, observed_arr.detach(), mask)
+        return self.forward(observed_arr, observed_arr, mask)
 
-    def forward(self, x, mask=None):
+    def forward(self, x, m, mask=None):
         '''
         Forward with Gluon API.
 
@@ -48,4 +48,4 @@ class SelfAttentionModel(MultiHeadAttentionModel):
         Returns:
             `mxnet.ndarray` or `mxnet.symbol` of inferenced feature points.
         '''
-        return super().forward(x, x.detach(), mask)
+        return super().forward(x=x, m=x.detach(), mask=mask)

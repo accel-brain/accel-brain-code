@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from accelbrainbase.iteratable_data import IteratableData
+from accelbrainbase.samplabledata.pretext_sampler import PretextSampler
 from abc import abstractmethod
 
 
@@ -7,6 +8,33 @@ class SSDATransformerIterator(IteratableData):
     '''
     Iterator for the Self-supervised Domain Adaptive Transformer.
     '''
+
+    # `list` of `PretextSampler`s.
+    __pretext_samplers_list = []
+
+    def get_pretext_samplers_list(self):
+        ''' getter for `list` of `PretextSampler`s. '''
+        if isinstance(self.__pretext_samplers_list, list) is False:
+            raise TypeError("The type of this property must be `list`.")
+        if len(self.__pretext_samplers_list) == 0:
+            raise ValueError("Number of elements in this property must be more than zero.")
+
+        for i in range(len(self.__pretext_samplers_list)):
+            if isinstance(self.__pretext_samplers_list[i], PretextSampler) is False:
+                raise TypeError("The type of value of this property must be `PretextSampler`.")
+        return self.__pretext_samplers_list
+
+    def set_pretext_samplers_list(self, value):
+        ''' setter for `list` of `PretextSampler`s. '''
+        if isinstance(value, list) is False:
+            raise TypeError("The type of this property must be `list`.")
+        for i in range(len(value)):
+            if isinstance(value[i], PretextSampler) is False:
+                raise TypeError("The type of value of this property must be `PretextSampler`.")
+
+        self.__pretext_samplers_list = value
+
+    pretext_samplers_list = property(get_pretext_samplers_list, set_pretext_samplers_list)
 
     @abstractmethod
     def generate_learned_samples(self):
@@ -25,16 +53,15 @@ class SSDATransformerIterator(IteratableData):
             - decoder's masked data points in test.
             - Labeled data for downstream task in training.
             - Labeled data for downstream task in test.
-            - encoder's observed data points in pretext task.
-            - decoder's observed data points in pretext task.
-            - encoder's masked data points in pretext task.
-            - decoder's masked data points in pretext task.
-            - Labeled data in pretext task.
+            - `list` of encoder's observed data points in pretext task.
+            - `list` of decoder's observed data points in pretext task.
+            - `list` of encoder's masked data points in pretext task.
+            - `list` of decoder's masked data points in pretext task.
+            - `list` of labeled data in pretext task.
         '''
         raise NotImplementedError()
 
-    @abstractmethod
-    def create_pretext_task_samples(self, target_domain_batch_arr):
+    def create_pretext_task_samples_list(self, target_domain_batch_arr):
         '''
         Create samples for pretext_task.
 
@@ -43,10 +70,48 @@ class SSDATransformerIterator(IteratableData):
         
         Returns:
             Tuple data. The shape is ...
-            - pretext task samples.
-            - pretext task labels.
+            - `list` of pretext task samples.
+            - `list` of pretext task labels. The order of the elements corresponds to the pretext task samples.
         '''
-        raise NotImplementedError()
+        pretext_encoded_observed_arr_list = []
+        pretext_decoded_observed_arr_list = []
+        pretext_encoded_mask_arr_list = []
+        pretext_decoded_mask_arr_list = []
+        pretext_label_arr_list = []
+        
+        for i in range(len(self.pretext_samplers_list)):
+            self.pretext_samplers_list[i].preprocess(target_domain_batch_arr)
+            arr_tuple = self.pretext_samplers_list[i].draw()
+            (
+                pretext_encoded_observed_arr, 
+                pretext_decoded_observed_arr, 
+                pretext_encoded_mask_arr, 
+                pretext_decoded_mask_arr, 
+                pretext_label_arr
+            ) = arr_tuple
+            pretext_encoded_observed_arr_list.append(
+                pretext_encoded_observed_arr
+            )
+            pretext_decoded_observed_arr_list.append(
+                pretext_decoded_observed_arr
+            )
+            pretext_encoded_mask_arr_list.append(
+                pretext_encoded_mask_arr
+            )
+            pretext_decoded_mask_arr_list.append(
+                pretext_decoded_mask_arr
+            )
+            pretext_label_arr_list.append(
+                pretext_label_arr
+            )
+
+        return (
+            pretext_encoded_observed_arr_list,
+            pretext_decoded_observed_arr_list,
+            pretext_encoded_mask_arr_list,
+            pretext_decoded_mask_arr_list,
+            pretext_label_arr_list
+        )
 
     def pre_normalize(self, arr):
         '''

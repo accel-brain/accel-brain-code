@@ -34,8 +34,8 @@ class SentenceOrderSampler(PretextSampler):
                                     The shape is (batch, sequence, token vector, ...).
         '''
         pretext_label_list = []
-        pretext_encoded_observed_arr = target_domain_arr.detach().copy()
-        pretext_decoded_observed_arr = target_domain_arr.detach().copy()
+        pretext_encoded_observed_arr = target_domain_arr.detach()
+        pretext_decoded_observed_arr = target_domain_arr.detach()
         for batch in range(pretext_encoded_observed_arr.shape[0]):
             pretext_label = np.random.binomial(1, self.__sentence_flip_prob, 1)[0]
             pretext_label_list.append(pretext_label)

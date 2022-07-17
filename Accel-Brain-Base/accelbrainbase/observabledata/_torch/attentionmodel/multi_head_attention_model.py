@@ -130,6 +130,7 @@ class MultiHeadAttentionModel(AttentionModel):
 
         self.batch_size = x.shape[0]
         self.__seq_len = x.shape[1]
+
         if len(x.shape) == 2:
             x = torch.unsqueeze(x, axis=1)
         elif len(x.shape) > 3:
@@ -209,6 +210,8 @@ class MultiHeadAttentionModel(AttentionModel):
             if len(mask.shape) != len(logit_arr.shape):
                 mask = torch.unsqueeze(mask, axis=-1)
             logit_arr = torch.mul(logit_arr, mask)
+        elif isinstance(mask, int) is True:
+            logit_arr = logit_arr * mask
 
         attention_weight_arr = self.softmax(logit_arr)
         attention_weight_arr = self.dropout(attention_weight_arr)

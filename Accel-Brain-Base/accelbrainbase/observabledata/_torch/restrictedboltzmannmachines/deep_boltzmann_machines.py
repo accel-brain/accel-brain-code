@@ -90,6 +90,7 @@ class DeepBoltzmannMachines(RestrictedBoltzmannMachines):
         )
         self.init_deferred_flag = init_deferred_flag
 
+        self.epoch = 0
         logger = getLogger("accelbrainbase")
         self.__logger = logger
 

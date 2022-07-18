@@ -268,6 +268,18 @@ class TransformerModel(ObservableData):
             self.to(ctx)
             self.__ctx = ctx
 
+    __epoch = 0
+
+    def get_epoch(self):
+        ''' getter for epoch. '''
+        return self.__epoch
+
+    def set_epoch(self, value):
+        ''' setter for epoch. '''
+        self.__epoch = value
+
+    epoch = property(get_epoch, set_epoch)
+
     def get_loss_arr(self):
         ''' getter for losses. '''
         return self.__loss_arr

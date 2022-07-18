@@ -61,10 +61,8 @@ class MaskedLanguageSampler(PretextSampler):
                 )
             target_domain_arr[batch, target_seq] = self.masked_symbol
 
-        pretext_encoded_mask_arr = (target_domain_arr == self.masked_symbol).to(torch.int32) * self.masked_symbol
-
-        self.pretext_encoded_observed_arr = pretext_encoded_observed_arr.float()
+        self.pretext_encoded_observed_arr = target_domain_arr.float()
         self.pretext_decoded_observed_arr = pretext_decoded_observed_arr.float()
-        self.pretext_encoded_mask_arr = pretext_encoded_mask_arr.float()
+        self.pretext_encoded_mask_arr = None
         self.pretext_decoded_mask_arr = None
-        self.pretext_label_arr = pretext_label_arr
+        self.pretext_label_arr = pretext_label_arr.float()

@@ -4,7 +4,7 @@
 
 From the view points of functionally equivalents and structural expansions, this library also prototypes many variants such as energy-based models and Generative models. Typical examples are **Generative Adversarial Networks(GANs)** and **Adversarial Auto-Encoders(AAEs)**.
 
-It also supports the implementation of **semi-supervised learning** and **self-supervised learning**, which consists of a combination of supervised and unsupervised learning systems. This library dryly considers the various Transformers variants such as **BERT**, **XLNet**, **RoBERTa**, **ALBERT**, etc, are merely applications of **self-supervised learning** or **self-supervised domain adaptation(SSDA)**. From this point of view, this class buildss the Transformers variants as SSDA models.
+It also supports the implementation of **Semi-Supervised Learning** and **Self-Supervised Learning**, which consists of a combination of supervised and unsupervised learning systems. This library dryly considers the various Transformers variants such as **BERT**, **XLNet**, **RoBERTa**, **ALBERT**, etc, are merely applications of **Self-Supervised Learning** or **Self-Supervised Domain Adaptation(SSDA)**. From this point of view, this class buildss the Transformers variants as SSDA models.
 
 In addition, this library provides **Deep Reinforcement Learning** such as **Deep Q-Networks** that applies the neural network described above as a function approximator. In principle, any neural network described above can be implemented as a function approximator.
 

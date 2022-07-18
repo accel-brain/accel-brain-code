@@ -63,8 +63,8 @@ class MaskedSeq2SeqSampler(MaskedLanguageSampler):
                             target_domain_arr[batch, target_seq:target_seq+self.__masked_seq_len],
                             axis=0
                         ),
-                        dim=0
-                    )
+                    ),
+                    dim=0
                 )
             target_domain_arr[batch, target_seq:target_seq+self.__masked_seq_len] = self.masked_symbol
 

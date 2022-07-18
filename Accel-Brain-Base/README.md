@@ -2,7 +2,11 @@
 
 `accel-brain-base` is a basic library of the Deep Learning for rapid development at low cost. This library makes it possible to design and implement deep learning, which must be configured as a complex system or a System of Systems, by combining a plurality of functionally differentiated modules such as a **Restricted Boltzmann Machine(RBM)**, **Deep Boltzmann Machines(DBMs)**, a **Stacked-Auto-Encoder**, an **Encoder/Decoder based on Long Short-Term Memory(LSTM)**, and a **Convolutional Auto-Encoder(CAE)**.
 
-From the view points of functionally equivalents and structural expansions, this library also prototypes many variants such as energy-based models and Generative models. Typical examples are **Generative Adversarial Networks(GANs)** and **Adversarial Auto-Encoders(AAEs)**. It also supports the implementation of **semi-supervised learning** and **self-supervised learning**, which consists of a combination of supervised and unsupervised learning systems. In addition, it provides **deep reinforcement learning** that applies the neural network described above as a function approximator.
+From the view points of functionally equivalents and structural expansions, this library also prototypes many variants such as energy-based models and Generative models. Typical examples are **Generative Adversarial Networks(GANs)** and **Adversarial Auto-Encoders(AAEs)**.
+
+It also supports the implementation of **semi-supervised learning** and **self-supervised learning**, which consists of a combination of supervised and unsupervised learning systems. This library dryly considers the various Transformers variants such as **BERT**, **XLNet**, **RoBERTa**, **ALBERT**, etc, are merely applications of **self-supervised learning** or **self-supervised domain adaptation(SSDA)**. From this point of view, this class buildss the Transformers variants as SSDA models.
+
+In addition, this library provides **Deep Reinforcement Learning** such as **Deep Q-Networks** that applies the neural network described above as a function approximator. In principle, any neural network described above can be implemented as a function approximator.
 
 See also ...
 

@@ -17,13 +17,13 @@ class SSDATransformerController(nn.Module, ControllableModel):
     '''
     Self-supervised domain adaptive transformers.
     
-    This library dryly considers the various Transoformers variants 
+    This library dryly considers the various Transformers variants 
     such as BERT, XLNet, RoBERTa, ALBERT, etc, 
     are merely applications of "self-supervised learning"
     or "self-supervised domain adaptation(SSDA)."
 
     From this point of view, this class builds 
-    the Transoformers variants as SSDA models.
+    the Transformers variants as SSDA models.
 
     Of course, there is no necessity to build 
     an existing model like BERT or ALBERT as it is.

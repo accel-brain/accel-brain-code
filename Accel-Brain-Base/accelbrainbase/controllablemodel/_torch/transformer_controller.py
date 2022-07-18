@@ -522,6 +522,8 @@ class TransformerController(nn.Module, ControllableModel):
 
     init_deferred_flag = property(get_init_deferred_flag, set_init_deferred_flag)
 
+    __loss_list = []
+
     def get_loss_arr(self):
         ''' getter '''
         return np.array(self.__loss_list)

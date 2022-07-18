@@ -5,6 +5,7 @@ from accelbrainbase.computable_loss import ComputableLoss
 from abc import abstractmethod, abstractproperty
 import numpy as np
 import torch
+from torch.optim.adamw import AdamW
 
 
 class TransformerModel(ObservableData):
@@ -259,9 +260,27 @@ class TransformerModel(ObservableData):
         '''
         checkpoint = torch.load(filename)
         self.load_state_dict(checkpoint['model_state_dict'], strict=strict)
-        self.optimizer.load_state_dict(
-            checkpoint['optimizer_state_dict']
-        )
+
+        try:
+            if self.optimizer is None:
+                if self.optimizer_f is not None:
+                    self.optimizer = self.optimizer_f(
+                        self.parameters()
+                    )
+                else:
+                    self.optimizer = AdamW(
+                        self.parameters(),
+                        lr=self.learning_rate,
+                        weight_decay=self.weight_decay
+                    )
+
+            self.optimizer.load_state_dict(
+                checkpoint['optimizer_state_dict']
+            )
+        except ValueError as e:
+            self.logger.debug(e)
+            self.logger.debug("The state of the optimizer in `TransformerModel` was not updated.")
+
         self.epoch = checkpoint['epoch']
         self.__loss_list = checkpoint['loss'].tolist()
         if ctx is not None:
@@ -279,6 +298,8 @@ class TransformerModel(ObservableData):
         self.__epoch = value
 
     epoch = property(get_epoch, set_epoch)
+
+    __loss_arr = np.array([])
 
     def get_loss_arr(self):
         ''' getter for losses. '''

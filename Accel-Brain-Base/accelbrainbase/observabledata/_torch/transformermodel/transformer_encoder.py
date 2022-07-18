@@ -138,8 +138,8 @@ class TransformerEncoder(nn.Module, TransformerModel):
         super(TransformerEncoder, self).__init__()
         self.__computable_loss = computable_loss
         self.optimizer_f = optimizer_f
-        self.__learning_rate = learning_rate
-        self.__weight_decay = weight_decay
+        self.learning_rate = learning_rate
+        self.weight_decay = weight_decay
 
         if len(self_attention_activation_list) != layer_n:
             self_attention_activation_list = self_attention_activation_list * layer_n
@@ -340,8 +340,8 @@ class TransformerEncoder(nn.Module, TransformerModel):
                 else:
                     self.optimizer = AdamW(
                         self.parameters(),
-                        lr=self.__learning_rate,
-                        weight_decay=self.__weight_decay
+                        lr=self.learning_rate,
+                        weight_decay=self.weight_decay
                     )
 
         return y

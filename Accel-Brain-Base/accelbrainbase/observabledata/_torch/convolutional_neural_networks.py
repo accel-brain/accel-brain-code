@@ -476,6 +476,8 @@ class ConvolutionalNeuralNetworks(nn.Module, ObservableData):
     
     batch_size = property(get_batch_size, set_batch_size)
 
+    __loss_list = []
+
     def get_loss_arr(self):
         ''' getter for for `list` of accuracies. '''
         return np.array(self.__loss_list)

@@ -624,6 +624,8 @@ class LSTMNetworks(nn.Module, ObservableData):
         ''' setter for losses. '''
         raise TypeError("This property must be read-only.")
 
+    __loss_list = []
+
     def get_loss_arr(self):
         ''' getter for losses. '''
         return np.array(self.__loss_list)

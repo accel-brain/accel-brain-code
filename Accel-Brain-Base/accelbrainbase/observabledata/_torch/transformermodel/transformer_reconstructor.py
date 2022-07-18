@@ -142,8 +142,8 @@ class TransformerReconstructor(nn.Module, TransformerModel):
         self.__computable_loss = computable_loss
         self.optimizer_f = optimizer_f
         self.optimizer = None
-        self.__learning_rate = learning_rate
-        self.__weight_decay = weight_decay
+        self.learning_rate = learning_rate
+        self.weight_decay = weight_decay
         self.__not_init_flag = not_init_flag
 
         self.layer_n = layer_n
@@ -378,8 +378,8 @@ class TransformerReconstructor(nn.Module, TransformerModel):
                 else:
                     self.optimizer = AdamW(
                         self.parameters(),
-                        lr=self.__learning_rate,
-                        weight_decay=self.__weight_decay
+                        lr=self.learning_rate,
+                        weight_decay=self.weight_decay
                     )
 
         return y

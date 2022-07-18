@@ -74,6 +74,7 @@ class AutoEncoder(NeuralNetworks):
         self.__ctx = ctx
         self.__encoder_input_dim = None
         self.__decoder_input_dim = None
+        self.__loss_list = []
 
     def parameters(self):
         '''

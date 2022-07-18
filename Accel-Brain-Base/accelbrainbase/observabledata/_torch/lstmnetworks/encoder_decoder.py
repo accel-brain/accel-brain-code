@@ -127,6 +127,7 @@ class EncoderDecoder(LSTMNetworks):
         self.__input_seq_len = None
         self.__encoder_input_dim = None
         self.__decoder_input_dim = None
+        self.__loss_list = []
 
     def parameters(self):
         '''
@@ -303,6 +304,8 @@ class EncoderDecoder(LSTMNetworks):
     def set_readonly(self, value):
         ''' setter '''
         raise TypeError("This property must be read-only.")
+
+    __loss_list = []
 
     def get_loss_arr(self):
         ''' getter for losses. '''

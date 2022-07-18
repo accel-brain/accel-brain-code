@@ -93,6 +93,8 @@ class DeepBoltzmannMachines(RestrictedBoltzmannMachines):
         self.epoch = 0
         logger = getLogger("accelbrainbase")
         self.__logger = logger
+        self.__loss_list = []
+        self.__test_loss_list = []
 
     def parameters(self):
         '''

@@ -28,6 +28,9 @@ class TransformingAutoEncoderController(nn.Module, ControllableModel):
         - Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., & Polosukhin, I. (2017). Attention is all you need. arXiv preprint arXiv:1706.03762.
 
     '''
+    __loaded_filename = None
+    __loaded_ctx = None
+
     # `bool` that means initialization in this class will be deferred or not.
     __init_deferred_flag = False
 
@@ -387,6 +390,29 @@ class TransformingAutoEncoderController(nn.Module, ControllableModel):
         Returns:
             `mxnet.ndarray` or `mxnet.symbol` of inferenced feature points.
         '''
+        if self.__loaded_filename is not None:
+            loaded_filename = self.__loaded_filename
+            self.__loaded_filename = None
+            init_encoded_observed_arr = encoded_observed_arr.detach()
+            init_decoded_observed_arr = decoded_observed_arr.detach()
+            if encoded_mask_arr is not None:
+                init_encoded_mask_arr = encoded_mask_arr.detach()
+            else:
+                init_encoded_mask_arr = None
+            if decoded_mask_arr is not None:
+                init_decoded_mask_arr = decoded_mask_arr.detach()
+            else:
+                init_decoded_mask_arr = decoded_mask_arr
+
+            _ = self.forward(
+                init_encoded_observed_arr, 
+                init_decoded_observed_arr, 
+                init_encoded_mask_arr,
+                init_decoded_mask_arr,
+            )
+            self.load_parameters(loaded_filename, ctx=self.__loaded_ctx)
+            self.__loaded_ctx = None
+
         if encoded_mask_arr is None:
             encoded_mask_arr = torch.ones(
                 (encoded_observed_arr.shape[0], 1, 1, 1), 
@@ -496,20 +522,28 @@ class TransformingAutoEncoderController(nn.Module, ControllableModel):
             ctx:            Context-manager that changes the selected device.
             strict:         Whether to strictly enforce that the keys in state_dict match the keys returned by this module’s state_dict() function. Default: `True`.
         '''
-        encoder_filename, decoder_filename, reconstructor_filename = self.__rename_file(filename)
-        self.encoder.load_parameters(encoder_filename, ctx=ctx, strict=strict)
-        self.decoder.load_parameters(decoder_filename, ctx=ctx, strict=strict)
-        self.reconstructor.load_parameters(reconstructor_filename, ctx=ctx, strict=strict)
+        try:
+            encoder_filename, decoder_filename, reconstructor_filename = self.__rename_file(filename)
+            self.encoder.load_parameters(encoder_filename, ctx=ctx, strict=strict)
+            self.decoder.load_parameters(decoder_filename, ctx=ctx, strict=strict)
+            self.reconstructor.load_parameters(reconstructor_filename, ctx=ctx, strict=strict)
 
-        checkpoint = torch.load(filename)
-        self.load_state_dict(checkpoint['model_state_dict'], strict=strict)
-        self.optimizer.load_state_dict(
-            checkpoint['optimizer_state_dict']
-        )
-        self.epoch = checkpoint['epoch']
-        self.__loss_list = checkpoint['loss'].tolist()
+            checkpoint = torch.load(filename)
+            self.load_state_dict(checkpoint['model_state_dict'], strict=strict)
+            self.optimizer.load_state_dict(
+                checkpoint['optimizer_state_dict']
+            )
+            self.epoch = checkpoint['epoch']
+            self.__loss_list = checkpoint['loss'].tolist()
+        except RuntimeError:
+            self.__loaded_filename = filename
+            self.__loaded_ctx = ctx
+
         if ctx is not None:
             self.to(ctx)
+            self.encoder.to(ctx)
+            self.decoder.to(ctx)
+            self.reconstructor.to(ctx)
             self.__ctx = ctx
 
     def set_readonly(self, value):

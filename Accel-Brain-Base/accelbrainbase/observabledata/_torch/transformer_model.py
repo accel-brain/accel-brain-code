@@ -5,6 +5,7 @@ from accelbrainbase.computable_loss import ComputableLoss
 from abc import abstractmethod, abstractproperty
 import numpy as np
 import torch
+from torch import nn
 from torch.optim.adamw import AdamW
 
 

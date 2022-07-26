@@ -318,3 +318,4 @@ class VariationalAutoEncoder(AutoEncoder):
         return np.array(self.__loss_list)
 
     loss_arr = property(get_loss_arr, set_readonly)
+

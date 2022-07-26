@@ -334,6 +334,7 @@ class SSDATransformerController(nn.Module, ControllableModel):
                                 _downstream_task_loss,
                                 _test_downstream_task_loss,
                                 _pretext_loss,
+                                _test_pretext_loss,
                             )
                         )
                         if self.compute_acc_flag is True:

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from accelbrainbase.controllable_model import ControllableModel
 from accelbrainbase.computable_loss import ComputableLoss
+from accelbrainbase.computableloss._torch.discriminator_loss import DiscriminatorLoss
 
 from accelbrainbase.iteratabledata.ssda_transformer_iterator import SSDATransformerIterator
 
@@ -46,7 +47,7 @@ class AdversarialSSDATransformerController(nn.Module, ControllableModel):
         pretext_task_model_list,
         pretext_task_loss_list,
         discriminator,
-        adversarial_loss,
+        adversarial_loss=None,
         learning_rate=1e-05,
         ctx="cpu",
         scale=1.0,
@@ -64,6 +65,10 @@ class AdversarialSSDATransformerController(nn.Module, ControllableModel):
             pretext_task_model_list:        `list` of `NeuralNetworks`s or `ConvolutionalNeuralNetworks`s.
             discriminator:                  is-a `NeuralNetworks` or `ConvolutionalNeuralNetworks`.
             adversarial_loss:               is-a `ComputableLoss` or `mxnet.gluon.loss`.
+                                            The arguments to be entered are as follows.
+                                            - encoded feature points in target domain.
+                                            - encoded feature points in source domain.
+                                            In default, `DiscriminatorLoss(weight=-1.0)` as the loss function 
 
             initializer:                    is-a `mxnet.initializer.Initializer` for parameters of model. If `None`, it is drawing from the Xavier distribution.
             learning_rate:                  `float` of learning rate.
@@ -103,6 +108,9 @@ class AdversarialSSDATransformerController(nn.Module, ControllableModel):
 
         if isinstance(discriminator, NeuralNetworks) is False and isinstance(discriminator, ConvolutionalNeuralNetworks) is False:
             raise TypeError("The type of `discriminator` must be `NeuralNetworks`.")
+
+        if adversarial_loss is None:
+            adversarial_loss = DiscriminatorLoss(weight=-1.0)
 
         if isinstance(adversarial_loss, ComputableLoss) is False and isinstance(adversarial_loss, nn.modules.loss._Loss) is False:
             raise TypeError("The type of `adversarial_loss` must be `ComputableLoss` or `nn.modules.loss._Loss`.")
@@ -227,7 +235,10 @@ class AdversarialSSDATransformerController(nn.Module, ControllableModel):
                     target_encoded_arr_list.append(target_encoded_arr)
 
                     target_posterior_arr = self.discriminator(target_encoded_arr)
-                    _adversarial_loss = self.adversarial_loss(source_posterior_arr, target_posterior_arr)
+                    _adversarial_loss = self.adversarial_loss(
+                        target_posterior_arr,
+                        source_posterior_arr
+                    )
                     adversarial_loss = adversarial_loss + _adversarial_loss
 
                 pred_arr = self.downstream_task_model(source_encoded_arr)
@@ -293,7 +304,10 @@ class AdversarialSSDATransformerController(nn.Module, ControllableModel):
                                 target_encoded_arr_list.append(target_encoded_arr)
 
                                 target_posterior_arr = self.discriminator(target_encoded_arr)
-                                _test_adversarial_loss = self.adversarial_loss(source_posterior_arr, target_posterior_arr)
+                                _test_adversarial_loss = self.adversarial_loss(
+                                    target_posterior_arr,
+                                    source_posterior_arr
+                                )
                                 test_adversarial_loss = test_adversarial_loss + _test_adversarial_loss
 
                             test_pred_arr = self.downstream_task_model(source_encoded_arr)
@@ -521,4 +535,3 @@ class AdversarialSSDATransformerController(nn.Module, ControllableModel):
         return np.array(self.__acc_list)
     
     acc_arr = property(get_acc_list, set_readonly)
-

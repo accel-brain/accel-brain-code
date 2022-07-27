@@ -398,7 +398,7 @@ class AdversarialSSDATransformerController(nn.Module, ControllableModel):
 
                 else:
                     self.__logger.debug("Early stopping.")
-                    self.__logger.debug(str(self.__previous_loss) + " -> " + str(loss_mean))
+                    self.__logger.debug(str(self.__previous_loss) + " -> " + str(loss))
                     break
 
         except KeyboardInterrupt:

@@ -1,0 +1,578 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pydbm.activation package &#8212; pydbm  documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pydbm.activation.interface package" href="pydbm.activation.interface.html" />
+    <link rel="prev" title="pydbm package" href="pydbm.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pydbm.activation.interface.html" title="pydbm.activation.interface package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pydbm.html" title="pydbm package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pydbm  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pydbm.html" accesskey="U">pydbm package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pydbm-activation-package">
+<h1>pydbm.activation package<a class="headerlink" href="#pydbm-activation-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pydbm.activation.interface.html">pydbm.activation.interface package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.activation.interface.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.activation.interface.html#module-pydbm.activation.interface.activating_function_interface">pydbm.activation.interface.activating_function_interface module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.activation.interface.html#module-pydbm.activation.interface">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pydbm.activation.signfunction.html">pydbm.activation.signfunction package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.activation.signfunction.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.activation.signfunction.html#module-pydbm.activation.signfunction.deterministic_binary_neurons">pydbm.activation.signfunction.deterministic_binary_neurons module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.activation.signfunction.html#module-pydbm.activation.signfunction.stochastic_binary_neurons">pydbm.activation.signfunction.stochastic_binary_neurons module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.activation.signfunction.html#module-pydbm.activation.signfunction">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pydbm.activation.softmaxfunction.html">pydbm.activation.softmaxfunction package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.activation.softmaxfunction.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.activation.softmaxfunction.html#module-pydbm.activation.softmaxfunction.log_softmax_function">pydbm.activation.softmaxfunction.log_softmax_function module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.activation.softmaxfunction.html#module-pydbm.activation.softmaxfunction">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pydbm.activation.identity_function">
+<span id="pydbm-activation-identity-function-module"></span><h2>pydbm.activation.identity_function module<a class="headerlink" href="#module-pydbm.activation.identity_function" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.activation.identity_function.IdentityFunction">
+<em class="property">class </em><code class="descclassname">pydbm.activation.identity_function.</code><code class="descname">IdentityFunction</code><a class="headerlink" href="#pydbm.activation.identity_function.IdentityFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pydbm.activation.interface.html#pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface" title="pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface</span></code></a></p>
+<p>Identity function.</p>
+<dl class="attribute">
+<dt id="pydbm.activation.identity_function.IdentityFunction.activate">
+<code class="descname">activate</code><a class="headerlink" href="#pydbm.activation.identity_function.IdentityFunction.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate and extract feature points in forward propagation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>np.ndarray of observed data points.</strong> (<em>x</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of the activated feature points.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.identity_function.IdentityFunction.backward">
+<code class="descname">backward</code><a class="headerlink" href="#pydbm.activation.identity_function.IdentityFunction.backward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Back propagation but not operate the activation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>y</strong> – <cite>np.ndarray</cite> of delta.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The result.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.identity_function.IdentityFunction.derivative">
+<code class="descname">derivative</code><a class="headerlink" href="#pydbm.activation.identity_function.IdentityFunction.derivative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Derivative and extract delta in back propagation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>y</strong> – <cite>np.ndarray</cite> of delta.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of delta.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.identity_function.IdentityFunction.forward">
+<code class="descname">forward</code><a class="headerlink" href="#pydbm.activation.identity_function.IdentityFunction.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward propagation but not retain the activation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>np.ndarray of observed data points.</strong> (<em>x</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The result.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.activation.logistic_function">
+<span id="pydbm-activation-logistic-function-module"></span><h2>pydbm.activation.logistic_function module<a class="headerlink" href="#module-pydbm.activation.logistic_function" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.activation.logistic_function.LogisticFunction">
+<em class="property">class </em><code class="descclassname">pydbm.activation.logistic_function.</code><code class="descname">LogisticFunction</code><a class="headerlink" href="#pydbm.activation.logistic_function.LogisticFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pydbm.activation.interface.html#pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface" title="pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface</span></code></a></p>
+<p>Logistic Function.</p>
+<dl class="attribute">
+<dt id="pydbm.activation.logistic_function.LogisticFunction.activate">
+<code class="descname">activate</code><a class="headerlink" href="#pydbm.activation.logistic_function.LogisticFunction.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate and extract feature points in forward propagation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>np.ndarray of observed data points.</strong> (<em>x</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of the activated feature points.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.logistic_function.LogisticFunction.backward">
+<code class="descname">backward</code><a class="headerlink" href="#pydbm.activation.logistic_function.LogisticFunction.backward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Back propagation but not operate the activation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>y</strong> – <cite>np.ndarray</cite> of delta.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The result.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.logistic_function.LogisticFunction.derivative">
+<code class="descname">derivative</code><a class="headerlink" href="#pydbm.activation.logistic_function.LogisticFunction.derivative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Derivative and extract delta in back propagation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>y</strong> – <cite>np.ndarray</cite> of delta.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of delta.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.logistic_function.LogisticFunction.forward">
+<code class="descname">forward</code><a class="headerlink" href="#pydbm.activation.logistic_function.LogisticFunction.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward propagation but not retain the activation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>np.ndarray of observed data points.</strong> (<em>x</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The result.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.activation.relu_function">
+<span id="pydbm-activation-relu-function-module"></span><h2>pydbm.activation.relu_function module<a class="headerlink" href="#module-pydbm.activation.relu_function" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.activation.relu_function.ReLuFunction">
+<em class="property">class </em><code class="descclassname">pydbm.activation.relu_function.</code><code class="descname">ReLuFunction</code><a class="headerlink" href="#pydbm.activation.relu_function.ReLuFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pydbm.activation.interface.html#pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface" title="pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface</span></code></a></p>
+<p>ReLu Function.</p>
+<dl class="attribute">
+<dt id="pydbm.activation.relu_function.ReLuFunction.activate">
+<code class="descname">activate</code><a class="headerlink" href="#pydbm.activation.relu_function.ReLuFunction.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate and extract feature points in forward propagation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>np.ndarray of observed data points.</strong> (<em>x</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of the activated feature points.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.relu_function.ReLuFunction.backward">
+<code class="descname">backward</code><a class="headerlink" href="#pydbm.activation.relu_function.ReLuFunction.backward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Back propagation but not operate the activation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>y</strong> – <cite>np.ndarray</cite> of delta.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The result.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.relu_function.ReLuFunction.derivative">
+<code class="descname">derivative</code><a class="headerlink" href="#pydbm.activation.relu_function.ReLuFunction.derivative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Derivative and extract delta in back propagation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>y</strong> – <cite>np.ndarray</cite> of delta.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of delta.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.relu_function.ReLuFunction.forward">
+<code class="descname">forward</code><a class="headerlink" href="#pydbm.activation.relu_function.ReLuFunction.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward propagation but not retain the activation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>np.ndarray of observed data points.</strong> (<em>x</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The result.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.activation.sign_function">
+<span id="pydbm-activation-sign-function-module"></span><h2>pydbm.activation.sign_function module<a class="headerlink" href="#module-pydbm.activation.sign_function" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.activation.sign_function.SignFunction">
+<em class="property">class </em><code class="descclassname">pydbm.activation.sign_function.</code><code class="descname">SignFunction</code><a class="headerlink" href="#pydbm.activation.sign_function.SignFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pydbm.activation.interface.html#pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface" title="pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface</span></code></a></p>
+<p>Sign function (or Signam function).</p>
+<p>As the sign function is non-smooth and non-convex, its gradient is zero for all nonzero inputs,
+and is ill-defined at zero, which makes the standard back-propagation infeasible. This is a kind
+of the vanishing gradient problem(Song, J. et al., 2018).</p>
+<p>In order to tackle this problem setting, this library entries some methods such as
+a Straight-Through Estimator(Bengio, Y. et al., 2013) and a Binary Neurons(Oza, M., et al., 2018).</p>
+<p>The Straight-Through Estimator is a strategy to replace the non-differentiable functions,
+which are used in the forward pass, by differentiable functions in the backward pass.
+In the backward pass, the Straight-Through Estimator simply treats the binary neurons
+as identify functions and ignores their gradients. A variant of the Straight-Through Estimator
+is the sigmoid-adjusted Straight-Through Estimator, which multiplies the gradients in the
+backward pass by the derivative of the sigmoid function.</p>
+<p>The binary neurons are neurons that output binary valued predictions as a sign-like function.
+This library draw a distinction between deterministic binary neurons and stochastic binary neurons.
+The function of deterministic binary neurons is to act like neurons with hard thresholding functions
+as their activation functions. The stochastic binary neurons, in contrast, binarize an input according
+to a probability.</p>
+<p>This class is a abstract class in <cite>Template Method Pattern</cite>, which is also useful design method to
+design the approximators in this library because this design pattern makes it possible to define the
+skeleton of an algorithm in the approximations, deferring some steps to client subclasses such as
+<cite>DeterministicBinaryNeurons</cite> and <cite>StochasticBinaryNeurons</cite>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Bengio, Y., Léonard, N., &amp; Courville, A. (2013). Estimating or propagating gradients through stochastic neurons for conditional computation. arXiv preprint arXiv:1308.3432.</li>
+<li>Chung, J., Ahn, S., &amp; Bengio, Y. (2016). Hierarchical multiscale recurrent neural networks. arXiv preprint arXiv:1609.01704.</li>
+<li>Oza, M., Vaghela, H., &amp; Srivastava, K. (2019). Progressive Generative Adversarial Binary Networks for Music Generation. arXiv preprint arXiv:1903.04722.</li>
+<li>Song, J., He, T., Gao, L., Xu, X., Hanjalic, A., &amp; Shen, H. T. (2018, April). Binary generative adversarial networks for image retrieval. In Thirty-Second AAAI Conference on Artificial Intelligence.</li>
+</ul>
+<dl class="attribute">
+<dt id="pydbm.activation.sign_function.SignFunction.activity_arr_list">
+<code class="descname">activity_arr_list</code><a class="headerlink" href="#pydbm.activation.sign_function.SignFunction.activity_arr_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.sign_function.SignFunction.get_activity_arr_list">
+<code class="descname">get_activity_arr_list</code><a class="headerlink" href="#pydbm.activation.sign_function.SignFunction.get_activity_arr_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.sign_function.SignFunction.get_memory_len">
+<code class="descname">get_memory_len</code><a class="headerlink" href="#pydbm.activation.sign_function.SignFunction.get_memory_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.sign_function.SignFunction.memory_len">
+<code class="descname">memory_len</code><a class="headerlink" href="#pydbm.activation.sign_function.SignFunction.memory_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.sign_function.SignFunction.set_activity_arr_list">
+<code class="descname">set_activity_arr_list</code><a class="headerlink" href="#pydbm.activation.sign_function.SignFunction.set_activity_arr_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.sign_function.SignFunction.set_memory_len">
+<code class="descname">set_memory_len</code><a class="headerlink" href="#pydbm.activation.sign_function.SignFunction.set_memory_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.activation.softmax_function">
+<span id="pydbm-activation-softmax-function-module"></span><h2>pydbm.activation.softmax_function module<a class="headerlink" href="#module-pydbm.activation.softmax_function" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.activation.softmax_function.SoftmaxFunction">
+<em class="property">class </em><code class="descclassname">pydbm.activation.softmax_function.</code><code class="descname">SoftmaxFunction</code><a class="headerlink" href="#pydbm.activation.softmax_function.SoftmaxFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pydbm.activation.interface.html#pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface" title="pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface</span></code></a></p>
+<p>Softmax function.</p>
+<dl class="attribute">
+<dt id="pydbm.activation.softmax_function.SoftmaxFunction.activate">
+<code class="descname">activate</code><a class="headerlink" href="#pydbm.activation.softmax_function.SoftmaxFunction.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate and extract feature points in forward propagation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>np.ndarray of observed data points.</strong> (<em>x</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of the activated feature points.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.softmax_function.SoftmaxFunction.backward">
+<code class="descname">backward</code><a class="headerlink" href="#pydbm.activation.softmax_function.SoftmaxFunction.backward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Back propagation but not operate the activation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>y</strong> – <cite>np.ndarray</cite> of delta.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The result.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.softmax_function.SoftmaxFunction.derivative">
+<code class="descname">derivative</code><a class="headerlink" href="#pydbm.activation.softmax_function.SoftmaxFunction.derivative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Derivative and extract delta in back propagation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>y</strong> – <cite>np.ndarray</cite> of delta.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of delta.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.softmax_function.SoftmaxFunction.forward">
+<code class="descname">forward</code><a class="headerlink" href="#pydbm.activation.softmax_function.SoftmaxFunction.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward propagation but not retain the activation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>np.ndarray of observed data points.</strong> (<em>x</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The result.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.activation.tanh_function">
+<span id="pydbm-activation-tanh-function-module"></span><h2>pydbm.activation.tanh_function module<a class="headerlink" href="#module-pydbm.activation.tanh_function" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.activation.tanh_function.TanhFunction">
+<em class="property">class </em><code class="descclassname">pydbm.activation.tanh_function.</code><code class="descname">TanhFunction</code><a class="headerlink" href="#pydbm.activation.tanh_function.TanhFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pydbm.activation.interface.html#pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface" title="pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">pydbm.activation.interface.activating_function_interface.ActivatingFunctionInterface</span></code></a></p>
+<p>Tanh function.</p>
+<dl class="attribute">
+<dt id="pydbm.activation.tanh_function.TanhFunction.activate">
+<code class="descname">activate</code><a class="headerlink" href="#pydbm.activation.tanh_function.TanhFunction.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate and extract feature points in forward propagation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>np.ndarray of observed data points.</strong> (<em>x</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of the activated feature points.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.tanh_function.TanhFunction.backward">
+<code class="descname">backward</code><a class="headerlink" href="#pydbm.activation.tanh_function.TanhFunction.backward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Back propagation but not operate the activation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>y</strong> – <cite>np.ndarray</cite> of delta.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The result.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.tanh_function.TanhFunction.derivative">
+<code class="descname">derivative</code><a class="headerlink" href="#pydbm.activation.tanh_function.TanhFunction.derivative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Derivative and extract delta in back propagation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>y</strong> – <cite>np.ndarray</cite> of delta.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of delta.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.activation.tanh_function.TanhFunction.forward">
+<code class="descname">forward</code><a class="headerlink" href="#pydbm.activation.tanh_function.TanhFunction.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward propagation but not retain the activation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>np.ndarray of observed data points.</strong> (<em>x</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The result.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.activation">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pydbm.activation" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pydbm.html"
+                        title="previous chapter">pydbm package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pydbm.activation.interface.html"
+                        title="next chapter">pydbm.activation.interface package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pydbm.activation.interface.html" title="pydbm.activation.interface package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pydbm.html" title="pydbm package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pydbm  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pydbm.html" >pydbm package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2019, chimera0(RUM).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

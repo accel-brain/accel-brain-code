@@ -1,0 +1,22 @@
+accelbrainbase.samplabledata.truesampler.labeledtruesampler package
+===================================================================
+
+Submodules
+----------
+
+accelbrainbase.samplabledata.truesampler.labeledtruesampler.conditional\_labeled\_true\_sampler module
+------------------------------------------------------------------------------------------------------
+
+.. automodule:: accelbrainbase.samplabledata.truesampler.labeledtruesampler.conditional_labeled_true_sampler
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: accelbrainbase.samplabledata.truesampler.labeledtruesampler
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,138 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pyqlearning.annealing_model &#8212; pyqlearning  documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pyqlearning  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pyqlearning.annealing_model</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="AnnealingModel"><a class="viewcode-back" href="../../pyqlearning.html#pyqlearning.annealing_model.AnnealingModel">[docs]</a><span class="k">class</span> <span class="nc">AnnealingModel</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Abstract class of Annealing.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># The fitted data points.</span>
+    <span class="n">dist_mat_arr</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># The list of Predicted logs.</span>
+    <span class="n">predicted_log_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Optimized data points.</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># The `np.ndarray` of current distribution.</span>
+    <span class="n">current_dist_arr</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># The `np.ndarray` of current predicted distribution.</span>
+    <span class="n">current_cost_arr</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># The `np.ndarray` of stocked predicted distribution.</span>
+    <span class="n">stocked_predicted_arr</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Accepted pos</span>
+    <span class="n">accepted_pos</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="AnnealingModel.fit_dist_mat"><a class="viewcode-back" href="../../pyqlearning.html#pyqlearning.annealing_model.AnnealingModel.fit_dist_mat">[docs]</a>    <span class="k">def</span> <span class="nf">fit_dist_mat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dist_mat_arr</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Fit ovserved data points.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            dist_mat_arr:    fitted data points.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Set the data points.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dist_mat_arr</span> <span class="o">=</span> <span class="n">dist_mat_arr</span></div>
+
+<div class="viewcode-block" id="AnnealingModel.annealing"><a class="viewcode-back" href="../../pyqlearning.html#pyqlearning.annealing_model.AnnealingModel.annealing">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">annealing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Annealing.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pyqlearning  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, chimera0(RUM).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+  </body>
+</html>

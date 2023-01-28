@@ -1,0 +1,22 @@
+pydbm.activation.softmaxfunction package
+========================================
+
+Submodules
+----------
+
+pydbm.activation.softmaxfunction.log\_softmax\_function module
+--------------------------------------------------------------
+
+.. automodule:: pydbm.activation.softmaxfunction.log_softmax_function
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pydbm.activation.softmaxfunction
+    :members:
+    :undoc-members:
+    :show-inheritance:

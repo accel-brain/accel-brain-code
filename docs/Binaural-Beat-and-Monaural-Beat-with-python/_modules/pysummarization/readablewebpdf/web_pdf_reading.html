@@ -1,0 +1,186 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pysummarization.readablewebpdf.web_pdf_reading &#8212; pysummarization  documentation</title>
+    <link rel="stylesheet" href="../../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pysummarization  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pysummarization.readablewebpdf.web_pdf_reading</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">StringIO</span>
+<span class="kn">from</span> <span class="nn">pdfminer.pdfpage</span> <span class="k">import</span> <span class="n">PDFPage</span>
+<span class="kn">from</span> <span class="nn">pdfminer.pdfinterp</span> <span class="k">import</span> <span class="n">PDFResourceManager</span>
+<span class="kn">from</span> <span class="nn">pdfminer.pdfinterp</span> <span class="k">import</span> <span class="n">PDFPageInterpreter</span>
+<span class="kn">from</span> <span class="nn">pdfminer.converter</span> <span class="k">import</span> <span class="n">TextConverter</span>
+<span class="kn">from</span> <span class="nn">pdfminer.layout</span> <span class="k">import</span> <span class="n">LAParams</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="kn">from</span> <span class="nn">pysummarization.readable_web_pdf</span> <span class="k">import</span> <span class="n">ReadableWebPDF</span>
+
+
+<div class="viewcode-block" id="WebPDFReading"><a class="viewcode-back" href="../../../pysummarization.readablewebpdf.html#pysummarization.readablewebpdf.web_pdf_reading.WebPDFReading">[docs]</a><span class="k">class</span> <span class="nc">WebPDFReading</span><span class="p">(</span><span class="n">ReadableWebPDF</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Read the PDF.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="WebPDFReading.url_to_text"><a class="viewcode-back" href="../../../pysummarization.readablewebpdf.html#pysummarization.readablewebpdf.web_pdf_reading.WebPDFReading.url_to_text">[docs]</a>    <span class="k">def</span> <span class="nf">url_to_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Download PDF file and transform its document to string.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            url:   PDF url.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            string.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">path</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_to_text</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WebPDFReading.path_to_text"><a class="viewcode-back" href="../../../pysummarization.readablewebpdf.html#pysummarization.readablewebpdf.web_pdf_reading.WebPDFReading.path_to_text">[docs]</a>    <span class="k">def</span> <span class="nf">path_to_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Transform local PDF file to string.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path:   path to PDF file.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            string.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">rsrcmgr</span> <span class="o">=</span> <span class="n">PDFResourceManager</span><span class="p">()</span>
+        <span class="n">retstr</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+        <span class="n">codec</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span>
+        <span class="n">laparams</span> <span class="o">=</span> <span class="n">LAParams</span><span class="p">()</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="n">TextConverter</span><span class="p">(</span><span class="n">rsrcmgr</span><span class="p">,</span> <span class="n">retstr</span><span class="p">,</span> <span class="n">codec</span><span class="o">=</span><span class="n">codec</span><span class="p">,</span> <span class="n">laparams</span><span class="o">=</span><span class="n">laparams</span><span class="p">)</span>
+        <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+        <span class="n">interpreter</span> <span class="o">=</span> <span class="n">PDFPageInterpreter</span><span class="p">(</span><span class="n">rsrcmgr</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">maxpages</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">caching</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">pagenos</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="n">pages_data</span> <span class="o">=</span> <span class="n">PDFPage</span><span class="o">.</span><span class="n">get_pages</span><span class="p">(</span>
+            <span class="n">fp</span><span class="p">,</span>
+            <span class="n">pagenos</span><span class="p">,</span>
+            <span class="n">maxpages</span><span class="o">=</span><span class="n">maxpages</span><span class="p">,</span>
+            <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">,</span>
+            <span class="n">caching</span><span class="o">=</span><span class="n">caching</span><span class="p">,</span>
+            <span class="n">check_extractable</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">pages_data</span><span class="p">:</span>
+            <span class="n">interpreter</span><span class="o">.</span><span class="n">process_page</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+
+        <span class="n">text</span> <span class="o">=</span> <span class="n">retstr</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">device</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">retstr</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">text</span></div>
+
+<div class="viewcode-block" id="WebPDFReading.is_pdf_url"><a class="viewcode-back" href="../../../pysummarization.readablewebpdf.html#pysummarization.readablewebpdf.web_pdf_reading.WebPDFReading.is_pdf_url">[docs]</a>    <span class="k">def</span> <span class="nf">is_pdf_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Check PDF file format.</span>
+<span class="sd">        </span>
+<span class="sd">        @TODO(chimera0): validation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            url:    URL</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            True: PDF, False: not PDF</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">url</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span> <span class="o">==</span> <span class="s2">&quot;.pdf&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">WebPDFReading</span><span class="p">()</span><span class="o">.</span><span class="n">url_to_text</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">[:</span><span class="mi">300</span><span class="p">])</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pysummarization  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, chimera0(RUM).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.4.
+    </div>
+  </body>
+</html>

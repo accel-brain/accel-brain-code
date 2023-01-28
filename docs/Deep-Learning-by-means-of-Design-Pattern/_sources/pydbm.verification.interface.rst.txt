@@ -1,0 +1,22 @@
+pydbm.verification.interface package
+====================================
+
+Submodules
+----------
+
+pydbm.verification.interface.verificatable\_result module
+---------------------------------------------------------
+
+.. automodule:: pydbm.verification.interface.verificatable_result
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pydbm.verification.interface
+    :members:
+    :undoc-members:
+    :show-inheritance:

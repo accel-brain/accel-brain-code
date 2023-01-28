@@ -1,0 +1,7 @@
+pysummarization
+===============
+
+.. toctree::
+   :maxdepth: 4
+
+   pysummarization

@@ -1,0 +1,61 @@
+pysummarization.vectorizabletoken package
+=========================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    pysummarization.vectorizabletoken.thotvectorizer
+
+Submodules
+----------
+
+pysummarization.vectorizabletoken.dbm\_like\_skip\_gram\_vectorizer module
+--------------------------------------------------------------------------
+
+.. automodule:: pysummarization.vectorizabletoken.dbm_like_skip_gram_vectorizer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.vectorizabletoken.encoder\_decoder module
+---------------------------------------------------------
+
+.. automodule:: pysummarization.vectorizabletoken.encoder_decoder
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.vectorizabletoken.skip\_gram\_vectorizer module
+---------------------------------------------------------------
+
+.. automodule:: pysummarization.vectorizabletoken.skip_gram_vectorizer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.vectorizabletoken.t\_hot\_vectorizer module
+-----------------------------------------------------------
+
+.. automodule:: pysummarization.vectorizabletoken.t_hot_vectorizer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.vectorizabletoken.tfidf\_vectorizer module
+----------------------------------------------------------
+
+.. automodule:: pysummarization.vectorizabletoken.tfidf_vectorizer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pysummarization.vectorizabletoken
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,30 @@
+pyqlearning.functionapproximator package
+========================================
+
+Submodules
+----------
+
+pyqlearning.functionapproximator.cnn\_fa module
+-----------------------------------------------
+
+.. automodule:: pyqlearning.functionapproximator.cnn_fa
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pyqlearning.functionapproximator.lstm\_fa module
+------------------------------------------------
+
+.. automodule:: pyqlearning.functionapproximator.lstm_fa
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pyqlearning.functionapproximator
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,710 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>accelbrainbase.iteratabledata._mxnet package &#8212; accel-brain-base  documentation</title>
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="accelbrainbase.noiseabledata package" href="accelbrainbase.noiseabledata.html" />
+    <link rel="prev" title="accelbrainbase.iteratabledata package" href="accelbrainbase.iteratabledata.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="accelbrainbase.noiseabledata.html" title="accelbrainbase.noiseabledata package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="accelbrainbase.iteratabledata.html" title="accelbrainbase.iteratabledata package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">accel-brain-base  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="accelbrainbase.html" >accelbrainbase package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="accelbrainbase.iteratabledata.html" accesskey="U">accelbrainbase.iteratabledata package</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">accelbrainbase.iteratabledata._mxnet package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata._mxnet.drcn_iterator">accelbrainbase.iteratabledata._mxnet.drcn_iterator module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata._mxnet.gauss_iterator">accelbrainbase.iteratabledata._mxnet.gauss_iterator module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata._mxnet.labeled_csv_iterator">accelbrainbase.iteratabledata._mxnet.labeled_csv_iterator module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata._mxnet.labeled_image_iterator">accelbrainbase.iteratabledata._mxnet.labeled_image_iterator module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata._mxnet.labeled_video_iterator">accelbrainbase.iteratabledata._mxnet.labeled_video_iterator module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata._mxnet.unlabeled_csv_iterator">accelbrainbase.iteratabledata._mxnet.unlabeled_csv_iterator module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata._mxnet.unlabeled_image_iterator">accelbrainbase.iteratabledata._mxnet.unlabeled_image_iterator module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata._mxnet.unlabeled_sequential_csv_iterator">accelbrainbase.iteratabledata._mxnet.unlabeled_sequential_csv_iterator module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_csv_iterator">accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_csv_iterator module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator">accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata._mxnet.unlabeled_video_iterator">accelbrainbase.iteratabledata._mxnet.unlabeled_video_iterator module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata._mxnet">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="accelbrainbase.iteratabledata.html"
+                        title="previous chapter">accelbrainbase.iteratabledata package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="accelbrainbase.noiseabledata.html"
+                        title="next chapter">accelbrainbase.noiseabledata package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/accelbrainbase.iteratabledata._mxnet.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="accelbrainbase-iteratabledata-mxnet-package">
+<h1>accelbrainbase.iteratabledata._mxnet package<a class="headerlink" href="#accelbrainbase-iteratabledata-mxnet-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata._mxnet.drcn_iterator">
+<span id="accelbrainbase-iteratabledata-mxnet-drcn-iterator-module"></span><h2>accelbrainbase.iteratabledata._mxnet.drcn_iterator module<a class="headerlink" href="#module-accelbrainbase.iteratabledata._mxnet.drcn_iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.iteratabledata._mxnet.drcn_iterator.DRCNIterator">
+<em class="property">class </em><code class="descclassname">accelbrainbase.iteratabledata._mxnet.drcn_iterator.</code><code class="descname">DRCNIterator</code><span class="sig-paren">(</span><em>image_extractor</em>, <em>dir_list</em>, <em>target_domain_dir_list</em>, <em>test_dir_list=None</em>, <em>epochs=300</em>, <em>batch_size=20</em>, <em>norm_mode='z_score'</em>, <em>scale=1.0</em>, <em>noiseable_data=None</em>, <em>ctx=gpu(0)</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.drcn_iterator.DRCNIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.iteratabledata.html#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator" title="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator</span></code></a></p>
+<p>Iterator that draws from image files and generates <cite>mxnet.ndarray</cite>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Ghifary, M., Kleijn, W. B., Zhang, M., Balduzzi, D., &amp; Li, W. (2016, October). Deep reconstruction-classification networks for unsupervised domain adaptation. In European Conference on Computer Vision (pp. 597-613). Springer, Cham.</li>
+</ul>
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.drcn_iterator.DRCNIterator.generate_inferenced_samples">
+<code class="descname">generate_inferenced_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.drcn_iterator.DRCNIterator.generate_inferenced_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.
+The targets will be drawn from all image file sorted in ascending order by file name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>None</cite>.
+- <cite>None</cite>.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- file path.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.drcn_iterator.DRCNIterator.generate_learned_samples">
+<code class="descname">generate_learned_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.drcn_iterator.DRCNIterator.generate_learned_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>mxnet.ndarray</cite> of observed data points in training.
+- <cite>mxnet.ndarray</cite> of supervised data in training.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- <cite>mxnet.ndarray</cite> of supervised data in test.
+- <cite>mxnet.ndarray</cite> of obsrved data points in target domain.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata._mxnet.gauss_iterator">
+<span id="accelbrainbase-iteratabledata-mxnet-gauss-iterator-module"></span><h2>accelbrainbase.iteratabledata._mxnet.gauss_iterator module<a class="headerlink" href="#module-accelbrainbase.iteratabledata._mxnet.gauss_iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.iteratabledata._mxnet.gauss_iterator.GaussIterator">
+<em class="property">class </em><code class="descclassname">accelbrainbase.iteratabledata._mxnet.gauss_iterator.</code><code class="descname">GaussIterator</code><span class="sig-paren">(</span><em>loc=0.0</em>, <em>std=1.0</em>, <em>dim=100</em>, <em>epochs=300</em>, <em>batch_size=20</em>, <em>norm_mode='z_score'</em>, <em>noiseable_data=None</em>, <em>scale=1.0</em>, <em>ctx=gpu(0)</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.gauss_iterator.GaussIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.iteratabledata.html#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator" title="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator</span></code></a></p>
+<p>Iterator that draws from CSV files and generates <cite>mxnet.ndarray</cite>.</p>
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.gauss_iterator.GaussIterator.generate_inferenced_samples">
+<code class="descname">generate_inferenced_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.gauss_iterator.GaussIterator.generate_inferenced_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.
+The targets will be drawn from all image file sorted in ascending order by file name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>None</cite>.
+- <cite>None</cite>.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- file path.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.gauss_iterator.GaussIterator.generate_learned_samples">
+<code class="descname">generate_learned_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.gauss_iterator.GaussIterator.generate_learned_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>mxnet.ndarray</cite> of observed data points in training.
+- <cite>mxnet.ndarray</cite> of supervised data in training.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- <cite>mxnet.ndarray</cite> of supervised data in test.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata._mxnet.labeled_csv_iterator">
+<span id="accelbrainbase-iteratabledata-mxnet-labeled-csv-iterator-module"></span><h2>accelbrainbase.iteratabledata._mxnet.labeled_csv_iterator module<a class="headerlink" href="#module-accelbrainbase.iteratabledata._mxnet.labeled_csv_iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.iteratabledata._mxnet.labeled_csv_iterator.LabeledCSVIterator">
+<em class="property">class </em><code class="descclassname">accelbrainbase.iteratabledata._mxnet.labeled_csv_iterator.</code><code class="descname">LabeledCSVIterator</code><span class="sig-paren">(</span><em>labeled_csv_extractor</em>, <em>train_csv_path</em>, <em>test_csv_path</em>, <em>epochs=300</em>, <em>batch_size=20</em>, <em>norm_mode='z_score'</em>, <em>scale=1.0</em>, <em>noiseable_data=None</em>, <em>ctx=gpu(0)</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.labeled_csv_iterator.LabeledCSVIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.iteratabledata.html#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator" title="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator</span></code></a></p>
+<p>Iterator that draws from CSV files and generates <cite>mxnet.ndarray</cite> of labeled samples.</p>
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.labeled_csv_iterator.LabeledCSVIterator.generate_inferenced_samples">
+<code class="descname">generate_inferenced_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.labeled_csv_iterator.LabeledCSVIterator.generate_inferenced_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.
+The targets will be drawn from all image file sorted in ascending order by file name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>None</cite>.
+- <cite>None</cite>.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- file path.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.labeled_csv_iterator.LabeledCSVIterator.generate_learned_samples">
+<code class="descname">generate_learned_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.labeled_csv_iterator.LabeledCSVIterator.generate_learned_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>mxnet.ndarray</cite> of observed data points in training.
+- <cite>mxnet.ndarray</cite> of supervised data in training.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- <cite>mxnet.ndarray</cite> of supervised data in test.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata._mxnet.labeled_image_iterator">
+<span id="accelbrainbase-iteratabledata-mxnet-labeled-image-iterator-module"></span><h2>accelbrainbase.iteratabledata._mxnet.labeled_image_iterator module<a class="headerlink" href="#module-accelbrainbase.iteratabledata._mxnet.labeled_image_iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.iteratabledata._mxnet.labeled_image_iterator.LabeledImageIterator">
+<em class="property">class </em><code class="descclassname">accelbrainbase.iteratabledata._mxnet.labeled_image_iterator.</code><code class="descname">LabeledImageIterator</code><span class="sig-paren">(</span><em>image_extractor</em>, <em>dir_list</em>, <em>test_dir_list=None</em>, <em>epochs=300</em>, <em>batch_size=20</em>, <em>norm_mode='z_score'</em>, <em>scale=1.0</em>, <em>noiseable_data=None</em>, <em>ctx=gpu(0)</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.labeled_image_iterator.LabeledImageIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.iteratabledata.html#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator" title="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator</span></code></a></p>
+<p>Iterator that draws from image files and generates <cite>mxnet.ndarray</cite> of labeled samples.</p>
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.labeled_image_iterator.LabeledImageIterator.generate_inferenced_samples">
+<code class="descname">generate_inferenced_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.labeled_image_iterator.LabeledImageIterator.generate_inferenced_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.
+The targets will be drawn from all image file sorted in ascending order by file name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>None</cite>.
+- <cite>None</cite>.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- file path.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.labeled_image_iterator.LabeledImageIterator.generate_learned_samples">
+<code class="descname">generate_learned_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.labeled_image_iterator.LabeledImageIterator.generate_learned_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>mxnet.ndarray</cite> of observed data points in training.
+- <cite>mxnet.ndarray</cite> of supervised data in training.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- <cite>mxnet.ndarray</cite> of supervised data in test.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata._mxnet.labeled_video_iterator">
+<span id="accelbrainbase-iteratabledata-mxnet-labeled-video-iterator-module"></span><h2>accelbrainbase.iteratabledata._mxnet.labeled_video_iterator module<a class="headerlink" href="#module-accelbrainbase.iteratabledata._mxnet.labeled_video_iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.iteratabledata._mxnet.labeled_video_iterator.LabeledVideoIterator">
+<em class="property">class </em><code class="descclassname">accelbrainbase.iteratabledata._mxnet.labeled_video_iterator.</code><code class="descname">LabeledVideoIterator</code><span class="sig-paren">(</span><em>image_extractor</em>, <em>dir_list</em>, <em>test_dir_list=None</em>, <em>epochs=300</em>, <em>batch_size=20</em>, <em>seq_len=10</em>, <em>at_intervals=1</em>, <em>norm_mode='z_score'</em>, <em>scale=1.0</em>, <em>noiseable_data=None</em>, <em>ctx=gpu(0)</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.labeled_video_iterator.LabeledVideoIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.iteratabledata.html#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator" title="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator</span></code></a></p>
+<p>Iterator that draws from image files and generates <cite>mxnet.ndarray</cite> of labeled samples.</p>
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.labeled_video_iterator.LabeledVideoIterator.generate_inferenced_samples">
+<code class="descname">generate_inferenced_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.labeled_video_iterator.LabeledVideoIterator.generate_inferenced_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.
+The targets will be drawn from all image file sorted in ascending order by file name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>None</cite>.
+- <cite>int</cite> of key of directory.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- file path.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.labeled_video_iterator.LabeledVideoIterator.generate_learned_samples">
+<code class="descname">generate_learned_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.labeled_video_iterator.LabeledVideoIterator.generate_learned_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>mxnet.ndarray</cite> of observed data points in training.
+- <cite>mxnet.ndarray</cite> of supervised data in training.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- <cite>mxnet.ndarray</cite> of supervised data in test.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata._mxnet.unlabeled_csv_iterator">
+<span id="accelbrainbase-iteratabledata-mxnet-unlabeled-csv-iterator-module"></span><h2>accelbrainbase.iteratabledata._mxnet.unlabeled_csv_iterator module<a class="headerlink" href="#module-accelbrainbase.iteratabledata._mxnet.unlabeled_csv_iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_csv_iterator.UnlabeledCSVIterator">
+<em class="property">class </em><code class="descclassname">accelbrainbase.iteratabledata._mxnet.unlabeled_csv_iterator.</code><code class="descname">UnlabeledCSVIterator</code><span class="sig-paren">(</span><em>unlabeled_csv_extractor</em>, <em>train_csv_path</em>, <em>test_csv_path</em>, <em>epochs=300</em>, <em>batch_size=20</em>, <em>norm_mode='z_score'</em>, <em>scale=1.0</em>, <em>noiseable_data=None</em>, <em>ctx=gpu(0)</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_csv_iterator.UnlabeledCSVIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.iteratabledata.html#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator" title="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator</span></code></a></p>
+<p>Iterator that draws from CSV files and generates <cite>mxnet.ndarray</cite> of unlabeled samples.</p>
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_csv_iterator.UnlabeledCSVIterator.generate_inferenced_samples">
+<code class="descname">generate_inferenced_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_csv_iterator.UnlabeledCSVIterator.generate_inferenced_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.
+The targets will be drawn from all image file sorted in ascending order by file name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>None</cite>.
+- <cite>None</cite>.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- file path.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_csv_iterator.UnlabeledCSVIterator.generate_learned_samples">
+<code class="descname">generate_learned_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_csv_iterator.UnlabeledCSVIterator.generate_learned_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>mxnet.ndarray</cite> of observed data points in training.
+- <cite>mxnet.ndarray</cite> of supervised data in training.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- <cite>mxnet.ndarray</cite> of supervised data in test.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata._mxnet.unlabeled_image_iterator">
+<span id="accelbrainbase-iteratabledata-mxnet-unlabeled-image-iterator-module"></span><h2>accelbrainbase.iteratabledata._mxnet.unlabeled_image_iterator module<a class="headerlink" href="#module-accelbrainbase.iteratabledata._mxnet.unlabeled_image_iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_image_iterator.UnlabeledImageIterator">
+<em class="property">class </em><code class="descclassname">accelbrainbase.iteratabledata._mxnet.unlabeled_image_iterator.</code><code class="descname">UnlabeledImageIterator</code><span class="sig-paren">(</span><em>image_extractor</em>, <em>dir_list</em>, <em>test_dir_list=None</em>, <em>epochs=300</em>, <em>batch_size=20</em>, <em>norm_mode='z_score'</em>, <em>scale=1.0</em>, <em>noiseable_data=None</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_image_iterator.UnlabeledImageIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.iteratabledata.html#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator" title="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator</span></code></a></p>
+<p>Iterator that draws from image files and generates <cite>mxnet.ndarray</cite> of unlabeled samples.</p>
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_image_iterator.UnlabeledImageIterator.generate_inferenced_samples">
+<code class="descname">generate_inferenced_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_image_iterator.UnlabeledImageIterator.generate_inferenced_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.
+The targets will be drawn from all image file sorted in ascending order by file name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>None</cite>.
+- <cite>None</cite>.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- file path.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_image_iterator.UnlabeledImageIterator.generate_learned_samples">
+<code class="descname">generate_learned_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_image_iterator.UnlabeledImageIterator.generate_learned_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>mxnet.ndarray</cite> of observed data points in training.
+- <cite>mxnet.ndarray</cite> of supervised data in training.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- <cite>mxnet.ndarray</cite> of supervised data in test.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata._mxnet.unlabeled_sequential_csv_iterator">
+<span id="accelbrainbase-iteratabledata-mxnet-unlabeled-sequential-csv-iterator-module"></span><h2>accelbrainbase.iteratabledata._mxnet.unlabeled_sequential_csv_iterator module<a class="headerlink" href="#module-accelbrainbase.iteratabledata._mxnet.unlabeled_sequential_csv_iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_sequential_csv_iterator.UnlabeledSequentialCSVIterator">
+<em class="property">class </em><code class="descclassname">accelbrainbase.iteratabledata._mxnet.unlabeled_sequential_csv_iterator.</code><code class="descname">UnlabeledSequentialCSVIterator</code><span class="sig-paren">(</span><em>unlabeled_csv_extractor</em>, <em>train_csv_path</em>, <em>test_csv_path</em>, <em>epochs=300</em>, <em>batch_size=20</em>, <em>seq_len=10</em>, <em>norm_mode='z_score'</em>, <em>scale=1.0</em>, <em>noiseable_data=None</em>, <em>ctx=gpu(0)</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_sequential_csv_iterator.UnlabeledSequentialCSVIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.iteratabledata.html#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator" title="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator</span></code></a></p>
+<p>Iterator that draws from CSV files and generates <cite>mxnet.ndarray</cite> of unlabeled samples.</p>
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_sequential_csv_iterator.UnlabeledSequentialCSVIterator.generate_inferenced_samples">
+<code class="descname">generate_inferenced_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_sequential_csv_iterator.UnlabeledSequentialCSVIterator.generate_inferenced_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.
+The targets will be drawn from all image file sorted in ascending order by file name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>None</cite>.
+- <cite>None</cite>.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- file path.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_sequential_csv_iterator.UnlabeledSequentialCSVIterator.generate_learned_samples">
+<code class="descname">generate_learned_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_sequential_csv_iterator.UnlabeledSequentialCSVIterator.generate_learned_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>mxnet.ndarray</cite> of observed data points in training.
+- <cite>mxnet.ndarray</cite> of supervised data in training.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- <cite>mxnet.ndarray</cite> of supervised data in test.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_csv_iterator">
+<span id="accelbrainbase-iteratabledata-mxnet-unlabeled-t-hot-csv-iterator-module"></span><h2>accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_csv_iterator module<a class="headerlink" href="#module-accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_csv_iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_csv_iterator.UnlabeledTHotCSVIterator">
+<em class="property">class </em><code class="descclassname">accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_csv_iterator.</code><code class="descname">UnlabeledTHotCSVIterator</code><span class="sig-paren">(</span><em>unlabeled_csv_extractor</em>, <em>train_csv_path_list</em>, <em>test_csv_path_list</em>, <em>epochs=300</em>, <em>batch_size=20</em>, <em>seq_len=10</em>, <em>norm_mode='z_score'</em>, <em>scale=1.0</em>, <em>noiseable_data=None</em>, <em>ctx=gpu(0)</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_csv_iterator.UnlabeledTHotCSVIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.iteratabledata.html#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator" title="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator</span></code></a></p>
+<p>Iterator that draws from CSV files and generates <cite>mxnet.ndarray</cite> of unlabeled samples.</p>
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_csv_iterator.UnlabeledTHotCSVIterator.generate_inferenced_samples">
+<code class="descname">generate_inferenced_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_csv_iterator.UnlabeledTHotCSVIterator.generate_inferenced_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.
+The targets will be drawn from all image file sorted in ascending order by file name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>None</cite>.
+- <cite>None</cite>.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- file path.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_csv_iterator.UnlabeledTHotCSVIterator.generate_learned_samples">
+<code class="descname">generate_learned_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_csv_iterator.UnlabeledTHotCSVIterator.generate_learned_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>mxnet.ndarray</cite> of observed data points in training.
+- <cite>mxnet.ndarray</cite> of supervised data in training.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- <cite>mxnet.ndarray</cite> of supervised data in test.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator">
+<span id="accelbrainbase-iteratabledata-mxnet-unlabeled-t-hot-txt-iterator-module"></span><h2>accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator module<a class="headerlink" href="#module-accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator">
+<em class="property">class </em><code class="descclassname">accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.</code><code class="descname">UnlabeledTHotTXTIterator</code><span class="sig-paren">(</span><em>train_txt_path_list</em>, <em>test_txt_path_list=None</em>, <em>epochs=300</em>, <em>batch_size=20</em>, <em>seq_len=10</em>, <em>norm_mode='z_score'</em>, <em>scale=1.0</em>, <em>noiseable_data=None</em>, <em>ctx=gpu(0)</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.iteratabledata.html#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator" title="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator</span></code></a></p>
+<p>Iterator that draws from CSV files and generates <cite>mxnet.ndarray</cite> of unlabeled samples.</p>
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.generate_inferenced_samples">
+<code class="descname">generate_inferenced_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.generate_inferenced_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.
+The targets will be drawn from all image file sorted in ascending order by file name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>None</cite>.
+- <cite>None</cite>.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- file path.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.generate_learned_samples">
+<code class="descname">generate_learned_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.generate_learned_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>mxnet.ndarray</cite> of observed data points in training.
+- <cite>mxnet.ndarray</cite> of supervised data in training.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- <cite>mxnet.ndarray</cite> of supervised data in test.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.get_pre_txt_arr">
+<code class="descname">get_pre_txt_arr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.get_pre_txt_arr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.get_token_arr">
+<code class="descname">get_token_arr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.get_token_arr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.get_token_list">
+<code class="descname">get_token_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.get_token_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.pre_txt_arr">
+<code class="descname">pre_txt_arr</code><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.pre_txt_arr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.set_pre_txt_arr">
+<code class="descname">set_pre_txt_arr</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.set_pre_txt_arr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.set_token_arr">
+<code class="descname">set_token_arr</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.set_token_arr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.set_token_list">
+<code class="descname">set_token_list</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.set_token_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.token_arr">
+<code class="descname">token_arr</code><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.token_arr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.token_list">
+<code class="descname">token_list</code><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator.UnlabeledTHotTXTIterator.token_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata._mxnet.unlabeled_video_iterator">
+<span id="accelbrainbase-iteratabledata-mxnet-unlabeled-video-iterator-module"></span><h2>accelbrainbase.iteratabledata._mxnet.unlabeled_video_iterator module<a class="headerlink" href="#module-accelbrainbase.iteratabledata._mxnet.unlabeled_video_iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_video_iterator.UnlabeledVideoIterator">
+<em class="property">class </em><code class="descclassname">accelbrainbase.iteratabledata._mxnet.unlabeled_video_iterator.</code><code class="descname">UnlabeledVideoIterator</code><span class="sig-paren">(</span><em>image_extractor</em>, <em>dir_list</em>, <em>test_dir_list=None</em>, <em>epochs=300</em>, <em>batch_size=20</em>, <em>seq_len=10</em>, <em>at_intervals=1</em>, <em>norm_mode='z_score'</em>, <em>scale=1.0</em>, <em>noiseable_data=None</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_video_iterator.UnlabeledVideoIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.iteratabledata.html#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator" title="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator</span></code></a></p>
+<p>Iterator that draws from image files and generates <cite>mxnet.ndarray</cite> of unlabeled samples.</p>
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_video_iterator.UnlabeledVideoIterator.generate_inferenced_samples">
+<code class="descname">generate_inferenced_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_video_iterator.UnlabeledVideoIterator.generate_inferenced_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.
+The targets will be drawn from all image file sorted in ascending order by file name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>None</cite>.
+- <cite>None</cite>.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- file path.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata._mxnet.unlabeled_video_iterator.UnlabeledVideoIterator.generate_learned_samples">
+<code class="descname">generate_learned_samples</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata._mxnet.unlabeled_video_iterator.UnlabeledVideoIterator.generate_learned_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw and generate data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> data. The shape is …
+- <cite>mxnet.ndarray</cite> of observed data points in training.
+- <cite>mxnet.ndarray</cite> of supervised data in training.
+- <cite>mxnet.ndarray</cite> of observed data points in test.
+- <cite>mxnet.ndarray</cite> of supervised data in test.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata._mxnet">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-accelbrainbase.iteratabledata._mxnet" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="accelbrainbase.noiseabledata.html" title="accelbrainbase.noiseabledata package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="accelbrainbase.iteratabledata.html" title="accelbrainbase.iteratabledata package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">accel-brain-base  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="accelbrainbase.html" >accelbrainbase package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="accelbrainbase.iteratabledata.html" >accelbrainbase.iteratabledata package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Accel Brain.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

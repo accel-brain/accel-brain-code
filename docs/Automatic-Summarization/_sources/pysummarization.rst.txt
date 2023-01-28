@@ -1,0 +1,117 @@
+pysummarization package
+=======================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    pysummarization.abstractabledoc
+    pysummarization.abstractablesemantics
+    pysummarization.computabledistance
+    pysummarization.nlpbase
+    pysummarization.readablewebpdf
+    pysummarization.similarityfilter
+    pysummarization.tokenizabledoc
+    pysummarization.vectorizablesentence
+    pysummarization.vectorizabletoken
+
+Submodules
+----------
+
+pysummarization.abstractable\_doc module
+----------------------------------------
+
+.. automodule:: pysummarization.abstractable_doc
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.abstractable\_semantics module
+----------------------------------------------
+
+.. automodule:: pysummarization.abstractable_semantics
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.computable\_distance module
+-------------------------------------------
+
+.. automodule:: pysummarization.computable_distance
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.n\_gram module
+------------------------------
+
+.. automodule:: pysummarization.n_gram
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.nlp\_base module
+--------------------------------
+
+.. automodule:: pysummarization.nlp_base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.readable\_web\_pdf module
+-----------------------------------------
+
+.. automodule:: pysummarization.readable_web_pdf
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.similarity\_filter module
+-----------------------------------------
+
+.. automodule:: pysummarization.similarity_filter
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.tokenizable\_doc module
+---------------------------------------
+
+.. automodule:: pysummarization.tokenizable_doc
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.vectorizable\_sentence module
+---------------------------------------------
+
+.. automodule:: pysummarization.vectorizable_sentence
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.vectorizable\_token module
+------------------------------------------
+
+.. automodule:: pysummarization.vectorizable_token
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.web\_scraping module
+------------------------------------
+
+.. automodule:: pysummarization.web_scraping
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pysummarization
+    :members:
+    :undoc-members:
+    :show-inheritance:

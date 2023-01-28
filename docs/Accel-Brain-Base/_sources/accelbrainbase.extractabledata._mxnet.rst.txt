@@ -1,0 +1,22 @@
+accelbrainbase.extractabledata.\_mxnet package
+==============================================
+
+Submodules
+----------
+
+accelbrainbase.extractabledata.\_mxnet.image\_extractor module
+--------------------------------------------------------------
+
+.. automodule:: accelbrainbase.extractabledata._mxnet.image_extractor
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: accelbrainbase.extractabledata._mxnet
+    :members:
+    :undoc-members:
+    :show-inheritance:

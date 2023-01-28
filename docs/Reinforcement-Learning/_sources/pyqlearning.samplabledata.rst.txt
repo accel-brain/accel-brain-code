@@ -1,0 +1,17 @@
+pyqlearning.samplabledata package
+=================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    pyqlearning.samplabledata.policysampler
+
+Module contents
+---------------
+
+.. automodule:: pyqlearning.samplabledata
+    :members:
+    :undoc-members:
+    :show-inheritance:

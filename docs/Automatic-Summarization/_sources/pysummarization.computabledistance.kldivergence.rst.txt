@@ -1,0 +1,22 @@
+pysummarization.computabledistance.kldivergence package
+=======================================================
+
+Submodules
+----------
+
+pysummarization.computabledistance.kldivergence.js\_divergence module
+---------------------------------------------------------------------
+
+.. automodule:: pysummarization.computabledistance.kldivergence.js_divergence
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pysummarization.computabledistance.kldivergence
+    :members:
+    :undoc-members:
+    :show-inheritance:

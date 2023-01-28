@@ -1,0 +1,22 @@
+pydbm.loss.interface package
+============================
+
+Submodules
+----------
+
+pydbm.loss.interface.computable\_loss module
+--------------------------------------------
+
+.. automodule:: pydbm.loss.interface.computable_loss
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pydbm.loss.interface
+    :members:
+    :undoc-members:
+    :show-inheritance:

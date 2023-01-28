@@ -1,0 +1,364 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pysummarization.vectorizabletoken.skip_gram_vectorizer &#8212; pysummarization  documentation</title>
+    <link rel="stylesheet" href="../../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pysummarization  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pysummarization.vectorizabletoken.skip_gram_vectorizer</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pysummarization.vectorizable_token</span> <span class="k">import</span> <span class="n">VectorizableToken</span>
+<span class="kn">from</span> <span class="nn">pydbm.nn.simple_auto_encoder</span> <span class="k">import</span> <span class="n">SimpleAutoEncoder</span>
+<span class="kn">from</span> <span class="nn">pydbm.nn.neural_network</span> <span class="k">import</span> <span class="n">NeuralNetwork</span> <span class="k">as</span> <span class="n">Encoder</span>
+<span class="kn">from</span> <span class="nn">pydbm.nn.neural_network</span> <span class="k">import</span> <span class="n">NeuralNetwork</span> <span class="k">as</span> <span class="n">Decoder</span>
+<span class="kn">from</span> <span class="nn">pydbm.nn.nn_layer</span> <span class="k">import</span> <span class="n">NNLayer</span> <span class="k">as</span> <span class="n">EncoderLayer</span>
+<span class="kn">from</span> <span class="nn">pydbm.nn.nn_layer</span> <span class="k">import</span> <span class="n">NNLayer</span> <span class="k">as</span> <span class="n">DecoderLayer</span>
+<span class="kn">from</span> <span class="nn">pydbm.activation.softmax_function</span> <span class="k">import</span> <span class="n">SoftmaxFunction</span>
+<span class="kn">from</span> <span class="nn">pydbm.loss.cross_entropy</span> <span class="k">import</span> <span class="n">CrossEntropy</span>
+<span class="kn">from</span> <span class="nn">pydbm.activation.identity_function</span> <span class="k">import</span> <span class="n">IdentityFunction</span>
+<span class="kn">from</span> <span class="nn">pydbm.activation.tanh_function</span> <span class="k">import</span> <span class="n">TanhFunction</span>
+<span class="kn">from</span> <span class="nn">pydbm.activation.logistic_function</span> <span class="k">import</span> <span class="n">LogisticFunction</span>
+
+<span class="kn">from</span> <span class="nn">pydbm.optimization.optparams.adam</span> <span class="k">import</span> <span class="n">Adam</span>
+<span class="kn">from</span> <span class="nn">pydbm.synapse.nn_graph</span> <span class="k">import</span> <span class="n">NNGraph</span> <span class="k">as</span> <span class="n">EncoderGraph</span>
+<span class="kn">from</span> <span class="nn">pydbm.synapse.nn_graph</span> <span class="k">import</span> <span class="n">NNGraph</span> <span class="k">as</span> <span class="n">DecoderGraph</span>
+<span class="kn">from</span> <span class="nn">pydbm.verification.verificate_function_approximation</span> <span class="k">import</span> <span class="n">VerificateFunctionApproximation</span>
+<span class="kn">from</span> <span class="nn">pydbm.optimization.batch_norm</span> <span class="k">import</span> <span class="n">BatchNorm</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">logging</span> <span class="k">import</span> <span class="n">getLogger</span>
+
+
+<div class="viewcode-block" id="SkipGramVectorizer"><a class="viewcode-back" href="../../../pysummarization.vectorizabletoken.html#pysummarization.vectorizabletoken.skip_gram_vectorizer.SkipGramVectorizer">[docs]</a><span class="k">class</span> <span class="nc">SkipGramVectorizer</span><span class="p">(</span><span class="n">VectorizableToken</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Vectorize token by skip-gram.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">token_list</span><span class="p">,</span>
+        <span class="n">epochs</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+        <span class="n">skip_n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">feature_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">scale</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span>
+        <span class="n">learning_rate</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span>
+        <span class="n">auto_encoder</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Initialize.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            token_list:         The list of all tokens in all sentences.</span>
+<span class="sd">            skip_n:             N of n-gram.</span>
+<span class="sd">            training_count:     The epochs.</span>
+<span class="sd">            batch_size:         Batch size.</span>
+<span class="sd">            learning_rate:      Learning rate.</span>
+<span class="sd">            feature_dim:        The dimension of feature points.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">auto_encoder</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">auto_encoder</span><span class="p">,</span> <span class="n">SimpleAutoEncoder</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;pydbm&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__token_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">token_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__token_uniquie_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">token_list</span><span class="p">)))</span>
+
+        <span class="k">if</span> <span class="n">auto_encoder</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">activation_function</span> <span class="o">=</span> <span class="n">TanhFunction</span><span class="p">()</span>
+
+            <span class="n">encoder_graph</span> <span class="o">=</span> <span class="n">EncoderGraph</span><span class="p">(</span>
+                <span class="n">activation_function</span><span class="o">=</span><span class="n">activation_function</span><span class="p">,</span>
+                <span class="n">hidden_neuron_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__token_uniquie_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">output_neuron_count</span><span class="o">=</span><span class="n">feature_dim</span><span class="p">,</span>
+                <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="n">encoder_layer</span> <span class="o">=</span> <span class="n">EncoderLayer</span><span class="p">(</span><span class="n">encoder_graph</span><span class="p">)</span>
+
+            <span class="n">opt_params</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">()</span>
+            <span class="n">opt_params</span><span class="o">.</span><span class="n">dropout_rate</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+            <span class="n">encoder</span> <span class="o">=</span> <span class="n">Encoder</span><span class="p">(</span>
+                <span class="n">nn_layer_list</span><span class="o">=</span><span class="p">[</span>
+                    <span class="n">encoder_layer</span><span class="p">,</span> 
+                <span class="p">],</span>
+                <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span>
+                <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+                <span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span>
+                <span class="n">learning_attenuate_rate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">attenuate_epoch</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                <span class="n">computable_loss</span><span class="o">=</span><span class="n">CrossEntropy</span><span class="p">(),</span>
+                <span class="n">opt_params</span><span class="o">=</span><span class="n">opt_params</span><span class="p">,</span>
+                <span class="n">verificatable_result</span><span class="o">=</span><span class="n">VerificateFunctionApproximation</span><span class="p">(),</span>
+                <span class="n">test_size_rate</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+                <span class="n">tol</span><span class="o">=</span><span class="mf">1e-15</span>
+            <span class="p">)</span>
+
+            <span class="n">decoder_graph</span> <span class="o">=</span> <span class="n">DecoderGraph</span><span class="p">(</span>
+                <span class="n">activation_function</span><span class="o">=</span><span class="n">SoftmaxFunction</span><span class="p">(),</span>
+                <span class="n">hidden_neuron_count</span><span class="o">=</span><span class="n">feature_dim</span><span class="p">,</span>
+                <span class="n">output_neuron_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__token_uniquie_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="n">decoder_layer</span> <span class="o">=</span> <span class="n">DecoderLayer</span><span class="p">(</span><span class="n">decoder_graph</span><span class="p">)</span>
+
+            <span class="n">opt_params</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">()</span>
+            <span class="n">opt_params</span><span class="o">.</span><span class="n">dropout_rate</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+            <span class="n">decoder</span> <span class="o">=</span> <span class="n">Decoder</span><span class="p">(</span>
+                <span class="n">nn_layer_list</span><span class="o">=</span><span class="p">[</span>
+                    <span class="n">decoder_layer</span><span class="p">,</span> 
+                <span class="p">],</span>
+                <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span>
+                <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+                <span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span>
+                <span class="n">learning_attenuate_rate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">attenuate_epoch</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                <span class="n">computable_loss</span><span class="o">=</span><span class="n">CrossEntropy</span><span class="p">(),</span>
+                <span class="n">opt_params</span><span class="o">=</span><span class="n">opt_params</span><span class="p">,</span>
+                <span class="n">verificatable_result</span><span class="o">=</span><span class="n">VerificateFunctionApproximation</span><span class="p">(),</span>
+                <span class="n">test_size_rate</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+                <span class="n">tol</span><span class="o">=</span><span class="mf">1e-15</span>
+            <span class="p">)</span>
+
+            <span class="n">auto_encoder</span> <span class="o">=</span> <span class="n">SimpleAutoEncoder</span><span class="p">(</span>
+                <span class="n">encoder</span><span class="o">=</span><span class="n">encoder</span><span class="p">,</span>
+                <span class="n">decoder</span><span class="o">=</span><span class="n">decoder</span><span class="p">,</span>
+                <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span>
+                <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+                <span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span>
+                <span class="n">learning_attenuate_rate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">attenuate_epoch</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                <span class="n">computable_loss</span><span class="o">=</span><span class="n">CrossEntropy</span><span class="p">(),</span>
+                <span class="n">verificatable_result</span><span class="o">=</span><span class="n">VerificateFunctionApproximation</span><span class="p">(),</span>
+                <span class="n">test_size_rate</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+                <span class="n">tol</span><span class="o">=</span><span class="mf">1e-15</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__auto_encoder</span> <span class="o">=</span> <span class="n">auto_encoder</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__epochs</span> <span class="o">=</span> <span class="n">epochs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__skip_n</span> <span class="o">=</span> <span class="n">skip_n</span>
+
+<div class="viewcode-block" id="SkipGramVectorizer.learn"><a class="viewcode-back" href="../../../pysummarization.vectorizabletoken.html#pysummarization.vectorizabletoken.skip_gram_vectorizer.SkipGramVectorizer.learn">[docs]</a>    <span class="k">def</span> <span class="nf">learn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Learn.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">batch_key_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__token_uniquie_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">batch_key_arr</span><span class="p">)</span>
+        <span class="n">batch_observed_arr</span><span class="p">,</span> <span class="n">batch_labeled_arr</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">batch_key</span> <span class="ow">in</span> <span class="n">batch_key_arr</span><span class="p">:</span>
+            <span class="n">token_key_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__token_arr</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token_uniquie_arr</span><span class="p">[</span><span class="n">batch_key</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">token_key</span> <span class="o">=</span> <span class="n">token_key_arr</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="n">token_key_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+
+            <span class="n">token_observed_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__token_uniquie_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">uniquie_key</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__token_uniquie_arr</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token_arr</span><span class="p">[</span><span class="n">token_key</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">token_observed_arr</span><span class="p">[</span><span class="n">uniquie_key</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+            <span class="n">token_labeled_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__token_uniquie_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">token_key</span> <span class="ow">in</span> <span class="n">token_key_arr</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__skip_n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">skip_key</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">__token_uniquie_arr</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token_arr</span><span class="p">[</span><span class="n">token_key</span> <span class="o">-</span> <span class="n">n</span><span class="p">]</span>
+                        <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">token_labeled_arr</span><span class="p">[</span><span class="n">skip_key</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">1.0</span>
+                    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                        <span class="k">pass</span>
+
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">skip_key</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">__token_uniquie_arr</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token_arr</span><span class="p">[</span><span class="n">token_key</span> <span class="o">+</span> <span class="n">n</span><span class="p">]</span>
+                        <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">token_labeled_arr</span><span class="p">[</span><span class="n">skip_key</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">1.0</span>
+                    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                        <span class="k">continue</span>
+
+            <span class="n">token_labeled_arr</span> <span class="o">=</span> <span class="n">token_labeled_arr</span> <span class="o">/</span> <span class="n">token_labeled_arr</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            
+            <span class="k">if</span> <span class="n">batch_observed_arr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">batch_observed_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">token_observed_arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">batch_observed_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">batch_observed_arr</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">token_observed_arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="n">batch_labeled_arr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">batch_labeled_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">token_labeled_arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">batch_labeled_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">batch_labeled_arr</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">token_labeled_arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__auto_encoder</span><span class="o">.</span><span class="n">learn</span><span class="p">(</span><span class="n">batch_observed_arr</span><span class="p">,</span> <span class="n">batch_labeled_arr</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SkipGramVectorizer.vectorize"><a class="viewcode-back" href="../../../pysummarization.vectorizabletoken.html#pysummarization.vectorizabletoken.skip_gram_vectorizer.SkipGramVectorizer.vectorize">[docs]</a>    <span class="k">def</span> <span class="nf">vectorize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token_list</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Tokenize token list.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            token_list:   The list of tokens.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            [vector of token, vector of token, vector of token, ...]</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">batch_observed_arr</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">token_list</span><span class="p">:</span>
+            <span class="n">token_observed_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__token_uniquie_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">uniquie_key</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__token_uniquie_arr</span> <span class="o">==</span> <span class="n">token</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">token_observed_arr</span><span class="p">[</span><span class="n">uniquie_key</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+            <span class="k">if</span> <span class="n">batch_observed_arr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">batch_observed_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">token_observed_arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">batch_observed_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">batch_observed_arr</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">token_observed_arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__auto_encoder</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">batch_observed_arr</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="SkipGramVectorizer.convert_tokens_into_matrix"><a class="viewcode-back" href="../../../pysummarization.vectorizabletoken.html#pysummarization.vectorizabletoken.skip_gram_vectorizer.SkipGramVectorizer.convert_tokens_into_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">convert_tokens_into_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token_list</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Create matrix of sentences.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            token_list:     The list of tokens.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            2-D `np.ndarray` of sentences.</span>
+<span class="sd">            Each row means one hot vectors of one sentence.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">token_list</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SkipGramVectorizer.tokenize"><a class="viewcode-back" href="../../../pysummarization.vectorizabletoken.html#pysummarization.vectorizabletoken.skip_gram_vectorizer.SkipGramVectorizer.tokenize">[docs]</a>    <span class="k">def</span> <span class="nf">tokenize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector_list</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Tokenize vector.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            vector_list:    The list of vector of one token.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            token</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">vector_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vector_list</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">vector_arr</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">vector_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">vector_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">vector_arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">vector_arr</span> <span class="o">=</span> <span class="n">vector_arr</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">batch_observed_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__token_uniquie_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__token_uniquie_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">batch_observed_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">batch_observed_arr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        
+        <span class="n">feature_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__auto_encoder</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">batch_observed_arr</span><span class="p">)</span>
+        <span class="n">diff_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">vector_arr</span> <span class="o">-</span> <span class="n">feature_arr</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">__token_uniquie_arr</span><span class="p">[</span><span class="n">diff_arr</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)]])</span></div>
+
+<div class="viewcode-block" id="SkipGramVectorizer.get_token_arr"><a class="viewcode-back" href="../../../pysummarization.vectorizabletoken.html#pysummarization.vectorizabletoken.skip_gram_vectorizer.SkipGramVectorizer.get_token_arr">[docs]</a>    <span class="k">def</span> <span class="nf">get_token_arr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; getter &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token_arr</span></div>
+    
+<div class="viewcode-block" id="SkipGramVectorizer.set_token_arr"><a class="viewcode-back" href="../../../pysummarization.vectorizabletoken.html#pysummarization.vectorizabletoken.skip_gram_vectorizer.SkipGramVectorizer.set_token_arr">[docs]</a>    <span class="k">def</span> <span class="nf">set_token_arr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; setter &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;This property must be read-only.&quot;</span><span class="p">)</span></div>
+    
+    <span class="n">token_arr</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_token_arr</span><span class="p">,</span> <span class="n">set_token_arr</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SkipGramVectorizer.set_readonly"><a class="viewcode-back" href="../../../pysummarization.vectorizabletoken.html#pysummarization.vectorizabletoken.skip_gram_vectorizer.SkipGramVectorizer.set_readonly">[docs]</a>    <span class="k">def</span> <span class="nf">set_readonly</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; setter &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;This property must be read-only.&quot;</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="SkipGramVectorizer.get_token_list"><a class="viewcode-back" href="../../../pysummarization.vectorizabletoken.html#pysummarization.vectorizabletoken.skip_gram_vectorizer.SkipGramVectorizer.get_token_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_token_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; getter &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token_list</span></div>
+    
+    <span class="n">token_list</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_token_list</span><span class="p">,</span> <span class="n">set_readonly</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SkipGramVectorizer.get_auto_encoder"><a class="viewcode-back" href="../../../pysummarization.vectorizabletoken.html#pysummarization.vectorizabletoken.skip_gram_vectorizer.SkipGramVectorizer.get_auto_encoder">[docs]</a>    <span class="k">def</span> <span class="nf">get_auto_encoder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; getter &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__auto_encoder</span></div>
+    
+<div class="viewcode-block" id="SkipGramVectorizer.set_auto_encoder"><a class="viewcode-back" href="../../../pysummarization.vectorizabletoken.html#pysummarization.vectorizabletoken.skip_gram_vectorizer.SkipGramVectorizer.set_auto_encoder">[docs]</a>    <span class="k">def</span> <span class="nf">set_auto_encoder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; setter &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">SimpleAutoEncoder</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__auto_encoder</span> <span class="o">=</span> <span class="n">value</span></div>
+    
+    <span class="n">auto_encoder</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_auto_encoder</span><span class="p">,</span> <span class="n">set_auto_encoder</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pysummarization  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Accel Brain.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,610 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygan.generativemodel.autoencodermodel package &#8212; pygan  documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pygan.generativemodel.conditionalgenerativemodel package" href="pygan.generativemodel.conditionalgenerativemodel.html" />
+    <link rel="prev" title="pygan.generativemodel package" href="pygan.generativemodel.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pygan.generativemodel.conditionalgenerativemodel.html" title="pygan.generativemodel.conditionalgenerativemodel package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pygan.generativemodel.html" title="pygan.generativemodel package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pygan  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pygan.html" >pygan package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="pygan.generativemodel.html" accesskey="U">pygan.generativemodel package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pygan-generativemodel-autoencodermodel-package">
+<h1>pygan.generativemodel.autoencodermodel package<a class="headerlink" href="#pygan-generativemodel-autoencodermodel-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder">
+<span id="pygan-generativemodel-autoencodermodel-conditional-convolutional-auto-encoder-module"></span><h2>pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder module<a class="headerlink" href="#module-pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder">
+<em class="property">class </em><code class="descclassname">pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.</code><code class="descname">ConditionalConvolutionalAutoEncoder</code><span class="sig-paren">(</span><em>conditional_convolutional_model</em>, <em>batch_size=20</em>, <em>learning_rate=1e-10</em>, <em>learning_attenuate_rate=0.1</em>, <em>attenuate_epoch=50</em>, <em>opt_params=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/conditional_convolutional_auto_encoder.html#ConditionalConvolutionalAutoEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pygan.generativemodel.html#pygan.generativemodel.auto_encoder_model.AutoEncoderModel" title="pygan.generativemodel.auto_encoder_model.AutoEncoderModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygan.generativemodel.auto_encoder_model.AutoEncoderModel</span></code></a></p>
+<p>Conditional Convolutional Auto-Encoder(CCAE) as a <cite>AutoEncoderModel</cite>
+which has a <cite>CondtionalConvolutionalModel</cite>.</p>
+<p>A stack of Convolutional Auto-Encoder (Masci, J., et al., 2011)
+forms a convolutional neural network(CNN), which are among the most successful models
+for supervised image classification.  Each Convolutional Auto-Encoder is trained
+using conventional on-line gradient descent without additional regularization terms.</p>
+<p>In this library, Convolutional Auto-Encoder is also based on Encoder/Decoder scheme.
+The encoder is to the decoder what the Convolution is to the Deconvolution.
+The Deconvolution also called transposed convolutions
+“work by swapping the forward and backward passes of a convolution.” (Dumoulin, V., &amp; Visin, F. 2016, p20.)</p>
+<p>Also, this model has a so-called Deconvolutional Neural Network as a <cite>Conditioner</cite>,
+where the function of <cite>Conditioner</cite> is a conditional mechanism
+to use previous knowledge to condition the generations,
+incorporating information from previous observed data points to
+itermediate layers of the <cite>Generator</cite>. In this method, this model
+can “look back” without a recurrent unit as used in RNN or LSTM.</p>
+<p>This model observes not only random noises but also any other prior
+information as a previous knowledge and outputs feature points.
+Due to the <cite>Conditioner</cite>, this model has the capacity to exploit
+whatever prior knowledge that is available and can be represented
+as a matrix or tensor.</p>
+<p><strong>Note</strong> that this model defines the inputs as samples of conditions and so
+the outputs as reconstructed samples of condtions, considering that
+those distributions, especially scales represented by biases, can be equivalents or similar.
+This definition assumes an <em>intuitive</em> implementation specific to this library.
+If you do not want to train in this way, you should use not this model but <cite>ConditionalConvolutionalModel</cite>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Dumoulin, V., &amp; V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.</li>
+<li>Masci, J., Meier, U., Cireşan, D., &amp; Schmidhuber, J. (2011, June). Stacked convolutional auto-encoders for hierarchical feature extraction. In International Conference on Artificial Neural Networks (pp. 52-59). Springer, Berlin, Heidelberg.</li>
+<li>Mirza, M., &amp; Osindero, S. (2014). Conditional generative adversarial nets. arXiv preprint arXiv:1411.1784.</li>
+<li>Yang, L. C., Chou, S. Y., &amp; Yang, Y. H. (2017). MidiNet: A convolutional generative adversarial network for symbolic-domain music generation. arXiv preprint arXiv:1703.10847.</li>
+</ul>
+<dl class="attribute">
+<dt id="pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.conditional_convolutional_model">
+<code class="descname">conditional_convolutional_model</code><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.conditional_convolutional_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/conditional_convolutional_auto_encoder.html#ConditionalConvolutionalAutoEncoder.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws samples from the <cite>fake</cite> distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of samples.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.get_conditional_convolutional_model">
+<code class="descname">get_conditional_convolutional_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/conditional_convolutional_auto_encoder.html#ConditionalConvolutionalAutoEncoder.get_conditional_convolutional_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.get_conditional_convolutional_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.get_pre_loss_arr">
+<code class="descname">get_pre_loss_arr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/conditional_convolutional_auto_encoder.html#ConditionalConvolutionalAutoEncoder.get_pre_loss_arr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.get_pre_loss_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.inference">
+<code class="descname">inference</code><span class="sig-paren">(</span><em>observed_arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/conditional_convolutional_auto_encoder.html#ConditionalConvolutionalAutoEncoder.inference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.inference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws samples from the <cite>true</cite> distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>observed_arr</strong> – <cite>np.ndarray</cite> of observed data points.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of inferenced.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.learn">
+<code class="descname">learn</code><span class="sig-paren">(</span><em>grad_arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/conditional_convolutional_auto_encoder.html#ConditionalConvolutionalAutoEncoder.learn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update this Generator by ascending its stochastic gradient.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>grad_arr</strong> – <cite>np.ndarray</cite> of gradients.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of delta or gradients.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.pre_learn">
+<code class="descname">pre_learn</code><span class="sig-paren">(</span><em>true_sampler</em>, <em>epochs=1000</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/conditional_convolutional_auto_encoder.html#ConditionalConvolutionalAutoEncoder.pre_learn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.pre_learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pre learning.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>true_sampler</strong> – is-a <cite>TrueSampler</cite>.</li>
+<li><strong>epochs</strong> – Epochs.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.pre_loss_arr">
+<code class="descname">pre_loss_arr</code><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.pre_loss_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.set_conditional_convolutional_model">
+<code class="descname">set_conditional_convolutional_model</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/conditional_convolutional_auto_encoder.html#ConditionalConvolutionalAutoEncoder.set_conditional_convolutional_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.set_conditional_convolutional_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.set_readonly">
+<code class="descname">set_readonly</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/conditional_convolutional_auto_encoder.html#ConditionalConvolutionalAutoEncoder.set_readonly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.set_readonly" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.switch_inferencing_mode">
+<code class="descname">switch_inferencing_mode</code><span class="sig-paren">(</span><em>inferencing_mode=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/conditional_convolutional_auto_encoder.html#ConditionalConvolutionalAutoEncoder.switch_inferencing_mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.switch_inferencing_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set inferencing mode in relation to concrete regularizations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inferencing_mode</strong> – Inferencing mode or not.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/conditional_convolutional_auto_encoder.html#ConditionalConvolutionalAutoEncoder.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the encoder and the decoder
+to minimize the reconstruction error of the inputs.</p>
+<p>This model defines the inputs as samples of conditions and so
+the outputs as reconstructed samples of condtions, considering that
+those distributions, especially scales represented by biases, are equivalents or similar.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of the reconstruction errors.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pygan.generativemodel.autoencodermodel.convolutional_auto_encoder">
+<span id="pygan-generativemodel-autoencodermodel-convolutional-auto-encoder-module"></span><h2>pygan.generativemodel.autoencodermodel.convolutional_auto_encoder module<a class="headerlink" href="#module-pygan.generativemodel.autoencodermodel.convolutional_auto_encoder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder">
+<em class="property">class </em><code class="descclassname">pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.</code><code class="descname">ConvolutionalAutoEncoder</code><span class="sig-paren">(</span><em>batch_size=20</em>, <em>learning_rate=1e-10</em>, <em>learning_attenuate_rate=0.1</em>, <em>attenuate_epoch=50</em>, <em>opt_params=None</em>, <em>convolutional_auto_encoder=None</em>, <em>deconvolution_layer_list=None</em>, <em>gray_scale_flag=True</em>, <em>channel=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/convolutional_auto_encoder.html#ConvolutionalAutoEncoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pygan.generativemodel.html#pygan.generativemodel.auto_encoder_model.AutoEncoderModel" title="pygan.generativemodel.auto_encoder_model.AutoEncoderModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygan.generativemodel.auto_encoder_model.AutoEncoderModel</span></code></a></p>
+<p>Convolutional Auto-Encoder(CAE) as a <cite>AutoEncoderModel</cite>.</p>
+<p>A stack of Convolutional Auto-Encoder (Masci, J., et al., 2011)
+forms a convolutional neural network(CNN), which are among the most successful models
+for supervised image classification.  Each Convolutional Auto-Encoder is trained
+using conventional on-line gradient descent without additional regularization terms.</p>
+<p>In this library, Convolutional Auto-Encoder is also based on Encoder/Decoder scheme.
+The encoder is to the decoder what the Convolution is to the Deconvolution.
+The Deconvolution also called transposed convolutions
+“work by swapping the forward and backward passes of a convolution.” (Dumoulin, V., &amp; Visin, F. 2016, p20.)</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Dumoulin, V., &amp; V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.</li>
+<li>Masci, J., Meier, U., Cireşan, D., &amp; Schmidhuber, J. (2011, June). Stacked convolutional auto-encoders for hierarchical feature extraction. In International Conference on Artificial Neural Networks (pp. 52-59). Springer, Berlin, Heidelberg.</li>
+</ul>
+<dl class="attribute">
+<dt id="pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.convolutional_auto_encoder">
+<code class="descname">convolutional_auto_encoder</code><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.convolutional_auto_encoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.deconvolution_layer_list">
+<code class="descname">deconvolution_layer_list</code><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.deconvolution_layer_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/convolutional_auto_encoder.html#ConvolutionalAutoEncoder.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws samples from the <cite>fake</cite> distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of samples.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.get_convolutional_auto_encoder">
+<code class="descname">get_convolutional_auto_encoder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/convolutional_auto_encoder.html#ConvolutionalAutoEncoder.get_convolutional_auto_encoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.get_convolutional_auto_encoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.get_deconvolution_layer_list">
+<code class="descname">get_deconvolution_layer_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/convolutional_auto_encoder.html#ConvolutionalAutoEncoder.get_deconvolution_layer_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.get_deconvolution_layer_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.get_pre_loss_arr">
+<code class="descname">get_pre_loss_arr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/convolutional_auto_encoder.html#ConvolutionalAutoEncoder.get_pre_loss_arr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.get_pre_loss_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.inference">
+<code class="descname">inference</code><span class="sig-paren">(</span><em>observed_arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/convolutional_auto_encoder.html#ConvolutionalAutoEncoder.inference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.inference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws samples from the <cite>fake</cite> distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>observed_arr</strong> – <cite>np.ndarray</cite> of observed data points.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of inferenced.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.learn">
+<code class="descname">learn</code><span class="sig-paren">(</span><em>grad_arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/convolutional_auto_encoder.html#ConvolutionalAutoEncoder.learn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update this Discriminator by ascending its stochastic gradient.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>grad_arr</strong> – <cite>np.ndarray</cite> of gradients.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of delta or gradients.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.pre_learn">
+<code class="descname">pre_learn</code><span class="sig-paren">(</span><em>true_sampler</em>, <em>epochs=1000</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/convolutional_auto_encoder.html#ConvolutionalAutoEncoder.pre_learn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.pre_learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pre learning.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>true_sampler</strong> – is-a <cite>TrueSampler</cite>.</li>
+<li><strong>epochs</strong> – Epochs.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.pre_loss_arr">
+<code class="descname">pre_loss_arr</code><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.pre_loss_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.set_convolutional_auto_encoder">
+<code class="descname">set_convolutional_auto_encoder</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/convolutional_auto_encoder.html#ConvolutionalAutoEncoder.set_convolutional_auto_encoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.set_convolutional_auto_encoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.set_deconvolution_layer_list">
+<code class="descname">set_deconvolution_layer_list</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/convolutional_auto_encoder.html#ConvolutionalAutoEncoder.set_deconvolution_layer_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.set_deconvolution_layer_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.set_readonly">
+<code class="descname">set_readonly</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/convolutional_auto_encoder.html#ConvolutionalAutoEncoder.set_readonly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.set_readonly" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.switch_inferencing_mode">
+<code class="descname">switch_inferencing_mode</code><span class="sig-paren">(</span><em>inferencing_mode=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/convolutional_auto_encoder.html#ConvolutionalAutoEncoder.switch_inferencing_mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.switch_inferencing_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set inferencing mode in relation to concrete regularizations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inferencing_mode</strong> – Inferencing mode or not.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/convolutional_auto_encoder.html#ConvolutionalAutoEncoder.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.convolutional_auto_encoder.ConvolutionalAutoEncoder.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the encoder and the decoder
+to minimize the reconstruction error of the inputs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of the reconstruction errors.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pygan.generativemodel.autoencodermodel.encoder_decoder_model">
+<span id="pygan-generativemodel-autoencodermodel-encoder-decoder-model-module"></span><h2>pygan.generativemodel.autoencodermodel.encoder_decoder_model module<a class="headerlink" href="#module-pygan.generativemodel.autoencodermodel.encoder_decoder_model" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel">
+<em class="property">class </em><code class="descclassname">pygan.generativemodel.autoencodermodel.encoder_decoder_model.</code><code class="descname">EncoderDecoderModel</code><span class="sig-paren">(</span><em>encoder_decoder_controller</em>, <em>seq_len=10</em>, <em>learning_rate=1e-10</em>, <em>learning_attenuate_rate=0.1</em>, <em>attenuate_epoch=50</em>, <em>join_io_flag=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/encoder_decoder_model.html#EncoderDecoderModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pygan.generativemodel.html#pygan.generativemodel.auto_encoder_model.AutoEncoderModel" title="pygan.generativemodel.auto_encoder_model.AutoEncoderModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygan.generativemodel.auto_encoder_model.AutoEncoderModel</span></code></a></p>
+<p>Encoder/Decoder based on LSTM as a Generator.</p>
+<p>This library regards the Encoder/Decoder based on LSTM as an Auto-Encoder.</p>
+<p>Originally, Long Short-Term Memory(LSTM) networks as a
+special RNN structure has proven stable and powerful for
+modeling long-range dependencies.</p>
+<p>The Key point of structural expansion is its memory cell
+which essentially acts as an accumulator of the state information.
+Every time observed data points are given as new information and input
+to LSTM’s input gate, its information will be accumulated to the cell
+if the input gate is activated. The past state of cell could be forgotten
+in this process if LSTM’s forget gate is on. Whether the latest cell output
+will be propagated to the final state is further controlled by the output gate.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., &amp; Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.</li>
+<li>Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., &amp; Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.</li>
+<li>Zaremba, W., Sutskever, I., &amp; Vinyals, O. (2014). Recurrent neural network regularization. arXiv preprint arXiv:1409.2329.</li>
+</ul>
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/encoder_decoder_model.html#EncoderDecoderModel.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws samples from the <cite>fake</cite> distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of samples.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.encoder_decoder_controller">
+<code class="descname">encoder_decoder_controller</code><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.encoder_decoder_controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.get_encoder_decoder_controller">
+<code class="descname">get_encoder_decoder_controller</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/encoder_decoder_model.html#EncoderDecoderModel.get_encoder_decoder_controller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.get_encoder_decoder_controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.get_pre_loss_arr">
+<code class="descname">get_pre_loss_arr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/encoder_decoder_model.html#EncoderDecoderModel.get_pre_loss_arr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.get_pre_loss_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.inference">
+<code class="descname">inference</code><span class="sig-paren">(</span><em>observed_arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/encoder_decoder_model.html#EncoderDecoderModel.inference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.inference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws samples from the <cite>fake</cite> distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>observed_arr</strong> – <cite>np.ndarray</cite> of observed data points.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of inferenced.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.learn">
+<code class="descname">learn</code><span class="sig-paren">(</span><em>grad_arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/encoder_decoder_model.html#EncoderDecoderModel.learn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update this Discriminator by ascending its stochastic gradient.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>grad_arr</strong> – <cite>np.ndarray</cite> of gradients.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of delta or gradients.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.pre_learn">
+<code class="descname">pre_learn</code><span class="sig-paren">(</span><em>true_sampler</em>, <em>epochs=1000</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/encoder_decoder_model.html#EncoderDecoderModel.pre_learn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.pre_learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pre learning.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>true_sampler</strong> – is-a <cite>TrueSampler</cite>.</li>
+<li><strong>epochs</strong> – Epochs.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.pre_loss_arr">
+<code class="descname">pre_loss_arr</code><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.pre_loss_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.set_encoder_decoder_controller">
+<code class="descname">set_encoder_decoder_controller</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/encoder_decoder_model.html#EncoderDecoderModel.set_encoder_decoder_controller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.set_encoder_decoder_controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.set_readonly">
+<code class="descname">set_readonly</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/encoder_decoder_model.html#EncoderDecoderModel.set_readonly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.set_readonly" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.switch_inferencing_mode">
+<code class="descname">switch_inferencing_mode</code><span class="sig-paren">(</span><em>inferencing_mode=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/encoder_decoder_model.html#EncoderDecoderModel.switch_inferencing_mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.switch_inferencing_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set inferencing mode in relation to concrete regularizations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inferencing_mode</strong> – Inferencing mode or not.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativemodel/autoencodermodel/encoder_decoder_model.html#EncoderDecoderModel.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the encoder and the decoder
+to minimize the reconstruction error of the inputs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of the reconstruction errors.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pygan.generativemodel.autoencodermodel">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pygan.generativemodel.autoencodermodel" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pygan.generativemodel.html"
+                        title="previous chapter">pygan.generativemodel package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pygan.generativemodel.conditionalgenerativemodel.html"
+                        title="next chapter">pygan.generativemodel.conditionalgenerativemodel package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pygan.generativemodel.conditionalgenerativemodel.html" title="pygan.generativemodel.conditionalgenerativemodel package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pygan.generativemodel.html" title="pygan.generativemodel package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pygan  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pygan.html" >pygan package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="pygan.generativemodel.html" >pygan.generativemodel package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, chimera0(RUM).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

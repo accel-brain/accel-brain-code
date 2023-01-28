@@ -1,0 +1,129 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>rbm_cost_function &#8212; pycomposer  documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pycomposer  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for rbm_cost_function</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">logging</span> <span class="k">import</span> <span class="n">getLogger</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pyqlearning.annealingmodel.cost_functionable</span> <span class="k">import</span> <span class="n">CostFunctionable</span>
+
+
+<div class="viewcode-block" id="RBMCostFunction"><a class="viewcode-back" href="../rbm_cost_function.html#rbm_cost_function.RBMCostFunction">[docs]</a><span class="k">class</span> <span class="nc">RBMCostFunction</span><span class="p">(</span><span class="n">CostFunctionable</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Cost function for RBM.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="n">__epoch</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inferenced_arr</span><span class="p">,</span> <span class="n">rbm</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">__inferenced_arr</span> <span class="o">=</span> <span class="n">inferenced_arr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__rbm</span> <span class="o">=</span> <span class="n">rbm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">__epoch</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;pycomposer&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span> <span class="o">=</span> <span class="n">logger</span>
+    
+<div class="viewcode-block" id="RBMCostFunction.compute"><a class="viewcode-back" href="../rbm_cost_function.html#rbm_cost_function.RBMCostFunction.compute">[docs]</a>    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Compute KL divergence as a cost.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            x:    `np.ndarray` of explanatory variables.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            cost</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__epoch</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># Inference feature points.</span>
+        <span class="n">inferenced_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rbm</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">,</span>
+            <span class="n">training_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+            <span class="n">r_batch_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__batch_size</span>
+        <span class="p">)</span>
+
+        <span class="n">cost_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">inferenced_arr</span> <span class="o">+</span> <span class="mf">1e-08</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">((</span><span class="n">inferenced_arr</span> <span class="o">+</span> <span class="mf">1e-08</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__inferenced_arr</span> <span class="o">+</span> <span class="mf">1e-08</span><span class="p">)),</span>
+            <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="n">inferenced_arr</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Cycle: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__epoch</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; Cost: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">cost_arr</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span>
+
+        <span class="k">return</span> <span class="n">cost_arr</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pycomposer  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, chimera0(RUM).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

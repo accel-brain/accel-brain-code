@@ -1,0 +1,30 @@
+accelbrainbase.noiseabledata.\_mxnet package
+============================================
+
+Submodules
+----------
+
+accelbrainbase.noiseabledata.\_mxnet.cutout\_noise module
+---------------------------------------------------------
+
+.. automodule:: accelbrainbase.noiseabledata._mxnet.cutout_noise
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+accelbrainbase.noiseabledata.\_mxnet.gauss\_noise module
+--------------------------------------------------------
+
+.. automodule:: accelbrainbase.noiseabledata._mxnet.gauss_noise
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: accelbrainbase.noiseabledata._mxnet
+    :members:
+    :undoc-members:
+    :show-inheritance:

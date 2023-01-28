@@ -1,0 +1,172 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pyqlearning.annealingmodel.simulatedannealing package &#8212; pyqlearning  documentation</title>
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pyqlearning.qlearning package" href="pyqlearning.qlearning.html" />
+    <link rel="prev" title="pyqlearning.annealingmodel.distancecomputable package" href="pyqlearning.annealingmodel.distancecomputable.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyqlearning.qlearning.html" title="pyqlearning.qlearning package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyqlearning.annealingmodel.distancecomputable.html" title="pyqlearning.annealingmodel.distancecomputable package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyqlearning  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pyqlearning.html" >pyqlearning package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="pyqlearning.annealingmodel.html" accesskey="U">pyqlearning.annealingmodel package</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyqlearning.annealingmodel.distancecomputable.html"
+                        title="previous chapter">pyqlearning.annealingmodel.distancecomputable package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyqlearning.qlearning.html"
+                        title="next chapter">pyqlearning.qlearning package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pyqlearning-annealingmodel-simulatedannealing-package">
+<h1>pyqlearning.annealingmodel.simulatedannealing package<a class="headerlink" href="#pyqlearning-annealingmodel-simulatedannealing-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pyqlearning.annealingmodel.simulatedannealing.adaptive_simulated_annealing">
+<span id="pyqlearning-annealingmodel-simulatedannealing-adaptive-simulated-annealing-module"></span><h2>pyqlearning.annealingmodel.simulatedannealing.adaptive_simulated_annealing module<a class="headerlink" href="#module-pyqlearning.annealingmodel.simulatedannealing.adaptive_simulated_annealing" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyqlearning.annealingmodel.simulatedannealing.adaptive_simulated_annealing.AdaptiveSimulatedAnnealing">
+<em class="property">class </em><code class="descclassname">pyqlearning.annealingmodel.simulatedannealing.adaptive_simulated_annealing.</code><code class="descname">AdaptiveSimulatedAnnealing</code><span class="sig-paren">(</span><em>cost_functionable</em>, <em>cycles_num=200</em>, <em>trials_per_cycle=50</em>, <em>accepted_sol_num=0.0</em>, <em>init_prob=0.7</em>, <em>final_prob=0.001</em>, <em>start_pos=0</em>, <em>move_range=3</em>, <em>tolerance_diff_e=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/annealingmodel/simulatedannealing/adaptive_simulated_annealing.html#AdaptiveSimulatedAnnealing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.annealingmodel.simulatedannealing.adaptive_simulated_annealing.AdaptiveSimulatedAnnealing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyqlearning.annealingmodel.html#pyqlearning.annealingmodel.simulated_annealing.SimulatedAnnealing" title="pyqlearning.annealingmodel.simulated_annealing.SimulatedAnnealing"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyqlearning.annealingmodel.simulated_annealing.SimulatedAnnealing</span></code></a></p>
+<p>Adaptive Simulated Annealing.</p>
+<p>Adaptive Simulated Annealing, also known as the
+very fast simulated reannealing, is a very efficient
+version of simulated annealing.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Bertsimas, D., &amp; Tsitsiklis, J. (1993). Simulated annealing. Statistical science, 8(1), 10-15.</li>
+<li>Du, K. L., &amp; Swamy, M. N. S. (2016). Search and optimization by metaheuristics. New York City: Springer.</li>
+<li>Mezard, M., &amp; Montanari, A. (2009). Information, physics, and computation. Oxford University Press.</li>
+<li>Nallusamy, R., Duraiswamy, K., Dhanalaksmi, R., &amp; Parthiban, P. (2009). Optimization of non-linear multiple traveling salesman problem using k-means clustering, shrink wrap algorithm and meta-heuristics. International Journal of Nonlinear Science, 8(4), 480-487.</li>
+</ul>
+<dl class="method">
+<dt id="pyqlearning.annealingmodel.simulatedannealing.adaptive_simulated_annealing.AdaptiveSimulatedAnnealing.adaptive_set">
+<code class="descname">adaptive_set</code><span class="sig-paren">(</span><em>reannealing_per=50</em>, <em>thermostat=0.9</em>, <em>t_min=0.001</em>, <em>t_default=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/annealingmodel/simulatedannealing/adaptive_simulated_annealing.html#AdaptiveSimulatedAnnealing.adaptive_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.annealingmodel.simulatedannealing.adaptive_simulated_annealing.AdaptiveSimulatedAnnealing.adaptive_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Init for Adaptive Simulated Annealing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>reannealing_per</strong> – How often will this model reanneals there per cycles.</li>
+<li><strong>thermostat</strong> – Thermostat.</li>
+<li><strong>t_min</strong> – The minimum temperature.</li>
+<li><strong>t_default</strong> – The default temperature.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.annealingmodel.simulatedannealing.adaptive_simulated_annealing.AdaptiveSimulatedAnnealing.change_t">
+<code class="descname">change_t</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/annealingmodel/simulatedannealing/adaptive_simulated_annealing.html#AdaptiveSimulatedAnnealing.change_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.annealingmodel.simulatedannealing.adaptive_simulated_annealing.AdaptiveSimulatedAnnealing.change_t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change temperature.</p>
+<p>Override.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>t</strong> – Now temperature.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Next temperature.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyqlearning.annealingmodel.simulatedannealing">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pyqlearning.annealingmodel.simulatedannealing" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyqlearning.qlearning.html" title="pyqlearning.qlearning package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyqlearning.annealingmodel.distancecomputable.html" title="pyqlearning.annealingmodel.distancecomputable package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyqlearning  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pyqlearning.html" >pyqlearning package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="pyqlearning.annealingmodel.html" >pyqlearning.annealingmodel package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Accel Brain.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

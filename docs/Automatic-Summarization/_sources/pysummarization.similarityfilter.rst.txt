@@ -1,0 +1,54 @@
+pysummarization.similarityfilter package
+========================================
+
+Submodules
+----------
+
+pysummarization.similarityfilter.dice module
+--------------------------------------------
+
+.. automodule:: pysummarization.similarityfilter.dice
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.similarityfilter.jaccard module
+-----------------------------------------------
+
+.. automodule:: pysummarization.similarityfilter.jaccard
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.similarityfilter.simpson module
+-----------------------------------------------
+
+.. automodule:: pysummarization.similarityfilter.simpson
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.similarityfilter.tanimoto module
+------------------------------------------------
+
+.. automodule:: pysummarization.similarityfilter.tanimoto
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysummarization.similarityfilter.tfidf\_cosine module
+-----------------------------------------------------
+
+.. automodule:: pysummarization.similarityfilter.tfidf_cosine
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pysummarization.similarityfilter
+    :members:
+    :undoc-members:
+    :show-inheritance:

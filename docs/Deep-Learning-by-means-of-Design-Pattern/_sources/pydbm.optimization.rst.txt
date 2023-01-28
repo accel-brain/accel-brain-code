@@ -1,0 +1,37 @@
+pydbm.optimization package
+==========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    pydbm.optimization.optparams
+
+Submodules
+----------
+
+pydbm.optimization.batch\_norm module
+-------------------------------------
+
+.. automodule:: pydbm.optimization.batch_norm
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.optimization.opt\_params module
+-------------------------------------
+
+.. automodule:: pydbm.optimization.opt_params
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pydbm.optimization
+    :members:
+    :undoc-members:
+    :show-inheritance:

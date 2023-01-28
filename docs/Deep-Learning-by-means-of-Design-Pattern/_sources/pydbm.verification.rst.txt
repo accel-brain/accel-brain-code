@@ -1,0 +1,37 @@
+pydbm.verification package
+==========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    pydbm.verification.interface
+
+Submodules
+----------
+
+pydbm.verification.verificate\_function\_approximation module
+-------------------------------------------------------------
+
+.. automodule:: pydbm.verification.verificate_function_approximation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.verification.verificate\_softmax module
+---------------------------------------------
+
+.. automodule:: pydbm.verification.verificate_softmax
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pydbm.verification
+    :members:
+    :undoc-members:
+    :show-inheritance:

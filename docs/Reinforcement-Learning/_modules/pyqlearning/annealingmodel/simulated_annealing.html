@@ -1,0 +1,270 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pyqlearning.annealingmodel.simulated_annealing &#8212; pyqlearning  documentation</title>
+    <link rel="stylesheet" href="../../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pyqlearning  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pyqlearning.annealingmodel.simulated_annealing</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pyqlearning.annealing_model</span> <span class="k">import</span> <span class="n">AnnealingModel</span>
+<span class="kn">from</span> <span class="nn">pyqlearning.annealingmodel.cost_functionable</span> <span class="k">import</span> <span class="n">CostFunctionable</span>
+
+
+<div class="viewcode-block" id="SimulatedAnnealing"><a class="viewcode-back" href="../../../pyqlearning.annealingmodel.html#pyqlearning.annealingmodel.simulated_annealing.SimulatedAnnealing">[docs]</a><span class="k">class</span> <span class="nc">SimulatedAnnealing</span><span class="p">(</span><span class="n">AnnealingModel</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Simulated Annealing.</span>
+<span class="sd">    </span>
+<span class="sd">    Simulated Annealing is a probabilistic single solution </span>
+<span class="sd">    based search method inspired by the annealing process in metallurgy.</span>
+<span class="sd">    Annealing is a physical process referred to as tempering certain alloys of metal, </span>
+<span class="sd">    glass, or crystal by heating above its melting point, holding its temperature, </span>
+<span class="sd">    and then cooling it very slowly until it solidifies into a perfect crystalline structure. </span>
+<span class="sd">    The simulation of this process is known as simulated annealing.</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        - Bertsimas, D., &amp; Tsitsiklis, J. (1993). Simulated annealing. Statistical science, 8(1), 10-15.</span>
+<span class="sd">        - Du, K. L., &amp; Swamy, M. N. S. (2016). Search and optimization by metaheuristics. New York City: Springer.</span>
+<span class="sd">        - Mezard, M., &amp; Montanari, A. (2009). Information, physics, and computation. Oxford University Press.</span>
+<span class="sd">        - Nallusamy, R., Duraiswamy, K., Dhanalaksmi, R., &amp; Parthiban, P. (2009). Optimization of non-linear multiple traveling salesman problem using k-means clustering, shrink wrap algorithm and meta-heuristics. International Journal of Nonlinear Science, 8(4), 480-487.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># Number of cycles.</span>
+    <span class="n">__cycles_num</span> <span class="o">=</span> <span class="mi">200</span>
+    <span class="c1"># Number of trials per cycle.</span>
+    <span class="n">__trials_per_cycle</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="c1"># Number of accepted solutions.</span>
+    <span class="n">__accepted_sol_num</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="c1"># Probability of accepting worse solution at the start.</span>
+    <span class="n">__init_prob</span> <span class="o">=</span> <span class="mf">0.7</span>
+    <span class="c1"># Probability of accepting worse solution at the end.</span>
+    <span class="n">__final_prob</span> <span class="o">=</span> <span class="mf">0.001</span>
+
+    <span class="c1"># Start location</span>
+    <span class="n">__start_pos</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Initial temperature</span>
+    <span class="n">__init_temp</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># Final temperature</span>
+    <span class="n">__final_temp</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># User function for optimization</span>
+    <span class="n">__cost_functionable</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># The scalar of fractional reduction in every cycle</span>
+    <span class="c1"># for lower the temperature for next cycle</span>
+    <span class="n">__fractional_reduction</span> <span class="o">=</span> <span class="kc">None</span>
+    
+    <span class="c1"># Range of moving in the feature map.</span>
+    <span class="n">__move_range</span> <span class="o">=</span> <span class="mi">3</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">cost_functionable</span><span class="p">,</span>
+        <span class="n">cycles_num</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+        <span class="n">trials_per_cycle</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">accepted_sol_num</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">init_prob</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+        <span class="n">final_prob</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+        <span class="n">start_pos</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">move_range</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">tolerance_diff_e</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Initialize.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cost_functionalbe:    The object of `CostFunctionable`.</span>
+<span class="sd">            cycles_num:           The number of annealing cycles.</span>
+<span class="sd">            trials_per_cycles:    The number of traials per the cycles.</span>
+<span class="sd">            accepted_sol_num:     The number of acceptance solution.</span>
+<span class="sd">            init_prob:            Probability of accepting worse solution at the start.</span>
+<span class="sd">            final_prob:           Probability of accepting worse solution at the end.</span>
+<span class="sd">            start_pos:            The first searched position.</span>
+<span class="sd">            move_range:           The range of moving in the feature map.</span>
+<span class="sd">            tolerance_diff_e:     Tolerance for the optimization.</span>
+<span class="sd">                                  When the ΔE is not improving by at least `tolerance_diff_e`</span>
+<span class="sd">                                  for two consecutive iterations, annealing will stops.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cost_functionable</span><span class="p">,</span> <span class="n">CostFunctionable</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__cost_functionable</span> <span class="o">=</span> <span class="n">cost_functionable</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;The type of `cost_functionable must be CostFunctionable.&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__cycles_num</span> <span class="o">=</span> <span class="n">cycles_num</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__trials_per_cycle</span> <span class="o">=</span> <span class="n">trials_per_cycle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__accepted_sol_num</span> <span class="o">=</span> <span class="n">accepted_sol_num</span> <span class="o">+</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__init_prob</span> <span class="o">=</span> <span class="n">init_prob</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__final_prob</span> <span class="o">=</span> <span class="n">final_prob</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__start_pos</span> <span class="o">=</span> <span class="n">start_pos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__tolerance_diff_e</span> <span class="o">=</span> <span class="n">tolerance_diff_e</span>
+        <span class="k">if</span> <span class="n">move_range</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">move_range</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__move_range</span> <span class="o">=</span> <span class="n">move_range</span>
+
+        <span class="c1"># Initial temperature</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__init_temp</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__init_prob</span><span class="p">)</span>
+        <span class="c1"># Final temperature</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__final_temp</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__final_prob</span><span class="p">)</span>
+        <span class="c1"># Fractional reduction every cycle.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__fractional_reduction</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__final_temp</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">__init_temp</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__cycles_num</span><span class="o">-</span><span class="mf">1.0</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_pos</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Move in the feature map.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            current_pos:    The now position.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The next position.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__move_range</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">next_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">current_pos</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">__move_range</span><span class="p">,</span> <span class="n">current_pos</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__move_range</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">next_pos</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">next_pos</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">elif</span> <span class="n">next_pos</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">next_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="n">next_pos</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">next_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">next_pos</span>
+
+<div class="viewcode-block" id="SimulatedAnnealing.annealing"><a class="viewcode-back" href="../../../pyqlearning.annealingmodel.html#pyqlearning.annealingmodel.simulated_annealing.SimulatedAnnealing.annealing">[docs]</a>    <span class="k">def</span> <span class="nf">annealing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Annealing.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">shape_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">shape_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cycles_num</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_log_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">shape_list</span><span class="p">))</span>
+
+        <span class="n">current_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__start_pos</span>
+        <span class="n">current_var_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_arr</span><span class="p">[</span><span class="n">current_pos</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">current_cost_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cost_functionable</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_arr</span><span class="p">[</span><span class="n">current_pos</span><span class="p">,</span> <span class="p">:])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">computed_cost_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__cycles_num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computed_cost_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_cost_arr</span>
+
+        <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__init_temp</span>
+        <span class="n">delta_e_avg</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">pos_log_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">current_pos</span><span class="p">]</span>
+        <span class="n">predicted_log_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__cycles_num</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__tolerance_diff_e</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">predicted_log_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">diff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">predicted_log_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">predicted_log_list</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">diff</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tolerance_diff_e</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__trials_per_cycle</span><span class="p">):</span>
+                <span class="n">current_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__move</span><span class="p">(</span><span class="n">current_pos</span><span class="p">)</span>
+                <span class="n">pos_log_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_pos</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__now_dist_mat_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_arr</span><span class="p">[</span><span class="n">current_pos</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="n">cost_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cost_functionable</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__now_dist_mat_arr</span><span class="p">)</span>
+                <span class="n">delta_e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">cost_arr</span> <span class="o">-</span> <span class="n">current_cost_arr</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="p">(</span><span class="n">cost_arr</span> <span class="o">&gt;</span> <span class="n">current_cost_arr</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                        <span class="n">delta_e_avg</span> <span class="o">=</span> <span class="n">delta_e</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta_e</span><span class="o">/</span><span class="p">(</span><span class="n">delta_e_avg</span> <span class="o">*</span> <span class="n">t</span><span class="p">))</span>
+                    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+                    <span class="k">if</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">p</span><span class="p">):</span>
+                        <span class="n">accept</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">accept</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">accept</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="n">p</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+                <span class="k">if</span> <span class="n">accept</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">current_var_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__now_dist_mat_arr</span>
+                    <span class="n">current_cost_arr</span> <span class="o">=</span> <span class="n">cost_arr</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__accepted_sol_num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__accepted_sol_num</span> <span class="o">+</span> <span class="mf">1.0</span>
+                    <span class="n">delta_e_avg</span> <span class="o">=</span> <span class="p">(</span><span class="n">delta_e_avg</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__accepted_sol_num</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">+</span>  <span class="n">delta_e</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">__accepted_sol_num</span>
+                <span class="n">predicted_log_list</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cost_arr</span> <span class="p">,</span> <span class="n">delta_e</span><span class="p">,</span> <span class="n">delta_e_avg</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">accept</span><span class="p">)))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">var_log_arr</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_var_arr</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">computed_cost_arr</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_cost_arr</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fractional_reduction</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">predicted_log_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">predicted_log_list</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pyqlearning  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Accel Brain.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

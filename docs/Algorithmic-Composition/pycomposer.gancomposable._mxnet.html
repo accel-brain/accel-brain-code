@@ -1,0 +1,275 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pycomposer.gancomposable._mxnet package &#8212; pycomposer  documentation</title>
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pycomposer  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">pycomposer.gancomposable._mxnet package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-pycomposer.gancomposable._mxnet.conditional_gan_composer">pycomposer.gancomposable._mxnet.conditional_gan_composer module</a></li>
+<li><a class="reference internal" href="#module-pycomposer.gancomposable._mxnet">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pycomposer.gancomposable._mxnet.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pycomposer-gancomposable-mxnet-package">
+<h1>pycomposer.gancomposable._mxnet package<a class="headerlink" href="#pycomposer-gancomposable-mxnet-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pycomposer.gancomposable._mxnet.conditional_gan_composer">
+<span id="pycomposer-gancomposable-mxnet-conditional-gan-composer-module"></span><h2>pycomposer.gancomposable._mxnet.conditional_gan_composer module<a class="headerlink" href="#module-pycomposer.gancomposable._mxnet.conditional_gan_composer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer">
+<em class="property">class </em><code class="descclassname">pycomposer.gancomposable._mxnet.conditional_gan_composer.</code><code class="descname">ConditionalGANComposer</code><span class="sig-paren">(</span><em>midi_path_list</em>, <em>batch_size=20</em>, <em>seq_len=8</em>, <em>time_fraction=1.0</em>, <em>learning_rate=1e-10</em>, <em>learning_attenuate_rate=0.1</em>, <em>attenuate_epoch=50</em>, <em>generative_model=None</em>, <em>discriminative_model=None</em>, <em>ctx=gpu(0)</em>, <em>initializer=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycomposer/gancomposable/_mxnet/conditional_gan_composer.html#ConditionalGANComposer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pycomposer.html#pycomposer.gan_composable.GANComposable" title="pycomposer.gan_composable.GANComposable"><code class="xref py py-class docutils literal notranslate"><span class="pre">pycomposer.gan_composable.GANComposable</span></code></a></p>
+<p>Algorithmic Composer based on Conditional Generative Adversarial Networks(Conditional GANs).</p>
+<p>This composer learns observed data points drawn from a conditional true distribution
+of input MIDI files and generates feature points drawn from a fake distribution
+that means such as Uniform distribution or Normal distribution, imitating the true MIDI
+files data.</p>
+<p>The components included in this class are functionally differentiated into three models.</p>
+<ol class="arabic simple">
+<li><cite>TrueSampler</cite>.</li>
+<li><cite>Generator</cite>.</li>
+<li><cite>Discriminator</cite>.</li>
+</ol>
+<p>The function of <cite>TrueSampler</cite> is to draw samples from a true distribution of input MIDI files.
+<cite>Generator</cite> has <cite>NoiseSampler`s which can be considered as a `Conditioner`s like the
+MidiNet(Yang, L. C., et al., 2017) and draw fake samples from a Uniform distribution or Normal
+distribution by use it. And `Discriminator</cite> observes those input samples, trying discriminating
+true and fake data.</p>
+<p>While <cite>Discriminator</cite> observes <cite>Generator</cite>’s observation to discrimine the output from true samples,
+<cite>Generator</cite> observes <cite>Discriminator</cite>’s observations to confuse <a href="#id1"><span class="problematic" id="id2">`</span></a>Discriminator`s judgments.
+In GANs framework, the mini-max game can be configured by the observations of observations.</p>
+<p>After this game, the <cite>Generator</cite> will grow into a functional equivalent that enables to imitate
+the <cite>TrueSampler</cite> and makes it possible to compose similar but slightly different music by the
+imitation.</p>
+<p>In this class, Convolutional Neural Networks(CNNs) and Deconvolution Networks are implemented as
+<cite>Generator</cite> and <cite>Discriminator</cite>. The Deconvolution also called transposed convolutions “work by
+swapping the forward and backward passes of a convolution.” (Dumoulin, V., &amp; Visin, F. 2016, p20.)</p>
+<p>Following MidiNet and MuseGAN(Dong, H. W., et al., 2018), this class consider bars
+as the basic compositional unit for the fact that harmonic changes usually occur at
+the boundaries of bars and that human beings often use bars as the building blocks
+when composing songs. The feature engineering in this class also is inspired by
+the Multi-track piano-roll representations in MuseGAN. But their strategies of
+activation function did not apply to this library since its methods can cause
+information losses. The models just binarize the <cite>Generator</cite>’s output, which
+uses tanh as an activation function in the output layer, by a threshold at zero,
+or by deterministic or stochastic binary neurons(Bengio, Y., et al., 2018, Chung, J., et al., 2016),
+and ignore drawing a distinction the consonance and the dissonance.</p>
+<p>This library simply uses the softmax strategy. This class stochastically selects
+a combination of pitches in each bars drawn by the true MIDI files data, based on
+the difference between consonance and dissonance intended by the composer of the MIDI files.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Bengio, Y., Léonard, N., &amp; Courville, A. (2013). Estimating or propagating gradients through stochastic neurons for conditional computation. arXiv preprint arXiv:1308.3432.</li>
+<li>Chung, J., Ahn, S., &amp; Bengio, Y. (2016). Hierarchical multiscale recurrent neural networks. arXiv preprint arXiv:1609.01704.</li>
+<li>Dong, H. W., Hsiao, W. Y., Yang, L. C., &amp; Yang, Y. H. (2018, April). MuseGAN: Multi-track sequential generative adversarial networks for symbolic music generation and accompaniment. In Thirty-Second AAAI Conference on Artificial Intelligence.</li>
+<li>Dumoulin, V., &amp; V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.</li>
+<li>Fang, W., Zhang, F., Sheng, V. S., &amp; Ding, Y. (2018). A method for improving CNN-based image recognition using DCGAN. Comput. Mater. Contin, 57, 167-178.</li>
+<li>Gauthier, J. (2014). Conditional generative adversarial nets for convolutional face generation. Class Project for Stanford CS231N: Convolutional Neural Networks for Visual Recognition, Winter semester, 2014(5), 2.</li>
+<li>Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., … &amp; Bengio, Y. (2014). Generative adversarial nets. In Advances in neural information processing systems (pp. 2672-2680).</li>
+<li>Long, J., Shelhamer, E., &amp; Darrell, T. (2015). Fully convolutional networks for semantic segmentation. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 3431-3440).</li>
+<li>Makhzani, A., Shlens, J., Jaitly, N., Goodfellow, I., &amp; Frey, B. (2015). Adversarial autoencoders. arXiv preprint arXiv:1511.05644.</li>
+<li>Yang, L. C., Chou, S. Y., &amp; Yang, Y. H. (2017). MidiNet: A convolutional generative adversarial network for symbolic-domain music generation. arXiv preprint arXiv:1703.10847.</li>
+</ul>
+<dl class="attribute">
+<dt id="pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.bar_gram">
+<code class="descname">bar_gram</code><a class="headerlink" href="#pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.bar_gram" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.compose">
+<code class="descname">compose</code><span class="sig-paren">(</span><em>file_path</em>, <em>velocity_mean=None</em>, <em>velocity_std=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycomposer/gancomposable/_mxnet/conditional_gan_composer.html#ConditionalGANComposer.compose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.compose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compose by learned model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>file_path</strong> – Path to generated MIDI file.</li>
+<li><strong>velocity_mean</strong> – Mean of velocity.
+This class samples the velocity from a Gaussian distribution of
+<cite>velocity_mean</cite> and <cite>velocity_std</cite>.
+If <cite>None</cite>, the average velocity in MIDI files set to this parameter.</li>
+<li><strong>velocity_std</strong> – Standard deviation(SD) of velocity.
+This class samples the velocity from a Gaussian distribution of
+<cite>velocity_mean</cite> and <cite>velocity_std</cite>.
+If <cite>None</cite>, the SD of velocity in MIDI files set to this parameter.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.extract_logs">
+<code class="descname">extract_logs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycomposer/gancomposable/_mxnet/conditional_gan_composer.html#ConditionalGANComposer.extract_logs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.extract_logs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract update logs data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><cite>np.ndarray</cite> of probabilities inferenced by the <cite>discriminator</cite> (mean) in the <cite>discriminator</cite>’s update turn.</li>
+<li><cite>np.ndarray</cite> of probabilities inferenced by the <cite>discriminator</cite> (mean) in the <cite>generator</cite>’s update turn.</li>
+<li><cite>np.ndarray</cite> of posterior(mean).</li>
+<li><cite>np.ndarray</cite> of losses of the feature matching.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">The shape is</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.generative_model">
+<code class="descname">generative_model</code><a class="headerlink" href="#pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.generative_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.get_bar_gram">
+<code class="descname">get_bar_gram</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycomposer/gancomposable/_mxnet/conditional_gan_composer.html#ConditionalGANComposer.get_bar_gram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.get_bar_gram" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.get_generative_model">
+<code class="descname">get_generative_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycomposer/gancomposable/_mxnet/conditional_gan_composer.html#ConditionalGANComposer.get_generative_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.get_generative_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.get_true_sampler">
+<code class="descname">get_true_sampler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycomposer/gancomposable/_mxnet/conditional_gan_composer.html#ConditionalGANComposer.get_true_sampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.get_true_sampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.learn">
+<code class="descname">learn</code><span class="sig-paren">(</span><em>iter_n=500</em>, <em>k_step=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycomposer/gancomposable/_mxnet/conditional_gan_composer.html#ConditionalGANComposer.learn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Learning.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>iter_n</strong> – The number of training iterations.</li>
+<li><strong>k_step</strong> – The number of learning of the <cite>discriminator</cite>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.set_readonly">
+<code class="descname">set_readonly</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycomposer/gancomposable/_mxnet/conditional_gan_composer.html#ConditionalGANComposer.set_readonly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.set_readonly" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.true_sampler">
+<code class="descname">true_sampler</code><a class="headerlink" href="#pycomposer.gancomposable._mxnet.conditional_gan_composer.ConditionalGANComposer.true_sampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pycomposer.gancomposable._mxnet">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pycomposer.gancomposable._mxnet" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pycomposer  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Accel Brain.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

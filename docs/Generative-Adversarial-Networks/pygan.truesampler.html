@@ -1,0 +1,297 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygan.truesampler package &#8212; pygan  documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pygan.truesampler.conditionaltruesampler package" href="pygan.truesampler.conditionaltruesampler.html" />
+    <link rel="prev" title="pygan.noisesampler.imagenoisesampler package" href="pygan.noisesampler.imagenoisesampler.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pygan.truesampler.conditionaltruesampler.html" title="pygan.truesampler.conditionaltruesampler package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pygan.noisesampler.imagenoisesampler.html" title="pygan.noisesampler.imagenoisesampler package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pygan  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pygan.html" accesskey="U">pygan package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pygan-truesampler-package">
+<h1>pygan.truesampler package<a class="headerlink" href="#pygan-truesampler-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pygan.truesampler.conditionaltruesampler.html">pygan.truesampler.conditionaltruesampler package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pygan.truesampler.conditionaltruesampler.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pygan.truesampler.conditionaltruesampler.html#module-pygan.truesampler.conditionaltruesampler.conditional_image_true_sampler">pygan.truesampler.conditionaltruesampler.conditional_image_true_sampler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pygan.truesampler.conditionaltruesampler.html#module-pygan.truesampler.conditionaltruesampler">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pygan.truesampler.conditional_true_sampler">
+<span id="pygan-truesampler-conditional-true-sampler-module"></span><h2>pygan.truesampler.conditional_true_sampler module<a class="headerlink" href="#module-pygan.truesampler.conditional_true_sampler" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pygan.truesampler.conditional_true_sampler.ConditionalTrueSampler">
+<em class="property">class </em><code class="descclassname">pygan.truesampler.conditional_true_sampler.</code><code class="descname">ConditionalTrueSampler</code><a class="reference internal" href="_modules/pygan/truesampler/conditional_true_sampler.html#ConditionalTrueSampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.truesampler.conditional_true_sampler.ConditionalTrueSampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pygan.html#pygan.true_sampler.TrueSampler" title="pygan.true_sampler.TrueSampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygan.true_sampler.TrueSampler</span></code></a></p>
+<p>Sampler which draws samples from the conditional <cite>true</cite> distribution.</p>
+<dl class="method">
+<dt id="pygan.truesampler.conditional_true_sampler.ConditionalTrueSampler.add_condition">
+<code class="descname">add_condition</code><span class="sig-paren">(</span><em>observed_arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/truesampler/conditional_true_sampler.html#ConditionalTrueSampler.add_condition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.truesampler.conditional_true_sampler.ConditionalTrueSampler.add_condition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add condtion.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>observed_arr</strong> – <cite>np.ndarray</cite> of samples.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of samples.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pygan.truesampler.gauss_true_sampler">
+<span id="pygan-truesampler-gauss-true-sampler-module"></span><h2>pygan.truesampler.gauss_true_sampler module<a class="headerlink" href="#module-pygan.truesampler.gauss_true_sampler" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pygan.truesampler.gauss_true_sampler.GaussTrueSampler">
+<em class="property">class </em><code class="descclassname">pygan.truesampler.gauss_true_sampler.</code><code class="descname">GaussTrueSampler</code><span class="sig-paren">(</span><em>mu</em>, <em>sigma</em>, <em>output_shape</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/truesampler/gauss_true_sampler.html#GaussTrueSampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.truesampler.gauss_true_sampler.GaussTrueSampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pygan.html#pygan.true_sampler.TrueSampler" title="pygan.true_sampler.TrueSampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygan.true_sampler.TrueSampler</span></code></a></p>
+<p>Sampler which draws samples from the <cite>true</cite> Gauss distribution.</p>
+<dl class="method">
+<dt id="pygan.truesampler.gauss_true_sampler.GaussTrueSampler.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/truesampler/gauss_true_sampler.html#GaussTrueSampler.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.truesampler.gauss_true_sampler.GaussTrueSampler.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws samples from the <cite>true</cite> distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of samples.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.truesampler.gauss_true_sampler.GaussTrueSampler.get_output_shape">
+<code class="descname">get_output_shape</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/truesampler/gauss_true_sampler.html#GaussTrueSampler.get_output_shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.truesampler.gauss_true_sampler.GaussTrueSampler.get_output_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygan.truesampler.gauss_true_sampler.GaussTrueSampler.output_shape">
+<code class="descname">output_shape</code><a class="headerlink" href="#pygan.truesampler.gauss_true_sampler.GaussTrueSampler.output_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.truesampler.gauss_true_sampler.GaussTrueSampler.set_output_shape">
+<code class="descname">set_output_shape</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/truesampler/gauss_true_sampler.html#GaussTrueSampler.set_output_shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.truesampler.gauss_true_sampler.GaussTrueSampler.set_output_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pygan.truesampler.image_true_sampler">
+<span id="pygan-truesampler-image-true-sampler-module"></span><h2>pygan.truesampler.image_true_sampler module<a class="headerlink" href="#module-pygan.truesampler.image_true_sampler" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pygan.truesampler.image_true_sampler.ImageTrueSampler">
+<em class="property">class </em><code class="descclassname">pygan.truesampler.image_true_sampler.</code><code class="descname">ImageTrueSampler</code><span class="sig-paren">(</span><em>batch_size</em>, <em>image_dir</em>, <em>seq_len=None</em>, <em>gray_scale_flag=True</em>, <em>wh_size_tuple=(100</em>, <em>100)</em>, <em>norm_mode='z_score'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/truesampler/image_true_sampler.html#ImageTrueSampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.truesampler.image_true_sampler.ImageTrueSampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pygan.html#pygan.true_sampler.TrueSampler" title="pygan.true_sampler.TrueSampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygan.true_sampler.TrueSampler</span></code></a></p>
+<p>Sampler which draws samples from the <cite>true</cite> distribution of images.</p>
+<dl class="method">
+<dt id="pygan.truesampler.image_true_sampler.ImageTrueSampler.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/truesampler/image_true_sampler.html#ImageTrueSampler.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.truesampler.image_true_sampler.ImageTrueSampler.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws samples from the <cite>true</cite> distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of samples.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.truesampler.image_true_sampler.ImageTrueSampler.get_seq_len">
+<code class="descname">get_seq_len</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/truesampler/image_true_sampler.html#ImageTrueSampler.get_seq_len"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.truesampler.image_true_sampler.ImageTrueSampler.get_seq_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygan.truesampler.image_true_sampler.ImageTrueSampler.seq_len">
+<code class="descname">seq_len</code><a class="headerlink" href="#pygan.truesampler.image_true_sampler.ImageTrueSampler.seq_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.truesampler.image_true_sampler.ImageTrueSampler.set_readonly">
+<code class="descname">set_readonly</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/truesampler/image_true_sampler.html#ImageTrueSampler.set_readonly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.truesampler.image_true_sampler.ImageTrueSampler.set_readonly" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pygan.truesampler.sine_wave_true_sampler">
+<span id="pygan-truesampler-sine-wave-true-sampler-module"></span><h2>pygan.truesampler.sine_wave_true_sampler module<a class="headerlink" href="#module-pygan.truesampler.sine_wave_true_sampler" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pygan.truesampler.sine_wave_true_sampler.SineWaveTrueSampler">
+<em class="property">class </em><code class="descclassname">pygan.truesampler.sine_wave_true_sampler.</code><code class="descname">SineWaveTrueSampler</code><span class="sig-paren">(</span><em>batch_size</em>, <em>seq_len</em>, <em>dim=1</em>, <em>amp=0.5</em>, <em>sampling_freq=8000</em>, <em>freq=440</em>, <em>sec=5</em>, <em>mu=0.0</em>, <em>sigma=1.0</em>, <em>norm_mode='z_score'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/truesampler/sine_wave_true_sampler.html#SineWaveTrueSampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.truesampler.sine_wave_true_sampler.SineWaveTrueSampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pygan.html#pygan.true_sampler.TrueSampler" title="pygan.true_sampler.TrueSampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygan.true_sampler.TrueSampler</span></code></a></p>
+<p>Sampler which draws samples from the <cite>true</cite> sine wave distribution.</p>
+<dl class="method">
+<dt id="pygan.truesampler.sine_wave_true_sampler.SineWaveTrueSampler.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/truesampler/sine_wave_true_sampler.html#SineWaveTrueSampler.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.truesampler.sine_wave_true_sampler.SineWaveTrueSampler.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws samples from the <cite>true</cite> distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of samples.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pygan.truesampler.uniform_true_sampler">
+<span id="pygan-truesampler-uniform-true-sampler-module"></span><h2>pygan.truesampler.uniform_true_sampler module<a class="headerlink" href="#module-pygan.truesampler.uniform_true_sampler" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pygan.truesampler.uniform_true_sampler.UniformSampler">
+<em class="property">class </em><code class="descclassname">pygan.truesampler.uniform_true_sampler.</code><code class="descname">UniformSampler</code><span class="sig-paren">(</span><em>low</em>, <em>high</em>, <em>output_shape</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/truesampler/uniform_true_sampler.html#UniformSampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.truesampler.uniform_true_sampler.UniformSampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pygan.html#pygan.true_sampler.TrueSampler" title="pygan.true_sampler.TrueSampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygan.true_sampler.TrueSampler</span></code></a></p>
+<p>Generate samples based on the noise prior by Uniform distribution.</p>
+<dl class="method">
+<dt id="pygan.truesampler.uniform_true_sampler.UniformSampler.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/truesampler/uniform_true_sampler.html#UniformSampler.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.truesampler.uniform_true_sampler.UniformSampler.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws samples from the <cite>true</cite> distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of samples.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.truesampler.uniform_true_sampler.UniformSampler.get_output_shape">
+<code class="descname">get_output_shape</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/truesampler/uniform_true_sampler.html#UniformSampler.get_output_shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.truesampler.uniform_true_sampler.UniformSampler.get_output_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygan.truesampler.uniform_true_sampler.UniformSampler.output_shape">
+<code class="descname">output_shape</code><a class="headerlink" href="#pygan.truesampler.uniform_true_sampler.UniformSampler.output_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.truesampler.uniform_true_sampler.UniformSampler.set_output_shape">
+<code class="descname">set_output_shape</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/truesampler/uniform_true_sampler.html#UniformSampler.set_output_shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.truesampler.uniform_true_sampler.UniformSampler.set_output_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pygan.truesampler">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pygan.truesampler" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pygan.noisesampler.imagenoisesampler.html"
+                        title="previous chapter">pygan.noisesampler.imagenoisesampler package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pygan.truesampler.conditionaltruesampler.html"
+                        title="next chapter">pygan.truesampler.conditionaltruesampler package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pygan.truesampler.conditionaltruesampler.html" title="pygan.truesampler.conditionaltruesampler package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pygan.noisesampler.imagenoisesampler.html" title="pygan.noisesampler.imagenoisesampler package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pygan  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pygan.html" >pygan package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, chimera0(RUM).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

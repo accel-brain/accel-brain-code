@@ -1,0 +1,322 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygan.generativemodel.autoencodermodel.encoder_decoder_model &#8212; pygan  documentation</title>
+    <link rel="stylesheet" href="../../../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">pygan  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pygan.generativemodel.autoencodermodel.encoder_decoder_model</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">logging</span> <span class="k">import</span> <span class="n">getLogger</span>
+
+<span class="kn">from</span> <span class="nn">pygan.generativemodel.auto_encoder_model</span> <span class="k">import</span> <span class="n">AutoEncoderModel</span>
+<span class="kn">from</span> <span class="nn">pygan.true_sampler</span> <span class="k">import</span> <span class="n">TrueSampler</span>
+
+<span class="kn">from</span> <span class="nn">pydbm.rnn.encoder_decoder_controller</span> <span class="k">import</span> <span class="n">EncoderDecoderController</span>
+
+<span class="kn">from</span> <span class="nn">pydbm.activation.relu_function</span> <span class="k">import</span> <span class="n">ReLuFunction</span>
+<span class="kn">from</span> <span class="nn">pydbm.activation.tanh_function</span> <span class="k">import</span> <span class="n">TanhFunction</span>
+<span class="kn">from</span> <span class="nn">pydbm.activation.logistic_function</span> <span class="k">import</span> <span class="n">LogisticFunction</span>
+<span class="kn">from</span> <span class="nn">pydbm.loss.mean_squared_error</span> <span class="k">import</span> <span class="n">MeanSquaredError</span>
+<span class="kn">from</span> <span class="nn">pydbm.optimization.optparams.adam</span> <span class="k">import</span> <span class="n">Adam</span>
+<span class="kn">from</span> <span class="nn">pydbm.optimization.optparams.sgd</span> <span class="k">import</span> <span class="n">SGD</span>
+<span class="kn">from</span> <span class="nn">pydbm.verification.verificate_function_approximation</span> <span class="k">import</span> <span class="n">VerificateFunctionApproximation</span>
+
+
+<div class="viewcode-block" id="EncoderDecoderModel"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel">[docs]</a><span class="k">class</span> <span class="nc">EncoderDecoderModel</span><span class="p">(</span><span class="n">AutoEncoderModel</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Encoder/Decoder based on LSTM as a Generator.</span>
+
+<span class="sd">    This library regards the Encoder/Decoder based on LSTM as an Auto-Encoder.</span>
+
+<span class="sd">    Originally, Long Short-Term Memory(LSTM) networks as a </span>
+<span class="sd">    special RNN structure has proven stable and powerful for </span>
+<span class="sd">    modeling long-range dependencies.</span>
+
+<span class="sd">    The Key point of structural expansion is its memory cell </span>
+<span class="sd">    which essentially acts as an accumulator of the state information. </span>
+<span class="sd">    Every time observed data points are given as new information and input </span>
+<span class="sd">    to LSTM’s input gate, its information will be accumulated to the cell </span>
+<span class="sd">    if the input gate is activated. The past state of cell could be forgotten </span>
+<span class="sd">    in this process if LSTM’s forget gate is on. Whether the latest cell output </span>
+<span class="sd">    will be propagated to the final state is further controlled by the output gate.</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        - Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., &amp; Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.</span>
+<span class="sd">        - Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., &amp; Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.</span>
+<span class="sd">        - Zaremba, W., Sutskever, I., &amp; Vinyals, O. (2014). Recurrent neural network regularization. arXiv preprint arXiv:1409.2329.</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">encoder_decoder_controller</span><span class="p">,</span>
+        <span class="n">seq_len</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">learning_rate</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span>
+        <span class="n">learning_attenuate_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">attenuate_epoch</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">join_io_flag</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Init.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            encoder_decoder_controller:         is-a `EncoderDecoderController`.</span>
+<span class="sd">            seq_len:                            The length of sequence.</span>
+<span class="sd">            learning_rate:                      Learning rate.</span>
+<span class="sd">            learning_attenuate_rate:            Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.</span>
+<span class="sd">            attenuate_epoch:                    Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.</span>
+<span class="sd">                                                Additionally, in relation to regularization,</span>
+<span class="sd">                                                this class constrains weight matrixes every `attenuate_epoch`.</span>
+
+<span class="sd">            join_io_flag:                       If this value and value of `output_activating_function` is not `None`,</span>
+<span class="sd">                                                This model outputs tensors combining observed data points and inferenced data</span>
+<span class="sd">                                                in a series direction.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">encoder_decoder_controller</span><span class="p">,</span> <span class="n">EncoderDecoderController</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__encoder_decoder_controller</span> <span class="o">=</span> <span class="n">encoder_decoder_controller</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__seq_len</span> <span class="o">=</span> <span class="n">seq_len</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__learning_rate</span> <span class="o">=</span> <span class="n">learning_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__learning_attenuate_rate</span> <span class="o">=</span> <span class="n">learning_attenuate_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__attenuate_epoch</span> <span class="o">=</span> <span class="n">attenuate_epoch</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__join_io_flag</span> <span class="o">=</span> <span class="n">join_io_flag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__epoch_counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;pygan&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span> <span class="o">=</span> <span class="n">logger</span>
+
+<div class="viewcode-block" id="EncoderDecoderModel.pre_learn"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.pre_learn">[docs]</a>    <span class="k">def</span> <span class="nf">pre_learn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">true_sampler</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Pre learning.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            true_sampler:       is-a `TrueSampler`.</span>
+<span class="sd">            epochs:             Epochs.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">true_sampler</span><span class="p">,</span> <span class="n">TrueSampler</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of `true_sampler` must be `TrueSampler`.&quot;</span><span class="p">)</span>
+
+        <span class="n">learning_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__learning_rate</span>
+        <span class="n">pre_loss_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">observed_arr</span> <span class="o">=</span> <span class="n">true_sampler</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+                <span class="n">inferenced_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">observed_arr</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">observed_arr</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="n">inferenced_arr</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;In pre-learning, the rank or shape of observed data points and feature points in last layer must be equivalent.&quot;</span><span class="p">)</span>
+                <span class="n">grad_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__encoder_decoder_controller</span><span class="o">.</span><span class="n">computable_loss</span><span class="o">.</span><span class="n">compute_delta</span><span class="p">(</span><span class="n">observed_arr</span><span class="p">,</span> <span class="n">inferenced_arr</span><span class="p">)</span>
+                <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__encoder_decoder_controller</span><span class="o">.</span><span class="n">computable_loss</span><span class="o">.</span><span class="n">compute_loss</span><span class="p">(</span><span class="n">observed_arr</span><span class="p">,</span> <span class="n">inferenced_arr</span><span class="p">)</span>
+                <span class="n">pre_loss_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Epoch: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; loss: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">loss</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">learn</span><span class="p">(</span><span class="n">grad_arr</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Interrupt.&quot;</span><span class="p">)</span>
+                <span class="k">break</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__pre_loss_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pre_loss_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__learning_rate</span> <span class="o">=</span> <span class="n">learning_rate</span></div>
+
+<div class="viewcode-block" id="EncoderDecoderModel.draw"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Draws samples from the `fake` distribution.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            `np.ndarray` of samples.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">observed_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_sampler</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__encoder_decoder_controller</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">observed_arr</span><span class="p">)</span>
+        <span class="n">inferenced_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__encoder_decoder_controller</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">get_feature_points</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__join_io_flag</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">inferenced_arr</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">observed_arr</span><span class="p">,</span> <span class="n">inferenced_arr</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="EncoderDecoderModel.inference"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.inference">[docs]</a>    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observed_arr</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Draws samples from the `fake` distribution.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            observed_arr:     `np.ndarray` of observed data points.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            `np.ndarray` of inferenced.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">inferenced_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__encoder_decoder_controller</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">observed_arr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">inferenced_arr</span></div>
+
+<div class="viewcode-block" id="EncoderDecoderModel.learn"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.learn">[docs]</a>    <span class="k">def</span> <span class="nf">learn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grad_arr</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Update this Discriminator by ascending its stochastic gradient.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            grad_arr:   `np.ndarray` of gradients.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            `np.ndarray` of delta or gradients.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__epoch_counter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__attenuate_epoch</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__learning_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__learning_rate</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__learning_attenuate_rate</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__join_io_flag</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">grad_arr</span> <span class="o">=</span> <span class="n">grad_arr</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__seq_len</span><span class="p">:]</span>
+
+        <span class="n">encoder_delta_arr</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">encoder_grads_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__encoder_decoder_controller</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">hidden_back_propagate</span><span class="p">(</span>
+            <span class="n">grad_arr</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">encoder_grads_list</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">encoder_grads_list</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__encoder_decoder_controller</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span>
+            <span class="n">encoder_grads_list</span><span class="p">,</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">__learning_rate</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__epoch_counter</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__epoch_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">encoder_delta_arr</span></div>
+
+<div class="viewcode-block" id="EncoderDecoderModel.update"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Update the encoder and the decoder</span>
+<span class="sd">        to minimize the reconstruction error of the inputs.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            `np.ndarray` of the reconstruction errors.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__epoch_counter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__attenuate_epoch</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__learning_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__learning_rate</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__learning_attenuate_rate</span>
+
+        <span class="n">observed_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_sampler</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+        <span class="n">inferenced_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">observed_arr</span><span class="p">)</span>
+
+        <span class="n">error_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__encoder_decoder_controller</span><span class="o">.</span><span class="n">computable_loss</span><span class="o">.</span><span class="n">compute_loss</span><span class="p">(</span>
+            <span class="n">observed_arr</span><span class="p">,</span>
+            <span class="n">inferenced_arr</span>
+        <span class="p">)</span>
+        <span class="n">delta_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__encoder_decoder_controller</span><span class="o">.</span><span class="n">computable_loss</span><span class="o">.</span><span class="n">compute_delta</span><span class="p">(</span>
+            <span class="n">observed_arr</span><span class="p">,</span>
+            <span class="n">inferenced_arr</span>
+        <span class="p">)</span>
+        <span class="n">decoder_grads_list</span><span class="p">,</span> <span class="n">encoder_delta_arr</span><span class="p">,</span> <span class="n">encoder_grads_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__encoder_decoder_controller</span><span class="o">.</span><span class="n">back_propagation</span><span class="p">(</span>
+            <span class="n">delta_arr</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__encoder_decoder_controller</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span>
+            <span class="n">decoder_grads_list</span><span class="p">,</span>
+            <span class="n">encoder_grads_list</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__learning_rate</span><span class="p">,</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">__epoch_counter</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__epoch_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">error_arr</span></div>
+
+<div class="viewcode-block" id="EncoderDecoderModel.switch_inferencing_mode"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.switch_inferencing_mode">[docs]</a>    <span class="k">def</span> <span class="nf">switch_inferencing_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inferencing_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Set inferencing mode in relation to concrete regularizations.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            inferencing_mode:       Inferencing mode or not.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__encoder_decoder_controller</span><span class="o">.</span><span class="n">opt_params</span><span class="o">.</span><span class="n">inferencing_mode</span> <span class="o">=</span> <span class="n">inferencing_mode</span></div>
+
+<div class="viewcode-block" id="EncoderDecoderModel.get_encoder_decoder_controller"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.get_encoder_decoder_controller">[docs]</a>    <span class="k">def</span> <span class="nf">get_encoder_decoder_controller</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; getter &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__encoder_decoder_controller</span></div>
+    
+<div class="viewcode-block" id="EncoderDecoderModel.set_encoder_decoder_controller"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.set_encoder_decoder_controller">[docs]</a>    <span class="k">def</span> <span class="nf">set_encoder_decoder_controller</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; setter &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;This property must be read-only.&quot;</span><span class="p">)</span></div>
+    
+    <span class="n">encoder_decoder_controller</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_encoder_decoder_controller</span><span class="p">,</span> <span class="n">set_encoder_decoder_controller</span><span class="p">)</span>
+
+<div class="viewcode-block" id="EncoderDecoderModel.set_readonly"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.set_readonly">[docs]</a>    <span class="k">def</span> <span class="nf">set_readonly</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; setter &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;This property must be read-only.&quot;</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="EncoderDecoderModel.get_pre_loss_arr"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.encoder_decoder_model.EncoderDecoderModel.get_pre_loss_arr">[docs]</a>    <span class="k">def</span> <span class="nf">get_pre_loss_arr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; getter &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pre_loss_arr</span></div>
+
+    <span class="n">pre_loss_arr</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_pre_loss_arr</span><span class="p">,</span> <span class="n">set_readonly</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">pygan  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Accel Brain.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

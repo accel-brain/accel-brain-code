@@ -1,0 +1,22 @@
+pydbm.dbm.restrictedboltzmannmachines package
+=============================================
+
+Submodules
+----------
+
+pydbm.dbm.restrictedboltzmannmachines.rt\_rbm module
+----------------------------------------------------
+
+.. automodule:: pydbm.dbm.restrictedboltzmannmachines.rt_rbm
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pydbm.dbm.restrictedboltzmannmachines
+    :members:
+    :undoc-members:
+    :show-inheritance:

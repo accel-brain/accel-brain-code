@@ -1,0 +1,30 @@
+pydbm.dbm.deepboltzmannmachine package
+======================================
+
+Submodules
+----------
+
+pydbm.dbm.deepboltzmannmachine.shape\_boltzmann\_machine module
+---------------------------------------------------------------
+
+.. automodule:: pydbm.dbm.deepboltzmannmachine.shape_boltzmann_machine
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.dbm.deepboltzmannmachine.stacked\_auto\_encoder module
+------------------------------------------------------------
+
+.. automodule:: pydbm.dbm.deepboltzmannmachine.stacked_auto_encoder
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pydbm.dbm.deepboltzmannmachine
+    :members:
+    :undoc-members:
+    :show-inheritance:

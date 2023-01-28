@@ -1,0 +1,220 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>twelve_tone_composer &#8212; pycomposer  documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pycomposer  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for twelve_tone_composer</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="TwelveToneComposer"><a class="viewcode-back" href="../twelve_tone_composer.html#twelve_tone_composer.TwelveToneComposer">[docs]</a><span class="k">class</span> <span class="nc">TwelveToneComposer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Twelve Tone Composer.</span>
+<span class="sd">    </span>
+<span class="sd">    Create 12 tone row and compose with the transposition, retrograde, and inversion.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+<div class="viewcode-block" id="TwelveToneComposer.generate"><a class="viewcode-back" href="../twelve_tone_composer.html#twelve_tone_composer.TwelveToneComposer.generate">[docs]</a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows_num</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">start_octave</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">octave_range</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">)):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Composition.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            rows_num:        The number of twelve tone rows.</span>
+<span class="sd">            start_octave:    Octave in first row.</span>
+<span class="sd">            octave_range:    `Tuple` of range of octave. The shape is: (Min, Max).</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            `np.ndarray` of twelve tone rows.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">min_octave</span><span class="p">,</span> <span class="n">max_octave</span> <span class="o">=</span> <span class="n">octave_range</span>
+        <span class="k">if</span> <span class="n">min_octave</span> <span class="o">&gt;</span> <span class="n">start_octave</span> <span class="ow">or</span> <span class="n">max_octave</span> <span class="o">&lt;</span> <span class="n">start_octave</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`start_octave` is invalid in relation to `octave_range`.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__min_pitch</span> <span class="o">=</span> <span class="mi">12</span> <span class="o">*</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">min_octave</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__max_pitch</span> <span class="o">=</span> <span class="mi">12</span> <span class="o">*</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">max_octave</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">twelve_tones_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">rows_num</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rows_num</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">start_octave</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">flag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">flag</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">high</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__max_pitch</span> <span class="o">-</span> <span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+                    <span class="n">low</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__min_pitch</span> <span class="o">-</span> <span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+                    <span class="n">add_pitch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="n">high</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">add_pitch</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">__max_pitch</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                        <span class="n">add_pitch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__max_pitch</span> <span class="o">-</span> <span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">add_pitch</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__min_pitch</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                        <span class="n">add_pitch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__min_pitch</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+
+                    <span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">add_pitch</span><span class="p">)</span>
+
+                <span class="k">elif</span> <span class="n">flag</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">retrograde</span><span class="p">(</span><span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">flag</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span><span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">flag</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inverse_retrograde</span><span class="p">(</span><span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">twelve_tones_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">start_octave</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">twelve_tones_arr</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TwelveToneComposer.compose"><a class="viewcode-back" href="../twelve_tone_composer.html#twelve_tone_composer.TwelveToneComposer.compose">[docs]</a>    <span class="k">def</span> <span class="nf">compose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">octave</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Composition.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            octave:    Octave notation.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            twelve tone row.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">octave</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">octave</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">:</span>
+            <span class="n">arr</span> <span class="o">+=</span> <span class="mi">12</span> <span class="o">*</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">octave</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The int of octave must be `-1` - `9` but the value is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">octave</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">octave</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">arr</span> <span class="o">&lt;=</span> <span class="mi">127</span><span class="p">]</span>
+
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">arr</span></div>
+
+<div class="viewcode-block" id="TwelveToneComposer.transpose"><a class="viewcode-back" href="../twelve_tone_composer.html#twelve_tone_composer.TwelveToneComposer.transpose">[docs]</a>    <span class="k">def</span> <span class="nf">transpose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">twelve_tone_row</span><span class="p">,</span> <span class="n">add_pitch</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Transposition.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            twelve_tone_row:    Twelve tone row.</span>
+<span class="sd">            add_pitch:          Value of pitch to be added for transposition.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Twelve tone row.</span>
+
+<span class="sd">        Exceptions:</span>
+<span class="sd">            ValueError:   In the case that one of the value of transposed `twelve_tone_row` is not satisfied; 0 - 127.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">twelve_tone_row</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">add_pitch</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">twelve_tone_row</span><span class="p">[</span><span class="n">twelve_tone_row</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">twelve_tone_row</span><span class="p">[</span><span class="n">twelve_tone_row</span> <span class="o">&gt;</span> <span class="mi">127</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The value of twelve tone row must be `0` - `127`.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">twelve_tone_row</span></div>
+
+<div class="viewcode-block" id="TwelveToneComposer.retrograde"><a class="viewcode-back" href="../twelve_tone_composer.html#twelve_tone_composer.TwelveToneComposer.retrograde">[docs]</a>    <span class="k">def</span> <span class="nf">retrograde</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">twelve_tone_row</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Retrograde.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            twelve_tone_row:    Twelve tone row.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Twelve tone row.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">twelve_tone_row</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+    
+<div class="viewcode-block" id="TwelveToneComposer.inversion"><a class="viewcode-back" href="../twelve_tone_composer.html#twelve_tone_composer.TwelveToneComposer.inversion">[docs]</a>    <span class="k">def</span> <span class="nf">inversion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">twelve_tone_row</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Inversion.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            twelve_tone_row:    Twelve tone row.</span>
+<span class="sd">            axis:               Axis for inversion.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Twelve tone row.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">inversion_arr</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">twelve_tone_row</span> <span class="o">-</span> <span class="n">twelve_tone_row</span><span class="p">[</span><span class="n">axis</span><span class="p">])</span>
+        <span class="n">twelve_tone_row</span> <span class="o">=</span> <span class="n">twelve_tone_row</span> <span class="o">+</span> <span class="n">inversion_arr</span>
+        <span class="k">return</span> <span class="n">twelve_tone_row</span></div>
+    
+<div class="viewcode-block" id="TwelveToneComposer.inverse_retrograde"><a class="viewcode-back" href="../twelve_tone_composer.html#twelve_tone_composer.TwelveToneComposer.inverse_retrograde">[docs]</a>    <span class="k">def</span> <span class="nf">inverse_retrograde</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">twelve_tone_row</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Inversion and Retrograde.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            twelve_tone_row:    Twelve tone row.</span>
+<span class="sd">            axis:               Axis for inversion.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Twelve tone row.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">retrograde</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span><span class="n">twelve_tone_row</span><span class="p">,</span> <span class="n">axis</span><span class="p">))</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pycomposer  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, chimera0(RUM).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

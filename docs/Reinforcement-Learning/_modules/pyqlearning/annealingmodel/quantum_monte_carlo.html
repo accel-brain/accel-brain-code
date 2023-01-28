@@ -1,0 +1,281 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pyqlearning.annealingmodel.quantum_monte_carlo &#8212; pyqlearning  documentation</title>
+    <link rel="stylesheet" href="../../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pyqlearning  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pyqlearning.annealingmodel.quantum_monte_carlo</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pyqlearning.annealing_model</span> <span class="k">import</span> <span class="n">AnnealingModel</span>
+<span class="kn">from</span> <span class="nn">pyqlearning.annealingmodel.distance_computable</span> <span class="k">import</span> <span class="n">DistanceComputable</span>
+
+
+<div class="viewcode-block" id="QuantumMonteCarlo"><a class="viewcode-back" href="../../../pyqlearning.annealingmodel.html#pyqlearning.annealingmodel.quantum_monte_carlo.QuantumMonteCarlo">[docs]</a><span class="k">class</span> <span class="nc">QuantumMonteCarlo</span><span class="p">(</span><span class="n">AnnealingModel</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Quantum Monte Carlo.</span>
+<span class="sd">    </span>
+<span class="sd">    Generally, Quantum Monte Carlo is a stochastic method</span>
+<span class="sd">    to solve the Schrödinger equation. This algorithm is one of </span>
+<span class="sd">    the earliest types of solution in order to simulate the Quantum Annealing </span>
+<span class="sd">    in classical computer. In summary, one of the function of this algorithm </span>
+<span class="sd">    is to solve the ground state search problem which is known as logically </span>
+<span class="sd">    equivalent to combinatorial optimization problem.</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        - Das, A., &amp; Chakrabarti, B. K. (Eds.). (2005). Quantum annealing and related optimization methods (Vol. 679). Springer Science &amp; Business Media.</span>
+<span class="sd">        - Facchi, P., &amp; Pascazio, S. (2008). Quantum Zeno dynamics: mathematical and physical aspects. Journal of Physics A: Mathematical and Theoretical, 41(49), 493001.</span>
+<span class="sd">        - Heim, B., Rønnow, T. F., Isakov, S. V., &amp; Troyer, M. (2015). Quantum versus classical annealing of Ising spin glasses. Science, 348(6231), 215-217.</span>
+<span class="sd">        - Heisenberg, W. (1925) Über quantentheoretische Umdeutung kinematischer und mechanischer Beziehungen. Z. Phys. 33, pp.879—893.</span>
+<span class="sd">        - Heisenberg, W. (1927). Über den anschaulichen Inhalt der quantentheoretischen Kinematik und Mechanik. Zeitschrift fur Physik, 43, 172-198.</span>
+<span class="sd">        - Heisenberg, W. (1984). The development of quantum mechanics. In Scientific Review Papers, Talks, and Books -Wissenschaftliche Übersichtsartikel, Vorträge und Bücher (pp. 226-237). Springer Berlin Heidelberg. Hilgevoord, Jan and Uffink, Jos, “The Uncertainty Principle”, The Stanford Encyclopedia of Philosophy (Winter 2016 Edition), Edward N. Zalta (ed.), URL = ＜https://plato.stanford.edu/archives/win2016/entries/qt-uncertainty/＞.</span>
+<span class="sd">        - Jarzynski, C. (1997). Nonequilibrium equality for free energy differences. Physical Review Letters, 78(14), 2690.</span>
+<span class="sd">        - Messiah, A. (1966). Quantum mechanics. 2 (1966). North-Holland Publishing Company.</span>
+<span class="sd">        - Schrödinger, E. (1926). Quantisierung als eigenwertproblem. Annalen der physik, 385(13), S.437-490.</span>
+<span class="sd">        - Somma, R. D., Batista, C. D., &amp; Ortiz, G. (2007). Quantum approach to classical statistical mechanics. Physical review letters, 99(3), 030603.</span>
+<span class="sd">        - 鈴木正. (2008). 「組み合わせ最適化問題と量子アニーリング: 量子断熱発展の理論と性能評価」.,『物性研究』, 90(4): pp598-676. 参照箇所はpp619-624.</span>
+<span class="sd">        - 西森秀稔、大関真之(2018) 『量子アニーリングの基礎』須藤 彰三、岡 真 監修、共立出版、参照箇所はpp9-46.</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="n">__spin_arr</span> <span class="o">=</span> <span class="kc">None</span>
+    
+    <span class="c1"># User function for optimization.</span>
+    <span class="n">__distance_computable</span> <span class="o">=</span> <span class="kc">None</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">distance_computable</span><span class="p">,</span>
+        <span class="n">cycles_num</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">inverse_temperature_beta</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">gammma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">fractional_reduction</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span>
+        <span class="n">trotter_dimention</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">mc_step</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">point_num</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">spin_arr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">tolerance_diff_e</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Init.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            cycles_num:                  The number of annealing cycles.</span>
+<span class="sd">            inverse_temperature_beta:    Inverse temperature (Beta).</span>
+<span class="sd">            gammma:                      Gamma.</span>
+<span class="sd">            fractional_reduction:        Attenuation rate.</span>
+<span class="sd">            trotter_dimention:           The dimention of Trotter.</span>
+<span class="sd">            mc_step:                     The number of Monte Carlo steps.</span>
+<span class="sd">            point_num:                   The number of parameters.</span>
+<span class="sd">            spin_arr:                    `np.ndarray` of 2-D spin glass in Ising model.</span>
+<span class="sd">            tolerance_diff_e:            Tolerance for the optimization.</span>
+<span class="sd">                                         When the ΔE is not improving by at least `tolerance_diff_e`</span>
+<span class="sd">                                         for two consecutive iterations, annealing will stops.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">distance_computable</span><span class="p">,</span> <span class="n">DistanceComputable</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__distance_computable</span> <span class="o">=</span> <span class="n">distance_computable</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__cycles_num</span> <span class="o">=</span> <span class="n">cycles_num</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__inverse_temperature_beta</span> <span class="o">=</span> <span class="n">inverse_temperature_beta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__gammma</span> <span class="o">=</span> <span class="n">gammma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__fractional_reduction</span> <span class="o">=</span> <span class="n">fractional_reduction</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__tolerance_diff_e</span> <span class="o">=</span> <span class="n">tolerance_diff_e</span>
+        
+        <span class="k">if</span> <span class="n">spin_arr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spin_arr</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span> <span class="o">=</span> <span class="n">spin_arr</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__trotter_dimention</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__mc_step</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__point_num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trotter_dimention</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__trotter_dimention</span> <span class="o">=</span> <span class="n">trotter_dimention</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mc_step</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__mc_step</span> <span class="o">=</span> <span class="n">mc_step</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">point_num</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__point_num</span> <span class="o">=</span> <span class="n">point_num</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__point_num</span><span class="p">)</span>
+            <span class="n">arr</span><span class="p">[</span><span class="n">arr</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">key_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__mc_step</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__point_num</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">key_arr</span><span class="p">)</span>
+            <span class="n">spin_arr_list</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__trotter_dimention</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__trotter_dimention</span><span class="p">):</span>
+                <span class="n">spin_arr_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">key_arr</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">spin_arr_list</span><span class="p">)</span>
+
+<div class="viewcode-block" id="QuantumMonteCarlo.annealing"><a class="viewcode-back" href="../../../pyqlearning.annealingmodel.html#pyqlearning.annealingmodel.quantum_monte_carlo.QuantumMonteCarlo.annealing">[docs]</a>    <span class="k">def</span> <span class="nf">annealing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Annealing.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__predicted_log_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">cycle</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__cycles_num</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">mc_step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__mc_step</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__move</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__gammma</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fractional_reduction</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__tolerance_diff_e</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__predicted_log_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">diff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__predicted_log_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">__predicted_log_list</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">][</span><span class="mi">5</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">diff</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tolerance_diff_e</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">predicted_log_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__predicted_log_list</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__move</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Choice torotter.</span>
+        <span class="n">torotter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__trotter_dimention</span><span class="p">)</span>
+        
+        <span class="c1"># Choice times.</span>
+        <span class="n">time_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__mc_step</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">time_arr</span><span class="p">)</span>
+        <span class="n">pre_time</span><span class="p">,</span> <span class="n">post_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">time_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">time_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        
+        <span class="c1"># Decide point.</span>
+        <span class="n">pre_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">,</span> <span class="n">pre_time</span><span class="p">]</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+        <span class="n">post_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">,</span> <span class="n">post_time</span><span class="p">]</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+
+        <span class="c1"># ΔE</span>
+        <span class="n">delta_e_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__point_num</span><span class="p">):</span>
+            <span class="n">dist_pre_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__distance_computable</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">pre_point</span><span class="p">,</span> <span class="n">point</span><span class="p">)</span>
+            <span class="n">dist_post_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__distance_computable</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">post_point</span><span class="p">,</span> <span class="n">point</span><span class="p">)</span>
+            <span class="n">delta_e_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">dist_pre_point</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">][</span><span class="n">pre_time</span><span class="p">][</span><span class="n">pre_point</span><span class="p">]</span> <span class="o">-</span> <span class="n">dist_post_point</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">][</span><span class="n">pre_time</span><span class="p">][</span><span class="n">post_point</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">][</span><span class="n">pre_time</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">point</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">][(</span><span class="n">pre_time</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mc_step</span><span class="p">][</span><span class="n">point</span><span class="p">])</span>
+            <span class="n">delta_e_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="n">dist_pre_point</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">][</span><span class="n">pre_time</span><span class="p">][</span><span class="n">post_point</span><span class="p">]</span> <span class="o">-</span> <span class="n">dist_post_point</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">][</span><span class="n">post_time</span><span class="p">][</span><span class="n">post_point</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">][</span><span class="n">post_time</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">point</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">][(</span><span class="n">post_time</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mc_step</span><span class="p">][</span><span class="n">point</span><span class="p">])</span>
+
+        <span class="n">annealing_e</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">__inverse_temperature_beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__inverse_temperature_beta</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__gammma</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">__trotter_dimention</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__inverse_temperature_beta</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__gammma</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">__trotter_dimention</span><span class="p">))</span>
+
+        <span class="n">delta_e_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">][</span><span class="n">pre_time</span><span class="p">][</span><span class="n">pre_point</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[(</span><span class="n">torotter</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__trotter_dimention</span><span class="p">][</span><span class="n">pre_time</span><span class="p">][</span><span class="n">pre_point</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[(</span><span class="n">torotter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__trotter_dimention</span><span class="p">][</span><span class="n">pre_time</span><span class="p">][</span><span class="n">pre_point</span><span class="p">])</span>
+        <span class="n">delta_e_arr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">][</span><span class="n">pre_time</span><span class="p">][</span><span class="n">post_time</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[(</span><span class="n">torotter</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__trotter_dimention</span><span class="p">][</span><span class="n">pre_time</span><span class="p">][</span><span class="n">post_point</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[(</span><span class="n">torotter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__trotter_dimention</span><span class="p">][</span><span class="n">pre_time</span><span class="p">][</span><span class="n">post_point</span><span class="p">])</span>
+        <span class="n">delta_e_arr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">][</span><span class="n">post_time</span><span class="p">][</span><span class="n">pre_point</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[(</span><span class="n">torotter</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__trotter_dimention</span><span class="p">][</span><span class="n">post_time</span><span class="p">][</span><span class="n">pre_point</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[(</span><span class="n">torotter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__trotter_dimention</span><span class="p">][</span><span class="n">post_time</span><span class="p">][</span><span class="n">pre_point</span><span class="p">])</span>
+        <span class="n">delta_e_arr</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">][</span><span class="n">post_time</span><span class="p">][</span><span class="n">post_point</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[(</span><span class="n">torotter</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__trotter_dimention</span><span class="p">][</span><span class="n">post_time</span><span class="p">][</span><span class="n">post_point</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[(</span><span class="n">torotter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__trotter_dimention</span><span class="p">][</span><span class="n">post_time</span><span class="p">][</span><span class="n">post_point</span><span class="p">])</span>
+
+        <span class="n">delta_e</span> <span class="o">=</span> <span class="n">delta_e_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">__trotter_dimention</span> <span class="o">+</span> <span class="n">annealing_e</span> <span class="o">*</span> <span class="n">delta_e_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+        <span class="c1"># Flip or not.</span>
+        <span class="n">flip_flag</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">prob</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">if</span> <span class="n">delta_e</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">flip_flag</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">__inverse_temperature_beta</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__gammma</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">prob</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">flip_flag</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">flip_flag</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">][</span><span class="n">pre_time</span><span class="p">][</span><span class="n">pre_point</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">][</span><span class="n">pre_time</span><span class="p">][</span><span class="n">post_point</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">][</span><span class="n">post_time</span><span class="p">][</span><span class="n">pre_point</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span><span class="p">[</span><span class="n">torotter</span><span class="p">][</span><span class="n">post_time</span><span class="p">][</span><span class="n">post_point</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__predicted_log_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="n">torotter</span><span class="p">,</span>
+                <span class="n">pre_time</span><span class="p">,</span>
+                <span class="n">post_time</span><span class="p">,</span>
+                <span class="n">pre_point</span><span class="p">,</span>
+                <span class="n">post_point</span><span class="p">,</span>
+                <span class="n">delta_e</span><span class="p">,</span>
+                <span class="n">prob</span><span class="p">,</span>
+                <span class="n">flip_flag</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="QuantumMonteCarlo.get_spin_arr"><a class="viewcode-back" href="../../../pyqlearning.annealingmodel.html#pyqlearning.annealingmodel.quantum_monte_carlo.QuantumMonteCarlo.get_spin_arr">[docs]</a>    <span class="k">def</span> <span class="nf">get_spin_arr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; getter &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__spin_arr</span></div>
+
+<div class="viewcode-block" id="QuantumMonteCarlo.set_readonly"><a class="viewcode-back" href="../../../pyqlearning.annealingmodel.html#pyqlearning.annealingmodel.quantum_monte_carlo.QuantumMonteCarlo.set_readonly">[docs]</a>    <span class="k">def</span> <span class="nf">set_readonly</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; setter &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;This property must be read-only.&quot;</span><span class="p">)</span></div>
+    
+    <span class="n">spin_arr</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_spin_arr</span><span class="p">,</span> <span class="n">set_readonly</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pyqlearning  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Accel Brain.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

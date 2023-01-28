@@ -1,0 +1,7 @@
+pyqlearning
+===========
+
+.. toctree::
+   :maxdepth: 4
+
+   pyqlearning

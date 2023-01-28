@@ -1,0 +1,22 @@
+pygan.featurematching package
+=============================
+
+Submodules
+----------
+
+pygan.featurematching.denoising\_feature\_matching module
+---------------------------------------------------------
+
+.. automodule:: pygan.featurematching.denoising_feature_matching
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pygan.featurematching
+    :members:
+    :undoc-members:
+    :show-inheritance:

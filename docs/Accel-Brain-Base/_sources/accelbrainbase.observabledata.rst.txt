@@ -1,0 +1,17 @@
+accelbrainbase.observabledata package
+=====================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    accelbrainbase.observabledata._mxnet
+
+Module contents
+---------------
+
+.. automodule:: accelbrainbase.observabledata
+    :members:
+    :undoc-members:
+    :show-inheritance:

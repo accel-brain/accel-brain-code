@@ -1,0 +1,303 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pyqlearning.functionapproximator package &#8212; pyqlearning  documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pyqlearning.qlearning package" href="pyqlearning.qlearning.html" />
+    <link rel="prev" title="pyqlearning.deepqlearning package" href="pyqlearning.deepqlearning.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyqlearning.qlearning.html" title="pyqlearning.qlearning package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyqlearning.deepqlearning.html" title="pyqlearning.deepqlearning package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyqlearning  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pyqlearning.html" accesskey="U">pyqlearning package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pyqlearning-functionapproximator-package">
+<h1>pyqlearning.functionapproximator package<a class="headerlink" href="#pyqlearning-functionapproximator-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pyqlearning.functionapproximator.cnn_fa">
+<span id="pyqlearning-functionapproximator-cnn-fa-module"></span><h2>pyqlearning.functionapproximator.cnn_fa module<a class="headerlink" href="#module-pyqlearning.functionapproximator.cnn_fa" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyqlearning.functionapproximator.cnn_fa.CNNFA">
+<em class="property">class </em><code class="descclassname">pyqlearning.functionapproximator.cnn_fa.</code><code class="descname">CNNFA</code><span class="sig-paren">(</span><em>batch_size</em>, <em>layerable_cnn_list</em>, <em>cnn_output_graph</em>, <em>learning_rate=1e-05</em>, <em>learning_attenuate_rate=0.1</em>, <em>attenuate_epoch=50</em>, <em>computable_loss=None</em>, <em>opt_params=None</em>, <em>verificatable_result=None</em>, <em>pre_learned_path_list=None</em>, <em>pre_learned_output_path=None</em>, <em>cnn=None</em>, <em>verbose_mode=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/functionapproximator/cnn_fa.html#CNNFA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.functionapproximator.cnn_fa.CNNFA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyqlearning.html#pyqlearning.function_approximator.FunctionApproximator" title="pyqlearning.function_approximator.FunctionApproximator"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyqlearning.function_approximator.FunctionApproximator</span></code></a></p>
+<p>Convolutional Neural Networks(CNNs) as a Function Approximator.</p>
+<p>CNNs are hierarchical models whose convolutional layers alternate with subsampling
+layers, reminiscent of simple and complex cells in the primary visual cortex.</p>
+<p>This class demonstrates that a CNNs can solve generalisation problems to learn
+successful control policies from observed data points in complex
+Reinforcement Learning environments. The network is trained with a variant of
+the Q-learning algorithm, with stochastic gradient descent to update the weights.</p>
+<p>The Deconvolution also called transposed convolutions “work by swapping the forward and backward passes of a convolution.” (Dumoulin, V., &amp; Visin, F. 2016, p20.)</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Dumoulin, V., &amp; V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.</li>
+<li>Masci, J., Meier, U., Cireşan, D., &amp; Schmidhuber, J. (2011, June). Stacked convolutional auto-encoders for hierarchical feature extraction. In International Conference on Artificial Neural Networks (pp. 52-59). Springer, Berlin, Heidelberg.</li>
+<li>Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., &amp; Riedmiller, M. (2013). Playing atari with deep reinforcement learning. arXiv preprint arXiv:1312.5602.</li>
+</ul>
+<dl class="method">
+<dt id="pyqlearning.functionapproximator.cnn_fa.CNNFA.get_loss_list">
+<code class="descname">get_loss_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/functionapproximator/cnn_fa.html#CNNFA.get_loss_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.functionapproximator.cnn_fa.CNNFA.get_loss_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.functionapproximator.cnn_fa.CNNFA.get_model">
+<code class="descname">get_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/functionapproximator/cnn_fa.html#CNNFA.get_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.functionapproximator.cnn_fa.CNNFA.get_model" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>object</cite> of model as a function approximator,
+which has <cite>cnn</cite> whose type is
+<cite>pydbm.cnn.pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.functionapproximator.cnn_fa.CNNFA.inference_q">
+<code class="descname">inference_q</code><span class="sig-paren">(</span><em>next_action_arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/functionapproximator/cnn_fa.html#CNNFA.inference_q"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.functionapproximator.cnn_fa.CNNFA.inference_q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infernce Q-Value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>next_action_arr</strong> – <cite>np.ndarray</cite> of action.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of Q-Values.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.functionapproximator.cnn_fa.CNNFA.learn_q">
+<code class="descname">learn_q</code><span class="sig-paren">(</span><em>predicted_q_arr</em>, <em>real_q_arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/functionapproximator/cnn_fa.html#CNNFA.learn_q"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.functionapproximator.cnn_fa.CNNFA.learn_q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infernce Q-Value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>predicted_q_arr</strong> – <cite>np.ndarray</cite> of predicted Q-Values.</li>
+<li><strong>real_q_arr</strong> – <cite>np.ndarray</cite> of real Q-Values.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyqlearning.functionapproximator.cnn_fa.CNNFA.loss_list">
+<code class="descname">loss_list</code><a class="headerlink" href="#pyqlearning.functionapproximator.cnn_fa.CNNFA.loss_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyqlearning.functionapproximator.cnn_fa.CNNFA.model">
+<code class="descname">model</code><a class="headerlink" href="#pyqlearning.functionapproximator.cnn_fa.CNNFA.model" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>object</cite> of model as a function approximator,
+which has <cite>cnn</cite> whose type is
+<cite>pydbm.cnn.pydbm.cnn.convolutional_neural_network.ConvolutionalNeuralNetwork</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.functionapproximator.cnn_fa.CNNFA.set_loss_list">
+<code class="descname">set_loss_list</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/functionapproximator/cnn_fa.html#CNNFA.set_loss_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.functionapproximator.cnn_fa.CNNFA.set_loss_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.functionapproximator.cnn_fa.CNNFA.set_model">
+<code class="descname">set_model</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/functionapproximator/cnn_fa.html#CNNFA.set_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.functionapproximator.cnn_fa.CNNFA.set_model" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>object</cite> of model as a function approximator.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyqlearning.functionapproximator.lstm_fa">
+<span id="pyqlearning-functionapproximator-lstm-fa-module"></span><h2>pyqlearning.functionapproximator.lstm_fa module<a class="headerlink" href="#module-pyqlearning.functionapproximator.lstm_fa" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyqlearning.functionapproximator.lstm_fa.LSTMFA">
+<em class="property">class </em><code class="descclassname">pyqlearning.functionapproximator.lstm_fa.</code><code class="descname">LSTMFA</code><span class="sig-paren">(</span><em>batch_size</em>, <em>lstm_model</em>, <em>seq_len=10</em>, <em>learning_rate=1e-05</em>, <em>learning_attenuate_rate=0.1</em>, <em>attenuate_epoch=50</em>, <em>computable_loss=None</em>, <em>opt_params=None</em>, <em>verificatable_result=None</em>, <em>verbose_mode=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/functionapproximator/lstm_fa.html#LSTMFA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.functionapproximator.lstm_fa.LSTMFA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyqlearning.html#pyqlearning.function_approximator.FunctionApproximator" title="pyqlearning.function_approximator.FunctionApproximator"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyqlearning.function_approximator.FunctionApproximator</span></code></a></p>
+<p>LSTM Networks as a Function Approximator.</p>
+<p>Originally, Long Short-Term Memory(LSTM) networks as a
+special RNN structure has proven stable and powerful for
+modeling long-range dependencies.</p>
+<p>The Key point of structural expansion is its memory cell
+which essentially acts as an accumulator of the state information.
+Every time observed data points are given as new information and input
+to LSTM’s input gate, its information will be accumulated to the cell
+if the input gate is activated. The past state of cell could be forgotten
+in this process if LSTM’s forget gate is on. Whether the latest cell output
+will be propagated to the final state is further controlled by the output gate.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., &amp; Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.</li>
+<li>Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., &amp; Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.</li>
+<li>Zaremba, W., Sutskever, I., &amp; Vinyals, O. (2014). Recurrent neural network regularization. arXiv preprint arXiv:1409.2329.</li>
+</ul>
+<dl class="method">
+<dt id="pyqlearning.functionapproximator.lstm_fa.LSTMFA.get_loss_list">
+<code class="descname">get_loss_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/functionapproximator/lstm_fa.html#LSTMFA.get_loss_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.functionapproximator.lstm_fa.LSTMFA.get_loss_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.functionapproximator.lstm_fa.LSTMFA.get_model">
+<code class="descname">get_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/functionapproximator/lstm_fa.html#LSTMFA.get_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.functionapproximator.lstm_fa.LSTMFA.get_model" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>object</cite> of model as a function approximator,
+which has <cite>lstm_model</cite> whose type is <cite>pydbm.rnn.lstm_model.LSTMModel</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.functionapproximator.lstm_fa.LSTMFA.inference_q">
+<code class="descname">inference_q</code><span class="sig-paren">(</span><em>next_action_arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/functionapproximator/lstm_fa.html#LSTMFA.inference_q"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.functionapproximator.lstm_fa.LSTMFA.inference_q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infernce Q-Value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>next_action_arr</strong> – <cite>np.ndarray</cite> of action.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of Q-Values.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.functionapproximator.lstm_fa.LSTMFA.learn_q">
+<code class="descname">learn_q</code><span class="sig-paren">(</span><em>predicted_q_arr</em>, <em>real_q_arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/functionapproximator/lstm_fa.html#LSTMFA.learn_q"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.functionapproximator.lstm_fa.LSTMFA.learn_q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infernce Q-Value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>predicted_q_arr</strong> – <cite>np.ndarray</cite> of predicted Q-Values.</li>
+<li><strong>real_q_arr</strong> – <cite>np.ndarray</cite> of real Q-Values.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyqlearning.functionapproximator.lstm_fa.LSTMFA.loss_list">
+<code class="descname">loss_list</code><a class="headerlink" href="#pyqlearning.functionapproximator.lstm_fa.LSTMFA.loss_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyqlearning.functionapproximator.lstm_fa.LSTMFA.model">
+<code class="descname">model</code><a class="headerlink" href="#pyqlearning.functionapproximator.lstm_fa.LSTMFA.model" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>object</cite> of model as a function approximator,
+which has <cite>lstm_model</cite> whose type is <cite>pydbm.rnn.lstm_model.LSTMModel</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.functionapproximator.lstm_fa.LSTMFA.set_loss_list">
+<code class="descname">set_loss_list</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/functionapproximator/lstm_fa.html#LSTMFA.set_loss_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.functionapproximator.lstm_fa.LSTMFA.set_loss_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.functionapproximator.lstm_fa.LSTMFA.set_model">
+<code class="descname">set_model</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/functionapproximator/lstm_fa.html#LSTMFA.set_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.functionapproximator.lstm_fa.LSTMFA.set_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Model as a function approximator.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyqlearning.functionapproximator">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pyqlearning.functionapproximator" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyqlearning.deepqlearning.html"
+                        title="previous chapter">pyqlearning.deepqlearning package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyqlearning.qlearning.html"
+                        title="next chapter">pyqlearning.qlearning package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyqlearning.qlearning.html" title="pyqlearning.qlearning package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyqlearning.deepqlearning.html" title="pyqlearning.deepqlearning package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyqlearning  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pyqlearning.html" >pyqlearning package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, chimera0(RUM).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

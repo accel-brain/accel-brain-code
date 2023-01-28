@@ -1,0 +1,298 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pyqlearning.annealingmodel package &#8212; pyqlearning  documentation</title>
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pyqlearning.annealingmodel.costfunctionable package" href="pyqlearning.annealingmodel.costfunctionable.html" />
+    <link rel="prev" title="pyqlearning package" href="pyqlearning.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyqlearning.annealingmodel.costfunctionable.html" title="pyqlearning.annealingmodel.costfunctionable package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyqlearning.html" title="pyqlearning package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyqlearning  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pyqlearning.html" accesskey="U">pyqlearning package</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyqlearning.html"
+                        title="previous chapter">pyqlearning package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyqlearning.annealingmodel.costfunctionable.html"
+                        title="next chapter">pyqlearning.annealingmodel.costfunctionable package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pyqlearning-annealingmodel-package">
+<h1>pyqlearning.annealingmodel package<a class="headerlink" href="#pyqlearning-annealingmodel-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pyqlearning.annealingmodel.costfunctionable.html">pyqlearning.annealingmodel.costfunctionable package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyqlearning.annealingmodel.costfunctionable.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqlearning.annealingmodel.costfunctionable.html#module-pyqlearning.annealingmodel.costfunctionable.boltzmann_q_learning_cost">pyqlearning.annealingmodel.costfunctionable.boltzmann_q_learning_cost module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqlearning.annealingmodel.costfunctionable.html#module-pyqlearning.annealingmodel.costfunctionable.greedy_q_learning_cost">pyqlearning.annealingmodel.costfunctionable.greedy_q_learning_cost module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqlearning.annealingmodel.costfunctionable.html#module-pyqlearning.annealingmodel.costfunctionable">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pyqlearning.annealingmodel.distancecomputable.html">pyqlearning.annealingmodel.distancecomputable package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyqlearning.annealingmodel.distancecomputable.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqlearning.annealingmodel.distancecomputable.html#module-pyqlearning.annealingmodel.distancecomputable.cost_as_distance">pyqlearning.annealingmodel.distancecomputable.cost_as_distance module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqlearning.annealingmodel.distancecomputable.html#module-pyqlearning.annealingmodel.distancecomputable.euclidean">pyqlearning.annealingmodel.distancecomputable.euclidean module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqlearning.annealingmodel.distancecomputable.html#module-pyqlearning.annealingmodel.distancecomputable">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pyqlearning.annealingmodel.simulatedannealing.html">pyqlearning.annealingmodel.simulatedannealing package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyqlearning.annealingmodel.simulatedannealing.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqlearning.annealingmodel.simulatedannealing.html#module-pyqlearning.annealingmodel.simulatedannealing.adaptive_simulated_annealing">pyqlearning.annealingmodel.simulatedannealing.adaptive_simulated_annealing module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyqlearning.annealingmodel.simulatedannealing.html#module-pyqlearning.annealingmodel.simulatedannealing">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pyqlearning.annealingmodel.cost_functionable">
+<span id="pyqlearning-annealingmodel-cost-functionable-module"></span><h2>pyqlearning.annealingmodel.cost_functionable module<a class="headerlink" href="#module-pyqlearning.annealingmodel.cost_functionable" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyqlearning.annealingmodel.cost_functionable.CostFunctionable">
+<em class="property">class </em><code class="descclassname">pyqlearning.annealingmodel.cost_functionable.</code><code class="descname">CostFunctionable</code><a class="reference internal" href="_modules/pyqlearning/annealingmodel/cost_functionable.html#CostFunctionable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.annealingmodel.cost_functionable.CostFunctionable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The interface of cost function in annealing.</p>
+<p>The definition of cost function is possible option:
+not necessity but contingent from the point of view of modal logic.
+You should questions the necessity of definition and re-define,
+for designing the implementation of this interface,
+in relation to your problem settings.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Bertsimas, D., &amp; Tsitsiklis, J. (1993). Simulated annealing. Statistical science, 8(1), 10-15.</li>
+<li>Das, A., &amp; Chakrabarti, B. K. (Eds.). (2005). Quantum annealing and related optimization methods (Vol. 679). Springer Science &amp; Business Media.</li>
+<li>Du, K. L., &amp; Swamy, M. N. S. (2016). Search and optimization by metaheuristics. New York City: Springer.</li>
+<li>Edwards, S. F., &amp; Anderson, P. W. (1975). Theory of spin glasses. Journal of Physics F: Metal Physics, 5(5), 965.</li>
+</ul>
+<dl class="method">
+<dt id="pyqlearning.annealingmodel.cost_functionable.CostFunctionable.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/annealingmodel/cost_functionable.html#CostFunctionable.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.annealingmodel.cost_functionable.CostFunctionable.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> – var.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Cost.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyqlearning.annealingmodel.distance_computable">
+<span id="pyqlearning-annealingmodel-distance-computable-module"></span><h2>pyqlearning.annealingmodel.distance_computable module<a class="headerlink" href="#module-pyqlearning.annealingmodel.distance_computable" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyqlearning.annealingmodel.distance_computable.DistanceComputable">
+<em class="property">class </em><code class="descclassname">pyqlearning.annealingmodel.distance_computable.</code><code class="descname">DistanceComputable</code><a class="reference internal" href="_modules/pyqlearning/annealingmodel/distance_computable.html#DistanceComputable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.annealingmodel.distance_computable.DistanceComputable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The interface of computing distance,
+to compute cost as distance for <cite>QuantumMonteCarlo</cite>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Das, A., &amp; Chakrabarti, B. K. (Eds.). (2005). Quantum annealing and related optimization methods (Vol. 679). Springer Science &amp; Business Media.</li>
+</ul>
+<dl class="method">
+<dt id="pyqlearning.annealingmodel.distance_computable.DistanceComputable.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/annealingmodel/distance_computable.html#DistanceComputable.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.annealingmodel.distance_computable.DistanceComputable.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute distance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> – Data point.</li>
+<li><strong>y</strong> – Data point.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Distance.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyqlearning.annealingmodel.quantum_monte_carlo">
+<span id="pyqlearning-annealingmodel-quantum-monte-carlo-module"></span><h2>pyqlearning.annealingmodel.quantum_monte_carlo module<a class="headerlink" href="#module-pyqlearning.annealingmodel.quantum_monte_carlo" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyqlearning.annealingmodel.quantum_monte_carlo.QuantumMonteCarlo">
+<em class="property">class </em><code class="descclassname">pyqlearning.annealingmodel.quantum_monte_carlo.</code><code class="descname">QuantumMonteCarlo</code><span class="sig-paren">(</span><em>distance_computable</em>, <em>cycles_num=100</em>, <em>inverse_temperature_beta=50</em>, <em>gammma=1.0</em>, <em>fractional_reduction=0.99</em>, <em>trotter_dimention=None</em>, <em>mc_step=None</em>, <em>point_num=None</em>, <em>spin_arr=None</em>, <em>tolerance_diff_e=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/annealingmodel/quantum_monte_carlo.html#QuantumMonteCarlo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.annealingmodel.quantum_monte_carlo.QuantumMonteCarlo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyqlearning.html#pyqlearning.annealing_model.AnnealingModel" title="pyqlearning.annealing_model.AnnealingModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyqlearning.annealing_model.AnnealingModel</span></code></a></p>
+<p>Quantum Monte Carlo.</p>
+<p>Generally, Quantum Monte Carlo is a stochastic method
+to solve the Schrödinger equation. This algorithm is one of
+the earliest types of solution in order to simulate the Quantum Annealing
+in classical computer. In summary, one of the function of this algorithm
+is to solve the ground state search problem which is known as logically
+equivalent to combinatorial optimization problem.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Das, A., &amp; Chakrabarti, B. K. (Eds.). (2005). Quantum annealing and related optimization methods (Vol. 679). Springer Science &amp; Business Media.</li>
+<li>Facchi, P., &amp; Pascazio, S. (2008). Quantum Zeno dynamics: mathematical and physical aspects. Journal of Physics A: Mathematical and Theoretical, 41(49), 493001.</li>
+<li>Heim, B., Rønnow, T. F., Isakov, S. V., &amp; Troyer, M. (2015). Quantum versus classical annealing of Ising spin glasses. Science, 348(6231), 215-217.</li>
+<li>Heisenberg, W. (1925) Über quantentheoretische Umdeutung kinematischer und mechanischer Beziehungen. Z. Phys. 33, pp.879—893.</li>
+<li>Heisenberg, W. (1927). Über den anschaulichen Inhalt der quantentheoretischen Kinematik und Mechanik. Zeitschrift fur Physik, 43, 172-198.</li>
+<li>Heisenberg, W. (1984). The development of quantum mechanics. In Scientific Review Papers, Talks, and Books -Wissenschaftliche Übersichtsartikel, Vorträge und Bücher (pp. 226-237). Springer Berlin Heidelberg. Hilgevoord, Jan and Uffink, Jos, “The Uncertainty Principle”, The Stanford Encyclopedia of Philosophy (Winter 2016 Edition), Edward N. Zalta (ed.), URL = ＜https://plato.stanford.edu/archives/win2016/entries/qt-uncertainty/＞.</li>
+<li>Jarzynski, C. (1997). Nonequilibrium equality for free energy differences. Physical Review Letters, 78(14), 2690.</li>
+<li>Messiah, A. (1966). Quantum mechanics. 2 (1966). North-Holland Publishing Company.</li>
+<li>Schrödinger, E. (1926). Quantisierung als eigenwertproblem. Annalen der physik, 385(13), S.437-490.</li>
+<li>Somma, R. D., Batista, C. D., &amp; Ortiz, G. (2007). Quantum approach to classical statistical mechanics. Physical review letters, 99(3), 030603.</li>
+<li>鈴木正. (2008). 「組み合わせ最適化問題と量子アニーリング: 量子断熱発展の理論と性能評価」.,『物性研究』, 90(4): pp598-676. 参照箇所はpp619-624.</li>
+<li>西森秀稔、大関真之(2018) 『量子アニーリングの基礎』須藤 彰三、岡 真 監修、共立出版、参照箇所はpp9-46.</li>
+</ul>
+<dl class="method">
+<dt id="pyqlearning.annealingmodel.quantum_monte_carlo.QuantumMonteCarlo.annealing">
+<code class="descname">annealing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/annealingmodel/quantum_monte_carlo.html#QuantumMonteCarlo.annealing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.annealingmodel.quantum_monte_carlo.QuantumMonteCarlo.annealing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Annealing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.annealingmodel.quantum_monte_carlo.QuantumMonteCarlo.get_spin_arr">
+<code class="descname">get_spin_arr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/annealingmodel/quantum_monte_carlo.html#QuantumMonteCarlo.get_spin_arr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.annealingmodel.quantum_monte_carlo.QuantumMonteCarlo.get_spin_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.annealingmodel.quantum_monte_carlo.QuantumMonteCarlo.set_readonly">
+<code class="descname">set_readonly</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/annealingmodel/quantum_monte_carlo.html#QuantumMonteCarlo.set_readonly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.annealingmodel.quantum_monte_carlo.QuantumMonteCarlo.set_readonly" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyqlearning.annealingmodel.quantum_monte_carlo.QuantumMonteCarlo.spin_arr">
+<code class="descname">spin_arr</code><a class="headerlink" href="#pyqlearning.annealingmodel.quantum_monte_carlo.QuantumMonteCarlo.spin_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyqlearning.annealingmodel.simulated_annealing">
+<span id="pyqlearning-annealingmodel-simulated-annealing-module"></span><h2>pyqlearning.annealingmodel.simulated_annealing module<a class="headerlink" href="#module-pyqlearning.annealingmodel.simulated_annealing" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyqlearning.annealingmodel.simulated_annealing.SimulatedAnnealing">
+<em class="property">class </em><code class="descclassname">pyqlearning.annealingmodel.simulated_annealing.</code><code class="descname">SimulatedAnnealing</code><span class="sig-paren">(</span><em>cost_functionable</em>, <em>cycles_num=200</em>, <em>trials_per_cycle=50</em>, <em>accepted_sol_num=0.0</em>, <em>init_prob=0.7</em>, <em>final_prob=0.001</em>, <em>start_pos=0</em>, <em>move_range=3</em>, <em>tolerance_diff_e=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/annealingmodel/simulated_annealing.html#SimulatedAnnealing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.annealingmodel.simulated_annealing.SimulatedAnnealing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyqlearning.html#pyqlearning.annealing_model.AnnealingModel" title="pyqlearning.annealing_model.AnnealingModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyqlearning.annealing_model.AnnealingModel</span></code></a></p>
+<p>Simulated Annealing.</p>
+<p>Simulated Annealing is a probabilistic single solution
+based search method inspired by the annealing process in metallurgy.
+Annealing is a physical process referred to as tempering certain alloys of metal,
+glass, or crystal by heating above its melting point, holding its temperature,
+and then cooling it very slowly until it solidifies into a perfect crystalline structure.
+The simulation of this process is known as simulated annealing.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Bertsimas, D., &amp; Tsitsiklis, J. (1993). Simulated annealing. Statistical science, 8(1), 10-15.</li>
+<li>Du, K. L., &amp; Swamy, M. N. S. (2016). Search and optimization by metaheuristics. New York City: Springer.</li>
+<li>Mezard, M., &amp; Montanari, A. (2009). Information, physics, and computation. Oxford University Press.</li>
+<li>Nallusamy, R., Duraiswamy, K., Dhanalaksmi, R., &amp; Parthiban, P. (2009). Optimization of non-linear multiple traveling salesman problem using k-means clustering, shrink wrap algorithm and meta-heuristics. International Journal of Nonlinear Science, 8(4), 480-487.</li>
+</ul>
+<dl class="method">
+<dt id="pyqlearning.annealingmodel.simulated_annealing.SimulatedAnnealing.annealing">
+<code class="descname">annealing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/annealingmodel/simulated_annealing.html#SimulatedAnnealing.annealing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.annealingmodel.simulated_annealing.SimulatedAnnealing.annealing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Annealing.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyqlearning.annealingmodel">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pyqlearning.annealingmodel" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyqlearning.annealingmodel.costfunctionable.html" title="pyqlearning.annealingmodel.costfunctionable package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyqlearning.html" title="pyqlearning package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyqlearning  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pyqlearning.html" >pyqlearning package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Accel Brain.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+twelve\_tone\_composer module
+=============================
+
+.. automodule:: twelve_tone_composer
+    :members:
+    :undoc-members:
+    :show-inheritance:

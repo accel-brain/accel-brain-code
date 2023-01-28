@@ -1,0 +1,29 @@
+pysummarization.iteratabledata package
+======================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    pysummarization.iteratabledata._mxnet
+
+Submodules
+----------
+
+pysummarization.iteratabledata.token\_iterator module
+-----------------------------------------------------
+
+.. automodule:: pysummarization.iteratabledata.token_iterator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pysummarization.iteratabledata
+    :members:
+    :undoc-members:
+    :show-inheritance:

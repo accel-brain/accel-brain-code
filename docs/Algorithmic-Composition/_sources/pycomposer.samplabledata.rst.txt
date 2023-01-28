@@ -1,0 +1,18 @@
+pycomposer.samplabledata package
+================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    pycomposer.samplabledata.noisesampler
+    pycomposer.samplabledata.truesampler
+
+Module contents
+---------------
+
+.. automodule:: pycomposer.samplabledata
+    :members:
+    :undoc-members:
+    :show-inheritance:

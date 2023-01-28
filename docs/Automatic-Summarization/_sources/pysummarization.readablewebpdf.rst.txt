@@ -1,0 +1,22 @@
+pysummarization.readablewebpdf package
+======================================
+
+Submodules
+----------
+
+pysummarization.readablewebpdf.web\_pdf\_reading module
+-------------------------------------------------------
+
+.. automodule:: pysummarization.readablewebpdf.web_pdf_reading
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pysummarization.readablewebpdf
+    :members:
+    :undoc-members:
+    :show-inheritance:

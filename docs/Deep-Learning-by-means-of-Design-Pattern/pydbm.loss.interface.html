@@ -1,0 +1,202 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pydbm.loss.interface package &#8212; pydbm  documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pydbm.nn package" href="pydbm.nn.html" />
+    <link rel="prev" title="pydbm.loss package" href="pydbm.loss.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pydbm.nn.html" title="pydbm.nn package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pydbm.loss.html" title="pydbm.loss package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pydbm  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pydbm.html" >pydbm package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="pydbm.loss.html" accesskey="U">pydbm.loss package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pydbm-loss-interface-package">
+<h1>pydbm.loss.interface package<a class="headerlink" href="#pydbm-loss-interface-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pydbm.loss.interface.computable_loss">
+<span id="pydbm-loss-interface-computable-loss-module"></span><h2>pydbm.loss.interface.computable_loss module<a class="headerlink" href="#module-pydbm.loss.interface.computable_loss" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.loss.interface.computable_loss.ComputableLoss">
+<em class="property">class </em><code class="descclassname">pydbm.loss.interface.computable_loss.</code><code class="descname">ComputableLoss</code><a class="headerlink" href="#pydbm.loss.interface.computable_loss.ComputableLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Interface of Loss functions.</p>
+<dl class="attribute">
+<dt id="pydbm.loss.interface.computable_loss.ComputableLoss.compute_delta">
+<code class="descname">compute_delta</code><a class="headerlink" href="#pydbm.loss.interface.computable_loss.ComputableLoss.compute_delta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Backward delta.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pred_arr</strong> – Predicted data.</li>
+<li><strong>labeled_arr</strong> – Labeled data.</li>
+<li><strong>delta_output</strong> – Delta.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Delta.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.loss.interface.computable_loss.ComputableLoss.compute_loss">
+<code class="descname">compute_loss</code><a class="headerlink" href="#pydbm.loss.interface.computable_loss.ComputableLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return of result from this Cost function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pred_arr</strong> – Predicted data.</li>
+<li><strong>labeled_arr</strong> – Labeled data.</li>
+<li><strong>axis</strong> – Axis or axes along which the losses are computed.
+The default is to compute the losses of the flattened array.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Cost.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.loss.interface.computable_loss.ComputableLoss.get_penalty_delta_arr">
+<code class="descname">get_penalty_delta_arr</code><a class="headerlink" href="#pydbm.loss.interface.computable_loss.ComputableLoss.get_penalty_delta_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.loss.interface.computable_loss.ComputableLoss.get_penalty_term">
+<code class="descname">get_penalty_term</code><a class="headerlink" href="#pydbm.loss.interface.computable_loss.ComputableLoss.get_penalty_term" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.loss.interface.computable_loss.ComputableLoss.penalty_delta_arr">
+<code class="descname">penalty_delta_arr</code><a class="headerlink" href="#pydbm.loss.interface.computable_loss.ComputableLoss.penalty_delta_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.loss.interface.computable_loss.ComputableLoss.penalty_term">
+<code class="descname">penalty_term</code><a class="headerlink" href="#pydbm.loss.interface.computable_loss.ComputableLoss.penalty_term" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.loss.interface.computable_loss.ComputableLoss.set_penalty_delta_arr">
+<code class="descname">set_penalty_delta_arr</code><a class="headerlink" href="#pydbm.loss.interface.computable_loss.ComputableLoss.set_penalty_delta_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.loss.interface.computable_loss.ComputableLoss.set_penalty_term">
+<code class="descname">set_penalty_term</code><a class="headerlink" href="#pydbm.loss.interface.computable_loss.ComputableLoss.set_penalty_term" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.loss.interface">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pydbm.loss.interface" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pydbm.loss.html"
+                        title="previous chapter">pydbm.loss package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pydbm.nn.html"
+                        title="next chapter">pydbm.nn package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pydbm.nn.html" title="pydbm.nn package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pydbm.loss.html" title="pydbm.loss package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pydbm  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pydbm.html" >pydbm package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="pydbm.loss.html" >pydbm.loss package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2019, chimera0(RUM).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

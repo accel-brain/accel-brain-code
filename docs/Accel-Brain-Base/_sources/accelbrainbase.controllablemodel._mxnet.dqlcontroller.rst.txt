@@ -1,0 +1,22 @@
+accelbrainbase.controllablemodel.\_mxnet.dqlcontroller package
+==============================================================
+
+Submodules
+----------
+
+accelbrainbase.controllablemodel.\_mxnet.dqlcontroller.dqn\_controller module
+-----------------------------------------------------------------------------
+
+.. automodule:: accelbrainbase.controllablemodel._mxnet.dqlcontroller.dqn_controller
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: accelbrainbase.controllablemodel._mxnet.dqlcontroller
+    :members:
+    :undoc-members:
+    :show-inheritance:

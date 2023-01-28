@@ -1,0 +1,38 @@
+pygan package
+=============
+
+Submodules
+----------
+
+pygan.ebaae\_image\_generator module
+------------------------------------
+
+.. automodule:: pygan.ebaae_image_generator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pygan.ebgan\_image\_generator module
+------------------------------------
+
+.. automodule:: pygan.ebgan_image_generator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pygan.gan\_image\_generator module
+----------------------------------
+
+.. automodule:: pygan.gan_image_generator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pygan
+    :members:
+    :undoc-members:
+    :show-inheritance:

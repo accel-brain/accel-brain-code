@@ -1,0 +1,22 @@
+pygan.generativeadversarialnetworks package
+===========================================
+
+Submodules
+----------
+
+pygan.generativeadversarialnetworks.adversarial\_auto\_encoders module
+----------------------------------------------------------------------
+
+.. automodule:: pygan.generativeadversarialnetworks.adversarial_auto_encoders
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pygan.generativeadversarialnetworks
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,46 @@
+pydbm.approximation package
+===========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    pydbm.approximation.interface
+    pydbm.approximation.rtrbmcd
+
+Submodules
+----------
+
+pydbm.approximation.contrastive\_divergence module
+--------------------------------------------------
+
+.. automodule:: pydbm.approximation.contrastive_divergence
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.approximation.rt\_rbm\_cd module
+--------------------------------------
+
+.. automodule:: pydbm.approximation.rt_rbm_cd
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.approximation.shape\_bm\_cd module
+----------------------------------------
+
+.. automodule:: pydbm.approximation.shape_bm_cd
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pydbm.approximation
+    :members:
+    :undoc-members:
+    :show-inheritance:

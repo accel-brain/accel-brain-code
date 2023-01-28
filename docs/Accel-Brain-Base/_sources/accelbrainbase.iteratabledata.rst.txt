@@ -1,0 +1,53 @@
+accelbrainbase.iteratabledata package
+=====================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    accelbrainbase.iteratabledata._mxnet
+
+Submodules
+----------
+
+accelbrainbase.iteratabledata.drcn\_iterator module
+---------------------------------------------------
+
+.. automodule:: accelbrainbase.iteratabledata.drcn_iterator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+accelbrainbase.iteratabledata.labeled\_csv\_iterator module
+-----------------------------------------------------------
+
+.. automodule:: accelbrainbase.iteratabledata.labeled_csv_iterator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+accelbrainbase.iteratabledata.labeled\_image\_iterator module
+-------------------------------------------------------------
+
+.. automodule:: accelbrainbase.iteratabledata.labeled_image_iterator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+accelbrainbase.iteratabledata.unlabeled\_image\_iterator module
+---------------------------------------------------------------
+
+.. automodule:: accelbrainbase.iteratabledata.unlabeled_image_iterator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: accelbrainbase.iteratabledata
+    :members:
+    :undoc-members:
+    :show-inheritance:

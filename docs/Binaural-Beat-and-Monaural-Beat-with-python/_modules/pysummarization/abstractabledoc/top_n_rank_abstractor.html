@@ -1,0 +1,133 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pysummarization.abstractabledoc.top_n_rank_abstractor &#8212; pysummarization  documentation</title>
+    <link rel="stylesheet" href="../../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pysummarization  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pysummarization.abstractabledoc.top_n_rank_abstractor</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">pysummarization.abstractable_doc</span> <span class="k">import</span> <span class="n">AbstractableDoc</span>
+
+
+<div class="viewcode-block" id="TopNRankAbstractor"><a class="viewcode-back" href="../../../pysummarization.abstractabledoc.html#pysummarization.abstractabledoc.top_n_rank_abstractor.TopNRankAbstractor">[docs]</a><span class="k">class</span> <span class="nc">TopNRankAbstractor</span><span class="p">(</span><span class="n">AbstractableDoc</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Ranking the list of tokens.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1"># N of top-n.</span>
+    <span class="n">__top_n</span> <span class="o">=</span> <span class="mi">10</span>
+
+<div class="viewcode-block" id="TopNRankAbstractor.get_top_n"><a class="viewcode-back" href="../../../pysummarization.abstractabledoc.html#pysummarization.abstractabledoc.top_n_rank_abstractor.TopNRankAbstractor.get_top_n">[docs]</a>    <span class="k">def</span> <span class="nf">get_top_n</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; getter &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__top_n</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of __top_n must be int.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__top_n</span></div>
+
+<div class="viewcode-block" id="TopNRankAbstractor.set_top_n"><a class="viewcode-back" href="../../../pysummarization.abstractabledoc.html#pysummarization.abstractabledoc.top_n_rank_abstractor.TopNRankAbstractor.set_top_n">[docs]</a>    <span class="k">def</span> <span class="nf">set_top_n</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; setter &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of __top_n must be int.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__top_n</span> <span class="o">=</span> <span class="n">value</span></div>
+
+    <span class="n">top_n</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_top_n</span><span class="p">,</span> <span class="n">set_top_n</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TopNRankAbstractor.filter"><a class="viewcode-back" href="../../../pysummarization.abstractabledoc.html#pysummarization.abstractabledoc.top_n_rank_abstractor.TopNRankAbstractor.filter">[docs]</a>    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scored_list</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Filtering with top-n ranking.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scored_list:    The list of scoring.</span>
+
+<span class="sd">        Retruns:</span>
+<span class="sd">            The list of filtered result.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">top_n_key</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_n</span>
+        <span class="n">top_n_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">scored_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[</span><span class="n">top_n_key</span><span class="p">:]</span>
+        <span class="n">result_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">top_n_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">result_list</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pysummarization  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, chimera0(RUM).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.4.
+    </div>
+  </body>
+</html>

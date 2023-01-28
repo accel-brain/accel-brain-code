@@ -1,0 +1,54 @@
+pygan.discriminativemodel package
+=================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    pygan.discriminativemodel.autoencodermodel
+    pygan.discriminativemodel.cnnmodel
+
+Submodules
+----------
+
+pygan.discriminativemodel.auto\_encoder\_model module
+-----------------------------------------------------
+
+.. automodule:: pygan.discriminativemodel.auto_encoder_model
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pygan.discriminativemodel.cnn\_model module
+-------------------------------------------
+
+.. automodule:: pygan.discriminativemodel.cnn_model
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pygan.discriminativemodel.lstm\_model module
+--------------------------------------------
+
+.. automodule:: pygan.discriminativemodel.lstm_model
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pygan.discriminativemodel.nn\_model module
+------------------------------------------
+
+.. automodule:: pygan.discriminativemodel.nn_model
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pygan.discriminativemodel
+    :members:
+    :undoc-members:
+    :show-inheritance:

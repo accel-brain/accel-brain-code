@@ -1,0 +1,62 @@
+pydbm.optimization.optparams package
+====================================
+
+Submodules
+----------
+
+pydbm.optimization.optparams.ada\_grad module
+---------------------------------------------
+
+.. automodule:: pydbm.optimization.optparams.ada_grad
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.optimization.optparams.adam module
+----------------------------------------
+
+.. automodule:: pydbm.optimization.optparams.adam
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.optimization.optparams.nadam module
+-----------------------------------------
+
+.. automodule:: pydbm.optimization.optparams.nadam
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.optimization.optparams.nag module
+---------------------------------------
+
+.. automodule:: pydbm.optimization.optparams.nag
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.optimization.optparams.rms\_prop module
+---------------------------------------------
+
+.. automodule:: pydbm.optimization.optparams.rms_prop
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.optimization.optparams.sgd module
+---------------------------------------
+
+.. automodule:: pydbm.optimization.optparams.sgd
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pydbm.optimization.optparams
+    :members:
+    :undoc-members:
+    :show-inheritance:

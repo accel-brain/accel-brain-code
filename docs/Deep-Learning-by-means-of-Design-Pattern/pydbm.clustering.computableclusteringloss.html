@@ -1,0 +1,311 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pydbm.clustering.computableclusteringloss package &#8212; pydbm  documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pydbm.clustering.computableclusteringloss.repellingloss package" href="pydbm.clustering.computableclusteringloss.repellingloss.html" />
+    <link rel="prev" title="pydbm.clustering.autoencodable package" href="pydbm.clustering.autoencodable.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pydbm.clustering.computableclusteringloss.repellingloss.html" title="pydbm.clustering.computableclusteringloss.repellingloss package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pydbm.clustering.autoencodable.html" title="pydbm.clustering.autoencodable package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pydbm  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pydbm.html" >pydbm package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="pydbm.clustering.html" accesskey="U">pydbm.clustering package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pydbm-clustering-computableclusteringloss-package">
+<h1>pydbm.clustering.computableclusteringloss package<a class="headerlink" href="#pydbm-clustering-computableclusteringloss-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pydbm.clustering.computableclusteringloss.repellingloss.html">pydbm.clustering.computableclusteringloss.repellingloss package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.clustering.computableclusteringloss.repellingloss.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.clustering.computableclusteringloss.repellingloss.html#module-pydbm.clustering.computableclusteringloss.repellingloss.improved_repelling_loss">pydbm.clustering.computableclusteringloss.repellingloss.improved_repelling_loss module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.clustering.computableclusteringloss.repellingloss.html#module-pydbm.clustering.computableclusteringloss.repellingloss">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pydbm.clustering.computableclusteringloss.balanced_assignments_loss">
+<span id="pydbm-clustering-computableclusteringloss-balanced-assignments-loss-module"></span><h2>pydbm.clustering.computableclusteringloss.balanced_assignments_loss module<a class="headerlink" href="#module-pydbm.clustering.computableclusteringloss.balanced_assignments_loss" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.clustering.computableclusteringloss.balanced_assignments_loss.BalancedAssignmentsLoss">
+<em class="property">class </em><code class="descclassname">pydbm.clustering.computableclusteringloss.balanced_assignments_loss.</code><code class="descname">BalancedAssignmentsLoss</code><a class="headerlink" href="#pydbm.clustering.computableclusteringloss.balanced_assignments_loss.BalancedAssignmentsLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pydbm.clustering.interface.html#pydbm.clustering.interface.computable_clustering_loss.ComputableClusteringLoss" title="pydbm.clustering.interface.computable_clustering_loss.ComputableClusteringLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">pydbm.clustering.interface.computable_clustering_loss.ComputableClusteringLoss</span></code></a></p>
+<p>Balanced Assignments Loss.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Aljalbout, E., Golkov, V., Siddiqui, Y., Strobel, M., &amp; Cremers, D. (2018). Clustering with deep learning: Taxonomy and new methods. arXiv preprint arXiv:1801.07648.</li>
+<li>Guo, X., Gao, L., Liu, X., &amp; Yin, J. (2017, June). Improved Deep Embedded Clustering with Local Structure Preservation. In IJCAI (pp. 1753-1759).</li>
+<li>Xie, J., Girshick, R., &amp; Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).</li>
+<li>Zhao, J., Mathieu, M., &amp; LeCun, Y. (2016). Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126.</li>
+</ul>
+<dl class="attribute">
+<dt id="pydbm.clustering.computableclusteringloss.balanced_assignments_loss.BalancedAssignmentsLoss.compute_clustering_loss">
+<code class="descname">compute_clustering_loss</code><a class="headerlink" href="#pydbm.clustering.computableclusteringloss.balanced_assignments_loss.BalancedAssignmentsLoss.compute_clustering_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute clustering loss.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>observed_arr</strong> – <cite>np.ndarray</cite> of observed data points.</li>
+<li><strong>reconstructed_arr</strong> – <cite>np.ndarray</cite> of reconstructed data.</li>
+<li><strong>feature_arr</strong> – <cite>np.ndarray</cite> of feature points.</li>
+<li><strong>delta_arr</strong> – <cite>np.ndarray</cite> of differences between feature points and centroids.</li>
+<li><strong>p_arr</strong> – <cite>np.ndarray</cite> of result of soft assignment.</li>
+<li><strong>q_arr</strong> – <cite>np.ndarray</cite> of target distribution.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuple data.
+- <cite>np.ndarray</cite> of delta for the encoder.
+- <cite>np.ndarray</cite> of delta for the decoder.
+- <cite>np.ndarray</cite> of delta for the centroids.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.clustering.computableclusteringloss.k_means_loss">
+<span id="pydbm-clustering-computableclusteringloss-k-means-loss-module"></span><h2>pydbm.clustering.computableclusteringloss.k_means_loss module<a class="headerlink" href="#module-pydbm.clustering.computableclusteringloss.k_means_loss" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.clustering.computableclusteringloss.k_means_loss.KMeansLoss">
+<em class="property">class </em><code class="descclassname">pydbm.clustering.computableclusteringloss.k_means_loss.</code><code class="descname">KMeansLoss</code><a class="headerlink" href="#pydbm.clustering.computableclusteringloss.k_means_loss.KMeansLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pydbm.clustering.interface.html#pydbm.clustering.interface.computable_clustering_loss.ComputableClusteringLoss" title="pydbm.clustering.interface.computable_clustering_loss.ComputableClusteringLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">pydbm.clustering.interface.computable_clustering_loss.ComputableClusteringLoss</span></code></a></p>
+<p>Compute K-Means Loss.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Aljalbout, E., Golkov, V., Siddiqui, Y., Strobel, M., &amp; Cremers, D. (2018). Clustering with deep learning: Taxonomy and new methods. arXiv preprint arXiv:1801.07648.</li>
+<li>Guo, X., Gao, L., Liu, X., &amp; Yin, J. (2017, June). Improved Deep Embedded Clustering with Local Structure Preservation. In IJCAI (pp. 1753-1759).</li>
+<li>Xie, J., Girshick, R., &amp; Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).</li>
+<li>Zhao, J., Mathieu, M., &amp; LeCun, Y. (2016). Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126.</li>
+</ul>
+<dl class="attribute">
+<dt id="pydbm.clustering.computableclusteringloss.k_means_loss.KMeansLoss.compute_clustering_loss">
+<code class="descname">compute_clustering_loss</code><a class="headerlink" href="#pydbm.clustering.computableclusteringloss.k_means_loss.KMeansLoss.compute_clustering_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute clustering loss.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>observed_arr</strong> – <cite>np.ndarray</cite> of observed data points.</li>
+<li><strong>reconstructed_arr</strong> – <cite>np.ndarray</cite> of reconstructed data.</li>
+<li><strong>feature_arr</strong> – <cite>np.ndarray</cite> of feature points.</li>
+<li><strong>delta_arr</strong> – <cite>np.ndarray</cite> of differences between feature points and centroids.</li>
+<li><strong>p_arr</strong> – <cite>np.ndarray</cite> of result of soft assignment.</li>
+<li><strong>q_arr</strong> – <cite>np.ndarray</cite> of target distribution.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuple data.
+- <cite>np.ndarray</cite> of delta for the encoder.
+- <cite>np.ndarray</cite> of delta for the decoder.
+- <cite>np.ndarray</cite> of delta for the centroids.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.clustering.computableclusteringloss.reconstruction_loss">
+<span id="pydbm-clustering-computableclusteringloss-reconstruction-loss-module"></span><h2>pydbm.clustering.computableclusteringloss.reconstruction_loss module<a class="headerlink" href="#module-pydbm.clustering.computableclusteringloss.reconstruction_loss" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.clustering.computableclusteringloss.reconstruction_loss.ReconstructionLoss">
+<em class="property">class </em><code class="descclassname">pydbm.clustering.computableclusteringloss.reconstruction_loss.</code><code class="descname">ReconstructionLoss</code><a class="headerlink" href="#pydbm.clustering.computableclusteringloss.reconstruction_loss.ReconstructionLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pydbm.clustering.interface.html#pydbm.clustering.interface.computable_clustering_loss.ComputableClusteringLoss" title="pydbm.clustering.interface.computable_clustering_loss.ComputableClusteringLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">pydbm.clustering.interface.computable_clustering_loss.ComputableClusteringLoss</span></code></a></p>
+<p>Reconstruction Loss.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Aljalbout, E., Golkov, V., Siddiqui, Y., Strobel, M., &amp; Cremers, D. (2018). Clustering with deep learning: Taxonomy and new methods. arXiv preprint arXiv:1801.07648.</li>
+<li>Guo, X., Gao, L., Liu, X., &amp; Yin, J. (2017, June). Improved Deep Embedded Clustering with Local Structure Preservation. In IJCAI (pp. 1753-1759).</li>
+<li>Xie, J., Girshick, R., &amp; Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).</li>
+<li>Zhao, J., Mathieu, M., &amp; LeCun, Y. (2016). Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126.</li>
+</ul>
+<dl class="attribute">
+<dt id="pydbm.clustering.computableclusteringloss.reconstruction_loss.ReconstructionLoss.compute_clustering_loss">
+<code class="descname">compute_clustering_loss</code><a class="headerlink" href="#pydbm.clustering.computableclusteringloss.reconstruction_loss.ReconstructionLoss.compute_clustering_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute clustering loss.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>observed_arr</strong> – <cite>np.ndarray</cite> of observed data points.</li>
+<li><strong>reconstructed_arr</strong> – <cite>np.ndarray</cite> of reconstructed data.</li>
+<li><strong>feature_arr</strong> – <cite>np.ndarray</cite> of feature points.</li>
+<li><strong>delta_arr</strong> – <cite>np.ndarray</cite> of differences between feature points and centroids.</li>
+<li><strong>p_arr</strong> – <cite>np.ndarray</cite> of result of soft assignment.</li>
+<li><strong>q_arr</strong> – <cite>np.ndarray</cite> of target distribution.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuple data.
+- <cite>np.ndarray</cite> of delta for the encoder.
+- <cite>np.ndarray</cite> of delta for the decoder.
+- <cite>np.ndarray</cite> of delta for the centroids.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.clustering.computableclusteringloss.repelling_loss">
+<span id="pydbm-clustering-computableclusteringloss-repelling-loss-module"></span><h2>pydbm.clustering.computableclusteringloss.repelling_loss module<a class="headerlink" href="#module-pydbm.clustering.computableclusteringloss.repelling_loss" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.clustering.computableclusteringloss.repelling_loss.RepellingLoss">
+<em class="property">class </em><code class="descclassname">pydbm.clustering.computableclusteringloss.repelling_loss.</code><code class="descname">RepellingLoss</code><a class="headerlink" href="#pydbm.clustering.computableclusteringloss.repelling_loss.RepellingLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pydbm.clustering.interface.html#pydbm.clustering.interface.computable_clustering_loss.ComputableClusteringLoss" title="pydbm.clustering.interface.computable_clustering_loss.ComputableClusteringLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">pydbm.clustering.interface.computable_clustering_loss.ComputableClusteringLoss</span></code></a></p>
+<p>Repelling Loss.</p>
+<p>Note that this class calculates this penalty term for each cluster
+divided by soft assignments and refers to the sum as a regularizer.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Aljalbout, E., Golkov, V., Siddiqui, Y., Strobel, M., &amp; Cremers, D. (2018). Clustering with deep learning: Taxonomy and new methods. arXiv preprint arXiv:1801.07648.</li>
+<li>Guo, X., Gao, L., Liu, X., &amp; Yin, J. (2017, June). Improved Deep Embedded Clustering with Local Structure Preservation. In IJCAI (pp. 1753-1759).</li>
+<li>Xie, J., Girshick, R., &amp; Farhadi, A. (2016, June). Unsupervised deep embedding for clustering analysis. In International conference on machine learning (pp. 478-487).</li>
+<li>Zhao, J., Mathieu, M., &amp; LeCun, Y. (2016). Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126.</li>
+</ul>
+<dl class="attribute">
+<dt id="pydbm.clustering.computableclusteringloss.repelling_loss.RepellingLoss.assign_label">
+<code class="descname">assign_label</code><a class="headerlink" href="#pydbm.clustering.computableclusteringloss.repelling_loss.RepellingLoss.assign_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.clustering.computableclusteringloss.repelling_loss.RepellingLoss.compute_clustering_loss">
+<code class="descname">compute_clustering_loss</code><a class="headerlink" href="#pydbm.clustering.computableclusteringloss.repelling_loss.RepellingLoss.compute_clustering_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute clustering loss.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>observed_arr</strong> – <cite>np.ndarray</cite> of observed data points.</li>
+<li><strong>reconstructed_arr</strong> – <cite>np.ndarray</cite> of reconstructed data.</li>
+<li><strong>feature_arr</strong> – <cite>np.ndarray</cite> of feature points.</li>
+<li><strong>delta_arr</strong> – <cite>np.ndarray</cite> of differences between feature points and centroids.</li>
+<li><strong>p_arr</strong> – <cite>np.ndarray</cite> of result of soft assignment.</li>
+<li><strong>q_arr</strong> – <cite>np.ndarray</cite> of target distribution.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuple data.
+- <cite>np.ndarray</cite> of delta for the encoder.
+- <cite>np.ndarray</cite> of delta for the decoder.
+- <cite>np.ndarray</cite> of delta for the centroids.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.clustering.computableclusteringloss">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pydbm.clustering.computableclusteringloss" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pydbm.clustering.autoencodable.html"
+                        title="previous chapter">pydbm.clustering.autoencodable package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pydbm.clustering.computableclusteringloss.repellingloss.html"
+                        title="next chapter">pydbm.clustering.computableclusteringloss.repellingloss package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pydbm.clustering.computableclusteringloss.repellingloss.html" title="pydbm.clustering.computableclusteringloss.repellingloss package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pydbm.clustering.autoencodable.html" title="pydbm.clustering.autoencodable package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pydbm  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pydbm.html" >pydbm package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="pydbm.clustering.html" >pydbm.clustering package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2019, chimera0(RUM).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

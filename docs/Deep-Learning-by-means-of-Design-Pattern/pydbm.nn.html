@@ -1,0 +1,612 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pydbm.nn package &#8212; pydbm  documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pydbm.nn.simpleautoencoder package" href="pydbm.nn.simpleautoencoder.html" />
+    <link rel="prev" title="pydbm.loss.interface package" href="pydbm.loss.interface.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pydbm.nn.simpleautoencoder.html" title="pydbm.nn.simpleautoencoder package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pydbm.loss.interface.html" title="pydbm.loss.interface package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pydbm  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pydbm.html" accesskey="U">pydbm package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pydbm-nn-package">
+<h1>pydbm.nn package<a class="headerlink" href="#pydbm-nn-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pydbm.nn.simpleautoencoder.html">pydbm.nn.simpleautoencoder package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.nn.simpleautoencoder.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.nn.simpleautoencoder.html#module-pydbm.nn.simpleautoencoder.contractive_auto_encoder">pydbm.nn.simpleautoencoder.contractive_auto_encoder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.nn.simpleautoencoder.html#module-pydbm.nn.simpleautoencoder.ladder_networks">pydbm.nn.simpleautoencoder.ladder_networks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.nn.simpleautoencoder.html#module-pydbm.nn.simpleautoencoder.repelling_auto_encoder">pydbm.nn.simpleautoencoder.repelling_auto_encoder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pydbm.nn.simpleautoencoder.html#module-pydbm.nn.simpleautoencoder">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pydbm.nn.neural_network">
+<span id="pydbm-nn-neural-network-module"></span><h2>pydbm.nn.neural_network module<a class="headerlink" href="#module-pydbm.nn.neural_network" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.nn.neural_network.NeuralNetwork">
+<em class="property">class </em><code class="descclassname">pydbm.nn.neural_network.</code><code class="descname">NeuralNetwork</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Neural Network.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Kamyshanska, H., &amp; Memisevic, R. (2014). The potential energy of an autoencoder. IEEE transactions on pattern analysis and machine intelligence, 37(6), 1261-1273.</li>
+</ul>
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.back_propagation">
+<code class="descname">back_propagation</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.back_propagation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Back propagation in NN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>Delta.</strong> – </td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Returns.</dt>
+<dd>Delta.</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.computable_loss">
+<code class="descname">computable_loss</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.computable_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.forward_propagation">
+<code class="descname">forward_propagation</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.forward_propagation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward propagation in NN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>observed_arr</strong> – <cite>np.ndarray</cite> of image file array.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Propagated <cite>np.ndarray</cite>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.get_computable_loss">
+<code class="descname">get_computable_loss</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.get_computable_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.get_nn_layer_list">
+<code class="descname">get_nn_layer_list</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.get_nn_layer_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.get_opt_params">
+<code class="descname">get_opt_params</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.get_opt_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.get_verificatable_result">
+<code class="descname">get_verificatable_result</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.get_verificatable_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.get_weight_decay_term">
+<code class="descname">get_weight_decay_term</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.get_weight_decay_term" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.inference">
+<code class="descname">inference</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.inference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inference the feature points to reconstruct the time-series.</p>
+<p>Override.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>observed_arr</strong> – Array like or sparse matrix as the observed data points.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Predicted array like or sparse matrix.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.learn">
+<code class="descname">learn</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Learn.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>observed_arr</strong> – <cite>np.ndarray</cite> of observed data points.</li>
+<li><strong>target_arr</strong> – <cite>np.ndarray</cite> of labeled data.
+If <cite>None</cite>, the function of this NN model is equivalent to Convolutional Auto-Encoder.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.nn_layer_list">
+<code class="descname">nn_layer_list</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.nn_layer_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.opt_params">
+<code class="descname">opt_params</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.opt_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.optimize">
+<code class="descname">optimize</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.optimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Back propagation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>learning_rate</strong> – Learning rate.</li>
+<li><strong>epoch</strong> – Now epoch.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.save_pre_learned_params">
+<code class="descname">save_pre_learned_params</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.save_pre_learned_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save pre-learned parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dir_path</strong> – Path of dir. If <cite>None</cite>, the file is saved in the current directory.</li>
+<li><strong>file_name</strong> – The naming rule of files. If <cite>None</cite>, this value is <cite>nn</cite>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.set_computable_loss">
+<code class="descname">set_computable_loss</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.set_computable_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.set_nn_layer_list">
+<code class="descname">set_nn_layer_list</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.set_nn_layer_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.set_opt_params">
+<code class="descname">set_opt_params</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.set_opt_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.set_verificatable_result">
+<code class="descname">set_verificatable_result</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.set_verificatable_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.set_weight_decay_term">
+<code class="descname">set_weight_decay_term</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.set_weight_decay_term" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.verificatable_result">
+<code class="descname">verificatable_result</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.verificatable_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.neural_network.NeuralNetwork.weight_decay_term">
+<code class="descname">weight_decay_term</code><a class="headerlink" href="#pydbm.nn.neural_network.NeuralNetwork.weight_decay_term" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.nn.nn_layer">
+<span id="pydbm-nn-nn-layer-module"></span><h2>pydbm.nn.nn_layer module<a class="headerlink" href="#module-pydbm.nn.nn_layer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.nn.nn_layer.NNLayer">
+<em class="property">class </em><code class="descclassname">pydbm.nn.nn_layer.</code><code class="descname">NNLayer</code><a class="headerlink" href="#pydbm.nn.nn_layer.NNLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>NN Layer.</p>
+<dl class="attribute">
+<dt id="pydbm.nn.nn_layer.NNLayer.back_propagate">
+<code class="descname">back_propagate</code><a class="headerlink" href="#pydbm.nn.nn_layer.NNLayer.back_propagate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Back propagation in CNN layers.</p>
+<p>Override.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>delta_arr</strong> – 2-rank array like or sparse matrix.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">2-rank array like or sparse matrix.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.nn_layer.NNLayer.delta_bias_arr">
+<code class="descname">delta_bias_arr</code><a class="headerlink" href="#pydbm.nn.nn_layer.NNLayer.delta_bias_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.nn_layer.NNLayer.delta_weight_arr">
+<code class="descname">delta_weight_arr</code><a class="headerlink" href="#pydbm.nn.nn_layer.NNLayer.delta_weight_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.nn_layer.NNLayer.forward_propagate">
+<code class="descname">forward_propagate</code><a class="headerlink" href="#pydbm.nn.nn_layer.NNLayer.forward_propagate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward propagation in NN layers.</p>
+<p>Override.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>observed_arr</strong> – 2-rank array like or sparse matrix.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">4-rank array like or sparse matrix.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.nn_layer.NNLayer.get_delta_bias_arr">
+<code class="descname">get_delta_bias_arr</code><a class="headerlink" href="#pydbm.nn.nn_layer.NNLayer.get_delta_bias_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.nn_layer.NNLayer.get_delta_weight_arr">
+<code class="descname">get_delta_weight_arr</code><a class="headerlink" href="#pydbm.nn.nn_layer.NNLayer.get_delta_weight_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.nn_layer.NNLayer.get_graph">
+<code class="descname">get_graph</code><a class="headerlink" href="#pydbm.nn.nn_layer.NNLayer.get_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.nn_layer.NNLayer.graph">
+<code class="descname">graph</code><a class="headerlink" href="#pydbm.nn.nn_layer.NNLayer.graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.nn_layer.NNLayer.reset_delta">
+<code class="descname">reset_delta</code><a class="headerlink" href="#pydbm.nn.nn_layer.NNLayer.reset_delta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset delta.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.nn_layer.NNLayer.set_delta_bias_arr">
+<code class="descname">set_delta_bias_arr</code><a class="headerlink" href="#pydbm.nn.nn_layer.NNLayer.set_delta_bias_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.nn_layer.NNLayer.set_delta_weight_arr">
+<code class="descname">set_delta_weight_arr</code><a class="headerlink" href="#pydbm.nn.nn_layer.NNLayer.set_delta_weight_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.nn_layer.NNLayer.set_readonly">
+<code class="descname">set_readonly</code><a class="headerlink" href="#pydbm.nn.nn_layer.NNLayer.set_readonly" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.nn.simple_auto_encoder">
+<span id="pydbm-nn-simple-auto-encoder-module"></span><h2>pydbm.nn.simple_auto_encoder module<a class="headerlink" href="#module-pydbm.nn.simple_auto_encoder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder">
+<em class="property">class </em><code class="descclassname">pydbm.nn.simple_auto_encoder.</code><code class="descname">SimpleAutoEncoder</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Auto-Encoder.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Kamyshanska, H., &amp; Memisevic, R. (2014). The potential energy of an autoencoder. IEEE transactions on pattern analysis and machine intelligence, 37(6), 1261-1273.</li>
+</ul>
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.back_propagation">
+<code class="descname">back_propagation</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.back_propagation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Back propagation in NN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>Delta.</strong> – </td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Returns.</dt>
+<dd>Delta.</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.computable_loss">
+<code class="descname">computable_loss</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.computable_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.decoder">
+<code class="descname">decoder</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.decoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.encoder">
+<code class="descname">encoder</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.encoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.forward_propagation">
+<code class="descname">forward_propagation</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.forward_propagation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward propagation in NN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>observed_arr</strong> – <cite>np.ndarray</cite> of image file array.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Propagated <cite>np.ndarray</cite>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.get_computable_loss">
+<code class="descname">get_computable_loss</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.get_computable_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.get_decoder">
+<code class="descname">get_decoder</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.get_decoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.get_encoder">
+<code class="descname">get_encoder</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.get_encoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.get_verificatable_result">
+<code class="descname">get_verificatable_result</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.get_verificatable_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.inference">
+<code class="descname">inference</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.inference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inference the feature points to reconstruct the time-series.</p>
+<p>Override.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>observed_arr</strong> – Array like or sparse matrix as the observed data points.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Predicted array like or sparse matrix.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.learn">
+<code class="descname">learn</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Learn.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>observed_arr</strong> – <cite>np.ndarray</cite> of observed data points.</li>
+<li><strong>target_arr</strong> – <cite>np.ndarray</cite> of labeled data.
+If <cite>None</cite>, the function of this NN model is equivalent to Convolutional Auto-Encoder.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.optimize">
+<code class="descname">optimize</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.optimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Back propagation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>learning_rate</strong> – Learning rate.</li>
+<li><strong>epoch</strong> – Now epoch.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.set_computable_loss">
+<code class="descname">set_computable_loss</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.set_computable_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.set_decoder">
+<code class="descname">set_decoder</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.set_decoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.set_encoder">
+<code class="descname">set_encoder</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.set_encoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.set_verificatable_result">
+<code class="descname">set_verificatable_result</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.set_verificatable_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.verificatable_result">
+<code class="descname">verificatable_result</code><a class="headerlink" href="#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder.verificatable_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.nn">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pydbm.nn" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pydbm.loss.interface.html"
+                        title="previous chapter">pydbm.loss.interface package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pydbm.nn.simpleautoencoder.html"
+                        title="next chapter">pydbm.nn.simpleautoencoder package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pydbm.nn.simpleautoencoder.html" title="pydbm.nn.simpleautoencoder package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pydbm.loss.interface.html" title="pydbm.loss.interface package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pydbm  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pydbm.html" >pydbm package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2019, chimera0(RUM).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+accelbrainbase.controllablemodel.\_mxnet.gancontroller package
+==============================================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    accelbrainbase.controllablemodel._mxnet.gancontroller.aaecontroller
+
+Submodules
+----------
+
+accelbrainbase.controllablemodel.\_mxnet.gancontroller.aae\_controller module
+-----------------------------------------------------------------------------
+
+.. automodule:: accelbrainbase.controllablemodel._mxnet.gancontroller.aae_controller
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+accelbrainbase.controllablemodel.\_mxnet.gancontroller.ebgan\_controller module
+-------------------------------------------------------------------------------
+
+.. automodule:: accelbrainbase.controllablemodel._mxnet.gancontroller.ebgan_controller
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: accelbrainbase.controllablemodel._mxnet.gancontroller
+    :members:
+    :undoc-members:
+    :show-inheritance:

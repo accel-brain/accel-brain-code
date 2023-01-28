@@ -1,0 +1,30 @@
+pydbm.clustering.autoencodable package
+======================================
+
+Submodules
+----------
+
+pydbm.clustering.autoencodable.convolutional\_dec module
+--------------------------------------------------------
+
+.. automodule:: pydbm.clustering.autoencodable.convolutional_dec
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.clustering.autoencodable.simple\_dec module
+-------------------------------------------------
+
+.. automodule:: pydbm.clustering.autoencodable.simple_dec
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pydbm.clustering.autoencodable
+    :members:
+    :undoc-members:
+    :show-inheritance:

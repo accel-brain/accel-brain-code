@@ -1,0 +1,55 @@
+pyqlearning.annealingmodel package
+==================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    pyqlearning.annealingmodel.costfunctionable
+    pyqlearning.annealingmodel.distancecomputable
+    pyqlearning.annealingmodel.simulatedannealing
+
+Submodules
+----------
+
+pyqlearning.annealingmodel.cost\_functionable module
+----------------------------------------------------
+
+.. automodule:: pyqlearning.annealingmodel.cost_functionable
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pyqlearning.annealingmodel.distance\_computable module
+------------------------------------------------------
+
+.. automodule:: pyqlearning.annealingmodel.distance_computable
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pyqlearning.annealingmodel.quantum\_monte\_carlo module
+-------------------------------------------------------
+
+.. automodule:: pyqlearning.annealingmodel.quantum_monte_carlo
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pyqlearning.annealingmodel.simulated\_annealing module
+------------------------------------------------------
+
+.. automodule:: pyqlearning.annealingmodel.simulated_annealing
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pyqlearning.annealingmodel
+    :members:
+    :undoc-members:
+    :show-inheritance:

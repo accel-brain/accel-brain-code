@@ -1,0 +1,37 @@
+pycomposer.samplabledata.truesampler.\_mxnet package
+====================================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    pycomposer.samplabledata.truesampler._mxnet.bargramtruesampler
+
+Submodules
+----------
+
+pycomposer.samplabledata.truesampler.\_mxnet.bar\_gram\_true\_sampler module
+----------------------------------------------------------------------------
+
+.. automodule:: pycomposer.samplabledata.truesampler._mxnet.bar_gram_true_sampler
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pycomposer.samplabledata.truesampler.\_mxnet.midi\_true\_sampler module
+-----------------------------------------------------------------------
+
+.. automodule:: pycomposer.samplabledata.truesampler._mxnet.midi_true_sampler
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pycomposer.samplabledata.truesampler._mxnet
+    :members:
+    :undoc-members:
+    :show-inheritance:

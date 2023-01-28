@@ -1,0 +1,56 @@
+pyqlearning package
+===================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    pyqlearning.annealingmodel
+    pyqlearning.deepqlearning
+    pyqlearning.functionapproximator
+    pyqlearning.qlearning
+
+Submodules
+----------
+
+pyqlearning.annealing\_model module
+-----------------------------------
+
+.. automodule:: pyqlearning.annealing_model
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pyqlearning.deep\_q\_learning module
+------------------------------------
+
+.. automodule:: pyqlearning.deep_q_learning
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pyqlearning.function\_approximator module
+-----------------------------------------
+
+.. automodule:: pyqlearning.function_approximator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pyqlearning.q\_learning module
+------------------------------
+
+.. automodule:: pyqlearning.q_learning
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pyqlearning
+    :members:
+    :undoc-members:
+    :show-inheritance:

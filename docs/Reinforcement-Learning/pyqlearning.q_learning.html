@@ -1,0 +1,516 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pyqlearning.q_learning module &#8212; pyqlearning  documentation</title>
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pyqlearning.thompson_sampling module" href="pyqlearning.thompson_sampling.html" />
+    <link rel="prev" title="pyqlearning.beta_dist module" href="pyqlearning.beta_dist.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyqlearning.thompson_sampling.html" title="pyqlearning.thompson_sampling module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyqlearning.beta_dist.html" title="pyqlearning.beta_dist module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyqlearning  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pyqlearning.html" accesskey="U">pyqlearning package</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyqlearning.beta_dist.html"
+                        title="previous chapter">pyqlearning.beta_dist module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyqlearning.thompson_sampling.html"
+                        title="next chapter">pyqlearning.thompson_sampling module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyqlearning.q_learning.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyqlearning.q_learning">
+<span id="pyqlearning-q-learning-module"></span><h1>pyqlearning.q_learning module<a class="headerlink" href="#module-pyqlearning.q_learning" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pyqlearning.q_learning.QLearning">
+<em class="property">class </em><code class="descclassname">pyqlearning.q_learning.</code><code class="descname">QLearning</code><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Abstract base class and <cite>Template Method Pattern</cite> of Q-Learning.</p>
+<dl class="attribute">
+<dt id="pyqlearning.q_learning.QLearning.alpha_value">
+<code class="descname">alpha_value</code><a class="headerlink" href="#pyqlearning.q_learning.QLearning.alpha_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Learning rate.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyqlearning.q_learning.QLearning.gamma_value">
+<code class="descname">gamma_value</code><a class="headerlink" href="#pyqlearning.q_learning.QLearning.gamma_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gammma value.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyqlearning.q_learning.QLearning.q_dict">
+<code class="descname">q_dict</code><a class="headerlink" href="#pyqlearning.q_learning.QLearning.q_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Q(state, action)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyqlearning.q_learning.QLearning.r_dict">
+<code class="descname">r_dict</code><a class="headerlink" href="#pyqlearning.q_learning.QLearning.r_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>R(state)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyqlearning.q_learning.QLearning.t">
+<code class="descname">t</code><a class="headerlink" href="#pyqlearning.q_learning.QLearning.t" title="Permalink to this definition">¶</a></dt>
+<dd><p>time.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">alpha_value</code></dt>
+<dd><p>getter
+Learning rate.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.check_the_end_flag">
+<code class="descname">check_the_end_flag</code><span class="sig-paren">(</span><em>state_key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.check_the_end_flag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.check_the_end_flag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the end flag.</p>
+<p>If this return value is <cite>True</cite>, the learning is end.</p>
+<p>As a rule, the learning can not be stopped.
+This method should be overrided for concreate usecases.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state_key</strong> – The key of state in <cite>self.t</cite>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.extract_possible_actions">
+<code class="descname">extract_possible_actions</code><span class="sig-paren">(</span><em>state_key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.extract_possible_actions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.extract_possible_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract the list of the possible action in <cite>self.t+1</cite>.</p>
+<p>Abstract method for concreate usecases.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>The key of state in self.t+1.</strong> (<em>state_key</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The possible action in <cite>self.t+1</cite>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.extract_q_dict">
+<code class="descname">extract_q_dict</code><span class="sig-paren">(</span><em>state_key</em>, <em>action_key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.extract_q_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.extract_q_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract Q-Value from <cite>self.q_dict</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>state_key</strong> – The key of state.</li>
+<li><strong>action_key</strong> – The key of action.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Q-Value.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.extract_r_dict">
+<code class="descname">extract_r_dict</code><span class="sig-paren">(</span><em>state_key</em>, <em>action_key=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.extract_r_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.extract_r_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract R-Value from <cite>self.r_dict</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>state_key</strong> – The key of state.</li>
+<li><strong>action_key</strong> – The key of action.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">R-Value(Reward).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">gamma_value</code></dt>
+<dd><p>getter
+Gamma value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.get_alpha_value">
+<code class="descname">get_alpha_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.get_alpha_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.get_alpha_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter
+Learning rate.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.get_gamma_value">
+<code class="descname">get_gamma_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.get_gamma_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.get_gamma_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter
+Gamma value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.get_q_dict">
+<code class="descname">get_q_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.get_q_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.get_q_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter
+Q(state, action)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.get_r_dict">
+<code class="descname">get_r_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.get_r_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.get_r_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter
+R(state)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.get_t">
+<code class="descname">get_t</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.get_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.get_t" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter
+Time.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.learn">
+<code class="descname">learn</code><span class="sig-paren">(</span><em>state_key</em>, <em>limit=1000</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.learn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Learning.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.observe_reward_value">
+<code class="descname">observe_reward_value</code><span class="sig-paren">(</span><em>state_key</em>, <em>action_key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.observe_reward_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.observe_reward_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the reward value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>state_key</strong> – The key of state.</li>
+<li><strong>action_key</strong> – The key of action.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Reward value.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.predict_next_action">
+<code class="descname">predict_next_action</code><span class="sig-paren">(</span><em>state_key</em>, <em>next_action_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.predict_next_action"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.predict_next_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict next action by Q-Learning.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>state_key</strong> – The key of state in <cite>self.t+1</cite>.</li>
+<li><strong>next_action_list</strong> – The possible action in <cite>self.t+1</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The key of action.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">q_dict</code></dt>
+<dd><p>getter
+Q(state, action)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">r_dict</code></dt>
+<dd><p>getter
+R(state)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.save_q_dict">
+<code class="descname">save_q_dict</code><span class="sig-paren">(</span><em>state_key</em>, <em>action_key</em>, <em>q_value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.save_q_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.save_q_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert or update Q-Value in <cite>self.q_dict</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>state_key</strong> – State.</li>
+<li><strong>action_key</strong> – Action.</li>
+<li><strong>q_value</strong> – Q-Value.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Exceptions:</dt>
+<dd>TypeError:      If the type of <cite>q_value</cite> is not float.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.save_r_dict">
+<code class="descname">save_r_dict</code><span class="sig-paren">(</span><em>state_key</em>, <em>r_value</em>, <em>action_key=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.save_r_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.save_r_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert or update R-Value in <cite>self.r_dict</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>state_key</strong> – The key of state.</li>
+<li><strong>r_value</strong> – R-Value(Reward).</li>
+<li><strong>action_key</strong> – The key of action if it is nesesary for the parametar of value function.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Exceptions:</dt>
+<dd>TypeError:      If the type of <cite>r_value</cite> is not float.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.select_action">
+<code class="descname">select_action</code><span class="sig-paren">(</span><em>state_key</em>, <em>next_action_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.select_action"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.select_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select action by Q(state, action).</p>
+<p>Abstract method for concreate usecases.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>state_key</strong> – The key of state.</li>
+<li><strong>next_action_list</strong> – The possible action in <cite>self.t+1</cite>.
+If the length of this list is zero, all action should be possible.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Retruns:</dt>
+<dd>The key of action.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.set_alpha_value">
+<code class="descname">set_alpha_value</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.set_alpha_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.set_alpha_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter
+Learning rate.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.set_gamma_value">
+<code class="descname">set_gamma_value</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.set_gamma_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.set_gamma_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter
+Gamma value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.set_q_dict">
+<code class="descname">set_q_dict</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.set_q_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.set_q_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter
+Q(state, action)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.set_r_dict">
+<code class="descname">set_r_dict</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.set_r_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.set_r_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter
+R(state)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.set_t">
+<code class="descname">set_t</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.set_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.set_t" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter
+Time.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">t</code></dt>
+<dd><p>getter
+Time.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.update_q">
+<code class="descname">update_q</code><span class="sig-paren">(</span><em>state_key</em>, <em>action_key</em>, <em>reward_value</em>, <em>next_max_q</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.update_q"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.update_q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update Q-Value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>state_key</strong> – The key of state.</li>
+<li><strong>action_key</strong> – The key of action.</li>
+<li><strong>reward_value</strong> – R-Value(Reward).</li>
+<li><strong>next_max_q</strong> – Maximum Q-Value.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.update_state">
+<code class="descname">update_state</code><span class="sig-paren">(</span><em>state_key</em>, <em>action_key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.update_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.update_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update state.</p>
+<p>This method can be overrided for concreate usecases.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>state_key</strong> – The key of state in <cite>self.t</cite>.</li>
+<li><strong>action_key</strong> – The key of action in <cite>self.t</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The key of state in <cite>self.t+1</cite>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqlearning.q_learning.QLearning.visualize_learning_result">
+<code class="descname">visualize_learning_result</code><span class="sig-paren">(</span><em>state_key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyqlearning/q_learning.html#QLearning.visualize_learning_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyqlearning.q_learning.QLearning.visualize_learning_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualize learning result.
+This method should be overrided for concreate usecases.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state_key</strong> – The key of state in <cite>self.t</cite>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyqlearning.thompson_sampling.html" title="pyqlearning.thompson_sampling module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyqlearning.beta_dist.html" title="pyqlearning.beta_dist module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyqlearning  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pyqlearning.html" >pyqlearning package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, chimera0(RUM).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.4.
+    </div>
+  </body>
+</html>

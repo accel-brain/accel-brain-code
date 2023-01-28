@@ -1,0 +1,632 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>accelbrainbase.iteratabledata package &#8212; accel-brain-base  documentation</title>
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="accelbrainbase.iteratabledata._mxnet package" href="accelbrainbase.iteratabledata._mxnet.html" />
+    <link rel="prev" title="accelbrainbase.extractabledata._mxnet package" href="accelbrainbase.extractabledata._mxnet.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="accelbrainbase.iteratabledata._mxnet.html" title="accelbrainbase.iteratabledata._mxnet package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="accelbrainbase.extractabledata._mxnet.html" title="accelbrainbase.extractabledata._mxnet package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">accel-brain-base  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="accelbrainbase.html" accesskey="U">accelbrainbase package</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">accelbrainbase.iteratabledata package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata.drcn_iterator">accelbrainbase.iteratabledata.drcn_iterator module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata.labeled_csv_iterator">accelbrainbase.iteratabledata.labeled_csv_iterator module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata.labeled_image_iterator">accelbrainbase.iteratabledata.labeled_image_iterator module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata.unlabeled_image_iterator">accelbrainbase.iteratabledata.unlabeled_image_iterator module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.iteratabledata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="accelbrainbase.extractabledata._mxnet.html"
+                        title="previous chapter">accelbrainbase.extractabledata._mxnet package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="accelbrainbase.iteratabledata._mxnet.html"
+                        title="next chapter">accelbrainbase.iteratabledata._mxnet package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/accelbrainbase.iteratabledata.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="accelbrainbase-iteratabledata-package">
+<h1>accelbrainbase.iteratabledata package<a class="headerlink" href="#accelbrainbase-iteratabledata-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="accelbrainbase.iteratabledata._mxnet.html">accelbrainbase.iteratabledata._mxnet package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.iteratabledata._mxnet.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.iteratabledata._mxnet.html#module-accelbrainbase.iteratabledata._mxnet.drcn_iterator">accelbrainbase.iteratabledata._mxnet.drcn_iterator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.iteratabledata._mxnet.html#module-accelbrainbase.iteratabledata._mxnet.gauss_iterator">accelbrainbase.iteratabledata._mxnet.gauss_iterator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.iteratabledata._mxnet.html#module-accelbrainbase.iteratabledata._mxnet.labeled_csv_iterator">accelbrainbase.iteratabledata._mxnet.labeled_csv_iterator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.iteratabledata._mxnet.html#module-accelbrainbase.iteratabledata._mxnet.labeled_image_iterator">accelbrainbase.iteratabledata._mxnet.labeled_image_iterator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.iteratabledata._mxnet.html#module-accelbrainbase.iteratabledata._mxnet.labeled_video_iterator">accelbrainbase.iteratabledata._mxnet.labeled_video_iterator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.iteratabledata._mxnet.html#module-accelbrainbase.iteratabledata._mxnet.unlabeled_csv_iterator">accelbrainbase.iteratabledata._mxnet.unlabeled_csv_iterator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.iteratabledata._mxnet.html#module-accelbrainbase.iteratabledata._mxnet.unlabeled_image_iterator">accelbrainbase.iteratabledata._mxnet.unlabeled_image_iterator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.iteratabledata._mxnet.html#module-accelbrainbase.iteratabledata._mxnet.unlabeled_sequential_csv_iterator">accelbrainbase.iteratabledata._mxnet.unlabeled_sequential_csv_iterator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.iteratabledata._mxnet.html#module-accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_csv_iterator">accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_csv_iterator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.iteratabledata._mxnet.html#module-accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator">accelbrainbase.iteratabledata._mxnet.unlabeled_t_hot_txt_iterator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.iteratabledata._mxnet.html#module-accelbrainbase.iteratabledata._mxnet.unlabeled_video_iterator">accelbrainbase.iteratabledata._mxnet.unlabeled_video_iterator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.iteratabledata._mxnet.html#module-accelbrainbase.iteratabledata._mxnet">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata.drcn_iterator">
+<span id="accelbrainbase-iteratabledata-drcn-iterator-module"></span><h2>accelbrainbase.iteratabledata.drcn_iterator module<a class="headerlink" href="#module-accelbrainbase.iteratabledata.drcn_iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator">
+<em class="property">class </em><code class="descclassname">accelbrainbase.iteratabledata.drcn_iterator.</code><code class="descname">DRCNIterator</code><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.html#accelbrainbase.iteratable_data.IteratableData" title="accelbrainbase.iteratable_data.IteratableData"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.iteratable_data.IteratableData</span></code></a></p>
+<p>Iterator that draws from image files and generates the samples.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Ghifary, M., Kleijn, W. B., Zhang, M., Balduzzi, D., &amp; Li, W. (2016, October). Deep reconstruction-classification networks for unsupervised domain adaptation. In European Conference on Computer Vision (pp. 597-613). Springer, Cham.</li>
+</ul>
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.batch_size">
+<code class="descname">batch_size</code><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.epochs">
+<code class="descname">epochs</code><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.epochs" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.get_batch_size">
+<code class="descname">get_batch_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.get_batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.get_epochs">
+<code class="descname">get_epochs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.get_epochs" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.get_norm_mode">
+<code class="descname">get_norm_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.get_norm_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.get_scale">
+<code class="descname">get_scale</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.get_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.get_seq_len">
+<code class="descname">get_seq_len</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.get_seq_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.norm_mode">
+<code class="descname">norm_mode</code><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.norm_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.pre_normalize">
+<code class="descname">pre_normalize</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.pre_normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize before observation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arr</strong> – Tensor.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Tensor.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.scale">
+<code class="descname">scale</code><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.seq_len">
+<code class="descname">seq_len</code><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.seq_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.set_batch_size">
+<code class="descname">set_batch_size</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.set_batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.set_epochs">
+<code class="descname">set_epochs</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.set_epochs" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.set_norm_mode">
+<code class="descname">set_norm_mode</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.set_norm_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.set_readonly">
+<code class="descname">set_readonly</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.set_readonly" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.set_scale">
+<code class="descname">set_scale</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.set_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.set_seq_len">
+<code class="descname">set_seq_len</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.drcn_iterator.DRCNIterator.set_seq_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata.labeled_csv_iterator">
+<span id="accelbrainbase-iteratabledata-labeled-csv-iterator-module"></span><h2>accelbrainbase.iteratabledata.labeled_csv_iterator module<a class="headerlink" href="#module-accelbrainbase.iteratabledata.labeled_csv_iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator">
+<em class="property">class </em><code class="descclassname">accelbrainbase.iteratabledata.labeled_csv_iterator.</code><code class="descname">LabeledCSVIterator</code><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.html#accelbrainbase.iteratable_data.IteratableData" title="accelbrainbase.iteratable_data.IteratableData"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.iteratable_data.IteratableData</span></code></a></p>
+<p>Iterator that draws from CSV files and generates the labeled samples.</p>
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.batch_size">
+<code class="descname">batch_size</code><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.epochs">
+<code class="descname">epochs</code><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.epochs" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.get_batch_size">
+<code class="descname">get_batch_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.get_batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.get_epochs">
+<code class="descname">get_epochs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.get_epochs" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.get_norm_mode">
+<code class="descname">get_norm_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.get_norm_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.get_scale">
+<code class="descname">get_scale</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.get_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.get_seq_len">
+<code class="descname">get_seq_len</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.get_seq_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.norm_mode">
+<code class="descname">norm_mode</code><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.norm_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.pre_normalize">
+<code class="descname">pre_normalize</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.pre_normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize before observation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arr</strong> – Tensor.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Tensor.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.scale">
+<code class="descname">scale</code><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.seq_len">
+<code class="descname">seq_len</code><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.seq_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.set_batch_size">
+<code class="descname">set_batch_size</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.set_batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.set_epochs">
+<code class="descname">set_epochs</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.set_epochs" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.set_norm_mode">
+<code class="descname">set_norm_mode</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.set_norm_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.set_readonly">
+<code class="descname">set_readonly</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.set_readonly" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.set_scale">
+<code class="descname">set_scale</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.set_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.set_seq_len">
+<code class="descname">set_seq_len</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_csv_iterator.LabeledCSVIterator.set_seq_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata.labeled_image_iterator">
+<span id="accelbrainbase-iteratabledata-labeled-image-iterator-module"></span><h2>accelbrainbase.iteratabledata.labeled_image_iterator module<a class="headerlink" href="#module-accelbrainbase.iteratabledata.labeled_image_iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator">
+<em class="property">class </em><code class="descclassname">accelbrainbase.iteratabledata.labeled_image_iterator.</code><code class="descname">LabeledImageIterator</code><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.html#accelbrainbase.iteratable_data.IteratableData" title="accelbrainbase.iteratable_data.IteratableData"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.iteratable_data.IteratableData</span></code></a></p>
+<p>Iterator that draws from image files and generates the labeled samples.</p>
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.batch_size">
+<code class="descname">batch_size</code><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.epochs">
+<code class="descname">epochs</code><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.epochs" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.get_batch_size">
+<code class="descname">get_batch_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.get_batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.get_epochs">
+<code class="descname">get_epochs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.get_epochs" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.get_norm_mode">
+<code class="descname">get_norm_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.get_norm_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.get_scale">
+<code class="descname">get_scale</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.get_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.get_seq_len">
+<code class="descname">get_seq_len</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.get_seq_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.norm_mode">
+<code class="descname">norm_mode</code><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.norm_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.pre_normalize">
+<code class="descname">pre_normalize</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.pre_normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize before observation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arr</strong> – Tensor.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Tensor.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.scale">
+<code class="descname">scale</code><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.seq_len">
+<code class="descname">seq_len</code><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.seq_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.set_batch_size">
+<code class="descname">set_batch_size</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.set_batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.set_epochs">
+<code class="descname">set_epochs</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.set_epochs" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.set_norm_mode">
+<code class="descname">set_norm_mode</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.set_norm_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.set_readonly">
+<code class="descname">set_readonly</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.set_readonly" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.set_scale">
+<code class="descname">set_scale</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.set_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.set_seq_len">
+<code class="descname">set_seq_len</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.labeled_image_iterator.LabeledImageIterator.set_seq_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata.unlabeled_image_iterator">
+<span id="accelbrainbase-iteratabledata-unlabeled-image-iterator-module"></span><h2>accelbrainbase.iteratabledata.unlabeled_image_iterator module<a class="headerlink" href="#module-accelbrainbase.iteratabledata.unlabeled_image_iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator">
+<em class="property">class </em><code class="descclassname">accelbrainbase.iteratabledata.unlabeled_image_iterator.</code><code class="descname">UnlabeledImageIterator</code><a class="headerlink" href="#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.html#accelbrainbase.iteratable_data.IteratableData" title="accelbrainbase.iteratable_data.IteratableData"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.iteratable_data.IteratableData</span></code></a></p>
+<p>Iterator that draws from image files and generates the unlabeled samples.</p>
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.batch_size">
+<code class="descname">batch_size</code><a class="headerlink" href="#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.epochs">
+<code class="descname">epochs</code><a class="headerlink" href="#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.epochs" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.get_batch_size">
+<code class="descname">get_batch_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.get_batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.get_epochs">
+<code class="descname">get_epochs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.get_epochs" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.get_norm_mode">
+<code class="descname">get_norm_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.get_norm_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.get_scale">
+<code class="descname">get_scale</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.get_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.norm_mode">
+<code class="descname">norm_mode</code><a class="headerlink" href="#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.norm_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.pre_normalize">
+<code class="descname">pre_normalize</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.pre_normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize before observation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arr</strong> – Tensor.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Tensor.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.scale">
+<code class="descname">scale</code><a class="headerlink" href="#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.set_batch_size">
+<code class="descname">set_batch_size</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.set_batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.set_epochs">
+<code class="descname">set_epochs</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.set_epochs" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.set_norm_mode">
+<code class="descname">set_norm_mode</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.set_norm_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.set_readonly">
+<code class="descname">set_readonly</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.set_readonly" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.set_scale">
+<code class="descname">set_scale</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.iteratabledata.unlabeled_image_iterator.UnlabeledImageIterator.set_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.iteratabledata">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-accelbrainbase.iteratabledata" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="accelbrainbase.iteratabledata._mxnet.html" title="accelbrainbase.iteratabledata._mxnet package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="accelbrainbase.extractabledata._mxnet.html" title="accelbrainbase.extractabledata._mxnet package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">accel-brain-base  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="accelbrainbase.html" >accelbrainbase package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Accel Brain.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

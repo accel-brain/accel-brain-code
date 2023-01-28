@@ -1,0 +1,809 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pysummarization package &#8212; pysummarization  documentation</title>
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pysummarization.abstractabledoc package" href="pysummarization.abstractabledoc.html" />
+    <link rel="prev" title="Automatic Summarization Library: pysummarization" href="README.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pysummarization.abstractabledoc.html" title="pysummarization.abstractabledoc package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="README.html" title="Automatic Summarization Library: pysummarization"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pysummarization  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="README.html"
+                        title="previous chapter">Automatic Summarization Library: pysummarization</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pysummarization.abstractabledoc.html"
+                        title="next chapter">pysummarization.abstractabledoc package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pysummarization-package">
+<h1>pysummarization package<a class="headerlink" href="#pysummarization-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pysummarization.abstractabledoc.html">pysummarization.abstractabledoc package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.abstractabledoc.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.abstractabledoc.html#module-pysummarization.abstractabledoc.std_abstractor">pysummarization.abstractabledoc.std_abstractor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.abstractabledoc.html#module-pysummarization.abstractabledoc.top_n_rank_abstractor">pysummarization.abstractabledoc.top_n_rank_abstractor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.abstractabledoc.html#module-pysummarization.abstractabledoc">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pysummarization.abstractablesemantics.html">pysummarization.abstractablesemantics package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.abstractablesemantics.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.abstractablesemantics.html#module-pysummarization.abstractablesemantics.enc_dec_ad">pysummarization.abstractablesemantics.enc_dec_ad module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.abstractablesemantics.html#module-pysummarization.abstractablesemantics.re_seq_2_seq">pysummarization.abstractablesemantics.re_seq_2_seq module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.abstractablesemantics.html#module-pysummarization.abstractablesemantics">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pysummarization.computabledistance.html">pysummarization.computabledistance package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.computabledistance.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pysummarization.computabledistance.kldivergence.html">pysummarization.computabledistance.kldivergence package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pysummarization.computabledistance.kldivergence.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pysummarization.computabledistance.kldivergence.html#module-pysummarization.computabledistance.kldivergence.js_divergence">pysummarization.computabledistance.kldivergence.js_divergence module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pysummarization.computabledistance.kldivergence.html#module-pysummarization.computabledistance.kldivergence">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.computabledistance.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.computabledistance.html#module-pysummarization.computabledistance.euclid_distance">pysummarization.computabledistance.euclid_distance module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.computabledistance.html#module-pysummarization.computabledistance.kl_divergence">pysummarization.computabledistance.kl_divergence module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.computabledistance.html#module-pysummarization.computabledistance">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pysummarization.nlpbase.html">pysummarization.nlpbase package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.nlpbase.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pysummarization.nlpbase.autoabstractor.html">pysummarization.nlpbase.autoabstractor package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pysummarization.nlpbase.autoabstractor.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pysummarization.nlpbase.autoabstractor.html#module-pysummarization.nlpbase.autoabstractor.n_gram_auto_abstractor">pysummarization.nlpbase.autoabstractor.n_gram_auto_abstractor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pysummarization.nlpbase.autoabstractor.html#module-pysummarization.nlpbase.autoabstractor">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.nlpbase.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.nlpbase.html#module-pysummarization.nlpbase.auto_abstractor">pysummarization.nlpbase.auto_abstractor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.nlpbase.html#module-pysummarization.nlpbase">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pysummarization.readablewebpdf.html">pysummarization.readablewebpdf package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.readablewebpdf.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.readablewebpdf.html#module-pysummarization.readablewebpdf.web_pdf_reading">pysummarization.readablewebpdf.web_pdf_reading module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.readablewebpdf.html#module-pysummarization.readablewebpdf">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pysummarization.similarityfilter.html">pysummarization.similarityfilter package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.similarityfilter.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.similarityfilter.html#module-pysummarization.similarityfilter.dice">pysummarization.similarityfilter.dice module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.similarityfilter.html#module-pysummarization.similarityfilter.jaccard">pysummarization.similarityfilter.jaccard module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.similarityfilter.html#module-pysummarization.similarityfilter.simpson">pysummarization.similarityfilter.simpson module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.similarityfilter.html#module-pysummarization.similarityfilter.tanimoto">pysummarization.similarityfilter.tanimoto module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.similarityfilter.html#module-pysummarization.similarityfilter.tfidf_cosine">pysummarization.similarityfilter.tfidf_cosine module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.similarityfilter.html#module-pysummarization.similarityfilter">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pysummarization.tokenizabledoc.html">pysummarization.tokenizabledoc package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.tokenizabledoc.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.tokenizabledoc.html#module-pysummarization.tokenizabledoc.mecab_tokenizer">pysummarization.tokenizabledoc.mecab_tokenizer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.tokenizabledoc.html#module-pysummarization.tokenizabledoc.simple_tokenizer">pysummarization.tokenizabledoc.simple_tokenizer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.tokenizabledoc.html#module-pysummarization.tokenizabledoc">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pysummarization.vectorizablesentence.html">pysummarization.vectorizablesentence package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.vectorizablesentence.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.vectorizablesentence.html#module-pysummarization.vectorizablesentence.encoder_decoder">pysummarization.vectorizablesentence.encoder_decoder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.vectorizablesentence.html#module-pysummarization.vectorizablesentence.lstm_rtrbm">pysummarization.vectorizablesentence.lstm_rtrbm module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.vectorizablesentence.html#module-pysummarization.vectorizablesentence">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pysummarization.vectorizabletoken.html">pysummarization.vectorizabletoken package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.vectorizabletoken.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pysummarization.vectorizabletoken.thotvectorizer.html">pysummarization.vectorizabletoken.thotvectorizer package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pysummarization.vectorizabletoken.thotvectorizer.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pysummarization.vectorizabletoken.thotvectorizer.html#module-pysummarization.vectorizabletoken.thotvectorizer.dbm_t_hot_vectorizer">pysummarization.vectorizabletoken.thotvectorizer.dbm_t_hot_vectorizer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pysummarization.vectorizabletoken.thotvectorizer.html#module-pysummarization.vectorizabletoken.thotvectorizer">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.vectorizabletoken.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.vectorizabletoken.html#module-pysummarization.vectorizabletoken.dbm_like_skip_gram_vectorizer">pysummarization.vectorizabletoken.dbm_like_skip_gram_vectorizer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.vectorizabletoken.html#module-pysummarization.vectorizabletoken.encoder_decoder">pysummarization.vectorizabletoken.encoder_decoder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.vectorizabletoken.html#module-pysummarization.vectorizabletoken.skip_gram_vectorizer">pysummarization.vectorizabletoken.skip_gram_vectorizer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.vectorizabletoken.html#module-pysummarization.vectorizabletoken.t_hot_vectorizer">pysummarization.vectorizabletoken.t_hot_vectorizer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.vectorizabletoken.html#module-pysummarization.vectorizabletoken.tfidf_vectorizer">pysummarization.vectorizabletoken.tfidf_vectorizer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysummarization.vectorizabletoken.html#module-pysummarization.vectorizabletoken">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pysummarization.abstractable_doc">
+<span id="pysummarization-abstractable-doc-module"></span><h2>pysummarization.abstractable_doc module<a class="headerlink" href="#module-pysummarization.abstractable_doc" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pysummarization.abstractable_doc.AbstractableDoc">
+<em class="property">class </em><code class="descclassname">pysummarization.abstractable_doc.</code><code class="descname">AbstractableDoc</code><a class="reference internal" href="_modules/pysummarization/abstractable_doc.html#AbstractableDoc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.abstractable_doc.AbstractableDoc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Automatic abstraction and summarization.
+This is the filtering approach.</p>
+<p>This <cite>interface</cite> is designed the <cite>Strategy Pattern</cite>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Luhn, Hans Peter. “The automatic creation of literature abstracts.”  IBM Journal of research and development 2.2 (1958): 159-165.</li>
+<li><a class="reference external" href="http://www.oreilly.co.jp/books/9784873116792/">http://www.oreilly.co.jp/books/9784873116792/</a></li>
+</ul>
+<dl class="method">
+<dt id="pysummarization.abstractable_doc.AbstractableDoc.filter">
+<code class="descname">filter</code><span class="sig-paren">(</span><em>scored_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/abstractable_doc.html#AbstractableDoc.filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.abstractable_doc.AbstractableDoc.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute filtering sentences.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scored_list</strong> – The list of statistical information derived from word frequency and distribution.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Retruns:</dt>
+<dd>the list of filtered sentence.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pysummarization.abstractable_semantics">
+<span id="pysummarization-abstractable-semantics-module"></span><h2>pysummarization.abstractable_semantics module<a class="headerlink" href="#module-pysummarization.abstractable_semantics" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pysummarization.abstractable_semantics.AbstractableSemantics">
+<em class="property">class </em><code class="descclassname">pysummarization.abstractable_semantics.</code><code class="descname">AbstractableSemantics</code><a class="reference internal" href="_modules/pysummarization/abstractable_semantics.html#AbstractableSemantics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.abstractable_semantics.AbstractableSemantics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Automatic abstraction and summarization
+with the Neural Network language model approach.</p>
+<p>This <cite>interface</cite> is designed the <cite>Strategy Pattern</cite>.</p>
+<p>References:</p>
+<dl class="method">
+<dt id="pysummarization.abstractable_semantics.AbstractableSemantics.inference">
+<code class="descname">inference</code><span class="sig-paren">(</span><em>observed_arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/abstractable_semantics.html#AbstractableSemantics.inference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.abstractable_semantics.AbstractableSemantics.inference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infernece by the model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>observed_arr</strong> – <cite>np.ndarray</cite> of observed data points.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of inferenced feature points.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.abstractable_semantics.AbstractableSemantics.learn">
+<code class="descname">learn</code><span class="sig-paren">(</span><em>iteratable_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/abstractable_semantics.html#AbstractableSemantics.learn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.abstractable_semantics.AbstractableSemantics.learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Learn the observed data points
+for vector representation of the input time-series.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>iteratable_data</strong> – is-a <cite>IteratableData</cite>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.abstractable_semantics.AbstractableSemantics.summarize">
+<code class="descname">summarize</code><span class="sig-paren">(</span><em>test_arr</em>, <em>vectorizable_token</em>, <em>sentence_list</em>, <em>limit=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/abstractable_semantics.html#AbstractableSemantics.summarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.abstractable_semantics.AbstractableSemantics.summarize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summarize input document.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>test_arr</strong> – <cite>np.ndarray</cite> of observed data points..</li>
+<li><strong>vectorizable_token</strong> – is-a <cite>VectorizableToken</cite>.</li>
+<li><strong>sentence_list</strong> – <cite>list</cite> of all sentences.</li>
+<li><strong>limit</strong> – The number of selected abstract sentence.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><cite>np.ndarray</cite> of scores.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pysummarization.computable_distance">
+<span id="pysummarization-computable-distance-module"></span><h2>pysummarization.computable_distance module<a class="headerlink" href="#module-pysummarization.computable_distance" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pysummarization.computable_distance.ComputableDistance">
+<em class="property">class </em><code class="descclassname">pysummarization.computable_distance.</code><code class="descname">ComputableDistance</code><a class="reference internal" href="_modules/pysummarization/computable_distance.html#ComputableDistance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.computable_distance.ComputableDistance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Compute distances between two vectors.</p>
+<dl class="method">
+<dt id="pysummarization.computable_distance.ComputableDistance.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><em>x_arr</em>, <em>y_arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/computable_distance.html#ComputableDistance.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.computable_distance.ComputableDistance.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute distance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x_arr</strong> – <cite>np.ndarray</cite> of vectors.</li>
+<li><strong>y_arr</strong> – <cite>np.ndarray</cite> of vectors.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Retruns:</dt>
+<dd><cite>np.ndarray</cite> of distances.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pysummarization.n_gram">
+<span id="pysummarization-n-gram-module"></span><h2>pysummarization.n_gram module<a class="headerlink" href="#module-pysummarization.n_gram" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pysummarization.n_gram.Ngram">
+<em class="property">class </em><code class="descclassname">pysummarization.n_gram.</code><code class="descname">Ngram</code><a class="reference internal" href="_modules/pysummarization/n_gram.html#Ngram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.n_gram.Ngram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>N-gram</p>
+<dl class="method">
+<dt id="pysummarization.n_gram.Ngram.generate_ngram_data_set">
+<code class="descname">generate_ngram_data_set</code><span class="sig-paren">(</span><em>token_list</em>, <em>n=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/n_gram.html#Ngram.generate_ngram_data_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.n_gram.Ngram.generate_ngram_data_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the N-gram’s pair.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>token_list</strong> – The list of tokens.</li>
+<li><strong>N</strong> (<em>n</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">zip of Tuple(Training N-gram data, Target N-gram data)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.n_gram.Ngram.generate_skip_gram_data_set">
+<code class="descname">generate_skip_gram_data_set</code><span class="sig-paren">(</span><em>token_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/n_gram.html#Ngram.generate_skip_gram_data_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.n_gram.Ngram.generate_skip_gram_data_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the Skip-gram’s pair.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>token_list</strong> – The list of tokens.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">zip of Tuple(Training N-gram data, Target N-gram data)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.n_gram.Ngram.generate_tuple_zip">
+<code class="descname">generate_tuple_zip</code><span class="sig-paren">(</span><em>token_list</em>, <em>n=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/n_gram.html#Ngram.generate_tuple_zip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.n_gram.Ngram.generate_tuple_zip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the N-gram.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>token_list</strong> – The list of tokens.</li>
+<li><strong>N</strong> (<em>n</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">zip of Tuple(N-gram)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pysummarization.nlp_base">
+<span id="pysummarization-nlp-base-module"></span><h2>pysummarization.nlp_base module<a class="headerlink" href="#module-pysummarization.nlp_base" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pysummarization.nlp_base.NlpBase">
+<em class="property">class </em><code class="descclassname">pysummarization.nlp_base.</code><code class="descname">NlpBase</code><a class="reference internal" href="_modules/pysummarization/nlp_base.html#NlpBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.nlp_base.NlpBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The base class for NLP.</p>
+<dl class="attribute">
+<dt id="pysummarization.nlp_base.NlpBase.delimiter_list">
+<code class="descname">delimiter_list</code><a class="headerlink" href="#pysummarization.nlp_base.NlpBase.delimiter_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.nlp_base.NlpBase.get_delimiter_list">
+<code class="descname">get_delimiter_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/nlp_base.html#NlpBase.get_delimiter_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.nlp_base.NlpBase.get_delimiter_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.nlp_base.NlpBase.get_token">
+<code class="descname">get_token</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/nlp_base.html#NlpBase.get_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.nlp_base.NlpBase.get_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.nlp_base.NlpBase.get_tokenizable_doc">
+<code class="descname">get_tokenizable_doc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/nlp_base.html#NlpBase.get_tokenizable_doc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.nlp_base.NlpBase.get_tokenizable_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.nlp_base.NlpBase.listup_sentence">
+<code class="descname">listup_sentence</code><span class="sig-paren">(</span><em>data</em>, <em>counter=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/nlp_base.html#NlpBase.listup_sentence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.nlp_base.NlpBase.listup_sentence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Divide string into sentence list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> – string.</li>
+<li><strong>counter</strong> – recursive counter.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">List of sentences.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.nlp_base.NlpBase.set_delimiter_list">
+<code class="descname">set_delimiter_list</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/nlp_base.html#NlpBase.set_delimiter_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.nlp_base.NlpBase.set_delimiter_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.nlp_base.NlpBase.set_token">
+<code class="descname">set_token</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/nlp_base.html#NlpBase.set_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.nlp_base.NlpBase.set_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.nlp_base.NlpBase.set_tokenizable_doc">
+<code class="descname">set_tokenizable_doc</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/nlp_base.html#NlpBase.set_tokenizable_doc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.nlp_base.NlpBase.set_tokenizable_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pysummarization.nlp_base.NlpBase.token">
+<code class="descname">token</code><a class="headerlink" href="#pysummarization.nlp_base.NlpBase.token" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pysummarization.nlp_base.NlpBase.tokenizable_doc">
+<code class="descname">tokenizable_doc</code><a class="headerlink" href="#pysummarization.nlp_base.NlpBase.tokenizable_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.nlp_base.NlpBase.tokenize">
+<code class="descname">tokenize</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/nlp_base.html#NlpBase.tokenize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.nlp_base.NlpBase.tokenize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tokenize sentence and set the list of tokens to self.token.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – string.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pysummarization.readable_web_pdf">
+<span id="pysummarization-readable-web-pdf-module"></span><h2>pysummarization.readable_web_pdf module<a class="headerlink" href="#module-pysummarization.readable_web_pdf" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pysummarization.readable_web_pdf.ReadableWebPDF">
+<em class="property">class </em><code class="descclassname">pysummarization.readable_web_pdf.</code><code class="descname">ReadableWebPDF</code><a class="reference internal" href="_modules/pysummarization/readable_web_pdf.html#ReadableWebPDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.readable_web_pdf.ReadableWebPDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Read strings in PDF documents</p>
+<dl class="method">
+<dt id="pysummarization.readable_web_pdf.ReadableWebPDF.is_pdf_url">
+<code class="descname">is_pdf_url</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/readable_web_pdf.html#ReadableWebPDF.is_pdf_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.readable_web_pdf.ReadableWebPDF.is_pdf_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check PDF format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>url</strong> – URL</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">PDF, False: not PDF</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">True</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.readable_web_pdf.ReadableWebPDF.url_to_text">
+<code class="descname">url_to_text</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/readable_web_pdf.html#ReadableWebPDF.url_to_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.readable_web_pdf.ReadableWebPDF.url_to_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform PDF documents to strings.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>url</strong> – URL</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">string.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pysummarization.similarity_filter">
+<span id="pysummarization-similarity-filter-module"></span><h2>pysummarization.similarity_filter module<a class="headerlink" href="#module-pysummarization.similarity_filter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pysummarization.similarity_filter.SimilarityFilter">
+<em class="property">class </em><code class="descclassname">pysummarization.similarity_filter.</code><code class="descname">SimilarityFilter</code><a class="reference internal" href="_modules/pysummarization/similarity_filter.html#SimilarityFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.similarity_filter.SimilarityFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Abstract class for filtering mutually similar sentences.</p>
+<dl class="method">
+<dt id="pysummarization.similarity_filter.SimilarityFilter.calculate">
+<code class="descname">calculate</code><span class="sig-paren">(</span><em>token_list_x</em>, <em>token_list_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/similarity_filter.html#SimilarityFilter.calculate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.similarity_filter.SimilarityFilter.calculate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate similarity.</p>
+<p>Abstract method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>token_list_x</strong> – [token, token, token, …]</li>
+<li><strong>token_list_y</strong> – [token, token, token, …]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Similarity.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.similarity_filter.SimilarityFilter.count">
+<code class="descname">count</code><span class="sig-paren">(</span><em>token_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/similarity_filter.html#SimilarityFilter.count"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.similarity_filter.SimilarityFilter.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Count the number of tokens in <cite>token_list</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>token_list</strong> – The list of tokens.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the numbers}</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">{token</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.similarity_filter.SimilarityFilter.get_nlp_base">
+<code class="descname">get_nlp_base</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/similarity_filter.html#SimilarityFilter.get_nlp_base"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.similarity_filter.SimilarityFilter.get_nlp_base" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.similarity_filter.SimilarityFilter.get_similarity_limit">
+<code class="descname">get_similarity_limit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/similarity_filter.html#SimilarityFilter.get_similarity_limit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.similarity_filter.SimilarityFilter.get_similarity_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pysummarization.similarity_filter.SimilarityFilter.nlp_base">
+<code class="descname">nlp_base</code><a class="headerlink" href="#pysummarization.similarity_filter.SimilarityFilter.nlp_base" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.similarity_filter.SimilarityFilter.set_nlp_base">
+<code class="descname">set_nlp_base</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/similarity_filter.html#SimilarityFilter.set_nlp_base"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.similarity_filter.SimilarityFilter.set_nlp_base" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.similarity_filter.SimilarityFilter.set_similarity_limit">
+<code class="descname">set_similarity_limit</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/similarity_filter.html#SimilarityFilter.set_similarity_limit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.similarity_filter.SimilarityFilter.set_similarity_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.similarity_filter.SimilarityFilter.similar_filter_r">
+<code class="descname">similar_filter_r</code><span class="sig-paren">(</span><em>sentence_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/similarity_filter.html#SimilarityFilter.similar_filter_r"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.similarity_filter.SimilarityFilter.similar_filter_r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter mutually similar sentences.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sentence_list</strong> – The list of sentences.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The list of filtered sentences.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pysummarization.similarity_filter.SimilarityFilter.similarity_limit">
+<code class="descname">similarity_limit</code><a class="headerlink" href="#pysummarization.similarity_filter.SimilarityFilter.similarity_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.similarity_filter.SimilarityFilter.unique">
+<code class="descname">unique</code><span class="sig-paren">(</span><em>token_list_x</em>, <em>token_list_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/similarity_filter.html#SimilarityFilter.unique"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.similarity_filter.SimilarityFilter.unique" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove duplicated elements.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>token_list_x</strong> – [token, token, token, …]</li>
+<li><strong>token_list_y</strong> – [token, token, token, …]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuple(token_list_x, token_list_y)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pysummarization.tokenizable_doc">
+<span id="pysummarization-tokenizable-doc-module"></span><h2>pysummarization.tokenizable_doc module<a class="headerlink" href="#module-pysummarization.tokenizable_doc" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pysummarization.tokenizable_doc.TokenizableDoc">
+<em class="property">class </em><code class="descclassname">pysummarization.tokenizable_doc.</code><code class="descname">TokenizableDoc</code><a class="reference internal" href="_modules/pysummarization/tokenizable_doc.html#TokenizableDoc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.tokenizable_doc.TokenizableDoc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Tokenize string.</p>
+<dl class="method">
+<dt id="pysummarization.tokenizable_doc.TokenizableDoc.tokenize">
+<code class="descname">tokenize</code><span class="sig-paren">(</span><em>sentence_str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/tokenizable_doc.html#TokenizableDoc.tokenize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.tokenizable_doc.TokenizableDoc.tokenize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tokenize str.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sentence_str</strong> – tokenized string.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">[token, token, token, …]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pysummarization.vectorizable_sentence">
+<span id="pysummarization-vectorizable-sentence-module"></span><h2>pysummarization.vectorizable_sentence module<a class="headerlink" href="#module-pysummarization.vectorizable_sentence" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pysummarization.vectorizable_sentence.VectorizableSentence">
+<em class="property">class </em><code class="descclassname">pysummarization.vectorizable_sentence.</code><code class="descname">VectorizableSentence</code><a class="reference internal" href="_modules/pysummarization/vectorizable_sentence.html#VectorizableSentence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.vectorizable_sentence.VectorizableSentence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Vectorize sentence.</p>
+<dl class="method">
+<dt id="pysummarization.vectorizable_sentence.VectorizableSentence.vectorize">
+<code class="descname">vectorize</code><span class="sig-paren">(</span><em>sentence_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/vectorizable_sentence.html#VectorizableSentence.vectorize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.vectorizable_sentence.VectorizableSentence.vectorize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tokenize token list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sentence_list</strong> – The list of tokenized sentences.
+[[<cite>token</cite>, <cite>token</cite>, <cite>token</cite>, …],
+[<cite>token</cite>, <cite>token</cite>, <cite>token</cite>, …],
+[<cite>token</cite>, <cite>token</cite>, <cite>token</cite>, …]]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>np.ndarray</cite> of tokens.
+[vector of token, vector of token, vector of token]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pysummarization.vectorizable_token">
+<span id="pysummarization-vectorizable-token-module"></span><h2>pysummarization.vectorizable_token module<a class="headerlink" href="#module-pysummarization.vectorizable_token" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pysummarization.vectorizable_token.VectorizableToken">
+<em class="property">class </em><code class="descclassname">pysummarization.vectorizable_token.</code><code class="descname">VectorizableToken</code><a class="reference internal" href="_modules/pysummarization/vectorizable_token.html#VectorizableToken"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.vectorizable_token.VectorizableToken" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Vectorize token.</p>
+<dl class="method">
+<dt id="pysummarization.vectorizable_token.VectorizableToken.vectorize">
+<code class="descname">vectorize</code><span class="sig-paren">(</span><em>token_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/vectorizable_token.html#VectorizableToken.vectorize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.vectorizable_token.VectorizableToken.vectorize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tokenize token list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>token_list</strong> – The list of tokens.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">[vector of token, vector of token, vector of token, …]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pysummarization.web_scraping">
+<span id="pysummarization-web-scraping-module"></span><h2>pysummarization.web_scraping module<a class="headerlink" href="#module-pysummarization.web_scraping" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pysummarization.web_scraping.WebScraping">
+<em class="property">class </em><code class="descclassname">pysummarization.web_scraping.</code><code class="descname">WebScraping</code><a class="reference internal" href="_modules/pysummarization/web_scraping.html#WebScraping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.web_scraping.WebScraping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Object of Web-scraping.</p>
+<p>This is only a demo.</p>
+<dl class="method">
+<dt id="pysummarization.web_scraping.WebScraping.get_readable_web_pdf">
+<code class="descname">get_readable_web_pdf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/web_scraping.html#WebScraping.get_readable_web_pdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.web_scraping.WebScraping.get_readable_web_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pysummarization.web_scraping.WebScraping.readable_web_pdf">
+<code class="descname">readable_web_pdf</code><a class="headerlink" href="#pysummarization.web_scraping.WebScraping.readable_web_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.web_scraping.WebScraping.scrape">
+<code class="descname">scrape</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/web_scraping.html#WebScraping.scrape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.web_scraping.WebScraping.scrape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute Web-Scraping.
+The target dom objects are in self.__dom_object_list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>url</strong> – Web site url.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The result. this is a string.</td>
+</tr>
+</tbody>
+</table>
+<p>&#64;TODO(chimera0): check URLs format.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pysummarization.web_scraping.WebScraping.set_readable_web_pdf">
+<code class="descname">set_readable_web_pdf</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pysummarization/web_scraping.html#WebScraping.set_readable_web_pdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pysummarization.web_scraping.WebScraping.set_readable_web_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pysummarization">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pysummarization" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pysummarization.abstractabledoc.html" title="pysummarization.abstractabledoc package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="README.html" title="Automatic Summarization Library: pysummarization"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pysummarization  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Accel Brain.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+accelbrainbase.\_mxnet.initializableparams package
+==================================================
+
+Submodules
+----------
+
+accelbrainbase.\_mxnet.initializableparams.normal\_initializer module
+---------------------------------------------------------------------
+
+.. automodule:: accelbrainbase._mxnet.initializableparams.normal_initializer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: accelbrainbase._mxnet.initializableparams
+    :members:
+    :undoc-members:
+    :show-inheritance:

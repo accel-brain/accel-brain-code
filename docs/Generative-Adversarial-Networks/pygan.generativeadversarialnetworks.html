@@ -1,0 +1,212 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygan.generativeadversarialnetworks package &#8212; pygan  documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pygan.generativemodel package" href="pygan.generativemodel.html" />
+    <link rel="prev" title="pygan.gansvaluefunction package" href="pygan.gansvaluefunction.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pygan.generativemodel.html" title="pygan.generativemodel package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pygan.gansvaluefunction.html" title="pygan.gansvaluefunction package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pygan  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pygan.html" accesskey="U">pygan package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pygan-generativeadversarialnetworks-package">
+<h1>pygan.generativeadversarialnetworks package<a class="headerlink" href="#pygan-generativeadversarialnetworks-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pygan.generativeadversarialnetworks.adversarial_auto_encoders">
+<span id="pygan-generativeadversarialnetworks-adversarial-auto-encoders-module"></span><h2>pygan.generativeadversarialnetworks.adversarial_auto_encoders module<a class="headerlink" href="#module-pygan.generativeadversarialnetworks.adversarial_auto_encoders" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pygan.generativeadversarialnetworks.adversarial_auto_encoders.AdversarialAutoEncoders">
+<em class="property">class </em><code class="descclassname">pygan.generativeadversarialnetworks.adversarial_auto_encoders.</code><code class="descname">AdversarialAutoEncoders</code><span class="sig-paren">(</span><em>gans_value_function=None</em>, <em>feature_matching=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativeadversarialnetworks/adversarial_auto_encoders.html#AdversarialAutoEncoders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativeadversarialnetworks.adversarial_auto_encoders.AdversarialAutoEncoders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pygan.html#pygan.generative_adversarial_networks.GenerativeAdversarialNetworks" title="pygan.generative_adversarial_networks.GenerativeAdversarialNetworks"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygan.generative_adversarial_networks.GenerativeAdversarialNetworks</span></code></a></p>
+<p>The controller for the Adversarial Auto-Encoders(AAEs).</p>
+<dl class="method">
+<dt id="pygan.generativeadversarialnetworks.adversarial_auto_encoders.AdversarialAutoEncoders.extract_logs_tuple">
+<code class="descname">extract_logs_tuple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativeadversarialnetworks/adversarial_auto_encoders.html#AdversarialAutoEncoders.extract_logs_tuple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativeadversarialnetworks.adversarial_auto_encoders.AdversarialAutoEncoders.extract_logs_tuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract update logs data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><cite>list</cite> of the reconstruction errors.</li>
+<li><cite>list</cite> of probabilities inferenced by the <cite>discriminator</cite> (mean) in the <cite>discriminator</cite>’s update turn.</li>
+<li><cite>list</cite> of probabilities inferenced by the <cite>discriminator</cite> (mean) in the <cite>generator</cite>’s update turn.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">The shape is</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativeadversarialnetworks.adversarial_auto_encoders.AdversarialAutoEncoders.pre_train">
+<code class="descname">pre_train</code><span class="sig-paren">(</span><em>generative_model</em>, <em>epochs=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativeadversarialnetworks/adversarial_auto_encoders.html#AdversarialAutoEncoders.pre_train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativeadversarialnetworks.adversarial_auto_encoders.AdversarialAutoEncoders.pre_train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pre-train.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>generative_model</strong> – Generator which draws samples from the <cite>fake</cite> distribution.</li>
+<li><strong>epochs</strong> – Epochs.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Returnes:</dt>
+<dd>Tuple data.
+-trained Generator which is-a <cite>GenerativeModel</cite>.
+- <cite>list</cite> of the reconstruction errors.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativeadversarialnetworks.adversarial_auto_encoders.AdversarialAutoEncoders.train">
+<code class="descname">train</code><span class="sig-paren">(</span><em>true_sampler</em>, <em>generative_model</em>, <em>discriminative_model</em>, <em>iter_n=100</em>, <em>k_step=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativeadversarialnetworks/adversarial_auto_encoders.html#AdversarialAutoEncoders.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativeadversarialnetworks.adversarial_auto_encoders.AdversarialAutoEncoders.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>true_sampler</strong> – Sampler which draws samples from the <cite>true</cite> distribution.</li>
+<li><strong>generative_model</strong> – Generator which draws samples from the <cite>fake</cite> distribution.</li>
+<li><strong>discriminative_model</strong> – Discriminator which discriminates <cite>true</cite> from <cite>fake</cite>.</li>
+<li><strong>iter_n</strong> – The number of training iterations.</li>
+<li><strong>k_step</strong> – The number of learning of the discriminative_model.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuple data.
+- trained Generator which is-a <cite>GenerativeModel</cite>.
+- trained Discriminator which is-a <cite>DiscriminativeModel</cite>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygan.generativeadversarialnetworks.adversarial_auto_encoders.AdversarialAutoEncoders.train_auto_encoder">
+<code class="descname">train_auto_encoder</code><span class="sig-paren">(</span><em>generative_model</em>, <em>a_logs_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygan/generativeadversarialnetworks/adversarial_auto_encoders.html#AdversarialAutoEncoders.train_auto_encoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygan.generativeadversarialnetworks.adversarial_auto_encoders.AdversarialAutoEncoders.train_auto_encoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train the generative model as the Auto-Encoder.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>generative_model</strong> – Generator which draws samples from the <cite>fake</cite> distribution.</li>
+<li><strong>a_logs_list</strong> – <cite>list</cite> of the reconstruction errors.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The tuple data. The shape is…
+- Generator which draws samples from the <cite>fake</cite> distribution.
+- <cite>list</cite> of the reconstruction errors.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pygan.generativeadversarialnetworks">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pygan.generativeadversarialnetworks" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pygan.gansvaluefunction.html"
+                        title="previous chapter">pygan.gansvaluefunction package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pygan.generativemodel.html"
+                        title="next chapter">pygan.generativemodel package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pygan.generativemodel.html" title="pygan.generativemodel package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pygan.gansvaluefunction.html" title="pygan.gansvaluefunction package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pygan  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pygan.html" >pygan package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, chimera0(RUM).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

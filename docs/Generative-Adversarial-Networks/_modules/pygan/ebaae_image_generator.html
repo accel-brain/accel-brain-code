@@ -1,0 +1,489 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygan.ebaae_image_generator &#8212; pygan  documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pygan  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pygan.ebaae_image_generator</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.computableloss._mxnet.l2_norm_loss</span> <span class="k">import</span> <span class="n">L2NormLoss</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.extractabledata._mxnet.image_extractor</span> <span class="k">import</span> <span class="n">ImageExtractor</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.iteratabledata._mxnet.unlabeled_image_iterator</span> <span class="k">import</span> <span class="n">UnlabeledImageIterator</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.noiseabledata._mxnet.gauss_noise</span> <span class="k">import</span> <span class="n">GaussNoise</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.observabledata._mxnet.convolutional_neural_networks</span> <span class="k">import</span> <span class="n">ConvolutionalNeuralNetworks</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.observabledata._mxnet.neural_networks</span> <span class="k">import</span> <span class="n">NeuralNetworks</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.observabledata._mxnet.convolutionalneuralnetworks.convolutionalautoencoder.contractive_cae</span> <span class="k">import</span> <span class="n">ContractiveCAE</span> <span class="k">as</span> <span class="n">ConvolutionalAutoEncoder</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.observabledata._mxnet.adversarialmodel.discriminative_model</span> <span class="k">import</span> <span class="n">DiscriminativeModel</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.observabledata._mxnet.adversarialmodel.discriminativemodel.eb_discriminative_model</span> <span class="k">import</span> <span class="n">EBDiscriminativeModel</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.observabledata._mxnet.adversarialmodel.generativemodel.convolutional_auto_encoder</span> <span class="k">import</span> <span class="n">ConvolutionalAutoEncoder</span> <span class="k">as</span> <span class="n">GenerativeModel</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.computableloss._mxnet.generator_loss</span> <span class="k">import</span> <span class="n">GeneratorLoss</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.computableloss._mxnet.discriminator_loss</span> <span class="k">import</span> <span class="n">DiscriminatorLoss</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.computableloss._mxnet.discriminatorloss.eb_discriminator_loss</span> <span class="k">import</span> <span class="n">EBDiscriminatorLoss</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.observabledata._mxnet.adversarialmodel.discriminativemodel.eb_discriminative_model</span> <span class="k">import</span> <span class="n">EBDiscriminativeModel</span>
+
+<span class="kn">from</span> <span class="nn">accelbrainbase.samplabledata.true_sampler</span> <span class="k">import</span> <span class="n">TrueSampler</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.samplabledata.truesampler.normal_true_sampler</span> <span class="k">import</span> <span class="n">NormalTrueSampler</span>
+
+<span class="kn">from</span> <span class="nn">accelbrainbase.samplabledata.condition_sampler</span> <span class="k">import</span> <span class="n">ConditionSampler</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.samplabledata.noisesampler._mxnet.uniform_noise_sampler</span> <span class="k">import</span> <span class="n">UniformNoiseSampler</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.controllablemodel._mxnet.gancontroller.aae_controller</span> <span class="k">import</span> <span class="n">AAEController</span>
+<span class="kn">from</span> <span class="nn">accelbrainbase.controllablemodel._mxnet.gancontroller.aaecontroller.ebaae_controller</span> <span class="k">import</span> <span class="n">EBAAEController</span>
+
+<span class="kn">import</span> <span class="nn">mxnet</span> <span class="k">as</span> <span class="nn">mx</span>
+<span class="kn">import</span> <span class="nn">mxnet.ndarray</span> <span class="k">as</span> <span class="nn">nd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">mxnet.gluon.nn</span> <span class="k">import</span> <span class="n">Conv2D</span>
+<span class="kn">from</span> <span class="nn">mxnet.gluon.nn</span> <span class="k">import</span> <span class="n">Conv2DTranspose</span>
+<span class="kn">from</span> <span class="nn">mxnet.gluon.nn</span> <span class="k">import</span> <span class="n">BatchNorm</span>
+
+
+<div class="viewcode-block" id="EBAAEImageGenerator"><a class="viewcode-back" href="../../pygan.html#pygan.ebaae_image_generator.EBAAEImageGenerator">[docs]</a><span class="k">class</span> <span class="nc">EBAAEImageGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Image generation by EBAAE.</span>
+
+<span class="sd">    The Generative Adversarial Networks(GANs) (Goodfellow et al., 2014) framework establishes </span>
+<span class="sd">    a min-max adversarial game between two neural networks – a generative model, `G`, and a </span>
+<span class="sd">    discriminative model, `D`. The discriminator model, `D(x)`, is a neural network that computes </span>
+<span class="sd">    the probability that a observed data point `x` in data space is a sample from the data </span>
+<span class="sd">    distribution (positive samples) that we are trying to model, rather than a sample from our </span>
+<span class="sd">    generative model (negative samples). </span>
+<span class="sd">    </span>
+<span class="sd">    Concurrently, the generator uses a function `G(z)` that maps samples `z` from the prior `p(z)` to </span>
+<span class="sd">    the data space. `G(z)` is trained to maximally confuse the discriminator into believing that </span>
+<span class="sd">    samples it generates come from the data distribution. The generator is trained by leveraging </span>
+<span class="sd">    the gradient of `D(x)` w.r.t. x, and using that to modify its parameters.</span>
+
+<span class="sd">    The Conditional GANs (or cGANs) is a simple extension of the basic GAN model which allows </span>
+<span class="sd">    the model to condition on external information. This makes it possible to engage the learned </span>
+<span class="sd">    generative model in different &quot;modes&quot; by providing it with different contextual </span>
+<span class="sd">    information (Gauthier, J. 2014).</span>
+
+<span class="sd">    This model can be constructed by simply feeding the data, `y`, to condition on to both the generator </span>
+<span class="sd">    and discriminator. In an unconditioned generative model, because the maps samples `z` from the prior </span>
+<span class="sd">    `p(z)` are drawn from uniform or normal distribution, there is no control on modes of the data being </span>
+<span class="sd">    generated. On the other hand, it is possible to direct the data generation process by conditioning </span>
+<span class="sd">    the model on additional information (Mirza, M., &amp; Osindero, S. 2014).</span>
+
+<span class="sd">    This library also provides the Adversarial Auto-Encoders(AAEs), </span>
+<span class="sd">    which is a probabilistic Auto-Encoder that uses GANs to perform variational </span>
+<span class="sd">    inference by matching the aggregated posterior of the feature points </span>
+<span class="sd">    in hidden layer of the Auto-Encoder with an arbitrary prior </span>
+<span class="sd">    distribution(Makhzani, A., et al., 2015). Matching the aggregated posterior </span>
+<span class="sd">    to the prior ensures that generating from any part of prior space results </span>
+<span class="sd">    in meaningful samples. As a result, the decoder of the Adversarial Auto-Encoder </span>
+<span class="sd">    learns a deep generative model that maps the imposed prior to the data distribution.</span>
+
+<span class="sd">    On the other hand, models that construct a discriminator by Auto-Encoder have been proposed. </span>
+<span class="sd">    The Energy-based GAN(EBGAN) framework considers the discriminator as an energy function, </span>
+<span class="sd">    which assigns low energy values to real data and high to fake data. The generator is a </span>
+<span class="sd">    trainable parameterized function that produces samples in regions to which the discriminator </span>
+<span class="sd">    assigns low energy.</span>
+
+<span class="sd">    This class models the Energy-based Adversarial-Auto-Encoder(EBAAE) by structural coupling </span>
+<span class="sd">    between AAEs and EBGAN. The learning algorithm equivalents an adversarial training of AAEs as </span>
+<span class="sd">    a generator and EBGAN as a discriminator.</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        - Gauthier, J. (2014). Conditional generative adversarial nets for convolutional face generation. Class Project for Stanford CS231N: Convolutional Neural Networks for Visual Recognition, Winter semester, 2014(5), 2.</span>
+<span class="sd">        - Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., ... &amp; Bengio, Y. (2014). Generative adversarial nets. In Advances in neural information processing systems (pp. 2672-2680).</span>
+<span class="sd">        - Makhzani, A., Shlens, J., Jaitly, N., Goodfellow, I., &amp; Frey, B. (2015). Adversarial autoencoders. arXiv preprint arXiv:1511.05644.</span>
+<span class="sd">        - Mirza, M., &amp; Osindero, S. (2014). Conditional generative adversarial nets. arXiv preprint arXiv:1411.1784.</span>
+<span class="sd">        - Salimans, T., Goodfellow, I., Zaremba, W., Cheung, V., Radford, A., &amp; Chen, X. (2016). Improved techniques for training gans. In Advances in neural information processing systems (pp. 2234-2242).</span>
+<span class="sd">        - Zhao, J., Mathieu, M., &amp; LeCun, Y. (2016). Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126.</span>
+<span class="sd">        - Warde-Farley, D., &amp; Bengio, Y. (2016). Improving generative adversarial networks with denoising feature matching.</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dir_list</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
+        <span class="n">channel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">normal_height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+        <span class="n">normal_width</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+        <span class="n">normal_channel</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+        <span class="n">initializer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+        <span class="n">learning_rate</span><span class="o">=</span><span class="mf">1e-03</span><span class="p">,</span>
+        <span class="n">ctx</span><span class="o">=</span><span class="n">mx</span><span class="o">.</span><span class="n">gpu</span><span class="p">(),</span>
+        <span class="n">discriminative_model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">generative_model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Init.</span>
+
+<span class="sd">        If you are not satisfied with this simple default setting,</span>
+<span class="sd">        delegate `discriminative_model` and `generative_model` designed by yourself.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            dir_list:       `list` of `str` of path to image files.</span>
+<span class="sd">            width:          `int` of image width.</span>
+<span class="sd">            height:         `int` of image height.</span>
+<span class="sd">            channel:        `int` of image channel.</span>
+
+<span class="sd">            normal_width:   `int` of width of image drawn from normal distribution, p(z).</span>
+<span class="sd">            normal_height:  `int` of height of image drawn from normal distribution, p(z).</span>
+<span class="sd">            normal_channel: `int` of channel of image drawn from normal distribution, p(z).</span>
+
+<span class="sd">            initializer:    is-a `mxnet.initializer` for parameters of model.</span>
+<span class="sd">                            If `None`, it is drawing from the Xavier distribution.</span>
+<span class="sd">            </span>
+<span class="sd">            batch_size:     `int` of batch size.</span>
+<span class="sd">            learning_rate:  `float` of learning rate.</span>
+<span class="sd">            ctx:            `mx.gpu()` or `mx.cpu()`.</span>
+
+<span class="sd">            discriminative_model:       is-a `accelbrainbase.observabledata._mxnet.adversarialmodel.discriminative_model.discriminativemodel.eb_discriminative_model.EBDiscriminativeModel`.</span>
+<span class="sd">            generative_model:           is-a `accelbrainbase.observabledata._mxnet.adversarialmodel.generative_model.GenerativeModel`.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">image_extractor</span> <span class="o">=</span> <span class="n">ImageExtractor</span><span class="p">(</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span>
+            <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+            <span class="n">ctx</span><span class="o">=</span><span class="n">ctx</span>
+        <span class="p">)</span>
+
+        <span class="n">unlabeled_image_iterator</span> <span class="o">=</span> <span class="n">UnlabeledImageIterator</span><span class="p">(</span>
+            <span class="n">image_extractor</span><span class="o">=</span><span class="n">image_extractor</span><span class="p">,</span>
+            <span class="n">dir_list</span><span class="o">=</span><span class="n">dir_list</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+            <span class="n">norm_mode</span><span class="o">=</span><span class="s2">&quot;z_score&quot;</span><span class="p">,</span>
+            <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+            <span class="n">noiseable_data</span><span class="o">=</span><span class="n">GaussNoise</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="mf">1e-03</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.0</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="n">computable_loss</span> <span class="o">=</span> <span class="n">L2NormLoss</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">discriminative_model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">d_encoder</span> <span class="o">=</span> <span class="n">ConvolutionalNeuralNetworks</span><span class="p">(</span>
+                <span class="c1"># is-a `ComputableLoss` or `mxnet.gluon.loss`.</span>
+                <span class="n">computable_loss</span><span class="o">=</span><span class="n">computable_loss</span><span class="p">,</span>
+                <span class="c1"># `list` of int` of the number of units in hidden layers.</span>
+                <span class="n">hidden_units_list</span><span class="o">=</span><span class="p">[</span>
+                    <span class="c1"># `mxnet.gluon.nn.Conv2D`.</span>
+                    <span class="n">Conv2D</span><span class="p">(</span>
+                        <span class="n">channels</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+                        <span class="n">kernel_size</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+                        <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                        <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                    <span class="p">),</span> 
+                    <span class="n">Conv2D</span><span class="p">(</span>
+                        <span class="n">channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+                        <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                        <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                        <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                    <span class="p">),</span>
+                <span class="p">],</span>
+                <span class="c1"># `list` of act_type` in `mxnet.ndarray.Activation` or `mxnet.symbol.Activation` in input gate.</span>
+                <span class="n">hidden_activation_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;relu&quot;</span><span class="p">,</span> <span class="s2">&quot;relu&quot;</span><span class="p">],</span>
+                <span class="c1"># `list` of `float` of dropout rate.</span>
+                <span class="n">hidden_dropout_rate_list</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+                <span class="c1"># `list` of `mxnet.gluon.nn.BatchNorm`.</span>
+                <span class="n">hidden_batch_norm_list</span><span class="o">=</span><span class="p">[</span><span class="n">BatchNorm</span><span class="p">(),</span> <span class="n">BatchNorm</span><span class="p">()],</span>
+                <span class="c1"># Call `mxnet.gluon.HybridBlock.hybridize()` or not.</span>
+                <span class="n">hybridize_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="c1"># `mx.gpu()` or `mx.cpu()`.</span>
+                <span class="n">ctx</span><span class="o">=</span><span class="n">ctx</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="n">d_decoder</span> <span class="o">=</span> <span class="n">ConvolutionalNeuralNetworks</span><span class="p">(</span>
+                <span class="c1"># is-a `ComputableLoss` or `mxnet.gluon.loss`.</span>
+                <span class="n">computable_loss</span><span class="o">=</span><span class="n">computable_loss</span><span class="p">,</span>
+                <span class="c1"># `list` of int` of the number of units in hidden layers.</span>
+                <span class="n">hidden_units_list</span><span class="o">=</span><span class="p">[</span>
+                    <span class="c1"># `mxnet.gluon.nn.Conv2DTranspose`.</span>
+                    <span class="n">Conv2DTranspose</span><span class="p">(</span>
+                        <span class="n">channels</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+                        <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                        <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                        <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                    <span class="p">),</span> 
+                    <span class="n">Conv2DTranspose</span><span class="p">(</span>
+                        <span class="n">channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+                        <span class="n">kernel_size</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+                        <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                        <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                    <span class="p">),</span>
+                <span class="p">],</span>
+                <span class="c1"># `list` of act_type` in `mxnet.ndarray.Activation` or `mxnet.symbol.Activation` in input gate.</span>
+                <span class="n">hidden_activation_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;identity&quot;</span><span class="p">,</span> <span class="s2">&quot;identity&quot;</span><span class="p">],</span>
+                <span class="c1"># `list` of `float` of dropout rate.</span>
+                <span class="n">hidden_dropout_rate_list</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+                <span class="c1"># `list` of `mxnet.gluon.nn.BatchNorm`.</span>
+                <span class="n">hidden_batch_norm_list</span><span class="o">=</span><span class="p">[</span><span class="n">BatchNorm</span><span class="p">(),</span> <span class="kc">None</span><span class="p">],</span>
+                <span class="c1"># Call `mxnet.gluon.HybridBlock.hybridize()` or not.</span>
+                <span class="n">hybridize_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="c1"># `mx.gpu()` or `mx.cpu()`.</span>
+                <span class="n">ctx</span><span class="o">=</span><span class="n">ctx</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">d_model</span> <span class="o">=</span> <span class="n">ConvolutionalAutoEncoder</span><span class="p">(</span>
+                <span class="c1"># is-a `ConvolutionalNeuralNetworks`.</span>
+                <span class="n">encoder</span><span class="o">=</span><span class="n">d_encoder</span><span class="p">,</span>
+                <span class="c1"># is-a `ConvolutionalNeuralNetworks`.</span>
+                <span class="n">decoder</span><span class="o">=</span><span class="n">d_decoder</span><span class="p">,</span>
+                <span class="c1"># is-a `ComputableLoss` or `mxnet.gluon.loss`.</span>
+                <span class="n">computable_loss</span><span class="o">=</span><span class="n">computable_loss</span><span class="p">,</span>
+                <span class="c1"># `bool` of flag to tied weights or not.</span>
+                <span class="n">tied_weights_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="c1"># Call `mxnet.gluon.HybridBlock.hybridize()` or not.</span>
+                <span class="n">hybridize_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="c1"># `mx.gpu()` or `mx.cpu()`.</span>
+                <span class="n">ctx</span><span class="o">=</span><span class="n">ctx</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">d_model</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">40</span>
+
+            <span class="n">discriminative_model</span> <span class="o">=</span> <span class="n">EBDiscriminativeModel</span><span class="p">(</span>
+                <span class="c1"># is-a `ConvolutionalAutoEncoder`.</span>
+                <span class="n">model</span><span class="o">=</span><span class="n">d_model</span><span class="p">,</span> 
+                <span class="c1"># Call `mxnet.gluon.HybridBlock.hybridize()` or not.</span>
+                <span class="n">hybridize_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="c1"># `mx.gpu()` or `mx.cpu()`.</span>
+                <span class="n">ctx</span><span class="o">=</span><span class="n">ctx</span><span class="p">,</span> 
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">discriminative_model</span><span class="p">,</span> <span class="n">DiscriminativeModel</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of `discriminative_model` must be `DiscriminativeModel`.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">generative_model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">encoder</span> <span class="o">=</span> <span class="n">ConvolutionalNeuralNetworks</span><span class="p">(</span>
+                <span class="n">computable_loss</span><span class="o">=</span><span class="n">computable_loss</span><span class="p">,</span>
+                <span class="n">initializer</span><span class="o">=</span><span class="n">initializer</span><span class="p">,</span>
+                <span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span>
+                <span class="n">learning_attenuate_rate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">attenuate_epoch</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                <span class="n">hidden_units_list</span><span class="o">=</span><span class="p">[</span>
+                    <span class="n">Conv2D</span><span class="p">(</span>
+                        <span class="n">channels</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+                        <span class="n">kernel_size</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+                        <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                        <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="p">),</span> 
+                    <span class="n">Conv2D</span><span class="p">(</span>
+                        <span class="n">channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+                        <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                        <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                        <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                    <span class="p">),</span>
+                <span class="p">],</span>
+                <span class="n">input_nn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">input_result_height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">input_result_width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">input_result_channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">output_nn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">hidden_dropout_rate_list</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+                <span class="n">hidden_batch_norm_list</span><span class="o">=</span><span class="p">[</span><span class="n">BatchNorm</span><span class="p">(),</span> <span class="n">BatchNorm</span><span class="p">()],</span>
+                <span class="n">optimizer_name</span><span class="o">=</span><span class="s2">&quot;SGD&quot;</span><span class="p">,</span>
+                <span class="n">hidden_activation_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;relu&quot;</span><span class="p">,</span> <span class="s2">&quot;relu&quot;</span><span class="p">],</span>
+                <span class="n">hidden_residual_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">hidden_dense_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">dense_axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">ctx</span><span class="o">=</span><span class="n">ctx</span><span class="p">,</span>
+                <span class="n">hybridize_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">regularizatable_data_list</span><span class="o">=</span><span class="p">[],</span>
+                <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="n">decoder</span> <span class="o">=</span> <span class="n">ConvolutionalNeuralNetworks</span><span class="p">(</span>
+                <span class="n">computable_loss</span><span class="o">=</span><span class="n">computable_loss</span><span class="p">,</span>
+                <span class="n">initializer</span><span class="o">=</span><span class="n">initializer</span><span class="p">,</span>
+                <span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span>
+                <span class="n">learning_attenuate_rate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">attenuate_epoch</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                <span class="n">hidden_units_list</span><span class="o">=</span><span class="p">[</span>
+                    <span class="n">Conv2DTranspose</span><span class="p">(</span>
+                        <span class="n">channels</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+                        <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                        <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                        <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                    <span class="p">),</span> 
+                    <span class="n">Conv2DTranspose</span><span class="p">(</span>
+                        <span class="n">channels</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                        <span class="n">kernel_size</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+                        <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                        <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="p">),</span>
+                <span class="p">],</span>
+                <span class="n">input_nn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">input_result_height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">input_result_width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">input_result_channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">output_nn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">hidden_dropout_rate_list</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+                <span class="n">hidden_batch_norm_list</span><span class="o">=</span><span class="p">[</span><span class="n">BatchNorm</span><span class="p">(),</span> <span class="kc">None</span><span class="p">],</span>
+                <span class="n">optimizer_name</span><span class="o">=</span><span class="s2">&quot;SGD&quot;</span><span class="p">,</span>
+                <span class="n">hidden_activation_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;identity&quot;</span><span class="p">,</span> <span class="s2">&quot;identity&quot;</span><span class="p">],</span>
+                <span class="n">hidden_residual_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">hidden_dense_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">dense_axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">ctx</span><span class="o">=</span><span class="n">ctx</span><span class="p">,</span>
+                <span class="n">hybridize_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">regularizatable_data_list</span><span class="o">=</span><span class="p">[],</span>
+                <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="n">g_model</span> <span class="o">=</span> <span class="n">ConvolutionalAutoEncoder</span><span class="p">(</span>
+                <span class="n">encoder</span><span class="o">=</span><span class="n">encoder</span><span class="p">,</span>
+                <span class="n">decoder</span><span class="o">=</span><span class="n">decoder</span><span class="p">,</span>
+                <span class="n">computable_loss</span><span class="o">=</span><span class="n">computable_loss</span><span class="p">,</span>
+                <span class="n">initializer</span><span class="o">=</span><span class="n">initializer</span><span class="p">,</span>
+                <span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span>
+                <span class="n">learning_attenuate_rate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">attenuate_epoch</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                <span class="n">optimizer_name</span><span class="o">=</span><span class="s2">&quot;SGD&quot;</span><span class="p">,</span>
+                <span class="n">ctx</span><span class="o">=</span><span class="n">ctx</span><span class="p">,</span>
+                <span class="n">hybridize_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">regularizatable_data_list</span><span class="o">=</span><span class="p">[],</span>
+                <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">d_model</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">40</span>
+
+            <span class="n">true_sampler</span> <span class="o">=</span> <span class="n">TrueSampler</span><span class="p">()</span>
+            <span class="n">true_sampler</span><span class="o">.</span><span class="n">iteratorable_data</span> <span class="o">=</span> <span class="n">unlabeled_image_iterator</span>
+
+            <span class="n">condition_sampler</span> <span class="o">=</span> <span class="n">ConditionSampler</span><span class="p">()</span>
+            <span class="n">condition_sampler</span><span class="o">.</span><span class="n">true_sampler</span> <span class="o">=</span> <span class="n">true_sampler</span>
+
+            <span class="n">generative_model</span> <span class="o">=</span> <span class="n">GenerativeModel</span><span class="p">(</span>
+                <span class="n">noise_sampler</span><span class="o">=</span><span class="n">UniformNoiseSampler</span><span class="p">(</span>
+                    <span class="n">low</span><span class="o">=-</span><span class="mf">1e-03</span><span class="p">,</span>
+                    <span class="n">high</span><span class="o">=</span><span class="mf">1e-03</span><span class="p">,</span>
+                    <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+                    <span class="n">seq_len</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                    <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span>
+                    <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+                    <span class="n">ctx</span><span class="o">=</span><span class="n">ctx</span>
+                <span class="p">),</span> 
+                <span class="n">model</span><span class="o">=</span><span class="n">g_model</span><span class="p">,</span> 
+                <span class="n">initializer</span><span class="o">=</span><span class="n">initializer</span><span class="p">,</span>
+                <span class="n">condition_sampler</span><span class="o">=</span><span class="n">condition_sampler</span><span class="p">,</span>
+                <span class="n">conditonal_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span>
+                <span class="n">optimizer_name</span><span class="o">=</span><span class="s2">&quot;SGD&quot;</span><span class="p">,</span>
+                <span class="n">hybridize_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> 
+                <span class="n">ctx</span><span class="o">=</span><span class="n">ctx</span><span class="p">,</span> 
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">generative_model</span><span class="p">,</span> <span class="n">GenerativeModel</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of `generative_model` must be `GenerativeModel`.&quot;</span><span class="p">)</span>
+
+        <span class="n">normal_ture_sampler</span> <span class="o">=</span> <span class="n">NormalTrueSampler</span><span class="p">(</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+            <span class="n">seq_len</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">channel</span><span class="o">=</span><span class="n">normal_channel</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">normal_height</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">normal_width</span><span class="p">,</span>
+            <span class="n">ctx</span><span class="o">=</span><span class="n">ctx</span>
+        <span class="p">)</span>
+
+        <span class="n">EBAAE</span> <span class="o">=</span> <span class="n">EBAAEController</span><span class="p">(</span>
+            <span class="n">true_sampler</span><span class="o">=</span><span class="n">normal_ture_sampler</span><span class="p">,</span>
+            <span class="n">generative_model</span><span class="o">=</span><span class="n">generative_model</span><span class="p">,</span>
+            <span class="n">discriminative_model</span><span class="o">=</span><span class="n">discriminative_model</span><span class="p">,</span>
+            <span class="n">discriminator_loss</span><span class="o">=</span><span class="n">EBDiscriminatorLoss</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+            <span class="n">reconstruction_loss</span><span class="o">=</span><span class="n">L2NormLoss</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+            <span class="n">feature_matching_loss</span><span class="o">=</span><span class="n">L2NormLoss</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+            <span class="n">optimizer_name</span><span class="o">=</span><span class="s2">&quot;SGD&quot;</span><span class="p">,</span>
+            <span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span>
+            <span class="n">learning_attenuate_rate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+            <span class="n">attenuate_epoch</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+            <span class="n">hybridize_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+            <span class="n">ctx</span><span class="o">=</span><span class="n">ctx</span><span class="p">,</span>
+            <span class="n">initializer</span><span class="o">=</span><span class="n">initializer</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">EBAAE</span> <span class="o">=</span> <span class="n">EBAAE</span>
+
+<div class="viewcode-block" id="EBAAEImageGenerator.learn"><a class="viewcode-back" href="../../pygan.html#pygan.ebaae_image_generator.EBAAEImageGenerator.learn">[docs]</a>    <span class="k">def</span> <span class="nf">learn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iter_n</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">k_step</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Learning.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            iter_n:                         `int` of the number of training iterations.</span>
+<span class="sd">            k_step:                         `int` of the number of learning of the `discriminative_model`.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">EBAAE</span><span class="o">.</span><span class="n">learn</span><span class="p">(</span>
+            <span class="n">iter_n</span><span class="o">=</span><span class="n">iter_n</span><span class="p">,</span>
+            <span class="n">k_step</span><span class="o">=</span><span class="n">k_step</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pygan  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Accel Brain.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+pydbm.dbm.builders package
+==========================
+
+Submodules
+----------
+
+pydbm.dbm.builders.dbm\_multi\_layer\_builder module
+----------------------------------------------------
+
+.. automodule:: pydbm.dbm.builders.dbm_multi_layer_builder
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.dbm.builders.lstm\_rt\_rbm\_simple\_builder module
+--------------------------------------------------------
+
+.. automodule:: pydbm.dbm.builders.lstm_rt_rbm_simple_builder
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.dbm.builders.rnn\_rbm\_simple\_builder module
+---------------------------------------------------
+
+.. automodule:: pydbm.dbm.builders.rnn_rbm_simple_builder
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.dbm.builders.rt\_rbm\_simple\_builder module
+--------------------------------------------------
+
+.. automodule:: pydbm.dbm.builders.rt_rbm_simple_builder
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pydbm.dbm.builders
+    :members:
+    :undoc-members:
+    :show-inheritance:

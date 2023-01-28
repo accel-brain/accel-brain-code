@@ -1,0 +1,61 @@
+pydbm.synapse package
+=====================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    pydbm.synapse.recurrenttemporalgraph
+
+Submodules
+----------
+
+pydbm.synapse.cnn\_graph module
+-------------------------------
+
+.. automodule:: pydbm.synapse.cnn_graph
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.synapse.cnn\_output\_graph module
+---------------------------------------
+
+.. automodule:: pydbm.synapse.cnn_output_graph
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.synapse.complete\_bipartite\_graph module
+-----------------------------------------------
+
+.. automodule:: pydbm.synapse.complete_bipartite_graph
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.synapse.nn\_graph module
+------------------------------
+
+.. automodule:: pydbm.synapse.nn_graph
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.synapse.recurrent\_temporal\_graph module
+-----------------------------------------------
+
+.. automodule:: pydbm.synapse.recurrent_temporal_graph
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pydbm.synapse
+    :members:
+    :undoc-members:
+    :show-inheritance:

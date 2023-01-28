@@ -1,0 +1,513 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>accelbrainbase.samplabledata package &#8212; accel-brain-base  documentation</title>
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="accelbrainbase.samplabledata.conditionsampler package" href="accelbrainbase.samplabledata.conditionsampler.html" />
+    <link rel="prev" title="accelbrainbase.regularizatabledata._mxnet package" href="accelbrainbase.regularizatabledata._mxnet.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="accelbrainbase.samplabledata.conditionsampler.html" title="accelbrainbase.samplabledata.conditionsampler package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="accelbrainbase.regularizatabledata._mxnet.html" title="accelbrainbase.regularizatabledata._mxnet package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">accel-brain-base  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="accelbrainbase.html" accesskey="U">accelbrainbase package</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">accelbrainbase.samplabledata package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.samplabledata.condition_sampler">accelbrainbase.samplabledata.condition_sampler module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.samplabledata.noise_sampler">accelbrainbase.samplabledata.noise_sampler module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.samplabledata.policy_sampler">accelbrainbase.samplabledata.policy_sampler module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.samplabledata.true_sampler">accelbrainbase.samplabledata.true_sampler module</a></li>
+<li><a class="reference internal" href="#module-accelbrainbase.samplabledata">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="accelbrainbase.regularizatabledata._mxnet.html"
+                        title="previous chapter">accelbrainbase.regularizatabledata._mxnet package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="accelbrainbase.samplabledata.conditionsampler.html"
+                        title="next chapter">accelbrainbase.samplabledata.conditionsampler package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/accelbrainbase.samplabledata.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="accelbrainbase-samplabledata-package">
+<h1>accelbrainbase.samplabledata package<a class="headerlink" href="#accelbrainbase-samplabledata-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="accelbrainbase.samplabledata.conditionsampler.html">accelbrainbase.samplabledata.conditionsampler package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.samplabledata.conditionsampler.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="accelbrainbase.samplabledata.conditionsampler._mxnet.html">accelbrainbase.samplabledata.conditionsampler._mxnet package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accelbrainbase.samplabledata.conditionsampler._mxnet.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="accelbrainbase.samplabledata.conditionsampler._mxnet.html#module-accelbrainbase.samplabledata.conditionsampler._mxnet.block_diagonal_constraint_sampler">accelbrainbase.samplabledata.conditionsampler._mxnet.block_diagonal_constraint_sampler module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="accelbrainbase.samplabledata.conditionsampler._mxnet.html#module-accelbrainbase.samplabledata.conditionsampler._mxnet">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.samplabledata.conditionsampler.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.samplabledata.conditionsampler.html#module-accelbrainbase.samplabledata.conditionsampler.labeled_condition_sampler">accelbrainbase.samplabledata.conditionsampler.labeled_condition_sampler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.samplabledata.conditionsampler.html#module-accelbrainbase.samplabledata.conditionsampler">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="accelbrainbase.samplabledata.noisesampler.html">accelbrainbase.samplabledata.noisesampler package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.samplabledata.noisesampler.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="accelbrainbase.samplabledata.noisesampler._mxnet.html">accelbrainbase.samplabledata.noisesampler._mxnet package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accelbrainbase.samplabledata.noisesampler._mxnet.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="accelbrainbase.samplabledata.noisesampler._mxnet.html#module-accelbrainbase.samplabledata.noisesampler._mxnet.normal_noise_sampler">accelbrainbase.samplabledata.noisesampler._mxnet.normal_noise_sampler module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="accelbrainbase.samplabledata.noisesampler._mxnet.html#module-accelbrainbase.samplabledata.noisesampler._mxnet.uniform_noise_sampler">accelbrainbase.samplabledata.noisesampler._mxnet.uniform_noise_sampler module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="accelbrainbase.samplabledata.noisesampler._mxnet.html#module-accelbrainbase.samplabledata.noisesampler._mxnet">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.samplabledata.noisesampler.html#module-accelbrainbase.samplabledata.noisesampler">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="accelbrainbase.samplabledata.policysampler.html">accelbrainbase.samplabledata.policysampler package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.samplabledata.policysampler.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="accelbrainbase.samplabledata.policysampler._mxnet.html">accelbrainbase.samplabledata.policysampler._mxnet package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accelbrainbase.samplabledata.policysampler._mxnet.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="accelbrainbase.samplabledata.policysampler._mxnet.html#module-accelbrainbase.samplabledata.policysampler._mxnet.labeled_similar_image_policy">accelbrainbase.samplabledata.policysampler._mxnet.labeled_similar_image_policy module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="accelbrainbase.samplabledata.policysampler._mxnet.html#module-accelbrainbase.samplabledata.policysampler._mxnet.labeled_summarization_policy">accelbrainbase.samplabledata.policysampler._mxnet.labeled_summarization_policy module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="accelbrainbase.samplabledata.policysampler._mxnet.html#module-accelbrainbase.samplabledata.policysampler._mxnet.unlabeled_similar_image_policy">accelbrainbase.samplabledata.policysampler._mxnet.unlabeled_similar_image_policy module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="accelbrainbase.samplabledata.policysampler._mxnet.html#module-accelbrainbase.samplabledata.policysampler._mxnet">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.samplabledata.policysampler.html#module-accelbrainbase.samplabledata.policysampler">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="accelbrainbase.samplabledata.truesampler.html">accelbrainbase.samplabledata.truesampler package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.samplabledata.truesampler.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="accelbrainbase.samplabledata.truesampler.labeledtruesampler.html">accelbrainbase.samplabledata.truesampler.labeledtruesampler package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accelbrainbase.samplabledata.truesampler.labeledtruesampler.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="accelbrainbase.samplabledata.truesampler.labeledtruesampler.html#module-accelbrainbase.samplabledata.truesampler.labeledtruesampler.conditional_labeled_true_sampler">accelbrainbase.samplabledata.truesampler.labeledtruesampler.conditional_labeled_true_sampler module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="accelbrainbase.samplabledata.truesampler.labeledtruesampler.html#module-accelbrainbase.samplabledata.truesampler.labeledtruesampler">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.samplabledata.truesampler.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.samplabledata.truesampler.html#module-accelbrainbase.samplabledata.truesampler.conditional_true_sampler">accelbrainbase.samplabledata.truesampler.conditional_true_sampler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.samplabledata.truesampler.html#module-accelbrainbase.samplabledata.truesampler.labeled_true_sampler">accelbrainbase.samplabledata.truesampler.labeled_true_sampler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.samplabledata.truesampler.html#module-accelbrainbase.samplabledata.truesampler.normal_true_sampler">accelbrainbase.samplabledata.truesampler.normal_true_sampler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accelbrainbase.samplabledata.truesampler.html#module-accelbrainbase.samplabledata.truesampler">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-accelbrainbase.samplabledata.condition_sampler">
+<span id="accelbrainbase-samplabledata-condition-sampler-module"></span><h2>accelbrainbase.samplabledata.condition_sampler module<a class="headerlink" href="#module-accelbrainbase.samplabledata.condition_sampler" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.samplabledata.condition_sampler.ConditionSampler">
+<em class="property">class </em><code class="descclassname">accelbrainbase.samplabledata.condition_sampler.</code><code class="descname">ConditionSampler</code><a class="headerlink" href="#accelbrainbase.samplabledata.condition_sampler.ConditionSampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.html#accelbrainbase.samplable_data.SamplableData" title="accelbrainbase.samplable_data.SamplableData"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.samplable_data.SamplableData</span></code></a></p>
+<p>The class to draw conditional samples from distributions,
+using a <cite>TrueSampler</cite>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., … &amp; Bengio, Y. (2014). Generative adversarial nets. In Advances in neural information processing systems (pp. 2672-2680).</li>
+<li>Mirza, M., &amp; Osindero, S. (2014). Conditional generative adversarial nets. arXiv preprint arXiv:1411.1784.</li>
+</ul>
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.condition_sampler.ConditionSampler.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.condition_sampler.ConditionSampler.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw samples from distribtions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> of <a href="#id1"><span class="problematic" id="id2">`</span></a>mx.nd.array`s.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.condition_sampler.ConditionSampler.get_model">
+<code class="descname">get_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.condition_sampler.ConditionSampler.get_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter for <cite>mxnet.gluon.hybrid.hybridblock.HybridBlock</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.condition_sampler.ConditionSampler.get_true_sampler">
+<code class="descname">get_true_sampler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.condition_sampler.ConditionSampler.get_true_sampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.samplabledata.condition_sampler.ConditionSampler.model">
+<code class="descname">model</code><a class="headerlink" href="#accelbrainbase.samplabledata.condition_sampler.ConditionSampler.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter for <cite>mxnet.gluon.hybrid.hybridblock.HybridBlock</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.condition_sampler.ConditionSampler.set_model">
+<code class="descname">set_model</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.condition_sampler.ConditionSampler.set_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter for <cite>mxnet.gluon.hybrid.hybridblock.HybridBlock</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.condition_sampler.ConditionSampler.set_true_sampler">
+<code class="descname">set_true_sampler</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.condition_sampler.ConditionSampler.set_true_sampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.samplabledata.condition_sampler.ConditionSampler.true_sampler">
+<code class="descname">true_sampler</code><a class="headerlink" href="#accelbrainbase.samplabledata.condition_sampler.ConditionSampler.true_sampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.samplabledata.noise_sampler">
+<span id="accelbrainbase-samplabledata-noise-sampler-module"></span><h2>accelbrainbase.samplabledata.noise_sampler module<a class="headerlink" href="#module-accelbrainbase.samplabledata.noise_sampler" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.samplabledata.noise_sampler.NoiseSampler">
+<em class="property">class </em><code class="descclassname">accelbrainbase.samplabledata.noise_sampler.</code><code class="descname">NoiseSampler</code><a class="headerlink" href="#accelbrainbase.samplabledata.noise_sampler.NoiseSampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.html#accelbrainbase.samplable_data.SamplableData" title="accelbrainbase.samplable_data.SamplableData"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.samplable_data.SamplableData</span></code></a></p>
+<p>The abstract class to draw fake samples from distributions,
+generating from <cite>IteratableData</cite>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., … &amp; Bengio, Y. (2014). Generative adversarial nets. In Advances in neural information processing systems (pp. 2672-2680).</li>
+<li>Mirza, M., &amp; Osindero, S. (2014). Conditional generative adversarial nets. arXiv preprint arXiv:1411.1784.</li>
+<li>Bousmalis, K., Silberman, N., Dohan, D., Erhan, D., &amp; Krishnan, D. (2017). Unsupervised pixel-level domain adaptation with generative adversarial networks. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 3722-3731).</li>
+</ul>
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.noise_sampler.NoiseSampler.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.noise_sampler.NoiseSampler.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw samples from distribtions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> of <a href="#id3"><span class="problematic" id="id4">`</span></a>mx.nd.array`s.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.noise_sampler.NoiseSampler.get_iteratorable_data">
+<code class="descname">get_iteratorable_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.noise_sampler.NoiseSampler.get_iteratorable_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter for <cite>IteratableData</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.noise_sampler.NoiseSampler.get_noise_sampler">
+<code class="descname">get_noise_sampler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.noise_sampler.NoiseSampler.get_noise_sampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter for <cite>NoiseSampler</cite>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.samplabledata.noise_sampler.NoiseSampler.iteratorable_data">
+<code class="descname">iteratorable_data</code><a class="headerlink" href="#accelbrainbase.samplabledata.noise_sampler.NoiseSampler.iteratorable_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter for <cite>IteratableData</cite>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.samplabledata.noise_sampler.NoiseSampler.noise_sampler">
+<code class="descname">noise_sampler</code><a class="headerlink" href="#accelbrainbase.samplabledata.noise_sampler.NoiseSampler.noise_sampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter for <cite>NoiseSampler</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.noise_sampler.NoiseSampler.set_iteratorable_data">
+<code class="descname">set_iteratorable_data</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.noise_sampler.NoiseSampler.set_iteratorable_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter for <cite>IteratableData</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.noise_sampler.NoiseSampler.set_noise_sampler">
+<code class="descname">set_noise_sampler</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.noise_sampler.NoiseSampler.set_noise_sampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter for <cite>NoiseSampler</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.samplabledata.policy_sampler">
+<span id="accelbrainbase-samplabledata-policy-sampler-module"></span><h2>accelbrainbase.samplabledata.policy_sampler module<a class="headerlink" href="#module-accelbrainbase.samplabledata.policy_sampler" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.samplabledata.policy_sampler.PolicySampler">
+<em class="property">class </em><code class="descclassname">accelbrainbase.samplabledata.policy_sampler.</code><code class="descname">PolicySampler</code><a class="headerlink" href="#accelbrainbase.samplabledata.policy_sampler.PolicySampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.html#accelbrainbase.samplable_data.SamplableData" title="accelbrainbase.samplable_data.SamplableData"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.samplable_data.SamplableData</span></code></a></p>
+<p>The class to draw state-action samples from distributions of
+Q-learning agent’s policy, generating from state-action
+value function <cite>Q(s, a)</cite>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., &amp; Bengio, Y. (2014). Learning phrase representations using RNN encoder-decoder for statistical machine translation. arXiv preprint arXiv:1406.1078.</li>
+<li>Egorov, M. (2016). Multi-agent deep reinforcement learning.</li>
+<li>Gupta, J. K., Egorov, M., &amp; Kochenderfer, M. (2017, May). Cooperative multi-agent control using deep reinforcement learning. In International Conference on Autonomous Agents and Multiagent Systems (pp. 66-83). Springer, Cham.</li>
+<li>Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P., &amp; Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor anomaly detection. arXiv preprint arXiv:1607.00148.</li>
+<li>Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., &amp; Riedmiller, M. (2013). Playing atari with deep reinforcement learning. arXiv preprint arXiv:1312.5602.</li>
+<li>Sainath, T. N., Vinyals, O., Senior, A., &amp; Sak, H. (2015, April). Convolutional, long short-term memory, fully connected deep neural networks. In Acoustics, Speech and Signal Processing (ICASSP), 2015 IEEE International Conference on (pp. 4580-4584). IEEE.</li>
+<li>Xingjian, S. H. I., Chen, Z., Wang, H., Yeung, D. Y., Wong, W. K., &amp; Woo, W. C. (2015). Convolutional LSTM network: A machine learning approach for precipitation nowcasting. In Advances in neural information processing systems (pp. 802-810).</li>
+<li>Zaremba, W., Sutskever, I., &amp; Vinyals, O. (2014). Recurrent neural network regularization. arXiv preprint arXiv:1409.2329.</li>
+</ul>
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.policy_sampler.PolicySampler.check_the_end_flag">
+<code class="descname">check_the_end_flag</code><span class="sig-paren">(</span><em>state_arr</em>, <em>meta_data_arr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.policy_sampler.PolicySampler.check_the_end_flag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the end flag.</p>
+<p>If this return value is <cite>True</cite>, the learning is end.</p>
+<p>As a rule, the learning can not be stopped.
+This method should be overrided for concreate usecases.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>state_arr</strong> – state in <cite>self.t</cite>.</li>
+<li><strong>meta_data_arr</strong> – meta data of the state.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.policy_sampler.PolicySampler.get_possible_n">
+<code class="descname">get_possible_n</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.policy_sampler.PolicySampler.get_possible_n" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.policy_sampler.PolicySampler.observe_reward_value">
+<code class="descname">observe_reward_value</code><span class="sig-paren">(</span><em>state_arr</em>, <em>action_arr</em>, <em>meta_data_arr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.policy_sampler.PolicySampler.observe_reward_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the reward value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>state_arr</strong> – Tensor of state.</li>
+<li><strong>action_arr</strong> – Tensor of action.</li>
+<li><strong>meta_data_arr</strong> – Meta data of actions.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Reward value.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.policy_sampler.PolicySampler.observe_state">
+<code class="descname">observe_state</code><span class="sig-paren">(</span><em>state_arr</em>, <em>meta_data_arr</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.policy_sampler.PolicySampler.observe_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Observe states of agents in last epoch.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>state_arr</strong> – Tensor of state.</li>
+<li><strong>meta_data_arr</strong> – meta data of the state.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.samplabledata.policy_sampler.PolicySampler.possible_n">
+<code class="descname">possible_n</code><a class="headerlink" href="#accelbrainbase.samplabledata.policy_sampler.PolicySampler.possible_n" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.policy_sampler.PolicySampler.set_possible_n">
+<code class="descname">set_possible_n</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.policy_sampler.PolicySampler.set_possible_n" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.policy_sampler.PolicySampler.update_state">
+<code class="descname">update_state</code><span class="sig-paren">(</span><em>action_arr</em>, <em>meta_data_arr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.policy_sampler.PolicySampler.update_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update state.</p>
+<p>This method can be overrided for concreate usecases.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>action_arr</strong> – action in <cite>self.t</cite>.</li>
+<li><strong>meta_data_arr</strong> – meta data of the action.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuple data.
+- state in <cite>self.t+1</cite>.
+- meta data of the state.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.samplabledata.true_sampler">
+<span id="accelbrainbase-samplabledata-true-sampler-module"></span><h2>accelbrainbase.samplabledata.true_sampler module<a class="headerlink" href="#module-accelbrainbase.samplabledata.true_sampler" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="accelbrainbase.samplabledata.true_sampler.TrueSampler">
+<em class="property">class </em><code class="descclassname">accelbrainbase.samplabledata.true_sampler.</code><code class="descname">TrueSampler</code><a class="headerlink" href="#accelbrainbase.samplabledata.true_sampler.TrueSampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="accelbrainbase.html#accelbrainbase.samplable_data.SamplableData" title="accelbrainbase.samplable_data.SamplableData"><code class="xref py py-class docutils literal notranslate"><span class="pre">accelbrainbase.samplable_data.SamplableData</span></code></a></p>
+<p>The class to draw true samples from distributions,
+generating from an <cite>IteratableData</cite>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., … &amp; Bengio, Y. (2014). Generative adversarial nets. In Advances in neural information processing systems (pp. 2672-2680).</li>
+<li>Mirza, M., &amp; Osindero, S. (2014). Conditional generative adversarial nets. arXiv preprint arXiv:1411.1784.</li>
+</ul>
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.true_sampler.TrueSampler.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.true_sampler.TrueSampler.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw samples from distribtions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>Tuple</cite> of <a href="#id5"><span class="problematic" id="id6">`</span></a>mx.nd.array`s.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.true_sampler.TrueSampler.get_iteratorable_data">
+<code class="descname">get_iteratorable_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.true_sampler.TrueSampler.get_iteratorable_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter for <cite>IteratableData</cite>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="accelbrainbase.samplabledata.true_sampler.TrueSampler.iteratorable_data">
+<code class="descname">iteratorable_data</code><a class="headerlink" href="#accelbrainbase.samplabledata.true_sampler.TrueSampler.iteratorable_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter for <cite>IteratableData</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="accelbrainbase.samplabledata.true_sampler.TrueSampler.set_iteratorable_data">
+<code class="descname">set_iteratorable_data</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#accelbrainbase.samplabledata.true_sampler.TrueSampler.set_iteratorable_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter for <cite>IteratableData</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-accelbrainbase.samplabledata">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-accelbrainbase.samplabledata" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="accelbrainbase.samplabledata.conditionsampler.html" title="accelbrainbase.samplabledata.conditionsampler package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="accelbrainbase.regularizatabledata._mxnet.html" title="accelbrainbase.regularizatabledata._mxnet package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">accel-brain-base  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="accelbrainbase.html" >accelbrainbase package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Accel Brain.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

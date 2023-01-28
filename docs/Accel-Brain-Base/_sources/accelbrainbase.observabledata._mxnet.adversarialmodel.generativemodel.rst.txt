@@ -1,0 +1,22 @@
+accelbrainbase.observabledata.\_mxnet.adversarialmodel.generativemodel package
+==============================================================================
+
+Submodules
+----------
+
+accelbrainbase.observabledata.\_mxnet.adversarialmodel.generativemodel.convolutional\_auto\_encoder module
+----------------------------------------------------------------------------------------------------------
+
+.. automodule:: accelbrainbase.observabledata._mxnet.adversarialmodel.generativemodel.convolutional_auto_encoder
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: accelbrainbase.observabledata._mxnet.adversarialmodel.generativemodel
+    :members:
+    :undoc-members:
+    :show-inheritance:

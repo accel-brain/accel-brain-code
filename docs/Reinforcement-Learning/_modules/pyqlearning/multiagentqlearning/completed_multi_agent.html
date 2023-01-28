@@ -1,0 +1,168 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pyqlearning.multiagentqlearning.completed_multi_agent &#8212; pyqlearning  documentation</title>
+    <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pyqlearning  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pyqlearning.multiagentqlearning.completed_multi_agent</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">pyqlearning.multi_agent_q_learning</span> <span class="k">import</span> <span class="n">MultiAgentQLearning</span>
+
+
+<div class="viewcode-block" id="CompletedMultiAgent"><a class="viewcode-back" href="../../../pyqlearning.multiagentqlearning.html#pyqlearning.multiagentqlearning.completed_multi_agent.CompletedMultiAgent">[docs]</a><span class="k">class</span> <span class="nc">CompletedMultiAgent</span><span class="p">(</span><span class="n">MultiAgentQLearning</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Multi-Agent which learn in complete information, </span>
+<span class="sd">    to play a game in which knowledge about other players is available to all participants.</span>
+
+<span class="sd">    Each agent can search optimal policy, observing accurate state of other agents.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="CompletedMultiAgent.learn"><a class="viewcode-back" href="../../../pyqlearning.multiagentqlearning.html#pyqlearning.multiagentqlearning.completed_multi_agent.CompletedMultiAgent.learn">[docs]</a>    <span class="k">def</span> <span class="nf">learn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_state_key</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">game_n</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Multi-Agent Learning.</span>
+
+<span class="sd">        Override.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            initial_state_key:  Initial state.</span>
+<span class="sd">            limit:              Limit of the number of learning.</span>
+<span class="sd">            game_n:             The number of games.</span>
+<span class="sd">            </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">end_flag</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">state_key_list</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q_learning_list</span><span class="p">)</span>
+        <span class="n">action_key_list</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q_learning_list</span><span class="p">)</span>
+        <span class="n">next_action_key_list</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q_learning_list</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">game</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">game_n</span><span class="p">):</span>
+            <span class="n">state_key</span> <span class="o">=</span> <span class="n">initial_state_key</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">&lt;=</span> <span class="n">limit</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q_learning_list</span><span class="p">)):</span>
+                    <span class="n">state_key_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">state_key</span>
+                    <span class="k">if</span> <span class="n">game</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">game_n</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">state_key_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">state_key_list</span><span class="p">))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">q_learning_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span>
+                    <span class="n">next_action_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_learning_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">extract_possible_actions</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">state_key_list</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">next_action_list</span><span class="p">):</span>
+                        <span class="n">action_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_learning_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">select_action</span><span class="p">(</span>
+                            <span class="n">state_key</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">state_key_list</span><span class="p">),</span>
+                            <span class="n">next_action_list</span><span class="o">=</span><span class="n">next_action_list</span>
+                        <span class="p">)</span>
+                        <span class="n">action_key_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">action_key</span>
+                        <span class="n">reward_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_learning_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">observe_reward_value</span><span class="p">(</span>
+                            <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">state_key_list</span><span class="p">),</span> 
+                            <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">action_key_list</span><span class="p">)</span>
+                        <span class="p">)</span>
+
+                        <span class="c1"># Check.</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_learning_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">check_the_end_flag</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">state_key_list</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                            <span class="n">end_flag</span> <span class="o">=</span> <span class="kc">True</span>
+
+                        <span class="c1"># Max-Q-Value in next action time.</span>
+                        <span class="n">next_next_action_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_learning_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">extract_possible_actions</span><span class="p">(</span>
+                            <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">action_key_list</span><span class="p">)</span>
+                        <span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">next_next_action_list</span><span class="p">):</span>
+                            <span class="n">next_action_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_learning_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">predict_next_action</span><span class="p">(</span>
+                                <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">action_key_list</span><span class="p">),</span> 
+                                <span class="n">next_next_action_list</span>
+                            <span class="p">)</span>
+                            <span class="n">next_action_key_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">next_action_key</span>
+                            <span class="n">next_max_q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_learning_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">extract_q_df</span><span class="p">(</span>
+                                <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">action_key_list</span><span class="p">),</span> 
+                                <span class="n">next_action_key</span>
+                            <span class="p">)</span>
+
+                            <span class="c1"># Update Q-Value.</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">q_learning_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">update_q</span><span class="p">(</span>
+                                <span class="n">state_key</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">state_key_list</span><span class="p">),</span>
+                                <span class="n">action_key</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">action_key_list</span><span class="p">),</span>
+                                <span class="n">reward_value</span><span class="o">=</span><span class="n">reward_value</span><span class="p">,</span>
+                                <span class="n">next_max_q</span><span class="o">=</span><span class="n">next_max_q</span>
+                            <span class="p">)</span>
+
+                            <span class="c1"># Update State.</span>
+                            <span class="n">state_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_learning_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span>
+                                <span class="n">state_key</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">state_key_list</span><span class="p">),</span>
+                                <span class="n">action_key</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">action_key_list</span><span class="p">)</span>
+                            <span class="p">)</span>
+                            <span class="n">state_key_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">state_key</span>
+
+                    <span class="c1"># Epsode.</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">q_learning_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span>
+                    <span class="k">if</span> <span class="n">end_flag</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                        <span class="k">break</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">pyqlearning  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, chimera0(RUM).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

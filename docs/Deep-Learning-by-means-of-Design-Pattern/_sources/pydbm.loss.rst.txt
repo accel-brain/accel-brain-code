@@ -1,0 +1,45 @@
+pydbm.loss package
+==================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    pydbm.loss.interface
+
+Submodules
+----------
+
+pydbm.loss.cross\_entropy module
+--------------------------------
+
+.. automodule:: pydbm.loss.cross_entropy
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.loss.kl\_divergence module
+--------------------------------
+
+.. automodule:: pydbm.loss.kl_divergence
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.loss.mean\_squared\_error module
+--------------------------------------
+
+.. automodule:: pydbm.loss.mean_squared_error
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pydbm.loss
+    :members:
+    :undoc-members:
+    :show-inheritance:

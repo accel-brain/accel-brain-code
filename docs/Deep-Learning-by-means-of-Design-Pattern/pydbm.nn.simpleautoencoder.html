@@ -1,0 +1,368 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pydbm.nn.simpleautoencoder package &#8212; pydbm  documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pydbm.optimization package" href="pydbm.optimization.html" />
+    <link rel="prev" title="pydbm.nn package" href="pydbm.nn.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pydbm.optimization.html" title="pydbm.optimization package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pydbm.nn.html" title="pydbm.nn package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pydbm  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pydbm.html" >pydbm package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="pydbm.nn.html" accesskey="U">pydbm.nn package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pydbm-nn-simpleautoencoder-package">
+<h1>pydbm.nn.simpleautoencoder package<a class="headerlink" href="#pydbm-nn-simpleautoencoder-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pydbm.nn.simpleautoencoder.contractive_auto_encoder">
+<span id="pydbm-nn-simpleautoencoder-contractive-auto-encoder-module"></span><h2>pydbm.nn.simpleautoencoder.contractive_auto_encoder module<a class="headerlink" href="#module-pydbm.nn.simpleautoencoder.contractive_auto_encoder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.nn.simpleautoencoder.contractive_auto_encoder.ContractiveAutoEncoder">
+<em class="property">class </em><code class="descclassname">pydbm.nn.simpleautoencoder.contractive_auto_encoder.</code><code class="descname">ContractiveAutoEncoder</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.contractive_auto_encoder.ContractiveAutoEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pydbm.nn.html#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder" title="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">pydbm.nn.simple_auto_encoder.SimpleAutoEncoder</span></code></a></p>
+<p>Contractive Auto-Encoder.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Kamyshanska, H., &amp; Memisevic, R. (2014). The potential energy of an autoencoder. IEEE transactions on pattern analysis and machine intelligence, 37(6), 1261-1273.</li>
+<li>Rifai, S., Vincent, P., Muller, X., Glorot, X., &amp; Bengio, Y. (2011, June). Contractive auto-encoders: Explicit invariance during feature extraction. In Proceedings of the 28th International Conference on International Conference on Machine Learning (pp. 833-840). Omnipress.</li>
+<li>Rifai, S., Mesnil, G., Vincent, P., Muller, X., Bengio, Y., Dauphin, Y., &amp; Glorot, X. (2011, September). Higher order contractive auto-encoder. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases (pp. 645-660). Springer, Berlin, Heidelberg.</li>
+</ul>
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.contractive_auto_encoder.ContractiveAutoEncoder.forward_propagation">
+<code class="descname">forward_propagation</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.contractive_auto_encoder.ContractiveAutoEncoder.forward_propagation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward propagation in NN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>observed_arr</strong> – <cite>np.ndarray</cite> of image file array.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Propagated <cite>np.ndarray</cite>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.contractive_auto_encoder.ContractiveAutoEncoder.get_penalty_lambda">
+<code class="descname">get_penalty_lambda</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.contractive_auto_encoder.ContractiveAutoEncoder.get_penalty_lambda" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter for Positive hyperparameter
+that controls the strength of the regularization.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.contractive_auto_encoder.ContractiveAutoEncoder.penalty_lambda">
+<code class="descname">penalty_lambda</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.contractive_auto_encoder.ContractiveAutoEncoder.penalty_lambda" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter for Positive hyperparameter
+that controls the strength of the regularization.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.contractive_auto_encoder.ContractiveAutoEncoder.set_penalty_lambda">
+<code class="descname">set_penalty_lambda</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.contractive_auto_encoder.ContractiveAutoEncoder.set_penalty_lambda" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter for Positive hyperparameter
+that controls the strength of the regularization.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.nn.simpleautoencoder.ladder_networks">
+<span id="pydbm-nn-simpleautoencoder-ladder-networks-module"></span><h2>pydbm.nn.simpleautoencoder.ladder_networks module<a class="headerlink" href="#module-pydbm.nn.simpleautoencoder.ladder_networks" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks">
+<em class="property">class </em><code class="descclassname">pydbm.nn.simpleautoencoder.ladder_networks.</code><code class="descname">LadderNetworks</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pydbm.nn.html#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder" title="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">pydbm.nn.simple_auto_encoder.SimpleAutoEncoder</span></code></a></p>
+<p>Ladder Networks.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Bengio, Y., Lamblin, P., Popovici, D., &amp; Larochelle, H. (2007). Greedy layer-wise training of deep networks. In Advances in neural information processing systems (pp. 153-160).</li>
+<li>Erhan, D., Bengio, Y., Courville, A., Manzagol, P. A., Vincent, P., &amp; Bengio, S. (2010). Why does unsupervised pre-training help deep learning?. Journal of Machine Learning Research, 11(Feb), 625-660.</li>
+<li>Erhan, D., Courville, A., &amp; Bengio, Y. (2010). Understanding representations learned in deep architectures. Department dInformatique et Recherche Operationnelle, University of Montreal, QC, Canada, Tech. Rep, 1355, 1.</li>
+<li>Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). Deep learning (adaptive computation and machine learning series). Adaptive Computation and Machine Learning series, 800.</li>
+<li>Rasmus, A., Berglund, M., Honkala, M., Valpola, H., &amp; Raiko, T. (2015). Semi-supervised learning with ladder networks. In Advances in neural information processing systems (pp. 3546-3554).</li>
+<li>Valpola, H. (2015). From neural PCA to deep unsupervised learning. In Advances in Independent Component Analysis and Learning Machines (pp. 143-171). Academic Press.</li>
+</ul>
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.alpha_loss_arr">
+<code class="descname">alpha_loss_arr</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.alpha_loss_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.back_propagation">
+<code class="descname">back_propagation</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.back_propagation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Back propagation in NN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>Delta.</strong> – </td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Returns.</dt>
+<dd>Delta.</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.compute_alpha_loss">
+<code class="descname">compute_alpha_loss</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.compute_alpha_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute denoising loss weighted alpha.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">loss.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.compute_mu_loss">
+<code class="descname">compute_mu_loss</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.compute_mu_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute mu loss weighted mu.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">loss.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.compute_sigma_loss">
+<code class="descname">compute_sigma_loss</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.compute_sigma_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute sigma loss weighted sigma.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">loss.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.forward_propagation">
+<code class="descname">forward_propagation</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.forward_propagation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward propagation in NN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>observed_arr</strong> – <cite>np.ndarray</cite> of image file array.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Propagated <cite>np.ndarray</cite>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.get_alpha_loss_arr">
+<code class="descname">get_alpha_loss_arr</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.get_alpha_loss_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.get_mu_loss_arr">
+<code class="descname">get_mu_loss_arr</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.get_mu_loss_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.get_sigma_loss_arr">
+<code class="descname">get_sigma_loss_arr</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.get_sigma_loss_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.learn">
+<code class="descname">learn</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Learn.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>observed_arr</strong> – <cite>np.ndarray</cite> of observed data points.</li>
+<li><strong>target_arr</strong> – <cite>np.ndarray</cite> of labeled data.
+If <cite>None</cite>, the function of this NN model is equivalent to Convolutional Auto-Encoder.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.mu_loss_arr">
+<code class="descname">mu_loss_arr</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.mu_loss_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.set_readonly">
+<code class="descname">set_readonly</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.set_readonly" title="Permalink to this definition">¶</a></dt>
+<dd><p>setter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.sigma_loss_arr">
+<code class="descname">sigma_loss_arr</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.ladder_networks.LadderNetworks.sigma_loss_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.nn.simpleautoencoder.repelling_auto_encoder">
+<span id="pydbm-nn-simpleautoencoder-repelling-auto-encoder-module"></span><h2>pydbm.nn.simpleautoencoder.repelling_auto_encoder module<a class="headerlink" href="#module-pydbm.nn.simpleautoencoder.repelling_auto_encoder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pydbm.nn.simpleautoencoder.repelling_auto_encoder.RepellingAutoEncoder">
+<em class="property">class </em><code class="descclassname">pydbm.nn.simpleautoencoder.repelling_auto_encoder.</code><code class="descname">RepellingAutoEncoder</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.repelling_auto_encoder.RepellingAutoEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pydbm.nn.html#pydbm.nn.simple_auto_encoder.SimpleAutoEncoder" title="pydbm.nn.simple_auto_encoder.SimpleAutoEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">pydbm.nn.simple_auto_encoder.SimpleAutoEncoder</span></code></a></p>
+<p>Repelling Auto-Encoder.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Zhao, J., Mathieu, M., &amp; LeCun, Y. (2016). Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126.</li>
+</ul>
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.repelling_auto_encoder.RepellingAutoEncoder.back_propagation">
+<code class="descname">back_propagation</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.repelling_auto_encoder.RepellingAutoEncoder.back_propagation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Back propagation in NN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>Delta.</strong> – </td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Returns.</dt>
+<dd>Delta.</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pydbm.nn.simpleautoencoder.repelling_auto_encoder.RepellingAutoEncoder.forward_propagation">
+<code class="descname">forward_propagation</code><a class="headerlink" href="#pydbm.nn.simpleautoencoder.repelling_auto_encoder.RepellingAutoEncoder.forward_propagation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward propagation in NN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>observed_arr</strong> – <cite>np.ndarray</cite> of observed data points.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Propagated <cite>np.ndarray</cite>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pydbm.nn.simpleautoencoder">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pydbm.nn.simpleautoencoder" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pydbm.nn.html"
+                        title="previous chapter">pydbm.nn package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pydbm.optimization.html"
+                        title="next chapter">pydbm.optimization package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pydbm.optimization.html" title="pydbm.optimization package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pydbm.nn.html" title="pydbm.nn package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pydbm  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="pydbm.html" >pydbm package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="pydbm.nn.html" >pydbm.nn package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018-2019, chimera0(RUM).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

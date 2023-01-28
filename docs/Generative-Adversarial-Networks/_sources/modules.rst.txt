@@ -1,0 +1,7 @@
+pygan
+=====
+
+.. toctree::
+   :maxdepth: 4
+
+   pygan

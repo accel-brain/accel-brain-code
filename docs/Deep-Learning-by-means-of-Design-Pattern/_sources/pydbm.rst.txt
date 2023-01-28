@@ -1,0 +1,47 @@
+pydbm package
+=============
+
+Subpackages
+-----------
+
+.. toctree::
+
+    pydbm.activation
+    pydbm.approximation
+    pydbm.clustering
+    pydbm.cnn
+    pydbm.dbm
+    pydbm.loss
+    pydbm.nn
+    pydbm.optimization
+    pydbm.rnn
+    pydbm.synapse
+    pydbm.verification
+
+Submodules
+----------
+
+pydbm.params\_initializer module
+--------------------------------
+
+.. automodule:: pydbm.params_initializer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pydbm.synapse\_list module
+--------------------------
+
+.. automodule:: pydbm.synapse_list
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pydbm
+    :members:
+    :undoc-members:
+    :show-inheritance:

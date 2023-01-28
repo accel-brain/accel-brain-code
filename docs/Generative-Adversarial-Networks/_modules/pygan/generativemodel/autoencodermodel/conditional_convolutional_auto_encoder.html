@@ -1,0 +1,317 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder &#8212; pygan  documentation</title>
+    <link rel="stylesheet" href="../../../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">pygan  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">logging</span> <span class="k">import</span> <span class="n">getLogger</span>
+<span class="kn">from</span> <span class="nn">pygan.generativemodel.auto_encoder_model</span> <span class="k">import</span> <span class="n">AutoEncoderModel</span>
+<span class="kn">from</span> <span class="nn">pygan.true_sampler</span> <span class="k">import</span> <span class="n">TrueSampler</span>
+<span class="kn">from</span> <span class="nn">pygan.generativemodel.conditionalgenerativemodel.conditional_convolutional_model</span> <span class="k">import</span> <span class="n">ConditionalConvolutionalModel</span>
+<span class="kn">from</span> <span class="nn">pygan.truesampler.conditional_true_sampler</span> <span class="k">import</span> <span class="n">ConditionalTrueSampler</span>
+<span class="kn">from</span> <span class="nn">pygan.true_sampler</span> <span class="k">import</span> <span class="n">TrueSampler</span>
+
+
+<div class="viewcode-block" id="ConditionalConvolutionalAutoEncoder"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder">[docs]</a><span class="k">class</span> <span class="nc">ConditionalConvolutionalAutoEncoder</span><span class="p">(</span><span class="n">AutoEncoderModel</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Conditional Convolutional Auto-Encoder(CCAE) as a `AutoEncoderModel`</span>
+<span class="sd">    which has a `CondtionalConvolutionalModel`.</span>
+
+<span class="sd">    A stack of Convolutional Auto-Encoder (Masci, J., et al., 2011) </span>
+<span class="sd">    forms a convolutional neural network(CNN), which are among the most successful models </span>
+<span class="sd">    for supervised image classification.  Each Convolutional Auto-Encoder is trained </span>
+<span class="sd">    using conventional on-line gradient descent without additional regularization terms.</span>
+<span class="sd">    </span>
+<span class="sd">    In this library, Convolutional Auto-Encoder is also based on Encoder/Decoder scheme.</span>
+<span class="sd">    The encoder is to the decoder what the Convolution is to the Deconvolution.</span>
+<span class="sd">    The Deconvolution also called transposed convolutions </span>
+<span class="sd">    &quot;work by swapping the forward and backward passes of a convolution.&quot; (Dumoulin, V., &amp; Visin, F. 2016, p20.)</span>
+
+<span class="sd">    Also, this model has a so-called Deconvolutional Neural Network as a `Conditioner`,</span>
+<span class="sd">    where the function of `Conditioner` is a conditional mechanism </span>
+<span class="sd">    to use previous knowledge to condition the generations, </span>
+<span class="sd">    incorporating information from previous observed data points to </span>
+<span class="sd">    itermediate layers of the `Generator`. In this method, this model </span>
+<span class="sd">    can &quot;look back&quot; without a recurrent unit as used in RNN or LSTM. </span>
+
+<span class="sd">    This model observes not only random noises but also any other prior</span>
+<span class="sd">    information as a previous knowledge and outputs feature points.</span>
+<span class="sd">    Due to the `Conditioner`, this model has the capacity to exploit</span>
+<span class="sd">    whatever prior knowledge that is available and can be represented</span>
+<span class="sd">    as a matrix or tensor.</span>
+
+<span class="sd">    **Note** that this model defines the inputs as samples of conditions and so </span>
+<span class="sd">    the outputs as reconstructed samples of condtions, considering that</span>
+<span class="sd">    those distributions, especially scales represented by biases, can be equivalents or similar.</span>
+<span class="sd">    This definition assumes an *intuitive* implementation specific to this library.</span>
+<span class="sd">    If you do not want to train in this way, you should use not this model but `ConditionalConvolutionalModel`.</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        - Dumoulin, V., &amp; V,kisin, F. (2016). A guide to convolution arithmetic for deep learning. arXiv preprint arXiv:1603.07285.</span>
+<span class="sd">        - Masci, J., Meier, U., Cireşan, D., &amp; Schmidhuber, J. (2011, June). Stacked convolutional auto-encoders for hierarchical feature extraction. In International Conference on Artificial Neural Networks (pp. 52-59). Springer, Berlin, Heidelberg.</span>
+<span class="sd">        - Mirza, M., &amp; Osindero, S. (2014). Conditional generative adversarial nets. arXiv preprint arXiv:1411.1784.</span>
+<span class="sd">        - Yang, L. C., Chou, S. Y., &amp; Yang, Y. H. (2017). MidiNet: A convolutional generative adversarial network for symbolic-domain music generation. arXiv preprint arXiv:1703.10847.</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">conditional_convolutional_model</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">learning_rate</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span>
+        <span class="n">learning_attenuate_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">attenuate_epoch</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">opt_params</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Init.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            conditional_convolutional_model:        is-a `ConditionalConvolutionalModel`.</span>
+<span class="sd">            batch_size:                             Batch size.</span>
+<span class="sd">            learning_rate:                          Learning rate.</span>
+<span class="sd">            learning_attenuate_rate:                Attenuate the `learning_rate` by a factor of this value every `attenuate_epoch`.</span>
+<span class="sd">            attenuate_epoch:                        Attenuate the `learning_rate` by a factor of `learning_attenuate_rate` every `attenuate_epoch`.</span>
+<span class="sd">                                                    Additionally, in relation to regularization,</span>
+<span class="sd">                                                    this class constrains weight matrixes every `attenuate_epoch`.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">conditional_convolutional_model</span><span class="p">,</span> <span class="n">ConditionalConvolutionalModel</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of `conditional_convolutional_model` must be `ConditionalConvolutionalModel`&quot;</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span> <span class="o">=</span> <span class="n">conditional_convolutional_model</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__learning_rate</span> <span class="o">=</span> <span class="n">learning_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__attenuate_epoch</span> <span class="o">=</span> <span class="n">attenuate_epoch</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__learning_attenuate_rate</span> <span class="o">=</span> <span class="n">learning_attenuate_rate</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;pygan&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span> <span class="o">=</span> <span class="n">logger</span>
+
+<div class="viewcode-block" id="ConditionalConvolutionalAutoEncoder.pre_learn"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.pre_learn">[docs]</a>    <span class="k">def</span> <span class="nf">pre_learn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">true_sampler</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Pre learning.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            true_sampler:       is-a `TrueSampler`.</span>
+<span class="sd">            epochs:             Epochs.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">true_sampler</span><span class="p">,</span> <span class="n">ConditionalTrueSampler</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of `true_sampler` must be not `ConditionalTrueSampler` but `TrueSampler`.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">true_sampler</span><span class="p">,</span> <span class="n">TrueSampler</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The type of `true_sampler` must be `TrueSampler`.&quot;</span><span class="p">)</span>
+
+        <span class="n">learning_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__learning_rate</span>
+        <span class="n">pre_loss_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__attenuate_epoch</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">learning_rate</span> <span class="o">=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__learning_attenuate_rate</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">observed_arr</span> <span class="o">=</span> <span class="n">true_sampler</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+                <span class="n">conv_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">observed_arr</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">condition_noise_sampler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">condition_noise_sampler</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">conv_arr</span><span class="o">.</span><span class="n">shape</span>
+                    <span class="n">noise_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">condition_noise_sampler</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+                    <span class="n">conv_arr</span> <span class="o">+=</span> <span class="n">noise_arr</span>
+
+                <span class="n">deconv_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">deconvolution_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">conv_arr</span><span class="p">)</span>
+
+                <span class="n">grad_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">cnn</span><span class="o">.</span><span class="n">computable_loss</span><span class="o">.</span><span class="n">compute_delta</span><span class="p">(</span><span class="n">observed_arr</span><span class="p">,</span> <span class="n">deconv_arr</span><span class="p">)</span>
+                <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">cnn</span><span class="o">.</span><span class="n">computable_loss</span><span class="o">.</span><span class="n">compute_loss</span><span class="p">(</span><span class="n">observed_arr</span><span class="p">,</span> <span class="n">deconv_arr</span><span class="p">)</span>
+                <span class="n">pre_loss_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Epoch: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; loss: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">loss</span><span class="p">))</span>
+
+                <span class="n">grad_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">deconvolution_model</span><span class="o">.</span><span class="n">learn</span><span class="p">(</span><span class="n">grad_arr</span><span class="p">)</span>
+                <span class="n">grad_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">cnn</span><span class="o">.</span><span class="n">back_propagation</span><span class="p">(</span><span class="n">grad_arr</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">cnn</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">learning_rate</span><span class="p">,</span> <span class="n">epoch</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Interrupt.&quot;</span><span class="p">)</span>
+                <span class="k">break</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__pre_loss_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pre_loss_list</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConditionalConvolutionalAutoEncoder.draw"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Draws samples from the `fake` distribution.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            `np.ndarray` of samples.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ConditionalConvolutionalAutoEncoder.inference"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.inference">[docs]</a>    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observed_arr</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Draws samples from the `true` distribution.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            observed_arr:     `np.ndarray` of observed data points.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            `np.ndarray` of inferenced.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">observed_arr</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConditionalConvolutionalAutoEncoder.learn"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.learn">[docs]</a>    <span class="k">def</span> <span class="nf">learn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grad_arr</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Update this Generator by ascending its stochastic gradient.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            grad_arr:       `np.ndarray` of gradients.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            `np.ndarray` of delta or gradients.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">learn</span><span class="p">(</span><span class="n">grad_arr</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConditionalConvolutionalAutoEncoder.update"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Update the encoder and the decoder</span>
+<span class="sd">        to minimize the reconstruction error of the inputs.</span>
+
+<span class="sd">        This model defines the inputs as samples of conditions and so </span>
+<span class="sd">        the outputs as reconstructed samples of condtions, considering that</span>
+<span class="sd">        those distributions, especially scales represented by biases, are equivalents or similar.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            `np.ndarray` of the reconstruction errors.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">epoch_counter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__attenuate_epoch</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__learning_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__learning_rate</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__learning_attenuate_rate</span>
+
+        <span class="n">observed_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">extract_conditions</span><span class="p">()</span>
+        <span class="n">conv_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">observed_arr</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">condition_noise_sampler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">condition_noise_sampler</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">conv_arr</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">noise_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">condition_noise_sampler</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+            <span class="n">conv_arr</span> <span class="o">+=</span> <span class="n">noise_arr</span>
+
+        <span class="n">inferenced_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">deconvolution_model</span><span class="o">.</span><span class="n">inference</span><span class="p">(</span><span class="n">conv_arr</span><span class="p">)</span>
+
+        <span class="n">error_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">cnn</span><span class="o">.</span><span class="n">computable_loss</span><span class="o">.</span><span class="n">compute_loss</span><span class="p">(</span>
+            <span class="n">observed_arr</span><span class="p">,</span>
+            <span class="n">inferenced_arr</span>
+        <span class="p">)</span>
+
+        <span class="n">delta_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">cnn</span><span class="o">.</span><span class="n">computable_loss</span><span class="o">.</span><span class="n">compute_delta</span><span class="p">(</span>
+            <span class="n">observed_arr</span><span class="p">,</span>
+            <span class="n">inferenced_arr</span>
+        <span class="p">)</span>
+
+        <span class="n">delta_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">deconvolution_model</span><span class="o">.</span><span class="n">learn</span><span class="p">(</span><span class="n">delta_arr</span><span class="p">)</span>
+        <span class="n">delta_arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">cnn</span><span class="o">.</span><span class="n">back_propagation</span><span class="p">(</span><span class="n">delta_arr</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">cnn</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__learning_rate</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">epoch_counter</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">epoch_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">error_arr</span></div>
+
+<div class="viewcode-block" id="ConditionalConvolutionalAutoEncoder.switch_inferencing_mode"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.switch_inferencing_mode">[docs]</a>    <span class="k">def</span> <span class="nf">switch_inferencing_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inferencing_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Set inferencing mode in relation to concrete regularizations.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            inferencing_mode:       Inferencing mode or not.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span><span class="o">.</span><span class="n">switch_inferencing_mode</span><span class="p">(</span><span class="n">inferencing_mode</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConditionalConvolutionalAutoEncoder.get_conditional_convolutional_model"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.get_conditional_convolutional_model">[docs]</a>    <span class="k">def</span> <span class="nf">get_conditional_convolutional_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; getter &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span></div>
+    
+<div class="viewcode-block" id="ConditionalConvolutionalAutoEncoder.set_conditional_convolutional_model"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.set_conditional_convolutional_model">[docs]</a>    <span class="k">def</span> <span class="nf">set_conditional_convolutional_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; setter &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__conditional_convolutional_model</span> <span class="o">=</span> <span class="n">value</span></div>
+
+    <span class="n">conditional_convolutional_model</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_conditional_convolutional_model</span><span class="p">,</span> <span class="n">set_conditional_convolutional_model</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ConditionalConvolutionalAutoEncoder.set_readonly"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.set_readonly">[docs]</a>    <span class="k">def</span> <span class="nf">set_readonly</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; setter &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;This property must be read-only.&quot;</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="ConditionalConvolutionalAutoEncoder.get_pre_loss_arr"><a class="viewcode-back" href="../../../../pygan.generativemodel.autoencodermodel.html#pygan.generativemodel.autoencodermodel.conditional_convolutional_auto_encoder.ConditionalConvolutionalAutoEncoder.get_pre_loss_arr">[docs]</a>    <span class="k">def</span> <span class="nf">get_pre_loss_arr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; getter &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pre_loss_arr</span></div>
+
+    <span class="n">pre_loss_arr</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_pre_loss_arr</span><span class="p">,</span> <span class="n">set_readonly</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">pygan  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Accel Brain.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

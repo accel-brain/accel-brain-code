@@ -15,7 +15,7 @@ class GreedyQLearningCost(CostFunctionable):
     
     def __init__(
         self,
-        greedy_q_learning,
+        boltzmann_q_learning,
         init_state_key
     ):
         '''
@@ -42,7 +42,7 @@ class GreedyQLearningCost(CostFunctionable):
         Returns:
             cost
         '''
-        q_learning = copy(self.__greedy_q_learning)
+        q_learning = copy(self.__boltzmann_q_learning)
         q_learning.alpha_value = x[0]
         q_learning.gamma_value = x[1]
         if self.__init_state_key is not None:

@@ -1,0 +1,463 @@
+<h1 id="generative-adversarial-networks-library-pygan">Generative
+Adversarial Networks Library: pygan</h1>
+<p><code>pygan</code> is Python library to implement Generative
+Adversarial Networks(GANs), <em>Conditional</em> GANs, Adversarial
+Auto-Encoders(AAEs), and Energy-based Generative Adversarial
+Network(EBGAN).</p>
+<p>This library makes it possible to design the Generative models based
+on the Statistical machine learning problems in relation to Generative
+Adversarial Networks(GANs), <em>Conditional</em> GANs, Adversarial
+Auto-Encoders(AAEs), and Energy-based Generative Adversarial
+Network(EBGAN) to practice algorithm design for semi-supervised
+learning.</p>
+<h2 id="installation">Installation</h2>
+<p>Install using pip:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pygan</span></code></pre></div>
+<h3 id="source-code">Source code</h3>
+<p>The source code is currently hosted on GitHub.</p>
+<ul>
+<li><a
+href="https://github.com/chimera0/accel-brain-code/tree/master/Generative-Adversarial-Networks">accel-brain-code/Generative-Adversarial-Networks</a></li>
+</ul>
+<h3 id="python-package-indexpypi">Python package index(PyPI)</h3>
+<p>Installers for the latest released version are available at the
+Python package index.</p>
+<ul>
+<li><a href="https://pypi.python.org/pypi/pygan/">pygan : Python Package
+Index</a></li>
+</ul>
+<h3 id="dependencies">Dependencies</h3>
+<ul>
+<li><a href="https://github.com/numpy/numpy">numpy</a>: v1.13.3 or
+higher.</li>
+<li><a
+href="https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base">accel-brain-base</a>:
+v1.0.0 or higher.</li>
+<li><a href="https://github.com/apache/incubator-mxnet">mxnet</a> or <a
+href="https://mxnet.apache.org/api/python/docs/tutorials/getting-started/crash-course/6-use_gpus.html">mxnet-cu*</a>:
+latest.
+<ul>
+<li>Only when building a model of this library using <a
+href="https://mxnet.apache.org/">Apache MXNet</a>.</li>
+</ul></li>
+<li><a href="https://pytorch.org/get-started/locally/">torch</a>
+<ul>
+<li>Only when building a model of this library using <a
+href="https://pytorch.org/">PyTorch</a>.</li>
+</ul></li>
+</ul>
+<h2 id="documentation">Documentation</h2>
+<p>Full documentation is available on <a
+href="https://code.accel-brain.com/Generative-Adversarial-Networks/">https://code.accel-brain.com/Generative-Adversarial-Networks/</a>
+. This document contains information on functionally reusability,
+functional scalability and functional extensibility.</p>
+<h2 id="description">Description</h2>
+<p><code>pygan</code> is Python library to implement Generative
+Adversarial Networks(GANs), <em>Conditional</em> GANs, Adversarial
+Auto-Encoders(AAEs), and Energy-based Generative Adversarial
+Network(EBGAN).</p>
+<p>The Generative Adversarial Networks(GANs) (Goodfellow et al., 2014)
+framework establishes a min-max adversarial game between two neural
+networks – a generative model, <code>G</code>, and a discriminative
+model, <code>D</code>. The discriminator model, <code>D(x)</code>, is a
+neural network that computes the probability that a observed data point
+<code>x</code> in data space is a sample from the data distribution
+(positive samples) that we are trying to model, rather than a sample
+from our generative model (negative samples). Concurrently, the
+generator uses a function <code>G(z)</code> that maps samples
+<code>z</code> from the prior <code>p(z)</code> to the data space.
+<code>G(z)</code> is trained to maximally confuse the discriminator into
+believing that samples it generates come from the data distribution. The
+generator is trained by leveraging the gradient of <code>D(x)</code>
+w.r.t. <code>x</code>, and using that to modify its parameters.</p>
+<h3 id="structural-extension-for-conditional-gans-or-cgans.">Structural
+extension for <em>Conditional</em> GANs (or cGANs).</h3>
+<p>The <em>Conditional</em> GANs (or cGANs) is a simple extension of the
+basic GAN model which allows the model to condition on external
+information. This makes it possible to engage the learned generative
+model in different “modes” by providing it with different contextual
+information (Gauthier, J. 2014).</p>
+<p>This model can be constructed by simply feeding the data,
+<code>y</code>, to condition on to both the generator and discriminator.
+In an unconditioned generative model, because the maps samples
+<code>z</code> from the prior <code>p(z)</code> are drawn from uniform
+or normal distribution, there is no control on modes of the data being
+generated. On the other hand, it is possible to direct the data
+generation process by conditioning the model on additional information
+(Mirza, M., &amp; Osindero, S. 2014).</p>
+<h3
+id="structural-extension-for-adversarial-auto-encodersaaes.">Structural
+extension for Adversarial Auto-Encoders(AAEs).</h3>
+<p>This library also provides the Adversarial Auto-Encoders(AAEs), which
+is a probabilistic Auto-Encoder that uses GANs to perform variational
+inference by matching the aggregated posterior of the feature points in
+hidden layer of the Auto-Encoder with an arbitrary prior
+distribution(Makhzani, A., et al., 2015). Matching the aggregated
+posterior to the prior ensures that generating from any part of prior
+space results in meaningful samples. As a result, the decoder of the
+Adversarial Auto-Encoder learns a deep generative model that maps the
+imposed prior to the data distribution.</p>
+<h3
+id="structural-extension-for-energy-based-generative-adversarial-networkebgan.">Structural
+extension for Energy-based Generative Adversarial Network(EBGAN).</h3>
+<p>Reusing the Auto-Encoders, this library introduces the Energy-based
+Generative Adversarial Network (EBGAN) model(Zhao, J., et al., 2016)
+which views the discriminator as an energy function that attributes low
+energies to the regions near the data manifold and higher energies to
+other regions. THe Auto-Encoders have traditionally been used to
+represent energy-based models. When trained with some regularization
+terms, the Auto-Encoders have the ability to learn an energy manifold
+without supervision or negative examples. This means that even when an
+energy-based Auto-Encoding model is trained to reconstruct a real
+sample, the model contributes to discovering the data manifold by
+itself.</p>
+<h3 id="structural-coupling-between-aaes-and-ebgan.">Structural coupling
+between AAEs and EBGAN.</h3>
+<p>This library models the Energy-based Adversarial-Auto-Encoder(EBAAE)
+by structural coupling between AAEs and EBGAN. The learning algorithm
+equivalents an adversarial training of AAEs as a generator and EBGAN as
+a discriminator.</p>
+<h3 id="usecase-image-generation-by-gans.">Usecase: Image Generation by
+GANs.</h3>
+<p>Import a Python module.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pygan._mxnet.gan_image_generator <span class="im">import</span> GANImageGenerator</span></code></pre></div>
+<p>Setup logger.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> logging <span class="im">import</span> getLogger, StreamHandler, NullHandler, DEBUG, ERROR</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>logger <span class="op">=</span> getLogger(<span class="st">&quot;accelbrainbase&quot;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>handler <span class="op">=</span> StreamHandler()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>handler.setLevel(DEBUG)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>logger.setLevel(DEBUG)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>logger.addHandler(handler)</span></code></pre></div>
+<p>Initialize <code>GANImageGenerator</code>.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>gan_image_generator <span class="op">=</span> GANImageGenerator(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `list` of path to your directories.</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    dir_list<span class="op">=</span>[</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;/path/to/your/image/files/&quot;</span>, </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image width.</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">128</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image height.</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">96</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image channel.</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    channel<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of batch size.</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">40</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `float` of learning rate.</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">1e-06</span>,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>If you want to use the <a href="https://pytorch.org/">PyTorch</a>
+version, import a Python module and initialize
+<code>GANImageGenerator</code>.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pygan._torch.gan_image_generator <span class="im">import</span> GANImageGenerator</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Context-manager that changes the selected device.</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>ctx <span class="op">=</span> <span class="st">&quot;cuda:0&quot;</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">&quot;cpu&quot;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>gan_image_generator <span class="op">=</span> GANImageGenerator(</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `list` of path to your directories.</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    dir_list<span class="op">=</span>[</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;/path/to/your/image/files/&quot;</span>, </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image width.</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">128</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image height.</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">96</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image channel.</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    channel<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of batch size.</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">40</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `float` of learning rate.</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">1e-06</span>,</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Context-manager that changes the selected device.</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    ctx<span class="op">=</span>ctx,</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Call method <code>learn</code>.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>gan_image_generator.learn(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of the number of training iterations.</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    iter_n<span class="op">=</span><span class="dv">100000</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of the number of learning of the discriminative model.</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    k_step<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>You can check logs of posterior.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gan_image_generator.GAN.posterior_logs_arr)</span></code></pre></div>
+<p>And, call method <code>draw</code>. The generated image data is
+stored in the variable <code>arr</code>.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> gan_image_generator.GAN.generative_model.draw()</span></code></pre></div>
+<p>The shape of <code>arr</code> is … - batch - channel - height -
+width</p>
+<p>For more detailed or original modeling or tuning, see <a
+href="https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base">accel-brain-base</a>.
+This library is based on <a
+href="https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base">accel-brain-base</a>.</p>
+<h3 id="usecase-image-generation-by-ebgans.">Usecase: Image Generation
+by EBGANs.</h3>
+<p>Import a Python module.</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pygan._mxnet.ebgan_image_generator <span class="im">import</span> EBGANImageGenerator</span></code></pre></div>
+<p>Setup logger.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> logging <span class="im">import</span> getLogger, StreamHandler, NullHandler, DEBUG, ERROR</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>logger <span class="op">=</span> getLogger(<span class="st">&quot;accelbrainbase&quot;</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>handler <span class="op">=</span> StreamHandler()</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>handler.setLevel(DEBUG)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>logger.setLevel(DEBUG)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>logger.addHandler(handler)</span></code></pre></div>
+<p>Initialize <code>EBGANImageGenerator</code>.</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ebgan_image_generator <span class="op">=</span> EBGANImageGenerator(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `list` of path to your directories.</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    dir_list<span class="op">=</span>[</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;/path/to/your/image/files/&quot;</span>, </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image width.</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">128</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image height.</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">96</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image channel.</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    channel<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of batch size.</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">40</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `float` of learning rate.</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">1e-06</span>,</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>If you want to use the <a href="https://pytorch.org/">PyTorch</a>
+version, import a Python module and initialize
+<code>EBGANImageGenerator</code>.</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pygan._torch.ebgan_image_generator <span class="im">import</span> EBGANImageGenerator</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Context-manager that changes the selected device.</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>ctx <span class="op">=</span> <span class="st">&quot;cuda:0&quot;</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">&quot;cpu&quot;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>ebgan_image_generator <span class="op">=</span> EBGANImageGenerator(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `list` of path to your directories.</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    dir_list<span class="op">=</span>[</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;/path/to/your/image/files/&quot;</span>, </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image width.</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">128</span>,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image height.</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">96</span>,</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image channel.</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    channel<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of batch size.</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">40</span>,</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `float` of learning rate.</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">1e-06</span>,</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Context-manager that changes the selected device.</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    ctx<span class="op">=</span>ctx,</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Call method <code>learn</code>.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ebgan_image_generator.learn(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of the number of training iterations.</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    iter_n<span class="op">=</span><span class="dv">100000</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of the number of learning of the discriminative model.</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    k_step<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>You can check logs of posterior.</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ebgan_image_generator.EBGAN.posterior_logs_arr)</span></code></pre></div>
+<p>And, call method <code>draw</code>. The generated image data is
+stored in the variable <code>arr</code>.</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> ebgan_image_generator.EBGAN.generative_model.draw()</span></code></pre></div>
+<p>The shape of <code>arr</code> is … - batch - channel - height -
+width</p>
+<p>For more detailed or original modeling or tuning, see <a
+href="https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base">accel-brain-base</a>.
+This library is based on <a
+href="https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base">accel-brain-base</a>.</p>
+<h3 id="usecase-image-generation-by-aaes.">Usecase: Image Generation by
+AAEs.</h3>
+<p>Import a Python module.</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pygan._mxnet.ebaae_image_generator <span class="im">import</span> EBAAEImageGenerator</span></code></pre></div>
+<p>Setup a logger.</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> logging <span class="im">import</span> getLogger, StreamHandler, NullHandler, DEBUG, ERROR</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>logger <span class="op">=</span> getLogger(<span class="st">&quot;accelbrainbase&quot;</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>handler <span class="op">=</span> StreamHandler()</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>handler.setLevel(DEBUG)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>logger.setLevel(DEBUG)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>logger.addHandler(handler)</span></code></pre></div>
+<p>Initialize <code>EBAAEImageGenerator</code>.</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ebaae_image_generator <span class="op">=</span> EBAAEImageGenerator(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `list` of path to your directories.</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    dir_list<span class="op">=</span>[</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;/path/to/your/image/files/&quot;</span>, </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image width.</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">128</span>,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image height.</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">96</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image channel.</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    channel<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of batch size.</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">40</span>,</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `float` of learning rate.</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">1e-06</span>,</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of width of image drawn from normal distribution, p(z).</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    normal_height<span class="op">=</span><span class="dv">128</span>,</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of height of image drawn from normal distribution, p(z).</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    normal_width<span class="op">=</span><span class="dv">96</span>,</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>If you want to use the <a href="https://pytorch.org/">PyTorch</a>
+version, import a Python module and initialize
+<code>EBAAEImageGenerator</code>.</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pygan._torch.ebaae_image_generator <span class="im">import</span> EBAAEImageGenerator</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Context-manager that changes the selected device.</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>ctx <span class="op">=</span> <span class="st">&quot;cuda:0&quot;</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">&quot;cpu&quot;</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>ebaae_image_generator <span class="op">=</span> EBAAEImageGenerator(</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `list` of path to your directories.</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    dir_list<span class="op">=</span>[</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;/path/to/your/image/files/&quot;</span>, </span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image width.</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">128</span>,</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image height.</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">96</span>,</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of image channel.</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    channel<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of batch size.</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">40</span>,</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `float` of learning rate.</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">1e-06</span>,</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of width of image drawn from normal distribution, p(z).</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    normal_height<span class="op">=</span><span class="dv">128</span>,</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of height of image drawn from normal distribution, p(z).</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    normal_width<span class="op">=</span><span class="dv">96</span>,</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Context-manager that changes the selected device.</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>    ctx<span class="op">=</span>ctx,</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Call method <code>learn</code>.</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ebaae_image_generator.learn(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of the number of training iterations.</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    iter_n<span class="op">=</span><span class="dv">100000</span>,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `int` of the number of learning of the discriminative model.</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    k_step<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>You can check logs of posterior.</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ebaae_image_generator.EBAAE.posterior_logs_arr)</span></code></pre></div>
+<p>And, call method <code>draw</code>. The generated image data is
+stored in the variable <code>decoded_arr</code>.</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>arr_tuple <span class="op">=</span> ebaae_image_generator.EBAAE.generative_model.draw()</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>feature_points_arr, observed_arr, decoded_arr <span class="op">=</span> arr_tuple</span></code></pre></div>
+<p>The shape of <code>decoded_arr</code> is … - batch - channel - height
+- width</p>
+<p>For more detailed or original modeling or tuning, see <a
+href="https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base">accel-brain-base</a>.
+This library is based on <a
+href="https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base">accel-brain-base</a>.</p>
+<h2 id="references">References</h2>
+<p>The basic concepts, theories, and methods behind this library are
+described in the following books.</p>
+<div data-align="center">
+<a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/In-house_R_and_D_in_the_era_of_democratization_of_AI/book_cover.jpg" width="160px" /></a>
+<p>
+『<a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/ref=sr_1_1?dchild=1&qid=1607343553&s=digital-text&sr=1-1&text=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEAccel+Brain" target="_blank">「AIの民主化」時代の企業内研究開発:
+深層学習の「実学」としての機能分析</a>』(Japanese)
+</p>
+</div>
+<p><br /></p>
+<div data-align="center">
+<a href="https://www.amazon.co.jp/dp/B093Z533LK" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/AI_vs_Investors_as_Noise_Traders/book_cover.jpg" width="160px" /></a>
+<p>
+『<a href="https://www.amazon.co.jp/dp/B093Z533LK" target="_blank">AI
+vs. ノイズトレーダーとしての投資家たち:
+「アルゴリズム戦争」時代の証券投資戦略</a>』(Japanese)
+</p>
+</div>
+<p><br /></p>
+<div data-align="center">
+<a href="https://www.amazon.co.jp/dp/B0994CH3CM" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/Babel_of_Natural_Language_Processing/book_cover.jpg" width="160px" /></a>
+<p>
+『<a href="https://www.amazon.co.jp/dp/B0994CH3CM" target="_blank">自然言語処理のバベル:
+文書自動要約、文章生成AI、チャットボットの意味論</a>』(Japanese)
+</p>
+</div>
+<p><br /></p>
+<div data-align="center">
+<a href="https://www.amazon.co.jp/dp/B09C4KYZBX" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/Origin_of_the_statistical_machine_learning/book_cover.jpg" width="160px" /></a>
+<p>
+『<a href="https://www.amazon.co.jp/dp/B09C4KYZBX" target="_blank">統計的機械学習の根源:
+熱力学、量子力学、統計力学における天才物理学者たちの神学的な理念</a>』(Japanese)
+</p>
+</div>
+<p>Specific references are the following papers and books.</p>
+<ul>
+<li>Fang, W., Zhang, F., Sheng, V. S., &amp; Ding, Y. (2018). A method
+for improving CNN-based image recognition using DCGAN. Comput. Mater.
+Contin, 57, 167-178.</li>
+<li>Gauthier, J. (2014). Conditional generative adversarial nets for
+convolutional face generation. Class Project for Stanford CS231N:
+Convolutional Neural Networks for Visual Recognition, Winter semester,
+2014(5), 2.</li>
+<li>Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley,
+D., Ozair, S., … &amp; Bengio, Y. (2014). Generative adversarial nets.
+In Advances in neural information processing systems
+(pp. 2672-2680).</li>
+<li>Long, J., Shelhamer, E., &amp; Darrell, T. (2015). Fully
+convolutional networks for semantic segmentation. In Proceedings of the
+IEEE conference on computer vision and pattern recognition
+(pp. 3431-3440).</li>
+<li>Makhzani, A., Shlens, J., Jaitly, N., Goodfellow, I., &amp; Frey, B.
+(2015). Adversarial autoencoders. arXiv preprint arXiv:1511.05644.</li>
+<li>Mirza, M., &amp; Osindero, S. (2014). Conditional generative
+adversarial nets. arXiv preprint arXiv:1411.1784.</li>
+<li>Mogren, O. (2016). C-RNN-GAN: Continuous recurrent neural networks
+with adversarial training. arXiv preprint arXiv:1611.09904.</li>
+<li>Rifai, S., Vincent, P., Muller, X., Glorot, X., &amp; Bengio, Y.
+(2011, June). Contractive auto-encoders: Explicit invariance during
+feature extraction. In Proceedings of the 28th International Conference
+on International Conference on Machine Learning (pp. 833-840).
+Omnipress.</li>
+<li>Rifai, S., Mesnil, G., Vincent, P., Muller, X., Bengio, Y., Dauphin,
+Y., &amp; Glorot, X. (2011, September). Higher order contractive
+auto-encoder. In Joint European Conference on Machine Learning and
+Knowledge Discovery in Databases (pp. 645-660). Springer, Berlin,
+Heidelberg.</li>
+<li>Salimans, T., Goodfellow, I., Zaremba, W., Cheung, V., Radford, A.,
+&amp; Chen, X. (2016). Improved techniques for training gans. In
+Advances in neural information processing systems (pp. 2234-2242).</li>
+<li>Yang, L. C., Chou, S. Y., &amp; Yang, Y. H. (2017). MidiNet: A
+convolutional generative adversarial network for symbolic-domain music
+generation. arXiv preprint arXiv:1703.10847.</li>
+<li>Zhao, J., Mathieu, M., &amp; LeCun, Y. (2016). Energy-based
+generative adversarial network. arXiv preprint arXiv:1609.03126.</li>
+<li>Warde-Farley, D., &amp; Bengio, Y. (2016). Improving generative
+adversarial networks with denoising feature matching.</li>
+</ul>
+<h2 id="author">Author</h2>
+<ul>
+<li>accel-brain</li>
+</ul>
+<h2 id="author-uri">Author URI</h2>
+<ul>
+<li>https://accel-brain.co.jp/</li>
+<li>https://accel-brain.com/</li>
+</ul>
+<h2 id="license">License</h2>
+<ul>
+<li>GNU General Public License v2.0</li>
+</ul>

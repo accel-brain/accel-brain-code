@@ -1,0 +1,684 @@
+<h1 id="automatic-summarization-library-pysummarization">Automatic
+Summarization Library: pysummarization</h1>
+<p><code>pysummarization</code> is Python3 library for the automatic
+summarization, document abstraction, and text filtering.</p>
+<h2 id="description">Description</h2>
+<p>The function of this library is automatic summarization using a kind
+of natural language processing and neural network language model. This
+library enable you to create a summary with the major points of the
+original document or web-scraped text that filtered by text clustering.
+And this library applies <a
+href="https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base">accel-brain-base</a>
+to implement <strong>Encoder/Decoder based on LSTM</strong> improving
+the accuracy of summarization by
+<strong>Sequence-to-Sequence</strong>(<strong>Seq2Seq</strong>)
+learning.</p>
+<p>The library also implements a function to extract document topics
+using the original model, which is a beta version of
+<strong>Transformer</strong> structured as an Auto-Encoder.</p>
+<h2 id="documentation">Documentation</h2>
+<p>Full documentation is available on <a
+href="https://code.accel-brain.com/Automatic-Summarization/">https://code.accel-brain.com/Automatic-Summarization/</a>
+. This document contains information on functionally reusability,
+functional scalability and functional extensibility.</p>
+<h2 id="installation">Installation</h2>
+<p>Install using pip:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pysummarization</span></code></pre></div>
+<h3 id="source-code">Source code</h3>
+<p>The source code is currently hosted on GitHub.</p>
+<ul>
+<li><a
+href="https://github.com/chimera0/accel-brain-code/tree/master/Automatic-Summarization">accel-brain-code/Automatic-Summarization</a></li>
+</ul>
+<h3 id="python-package-indexpypi">Python package index(PyPI)</h3>
+<p>Installers for the latest released version are available at the
+Python package index.</p>
+<ul>
+<li><a
+href="https://pypi.python.org/pypi/pysummarization/">pysummarization :
+Python Package Index</a></li>
+</ul>
+<h3 id="dependencies">Dependencies</h3>
+<ul>
+<li><a href="https://github.com/numpy/numpy">numpy</a>: v1.13.3 or
+higher.</li>
+<li><a href="https://github.com/nltk/nltk">nltk</a>: v3.2.3 or
+higher.</li>
+</ul>
+<h4 id="options">Options</h4>
+<ul>
+<li><a
+href="https://github.com/SamuraiT/mecab-python3">mecab-python3</a>: v0.7
+or higher.
+<ul>
+<li>Relevant only for Japanese.</li>
+</ul></li>
+<li><a href="https://github.com/brechin/pdfminer2">pdfminer2</a>(or <a
+href="https://github.com/pdfminer/pdfminer.six">pdfminer.six</a>):
+latest.
+<ul>
+<li>Relevant only for PDF files.</li>
+</ul></li>
+<li><a href="https://github.com/gawel/pyquery">pyquery</a>:v1.2.17 or
+higher.
+<ul>
+<li>Relevant only for web scraiping.</li>
+</ul></li>
+<li><a
+href="https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base">accel-brain-base</a>:
+v1.0.0 or higher.
+<ul>
+<li>Only when using <strong>Re-Seq2Seq</strong>,
+<strong>EncDec-AD</strong>, or <strong>Transformer models</strong>.</li>
+</ul></li>
+<li><a href="https://github.com/apache/incubator-mxnet">mxnet</a> or <a
+href="https://mxnet.apache.org/api/python/docs/tutorials/getting-started/crash-course/6-use_gpus.html">mxnet-cu*</a>:
+latest.
+<ul>
+<li>Only when building a model of this library using <a
+href="https://mxnet.apache.org/">Apache MXNet</a>.</li>
+</ul></li>
+<li><a href="https://pytorch.org/get-started/locally/">torch</a>
+<ul>
+<li>Only when building a model of this library using <a
+href="https://pytorch.org/">PyTorch</a>.</li>
+</ul></li>
+</ul>
+<h2 id="usecase-summarize-an-english-string-argument.">Usecase:
+Summarize an English string argument.</h2>
+<p>Import Python modules.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.nlpbase.auto_abstractor <span class="im">import</span> AutoAbstractor</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.tokenizabledoc.simple_tokenizer <span class="im">import</span> SimpleTokenizer</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.abstractabledoc.top_n_rank_abstractor <span class="im">import</span> TopNRankAbstractor</span></code></pre></div>
+<p>Prepare an English string argument.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>document <span class="op">=</span> <span class="st">&quot;Natural language generation (NLG) is the natural language processing task of generating natural language from a machine representation system such as a knowledge base or a logical form. Psycholinguists prefer the term language production when such formal representations are interpreted as models for mental representations.&quot;</span></span></code></pre></div>
+<p>And instantiate objects and call the method.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Object of automatic summarization.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>auto_abstractor <span class="op">=</span> AutoAbstractor()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set tokenizer.</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>auto_abstractor.tokenizable_doc <span class="op">=</span> SimpleTokenizer()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Set delimiter for making a list of sentence.</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>auto_abstractor.delimiter_list <span class="op">=</span> [<span class="st">&quot;.&quot;</span>, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Object of abstracting and filtering document.</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>abstractable_doc <span class="op">=</span> TopNRankAbstractor()</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize document.</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>result_dict <span class="op">=</span> auto_abstractor.summarize(document, abstractable_doc)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Output result.</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sentence <span class="kw">in</span> result_dict[<span class="st">&quot;summarize_result&quot;</span>]:</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(sentence)</span></code></pre></div>
+<p>The <code>result_dict</code> is a dict. this format is as
+follows.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a> <span class="bu">dict</span>{</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;summarize_result&quot;</span>: <span class="st">&quot;The list of summarized sentences.&quot;</span>, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;scoring_data&quot;</span>:     <span class="st">&quot;The list of scores(Rank of importance).&quot;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a> }</span></code></pre></div>
+<h2 id="usecase-summarize-japanese-string-argument.">Usecase: Summarize
+Japanese string argument.</h2>
+<p>Import Python modules.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.nlpbase.auto_abstractor <span class="im">import</span> AutoAbstractor</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.tokenizabledoc.mecab_tokenizer <span class="im">import</span> MeCabTokenizer</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.abstractabledoc.top_n_rank_abstractor <span class="im">import</span> TopNRankAbstractor</span></code></pre></div>
+<p>Prepare an English string argument.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>document <span class="op">=</span> <span class="st">&quot;自然言語処理（しぜんげんごしょり、英語: natural language processing、略称：NLP）は、人間が日常的に使っている自然言語をコンピュータに処理させる一連の技術であり、人工知能と言語学の一分野である。「計算言語学」（computational linguistics）との類似もあるが、自然言語処理は工学的な視点からの言語処理をさすのに対して、計算言語学は言語学的視点を重視する手法をさす事が多い[1]。データベース内の情報を自然言語に変換したり、自然言語の文章をより形式的な（コンピュータが理解しやすい）表現に変換するといった処理が含まれる。応用例としては予測変換、IMEなどの文字変換が挙げられる。&quot;</span></span></code></pre></div>
+<p>And instantiate objects and call the method.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Object of automatic summarization.</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>auto_abstractor <span class="op">=</span> AutoAbstractor()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set tokenizer for Japanese.</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>auto_abstractor.tokenizable_doc <span class="op">=</span> MeCabTokenizer()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Set delimiter for making a list of sentence.</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>auto_abstractor.delimiter_list <span class="op">=</span> [<span class="st">&quot;。&quot;</span>, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>]</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Object of abstracting and filtering document.</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>abstractable_doc <span class="op">=</span> TopNRankAbstractor()</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize document.</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>result_dict <span class="op">=</span> auto_abstractor.summarize(document, abstractable_doc)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Output result.</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sentence <span class="kw">in</span> result_dict[<span class="st">&quot;summarize_result&quot;</span>]:</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(sentence)</span></code></pre></div>
+<h2 id="usecase-english-web-page-summarization">Usecase: English
+Web-Page Summarization</h2>
+<p>Run the batch program: <a
+href="https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo/demo_summarization_english_web_page.py">demo/demo_summarization_english_web_page.py</a></p>
+<pre><code>python demo/demo_summarization_english_web_page.py {URL}</code></pre>
+<ul>
+<li>{URL}: web site URL.</li>
+</ul>
+<h3 id="demo">Demo</h3>
+<p>Let’s summarize this page: <a
+href="https://en.wikipedia.org/wiki/Natural_language_generation">Natural_language_generation
+- Wikipedia</a>.</p>
+<pre><code>python demo/demo_summarization_english_web_page.py https://en.wikipedia.org/wiki/Natural_language_generation</code></pre>
+<p>The result is as follows.</p>
+<pre><code>Natural language generation From Wikipedia, the free encyclopedia Jump to: navigation , search Natural language generation ( NLG ) is the natural language processing task of generating natural language from a machine representation system such as a knowledge base or a logical form .
+
+ Psycholinguists prefer the term language production when such formal representations are interpreted as models for mental representations.
+
+ It could be said an NLG system is like a translator that converts data into a natural language representation.</code></pre>
+<h2 id="usecase-japanese-web-page-summarization">Usecase: Japanese
+Web-Page Summarization</h2>
+<p>Run the batch program: <a
+href="https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo/demo_summarization_japanese_web_page.py">demo/demo_summarization_japanese_web_page.py</a></p>
+<pre><code>python demo/demo_summarization_japanese_web_page.py {URL}</code></pre>
+<ul>
+<li>{URL}: web site URL.</li>
+</ul>
+<h3 id="demo-1">Demo</h3>
+<p>Let’s summarize this page: <a
+href="https://ja.wikipedia.org/wiki/%E8%87%AA%E5%8B%95%E8%A6%81%E7%B4%84">自動要約
+- Wikipedia</a>.</p>
+<pre><code>python demo/demo_summarization_japanese_web_page.py https://ja.wikipedia.org/wiki/%E8%87%AA%E5%8B%95%E8%A6%81%E7%B4%84</code></pre>
+<p>The result is as follows.</p>
+<pre><code> 自動要約 （じどうようやく）は、 コンピュータプログラム を用いて、文書からその要約を作成する処理である。
+
+自動要約の応用先の1つは Google などの 検索エンジン であるが、もちろん独立した1つの要約プログラムといったものもありうる。
+
+ 単一文書要約と複数文書要約 [ 編集 ] 単一文書要約 は、単一の文書を要約の対象とするものである。
+
+例えば、1つの新聞記事を要約する作業は単一文書要約である。</code></pre>
+<h2 id="usecase-japanese-web-page-summarization-with-n-gram">Usecase:
+Japanese Web-Page Summarization with N-gram</h2>
+<p>The minimum unit of token is not necessarily <code>a word</code> in
+automatic summarization. <code>N-gram</code> is also applicable to the
+tokenization.</p>
+<p>Run the batch program: <a
+href="https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo/demo_with_n_gram_japanese_web_page.py">demo/demo_with_n_gram_japanese_web_page.py</a></p>
+<pre><code>python demo_with_n_gram_japanese_web_page.py {URL}</code></pre>
+<ul>
+<li>{URL}: web site URL.</li>
+</ul>
+<h3 id="demo-2">Demo</h3>
+<p>Let’s summarize this page:<a
+href="https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E6%A4%9C%E7%B4%A2">情報検索
+- Wikipedia</a>.</p>
+<pre><code>python demo/demo_with_n_gram_japanese_web_page.py https://ja.wikipedia.org/wiki/%E6%83%85%E5%A0%B1%E6%A4%9C%E7%B4%A2</code></pre>
+<p>The result is as follows.</p>
+<pre><code>情報検索アルゴリズムの詳細については 情報検索アルゴリズム を参照のこと。
+
+ パターンマッチング 検索質問として入力された表現をそのまま含む文書を検索するアルゴリズム。
+
+ ベクトル空間モデル キーワード等を各 次元 として設定した高次元 ベクトル空間 を想定し、検索の対象とするデータやユーザによる検索質問に何らかの加工を行い ベクトル を生成する</code></pre>
+<h2
+id="usecase-summarization-filtering-the-mutually-similar-tautological-pleonastic-or-redundant-sentences">Usecase:
+Summarization, filtering the mutually similar, tautological, pleonastic,
+or redundant sentences</h2>
+<p>If the sentences you want to summarize consist of repetition of same
+or similar sense in different words, the summary results may also be
+redundant. Then before summarization, you should filter the mutually
+similar, tautological, pleonastic, or redundant sentences to extract
+features having an information quantity. The function of
+<code>SimilarityFilter</code> is to cut-off the sentences having the
+state of resembling or being alike by calculating the similarity
+measure.</p>
+<p>But there is no reason to stick to a single similarity concept.
+<em>Modal logically</em>, the definition of this concept is
+<em>contingent</em>, like the concept of <em>distance</em>. Even if one
+similarity or distance function is defined in relation to a problem
+setting, there are always <em>functionally equivalent</em> algorithms to
+solve the problem setting. Then this library has a wide variety of
+subtyping polymorphisms of <code>SimilarityFilter</code>.</p>
+<h3 id="dice-jaccard-and-simpson">Dice, Jaccard, and Simpson</h3>
+<p>There are some classes for calculating the similarity measure. In
+this library, <strong>Dice coefficient</strong>, <strong>Jaccard
+coefficient</strong>, and <strong>Simpson coefficient</strong> between
+two sentences is calculated as follows.</p>
+<p>Import Python modules for calculating the similarity measure and
+instantiate the object.</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.similarityfilter.dice <span class="im">import</span> Dice</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>similarity_filter <span class="op">=</span> Dice()</span></code></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.similarityfilter.jaccard <span class="im">import</span> Jaccard</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>similarity_filter <span class="op">=</span> Jaccard()</span></code></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.similarityfilter.simpson <span class="im">import</span> Simpson</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>similarity_filter <span class="op">=</span> Simpson()</span></code></pre></div>
+<h3
+id="functional-equivalent-combination-of-tf-idf-and-cosine-similarity">Functional
+equivalent: Combination of Tf-Idf and Cosine similarity</h3>
+<p>If you want to calculate similarity with <strong>Tf-Idf cosine
+similarity</strong>, instantiate <code>TfIdfCosine</code>.</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.similarityfilter.tfidf_cosine <span class="im">import</span> TfIdfCosine</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>similarity_filter <span class="op">=</span> TfIdfCosine()</span></code></pre></div>
+<h3 id="calculating-similarity">Calculating similarity</h3>
+<p>If you want to calculate similarity between two sentences, call
+<code>calculate</code> method as follow.</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tokenized sentences</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>token_list_x <span class="op">=</span> [<span class="st">&quot;Dice&quot;</span>, <span class="st">&quot;coefficient&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;similarity&quot;</span>, <span class="st">&quot;measure&quot;</span>, <span class="st">&quot;.&quot;</span>]</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>token_list_y <span class="op">=</span> [<span class="st">&quot;Jaccard&quot;</span>, <span class="st">&quot;coefficient&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;similarity&quot;</span>, <span class="st">&quot;measure&quot;</span>, <span class="st">&quot;.&quot;</span>]</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 0.75</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>similarity_num <span class="op">=</span> similarity_filter.calculate(token_list_x, token_list_y)</span></code></pre></div>
+<h3 id="filtering-similar-sentences-and-summarization">Filtering similar
+sentences and summarization</h3>
+<p>The function of these methods is to cut-off mutually similar
+sentences. In text summarization, basic usage of this function is as
+follow. After all, <code>SimilarityFilter</code> is delegated as well as
+GoF’s Strategy Pattern.</p>
+<p>Import Python modules for NLP and text summarization.</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.nlp_base <span class="im">import</span> NlpBase</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.nlpbase.auto_abstractor <span class="im">import</span> AutoAbstractor</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.tokenizabledoc.mecab_tokenizer <span class="im">import</span> MeCabTokenizer</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.abstractabledoc.top_n_rank_abstractor <span class="im">import</span> TopNRankAbstractor</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.similarityfilter.tfidf_cosine <span class="im">import</span> TfIdfCosine</span></code></pre></div>
+<p>Instantiate object of the NLP.</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The object of the NLP.</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>nlp_base <span class="op">=</span> NlpBase()</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set tokenizer. This is japanese tokenizer with MeCab.</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>nlp_base.tokenizable_doc <span class="op">=</span> MeCabTokenizer()</span></code></pre></div>
+<p>Instantiate object of <code>SimilarityFilter</code> and set the
+cut-off threshold.</p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The object of `Similarity Filter`. </span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The similarity observed by this object is so-called cosine similarity of Tf-Idf vectors.</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>similarity_filter <span class="op">=</span> TfIdfCosine()</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the object of NLP.</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>similarity_filter.nlp_base <span class="op">=</span> nlp_base</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co"># If the similarity exceeds this value, the sentence will be cut off.</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>similarity_filter.similarity_limit <span class="op">=</span> <span class="fl">0.25</span></span></code></pre></div>
+<p>Prepare sentences you want to summarize.</p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarized sentences (sited from http://ja.uncyclopedia.info/wiki/%E5%86%97%E8%AA%9E%E6%B3%95).</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>document <span class="op">=</span> <span class="st">&quot;冗語法（じょうごほう、レデュンダンシー、redundancy、jōgohō）とは、何度も何度も繰り返し重ねて重複して前述されたのと同じ意味の同様である同意義の文章を、必要あるいは説明か理解を要求された以上か、伝え伝達したいと意図された、あるいは表し表現したい意味以上に、繰り返し重ねて重複して繰り返すことによる、不必要であるか、または余分な余計である文章の、必要以上の使用であり、何度も何度も繰り返し重ねて重複して前述されたのと同じ意味の同様の文章を、必要あるいは説明か理解を要求された以上か、伝え伝達したいと意図された、あるいは表し表現したい意味以上に、繰り返し重ねて重複して繰り返すことによる、不必要であるか、または余分な文章の、必要以上の使用である。これが冗語法（じょうごほう、レデュンダンシー、redundancy、jōgohō）である。基本的に、冗語法（じょうごほう、レデュンダンシー、redundancy、jōgohō）が多くの場合において概して一般的に繰り返される通常の場合は、普通、同じ同様の発想や思考や概念や物事を表し表現する別々の異なった文章や単語や言葉が何回も何度も余分に繰り返され、その結果として発言者の考えが何回も何度も言い直され、事実上、実際に同じ同様の発言が何回も何度にもわたり、幾重にも言い換えられ、かつ、同じことが何回も何度も繰り返し重複して過剰に回数を重ね前述されたのと同じ意味の同様の文章が何度も何度も不必要に繰り返される。通常の場合、多くの場合において概して一般的にこのように冗語法（じょうごほう、レデュンダンシー、redundancy、jōgohō）が繰り返される。&quot;</span></span></code></pre></div>
+<p>Instantiate object of <code>AutoAbstractor</code> and call the
+method.</p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The object of automatic sumamrization.</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>auto_abstractor <span class="op">=</span> AutoAbstractor()</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set tokenizer. This is japanese tokenizer with MeCab.</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>auto_abstractor.tokenizable_doc <span class="op">=</span> MeCabTokenizer()</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Object of abstracting and filtering document.</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>abstractable_doc <span class="op">=</span> TopNRankAbstractor()</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Delegate the objects and execute summarization.</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>result_dict <span class="op">=</span> auto_abstractor.summarize(document, abstractable_doc, similarity_filter)</span></code></pre></div>
+<h3 id="demo-3">Demo</h3>
+<p>Let’s summarize this page:<a
+href="https://ja.wikipedia.org/wiki/%E5%BE%AA%E7%92%B0%E8%AB%96%E6%B3%95">循環論法
+- Wikipedia</a>.</p>
+<p>Run the batch program: <a
+href="https://github.com/chimera0/accel-brain-code/blob/master/Automatic-Summarization/demo/demo_similarity_filtering_japanese_web_page.py">demo/demo_similarity_filtering_japanese_web_page.py</a></p>
+<pre><code>python demo/demo_similarity_filtering_japanese_web_page.py {URL} {SimilarityFilter} {SimilarityLimit}</code></pre>
+<ul>
+<li>{URL}: web site URL.</li>
+<li>{SimilarityFilter}: The object of <code>SimilarityFilter</code>:
+<ul>
+<li><code>Dice</code></li>
+<li><code>Jaccard</code></li>
+<li><code>Simpson</code></li>
+<li><code>TfIdfCosine</code></li>
+</ul></li>
+<li>{SimilarityLimit}: The cut-off threshold.</li>
+</ul>
+<p>For instance, command line argument is as follows:</p>
+<pre><code>python demo/demo_similarity_filtering_japanese_web_page.py https://ja.wikipedia.org/wiki/%E5%BE%AA%E7%92%B0%E8%AB%96%E6%B3%95 Jaccard 0.3</code></pre>
+<p>The result is as follows.</p>
+<pre><code>循環論法 出典: フリー百科事典『ウィキペディア（Wikipedia）』 移動先: 案内 、 検索 循環論法 （じゅんかんろんぽう、circular reasoning, circular logic, vicious circle [1] ）とは、 ある命題の 証明 において、その命題を仮定した議論を用いること [1] 。
+
+証明すべき結論を前提として用いる論法 [2] 。
+
+ ある用語の 定義 を与える表現の中にその用語自体が本質的に登場していること [1]</code></pre>
+<h2
+id="usecase-summarization-with-neural-network-language-model.">Usecase:
+Summarization with Neural Network Language Model.</h2>
+<p>According to the neural networks theory, and in relation to manifold
+hypothesis, it is well known that multilayer neural networks can learn
+features of observed data points and have the feature points in hidden
+layer. High-dimensional data can be converted to low-dimensional codes
+by training the model such as <strong>Stacked Auto-Encoder</strong> and
+<strong>Encoder/Decoder</strong> with a small central layer to
+reconstruct high-dimensional input vectors. This function of
+dimensionality reduction facilitates feature expressions to calculate
+similarity of each data point.</p>
+<p>This library provides <strong>Encoder/Decoder based on LSTM</strong>,
+which makes it possible to extract series features of natural sentences
+embedded in deeper layers by <strong>sequence-to-sequence
+learning</strong>. <em>Intuitively</em> speaking, similarities of the
+series feature points correspond to similarities of the observed data
+points. If we believe this hypothesis, the following models become in
+principle possible.</p>
+<h3
+id="retrospective-sequence-to-sequence-learningre-seq2seq.">retrospective
+sequence-to-sequence learning(re-seq2seq).</h3>
+<p>The concept of the re-seq2seq(Zhang, K. et al., 2018) provided
+inspiration to this library. This model is a new sequence learning model
+mainly in the field of Video Summarizations. “The key idea behind
+re-seq2seq is to measure how well the machine-generated summary is
+similar to the original video in an abstract semantic space” (Zhang, K.
+et al., 2018, p3).</p>
+<p>The encoder of a seq2seq model observes the original video and output
+feature points which represents the semantic meaning of the observed
+data points. Then the feature points is observed by the decoder of this
+model. Additionally, in the re-seq2seq model, the outputs of the decoder
+is propagated to a retrospective encoder, which infers feature points to
+represent the semantic meaning of the summary. “If the summary preserves
+the important and relevant information in the original video, then we
+should expect that the two embeddings are similar (e.g. in Euclidean
+distance)” (Zhang, K. et al., 2018, p3).</p>
+<div>
+<p><img src="https://storage.googleapis.com/accel-brain-code/Automatic-Summarization/img/network_of_Re-Seq2Seq.png"></p>
+</div>
+<p>This library refers to this intuitive insight above to apply the
+model to text summarizations. Like videos, semantic feature
+representation based on representation learning of manifolds is also
+possible in text summarizations.</p>
+<p>The intuition in the design of their loss function is also
+suggestive. “The intuition behind our modeling is that the outputs
+should convey the same amount of information as the inputs. For
+summarization, this is precisely the goal: a good summary should be such
+that after viewing the summary, users would get about the same amount of
+information as if they had viewed the original video” (Zhang, K. et al.,
+2018, p7).</p>
+<h4
+id="building-retrospective-sequence-to-sequence-learningre-seq2seq.">Building
+retrospective sequence-to-sequence learning(re-seq2seq).</h4>
+<p>Import Python modules.</p>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.abstractablesemantics._mxnet.re_seq_2_seq <span class="im">import</span> ReSeq2Seq</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.iteratabledata._mxnet.token_iterator <span class="im">import</span> TokenIterator</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.nlp_base <span class="im">import</span> NlpBase</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.tokenizabledoc.simple_tokenizer <span class="im">import</span> SimpleTokenizer</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.vectorizabletoken.t_hot_vectorizer <span class="im">import</span> THotVectorizer</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mxnet <span class="im">as</span> mx</span></code></pre></div>
+<p>Setup a logger.</p>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> logging <span class="im">import</span> getLogger, StreamHandler, NullHandler, DEBUG, ERROR</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>logger <span class="op">=</span> getLogger(<span class="st">&quot;accelbrainbase&quot;</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>handler <span class="op">=</span> StreamHandler()</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>handler.setLevel(DEBUG)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>logger.setLevel(DEBUG)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>logger.addHandler(handler)</span></code></pre></div>
+<p>Initialize a tokenizer and a vectorizer.</p>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># `str` of your document.</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>document <span class="op">=</span> <span class="st">&quot;Your document.&quot;</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>nlp_base <span class="op">=</span> NlpBase()</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>nlp_base.delimiter_list <span class="op">=</span> [<span class="st">&quot;.&quot;</span>, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>]</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>tokenizable_doc <span class="op">=</span> SimpleTokenizer()</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>sentence_list <span class="op">=</span> nlp_base.listup_sentence(document)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>token_list <span class="op">=</span> tokenizable_doc.tokenize(document)</span></code></pre></div>
+<p>Setup the vectorizer.</p>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>vectorizable_token <span class="op">=</span> THotVectorizer(token_list<span class="op">=</span>token_arr.tolist())</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>vector_list <span class="op">=</span> vectorizable_token.vectorize(token_list<span class="op">=</span>token_arr.tolist())</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>vector_arr <span class="op">=</span> np.array(vector_list)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>token_arr <span class="op">=</span> np.array(token_list)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>token_iterator <span class="op">=</span> TokenIterator(</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    vectorizable_token<span class="op">=</span>vectorizable_token, </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    token_arr<span class="op">=</span>token_arr, </span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span><span class="dv">300</span>,</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">25</span>,</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    seq_len<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    test_size<span class="op">=</span><span class="fl">0.3</span>,</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>    norm_mode<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>    ctx<span class="op">=</span>mx.gpu()</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> observed_arr, _, _, _ <span class="kw">in</span> token_iterator.generate_learned_samples():</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(observed_arr.shape) <span class="co"># (batch size, the length of series, dimension)</span></span></code></pre></div>
+<p>Instantiate <code>ReSeq2Seq</code> and input hyperparameters.</p>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>abstractable_semantics <span class="op">=</span> ReSeq2Seq(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The default parameter. The number of units in hidden layers.</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    hidden_neuron_count<span class="op">=</span>observed_arr.shape[<span class="op">-</span><span class="dv">1</span>],</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The default parameter. The number of units in output layer.</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    output_neuron_count<span class="op">=</span>observed_arr.shape[<span class="op">-</span><span class="dv">1</span>],</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The rate of dropout.</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    dropout_rate<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Batch size.</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">25</span>,</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Learning rate.</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">1e-05</span>,</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The length of series.</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    seq_len<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `mx.gpu()` or `mx.cpu()`.</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>    ctx<span class="op">=</span>mx.gpu()</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Execute <code>learn</code> method.</p>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>abstractable_semantics.learn(</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># is-a `TokenIterator`.</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    token_iterator</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Execute <code>summarize</code> method to extract summaries.</p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>abstract_list <span class="op">=</span> abstractable_semantics.summarize(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># is-a `TokenIterator`.</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    token_iterator,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># is-a `VectorizableToken`.</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    vectorizable_token,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `list` of `str`, extracted by `nlp_base.listup_sentence(document)`.</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    sentence_list,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The number of extracted sentences.</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    limit<span class="op">=</span><span class="dv">5</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>The <code>abstract_list</code> is a <code>list</code> that contains
+<code>str</code>s of sentences.</p>
+<h3
+id="functional-equivalent-lstm-based-encoderdecoder-scheme-for-anomaly-detection-encdec-ad.">Functional
+equivalent: LSTM-based Encoder/Decoder scheme for Anomaly Detection
+(EncDec-AD).</h3>
+<p>This library applies the Encoder-Decoder scheme for Anomaly Detection
+(EncDec-AD) to text summarizations by intuition. In this scheme,
+LSTM-based Encoder/Decoder or so-called the
+sequence-to-sequence(Seq2Seq) model learns to reconstruct normal
+time-series behavior, and thereafter uses reconstruction error to detect
+anomalies.</p>
+<p>Malhotra, P., et al. (2016) showed that EncDecAD paradigm is robust
+and can detect anomalies from predictable, unpredictable, periodic,
+aperiodic, and quasi-periodic time-series. Further, they showed that the
+paradigm is able to detect anomalies from short time-series (length as
+small as 30) as well as long time-series (length as large as 500).</p>
+<p>This library refers to the intuitive insight in relation to the use
+case of reconstruction error to detect anomalies above to apply the
+model to text summarization. As exemplified by Seq2Seq paradigm,
+document and sentence which contain tokens of text can be considered as
+time-series features. The anomalies data detected by EncDec-AD should
+have to express something about the text.</p>
+<p>From the above analogy, this library introduces two conflicting
+intuitions. On the one hand, the anomalies data may catch observer’s eye
+from the viewpoints of rarity or amount of information as the indicator
+of natural language processing like TF-IDF shows. On the other hand, the
+anomalies data may be ignorable noise as mere outlier.</p>
+<p>In any case, this library deduces the function and potential of
+EncDec-AD in text summarization is to draw the distinction of normal and
+anomaly texts and is to filter the one from the other.</p>
+<h4
+id="building-lstm-based-encoderdecoder-scheme-for-anomaly-detection-encdec-ad.">Building
+LSTM-based Encoder/Decoder scheme for Anomaly Detection
+(EncDec-AD).</h4>
+<p>Import Python modules.</p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.abstractablesemantics._mxnet.enc_dec_ad <span class="im">import</span> EncDecAD</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.iteratabledata._mxnet.token_iterator <span class="im">import</span> TokenIterator</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.nlp_base <span class="im">import</span> NlpBase</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysummarization.tokenizabledoc.simple_tokenizer <span class="im">import</span> SimpleTokenizer</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mxnet <span class="im">as</span> mx</span></code></pre></div>
+<p>Setup a logger.</p>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> logging <span class="im">import</span> getLogger, StreamHandler, NullHandler, DEBUG, ERROR</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>logger <span class="op">=</span> getLogger(<span class="st">&quot;accelbrainbase&quot;</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>handler <span class="op">=</span> StreamHandler()</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>handler.setLevel(DEBUG)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>logger.setLevel(DEBUG)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>logger.addHandler(handler)</span></code></pre></div>
+<p>Initialize a tokenizer and a vectorizer.</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co"># `str` of your document.</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>document <span class="op">=</span> <span class="st">&quot;Your document.&quot;</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>nlp_base <span class="op">=</span> NlpBase()</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>nlp_base.delimiter_list <span class="op">=</span> [<span class="st">&quot;.&quot;</span>, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>]</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>tokenizable_doc <span class="op">=</span> SimpleTokenizer()</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>sentence_list <span class="op">=</span> nlp_base.listup_sentence(document)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>token_list <span class="op">=</span> tokenizable_doc.tokenize(document)</span></code></pre></div>
+<p>Setup the vectorizer.</p>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>vectorizable_token <span class="op">=</span> THotVectorizer(token_list<span class="op">=</span>token_arr.tolist())</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>vector_list <span class="op">=</span> vectorizable_token.vectorize(token_list<span class="op">=</span>token_arr.tolist())</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>vector_arr <span class="op">=</span> np.array(vector_list)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>token_arr <span class="op">=</span> np.array(token_list)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>token_iterator <span class="op">=</span> TokenIterator(</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    vectorizable_token<span class="op">=</span>vectorizable_token, </span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    token_arr<span class="op">=</span>token_arr, </span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span><span class="dv">300</span>,</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">25</span>,</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    seq_len<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>    test_size<span class="op">=</span><span class="fl">0.3</span>,</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>    norm_mode<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>    ctx<span class="op">=</span>mx.gpu()</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> observed_arr, _, _, _ <span class="kw">in</span> token_iterator.generate_learned_samples():</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(observed_arr.shape) <span class="co"># (batch size, the length of series, dimension)</span></span></code></pre></div>
+<p>Instantiate <code>EncDecAD</code> and input hyperparameters.</p>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>abstractable_semantics <span class="op">=</span> EncDecAD(</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The default parameter. The number of units in hidden layers.</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    hidden_neuron_count<span class="op">=</span><span class="dv">200</span>,</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The default parameter. The number of units in output layer.</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    output_neuron_count<span class="op">=</span>observed_arr.shape[<span class="op">-</span><span class="dv">1</span>],</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The rate of dropout.</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    dropout_rate<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Batch size.</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">25</span>,</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Learning rate.</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">1e-05</span>,</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The length of series.</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>    seq_len<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `mx.gpu()` or `mx.cpu()`.</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>    ctx<span class="op">=</span>mx.gpu()</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Execute <code>learn</code> method.</p>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>abstractable_semantics.learn(</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># is-a `TokenIterator`.</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    token_iterator</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Execute <code>summarize</code> method to extract summaries.</p>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>abstract_list <span class="op">=</span> abstractable_semantics.summarize(</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># is-a `TokenIterator`.</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    token_iterator,</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># is-a `VectorizableToken`.</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    vectorizable_token,</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `list` of `str`, extracted by `nlp_base.listup_sentence(document)`.</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    sentence_list,</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The number of extracted sentences.</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    limit<span class="op">=</span><span class="dv">5</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>The <code>abstract_list</code> is a <code>list</code> that contains
+<code>str</code>s of sentences.</p>
+<h1 id="references">References</h1>
+<p>The basic concepts, theories, and methods behind this library are
+described in the following books.</p>
+<div data-align="center">
+<a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/In-house_R_and_D_in_the_era_of_democratization_of_AI/book_cover.jpg" width="160px" /></a>
+<p>
+『<a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/ref=sr_1_1?dchild=1&qid=1607343553&s=digital-text&sr=1-1&text=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEAccel+Brain" target="_blank">「AIの民主化」時代の企業内研究開発:
+深層学習の「実学」としての機能分析</a>』(Japanese)
+</p>
+</div>
+<p><br /></p>
+<div data-align="center">
+<a href="https://www.amazon.co.jp/dp/B093Z533LK" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/AI_vs_Investors_as_Noise_Traders/book_cover.jpg" width="160px" /></a>
+<p>
+『<a href="https://www.amazon.co.jp/dp/B093Z533LK" target="_blank">AI
+vs. ノイズトレーダーとしての投資家たち:
+「アルゴリズム戦争」時代の証券投資戦略</a>』(Japanese)
+</p>
+</div>
+<p><br /></p>
+<div data-align="center">
+<a href="https://www.amazon.co.jp/dp/B0994CH3CM" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/Babel_of_Natural_Language_Processing/book_cover.jpg" width="160px" /></a>
+<p>
+『<a href="https://www.amazon.co.jp/dp/B0994CH3CM" target="_blank">自然言語処理のバベル:
+文書自動要約、文章生成AI、チャットボットの意味論</a>』(Japanese)
+</p>
+</div>
+<p><br /></p>
+<div data-align="center">
+<a href="https://www.amazon.co.jp/dp/B09C4KYZBX" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/Origin_of_the_statistical_machine_learning/book_cover.jpg" width="160px" /></a>
+<p>
+『<a href="https://www.amazon.co.jp/dp/B09C4KYZBX" target="_blank">統計的機械学習の根源:
+熱力学、量子力学、統計力学における天才物理学者たちの神学的な理念</a>』(Japanese)
+</p>
+</div>
+<p>Specific references are the following papers and books.</p>
+<ul>
+<li>Bahdanau, D., Cho, K., &amp; Bengio, Y. (2014). Neural machine
+translation by jointly learning to align and translate. arXiv preprint
+arXiv:1409.0473.</li>
+<li>Boulanger-Lewandowski, N., Bengio, Y., &amp; Vincent, P. (2012).
+Modeling temporal dependencies in high-dimensional sequences:
+Application to polyphonic music generation and transcription. arXiv
+preprint arXiv:1206.6392.</li>
+<li>Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares,
+F., Schwenk, H., &amp; Bengio, Y. (2014). Learning phrase
+representations using RNN encoder-decoder for statistical machine
+translation. arXiv preprint arXiv:1406.1078.</li>
+<li>Floridi, L., &amp; Chiriatti, M. (2020). GPT-3: Its nature, scope,
+limits, and consequences. Minds and Machines, 30(4), 681-694.</li>
+<li>Luhn, Hans Peter. “The automatic creation of literature abstracts.”
+IBM Journal of research and development 2.2 (1958): 159-165.</li>
+<li>Malhotra, P., Ramakrishnan, A., Anand, G., Vig, L., Agarwal, P.,
+&amp; Shroff, G. (2016). LSTM-based encoder-decoder for multi-sensor
+anomaly detection. arXiv preprint arXiv:1607.00148.</li>
+<li>Matthew A. Russell　著、佐藤 敏紀、瀬戸口 光宏、原川
+浩一　監訳、長尾 高弘　訳『入門 ソーシャルデータ
+第2版――ソーシャルウェブのデータマイニング』 2014年06月 発行</li>
+<li>Miller, A., Fisch, A., Dodge, J., Karimi, A. H., Bordes, A., &amp;
+Weston, J. (2016). Key-value memory networks for directly reading
+documents. arXiv preprint arXiv:1606.03126.</li>
+<li>Radford, A., Narasimhan, K., Salimans, T., &amp; Sutskever, I.
+(2018) Improving Language Understanding by Generative Pre-Training.
+OpenAI (URL:
+https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf)</li>
+<li>Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., &amp;
+Sutskever, I. (2019). Language models are unsupervised multitask
+learners. OpenAI blog, 1(8), 9.</li>
+<li>Sutskever, I., Hinton, G. E., &amp; Taylor, G. W. (2009). The
+recurrent temporal restricted boltzmann machine. In Advances in Neural
+Information Processing Systems (pp. 1601-1608).</li>
+<li>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L.,
+Gomez, A. N., &amp; Polosukhin, I. (2017). Attention is all you need.
+arXiv preprint arXiv:1706.03762.</li>
+<li>Zhang, K., Grauman, K., &amp; Sha, F. (2018). Retrospective Encoders
+for Video Summarization. In Proceedings of the European Conference on
+Computer Vision (ECCV) (pp. 383-399).</li>
+</ul>
+<h2 id="author">Author</h2>
+<ul>
+<li>accel-brain</li>
+</ul>
+<h2 id="author-uri">Author URI</h2>
+<ul>
+<li>https://accel-brain.co.jp/</li>
+<li>https://accel-brain.com/</li>
+</ul>
+<h2 id="license">License</h2>
+<ul>
+<li>GNU General Public License v2.0</li>
+</ul>

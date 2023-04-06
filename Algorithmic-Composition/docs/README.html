@@ -1,0 +1,322 @@
+<h1
+id="algorithmic-composition-or-automatic-composition-library-pycomposer">Algorithmic
+Composition or Automatic Composition Library: pycomposer</h1>
+<p><code>pycomposer</code> is Python library for Algorithmic Composition
+or Automatic Composition based on the stochastic music theory and the
+Statistical machine learning problems. Especialy, this library provides
+apprication of the Algorithmic Composer based on Conditional Generative
+Adversarial Networks(Conditional GANs).</p>
+<h2 id="installation">Installation</h2>
+<p>Install using pip:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pycomposer</span></code></pre></div>
+<h3 id="source-code">Source code</h3>
+<p>The source code is currently hosted on GitHub.</p>
+<ul>
+<li><a
+href="https://github.com/chimera0/accel-brain-code/tree/master/Algorithmic-Composition">accel-brain-code/Algorithmic
+Composition</a></li>
+</ul>
+<h3 id="python-package-indexpypi">Python package index(PyPI)</h3>
+<p>Installers for the latest released version are available at the
+Python package index.</p>
+<ul>
+<li><a href="https://pypi.org/pypi/pycomposer/">pycomposer : Python
+Package Index</a></li>
+</ul>
+<h3 id="dependencies">Dependencies</h3>
+<ul>
+<li><a href="https://github.com/numpy/numpy">numpy</a>: v1.13.3 or
+higher.</li>
+<li><a href="https://github.com/pandas-dev/pandas">pandas</a>: v0.22.0
+or higher.</li>
+<li><a href="https://github.com/craffel/pretty-midi">pretty_midi</a>:
+latest.</li>
+<li><a
+href="https://github.com/accel-brain/accel-brain-code/tree/master/Accel-Brain-Base">accel-brain-base</a>:
+v1.0.0 or higher.</li>
+<li><a href="https://github.com/apache/incubator-mxnet">mxnet</a> or <a
+href="https://mxnet.apache.org/api/python/docs/tutorials/getting-started/crash-course/6-use_gpus.html">mxnet-cu*</a>:
+latest.
+<ul>
+<li>Only when building a model of this library using <a
+href="https://mxnet.apache.org/">Apache MXNet</a>.</li>
+</ul></li>
+<li><a href="https://pytorch.org/get-started/locally/">torch</a>
+<ul>
+<li>Only when building a model of this library using <a
+href="https://pytorch.org/">PyTorch</a>.</li>
+</ul></li>
+</ul>
+<h2 id="documentation">Documentation</h2>
+<p>Full documentation is available on <a
+href="https://code.accel-brain.com/Algorithmic-Composition/">https://code.accel-brain.com/Algorithmic-Composition/</a>
+. This document contains information on functionally reusability,
+functional scalability and functional extensibility.</p>
+<h2 id="description">Description</h2>
+<p><code>pycomposer</code> is Python library which provides wrapper
+classes for: - reading sequencial data from MIDI files, - extracting
+feature points of observed data points from this sequencial data by
+<em>generative models</em>, - generating new sequencial data by
+compositions based on Generative models, - and converting the data into
+new MIDI file.</p>
+<h3 id="generative-adversarial-networksgans">Generative Adversarial
+Networks(GANs)</h3>
+<p>In order to realize these functions, this library implements
+algorithms of Algorithmic Composer based on Generative Adversarial
+Networks(GANs) (Goodfellow et al., 2014) framework which establishes a
+min-max adversarial game between two neural networks – a generative
+model, <code>G</code>, and a discriminative model, <code>D</code>. The
+discriminator model, <code>D(x)</code>, is a neural network that
+computes the probability that a observed data point <code>x</code> in
+data space is a sample from the data distribution (positive samples)
+that we are trying to model, rather than a sample from our generative
+model (negative samples). Concurrently, the generator uses a function
+<code>G(z)</code> that maps samples <code>z</code> from the prior
+<code>p(z)</code> to the data space. <code>G(z)</code> is trained to
+maximally confuse the discriminator into believing that samples it
+generates come from the data distribution. The generator is trained by
+leveraging the gradient of <code>D(x)</code> w.r.t. <code>x</code>, and
+using that to modify its parameters.</p>
+<h3 id="architecture-design">Architecture design</h3>
+<p>This library is designed following the above theory. The composer
+<code>GANComposer</code> learns observed data points drawn from a true
+distribution of input MIDI files and generates feature points drawn from
+a fake distribution that means such as Uniform distribution or Normal
+distribution, imitating the true MIDI files data.</p>
+<p>The components included in this composer are functionally
+differentiated into three models.</p>
+<ol type="1">
+<li><code>TrueSampler</code>.</li>
+<li><code>Generator</code>.</li>
+<li><code>Discriminator</code>.</li>
+</ol>
+<p>The function of <code>TrueSampler</code> is to draw samples from a
+true distribution of input MIDI files. <code>Generator</code> has
+<code>NoiseSampler</code>s and draw fake samples from a Uniform
+distribution or Normal distribution by use it. And
+<code>Discriminator</code> observes those input samples, trying
+discriminating true and fake data.</p>
+<p>By default, <code>Generator</code> and <code>Discriminator</code> are
+built as LSTM networks, observing MIDI data separated by fixed sequence
+length and time resolution. While <code>Discriminator</code> observes
+<code>Generator</code>’s observation to discrimine the output from true
+samples, <code>Generator</code> observes <code>Discriminator</code>’s
+observations to confuse <code>Discriminator</code>s judgments. In GANs
+framework, the mini-max game can be configured by the observations of
+observations.</p>
+<p>After this game, the <code>Generator</code> will grow into a
+functional equivalent that enables to imitate the
+<code>TrueSampler</code> and makes it possible to compose similar but
+slightly different music by the imitation.</p>
+<h3 id="data-representation">Data Representation</h3>
+<p>Following MidiNet and MuseGAN(Dong, H. W., et al., 2018), this class
+consider bars as the basic compositional unit for the fact that harmonic
+changes usually occur at the boundaries of bars and that human beings
+often use bars as the building blocks when composing songs. The feature
+engineering in this class also is inspired by the Multi-track piano-roll
+representations in MuseGAN.</p>
+<p>But their strategies of activation function did not apply to this
+library since its methods can cause information losses. The models just
+binarize the <code>Generator</code>’s output, which uses tanh as an
+activation function in the output layer, by a threshold at zero, or by
+deterministic or stochastic binary neurons(Bengio, Y., et al., 2018,
+Chung, J., et al., 2016), and ignore drawing a distinction the
+consonance and the dissonance.</p>
+<p>This library simply uses the softmax strategy. This class
+stochastically selects a combination of pitches in each bars drawn by
+the true MIDI files data, based on the difference between consonance and
+dissonance intended by the composer of the MIDI files.</p>
+<h2
+id="usecase-composed-of-multi-instrumentstracks-by-conditional-gans.">Usecase:
+Composed of multi instruments/tracks by Conditional GANs.</h2>
+<p>Here, referring to the case of MidiNet model for symbolic-domain
+music generation(Yang, L. C., et al., 2017), Conditional GAN is used as
+an algorithm for composing music. MidiNet can be expanded to generate
+music with multiple MIDI channels (i.e. tracks), using convolutional and
+deconvolutional neural networks. MidiNet can be expanded to generate
+music with multiple MIDI channels (i.e. tracks), using convolutional and
+deconvolutional neural networks.</p>
+<div>
+<img src="https://storage.googleapis.com/accel-brain-code/Algorithmic-Composition/img/system_diagram_of_the_MidiNet.png" />
+<p>
+Yang, L. C., Chou, S. Y., &amp; Yang, Y. H. (2017). MidiNet: A
+convolutional generative adversarial network for symbolic-domain music
+generation. arXiv preprint arXiv:1703.10847., p3.
+</p>
+</div>
+<h3 id="import-and-setup-modules.">Import and setup modules.</h3>
+<p>Make settings for this library and for visualization.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.figure_format <span class="op">=</span> <span class="st">&quot;retina&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">&quot;fivethirtyeight&quot;</span>)</span></code></pre></div>
+<p>Import Python modules.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pycomposer.gancomposable._mxnet.conditional_gan_composer <span class="im">import</span> ConditionalGANComposer</span></code></pre></div>
+<p>Let’s make it possible to confirm later that learning is working
+according to GAN theory by the logger of Python.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> logging <span class="im">import</span> getLogger, StreamHandler, NullHandler, DEBUG, ERROR</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>logger <span class="op">=</span> getLogger(<span class="st">&quot;pygan&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>handler <span class="op">=</span> StreamHandler()</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>handler.setLevel(DEBUG)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>logger.setLevel(DEBUG)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>logger.addHandler(handler)</span></code></pre></div>
+<p>Instantiate the required class.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>gan_composer <span class="op">=</span> ConditionalGANComposer(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `list` of Midi files to learn.</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    midi_path_list<span class="op">=</span>[</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;/path/to/your/midi/file&quot;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    ], </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Batch size.</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">20</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The length of sequence that LSTM networks will observe.</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    seq_len<span class="op">=</span><span class="dv">8</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Learning rate in `Generator` and `Discriminator`.</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">1e-10</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Time fraction or time resolution (seconds).</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    time_fraction<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>If you want to use the <a href="https://pytorch.org/">PyTorch</a>
+version, import a Python module and initialize
+<code>ConditionalGANComposer</code>.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pycomposer.gancomposable._torch.conditional_gan_composer <span class="im">import</span> ConditionalGANComposer</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>ctx <span class="op">=</span> <span class="st">&quot;cuda:0&quot;</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">&quot;cpu&quot;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>gan_composer <span class="op">=</span> ConditionalGANComposer(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `list` of Midi files to learn.</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    midi_path_list<span class="op">=</span>[</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;/path/to/your/midi/file.mid&quot;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    ], </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Batch size.</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">20</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The length of sequence that LSTM networks will observe.</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    seq_len<span class="op">=</span><span class="dv">8</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Learning rate in `Generator` and `Discriminator`.</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">1e-10</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Time fraction or time resolution (seconds).</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    time_fraction<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Context-manager that changes the selected device.</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    ctx<span class="op">=</span>ctx</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<h3 id="learning.">Learning.</h3>
+<p>The learning algorithm is based on a mini-batch stochastic gradient
+descent training of generative adversarial nets. The number of steps to
+apply to the discriminator, <code>k_step</code>, is a hyperparameter.
+For instance, Goodfellow, I. et al.(2014) used <code>k = 1</code>, the
+least expensive option. Not limited to this parameter, the appropriate
+value of the hyperparameter is unknown.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gan_composer.learn(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The number of training iterations.</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    iter_n<span class="op">=</span><span class="dv">1000</span>, </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The number of learning of the `discriminator`.</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    k_step<span class="op">=</span><span class="dv">10</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<h3 id="inferencing.">Inferencing.</h3>
+<p>After learning, <code>gan_composer</code> enables to compose melody
+and new MIDI file by learned model. In relation to MIDI data,
+<code>pitch</code> is generated from a learned generation model.
+<code>start</code> and <code>end</code> are generated by calculating
+back from length of sequences and time resolution. On the other hand,
+<code>velocity</code> is sampled from Gaussian distribution.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>gan_composer.compose(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Path to generated MIDI file.</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    file_path<span class="op">=</span><span class="st">&quot;path/to/new/midi/file.mid&quot;</span>, </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Mean of velocity.</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This class samples the velocity from a Gaussian distribution of </span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `velocity_mean` and `velocity_std`.</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If `None`, the average velocity in MIDI files set to this parameter.</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    velocity_mean<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Standard deviation(SD) of velocity.</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This class samples the velocity from a Gaussian distribution of </span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `velocity_mean` and `velocity_std`.</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If `None`, the SD of velocity in MIDI files set to this parameter.</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    velocity_std<span class="op">=</span><span class="va">None</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Finally, new MIDI file will be stored in <code>file_path</code>.</p>
+<p>If you want to know more detailed implementation and log
+visualization, see <a
+href="https://github.com/accel-brain/accel-brain-code/blob/master/Algorithmic-Composition/demo/Algorithmic_composition_by_conditional_GAN_like_MidiNet.ipynb">my
+notebook</a>.</p>
+<h2 id="references">References</h2>
+<p>The basic concepts, theories, and methods behind this library are
+described in the following books.</p>
+<div data-align="center">
+<a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/In-house_R_and_D_in_the_era_of_democratization_of_AI/book_cover.jpg" width="160px" /></a>
+<p>
+『<a href="https://www.amazon.co.jp/dp/B08PV4ZQG5/ref=sr_1_1?dchild=1&qid=1607343553&s=digital-text&sr=1-1&text=%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEAccel+Brain" target="_blank">「AIの民主化」時代の企業内研究開発:
+深層学習の「実学」としての機能分析</a>』(Japanese)
+</p>
+</div>
+<p><br /></p>
+<div data-align="center">
+<a href="https://www.amazon.co.jp/dp/B093Z533LK" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/AI_vs_Investors_as_Noise_Traders/book_cover.jpg" width="160px" /></a>
+<p>
+『<a href="https://www.amazon.co.jp/dp/B093Z533LK" target="_blank">AI
+vs. ノイズトレーダーとしての投資家たち:
+「アルゴリズム戦争」時代の証券投資戦略</a>』(Japanese)
+</p>
+</div>
+<p><br /></p>
+<div data-align="center">
+<a href="https://www.amazon.co.jp/dp/B0994CH3CM" target="_blank"><img src="https://storage.googleapis.com/accel-brain-code/Accel-Brain-Books/Babel_of_Natural_Language_Processing/book_cover.jpg" width="160px" /></a>
+<p>
+『<a href="https://www.amazon.co.jp/dp/B0994CH3CM" target="_blank">自然言語処理のバベル:
+文書自動要約、文章生成AI、チャットボットの意味論</a>』(Japanese)
+</p>
+</div>
+<p>Specific references are the following papers and books.</p>
+<ul>
+<li>Bengio, Y., Léonard, N., &amp; Courville, A. (2013). Estimating or
+propagating gradients through stochastic neurons for conditional
+computation. arXiv preprint arXiv:1308.3432.</li>
+<li>Chung, J., Ahn, S., &amp; Bengio, Y. (2016). Hierarchical multiscale
+recurrent neural networks. arXiv preprint arXiv:1609.01704.</li>
+<li>Dong, H. W., Hsiao, W. Y., Yang, L. C., &amp; Yang, Y. H. (2018,
+April). MuseGAN: Multi-track sequential generative adversarial networks
+for symbolic music generation and accompaniment. In Thirty-Second AAAI
+Conference on Artificial Intelligence.</li>
+<li>Fang, W., Zhang, F., Sheng, V. S., &amp; Ding, Y. (2018). A method
+for improving CNN-based image recognition using DCGAN. Comput. Mater.
+Contin, 57, 167-178.</li>
+<li>Gauthier, J. (2014). Conditional generative adversarial nets for
+convolutional face generation. Class Project for Stanford CS231N:
+Convolutional Neural Networks for Visual Recognition, Winter semester,
+2014(5), 2.</li>
+<li>Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley,
+D., Ozair, S., … &amp; Bengio, Y. (2014). Generative adversarial nets.
+In Advances in neural information processing systems
+(pp. 2672-2680).</li>
+<li>Long, J., Shelhamer, E., &amp; Darrell, T. (2015). Fully
+convolutional networks for semantic segmentation. In Proceedings of the
+IEEE conference on computer vision and pattern recognition
+(pp. 3431-3440).</li>
+<li>Makhzani, A., Shlens, J., Jaitly, N., Goodfellow, I., &amp; Frey, B.
+(2015). Adversarial autoencoders. arXiv preprint arXiv:1511.05644.</li>
+<li>Mirza, M., &amp; Osindero, S. (2014). Conditional generative
+adversarial nets. arXiv preprint arXiv:1411.1784.</li>
+<li>Yang, L. C., Chou, S. Y., &amp; Yang, Y. H. (2017). MidiNet: A
+convolutional generative adversarial network for symbolic-domain music
+generation. arXiv preprint arXiv:1703.10847.</li>
+</ul>
+<h2 id="author">Author</h2>
+<ul>
+<li>accel-brain</li>
+</ul>
+<h2 id="author-uri">Author URI</h2>
+<ul>
+<li>https://accel-brain.co.jp/</li>
+<li>https://accel-brain.com/</li>
+</ul>
+<h2 id="license">License</h2>
+<ul>
+<li>GNU General Public License v2.0</li>
+</ul>

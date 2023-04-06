@@ -1,7 +1,0 @@
-rbm\_annealing module
-=====================
-
-.. automodule:: rbm_annealing
-    :members:
-    :undoc-members:
-    :show-inheritance:

@@ -1,7 +1,0 @@
-rbm\_cost\_function module
-==========================
-
-.. automodule:: rbm_cost_function
-    :members:
-    :undoc-members:
-    :show-inheritance:

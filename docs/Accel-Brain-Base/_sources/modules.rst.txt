@@ -1,7 +1,0 @@
-accelbrainbase
-==============
-
-.. toctree::
-   :maxdepth: 20
-
-   accelbrainbase

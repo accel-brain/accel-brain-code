@@ -1,7 +1,0 @@
-pycomposer
-==========
-
-.. toctree::
-   :maxdepth: 4
-
-   pycomposer

@@ -1,7 +1,0 @@
-midi\_vectorlizer module
-========================
-
-.. automodule:: midi_vectorlizer
-    :members:
-    :undoc-members:
-    :show-inheritance:

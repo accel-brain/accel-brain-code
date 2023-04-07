@@ -410,6 +410,31 @@ class PortfolioPercentPolicy(PolicySampler):
                                 historical_arr = self.__historical_arr[
                                     self.__historical_arr[:, 0] <= (self.__now_date_key - self.__date_fraction)
                                 ]
+                                # for smoothing.
+                                ticker_list = pd.DataFrame(
+                                    historical_arr[:, 3],
+                                    columns=["ticker"]
+                                ).ticker.drop_duplicates().values.tolist()
+                                new_generated_historical_arr = None
+                                for ticker in ticker_list:
+                                    _historical_arr = historical_arr[
+                                        historical_arr[:, 3] == ticker
+                                    ]
+                                    _generated_historical_arr = generated_historical_arr[
+                                        generated_historical_arr[:, 3] == ticker
+                                    ]
+                                    if _generated_historical_arr.shape[0] > 0:
+                                        diff_arr = _historical_arr[-1, 1] - _generated_historical_arr[0, 1]
+                                        _generated_historical_arr[:, 1] = _generated_historical_arr[:, 1] + np.expand_dims(diff_arr, axis=0)
+                                        if new_generated_historical_arr is None:
+                                            new_generated_historical_arr = _generated_historical_arr
+                                        else:
+                                            new_generated_historical_arr = np.r_[
+                                                new_generated_historical_arr,
+                                                _generated_historical_arr
+                                            ]
+                                if new_generated_historical_arr is not None:
+                                    generated_historical_arr = new_generated_historical_arr
 
                                 historical_arr = np.r_[historical_arr, generated_historical_arr]
 

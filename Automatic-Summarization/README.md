@@ -96,6 +96,30 @@ The `result_dict` is a dict. this format is as follows.
  }
 ```
 
+If you want to sort by the above scores that represent the degree of importance, use `numpy` or `pandas` to format the data, for example, as follows.
+
+```python
+import pandas as pd
+import numpy as np
+
+result_df = pd.DataFrame(
+    np.c_[
+        result_dict["summarize_result"], 
+        result_dict["scoring_data"]
+    ], 
+    columns=[
+        "sentence", 
+        "index_key", 
+        "score"
+    ]
+).sort_values(
+    by="score", 
+    ascending=False
+)[["sentence", "score"]]
+
+print(result_df)
+```
+
 ## Usecase: Summarize Japanese string argument.
 
 Import Python modules.

@@ -21,6 +21,7 @@ class CostAsDistance(DistanceComputable):
             cost_functionable:    is-a `CostFunctionable`.
         
         '''
+        self.__memo_dict = {}
         self.__params_arr = params_arr
         if isinstance(cost_functionable, CostFunctionable):
             self.__cost_functionable = cost_functionable
@@ -50,3 +51,13 @@ class CostAsDistance(DistanceComputable):
             self.__memo_dict.setdefault(y, y_v)
 
         return abs(x_v - y_v)
+
+    def get_memo_dict(self):
+        """ getter """
+        return self.__memo_dict
+    
+    def set_memo_dict(self, value):
+        """ setter """
+        if isinstance(value, dict) is False:
+            raise TypeError("The type of `memo_dict` must be `dict`.")
+        self.__memo_dict = value
